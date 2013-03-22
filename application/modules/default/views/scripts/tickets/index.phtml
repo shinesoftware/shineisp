@@ -1,0 +1,14 @@
+<div class="headtitle">
+    <h3>
+    <?php 
+            echo $this->translate($this->title);
+            if(!empty($this->name)){
+                echo ": " . $this->name;
+            } 
+        ?>
+    </h3>
+    <small><?php echo $this->translate($this->description);?></small>
+</div>
+
+<p align="right"><a class="red-button" href="/tickets/new"><?php echo $this->translate('Post new ticket')?></a></p><br><br>
+<?= $this->grid($this->tickets);?>

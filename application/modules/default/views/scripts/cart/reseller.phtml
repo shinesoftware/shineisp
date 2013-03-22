@@ -1,0 +1,16 @@
+<?php $form = $this->form; ?>
+
+<div class="reseller">
+    <?php if($this->reseller['company']): ?>
+        <h2><?php echo $this->reseller['company'] ?></h2>
+    <?php endif;?>
+    
+    <p><?php echo $this->reseller['firstname'] ?> <?php echo $this->reseller['lastname'] ?><br/>
+    <?php echo $this->translate('E-mail') ?>: <?php echo $this->reseller['email']?></p>
+    <form method="<?php echo $form->getMethod() ?>" id="resellers" action="<?php echo $form->getAction()?>">
+	    <p><?php echo $form->customers->render() ?></p>
+	    <p><?php echo $form->submit->render() ?></p>
+	</form>
+</div>
+
+    

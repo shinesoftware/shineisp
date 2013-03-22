@@ -1,0 +1,21 @@
+<?php $attributes = $this->attributes; ?>
+<h5><?php echo $this->translate('Features') ?></h5>
+<div id="features">
+	<table class="zebratable">
+		<?php foreach ($attributes as $attribute): ?>
+			<?php if($attribute['is_visible_on_front']): ?>
+		    <tr class="tooltip" title="<?php echo $attribute['description'] ?>">
+		        <td width="20%"><?php echo $attribute['label'] ?></td>
+		        <td>
+		        <?php echo $attribute['prefix'] ?> 
+		         <?php if($attribute['value'] =="-1"): ?>
+		         	<?php echo $this->translate('Unlimited')?>
+		         <?php else:?>
+		        	<?php echo $attribute['value'] ?>
+		         <?php endif;?>
+		         <?php echo $attribute['suffix'] ?></td>
+		    </tr>
+		    <?php endif; ?>
+		<?php endforeach;?>
+	</table>
+</div>

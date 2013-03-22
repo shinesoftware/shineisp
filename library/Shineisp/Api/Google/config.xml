@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Google Analytics Configuration File -->
+
+<config name="Google Analytics" var="ganalytics" version="1.0">
+    
+    <settings>
+        <field var="email" label="Email" type="text" description="Set your google email connected to the google analytics service"/>
+        <field var="password" label="Password" type="text" description="Write here your password."/>
+        <field var="profileid" label="Profile ID" type="text" description="Write here your profileID. You can use this link to find your profile id http://ga-dev-tools.appspot.com/explorer/."/>
+    </settings>
+    
+</config>

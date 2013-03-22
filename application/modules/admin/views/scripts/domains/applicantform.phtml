@@ -1,0 +1,109 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+	<? if( $form->isErrors() ): ?>
+		<div class="messages">    
+		   <? foreach( $form->getElements() as $field){
+		         $errors = array();
+		   	     if($field->hasErrors()){
+		        	foreach( $field->getErrors() as $error){
+		        		$errors[] = $this->translate($error);
+		        	}
+		            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+		        }   
+		    } ?>
+		</div>    
+	<? endif; ?>
+	
+	
+	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+		
+		<div class="registeraction">
+	        <?php if(!empty($this->actions)): ?>
+	        	<?=$this->translate('Registrars Actions') ?>:
+		        <select id="regActions" class="text-input little-input">
+		        	<option><?=$this->translate('Select ...') ?></option>
+			        <?php foreach($this->actions as $key => $action): ?>
+			        <option value="<?=$key ?>"><?=$action?></option>
+			        <?php endforeach;?>
+		        </select>
+		        <a href="#" class="regactionsbtn"><?=$this->translate('Add to Tasks list') ?></a> | 
+		        <a href="/system/tasks" target="_blank" title="<?php echo $this->translate('A new window will be open')?>"><?=$this->translate('Execute all the Tasks') ?></a>
+	        <?php endif; ?>
+		</div>
+		
+		<div class="clear"></div>
+			
+		<div id="tabs">
+			<ul>
+				<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+				<?php if($this->id):?><li><a href="#tab2"><?=$this->translate('Customer');?></a></li> <?php endif?>
+				<li><a href="#tab3"><?=$this->translate('DNS Zones');?></a></li>
+				<?php if($this->id):?><li><a href="#tab4"><?=$this->translate('Services');?></a></li> <?php endif?>
+				<?php if($this->id):?><li><a href="#tab5"><?=$this->translate('Orders');?></a></li> <?php endif?>
+				<?php if($this->id):?><li><a href="#tab6"><?=$this->translate('Messages');?></a></li> <?php endif?>
+				<li><a href="#tab7"><?=$this->translate('Private Notes');?></a></li> 
+			</ul>
+		    
+		    <div class="ui-tabs-hide default-tab" id="tab1"> 
+		        <fieldset class="column-left"> 
+		            <?php echo $form->domain->render() ?>
+		            <?php echo $form->tld_id->render()?>
+		            <a href="#" id="chkdomain" style="display:none"><?php echo $this->translate('Check Domain Availability')?></a>
+		            <?php echo $form->authinfocode->render()?>
+		            <?php echo $form->creation_date->render()?>
+		            <?php echo $form->expiring_date->render()?>
+		        </fieldset>
+		        
+		        <fieldset class="column-right">
+		            <?php echo $form->registrars_id->render()?>
+		            <?php echo $form->customer_id->render()?>
+		            <?php echo $form->status_id->render()?>
+		            <?php echo $form->autorenew->render()?>
+		        </fieldset>
+		        <div class="clear"></div>
+		    </div>
+		    
+		    <div class="ui-tabs-hide" id="tab2"> 
+		        <fieldset> 
+		            <?= $this->verticalgrid($this->owner_datagrid);?>
+		        </fieldset>
+		        <div class="clear"></div>
+		    </div> 
+		    
+		    <div class="ui-tabs-hide" id="tab3"> 
+		        <fieldset> 
+		            <?php echo $form->subdomain->render()?>
+		            <?php echo $form->target->render()?>
+		            <?php echo $form->zone->render()?>
+		            <?= $this->simplegrid($this->dns_datagrid);?>
+		        </fieldset>
+		        <div class="clear"></div>
+		    </div> 
+		    
+		    <?php if($this->id):?>
+			    <div class="ui-tabs-hide" id="tab4"> 
+			         <?= $this->simplegrid($this->services_datagrid);?>
+			    </div>   
+			    <div class="ui-tabs-hide" id="tab5"> 
+			         <?= $this->simplegrid($this->orders_datagrid);?>
+			    </div>        
+			    <div class="ui-tabs-hide" id="tab6"> 
+		            <?php echo $this->bbslist($this->messages); ?>
+		            <?php echo $form->message->render() ?>
+			    </div>        
+		    <?php endif; ?>
+		    
+		    <div class="ui-tabs-hide" id="tab7"> 
+		        <?php echo $form->note->render() ?>
+		    </div>        
+		      
+		   <?php echo $form->domain_id->render()?>
+	
+		</div>
+	</form>
+</div>

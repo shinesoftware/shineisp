@@ -1,0 +1,40 @@
+<?php
+
+$showallinfo = $this->showallinfo;
+$vatNotIncludedlabel = $this->translate('VAT not included');
+$measurement = "";
+
+echo "<ul class=\"pricelist\">";
+
+if ($this->data ['type'] == "multiple") {
+	if (! empty ( $this->data ['minvalue'] )) {
+
+		// Get the minimum value from the group of the prices
+		$price = $this->data ['minvalue'];
+		$pricetax = $this->data ['minvaluewithtaxes'];
+		$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
+		
+		// Get the recurring period label
+		if(!empty($this->data['tranches'][0] ['measurement'])){
+			$measurement = '<span class="frequency">'.$this->translate($this->data['tranches'][0] ['measurement']).'</span>';
+		}
+		
+		// Print the price
+		echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax " . "</strong></li>";
+		echo "<li class=\"pricenotincludedvat\" >$price $measurement $vatNotIncludedlabel</li>";
+	
+		if($showallinfo && !empty($this->data['tranches'][0] ['BillingCycle']['name']) && !empty($this->data['discount'])){
+			echo "<li class='subscription'>" .  $this->translate('Subscribing %s you can save %s', $this->translate($this->data['tranches'][0] ['BillingCycle']['name']), " " .  $this->currency($this->data['discount'], array('currency' => Settings::findbyParam('currency')))) . "</li>";
+		}
+	
+	}
+} else {
+	
+	$price = $this->data ['value'];
+	$pricetax = $this->data ['taxincluded'];
+	
+	// Print the price
+	echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax</strong></li>";
+	echo "<li class=\"pricenotincludedvat\" >$price $vatNotIncludedlabel</li>";
+}	
+echo "</ul>";

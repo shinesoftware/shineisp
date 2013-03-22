@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Description of the main fields of the control panel module -->
+
+<config name="IspConfig" var="IspConfig" version="3.0.3.3">
+
+    <settings>
+        <field var="endpointlocation" label="Endpoint Location" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/index.php"/>
+        <field var="endpointuri" label="Endpoint URI" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/"/>
+        <field var="class" label="ShineISP Class Handler" type="text" description="This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Api_Panels_Ispconfig_Main"/>
+        <field var="username" label="Write here the ISPConfig SOAP username" type="text" description="This is the ISPConfig remote username set in the ISPConfig control panel."/>
+        <field var="password" label="Write here the SOAP password" type="text" description="This is the ISPConfig user remote password set in the ISPConfig control panel."/>
+        <field var="url" label="Write here the public URL" type="text" description="This is the ISPConfig public url. eg. http://www.mywebsite.com:8080/"/>
+    </settings>    
+
+    <!-- IspConfig Custom fields -->
+    <customfields>
+        <field label="IspConfig Client ID" type="text" section="customers">client_id</field>
+        <field label="IspConfig Server ID" type="text" section="servers">remote_server_id</field>
+        <field label="IspConfig URL" type="text" section="servers">remote_server_url</field>
+        <field label="Webmail URL" type="text" section="servers">remote_server_webmail_url</field>
+        <field label="PhpMyAdmin URL" type="text" section="servers">remote_server_phpmyadmin_url</field>
+   </customfields>
+    
+    <matchfields>
+        <hosting_attributes>
+	        <field type="integer" default="0">limit_web_quota</field>
+	        <field type="integer" default="0">limit_traffic_quota</field>
+	        <field type="integer" default="0">limit_mailbox</field>
+	        <field type="integer" default="0">limit_database</field>
+	        <field type="integer" default="0">limit_maildomain</field>
+	        <field type="integer" default="0">limit_mailaliasdomain</field>
+	        <field type="integer" default="0">limit_mailforward</field>
+	        <field type="integer" default="0">limit_mailcatchall</field>
+	        <field type="integer" default="0">limit_mailrouting</field>
+	        <field type="integer" default="0">limit_mailfilter</field>
+	        <field type="integer" default="0">limit_fetchmail</field>
+	        <field type="integer" default="0">limit_mailquota</field>
+	        <field type="integer" default="0">limit_spamfilter_wblist</field>
+	        <field type="integer" default="0">limit_spamfilter_user</field>
+	        <field type="integer" default="0">limit_spamfilter_policy</field>
+	        <field type="string" default="">limit_web_ip</field>
+	        <field type="integer" default="0">limit_web_domain</field>
+	        <field type="string" default="no,fast-cgi,cgi,mod,suphp">web_php_options</field>
+	        <field type="integer" default="0">limit_web_subdomain</field>
+	        <field type="integer" default="0">limit_web_aliasdomain</field>
+	        <field type="integer" default="0">limit_ftp_user</field>
+	        <field type="integer" default="0">limit_shell_user</field>
+	        <field type="string" default="no,jailkit,ssh-chroot">ssh_chroot</field>
+	        <field type="integer" default="0">limit_webdav_user</field>
+	        <field type="integer" default="0">limit_dns_zone</field>
+	        <field type="integer" default="0">limit_dns_slave_zone</field>
+	        <field type="integer" default="0">limit_dns_record</field>
+	        <field type="integer" default="0">limit_cron</field>
+	        <field type="string" default="url">limit_cron_type</field>
+	        <field type="integer" default="0">limit_cron_frequency</field>
+	        <field type="integer" default="0">limit_client</field>
+	   </hosting_attributes>
+    </matchfields>
+</config>

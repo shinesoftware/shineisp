@@ -1,0 +1,1073 @@
+/*
+	Note: These icons are from the Glyphish icon pack.
+	Used under a Creative Commons attribution license.
+
+	http://glyphish.com/
+	http://creativecommons.org/licenses/by/3.0/us/
+*/
+
+/* `Base Settings
+----------------------------------------------------------------------------------------------------*/
+
+.icon {
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: inline-block;
+	opacity: 0.4;
+	overflow: hidden;
+	text-decoration: none;
+	text-indent: -99999px;
+	width: 45px;
+	height: 45px;
+}
+
+.icon:active {
+	background-color: rgba(0, 0, 0, 0.15);
+	opacity: 1;
+}
+
+/* `Dark Icons
+----------------------------------------------------------------------------------------------------*/
+
+.chrome_light .icon_refresh {
+	background-image: url(/skins/admin/base/images/icons_dark/01-refresh.png);
+}
+
+.chrome_light .icon_redo {
+	background-image: url(/skins/admin/base/images/icons_dark/02-redo.png);
+}
+
+.chrome_light .icon_loopback {
+	background-image: url(/skins/admin/base/images/icons_dark/03-loopback.png);
+}
+
+.chrome_light .icon_squiggle {
+	background-image: url(/skins/admin/base/images/icons_dark/04-squiggle.png);
+}
+
+.chrome_light .icon_shuffle {
+	background-image: url(/skins/admin/base/images/icons_dark/05-shuffle.png);
+}
+
+.chrome_light .icon_magnifying_glass {
+	background-image: url(/skins/admin/base/images/icons_dark/06-magnifying-glass.png);
+}
+
+.chrome_light .icon_map_marker {
+	background-image: url(/skins/admin/base/images/icons_dark/07-map-marker.png);
+}
+
+.chrome_light .icon_chat {
+	background-image: url(/skins/admin/base/images/icons_dark/08-chat.png);
+}
+
+.chrome_light .icon_chat2 {
+	background-image: url(/skins/admin/base/images/icons_dark/09-chat2.png);
+}
+
+.chrome_light .icon_medical {
+	background-image: url(/skins/admin/base/images/icons_dark/10-medical.png);
+}
+
+.chrome_light .icon_clock {
+	background-image: url(/skins/admin/base/images/icons_dark/11-clock.png);
+}
+
+.chrome_light .icon_eye {
+	background-image: url(/skins/admin/base/images/icons_dark/12-eye.png);
+}
+
+.chrome_light .icon_target {
+	background-image: url(/skins/admin/base/images/icons_dark/13-target.png);
+}
+
+.chrome_light .icon_tag {
+	background-image: url(/skins/admin/base/images/icons_dark/14-tag.png);
+}
+
+.chrome_light .icon_tags {
+	background-image: url(/skins/admin/base/images/icons_dark/15-tags.png);
+}
+
+.chrome_light .icon_line_chart {
+	background-image: url(/skins/admin/base/images/icons_dark/16-line-chart.png);
+}
+
+.chrome_light .icon_bar_chart {
+	background-image: url(/skins/admin/base/images/icons_dark/17-bar-chart.png);
+}
+
+.chrome_light .icon_envelope {
+	background-image: url(/skins/admin/base/images/icons_dark/18-envelope.png);
+}
+
+.chrome_light .icon_gear {
+	background-image: url(/skins/admin/base/images/icons_dark/19-gear.png);
+}
+
+.chrome_light .icon_gear2 {
+	background-image: url(/skins/admin/base/images/icons_dark/20-gear2.png);
+}
+
+.chrome_light .icon_skull {
+	background-image: url(/skins/admin/base/images/icons_dark/21-skull.png);
+}
+
+.chrome_light .icon_skull_crossbones {
+	background-image: url(/skins/admin/base/images/icons_dark/22-skull-n-crossbones.png);
+}
+
+.chrome_light .icon_bird {
+	background-image: url(/skins/admin/base/images/icons_dark/23-bird.png);
+}
+
+.chrome_light .icon_gift {
+	background-image: url(/skins/admin/base/images/icons_dark/24-gift.png);
+}
+
+.chrome_light .icon_weather {
+	background-image: url(/skins/admin/base/images/icons_dark/25-weather.png);
+}
+
+.chrome_light .icon_bandaid {
+	background-image: url(/skins/admin/base/images/icons_dark/26-bandaid.png);
+}
+
+.chrome_light .icon_planet {
+	background-image: url(/skins/admin/base/images/icons_dark/27-planet.png);
+}
+
+.chrome_light .icon_star {
+	background-image: url(/skins/admin/base/images/icons_dark/28-star.png);
+}
+
+.chrome_light .icon_heart {
+	background-image: url(/skins/admin/base/images/icons_dark/29-heart.png);
+}
+
+.chrome_light .icon_key {
+	background-image: url(/skins/admin/base/images/icons_dark/30-key.png);
+}
+
+.chrome_light .icon_ipod {
+	background-image: url(/skins/admin/base/images/icons_dark/31-ipod.png);
+}
+
+.chrome_light .icon_iphone {
+	background-image: url(/skins/admin/base/images/icons_dark/32-iphone.png);
+}
+
+.chrome_light .icon_cabinet {
+	background-image: url(/skins/admin/base/images/icons_dark/33-cabinet.png);
+}
+
+.chrome_light .icon_coffee {
+	background-image: url(/skins/admin/base/images/icons_dark/34-coffee.png);
+}
+
+.chrome_light .icon_shopping_bag {
+	background-image: url(/skins/admin/base/images/icons_dark/35-shopping-bag.png);
+}
+
+.chrome_light .icon_toolbox {
+	background-image: url(/skins/admin/base/images/icons_dark/36-toolbox.png);
+}
+
+.chrome_light .icon_suitcase {
+	background-image: url(/skins/admin/base/images/icons_dark/37-suitcase.png);
+}
+
+.chrome_light .icon_airplane {
+	background-image: url(/skins/admin/base/images/icons_dark/38-airplane.png);
+}
+
+.chrome_light .icon_spraycan {
+	background-image: url(/skins/admin/base/images/icons_dark/39-spraycan.png);
+}
+
+.chrome_light .icon_inbox {
+	background-image: url(/skins/admin/base/images/icons_dark/40-inbox.png);
+}
+
+.chrome_light .icon_picture_frame {
+	background-image: url(/skins/admin/base/images/icons_dark/41-picture-frame.png);
+}
+
+.chrome_light .icon_photos {
+	background-image: url(/skins/admin/base/images/icons_dark/42-photos.png);
+}
+
+.chrome_light .icon_film_roll {
+	background-image: url(/skins/admin/base/images/icons_dark/43-film-roll.png);
+}
+
+.chrome_light .icon_shoebox {
+	background-image: url(/skins/admin/base/images/icons_dark/44-shoebox.png);
+}
+
+.chrome_light .icon_movie1 {
+	background-image: url(/skins/admin/base/images/icons_dark/45-movie1.png);
+}
+
+.chrome_light .icon_movie2 {
+	background-image: url(/skins/admin/base/images/icons_dark/46-movie2.png);
+}
+
+.chrome_light .icon_fuel {
+	background-image: url(/skins/admin/base/images/icons_dark/47-fuel.png);
+}
+
+.chrome_light .icon_fork_knife {
+	background-image: url(/skins/admin/base/images/icons_dark/48-fork-and-knife.png);
+}
+
+.chrome_light .icon_battery {
+	background-image: url(/skins/admin/base/images/icons_dark/49-battery.png);
+}
+
+.chrome_light .icon_beaker {
+	background-image: url(/skins/admin/base/images/icons_dark/50-beaker.png);
+}
+
+.chrome_light .icon_outlet {
+	background-image: url(/skins/admin/base/images/icons_dark/51-outlet.png);
+}
+
+.chrome_light .icon_pinetree {
+	background-image: url(/skins/admin/base/images/icons_dark/52-pinetree.png);
+}
+
+.chrome_light .icon_house {
+	background-image: url(/skins/admin/base/images/icons_dark/53-house.png);
+}
+
+.chrome_light .icon_lock {
+	background-image: url(/skins/admin/base/images/icons_dark/54-lock.png);
+}
+
+.chrome_light .icon_network {
+	background-image: url(/skins/admin/base/images/icons_dark/55-network.png);
+}
+
+.chrome_light .icon_cloud {
+	background-image: url(/skins/admin/base/images/icons_dark/56-cloud.png);
+}
+
+.chrome_light .icon_download {
+	background-image: url(/skins/admin/base/images/icons_dark/57-download.png);
+}
+
+.chrome_light .icon_bookmark {
+	background-image: url(/skins/admin/base/images/icons_dark/58-bookmark.png);
+}
+
+.chrome_light .icon_flag {
+	background-image: url(/skins/admin/base/images/icons_dark/59-flag.png);
+}
+
+.chrome_light .icon_signpost {
+	background-image: url(/skins/admin/base/images/icons_dark/60-signpost.png);
+}
+
+.chrome_light .icon_brightness {
+	background-image: url(/skins/admin/base/images/icons_dark/61-brightness.png);
+}
+
+.chrome_light .icon_contrast {
+	background-image: url(/skins/admin/base/images/icons_dark/62-contrast.png);
+}
+
+.chrome_light .icon_runner {
+	background-image: url(/skins/admin/base/images/icons_dark/63-runner.png);
+}
+
+.chrome_light .icon_zap {
+	background-image: url(/skins/admin/base/images/icons_dark/64-zap.png);
+}
+
+.chrome_light .icon_note {
+	background-image: url(/skins/admin/base/images/icons_dark/65-note.png);
+}
+
+.chrome_light .icon_microphone {
+	background-image: url(/skins/admin/base/images/icons_dark/66-microphone.png);
+}
+
+.chrome_light .icon_tshirt {
+	background-image: url(/skins/admin/base/images/icons_dark/67-tshirt.png);
+}
+
+.chrome_light .icon_paperclip {
+	background-image: url(/skins/admin/base/images/icons_dark/68-paperclip.png);
+}
+
+.chrome_light .icon_display {
+	background-image: url(/skins/admin/base/images/icons_dark/69-display.png);
+}
+
+.chrome_light .icon_tv {
+	background-image: url(/skins/admin/base/images/icons_dark/70-tv.png);
+}
+
+.chrome_light .icon_compass {
+	background-image: url(/skins/admin/base/images/icons_dark/71-compass.png);
+}
+
+.chrome_light .icon_pin {
+	background-image: url(/skins/admin/base/images/icons_dark/72-pin.png);
+}
+
+.chrome_light .icon_radar {
+	background-image: url(/skins/admin/base/images/icons_dark/73-radar.png);
+}
+
+.chrome_light .icon_location {
+	background-image: url(/skins/admin/base/images/icons_dark/74-location.png);
+}
+
+.chrome_light .icon_phone {
+	background-image: url(/skins/admin/base/images/icons_dark/75-phone.png);
+}
+
+.chrome_light .icon_baby {
+	background-image: url(/skins/admin/base/images/icons_dark/76-baby.png);
+}
+
+.chrome_light .icon_ekg {
+	background-image: url(/skins/admin/base/images/icons_dark/77-ekg.png);
+}
+
+.chrome_light .icon_stopwatch {
+	background-image: url(/skins/admin/base/images/icons_dark/78-stopwatch.png);
+}
+
+.chrome_light .icon_medical_bag {
+	background-image: url(/skins/admin/base/images/icons_dark/79-medical-bag.png);
+}
+
+.chrome_light .icon_shopping_cart {
+	background-image: url(/skins/admin/base/images/icons_dark/80-shopping-cart.png);
+}
+
+.chrome_light .icon_dashboard {
+	background-image: url(/skins/admin/base/images/icons_dark/81-dashboard.png);
+}
+
+.chrome_light .icon_dogpaw {
+	background-image: url(/skins/admin/base/images/icons_dark/82-dogpaw.png);
+}
+
+.chrome_light .icon_calendar {
+	background-image: url(/skins/admin/base/images/icons_dark/83-calendar.png);
+}
+
+.chrome_light .icon_lightbulb {
+	background-image: url(/skins/admin/base/images/icons_dark/84-lightbulb.png);
+}
+
+.chrome_light .icon_trophy {
+	background-image: url(/skins/admin/base/images/icons_dark/85-trophy.png);
+}
+
+.chrome_light .icon_camera {
+	background-image: url(/skins/admin/base/images/icons_dark/86-camera.png);
+}
+
+.chrome_light .icon_wineglass {
+	background-image: url(/skins/admin/base/images/icons_dark/87-wineglass.png);
+}
+
+.chrome_light .icon_beermug {
+	background-image: url(/skins/admin/base/images/icons_dark/88-beermug.png);
+}
+
+.chrome_light .icon_dumbbell {
+	background-image: url(/skins/admin/base/images/icons_dark/89-dumbbell.png);
+}
+
+.chrome_light .icon_lifebuoy {
+	background-image: url(/skins/admin/base/images/icons_dark/90-lifebuoy.png);
+}
+
+.chrome_light .icon_beaker2 {
+	background-image: url(/skins/admin/base/images/icons_dark/91-beaker2.png);
+}
+
+.chrome_light .icon_testtube {
+	background-image: url(/skins/admin/base/images/icons_dark/92-testtube.png);
+}
+
+.chrome_light .icon_thermometer {
+	background-image: url(/skins/admin/base/images/icons_dark/93-thermometer.png);
+}
+
+.chrome_light .icon_pill {
+	background-image: url(/skins/admin/base/images/icons_dark/94-pill.png);
+}
+
+.chrome_light .icon_equalizer {
+	background-image: url(/skins/admin/base/images/icons_dark/95-equalizer.png);
+}
+
+.chrome_light .icon_book {
+	background-image: url(/skins/admin/base/images/icons_dark/96-book.png);
+}
+
+.chrome_light .icon_puzzle {
+	background-image: url(/skins/admin/base/images/icons_dark/97-puzzle.png);
+}
+
+.chrome_light .icon_palette {
+	background-image: url(/skins/admin/base/images/icons_dark/98-palette.png);
+}
+
+.chrome_light .icon_umbrella {
+	background-image: url(/skins/admin/base/images/icons_dark/99-umbrella.png);
+}
+
+.chrome_light .icon_coffee {
+	background-image: url(/skins/admin/base/images/icons_dark/100-coffee.png);
+}
+
+.chrome_light .icon_gameplan {
+	background-image: url(/skins/admin/base/images/icons_dark/101-gameplan.png);
+}
+
+.chrome_light .icon_walk {
+	background-image: url(/skins/admin/base/images/icons_dark/102-walk.png);
+}
+
+.chrome_light .icon_map {
+	background-image: url(/skins/admin/base/images/icons_dark/103-map.png);
+}
+
+.chrome_light .icon_index_cards {
+	background-image: url(/skins/admin/base/images/icons_dark/104-index-cards.png);
+}
+
+.chrome_light .icon_piano {
+	background-image: url(/skins/admin/base/images/icons_dark/105-piano.png);
+}
+
+.chrome_light .icon_sliders {
+	background-image: url(/skins/admin/base/images/icons_dark/106-sliders.png);
+}
+
+.chrome_light .icon_widescreen {
+	background-image: url(/skins/admin/base/images/icons_dark/107-widescreen.png);
+}
+
+.chrome_light .icon_badge {
+	background-image: url(/skins/admin/base/images/icons_dark/108-badge.png);
+}
+
+.chrome_light .icon_chicken {
+	background-image: url(/skins/admin/base/images/icons_dark/109-chicken.png);
+}
+
+.chrome_light .icon_bug {
+	background-image: url(/skins/admin/base/images/icons_dark/110-bug.png);
+}
+
+.chrome_light .icon_user {
+	background-image: url(/skins/admin/base/images/icons_dark/111-user.png);
+}
+
+.chrome_light .icon_group {
+	background-image: url(/skins/admin/base/images/icons_dark/112-group.png);
+}
+
+.chrome_light .icon_navigation {
+	background-image: url(/skins/admin/base/images/icons_dark/113-navigation.png);
+}
+
+.chrome_light .icon_balloon {
+	background-image: url(/skins/admin/base/images/icons_dark/114-balloon.png);
+}
+
+.chrome_light .icon_bow_arrow {
+	background-image: url(/skins/admin/base/images/icons_dark/115-bow-and-arrow.png);
+}
+
+.chrome_light .icon_controller {
+	background-image: url(/skins/admin/base/images/icons_dark/116-controller.png);
+}
+
+.chrome_light .icon_todo {
+	background-image: url(/skins/admin/base/images/icons_dark/117-todo.png);
+}
+
+.chrome_light .icon_coathanger {
+	background-image: url(/skins/admin/base/images/icons_dark/118-coathanger.png);
+}
+
+.chrome_light .icon_piggybank {
+	background-image: url(/skins/admin/base/images/icons_dark/119-piggybank.png);
+}
+
+.chrome_light .icon_headphones {
+	background-image: url(/skins/admin/base/images/icons_dark/120-headphones.png);
+}
+
+.chrome_light .icon_lanscape {
+	background-image: url(/skins/admin/base/images/icons_dark/121-lanscape.png);
+}
+
+.chrome_light .icon_stats {
+	background-image: url(/skins/admin/base/images/icons_dark/122-stats.png);
+}
+
+.chrome_light .icon_id_card {
+	background-image: url(/skins/admin/base/images/icons_dark/123-id-card.png);
+}
+
+.chrome_light .icon_bullhorn {
+	background-image: url(/skins/admin/base/images/icons_dark/124-bullhorn.png);
+}
+
+.chrome_light .icon_food {
+	background-image: url(/skins/admin/base/images/icons_dark/125-food.png);
+}
+
+.chrome_light .icon_moon {
+	background-image: url(/skins/admin/base/images/icons_dark/126-moon.png);
+}
+
+.chrome_light .icon_sock {
+	background-image: url(/skins/admin/base/images/icons_dark/127-sock.png);
+}
+
+.chrome_light .icon_bone {
+	background-image: url(/skins/admin/base/images/icons_dark/128-bone.png);
+}
+
+.chrome_light .icon_golf {
+	background-image: url(/skins/admin/base/images/icons_dark/129-golf.png);
+}
+
+.chrome_light .icon_dice {
+	background-image: url(/skins/admin/base/images/icons_dark/130-dice.png);
+}
+
+/* `Light Icons
+----------------------------------------------------------------------------------------------------*/
+
+.chrome_dark .icon_refresh {
+	background-image: url(/skins/admin/base/images/icons_light/01-refresh.png);
+}
+
+.chrome_dark .icon_redo {
+	background-image: url(/skins/admin/base/images/icons_light/02-redo.png);
+}
+
+.chrome_dark .icon_loopback {
+	background-image: url(/skins/admin/base/images/icons_light/03-loopback.png);
+}
+
+.chrome_dark .icon_squiggle {
+	background-image: url(/skins/admin/base/images/icons_light/04-squiggle.png);
+}
+
+.chrome_dark .icon_shuffle {
+	background-image: url(/skins/admin/base/images/icons_light/05-shuffle.png);
+}
+
+.chrome_dark .icon_magnifying_glass {
+	background-image: url(/skins/admin/base/images/icons_light/06-magnifying-glass.png);
+}
+
+.chrome_dark .icon_map_marker {
+	background-image: url(/skins/admin/base/images/icons_light/07-map-marker.png);
+}
+
+.chrome_dark .icon_chat {
+	background-image: url(/skins/admin/base/images/icons_light/08-chat.png);
+}
+
+.chrome_dark .icon_chat2 {
+	background-image: url(/skins/admin/base/images/icons_light/09-chat2.png);
+}
+
+.chrome_dark .icon_medical {
+	background-image: url(/skins/admin/base/images/icons_light/10-medical.png);
+}
+
+.chrome_dark .icon_clock {
+	background-image: url(/skins/admin/base/images/icons_light/11-clock.png);
+}
+
+.chrome_dark .icon_eye {
+	background-image: url(/skins/admin/base/images/icons_light/12-eye.png);
+}
+
+.chrome_dark .icon_target {
+	background-image: url(/skins/admin/base/images/icons_light/13-target.png);
+}
+
+.chrome_dark .icon_tag {
+	background-image: url(/skins/admin/base/images/icons_light/14-tag.png);
+}
+
+.chrome_dark .icon_tags {
+	background-image: url(/skins/admin/base/images/icons_light/15-tags.png);
+}
+
+.chrome_dark .icon_line_chart {
+	background-image: url(/skins/admin/base/images/icons_light/16-line-chart.png);
+}
+
+.chrome_dark .icon_bar_chart {
+	background-image: url(/skins/admin/base/images/icons_light/17-bar-chart.png);
+}
+
+.chrome_dark .icon_envelope {
+	background-image: url(/skins/admin/base/images/icons_light/18-envelope.png);
+}
+
+.chrome_dark .icon_gear {
+	background-image: url(/skins/admin/base/images/icons_light/19-gear.png);
+}
+
+.chrome_dark .icon_gear2 {
+	background-image: url(/skins/admin/base/images/icons_light/20-gear2.png);
+}
+
+.chrome_dark .icon_skull {
+	background-image: url(/skins/admin/base/images/icons_light/21-skull.png);
+}
+
+.chrome_dark .icon_skull_crossbones {
+	background-image: url(/skins/admin/base/images/icons_light/22-skull-n-crossbones.png);
+}
+
+.chrome_dark .icon_bird {
+	background-image: url(/skins/admin/base/images/icons_light/23-bird.png);
+}
+
+.chrome_dark .icon_gift {
+	background-image: url(/skins/admin/base/images/icons_light/24-gift.png);
+}
+
+.chrome_dark .icon_weather {
+	background-image: url(/skins/admin/base/images/icons_light/25-weather.png);
+}
+
+.chrome_dark .icon_bandaid {
+	background-image: url(/skins/admin/base/images/icons_light/26-bandaid.png);
+}
+
+.chrome_dark .icon_planet {
+	background-image: url(/skins/admin/base/images/icons_light/27-planet.png);
+}
+
+.chrome_dark .icon_star {
+	background-image: url(/skins/admin/base/images/icons_light/28-star.png);
+}
+
+.chrome_dark .icon_heart {
+	background-image: url(/skins/admin/base/images/icons_light/29-heart.png);
+}
+
+.chrome_dark .icon_key {
+	background-image: url(/skins/admin/base/images/icons_light/30-key.png);
+}
+
+.chrome_dark .icon_ipod {
+	background-image: url(/skins/admin/base/images/icons_light/31-ipod.png);
+}
+
+.chrome_dark .icon_iphone {
+	background-image: url(/skins/admin/base/images/icons_light/32-iphone.png);
+}
+
+.chrome_dark .icon_cabinet {
+	background-image: url(/skins/admin/base/images/icons_light/33-cabinet.png);
+}
+
+.chrome_dark .icon_coffee {
+	background-image: url(/skins/admin/base/images/icons_light/34-coffee.png);
+}
+
+.chrome_dark .icon_shopping_bag {
+	background-image: url(/skins/admin/base/images/icons_light/35-shopping-bag.png);
+}
+
+.chrome_dark .icon_toolbox {
+	background-image: url(/skins/admin/base/images/icons_light/36-toolbox.png);
+}
+
+.chrome_dark .icon_suitcase {
+	background-image: url(/skins/admin/base/images/icons_light/37-suitcase.png);
+}
+
+.chrome_dark .icon_airplane {
+	background-image: url(/skins/admin/base/images/icons_light/38-airplane.png);
+}
+
+.chrome_dark .icon_spraycan {
+	background-image: url(/skins/admin/base/images/icons_light/39-spraycan.png);
+}
+
+.chrome_dark .icon_inbox {
+	background-image: url(/skins/admin/base/images/icons_light/40-inbox.png);
+}
+
+.chrome_dark .icon_picture_frame {
+	background-image: url(/skins/admin/base/images/icons_light/41-picture-frame.png);
+}
+
+.chrome_dark .icon_photos {
+	background-image: url(/skins/admin/base/images/icons_light/42-photos.png);
+}
+
+.chrome_dark .icon_film_roll {
+	background-image: url(/skins/admin/base/images/icons_light/43-film-roll.png);
+}
+
+.chrome_dark .icon_shoebox {
+	background-image: url(/skins/admin/base/images/icons_light/44-shoebox.png);
+}
+
+.chrome_dark .icon_movie1 {
+	background-image: url(/skins/admin/base/images/icons_light/45-movie1.png);
+}
+
+.chrome_dark .icon_movie2 {
+	background-image: url(/skins/admin/base/images/icons_light/46-movie2.png);
+}
+
+.chrome_dark .icon_fuel {
+	background-image: url(/skins/admin/base/images/icons_light/47-fuel.png);
+}
+
+.chrome_dark .icon_fork_knife {
+	background-image: url(/skins/admin/base/images/icons_light/48-fork-and-knife.png);
+}
+
+.chrome_dark .icon_battery {
+	background-image: url(/skins/admin/base/images/icons_light/49-battery.png);
+}
+
+.chrome_dark .icon_beaker {
+	background-image: url(/skins/admin/base/images/icons_light/50-beaker.png);
+}
+
+.chrome_dark .icon_outlet {
+	background-image: url(/skins/admin/base/images/icons_light/51-outlet.png);
+}
+
+.chrome_dark .icon_pinetree {
+	background-image: url(/skins/admin/base/images/icons_light/52-pinetree.png);
+}
+
+.chrome_dark .icon_house {
+	background-image: url(/skins/admin/base/images/icons_light/53-house.png);
+}
+
+.chrome_dark .icon_lock {
+	background-image: url(/skins/admin/base/images/icons_light/54-lock.png);
+}
+
+.chrome_dark .icon_network {
+	background-image: url(/skins/admin/base/images/icons_light/55-network.png);
+}
+
+.chrome_dark .icon_cloud {
+	background-image: url(/skins/admin/base/images/icons_light/56-cloud.png);
+}
+
+.chrome_dark .icon_download {
+	background-image: url(/skins/admin/base/images/icons_light/57-download.png);
+}
+
+.chrome_dark .icon_bookmark {
+	background-image: url(/skins/admin/base/images/icons_light/58-bookmark.png);
+}
+
+.chrome_dark .icon_flag {
+	background-image: url(/skins/admin/base/images/icons_light/59-flag.png);
+}
+
+.chrome_dark .icon_signpost {
+	background-image: url(/skins/admin/base/images/icons_light/60-signpost.png);
+}
+
+.chrome_dark .icon_brightness {
+	background-image: url(/skins/admin/base/images/icons_light/61-brightness.png);
+}
+
+.chrome_dark .icon_contrast {
+	background-image: url(/skins/admin/base/images/icons_light/62-contrast.png);
+}
+
+.chrome_dark .icon_runner {
+	background-image: url(/skins/admin/base/images/icons_light/63-runner.png);
+}
+
+.chrome_dark .icon_zap {
+	background-image: url(/skins/admin/base/images/icons_light/64-zap.png);
+}
+
+.chrome_dark .icon_note {
+	background-image: url(/skins/admin/base/images/icons_light/65-note.png);
+}
+
+.chrome_dark .icon_microphone {
+	background-image: url(/skins/admin/base/images/icons_light/66-microphone.png);
+}
+
+.chrome_dark .icon_tshirt {
+	background-image: url(/skins/admin/base/images/icons_light/67-tshirt.png);
+}
+
+.chrome_dark .icon_paperclip {
+	background-image: url(/skins/admin/base/images/icons_light/68-paperclip.png);
+}
+
+.chrome_dark .icon_display {
+	background-image: url(/skins/admin/base/images/icons_light/69-display.png);
+}
+
+.chrome_dark .icon_tv {
+	background-image: url(/skins/admin/base/images/icons_light/70-tv.png);
+}
+
+.chrome_dark .icon_compass {
+	background-image: url(/skins/admin/base/images/icons_light/71-compass.png);
+}
+
+.chrome_dark .icon_pin {
+	background-image: url(/skins/admin/base/images/icons_light/72-pin.png);
+}
+
+.chrome_dark .icon_radar {
+	background-image: url(/skins/admin/base/images/icons_light/73-radar.png);
+}
+
+.chrome_dark .icon_location {
+	background-image: url(/skins/admin/base/images/icons_light/74-location.png);
+}
+
+.chrome_dark .icon_phone {
+	background-image: url(/skins/admin/base/images/icons_light/75-phone.png);
+}
+
+.chrome_dark .icon_baby {
+	background-image: url(/skins/admin/base/images/icons_light/76-baby.png);
+}
+
+.chrome_dark .icon_ekg {
+	background-image: url(/skins/admin/base/images/icons_light/77-ekg.png);
+}
+
+.chrome_dark .icon_stopwatch {
+	background-image: url(/skins/admin/base/images/icons_light/78-stopwatch.png);
+}
+
+.chrome_dark .icon_medical_bag {
+	background-image: url(/skins/admin/base/images/icons_light/79-medical-bag.png);
+}
+
+.chrome_dark .icon_shopping_cart {
+	background-image: url(/skins/admin/base/images/icons_light/80-shopping-cart.png);
+}
+
+.chrome_dark .icon_dashboard {
+	background-image: url(/skins/admin/base/images/icons_light/81-dashboard.png);
+}
+
+.chrome_dark .icon_dogpaw {
+	background-image: url(/skins/admin/base/images/icons_light/82-dogpaw.png);
+}
+
+.chrome_dark .icon_calendar {
+	background-image: url(/skins/admin/base/images/icons_light/83-calendar.png);
+}
+
+.chrome_dark .icon_lightbulb {
+	background-image: url(/skins/admin/base/images/icons_light/84-lightbulb.png);
+}
+
+.chrome_dark .icon_trophy {
+	background-image: url(/skins/admin/base/images/icons_light/85-trophy.png);
+}
+
+.chrome_dark .icon_camera {
+	background-image: url(/skins/admin/base/images/icons_light/86-camera.png);
+}
+
+.chrome_dark .icon_wineglass {
+	background-image: url(/skins/admin/base/images/icons_light/87-wineglass.png);
+}
+
+.chrome_dark .icon_beermug {
+	background-image: url(/skins/admin/base/images/icons_light/88-beermug.png);
+}
+
+.chrome_dark .icon_dumbbell {
+	background-image: url(/skins/admin/base/images/icons_light/89-dumbbell.png);
+}
+
+.chrome_dark .icon_lifebuoy {
+	background-image: url(/skins/admin/base/images/icons_light/90-lifebuoy.png);
+}
+
+.chrome_dark .icon_beaker2 {
+	background-image: url(/skins/admin/base/images/icons_light/91-beaker2.png);
+}
+
+.chrome_dark .icon_testtube {
+	background-image: url(/skins/admin/base/images/icons_light/92-testtube.png);
+}
+
+.chrome_dark .icon_thermometer {
+	background-image: url(/skins/admin/base/images/icons_light/93-thermometer.png);
+}
+
+.chrome_dark .icon_pill {
+	background-image: url(/skins/admin/base/images/icons_light/94-pill.png);
+}
+
+.chrome_dark .icon_equalizer {
+	background-image: url(/skins/admin/base/images/icons_light/95-equalizer.png);
+}
+
+.chrome_dark .icon_book {
+	background-image: url(/skins/admin/base/images/icons_light/96-book.png);
+}
+
+.chrome_dark .icon_puzzle {
+	background-image: url(/skins/admin/base/images/icons_light/97-puzzle.png);
+}
+
+.chrome_dark .icon_palette {
+	background-image: url(/skins/admin/base/images/icons_light/98-palette.png);
+}
+
+.chrome_dark .icon_umbrella {
+	background-image: url(/skins/admin/base/images/icons_light/99-umbrella.png);
+}
+
+.chrome_dark .icon_coffee {
+	background-image: url(/skins/admin/base/images/icons_light/100-coffee.png);
+}
+
+.chrome_dark .icon_gameplan {
+	background-image: url(/skins/admin/base/images/icons_light/101-gameplan.png);
+}
+
+.chrome_dark .icon_walk {
+	background-image: url(/skins/admin/base/images/icons_light/102-walk.png);
+}
+
+.chrome_dark .icon_map {
+	background-image: url(/skins/admin/base/images/icons_light/103-map.png);
+}
+
+.chrome_dark .icon_index_cards {
+	background-image: url(/skins/admin/base/images/icons_light/104-index-cards.png);
+}
+
+.chrome_dark .icon_piano {
+	background-image: url(/skins/admin/base/images/icons_light/105-piano.png);
+}
+
+.chrome_dark .icon_sliders {
+	background-image: url(/skins/admin/base/images/icons_light/106-sliders.png);
+}
+
+.chrome_dark .icon_widescreen {
+	background-image: url(/skins/admin/base/images/icons_light/107-widescreen.png);
+}
+
+.chrome_dark .icon_badge {
+	background-image: url(/skins/admin/base/images/icons_light/108-badge.png);
+}
+
+.chrome_dark .icon_chicken {
+	background-image: url(/skins/admin/base/images/icons_light/109-chicken.png);
+}
+
+.chrome_dark .icon_bug {
+	background-image: url(/skins/admin/base/images/icons_light/110-bug.png);
+}
+
+.chrome_dark .icon_user {
+	background-image: url(/skins/admin/base/images/icons_light/111-user.png);
+}
+
+.chrome_dark .icon_group {
+	background-image: url(/skins/admin/base/images/icons_light/112-group.png);
+}
+
+.chrome_dark .icon_navigation {
+	background-image: url(/skins/admin/base/images/icons_light/113-navigation.png);
+}
+
+.chrome_dark .icon_balloon {
+	background-image: url(/skins/admin/base/images/icons_light/114-balloon.png);
+}
+
+.chrome_dark .icon_bow_arrow {
+	background-image: url(/skins/admin/base/images/icons_light/115-bow-and-arrow.png);
+}
+
+.chrome_dark .icon_controller {
+	background-image: url(/skins/admin/base/images/icons_light/116-controller.png);
+}
+
+.chrome_dark .icon_todo {
+	background-image: url(/skins/admin/base/images/icons_light/117-todo.png);
+}
+
+.chrome_dark .icon_coathanger {
+	background-image: url(/skins/admin/base/images/icons_light/118-coathanger.png);
+}
+
+.chrome_dark .icon_piggybank {
+	background-image: url(/skins/admin/base/images/icons_light/119-piggybank.png);
+}
+
+.chrome_dark .icon_headphones {
+	background-image: url(/skins/admin/base/images/icons_light/120-headphones.png);
+}
+
+.chrome_dark .icon_lanscape {
+	background-image: url(/skins/admin/base/images/icons_light/121-lanscape.png);
+}
+
+.chrome_dark .icon_stats {
+	background-image: url(/skins/admin/base/images/icons_light/122-stats.png);
+}
+
+.chrome_dark .icon_id_card {
+	background-image: url(/skins/admin/base/images/icons_light/123-id-card.png);
+}
+
+.chrome_dark .icon_bullhorn {
+	background-image: url(/skins/admin/base/images/icons_light/124-bullhorn.png);
+}
+
+.chrome_dark .icon_food {
+	background-image: url(/skins/admin/base/images/icons_light/125-food.png);
+}
+
+.chrome_dark .icon_moon {
+	background-image: url(/skins/admin/base/images/icons_light/126-moon.png);
+}
+
+.chrome_dark .icon_sock {
+	background-image: url(/skins/admin/base/images/icons_light/127-sock.png);
+}
+
+.chrome_dark .icon_bone {
+	background-image: url(/skins/admin/base/images/icons_light/128-bone.png);
+}
+
+.chrome_dark .icon_golf {
+	background-image: url(/skins/admin/base/images/icons_light/129-golf.png);
+}
+
+.chrome_dark .icon_dice {
+	background-image: url(/skins/admin/base/images/icons_light/130-dice.png);
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+
+	<!-- Default configuration of the whole project -->
+	<general template="2columns-left">
+		
+	</general>
+	
+    <!-- Admin Template Section -->
+	<admin>
+		
+	</admin>
+
+</layout>

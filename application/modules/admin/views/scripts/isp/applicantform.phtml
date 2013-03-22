@@ -1,0 +1,81 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a href="#tab2"><?=$this->translate('Addresses');?></a></li>
+			<li><a href="#tab3"><?=$this->translate('Contacts');?></a></li>
+			<li><a href="#tab4"><?=$this->translate('Bank');?></a></li>
+			<li><a href="#tab5"><?=$this->translate('Servers');?></a></li>
+			<li><a href="#tab6"><?=$this->translate('ISP Control Panel');?></a></li>
+		</ul>
+    
+	    <div id="tab1"> 
+		    <fieldset class="column-left"> 
+		        <?php echo $form->company->render() ?>
+		        <?php echo $form->vatnumber->render() ?>
+		        <?php echo $form->slogan->render() ?>
+		    </fieldset>
+		    <fieldset class="column-right"> 
+		        <?php echo $form->manager->render()?>
+		        <?php echo $form->website->render()?>
+		        <?php echo $form->password->render()?>
+		        <?php echo $form->logo->render()?>
+		        <?php if(!empty($this->srclogo)): ?>
+		        	<img src="<?php echo $this->srclogo ?>" alt="logo"/>
+		        <?php endif;?>
+		    </fieldset>
+    	</div>
+    
+	    <div class="ui-tabs-hide" id="tab2"> 
+            <?php echo $form->address->render() ?>
+            <?php echo $form->zip->render() ?>
+            <?php echo $form->city->render() ?>
+            <?php echo $form->country->render() ?>
+	    </div>    
+	    
+	    <div class="ui-tabs-hide" id="tab3"> 
+            <?php echo $form->telephone->render() ?>
+            <?php echo $form->fax->render() ?>
+            <?php echo $form->email->render()?>
+	    </div>  
+	        
+	    <div class="ui-tabs-hide" id="tab4"> 
+            <?php echo $form->bankname->render() ?>
+            <?php echo $form->iban->render() ?>
+            <?php echo $form->bic->render() ?>
+	    </div>    
+	    
+	    <div class="ui-tabs-hide" id="tab5"> 
+	         <?= $this->simplegrid($this->serversgrid);?>
+	    </div>        
+	    
+	    <div class="ui-tabs-hide" id="tab6"> 
+	        <?php echo $form->isppanel->render()?> 
+	    </div>        
+   		<div class="clear"></div>
+   		<?php echo $form->isp_id->render()?>
+   	</div>
+</form>
+</div>

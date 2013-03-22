@@ -1,0 +1,3373 @@
+AdminRoles:
+  connection: doctrine
+  tableName: admin_roles
+  columns:
+    role_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(250)
+      notnull: true
+            
+AdminResources:
+  connection: doctrine
+  tableName: admin_resources
+  columns:
+    resource_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(250)
+    hidden:
+      type: boolean(25)
+      default: 0
+    is_container:
+      type: boolean(25)
+      default: 0
+    is_allowed:
+      type: boolean(25)
+      default: 0
+    admin:
+      type: boolean(25)
+      default: 0
+    module:
+      type: string(250)
+      notnull: true
+    controller:
+      type: string(250)
+    parent_id:
+      type: integer(4)
+                  
+AdminPermissions:
+  connection: doctrine
+  tableName: admin_permissions
+  columns:
+    permission_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    resource_id:
+      type: integer(4)
+      notnull: true
+    role_id:
+      type: integer(4)
+      notnull: true
+    permission:
+      type: string(250)
+      notnull: true
+  relations:
+    AdminResources:
+      local: resource_id
+      foreign: resource_id
+    AdminRoles:
+      local: role_id
+      foreign: role_id
+                  
+AdminUser:
+  connection: doctrine
+  tableName: admin_user
+  columns:
+    user_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    firstname:
+      type: string(250)
+      notnull: true
+    lastname:
+      type: string(250)
+      notnull: true
+    email:
+      type: string(250)
+      notnull: true
+    password:
+      type: string(250)
+      notnull: true
+    created:
+      type: timestamp(25)
+    changed:
+      type: timestamp(25)
+    lognum:
+      type: integer(4)
+    role_id:
+      type: integer(4)
+      notnull: false
+    config:
+      type: string()
+    isp_id:
+      type: integer(4)      
+  relations:
+    AdminRoles:
+      local: role_id
+      foreign: role_id
+    Isp:
+      local: isp_id
+      foreign: isp_id
+
+Addresses:
+  connection: doctrine
+  tableName: addresses
+  columns:
+    address_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    address:
+      type: string()
+      notnull: true
+    city:
+      type: string(150)
+      notnull: true
+    code:
+      type: string(20)
+      notnull: true
+    country_id:
+      type: integer(4)
+      notnull: true
+    area: string(100)
+    latitude: string(20)
+    longitude: string(20)
+    customer_id: integer(4)
+  relations:
+    Countries:
+      local: country_id
+      foreign: country_id
+      type: one
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+      
+Banks:
+  connection: doctrine
+  tableName: banks
+  columns:
+    bank_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(50)
+      notnull: true
+    classname:
+      type: string(100)
+      notnull: true
+    account:
+      type: string(50)
+      notnull: false
+    url_test:
+      type: string()
+      notnull: false
+    url_official:
+      type: string()
+      notnull: false
+    test_mode:
+      type: integer(1)
+      default: '1'
+      notnull: true
+    enabled:
+      type: integer(1)
+      default: '0'
+      notnull: false
+    description: string()
+    method_id: integer(4)
+  relations:
+    PaymentsMethods:
+      local: method_id
+      foreign: method_id
+      type: one
+    Payments:
+      local: bank_id
+      foreign: bank_id
+      type: many
+BillingCycle:
+  connection: doctrine
+  tableName: billing_cycle
+  columns:
+    billing_cycle_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      notnull: true
+    months:
+      type: integer(4)
+      notnull: true
+    domain:
+      type: boolean(25)
+      default: '0'
+    enabled:
+      type: boolean(25)
+      default: 1
+  relations:
+    OrdersItems:
+      local: billing_cycle_id
+      foreign: billing_cycle_id
+      type: many
+    ProductsTranches:
+      local: billing_cycle_id
+      foreign: billing_cycle_id
+      type: many
+Bulkmails:
+  connection: doctrine
+  tableName: bulkmails
+  columns:
+    mail_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    senddate:
+      type: timestamp(25)
+      notnull: true
+    subject:
+      type: string(250)
+      notnull: true
+      autoincrement: false
+    body:
+      type: string()
+      notnull: true
+CMSBlocks:
+  connection: doctrine
+  tableName: cms_blocks
+  columns:
+    block_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    publishedat:
+      type: timestamp(25)
+      notnull: true
+    var:
+      type: string(250)
+      notnull: true
+      autoincrement: false
+    title:
+      type: string(250)
+      notnull: true
+      autoincrement: false
+    body:
+      type: string()
+      notnull: true
+
+CMSBlocksData:
+  connection: doctrine
+  tableName: cms_blocks_data
+  columns:
+    id:
+      type: integer(8)
+      autoincrement: true
+      primary: true
+    block_id:
+      type: integer(4)
+      notnull: false
+    language_id:
+      type: integer(4)
+      notnull: false
+  relations:
+    Languages:
+      local: language_id
+      foreign: language_id
+      onDelete: CASCADE
+    CMSBlocks:
+      local: block_id
+      foreign: block_id
+      onDelete: CASCADE
+
+CMSPages:
+  connection: doctrine
+  tableName: cms_pages
+  columns:
+    page_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    title:
+      type: string(250)
+      notnull: true
+    body:
+      type: string()
+      notnull: true
+    publishedat:
+      type: timestamp(25)
+      notnull: true
+    layout:
+      type: string(250)
+      notnull: true
+    pagelayout:
+      type: string(250)
+      notnull: true
+    var:
+      type: string(250)
+      notnull: true
+    showinmenu:
+      type: boolean(25)
+      default: 1
+      notnull: false
+    showonrss:
+      type: boolean(25)
+      default: '0'
+    active:
+      type: boolean(25)
+      default: '1'
+    parent_id:
+      type: integer(4)
+      notnull: false
+      default: 0
+    keywords: string(250)
+    blocks: string()
+    xmllayout: string()
+
+CMSPagesData:
+  connection: doctrine
+  tableName: cms_pages_data
+  columns:
+    id:
+      type: integer(8)
+      autoincrement: true
+      primary: true
+    page_id:
+      type: integer(4)
+      notnull: false
+    language_id:
+      type: integer(4)
+      notnull: false
+      default: 1
+  relations:
+    Languages:
+      local: language_id
+      foreign: language_id
+      onDelete: CASCADE
+    CMSPages:
+      local: page_id
+      foreign: page_id
+      onDelete: CASCADE
+      
+CompanyTypes:
+  connection: doctrine
+  tableName: company_types
+  columns:
+    type_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+    legalform_id:
+      type: integer(4)
+      notnull: true
+    active:
+      type: integer(1)
+      default: '1'
+      notnull: true
+  relations:
+    Customers:
+      local: type_id
+      foreign: type_id
+      type: many
+Contacts:
+  connection: doctrine
+  tableName: contacts
+  columns:
+    contact_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    contact:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    type_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    base:
+      type: integer(1)
+      fixed: 0
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
+    customer_id:
+      type: integer(4)
+      notnull: true
+      autoincrement: false
+  relations:
+    ContactsTypes:
+      local: type_id
+      foreign: type_id
+      type: one
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+      
+ContactsTypes:
+  connection: doctrine
+  tableName: contacts_types
+  columns:
+    type_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enabled:
+      type: integer(1)
+      fixed: 0
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    Contacts:
+      local: type_id
+      foreign: type_id
+      type: many
+Countries:
+  connection: doctrine
+  tableName: countries
+  columns:
+    country_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      notnull: false
+    code:
+      type: string(10)
+      notnull: false
+    tld:
+      type: string(10)
+      notnull: false
+    enabled:
+      type: integer(1)
+      default: '1'
+      notnull: true
+  relations:
+    Addresses:
+      local: country_id
+      foreign: country_id
+      type: many
+CreditNotes:
+  connection: doctrine
+  tableName: credit_notes
+  columns:
+    creditnote_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    number:
+      type: integer(4)
+      notnull: true
+    creationdate:
+      type: date(25)
+      notnull: true
+    invoice_id:
+      type: integer(4)
+      notnull: true
+    total_net:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    total_vat:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    total:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    note: string()
+  relations:
+    Invoices:
+      local: invoice_id
+      foreign: invoice_id
+      type: one
+    CreditNotesItems:
+      local: creditnote_id
+      foreign: creditnote_id
+      type: many
+CreditNotesItems:
+  connection: doctrine
+  tableName: credit_notes_items
+  columns:
+    creditnoteitem_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    creditnote_id:
+      type: integer(4)
+      notnull: true
+    vat:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    price:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    total:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    description: string()
+    quantity: integer(4)
+  relations:
+    CreditNotes:
+      local: creditnote_id
+      foreign: creditnote_id
+      type: one
+CustomAttributes:
+  connection: doctrine
+  tableName: custom_attributes
+  columns:
+    attribute_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    var:
+      type: string(255)
+      notnull: true
+    label:
+      type: string(255)
+      notnull: true
+    type:
+      type: string(255)
+      notnull: true
+    section:
+      type: string(255)
+      notnull: true
+  relations:
+    CustomAttributesValues:
+      local: attribute_id
+      foreign: attribute_id
+      type: many
+CustomAttributesValues:
+  connection: doctrine
+  tableName: custom_attributes_values
+  columns:
+    value_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    external_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    attribute_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    value:
+      type: string()
+      notnull: true
+  relations:
+    CustomAttributes:
+      local: attribute_id
+      foreign: attribute_id
+      type: one
+      
+CustomersGroups:
+  connection: doctrine
+  tableName: customers_groups
+  columns:
+    group_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(250)
+      notnull: true
+            
+Customers:
+  connection: doctrine
+  tableName: customers
+  columns:
+    customer_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    company:
+      type: string(50)
+      notnull: false
+    firstname:
+      type: string(100)
+      notnull: false
+    lastname:
+      type: string(100)
+      notnull: false
+    sex:
+      type: string(1)
+      notnull: false
+    email:
+      type: string(100)
+      notnull: false
+    password:
+      type: string(100)
+      notnull: true
+    birthdate:
+      type: date(25)
+      notnull: false
+    birthplace:
+      type: string(200)
+      notnull: false
+    birthdistrict:
+      type: string(50)
+      notnull: false
+    birthcountry:
+      type: string(50)
+      notnull: false
+    birthnationality:
+      type: string(50)
+      notnull: false
+    taxpayernumber:
+      type: string(20)
+      notnull: false
+    vat:
+      type: string(20)
+      notnull: false
+    type_id:
+      type: integer(4)
+      notnull: false
+    parent_id:
+      type: integer(4)
+      notnull: false
+    legalform_id:
+      type: integer(4)
+      notnull: false
+    note:
+      type: string()
+      notnull: false
+    status_id:
+      type: integer(4)
+      notnull: true
+    group_id:
+      type: integer(4)
+      default: '1'
+    language:
+      type: string(5)
+      notnull: false
+    issubscriber:
+      type: boolean(25)
+      default: 1
+    created_at:
+      type: timestamp(25)
+      notnull: false
+    updated_at:
+      type: timestamp(25)
+      notnull: false
+    taxfree: boolean(25)
+    isreseller: boolean(25)
+  relations:
+    CustomersGroups:
+      local: group_id
+      foreign: group_id
+    CompanyTypes:
+      local: type_id
+      foreign: type_id
+      onDelete: Set Null
+    Legalforms:
+      local: legalform_id
+      foreign: legalform_id
+      onDelete: 'Set Null'
+    Statuses:
+      local: status_id
+      foreign: status_id
+    Customers:
+      local: parent_id
+      foreign: customer_id
+    CustomAttributesValues:
+      local: customer_id
+      foreign: external_id
+      
+CustomersDomainsRegistrars:
+  connection: doctrine
+  tableName: customers_domains_registrars
+  columns:
+    nic_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    customer_id:
+      type: integer(4)
+      notnull: true
+    domain_id:
+      type: integer(4)
+      notnull: true
+    registrars_id:
+      type: integer(4)
+      notnull: true
+    creationdate:
+      type: date(25)
+      notnull: true
+    value:
+      type: string(100)
+      notnull: false
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      type: one
+    Registrars:
+      local: registrars_id
+      foreign: registrars_id
+      type: one
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      type: one
+Dns_Zones:
+  connection: doctrine
+  tableName: dns_zones
+  columns:
+    zone_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    domain_id:
+      type: integer(4)
+      notnull: false
+    subdomain:
+      type: string(255)
+      notnull: true
+    type_id:
+      type: integer(4)
+      notnull: false
+    target:
+      type: string(255)
+      notnull: true
+    updating_date:
+      type: timestamp(25)
+      notnull: true
+  relations:
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      type: one
+    Dns_Zones_Types:
+      local: type_id
+      foreign: type_id
+      type: one
+Dns_Zones_Types:
+  connection: doctrine
+  tableName: dns_zones_types
+  columns:
+    type_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    zone:
+      type: string(255)
+      notnull: true
+  relations:
+    Dns_Zones:
+      local: type_id
+      foreign: type_id
+      type: many
+Domains:
+  connection: doctrine
+  tableName: domains
+  columns:
+    domain_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    domain:
+      type: string(255)
+      notnull: true
+    tld:
+      type: string(25)
+      notnull: true
+    creation_date:
+      type: date(25)
+      notnull: true
+    modification_date:
+      type: date(25)
+      notnull: false
+    expiring_date:
+      type: date(25)
+      notnull: false
+    registrars_id:
+      type: integer(4)
+      notnull: false
+    customer_id:
+      type: integer(4)
+      notnull: false
+    orderitem_id:
+      type: integer(4)
+      notnull: false
+    status_id:
+      type: integer(4)
+      notnull: false
+    autorenew:
+      type: boolean(25)
+      notnull: true
+    note:
+      type: string()
+      notnull: false
+    tld_id: integer(4)
+    authinfocode: string(100)
+    product_id: integer(4)
+  relations:
+    OrdersItems:
+      local: orderitem_id
+      foreign: detail_id
+      onDelete: CASCADE
+    DomainsTlds:
+      local: tld_id
+      foreign: tld_id
+      type: one
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      type: one
+    Statuses:
+      local: status_id
+      foreign: status_id
+      type: one
+    Registrars:
+      local: registrars_id
+      foreign: registrars_id
+      type: one
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    DomainsTasks:
+      local: domain_id
+      foreign: domain_id
+      type: many
+    TagsConnections:
+      local: domain_id
+      foreign: domain_id
+      type: many
+    CustomersDomainsRegistrars:
+      local: domain_id
+      foreign: domain_id
+      type: many
+    Messages:
+      local: domain_id
+      foreign: domain_id
+      type: many
+    Dns_Zones:
+      local: domain_id
+      foreign: domain_id
+      type: many
+    Tickets:
+      local: domain_id
+      foreign: domain_id
+      type: many
+    OrdersItemsDomains:
+      local: domain_id
+      foreign: domain_id
+      type: many
+DomainsBulk:
+  connection: doctrine
+  tableName: domains_bulk
+  columns:
+    domain_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    startingdate:
+      type: timestamp(25)
+      notnull: true
+    domain:
+      type: string(200)
+      notnull: true
+    tld_id:
+      type: integer(4)
+      notnull: false
+    sessionid:
+      type: string(200)
+      notnull: true
+    isavailable:
+      type: boolean(25)
+      notnull: false
+    customer_id:
+      type: integer(4)
+      notnull: false
+    price:
+      type: float(10)
+      notnull: false
+    cost:
+      type: float(10)
+      notnull: false
+    authinfo: string(200)
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      type: one
+    DomainsTlds:
+      local: tld_id
+      foreign: tld_id
+      type: one
+DomainsTasks:
+  connection: doctrine
+  tableName: domains_tasks
+  columns:
+    task_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    startdate:
+      type: timestamp(25)
+      notnull: true
+    enddate:
+      type: timestamp(25)
+      notnull: false
+    action:
+      type: string(100)
+      notnull: true
+    domain:
+      type: string()
+      notnull: true
+    log:
+      type: string()
+      notnull: true
+    domain_id:
+      type: integer(4)
+      notnull: true
+    registrars_id:
+      type: integer(4)
+      notnull: true
+    times:
+      type: integer(4)
+      notnull: false
+      default: '0'
+    status_id: integer(4)
+  relations:
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      onDelete: CASCADE
+    Statuses:
+      local: status_id
+      foreign: status_id
+      type: one
+    Registrars:
+      local: registrars_id
+      foreign: registrars_id
+      type: one
+DomainsTlds:
+  connection: doctrine
+  tableName: domains_tlds
+  columns:
+    tld_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    server_id:
+      type: integer(4)
+      notnull: true
+    ishighlighted:
+      type: boolean(25)
+      default: 0
+    registration_price:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    transfer_price:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    renewal_price:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    registration_cost:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    transfer_cost:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    renewal_cost:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    registrars_id: integer(4)
+    tax_id: integer(4)
+  relations:
+    Registrars:
+      local: registrars_id
+      foreign: registrars_id
+      type: one
+    Taxes:
+      local: tax_id
+      foreign: tax_id
+      type: one
+    WhoisServers:
+      local: server_id
+      foreign: server_id
+      type: one
+    DomainsTldsData:
+      local: tld_id
+      foreign: tld_id
+      type: many
+    DomainsBulk:
+      local: tld_id
+      foreign: tld_id
+      type: many
+    Domains:
+      local: tld_id
+      foreign: tld_id
+      type: many
+    OrdersItems:
+      local: tld_id
+      foreign: tld_id
+      type: many
+DomainsTldsData:
+  connection: doctrine
+  tableName: domains_tlds_data
+  columns:
+    data_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    tld_id:
+      type: integer(4)
+      notnull: true
+    language_id:
+      type: integer(4)
+      notnull: true
+      default: 1
+    name:
+      type: string(250)
+      notnull: true
+    description:
+      type: string()
+      notnull: true
+    tags: string()
+  relations:
+    DomainsTlds:
+      local: tld_id
+      foreign: tld_id
+      type: one
+    Languages:
+      local: language_id
+      foreign: language_id
+      onDelete: CASCADE
+      
+Fastlinks:
+  connection: doctrine
+  tableName: fastlinks
+  columns:
+    fastlink_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    controller:
+      type: string(50)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    action:
+      type: string(50)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    params:
+      type: string(50)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    code:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    sqltable:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    customer_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    visits:
+      type: integer(4)
+      fixed: 0
+      default: '0'
+      unsigned: false
+      primary: false
+      autoincrement: false
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+      
+Files:
+  connection: doctrine
+  tableName: files
+  columns:
+    file_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    path:
+      type: string(200)
+      notnull: true
+    file:
+      type: string(200)
+      notnull: true
+    attachedto:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    date:
+      type: timestamp(25)
+      notnull: true
+    ip:
+      type: string(25)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    category_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    note:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    FilesCategories:
+      local: category_id
+      foreign: category_id
+      type: one
+FilesCategories:
+  connection: doctrine
+  tableName: files_categories
+  columns:
+    category_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Files:
+      local: category_id
+      foreign: category_id
+      type: many
+Invoices:
+  connection: doctrine
+  tableName: invoices
+  columns:
+    invoice_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    number:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    customer_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    order_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    invoice_date:
+      type: date(25)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    note:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    CreditNotes:
+      local: invoice_id
+      foreign: invoice_id
+      type: many
+InvoicesSettings:
+  connection: doctrine
+  tableName: invoices_settings
+  columns:
+    setting_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    year:
+      type: integer(4)
+      notnull: true
+    next_number:
+      type: integer(4)
+      notnull: true
+      default: 1
+Isp:
+  connection: doctrine
+  tableName: isp
+  columns:
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    company:
+      type: string(200)
+      notnull: true
+    vatnumber:
+      type: string(200)
+      notnull: false
+    manager:
+      type: string(200)
+      notnull: true
+    address:
+      type: string(200)
+      notnull: false
+    zip:
+      type: string(200)
+      notnull: false
+    city:
+      type: string(200)
+      notnull: false
+    country:
+      type: string(200)
+      notnull: false
+    telephone:
+      type: string(200)
+      notnull: false
+    fax:
+      type: string(200)
+      notnull: false
+    bankname:
+      type: string(200)
+      notnull: false
+    iban:
+      type: string(200)
+      notnull: false
+    bic:
+      type: string(200)
+      notnull: false
+    website:
+      type: string(200)
+      notnull: true
+    email:
+      type: string(100)
+      notnull: true
+    password:
+      type: string(100)
+      notnull: true
+    isppanel:
+      type: string(100)
+      notnull: true
+    logo:
+      type: string()
+      notnull: false
+    slogan:
+      type: string()
+      notnull: false
+    active:
+      type: boolean(25)
+      notnull: false
+  relations:
+    Servers:
+      local: isp_id
+      foreign: isp_id
+    Orders:
+      local: isp_id
+      foreign: isp_id
+    Settings:
+      local: isp_id
+      foreign: isp_id
+    Panels:
+      local: isp_id
+      foreign: isp_id
+      
+Languages:
+  connection: doctrine
+  tableName: languages
+  columns:
+    language_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    language:
+      type: string(250)
+      notnull: true
+    locale:
+      type: string(5)
+      notnull: true
+    base:
+      type: boolean(25)
+      default: '0'
+    active:
+      type: boolean(25)
+      default: '1'
+  relations:
+    DomainsTldsData:
+      local: language_id
+      foreign: language_id
+      type: many
+    CMSPagesData:
+      local: language_id
+      foreign: language_id
+      type: many
+    CMSBlocksData:
+      local: language_id
+      foreign: language_id
+      type: many
+    Wiki:
+      local: language_id
+      foreign: language_id
+      type: many
+    ProductsData:
+      local: language_id
+      foreign: language_id
+      type: many
+    ProductsAttributesData:
+      local: language_id
+      foreign: language_id
+      type: many
+      
+Legalforms:
+  connection: doctrine
+  tableName: legalform
+  columns:
+    legalform_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+
+      
+Messages:
+  connection: doctrine
+  tableName: messages
+  columns:
+    message_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    dateposted:
+      type: timestamp(25)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    message:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    customer_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    domain_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    order_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    detail_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      onDelete: CASCADE
+    OrdersItems:
+      local: detail_id
+      foreign: detail_id
+      onDelete: CASCADE
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
+      
+Modules:
+  connection: doctrine
+  tableName: modules
+  columns:
+    module_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    menu:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    class:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    link:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    description:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    icon:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    enabled:
+      type: integer(1)
+      fixed: 0
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+    parent:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
+Navigation:
+  connection: doctrine
+  tableName: navigation
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    label:
+      type: string(200)
+      notnull: true
+    description:
+      type: string(200)
+      notnull: true
+    uri:
+      type: string(200)
+      notnull: true
+    parent_id:
+      type: integer(4)
+      default: '0'
+      notnull: true
+    module:
+      type: string(20)
+      notnull: true
+    controller:
+      type: string(20)
+      notnull: true
+      
+Newsletters:
+  connection: doctrine
+  tableName: newsletters
+  columns:
+    news_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    subject:
+      type: string(200)
+      notnull: true
+    message:
+      type: string()
+      notnull: true
+    sendat: timestamp(25)
+    sent: timestamp(25)
+  relations:
+    NewslettersHistory:
+      local: news_id
+      foreign: news_id
+      type: many
+NewslettersHistory:
+  connection: doctrine
+  tableName: newsletters_history
+  columns:
+    newsletter_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    subscriber_id:
+      type: integer(4)
+      notnull: false
+    news_id:
+      type: integer(4)
+      notnull: false
+    log:
+      type: string()
+      notnull: true
+    date_added:
+      type: timestamp(25)
+      notnull: true
+    date_sent: timestamp(25)
+    sent: boolean(25)
+  relations:
+    NewslettersSubscribers:
+      local: subscriber_id
+      foreign: subscriber_id
+      type: one
+    Newsletters:
+      local: news_id
+      foreign: news_id
+      type: one
+NewslettersSubscribers:
+  connection: doctrine
+  tableName: newsletters_subscribers
+  columns:
+    subscriber_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    subscriptiondate:
+      type: timestamp(25)
+      notnull: true
+    email:
+      type: string(250)
+      notnull: true
+    customer_id: integer(4)
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    NewslettersHistory:
+      local: subscriber_id
+      foreign: subscriber_id
+      type: many
+Orders:
+  connection: doctrine
+  tableName: orders
+  columns:
+    order_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    customer_id:
+      type: integer(4)
+      notnull: true
+    external_id:
+      type: string(50)
+      notnull: false
+    isp_id:
+      type: integer(4)
+      notnull: true
+    order_date:
+      type: date(25)
+      notnull: true
+    is_renewal:
+      type: boolean(25)
+      default: 0
+    status_id:
+      type: integer(4)
+      default: '1'
+    total:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    cost:
+      type: float(10)
+      default: '0.00'
+    vat:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    grandtotal:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    invoice_id: integer(4)
+    expiring_date: date(25)
+    note: string()
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: Cascade
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      type: one
+    Invoices:
+      local: invoice_id
+      foreign: invoice_id
+      onDelete: Cascade
+    Statuses:
+      local: status_id
+      foreign: status_id
+      type: one
+    
+OrdersItems:
+  connection: doctrine
+  tableName: orders_items
+  columns:
+    detail_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    order_id:
+      type: integer(4)
+      notnull: true
+    billing_cycle_id:
+      type: integer(4)
+      notnull: false
+    date_start:
+      type: timestamp(25)
+      notnull: true
+    date_end:
+      type: timestamp(25)
+      notnull: false
+    autorenew:
+      type: boolean(25)
+      default: 1
+    quantity:
+      type: integer(4)
+      notnull: true
+    cost:
+      type: float(10)
+      notnull: true
+    price:
+      type: float(10)
+      notnull: true
+    setupfee:
+      type: float(10)
+      default: 0
+    status_id:
+      type: integer(4)
+      default: '1'
+      notnull: true
+    parameters:
+      type: string()
+      notnull: false
+    setup:
+      type: string()
+      notnull: false
+    note:
+      type: string()
+      notnull: false
+    product_id: integer(4)
+    tld_id: integer(4)
+    review_id: integer(4)
+    description: string()
+  relations:
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    Products:
+      local: product_id
+      foreign: product_id
+    DomainsTlds:
+      local: tld_id
+      foreign: tld_id
+    BillingCycle:
+      local: billing_cycle_id
+      foreign: billing_cycle_id
+    Statuses:
+      local: status_id
+      foreign: status_id
+    Reviews:
+      local: review_id
+      foreign: review_id
+
+OrdersItemsDomains:
+  connection: doctrine
+  tableName: orders_items_domains
+  columns:
+    relationship_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    domain_id:
+      type: int(4)
+      notnull: true
+    order_id:
+      type: int(4)
+      notnull: true
+    orderitem_id:
+      type: int(4)
+      notnull: true
+  relations:
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      onDelete: CASCADE
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    OrdersItems:
+      local: orderitem_id
+      foreign: detail_id
+      onDelete: CASCADE
+Panels:
+  connection: doctrine
+  tableName: panels
+  columns:
+    panel_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+    isp_id:
+      type: integer(4)
+      notnull: true
+    active: boolean(25)
+  relations:
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      type: one
+    PanelsActions:
+      local: panel_id
+      foreign: panel_id
+      type: many
+PanelsActions:
+  connection: doctrine
+  tableName: panels_actions
+  columns:
+    action_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    panel_id:
+      type: integer(4)
+      notnull: true
+    customer_id:
+      type: integer(4)
+      notnull: true
+    orderitem_id:
+      type: integer(4)
+      notnull: true
+    start:
+      type: timestamp(25)
+      notnull: true
+    action:
+      type: string(255)
+      notnull: true
+    status_id:
+      type: integer(4)
+      notnull: true
+    end: timestamp(25)
+    parameters: string()
+    log: string()
+  relations:
+    Panels:
+      local: panel_id
+      foreign: panel_id
+      onDelete: CASCADE
+    Statuses:
+      local: status_id
+      foreign: status_id
+      type: one
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    OrdersItems:
+      local: orderitem_id
+      foreign: detail_id
+      onDelete: CASCADE
+      
+Payments:
+  connection: doctrine
+  tableName: payments
+  columns:
+    payment_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    paymentdate:
+      type: timestamp(25)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    bank_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    customer_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    order_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    description:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    reference:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    confirmed:
+      type: integer(1)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    income:
+      type: float(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      default: 0
+      autoincrement: false
+    outcome:
+      type: float(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      default: 0
+      autoincrement: false
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    Banks:
+      local: bank_id
+      foreign: bank_id
+      type: one
+      
+PaymentsMethods:
+  connection: doctrine
+  tableName: payments_methods
+  columns:
+    method_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    method:
+      type: string(50)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    PurchaseInvoices:
+      local: method_id
+      foreign: method_id
+      type: many
+    PaymentsResources:
+      local: method_id
+      foreign: method_id
+      type: many
+    Banks:
+      local: method_id
+      foreign: method_id
+      type: many
+PaymentsResources:
+  connection: doctrine
+  tableName: payments_resources
+  columns:
+    resource_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    resource:
+      type: string(50)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    bank_account:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    beginning_balance:
+      type: float(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      default: 0
+      autoincrement: false
+    method_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+  relations:
+    PaymentsMethods:
+      local: method_id
+      foreign: method_id
+      type: one
+Products:
+  connection: doctrine
+  tableName: products
+  columns:
+    product_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    uri:
+      type: string(150)
+      notnull: true
+    inserted_at:
+      type: timestamp(25)
+      notnull: true
+    updated_at:
+      type: timestamp(25)
+      notnull: true
+    cost:
+      type: float(10)
+      default: '0.00'
+    price_1:
+      type: float(10)
+      default: '0.00'
+      notnull: true
+    setupfee:
+      type: float(10)
+      default: '0.00'
+    setup:
+      type: string()
+      notnull: false
+    position:
+      type: integer(4)
+      default: 0
+    iscomparable:
+      type: boolean(25)
+      default: '0'
+    ishighlighted:
+      type: boolean(25)
+      default: '0'
+    send_request_review:
+      type: boolean(25)
+      default: '0'
+    showonrss:
+      type: boolean(25)
+      default: '0'
+    enabled:
+      type: boolean(25)
+      default: '1'
+      notnull: true
+    type:
+      type: string(25)
+      default: generic
+      notnull: true
+    categories: string()
+    tax_id: integer(4)
+    external_id: integer(4)
+    group_id: integer(4)
+    blocks: string()
+  relations:
+    ProductsAttributesGroups:
+      local: group_id
+      foreign: group_id
+      type: one
+    Taxes:
+      local: tax_id
+      foreign: tax_id
+      type: one
+    ProductsData:
+      local: product_id
+      foreign: product_id
+      type: many
+    ProductsRelated:
+      local: product_id
+      foreign: related_product_id
+      type: many
+    Wikilinks:
+      local: product_id
+      foreign: product_id
+      type: many
+    UrlRewrite:
+      local: product_id
+      foreign: product_id
+      type: many
+    Reviews:
+      local: product_id
+      foreign: product_id
+      type: many
+    Domains:
+      local: product_id
+      foreign: product_id
+      type: many
+    OrdersItems:
+      local: product_id
+      foreign: product_id
+      type: many
+    ProductsTranches:
+      local: product_id
+      foreign: product_id
+      type: many
+    ProductsMedia:
+      local: product_id
+      foreign: product_id
+      type: many
+    ProductsAttributesIndexes:
+      local: product_id
+      foreign: product_id
+      type: many
+      
+ProductsAttributes:
+  connection: doctrine
+  tableName: products_attributes
+  columns:
+    attribute_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    position:
+      type: integer(4)
+      default: 0
+    is_visible_on_front:
+      type: boolean(25)
+      default: 0
+    active:
+      type: boolean(25)
+      default: 1
+    system:
+      type: boolean(25)
+      default: 0
+    code: string(150)
+    type: string(50)
+    system_var: string(150)
+    defaultvalue: string()
+    is_required: boolean(25)
+    is_comparable: boolean(25)
+    on_product_listing: boolean(25)
+  relations:
+    ProductsAttributesGroupsIndexes:
+      local: attribute_id
+      foreign: attribute_id
+      type: many
+    ProductsAttributesIndexes:
+      local: attribute_id
+      foreign: attribute_id
+      type: many
+    ProductsAttributesData:
+      local: attribute_id
+      foreign: attribute_id
+      type: many
+      
+ProductsAttributesData:
+  connection: doctrine
+  tableName: products_attributes_data
+  columns:
+    data_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    attribute_id:
+      type: integer(4)
+      notnull: true
+    label:
+      type: string(150)
+      notnull: true
+    language_id:
+      type: integer(4)
+      notnull: true
+    description: string()
+    prefix: string(150)
+    suffix: string(150)
+  relations:
+    ProductsAttributes:
+      local: attribute_id
+      foreign: attribute_id
+      onDelete: CASCADE
+    Languages:
+      local: language_id
+      foreign: language_id
+      onDelete: CASCADE
+      
+ProductsAttributesGroups:
+  connection: doctrine
+  tableName: products_attributes_groups
+  columns:
+    group_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    isrecurring:
+      type: boolean(25)
+      default: 0
+    iscomparable:
+      type: boolean(25)
+      default: 0
+    name: string(150)
+    code: string(150)
+  relations:
+    Products:
+      local: group_id
+      foreign: group_id
+      type: many
+    ProductsAttributesGroupsIndexes:
+      local: group_id
+      foreign: group_id
+      onDelete: CASCADE
+      
+ProductsAttributesGroupsIndexes:
+  connection: doctrine
+  tableName: products_attributes_groups_indexes
+  columns:
+    index_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    attribute_id:
+      type: integer(4)
+      notnull: true
+    group_id:
+      type: integer(4)
+      notnull: true
+  relations:
+    ProductsAttributes:
+      local: attribute_id
+      foreign: attribute_id
+      onDelete: CASCADE
+    ProductsAttributesGroups:
+      local: group_id
+      foreign: group_id
+      onDelete: CASCADE
+      
+ProductsAttributesIndexes:
+  connection: doctrine
+  tableName: products_attributes_indexes
+  columns:
+    index_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    product_id:
+      type: integer(4)
+      notnull: true
+    attribute_id:
+      type: integer(4)
+      notnull: true
+    value:
+      type: string()
+      notnull: true
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    ProductsAttributes:
+      local: attribute_id
+      foreign: attribute_id
+      onDelete: CASCADE
+      
+ProductsCategories:
+  connection: doctrine
+  tableName: products_categories
+  columns:
+    category_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      notnull: true
+    description:
+      type: string()
+      notnull: false
+    uri:
+      type: string(150)
+      notnull: true
+    googlecategs:
+      type: string(250)
+      notnull: true
+    parent:
+      type: integer(4)
+      default: '0'
+      notnull: true
+    enabled:
+      type: boolean(25)
+      default: '1'
+    show_in_menu:
+      type: boolean(25)
+      default: '1'
+    keywords: string()
+    blocks: string()
+    position: integer(4)
+    externalid: integer(4)
+    custom: string()
+  relations:
+    Wikilinks:
+      local: category_id
+      foreign: category_id
+      type: many
+    UrlRewrite:
+      local: category_id
+      foreign: category_id
+      type: many
+ProductsData:
+  connection: doctrine
+  tableName: products_data
+  columns:
+    productdata_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(150)
+      notnull: true
+    nickname:
+      type: string(150)
+      notnull: true
+    shortdescription:
+      type: string()
+      notnull: false
+    description:
+      type: string()
+      notnull: false
+    product_id:
+      type: integer(4)
+      notnull: true
+    language_id:
+      type: integer(4)
+      notnull: true
+      default: 1
+    metakeywords: string()
+    metadescription: string()
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    Languages:
+      local: language_id
+      foreign: language_id
+      onDelete: CASCADE
+      
+ProductsMedia:
+  connection: doctrine
+  tableName: products_media
+  columns:
+    media_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    filename:
+      type: string(200)
+      notnull: true
+    path:
+      type: string(200)
+      notnull: true
+    is_default:
+      type: boolean(25)
+      default: '0'
+    product_id:
+      type: integer(4)
+      notnull: false
+    category_id:
+      type: integer(4)
+      notnull: false
+    description:
+      type: string()
+      notnull: false
+    enabled:
+      type: boolean(25)
+      default: '1'
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+ProductsRelated:
+  connection: doctrine
+  tableName: products_related
+  columns:
+    related_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    product_id:
+      type: integer(4)
+      notnull: false
+    related_product_id:
+      type: integer(4)
+      notnull: false
+  relations:
+    Products:
+      local: related_product_id
+      foreign: product_id
+      type: one
+ProductsTranches:
+  connection: doctrine
+  tableName: products_tranches
+  columns:
+    tranche_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    quantity:
+      type: integer(4)
+      notnull: true
+    price:
+      type: float(10)
+      notnull: true
+    product_id:
+      type: integer(4)
+      notnull: false
+    billing_cycle_id:
+      type: integer(4)
+      notnull: false
+    measurement: string(50)
+    selected: boolean(25)
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    BillingCycle:
+      local: billing_cycle_id
+      foreign: billing_cycle_id
+      type: one
+PurchaseCategories:
+  connection: doctrine
+  tableName: invoices_purchases_categories
+  columns:
+    category_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    category:
+      type: string(150)
+      notnull: true
+  relations:
+    PurchaseInvoices:
+      local: category_id
+      foreign: category_id
+      type: many
+PurchaseInvoices:
+  connection: doctrine
+  tableName: invoices_purchases
+  columns:
+    purchase_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    creationdate:
+      type: date(25)
+      notnull: true
+    number:
+      type: string(50)
+      notnull: true
+    company:
+      type: string(150)
+      notnull: true
+    method_id:
+      type: integer(4)
+      notnull: true
+    category_id:
+      type: integer(4)
+      notnull: true
+    total_net:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    total_vat:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    total:
+      type: float(10)
+      notnull: true
+      default: '0.00'
+    expiringdate: date(25)
+    paymentdate: date(25)
+    note: string()
+    document: string(250)
+    status_id: integer(4)
+  relations:
+    PurchaseCategories:
+      local: category_id
+      foreign: category_id
+      type: one
+    PaymentsMethods:
+      local: method_id
+      foreign: method_id
+      type: one
+    Statuses:
+      local: status_id
+      foreign: status_id
+      type: one
+Registrars:
+  connection: doctrine
+  tableName: registrars
+  columns:
+    registrars_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    wsdl:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    class:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    username:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    password:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    testmode:
+      type: integer(1)
+      fixed: 0
+      default: '1'
+      unsigned: false
+      primary: false
+      autoincrement: false
+    credit:
+      type: integer(4)
+      fixed: 0
+      default: '0'
+      unsigned: false
+      primary: false
+      autoincrement: false
+    active:
+      type: integer(1)
+      fixed: 0
+      default: '1'
+      unsigned: false
+      primary: false
+      autoincrement: false
+    lastupdate: timestamp(25)
+  relations:
+    DomainsTlds:
+      local: registrars_id
+      foreign: registrars_id
+      type: many
+    DomainsTasks:
+      local: registrars_id
+      foreign: registrars_id
+      type: many
+    CustomersDomainsRegistrars:
+      local: registrars_id
+      foreign: registrars_id
+      type: many
+    Domains:
+      local: registrars_id
+      foreign: registrars_id
+      type: many
+Reviews:
+  connection: doctrine
+  tableName: reviews
+  columns:
+    review_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    product_id:
+      type: integer(4)
+      notnull: false
+    publishedat:
+      type: timestamp(25)
+      notnull: true
+    nick:
+      type: string(250)
+      notnull: true
+    subject:
+      type: string(250)
+      notnull: true
+    email:
+      type: string(250)
+      notnull: true
+    active:
+      type: boolean(25)
+      default: 0
+    stars:
+      type: integer(4)
+      notnull: true
+    review:
+      type: string()
+      notnull: true
+    city: string(250)
+    latitude: string(25)
+    longitude: string(25)
+    referer: string(250)
+    ip: string(25)
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    OrdersItems:
+      local: review_id
+      foreign: review_id
+      type: many
+Servers:
+  connection: doctrine
+  tableName: servers
+  columns:
+    server_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      notnull: true
+    ip:
+      type: string(200)
+      notnull: true
+    netmask:
+      type: string(200)
+      notnull: true
+    host:
+      type: string(200)
+      notnull: true
+    domain:
+      type: string(200)
+      notnull: true
+    description:
+      type: string()
+      notnull: false
+    isp_id: integer(4)
+    type_id: integer(4)
+    status_id: integer(4)
+  relations:
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      type: one
+    Servers_Types:
+      local: type_id
+      foreign: type_id
+      type: one
+    Statuses:
+      local: status_id
+      foreign: status_id
+      type: one
+    CustomAttributesValues:
+      local: server_id
+      foreign: external_id
+      type: one
+Servers_Types:
+  connection: doctrine
+  tableName: servers_types
+  columns:
+    type_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    type:
+      type: string(200)
+      notnull: true
+  relations:
+    Servers:
+      local: type_id
+      foreign: type_id
+      type: many
+      
+Settings:
+  connection: doctrine
+  tableName: settings
+  columns:
+    setting_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    parameter_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+    value:
+      type: string()
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
+    SettingsParameters:
+      local: parameter_id
+      foreign: parameter_id
+      onDelete: CASCADE
+      
+SettingsGroups:
+  connection: doctrine
+  tableName: settings_groups
+  columns:
+    group_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name: string(100)
+    description: string()
+    help: string()
+  relations:
+    SettingsParameters:
+      local: group_id
+      foreign: group_id
+      onDelete: CASCADE
+      
+SettingsParameters:
+  connection: doctrine
+  tableName: settings_parameters
+  columns:
+    parameter_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(200)
+      notnull: true
+    var:
+      type: string(50)
+      notnull: true
+    type:
+      type: string(50)
+      notnull: true
+    module:
+      type: string(20)
+      notnull: true
+    enabled:
+      type: integer(1)
+      default: '1'
+      notnull: true
+    description: string()
+    group_id: integer(4)
+    config: string()
+  relations:
+    SettingsGroups:
+      local: group_id
+      foreign: group_id
+      onDelete: CASCADE
+    Settings:
+      local: parameter_id
+      foreign: parameter_id
+      onDelete: CASCADE
+      
+Statuses:
+  connection: doctrine
+  tableName: statuses
+  columns:
+    status_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    code:
+      type: string(200)
+      notnull: true
+    status:
+      type: string(200)
+      notnull: true
+    section:
+      type: string(200)
+      notnull: false
+    public:
+      type: boolean(25)
+      default: 1
+
+Tags:
+  connection: doctrine
+  tableName: tags
+  columns:
+    tag_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tag:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    TagsConnections:
+      local: tag_id
+      foreign: tag_id
+      type: many
+TagsConnections:
+  connection: doctrine
+  tableName: tags_connections
+  columns:
+    tagconnection_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    tag_id:
+      type: integer(4)
+      notnull: false
+    customer_id:
+      type: integer(4)
+      notnull: false
+    domain_id:
+      type: integer(4)
+      notnull: false
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      type: one
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      type: one
+    Tags:
+      local: tag_id
+      foreign: tag_id
+      type: one
+Taxes:
+  connection: doctrine
+  tableName: taxes
+  columns:
+    tax_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(100)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    percentage:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: false
+      autoincrement: false
+  relations:
+    DomainsTlds:
+      local: tax_id
+      foreign: tax_id
+      type: many
+    Products:
+      local: tax_id
+      foreign: tax_id
+      type: many
+Tickets:
+  connection: doctrine
+  tableName: tickets
+  columns:
+    ticket_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    customer_id:
+      type: int(4)
+      notnull: true
+    category_id:
+      type: int(4)
+      notnull: true
+    status_id:
+      type: int(4)
+      notnull: true
+    sibling_id:
+      type: int(4)
+      notnull: false
+    date_open:
+      type: timestamp(25)
+      notnull: true;
+    date_updated:
+      type: timestamp(25)
+    date_close:
+      type: timestamp(25)
+    subject:
+      type: string()
+      notnull: true
+    description:
+      type: string()
+      notnull: true
+    domain_id: int(4)
+    user_id: 
+      type: int(4)
+    vote: integer(4)
+  relations:
+    TicketsCategories:
+      local: category_id
+      foreign: category_id
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    Domains:
+      local: domain_id
+      foreign: domain_id
+    Statuses:
+      local: status_id
+      foreign: status_id
+    Tickets:
+      local: sibling_id
+      foreign: ticket_id
+      type: one      
+    AdminUser:
+      local: user_id
+      foreign: user_id
+      onDelete: Set Null
+      
+TicketsCategories:
+  connection: doctrine
+  tableName: tickets_categories
+  columns:
+    category_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    category:
+      type: string(50)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Tickets:
+      local: category_id
+      foreign: category_id
+      type: many
+TicketsNotes:
+  connection: doctrine
+  tableName: tickets_notes
+  columns:
+    note_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    note:
+      type: string()
+      notnull: true
+    admin:
+      type: boolean(25)
+      notnull: false
+    ticket_id:
+      type: int(4)
+      notnull: true
+    date_post: timestamp(25)
+    vote: integer(4)
+  relations:
+    Tickets:
+      local: ticket_id
+      foreign: ticket_id
+      onDelete: CASCADE
+Types:
+  connection: doctrine
+  tableName: types
+  columns:
+    type_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    type:
+      type: string(200)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+UrlRewrite:
+  connection: doctrine
+  tableName: url_rewrite
+  columns:
+    url_rewrite_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    product_id: integer(4)
+    category_id: integer(4)
+    request_path: string()
+    target_path: string()
+    description: string()
+    temporary: boolean(25)
+    date_added: timestamp(25)
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    ProductsCategories:
+      local: category_id
+      foreign: category_id
+      type: one
+WhoisServers:
+  connection: doctrine
+  tableName: whois_servers
+  columns:
+    server_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    tld:
+      type: string(10)
+      notnull: true
+    server:
+      type: string(100)
+      notnull: true
+    response:
+      type: string(100)
+      notnull: true
+  relations:
+    DomainsTlds:
+      local: server_id
+      foreign: server_id
+      type: many
+Wiki:
+  connection: doctrine
+  tableName: wiki
+  columns:
+    wiki_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    creationdate:
+      type: date(25)
+      notnull: true
+    category_id:
+      type: integer(4)
+      notnull: false
+    language_id:
+      type: integer(4)
+      notnull: false
+    views:
+      type: integer(4)
+      default: 0
+    active:
+      type: integer(4)
+      notnull: false
+      default: '1'
+    subject:
+      type: string(250)
+      notnull: true
+    uri:
+      type: string(250)
+      notnull: true
+    content:
+      type: string()
+      notnull: true
+    metadescription:
+      type: string()
+      notnull: true
+    metakeywords:
+      type: string()
+      notnull: true
+    ishelpful: integer(4)
+  relations:
+    WikiCategories:
+      local: category_id
+      foreign: category_id
+      type: one
+    Languages:
+      local: language_id
+      foreign: language_id
+      onDelete: CASCADE
+    Wikilinks:
+      local: wiki_id
+      foreign: wiki_id
+      type: many
+WikiCategories:
+  connection: doctrine
+  tableName: wiki_categories
+  columns:
+    category_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    category:
+      type: string(250)
+      fixed: 0
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    public:
+      type: boolean(25)
+      default: '1'
+  relations:
+    Wiki:
+      local: category_id
+      foreign: category_id
+      type: many
+Wikilinks:
+  connection: doctrine
+  tableName: wiki_links
+  columns:
+    index_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    product_id: integer(4)
+    category_id: integer(4)
+    wiki_id: integer(4)
+  relations:
+    Products:
+      local: product_id
+      foreign: product_id
+      type: one
+    ProductsCategories:
+      local: category_id
+      foreign: category_id
+      type: one
+    Wiki:
+      local: wiki_id
+      foreign: wiki_id
+      onDelete: CASCADE
+      
+Notes:
+  connection: doctrine
+  tableName: notes
+  columns:
+    note_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(250)
+      notnull: true
+    note:
+      type: string()
+      notnull: true
+    expire:
+      type: timestamp(25)
+      notnull: false
+    created:
+      type: timestamp(25)
+    changed:
+      type: timestamp(25)      
+    user_id:
+      type: integer(4)
+      notnull: true
+  relations:
+    AdminUser:
+      local: user_id
+      foreign: user_id

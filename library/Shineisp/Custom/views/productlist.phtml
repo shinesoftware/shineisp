@@ -1,0 +1,27 @@
+<?php $products = $this->products; ?>
+
+<ul class='productshome'>
+	<?php foreach ($products as $product): ?>
+	
+	<?php 
+	
+		$price = Products::getPrices($product['product_id']);
+		
+		if($price['type'] == "multiple"){
+			$theprice = $this->translate("Starting at") . "<br><h3>" . $price['minvalue']['price'] . "<span>/" . $this->translate($price['minvalue']['measurement']) . "</h3></span>";
+		}elseif ($price['type'] == "flat"){
+			$theprice = "<h3>" . $price['value'] . "</h3>";
+		}
+	
+	?>
+	
+	<li>
+		<div class="boxprice">
+			<div class="ribbon2"></div>
+			<h2><a href="<?php echo $product['uri'] ?>.html"><?php echo $product['name'] ?></a></h2>
+			<p><?php echo Shineisp_Commons_Utilities::truncate($product['description'], 200, "...", false, true) ?></p>
+			<?php echo $theprice ?>
+		</div>
+	</li>
+	<?php endforeach;?>
+</ul>

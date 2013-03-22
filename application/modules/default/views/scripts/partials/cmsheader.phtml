@@ -1,0 +1,17 @@
+<?php $data = $this->data; ?>
+
+<?php if(!empty($data) && is_array($data)):?>
+        <?php if(isset($data['subitems']) && count($data['subitems']) > 0):?>
+        	<div id="subhead">
+                <ul id="subnav">
+                	<?php foreach($data['subitems'] as $item): ?>
+               		<li><a class="subnav1" href="/cms/page/url/<?php echo $item['link']?>"><?php echo $item['label']?></a></li> 
+                <?php endforeach;?>
+                </ul>
+           		<div class="clear">&nbsp;</div>
+			</div>
+        <?php endif; ?>
+        
+        <h1><?php echo $data['title']?></h1>
+        
+<?php endif;?>

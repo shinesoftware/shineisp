@@ -1,0 +1,31 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+		
+		<div id="tabs">
+			<ul>
+				<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+				<li><a href="#tab2"><?=$this->translate('Logs');?></a></li> 
+			</ul>
+	    
+		    <div id="tab1"> 
+		        <?php echo $form->action->render() ?>
+		        <?php echo $form->start->render() ?>
+		        <?php echo $form->end->render() ?>
+		        <?php echo $form->panel_id->render() ?>
+		        <?php echo $form->parameters->render() ?>
+		        <?php echo $form->status_id->render() ?>
+		    </div>
+	    
+		    <div id="tab2"> 
+		        <?php echo $form->log->render() ?>
+		    </div>
+		</div>
+		
+		<?php echo $form->action_id->render() ?>
+	</form>
+</div>

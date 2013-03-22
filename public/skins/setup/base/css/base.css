@@ -1,0 +1,202 @@
+html,body {
+	height: 100%;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #777;
+	font-size: 12px;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: "";
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color: #333;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 26px;
+	font-weight: 700;
+	margin-bottom: 5px;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+	font-family: Calibri, Helvetica, Arial, sans-serif;
+	font-size: 31px;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+h4 {
+	font-size: 16px;
+}
+
+h5 {
+	font-size: 14px;
+}
+
+h6 {
+	font-size: 12px;
+}
+
+a {
+	color: #555;
+	text-decoration: none;
+}
+
+a:active {
+	color: #777;
+}
+
+a:focus {
+	outline: 1px;
+}
+
+small {
+	font-size: .85em;
+}
+
+pre {
+	font-family: monospace;
+}
+
+p {
+	line-height: 1.9em;
+	padding: 5px 5px 5px 0;
+}
+
+:focus {
+	outline: 0;
+}
+
+/* ***************** COMMONS TABLES ELEMENT STYLES ******************* */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+}
+
+table tbody,.values {
+	border-bottom: 1px solid #ddd;
+}
+
+table thead th {
+	font-weight: 700;
+	font-size: 13px;
+	border-bottom: 1px solid #ddd;
+}
+
+table tbody tr.alt-row {
+	background: #f3f3f3;
+}
+
+table td,table th {
+	line-height: 2em;
+	border-bottom: 1px solid #DDD;
+}
+
+table tfoot td {
+	padding: 15px 0 5px;
+}
+
+table tfoot td select {
+	border: 1px solid #ccc;
+	padding: 4px;
+}
+
+div#container .pagination {
+	text-align: right;
+	font-size: 10px;
+}
+
+table tbody tr:hover td {
+	color: #339;
+	background-color: #fdfbc4;
+}
+
+caption,th,td {
+	text-align: left;
+	font-weight: 400;
+	padding: 7px;
+}
+
+/* ***************** COMMONS FORMS ELEMENT STYLES ******************* */
+form label {
+	display: block;
+	font-weight: 700;
+	padding: 0 0 3px;
+}
+
+form p small {
+	font-size: .75em;
+	color: #777;
+}
+
+form input.text-input,form select,form textarea,form .wysiwyg {
+	font-size: 13px;
+	border: 1px solid #d5d5d5;
+	color: #333;
+}
+
+form .small-input {
+	width: 25% !important;
+	font-size: 16px !important;
+	padding: 8px !important;
+}
+
+form .medium-input {
+	width: 50% !important;
+	padding: 9px;
+}
+
+form .large-input {
+	width: 90% !important;
+	font-size: 16px !important;
+	padding: 8px !important;
+}
+
+form textarea {
+	width: 97.5% !important;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 10px;
+}
+
+form select {
+	background: #fff;
+	padding: 4px;
+}
+
+form input[type="checkbox"],form input[type="radio"] {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+
+form .required-icon {
+	-moz-background-clip: border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	background: transparent url(/skins/default/base/images/required.png)
+		no-repeat scroll 0 0;
+	display: inline-block;
+	height: 20px;
+	margin-left: -20px;
+	overflow: hidden;
+	position: relative;
+	text-indent: -9000px;
+	top: -4px;
+	vertical-align: top;
+	width: 15px;
+}

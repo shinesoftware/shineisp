@@ -1,0 +1,266 @@
+table.grid {
+	border-spacing: 0px;
+	width: 100%
+}
+table.grid table {
+	margin-bottom: 0px;
+}
+
+table.grid td {
+	border-color: #DADFE0;
+	border-style: solid;
+	border-width: 0 1px 1px 0;
+}
+
+table.grid tr.headings th {
+	font-size: 12px;
+	padding-bottom: 0;
+	padding-top: 1px;
+}
+
+table.grid th {
+	white-space: nowrap;
+}
+
+table.grid td,table.grid th {
+	padding: 0 2px;
+}
+
+table.grid .filterbtn {
+	text-align: right;
+}
+
+table.grid .filterbtn input {
+	min-height: 15px;
+	font: 12px arial, helvetica, sans-serif;
+}
+
+table.grid .title {
+	width: 50%;
+}
+
+table.grid select {
+	min-height: 15px;
+	padding: 1px;
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-color: #AAAAAA #C8C8C8 #C8C8C8 #AAAAAA;
+	border-style: solid;
+	border-width: 1px;
+	font: 12px arial, helvetica, sans-serif;
+	width: 70px;
+}
+
+table.grid thead th {
+	font-size: 10px;
+}
+
+table.grid caption {
+	font-size: 0.9em;
+	padding: 7px;
+	background: none repeat scroll 0 0 #eee;
+	border-color: #AAAAAA #C8C8C8 #C8C8C8 #AAAAAA;
+	border-style: solid;
+}
+
+table.grid td {
+	font-size: 12px;
+	line-height: 1.3em;
+	padding: 4px;
+}
+
+table.grid tfoot td .bulk-actions {
+	padding: 15px 0 5px;
+}
+
+table.grid tfoot td .bulk-actions select {
+	border: 1px solid #ccc;
+	padding: 4px;
+}
+
+table.subgrid {
+	border-left: 1px solid #D1CFCF;
+	margin-left: 22px;
+	width: 97%
+}
+
+table.subgrid tr.headings th {
+	border-color: #F9F9F9 #D1CFCF #F9F9F9 #F9F9F9;
+	background: none repeat scroll 0 0 #ddd;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 12px;
+	padding-bottom: 0;
+	padding-top: 1px;
+}
+
+
+.ui-widget-header {
+	border: 0px !important;
+}
+
+.ui-widget-header {
+	border-bottom-right-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+}
+
+#expenses table.subgrid td.total,#expenses table.subgrid td.grandtotal {
+	color: red;
+}
+
+#expenses table.subgrid td.vat {
+	color: green;
+}
+
+#incoming table.subgrid td.total,#incoming table.subgrid td.grandtotal {
+	color: green;
+}
+
+#incoming table.subgrid td.vat {
+	color: red;
+}
+
+.pagination {
+	text-align: right;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	padding: 5px 0;
+}
+
+.pagination a {
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0 1px;
+	padding: 3px 6px;
+}
+
+.pagination a.number {
+	border: 1px solid #ddd;
+}
+
+.pagination a.current {
+	background: #469400 url(/skins/admin/base/images/bg-button-green.gif)
+		top left repeat-x !important;
+	color: #fff !important;
+	border-color: #459300 !important;
+}
+
+.actions {
+	padding-bottom: 5px;
+	padding-left: 20px;
+}
+
+.show {
+	background: url(/skins/admin/base/images/icons.png) no-repeat -155px
+		-234px;
+}
+
+.edit {
+	background: url(/skins/admin/base/images/icons.png) no-repeat -340px
+		-26px;
+}
+
+.delete {
+	background: url(/skins/admin/base/images/icons.png) no-repeat -18px
+		-260px;
+}
+
+.action {
+	background: url(/skins/admin/base/images/icons.png) no-repeat -292px
+		-364px;
+}
+
+.topgrid {
+	background: none repeat scroll 0 0 #DDDDDD;
+}
+
+table.grid.headings {
+	background: url(/skins/admin/base/images/headerbg_grey.gif) repeat-x
+		scroll;
+}
+
+.filters {
+	background: none repeat scroll 0 0 #DDDDDD;
+	height: 45px;
+}
+
+.filters th{
+	padding-top: 4px !important;
+}
+
+.headings a.selected {
+	background: url("/skins/admin/base/images/bgsort.gif") no-repeat scroll
+		0 0 transparent;
+	border-bottom: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
+	display: block;
+	padding: 2px;
+	width: 90%;
+}
+
+.headings span.desc {
+	background: url("/skins/admin/base/images/desc.gif") no-repeat scroll 0
+		4px transparent;
+	padding: 2px;
+}
+
+.headings span.asc {
+	background: url("/skins/admin/base/images/asc.gif") no-repeat scroll 0
+		4px transparent;
+	padding: 2px;
+}
+
+.filters input {
+	font-size: 11px;
+	border: 1px solid #aaa;
+	width: 45%
+}
+
+.filters input_date {
+	font-size: 11px;
+	border: 1px solid #aaa;
+	width: 25%
+}
+
+.filters input.ui-button {
+	width: auto !important;
+}
+
+.pager {
+	width: 50%;
+	font-size: 12px;
+	padding-left: 10px;
+}
+
+#bulkactions {
+	font-size: 10px;
+	margin-top: 1px;
+	margin-right: 5px;
+}
+
+.highlight {
+	background-color: #FCF6C3 !important;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.massaction {
+ font-size: 12px;
+    height: 25px;
+    padding: 5px;
+    text-align: right;
+}
+
+.nohighlight {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

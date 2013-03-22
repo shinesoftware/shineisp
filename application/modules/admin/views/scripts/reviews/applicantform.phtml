@@ -1,0 +1,47 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+		</ul>
+	
+	    <div id="tab1"> 
+            <?php echo $form->product_id->render()?> 
+            <?php echo $form->publishedat->render()?> 
+            <?php echo $form->nick->render()?> 
+            <?php echo $form->subject->render()?>
+            <?php echo $form->city->render()?>
+            <?php echo $form->ip->render()?>
+            <?php echo $form->latitude->render()?>
+            <?php echo $form->longitude->render()?>
+            <?php echo $form->referer->render()?>
+            <?php echo $form->email->render()?>
+            <?php echo $form->stars->render()?>
+            <?php echo $form->active->render()?>
+            <?php echo $form->review->render()?>
+	    </div>
+	</div>    
+   <?php echo $form->review_id->render()?>
+</form>
+</div>

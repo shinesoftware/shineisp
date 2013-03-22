@@ -1,0 +1,177 @@
+CMSBlocks:
+  CMSBlocks_1:
+    publishedat: '2011-02-25 15:41:32'
+    var: contacts
+    title: Contacts
+    body: "<h5>Contattare la ShineISP</h5> \r\n<p>I nostri tecnici sono a vostra disposizione dal lunedi al venerdi dalle 09.00 alle 18:00.<br/>\r\n\r\nInviate la vostra richiesta via modulo dei contatti specificando tutti i dettagli possibili. Fai click sul seguente link per accedere al modulo dei contatti: <a href=\"/contacts\">Contattaci</a></p><br/>"
+  CMSBlocks_2:
+    publishedat: '2011-02-25 18:25:42'
+    var: footer
+    title: Footer
+    body: "<div class=\"column tiny\">\r\n	<h5>Main <span>Navigation</span></h5>\r\n	<ul class=\"columnNavigation\">\r\n		<li><a href=\"/\">Homepage</a></li>\r\n		<li><a href=\"/cms/company.html\">About us</a></li>\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Where we are</a></li>\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Job Opportunities</a></li>\r\n	</ul>\r\n</div>\r\n<div class=\"column tiny\">\r\n	<h5>General <span>Information</span></h5>\r\n	<ul class=\"columnNavigation\">\r\n		<li><a href=\"/cms/lorem-ipsum.html\">General Conditions</a></li>\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Site Map</a></li>\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Our Story</a></li>\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Main Goals</a></li>\r\n	</ul>\r\n</div>\r\n<div class=\"column tiny\">\r\n	<h5>Customers <span>Support</span></h5>\r\n	<ul class=\"columnNavigation\">\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Tech Support</a></li>\r\n		<li><a href=\"/contacts\">Contact Us</a></li>\r\n		<li><a href=\"/cms/lorem-ipsum.html\">Helpdesk</a></li>\r\n		<li><a href=\"/wiki\">Knowledge Base</a></li>\r\n	</ul>\r\n</div>\r\n<div class=\"column tiny last\">\r\n	<h5>About <span>ShineISP</span></h5>\r\n	<p class=\"text\">\r\n		 Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. <a href=\"/contacts\">Contacts</a>.\r\n	</p>\r\n</div>"
+  CMSBlocks_3:
+    publishedat: '2011-07-20 09:41:01'
+    var: homepagebanner
+    title: 'Homepage Banner'
+    body: "<div class=\"topbanner\">\r\n          <div id=\"slider\">\r\n                    <ul id=\"sliderContent\">\r\n                        <li class=\"sliderImage\">\r\n                            <a href=\"/cms/company.html\"><img src=\"/media/banners/1.gif\" alt=\"ShineISP Software\" /></a>\r\n                            <span class=\"bottom\"><strong>ShineISP Software</strong><br>This is a simple description.</span>\r\n                        </li>\r\n                        <div class=\"clear sliderImage\"></div>\r\n                    </ul>\r\n           </div>\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n    $(document).ready(function() {\r\n        $('#slider').s3Slider({\r\n            timeOut: 4000\r\n        });\r\n    });\r\n</script>"
+  CMSBlocks_4:
+    publishedat: '2011-09-30 19:29:55'
+    var: twitter
+    title: Twitter
+    body: "<div class=\"twitter\">\r\n				<div class=\"center\">\r\n					<!-- Simply change the href to your username -->\r\n					<a href=\"http://twitter.com/shine_software\" class=\"profile\"></a><p></p>\r\n				</div>\r\n			</div>"
+  CMSBlocks_5:
+    publishedat: '2012-02-20 12:17:07'
+    var: callouts
+    title: Banners
+    body: '<p><a href="/cms/company.html"><img src="/skins/default/base/images/callouts.png" alt="banner"/></a></p>'
+  CMSBlocks_6:
+    publishedat: '2012-02-21 17:32:32'
+    var: facebook
+    title: Facebook
+    body: '<a href="#">Seguici su facebook</a>'
+  CMSBlocks_7:
+    publishedat: '2012-02-24 18:51:00'
+    var: contacts
+    title: 'Contacts (english version)'
+    body: "<h3>Contact ShineISP staff</h3> \r\n<p>Our developers are available from monday to friday. [09.00 am - 06:00 pm]<br/>\r\n\r\nSend your inquiry by contact form. Click here to show the contact form: <a href=\"/contacts\">Contacts Now</a></p><br/>"
+  CMSBlocks_9:
+    publishedat: '2012-10-22 14:58:50'
+    var: end-footer
+    title: endfooter
+    body: "<div class=\"footer-bar\">\r\n				<div class=\"center\">\r\n					<a href=\"#\" class=\"backToTop\">Back to Top</a><p>Follow us on <a href=\"#\">Twitter</a>, <a href=\"#\">Facebook</a> or <a href=\"#\">LinkedIn</a> to receive updates regarding network issues, discounts and more.<br>2012 &copy; Shine Software. All rights reserved. \r\n				</p></div>\r\n			</div>"
+
+CMSBlocksData:
+  CMSBlocksData_1:
+    CMSBlocks: CMSBlocks_6
+    language_id: 1
+  CMSBlocksData_2:
+    CMSBlocks: CMSBlocks_6
+    language_id: 2
+  CMSBlocksData_4:
+    CMSBlocks: CMSBlocks_3
+    language_id: 1
+  CMSBlocksData_5:
+    CMSBlocks: CMSBlocks_3
+    language_id: 2
+  CMSBlocksData_6:
+    CMSBlocks: CMSBlocks_5
+    language_id: 1
+  CMSBlocksData_7:
+    CMSBlocks: CMSBlocks_5
+    language_id: 2
+  CMSBlocksData_8:
+    CMSBlocks: CMSBlocks_7
+    language_id: 1
+  CMSBlocksData_11:
+    CMSBlocks: CMSBlocks_4
+    language_id: 1
+  CMSBlocksData_12:
+    CMSBlocks: CMSBlocks_4
+    language_id: 2
+  CMSBlocksData_15:
+    CMSBlocks: CMSBlocks_9
+    language_id: 1
+  CMSBlocksData_16:
+    CMSBlocks: CMSBlocks_9
+    language_id: 2
+  CMSBlocksData_17:
+    CMSBlocks: CMSBlocks_1
+    language_id: 2
+  CMSBlocksData_22:
+    CMSBlocks: CMSBlocks_2
+    language_id: 1
+  CMSBlocksData_23:
+    CMSBlocks: CMSBlocks_2
+    language_id: 2
+
+
+CMSPages:
+  CMSPages_1:
+    title: Company
+    body: "<h1>History</h1>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non  tortor ipsum, sit amet ultricies leo. Aenean scelerisque scelerisque  ultricies. Duis tincidunt, arcu in pulvinar convallis, ipsum arcu  pharetra massa, sit amet congue justo enim id enim. Donec est erat,  tempor at consectetur nec, tempor in arcu. </p>\r\n\r\n<h2>Ojectives</h2>\r\n<p>Vestibulum a elit libero, at  lacinia sem. Donec eros felis, tincidunt sed aliquet ut, ultricies sed  orci. Proin elementum facilisis augue a vulputate. Vestibulum consequat,  ligula eget ultricies dictum, justo enim pellentesque nibh, eu laoreet  massa lorem ac orci.</p>\r\n\r\n<h2>Our Goals</h2>\r\n<p>Mauris vehicula ligula non nisl gravida ornare. Mauris enim felis,  adipiscing vel consequat vitae, vulputate vitae nunc. Vivamus viverra  sem vel ligula lobortis eget pellentesque mauris luctus. Class aptent  taciti sociosqu ad litora torquent per conubia nostra, per inceptos  himenaeos. Integer venenatis odio a nulla ornare sit amet molestie justo  euismod. </p>\r\n\r\n<h1>Helpdesk</h1>\r\n<p>Proin quis diam nec leo condimentum ultrices. Ut metus erat,  consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis  arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan  ultricies arcu sagittis consectetur. Suspendisse auctor ullamcorper  rhoncus. Nulla neque elit, pellentesque et gravida et, lobortis in  metus. Mauris eu felis eros, et vulputate nisl. Curabitur tincidunt  adipiscing metus in porta. Phasellus faucibus, eros et aliquet  fermentum, ligula neque dapibus diam, et congue felis massa sed velit.  Sed accumsan feugiat neque at porta. Donec at laoreet justo.</p>"
+    publishedat: '2011-02-13 12:29:11'
+    layout: 2columns-right
+    pagelayout: '0'
+    var: company
+    showinmenu: true
+    showonrss: true
+    active: true
+    parent_id: '0'
+    keywords: ''
+    blocks: ''
+    xmllayout: ''
+  CMSPages_2:
+    title: Homepage
+    body: "<div class=\"column tiny\">\r\n	<h3 class=\"iconUser\">Accesso <span>Clienti</span></h3>\r\n	<p class=\"text\">\r\n		Facile ed intuitiva la nuova interfaccia grafica vi aiuterà a migliorare il nostro supporto alle vostre richieste che saranno risolte in tempi brevissimi. Accedi adesso facendo click su <a href=\"/customers/login\">Area Clienti</a>\r\n	</p>\r\n</div>\r\n<div class=\"column tiny\">\r\n	<h3 class=\"iconHelp\">Helpdesk <span>Tecnico</span></h3>\r\n	<p class=\"text\">\r\n		Proin quis diam nec leo condimentum ultrices. Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. \r\n	</p>\r\n</div>\r\n<div class=\"column tiny\">\r\n	<h3 class=\"iconMediumCog\">Free <span>software</span></h3>\r\n	<p class=\"text\">\r\n		Proin quis diam nec leo condimentum ultrices. Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. \r\n	</p>\r\n</div>\r\n<div class=\"column tiny last\">\r\n	<h3 class=\"iconMediumHelp\">Supporto <span>Tecnico</span></h3>\r\n	<ul class=\"columnNavigation\">\r\n		<li><a class=\"iconSmallPhone\" href=\"/\"><strong>Skype</strong> shine.software</a></li>\r\n		<li><a class=\"iconSmallChat\" href=\"/contacts\"><strong>Modulo</strong> Contatti</a></li>\r\n		<li><a class=\"iconSmallEmail\" href=\"mailto:info@shineisp.com\"><strong>Supporto</strong> Email</a></li>\r\n		<li><a class=\"iconSmallClient\" href=\"/customers/login\"><strong>Accesso</strong> Cliente</a></li>\r\n	</ul>\r\n</div>\r\n\r\n<!-- Wrap separatorShadow in separator to avoid IE 7 bugs -->\r\n<div class=\"separator\">\r\n	<div class=\"separatorShadow\">\r\n	</div>\r\n</div>\r\n\r\n<div class=\"column tiny\">\r\n<h3 class=\"iconMediumCog\">WIKI <span>pages</span></h3>\r\n{module name=\"wiki\" class=\"Shineisp_Custom_Wikilist\" method=\"Show\" limit=\"4\"}\r\n</div>\r\n\r\n<div class=\"column large last\">\r\n<h3 class=\"iconMediumHelp\">Miglior <span>Hosting</span></h3>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. Proin quis diam nec leo condimentum ultrices. Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. Suspendisse auctor ullamcorper rhoncus. Nulla neque elit, pellentesque et gravida et, lobortis in metus. Mauris eu felis eros, et vulputate nisl. Curabitur tincidunt adipiscing metus in porta. Phasellus faucibus, eros et aliquet fermentum, ligula neque dapibus diam, et congue felis massa sed velit. Sed accumsan feugiat neque at porta. Donec at laoreet justo.</p>\r\n</div>\r\n\r\n<!-- Wrap separatorShadow in separator to avoid IE 7 bugs -->\r\n<div class=\"separatorShadow\"></div>\r\n\r\n<div class=\"column small\">\r\n	<h3>Recensioni <span>Clienti</span></h3>\r\n	{module name=\"productreviews\" class=\"Shineisp_Custom_Reviewslist\" method=\"Show\" limit=\"1\"}\r\n</div>\r\n<div class=\"column large last\">\r\n	<h3>About <span>ShineISP</span></h3>\r\n	<p class=\"text\">\r\n		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. \r\n	</p>\r\n</div>\r\n<!-- Clear necessary after every column row -->\r\n<!-- Content Ends - Footer template should start here -->"
+    publishedat: '2011-05-20 20:06:56'
+    layout: 1column
+    pagelayout: '0'
+    var: homepage
+    showinmenu: false
+    showonrss: false
+    active: false
+    parent_id: '0'
+    keywords: ''
+    blocks: ''
+    xmllayout: ''
+  CMSPages_3:
+    title: 'Italian Lorem Ipsum'
+    body: "<h3>Italian Lorem Ipsum</h3>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed urna nisi, ut pretium velit. Donec eu dui augue. Pellentesque mattis convallis quam nec semper. Pellentesque bibendum est vitae diam tristique porttitor sed lacinia lectus. Suspendisse pretium bibendum velit, nec lacinia purus sollicitudin eu. Vestibulum vel nisl ut purus pellentesque aliquam non sit amet nunc. Nullam sit amet felis vel est iaculis faucibus id in lacus. Aenean vitae massa quis mauris semper auctor. Curabitur libero orci, volutpat vitae sagittis in, faucibus eget nulla. Integer et tellus arcu. Nunc nunc odio, tristique vitae ullamcorper sit amet, hendrerit cursus ligula. </p>\r\n\r\n<h4>Integer condimentum ipsum</h4>\r\n<p>Integer condimentum ipsum id augue faucibus laoreet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean aliquam, orci et vestibulum aliquet, odio urna rutrum velit, ac egestas quam est eget libero. Donec sed odio ut lectus dapibus viverra sed ut urna. Vivamus vel mauris nibh, congue imperdiet lacus. Fusce malesuada turpis eget metus malesuada tempor. Ut mattis, metus ac ultrices ultricies, diam justo imperdiet turpis, id tincidunt ante velit at urna. Suspendisse eget ipsum mi. </p>\r\n\r\n<h4>Integer in ipsum urna</h4>\r\n<p>Integer in ipsum urna, ac tempus libero. Morbi nec tellus ac augue dictum egestas non eu urna. Cras sagittis libero id dui dapibus posuere sed eu massa. Nulla ligula elit, aliquet vel faucibus vitae, congue et mauris. Vivamus sed nulla sit amet velit fermentum imperdiet vehicula sit amet libero. Cras semper fringilla est, a aliquet urna pharetra at. Donec nec condimentum augue. </p>\r\n\r\n<h5>Phasellus interdum</h5>\r\n<p>Phasellus interdum dictum accumsan. Vivamus pulvinar enim quis metus ultrices ultricies. Vivamus consequat pellentesque mattis. Etiam in massa est, tincidunt viverra metus. Suspendisse a lorem non elit scelerisque hendrerit vel eget dolor. Donec in ornare neque. Mauris eu augue leo, ut sollicitudin augue. Duis vehicula ligula nec sapien adipiscing interdum. </p>\r\n\r\n<h4>Aliquam eleifend massa</h4>\r\n<p>Aliquam eleifend massa non justo mattis tempus. Cras lobortis purus nec elit facilisis eget condimentum ante placerat. Phasellus tincidunt tortor id dui ullamcorper sit amet sollicitudin quam lobortis. Etiam sed lorem nisl, ac molestie purus. In eget risus justo, vel posuere tellus. Vestibulum bibendum porta felis, eget luctus lectus elementum non. Vivamus mollis aliquam lacus, in bibendum quam adipiscing a. In lobortis convallis accumsan. Aliquam commodo dolor posuere augue laoreet nec facilisis neque hendrerit. Donec at sem fermentum justo commodo eleifend et a tortor.  </p>"
+    publishedat: '2012-03-10 16:01:24'
+    layout: 2columns-right
+    pagelayout: '0'
+    var: lorem-ipsum
+    showinmenu: true
+    showonrss: true
+    active: true
+    parent_id: '0'
+    keywords: 'test, pagina'
+    blocks: ''
+    xmllayout: ''
+  CMSPages_4:
+    title: Homepage
+    body: "<div class=\"column tiny\">\r\n	<h3 class=\"iconUser\">User <span>login</span></h3>\r\n	<p class=\"text\">\r\n		Create your own profile and login at <a href=\"/customers/login\">User Login</a>\r\n	</p>\r\n</div>\r\n<div class=\"column tiny\">\r\n	<h3 class=\"iconHelp\">Best <span>Helpdesk</span></h3>\r\n	<p class=\"text\">\r\n		Proin quis diam nec leo condimentum ultrices. Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. \r\n	</p>\r\n</div>\r\n<div class=\"column tiny\">\r\n	<h3 class=\"iconHelp\">Free <span>software</span></h3>\r\n	<p class=\"text\">\r\n		Proin quis diam nec leo condimentum ultrices. Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. \r\n	</p>\r\n</div>\r\n<div class=\"column tiny last\">\r\n	<h3 class=\"iconMediumHelp\">Contact <span>Us</span></h3>\r\n	<ul class=\"columnNavigation\">\r\n		<li><a class=\"iconSmallPhone\" href=\"/\"><strong>Skype</strong> shine.software</a></li>\r\n		<li><a class=\"iconSmallChat\" href=\"/contacts\"><strong>Modulo</strong> Contatti</a></li>\r\n		<li><a class=\"iconSmallEmail\" href=\"mailto:info@shineisp.com\"><strong>Supporto</strong> Email</a></li>\r\n		<li><a class=\"iconSmallClient\" href=\"/customers/login\"><strong>Accesso</strong> Cliente</a></li>\r\n	</ul>\r\n</div>\r\n\r\n<!-- Wrap separatorShadow in separator to avoid IE 7 bugs -->\r\n<div class=\"separator\">\r\n	<div class=\"separatorShadow\">\r\n	</div>\r\n</div>\r\n\r\n<div class=\"column tiny\">\r\n<h3 class=\"iconMediumCog\">Knowledge <span>base</span></h3>\r\n{module name=\"wiki\" class=\"Shineisp_Custom_Wikilist\" method=\"Show\" limit=\"4\"}\r\n</div>\r\n\r\n<div class=\"column large last\">\r\n<h3 class=\"iconMediumHelp\">Best <span>Software</span></h3>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. Proin quis diam nec leo condimentum ultrices. Ut metus erat, consectetur eu tempor et, consequat id eros. Mauris tincidunt mollis arcu, eget ullamcorper dolor dapibus non. Pellentesque accumsan ultricies arcu sagittis consectetur. Suspendisse auctor ullamcorper rhoncus. Nulla neque elit, pellentesque et gravida et, lobortis in metus. Mauris eu felis eros, et vulputate nisl. Curabitur tincidunt adipiscing metus in porta. Phasellus faucibus, eros et aliquet fermentum, ligula neque dapibus diam, et congue felis massa sed velit. Sed accumsan feugiat neque at porta. Donec at laoreet justo.</p>\r\n</div>\r\n\r\n<!-- Wrap separatorShadow in separator to avoid IE 7 bugs -->\r\n<div class=\"separatorShadow\"></div>\r\n\r\n<div class=\"column small\">\r\n	<h3>Recensioni <span>Clienti</span></h3>\r\n	{module name=\"productreviews\" class=\"Shineisp_Custom_Reviewslist\" method=\"Show\" limit=\"1\"}\r\n</div>\r\n<div class=\"column large last\">\r\n	<h3>About <span>ShineISP</span></h3>\r\n	<p class=\"text\">\r\n		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. \r\n	</p>\r\n</div>\r\n<!-- Clear necessary after every column row -->\r\n<!-- Content Ends - Footer template should start here -->"
+    publishedat: '2012-10-27 19:58:39'
+    layout: 1column
+    pagelayout: '0'
+    var: homepage
+    showinmenu: false
+    showonrss: false
+    active: true
+    parent_id: '0'
+    keywords: ''
+    blocks: ''
+    xmllayout: ''
+  CMSPages_5:
+    title: 'English Lorem Ipsum'
+    body: "<h3>English Lorem Ipsum</h3>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed urna nisi, ut pretium velit. Donec eu dui augue. Pellentesque mattis convallis quam nec semper. Pellentesque bibendum est vitae diam tristique porttitor sed lacinia lectus. Suspendisse pretium bibendum velit, nec lacinia purus sollicitudin eu. Vestibulum vel nisl ut purus pellentesque aliquam non sit amet nunc. Nullam sit amet felis vel est iaculis faucibus id in lacus. Aenean vitae massa quis mauris semper auctor. Curabitur libero orci, volutpat vitae sagittis in, faucibus eget nulla. Integer et tellus arcu. Nunc nunc odio, tristique vitae ullamcorper sit amet, hendrerit cursus ligula. </p>\r\n\r\n<h4>Integer condimentum ipsum</h4>\r\n<p>Integer condimentum ipsum id augue faucibus laoreet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean aliquam, orci et vestibulum aliquet, odio urna rutrum velit, ac egestas quam est eget libero. Donec sed odio ut lectus dapibus viverra sed ut urna. Vivamus vel mauris nibh, congue imperdiet lacus. Fusce malesuada turpis eget metus malesuada tempor. Ut mattis, metus ac ultrices ultricies, diam justo imperdiet turpis, id tincidunt ante velit at urna. Suspendisse eget ipsum mi. </p>\r\n\r\n<h4>Integer in ipsum urna</h4>\r\n<p>Integer in ipsum urna, ac tempus libero. Morbi nec tellus ac augue dictum egestas non eu urna. Cras sagittis libero id dui dapibus posuere sed eu massa. Nulla ligula elit, aliquet vel faucibus vitae, congue et mauris. Vivamus sed nulla sit amet velit fermentum imperdiet vehicula sit amet libero. Cras semper fringilla est, a aliquet urna pharetra at. Donec nec condimentum augue. </p>\r\n\r\n<h5>Phasellus interdum</h5>\r\n<p>Phasellus interdum dictum accumsan. Vivamus pulvinar enim quis metus ultrices ultricies. Vivamus consequat pellentesque mattis. Etiam in massa est, tincidunt viverra metus. Suspendisse a lorem non elit scelerisque hendrerit vel eget dolor. Donec in ornare neque. Mauris eu augue leo, ut sollicitudin augue. Duis vehicula ligula nec sapien adipiscing interdum. </p>\r\n\r\n<h4>Aliquam eleifend massa</h4>\r\n<p>Aliquam eleifend massa non justo mattis tempus. Cras lobortis purus nec elit facilisis eget condimentum ante placerat. Phasellus tincidunt tortor id dui ullamcorper sit amet sollicitudin quam lobortis. Etiam sed lorem nisl, ac molestie purus. In eget risus justo, vel posuere tellus. Vestibulum bibendum porta felis, eget luctus lectus elementum non. Vivamus mollis aliquam lacus, in bibendum quam adipiscing a. In lobortis convallis accumsan. Aliquam commodo dolor posuere augue laoreet nec facilisis neque hendrerit. Donec at sem fermentum justo commodo eleifend et a tortor.  </p>"
+    publishedat: '2012-10-28 10:51:45'
+    layout: 1column
+    pagelayout: '0'
+    var: lorem-ipsum
+    showinmenu: true
+    showonrss: false
+    active: true
+    parent_id: '0'
+    keywords: ''
+    blocks: ''
+    xmllayout: ''
+CMSPagesData:
+  CMSPagesData_11:
+    CMSPages: CMSPages_3
+    language_id: 2
+  CMSPagesData_16:
+    CMSPages: CMSPages_1
+    language_id: 1
+  CMSPagesData_17:
+    CMSPages: CMSPages_1
+    language_id: 2
+  CMSPagesData_30:
+    CMSPages: CMSPages_4
+    language_id: 1
+  CMSPagesData_32:
+    CMSPages: CMSPages_2
+    language_id: 2
+  CMSPagesData_33:
+    CMSPages: CMSPages_5
+    language_id: 1

@@ -1,0 +1,20 @@
+
+<div class="cms-content">
+    <div class="column">
+	    <?php if(!empty($this->data)):?>
+	    	
+			<div id="pageTocheader"><?php echo $this->translate('Summary')?></div>
+			<div id="pageToc"></div>
+	        <div id="content"><?php echo $this->data['body']; ?></div>
+	    <?php else: ?>
+	       <h2><?php echo $this->translate("Ooops! Sorry, it's our fault!")?></h2>
+	       <br>
+	       <p><?php echo $this->translate("The page that you are trying to get is no longer available.")?></p>
+	       <p><?php echo $this->translate("What can I do?")?></p><br>
+	       <ul>
+	           <li><a href="/"><?php echo $this->translate("Go to the homepage")?></a></li>
+	           <li><a href="/customer/login"><?php echo $this->translate("Login as customer")?></a></li>
+	       </ul>
+	    <?php endif;?>
+    </div>
+</div>

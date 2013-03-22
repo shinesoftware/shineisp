@@ -1,0 +1,90 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a href="#tab2"><?=$this->translate('Resources');?></a></li> 
+			<li><a href="#tab3"><?=$this->translate('Users');?></a></li> 
+		</ul>
+    
+	    <div id="tab1"> 
+	        <?php echo $form->name->render() ?>
+	    </div>
+    
+	    <div id="tab2"> 
+	        <div id="resources" name="resources"></div>
+	    </div>
+    
+	    <div id="tab3"> 
+	        <?php echo $form->users->render() ?>
+	    </div>
+	</div>
+	
+	<?php echo $form->role_id->render() ?>
+</form>
+
+<script type="text/javascript">
+<!--
+function isArray(variable) {
+	if (variable.constructor == Array)
+		return true;
+	else
+	    return false;
+}
+
+var data = <?php echo $this->resources ?>;
+
+$(function(){
+    $("#resources").dynatree({
+    	children: data,
+        data: {mode: "all"},
+        checkbox: true,
+        selectMode: 2,
+        minExpandLevel: 2
+        
+    });
+    
+    $("form").submit(function() {
+        
+        // then append Dynatree selected 'checkboxes':
+       var tree = $("#resources").dynatree("getTree");
+        var data = tree.serializeArray();
+        var items = new Array();
+        
+        $('#resourcesitems').remove();
+        
+        $.each(data, function(i, fd) {
+            items[i]= fd.value;
+        });    
+        
+        if(isArray(items) && items.length > 0){
+        	$(this).append("<input type='hidden' id='resourcesitems' name='resources' value='"+items.join("/")+"' />");
+        }     
+    });
+});
+
+
+//-->
+</script>
+</div>

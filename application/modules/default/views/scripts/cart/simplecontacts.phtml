@@ -1,0 +1,49 @@
+<?php $form = $this->form; ?>
+<? if( $form->isErrors() ): ?>
+    <div class="messages">    
+       <? foreach( $form->getElements() as $field){
+             $errors = array();
+             if($field->hasErrors()){
+                foreach( $field->getErrors() as $error){
+                    $errors[] = $this->translate($error);
+                }
+                echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+            }   
+        } ?>
+    </div>    
+<? endif; ?>
+
+<div id="contactinfo" class="whitebox boxrounded">
+    <form method="<?php echo $form->getMethod() ?>" id="contacts" action="<?php echo $form->getAction()?>">
+            <fieldset> 
+                <legend><?php echo $this->translate('General')?></legend>
+                <div class="column-left">
+	                <?php echo $form->firstname->render() ?>
+	                <?php echo $form->lastname->render()?>
+	                <?php echo $form->email->render()?>
+	                <?php echo $form->password->render()?>
+	                <?php echo $form->taxpayernumber->render()?>
+                </div>
+            
+                <div class="column-right">
+                    <?php echo $form->company->render()?>
+                    <?php echo $form->company_type_id->render()?>
+                    <?php echo $form->legalform->render()?>
+                    <?php echo $form->vat->render()?>
+                </div>
+                <div class="clear"></div>
+            </fieldset>
+                   
+            <fieldset>
+                <legend><?php echo $this->translate('Address')?></legend>
+                <?php echo $form->address->render()?>
+                <?php echo $form->code->render()?>
+                <?php echo $form->city->render()?>
+                <?php echo $form->area->render()?>
+                <?php echo $form->country_id->render()?>
+            </fieldset>
+            
+	      <?php echo $form->save->render()?> 
+	      <?php echo $form->customer_id->render()?>
+    </form>
+</div>

@@ -1,0 +1,101 @@
+<?php $products = $this->items; ?>
+<?php $partialtotal = 0 ?>
+
+<div id="shoppingcart" class="boxrounded">
+    <?php if(isset($products) && is_array($products)):?>
+    
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th></th>
+            <th><?php echo $this->translate('Product Name')?></th>
+            <th><?php echo $this->translate('Actions')?></th>
+            <th><?php echo $this->translate('Quantity')?></th>
+            <th><?php echo $this->translate('Price')?></th>
+            <th><?php echo $this->translate('Tax')?></th>
+            <th><?php echo $this->translate('Total')?></th>
+        </tr>
+        <?php foreach($products as $product):?>
+        <?php $price = ($product['price_1'] * $product['quantity']) + $product['setupfee'] ?>
+        
+        <tr>
+	        <td class="cart-item" width="70">
+	            <div class="item-picture">
+	                <?php if($product['type'] != "domain"): ?>
+		                <a href="/products/<?php echo $product['uri'] ?>.html">
+		                    <?php echo $this->media()->ProductImage($product['product_id'], 50, 50);?>
+		                </a>
+	                <?php else:?>
+	                    <a href="/tlds/<?php echo $product['name'] ?>.html"><img src="/common/imgtext/q/.<?php echo $product['name'] ?>/w/50/h/50/f/16" /></a>
+	                <?php endif; ?>
+	            </div>
+	        </td>
+	            
+	        <td>
+                <div class="item-title">
+                    <?php if($product['type'] != "domain"): ?>
+                    <a href="/products/<?php echo $product['uri'] ?>.html">
+                        <?php echo $product['ProductsData'][0]['name'] ?>
+                    </a>
+                    <?php endif; ?>
+                </div>
+                
+                <?php if(isset($product['domain_selected'])): ?>
+                    <div class="info"><?php echo $product['domain_selected']; ?></div>
+                <?php endif; ?>
+                
+                <?php if($product['type'] != "domain"): ?>
+                <small>
+                    <?php foreach($product['cleancategories'] as $category): ?>        
+                        <a href="/categories/<?php echo $category['uri'] ?>.html"><?php echo $category['name'] ?></a>
+                    <?php endforeach;?>
+                </small>
+                <?php endif; ?>
+                
+                <?php if($product['type'] == "domain" && !empty($product['domain_action']) && $product['domain_action'] == "transferDomain"): ?>
+                	Authcode:<br/><small><?php echo $this->translate('You can add the Authcode after the payment has already been done')?></small>
+                <?php endif; ?>
+                
+                <?php if($product['setupfee'] > 0) : ?>
+                	<p><?php echo $this->translate('Setup fee')?>: <?php echo $this->currency($product['setupfee'], array('currency' => Settings::findbyParam('currency'))) ?></p>
+                <?php endif;?>
+                
+	        </td>
+	           
+	        <td width="100">
+                <div class="actions">
+                	<?php if($product['type'] != "domain"): ?>
+                    	<a href="/cart/delete/product/<?php echo $product['product_id'] ?>"><?php echo $this->translate('Delete')?></a>
+                    <?php endif;?>
+                </div>
+            </td>
+	        
+	        <td width="100">
+                <?php echo $product['quantity'] ?>
+            </td>
+	        
+	        <td width="100">
+                <?php echo $this->currency($price, array('currency' => Settings::findbyParam('currency'))); ?>
+            </td>
+
+	        <td width="100">
+	         	<?php if($product['type'] == "domain"): ?>
+                	<?php $tax = Taxes::getTaxbyTldID($product['tld_id']); ?>
+                <?php else: ?>
+                	<?php $tax = Taxes::getTaxbyProductID($product['product_id']); ?>
+                <?php endif;?>
+                
+                <?php if(!empty($tax['name'])) :?>
+                    <?php $partialtotal = ($price * $tax['percentage']) / 100 ?>
+                    <span title="<?php echo $tax['name'] . " - " . $tax['percentage'] . "%"?>"> <?php echo $this->currency($partialtotal, array('currency' => Settings::findbyParam('currency'))) ?></span>
+                <?php endif; ?>
+            </td>
+            
+	        <td width="100" class="prices">
+                <div class="price"><?php echo $this->currency($price + $partialtotal, array('currency' => Settings::findbyParam('currency'))); ?></div>
+            </td>
+               
+        </tr>
+        <?php endforeach;?>
+    </table>
+    <?php endif;?>
+</div>

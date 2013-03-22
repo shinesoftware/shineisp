@@ -1,0 +1,174 @@
+form label {
+	display: block;
+	padding: 0 0 3px;
+	font-weight: 700;
+	color: #555;
+}
+
+form fieldset legend {
+	font-weight: 700;
+	margin-bottom: 10px;
+	padding-top: 10px;
+}
+
+form p small {
+	font-size: .75em;
+	color: #777;
+}
+
+form input.text-input,form select,form textarea,form .wysiwyg {
+	font-size: 13px;
+	border: 1px solid #d5d5d5;
+	color: #333;
+	padding: 6px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+form .small-input {
+	width: 25% !important;
+}
+
+form .medium-input {
+	width: 50% !important;
+	font-size: 16px !important;
+	padding: 8px !important;
+}
+
+form .large-input {
+	width: 90% !important;
+	font-size: 16px !important;
+	padding: 8px !important;
+}
+
+form textarea {
+	width: 97.5% !important;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+form select {
+	background: #fff;
+	padding: 4px;
+}
+
+form input[type="checkbox"],form input[type="radio"] {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+
+.inputitem {
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+.column-left {
+	width: 48%;
+	float: left;
+}
+
+.column-right {
+	width: 48%;
+	float: right;
+}
+
+.column-left-little {
+	width: 10%;
+	float: left;
+}
+
+.column-right-little {
+	width: 10%;
+	float: right;
+}
+
+.column-left-large {
+	width: 80%;
+	float: left;
+}
+
+.column-right-large {
+	width: 80%;
+	float: right;
+}
+
+.required-icon {
+	-moz-background-clip: border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	background: transparent url(/skins/admin/base/images/required.png)
+		no-repeat scroll 0 0;
+	display: inline-block;
+	height: 20px;
+	margin-left: -20px;
+	overflow: hidden;
+	position: relative;
+	text-indent: -9000px;
+	top: -4px;
+	vertical-align: top;
+	width: 15px;
+}
+
+.headsection {
+  margin-left: 45px;
+	margin-top: 8px;
+}
+
+.sectionheader {
+	border-bottom: 2px solid #DDDDDD;
+	height: 50px;
+	-webkit-box-shadow: 0 4px 4px -2px #eee;
+   	-moz-box-shadow: 0 4px 4px -2px #eee;
+    box-shadow: 0 4px 4px -2px #eee;
+	background: url("/skins/admin/base/images/icons_dark/19-gear.png") no-repeat scroll 9px 11px #eee;
+}
+
+.headtitle {
+	font-size: 16px;
+}
+
+.overtop{
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.registeraction {
+	margin-bottom: 10px;
+}
+
+.errors ul {
+	list-style: none;
+}
+
+.errors ul li {
+	padding: 10px 0px;
+	color: red;
+}
+
+.gravatar-canvas {
+	margin-top: 10px;
+}
+
+ul.addresses {
+	list-style: none;
+	margin-top: 15px;
+}
+
+ul.addresses li {
+	margin-bottom: 35px;
+}
+
+ul.addresses h2 {
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 7px;
+	text-transform: uppercase;
+}
+
+.pdetails td {
+    background-color: #EEEEEE;
+    padding: 10px;
+}

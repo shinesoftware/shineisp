@@ -1,0 +1,34 @@
+<div class="toptools">
+    <div class="search">
+    	<?=$this->searchbox();?> 
+	</div>
+</div>
+
+<div class="products_wrapper boxrounded">
+    <h2><?php echo $this->category['name'];?></h2>
+    <div class="catshortdescription"><?php echo $this->category['description']?></div>
+    <div class="clear"></div>
+    
+    <?php if(is_array($this->products) && count($this->products)>0): ?>
+	<p align="right">
+		<a href="/categories/setlayout/mode/list"><img src="<?=$this->paths('skin')?>/images/list.png" alt="<?php echo $this->translate('List') ?>" title="<?php echo $this->translate('List') ?>" /></a> 
+	    <a href="/categories/setlayout/mode/thumbs"><img src="<?=$this->paths('skin')?>/images/thumbnail.png" alt="<?php echo $this->translate('Thumb') ?>" title="<?php echo $this->translate('Thumb') ?>" /></a>
+	</p>
+	
+	<ul id="thumbs">
+		<?php foreach($this->products as $products): ?>
+		    <li>
+		        <h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
+		        <p><?php echo $this->media()->ProductImage($products['product_id'], 150, 150);?></p>
+		        <p><?php echo $this->prices()->getAllPricesInfo($products['product_id']); ?></p><br/>
+		        <a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $this->translate('Learn more') ?></a>
+		    </li>
+		<?php endforeach; ?>
+	</ul>
+	<div class="clear"></div>
+	<div id="pager"><?php echo $this->pager ?></div>
+	<?php else:?>
+	   <p><?php echo $this->translate('No product has been found.')?></p>
+	   <p><a href="/"><?php echo $this->translate('Homepage')?></a></p>
+	<?php endif;?>
+</div>

@@ -1,0 +1,18 @@
+<?php $groups = $this->groups; ?>
+<?php if(!empty($groups)): ?>
+	<div class="menu clear">
+		<ul class="topnav">
+			<li>
+				<ul class="subnav">
+					<li class="item" id="configuration"><a href="#"><?php echo $this->translate('Configuration')?></a>
+						<ul class="subnav">
+						<?php foreach($groups as $id=>$group): ?>
+							<li class="item"><a href="/admin/settings/index/groupid/<?php echo $id?>"><?php echo $group ?></a></li>
+						<?php endforeach;?>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+<?php endif;?>

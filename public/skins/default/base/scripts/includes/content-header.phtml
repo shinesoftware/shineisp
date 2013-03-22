@@ -1,0 +1,29 @@
+<?php 
+	$isp = Isp::getActiveISP(); 
+	$ns = new Zend_Session_Namespace ( 'Default' );
+?>
+<div class="content-header">
+	<div class="center">
+		<?php echo $this->languageswitcher() ?>
+		<ul>
+			<li><a href="/contacts" class="iconSmallEmail"><strong><?php echo $this->translate('Contact us') ?></strong></a></li>
+			<?php if(!empty($ns->customer)): ?>
+				<li><a href="/dashboard" class="iconSmallClient">
+					<strong>
+						<?php if($ns->customer['sex'] == "F"): ?>
+							<?php echo $this->translate('Welcome Mrs. %s', $ns->customer['lastname'])?>
+						<?php elseif($ns->customer['sex'] == "M"): ?>
+							<?php echo $this->translate('Welcome Mr. %s', $ns->customer['lastname'])?>
+						<?php else: ?>
+							<?php echo $this->translate('Welcome %s', $ns->customer['lastname'])?>
+						<?php endif; ?>
+					</strong>
+					</a></li>
+			<?php else: ?>
+				<li><a href="/customer/login" class="iconSmallClient"><strong><?php echo $this->translate('Login or Create a new Account')?></strong></a></li>
+			<?php endif; ?>
+			<li><?php echo $this->cart()?></li>
+			<li><?php echo $this->searchbar()?></li>
+		</ul>
+	</div>
+</div>

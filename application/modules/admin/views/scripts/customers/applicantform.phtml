@@ -1,0 +1,179 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a href="#tab2"><?=$this->translate('Personal');?></a></li> 
+			<li><a href="#tab3"><?=$this->translate('Addresses');?></a></li>
+			<li><a href="#tab4"><?=$this->translate('Contacts');?></a></li>
+			<li><a href="#tab5"><?=$this->translate('Domains');?></a></li>
+			<li><a href="#tab6"><?=$this->translate('Services');?></a></li>
+			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
+				<li><a href="#tab7"><?=$this->translate('Attachments');?></a></li>
+			<?php endif;?>
+			<li><a href="#tab8"><?=$this->translate('Orders');?></a></li>
+			<li><a href="#tab9"><?=$this->translate('Private Notes');?></a></li>
+			<li><a href="#tab10"><?=$this->translate('Tickets');?></a></li>
+			<li><a href="#tab11"><?=$this->translate('Atributes');?></a></li>
+			<li><a href="#tab12"><?=$this->translate('Options');?></a></li>
+		</ul>
+	
+	    <div id="tab1"> 
+	    
+		    <fieldset class="column-left"> 
+		    	<table class="pdetails">
+		    		<tr>
+		    			<td>
+		    				<div class="gravatar-canvas">
+			        			<?php echo $this->gravatar($form->email->getValue(), 120) ?>
+			        		</div> 
+		    			</td>
+		    			<td>
+		    				<?php echo $form->firstname->render() ?>
+		        			<?php echo $form->lastname->render()?>
+		    			</td>
+		    		</tr>
+		    	</table>
+	        	<?php echo $form->company->render()?>
+		        <?php echo $form->email->render()?>
+		        <?php echo $form->password->render()?>
+		        
+		    </fieldset>
+		    
+		    <fieldset class="column-right">
+		    	<?php echo $form->group_id->render()?>
+	            <?php echo $form->legalform_id->render()?>
+	            <?php echo $form->type_id->render()?>
+	            <?php echo $form->vat->render()?>
+	            <?php echo $form->status_id->render()?>
+		    </fieldset>
+		    <div class="clear"></div>
+	    </div>  
+	    
+	    <div class="ui-tabs-hide" id="tab2"> 
+        	<fieldset class="column-left"> 
+	            <?php echo $form->taxpayernumber->render()?>
+	            <?php echo $form->birthdate->render()?>
+	            <?php echo $form->birthplace->render()?>
+	            <?php echo $form->language->render();?>
+            </fieldset>
+            <fieldset class="column-right">
+	            <?php echo $form->birthdistrict->render()?>
+	            <?php echo $form->birthcountry->render()?>
+	            <?php echo $form->birthnationality->render()?>
+	            <?php echo $form->sex->render()?>
+            </fieldset>
+	        <div class="clear"></div>
+	    </div>    
+	    
+	    <div class="ui-tabs-hide" id="tab3"> 
+			<fieldset class="column-left">
+	            <?php echo $form->address->render()?>
+	            <?php echo $form->code->render()?>
+	            <?php echo $form->city->render()?>
+	             <?php echo $form->area->render()?>
+	            <?php echo $form->country_id->render()?>
+            </fieldset>
+            
+            <fieldset class="column-right">
+	            <?php echo $this->mapgrid($this->addressesdatagrid);?>
+            </fieldset>
+            
+            <div class="clear"></div>
+	        
+	    </div>
+	
+	   <div class="ui-tabs-hide" id="tab4">
+	       <fieldset> 
+	             <?php echo $form->contacttypes->render()?>
+	             <?php echo $form->contact->render()?>
+	             <?= $this->simplegrid($this->contactsdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>
+	    
+	    <div class="ui-tabs-hide" id="tab5">
+	        <fieldset> 
+	            <?= $this->simplegrid($this->domainsdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>
+	    
+	    <div class="ui-tabs-hide" id="tab6">
+	        <fieldset> 
+	            <?= $this->simplegrid($this->servicesdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>   
+	   
+	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
+	   <div class="ui-tabs-hide" id="tab7">
+	        <fieldset> 
+	            <?php echo $form->filecategory->render()?>
+	            <?php echo $form->attachments->render()?><br/>
+	            <?= $this->simplegrid($this->filesdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>
+	   <?php endif; ?>
+	   
+	    <div class="ui-tabs-hide" id="tab8">
+	        <fieldset> 
+	            <?= $this->simplegrid($this->ordersdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>
+	   
+	    <div class="ui-tabs-hide" id="tab9">
+	        <fieldset> 
+	            <?php echo $form->note->render()?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>   
+	   
+	   <div class="ui-tabs-hide" id="tab10">
+	        <fieldset> 
+	            <?= $this->simplegrid($this->tickets);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>   
+	   
+	   <div class="ui-tabs-hide" id="tab11">
+	       <?= $form->attributes->render();?>
+	       <div class="clear"></div>
+	   </div>   
+	   
+	   <div class="ui-tabs-hide" id="tab12">
+	       <?= $form->parent_id->render();?>
+	       <?= $form->isreseller->render();?>
+	       <?= $form->issubscriber->render();?>
+	       <?= $form->taxfree->render();?>
+	       <div class="clear"></div>
+	   </div>   
+	   
+	   <?php echo $form->customer_id->render()?>
+	
+	</div>
+</form>
+</div>

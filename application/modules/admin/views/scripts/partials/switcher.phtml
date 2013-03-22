@@ -1,0 +1,17 @@
+<span class="languageswitcher">
+	<?php if(count($this->languages) > 1): ?>
+		<select id="languageswitcher">
+		<?php foreach ($this->languages as $language): ?>
+			<?php 
+				if($language['language_id'] == $this->langselected){
+					$selected = "selected";
+				}else{
+					$selected = "";
+				}
+			?>
+			<option <?php echo $selected?> value="<?php echo $this->uri . "?lang=" . $language['locale'] ?>"><? echo $this->translate($language['language']) ?></option>
+			
+	    <?php endforeach;?>
+	    </select>
+	<?php endif;?>    
+</span>

@@ -1,0 +1,96 @@
+<?php 
+if (isset($this->records[0])):
+    // Get all the items inside a multidimensional array
+    $items = array_mergedown($this->records[0]);
+    
+    // Get all the fields
+	$fields = array_keys($items);
+	
+	// Counting the field
+	$numcols = count($fields);
+	
+	// Main index of the record
+	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
+	?>
+	
+	<table border="0" cellpadding="5" class="simplegrid">
+	    <tbody>
+	        <?php // Creation of the Rows and Columns?>
+	        <?php foreach ( $this->records as $record ) : ?>
+	           <?php foreach ( $fields as $field ) : ?>
+		           <?php if(strpos($field, "_id")=== false):?>
+			        
+		            <?php
+		            // Manage the sub arrays created by the HYDRATE_ARRAY records fetching mode    
+		             search(array($field), $record, $res);
+		             $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";
+		             $label = str_replace("_", " ", $field);
+		             $label = ucwords($label);
+		             ?>
+		             <?php if(!empty($value)): ?>
+		                <tr>
+				            <td width="25%" class="fields"><?=$this->translate($label)?></td>
+			                <td class="values"><?=$value?></td>
+				        </tr>
+		              <?php endif;?>
+		           <?php endif;?>
+	           <?php endforeach;?>
+	        <?php endforeach;?>
+	        
+	        <?php // Edit Section available only for the administration functions ?>
+	        <?php if($this->editpage):?>
+	        <tr>
+	           <td><?=$this->translate('Commands'); ?></td>
+	           <td>
+	               <a href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?=$this->translate('Click here to edit'); ?>"><img src="/skins/admin/base/images/pencil.png" title="<?=$this->translate('Click here to edit'); ?>" alt="<?=$this->translate('Click here to edit'); ?>"></a>
+	               <a href="<? echo "/admin/" . $this->editpage . "/confirmdelete/id/$idx"?>" title="<?=$this->translate('Click here to delete'); ?>"><img src="/skins/admin/base/images/cross.png" title="<?=$this->translate('Click here to delete'); ?>" alt="<?=$this->translate('Click here to delete'); ?>"></a>
+	           </td>
+	        </tr>
+	        <?php endif;?>
+	    </tbody>
+	</table>
+	<?php else: ?>
+	<div class="notification infos"><?=$this->translate('No Records')?></div>
+<?php endif; ?>
+
+<?php
+	/**
+	 * array_mergedown
+	 * Get all the main fields of the multidimensional array
+	 * @return array
+	 */
+	function array_mergedown() {
+	    global $outarray;
+	    $outarray = array();
+	    function array_walk_recphp4(&$val,$key) {
+	        global $outarray;
+	        if (is_array($val)) array_walk($val,'array_walk_recphp4');
+	        else {
+	            $outarray[$key] = $val;
+	        }
+	    }
+	    $params = func_get_args();
+	    foreach ($params as $subarr) {
+	        array_walk_recphp4($subarr, '');
+	    }
+	    return $outarray;
+	} 
+	
+	/**
+	 * search
+	 * Get the value of a specific key in a multidimensional array 
+	 * @var string
+	 */
+	$res = array();
+	function search($keys, $search, &$results) {
+	    foreach($search as $k => $v) {
+	        if(is_array($v)) { 
+	            search($keys, $v, $results); 
+	        } elseif(in_array($k, $keys)) { 
+	            $results[$k] = $v; 
+	        }
+	    }
+    }
+	
+	
+?>

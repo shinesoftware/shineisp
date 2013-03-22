@@ -1,0 +1,30 @@
+<?php $form = $this->form ?>
+
+<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="setup">
+	<div id="page_wrapper">
+		<div id="page">
+			<?= $this->render('partials/header.phtml') ?>
+				
+			<div id="content">
+				<div class="progress" style="display:none">Please wait a moment...</div>
+				
+				<?php if($this->error):?>
+					 <div class="notification error"><?php echo $this->error?></div>
+				<?php endif;?>
+				
+				<fieldset>
+					<legend><?php echo $this->translate('Database Connection')?></legend>
+					<?php echo $form->hostname->render() ?>
+					<?php echo $form->username->render() ?>
+					<?php echo $form->password->render() ?>
+					<?php echo $form->database->render() ?>
+					
+					<input type="button" class="blue-button" id="chkdb" value="<?php echo $this->translate('Check DB Connection')?>">
+					<div id="chkdbresult"></div>
+				</fieldset>
+				<div class="submit"><?php echo $form->submit->render() ?></div>
+				<?= $this->render('partials/footer.phtml') ?>			
+			</div>		
+		</div>
+	</div>
+</form>

@@ -1,0 +1,67 @@
+<div class="toptools">
+    <div class="search">
+    	<?=$this->domainsearchbox();?> 
+	</div>
+</div>
+<div class="clear"></div>
+
+<?php if($this->dashboard): ?>
+    <div class="dashboard-wrapper">
+        <h2><?php echo $this->translate('Welcome')?> <?php echo $this->customer['lastname'] . " " . $this->customer['firstname'] ?></h2>
+        <p><?php echo $this->translate('Welcome to the administration of your own services and domain panel.')?></p>
+        
+        <?php echo $this->dashboard()->GetButtons('default');?>
+        
+        <?php if(!empty($this->mex)) :?>
+        <div class="notification <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+        <?php endif;?>
+        
+        <div id="dashboard">
+        
+              <?php echo $this->checkdomains()->showForm(); ?><br/>
+              
+              <?= $this->Alerts();?>
+        
+              <div class="segment">
+                <div class="head" title="<?= $this->translate('Here below you can see all the domains near at the expiring date.') ?>">
+                    <h4><?= $this->translate('Expiring Domains') ?></h4>
+                </div>
+                <div class="content">
+                    <?php echo $this->simplegrid($this->dashboard()->DomainsExpiration());?>
+                </div>
+              </div>  
+                    
+              <div class="segment">
+                <div class="head" title="<?= $this->translate('Here below you can see all the services near at the expiring date.') ?>">
+                    <h4><?= $this->translate('Expiring Services') ?></h4>
+                </div>
+                <div class="content">
+                    <?php echo $this->simplegrid($this->dashboard()->ServicesExpiration());?>
+                </div>
+              </div>
+              
+              <div class="segment">
+                <div class="head" title="<?= $this->translate('In this section you can see all the requested support issues.') ?>">
+                    <h4><?= $this->translate('Last Tickets') ?></h4>
+                </div>
+                <div class="content">
+                    <?php echo $this->simplegrid($this->dashboard()->Last()); ?>  
+                </div>
+              </div>      
+              
+              <div class="segment">
+                <div class="head" title="<?= $this->translate('Here some statistics about your domains and services.') ?>">
+                    <h4><?= $this->translate('Statistiche') ?></h4>
+                </div>
+                <div class="content">
+                   <p align="center">
+                    <?php echo $this->graphs()->tldSummary()?> 
+                    <?php echo $this->graphs()->tldSummaryPerMonth()?>
+                    </p>
+                </div>
+              </div>       
+              
+              <div class="clear"></div>    
+        </div>
+    </div>
+<?php endif;?>  

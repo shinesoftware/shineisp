@@ -1,0 +1,18 @@
+<?php 
+
+            $form = $this->form;  
+            $errors = $this->errors;
+        ?>
+        <h4 class="title"><?= $this->translate('Bulk Customers Mail') ?></h4>
+        <p class="description"><?= $this->translate('Write here a message to send to all your own customers.') ?><a name="bulkmail"></a></p>
+        <?php if(!empty($errors)):?>
+            <?php foreach($errors as $mex): ?>
+            <p class="notification error"><?php echo $mex['email'] . " - " . $mex['message']; ?></p>
+            <?php endforeach;?>
+        <?php endif; ?>
+       
+        <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+            <?php echo $form->subject->render() ?>
+            <?php echo $form->body->render() ?>
+            <?php echo $form->send->render() ?>
+        </form>

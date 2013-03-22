@@ -1,0 +1,20 @@
+<?php $customer = $this->customer; ?>
+<?php $order = $this->order; ?>
+
+<h2><?php echo $this->translate('Thank you %s for supporting', $customer['firstname'] . " " . $customer['lastname'])?></h2>
+<small><?php echo $customer['company']?></small>
+<br/><br/>
+
+<p><?php echo $this->translate('Services Subscribed')?></p>
+<ul>
+<?php foreach ($order[0]['OrdersItems'] as $item): ?>
+	<li> <?php echo nl2br($item['description'])?> 
+		<?php if(!empty($item['Products']['type'])): ?>
+			 [<a href="/products/addreview/id/<?php echo $item['Products']['product_id']?>"><?php echo $this->translate('Please write down a review regarding the subscribed service')?></a>]
+		<?php endif; ?>
+	</li>
+<?php endforeach; ?>
+</ul>
+
+<br/><br/>
+<small><a href="/customer/login"><?php echo $this->translate('Login here as customer')?></a> - <a href="/"><?php echo $this->translate('Back to home')?></a></small>

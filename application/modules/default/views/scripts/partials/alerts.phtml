@@ -1,0 +1,3 @@
+<?php foreach($this->alerts as $alert): ?>
+    <div class="notification <?php echo $alert['icon']?>"><a href="<?php echo $alert['link']?>"><?php echo $alert['message']?></a></div>
+<?php endforeach;?>

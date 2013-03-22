@@ -1,0 +1,10 @@
+<table id="ownertldsummary" width="100%">
+<tbody>
+    <?php foreach ($this->data as $record): ?>
+    <tr>
+        <td><a href="/admin/customers/edit/id/<?php echo $record['customer_id']?>"><?php echo $record['customer']?></a></td>
+        <td><?php echo $record['total']?></td>
+    </tr>
+    <?php endforeach; ?>
+</tbody>
+</table>

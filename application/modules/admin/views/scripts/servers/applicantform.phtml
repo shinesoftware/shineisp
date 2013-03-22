@@ -1,0 +1,57 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1" class="default-tab current"><?=$this->translate('Main');?></a></li>
+			<li><a href="#tab2"><?=$this->translate('Custom Fields');?></a></li> 
+			<li><a href="#tab3"><?=$this->translate('Information');?></a></li> 
+		</ul>
+    
+	    <div id="tab1"> 
+	        <fieldset class="column-left"> 
+	            <?php echo $form->isp_id->render() ?>
+	            <?php echo $form->type_id->render() ?>
+	            <?php echo $form->name->render() ?>
+	            <?php echo $form->ip->render()?>
+	        </fieldset>
+	        <fieldset> 
+	            <?php echo $form->netmask->render()?>
+	            <?php echo $form->host->render()?>
+	            <?php echo $form->domain->render()?>
+	            <?php echo $form->status_id->render()?>
+	        </fieldset>
+	    </div>
+    
+	    <div class="ui-tabs-hide" id="tab2"> 
+	    	<?php echo $form->attributes->render() ?>
+	    </div>
+    
+	    <div class="ui-tabs-hide" id="tab3"> 
+	    	<?php echo $form->description->render() ?>
+	    </div>
+   		<?php echo $form->server_id->render()?>
+	</div>
+</form>
+
+</div>

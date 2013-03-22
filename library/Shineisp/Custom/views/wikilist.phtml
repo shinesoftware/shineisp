@@ -1,0 +1,7 @@
+<?php $items = $this->wiki; ?>
+
+<ul class='columnNavigation'>
+	<?php foreach ($items as $item): ?>
+		<li><a href="/wiki/<?php echo $item['uri']?>.html"><?php echo $item['subject'] ?></a></li>	
+	<?php endforeach;?>
+</ul>

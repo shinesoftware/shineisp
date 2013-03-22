@@ -1,0 +1,8 @@
+.help{
+	background-color: #eee;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+.help ul li{
+	list-style: disc inside none;
+}

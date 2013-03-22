@@ -1,0 +1,235 @@
+Isp:
+  Isp_1:
+    company: ShineISP
+    vatnumber: IT01234567890
+    manager: 'John Doe'
+    address: '17 rue Biot'
+    zip: '75017'
+    city: Paris
+    country: France
+    telephone: '+334097123985'
+    fax: '+334097123985'
+    bankname: IWSmile
+    iban: IT28G0316501600000708754625
+    bic: IWBKITXX
+    website: 'http://www.shineisp.com'
+    email: info@shineisp.com
+    password: e807f1fcf82d132f9bb018ca6738a19f
+    isppanel: IspConfig
+    logo: logo.png
+    slogan: 'This is my slogan!'
+    active: '1'
+
+Taxes:
+  Taxes_1:
+    name: VAT
+    percentage: '21'
+    
+FilesCategories:
+  FilesCategories_1:
+    name: applicationforms
+  FilesCategories_2:
+    name: quote
+  FilesCategories_3:
+    name: documents
+
+InvoicesSettings:
+  InvoicesSettings_1:
+    year: '2013'
+    next_number: '1'
+
+WikiCategories:
+  WikiCategories_1:
+    category: Generic
+    public: true
+  WikiCategories_2:
+    category: Hosting
+    public: true
+  WikiCategories_3:
+    category: Domains
+    public: true
+  WikiCategories_4:
+    category: How-to
+    public: true
+    
+Banks:
+  Banks_1:
+    name: IWSmile
+    description: "<p><strong>Carta di Credito</strong></p>\r\n<p>Paga adesso con <strong>IWSmile</strong> un servizio <strong>veloce</strong> e <strong>sicuro</strong> che ti permette di  effettuare tutti i pagamenti che desideri con le carte di credito pi&ugrave;  conosciute.<strong> IWSMILE</strong> &egrave; l'innovativo conto di moneta elettronica estremamente<strong> comodo</strong> e <strong>facile</strong> da usare. Fai click nel bottone qui di seguito per effettuare il tuo  pagamento con carta di credito direttamente nel sito della banca.</p>\r\n<p>Paga con:</p>\r\n<p><img style=\"margin: 5px;\" src=\"https://checkout.iwsmile.it/Pagamenti/images/circuiti_carte_credito.gif\" alt=\"paga con la tua carta di credito\" width=\"132\" height=\"24\" /></p>\r\n<p>Fai click nel seguente pulsante:</p>"
+    classname: Shineisp_Banks_IWBank_Gateway
+    account: '700000001'
+    url_test: 'https://testcheckout.iwsmile.it/Pagamenti/'
+    url_official: 'https://checkout.iwsmile.it/Pagamenti/'
+    test_mode: '1'
+    PaymentsMethods: PaymentsMethods_1
+    enabled: '1'
+  Banks_2:
+    name: Paypal
+    description: "<p>Effettua il tuo pagamento con Paypal.</p>\r\n<p>Paga con:</p>\r\n<p><img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/en_US/i/logo/logo_ccVisa.gif\" border=\"0\" alt=\"Visa\" /> <img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/en_US/i/logo/logo_ccMC.gif\" border=\"0\" alt=\"MasterCard\" /> <img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/en_US/IT/i/logo/logo_PrepaidPayPalMC_37x23.gif\" border=\"0\" alt=\"Carta prepagata PayPal\" /> <img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/it_IT/i/logo/logo_ccPostepay.gif\" border=\"0\" alt=\"Postepay\" /> <img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/en_US/i/logo/logo_ccAmex.gif\" border=\"0\" alt=\"American Express\" /> <img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/it_IT/IT/i/logo/logo_ccAurora_37wx23h.gif\" border=\"0\" alt=\"Carta Aura\" /> <img src=\"http://www.paypalobjects.com/WEBSCR-640-20110520-1/it_IT/IT/Marketing/i/logo/logo_topup_37x23.gif\" border=\"0\" alt=\"Ricarica PayPal\" /></p>\r\n<p>Fai click nel seguente pulsante:</p>"
+    classname: Shineisp_Banks_Paypal_Gateway
+    account: info@shinesoftware.com
+    url_test: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+    url_official: 'https://www.paypal.com/cgi-bin/webscr'
+    test_mode: '0'
+    PaymentsMethods: PaymentsMethods_1
+    enabled: '0'
+  Banks_3:
+    name: 'Bank Transfer'
+    description: "<p><strong>Shine Software</strong><br /><strong>IBAN: </strong>IT39P0316501600000071001251<br /><strong>c/c: </strong>701001251 <br /><strong>BIC: </strong>IWBKITMM</p>\r\n<p>Effettua il tuo pagamento adesso via bonifico bancario ed invia <strong>copia dell'avvenuto bonifico</strong> a customers@shinesoftware.com per agevolarne la pratica. I servizi e/o prodotti richiesti verranno erogati alla ricezione del pagamento.</p>"
+    classname: Shineisp_Banks_BankTransfer_Gateway
+    account: ''
+    url_test: ''
+    url_official: ''
+    test_mode: '1'
+    PaymentsMethods: PaymentsMethods_2
+    enabled: '1'
+
+Registrars:
+  Registrars_1:
+    name: Ovh
+    wsdl: 'http://www.ovh.com/soapi/soapi-re-1.29.wsdl'
+    class: Shineisp_Api_Registrars_Ovh
+    username: TEST-OVH
+    password: test
+    testmode: '1'
+    credit: {  }
+    lastupdate: '2012-03-19 11:21:57'
+    active: '1'
+
+PaymentsMethods:
+  PaymentsMethods_1:
+    method: 'Credit Card'
+  PaymentsMethods_2:
+    method: 'Bank Transfer'
+  PaymentsMethods_3:
+    method: 'Bank Transfer: RI.BA.'
+  PaymentsMethods_4:
+    method: 'Debit Card'
+  PaymentsMethods_5:
+    method: 'Money (Banknote)'
+
+Languages:
+  Languages_1:
+    language: English
+    locale: en_US
+    base: true
+    active: true
+  Languages_2:
+    language: Italiano
+    locale: it_IT
+    base: false
+    active: true
+
+Taxes:
+  Taxes_1:
+    name: IVA
+    percentage: '21'
+
+Legalforms:
+  Legalforms_1:
+    name: Individual
+  Legalforms_2:
+    name: Corporation
+  Legalforms_3:
+    name: Association
+  Legalforms_4:
+    name: Other
+
+CustomersGroups:
+    CustomersGroups_1:
+        name: Not logged in
+    CustomersGroups_2:
+        name: General
+    CustomersGroups_3:
+        name: Reseller
+    CustomersGroups_4:
+        name: Wholesale
+
+Dns_Zones_Types:
+  Dns_Zones_Types_1:
+    zone: A
+  Dns_Zones_Types_2:
+    zone: 'MX 1'
+  Dns_Zones_Types_3:
+    zone: CNAME
+  Dns_Zones_Types_4:
+    zone: NS
+    
+CompanyTypes:
+  CompanyTypes_1:
+    name: S.p.A.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_2:
+    name: S.r.l.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_3:
+    name: s.n.c.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_4:
+    name: s.a.s.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_5:
+    name: s.c.a.r.l.
+    legalform_id: '2'
+    active: '1'
+    
+Servers_Types:
+  Servers_Types_1:
+    type: 'Web Server'
+  Servers_Types_2:
+    type: 'Mail Server'
+  Servers_Types_3:
+    type: 'Database Server'
+  Servers_Types_4:
+    type: 'DNS Server'
+
+ContactsTypes:
+  ContactsTypes_1:
+    name: Telephone
+    enabled: '1'
+  ContactsTypes_2:
+    name: Skype
+    enabled: '1'
+  ContactsTypes_3:
+    name: Email
+    enabled: '1'
+  ContactsTypes_4:
+    name: Mobile
+    enabled: '1'
+        
+BillingCycle:
+  BillingCycle_1:
+    name: '1 Month'
+    months: '1'
+    domain: false
+    enabled: true
+  BillingCycle_2:
+    name: '6 Months'
+    months: '6'
+    domain: false
+    enabled: true
+  BillingCycle_3:
+    name: '12 Months'
+    months: '12'
+    domain: true
+    enabled: true
+  BillingCycle_4:
+    name: '24 Months'
+    months: '24'
+    domain: true
+    enabled: true
+  BillingCycle_5:
+    name: 'No expiring'
+    months: '0'
+    domain: false
+    enabled: true
+    
+TicketsCategories:
+  TicketsCategories_1:
+    category: Hosting
+  TicketsCategories_2:
+    category: Domains            

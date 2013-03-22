@@ -1,0 +1,74 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form class="multiple_select_form" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a href="#tab2"><?=$this->translate('Domains');?></a></li> 
+			<li><a href="#tab3"><?=$this->translate('Isp Panel');?></a></li> 
+		</ul>
+
+	    <div id="tab1"> 
+		    <fieldset class="column-left"> 
+		        <?php echo $form->product_id->render() ?>
+		        <?php echo $form->quantity->render() ?>
+		        <?php echo $form->price->render() ?>
+		        <?php echo $form->date_start->render() ?>
+		        <?php echo $form->date_end->render() ?>
+		        <?php echo $form->billing_cycle_id->render() ?>
+		        <?php echo $form->status_id->render() ?>
+		        <?php echo $form->autorenew->render() ?>
+		    </fieldset>
+		    <fieldset class="column-right"> 
+		    	<?php echo $form->cost->render() ?>
+		        <?php echo $form->setupfee->render() ?>
+		        <?php echo $form->description->render() ?>
+		    </fieldset>
+		    <div class="clear"></div>
+	    </div>
+	    
+	    <div class="ui-tabs-hide" id="tab2">
+	    	<?php echo $form->domains->render()?>
+            <a id="add_items" class="button"><?= $this->translate('Add')?></a> <a id="remove_items" class="button"><?= $this->translate('Remove')?></a>
+            <?php echo $form->domains_selected->render()?>
+	    </div>
+	    
+	    <div class="ui-tabs-hide" id="tab3">
+	    <?php echo $form->parameters->render() ?>
+			<?php if((Statuses::id("complete", "orders") != $form->status_id->getValue()) && $this->isHosting ): // is not complete?>
+				<a class="button" href="/admin/ordersitems/updateconf/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Update Configuration') ?></a>
+			<?php endif; ?>
+			
+			<?php if($this->isHosting ): // is hosting?>
+				<a class="button" href="/admin/ordersitems/do/execute/fullProfile/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Create Full Profile') ?></a>
+				<a class="button" href="/admin/ordersitems/do/execute/createClient/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Create Client') ?></a>
+				<a class="button" href="/admin/ordersitems/do/execute/createWebsite/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Create Website') ?></a>
+				<a class="button" href="/admin/ordersitems/do/execute/createDatabase/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Create Database') ?></a>
+				<a class="button" href="/admin/ordersitems/do/execute/createMail/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Create eMail') ?></a>
+			<?php endif; ?>
+	    </div>
+	    
+	   	<?php echo $form->detail_id->render()?>
+   	</div>
+</form>
+</div>

@@ -1,0 +1,163 @@
+<?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
+    <div class="notification attention"><?=$this->translate('The search view is active.')?> 
+    <a href="/<?= $this->controller ?>/reset"><?=$this->translate('Click here to reset the results.')?></a> </div>
+<?php endif; ?>
+   
+<?php if(!empty($this->mex)) :?>
+    <div class="notification <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+<?php endif;?>
+
+<?php 
+if (isset($this->records[0])):
+    // Get all the items inside a multidimensional array
+    $items = Shineisp_Commons_Utilities::array_flatten($this->records[0]);
+    // Get all the fields
+    $fields = array_keys($items);
+    
+    // Counting the field
+    $numcols = count($fields);
+    
+?>
+        <div class="notification infos" id="mex" style="display:none"></div>
+        
+        <table border="0" cellpadding="5" class="simplegrid zebratable" id="itemlist">
+           <caption>
+            </caption>
+            <thead>
+                <tr>
+                   <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><th><input type="checkbox" class="selectall" value=""></th><?php endif;?>
+                   <th><?=$this->translate("Domain")?> <a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/domain,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a><a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/domain,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a></th>
+                   <th><?=$this->translate("Expiring Date")?> <a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/endingdate,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a><a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/endingdate,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a></th>
+                   <th><?=$this->translate("Days")?> <a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/days,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a><a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/days,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a></th>
+                   <th><?=$this->translate("Status")?> <a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/status,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a><a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/status,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a></th>
+                   <th><?=$this->translate("Renew")?> <a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/renew,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a><a href="/default/domains/list/page/<?=$this->currentpage;?>/sort/renew,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a></th>
+                    <th><?=$this->translate('Commands');?></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                 <?php foreach ( $this->records as $record ) : ?>
+                 <?php 
+	                 if($record["days"] >= 0 && $record["days"] <= 7){
+	                    $style = "nextexpiration";
+	                 }else{
+	                 	$style = ""; 
+	                 }
+                 ?>
+                   <tr>
+                        <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?>
+                         <td>
+                             <input type="checkbox" name="item[]" value="<?php echo $record[$this->fields[0]] ?>">
+                         </td>
+                        <?php endif;?>
+                        
+                        <td class="values <?php echo $style ?>"><?php echo $record['domain']?></td>
+                        <td class="values <?php echo $style ?>"><?php echo $record['endingdate']?></td>
+                        <td class="values <?php echo $style ?>"><?php echo $record['days']?></td>
+                        <td class="values <?php echo $style ?>"><?php echo $this->translate($record['status']); ?></td>
+                        
+                        <?php // Show if the domain has been set with the renew or not?>
+                        <?php if($record['renew'] == "1"):?>
+                            <td class="values <?php echo $style ?>"><img src="<?=$this->paths('skin')?>/images/commons/yes.png"/ title="<?php echo $this->translate('Yes') ?>"></td>
+                        <?php else:?>
+                            <td class="values <?php echo $style ?>"><img src="<?=$this->paths('skin')?>/images/commons/no.png"/ title="<?php echo $this->translate('No') ?>"></td>    
+                        <?php endif;?>
+                        
+	                   <td><a href="/default/domains/edit/id/<?=$record['domain_id']?>"><img alt="<?= $this->translate('Edit') ?>" src="<?=$this->paths('skin')?>/images/commons/pencil.png" border="0"></a> </td>
+                   </tr>
+                <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="panelwrap" colspan="<?=$numcols+1?>">
+
+                        <div id="panel">
+                            <?php if($this->filters):?>
+                               <div class="filters">
+                               <b><?=$this->translate('Filters');?>:</b> 
+                               <select name="filter" id="filter">
+                                    <option value=""><?=$this->translate('Show All');?></option>
+                                        <?php foreach ( $this->filters as $id=>$status ) : ?>
+                                            <option value="<?=$id?>"><?=$this->translate($status);?></option>
+                                        <?php endforeach;?>
+                                </select>
+                                <input type="button" class="littlebutton" rel="<?= $this->controller ?>" id="filterbtn" value="<?=$this->translate('Execute');?>">
+                                </div> 
+                            <?php endif;?> 
+                            <div class="filters">
+                                <ul>
+                                 <?php if($this->statuses):?>
+                                         <li>
+                                              <b><?=$this->translate('Statuses');?>:</b>
+                                              <ul>
+                                              <?php foreach ( $this->statuses as $id=>$status ) : ?>
+                                                  <li><input name="d.status_id" type="checkbox" value="<?=$id?>"/> <?=$this->translate($status);?></li>
+                                              <?php endforeach;?>
+                                              </ul>
+                                          </li> 
+                                  <?php endif;?>
+                                </ul>
+                            </div>
+                            <div class="filters">
+                                <ul>
+                                 <?php if($this->tags):?>
+                                         <li>
+                                              <b><?=$this->translate('Tags');?>:</b>
+                                              <ul>
+                                              <?php foreach ( $this->tags as $id=>$tag ) : ?>
+                                                  <li><input name="t.tag_id" type="checkbox" value="<?=$id?>"/> <?=$this->translate($tag);?></li>
+                                              <?php endforeach;?>
+                                              </ul>
+                                          </li> 
+                                  <?php endif;?>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <p align="right"><input type="button" rel="<?= $this->controller ?>" id="filters" value="<?=$this->translate('Execute');?>"></p>
+                        </div>  
+                        <div class="toolbar">  
+                            <p class="slide"><span class="btn-slide" href="#"><?=$this->translate('Filters');?></span></p>
+                        </div>                        
+                    </td>
+                </tr>            
+                <tr>
+                   <td colspan="<?=$numcols+1?>"> 
+                       <div class="bulktools">
+                           <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?>
+                               <b><?=$this->translate('Actions');?>:</b> 
+                               <select name="actions" id="actions">
+                                   <option value=""><?=$this->translate('Select ...');?></option>
+                                   <?php if($this->customactions):?>
+                                       <optgroup label="<?=$this->translate('Actions');?>">
+                                       <?php foreach ( $this->customactions as $name=>$action ) : ?>
+                                           <option value="<?=$name;?>"><?=$this->translate($action);?></option>
+                                       <?php endforeach;?>
+                                       </optgroup>
+                                   <?php endif; ?>
+                               </select>
+                               <input type="button" rel="domains" id="bulkactions" value="<?=$this->translate('Execute');?>"><br />
+                               <?=$this->translate('Select the items and then use the bulk action system to set more than one item.');?>
+                            <?php endif; ?> 
+                       </div>
+                       <div class="pagingtools">
+                           <?=$this->translate('Records');?>: <?=$this->recordcount?> - 
+                            <?=$this->translate('Records per page');?>: 
+                            <a href="/default/domains/recordsperpage/id/5">5</a>
+                            <a href="/default/domains/recordsperpage/id/15">15</a>
+                            <a href="/default/domains/recordsperpage/id/30">30</a>
+                            <a href="/default/domains/recordsperpage/id/50">50</a>
+                            <a href="/default/domains/recordsperpage/id/100">100</a>
+                            <a href="/default/domains/recordsperpage/id/all"><?=$this->translate('Show All');?></a>
+                       </div>
+                   </td>
+                </tr>
+                <tr>
+                   <td colspan="<?=$numcols+1?>">
+                        <div class="pagination"><?=$this->pagination; ?></div>
+                   </td>
+                </tr>
+            </tfoot>
+        </table>
+    <?php else: ?>
+    <div class="notification infos"><?=$this->translate('No Records')?></div>
+<?php endif; ?>

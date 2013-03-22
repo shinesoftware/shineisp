@@ -1,0 +1,16 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+	<?php if(!empty($this->help)): ?>
+		<div class="help"><?php echo $this->help ?></div>
+	<?php endif;?>
+	
+	<?php if(!empty($this->form)): ?>
+		<form id="settings" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+			<?php echo $form->render();?>
+		</form>
+	<?php endif;?>
+</div>

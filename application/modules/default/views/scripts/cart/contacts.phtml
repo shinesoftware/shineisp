@@ -1,0 +1,77 @@
+<h2><?php echo $this->translate('Sign Up') ?></h2>
+<p><?php echo $this->translate('Please %s or fill the applicant form below.', '<a href="/customer/login">' . $this->translate('login') . '</a>')?></p>
+<br/>
+
+<?php $form = $this->form; ?>
+<? if( $form->isErrors() ): ?>
+	<h4><?php echo $this->translate('We have found some errors')?>:</h4>
+    <div class="messages">    
+       <? foreach( $form->getElements() as $field){
+             $errors = array();
+             if($field->hasErrors()){
+                foreach( $field->getErrors() as $error){
+                    $errors[] = $this->translate($error);
+                }
+                echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+            }   
+        } ?>
+    </div>    
+<? endif; ?>
+
+    <form method="<?php echo $form->getMethod() ?>" id="contacts" action="<?php echo $form->getAction()?>">
+            <div class="panel"> 
+                <h4><?php echo $this->translate('General')?></h4>
+                <div class="column-left">
+	                <?php echo $form->firstname->render() ?>
+                <?php echo $form->lastname->render()?>
+                <?php echo $form->email->render()?>
+                <?php echo $form->password->render()?>
+                </div>
+            
+                <div class="column-right">
+                	<?php echo $form->legalform->render()?>
+                    <?php echo $form->company_type_id->render()?>
+                    
+                	<?php echo $form->company->render()?>
+                    <?php echo $form->vat->render()?>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+        	<?php if($this->hasdomain): ?>
+            <div class="panel">
+                <h4><?php echo $this->translate('Personal data')?></h4>
+                <div><small><?php echo $this->translate('Your personal data are mandatories to register or transfer a domain name.')?></small></div>
+                <div class="column-left">
+	                <?php echo $form->birthdate->render()?>
+                <?php echo $form->birthplace->render()?>
+                <?php echo $form->birthdistrict->render()?>
+                <?php echo $form->birthcountry->render()?>
+                <?php echo $form->birthnationality->render()?>
+            </div>
+                <div class="column-right">
+                <?php echo $form->sex->render()?>
+                <?php echo $form->taxpayernumber->render()?>
+	            </div> 
+	            <div class="clear"></div>
+            </div>
+            <?php endif; ?>
+            
+            
+            <div class="panel">
+                <h4><?php echo $this->translate('Address')?></h4>
+                <?php echo $form->address->render()?>
+                <?php echo $form->code->render()?>
+                <?php echo $form->city->render()?>
+                <?php echo $form->area->render()?>
+                <?php echo $form->country_id->render()?>
+            </div>
+            
+           <div class="panel">
+                <h4><?php echo $this->translate('Contacts')?></h4>
+                 <?php echo $form->telephone->render()?>
+           </div>
+           <br/>
+	      <?php echo $form->submit->render()?> 
+      <?php echo $form->customer_id->render()?>
+    </form>

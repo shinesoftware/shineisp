@@ -1,0 +1,8 @@
+<div id="payment_methods" class="">
+    <h2><?php echo $this->translate('Payment Methods')?></h2>
+    <ul>
+        <?php foreach($this->items as $item): ?>
+        <li class="creditcard"><?php echo $this->translate($item['name'])?></li>
+        <?php endforeach;?>
+    </ul>
+</div>

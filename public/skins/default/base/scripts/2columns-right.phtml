@@ -1,0 +1,39 @@
+<?= $this->render('includes/header.phtml') ?>
+
+	<?=$this->blocks()->showblock('startbody');?>
+    <div id="container">
+
+        <?= $this->render('includes/top.phtml') ?>
+        <?= $this->render('includes/content-header.phtml') ?>
+		
+        <?=$this->blocks()->showblock('beforecontent');?>
+        <div id="content">
+            <div class="outerShadow"></div>
+			<div class="innerShadow"></div>
+			<div class="center">
+            	<div class="clearfix"></div>
+            	<div class="column large">
+	                <?=$this->blocks()->showblock('contentstart');?>
+	                <?=$this->layout()->content ?>
+	                <?=$this->blocks()->showblock('contentend');?>
+                </div>
+                <div class="column small last">
+                    <?=$this->blocks()->showblock('right');?>
+                </div> 
+           		<div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <?=$this->blocks()->showblock('beforefooter');?>
+        <div id="footer">
+        	<div class=" center clearfix">
+	            <?=$this->footer();?>
+	            <?=$this->blocks()->showblock('footer');?>
+	        </div>
+        </div><!-- End #footer -->
+        <?=$this->blocks()->showblock('endfooter');?>
+    </div>	<!-- End #main-container -->
+        
+    <?=$this->blocks()->showblock('endbody');?>
+
+<?= $this->render('includes/footer.phtml') ?>

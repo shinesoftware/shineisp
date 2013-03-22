@@ -1,0 +1,127 @@
+<div id="dashboard">
+
+	<div class="portlets">
+
+		<div class="column column-large" id="col0">
+			<?= $this->summary()?>
+		</div>
+		
+		<div class="column column-fixed column-large" id="col1">
+			<div class="portlet" id="processing_order">
+		        <?php 
+			        // Open, Processing and Waiting Reply tickets
+	        		$statuses = array(Statuses::id("processing", "orders"), Statuses::id("pending", "orders"));
+		        ?>
+				<?php echo $this->widget(Orders::Last($statuses), "Processing Orders", "orders")?>
+			</div>
+			
+			<div class="portlet" id="new_orders">
+		        <?php 
+			        // Open, Processing and Waiting Reply tickets
+	        		$statuses = array(Statuses::id("tobepaid", "orders"));
+		        ?>
+				<?php echo $this->widget(Orders::Last($statuses), "New Orders", "orders")?>
+			</div>
+			
+			<div class="portlet" id="last_tickets">
+				<?php echo $this->widget(Tickets::Last(null, 5), "Last Tickets", "tickets", array('ticket_id'))?>
+			</div>
+			
+			
+			<div class="portlet" id="last_domain_tasks">
+				<?php echo $this->widget(DomainsTasks::Last(), "Last Domain Tasks", "domainstasks", array('task_id'))?>
+			</div>
+			
+			<div class="portlet" id="last_panel_tasks">
+				<?php echo $this->widget(PanelsActions::Last(), "Last Panel Tasks", "panelsactions", array('action_id'))?>
+			</div>
+			
+			<div class="portlet" id="expiring_services">
+				<?php 
+					$ProductAttributesGroups[] = 3; // Generic Hosting
+					$ProductAttributesGroups[] = 9; // Magento Hosting
+					$fields = "oi.detail_id, CONCAT(c.lastname, ' ', c.firstname) as customer, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as ending, oi.description as description, CONCAT(d.domain, '.' ,ws.tld) as domain, autorenew as renew";
+					echo $this->widget(OrdersItems::getAllRecurringServices($fields, $ProductAttributesGroups), "Active Hosting Services", "services", array('orderitems_id'))
+				?>
+			</div>
+			
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="column column-floated column-medium" id="col2">
+			
+	        <div class="portlet" id="expiring_domain">
+				<?php echo $this->widget(Domains::getExpiringDomains(null, 7, -1, 5), "Expiring Domains", "domains", array('domain_id'))?>
+			</div>
+			
+			<div class="portlet" id="customers_parade">
+				<?php echo $this->widget(Customers::Hitparade(), "Customer Hit Parade", "customers", array('customer_id'))?>
+			</div>
+	        
+			<div class="portlet" id="customer_summary">
+				<?php echo $this->widget(Customers::summary(), "Customers Summary", "customers")?>
+			</div>
+			<div class="portlet" id="notes">
+				<?php echo $this->widget(Notes::summary($this->user['user_id']), "Notes", "notes")?>
+			</div>
+		</div>
+	
+		<div class="column column-floated column-medium" id="col3">
+			<div class="portlet" id="ticket_summary">
+				<?php echo $this->widget(Tickets::summary(), "Tickets Summary", "tickets")?>
+			</div>
+	        
+			<div class="portlet" id="summary_domains">
+				<?php echo $this->widget(Domains::summary(), "Domains Summary", "domains")?>
+			</div>
+	        
+			<div class="portlet" id="product_reviews">
+				<?php echo $this->widget(Reviews::summary(), "Product Reviews Summary", "reviews")?>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="column column-floated column-little" id="col4">
+			<div class="portlet" id="googleanalytics_yesterday">
+				<?php 
+						
+					$startdate = date('Y-m-d');
+					$startdate = strtotime ( '-1 day' , strtotime ( $startdate ) ) ;
+					$startdate = date ( 'Y-m-d' , $startdate );
+					
+					echo $this->widget(Shineisp_Api_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), "Google Analytics (yesterday)");
+					
+				?>
+			</div>
+		</div>
+        <div class="column column-floated column-little" id="col5">
+        	<div class="portlet" id="googleanalytics_last30days">
+				<?php 
+					
+					$startdate = date('Y-m-d');
+					$startdate = strtotime ( '-1 month' , strtotime ( $startdate ) ) ;
+					$startdate = date ( 'Y-m-d' , $startdate );
+					
+					echo $this->widget(Shineisp_Api_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), "Google Analytics (last 30 days)");
+					
+				?>
+			</div>
+        </div>
+		<div class="column column-floated column-little" id="col6">
+			<div class="portlet" id="googleanalytics_lastyear">
+				<?php 
+						
+					$startdate = date('Y-m-d');
+					$startdate = strtotime ( '-1 year' , strtotime ( $startdate ) ) ;
+					$startdate = date ( 'Y-m-d' , $startdate );
+					
+					echo $this->widget(Shineisp_Api_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), "Google Analytics (last year)");
+				?>
+			</div>
+		</div>
+    </div>      
+                                 
+</div> 
+<div class="clear"></div>

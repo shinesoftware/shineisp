@@ -1,0 +1,9 @@
+<div id="domainchecker">
+    <div class="checkerform">
+	    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
+			<?php echo $this->form->name->setDecorators(array('Simple'));?>
+			<?php echo $this->form->tld->setDecorators(array('Simple'));?>
+			<?php echo $this->form->check->setDecorators(array('Simple'));?>
+	    </form>
+    </div>
+</div>

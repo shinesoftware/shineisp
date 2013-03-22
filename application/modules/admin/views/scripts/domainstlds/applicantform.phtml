@@ -1,0 +1,60 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+    
+	<? if( $form->isErrors() ): ?>
+		<div class="messages">    
+		   <? foreach( $form->getElements() as $field){
+		         $errors = array();
+		   	     if($field->hasErrors()){
+		        	foreach( $field->getErrors() as $error){
+		        		$errors[] = $this->translate($error);
+		        	}
+		            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+		        }   
+		    } ?>
+		</div>    
+	<? endif; ?>
+	
+	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+		
+		<div id="tabs">
+			<ul>
+				<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+				<li><a href="#tab2"><?=$this->translate('Content');?></a></li> 
+				<li><a href="#tab3"><?=$this->translate('Prices');?></a></li> 
+				<li><a href="#tab4"><?=$this->translate('Costs');?></a></li> 
+			</ul>
+	    
+		    <div id="tab1"> 
+		    	<?php echo $form->registrars_id->render()?>
+	            <?php echo $form->server_id->render()?>
+		        <?php echo $form->tags->render()?>
+		        <?php echo $form->ishighlighted->render()?>
+		    </div>
+		    
+		    <div class="ui-tabs-hide" id="tab2">
+		    	<?php echo $form->name->render()?>
+	            <?php echo $form->description->render()?>
+		    </div>
+		    
+		    <div class="ui-tabs-hide" id="tab3">
+		    	<?php echo $form->tax_id->render()?>
+	            <?php echo $form->registration_price->render()?>
+	            <?php echo $form->renewal_price->render()?>
+	            <?php echo $form->transfer_price->render()?>
+		    </div>
+		    
+		    <div class="ui-tabs-hide" id="tab4">
+	            <?php echo $form->registration_cost->render()?>
+	            <?php echo $form->renewal_cost->render()?>
+	            <?php echo $form->transfer_cost->render()?>
+		    </div>
+		   <?php echo $form->tld_id->render()?>
+		</div>
+	</form>
+
+</div>

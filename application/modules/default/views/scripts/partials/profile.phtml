@@ -1,0 +1,24 @@
+<ul class="dropdown">
+<?php if($this->userlogged):?>
+     <li>
+         <a class="removeqtip" href="/dashboard" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+D')?>" accesskey="D" ><?=$this->translate('Dashboard') ?></a>
+         <ul class="subnav">
+         	<?php foreach ($this->menu as $item): ?>
+         		<li class="item"><a href="<?php echo $item['uri'] ?>"><?php echo $this->translate($item['label']) ?></a></li>
+         	<?php endforeach;?>
+         	<li><a class="removeqtip" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+P')?>" accesskey="P" href="/profile/"><?=$this->translate('Profile') ?></a></li> 
+         </ul>
+     </li>
+     <li>
+         <a class="removeqtip" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+O')?>" accesskey="O" class="tooltip" href="/index/out">
+            <?=$this->translate('Logout') ?>
+         </a>
+     </li>        
+<?php else: ?>
+        <li>
+             <a class="removeqtip" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+I')?>" accesskey="I" href="/customer/login">
+                <?=$this->translate('Sign in') ?>
+             </a>
+         </li>
+<?php endif; ?>
+</ul>

@@ -1,0 +1,59 @@
+<?= $this->render('includes/header.phtml') ?>
+
+<body>
+	<div id="loading" style="z-index: 10500; display: none;"><?php echo $this->translate('Please wait a moment...')?></div>
+	<?=$this->blocks()->showblock('admin_startbody');?> 	
+	
+	<div id="main" class="abs">
+		<div class="abs header_upper chrome_light">
+			<span class="float_left button" id="button_navigation">
+				Navigation
+			</span>
+			<?= $this->profile();?>	
+		</div>
+		<div class="abs header_lower chrome_light">
+			<div class="breadcrumbs float_left"><?= $this->breadCrumb();?></div>
+		</div>
+		
+		<div id="main_content" class="abs">
+			<div id="main_content_inner">
+				<?=$this->blocks()->showblock('admin_beforecontent');?> 	
+				
+				<?= $this->layout()->content ?> 
+				
+				<?=$this->blocks()->showblock('admin_endcontent');?> 	
+			</div>
+		</div>
+		<div class="abs footer_lower chrome_light">
+			<a href="https://twitter.com/#!/shine_software/" class="icon icon_bird float_right"></a>
+			<a href="http://www.shineisp.com">ShineISP for Ipad</a>
+		</div>
+	</div>
+	
+	<div id="sidebar" class="abs">
+		<span id="nav_arrow"></span>
+		<div class="abs header_upper chrome_light">
+			ShineISP
+		</div>
+		
+		<div class="abs header_lower chrome_light">
+			<?=$this->searchbox();?>
+		</div>
+			
+		<div id="sidebar_content" class="abs">
+			<div id="sidebar_content_inner">
+				<?=$this->blocks()->showblock('admin_startsidebar');?> 	
+				<?=$this->menu();?>
+				<?=$this->blocks()->showblock('admin_endsidebar');?> 
+			</div>
+		</div>
+		<div class="abs footer_lower chrome_light">
+			<a href="/admin/settings" class="icon icon_gear2 float_left"></a>
+			<span class="float_right gutter_right"><?= $this->languageswitcher();?></span>
+		</div>
+	</div>
+	
+	<?=$this->blocks()->showblock('admin_endbody');?> 	
+</body>
+
+<?= $this->render('includes/footer.phtml') ?>

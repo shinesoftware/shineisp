@@ -1,0 +1,46 @@
+<?php $tld = $this->tld; ?>
+<?php $taxes = Taxes::getTaxbyTldID($tld['tld_id'])?>
+
+<div class="tld-container">
+
+	<h1><?php echo $this->translate('Domain') . " ." . $tld['DomainsTldsData'][0]['name'] ?></h1>	
+	<p><b><?php echo $this->translate('Tags') ?></b>: <?php echo $tld['DomainsTldsData'][0]['tags'] ?></p>	
+	<br/>
+	<?php echo $tld['DomainsTldsData'][0]['description'] ?>
+	
+	<div class="tld-box">
+		<table id="tldstable">
+			<tr>
+				<td><?php echo $this->translate('Registration price') ?></td>
+				<td><?php echo $this->currency($tld['registration_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)</td>
+			</tr>
+			<tr>
+				<td><?php echo $this->translate('Transfer price') ?></td>
+				<td><?php echo $this->currency($tld['transfer_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)</td>
+			</tr>
+			<tr>
+				<td><?php echo $this->translate('Renewal price')?></td>
+				<td>
+					<?php echo $this->currency($tld['renewal_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<h2><?php echo $this->translate('Domain Checker') ?></h2>
+	<div id="domainchecker" title="<?php echo $this->translate('Choose your new domain name!')?>">
+	    <div class="checkerform">
+		    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
+				<?php echo $this->form->name->setDecorators(array('Simple'));?>
+				<?php echo $this->form->tld->setDecorators(array('Simple'));?>
+				<?php echo $this->form->check->setDecorators(array('Simple'));?>
+		    </form>
+	    </div>
+	</div>
+	
+	<h2><?php echo $this->translate('Other extensions') ?></h2>
+	<br/>
+	<?php foreach ($this->tldslist as $id=>$tld):?>
+		<a class="tldsitems" title="<?php echo $this->translate('Register your new .%s domain', $tld) ?>" href="/tlds/<?php echo $tld?>.html">.<?php echo $tld; ?></a>
+	<?php endforeach;?>
+</div>

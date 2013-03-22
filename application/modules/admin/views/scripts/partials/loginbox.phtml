@@ -1,0 +1,32 @@
+<?php if($this->loginform):?>
+       <?php if( $this->message ): ?>
+            <?php echo "<div class=\"notification error\">" . $this->message . "</div>"; ?>
+       <?php endif;?>
+       <? $form = $this->loginform; ?>
+            <div id="login-box">             
+            <h2>ShineISP</h2>
+            <small>a new way to manage the ISP.</small>
+            <br/><br/>
+            <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+                <fieldset class="login">
+                    <?php echo $form->email->render() ?>
+                    <?php echo $form->password->render() ?>
+                    <p align="right"><?php echo $form->login->setDecorators(array('Simple')) ?></p>
+                </fieldset>
+            </form>
+        </div>
+        <? if( $form->isErrors() ): ?>
+               <div class="messages">    
+                <? foreach( $form->getElements() as $field){
+                     $errors = array();
+                      if($field->hasErrors()){
+                         foreach( $field->getErrors() as $error){
+                            $errors[] = $this->translate($error);
+                         }
+                         echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+                      }   
+                  } ?>
+               </div>    
+            <? endif; ?>  
+<?php endif;?>
+

@@ -1,0 +1,41 @@
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="/resources/js/gmaputil.js"></script>
+<script type="text/javascript">
+  var infowindow;
+  var map;
+
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(41.8905198, 12.4942486);
+    var myOptions = {
+      zoom: 4,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    downloadUrl("/documents/reviews.xml", function(data) {
+      var markers = data.documentElement.getElementsByTagName("marker");
+      for (var i = 0; i < markers.length; i++) {
+        var latlng = new google.maps.LatLng(parseFloat(markers[i].getAttribute("lat")),
+                                    parseFloat(markers[i].getAttribute("lng")));
+        var marker = createMarker(markers[i].getElementsByTagName('text')[0].textContent, latlng);
+       }
+     });
+  }
+
+  function createMarker(name, latlng) {
+    var marker = new google.maps.Marker({position: latlng, map: map});
+    google.maps.event.addListener(marker, "click", function() {
+      if (infowindow) infowindow.close();
+      infowindow = new google.maps.InfoWindow({content: name});
+      infowindow.open(map, marker);
+    });
+    return marker;
+  }
+  
+  $(document).ready(function(){
+  	initialize();
+  });
+  
+</script>
+
+<div id="map_canvas" style="width:700px; height:500px"></div>

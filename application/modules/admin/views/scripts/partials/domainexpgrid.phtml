@@ -1,0 +1,11 @@
+<table id="domainexptbl" width="100%">
+<tbody>
+    <?php foreach ($this->data as $record): ?>
+    <tr>
+        <td><?php echo $record['expiring_date']?></td>
+        <td><a href="/domains/edit/id/<?php echo $record['domain_id']?>"><?php echo $record['domain']?></a></td>
+        <td><?php echo $record['daysleft']?></td>
+    </tr>
+    <?php endforeach; ?>
+</tbody>
+</table>

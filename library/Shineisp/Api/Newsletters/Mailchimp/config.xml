@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Main configuration of the Mailchimp module for ShineISP -->
+
+<config name="Mailchimp" var="MailChimp" version="1.0">
+
+    <settings>
+        <field var="key" label="API Key" type="text" description="MailChimp Api Key."/>
+        <field var="confirm" label="Send Confirmation Email" type="checkbox" description="An email will be send when a user is opted in by MailChimp system"/>
+    </settings>    
+
+</config>

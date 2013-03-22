@@ -1,0 +1,55 @@
+<?php 
+if (isset($this->records[0])):
+    // Get all the items inside a multidimensional array
+    $items = Shineisp_Commons_Utilities::array_flatten($this->records[0]);
+    
+    // Get all the fields
+	$fields = array_keys($items);
+	
+	// Counting the field
+	$numcols = count($fields);
+	
+	// Main index of the record
+	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
+	?>
+	
+	<table border="0" cellpadding="5" class="simplegrid data">
+	    <tbody>
+	        <?php // Creation of the Rows and Columns?>
+	        <?php foreach ( $this->records as $record ) : ?>
+	           <?php foreach ( $fields as $field ) : ?>
+		           <?php if(strpos($field, "_id")=== false):?>
+		            <?php
+		            // Manage the sub arrays created by the HYDRATE_ARRAY records fetching mode    
+		             Shineisp_Commons_Utilities::search(array($field), $record, $res);
+		             $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";?>
+		             <?php if(!empty($value)): ?>
+		                <tr>
+				            <td width="15%" class="fields"><?=$this->translate(ucfirst($field))?></td>
+			                <td class="values"><?=$value?></td>
+				        </tr>
+		              <?php endif;?>
+		           <?php endif;?>
+	           <?php endforeach;?>
+	        <?php endforeach;?>
+	        
+	        <?php // Edit Section available only for the administration functions ?>
+	        <?php if($this->editpage):?>
+	        <tr>
+	           <td><?=$this->translate('Commands'); ?></td>
+	           <td>
+	               <a class="button" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?=$this->translate('Click here to edit'); ?>"><?=$this->translate('Edit'); ?></a>
+	               <a class="button" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?=$this->translate('Delete'); ?>"><?=$this->translate('Delete'); ?></a>
+	           </td>
+	        </tr>
+	        <?php endif;?>
+	    </tbody>
+	    <tfoot>
+	       <tr>
+	           <td colspan="<?=$numcols?>"></td>
+	       </tr>
+	    </tfoot>
+	</table>
+	<?php else: ?>
+	<div class="notification infos"><?=$this->translate('norecords')?></div>
+<?php endif; ?>

@@ -1,0 +1,39 @@
+<div id="loginbox-wrapper">
+    <div id="login-content">
+	    <?php if($this->loginform):?>
+	        
+	        <? if( $this->message ): ?>
+	           <?php echo "<br><div class=\"notification error\">" . $this->message . "</div>"; ?>
+	        <?php endif;?>
+	        
+		    <? $form = $this->loginform; ?>
+		        <? if( $form->isErrors() ): ?>
+		            <div class="messages">    
+		               <? foreach( $form->getElements() as $field){
+		                     $errors = array();
+		                     if($field->hasErrors()){
+		                        foreach( $field->getErrors() as $error){
+		                            $errors[] = $this->translate($error);
+		                        }
+		                        echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" <br> ", $errors) . "</div>";
+		                    }   
+		                } ?>
+		            </div>    
+		        <? endif; ?>  
+		            <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+		                <fieldset class="login">
+		                    <legend><?=$this->translate('Login')?></legend>
+		                    <p><?=$this->translate('Sign in to get subscribed services.')?></p>
+		                    <p><?php echo $form->email->render() ?></p>
+		                    <p><?php echo $form->password->render() ?></p>
+		                    <p><?php echo $form->login->render() ?></p>
+		                    <p><a href="/index/password"><?php echo $this->translate('Forgot your password?'); ?></a></p>
+		                </fieldset>
+		            </form>
+	        <?php else: ?>
+	           <?=$this->profile()?>
+            <?php endif;?>
+    </div>
+</div>
+
+

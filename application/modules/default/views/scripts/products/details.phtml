@@ -1,0 +1,113 @@
+<?php $currency = Settings::findbyParam('currency'); ?>
+
+<?php $form = $this->form; ?>
+<? if( $form->isErrors() ): ?>
+    <div class="messages">    
+       <? foreach( $form->getElements() as $field){
+             $errors = array();
+             if($field->hasErrors()){
+                foreach( $field->getErrors() as $error){
+                    $errors[] = $this->translate($error);
+                }
+                echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+            }   
+        } ?>
+    </div>    
+<? endif; ?>
+
+<?=$this->blocks()->showblock('products_start');?>
+<form method="<?php echo $form->getMethod() ?>" id="contacts" action="<?php echo $form->getAction()?>">
+	<div class="product_wrapper">
+		
+		<div class="breadcrump">
+        	<?php echo $this->ProductCategories($this->product['categories']) ?>
+		</div> <!-- End .breadcrump -->
+		
+        <div class="product-head">
+       	    <h1><?php echo $this->product['name'] ?></h1>
+       	    
+       	    <p><a href="/products/addreview/id/<?php echo $this->product['product_id'] ?>"><?php echo $this->translate('Add your review') ?></a>
+       	    
+       	    <?php if($this->product['iscomparable'] && !empty($this->group['code'])): ?>
+            	| <a href="/compare/products/code/<?php echo $this->group['code'] ?>"><?php echo $this->translate('Compare') ?> <?php echo $this->group['name']?></a>
+            <?php endif; ?>
+            </p>
+        </div>	    
+	    
+
+	    <div id="product">
+	            <div class="product-images" id="product-images">
+	                <?php echo $this->media()->ProductImage($this->product['product_id'], 200, 200, true);?>
+	                
+	                <?php $price =  $this->prices; ?>
+	                <?php if($price['type'] == "multiple"): ?>
+		                <div class="sticker" style="display:none">
+		                   <small><?php echo $this->translate('just')?> </small>
+		                   <span id="priceval" class="priceval"><?php echo $this->product['price_1'] ?></span>
+		                   <em>x</em> <em id="pricefreq"></em>
+		                   <br/>
+		                   <span id="pricetaxval"></span> <?php echo $this->translate('VAT included')?>
+		                </div>
+	                <?php else: ?>
+	                 	<div class="sticker">
+		                   <small><?php echo $this->translate('just')?></small>
+		                   <span id="priceval" class="priceval"><?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency'))) ?></span>
+		                   <br/>
+		                   <span id="pricetaxval"><?php echo $price['taxincluded'] ?></span> <?php echo $this->translate('VAT included')?>
+		                </div>
+	                <?php endif;?>
+	                
+	             	<?php if(!empty($this->product['setupfee']) && $this->product['setupfee'] > 0): ?>
+	                    <div class="sticker">
+	                        <small><?php echo $this->translate('Setup fee') ?>: <?php echo $this->currency($this->product['setupfee'], array('currency' => Settings::findbyParam('currency')))?></small>
+	                     </div>
+                	<?php endif;?>	  
+                	<?=$this->blocks()->showblock('products_after_price');?>              
+	            </div>
+	            <div class="product-info">
+
+	                <div class="addtocart">
+	                    <?php $button = ($this->product['type'] == "hosting") ? $this->translate('Subscribe') : $this->translate('Add to cart') ?>
+	                    <?php echo $form->submit->render()?>
+	                </div>
+	                
+	                <?=$this->blocks()->showblock('products_before_shortdescription');?>
+	                <div class="shortdescription"><?php echo $this->product['shortdescription']?></div>
+	                <?=$this->blocks()->showblock('products_after_shortdescription');?>
+	                <?php echo $form->quantity->render()?>
+	                
+	                <?=$this->blocks()->showblock('products_before_keywords');?>
+	             	<?php if(!empty($this->product['metakeywords'])): ?>
+	                    <div class="keywords">
+	                        <?php echo $this->translate('Keywords') ?>: <?php echo $this->product['metakeywords']?>
+	                    </div>
+                	<?php endif;?>
+                	<?=$this->blocks()->showblock('products_after_keywords');?>
+                	
+	            </div> 	                
+                
+	            <div class="options">
+	                <?php foreach($form->getElements() as $option):?>
+	                   <?php if ($option->getType() != 'Zend_Form_Element_Submit' && $option->getName() != "quantity"): ?>
+	                       <?php echo $option->render()?><br/>
+	                   <?php endif; ?>
+	                <?php endforeach;?>
+	            </div>     
+	            
+	            <?=$this->blocks()->showblock('products_before_description');?>
+	            <div class="description"><?php echo $this->product['description']?></div> 
+	            <?=$this->blocks()->showblock('products_after_description');?>
+	            <br/><br/>
+	            
+	            <?=$this->blocks()->showblock('features');?>
+	            
+	            <div class="clear"></div>
+	    </div>
+	</div>
+	<?php echo $form->isrecurring->render()?>
+</form>
+
+
+<?php echo $this->reviews($this->reviewsdata)?>
+
+<?=$this->blocks()->showblock('products_end');?>

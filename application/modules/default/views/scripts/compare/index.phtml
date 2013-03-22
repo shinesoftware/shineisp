@@ -1,0 +1,46 @@
+<?php $attributes = $this->attributes ?>
+<?php $products = $this->products ?>
+<?php $values = $this->values ?>
+
+<?php if(!empty($attributes) && !empty($products)): ?>
+	
+	<div class="hosting-plans">
+	<?php foreach ($products as $product): ?>
+		<div class="column tiny">
+			<h1><?php echo !empty($product['ProductsData']['0']['nickname']) ? $product['ProductsData']['0']['nickname'] : "-"?><br><span><?php echo $product['ProductsAttributesGroups']['name']?></span></h1>
+			
+			<ul class="keyFeatures">
+				<?php foreach ($attributes as $attribute): ?>
+					<?php if($attribute['is_visible_on_front'] && $attribute['on_product_listing']): ?>
+						<?php foreach ($values as $attrvalue): ?>
+							<?php if(($attrvalue['attribute_id'] == $attribute['attribute_id']) && ($attrvalue['product_id'] == $product['product_id'])): ?>
+							
+								 <?php if($attrvalue['value'] =="-1"): ?>
+						         	<li title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>"><strong><?php echo $this->translate('Unlimited')?></strong> <?php echo $attribute['ProductsAttributesData'][0]['label'] ?></li>
+						         <?php else:?>
+						        	<li title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>"><strong><?php echo $attrvalue['value'] ?></strong> <?php echo $attribute['ProductsAttributesData'][0]['label'] ?></li>
+						         <?php endif;?>
+									
+								<?php break;?>
+							<?php endif;?>
+						<?php endforeach; ?>
+						
+					<?php endif; ?>
+				<?php endforeach;?>
+			</ul>
+			
+			<ul class="additionalFeatures">
+				<li>1000 MBit Port</li>
+				<li>Enterprise DELL Hardware</li>
+				<li>ISPConfig Powered </li>
+				<li>99.99% Uptime Guarantee</li>
+			</ul>
+			
+			<div class="price">
+				<?php echo $this->prices()->getAllPricesInfo($product['product_id'], false)?>
+			</div>
+			<a href="/<?php echo $product['uri'] ?>.html" class="colorButton"><span class="pointer"><?php echo $this->translate('Order Now')?></span></a>
+		</div>
+	<?php endforeach;?>	
+	</div>
+<?php endif; ?>

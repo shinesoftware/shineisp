@@ -1,0 +1,26 @@
+<?php $form = $this->form; ?>
+
+<h2><?php echo $this->translate('Register your own domain')?></h2>
+<small><?php echo $this->translate('Type the domain name in the input box shown below and follow only 3 steps.')?></small><br><br>
+
+<div id="checkdomain">
+    <form method="<?php echo $form->getMethod() ?>" id="domainselector" action="<?php echo $form->getAction()?>">
+        <div class="domain-box">
+	        <div class="domain"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
+	        <div class="tld"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
+		</div>
+		
+		<ul>
+             <li>
+                 <input type="radio" name="mode" checked value="register"> <b><?php echo $this->translate('I would like to register this domain.')?></b>
+                 <p><?php echo $this->translate('Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.')?></p>
+             </li>
+             <li>
+                 <input type="radio" name="mode" value="link"> <b><?php echo $this->translate('I am this domain\'s owner.')?></b>
+                 <p><?php echo $this->translate('Write your own domain name previosly registered with another company.')?></p>
+             </li>
+         </ul>
+         <br><br>
+        <input type="submit" class="button" value="<?php echo $this->translate('Continue Order') ?>" id="check" name="check">
+    </form>
+</div>

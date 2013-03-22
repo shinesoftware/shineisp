@@ -1,0 +1,1031 @@
+AdminUser:
+  AdminUser_1:
+    firstname: Giuseppe
+    lastname: Bucchieri
+    email: info@shineisp.com
+    password: 25f9e794323b453885f5181f1b624d0b
+    created: 2012-08-14 16:54
+    changed: 2012-08-14 16:56
+    role_id: 1
+    lognum: 0
+    isp_id: 1
+    
+  AdminUser_2:
+    firstname: Luisa
+    lastname: Lucci
+    email: info@shineisp.it
+    password: 25f9e794323b453885f5181f1b624d0b
+    created: 2012-08-23 16:54
+    changed: 2012-08-23 16:56
+    role_id: 2
+    lognum: 0
+    isp_id: 1
+ 
+AdminRoles:
+  AdminRoles_1:
+    name: administrator
+  AdminRoles_2:
+    name: operator
+  AdminRoles_3:
+    name: member
+  AdminRoles_4:
+    name: guest
+           
+AdminResources:
+
+  AdminResources_1:
+    name: Homepage
+    module: default
+    controller: index
+    hidden: 1 
+    parent_id: 0
+    is_allowed: 1
+  AdminResources_2:
+    name: Error page
+    module: default
+    controller: error
+    parent_id: 1
+    hidden: 1
+    is_allowed: 1
+  AdminResources_3:
+    name: Admin Control Panel
+    module: admin
+    controller: index
+    admin: 1
+    parent_id: 0
+  AdminResources_4:
+    name: Login Page
+    module: admin
+    controller: login
+    parent_id: 3
+    admin: 1
+    hidden: 1 
+    is_allowed: 1
+  AdminResources_5:
+    name: Error pages
+    module: admin
+    controller: error
+    parent_id: 3
+    admin: 1
+    hidden: 1 
+    is_allowed: 1
+  AdminResources_6:
+    name: Settings
+    module: admin
+    controller: settings
+    parent_id: 64
+    admin: 1
+  AdminResources_7:
+    name: CMS Pages Management
+    module: admin
+    controller: cmspages
+    parent_id: 57
+    admin: 1
+  AdminResources_8:
+    name: CMS Blocks Management
+    module: admin
+    controller: cmsblocks
+    parent_id: 57
+    admin: 1
+  AdminResources_9:
+    name: Search
+    hidden: 1
+    module: admin
+    controller: search
+    parent_id: 3
+    admin: 1
+    is_allowed: 1
+  AdminResources_10:
+    name: Profile Management
+    module: admin
+    controller: profile
+    parent_id: 64
+    admin: 1
+  AdminResources_11:
+    name: Roles Management
+    module: admin
+    controller: roles
+    parent_id: 64
+    admin: 1
+  AdminResources_12:
+    name: Customers
+    module: admin
+    controller: customers
+    parent_id: 56
+    admin: 1
+  AdminResources_13:
+    name: Domains
+    module: admin
+    controller: domains
+    parent_id: 56
+    admin: 1
+  AdminResources_14:
+    name: Services
+    module: admin
+    controller: services
+    parent_id: 56
+    admin: 1
+  AdminResources_15:
+    name: Tickets
+    module: admin
+    controller: tickets
+    parent_id: 58
+    admin: 1
+  AdminResources_16:
+    name: Wiki
+    module: admin
+    controller: wiki
+    parent_id: 58
+    admin: 1
+  AdminResources_17:
+    name: Product Category
+    module: admin
+    controller: productscategories
+    parent_id: 59
+    admin: 1
+  AdminResources_18:
+    name: Attributes Groups
+    module: admin
+    controller: productsattributesgroups
+    parent_id: 59
+    admin: 1
+  AdminResources_19:
+    name: Reviews
+    module: admin
+    controller: reviews
+    parent_id: 59
+    admin: 1
+  AdminResources_20:
+    name: Products Attributes
+    module: admin
+    controller: productsattributes
+    parent_id: 59
+    admin: 1
+  AdminResources_21:
+    name: Products
+    module: admin
+    controller: products
+    parent_id: 59
+    admin: 1
+  AdminResources_22:
+    name: Domains TLDs
+    module: admin
+    controller: domainstlds
+    parent_id: 59
+    admin: 1
+  AdminResources_23:
+    name: Registrars
+    module: admin
+    controller: registrars
+    parent_id: 60
+    admin: 1
+  AdminResources_24:
+    name: ISP Profile
+    module: admin
+    controller: isp
+    parent_id: 60
+    admin: 1
+  AdminResources_25:
+    name: Servers
+    module: admin
+    controller: servers
+    parent_id: 60
+    admin: 1
+  AdminResources_26:
+    name: Banks
+    module: admin
+    controller: banks
+    parent_id: 60
+    admin: 1
+  AdminResources_27:
+    name: Url Rewrites
+    module: admin
+    controller: urlrewrite
+    parent_id: 60
+    admin: 1
+  AdminResources_28:
+    name: Taxes
+    module: admin
+    controller: taxes
+    parent_id: 60
+    admin: 1
+  AdminResources_29:
+    name: Invoices
+    module: admin
+    controller: invoices
+    parent_id: 61
+    admin: 1
+  AdminResources_30:
+    name: Orders
+    module: admin
+    controller: orders
+    parent_id: 61
+    admin: 1
+  AdminResources_31:
+    name: Credit Memos
+    module: admin
+    controller: creditnotes
+    parent_id: 61
+    admin: 1
+  AdminResources_32:
+    name: -
+    module: admin
+    controller: to-use
+    parent_id: 3
+    hidden: 1
+    admin: 1
+  AdminResources_33:
+    name: -
+    module: admin
+    controller: to-use
+    parent_id: 3
+    hidden: 1
+    admin: 1
+  AdminResources_34:
+    name: Newsletter
+    module: admin
+    controller: newsletter
+    parent_id: 62
+    admin: 1
+  AdminResources_35:
+    name: Subscribers
+    module: admin
+    controller: subscribers
+    parent_id: 62
+    admin: 1
+  AdminResources_36:
+    name: Reports
+    module: admin
+    controller: reports
+    parent_id: 63
+    admin: 1
+  AdminResources_37:
+    name: Customer Login
+    module: default
+    controller: customer
+    parent_id: 1
+  AdminResources_38:
+    name: CMS pages
+    module: default
+    controller: cms
+    parent_id: 1
+  AdminResources_39:
+    name: Cart
+    module: default
+    controller: cart
+    parent_id: 1
+  AdminResources_40:
+    name: Common
+    module: default
+    controller: common
+    parent_id: 1
+  AdminResources_41:
+    name: Compare
+    module: default
+    controller: compare
+    parent_id: 1
+  AdminResources_42:
+    name: Customer Dashboard
+    module: default
+    controller: dashboard
+    parent_id: 1
+  AdminResources_43:
+    name: Domains Check Tool
+    module: default
+    controller: domainschk
+    parent_id: 1
+  AdminResources_44:
+    name: Customer Domains page 
+    module: default
+    controller: domains
+    parent_id: 1
+  AdminResources_45:
+    name: Page not found 
+    module: default
+    controller: notfound
+    parent_id: 1
+  AdminResources_46:
+    name: Customer Orders page
+    module: default
+    controller: orders
+    parent_id: 1
+  AdminResources_47:
+    name: Products
+    module: default
+    controller: products
+    parent_id: 1
+  AdminResources_48:
+    name: Customer Profile
+    module: default
+    controller: profile
+    parent_id: 1
+  AdminResources_49:
+    name: Rss
+    module: default
+    controller: rss
+    parent_id: 1
+  AdminResources_50:
+    name: Search tool
+    module: default
+    controller: search
+    parent_id: 1
+  AdminResources_51:
+    name: Customer Services page
+    module: default
+    controller: services
+    parent_id: 1
+  AdminResources_52:
+    name: Sitemap
+    module: default
+    controller: sitemap
+    parent_id: 1
+  AdminResources_53:
+    name: Customer Tickets page
+    module: default
+    controller: tickets
+    parent_id: 1
+  AdminResources_54:
+    name: Tlds Tool
+    module: default
+    controller: tlds
+    parent_id: 1
+  AdminResources_55:
+    name: Wiki pages
+    module: default
+    controller: wiki
+    parent_id: 1
+  AdminResources_56:
+    name: Customers 
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_57:
+    name: CMS
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_58:
+    name: Support
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_59:
+    name: Products
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_60:
+    name: Settings
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_61:
+    name: Sales
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_62:
+    name: Newsletter
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_63:
+    name: Reports
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1
+  AdminResources_64:
+    name: Configurations
+    module: admin
+    controller: -
+    parent_id: 0
+    admin: 1
+    is_container: 1  
+  AdminResources_65:
+    name: System
+    module: system
+    controller: index
+    parent_id: 0
+  AdminResources_66:
+    name: System Cron
+    module: system
+    controller: cron
+    parent_id: 65
+  AdminResources_67:
+    name: System Tasks
+    module: system
+    controller: tasks
+    parent_id: 65    
+  AdminResources_68:
+    name: Categories
+    module: default
+    controller: categories
+    parent_id: 1    
+  AdminResources_69:
+    name: Contact page
+    module: default
+    controller: contacts
+    parent_id: 1    
+  AdminResources_70:
+    name: Customer web page
+    module: default
+    controller: customer
+    parent_id: 1    
+  AdminResources_71:
+    name: Purchases invoices
+    module: admin
+    controller: purchases
+    parent_id: 1    
+  AdminResources_72:
+    name: Languages 
+    module: admin
+    controller: languages
+    parent_id: 1       
+  AdminResources_73:
+    name: Ticket Categories 
+    module: admin
+    controller: ticketscategories
+    parent_id: 1       
+  AdminResources_74:
+    name: Wiki Categories 
+    module: admin
+    controller: wikicategories
+    parent_id: 1       
+  AdminResources_75:
+    name: Files
+    module: admin
+    controller: files
+    parent_id: 1       
+  AdminResources_76:
+    name: Order Items
+    module: admin
+    controller: ordersitems
+    parent_id: 1       
+  AdminResources_77:
+    name: Customers Groups
+    module: admin
+    controller: customersgroups
+    parent_id: 1       
+  AdminResources_78:
+    name: Legal Forms
+    module: admin
+    controller: legalforms
+    parent_id: 1       
+  AdminResources_79:
+    name: Company Types
+    module: admin
+    controller: companytypes
+    parent_id: 1       
+  AdminResources_80:
+    name: Notes
+    module: admin
+    controller: notes
+    parent_id: 1       
+  AdminResources_81:
+    name: Panels Actions
+    module: admin
+    controller: panelsactions
+    parent_id: 1       
+  AdminResources_82:
+    name: Domains Tasks
+    module: admin
+    controller: domainstasks
+    parent_id: 1       
+  AdminResources_83:
+    name: Setup
+    module: setup
+    controller: localization
+    parent_id: 1
+    hidden: 1       
+  AdminResources_84:
+    name: Setup Database
+    module: setup
+    controller: database
+    parent_id: 1
+    hidden: 1       
+  AdminResources_85:
+    name: Setup Preferences
+    module: setup
+    controller: preferences
+    parent_id: 1
+    hidden: 1       
+  AdminResources_86:
+    name: Setup Summary
+    module: setup
+    controller: summary
+    parent_id: 1
+    hidden: 1       
+    
+        
+AdminPermissions:
+  AdminPermissions_101:
+    resource_id: 1
+    role_id: 1
+    permission: allow
+  AdminPermissions_102:
+    resource_id: 2
+    role_id: 1
+    permission: allow
+  AdminPermissions_103:
+    resource_id: 3
+    role_id: 1
+    permission: allow
+  AdminPermissions_104:
+    resource_id: 4
+    role_id: 1
+    permission: allow
+  AdminPermissions_105:
+    resource_id: 5
+    role_id: 1
+    permission: allow
+  AdminPermissions_106:
+    resource_id: 6
+    role_id: 1
+    permission: allow
+  AdminPermissions_107:
+    resource_id: 7
+    role_id: 1
+    permission: allow
+  AdminPermissions_108:
+    resource_id: 8
+    role_id: 1
+    permission: allow
+  AdminPermissions_109:
+    resource_id: 9
+    role_id: 1
+    permission: allow
+  AdminPermissions_110:
+    resource_id: 10
+    role_id: 1
+    permission: allow
+  AdminPermissions_111:
+    resource_id: 11
+    role_id: 1
+    permission: allow
+  AdminPermissions_112:
+    resource_id: 12
+    role_id: 1
+    permission: allow
+  AdminPermissions_113:
+    resource_id: 13
+    role_id: 1
+    permission: allow
+  AdminPermissions_114:
+    resource_id: 14
+    role_id: 1
+    permission: allow
+  AdminPermissions_115:
+    resource_id: 15
+    role_id: 1
+    permission: allow
+  AdminPermissions_116:
+    resource_id: 16
+    role_id: 1
+    permission: allow
+  AdminPermissions_117:
+    resource_id: 17
+    role_id: 1
+    permission: allow
+  AdminPermissions_118:
+    resource_id: 18
+    role_id: 1
+    permission: allow
+  AdminPermissions_119:
+    resource_id: 19
+    role_id: 1
+    permission: allow
+  AdminPermissions_120:
+    resource_id: 20
+    role_id: 1
+    permission: allow
+  AdminPermissions_121:
+    resource_id: 21
+    role_id: 1
+    permission: allow
+  AdminPermissions_122:
+    resource_id: 22
+    role_id: 1
+    permission: allow
+  AdminPermissions_123:
+    resource_id: 23
+    role_id: 1
+    permission: allow
+  AdminPermissions_124:
+    resource_id: 24
+    role_id: 1
+    permission: allow
+  AdminPermissions_125:
+    resource_id: 25
+    role_id: 1
+    permission: allow
+  AdminPermissions_126:
+    resource_id: 26
+    role_id: 1
+    permission: allow
+  AdminPermissions_127:
+    resource_id: 27
+    role_id: 1
+    permission: allow
+  AdminPermissions_128:
+    resource_id: 28
+    role_id: 1
+    permission: allow
+  AdminPermissions_129:
+    resource_id: 29
+    role_id: 1
+    permission: allow
+  AdminPermissions_130:
+    resource_id: 30
+    role_id: 1
+    permission: allow
+  AdminPermissions_131:
+    resource_id: 31
+    role_id: 1
+    permission: allow
+  AdminPermissions_132:
+    resource_id: 32
+    role_id: 1
+    permission: allow
+  AdminPermissions_133:
+    resource_id: 33
+    role_id: 1
+    permission: allow
+  AdminPermissions_134:
+    resource_id: 34
+    role_id: 1
+    permission: allow
+  AdminPermissions_135:
+    resource_id: 35
+    role_id: 1
+    permission: allow
+  AdminPermissions_136:
+    resource_id: 71
+    role_id: 1
+    permission: allow
+  AdminPermissions_137:
+    resource_id: 72
+    role_id: 1
+    permission: allow
+  AdminPermissions_138:
+    resource_id: 73
+    role_id: 1
+    permission: allow
+  AdminPermissions_139:
+    resource_id: 74
+    role_id: 1
+    permission: allow
+  AdminPermissions_140:
+    resource_id: 75
+    role_id: 1
+    permission: allow
+  AdminPermissions_141:
+    resource_id: 76
+    role_id: 1
+    permission: allow
+  AdminPermissions_142:
+    resource_id: 77
+    role_id: 1
+    permission: allow
+  AdminPermissions_145:
+    resource_id: 78
+    role_id: 1
+    permission: allow
+  AdminPermissions_146:
+    resource_id: 79
+    role_id: 1
+    permission: allow
+  AdminPermissions_147:
+    resource_id: 80
+    role_id: 1
+    permission: allow
+  AdminPermissions_148:
+    resource_id: 81
+    role_id: 1
+    permission: allow
+  AdminPermissions_149:
+    resource_id: 82
+    role_id: 1
+    permission: allow
+
+
+
+
+
+  AdminPermissions_201:
+    resource_id: 1
+    role_id: 2
+    permission: allow
+  AdminPermissions_202:
+    resource_id: 2
+    role_id: 2
+    permission: allow
+  AdminPermissions_203:
+    resource_id: 3
+    role_id: 2
+    permission: allow
+  AdminPermissions_204:
+    resource_id: 4
+    role_id: 2
+    permission: allow
+  AdminPermissions_205:
+    resource_id: 5
+    role_id: 2
+    permission: allow
+  AdminPermissions_206:
+    resource_id: 7
+    role_id: 2
+    permission: allow
+  AdminPermissions_207:
+    resource_id: 8
+    role_id: 2
+    permission: allow
+  AdminPermissions_208:
+    resource_id: 9
+    role_id: 2
+    permission: allow
+  AdminPermissions_209:
+    resource_id: 10
+    role_id: 2
+    permission: allow
+  AdminPermissions_210:
+    resource_id: 12
+    role_id: 2
+    permission: allow
+  AdminPermissions_211:
+    resource_id: 13
+    role_id: 2
+    permission: allow
+  AdminPermissions_212:
+    resource_id: 14
+    role_id: 2
+    permission: allow
+  AdminPermissions_213:
+    resource_id: 15
+    role_id: 2
+    permission: allow
+  AdminPermissions_214:
+    resource_id: 16
+    role_id: 2
+    permission: allow
+  AdminPermissions_215:
+    resource_id: 17
+    role_id: 2
+    permission: allow
+  AdminPermissions_216:
+    resource_id: 18
+    role_id: 2
+    permission: allow
+  AdminPermissions_217:
+    resource_id: 19
+    role_id: 2
+    permission: allow
+  AdminPermissions_218:
+    resource_id: 20
+    role_id: 2
+    permission: allow
+  AdminPermissions_219:
+    resource_id: 21
+    role_id: 2
+    permission: allow
+  AdminPermissions_220:
+    resource_id: 22
+    role_id: 2
+    permission: allow
+  AdminPermissions_221:
+    resource_id: 23
+    role_id: 2
+    permission: allow
+  AdminPermissions_222:
+    resource_id: 24
+    role_id: 2
+    permission: allow
+  AdminPermissions_223:
+    resource_id: 25
+    role_id: 2
+    permission: allow
+  AdminPermissions_224:
+    resource_id: 26
+    role_id: 2
+    permission: allow
+  AdminPermissions_225:
+    resource_id: 27
+    role_id: 2
+    permission: allow
+  AdminPermissions_226:
+    resource_id: 28
+    role_id: 2
+    permission: allow
+  AdminPermissions_227:
+    resource_id: 29
+    role_id: 2
+    permission: allow
+  AdminPermissions_228:
+    resource_id: 30
+    role_id: 2
+    permission: allow
+  AdminPermissions_229:
+    resource_id: 31
+    role_id: 2
+    permission: allow
+  AdminPermissions_230:
+    resource_id: 32
+    role_id: 2
+    permission: allow
+  AdminPermissions_231:
+    resource_id: 33
+    role_id: 2
+    permission: allow
+  AdminPermissions_232:
+    resource_id: 34
+    role_id: 2
+    permission: allow
+  AdminPermissions_233:
+    resource_id: 35
+    role_id: 2
+    permission: allow
+  AdminPermissions_234:
+    resource_id: 36
+    role_id: 2
+    permission: allow
+  AdminPermissions_235:
+    resource_id: 37
+    role_id: 2
+    permission: allow 
+  AdminPermissions_236:
+    resource_id: 76
+    role_id: 2
+    permission: allow 
+  AdminPermissions_237:
+    resource_id: 81
+    role_id: 2
+    permission: allow 
+  AdminPermissions_238:
+    resource_id: 82
+    role_id: 2
+    permission: allow 
+    
+    
+  AdminPermissions_401:
+    resource_id: 1
+    role_id: 4
+    permission: allow
+  AdminPermissions_402:
+    resource_id: 2
+    role_id: 4
+    permission: allow
+  AdminPermissions_404:
+    resource_id: 4
+    role_id: 4
+    permission: allow
+  AdminPermissions_405:
+    resource_id: 5
+    role_id: 4
+    permission: allow    
+  AdminPermissions_406:
+    resource_id: 36
+    role_id: 4
+    permission: allow    
+  AdminPermissions_407:
+    resource_id: 37
+    role_id: 4
+    permission: allow    
+  AdminPermissions_408:
+    resource_id: 38
+    role_id: 4
+    permission: allow    
+  AdminPermissions_409:
+    resource_id: 39
+    role_id: 4
+    permission: allow    
+  AdminPermissions_410:
+    resource_id: 40
+    role_id: 4
+    permission: allow    
+  AdminPermissions_411:
+    resource_id: 41
+    role_id: 4
+    permission: allow    
+  AdminPermissions_412:
+    resource_id: 42
+    role_id: 4
+    permission: allow    
+  AdminPermissions_413:
+    resource_id: 43
+    role_id: 4
+    permission: allow    
+  AdminPermissions_414:
+    resource_id: 44
+    role_id: 4
+    permission: allow    
+  AdminPermissions_415:
+    resource_id: 45
+    role_id: 4
+    permission: allow    
+  AdminPermissions_416:
+    resource_id: 46
+    role_id: 4
+    permission: allow    
+  AdminPermissions_417:
+    resource_id: 47
+    role_id: 4
+    permission: allow    
+  AdminPermissions_418:
+    resource_id: 48
+    role_id: 4
+    permission: allow    
+  AdminPermissions_419:
+    resource_id: 49
+    role_id: 4
+    permission: allow    
+  AdminPermissions_420:
+    resource_id: 50
+    role_id: 4
+    permission: allow    
+  AdminPermissions_421:
+    resource_id: 51
+    role_id: 4
+    permission: allow    
+  AdminPermissions_422:
+    resource_id: 52
+    role_id: 4
+    permission: allow    
+  AdminPermissions_423:
+    resource_id: 53
+    role_id: 4
+    permission: allow    
+  AdminPermissions_424:
+    resource_id: 54
+    role_id: 4
+    permission: allow    
+  AdminPermissions_425:
+    resource_id: 55
+    role_id: 4
+    permission: allow    
+  AdminPermissions_426:
+    resource_id: 66
+    role_id: 4
+    permission: allow    
+  AdminPermissions_427:
+    resource_id: 67
+    role_id: 4
+    permission: allow    
+  AdminPermissions_428:
+    resource_id: 68
+    role_id: 4
+    permission: allow    
+  AdminPermissions_429:
+    resource_id: 69
+    role_id: 4
+    permission: allow    
+  AdminPermissions_430:
+    resource_id: 70
+    role_id: 4
+    permission: allow    
+  AdminPermissions_431:
+    resource_id: 65
+    role_id: 4
+    permission: allow    
+  AdminPermissions_432:
+    resource_id: 66
+    role_id: 4
+    permission: allow    
+  AdminPermissions_433:
+    resource_id: 67
+    role_id: 4
+    permission: allow    
+  AdminPermissions_434:
+    resource_id: 83
+    role_id: 4
+    permission: allow    
+  AdminPermissions_435:
+    resource_id: 84
+    role_id: 4
+    permission: allow    
+  AdminPermissions_436:
+    resource_id: 85
+    role_id: 4
+    permission: allow    
+  AdminPermissions_437:
+    resource_id: 86
+    role_id: 4
+    permission: allow    
+  
+  
+
+      

@@ -1,0 +1,52 @@
+.notification {
+ 	background-position: 10px 9px !important;
+    background-repeat: no-repeat !important;
+    border: 1px solid;
+    font-size: 13px;
+    line-height: 14px;
+    margin: 0 0 7px;
+    padding: 10px 5px 6px 29px;
+    position: absolute;
+    width: 98.4%;
+    z-index: 1000;
+}
+
+.attention {
+	background: #fffbcc url(/skins/admin/base/images/exclamation.png) 10px
+		11px no-repeat;
+	color: #666452;
+	border-color: #e6db55;
+}
+
+.information {
+	background: #dbe3ff url(/skins/admin/base/images/information.png);
+	color: #585b66;
+	border-color: #a2b4ee;
+}
+
+.success {
+	background: #d5ffce url(/skins/admin/base/images/tick_circle.png);
+	color: #556652;
+	border-color: #9adf8f;
+}
+
+.error {
+	background: #ffcece url(/skins/admin/base/images/cross_circle.png);
+	color: #000;
+	border-color: #df8f8f;
+}
+
+.notification div {
+	display: block;
+	font-style: normal;
+	line-height: 1.5em;
+	padding: 10px 10px 10px 36px;
+}
+
+.notification .close {
+	color: #900;
+	font-size: 9px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}

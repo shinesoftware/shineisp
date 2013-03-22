@@ -1,0 +1,27 @@
+<?php $summary = $this->summary ?>
+
+<div id="page_wrapper">
+	<div id="page">
+		<?= $this->render('partials/header.phtml') ?>		
+		<div id="content">
+			<fieldset>
+				<legend><?php echo $this->translate('Summary')?></legend>
+				<h2><?php echo $this->translate('Setup has been Completed!')?></h2>
+				<p><?php echo $this->translate('ShineISP has been configured. Now you can start to customize your ShineISP configuration.')?></p><br/><br/>
+				
+				<h4><?php echo $this->translate('Administration Credencials')?></h4>
+				<p>
+					<?php echo $this->translate('Please write down your own credencials to login at the administration control panel.')?><br/>
+					<?php echo $this->translate('Email')?>: <b><?php echo $summary['email'] ?></b><br/>
+					<?php echo $this->translate('Password')?>: <b><?php echo $summary['password'] ?></b>
+				</p><br/><br/>
+				
+				<h4><?php echo $this->translate('ShineISP Disclaimer')?></h4>
+				<p><?php echo nl2br(Shineisp_Commons_Utilities::readfile(PUBLIC_PATH . "/../LICENSE")) ?></p><br/>
+				<a class="adminbutton blue-button" target="_blank" href="/admin"><?php echo $this->translate('Administration')?></a>
+				<a class="publicbutton blue-button" target="_blank" href="/"><?php echo $this->translate('Public Site')?></a>
+			</fieldset>
+			<?= $this->render('partials/footer.phtml') ?>			
+		</div>	
+	</div>
+</div>

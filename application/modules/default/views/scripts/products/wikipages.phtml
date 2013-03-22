@@ -1,0 +1,11 @@
+<?php $wikipages = $this->wikipages; ?>
+<div class="wikipages_wrapper">
+	<h5><?php echo $this->translate('Wiki Pages')?></h5>
+	<ul id="wikipages">
+	<?php foreach ($wikipages as $page): ?>
+		<?php if(!empty($page['Wiki']['subject'])): ?>
+			<li><a href="/wiki/<?php echo $page['Wiki']['uri']?>.html"><?php echo $page['Wiki']['subject']?></a></li>
+		<?php endif; ?>
+	<?php endforeach;?>
+	</ul>
+</div>

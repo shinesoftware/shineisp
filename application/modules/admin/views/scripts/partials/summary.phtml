@@ -1,0 +1,51 @@
+<?php 
+	$income = $this->income_quarter; 
+	$currency = Settings::findbyParam('currency'); 
+?>
+
+<?php if(!empty($income)): ?>
+<div class="portlet" id="income-quarter">
+	<div class="widget-wrapper">
+		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Quarter')?></a></h3></div>
+		<div class="widget-content">
+			<ul class="stats">
+				<?php foreach($income as $inc):?>
+					<?php if($inc['year'] == date('Y')): ?>
+					<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
+						<small><?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?></small> 
+						<?php if(!empty($inc['old']['total'])): ?>
+							<small><?php echo $this->translate('%s° quarter %s: %s', $inc['old']['quarter'], $inc['old']['year'], $this->currency($inc['old']['total'], array('currency' => $currency))) ?></small>
+						<?php endif;?> 
+						<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $inc['yieldrate'] ?>%</span>
+					</li>
+					<?php endif; ?>
+				<?php endforeach;?>
+			</ul>
+		</div>
+	</div>
+</div>
+<?php endif;?>
+
+<?php $income = $this->income_monthly; ?>
+<?php if(!empty($income)): ?>
+<div class="portlet" id="income-month">
+	<div class="widget-wrapper">
+		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month')?></a></h3></div>
+		<div class="widget-content">
+			<ul class="stats">
+				<?php foreach($income as $inc):?>
+					<?php if($inc['year'] == date('Y')): ?>
+					<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
+						<small><?php echo $this->translate('%s° month of %s', $inc['monthly'], $inc['year'])?></small> 
+						<?php if(!empty($inc['old']['total'])): ?>
+							<small><?php echo $this->translate('%s° month %s: %s', $inc['old']['monthly'], $inc['old']['year'], $this->currency($inc['old']['total'], array('currency' => $currency))) ?></small>
+						<?php endif;?> 
+						<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $inc['yieldrate'] ?>%</span>
+					</li>
+					<?php endif; ?>
+				<?php endforeach;?>
+			</ul>
+		</div>
+	</div>
+</div>
+<?php endif;?>

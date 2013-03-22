@@ -1,0 +1,15 @@
+<?php if (isset($this->records)):?>
+        	<div class="testimonials">
+        		<?php foreach ($this->records as $record): ?>
+        		<div class="testimonialBox">
+        			<div class="message"><?php echo $record['message']  ?></div>
+        			<div class="author">
+        				<?= !empty($record['isp']) ? $record['company'] : $record['fullname']; ?> - <?= $record['dateposted']; ?>
+        			</div>
+        		</div>
+        		<?php endforeach; ?>
+        	</div>
+    <?php else: ?>
+        <div class="notification infos"><?=$this->translate('No Records')?></div>
+<?php endif; ?>
+

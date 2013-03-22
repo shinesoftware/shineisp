@@ -1,0 +1,23 @@
+<?php $items = $this->items; ?>
+
+<h2><?php echo $this->translate('Our apologies...')?></h2>
+<p><?php echo $this->translate('The page you requested cannot be displayed.')?></p>
+<br/><br/>
+
+<?php if(!empty($items)): ?>
+	<h4><?php echo $this->translate('Are you looking for one of these products?')?></h4>
+	<ul>
+	<?php foreach($items as $item): ?>
+		<li>
+			<p><b><a href="<?php echo $item['url']?>"><?php echo $item['title']?></a></b><br><?php echo $item['description']?></p>
+		</li>
+	<?php endforeach;?>
+	</ul>
+	<br/><br/>
+<?php endif; ?>
+
+<h4><?php echo $this->translate('Report this problem')?></h4>
+<p><?php echo $this->translate('Tell us which is the broken link. You will not be contacted by us about this report.')?></p>
+<p><a href="/contacts"><?php echo $this->translate('Contact us')?></a></p>
+
+

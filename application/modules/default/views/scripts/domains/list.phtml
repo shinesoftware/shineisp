@@ -1,0 +1,19 @@
+<div class="toptools">
+    <div class="search">
+    	<?=$this->searchbox();?> 
+	</div>
+</div>
+<div class="clear"></div>
+<div class="headtitle">
+    <h3>
+    <?php 
+            echo $this->translate($this->title);
+            if(!empty($this->name)){
+                echo ": " . $this->name;
+            } 
+        ?>
+    </h3>
+    <small><?php echo $this->translate($this->description);?></small>
+</div>
+
+<?= $this->Domainsgrid($this->domains);?>

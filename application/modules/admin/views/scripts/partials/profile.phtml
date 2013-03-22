@@ -1,0 +1,10 @@
+<?php $auth = Zend_Auth::getInstance(); ?>
+
+<?php if($auth->hasIdentity()):?>
+	<?php $identity = $auth->getIdentity(); ?>
+	<a class="float_right button" title="<?=$this->translate('Logout') ?>" href="/admin/login/out"><?=$this->translate('Logout') ?></a>
+	<a class="float_right button" title="<?=$this->translate('Servers') ?>" href="/admin/servers/list"><?=$this->translate('Servers') ?></a>
+	<a class="float_right button" title="<?=$this->translate('Company') ?>" href="/admin/isp/account"><?=$this->translate('%s\'s profile', $this->data['company']) ?></a>
+	<a class="float_right button" title="<?=$this->translate('Profile') ?>" href="/admin/profile/account"><?=$this->translate("%s's %s profile", $identity['lastname'], $identity['AdminRoles']['name']) ?></a>
+	<a class="float_right button" title="<?=$this->translate('Roles') ?>" href="/admin/roles"><?=$this->translate('Roles') ?></a>
+<?php endif;?>

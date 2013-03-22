@@ -1,0 +1,30 @@
+<?php $form = $this->form ?>
+
+<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="setup">
+	<div id="page_wrapper">
+		<div id="page">
+			<?= $this->render('partials/header.phtml') ?>		
+			<div id="content">
+				<div class="progress" style="display:none">Please wait a moment...</div>
+				
+				<?php if($this->error):?>
+					 <div class="notification error"><?php echo $this->error?></div>
+				<?php endif;?>
+				
+				<fieldset>
+					<legend><?php echo $this->translate('Preferences Settings')?></legend>
+					<?php echo $form->company->render() ?>
+					<?php echo $form->firstname->render() ?>
+					<?php echo $form->lastname->render() ?><br/><br/>
+					<?php echo $form->email->render() ?>
+					<?php echo $form->vatnumber->render() ?><br/><br/>
+					<?php echo $form->password->render() ?>
+					<?php echo $form->password_confirm->render() ?><br/><br/>
+					<?php echo $form->sampledata->render() ?>
+				</fieldset>
+				<div class="submit"><?php echo $form->submit->render() ?></div>
+				<?= $this->render('partials/footer.phtml') ?>			
+			</div>		
+		</div>
+	</div>
+</form>

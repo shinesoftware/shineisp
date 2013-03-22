@@ -1,0 +1,32 @@
+<?php $form = $this->form; ?>
+<h1><?php echo $this->translate('Contact us')?></h1>
+<p><?php echo $this->translate('Fill the form with your requests, we will reply you as soon as possible.')?></p>
+
+<? if( $form->isErrors() ): ?>
+    <div class="messages">    
+       <? foreach( $form->getElements() as $field){
+             $errors = array();
+             if($field->hasErrors()){
+                foreach( $field->getErrors() as $error){
+                    $errors[] = $this->translate($error);
+                }
+                echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+            }   
+        } ?>
+    </div>    
+<? endif; ?>
+
+<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+    <div class="column medium">
+        <?php echo $form->fullname->render() ?>
+        <?php echo $form->company->render() ?>
+        <?php echo $form->email->render() ?><br/><br/>
+         <?php echo $form->captcha->render() ?>
+    </div>
+    <div class="column medium last">
+        <?php echo $form->subject->render() ?>
+        <?php echo $form->message->render() ?><br/><br/>
+       
+        <?php echo $form->submit->render() ?>
+    </div>
+</form>

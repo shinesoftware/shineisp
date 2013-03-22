@@ -1,0 +1,154 @@
+<?php 
+$i = 0;
+$form = $this->form; 
+?>
+
+<div class="headtitle"></div>
+
+<? if( $form->isErrors() ): ?>
+    <div class="messages">    
+       <? foreach( $form->getElements() as $field){
+             $errors = array();
+             if($field->hasErrors()){
+                foreach( $field->getErrors() as $error){
+                    $errors[] = $this->translate($error);
+                }
+                echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+            }   
+        } ?>
+    </div>    
+<? endif; ?>
+
+
+
+<div class="ticket-backtolist"><a class="button" href="/tickets"><?php echo $this->translate('Tickets list') ?></a></div>
+
+<?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () && "process" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+	    <div class="ticket-summary">
+	    	<div class="ticket-summary-left">
+	    		<div class="ticket-summary-header">
+	    			<?php echo $this->translate('Request ID')?> #<?php echo $this->summary['ticket_id'] ?> / <?php echo $this->translate('Status')?>: <span class="ticket-status"><?php echo !empty($this->summary['status']) ? $this->translate($this->summary['status']) : ""?></span>
+	    		</div>
+	    		
+	    		<h4><?php echo $this->summary['subject'] ?></h4>
+	    		<div class="ticketrating">
+		    		<!--  <script type="text/javascript">$(function(){$('.starsummary').rating();});</script> -->
+		    		<div>
+	                	<input type="radio" class="starsummary removeqtip" value="1" title="<?php echo $this->translate('Very poor') ?>" disabled="disabled" <?php if($this->summary['vote'] == 1):?>checked="checked"<?php endif;?>/>
+						<input type="radio" class="starsummary removeqtip" value="2" title="<?php echo $this->translate('Poor') ?>" disabled="disabled" <?php if($this->summary['vote'] == 2):?>checked="checked"<?php endif;?>/>
+						<input type="radio" class="starsummary removeqtip" value="3" title="<?php echo $this->translate('OK') ?>" disabled="disabled" <?php if($this->summary['vote'] == 3):?>checked="checked"<?php endif;?>/>
+						<input type="radio" class="starsummary removeqtip" value="4" title="<?php echo $this->translate('Good') ?>" disabled="disabled" <?php if($this->summary['vote'] == 4):?>checked="checked"<?php endif;?>/>
+						<input type="radio" class="starsummary removeqtip" value="5" title="<?php echo $this->translate('Very Good') ?>" disabled="disabled" <?php if($this->summary['vote'] == 5):?>checked="checked"<?php endif;?>/>
+					</div>
+		    	</div>
+	    	</div>
+	    	
+	    	<div class="ticket-summary-right">
+		    	<h4><?php echo $this->summary['customer'] ?></h4>
+		    	<?php echo $this->summary['email'] ?><br/><?php echo $this->summary['creationdate'] ?>
+	    	</div>
+	    	<div class="clear"></div>
+	    </div>
+	    <?php if(!empty($this->summary['sibling_id'])): ?>
+            <p><a href="/tickets/edit/id/<?php echo $this->summary['sibling'][0]['ticket_id'] ?>">
+           		<?php echo $this->translate('This issue is connected with the ticket: %s', $this->summary['sibling'][0]['subject'])?>
+           	</a></p>
+		<?php endif; ?>
+	    <?php echo $this->Attachments($this->summary['ticket_id'], 'tickets'); ?>
+    <?php endif;?>
+    
+    <div style="display: block" class="tab-content default-tab" id="tab1"> 
+        <fieldset> 
+            <?php if($this->record['description']): ?>
+                <div class="tickets-notes">
+                    <div class="avatar">
+                    	<?php echo $this->customeravatar ?><br/>
+                    	<div class="customerinfo"><h3><?php echo $this->record['customer']?></h3><?php echo $this->record['company']?></div>
+                    </div>
+	                <div class="ticket">
+	                    <div class="ticketdescription">
+	                    	<p><?php echo $this->record['description'];?></p>
+	                    </div>
+	                </div>
+	                <div class="ticket-note-footer">
+	                	<div class="ticket-note-time"><?=$this->record['creationdate']?></div>
+	                </div> 
+                </div>  
+            <?php endif;?>          
+			
+			
+        </fieldset>
+        <div class="clear"></div>
+    </div>
+    
+	<?php if(!empty($this->notes)):?>
+	    <?php foreach( $this->notes as $note):?>
+			<div class="tickets-notes">
+	        	<?php if((count($this->notes) - 1) == $i):?>
+	    	 	<a name="last"></a>
+	    	<?php  endif; ?>            		
+			<div class="avatar"><?php echo $note['adminreply'] ? $this->adminavatar : $this->customeravatar; ?> 
+				<div class="customerinfo">
+				<?php if($note['adminreply']):?>
+					<h3><?php echo $this->isp['company']?></h3>
+				<?php else: ?>
+					<h3><?php echo $note['customer']?></h3><?php echo $note['company']?>
+				<?php endif; ?>
+					</div>
+				</div>                                
+				<div class="ticket <?php if($note['adminreply']):?>admin-note<?php else:?>user-note<?php endif;?>">
+					<div class="ticketdescription">
+						<p><?php echo $note['note']?></p>
+					</div>
+				</div>
+			
+				<div class="ticket-note-footer">
+					<?php if($note['adminreply']):?>
+					<div class="ticket-rating">
+				
+						<form id="form_<?php echo $note['note_id']?>">
+							<div>
+					        	<input type="radio" alt="<?php echo $note['note_id']?>" class="star<?php echo $note['note_id']?> stars" value="1" title="<?php echo $this->translate('Very poor') ?>" <?php if(!empty($note['vote'])):?>disabled="disabled"<?php endif;?> <?php if($note['vote'] == 1):?>checked="checked"<?php endif;?>/>
+								<input type="radio" alt="<?php echo $note['note_id']?>" class="star<?php echo $note['note_id']?> stars" value="2" title="<?php echo $this->translate('Poor') ?>" <?php if(!empty($note['vote'])):?>disabled="disabled"<?php endif;?> <?php if($note['vote'] == 2):?>checked="checked"<?php endif;?>/>
+								<input type="radio" alt="<?php echo $note['note_id']?>" class="star<?php echo $note['note_id']?> stars" value="3" title="<?php echo $this->translate('OK') ?>" <?php if(!empty($note['vote'])):?>disabled="disabled"<?php endif;?> <?php if($note['vote'] == 3):?>checked="checked"<?php endif;?>/>
+								<input type="radio" alt="<?php echo $note['note_id']?>" class="star<?php echo $note['note_id']?> stars" value="4" title="<?php echo $this->translate('Good') ?>" <?php if(!empty($note['vote'])):?>disabled="disabled"<?php endif;?> <?php if($note['vote'] == 4):?>checked="checked"<?php endif;?>/>
+								<input type="radio" alt="<?php echo $note['note_id']?>" class="star<?php echo $note['note_id']?> stars" value="5" title="<?php echo $this->translate('Very Good') ?>" <?php if(!empty($note['vote'])):?>disabled="disabled"<?php endif;?> <?php if($note['vote'] == 5):?>checked="checked"<?php endif;?>/>
+							</div>
+							<span id="hovertip_<?php echo $note['note_id']?>" style="margin:0 0 0 20px;"></span>
+						</form>								
+					</div>
+				<?php endif;?>
+					<div class="ticket-note-time"><?=$note['date_post']?></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<?php $i++; ?>
+	    <?php endforeach;?>
+	   
+	<?php endif;?>
+	    
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+			
+            <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () || "process" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+	            <?php echo $form->category_id->render()?>
+	            <?php echo $form->subject->render()?>
+	            <?php echo $form->domain_id->render()?>
+            <?php endif;?>
+            
+            <?php if($this->canreply): ?>
+            	<div class="ticket-note-reply">
+            		<?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+            			<?php echo $form->status->render()?>
+            		<?php endif; ?>
+            <?php echo $form->note->render()?>
+            <?php echo $form->attachments->render()?>
+            
+            <div class="ticket-send-button">
+            	<?php echo $form->submit->render()?>
+	            </div>
+            </div>
+        <?php endif; ?>    
+   <?php echo $form->ticket_id->render()?>
+</form>
+
+	

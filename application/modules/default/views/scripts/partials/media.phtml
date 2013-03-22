@@ -1,0 +1,19 @@
+<?php $resources = $this->resources; ?>
+<?php $index = 0; ?>
+
+<?php if(count($resources)==0): ?>
+    <div class="mainimage"><a class="imageZoom" href="<?=$this->paths('images')?>/commons/default.png"><img width="<?php echo $this->width?>" src="<?=$this->paths('images')?>/commons/default.png"/></a></div>
+<?php endif; ?>
+
+<div id="gallery">
+	<?php foreach($resources as $resource):?>
+	    <?php if($index == 0): ?>
+	        <div class="mainimage"><a class="imageZoom" href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>$this->width, 'height'=>$this->height, 'alt' => $resource['name'], 'title' => $resource['name'])); ?></a></div>
+	    <?php else: ?>
+	        <?php if($this->showall):?>
+	            <a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a>
+	        <?php endif ?>
+	    <?php endif ?>
+	    <?php $index++;?>
+	<?php endforeach;?>
+</div>

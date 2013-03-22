@@ -1,0 +1,89 @@
+<?php $form = $this->form;?>
+<?php $setup = $this->setup; ?>
+
+<div class="headtitle">
+    <h3>
+    <?php 
+            echo $this->translate($this->title);
+	        if(!empty($this->name)){
+	        	echo ": " . $this->name;
+	        } 
+        ?>
+    </h3>
+    <small><?php echo $this->translate($this->description);?></small>
+</div>
+
+ <?php 
+ // Create a payment form 
+ /* 
+ if($this->expired){
+    if(is_numeric($this->datagrid['records'][0]['Price'])){
+        echo $this->payments()->getPaymentsForm('generic', $this->id);   
+    }
+ }
+ */
+ ?>
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<div id="tabs" class="tabWrapper">
+
+	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	    
+	    <div id="tab1" class="tabContent"> 
+	    	<div class="label"><?php echo $this->translate('Main') ?></div>
+          	<div class="column">
+          		<h3><?php echo $this->translate('Main') ?></h3>
+	            <?php echo $this->verticalgrid($this->datagrid)?>
+	            <?php echo $form->autorenew->render() ?>
+	            <br/>
+	            <p align="right"><?php echo $form->submit->render()?></p>
+	        </div>
+	    </div>
+	    
+	    <?php if($setup): ?>
+	    <div id="tab2" class="tabContent"> 
+	    	<div class="label"><?php echo $this->translate('Configuration') ?></div>
+	    	<div class="column">
+	    		<h3><?php echo $this->translate('Configuration') ?></h3>
+		    	<ul id="setup">
+		    	<?php foreach ($setup as $service => $item):?>
+		    		<li>
+		    			<h3><?php echo $service ?></h3>
+			    		<?php foreach ($item as $label => $data):?>
+			    			<?php echo $label ?>: <?php echo $data?><br/>
+			    		<?php endforeach; ?>	
+			    	</li>
+		    	<?php endforeach; ?>
+		    	</ul>
+		    </div>
+	    </div>
+	    <?php endif;?>
+	    
+	    <div id="tab3" class="tabContent"> 
+	    	<div class="label"><?php echo $this->translate('Messages') ?></div>
+	    	<div class="column">
+		    	<h3><?php echo $this->translate('Messages')?></h3>
+		    	<p><?= $this->translate('Here you can see all the questions and replies about this service/domain') ?></p>
+	            <?php echo $this->bbslist($this->messages); ?>
+	            <p><?php echo $form->message->render()?></p>
+	            <br/>
+	            <p align="right"><?php echo $form->submit->render()?></p>
+	    	</div>
+	    </div>    
+	   
+	   <?php echo $form->detail_id->render()?>
+	</form>
+</div>

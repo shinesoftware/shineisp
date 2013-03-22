@@ -1,0 +1,38 @@
+<?php $data = $this->datagraph ?>
+<?php if(!empty($data['records'])): ?>
+<?php $code = Shineisp_Commons_Utilities::GenerateRandomString(3) ?>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	
+	<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+		<?php foreach ($data['labels'] as $label):?>
+        	data.addColumn('<?php echo $label['type'] ?>', '<?php echo $label['title'] ?>');
+        <?php endforeach;?>
+        data.addRows([
+			<?php foreach ($data['records'] as $key => $record):?>
+				<?php foreach ($record as $subrecords):?>
+          			['<?php echo $key ?>', <?php echo implode(",", $subrecords) ?>],
+          		<?php endforeach;?>
+          	<?php endforeach;?>
+        ]);
+
+        var options = {
+          title: '<?php echo $data['title'] ?>',
+          animation:{duration: 1000, easing: 'out'},
+          vAxis: {title: '<?php echo $data['axis']['y']?>', titleTextStyle: {color: 'red'}},
+          hAxis: {slantedText:true, slantedTextAngle:45, title: '<?php echo $data['axis']['x']?>', titleTextStyle: {color: 'red'}},
+          legend: {position: 'bottom', textStyle: {fontSize: 11}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_<?php echo $code ?>'));
+        chart.draw(data, options);
+      }
+    </script>
+
+	<div id="chart_div_<?php echo $code ?>" style="width: 100%; height: 500px;"></div>
+	
+<?php endif;?>	

@@ -1,0 +1,20 @@
+<?php if($this->expdomains) :?>
+	<table class="summary">
+	    <thead>
+	        <tr class="summary_title">
+	            <td><?= $this->translate('Domains') ?></td>
+	            <td><?= $this->translate('Expiring Date') ?></td>
+	            <td><?= $this->translate('Remaining Days') ?></td>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <?php foreach ($this->expdomains as $domain) : ?>
+	        <tr>
+	            <td><a href="/domains/edit/id/<?php echo $domain['domain_id']?>"><?= $domain['domain'] ?></a></td>
+	            <td><?= $domain['expiring_date'] ?></td>  
+	            <td><?= $domain['daysleft'] ?></td>  
+	        </tr>
+	        <?php endforeach; ?>
+	    </tbody>
+	</table>
+<?php endif;?>

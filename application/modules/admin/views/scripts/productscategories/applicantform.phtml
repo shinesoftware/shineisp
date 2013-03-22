@@ -1,0 +1,73 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+    
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"notification error\">".$this->translate('This field') . ": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
+
+<form class="multiple_select_form" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a href="#tab2"><?=$this->translate('Products');?></a></li> 
+			<li><a href="#tab3"><?=$this->translate('Options');?></a></li> 
+			<li><a href="#tab4"><?=$this->translate('Blocks');?></a></li> 
+		</ul>
+
+	    <div id="tab1"> 
+            <?php echo $form->name->render()?>
+            <?php echo $form->parent->render()?>
+            <?php echo $form->uri->render()?>
+            <?php echo $form->googlecategs->render()?>
+            <?php echo $form->position->render()?>
+            <?php echo $form->enabled->render()?>
+            <?php echo $form->description->render()?>
+            <br/><a class="toggle button" href="#"><?php echo $this->translate('Disable/Enable Wysiwyg')?></a>
+	    </div>
+	    
+	    <div class="ui-tabs-hide" id="tab2"> 
+	    	<?php echo $form->products->render()?>
+	    </div>
+	    
+	   <div class="ui-tabs-hide" id="tab3">
+	   		 <?php echo $form->keywords->render()?>
+            <?php echo $form->wikipages->render() ?>
+	   </div>      
+	    
+	   <div class="ui-tabs-hide" id="tab4">
+	   		<?php echo $form->blocks->render() ?>
+	   </div>      
+	   
+	   <?php echo $form->category_id->render()?>
+   </div>
+</form>
+
+<script type="text/javascript">
+<!--
+//Wysiwyg TinyMCE Switch 
+$(function() {
+    var id = 'description'; // ID of your textarea (no # symbol) 
+        $("a.toggle").toggle(function(){
+           tinyMCE.execCommand('mceRemoveControl', false, id);
+        }, function () {
+            tinyMCE.execCommand('mceAddControl', false, id);
+    });
+});
+//-->
+</script>
+</div>

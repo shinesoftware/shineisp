@@ -1,0 +1,115 @@
+/* `HTML5 Reset
+----------------------------------------------------------------------------------------------------*/
+
+a,
+abbr,
+address,
+article,
+aside,
+audio,
+b,
+blockquote,
+body,
+caption,
+cite,
+code,
+dd,
+del,
+dfn,
+dialog,
+div,
+dl,
+dt,
+em,
+fieldset,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+hr,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+nav,
+object,
+ol,
+p,
+pre,
+q,
+samp,
+section,
+small,
+span,
+strong,
+sub,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+ul,
+var,
+video {
+	border: 0;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	font-size: 100%;
+}
+
+html, body {
+	height: 100%;
+}
+
+body, input, select, textarea, button {
+    font: 12px "Droid Sans","Helvetica Neue", Helvetica, sans-serif;
+}
+
+b,
+strong {
+/*
+	Makes browsers agree.
+	IE + Opera = font-weight: bold.
+	Gecko + WebKit = font-weight: bolder.
+*/
+	font-weight: bold;
+}
+
+img {
+	font-size: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+th,
+td,
+caption {
+	font-weight: normal;
+	vertical-align: top;
+	text-align: left;
+}
+
+small {font-size:85%; color: #666} 

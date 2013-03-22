@@ -1,0 +1,15 @@
+<div class="headtitle">
+    <h3>
+    <?php 
+            echo $this->translate($this->title);
+            if(!empty($this->name)){
+                echo ": " . $this->name;
+            } 
+        ?>
+    </h3>
+    <small><?php echo $this->translate($this->description);?></small>
+</div>
+ 
+<?= $this->grid($this->orders);?>
+<br/>
+<a class="button" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a>

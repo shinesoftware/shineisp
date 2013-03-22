@@ -1,0 +1,75 @@
+<?php 
+	$results = $this->results; 
+	$suggestions = $this->suggestions; 
+?>
+
+<form method="POST" id="domainbox" action="/domainschk/save">
+	<div id="mainresult" class="<?php echo $results['available'] ? "yes" : "no"?>">
+		<h1><?php echo $results['domain']?></h1>
+		<p><b><?php echo $results['price'] ?></b></p>
+		
+		<p>
+			<?php if($results['available']):?>
+				<?php echo $this->translate('%s is still free.', $results['domain'])?>
+			<?php else: ?>
+				<?php echo $this->translate('%s is already taken.', $results['domain'])?>
+			<?php endif; ?>
+			
+			<?php echo $results['mex'] ?>
+		</p>
+		
+		<input type="checkbox" checked class="tld" value="<?php echo $results['tld'] ?>" name="tlds[]">
+		<?php if($results['available']):?>
+			<b><?php echo strtoupper($this->translate('I would like to register %s', $results['domain']))?></b>
+			<p align="right">
+				<p align="right"><input type="submit" class="order" value="<?php echo strtoupper($this->translate('Register'))?>"></p>
+			</p>		
+		<?php else: ?>
+			<b><?php echo strtoupper($this->translate('I would like to transfer %s', $results['domain']))?></b>
+			
+			<p>
+				<input type="text" class="text-input large-input" value="" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
+				<br/><small><?php echo $this->translate('To transfer your domain name, please unlock it at the old provider control panel website and get the AUTHINFO code of your domain.')?> <a href="/wiki/domains.html" target="_blank"><?php echo $this->translate('Read more')?></a></small>
+			</p>
+			
+			<p align="right">
+				<a class="button" href="/domainschk/"><?php echo strtoupper($this->translate('Change Name'))?></a>
+				<a class="button" target="_blank" href="http://whois.domaintools.com/<?php echo $results['domain']?>"><?php echo $this->translate('WHOIS')?></a>
+			</p>		
+			
+		<?php endif; ?>
+	</div>
+	
+	<div id="suggestions">
+		<h4><?php echo $this->translate('Domain Suggestions')?></h4>
+		<ul>
+			<?php foreach ($suggestions as $item) :?>
+				<li class="<?php echo $item['available'] ? "available" : "notavailable"; ?>">
+					<input type="checkbox" class="tld" value="<?php echo $item['tld'] ?>" name="tlds[]">
+					<b><?php echo $item['domain']?></b> - 
+					<small><?php echo $item['price']?></small><br/><small><?php echo $item['mex']?></small>
+					
+					<?php if(!$item['available']):?>
+						<br/>
+						<small><a target="_blank" href="http://www.<?php echo $item['domain']?>"><?php echo $this->translate('Show')?></a></small>
+						| <small><a target="_blank" href="http://whois.domaintools.com/<?php echo $item['domain']?>">Whois</a></small>
+					<?php endif;?>
+				</li>
+			<?php endforeach;?>
+		</ul>
+		<input type="checkbox" name="selectall" class="selectalltlds" value=""><b><?php echo $this->translate('Select all the domains')?></b>
+		<p align="right"><input type="submit" class="order" value="<?php echo strtoupper($this->translate('Order Selected'))?>"></p>
+	</div>
+	<input type="hidden" name="domain" value="<?php echo $results['name']?>">
+</form>
+
+<h4><?php echo $this->translate('Search another domain name')?></h4>
+<div id="domainchecker" title="<?php echo $this->translate('Choose your new domain name!')?>">
+    <div class="checkerform">
+	    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
+			<?php echo $this->form->name->setDecorators(array('Simple'));?>
+			<?php echo $this->form->tld->setDecorators(array('Simple'));?>
+			<?php echo $this->form->check->setDecorators(array('Simple'));?>
+	    </form>
+    </div>
+</div>

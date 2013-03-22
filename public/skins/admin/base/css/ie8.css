@@ -1,0 +1,21 @@
+#main_content,
+#sidebar_content {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#sidebar_search_form {
+	line-height: 47px;
+}
+
+table.data tbody td {
+	border-top: 1px solid #ddd;
+}
+
+.chrome_light .icon:active {
+	background-color: #ccc;
+}
+
+.chrome_dark .icon:active {
+	background-color: #000;
+}

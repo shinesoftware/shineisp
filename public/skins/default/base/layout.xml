@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+
+	<!-- Default configuration of the whole project -->
+	<general template="2columns-left">
+		<head>
+		    <!-- JS files to be include in every pages-->
+			<js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
+			<js override="1">/resources/js/jquery/jquery-ui-1.9.2.custom.min.js</js>
+			
+			<!-- CSS files to be include in every pages-->
+			<css override="1">/resources/js/css/jquery-ui-1.8.16.custom.css</css>
+		</head>
+	</general>
+
+    <!-- Frontend Template Section -->
+	<default template="1column"> <!-- Template set for all the frontend pages -->
+		<!-- Common files called at the start of the default module -->
+		<commons> 
+		
+		    <!-- All the head js and css files will be attached in all the header of the pages -->
+			<head>
+							
+			    <!-- files to be include in every frontend pages-->
+			    <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
+			    <js override="1">/resources/js/jquery/jquery.confirm-1.3.js</js>
+			    <js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
+			    <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
+			    <css override="1">/resources/js/css/jquery.autocomplete.css</css>
+			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
+			    
+				<js>/js/commons.js</js>
+				<js>/js/master.js</js>
+	            <css>/css/reset.css</css>
+	            <css>/css/cart.css</css>
+	            <css>/css/default.css</css>
+                
+			</head>
+			
+			<!-- All these blocks will be attached in all the pages 
+			     Adding a static cms block in all the pages of the website
+			-->
+			     
+			<blocks>
+				<block side="beforefooter" position="100">twitter</block>  
+				<block side="endfooter" position="200">end-footer</block>  
+            </blocks>
+            
+		</commons>
+
+		<!-- Controllers sections -->
+		<index template="homepage">
+			<head> <!-- action attribute for [commonsresourcesonly, clearallresources] -->
+			    <!-- files to be include in the front index page -->
+			    
+			</head>
+            <blocks> <!-- action attribute for [clearallblocks] -->
+            </blocks>			
+		</index>
+		
+		<!-- Adding a static cms block only within the products pages on the right side of the template. 
+			 Important: 2columns-right layout must be set as default layout for this controller.
+		     the layout template has been set as default: 2columns-right you CANNOT change it
+		        
+		<products template="2columns-right"> 
+			<blocks>
+			    <block side="right" position="200">myblockvar</block>  
+			</blocks>
+		</products>
+		-->
+        		
+       	<products>
+       		<blocks>
+                <block side="right">contacts</block>
+            </blocks>	
+       	</products>
+       	
+        <tickets>
+            <head>
+                <js override="1">/resources/js/jquery/jquery.rating.pack.js</js>
+                <css override="1">/resources/js/css/jquery.rating.css</css>
+                <js>/js/cpanels.js</js>
+                <css>/css/cpanels.css</css>
+            </head>
+        </tickets> 
+        
+        <dashboard>
+            <head>
+                <css>/css/cpanels.css</css>
+                <js>/js/cpanels.js</js>
+            </head>
+        </dashboard> 
+        
+        <domains>
+            <head>
+                <css>/css/cpanels.css</css>
+                <js>/js/cpanels.js</js>
+            </head>
+        </domains> 
+        
+        <services>
+            <head>
+                <css>/css/cpanels.css</css>
+                <js>/js/cpanels.js</js>
+            </head>
+        </services> 
+        
+        <cms>
+            <head>
+                <js override="1">/resources/js/jquery/jquery.toc.js</js>
+                <js>/js/wiki.js</js>
+            </head>
+            <blocks>
+                <block side="right">contacts</block>
+            </blocks>	
+        </cms> 
+        
+        <wiki template="2columns-right">
+            <head>
+                <js override="1">/resources/js/jquery/jquery.toc.js</js>
+                <js>/js/wiki.js</js>
+            </head>
+            <blocks>
+                <block side="right">contacts</block>
+            </blocks>		
+        </wiki>       
+          		
+        <products template="2columns-right"> 
+			<head>
+                <js>/js/priceloader.js</js>
+            </head>
+		</products>
+		
+	</default>
+
+</layout>
