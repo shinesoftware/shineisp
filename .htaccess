@@ -1,0 +1,40 @@
+SetEnv APPLICATION_ENV development
+
+# Set the charset of the output
+AddDefaultCharset UTF-8
+
+## EXPIRES CACHING ##
+ExpiresActive On
+ExpiresByType image/jpg "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType text/css "access plus 1 month"
+ExpiresByType application/pdf "access plus 1 month"
+ExpiresByType text/x-javascript "access plus 1 month"
+ExpiresByType application/x-shockwave-flash "access plus 1 month"
+ExpiresByType image/x-icon "access plus 1 year"
+ExpiresDefault "access plus 2 days"
+
+## EXPIRES CACHING ##
+
+RewriteEngine On
+
+# Exclude some directories from URI rewriting
+#RewriteRule ^(dir1|dir2|dir3) - [L]
+
+RewriteRule ^(chat|svn) - [L]
+
+RewriteRule ^\.htaccess$ - [F]
+
+RewriteCond %{REQUEST_URI} =""
+RewriteRule ^.*$ /public/index.php [NC,L]
+
+RewriteCond %{REQUEST_URI} !^/public/.*$
+RewriteRule ^(.*)$ /public/$1
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^.*$ - [NC,L]
+
+RewriteRule ^public/.*$ /public/index.php [NC,L]
+
