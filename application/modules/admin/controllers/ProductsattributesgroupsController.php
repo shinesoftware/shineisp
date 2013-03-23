@@ -119,7 +119,7 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 				$this->view->title = $this->translator->translate ( 'Are you  sure to delete the feature selected?' );
 				$this->view->description = $this->translator->translate ( 'If you delete this feature, it will be no longer available.' );
 				
-				$record = $this->productsattributesgroups->getAllInfo ( $id, "hpf.feature_id, hpf.position, hpf.active, hpf.system, hpf.system_var, hpfd.data_id as data_id, hpfd.name as name, hpfd.image as image, hpfd.short_description as short_description, hpfd.description as description, hpf.mainfeature as mainfeature, hpfd.language_id as language_id" );
+				$record = $this->productsattributesgroups->getAllInfo ( $id );
 				$this->view->recordselected = $record ['name'];
 			} else {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );

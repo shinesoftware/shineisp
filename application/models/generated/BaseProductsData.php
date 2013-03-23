@@ -83,7 +83,8 @@ abstract class BaseProductsData extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Languages', array(
              'local' => 'language_id',

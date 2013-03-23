@@ -50,7 +50,8 @@ abstract class BaseWikilinks extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('ProductsCategories', array(
              'local' => 'category_id',

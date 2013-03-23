@@ -45,6 +45,7 @@ abstract class BaseProductsRelated extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Products', array(
              'local' => 'related_product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
     }
 }

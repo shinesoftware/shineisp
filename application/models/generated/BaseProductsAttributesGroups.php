@@ -13,7 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsAttributesGroups', 'doct
  * @property string $name
  * @property string $code
  * @property Doctrine_Collection $Products
- * @property ProductsAttributesGroupsIndexes $ProductsAttributesGroupsIndexes
+ * @property Doctrine_Collection $ProductsAttributesGroupsIndexes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -60,9 +60,8 @@ abstract class BaseProductsAttributesGroups extends Doctrine_Record
              'local' => 'group_id',
              'foreign' => 'group_id'));
 
-        $this->hasOne('ProductsAttributesGroupsIndexes', array(
+        $this->hasMany('ProductsAttributesGroupsIndexes', array(
              'local' => 'group_id',
-             'foreign' => 'group_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'group_id'));
     }
 }

@@ -148,7 +148,8 @@ abstract class BaseOrdersItems extends Doctrine_Record
 
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('DomainsTlds', array(
              'local' => 'tld_id',

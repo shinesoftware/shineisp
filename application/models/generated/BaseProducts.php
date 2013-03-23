@@ -158,7 +158,8 @@ abstract class BaseProducts extends Doctrine_Record
         parent::setUp();
         $this->hasOne('ProductsAttributesGroups', array(
              'local' => 'group_id',
-             'foreign' => 'group_id'));
+             'foreign' => 'group_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Taxes', array(
              'local' => 'tax_id',
