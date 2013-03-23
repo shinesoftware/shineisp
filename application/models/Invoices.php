@@ -66,7 +66,7 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/invoices/delete/id/%d";
-		$config ['datagrid'] ['massactions'] = array ('bulk_pdf_export'=>'Pdf List', 'bulk_csv_export' => 'Csv Export', 
+		$config ['datagrid'] ['massactions']['common'] = array ('bulk_pdf_export'=>'Pdf List', 'bulk_csv_export' => 'Csv Export', 
 				'bulk_print_invoices' => 'Download Invoices',
 				'bulk_dropbox_invoices' => 'Upload Invoices into Dropbox Account' );
 		return $config;
