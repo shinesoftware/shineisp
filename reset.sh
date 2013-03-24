@@ -7,6 +7,8 @@ echo "GIT Update";
 echo "==========";
 cd /var/www/shineisp.com/web/demo/ 
 git fetch --all
+git reset --hard origin/master
+
 echo "";
 
 echo "Setting the permissions for ShineISP";
