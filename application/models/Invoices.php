@@ -857,6 +857,10 @@ class Invoices extends BaseInvoices {
 			$zip = new ZipArchive();
 			$filename = "invoices_" . date('YmdHis') . ".zip";
 			
+			if(!is_dir(PUBLIC_PATH . "/tmp/")){
+				@mkdir(PUBLIC_PATH . "/tmp/");
+			}
+			
 			$file = PUBLIC_PATH . "/tmp/$filename";
 			
 			$invoices = Doctrine_Query::create ()->select('i.invoice_id, i.invoice_date, i.number')
