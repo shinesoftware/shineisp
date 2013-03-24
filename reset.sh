@@ -6,6 +6,7 @@ echo "";
 echo "GIT Update";
 echo "==========";
 cd /var/www/shineisp.com/web/demo/ 
+
 git fetch --all
 git reset --hard origin/master
 
