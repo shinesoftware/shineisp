@@ -6,7 +6,7 @@ echo "";
 echo "SVN Update";
 echo "==========";
 cd /var/www/shineisp.com/web/demo/ 
-svn update
+git pull
 echo "";
 
 echo "Setting the permissions for ShineISP";
