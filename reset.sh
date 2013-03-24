@@ -6,7 +6,7 @@ echo "";
 echo "GIT Update";
 echo "==========";
 cd /var/www/shineisp.com/web/demo/ 
-git pull
+git fetch --all
 echo "";
 
 echo "Setting the permissions for ShineISP";
