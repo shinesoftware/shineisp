@@ -71,8 +71,8 @@ class Payments extends BasePayments
         $dq = Doctrine_Query::create ()
                         ->from ( 'Payments p' )
                         ->leftJoin ( 'p.Banks b' )
-                        ->where ( "p.order_id = ?", $order_id )
-                        ->limit ( 1 );
+                        ->where ( "p.order_id = ?", $order_id );
+                        //->limit ( 1 );
         
         if($fields != "*"){
         	$dq->select ( $fields );

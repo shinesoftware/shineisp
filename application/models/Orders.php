@@ -403,12 +403,12 @@ class Orders extends BaseOrders {
 				$total = self::updateTotalsOrder ( $id );
 				
 				if (! empty ( $params ['paymentdate'] )) {
-					$payment_exist = Payments::findbyorderid ( $id, null, true );
-					if (count ( $payment_exist ) == 0) {
+					//$payment_exist = Payments::findbyorderid ( $id, null, true );
+					//if (count ( $payment_exist ) == 0) {
 						$payment = new Payments ();
-					} else {
-						$payment = Doctrine::getTable ( 'Payments' )->find ( $payment_exist [0] ['payment_id'] );
-					}
+					//} else {
+					//	$payment = Doctrine::getTable ( 'Payments' )->find ( $payment_exist [0] ['payment_id'] );
+					//}
 					$payment->paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $params ['paymentdate'] );
 					$payment->order_id = $id;
 					$payment->bank_id = $params ['bank_id'];
@@ -416,7 +416,8 @@ class Orders extends BaseOrders {
 					$payment->description = $params ['payment_description'];
 					$payment->reference = $params ['reference'];
 					$payment->confirmed = $params ['confirmed'];
-					$payment->income = $total;
+					//$payment->income = $total;
+					$payment->income = $params['income'];
 					$payment->save ();
 				}
 				

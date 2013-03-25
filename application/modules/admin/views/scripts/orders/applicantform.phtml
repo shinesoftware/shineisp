@@ -43,6 +43,7 @@
 		        <?php echo $form->expiring_date->render() ?>
 		        <?php echo $form->fastlink->render() ?>
 		        <?php echo $form->visits->render() ?>
+		        
 		    </fieldset>
 		    
 		    <fieldset class="column-right">
@@ -54,6 +55,8 @@
 	            <?php echo $form->total->render()?>
 	            <?php echo $form->vat->render()?>
 	            <?php echo $form->grandtotal->render()?>
+	            <?php echo $form->received_income->render()?>
+	            <?php echo $form->missing_income->render()?>
 		    </fieldset>
 		    <div class="clear"></div>
 	    </div>
@@ -89,6 +92,8 @@
 	   </div>
 	   
 	   <div class="ui-tabs-hide" id="tab3">
+	   		<?= $this->simplegrid($this->paymentsdatagrid);?>
+	   		<br/>
             <?php echo $form->paymentdate->render()?>
             <?php echo $form->bank_id->render()?>
             <?php echo $form->reference->render()?>
