@@ -16,7 +16,13 @@ class Products extends BaseProducts {
 	 * grid
 	 * create the configuration of the grid
 	 */
-	public static function grid($rowNum = 10, $locale=1) {
+	public static function grid($rowNum = 10, $locale = null) {
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		
+		if ( $locale === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$locale = $Session->langid;
+		}
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.product_id', 'alias' => 'product_id', 'type' => 'selectall' );
