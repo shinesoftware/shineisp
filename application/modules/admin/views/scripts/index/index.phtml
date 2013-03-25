@@ -17,7 +17,6 @@
 			
 			<div class="portlet" id="new_orders">
 		        <?php 
-			        // Open, Processing and Waiting Reply tickets
 	        		$statuses = array(Statuses::id("tobepaid", "orders"));
 		        ?>
 				<?php echo $this->widget(Orders::Last($statuses), "New Orders", "orders")?>

@@ -124,7 +124,10 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				
 				$record = $this->products->find ( $id, null, true );
 				
-				$this->view->recordselected = $record [0] ['ProductsData'] [0] ['name'];
+				$this->view->recordselected = '';
+                if ( isset($record [0] ['ProductsData'] [0] ['name']) ) {
+	                $this->view->recordselected = $record [0] ['ProductsData'] [0] ['name'];
+                }
 			} else {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
 			}
