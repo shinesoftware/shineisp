@@ -120,7 +120,12 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 				$this->view->description = $this->translator->translate ( 'If you delete this feature, it will be no longer available.' );
 				
 				$record = $this->productsattributesgroups->getAllInfo ( $id );
-				$this->view->recordselected = $record ['name'];
+				
+				$this->view->recordselected = '';
+                if ( isset($record) && isset($record ['name']) ) {
+	                $this->view->recordselected = $record ['name'];
+                }
+				
 			} else {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
 			}
