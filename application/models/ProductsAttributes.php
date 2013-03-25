@@ -161,7 +161,12 @@ class ProductsAttributes extends BaseProductsAttributes {
 	 * @param $id
 	 * @return ARRAY Record
 	 */
-	public static function getAttributes($locale=1) {
+	public static function getAttributes($locale = null) {
+		if ( $locale === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$locale = $Session->langid;
+		}
+		
 		try {
 			$records = array();
 			$items = Doctrine_Query::create ()->select ( 'attribute_id, pad.label as label, code' )
