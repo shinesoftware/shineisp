@@ -16,9 +16,13 @@ class ProductsAttributes extends BaseProductsAttributes {
 	 * grid
 	 * create the configuration of the grid
 	 */
-	public static function grid($rowNum = 10, $locale =1) {
-		
+	public static function grid($rowNum = 10, $locale = null) {
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		
+		if ( $locale === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$locale = $Session->langid;
+		}
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -36,7 +40,6 @@ class ProductsAttributes extends BaseProductsAttributes {
 																->select ( $config ['datagrid'] ['fields'] )
 																->from ( 'ProductsAttributes pa' )
 																->leftJoin('pa.ProductsAttributesData pad WITH pad.language_id = ' . $locale);
-		
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
