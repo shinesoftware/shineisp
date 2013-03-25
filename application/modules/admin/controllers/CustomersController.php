@@ -264,6 +264,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$this->view->servicesdatagrid = $this->servicesGrid ();
 		$this->view->ordersdatagrid = $this->ordersGrid ();
 		$this->view->tickets = $this->ticketsGrid ();
+		$this->view->invoicesdatagrid = $this->invoicesGrid ();
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
 	}
@@ -341,6 +342,30 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			return array ('name' => 'tickets', 'records' => $rs, 'edit' => array ('controller' => 'tickets', 'action' => 'edit' ) );
 		}
 	}
+	
+	private function invoicesGrid() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		if (isset ( $request->id ) && is_numeric ( $request->id )) {
+			$fields = "invoice_id, 
+				DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
+				i.number as number, 
+				i.order_id as order, 
+				o.cost as cost, 
+				o.total as total, 
+				o.vat as vat";
+			$rs = Invoices::getByCustomerID ($request->id, $fields);
+			
+			$printURL = $this->getHelper('url')->url(
+				array('module'     => Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ()
+					 ,'controller' => 'invoices'
+					 ,'action'     => 'print'
+					 ,'id'         => ''
+				 ));
+				 
+			return array ('name' => 'invoices', 'records' => $rs, 'edit' => array ('controller' => 'invoices', 'action' => 'edit' ), 'actions' => array ($printURL=>$this->translator->translate('Print')) );
+		}
+	}
+	
 	
 	/**
 	 * processAction
