@@ -37,6 +37,7 @@
 			<li><a href="#tab10"><?=$this->translate('Tickets');?></a></li>
 			<li><a href="#tab11"><?=$this->translate('Atributes');?></a></li>
 			<li><a href="#tab12"><?=$this->translate('Options');?></a></li>
+			<li><a href="#tab13"><?=$this->translate('Invoices');?></a></li>
 		</ul>
 	
 	    <div id="tab1"> 
@@ -171,6 +172,14 @@
 	       <?= $form->taxfree->render();?>
 	       <div class="clear"></div>
 	   </div>   
+	   
+	   <div class="ui-tabs-hide" id="tab13">
+	        <fieldset> 
+	            <?= $this->simplegrid($this->invoicesdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>   
+	   
 	   
 	   <?php echo $form->customer_id->render()?>
 	

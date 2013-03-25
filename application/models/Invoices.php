@@ -343,6 +343,22 @@ class Invoices extends BaseInvoices {
         return Doctrine::getTable ( 'Invoices' )->findAll(Doctrine_Core::HYDRATE_ARRAY);
     }
     
+	/**
+	 * getByCustomerID
+	 * Get all data  
+	 * @param $customerID
+	 * @return Array
+	 */
+	public static function getByCustomerID($customerID, $fields = '*') {
+		$records = Doctrine_Query::create ()->select ( $fields )
+							->from ( 'Invoices i' )
+							->leftJoin ( 'i.Customers c' )
+							->leftJoin ( 'i.Orders o' )
+							->where ( "i.customer_id = ?", $customerID )
+							->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+		
+		return $records;
+	}
     
     /**
      * Delete
@@ -363,7 +379,7 @@ class Invoices extends BaseInvoices {
      * @return Doctrine Record
      */
     public static function findByCustomerID($id) {
-        return Doctrine::getTable ( 'Invoices' )->findBy ( 'customer_id', $id );
+        return Doctrine::getTable ( 'Invoices' )->findBy ( 'customer_id', $id);
     }  
     
     /**
@@ -618,10 +634,17 @@ class Invoices extends BaseInvoices {
     		if(!is_numeric($invoice_id)){
     			return false;
     		}
+			
+			$invoice = Invoices::find ( $invoice_id );
+			//* GUEST - ALE - 20130225: invoice not found?
+			if ( !$invoice ) {
+				return false;
+			}
+			
     		
     		$pdf = new Shineisp_Commons_PdfOrder ( );
     		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-			$invoice = Invoices::find ( $invoice_id )->toArray ();
+			$invoice = $invoice->toArray ();
 			$payments = Payments::findbyorderid ( $invoice ['order_id'], null, true );
 			$order = Orders::getAllInfo ( $invoice ['order_id'], null, true );
 			

@@ -71,7 +71,7 @@ class ProductsAttributesGroups extends BaseProductsAttributesGroups
 	 * DeleteGroup
 	 * Delete a group 
 	 */
-	public static function DeleteGroup($id){
+	public static function DeleteGroup($id) {
 		Doctrine::getTable ( 'ProductsAttributesGroups' )->find ( $id )->delete();
 	}
 	
