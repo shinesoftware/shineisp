@@ -392,12 +392,11 @@ class Domains extends BaseDomains {
 				$thedomain->tld_id = $tldInfo['tld_id'];
 				$thedomain->customer_id = $customerid;
 				$thedomain->orderitem_id = $orderitemid;
-				$thedomain->product_id = $tld_id;
 				$thedomain->status_id = $statusid;
 				$thedomain->registrars_id = Isp::getActiveISPID();
-				$thedomain->creation_date = date('Y-m-d H:i:s');
-				$thedomain->expiring_date = $date_end;  // TODO: Add the right days
-				$thedomain->modification_date = date('Y-m-d H:i:s');
+				$thedomain->creation_date = date('Y-m-d');
+				$thedomain->expiring_date = Shineisp_Commons_Utilities::formatDateIn($date_end);  
+				$thedomain->modification_date = date('Y-m-d');
 				$thedomain->authinfocode = $authcode;
 				$thedomain->autorenew = true;
 				$thedomain->save();

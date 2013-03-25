@@ -863,8 +863,7 @@ class Orders extends BaseOrders {
 				$totmonths = intval ( $qta * $months );
 				
 				// Calculate the total of the months 
-				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null, $totmonths );
-				$item['date_end'] = $date_end;
+				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
 				
 				if($months >= 12){
 					$qty = $months / 12;
@@ -873,7 +872,7 @@ class Orders extends BaseOrders {
 				}
 				
 				$item['price'] = $price * $qty; 
-				
+				$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
 			}else{
 				$item['date_end'] = null;
 			}
@@ -936,9 +935,7 @@ class Orders extends BaseOrders {
 					$totmonths = intval ( $qta * $months );
 					
 					// Calculate the total of the months 
-					$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null, $totmonths );
-					
-					$item['date_end'] = $date_end;
+					$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
 					
 					if($months >= 12){
 						$qty = $months / 12;
@@ -947,7 +944,7 @@ class Orders extends BaseOrders {
 					}
 					
 					$item['price'] = $product['price_1'] * $qty; 
-					
+					$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
 				}else{
 					$item['date_end'] = null;
 				}
