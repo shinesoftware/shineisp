@@ -710,7 +710,7 @@ class Shineisp_Commons_Ajaxgrid {
 				// Inject custom script
 				$this->script .= $this->jsinject;
 			
-			$this->script .= "});\n";
+			$this->script .= "}).fnSetFilteringDelay(600);\n";
 			
 			// Inject custom script
 			$this->script .= $this->jsendinject;
