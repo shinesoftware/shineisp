@@ -9,6 +9,8 @@ Doctrine_Manager::getInstance()->bindComponent('Domains', 'doctrine');
  * 
  * @property integer $domain_id
  * @property string $domain
+ * @property integer $tld_id
+ * @property integer $product_id
  * @property string $tld
  * @property date $creation_date
  * @property date $modification_date
@@ -19,9 +21,7 @@ Doctrine_Manager::getInstance()->bindComponent('Domains', 'doctrine');
  * @property integer $status_id
  * @property boolean $autorenew
  * @property string $note
- * @property integer $tld_id
  * @property string $authinfocode
- * @property integer $product_id
  * @property OrdersItems $OrdersItems
  * @property DomainsTlds $DomainsTlds
  * @property Customers $Customers
@@ -58,6 +58,15 @@ abstract class BaseDomains extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '255',
+             ));
+        $this->hasColumn('tld_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'length' => '4',
+             ));
+        $this->hasColumn('product_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
              ));
         $this->hasColumn('tld', 'string', 25, array(
              'type' => 'string',
@@ -109,17 +118,9 @@ abstract class BaseDomains extends Doctrine_Record
              'notnull' => false,
              'length' => '',
              ));
-        $this->hasColumn('tld_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => '4',
-             ));
         $this->hasColumn('authinfocode', 'string', 100, array(
              'type' => 'string',
              'length' => '100',
-             ));
-        $this->hasColumn('product_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => '4',
              ));
     }
 

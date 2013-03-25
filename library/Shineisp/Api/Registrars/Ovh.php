@@ -80,6 +80,9 @@ class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implement
 				// Get the main DNS servers set in the configuration
 				$dns = $this->getDnsServers();
 				
+				$locale = Zend_Registry::get('Zend_Locale');
+				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
+				
 				// OVH handle two kind of registration for the domains it and the others
 				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
 					
@@ -102,7 +105,7 @@ class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implement
 													$customer ['lastname'], 
 													$customer ['taxpayernumber'], 
 													$customer ['vat'], 
-													Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), 
+													$birthdate->get('yyyy-MM-dd'), 
 													$customer ['birthplace'], 
 													$customer ['birthdistrict'], 
 													$customer ['birthcountry'], 
@@ -156,7 +159,7 @@ class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implement
 													$customer ['firstname'] . " " . $customer ['lastname'], 
 													$customer ['vat'], 
 													null, 
-													Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), 
+													$birthdate->get('yyyy-MM-dd'), 
 													$customer ['birthplace'], 
 													$customer ['birthdistrict'], 
 													$customer ['birthcountry'], 
@@ -248,6 +251,9 @@ class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implement
 				// Get the main DNS servers set in the configuration
 				$dns = $this->getDnsServers();
 				
+				$locale = Zend_Registry::get('Zend_Locale');
+				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
+				
 				// OVH handle two kind of registration for the domains it and the others
 				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
 					$soap->resellerDomainTransferIT ( $this->session['id'], 
@@ -270,7 +276,7 @@ class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implement
 													$customer ['lastname'], 
 													$customer ['taxpayernumber'], 
 													$customer ['vat'], 
-													Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), 
+													$customer->get('yyyy-MM-dd'), 
 													$customer ['birthplace'], 
 													$customer ['birthdistrict'], 
 													$customer ['birthcountry'], 

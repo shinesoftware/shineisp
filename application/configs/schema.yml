@@ -843,6 +843,11 @@ Domains:
     domain:
       type: string(255)
       notnull: true
+    tld_id: 
+      type: integer(4)
+      notnull: true
+    product_id: 
+      type: integer(4)
     tld:
       type: string(25)
       notnull: true
@@ -873,9 +878,7 @@ Domains:
     note:
       type: string()
       notnull: false
-    tld_id: integer(4)
     authinfocode: string(100)
-    product_id: integer(4)
   relations:
     OrdersItems:
       local: orderitem_id
