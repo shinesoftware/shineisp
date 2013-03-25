@@ -84,10 +84,15 @@ class ProductsAttributesGroups extends BaseProductsAttributesGroups
      */
     public static function getAllInfo($id, $fields = "*", $language_id = 1) {
         try {
-            $hp = Doctrine_Query::create ()->select ( $fields )
-            ->from ( 'ProductsAttributesGroups pag' )
-            ->where ( 'pag.group_id = ?', $id )
-            ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+            $dq = Doctrine_Query::create ()
+					            ->from ( 'ProductsAttributesGroups pag' )
+					            ->where ( 'pag.group_id = ?', $id );
+					            
+            if($fields != "*"){
+            	$dq->select($fields);
+            }
+            
+            $hp = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
             if (isset ( $hp [0] )) {
                 return $hp [0];

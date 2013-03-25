@@ -3,10 +3,13 @@
 echo "ShineISP Update and Reset tasks.";
 echo "================================";
 echo "";
-echo "SVN Update";
+echo "GIT Update";
 echo "==========";
 cd /var/www/shineisp.com/web/demo/ 
-svn update
+
+git fetch --all
+git reset --hard origin/master
+
 echo "";
 
 echo "Setting the permissions for ShineISP";
@@ -17,6 +20,5 @@ chmod 776 application/configs/
 chmod 776 public -R
 chmod 776 reset.sh
 rm -f public/.htaccess
-rm -f application/configs/config.xml
 
 echo "Finished";

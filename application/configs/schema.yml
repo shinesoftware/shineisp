@@ -900,7 +900,7 @@ Domains:
     Products:
       local: product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
     DomainsTasks:
       local: domain_id
       foreign: domain_id
@@ -1866,6 +1866,7 @@ OrdersItems:
     Products:
       local: product_id
       foreign: product_id
+      onDelete: CASCADE
     DomainsTlds:
       local: tld_id
       foreign: tld_id
@@ -2148,6 +2149,7 @@ PaymentsResources:
       local: method_id
       foreign: method_id
       type: one
+      
 Products:
   connection: doctrine
   tableName: products
@@ -2212,7 +2214,7 @@ Products:
     ProductsAttributesGroups:
       local: group_id
       foreign: group_id
-      type: one
+      onDelete: CASCADE
     Taxes:
       local: tax_id
       foreign: tax_id
@@ -2351,15 +2353,6 @@ ProductsAttributesGroups:
       default: 0
     name: string(150)
     code: string(150)
-  relations:
-    Products:
-      local: group_id
-      foreign: group_id
-      type: many
-    ProductsAttributesGroupsIndexes:
-      local: group_id
-      foreign: group_id
-      onDelete: CASCADE
       
 ProductsAttributesGroupsIndexes:
   connection: doctrine
@@ -2410,7 +2403,7 @@ ProductsAttributesIndexes:
     Products:
       local: product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
     ProductsAttributes:
       local: attribute_id
       foreign: attribute_id
@@ -2497,7 +2490,7 @@ ProductsData:
     Products:
       local: product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
     Languages:
       local: language_id
       foreign: language_id
@@ -2557,7 +2550,8 @@ ProductsRelated:
     Products:
       local: related_product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
+      
 ProductsTranches:
   connection: doctrine
   tableName: products_tranches
@@ -2586,7 +2580,7 @@ ProductsTranches:
     Products:
       local: product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
     BillingCycle:
       local: billing_cycle_id
       foreign: billing_cycle_id
@@ -2785,7 +2779,7 @@ Reviews:
     Products:
       local: product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
     OrdersItems:
       local: review_id
       foreign: review_id
@@ -3331,7 +3325,7 @@ Wikilinks:
     Products:
       local: product_id
       foreign: product_id
-      type: one
+      onDelete: CASCADE
     ProductsCategories:
       local: category_id
       foreign: category_id
