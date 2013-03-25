@@ -19,7 +19,11 @@ class CMSBlocksData extends BaseCMSBlocksData
      * @param $locale
      * @return Doctrine Record
      */
-    public static function findbyPageDatabyID($pageid, $locale = 1) {
+    public static function findbyPageDatabyID($pageid, $locale = null) {
+		if ( $locale === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$locale = $Session->langid;
+		}
         
     	
     	$record = Doctrine_Core::getTable('CMSBlocksData')
