@@ -213,16 +213,17 @@ class Admin_OrdersController extends Zend_Controller_Action {
 				$rs ['order_date']      = Shineisp_Commons_Utilities::formatDateOut ( $rs ['order_date'] );
 				$rs ['expiring_date']   = Shineisp_Commons_Utilities::formatDateOut ( $rs ['expiring_date'] );
 				$rs ['received_income'] = 0;
-				$rs ['missing_income']  = $rs ['grandtotal'];
+				$rs ['missing_income']  = $rs['grandtotal'];
 				
 				//* GUEST - ALE - 20130325: Calculate missing income and received income based on total payments for this order
 				$payments = Payments::findbyorderid ( $id, 'income', true );
 				if (isset ( $payments )) {
 					foreach ( $payments as $payment ) {
-						$rs ['received_income'] += (isset($payment['income'])) ? $payment['income']: 0;
+						$rs ['received_income'] += (isset($payment['income'])) ? $payment['income'] : 0;
+						$rs ['missing_income']  -= (isset($payment['income'])) ? $payment['income'] : 0;
 					}
 				}
-				$rs ['missing_income']  = $rs ['grandtotal'] - $rs ['received_income'];
+				$rs ['missing_income'] = sprintf('%.2f',$rs ['missing_income']);
 				unset($payments);
 				
 				$parent = Customers::find ( $rs ['customer_id'] );
@@ -338,7 +339,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			if (isset ( $rs )) {
 				$myrec = array ();
 				foreach ( $rs as $record ) {
-					$record['income'] = number_format ( $record ['income'] / 100, 2 );
+					$record['income'] = number_format ( $record ['income'], 2 );
 					
 					if ( isset($record['Banks'])) {
 						if ( isset($record['Banks']['name'])) {
