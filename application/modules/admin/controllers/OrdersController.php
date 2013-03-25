@@ -241,13 +241,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 					$rs ['visits'] = $link [0] ['visits'];
 				}
 				
-				$payment = Payments::findbyorderid ( $id, null, true );
-				if (count ( $payment ) > 0) {
-					$payment [0] ['paymentdate'] = Shineisp_Commons_Utilities::formatDateOut ( $payment [0] ['paymentdate'] );
-					$payment [0] ['payment_description'] = $payment [0] ['description'];
-					$rs = array_merge ( $rs, $payment [0] );
-				}
-				
 				$form->populate ( $rs );
 				$this->view->id = $id;
 				$this->view->customerid = $rs ['customer_id'];
