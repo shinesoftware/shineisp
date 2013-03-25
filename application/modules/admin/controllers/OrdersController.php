@@ -223,6 +223,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 					}
 				}
 				$rs ['missing_income']  = $rs ['grandtotal'] - $rs ['received_income'];
+				unset($payments);
 				
 				$parent = Customers::find ( $rs ['customer_id'] );
 				
