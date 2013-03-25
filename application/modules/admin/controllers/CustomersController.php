@@ -359,10 +359,10 @@ class Admin_CustomersController extends Zend_Controller_Action {
 				array('module'     => Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ()
 					 ,'controller' => 'invoices'
 					 ,'action'     => 'print'
-					 ,'id'         => ''
+					 ,'id' => ''
 				 ));
 				 
-			return array ('name' => 'invoices', 'records' => $rs, 'edit' => array ('controller' => 'invoices', 'action' => 'edit' ), 'actions' => array ('Print') );
+			return array ('name' => 'invoices', 'records' => $rs, 'edit' => array ('controller' => 'invoices', 'action' => 'edit' ), 'actions' => array ($printURL=>'Print') );
 		}
 	}
 	
