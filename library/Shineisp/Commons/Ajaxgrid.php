@@ -644,7 +644,8 @@ class Shineisp_Commons_Ajaxgrid {
 		$this->jsbeforeinject .= 'var asInitVals = new Array();';
 		$this->addfooterfilters = true;
 		$this->jsendinject .= '
-				$("tfoot input").keyup( function () {
+				$("tfoot input").keyup( function (e) {
+						if ( e.keyCode != 13 ) { return false; }
 						/* Filter on the column (the index) of this element */
 						oTable.fnFilter( this.value, $("tfoot input").index(this) + 1 );
 					} );
