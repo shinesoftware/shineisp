@@ -32,6 +32,7 @@
 	            <js override="1">/resources/js/jquery/jquery.ui.datepicker-it.js</js>
 	            <js override="1">/resources/js/jquery/jquery.dynatree.js</js>
 	            <js override="1">/resources/js/jquery/jquery.dataTables.js</js>
+	            <js override="1">/resources/js/jquery/jquery.dataTables.delay.js</js>
 	            <js override="1">/resources/js/jquery/jquery.multiselect.min.js</js>
                 <js override="1">/resources/js/jquery/jquery.multiselect.filter.min.js</js>
 				 
