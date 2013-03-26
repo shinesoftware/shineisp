@@ -103,7 +103,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 								'uid' => 5000,
 								'gid' => 5000,
 								'maildir' => '/var/vmail/' . $domain['domain'] . "/info",
-								'quota' => !empty($parameters['mailquota']) && is_numeric($parameters['mailquota']) ? $parameters['mailquota'] * 1048576 : "-1",
+								'quota' => !empty($parameters['mailquota']) && is_numeric($parameters['mailquota']) ? $parameters['mailquota'] : "-1",
 								'cc' => '',
 								'homedir' => '',
 								'autoresponder' => 'n',
