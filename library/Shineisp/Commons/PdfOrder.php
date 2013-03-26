@@ -96,7 +96,7 @@ class Shineisp_Commons_PdfOrder {
 		$toppos -= 5;
 		$this->page->drawLine ( HEADER_LEFT, $toppos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $toppos );
 		
-		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_ITALIC, 8 );
+		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_ITALIC, 7 );
 		$toppos -= 10;
 		$this->Write ( $this->locale->translate ( 'Site Web' ) . ": " . $records ['company'] ['website'] . " - " . $this->locale->translate ( 'eMail' ) . ": " . $records ['company'] ['email'] . " - " . $this->locale->translate ( 'Telephone' ) . ": " . $records ['company'] ['telephone'] . " - " . $this->locale->translate ( 'FAX' ) . ": " . $records ['company'] ['fax'], HEADER_LEFT, $toppos );
 		$toppos -= 10;
