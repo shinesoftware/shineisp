@@ -531,6 +531,11 @@ AdminResources:
     controller: summary
     parent_id: 1
     hidden: 1       
+  AdminResources_87:
+    name: Atom RSS
+    module: default
+    controller: atom
+    parent_id: 1    
     
         
 AdminPermissions:
@@ -1023,6 +1028,10 @@ AdminPermissions:
     permission: allow    
   AdminPermissions_437:
     resource_id: 86
+    role_id: 4
+    permission: allow    
+  AdminPermissions_438:
+    resource_id: 87
     role_id: 4
     permission: allow    
   
