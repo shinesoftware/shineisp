@@ -11,12 +11,14 @@
 
 define ( 'PAGE_WIDTH', 595 );
 define ( 'PAGE_HEIGHT', 842 );
-define ( 'PAGE_BOTH_MARGIN', 30 );
+define ( 'PAGE_BOTH_MARGIN', 8 );
 define ( 'HEADER_TOP', 800 );
 define ( 'HEADER_LEFT', 30 );
 define ( 'GRID_TOP', 20 );
 define ( 'GRID_HEIGHT_ROWS', 20 );
 define ( 'GRID_HEIGHT_BETWEEN_ROWS', 4 );
+define ( 'TRANSACTION_MULTIPLIER', 5 );
+define ( 'TRANSACTION_MULTIPLIER_VOFFSET', 14 );
 
 class Shineisp_Commons_PdfOrder {
 	protected $pdf;
@@ -170,6 +172,9 @@ class Shineisp_Commons_PdfOrder {
 			return false;
 		}
 		
+		$totalPayments = count($records['payments']);
+		$h_offset      = ($totalPayments > 1) ? ($totalPayments * TRANSACTION_MULTIPLIER) : 0;
+		
 		// QRCode Image
 		$code['order'] = $records ['order_number'];
 		$code['customer'] = $records['customer'] ['customer_id'];
@@ -178,10 +183,11 @@ class Shineisp_Commons_PdfOrder {
 		$strCode = $_SERVER['HTTP_HOST'] . "/index/qrcode/q/$jcode";
 		
 		// QRCode Image
-		$qrcode = "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=$strCode&choe=UTF-8";
+		$size = 160;
+		$qrcode = "https://chart.googleapis.com/chart?chs=".$size."x".$size."&cht=qr&chl=$strCode&choe=UTF-8";
 		file_put_contents(PUBLIC_PATH . '/tmp/qrcode'.$jcode,file_get_contents($qrcode));
 		$logo = new Zend_Pdf_Resource_Image_Png(PUBLIC_PATH . '/tmp/qrcode'.$jcode);
-		$this->page->drawImage($logo, (PAGE_WIDTH - PAGE_BOTH_MARGIN - 80), 100, PAGE_WIDTH - PAGE_BOTH_MARGIN + ($logo->getPixelWidth()/1.9) - 80, 100 + $logo->getPixelHeight()/1.9);
+		$this->page->drawImage($logo, (PAGE_WIDTH - PAGE_BOTH_MARGIN - 80), 90 + $h_offset-6, PAGE_WIDTH - PAGE_BOTH_MARGIN + ($logo->getPixelWidth()/1.9) - 80, 90 + $logo->getPixelHeight()/1.9 + $h_offset-6);
 		@unlink(PUBLIC_PATH . '/tmp/qrcode'.$jcode);
 		
 		return true;
@@ -484,9 +490,14 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function Summary() {
-		$toppos = 244;
+		$toppos = 224;
 		$leftpos = 50;
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
+		
+		//* Total payments
+		$totalPayments = count($records['payments']);
+		$h_offset      = ($totalPayments > 1) ? ($totalPayments * TRANSACTION_MULTIPLIER) : 0;
+		$toppos        += $h_offset;
 		
 		$this->page->setLineWidth ( 0.5 );
 		
@@ -539,13 +550,24 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function FooterDetails() {
-		
-		if ($this->h < 218) {
+		if ($this->h < 190) {
 			$this->CreatePage ();
 		}
+
+		// Positioning for one transaction
+		$toppos         = 200;
+		$bottomPos      = 30;
+		$h_offset       = 30;
 		
-		$toppos = 214;
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
+		
+		$totalPayments = count($records['payments']);
+		if ( $totalPayments > 1 ) {
+			$toppos    += $totalPayments * TRANSACTION_MULTIPLIER;	
+			$h_offset  += $totalPayments * TRANSACTION_MULTIPLIER;
+		}
+		
+		$originalToppos = $toppos;
 		
 		$this->page->setLineWidth ( 0.5 );
 		$this->page->setLineColor ( new Zend_Pdf_Color_Html ( '#333333' ) );
@@ -567,16 +589,23 @@ class Shineisp_Commons_PdfOrder {
 		$toppos -= 30;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN + 295, $toppos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $toppos );
 		
-		$toppos -= 30;
-		$this->page->drawLine ( PAGE_BOTH_MARGIN, $toppos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $toppos );
-		$this->page->drawLine ( PAGE_BOTH_MARGIN + 430, $toppos, PAGE_BOTH_MARGIN + 430, $toppos - 30 ); // Vertical line
 		
+		
+		
+		$toppos -= 60;
+		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos+$h_offset, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos+$h_offset); // Prima riga, va dinamicizzata in base all'altezza
+		$this->page->drawLine ( PAGE_BOTH_MARGIN + 430, $bottomPos+$h_offset, PAGE_BOTH_MARGIN + 430, $bottomPos+$h_offset ); // Vertical line
 
-		$toppos -= 30;
-		$this->page->drawLine ( PAGE_BOTH_MARGIN, $toppos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $toppos );
+		//$toppos -= 30;
+		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos ); // Ultima riga, deve essere fissa
+
 		
+		
+		
+		
+				
 		// Reset of the height for writing the labels
-		$toppos = 214;
+		$toppos = $originalToppos;
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 5 );
 		$this->Write ( strtoupper ( $this->locale->translate ( "Bank Name" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 10 );
 		$this->Write ( $this->locale->translate ( "IBAN" ), PAGE_BOTH_MARGIN + 300, $toppos - 10 );
@@ -588,8 +617,9 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( strtoupper ( $this->locale->translate ( "Transaction ID" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->locale->translate ( "Order Number" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 120 );
 		$this->Write ( strtoupper ( $this->locale->translate ( "Invoice Number" ) ), PAGE_BOTH_MARGIN + 400, $toppos - 120 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 150 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "EURO" ) ), PAGE_BOTH_MARGIN + 436, $toppos - 150 );
+		$this->Write ( strtoupper ( $this->locale->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
+		$this->Write ( strtoupper ( $this->locale->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
+		$this->Write ( strtoupper ( $this->locale->translate ( "EURO" ) ), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$this->Write ( $records ['company'] ['bankname'], PAGE_BOTH_MARGIN + 2, $toppos - 24 );
@@ -610,25 +640,48 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( sprintf("%03d", $records ['order_number']), PAGE_BOTH_MARGIN + 300, $toppos - 130 );
 		$this->Write ( sprintf("%03d", $records ['invoice_number']), PAGE_BOTH_MARGIN + 400, $toppos - 130 );
 
-		$records ['payment_date'] = ! empty ( $records ['payment_date'] ) ? $records ['payment_date'] : "";
-		$records ['payment_transaction_id'] = ! empty ( $records ['payment_transaction_id'] ) ? $records ['payment_transaction_id'] : "";
 		$records ['payment_description'] = ! empty ( $records ['payment_description'] ) ? $records ['payment_description'] : "";
 		$records ['payment_mode'] = ! empty ( $records ['payment_mode'] ) ? $records ['payment_mode'] : "";
-		
-		$this->Write ( $records ['payment_date'], PAGE_BOTH_MARGIN + 300, $toppos - 162 );
-		$this->Write ( $records ['payment_transaction_id'], PAGE_BOTH_MARGIN + 2, $toppos - 162 );
+
+
+		if ( $totalPayments > 1 ) {
+			$c = 0;
+			foreach ( $records['payments'] as $payment ) {
+				$offset = $c * 10;
+				
+				$this->Write ( $payment ['reference'], PAGE_BOTH_MARGIN + 2, $bottomPos + $offset + TRANSACTION_MULTIPLIER);
+				if ( isset($payment['Banks']) && isset($payment['Banks']['name']) ) {
+					$this->Write ( $payment['Banks']['name'], PAGE_BOTH_MARGIN + 295, $bottomPos + $offset + TRANSACTION_MULTIPLIER );
+				}
+				$this->Write ( $payment ['paymentdate'], PAGE_BOTH_MARGIN + 420, $bottomPos + $offset + TRANSACTION_MULTIPLIER );
+				
+				$c++;
+			}
+		} else {
+			$records ['payment_transaction_id'] = ! empty ( $records ['payment_transaction_id'] ) ? $records ['payment_transaction_id'] : "";
+			$records ['payment_date'] = ! empty ( $records ['payment_date'] ) ? $records ['payment_date'] : "";
+
+			$this->Write ( $records ['payment_transaction_id'], PAGE_BOTH_MARGIN + 2, $toppos - 162 );
+			$this->Write ( $records ['payment_mode'], PAGE_BOTH_MARGIN + 295, $toppos - 162 );
+			$this->Write ( $records ['payment_date'], PAGE_BOTH_MARGIN + 420, $toppos - 162 );
+		}
+
+		//print_r($records);
+		//die();
+
+		$fontSize = ( $totalPayments > 1 ) ? 13 : 9;
+		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, $fontSize );
+		$this->Write ( $records ['grandtotal'], PAGE_BOTH_MARGIN + 500, $toppos - 162 );
+
+		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$this->Write ( $records ['payment_description'], PAGE_BOTH_MARGIN + 299, $toppos - 90 );
-		
-		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, 9 );
-		$this->Write ( $records ['grandtotal'], PAGE_BOTH_MARGIN + 436, $toppos - 162 );
-		
-		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 10 );
-		$this->Write ( $records ['payment_mode'], PAGE_BOTH_MARGIN + 299, $toppos - 65 );
+		$this->Write ( $records ['payment_mode'], PAGE_BOTH_MARGIN + 299, $toppos - 60 );
+
 		$this->h = $toppos - 210;
 	}
 	
 	private function Footer() {
-		$toppos = 30;
+		$toppos = 20;
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_ITALIC, 6 );
 		$this->Write ( $records ['company'] ['name'] . " - " . $this->locale->translate ( 'Site Web' ) . ": " . $records ['company'] ['website'] . " - " . $this->locale->translate ( 'eMail' ) . ": " . $records ['company'] ['email'] . " - " . $this->locale->translate ( 'Telephone' ) . ": " . $records ['company'] ['telephone'] . " - " . $this->locale->translate ( 'fax' ) . ": " . $records ['company'] ['fax'], PAGE_BOTH_MARGIN, $toppos );
