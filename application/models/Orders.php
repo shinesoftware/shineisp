@@ -680,7 +680,7 @@ class Orders extends BaseOrders {
 								
 								// Check if the product has some tax to be added
 								$tax = Taxes::getTaxbyProductID ( $oldOrderDetails [0] ['product_id'] );
-								if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0) {
+								if ( isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id) ) {
 									$vat = $vat + (($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']) * $tax ['percentage']) / 100;
 								}
 								
@@ -737,7 +737,7 @@ class Orders extends BaseOrders {
 				$order->status_id = Statuses::id("processing", "orders"); // Processing
 				
 
-				if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0) {
+				if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id)) {
 					$order->total = $amount / ((100 + $tax ['percentage']) / 100);
 					$order->vat = $amount - $order->total;
 					$order->grandtotal = $amount;
@@ -764,7 +764,7 @@ class Orders extends BaseOrders {
 				$orderitem->description = $product ['name'];
 				$orderitem->cost = $product ['cost'];
 				$orderitem->quantity = 1;
-				if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0) {
+				if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id)) {
 					$orderitem->price = $amount / ((100 + $tax ['percentage']) / 100);
 				} else {
 					$orderitem->price = $amount;
@@ -810,7 +810,7 @@ class Orders extends BaseOrders {
 			$order['expiring_date'] = date ( 'Y-m-j' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
 			$order['isp_id'] = Isp::getActiveISPID ();
 			$order['status_id'] = is_numeric($statusId) ? $statusId : Statuses::id("tobepaid", "orders");
-			
+
 			// Save the data
 			$order->save();
 			
@@ -1418,6 +1418,7 @@ class Orders extends BaseOrders {
 				$details = OrdersItems::getAllDetails($id, null, true);
 				if(!empty($details[0])){
 					$isTaxFree = Customers::isTaxFree($details [0] ['Orders'] ['Customers'] ['customer_id']);
+					$isVATFree = Customers::isVATFree($details [0] ['Orders'] ['Customers'] ['customer_id']);
 	
 					foreach ( $details as $detail ) {
 						
@@ -1427,7 +1428,7 @@ class Orders extends BaseOrders {
 							$costs +=  $detail ['cost'];
 						}
 						
-						if(!$isTaxFree){
+						if( !$isTaxFree && !$isVATFree ){
 							// If the product is a domain 
 							if(!empty($detail['tld_id'])){
 								$tax = Taxes::getTaxbyTldID($detail ['tld_id']);	
@@ -1795,8 +1796,10 @@ class Orders extends BaseOrders {
 				
 				//if customer comes from reseller
 				if ($order [0] ['Customers'] ['parent_id']) {
-					$isTaxFree = Customers::isTaxFree($order [0] ['Customers'] ['parent_id']);
+					$isTaxFree    = Customers::isTaxFree($order [0] ['Customers'] ['parent_id']);
+					$isVATFree    = Customers::isVATFree($order [0] ['Customers'] ['parent_id']);
 					$invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'], 'c.*, a.*' );
+					
 					$orderinfo ['customer'] ['customer_id'] = $invoice_dest ['customer_id'];
 					$orderinfo ['customer'] ['company'] = $invoice_dest ['company'];
 					$orderinfo ['customer'] ['firstname'] = $invoice_dest ['firstname'];
@@ -1813,6 +1816,7 @@ class Orders extends BaseOrders {
 					}
 				} else {
 					$isTaxFree = Customers::isTaxFree($order [0] ['Customers'] ['customer_id']);
+					$isVATFree = Customers::isVATFree($order [0] ['Customers'] ['customer_id']);
 					$orderinfo ['customer'] ['customer_id'] = $order [0] ['Customers'] ['customer_id'];
 					$orderinfo ['customer'] ['company'] = $order [0] ['Customers'] ['company'];
 					$orderinfo ['customer'] ['firstname'] = $order [0] ['Customers'] ['firstname'];
@@ -1885,7 +1889,7 @@ class Orders extends BaseOrders {
 						$rowtotal = $price;
 					}
 					
-					if(!$isTaxFree){
+					if(!$isTaxFree && !$isVATFree){
 						$taxes = Taxes::getTaxbyProductID($item['product_id']);
 						if(!empty($taxes['percentage'])){
 							$taxpercent = $taxes['percentage'];

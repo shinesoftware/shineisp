@@ -196,12 +196,56 @@ class Customers extends BaseCustomers {
 	 * @throws Exception
 	 */
 	public static function isTaxFree($id) {
-		if(is_numeric($id)){
-			$customer = self::getAllInfo($id);
-			return $customer['taxfree'];
-		}else{
+		if( ! is_numeric($id) ) {
 			throw new Exception('Customer Id paramenter is mandatory');
 		}
+		
+		$customer = self::getAllInfo($id);
+		return $customer['taxfree'];
+	}
+
+	/**
+	 * Check if the customer is subject to EU-VAT
+	 * TODO: add support for multiple invoicing addresses
+	 * 
+	 * @param integer $id
+	 * @return boolean
+	 * @throws Exception
+	 */
+	public static function isVATFree($id) {	
+		if( ! is_numeric($id) ) {
+			throw new Exception('Customer Id paramenter is mandatory');
+		}
+		
+		$customer = self::getAllInfo($id);
+
+		// tax free also means vat free
+		if ( $customer['taxfree'] == 1 ) {
+			return true;
+		}
+
+		$Addresses = Addresses::findOneByUserId($id);
+		if ( ! isset($Addresses->country_id) || ! is_numeric($Addresses->country_id) ) {
+			return false;
+		}
+
+		if ( empty($customer['vat']) ) {
+			/*
+			 * Private
+			 */
+			//* EU country, VAT ok
+			return ! Countries::isUEbyId($Addresses->country_id);  
+			 
+		} else {
+			/*
+			 * Company
+			 */
+			 
+			//* TODO: 82 is Italy. This should not be hardcoded here.
+			return ($Addresses->country_id != 82) ? true : false;
+		}
+		
+		
 	}
 	
 	/**

@@ -215,7 +215,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$form = $this->getForm ( '/admin/customers/process' );
 		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
-
+		
 		$this->view->title = "Customer edit";
 		$this->view->description = "Here you can edit the customer details.";
 		
