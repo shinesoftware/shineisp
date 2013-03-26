@@ -701,6 +701,13 @@ class Invoices extends BaseInvoices {
 				}
 				
 				if (count ( $payments ) > 0) {
+					$orderinfo['payments'] = array();
+					if ( $payments > 1 ) {
+						foreach ( $payments as $payment ) {
+							$payment['paymentdate']  = Shineisp_Commons_Utilities::formatDateOut ( $payment['paymentdate'] );
+							$orderinfo['payments'][] = $payment;	
+						}
+					}
 					$orderinfo ['payment_date'] = Shineisp_Commons_Utilities::formatDateOut ( $payments [0] ['paymentdate'] );
 					$orderinfo ['payment_mode'] = $payments [0] ['Banks'] ['name'];
 					$orderinfo ['payment_description'] = $payments [0] ['description'];
