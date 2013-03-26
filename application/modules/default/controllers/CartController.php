@@ -451,13 +451,19 @@ class CartController extends Zend_Controller_Action {
 		$cart = $NS->cart;
 		$contact = $cart->contacts;
 		
+		$isVATFree = Customers::isVATFree($cart->contacts['customer_id']);
+		
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		$form = new Default_Form_CartsummaryForm ( array ('action' => '/cart/payment', 'method' => 'post' ) );
 		
 		if (! isset ( $NS->cart->products ) || count ( $NS->cart->products ) == 0) {
 			$this->_helper->redirector ( 'index', 'index', 'default' );
 		} else {
-			$items = $NS->cart->products;
+			//$items = $NS->cart->products;
+			foreach ( $NS->cart->products as &$products ) {
+				$products['tax_id'] = ($isVATFree) ? null : $products['tax_id'];
+				$items[] = $products;
+			}
 			$this->view->placeholder ( "shoppingcart" )->append ( $this->view->partial ( 'partials/shoppingcart.phtml', array ('items' => $items ) ) );
 		}
 		
@@ -809,10 +815,13 @@ class CartController extends Zend_Controller_Action {
 	private function Totals() {
 		$currency = new Zend_Currency();
 		$NS = new Zend_Session_Namespace ( 'Default' );
+		
+		$isVATFree = Customers::isVATFree($NS->cart->contacts['customer_id']);
+		
 		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
 			$products = $NS->cart->products;
 			$total = 0;
-			$tax = 0;
+			$tax   = 0;
 			$taxes = 0;
 			
 			// Read all the product added in the cart
@@ -820,10 +829,11 @@ class CartController extends Zend_Controller_Action {
 				$price = ($product ['price_1'] * $product ['quantity']) + $product ['setupfee'];
 				$vat = 0;
 				$tax = 0;
+				
 				// check the taxes for each product
-				if (! empty ( $product ['tax_id'] )) {
+				if (! empty ( $product ['tax_id'] ) && !$isVATFree) {
 					$tax = Taxes::find ( $product ['tax_id'], null, true );
-					if (! empty ( $tax [0] ['percentage'] ) && is_numeric ( $tax [0] ['percentage'] )) {
+					if (! empty ( $tax [0] ['percentage'] ) && is_numeric ( $tax [0] ['percentage'] ) ) {
 						$percentage = $tax [0] ['percentage'];
 						$vat = ($price * $percentage) / 100;
 						$price = ($price * (100 + $percentage)) / 100;
