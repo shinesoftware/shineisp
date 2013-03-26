@@ -52,12 +52,17 @@ class CMSBlocks extends BaseCMSBlocks
      * @param $var
      * @return Doctrine Record
      */
-    public static function findbyvar($var, $languageID=1) {
+    public static function findbyvar($var, $language_id=null) {
+		if ( $language_id === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$language_id = $Session->langid;
+		}
+    	
         return Doctrine_Query::create ()->from ( 'CMSBlocks cmsb' )
         								->leftJoin ( 'cmsb.CMSBlocksData cpd' )
 									    ->leftJoin ( 'cpd.Languages l' )
         								->where ( 'var = ?', $var)
-        								->addWhere('cpd.language_id = ?', $languageID)
+        								->addWhere('cpd.language_id = ?', $language_id)
         								->execute(array(), Doctrine::HYDRATE_ARRAY);
     }
     

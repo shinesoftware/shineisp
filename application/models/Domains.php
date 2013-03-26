@@ -781,8 +781,11 @@ class Domains extends BaseDomains {
 	 * @param integer $locale
 	 * @return array
 	 */
-	public static function get_domains($items, $fields = "*", $orderby="domain", $locale=1) {
-		
+	public static function get_domains($items, $fields = "*", $orderby="domain", $language_id=null) {
+		if ( $language_id === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$language_id = $Session->langid;
+		}		
 		return Doctrine_Query::create ()->select ( $fields )
 										->from ( 'Domains d' )
 										->leftJoin ( 'd.DomainsTlds dt' )
@@ -790,7 +793,7 @@ class Domains extends BaseDomains {
 										->leftJoin ( 'd.Customers c' )
 										->leftJoin ( 'd.Products p' )
 										->leftJoin ( 'd.Statuses s' )
-										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+										->leftJoin ( "p.ProductsData pd WITH pd.language_id = ".intval($language_id) )
 										->whereIn ( "d.domain_id", $items )
 										->orderBy($orderby)
 										->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -880,7 +883,11 @@ class Domains extends BaseDomains {
 	 * @param $id
 	 * @return Doctrine Record / Array
 	 */
-	public static function getAllInfo($id, $customer_id = "", $fields = "*", $retarray = false, $locale =1) {
+	public static function getAllInfo($id, $customer_id = "", $fields = "*", $retarray = false, $language_id = null) {
+		if ( $language_id === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$language_id = $Session->langid;
+		}		
 		try {
 			$dq = Doctrine_Query::create ()
 			     ->from ( 'Domains d' )
@@ -890,7 +897,7 @@ class Domains extends BaseDomains {
 			     ->leftJoin ( 'd.TagsConnections tgc' )
 			     ->leftJoin ( 'tgc.Tags tg' )
 			     ->leftJoin ( 'd.Products p' )
-			     ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+			     ->leftJoin ( "p.ProductsData pd WITH pd.language_id = ".intval($language_id) )
 			     ->leftJoin ( 'p.Taxes t' )
 			     ->leftJoin ( 'd.OrdersItems oi' )
 			     ->leftJoin ( 'd.Statuses s' )

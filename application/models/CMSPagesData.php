@@ -19,13 +19,16 @@ class CMSPagesData extends BaseCMSPagesData
      * @param $locale
      * @return Doctrine Record
      */
-    public static function findbyPageDatabyID($pageid, $locale = 1) {
-        
+    public static function findbyPageDatabyID($pageid, $language_id = null) {
+		if ( $language_id === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$language_id = $Session->langid;
+		}        
     	
     	$record = Doctrine_Core::getTable('CMSPagesData')
 				    ->createQuery('u')
 				    ->addWhere ( "page_id = ?", $pageid )
-                    ->addWhere ( "language_id = ?", $locale )
+                    ->addWhere ( "language_id = ?", $language_id )
 				    ->fetchOne();
 	
         return $record;
