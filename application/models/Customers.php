@@ -692,7 +692,7 @@ class Customers extends BaseCustomers {
 		
 		$Customers->orderBy ( 'lastname, firstname, company' );
 		$arrCustomers = $Customers->execute ()->toArray ();
-		
+				
 		foreach ( $arrCustomers as $c ) {
 			$items [$c ['customer_id']] = Shineisp_Commons_Utilities::Capitalize($c ['lastname'] . " " . $c ['firstname'], true);
 			if (! empty ( $c ['company'] )) {

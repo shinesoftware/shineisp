@@ -242,6 +242,21 @@ class Admin_Form_OrdersForm extends Zend_Form
             'class'      => 'text-input little-input bold'
         ));    
             
+       $this->addElement('text', 'received_income', array(
+       		'readonly'   => 1,
+            'filters'    => array('StringTrim'),
+            'label'      => 'Income',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input little-input'
+        ));           
+       $this->addElement('text', 'missing_income', array(
+       		'readonly'   => 1,
+            'filters'    => array('StringTrim'),
+            'label'      => 'Missing income',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input little-input'
+        ));           
+			
         $this->addElement('text', 'fastlink', array(
             'filters'    => array('StringTrim'),
             'id'      => 'fastlink',
@@ -345,7 +360,6 @@ class Admin_Form_OrdersForm extends Zend_Form
        $this->addElement('text', 'income', array(
             'filters'    => array('StringTrim'),
             'label'      => 'Income',
-            'readonly'      => '1',
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));           

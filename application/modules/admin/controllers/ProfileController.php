@@ -120,13 +120,40 @@ class Admin_ProfileController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function deleteAction() {
-		$id = $this->getRequest ()->getParam ( 'id' );
+		$id = intval($this->getRequest ()->getParam ( 'id' ));
+
+		$identity   = Zend_Auth::getInstance ()->getIdentity ();
+		$adminCount = count(AdminUser::getUserbyRoleID(1));
+		
 		if (is_numeric ( $id )) {
-			if(!AdminRoles::isAdministrator($id)){  // If the user is an Administrator, you cannot delete him
-				AdminUser::deleteUser( $id );
-			}else{
-				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'The administrator profile cannot be deleted.' ), 'status' => 'error' ) );
+			/* Security checks
+			 *  - administrators cannod be deleted by unprivileged users
+			 *  - you can't delete the latest administrator
+			 *  - you can't delete yourself
+			 */
+			 
+			//* you can't delete yourself 
+			if ( $id == $identity['user_id'] ) {
+				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You can not delete yourself.' ), 'status' => 'error' ) );
+				die();	
+			}			 
+			
+			//* administrators cannod be deleted by unprivileged users
+			if ( AdminRoles::isAdministrator($id) ) {
+				if ( (int)$identity['role_id'] != 1 ) {
+					$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'The administrator profile can be deleted only by administrator.'), 'status' => 'error' ) );
+					die();	
+				}
+			}			 
+			 
+			//* you can't delete the latest administrator
+			if(AdminRoles::isAdministrator($id) && $adminCount <= 1){
+				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You can not delete the latest administrator' ), 'status' => 'error' ) );
+				die();	
 			}
+			
+			//* all good, delete
+			AdminUser::deleteUser( $id );
 		}
 		return $this->_helper->redirector ( 'index', 'profile' );
 	}

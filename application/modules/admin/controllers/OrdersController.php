@@ -199,7 +199,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
-		$id = $this->getRequest ()->getParam ( 'id' );
+		$id = intval($this->getRequest ()->getParam ( 'id' ));
 		
 		
 		$this->view->description = "Here you can edit the selected order.";
@@ -209,9 +209,21 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			if (! empty ( $rs )) {
 				$rs = $rs->toArray ();
 				
-				$rs ['setupfee'] = Orders::getSetupfee ( $id );
-				$rs ['order_date'] = Shineisp_Commons_Utilities::formatDateOut ( $rs ['order_date'] );
-				$rs ['expiring_date'] = Shineisp_Commons_Utilities::formatDateOut ( $rs ['expiring_date'] );
+				$rs ['setupfee']        = Orders::getSetupfee ( $id );
+				$rs ['order_date']      = Shineisp_Commons_Utilities::formatDateOut ( $rs ['order_date'] );
+				$rs ['expiring_date']   = Shineisp_Commons_Utilities::formatDateOut ( $rs ['expiring_date'] );
+				$rs ['received_income'] = 0;
+				$rs ['missing_income']  = $rs ['grandtotal'];
+				
+				//* GUEST - ALE - 20130325: Calculate missing income and received income based on total payments for this order
+				$payments = Payments::findbyorderid ( $id, 'income', true );
+				if (isset ( $payments )) {
+					foreach ( $payments as $payment ) {
+						$rs ['received_income'] += (isset($payment['income'])) ? $payment['income']: 0;
+					}
+				}
+				$rs ['missing_income']  = $rs ['grandtotal'] - $rs ['received_income'];
+				unset($payments);
 				
 				$parent = Customers::find ( $rs ['customer_id'] );
 				
@@ -277,6 +289,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		
 		$this->view->customer = array ('records' => $customer, 'editpage' => 'customers' );
 		$this->view->ordersdatagrid = $this->orderdetailGrid ();
+		$this->view->paymentsdatagrid = $this->paymentsGrid ();
 		$this->view->filesgrid = $this->filesGrid ();
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -315,6 +328,36 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			}
 		}
 	}
+	
+	private function paymentsGrid() {
+		$request   = Zend_Controller_Front::getInstance ()->getRequest ();
+		$requestId = intval($request->id);
+				
+		if (isset ( $request->id ) && is_numeric ( $requestId )) {
+			$rs = Payments::findbyorderid ( $requestId, '*', true );
+			if (isset ( $rs )) {
+				$myrec = array ();
+				foreach ( $rs as $record ) {
+					$record['income'] = number_format ( $record ['income'] / 100, 2 );
+					
+					if ( isset($record['Banks'])) {
+						if ( isset($record['Banks']['name'])) {
+							$record['bank_name'] = $record['Banks']['name'];
+						}
+						unset($record['Banks']);
+					}
+					
+					$myrec [] = $record;
+				}
+				
+				return array (
+					'records' => $myrec 
+					,'pager'  => true 
+				);
+			}
+		}
+	}
+	
 	
 	/*
 	 * Renew Action
