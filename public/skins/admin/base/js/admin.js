@@ -266,7 +266,6 @@ $(document).ready(function(){
 	
     /* ######################## PRODUCTS ####################### */
 	$('.sublist').dataTable({
-	    "bJQueryUI": true,
 	    "bRetrieve":true,
 		"sPaginationType": "full_numbers",
 	 });
