@@ -103,7 +103,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 								'uid' => 5000,
 								'gid' => 5000,
 								'maildir' => '/var/vmail/' . $domain['domain'] . "/info",
-								'quota' => !empty($parameters['mailquota']) && is_numeric($parameters['mailquota']) ? $parameters['mailquota'] : "-1",
+								'quota' => !empty($parameters['mailquota']) && is_numeric($parameters['mailquota']) && ($parameters['mailquota'] > 0) ? $parameters['mailquota'] / 1048576 : "-1",
 								'cc' => '',
 								'homedir' => '',
 								'autoresponder' => 'n',
@@ -200,27 +200,41 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				
 				// Create a random password string
 				$password = Shineisp_Commons_Utilities::GenerateRandomString();
-					
+
+				// Create a database user
 				$params = array(
 						'server_id' => $ServerId,
-						'type' => 'mysql',
-						'database_name' => $dbname,
 						'database_user' => $dbuser,
-						'database_password' => $password,
-						'database_charset' => 'utf8',
-						'remote_access' => 'y',
-						'remote_ips' => '',
-						'active' => 'y'
+						'database_password' => $password
 				);
+				
+				$dbUserId = $client->sites_database_user_add($this->getSession(), $clientId, $params);
+				if($dbUserId){
+					// Create the database
+					$params = array(
+							'server_id' => $ServerId,
+							'type' => 'mysql',
+							'database_name' => $dbname,
+							'database_user_id' => $dbUserId,
+							'database_ro_user_id' => '0',
+							'database_charset' => 'utf8',
+							'remote_access' => 'y',
+							'remote_ips' => '',
+							'backup_interval' => 'none',
+							'backup_copies' => 1,
+							'active' => 'y'
+					);
+						
+					$databaseID = $client->sites_database_add($this->getSession(), $clientId, $params);
 					
-				$databaseID = $client->sites_database_add($this->getSession(), $clientId, $params);
-				
-				// Save the setup in the service setup field
-				OrdersItems::set_setup($task ['orderitem_id'], array('db'=>$dbname, 'username'=>$dbuser, 'password'=>$password), "database");
-				
-				// Create the log message
-				Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
-				
+					// Save the setup in the service setup field
+					OrdersItems::set_setup($task ['orderitem_id'], array('db'=>$dbname, 'username'=>$dbuser, 'password'=>$password), "database");
+					
+					// Create the log message
+					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
+				}else{
+					throw new Exception("Database User ID has not been found.", "3503");
+				}
 			}else{
 				throw new Exception("Database Server has not been found in IspConfig server settings.", "3501");
 			}
