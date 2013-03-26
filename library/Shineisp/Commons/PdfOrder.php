@@ -17,7 +17,7 @@ define ( 'HEADER_LEFT', 30 );
 define ( 'GRID_TOP', 20 );
 define ( 'GRID_HEIGHT_ROWS', 20 );
 define ( 'GRID_HEIGHT_BETWEEN_ROWS', 4 );
-define ( 'TRANSACTION_MULTIPLIER', 5 );
+define ( 'TRANSACTION_MULTIPLIER', 8 );
 define ( 'TRANSACTION_MULTIPLIER_VOFFSET', 14 );
 
 class Shineisp_Commons_PdfOrder {
@@ -594,7 +594,7 @@ class Shineisp_Commons_PdfOrder {
 		
 		$toppos -= 60;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos+$h_offset, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos+$h_offset); // Prima riga, va dinamicizzata in base all'altezza
-		$this->page->drawLine ( PAGE_BOTH_MARGIN + 430, $bottomPos+$h_offset, PAGE_BOTH_MARGIN + 430, $bottomPos+$h_offset ); // Vertical line
+		$this->page->drawLine ( PAGE_BOTH_MARGIN + 490, $bottomPos+$h_offset, PAGE_BOTH_MARGIN + 490, $bottomPos ); // Vertical line
 
 		//$toppos -= 30;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos ); // Ultima riga, deve essere fissa

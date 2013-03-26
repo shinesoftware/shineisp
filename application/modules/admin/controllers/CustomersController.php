@@ -348,11 +348,11 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$fields = "invoice_id, 
 				DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
-				i.number as number, 
+				i.number as invoice, 
 				i.order_id as order, 
-				o.cost as cost, 
 				o.total as total, 
-				o.vat as vat";
+				o.vat as vat,
+				o.grandtotal as grandtotal";
 			$rs = Invoices::getByCustomerID ($request->id, $fields);
 			
 			$printURL = $this->getHelper('url')->url(
