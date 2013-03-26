@@ -669,8 +669,7 @@ class Shineisp_Commons_PdfOrder {
 		//print_r($records);
 		//die();
 
-		$fontSize = ( $totalPayments > 1 ) ? 13 : 9;
-		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, $fontSize );
+		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, 9 );
 		$this->Write ( $records ['grandtotal'], PAGE_BOTH_MARGIN + 500, $toppos - 162 );
 
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
