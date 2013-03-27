@@ -201,7 +201,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
 		
-		
 		$this->view->description = "Here you can edit the selected order.";
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
