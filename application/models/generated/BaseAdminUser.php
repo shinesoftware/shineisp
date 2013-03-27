@@ -12,6 +12,8 @@ Doctrine_Manager::getInstance()->bindComponent('AdminUser', 'doctrine');
  * @property string $lastname
  * @property string $email
  * @property string $password
+ * @property int $last_password_change
+ * @property tinyint $force_password_change
  * @property timestamp $created
  * @property timestamp $changed
  * @property integer $lognum
@@ -60,6 +62,18 @@ abstract class BaseAdminUser extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '250',
+             ));
+        $this->hasColumn('last_password_change', 'int', 10, array(
+             'type' => 'int',
+             'notnull' => true,
+             'fixed' => 0,
+             'length' => '10',
+             ));
+        $this->hasColumn('force_password_change', 'tinyint', 1, array(
+             'type' => 'tinyint',
+             'notnull' => true,
+             'fixed' => 0,
+             'length' => '1',
              ));
         $this->hasColumn('created', 'timestamp', 25, array(
              'type' => 'timestamp',

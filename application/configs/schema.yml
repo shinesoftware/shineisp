@@ -93,6 +93,14 @@ AdminUser:
     password:
       type: string(250)
       notnull: true
+    last_password_change:
+      type: int(10)
+      notnull: true
+      fixed: 0
+    force_password_change:
+      type: tinyint(1)
+      notnull: true
+      fixed: 0
     created:
       type: timestamp(25)
     changed:
@@ -665,6 +673,14 @@ Customers:
     password:
       type: string(100)
       notnull: true
+    last_password_change:
+      type: int(10)
+      notnull: true
+      fixed: 0
+    force_password_change:
+      type: tinyint(1)
+      notnull: true
+      fixed: 0
     birthdate:
       type: date(25)
       notnull: false
