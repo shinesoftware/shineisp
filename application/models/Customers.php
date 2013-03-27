@@ -98,7 +98,7 @@ class Customers extends BaseCustomers {
 		$customer->lastname = !empty($data ['lastname']) ? $data ['lastname'] : null;
 		$customer->sex = !empty($data ['sex']) ? $data ['sex'] : null;
 		$customer->email = $data ['email'] ? $data ['email'] : null;
-		$customer->password = MD5($data ['password']);
+		$customer->password = crypt($data ['password']);
 		
 		$customer->birthplace = !empty($data ['birthplace']) ? $data ['birthplace'] : null;
 		$customer->birthdate = !empty($data ['birthdate']) ? Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] ) : null;
@@ -268,7 +268,7 @@ class Customers extends BaseCustomers {
 			$customer['sex'] = $data['sex'];
 			
 			if (! empty ( $data ['password'] )) {
-				$customer['password'] = md5($data['password']);
+				$customer['password'] = crypt($data['password']);
 			}
 			
 			$customer['email'] = $data['email'];
@@ -391,7 +391,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function setCustomerPassword($email, $newPwd) {
 		$q = Doctrine_Query::create ()->update ( 'Customers' )
-				->set ( 'password', '?', md5 ( $newPwd ) )
+				->set ( 'password', '?', crypt ( $newPwd ) )
 				->where ( 'MD5(email) = ?', $email );
 		return $q->execute ();
 	}
@@ -404,7 +404,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function reset_password($customerid, $newpwd) {
 		return Doctrine_Query::create ()->update ( 'Customers' )
-				->set ( 'password', '?', md5 ( $newpwd ) )
+				->set ( 'password', '?', crypt ( $newpwd ) )
 				->where ( 'customer_id = ?', $customerid )
 				->execute ();
 	}
@@ -780,14 +780,43 @@ class Customers extends BaseCustomers {
 	 */
 	public static function login($email, $password) {
 		try {
-			$record = Doctrine_Query::create ()
+			$dbUser = Doctrine_Query::create ()
 								->from ( 'Customers u' )
-								->where ( 'email = ? and password = ? and status_id = ?', array ($email, md5 ( $password ), Statuses::id('active', 'customers') ) )
+								->where ( 'email = ? AND status_id = ?', array ($email, Statuses::id('active', 'customers') ) )
 								->limit(1)
-								->execute(array (), Doctrine_Core::HYDRATE_ARRAY); // The customer must have the status Active
+								->fetchArray();
+								
+			if ( $dbUser && isset($dbUser[0]) ) {
+				$dbUser = $dbUser[0];
+				$dbPass = $dbUser['password'];
+				
+				if ( strlen($dbPass) > 32 && substr($dbPass,0,1) == '$') {
+					$userPassword = crypt($password, $dbPass);
+				} else {
+					$isMD5 = true;
+					$userPassword = md5($password);
+				}
+				
+				if ( $userPassword == $dbPass ) {
+					//* if password was crypted in plain MD5, force convertion to crypt
+					if ( $isMD5 ) {
+						$cryptPassword = crypt($password);
+						
+						Doctrine_Query::create ()->update ( 'Customers u' )
+												 ->set ( 'u.password', '?', $cryptPassword )
+												 ->where ( 'email = ?', $email )
+												 ->limit(1)
+												 ->execute ();					
+					} 
+	
+					// Auth OK
+					return $dbUser;				
+				}				
+			}
 			
-			return !empty($record[0]) ? $record[0] : array();
-		} catch ( Exception $e ) {
+			return array();
+		 
+ 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
 			die ();
 		}
