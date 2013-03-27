@@ -193,7 +193,7 @@ class Admin_LoginController extends Zend_Controller_Action {
 			$auth = Zend_Auth::getInstance ();
 				
 			if (! empty ( $link [0] ['controller'] ) && ! empty ( $link [0] ['action'] )) {
-				$adapter = new Shineisp_Auth_Adapter_Md5(Doctrine_Manager::connection()->getTable("AdminUser"), "email");
+				$adapter = new Shineisp_Auth_Adapter_Secretkey(Doctrine_Manager::connection()->getTable("AdminUser"), "email");
 				$adapter->setIdentity($keypass);
 				$adapter->setType('operator');
 				

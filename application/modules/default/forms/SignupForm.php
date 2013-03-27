@@ -57,7 +57,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'description'       => 'Write here your password. (min.8 chars - max.20 chars)',
         		'validators' => array(
         				$passwordConfirmation,
-        				array('StringLength', false, array(8, 100)),
+        				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
         		'class'       => 'text-input large-input',
         		'required' => true,
@@ -70,7 +70,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'description'       => 'Please repeat the password',
         		'validators' => array(
         				$passwordConfirmation,
-        				array('StringLength', false, array(8, 100)),
+        				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
         		'class'       => 'text-input large-input',
         		'required' => true,

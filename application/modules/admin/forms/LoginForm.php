@@ -21,8 +21,7 @@ class Admin_Form_LoginForm extends Zend_Form
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
             'validators' => array(
-                'Alnum',
-                array('StringLength', false, array(6, 20)),
+                array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'decorators' => array('Composite'),
             'description'      => 'Write your own password',

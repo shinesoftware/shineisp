@@ -218,8 +218,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'required'   => true,
             'decorators' => array('Composite'),
             'validators' => array(
-                'Alnum',
-                array('StringLength', false, array(6, 20)),
+                array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'description'      => 'Write here your password. (min.6 chars - max.20 chars)',
             'label'      => 'Password',
