@@ -9,7 +9,6 @@
 		<div class="column column-fixed column-large" id="col1">
 			<div class="portlet" id="processing_order">
 		        <?php 
-			        // Open, Processing and Waiting Reply tickets
 	        		$statuses = array(Statuses::id("processing", "orders"), Statuses::id("pending", "orders"));
 		        ?>
 				<?php echo $this->widget(Orders::Last($statuses), "Processing Orders", "orders")?>
