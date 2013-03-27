@@ -94,9 +94,8 @@ AdminUser:
       type: string(250)
       notnull: true
     last_password_change:
-      type: integer(10)
-      notnull: true
-      fixed: 0
+      type: timestamp(25)
+      notnull: false
     force_password_change:
       type: tinyint(1)
       notnull: true
@@ -674,9 +673,8 @@ Customers:
       type: string(100)
       notnull: true
     last_password_change:
-      type: integer(10)
-      notnull: true
-      fixed: 0
+      type: timestamp(25)
+      notnull: false
     force_password_change:
       type: tinyint(1)
       notnull: true

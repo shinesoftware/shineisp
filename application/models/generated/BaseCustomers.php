@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property string $sex
  * @property string $email
  * @property string $password
- * @property integer $last_password_change
+ * @property timestamp $last_password_change
  * @property tinyint $force_password_change
  * @property date $birthdate
  * @property string $birthplace
@@ -104,11 +104,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'notnull' => true,
              'length' => '100',
              ));
-        $this->hasColumn('last_password_change', 'integer', 10, array(
-             'type' => 'integer',
-             'notnull' => true,
-             'fixed' => 0,
-             'length' => '10',
+        $this->hasColumn('last_password_change', 'timestamp', 25, array(
+             'type' => 'timestamp',
+             'notnull' => false,
+             'length' => '25',
              ));
         $this->hasColumn('force_password_change', 'tinyint', 1, array(
              'type' => 'tinyint',
