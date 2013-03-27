@@ -496,10 +496,41 @@ class Customers extends BaseCustomers {
 	 * @return Array
 	 */
 	public static function getCustomerbyLogin($email, $password) {
-		return Doctrine_Query::create ()->from ( 'Customers u' )
-					->where ( 'MD5(u.email) = ? and u.password = ?', array ($email, $password ) )
-					->andWhere ( 'status_id = ?', Statuses::id("active", "customers") ) // The customer must have the status_id = 12 (active)
-		 			->execute ( array (), Doctrine::HYDRATE_ARRAY );
+			$dbUser = Doctrine_Query::create ()
+								->from ( 'Customers u' )
+								->where ( 'MD5(u.email) = ? AND status_id = ?', array ($email, Statuses::id('active', 'customers') ) )
+								->limit(1)
+								->fetchArray();
+								
+			if ( $dbUser && isset($dbUser[0]) ) {
+				$dbUser = $dbUser[0];
+				$dbPass = $dbUser['password'];
+				
+				if ( strlen($dbPass) > 32 && substr($dbPass,0,1) == '$') {
+					$userPassword = crypt($password, $dbPass);
+				} else {
+					$isMD5 = true;
+					$userPassword = md5($password);
+				}
+				
+				if ( $userPassword == $dbPass ) {
+					//* if password was crypted in plain MD5, force convertion to crypt
+					if ( $isMD5 ) {
+						$cryptPassword = crypt($password);
+						
+						Doctrine_Query::create ()->update ( 'Customers u' )
+												 ->set ( 'u.password', '?', $cryptPassword )
+												 ->where ( 'MD5(u.email) = ?', $email )
+												 ->limit(1)
+												 ->execute ();					
+					} 
+	
+					// Auth OK
+					return $dbUser;				
+				}				
+			}
+			
+			return array();
 	}
 	
 	/**
