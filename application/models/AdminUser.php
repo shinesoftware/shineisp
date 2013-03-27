@@ -228,7 +228,8 @@ class AdminUser extends BaseAdminUser
 		$AdminUser->changed = date('Y-m-d H:i:s');
 	
 		if (! empty ( $data ['password'] )) {
-			$AdminUser->password = md5($data ['password']);
+			//$AdminUser->password = md5($data ['password']);
+			$AdminUser->password = crypt($data ['password']);
 		}
 	
 		$AdminUser->save ();
@@ -261,7 +262,8 @@ class AdminUser extends BaseAdminUser
 		$AdminUser->changed = date('Y-m-d H:i:s');
 	
 		if (! empty ( $password )) {
-			$AdminUser->password = md5($password);
+			//$AdminUser->password = md5($password);
+			$AdminUser->password = crypt($password);
 		}
 	
 		$AdminUser->save ();
@@ -315,26 +317,45 @@ class AdminUser extends BaseAdminUser
 	 * @param string $password
 	 */
 	public static function checkCredencials($email, $password){
-
-		// Check if the user exists!
-		$userExist = Doctrine_Query::create ()->from ( 'AdminUser u' )
-											->leftJoin ( 'u.AdminRoles r' )
-											->leftJoin ( 'r.AdminPermissions p' )
-											->leftJoin ( 'p.AdminResources s' )
-											->where ( 'u.email = ?', $email)
-											->execute(array(), Doctrine::HYDRATE_ARRAY);
-				
-		if($userExist){
-			// Check the user credencials
-			$record = Doctrine_Query::create ()->from ( 'AdminUser u' )
-											->leftJoin ( 'u.AdminRoles r' )
-											->leftJoin ( 'r.AdminPermissions p' )
-											->leftJoin ( 'p.AdminResources s' )
-											->where ( 'u.email = ?', $email)
-											->addWhere ( 'u.password = ?', MD5($password))
-											->execute(array(), Doctrine::HYDRATE_ARRAY);
+		$isMD5  = false;
 		
-			return !empty($record[0]) ? $record[0] : FALSE;
+		// Get the user
+		$dbUser = Doctrine_Query::create ()->from ( 'AdminUser u' )
+											->leftJoin ( 'u.AdminRoles r' )
+											->leftJoin ( 'r.AdminPermissions p' )
+											->leftJoin ( 'p.AdminResources s' )
+											->where ( 'u.email = ?', $email)
+											->limit(1)
+											->fetchArray();
+											
+		if ( $dbUser && isset($dbUser[0]) ) {
+			$dbUser = $dbUser[0];
+			$dbPass = $dbUser['password'];
+			
+			if ( strlen($dbPass) > 32 && substr($dbPass,0,1) == '$') {
+				$userPassword = crypt($password, $dbPass);
+			} else {
+				$isMD5 = true;
+				$userPassword = md5($password);
+			}
+			
+			if ( $userPassword == $dbPass ) {
+				//* if password was crypted in plain MD5, force convertion to crypt
+				if ( $isMD5 ) {
+					$cryptPassword = crypt($password);
+					
+					Doctrine_Query::create ()->update ( 'AdminUser u' )
+											 ->set ( 'u.password', '?', $cryptPassword )
+											 ->where ( 'email = ?', $email )
+											 ->limit(1)
+											 ->execute ();					
+				} 
+
+				// Auth OK
+				return $dbUser;				
+			}
+			
+			return false;
 		}else{
 			return NULL;
 		}
@@ -424,7 +445,7 @@ class AdminUser extends BaseAdminUser
 		
 		Doctrine_Query::create ()
 							->update ( 'AdminUser u' )
-							->set ( 'u.password', '?', md5($newpassword) )
+							->set ( 'u.password', '?', crypt($newpassword) )
 							->where ( "user_id = ?", $userId )
 							->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 							
