@@ -87,8 +87,7 @@ class Admin_Form_ProfileForm extends Zend_Form
         		'filters'    => array('StringTrim'),
         		'decorators' => array('Composite'),
         		'validators' => array(
-        				'Alnum',
-        				array('StringLength', false, array(6, 20)),
+        				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
         		'label'      => 'Password',
         		'class'      => 'text-input large-input'

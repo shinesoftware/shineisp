@@ -41,8 +41,7 @@ class Admin_Form_UsersForm extends Zend_Form
         $password = $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
             'validators' => array(
-                'Alnum',
-                array('StringLength', false, array(6, 20)),
+                array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'required'   => true,
             'label'      => 'Password:',

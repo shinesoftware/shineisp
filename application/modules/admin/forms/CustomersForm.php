@@ -272,8 +272,9 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'decorators' => array('Composite'),
             'validators' => array(
-                'Alnum',
-                array('StringLength', false, array(6, 20)),
+                //'Alnum',
+                array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
+                //array('StringLength', false, array(6, 20)),
             ),
             'description'      => 'Write here at least 6 characters.',
             'label'      => 'Password',
