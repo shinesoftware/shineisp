@@ -513,7 +513,7 @@ class Tickets extends BaseTickets {
 					
 					Shineisp_Commons_Utilities::SendEmail ( $ispmail, Contacts::getEmails($customer ['customer_id']), null, $subject, $body, true, $in_reply_to);
 					
-					$body = str_replace ( $customer_url, $admin_url . "/keypass/" . md5 ( $operator['email']) . $operator['password'], $body );
+					$body = str_replace ( $customer_url, $admin_url . "/keypass/" . Shineisp_Commons_Hasher::hash_string($operator['email']), $body );
 					Shineisp_Commons_Utilities::SendEmail ( $ispmail, $isp ['email'], null, $subject, $body, true, $in_reply_to);
 					return true;
 				}
@@ -580,7 +580,7 @@ class Tickets extends BaseTickets {
 					$body = str_replace ( "[company]", $isp ['company'], $body );
 					Shineisp_Commons_Utilities::SendEmail ( $ispmail, Contacts::getEmails($customer ['customer_id']), null, $subject, $body, true, $in_reply_to );
 					
-					$body = str_replace ( $customer_url, $admin_url . "/keypass/" . md5 ( $operator['email'] ) . $operator['password'], $body );
+					$body = str_replace ( $customer_url, $admin_url . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $operator['email'] ), $body );
 					Shineisp_Commons_Utilities::SendEmail ( $ispmail, $isp ['email'], null, $subject, $body, true, $in_reply_to );
 					
 					return true;

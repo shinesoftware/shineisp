@@ -385,6 +385,7 @@ class AdminUser extends BaseAdminUser
 	
 	
 	/**
+	 * DEPRECATED
 	 * Check the user credencials by the MD5 email
 	 * @param string $email
 	 */
@@ -406,12 +407,37 @@ class AdminUser extends BaseAdminUser
 			return NULL;
 		}
 	}	
+
+	public static function checkOperatorCredencialsBySecretKey($secretKey){
+		// Remove salt from hashed string
+		$string = Shineisp_Commons_Hasher::unhash_string($secretKey);
+		
+		// Check if the user exists!
+		$record = Doctrine_Query::create ()->select('u.*, r.*, p.*, s.*')
+											->from ( 'AdminUser u' )
+											->leftJoin ( 'u.Isp i' )
+											->leftJoin ( 'u.AdminRoles r' )
+											->leftJoin ( 'r.AdminPermissions p' )
+											->leftJoin ( 'p.AdminResources s' )
+											->where ( 'SHA1(u.email) = ?', $string)
+											->execute(array(), Doctrine::HYDRATE_ARRAY);
+		
+		if($record){
+			return !empty($record[0]) ? $record[0] : FALSE;
+		}else{
+			return NULL;
+		}
+	}	
+
 	
 	/**
+	 * DEPRECATED!!
 	 * Check the user credencials by the MD5 email
 	 * @param string $email
 	 */
 	public static function checkMD5IspCredencialsByPassCode($md5pass){
+		
+		die();
 	
 		// Check if the user exists!
 		$record = Doctrine_Query::create ()->select('u.*, r.*, p.*, s.*')
@@ -429,6 +455,34 @@ class AdminUser extends BaseAdminUser
 			return NULL;
 		}
 	}	
+
+	/**
+	 * Check the user credencials by the secret key
+	 * @param string $email
+	 */
+	public static function checkIspCredencialsBySecretKey($secretKey){
+		
+		// Remove salt from hashed string
+		$string = Shineisp_Commons_Hasher::unhash_string($secretKey);
+		
+		// Check if the user exists!
+		$record = Doctrine_Query::create ()->select('u.*, r.*, p.*, s.*')
+											->from ( 'AdminUser u' )
+											->leftJoin ( 'u.Isp i' )
+											->leftJoin ( 'u.AdminRoles r' )
+											->leftJoin ( 'r.AdminPermissions p' )
+											->leftJoin ( 'p.AdminResources s' )
+											->where ( 'SHA1(i.email) = ?', $string)
+											->limit(1)
+											->execute(array(), Doctrine::HYDRATE_ARRAY);
+		
+		if($record){
+			return !empty($record[0]) ? $record[0] : FALSE;
+		}else{
+			return NULL;
+		}
+	}	
+
 
 
 	/**

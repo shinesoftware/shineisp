@@ -23,7 +23,7 @@ class Default_Form_MailsForm extends Zend_Form
         	'maxLength'	  => 20,
             'description' => 'Write here the password. Choose a secure password. [min 6 chars - max 20 chars]',
             'class'       => 'text-input medium-input password-strength',
-        	'validators' => array(array('StringLength', false, array(6, 20)),
+        	'validators' => array(array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')),
             ),
         ));
         

@@ -326,7 +326,7 @@ class Orders extends BaseOrders {
 						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders);
 
 						// Change the URL for the administrator
-						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . md5($isp['email']) . $isp['password'];
+						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp['email']);
 						
 						// Send a message to the administrator
 						Messages::sendMessage ( "order_message_admin", $isp['email'], $placeholders);

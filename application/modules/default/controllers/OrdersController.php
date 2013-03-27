@@ -253,7 +253,7 @@ class OrdersController extends Zend_Controller_Action {
 				// Send a message to the customer
 				Messages::sendMessage("order_message", $order [0] ['Customers'] ['email'], $placeholders);
 				
-				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . md5 ( $isp ['email'] ) . $isp ['password'];
+				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp ['email'] );
 				$placeholders['message'] = nl2br($params ['note']);
 				
 				// Send a message to the administrator 
