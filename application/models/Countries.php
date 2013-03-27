@@ -98,4 +98,21 @@ class Countries extends BaseCountries {
 		}
 		return $items;
 	}
+	
+	/**
+	 * Return true if country is in UE
+	 */
+	public static function isUEbyId($country_id) {
+		if( ! is_numeric($country_id) ) {
+			throw new Exception('country id paramenter is mandatory');
+		}	
+		
+		$country      = self::find($country_id);
+		$country_code = $country->code;
+		
+		//* TODO: put this in db and not hardcoded here
+		return in_array(strtoupper($country_code), array('AT', 'BE', 'BG', 'CY', 'DK', 'EE', 'FI', 'FR', 'DE', 'GB', 'EL', 'IE', 'IT', 'LV'
+												, 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'CZ', 'RO', 'SK', 'SI', 'ES', 'SE', 'HU'
+		));
+	}
 }
