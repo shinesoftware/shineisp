@@ -83,6 +83,14 @@ class Admin_Form_ProductsForm extends Zend_Form
         'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
         'class'      => 'text-input large-input'
         ));
+		
+        $this->addElement('multiselect', 'upgrade', array(
+        'label' => 'Upgrades Products',
+        'decorators' => array('Composite'),
+        'size'	 => '20x',
+        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
+        'class'      => 'text-input large-input'
+        ));		
         
         $this->getElement('related')
                   ->setAllowEmpty(false)
