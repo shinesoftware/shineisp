@@ -125,6 +125,12 @@ var SLAB = (function($, window, undefined) {
 						$(this).find('a:first').prepend('<span class="abs toggle_arrow"></span>');
 					}
 				});
+				
+				/* Show active item on reload page */
+				$('#sidebar_menu LI.showall').each(function(){
+					$(this).parent().show();
+					$(this).parent().parent().addClass('expanded');
+				})
 
 				$('#sidebar_menu a').live('click', function() {
 					var el = $(this);
@@ -133,13 +139,22 @@ var SLAB = (function($, window, undefined) {
 
 					if (ul.length) {
 						if (ul.is(':hidden')) {
+							/* JAY - 20130328 - GUEST
+							 * Close all submenu opened */
+							$('#sidebar_menu LI.item UL').hide();
+							$('#sidebar_menu LI.item').each(function(){
+								$(this).removeClass('expanded')
+							});
+							//END
+							
 							li.addClass('expanded');
-
+							/* JAY - 20130328 - GUEST
+							 * Show always other items not selected
 							li.siblings('li').each(function() {
 								if ($(this).attr('id') !== 'sidebar_menu_home') {
 									$(this).hide();
 								}
-							});
+							});*/
 
 							ul.show();
 						}

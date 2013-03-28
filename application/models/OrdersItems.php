@@ -625,7 +625,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * Get all the orders where the product has been selected.
 	 * @return array
 	 */
-	public function ProductsInOrdersItems($product_id) {
+	public static function ProductsInOrdersItems($product_id) {
 		if (is_numeric ( $product_id )) {
 			$records = Doctrine_Query::create ()->select ( 'DATE_FORMAT(oi.date_start, "%d/%m/%Y") as date, CONCAT(c.firstname, " ", c.lastname, " - ", c.company) as customer, oi.quantity, oi.order_id as orderid, s.status as status' )
 										   ->from ( 'OrdersItems oi' )

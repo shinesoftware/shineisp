@@ -227,7 +227,6 @@ class Admin_ProductsController extends Zend_Controller_Action {
 			$rs = $this->products->getAllInfo ( $id, $this->session->langid );
 			
 			if (! empty ( $rs )) {
-
 				// Join the translated data information to populate the form
 				$data = !empty($rs['ProductsData'][0]) ? $rs['ProductsData'][0] : array();
 				$rs = array_merge($rs, $data);
@@ -267,6 +266,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		$this->view->orders = $orders;
+		$this->view->isSold = (bool)OrdersItems::CheckIfProductExist($id);
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );

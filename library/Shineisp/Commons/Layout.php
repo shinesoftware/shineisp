@@ -66,7 +66,7 @@ class Shineisp_Commons_Layout {
 	 * @param string $controller
 	 * @param string $skin [base]
 	 */
-	private function setData($xmlobject, $module, $controller, $skin = "base") {
+	private static function setData($xmlobject, $module, $controller, $skin = "base") {
 		
 		// Get the default project resources
 		if (count ( $xmlobject )) {

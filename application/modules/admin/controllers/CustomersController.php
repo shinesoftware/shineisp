@@ -284,7 +284,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		try {
 			if (isset ( $request->id ) && is_numeric ( $request->id )) {
 				// In order to select only the fields interested we have to add an alias to all the fields. If the aliases are not created Doctrine will require an index field for each join created.
-				$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
+				//$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
+				$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, oi.order_id as orderid, oi.date_start as datestart, oi.date_end as dateend, pd.name as productname' );
 				if ($rs) {
 					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'services', 'action' => 'edit' ), 'pager' => true );
 				}
