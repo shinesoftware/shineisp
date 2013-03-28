@@ -231,6 +231,7 @@ daysleft;Giorni rimasti
 status;Status
 commands;Comandi
 Show;Visualizza
+Showing;Visualizzando
 Required fields;Campi richiesti
 Fast Search;Ricerca Veloce
 italian;Italiano
@@ -639,7 +640,13 @@ Very Good;Ottima
 
 ### PRODUCTS
 Starting at;A partire da
-Related Products;Prodotti Correlati
+Related Products;Prodotti correlati
+Product Upgrades;Upgrade prodotto
+Blocks;Blocchi
+Billing;Fatturazione
+Prices;Prezzi
+Categories;Categorie
+Content;Contenuti
 VAT not included;IVA esclusa
 VAT included;IVA inclusa
 Prices list;Listino prezzi
@@ -661,6 +668,24 @@ Compare;Confronta
 On line in minutes!;On line in pochi minuti!
 Choose your service;Scegli il tuo servizio
 Type here what you are looking for;Digita qui quello che stai cercando
+Product Type;Tipologia prodotto
+Attribute Group;Gruppo attributi
+Product name;Nome prodotto
+Product Nickname;Abbreviazione prodotto
+Is Highlighted;In evidenza
+Position;Posizione
+Enabled;Abilitato
+Is Comparable;Comparabile
+Publish on RSS Feed;Pubblica tramite RSS
+Allow downgrades;Consenti downgrade
+Short Description;Descrizione breve
+Wiki Pages;Pagine Wiki
+Attachment;Allegato
+Default Image;Immagine predefinita
+Customer;Cliente
+Orderid;ID Ordine
+Select all the items related to the product selected using the CTRL/SHIFT button;Seleziona tutti i prodotti relativi a questo utilizzando CTRL/SHIFT
+Select all the items upgrade to the product selected using the CTRL/SHIFT button;Seleziona tutti i prodotti verso i quali consentire upgrades utilizzando CTRL/SHIFT
 
 ### SERVICES
 Setup fees;Costi di Attivazione
@@ -948,3 +973,4 @@ Write here the database password.;Inserire la password
 Write here the database name.;Inserire il nome del database
 Check DB Connection;Controllo Connessione DB
 Continue;Continua
+
