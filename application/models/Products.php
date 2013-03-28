@@ -190,23 +190,23 @@ class Products extends BaseProducts {
 				}
 			}
 			if(is_array($params)){
-				$products->updated_at = date('Y-m-d H:i:s');
-				$products->categories = ! empty ( $params ['categories'] ) ? $params ['categories'] : null;
-				$products->uri = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
-				$products->cost = $params ['cost'];
-				$products->price_1 = $params ['price_1'];
-				$products->setupfee = $params ['setupfee'];
-				$products->enabled = $params ['enabled'] == 1 ? 1 : 0;
-				$products->iscomparable = !empty($params ['iscomparable']) ? 1 : 0;
-				$products->tax_id = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
-				$products->type = !empty($params ['type']) ? $params ['type'] : "generic";
-				$products->blocks = !empty($params ['blocks']) ? $params ['blocks'] : NULL;
-				$products->group_id = !empty($params ['group_id']) ? $params ['group_id'] : NULL;
-				$products->position = !empty($params ['position']) ? $params ['position'] : NULL;
-				$products->setup = !empty($params ['setup']) ? $params ['setup'] : NULL;
+				$products->updated_at    = date('Y-m-d H:i:s');
+				$products->categories    = ! empty ( $params ['categories'] ) ? $params ['categories'] : null;
+				$products->uri           = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
+				$products->cost          = $params ['cost'];
+				$products->price_1       = $params ['price_1'];
+				$products->setupfee      = $params ['setupfee'];
+				$products->enabled       = $params ['enabled'] == 1 ? 1 : 0;
+				$products->iscomparable  = !empty($params ['iscomparable']) ? 1 : 0;
+				$products->tax_id        = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
+				$products->type          = !empty($params ['type']) ? $params ['type'] : "generic";
+				$products->blocks        = !empty($params ['blocks']) ? $params ['blocks'] : NULL;
+				$products->group_id      = !empty($params ['group_id']) ? $params ['group_id'] : NULL;
+				$products->position      = !empty($params ['position']) ? $params ['position'] : NULL;
+				$products->setup         = !empty($params ['setup']) ? $params ['setup'] : NULL;
 				$products->ishighlighted = !empty($params ['ishighlighted']) ? 1 : 0;
-				$products->showonrss = !empty($params ['showonrss']) ? 1 : 0;
-				$products->external_id = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
+				$products->showonrss     = !empty($params ['showonrss']) ? 1 : 0;
+				$products->external_id   = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
 				
 				// Save the data
 				$products->save ();
@@ -214,19 +214,24 @@ class Products extends BaseProducts {
 				
 				// Save the product attributes
 				ProductsAttributesIndexes::saveAll ( $params, $product_id );
+				
 				$Pdata = ProductsData::findbyProductID ( $product_id, $locale );
 				if (empty ( $Pdata )) {
-					$Pdata = new ProductsData ();
+					$Pdata    = new ProductsData ();
 				}
 				
-				$Pdata->name = $params ['name'];
-				$Pdata->nickname = $params ['nickname'];
+				//* Product name can not be changed if product is sold
+				if ( ! (bool)OrdersItems::CheckIfProductExist($product_id) ) {
+					$Pdata->name = $params ['name'];	
+				}
+				
+				$Pdata->nickname         = $params ['nickname'];
 				$Pdata->shortdescription = $params ['shortdescription'];
-				$Pdata->description = $params ['description'];
-				$Pdata->metakeywords = $params ['metakeywords'];
-				$Pdata->metadescription = $params ['metadescription'];
-				$Pdata->product_id = $product_id;
-				$Pdata->language_id = $locale;
+				$Pdata->description      = $params ['description'];
+				$Pdata->metakeywords     = $params ['metakeywords'];
+				$Pdata->metadescription  = $params ['metadescription'];
+				$Pdata->product_id       = $product_id;
+				$Pdata->language_id      = $locale;
 				$Pdata->save ();
 				
 				// Create the price tranches
