@@ -100,6 +100,9 @@ Login here as customer;Accedi al tuo profilo
 Services Subscribed;Servizi sottoscritti
 New Message;Nuovo Messaggio
 View all available plans now;Visualizza tutti i piani ora
+Last Domain Tasks;Ultime operazioni sui domini
+Last Panel Tasks;Ultime operazioni sul pannello
+Customer Hit Parade;Clienti più redditizi
 
 ### BULK DOMAINS
 Domains Bulk Registration;Registrazione Multipla Domini
@@ -203,22 +206,52 @@ Products;Prodotti
 Settings;Impostazioni
 Orders;Ordini
 Customers;Clienti
-Registrars;Registrars
-Product Categories;Categorie Prodotto
+Registrars;Registrar
+Product Categories;Categorie prodotto
 Profile;Profilo
 Banks;Banche
 
+### MENU
+Customers Groups;Gruppi cliente
+Url Rewrites;URL Rewrite
+Languages;Lingue
+Ticket Categories;Categorie ticket
+Wiki Categories;Categorie wiki
+Legal forms;Forme legali
+Company types;Forme societarie
+Cms Pages;Pagine CMS
+Cms Blocks;Blocchi CMS
+Newsletter Messages;Messaggi newsletter
+Subscribers;Iscritti
+Reports;Resoconti
+Profit of the Year;Profitto annuale
+Domains Statistics;Statistiche domini
+Domains Tasks;Operazioni domini
+Domains per Client;Domini per cliente
+Domains per Month;Domini per mese
+Services Summary;Sommario servizi
+Panels Actions;Azioni pannello
+Email Configuration;Configurazione E-Mail
+Design;Aspetto
+Registrars Options;Opzioni registrar
+reCaptcha Service;reCaptcha
+Cache System;Cache
+Upload System;Impostazioni upload
+Public Site;Sito pubblico
+
 ### GRAPHS
-domains_summary_per_month;Monthly Domains Summary 
+domains_summary_per_month;Sommario mensile domini 
 Domains Summary;Sommario Domini
+Income by Month;Incassi per mese
+Income by Quarter;Incassi per trimestre
 
 ### ERRORS
-emailAddressInvalidFormat;format is invalid.
+emailAddressInvalidFormat;formato non valido.
 isEmpty;e' vuoto. Questo campo è obbligatorio.
 Email or Password incorrect;Email o Password non corrette.
 
 ### GENERAL
-field;This field:
+field;Questo campo:
 New;Nuovo
 VAT;IVA
 Total;Totale
@@ -226,46 +259,50 @@ index;Index
 Date;Data
 records;Records
 Domain;Dominio
-date;Date
-daysleft;Days left
+date;Data
+daysleft;Giorni rimasti
 status;Status
-commands;Commands
+commands;Comandi
 Show;Visualizza
+Showing;Visualizzando
 Required fields;Campi richiesti
 Fast Search;Ricerca Veloce
-italian;Italian
+italian;Italiano
 english;English
-myaccount;My Profile
-welcome;Welcome
+myaccount;Il mio profilo
+welcome;Benvenuto
 servers;Servers
 Logout;Esci
-general;Main
-bulkcommands;Bulk Actions
-Records per page;Records per pagina
+general;Principale
+bulkcommands;Azioni bulk
+Records per page;Record per pagina
 Status;Stato
-statusmgmt;Statuses
-actions;Actions
-bulkdelete;Delete
+statusmgmt;Stati
+actions;Azioni
+bulkdelete;Elimina
 No Records;Nessuna informazione trovata.
-Recordcount;Totale Records
+Recordcount;Totale record
 Filters;Filtri
 Messages;Messaggi
 Message;Messaggio
 Delete;Cancella
 YES;Si
 NO;No
+Yes;Si
+No;No
+Disabled;Disabilitato
 Click here to edit;Click qui per modificare.
 List;Lista
 Search;Ricerca
 Selected record;Record selezionato
-confirm;Confirm Action 
-confirmdelete;Confirm delete
-delete_question;Are you sure to delete the selected record?
-desc_delete_question;The selected record will be not longer available.
+confirm;Conferma azione 
+confirmdelete;Conferma eliminazione
+delete_question;Sei sicuro di voler eliminare il record selezionato?
+desc_delete_question;Il record selezionato non sarà più disponibile.
 desc_confirm;Here you can choose if confirm or not a task. If you agree the record selected will be processed.
-areusure;Are you sure?
-noiwrong;No, I don't!
-yesiwant;YES, I want to DELETE it!
+areusure;Sei sicuro?
+noiwrong;No, non voglio!
+yesiwant;SI, lo voglio ELIMINARE!
 methodnotset;Please, select the items and then the action from the list.
 enabled;Enabled
 desc_enabled;Enabled the item
@@ -294,6 +331,14 @@ notMatch;non corrisponde
 missingValue;non inserito
 Please write again the password;Ripetere la password
 Print;Stampa
+Roles;Ruoli
+Search:Cerca
+Action;Azione
+Startdate;Data di inizio
+Enddate;Data di termine
+Actions;Azioni
+Expiringdate;Data di scadenza
+Orderdate;Data ordine
 
 ### BILLING CYCLES
 Month;Mese
@@ -376,7 +421,7 @@ Birthdate;Data di nascita
 Write here your birthday (eg. dd/mm/yyyy);Inserire la data di nascita (es. gg/mm/aaaa)
 Write here the birthplace.;Inserire il luogo di nascita
 Write the tax payer number.;Inserire il codice fiscale personale se persona fisica negli altri casi inserire il codice fiscale d'azienda. 
-Print Invoice;Stampa Fattura
+Print Invoice;Stampa fattura
 Credit Notes;Note di Credito
 Credit Note No.;Nota di Credito Nr.
 Invoice No.;Fattura Nr.
@@ -563,15 +608,15 @@ next_deadline;Prossima Scadenza
 grandtotal;Totale Complessivo
 sku;Codice Interno
 total;Totale Imponibile
-invoice_number;Invoice Number
+invoice_number;Fattura numero
 Download Invoices;Scarica Fatture
-order_edit;Order Edit
-desc_order_edit;Edit this order in all its section.
+order_edit;Modifica ordine
+desc_order_edit;Modifica questo ordine in ogni parte.
 order;Ordine
 id;Codice
-details;Details
+details;Dettagli
 List of all the orders where the domain appears.;Lista degli ordini in cui appare il dominio.
-createinvoice;PDF Invoice
+createinvoice;Fattura PDF
 Quantity;Quantità
 quantity;Quantità
 Description;Descrizione
@@ -591,8 +636,8 @@ Reviews;Recensioni
 Date Start;Data Inizio
 billingcycle;Ciclo di fatturazione
 Billing Cycle;Ciclo di fatturazione
-referdomain;Refering Domain
-searchdomains;Search domains
+referdomain;Dominio di riferimento
+searchdomains;Cerca domini
 There was a problem during the payment process.;Si è verificato un problema durante la fase di pagamento.
 Here you can read all your questions and the admin replies about this order.;In questa sezione puoi leggere le tue domande poste all'amministratore e le risposte inerenti l'ordine selezionato.
 To be paid;Da pagare
@@ -617,7 +662,7 @@ Back to list;Torna alla lista
 Ticket Edit;Dettagli Segnalazione
 Ticket process;Registrazione Segnalazione
 Check the information before save again.;Controlla le informazioni inserite e fai click su salva. 
-ticketnotes;Notes
+ticketnotes;Note
 Notes;Note
 Write here a note.;Scrivi una nota
 Write here a note. An email will be sent to the ISP staff.;Scrivi una nota. Una email verrà inviata allo staff.
@@ -637,7 +682,13 @@ Very Good;Ottima
 
 ### PRODUCTS
 Starting at;A partire da
-Related Products;Prodotti Correlati
+Related Products;Prodotti correlati
+Product Upgrades;Upgrade prodotto
+Blocks;Blocchi
+Billing;Fatturazione
+Prices;Prezzi
+Categories;Categorie
+Content;Contenuti
 VAT not included;IVA esclusa
 VAT included;IVA inclusa
 Prices list;Listino prezzi
@@ -659,6 +710,30 @@ Compare;Confronta
 On line in minutes!;On line in pochi minuti!
 Choose your service;Scegli il tuo servizio
 Type here what you are looking for;Digita qui quello che stai cercando
+Product Type;Tipologia prodotto
+Attribute Group;Gruppo attributi
+Product name;Nome prodotto
+Product Nickname;Abbreviazione prodotto
+Is Highlighted;In evidenza
+Position;Posizione
+Enabled;Abilitato
+Is Comparable;Comparabile
+Publish on RSS Feed;Pubblica tramite RSS
+Allow downgrades;Consenti downgrade
+Short Description;Descrizione breve
+Wiki Pages;Pagine Wiki
+Attachment;Allegato
+Default Image;Immagine predefinita
+Customer;Cliente
+Orderid;ID Ordine
+Select all the items related to the product selected using the CTRL/SHIFT button;Seleziona tutti i prodotti relativi a questo utilizzando CTRL/SHIFT
+Select all the items upgrade to the product selected using the CTRL/SHIFT button;Seleziona tutti i prodotti verso i quali consentire upgrades utilizzando CTRL/SHIFT
+Here you can edit the product details;Da questa sezione puoi modificare i dati del prodotto.
+Here you can see all the products.;Da questa sezione puoi visualizzare i prodotti.
+Inserted at;Creato il
+Updated at;Modificato il
+Type;Tipologia
+
 
 ### SERVICES
 Setup fees;Costi di Attivazione
@@ -946,3 +1021,4 @@ Write here the database password.;Inserire la password
 Write here the database name.;Inserire il nome del database
 Check DB Connection;Controllo Connessione DB
 Continue;Continua
+
