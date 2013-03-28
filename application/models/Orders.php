@@ -2024,66 +2024,62 @@ class Orders extends BaseOrders {
 	 * @return ArrayObject
 	 */
 	public static function incomeMonthly($year = null ) {
+		$baseArray  = array('grandtotal' => 0, 'total' => 0, 'vat' => 0, 'growPercent' => 0, 'growDiff' => 0);
+		$yearIncome = array();
+		
 		$present_year = !empty($year) ? $year : date("Y");
 		$last_year = $present_year - 1;
 		
 		// Get the invoices montly total 
-		$income = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as monthly, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
+		$incomes = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as month, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
 													->where('o.status_id = ?', Statuses::id('complete', 'orders'))
-													->groupBy("monthly, year")
-													->orderBy('year, monthly')
+													->groupBy("month, year")
+													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
 		// Get the credit notes montly total 
-		$creditnotes = Doctrine_Query::create ()->select ( "creditnote_id, MONTH(c.creationdate) as monthly, YEAR(c.creationdate) as year, SUM(c.total) as grandtotal, SUM(c.total_net) as total, SUM(c.total_vat) as vat" )
+		$creditnotes = Doctrine_Query::create ()->select ( "creditnote_id, MONTH(c.creationdate) as month, YEAR(c.creationdate) as year, SUM(c.total) as grandtotal, SUM(c.total_net) as total, SUM(c.total_vat) as vat" )
 													->from ( 'CreditNotes c' )
-													->groupBy("monthly, year")
-													->orderBy('year, monthly')
+													->groupBy("month, year")
+													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
-		
-		for ($i=0; $i<count($income); $i++){
+
+		//print_r($incomes);
+
+		$currentYear = date('Y');
+		$lastYear    = $currentYear -1;
+
+		// Cycle months
+		for ( $i = 01; $i <= 12; $i++ ) {
+			$month       = str_pad($i,2,'0',STR_PAD_LEFT);
 			
-			// Yield Percentage
-			$income[$i]['yieldrate'] = 0;
+			$yearIncome[$lastYear][$month]    = array_merge(array('month'=>$month,'year'=>$lastYear), $baseArray);
+			$yearIncome[$currentYear][$month] = array_merge(array('month'=>$month,'year'=>$currentYear), $baseArray);	
+		}
+
+		// Merge income to year array
+		foreach ( $incomes as $income ) {
+			unset($income['invoice_id']);
+			$income['month'] = str_pad($income['month'],2,'0',STR_PAD_LEFT);
+			$month = $income['month'];
+			$year  = $income['year'];
 			
-			// Before the last year
-			$income[$i]['old'] = array();
-			
-			// For each Quarter do
-			foreach ($income as $item){
-				
-				// If the selected year is before last year and the quarter is the same do
-				if($item['year'] == ($income[$i]['year'] - 1) && $item['monthly'] == $income[$i]['monthly']){
-					
-					// Calculate the Yield percentage on diff
-					if($income[$i]['total'] > 0){
-						$diff = $income[$i]['total'] - $item['total'];
-						$percent = $diff / $item['total'] * 100;
-					}else{
-						$percent = 0;
-					}
-					
-					$income[$i]['old'] = $item;
-					
-					// Assign the yield percentage value
-					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');;
-					continue;
-				}
+			// Calculate the Yield percentage on diff between years
+			if ( $year == $currentYear ) {
+				$diff    = $income['total'] - $yearIncome[$lastYear][$month]['total'];
+				$percent = round($diff / $income['total'] * 100);		
+				$income['growPercent'] = $percent;
+				$income['growDiff']    = $diff;
 			}
-		}
-		
-// 		Zend_Debug::dump($income);
-// 		Zend_Debug::dump($creditnotes);
-		
-		foreach ($creditnotes as $item){
-			// If the selected year is before last year and the quarter is the same do
+						
 			
-			
+			$yearIncome[$year][$month] = array_merge($yearIncome[$year][$month], $income);
 		}
-		
-		return !empty($income[0]) ? $income: array();
+
+		return $yearIncome;
+
 	}
 	
 	/**
