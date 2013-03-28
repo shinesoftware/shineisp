@@ -28,7 +28,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $database
 	 * @return boolean or string
 	 */
-	static public function chkdatabase($username,$password,$hostname,$database){
+	public static function chkdatabase($username,$password,$hostname,$database){
 		try{
 			$dsn = "mysql://$username:$password@$hostname/$database";
 			$conn = Doctrine_Manager::connection($dsn, 'shineisp test connection');
@@ -54,7 +54,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $filename
 	 * @param string $destination
 	 */
-	static public function unZip($filename, $destination){
+	public static function unZip($filename, $destination){
 		$zip = new ZipArchive;
 	    $res = $zip->open($filename);
 	     if ($res === TRUE) {
@@ -121,7 +121,7 @@ class Shineisp_Commons_Utilities {
 	 * Check if the browser is an Apple client
 	 * @return boolean
 	 */
-	static public function isAppleClient(){
+	public static function isAppleClient(){
 		if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod') || strstr($_SERVER['HTTP_USER_AGENT'],'iPad')) {
 			return true;
 		}
@@ -132,7 +132,7 @@ class Shineisp_Commons_Utilities {
 	 * Get the google latitude longitude
 	 * @param string $address
 	 */
-	static public function getCoordinates($address){
+	public static function getCoordinates($address){
 		$address = urlencode($address);
 		$uri = "http://maps.googleapis.com/maps/api/geocode/json?address=$address&sensor=true";
 		$json = @file_get_contents ( $uri );
@@ -150,7 +150,7 @@ class Shineisp_Commons_Utilities {
 	 * Check if the domain is valid 
 	 * @param unknown_type $domain_name
 	 */
-	static public function is_valid_domain_name($url) {
+	public static function is_valid_domain_name($url) {
 		if (preg_match ( "/^[a-z0-9][a-z0-9\-]+[a-z0-9](\.[a-z]{2,4})+$/i", $url )) {
 			return true;
 		} else {
@@ -162,7 +162,7 @@ class Shineisp_Commons_Utilities {
 	 * Create a little table using a multidimensional array
 	 * @param array $data
 	 */
-	static public function array2table(array $data){
+	public static function array2table(array $data){
 		$cell_address = "[A1,A2,D3,H3]";
 
 		$ar_columns = array_keys($data[0]);
@@ -199,7 +199,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $directory
 	 * 
 	 */
-	static public function dirlist($dir) {
+	public static function dirlist($dir) {
 		$dirs = array ();
 		$next = 0;
 		
@@ -222,7 +222,7 @@ class Shineisp_Commons_Utilities {
 	 * This function simply returns an array containing a list of a directory's contents.
 	 * @param unknown_type $directory
 	 */
-	static public function getDirectoryList ($directory)
+	public static function getDirectoryList ($directory)
 	{
 	
 		// create an array to hold directory list
@@ -254,7 +254,7 @@ class Shineisp_Commons_Utilities {
 	 * Check if the string is a date
 	 * @param unknown_type $str
 	 */
-	static public function isDate($str) {
+	public static function isDate($str) {
 		if (! empty ( $str )) {
 			$str = str_replace ( "/", "-", $str );
 			$stamp = strtotime ( $str );
@@ -274,7 +274,7 @@ class Shineisp_Commons_Utilities {
 		return FALSE;
 	}
 	
-	static public function isAjax() {
+	public static function isAjax() {
 		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
 				($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 	}
@@ -292,7 +292,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $format Format of the date. Any combination of <i>mm<i>, <i>dd<i>, <i>yyyy<i>
 	 * with single character separator between.
 	 */
-	static public function is_valid_date($value, $format = 'dd.mm.yyyy'){
+	public static function is_valid_date($value, $format = 'dd.mm.yyyy'){
 		if(strlen($value) >= 6 && strlen($format) == 10){
 			 
 			// find separator. Remove all other characters from $format
@@ -324,7 +324,7 @@ class Shineisp_Commons_Utilities {
      * formatSearchvalue
      * format the search posted values before use them in the sql query
      */
-	static public function formatSearchvalue($value) {
+	public static function formatSearchvalue($value) {
 		
 		// If is a numeric
 		if (is_numeric ( $value )) {
@@ -344,7 +344,7 @@ class Shineisp_Commons_Utilities {
 	/*
 	 * Clean the tmp folder
 	 */
-	static public function cleantmp() {
+	public static function cleantmp() {
 		$seconds_old = 1800; // 30 minutes old
 		$directory = PUBLIC_PATH . "/tmp";
 		
@@ -363,7 +363,7 @@ class Shineisp_Commons_Utilities {
 	/*
 	 * Remove empty directories
 	 */
-	static public function removeEmptySubFolders($path){
+	public static function removeEmptySubFolders($path){
 		$empty=true;
 		
 		foreach (glob($path.DIRECTORY_SEPARATOR."*") as $file){
@@ -374,7 +374,7 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	// Check if the string is an email
-	static public function isEmail($email) {
+	public static function isEmail($email) {
 		return preg_match ( '|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]{2,})+$|i', $email );
 	}
 	
@@ -384,7 +384,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $strText, $intLength, $strTrail
 	 * @return string $CropSentence
 	 */
-	static public function CropSentence($strText, $intLength, $strTrail) {
+	public static function CropSentence($strText, $intLength, $strTrail) {
 		$wsCount = 0;
 		$intTempSize = 0;
 		$intTotalLen = 0;
@@ -437,7 +437,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $childrenKey         index for children, in case $flattenChildren was set to false. Defaults to "@children"
 	 * @return array the resulting array.
 	 */
-	static public function simpleXMLToArray($xml, $flattenValues = true, $flattenAttributes = true, $flattenChildren = true, $valueKey = '@value', $attributesKey = '@attributes', $childrenKey = '@children') {
+	public static function simpleXMLToArray($xml, $flattenValues = true, $flattenAttributes = true, $flattenChildren = true, $valueKey = '@value', $attributesKey = '@attributes', $childrenKey = '@children') {
 		
 		$return = array ();
 		
@@ -510,7 +510,7 @@ class Shineisp_Commons_Utilities {
 	 * @param boolean $considerHtml If true, HTML tags would be handled correctly
 	 * @return string Trimmed string.
 	 */
-	static public function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
+	public static function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
 		if ($considerHtml) {
 			// if the plain text is shorter than the maximum length, return the whole text
 			if (strlen ( preg_replace ( '/<.*?>/', '', $text ) ) <= $length) {
@@ -605,7 +605,7 @@ class Shineisp_Commons_Utilities {
 	 * Delete the directory selected and all its subfolders
 	 * @param string $dir
 	 */
-	static public function delTree($dir) {
+	public static function delTree($dir) {
 		$files = glob ( $dir . '*', GLOB_MARK );
 		if (is_array ( $files )) {
 			foreach ( $files as $file ) {
@@ -635,7 +635,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string/array $attachments
 	 * @return boolean|multitype:unknown NULL
 	 */
-	static public function SendEmail($from, $to, $bcc = NULL, $subject, $body, $html = false, $inreplyto = NULL, $attachments = NULL, $replyto = NULL) {
+	public static function SendEmail($from, $to, $bcc = NULL, $subject, $body, $html = false, $inreplyto = NULL, $attachments = NULL, $replyto = NULL) {
 		$transport = null;
 		$config = array ();
 		
@@ -734,7 +734,7 @@ class Shineisp_Commons_Utilities {
 	 *  getEmailTemplate
 	 *  Get the email template from the filesystem
 	 */
-	static public function getEmailTemplate($template) {
+	public static function getEmailTemplate($template) {
 		$email = false;
 		$subject = "";
 		$locale = Zend_Registry::get ( 'Zend_Locale' );
@@ -780,7 +780,7 @@ class Shineisp_Commons_Utilities {
 		return $email;
 	}
 	
-	static public function cvsExport($recordset) {
+	public static function cvsExport($recordset) {
 		$cvs = "";
 		@unlink ( "documents/export.csv" );
 		if (! empty ( $recordset ) && is_array ( $recordset )) {
@@ -797,7 +797,7 @@ class Shineisp_Commons_Utilities {
 		return $cvs;
 	}
 	
-	static public function whoisInfo($domain) {
+	public static function whoisInfo($domain) {
 		$uri = "http://www.webservicex.net/whois.asmx/GetWhoIS?HostName=$domain";
 		$client = new Zend_Http_Client ( $uri );
 		try {
@@ -807,7 +807,7 @@ class Shineisp_Commons_Utilities {
 		}
 	}
 
-	function in_arrayi($needle, $haystack) {
+	public static function in_arrayi($needle, $haystack) {
 		return in_array ( strtolower ( $needle ), array_map ( 'strtolower', $haystack ) );
 	}
 	
@@ -818,7 +818,7 @@ class Shineisp_Commons_Utilities {
 	 * @param $format Zend_date format
 	 * @return date formatted by the locale setting
 	 */
-	static public function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM) {
+	public static function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM) {
 		if (empty ( $dbindata ))
 			return false;
 		
@@ -834,7 +834,7 @@ class Shineisp_Commons_Utilities {
 	 * @param string $dboutdata
 	 * @return string Y-m-d H:i:s
 	 */
-	static public function formatDateIn($dboutdata) {
+	public static function formatDateIn($dboutdata) {
 		if (empty ( $dboutdata ))
 			return null;
 		
@@ -852,7 +852,7 @@ class Shineisp_Commons_Utilities {
 	 * @param integer $yr
 	 * @return boolean|Zend_Date
 	 */
-	function add_date($givendate, $day = 0, $mth = 0, $yr = 0) {
+	public static function add_date($givendate, $day = 0, $mth = 0, $yr = 0) {
 		if (empty ( $givendate ))
 			return false;
 		
@@ -883,7 +883,7 @@ class Shineisp_Commons_Utilities {
 	 * Create a flat array starting from a multidimensional array
 	 * @return array
 	 */
-	function array_flatten($a, $f = array()) {
+	public static function array_flatten($a, $f = array()) {
 		if (! $a || ! is_array ( $a ))
 			return $f;
 		foreach ( $a as $k => $v ) {
@@ -900,7 +900,7 @@ class Shineisp_Commons_Utilities {
 	 * Get the value of a specific key in a multidimensional array 
 	 * @var string
 	 */
-	function search($keys, $search, &$results) {
+	public static function search($keys, $search, &$results) {
 		foreach ( $search as $k => $v ) {
 			if (is_array ( $v )) {
 				self::search ( $keys, $v, $results );
