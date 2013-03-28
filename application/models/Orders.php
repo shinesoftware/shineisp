@@ -2027,14 +2027,14 @@ class Orders extends BaseOrders {
 		$baseArray  = array('grandtotal' => 0, 'total' => 0, 'vat' => 0, 'growPercent' => 0, 'growDiff' => 0);
 		$yearIncome = array();
 		
-		$present_year = !empty($year) ? $year : date("Y");
-		$last_year = $present_year - 1;
-		
+		$currentYear = !empty($year) ? $year : date("Y");
+		$lastYear    = $currentYear -1;
+
 		// Get the invoices montly total 
 		$incomes = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as month, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
-													->where('o.status_id = ?', Statuses::id('complete', 'orders'))
+													->where('o.status_id = ? AND YEAR(i.invoice_date) >= ?', array(Statuses::id('complete', 'orders'), $lastYear))
 													->groupBy("month, year")
 													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2047,9 +2047,6 @@ class Orders extends BaseOrders {
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
 
 		//print_r($incomes);
-
-		$currentYear = date('Y');
-		$lastYear    = $currentYear -1;
 
 		// Cycle months
 		for ( $i = 01; $i <= 12; $i++ ) {
