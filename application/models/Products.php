@@ -178,6 +178,11 @@ class Products extends BaseProducts {
 		}else{
 			$products->inserted_at = date('Y-m-d H:i:s');
 		}
+
+		// Product UUID is missing, generate a new one		
+		if ( empty($products->uuid) ) {
+			$products->uuid = Shineisp_Commons_Uuid::generate();
+		}
 		
 		try {
 			if(!empty($_FILES ['attachments'])){
@@ -193,6 +198,7 @@ class Products extends BaseProducts {
 				$products->updated_at    = date('Y-m-d H:i:s');
 				$products->categories    = ! empty ( $params ['categories'] ) ? $params ['categories'] : null;
 				$products->uri           = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
+				$products->sku           = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
 				$products->cost          = $params ['cost'];
 				$products->price_1       = $params ['price_1'];
 				$products->setupfee      = $params ['setupfee'];
