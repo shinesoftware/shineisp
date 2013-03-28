@@ -27,13 +27,14 @@
 <?php endif;?>
 
 <?php $income = $this->income_monthly; ?>
+
 <?php if(!empty($income)): ?>
 <div class="portlet" id="income-month">
 	<div class="widget-wrapper">
 		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month')?></a></h3></div>
 		<div class="widget-content">
 			<ul class="stats">
-				<?php foreach($income as $inc):?>
+				<?php /* foreach($income as $inc):?>
 					<?php if($inc['year'] == date('Y')): ?>
 					<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
 						<small><?php echo $this->translate('%s° month of %s', $inc['monthly'], $inc['year'])?></small> 
@@ -43,9 +44,74 @@
 						<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $inc['yieldrate'] ?>%</span>
 					</li>
 					<?php endif; ?>
-				<?php endforeach;?>
+				<?php endforeach; */ ?>
 			</ul>
 		</div>
 	</div>
+	
+	<script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawMonthlyIncomeChart);
+      function drawMonthlyIncomeChart() {
+		var data = new google.visualization.DataTable({
+	       cols: [{id: 'month',          label: '<?=$this->translate('Month')?>', type: 'string'},
+	              {id: 'grandTotal',     label: '<?=$this->translate('Grand Total')?> <?=$inc['year']?>', type: 'number'},
+	              {'p': {'role':'tooltip','html':true}}, // tooltip for current year
+	              {id: 'grandTotalLast', label: '<?=$this->translate('Grand Total')?> <?=$inc['old']['year']?>', type: 'number'},
+	              {'p': {'role':'tooltip','html':true}} // tooltip for previous year
+	       ],
+	       
+	       rows: [
+	          <?php
+	          	$currentYear = date('Y');
+				$lastYear    = $currentYear -1;
+	          	$arrGrafico  = array();
+	          	foreach($income[$currentYear] as $yearIncome):
+					$month    = $yearIncome['month'];
+					
+					$currentMonthTitle = strftime('%B %Y', mktime(0,0,0,$month,1,$currentYear));
+					$lastMonthTitle    = strftime('%B %Y', mktime(0,0,0,$month,1,$lastYear));
+					
+					$total    = (isset($yearIncome['total'])) ? $yearIncome['total'] : 0;
+					$oldTotal = (isset($income[$lastYear][$month]['total'])) ? $income[$lastYear][$month]['total'] : 0;
+					$growDiff = (isset($yearIncome['growDiff'])) ? $yearIncome['growDiff'] : 0;
+					$growPercent = (isset($yearIncome['growPercent'])) ? $yearIncome['growPercent'] : 0;
+					
+					$spanColor = ( $growPercent > 0 ) ? 'green' : 'red';
+
+					$arrColonne   = array();
+					$arrColonne[] = "{v: '".$yearIncome['month']."'}";				
+					$arrColonne[] = "{v:".$total."}";
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><strong>".$currentMonthTitle."</strong><br/>".$this->translate('Grand Total').": &euro; ".$total."<br/>".$this->translate('Grand Total')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$growDiff." (".$growPercent."%)</span></div>'}"; // tooltip for current year
+					$arrColonne[] = "{v:".$oldTotal."}";
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><strong>".$lastMonthTitle."</strong><br/>".$this->translate('Grand Total')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
+
+					$arrGrafico[] = "{c:[".implode(',',$arrColonne)."]}\n";
+	          	endforeach;
+				
+				echo implode(',', $arrGrafico);
+				
+	      		?>
+			]
+			
+     	}, 0.6);
+
+        var options = {
+        	curveType: 'function'
+        	,tooltip: {isHtml: true}
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('grafico'));
+        chart.draw(data, options);
+
+		$(window).smartresize(function(){
+			chart.draw(data, options);
+		});
+      }
+    </script>	
+	
+	<div id='grafico'></div>
+	
 </div>
 <?php endif;?>
