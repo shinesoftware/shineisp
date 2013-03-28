@@ -1954,6 +1954,7 @@ class Orders extends BaseOrders {
 		}
 		
 		$dq->orderBy ( 'order_date desc' )->limit ( $limit );
+
 		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
 		for($i=0;$i<count($records);$i++){
@@ -2045,20 +2046,17 @@ class Orders extends BaseOrders {
 													->groupBy("month, year")
 													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
-
-		//print_r($incomes);
-
+													
 		$currentYear = date('Y');
 		$lastYear    = $currentYear -1;
 
 		// Cycle months
 		for ( $i = 01; $i <= 12; $i++ ) {
-			$month       = str_pad($i,2,'0',STR_PAD_LEFT);
-			
+			$month       = str_pad($i, 2, '0', STR_PAD_LEFT);
 			$yearIncome[$lastYear][$month]    = array_merge(array('month'=>$month,'year'=>$lastYear), $baseArray);
 			$yearIncome[$currentYear][$month] = array_merge(array('month'=>$month,'year'=>$currentYear), $baseArray);	
 		}
-
+       
 		// Merge income to year array
 		foreach ( $incomes as $income ) {
 			unset($income['invoice_id']);
@@ -2073,9 +2071,11 @@ class Orders extends BaseOrders {
 				$income['growPercent'] = $percent;
 				$income['growDiff']    = $diff;
 			}
-						
 			
-			$yearIncome[$year][$month] = array_merge($yearIncome[$year][$month], $income);
+			// Check if the year and month value have been set 
+			if(!empty($yearIncome[$year][$month])){
+			    $yearIncome[$year][$month] = array_merge($yearIncome[$year][$month], $income);
+			}
 		}
 
 		return $yearIncome;
@@ -2099,43 +2099,74 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
+
 	 * Upload to dropbox the Order file
+
 	 * @param integer $OrderID
+
 	 * @return boolean or exception
+
 	 */
+
 	public static function DropboxIt($OrderID){
+
 		if(is_numeric($OrderID)){
+
 			if(Shineisp_Api_Dropbox_Uploader::isReady()){
+
 	
+
 				// Get the order information
+
 				$order = self::getAllInfo($OrderID, "order_date", true);
+
 				if($order[0]['order_date']){
+
 					
 					$file = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
 					
 					if(file_exists(PUBLIC_PATH . "/documents/orders/$file")){
+
 						$year_order = date('Y',strtotime($order[0]['order_date']));
+
 						$month_testual_order = date('M',strtotime($order[0]['order_date']));
+
 						$month_number_order = date('m',strtotime($order[0]['order_date']));
+
 						$quarter_number_order =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($order[0]['order_date'])));
+
 		
+
 						$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
+
 						$destinationPath = str_replace("{year}", $year_order, $destinationPath);
+
 						$destinationPath = str_replace("{month}", $month_number_order, $destinationPath);
+
 						$destinationPath = str_replace("{monthname}", $month_testual_order, $destinationPath);
+
 						$destinationPath = str_replace("{quarter}", $quarter_number_order, $destinationPath);
+
 		
+
 						$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
+
 						$dropbox->upload(PUBLIC_PATH . "/documents/orders/$file", $destinationPath);
+
 						return true;
 					}else{
 						Shineisp_Commons_Utilities::log('Dropbox module: the order '.$order[0] ['order_id'].' has been not found and it cannot be sent to the dropbox');
 						return false;
 					}
+
 				}
+
 			}
+
 		}
+
 		return false;
+
 	}
 	
 	######################################### CRON METHODS ############################################
