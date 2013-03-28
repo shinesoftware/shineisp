@@ -22,6 +22,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property boolean $ishighlighted
  * @property boolean $send_request_review
  * @property boolean $showonrss
+ * @property boolean $downgradable
  * @property boolean $enabled
  * @property string $type
  * @property string $categories
@@ -128,6 +129,12 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasColumn('showonrss', 'boolean', 25, array(
              'type' => 'boolean',
              'default' => '0',
+             'length' => '25',
+             ));
+        $this->hasColumn('downgradable', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 1,
+             'notnull' => true,
              'length' => '25',
              ));
         $this->hasColumn('enabled', 'boolean', 25, array(
