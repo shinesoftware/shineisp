@@ -164,5 +164,9 @@
 
 <script type="text/javascript">
 	var data = <?php echo $this->categories ?>;
+	
+	$(document).ready(function() {
+		$('#name').attr('readonly', <?=$this->isSold?>);
+	});
 </script>
 </div>
