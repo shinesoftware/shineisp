@@ -298,6 +298,8 @@ notMatch;non corrisponde
 missingValue;non inserito
 Please write again the password;Ripetere la password
 Print;Stampa
+Roles;Ruoli
+Search:Cerca
 
 ### BILLING CYCLES
 Month;Mese
@@ -687,6 +689,12 @@ Customer;Cliente
 Orderid;ID Ordine
 Select all the items related to the product selected using the CTRL/SHIFT button;Seleziona tutti i prodotti relativi a questo utilizzando CTRL/SHIFT
 Select all the items upgrade to the product selected using the CTRL/SHIFT button;Seleziona tutti i prodotti verso i quali consentire upgrades utilizzando CTRL/SHIFT
+Here you can edit the product details;Da questa sezione puoi modificare i dati del prodotto.
+Here you can see all the products.;Da questa sezione puoi visualizzare i prodotti.
+Inserted at;Creato il
+Updated at;Modificato il
+Type;Tipologia
+
 
 ### SERVICES
 Setup fees;Costi di Attivazione
