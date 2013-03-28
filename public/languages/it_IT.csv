@@ -209,16 +209,16 @@ Profile;Profilo
 Banks;Banche
 
 ### GRAPHS
-domains_summary_per_month;Monthly Domains Summary 
+domains_summary_per_month;Sommario mensile domini 
 Domains Summary;Sommario Domini
 
 ### ERRORS
-emailAddressInvalidFormat;format is invalid.
+emailAddressInvalidFormat;formato non valido.
 isEmpty;e' vuoto. Questo campo è obbligatorio.
 Email or Password incorrect;Email o Password non corrette.
 
 ### GENERAL
-field;This field:
+field;Questo campo:
 New;Nuovo
 VAT;IVA
 Total;Totale
@@ -226,28 +226,28 @@ index;Index
 Date;Data
 records;Records
 Domain;Dominio
-date;Date
-daysleft;Days left
+date;Data
+daysleft;Giorni rimasti
 status;Status
-commands;Commands
+commands;Comandi
 Show;Visualizza
 Required fields;Campi richiesti
 Fast Search;Ricerca Veloce
-italian;Italian
+italian;Italiano
 english;English
-myaccount;My Profile
-welcome;Welcome
+myaccount;Il mio profilo
+welcome;Benvenuto
 servers;Servers
 Logout;Esci
-general;Main
-bulkcommands;Bulk Actions
-Records per page;Records per pagina
+general;Principale
+bulkcommands;Azioni bulk
+Records per page;Record per pagina
 Status;Stato
-statusmgmt;Statuses
-actions;Actions
-bulkdelete;Delete
+statusmgmt;Stati
+actions;Azioni
+bulkdelete;Elimina
 No Records;Nessuna informazione trovata.
-Recordcount;Totale Records
+Recordcount;Totale record
 Filters;Filtri
 Messages;Messaggi
 Message;Messaggio
@@ -258,14 +258,14 @@ Click here to edit;Click qui per modificare.
 List;Lista
 Search;Ricerca
 Selected record;Record selezionato
-confirm;Confirm Action 
-confirmdelete;Confirm delete
-delete_question;Are you sure to delete the selected record?
-desc_delete_question;The selected record will be not longer available.
+confirm;Conferma azione 
+confirmdelete;Conferma eliminazione
+delete_question;Sei sicuro di voler eliminare il record selezionato?
+desc_delete_question;Il record selezionato non sarà più disponibile.
 desc_confirm;Here you can choose if confirm or not a task. If you agree the record selected will be processed.
-areusure;Are you sure?
-noiwrong;No, I don't!
-yesiwant;YES, I want to DELETE it!
+areusure;Sei sicuro?
+noiwrong;No, non voglio!
+yesiwant;SI, lo voglio ELIMINARE!
 methodnotset;Please, select the items and then the action from the list.
 enabled;Enabled
 desc_enabled;Enabled the item
@@ -376,7 +376,7 @@ Birthdate;Data di nascita
 Write here your birthday (eg. dd/mm/yyyy);Inserire la data di nascita (es. gg/mm/aaaa)
 Write here the birthplace.;Inserire il luogo di nascita
 Write the tax payer number.;Inserire il codice fiscale personale se persona fisica negli altri casi inserire il codice fiscale d'azienda. 
-Print Invoice;Stampa Fattura
+Print Invoice;Stampa fattura
 Credit Notes;Note di Credito
 Credit Note No.;Nota di Credito Nr.
 Invoice No.;Fattura Nr.
