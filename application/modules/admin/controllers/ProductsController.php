@@ -227,7 +227,6 @@ class Admin_ProductsController extends Zend_Controller_Action {
 			$rs = $this->products->getAllInfo ( $id, $this->session->langid );
 			
 			if (! empty ( $rs )) {
-
 				// Join the translated data information to populate the form
 				$data = !empty($rs['ProductsData'][0]) ? $rs['ProductsData'][0] : array();
 				$rs = array_merge($rs, $data);
