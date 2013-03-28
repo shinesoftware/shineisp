@@ -45,11 +45,12 @@
 				<li><a href="#tab6"><?=$this->translate('Media');?></a></li>
 			<?php endif;?> 
 			<li><a href="#tab7"><?=$this->translate('Related Products');?></a></li>
-			<li><a href="#tab8"><?=$this->translate('Orders');?></a></li> 
-			<li><a href="#tab9"><?=$this->translate('Attributes');?></a></li> 
-			<li><a href="#tab10"><?=$this->translate('Blocks');?></a></li> 
-			<li><a href="#tab11"><?=$this->translate('Metatags');?></a></li> 
-			<li><a href="#tab12"><?=$this->translate('Setup');?></a></li> 
+			<li><a href="#tab8"><?=$this->translate('Upgrade Products');?></a></li>
+			<li><a href="#tab9"><?=$this->translate('Orders');?></a></li> 
+			<li><a href="#tab10"><?=$this->translate('Attributes');?></a></li> 
+			<li><a href="#tab11"><?=$this->translate('Blocks');?></a></li> 
+			<li><a href="#tab12"><?=$this->translate('Metatags');?></a></li> 
+			<li><a href="#tab13"><?=$this->translate('Setup');?></a></li> 
 		</ul>
     
     
@@ -127,25 +128,32 @@
 	   </div> 
 	   <div class="ui-tabs-hide" id="tab8">
 	        <fieldset>
+	           	<?php echo $form->related->render() ?>
+	            <div class="clear"></div>
+	        </fieldset>
+	        <div class="clear"></div>
+	   </div> 	   
+	   <div class="ui-tabs-hide" id="tab9">
+	        <fieldset>
 	            <?php echo $this->simplegrid($this->orders) ?>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab9">
+	   <div class="ui-tabs-hide" id="tab10">
 	        <fieldset>
 	            <?php if (!empty( $form->attributes)) { echo $form->attributes->render(); } ?>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab10">
+	   <div class="ui-tabs-hide" id="tab11">
 	        <fieldset>
 	            <?php echo $form->blocks->render() ?>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab11">
+	   <div class="ui-tabs-hide" id="tab12">
 	        <fieldset>
 	            <?php echo $form->metakeywords->render() ?>
 	            <?php echo $form->metadescription->render() ?>
@@ -153,7 +161,7 @@
 	        <div class="clear"></div>
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab12">
+	   <div class="ui-tabs-hide" id="tab13">
 	        <fieldset>
 	            <?php echo $form->setup->render() ?>
 	        </fieldset>
