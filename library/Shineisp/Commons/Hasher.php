@@ -5,13 +5,95 @@
  *
  */
 class Shineisp_Commons_Hasher {
-    public static function generateSalt() {
-    	$salt_pattern = '0, 1, 2, 6, 7, 10, 11, 12, 14, 15, 20, 21, 25, 29, 32, 36, 37, 38, 39, 40';
-        return preg_split('/,\s*/', $salt_pattern); 
-    }
+	/**
+	 * Create the salt code
+	 * @return string
+	 */
+	public static function createSalt(){
+		$arrChars   = array();
+		$saltLength = 28;
+		
+		while ( count ( $arrChars ) < $saltLength ) {
+			$i = rand(0, 40);
+			$arrChars[$i] = $i;
+		}
+		
+		asort($arrChars);
+		
+		return implode(',', $arrChars);
+	}
+	
+	/**
+	 * Get the salt code  
+	 * @return boolean or string
+	 */
+	public static function getSalt() {
+		$filename = APPLICATION_PATH . "/configs/config.xml";
+
+		// Check the existence of the config.xml file
+		if (file_exists ($filename)) {
+
+			// Load the config file
+			$xml = simplexml_load_file ( $filename );
+			if(empty($xml->config->saltpattern)){
+				// create a salt pattern and save it in the config file
+				self::resetSalt();
+				
+				// reload the config file
+				$xml = simplexml_load_file ( $filename );
+			}else{
+				return preg_split('/,\s*/', $xml->config->saltpattern);
+			}
+			
+			return preg_split('/,\s*/', $xml->config->saltpattern);
+		}else{
+			throw new Exception("Error on reading the xml file in " . APPLICATION_PATH . "/configs/config.xml <br/>Please check the folder permissions");
+		}
+	}
+	
+	/**
+	 * Create the salt code
+	 * A salt code is a random set of bytes of a 
+	 * fixed length that is added to 
+	 * the input of a hash algorithm.
+	 */
+	public static function resetSalt() {
+		
+		$saltpattern = self::createSalt();
+		
+		$filename = APPLICATION_PATH . "/configs/config.xml";
+		if (file_exists ($filename)) {
+			$xml = simplexml_load_file ( $filename );
+			if(empty($xml->config->saltpattern)){
+				$config = $xml->config;
+				$config->addChild('saltpattern', $saltpattern);
+			}else{
+				$xml->config->saltpattern = $saltpattern;
+			}
+			
+			// Get the xml string
+			$xmlstring =$xml->asXML();
+				
+			// Prettify and save the xml configuration
+			$dom = new DOMDocument();
+			$dom->loadXML($xmlstring);
+			$dom->formatOutput = true;
+			$formattedXML = $dom->saveXML();
+			
+			// Save the config xml file
+			if(@$dom->save(APPLICATION_PATH . "/configs/config.xml")){
+				return true;
+			}else{
+				throw new Exception("Error on saving the xml file in " . APPLICATION_PATH . "/configs/config.xml <br/>Please check the folder permissions");
+			}
+			
+		}else{
+			throw new Exception('There was a problem to save data in the config.xml file. Permission file problems?');
+		}
+	}	
 
 	public function hash_string($password, $salt = FALSE) {
-        $salt_pattern = self::generateSalt();
+        $salt_pattern = self::getSalt();
 
 		if ($salt === FALSE) {
 			// Create a salt seed, same length as the number of offsets in the pattern
@@ -51,7 +133,7 @@ class Shineisp_Commons_Hasher {
 
 	public function unhash_string($password)
 	{
-        $salt_pattern   = self::generateSalt();
+        $salt_pattern   = self::getSalt();
 		$clean_password = '';
 
         $password = str_split($password, 1);
@@ -73,7 +155,7 @@ class Shineisp_Commons_Hasher {
 
 	public function find_salt($password)
 	{
-        $salt_pattern = self::generateSalt();
+        $salt_pattern = self::getSalt();
 		$salt = '';
 
 		foreach ($salt_pattern as $i => $offset)
