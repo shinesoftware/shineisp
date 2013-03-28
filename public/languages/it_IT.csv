@@ -254,6 +254,8 @@ Message;Messaggio
 Delete;Cancella
 YES;Si
 NO;No
+Yes;Si
+No;No
 Click here to edit;Click qui per modificare.
 List;Lista
 Search;Ricerca
@@ -563,15 +565,15 @@ next_deadline;Prossima Scadenza
 grandtotal;Totale Complessivo
 sku;Codice Interno
 total;Totale Imponibile
-invoice_number;Invoice Number
+invoice_number;Fattura numero
 Download Invoices;Scarica Fatture
-order_edit;Order Edit
-desc_order_edit;Edit this order in all its section.
+order_edit;Modifica ordine
+desc_order_edit;Modifica questo ordine in ogni parte.
 order;Ordine
 id;Codice
-details;Details
+details;Dettagli
 List of all the orders where the domain appears.;Lista degli ordini in cui appare il dominio.
-createinvoice;PDF Invoice
+createinvoice;Fattura PDF
 Quantity;Quantità
 quantity;Quantità
 Description;Descrizione
@@ -591,8 +593,8 @@ Reviews;Recensioni
 Date Start;Data Inizio
 billingcycle;Ciclo di fatturazione
 Billing Cycle;Ciclo di fatturazione
-referdomain;Refering Domain
-searchdomains;Search domains
+referdomain;Dominio di riferimento
+searchdomains;Cerca domini
 There was a problem during the payment process.;Si è verificato un problema durante la fase di pagamento.
 Here you can read all your questions and the admin replies about this order.;In questa sezione puoi leggere le tue domande poste all'amministratore e le risposte inerenti l'ordine selezionato.
 To be paid;Da pagare
@@ -617,7 +619,7 @@ Back to list;Torna alla lista
 Ticket Edit;Dettagli Segnalazione
 Ticket process;Registrazione Segnalazione
 Check the information before save again.;Controlla le informazioni inserite e fai click su salva. 
-ticketnotes;Notes
+ticketnotes;Note
 Notes;Note
 Write here a note.;Scrivi una nota
 Write here a note. An email will be sent to the ISP staff.;Scrivi una nota. Una email verrà inviata allo staff.
