@@ -59,20 +59,52 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	/**
 	 * createMenu
 	 * Create the menu
+	 * 
 	 * @param unknown_type $parent
 	 */
 	private function createMenu($parent) {
 		$children = Navigation::getParent ( $parent );
 		$items = array ();
 		
+		/* JAY - 20130328 - GUEST
+		 * Get the RequestURI to show item 
+		 * ***/
+		$request = Zend_Controller_Front::getInstance()->getRequest();
+		$linkActive	= $request->getRequestUri();
+		// END
+		
 		if (is_array ( $children )) {
 			foreach ( $children as $row ) {
 				if($row['parent_id']){
-					$link = ! empty ( $row ['url'] ) ? $row ['url'] : "/";
+					$link 		= ! empty ( $row ['url'] ) ? $row ['url'] : "/";
 				}else{
 					$link = "#";
 				}
-				$items [] = "<li class=\"item\"><a href=\"" . $link . "\">" . $this->translation->translate($row ['label']) . "</a>" . $this->createMenu ( $row ['id'] ) . "</li>";
+				
+				/* JAY - 20130328 GUEST
+				 * Add class 'showall' to active item on reload of page.
+				 * *****/
+				$showall	= "";
+				if( $linkActive == $link ) {
+					$showall	= "showall";
+				} else {
+					//Try to remove action maybe I've default action
+					$path	= explode('/',$linkActive);
+					if( count($path) > 1 ) {
+						array_pop($path);
+						$tryLinkActive	= implode('/',$path);
+						if( $tryLinkActive == $link ) {
+							$showall	= "showall";
+						}
+					}
+				}
+				 
+				$items [] = '
+				<li class="item '.$showall.'">
+					<a href="'.$link.'">
+						'.$this->translation->translate($row ['label']).'
+					</a>'.$this->createMenu ( $row ['id'] ).'
+				</li>';
 			}
 		}
 		
