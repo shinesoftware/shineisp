@@ -100,6 +100,9 @@ Login here as customer;Accedi al tuo profilo
 Services Subscribed;Servizi sottoscritti
 New Message;Nuovo Messaggio
 View all available plans now;Visualizza tutti i piani ora
+Last Domain Tasks;Ultime operazioni sui domini
+Last Panel Tasks;Ultime operazioni sul pannello
+Customer Hit Parade;Clienti più redditizi
 
 ### BULK DOMAINS
 Domains Bulk Registration;Registrazione Multipla Domini
@@ -203,14 +206,44 @@ Products;Prodotti
 Settings;Impostazioni
 Orders;Ordini
 Customers;Clienti
-Registrars;Registrars
-Product Categories;Categorie Prodotto
+Registrars;Registrar
+Product Categories;Categorie prodotto
 Profile;Profilo
 Banks;Banche
+
+### MENU
+Customers Groups;Gruppi cliente
+Url Rewrites;URL Rewrite
+Languages;Lingue
+Ticket Categories;Categorie ticket
+Wiki Categories;Categorie wiki
+Legal forms;Forme legali
+Company types;Forme societarie
+Cms Pages;Pagine CMS
+Cms Blocks;Blocchi CMS
+Newsletter Messages;Messaggi newsletter
+Subscribers;Iscritti
+Reports;Resoconti
+Profit of the Year;Profitto annuale
+Domains Statistics;Statistiche domini
+Domains Tasks;Operazioni domini
+Domains per Client;Domini per cliente
+Domains per Month;Domini per mese
+Services Summary;Sommario servizi
+Panels Actions;Azioni pannello
+Email Configuration;Configurazione E-Mail
+Design;Aspetto
+Registrars Options;Opzioni registrar
+reCaptcha Service;reCaptcha
+Cache System;Cache
+Upload System;Impostazioni upload
+Public Site;Sito pubblico
 
 ### GRAPHS
 domains_summary_per_month;Sommario mensile domini 
 Domains Summary;Sommario Domini
+Income by Month;Incassi per mese
+Income by Quarter;Incassi per trimestre
 
 ### ERRORS
 emailAddressInvalidFormat;formato non valido.
@@ -300,6 +333,12 @@ Please write again the password;Ripetere la password
 Print;Stampa
 Roles;Ruoli
 Search:Cerca
+Action;Azione
+Startdate;Data di inizio
+Enddate;Data di termine
+Actions;Azioni
+Expiringdate;Data di scadenza
+Orderdate;Data ordine
 
 ### BILLING CYCLES
 Month;Mese
