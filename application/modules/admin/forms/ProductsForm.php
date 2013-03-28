@@ -172,6 +172,13 @@ class Admin_Form_ProductsForm extends Zend_Form
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
+        $this->addElement('select', 'downgradable', array(
+            'label'      => 'Allow downgrades',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input',
+            'multioptions' => array('0' => 'No', '1'=>'Yes')
+        ));
+
        $this->addElement('select', 'type', array(
         'label' => 'Product Type',
         'decorators' => array('Composite'),
