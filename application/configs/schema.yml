@@ -2177,6 +2177,10 @@ Products:
       unsigned: false
       primary: true
       autoincrement: true
+    uuid:
+      type: string(40)
+    sku:
+      type: string(25)
     uri:
       type: string(150)
       notnull: true

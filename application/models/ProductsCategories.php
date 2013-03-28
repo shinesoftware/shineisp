@@ -327,7 +327,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 * $categories = 1/2/5
 	 * @params string $categories 
 	*/
-	public function getGoogleCategories($categories) {
+	public static function getGoogleCategories($categories) {
 		$cats = array ();
 		$i = 0;
 		$categories = explode ( "/", $categories );
@@ -348,7 +348,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 * get all the categories information by categories ID
 	 * $categories = 1/2/5 
 	 */
-	public function getCategoriesInfo($categories) {
+	public static function getCategoriesInfo($categories) {
 		$cats = array ();
 		$i = 0;
 		$categories = explode ( "/", $categories );

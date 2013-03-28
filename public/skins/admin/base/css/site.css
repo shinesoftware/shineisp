@@ -363,7 +363,7 @@ table.horiz tr td:first-child {
 	background: #eee url(/skins/admin/base/images/ui/menu_expanded.png) repeat-x left bottom;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), color-stop(1, #fff));
 	background: -moz-linear-gradient(top center, #eee 0%, #fff 100%);
-	color: #ccc;
+	color: #000;
 	text-shadow: #fff 0 1px 0;
 }
 
@@ -492,4 +492,8 @@ ul.stats li {
 ul.stats li strong, ul.stats li small, ul.stats li span {
     display: block;
     text-align: center;
+}
+ 
+#sidebar_menu .showall{
+	background-color:#e0f0ff;
 }

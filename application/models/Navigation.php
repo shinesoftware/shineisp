@@ -94,7 +94,7 @@ class Navigation extends BaseNavigation
      * GetItems
      * Get all the childs reading the main array 
      */
-	private function GetItems($items, $parent_id) {
+	public static function GetItems($items, $parent_id) {
 		$tmp_array = array ();
 		for($i = 0; $i < count ( $items ); $i ++) {
 			if ($items [$i] ['parent_id'] == $parent_id) {

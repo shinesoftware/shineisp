@@ -29,6 +29,13 @@ class Admin_Form_ProductsForm extends Zend_Form
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
+
+    	$this->addElement('text', 'sku', array(
+            'filters'    => array('StringTrim'),
+            'label'      => 'SKU',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input'
+        ));
         
         $this->addElement('textarea', 'shortdescription', array(
             'filters'    => array('StringTrim'),

@@ -40,12 +40,37 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 		
 		if($identity){
 			if(AdminPermissions::isAllowed($identity, "admin", "settings")){
+				/* JAY - 20130328 GUEST
+				 * Add class 'showall' to active item on reload of page.
+				 * *****/
+				$request = Zend_Controller_Front::getInstance()->getRequest();
+				$linkActive	= $request->getRequestUri();
+								 
 				$configuration = SettingsGroups::getlist ();
 				$data .= "<li class=\"item config\">";
 				$data .= "<a href=\"\">".$this->translation->translate('Configuration')."</a>";
 				$data .= "<ul class=\"subnav\">";
+				$showall	= "";
 				foreach ($configuration as $id => $item){
-					$data .= "<li class=\"item\"><a href=\"/admin/settings/index/groupid/".$id."\">" . $this->translation->translate($item) . "</a></li>";
+					$showall	= "";
+					$tryLink	= '/admin/settings';
+					$path		= explode('/',$linkActive);
+					$cpath		= count($path);
+					if( $cpath > 1 ) {
+						if( $cpath > 2 ) {
+							for( $i=3; $i < $cpath; $i++) {
+								array_pop($path);
+							}
+						}
+						
+					
+						$tryLinkActive	= implode('/',$path);
+						if( $tryLinkActive == $tryLink ) {
+							$showall	= "showall";
+						}
+					}
+					
+					$data .= "<li class=\"item {$showall}\"><a href=\"/admin/settings/index/groupid/".$id."\">" . $this->translation->translate($item) . "</a></li>";
 				}
 				$data .= "</li>";
 				$data .= "</ul>";
@@ -59,20 +84,68 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	/**
 	 * createMenu
 	 * Create the menu
+	 * 
 	 * @param unknown_type $parent
 	 */
 	private function createMenu($parent) {
 		$children = Navigation::getParent ( $parent );
 		$items = array ();
 		
+		/* JAY - 20130328 - GUEST
+		 * Get the RequestURI to show item 
+		 * ***/
+		$request = Zend_Controller_Front::getInstance()->getRequest();
+		$linkActive	= $request->getRequestUri();
+		// END
+		
 		if (is_array ( $children )) {
 			foreach ( $children as $row ) {
 				if($row['parent_id']){
-					$link = ! empty ( $row ['url'] ) ? $row ['url'] : "/";
+					$link 		= ! empty ( $row ['url'] ) ? $row ['url'] : "/";
 				}else{
 					$link = "#";
 				}
-				$items [] = "<li class=\"item\"><a href=\"" . $link . "\">" . $this->translation->translate($row ['label']) . "</a>" . $this->createMenu ( $row ['id'] ) . "</li>";
+				
+				/* JAY - 20130328 GUEST
+				 * Add class 'showall' to active item on reload of page.
+				 * *****/
+				$showall	= "";
+				if( $linkActive == $link ) {
+					$showall	= "showall";
+				} else {
+					//Try to remove action
+					$pathLink	= explode('/',$link);
+					$cpathLink	= count( $pathLink );
+					if( $cpathLink > 3 ) {
+						for( $i=4; $i<=$cpathLink; $i++){
+							array_pop($pathLink);	
+						}
+						
+					}
+					$tryLink	= implode('/',$pathLink);
+					$path		= explode('/',$linkActive);
+					$cpath		= count($path);
+					if( $cpath > 1 ) {
+						if( $cpath > 2 ) {
+							for( $i=3; $i < $cpath; $i++) {
+								array_pop($path);
+							}
+						}
+						
+					
+						$tryLinkActive	= implode('/',$path);
+						if( $tryLinkActive == $tryLink ) {
+							$showall	= "showall";
+						}
+					}
+				}
+				 
+				$items [] = '
+				<li class="item '.$showall.'">
+					<a href="'.$link.'">
+						'.$this->translation->translate($row ['label']).'
+					</a>'.$this->createMenu ( $row ['id'] ).'
+				</li>';
 			}
 		}
 		

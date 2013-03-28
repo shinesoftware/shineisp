@@ -17,7 +17,7 @@ class Shineisp_Commons_Contents {
 	 * @param string $text
 	 * @return array
 	 */
-	public function getAllBlocks($text) {
+	public static function getAllBlocks($text) {
 		preg_match_all( '(.*{block(.+)}.*)Ui', $text, $matches );
 		return $matches;
 	}
@@ -27,7 +27,7 @@ class Shineisp_Commons_Contents {
 	 * get all the modules within a long text
 	 * @param string $text
 	 */
-	public function getAllModules($text) {
+	public static function getAllModules($text) {
 		preg_match_all( '(.*{module(.+)}.*)Ui', $text, $matches );
 		return $matches;
 	}
@@ -42,7 +42,7 @@ class Shineisp_Commons_Contents {
 	 * @param string $text
 	 * @return string
 	 */
-	public function chkModule($text, $locale="en_US") {
+	public static function chkModule($text, $locale="en_US") {
 
 		// Get all the blocks in the whole text
 		$modules = self::getAllModules($text);
@@ -109,7 +109,7 @@ class Shineisp_Commons_Contents {
 	 * @param string $text
 	 * @return string
 	 */
-	public function chkCMSBlocks($text, $locale="en_US") {
+	public static function chkCMSBlocks($text, $locale="en_US") {
 		$languageID = Languages::get_language_id($locale);
 		
 		// Get all the blocks in the whole text
