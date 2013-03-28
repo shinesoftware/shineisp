@@ -2218,6 +2218,10 @@ Products:
     showonrss:
       type: boolean(25)
       default: '0'
+    downgradable:
+      type: boolean(25)
+      default: 1
+      notnull: true
     enabled:
       type: boolean(25)
       default: '1'
