@@ -83,6 +83,14 @@ class Admin_Form_ProductsForm extends Zend_Form
         'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
         'class'      => 'text-input large-input'
         ));
+		
+        $this->addElement('multiselect', 'upgrade', array(
+        'label' => 'Product Upgrades',
+        'decorators' => array('Composite'),
+        'size'	 => '20x',
+        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
+        'class'      => 'text-input large-input'
+        ));		
         
         $this->getElement('related')
                   ->setAllowEmpty(false)
@@ -159,6 +167,13 @@ class Admin_Form_ProductsForm extends Zend_Form
 
         $this->addElement('select', 'showonrss', array(
             'label'      => 'Publish on RSS Feed',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input',
+            'multioptions' => array('0' => 'No', '1'=>'Yes')
+        ));
+
+        $this->addElement('select', 'downgradable', array(
+            'label'      => 'Allow downgrades',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
