@@ -1785,6 +1785,9 @@ Orders:
     is_renewal:
       type: boolean(25)
       default: 0
+    is_upgrade:
+      type: boolean(25)
+      default: 0
     status_id:
       type: integer(4)
       default: '1'
