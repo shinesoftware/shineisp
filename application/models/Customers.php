@@ -291,6 +291,7 @@ class Customers extends BaseCustomers {
 			$customer['type_id'] = ! empty ( $data ['type_id'] ) ? $data ['type_id'] : Null;
 			$customer['parent_id'] = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
 			$customer['isreseller'] = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
+			$customer['ignore_latefee'] = (bool)$data ['ignore_latefee'];
 			$customer['language'] = $data['language'];
 			$customer->save();
 	
