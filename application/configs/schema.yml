@@ -732,6 +732,9 @@ Customers:
       notnull: false
     taxfree: boolean(25)
     isreseller: boolean(25)
+    ignore_latefee: 
+      type: boolean(25)
+      default: 0
   relations:
     CustomersGroups:
       local: group_id
