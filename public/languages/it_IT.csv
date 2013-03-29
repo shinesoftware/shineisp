@@ -761,6 +761,26 @@ parameter;Parameter
 desc_parameter;Select the paramenter to be configure
 settings_edit;Settings Edit
 desc_settings_edit;Edit the settings or add a new one.
+Google Analytics Code;Codice di Google Analytics
+Paste here the code for the Google Analytics monitoring service;Incolla qui il codice di Google Analytics per monitorare il servizio
+Legal Conditions;Condizioni contrattuali
+Write here your legal conditions. This message will appear in the order emails and in the order details page.;Scrivi qui le condizioni contrattuali. Questo messaggio apparirà nelle e-mail di notifica ordine e nelle pagine degli ordini.
+Orders Zero Prefix;Prefissi zero per gli ordini
+Adding the zero number before the order identification number.;Antepone questi zeri al numero di ordine
+Slideshow Product Category ID;ID Categoria slideshow prodotti
+Slideshow Product Category;Categoria prodotti per slideshow
+Product category ID for the slideshow widget on homepage.;ID categorie prodotti per lo slideshow in homepage.
+Product category for the slideshow widget on homepage.;Categoria prodotti per lo slideshow in homepage.
+Tickets Helpdesk Operator;Operatore helpdesk ticket
+Select the operator from this list who reply to all the users at the first request.;Seleziona l'operatore che risponderà ai ticket di supporto.
+Currency;Valute
+Fixed;Valore fisso
+Percentage;Valore in percentuale rispetto alla fattura
+Late fee type;Tipologia di interesse di mora
+Select the late fee type.;Seleziona la tipologia di interessi di mora
+Late fee amount;Importo interessi di mora
+Late fee amount. 0 or empty to disable.;Valore degli interessi di mora. 0 oppure vuoto per non applicare.
+
 
 ### REGISTRANTS
 registrant_list;Registrant List

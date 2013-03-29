@@ -208,6 +208,7 @@ SettingsParameters:
     module: admin
     enabled: '1'
     SettingsGroups: SettingsGroups_1  
+    config: '{"class":"ProductsCategories","method":"getListForSettings"}'
   SettingsParameters_41:
     name: 'JS Compression'
     description: 'Join all the js files in one compressed file.'
