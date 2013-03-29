@@ -212,6 +212,10 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function editAction() {
+		Orders::checkOrders();
+		die();
+		
+		
 		$form = $this->getForm ( '/admin/customers/process' );
 		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );

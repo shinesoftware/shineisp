@@ -339,6 +339,7 @@ Enddate;Data di termine
 Actions;Azioni
 Expiringdate;Data di scadenza
 Orderdate;Data ordine
+Late fee;Spese amministrative per insoluto
 
 ### BILLING CYCLES
 Month;Mese
@@ -752,6 +753,8 @@ Creation_Date;Data di Creazione
 Service Details;Dettagli Servizio
 List of all the service details.;Lista di tutti i dettagli del servizio.
 Write here your reply. An email will be sent to the ISP staff.;Inserisci un messaggio. Il messaggio verrà inviato via email allo staff tecnico.
+Late fee days;Giorni di ritardo per applicare la mora
+Enter the number of days after the due payment date you want to add the late fee.;Inserisci il numero di giorni di ritardo dopo la scadenza della fattura per applicare gli interessi di mora.
 
 ### SETTINGS
 settings_list;Settings List
