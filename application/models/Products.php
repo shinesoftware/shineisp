@@ -256,6 +256,12 @@ class Products extends BaseProducts {
 					self::AddRelatedProducts ( $product_id, $params ['related'] );
 				}
 				
+				// Add the upgrade products
+				if(!empty($params ['upgrade'])){
+					self::AddUpgradeProducts ( $product_id, $params ['upgrade'] );
+				}
+				
+				
 				// Before to get the Values of the form I upload the files in the folders
 				if (! empty ( $file )) {
 					if ($_FILES ['attachments'] ['error'] == 0) {
@@ -439,6 +445,27 @@ class Products extends BaseProducts {
 			$related->save ();
 		}
 	}
+	
+	/*
+     * AddUpgradeProducts
+     * add the related products 
+     */
+	private static function AddUpgradeProducts($id, $upgradeproducts) {
+		$i = 0;
+		
+		// Delete all the products related before adding the new one
+		ProductsUpgrades::delItemsbyProductID ( $id );
+		
+		$upgrade = new Doctrine_Collection ( 'ProductsUpgrades' );
+		if(!empty($upgradeproducts)){
+			foreach ( $upgradeproducts as $item ) {
+				$upgrade [$i]->upgrade_product_id = $item;
+				$upgrade [$i]->product_id = $id;
+				$i ++;
+			}
+			$upgrade->save ();
+		}
+	}	
 	
 	/**
 	 * getProductbyUriID
