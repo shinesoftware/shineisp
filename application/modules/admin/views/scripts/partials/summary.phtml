@@ -72,8 +72,8 @@
 					
 					$currentTS = new Zend_Date(mktime(0,0,0,$month,1,$currentYear));
 					$lastTS    = new Zend_Date(mktime(0,0,0,$month,1,$lastYear));
-					$currentMonthTitle = $currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear;
-					$lastMonthTitle    = $currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear;
+					$currentMonthTitle = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear);
+					$lastMonthTitle    = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
 					
 					$total    = (isset($yearIncome['total'])) ? $yearIncome['total'] : 0;
 					$oldTotal = (isset($income[$lastYear][$month]['total'])) ? $income[$lastYear][$month]['total'] : 0;
@@ -85,9 +85,9 @@
 					$arrColonne   = array();
 					$arrColonne[] = "{v: '".$yearIncome['month']."'}";				
 					$arrColonne[] = "{v:".$total."}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><strong>".$currentMonthTitle."</strong><br/>".$this->translate('Income').": &euro; ".$total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$growDiff." (".$growPercent."%)</span></div>'}"; // tooltip for current year
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$currentMonthTitle."</strong></span><br/>".$this->translate('Income').": &euro; ".$total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$growDiff." (".$growPercent."%)</span></div>'}"; // tooltip for current year
 					$arrColonne[] = "{v:".$oldTotal."}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><strong>".$lastMonthTitle."</strong><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$lastMonthTitle."</strong></span><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
 
 					$arrGrafico[] = "{c:[".implode(',',$arrColonne)."]}\n";
 	          	endforeach;
