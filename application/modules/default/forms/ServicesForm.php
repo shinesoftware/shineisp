@@ -36,7 +36,7 @@ class Default_Form_ServicesForm extends Zend_Form
             'decorators' => array('Composite'),
             'class'    => 'button'
         ));
-        
+		
         $id = $this->addElement('hidden', 'detail_id');
 
     }
@@ -49,8 +49,7 @@ class Default_Form_ServicesForm extends Zend_Form
 		if( empty( $productForUpgrade ) ) {
 			return;
 		}
-		
-		array_unshift($productForUpgrade,'Select a service');
+
         $this->addElement('select', 'upgrade', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
@@ -58,11 +57,17 @@ class Default_Form_ServicesForm extends Zend_Form
             'label'       => 'Upgrade',
             'description' => 'Upgrade your service',
             'class'       => 'text-input large-input'
-        ));
+        ));		
+		
+		$productsForUpgrade	= array();
+		$productsForUpgrade[0]	= 'Select a service';
+		foreach( $productForUpgrade as $key => $value ) {
+			$productsForUpgrade[$key]	= $value;
+		}
 		
         $this->getElement('upgrade')
                   ->setAllowEmpty(true)
-                  ->setMultiOptions($productForUpgrade);
+                  ->setMultiOptions($productsForUpgrade);
 		
 	}
     
