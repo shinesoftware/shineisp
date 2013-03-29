@@ -893,6 +893,75 @@ class Orders extends BaseOrders {
 		
 	}
 	
+	/**
+	 * Apply late fee in the order
+	 * 
+	 * 
+	 * @param integer $orderID
+	 */
+	public static function applyLateFee($orderid) {
+		$oderid = (int)$orderid;
+		if ( $oderid > 0 ) {
+			$translations = Zend_Registry::getInstance ()->Zend_Translate;
+			
+			$order = self::find ( $orderid );
+			if ( !isset($order->order_id) || !is_numeric($order->order_id) ) {
+				return null;
+			}
+						
+			//* Get late fee details
+			$late_fee_days   = (int)Settings::findbyParam('late_fee_days');
+			$late_fee_amount = (int)Settings::findbyParam('late_fee_amount');
+			$late_fee_type   = strotolower(Settings::findbyParam('late_fee_type'));
+			
+			//* No late fee
+			if ( $late_fee_amount < 1 ) {
+				return $order->toArray();		
+			}
+			
+			$datetime1 = new DateTime($order->expiring_date);
+			$datetime2 = new DateTime(date('Y-m-d'));
+			$interval  = $datetime1->diff($datetime2);
+			$days      = (int)$interval->format('%R%a');
+			
+			//* To early, skip late fee
+			if ( $days < $late_fee_days ) {
+				return $order->toArray();	
+			}
+			
+			//* Check if late fee already exists in this order. In that case, do not apply a new fee
+			foreach ( OrdersItems::getAllDetails($order->order_id) as $_item ) {
+				if ( isset($_item->description) && stripos($_item->description, 'Late fee') !== false ) {
+					return $order->toArray();
+				}
+			}
+
+			//* Calculate the late fee amount based on settings
+			$lateFeeAmount = ( $late_fee_type == 'fixed' ) ? $late_fee_amount : $order->total + ($order->total*$late_fee_amount/100);
+			
+			$item = new OrdersItems();
+			
+			$item['order_id']         = $orderid;
+			$item['status_id']        = Statuses::id("tobepaid", "orders");
+			$item['description']      = 'Late fee';
+			$item['billing_cycle_id'] = 5; //* TODO: Detect 'No expiring' billing
+			$item['quantity']         = 1;
+			$item['setupfee']         = $lateFeeAmount;
+		
+			$item->save();
+			
+			self::updateTotalsOrder($orderid);
+			
+			$order = self::find ( $orderid );
+			
+			return $order->toArray();			
+		}
+		
+		return null;
+		
+	}
+	
+	
 	
 	/**
 	 * Add an item in the order 
@@ -1402,7 +1471,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function updateTotalsOrder($id) {
 		$total = 0;
-		$vat = 0;
+		$vat   = 0;
 		$costs = 0;
 		try {
 			$order = self::find ( $id );
@@ -2187,18 +2256,23 @@ class Orders extends BaseOrders {
 
 	/**
 	 * Check if a order must be payed or not and send an email to the customer
-	 * with a reminder.
+	 * with a reminder. Add late fee if needed
 	 */
 	public static function checkOrders() {
-		$isp = Isp::getActiveISP ();
+		$isp    = Isp::getActiveISP ();
 		$orders = Orders::find_all_not_paid_orders();
-	
-		foreach ( $orders as $order ) {
+
+		foreach ( $orders as $order ) {			
 			$customer = Customers::getAllInfo($order ['customer_id']);
-				
 			// Get the template from the main email template folder
-			if($order['is_renewal']){
+			if( $order['is_renewal'] ) {
 				$template = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_reminder_renewal' );
+
+				// Try to add a late fee if not an exempt customer
+				if ( ! (int)$customer['ignore_latefee'] ) {
+					$order = array_merge($order, Orders::applyLateFee($order['order_id']));
+				}
+				
 			}else{
 				$template = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_reminder' );
 			}
