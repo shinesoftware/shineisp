@@ -909,8 +909,15 @@ class Orders extends BaseOrders {
 				return null;
 			}
 						
-			// Get late fee days
-			$late_fee_days = Settings::findbyParam('late_fee_days');
+			//* Get late fee details
+			$late_fee_days   = (int)Settings::findbyParam('late_fee_days');
+			$late_fee_amount = (int)Settings::findbyParam('late_fee_amount');
+			$late_fee_type   = strotolower(Settings::findbyParam('late_fee_type'));
+			
+			//* No late fee
+			if ( $late_fee_amount < 1 ) {
+				return $order->toArray();		
+			}
 			
 			$datetime1 = new DateTime($order->expiring_date);
 			$datetime2 = new DateTime(date('Y-m-d'));
@@ -928,6 +935,9 @@ class Orders extends BaseOrders {
 					return $order->toArray();
 				}
 			}
+
+			//* Calculate the late fee amount based on settings
+			$lateFeeAmount = ( $late_fee_type == 'fixed' ) ? $late_fee_amount : $order->total + ($order->total*$late_fee_amount/100);
 			
 			$item = new OrdersItems();
 			
@@ -936,7 +946,7 @@ class Orders extends BaseOrders {
 			$item['description']      = 'Late fee';
 			$item['billing_cycle_id'] = 5; //* TODO: Detect 'No expiring' billing
 			$item['quantity']         = 1;
-			$item['setupfee']         = Settings::findbyParam('late_fee_amount');
+			$item['setupfee']         = $lateFeeAmount;
 		
 			$item->save();
 			
