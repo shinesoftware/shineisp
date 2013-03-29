@@ -201,10 +201,10 @@ SettingsParameters:
     enabled: '1'
     SettingsGroups: SettingsGroups_9  
   SettingsParameters_40:
-    name: 'Slideshow Product Category ID'
-    description: 'Product category ID for the slideshow widget on homepage.'
+    name: 'Slideshow Product Category'
+    description: 'Product category for the slideshow widget on homepage.'
     var: slidecategoryid
-    type: text
+    type: select
     module: admin
     enabled: '1'
     SettingsGroups: SettingsGroups_1  
