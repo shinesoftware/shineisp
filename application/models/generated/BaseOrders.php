@@ -13,6 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property integer $isp_id
  * @property date $order_date
  * @property boolean $is_renewal
+ * @property boolean $is_upgrade
  * @property integer $status_id
  * @property float $total
  * @property float $cost
@@ -69,6 +70,11 @@ abstract class BaseOrders extends Doctrine_Record
              'length' => '25',
              ));
         $this->hasColumn('is_renewal', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
+             ));
+        $this->hasColumn('is_upgrade', 'boolean', 25, array(
              'type' => 'boolean',
              'default' => 0,
              'length' => '25',
