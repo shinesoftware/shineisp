@@ -340,6 +340,8 @@ Actions;Azioni
 Expiringdate;Data di scadenza
 Orderdate;Data ordine
 Late fee;Spese amministrative per insoluto
+Income;Incasso
+Grow;Crescita
 
 ### BILLING CYCLES
 Month;Mese
