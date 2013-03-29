@@ -83,7 +83,7 @@ class SettingsParameters extends BaseSettingsParameters {
 	 * Prepare the records in order to use in the setting form
 	 * @param unknown_type $records
 	 */
-	private function getValues($records){
+	private static function getValues($records){
 		$fixedrecords = array();
 		if(!empty($records)){
 			foreach ($records as $record){
