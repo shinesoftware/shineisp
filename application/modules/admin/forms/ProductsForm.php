@@ -96,7 +96,10 @@ class Admin_Form_ProductsForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
                   ->setMultiOptions(Products::getList());
-				  
+			
+		echo '<pre>';
+		print_r(Products::getList());	  
+		die(); 
         $this->getElement('upgrade')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.

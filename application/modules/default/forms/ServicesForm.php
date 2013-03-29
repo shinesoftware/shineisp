@@ -4,6 +4,7 @@ class Default_Form_ServicesForm extends Zend_Form
     
     public function init()
     {
+    	
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
         
@@ -28,8 +29,7 @@ class Default_Form_ServicesForm extends Zend_Form
         $this->getElement('autorenew')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(array('1'=>'Yes, I would like to renew the service at the expiration date.', '0'=>'No, I am not interested in the service renew.'));
-
-        
+				  
         $this->addElement('submit', 'submit', array(
             'required' => false,
             'label'    => 'Save',
@@ -40,5 +40,30 @@ class Default_Form_ServicesForm extends Zend_Form
         $id = $this->addElement('hidden', 'detail_id');
 
     }
+
+	/* JAY - 20130329 - GUEST
+	 * Add select to form if there is some upgrade for service
+	 ****/
+	public function addUpgradeService( $productid ){
+		$productForUpgrade	= ProductsUpgrades::getItemsbyProductID($productid);
+		if( empty( $productForUpgrade ) ) {
+			return;
+		}
+		
+		array_unshift($productForUpgrade,'Select a service');
+        $this->addElement('select', 'upgrade', array(
+            'filters'     => array('StringTrim'),
+            'required'    => false,
+            'decorators'  => array('Composite'),
+            'label'       => 'Upgrade',
+            'description' => 'Upgrade your service',
+            'class'       => 'text-input large-input'
+        ));
+		
+        $this->getElement('upgrade')
+                  ->setAllowEmpty(true)
+                  ->setMultiOptions($productForUpgrade);
+		
+	}
     
 }

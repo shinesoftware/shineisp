@@ -73,13 +73,20 @@ class ServicesController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		$currency = new Zend_Currency();
-		$form = $this->getForm ( '/services/process' );
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
-			$fields = "o.order_id as order, pd.name as product, CONCAT(d.domain, '.', ws.tld) as domain, oi.status_id, oi.detail_id, DATE_FORMAT(o.order_date, '%d/%m/%Y') as order_date, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as next_deadline, (DATEDIFF(oi.date_end, CURRENT_DATE)) as daysleft, b.name, oi.price as price, t.name as tax, t.percentage as vat, s.status as status, bc.name as billing_cycle, oi.autorenew as autorenew, oi.note as note";
+			$NS = new Zend_Session_Namespace ( 'Default' );
+			$NS->productid	= $id;
+			
+			$form = $this->getForm ( '/services/process' );
+			//Add upgrade service if exists
+			
+			/****
+			 * JAY - 20130329 - GUEST
+			 * Get productid fields
+			 ******/
+			$fields = "o.order_id as order, p.product_id as productid, pd.name as product, CONCAT(d.domain, '.', ws.tld) as domain, oi.status_id, oi.detail_id, DATE_FORMAT(o.order_date, '%d/%m/%Y') as order_date, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as next_deadline, (DATEDIFF(oi.date_end, CURRENT_DATE)) as daysleft, b.name, oi.price as price, t.name as tax, t.percentage as vat, s.status as status, bc.name as billing_cycle, oi.autorenew as autorenew, oi.note as note";
 			$rs = $this->services->getAllInfo ( $id, $fields, 'c.customer_id = ' . $NS->customer ['customer_id'] . ' OR c.parent_id = ' . $NS->customer ['customer_id'] );
 			
 			if (empty ( $rs )) 
@@ -89,6 +96,8 @@ class ServicesController extends Zend_Controller_Action {
 				$rs['total_with_tax'] = $currency->toCurrency($rs['price'] * (100 + $rs['vat']) / 100, array('currency' => Settings::findbyParam('currency')));
 				$rs['tax'] = $rs ['vat'] . "% " . $this->translator->translate ( $rs['tax'] );
 			}
+			
+			$form->addUpgradeService( $rs['productid'] );
 			$form->populate ( $rs  );
 			
 			// Hide these fields and values inside the vertical grid object
