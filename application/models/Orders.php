@@ -953,7 +953,7 @@ class Orders extends BaseOrders {
 			//* Get late fee details
 			$late_fee_days   = (int)Settings::findbyParam('late_fee_days');
 			$late_fee_amount = (int)Settings::findbyParam('late_fee_amount');
-			$late_fee_type   = strotolower(Settings::findbyParam('late_fee_type'));
+			$late_fee_type   = strtolower(Settings::findbyParam('late_fee_type'));
 			
 			//* No late fee
 			if ( $late_fee_amount < 1 ) {
