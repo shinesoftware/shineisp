@@ -29,6 +29,7 @@ class OrdersItems extends BaseOrdersItems {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Lastname' ), 'field' => 'c.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'd.date_end', 'alias' => 'daysleft', 'sortable' => true, 'searchable' => false, 'type' => 'integer' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start date' ), 'field' => 'd.date_start', 'alias' => 'date_start', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End date' ), 'field' => 'd.date_end', 'alias' => 'date_end', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
 		
@@ -38,6 +39,7 @@ class OrdersItems extends BaseOrdersItems {
 											c.company as company, 
 											c.lastname as lastname,
 											d.order_id, 
+											DATE_FORMAT(d.date_start, '%d/%m/%Y') as date_start, 
 											DATE_FORMAT(d.date_end, '%d/%m/%Y') as date_end, 
 											pd.name as productname, 
 											s.status as status, 

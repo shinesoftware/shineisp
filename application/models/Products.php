@@ -1046,7 +1046,7 @@ class Products extends BaseProducts {
 	}
 	
 	/**
-	 * Get all the services subscribed by a customer using his identifier 
+	 * Get all services subscribed by a customer using his identifier 
 	 * @param $id
 	 * @param $fields
 	 * @return Array
@@ -1063,14 +1063,43 @@ class Products extends BaseProducts {
 			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 			->where ( "p.type <> ?", 'domain' )
 			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) );
-			
+
 			return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
+			
 		}
 		
 		return array();
 	}
 	
+	/**
+	 * Get all active services subscribed by a customer using his identifier 
+	 * @param $id
+	 * @param $fields
+	 * @return Array
+	 */
+	public static function getAllActiveServicesByCustomerID($id, $fields = "*", $locale = 1) {
+		$items = array ();
+		
+		if (is_numeric ( $id )) {
+			$dq = Doctrine_Query::create ()->select ( $fields )
+			->from ( 'Orders o' )
+			->leftJoin ( 'o.Customers c' )
+			->leftJoin ( 'o.OrdersItems oi' )
+			->leftJoin ( 'oi.Products p' )
+			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+			->where ( "p.type <> ?", 'domain' )
+			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) )
+			->addWhere ( '? BETWEEN oi.date_start AND oi.date_end', date('Y-m-d'));
+			
 
+			return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
+			
+		}
+		
+		return array();
+	}
+	
+	
 	/**
 	 * delete the products selected 
 	 * @param array
