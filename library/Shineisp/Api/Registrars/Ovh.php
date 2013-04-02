@@ -276,7 +276,7 @@ class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implement
 													$customer ['lastname'], 
 													$customer ['taxpayernumber'], 
 													$customer ['vat'], 
-													$customer->get('dd/MM/yyyy'), 
+													$birthdate->get('dd/MM/yyyy'), 
 													$customer ['birthplace'], 
 													$customer ['birthdistrict'], 
 													$customer ['birthcountry'], 
