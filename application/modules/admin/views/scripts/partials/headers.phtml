@@ -20,10 +20,11 @@
 			$buttons = $this->buttons;
 			if(!empty($buttons)){
 				foreach ($buttons as $url => $button){
-					$class = !empty($button['params']['css']) ? implode(" ", $button['params']['css']) : "";
-					$target = !empty($button['params']['target']) ? $button['params']['target'] : "";
-					$id = !empty($button['params']['id']) ? $button['params']['id'] : "";
-					echo '<a class="'.$class.'" id="'.$id.'" href="' . $button['url'] . '" target="'.$target.'">' . $button['label'] . '</a> ';
+					$class   = !empty($button['params']['css']) ? implode(" ", $button['params']['css']) : "";
+					$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
+					$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
+					$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
+					echo '<a class="'.$class.'" '.$id.' href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a> ';
 				}
 			}
 		?>

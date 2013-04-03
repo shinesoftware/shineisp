@@ -19,13 +19,13 @@ Sales;Vendite
 Attributes;Attributi
 Attributes Groups;Gruppi Attributi
 Taxes;Tasse
-Invoices;Fatture Emesse
-Purchase Invoices;Fatture Ricevute
+Invoices;Fatture di vendita
+Purchase Invoices;Fatture di acquisto
 Welcome to the administration of your own services and domain panel.;Benvenuto nel pannello amministrativo per gestire i tuoi domini ed i tuoi servizi.
-Expiring Domains;Scadenza Domini
+Expiring Domains;Scadenze domini
 Tickets System;Segnalazioni
-Generic Issue;Problema Generico
-expiration_date;Data di Scadenza
+Generic Issue;Problema generico
+expiration_date;Data di scadenza
 Days;Giorni
 Tasks;Operazioni Pianificate
 List of all the tasks executed.;Lista di tutte le operazioni eseguite.
@@ -40,9 +40,9 @@ Here you can manage your own orders.;Qui potrai gestire i tuoi ordini.
 Here you can add and reply your help requests.;Qui potrai aggiungere e rispondere alle tue richieste d'aiuto.
 Here below you can see all the domains near at the expiring date.;Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza.
 Here below you can see all the services near at the expiring date.;Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza.
-Fullname;Nome Completo
+Fullname;Nome completo
 Sign Up;Registrati
-Buy Now;Acquista Ora
+Buy Now;Acquista ora
 Product;Prodotto
 TLD Summary by Owner;Sommario TLD per cliente
 desc_owner_tld_summary;In this list you can see the summary of the TLD groups by owner.
@@ -290,6 +290,8 @@ YES;Si
 NO;No
 Yes;Si
 No;No
+Add;Aggiungi
+Remove;Rimuovi
 Disabled;Disabilitato
 Click here to edit;Click qui per modificare.
 List;Lista
@@ -304,10 +306,10 @@ areusure;Sei sicuro?
 noiwrong;No, non voglio!
 yesiwant;SI, lo voglio ELIMINARE!
 methodnotset;Please, select the items and then the action from the list.
-enabled;Enabled
-desc_enabled;Enabled the item
-add;Add
-remove;Remove
+enabled;Abilitato
+desc_enabled;Abilita questo elemento
+add;Aggiungi
+remove;Rimuovi
 The search view is active.;Il filtro di ricerca è attiva.
 Click here to reset the results.;Click qua per cancellare il filtro di ricerca.
 By creating an account with our store, you will be able to move through the checkout process faster, view and track your orders in your account and more.;Creando un account nel nostro negozio, sarai in grado di gestire il processo di pagamento più veloce, visualizzare e rintracciare i vostri ordini e molto altro ancora.
@@ -342,6 +344,17 @@ Orderdate;Data ordine
 Late fee;Spese amministrative per insoluto
 Income;Incasso
 Grow;Crescita
+Please wait a moment...;Attendere prego...
+Start date;Data di inizio
+End date;Data di fine
+Statuses;Status
+Order ID;ID Ordine
+Service;Servizio
+Mass Delete;Cancellazione multipla
+Export;Esporta
+Common;Comuni
+Services list;Elenco servizi
+New Order;Nuovo ordine
 
 ### BILLING CYCLES
 Month;Mese
@@ -425,8 +438,8 @@ Write here your birthday (eg. dd/mm/yyyy);Inserire la data di nascita (es. gg/mm
 Write here the birthplace.;Inserire il luogo di nascita
 Write the tax payer number.;Inserire il codice fiscale personale se persona fisica negli altri casi inserire il codice fiscale d'azienda. 
 Print Invoice;Stampa fattura
-Credit Notes;Note di Credito
-Credit Note No.;Nota di Credito Nr.
+Credit Notes;Note di credito
+Credit Note No.;Nota di credito Nr.
 Invoice No.;Fattura Nr.
 Order No.;Ordine Nr.
 Print Order;Stampa Ordine
@@ -581,29 +594,29 @@ Complete the order choosing your preferite payment method.;Completare l'ordine s
 Payment Methods;Metodi di Pagamento
 Order no.;Ordine n.
 InvoiceId;Fattura
-Setup fee;Una Tantum
+Setup fee;Canone di attivazione
 startdate;Data
 Reply;Rispondi
 Fastlink Code;Codice Fastlink
 Order;Ordine
 Order %s;Ordine %s
 Open a ticket;Apri un ticket
-Bank Transfer;Bonifico Bancario
+Bank Transfer;Bonifico bancario
 Account Name;Intestato a
 Bank;Banca
 Bank Account Number;Conto Corrente Bancario
 The domain is a mandatory field. Choose a domain name.;Il dominio è un campo obbligatorio. Scegli un dominio.
 Invoice destination;Fatturato a
-Order Now;Ordina Adesso
+Order Now;Ordina adesso
 Here you can see all the order information.;Qui puoi visualizzare l'ordine selezionato.
-Orders List;Lista Ordini
-Order Details;Dettaglio Ordine
+Orders List;Lista ordini
+Order Details;Dettaglio ordine
 Here you can create a new order;Qui puoi creare un nuovo ordine
 Here you can manage all the orders.;Qui puoi gestire i tuoi ordini
 Grandtotal;Totale Complessivo
 Invoice Nr.;Fattura N.
 Select here the company or the customer;Seleziona qui l'azienda.
-Message about the order;Messaggio Ordine
+Message about the order;Messaggio ordine
 Check the information posted and then click on the save button.;Controlla le informazioni inserite e fai click nel bottone salva.
 Order process;Ordini
 order_date;Data Ordine
@@ -612,7 +625,7 @@ grandtotal;Totale Complessivo
 sku;Codice Interno
 total;Totale Imponibile
 invoice_number;Fattura numero
-Download Invoices;Scarica Fatture
+Download Invoices;Scarica fatture
 order_edit;Modifica ordine
 desc_order_edit;Modifica questo ordine in ogni parte.
 order;Ordine
@@ -626,14 +639,14 @@ Description;Descrizione
 description;Descrizione
 Price;Prezzo
 price;Prezzo
-setupfee;Una Tantum
-Billing_cycle;Modalità di Fatturazione
+setupfee;Una tantum
+Billing_cycle;Modalità di fatturazione
 Tax;Tasse
 enddate;Data Fine
 action;Azione
 log;Messaggi (LOG)
 times;Eseguito
-Days left;Giorni Rimanenti
+Days left;Giorni rimanenti
 categories;Categories
 Reviews;Recensioni
 Date Start;Data Inizio
@@ -644,6 +657,17 @@ searchdomains;Cerca domini
 There was a problem during the payment process.;Si è verificato un problema durante la fase di pagamento.
 Here you can read all your questions and the admin replies about this order.;In questa sezione puoi leggere le tue domande poste all'amministratore e le risposte inerenti l'ordine selezionato.
 To be paid;Da pagare
+Are you sure to create or overwrite invoice for this order?;Sei sicuro di voler creare o sovrascrivere la fattura per questo ordine?
+Visits;Visite
+Expiring Date;Data di scadenza
+Order Date;Data ordine
+Is a Renewal?;E' un rinnovo?
+Grand Total;Imponibile
+Missing income;Incasso residuo
+Start;Inizio
+End;Fine
+
+
 
 ### TICKETS SYSTEM
 Replies;Risposte
@@ -739,24 +763,36 @@ Type;Tipologia
 
 
 ### SERVICES
-Setup fees;Costi di Attivazione
-Services List;Lista Servizi
+Setup fees;Costi di attivazione
+Services List;Lista servizi
 Yes, I would like to renew the service at the expiration date.;Si, desidero rinnovare il servizio alla data di scadenza.
 No, I am not interested in the service renew.;No, non sono interessato al rinnovo del servizio alla data di scadenza.
 List of all your own services subscribed;Qui puoi gestire tutti i servizi sottoscritti
-date_end;Ending Date
-domains_selected;Domain Selected
-desc_domains_selected;The domains selected will be linked to the service selected.
-service_edit;Service
-desc_service_edit;Here you can manage the service subscribed by the customer.
-Expiring_Date;Data di Scadenza
+Datestart;Data di inizio
+date_start;Data di inizio
+Dateend;Data di termine
+date_end;Data di termine
+Productname;Nome prodotto
+domains_selected;Dominio selezionato
+desc_domains_selected;Il dominio selezionato sarà collegato al servizio.
+service_edit;Servizio
+desc_service_edit;Da qui puoi gestire i servizi sottoscritti dal cliente.
+Expiring_Date;Data di scadenza
+Expiring date;Data di scadenza
 Valid Up;Valido fino al
-Creation_Date;Data di Creazione
-Service Details;Dettagli Servizio
+Creation_Date;Data di creazione
+Service Details;Dettagli servizio
+Configurations;Configurazioni
 List of all the service details.;Lista di tutti i dettagli del servizio.
 Write here your reply. An email will be sent to the ISP staff.;Inserisci un messaggio. Il messaggio verrà inviato via email allo staff tecnico.
 Late fee days;Giorni di ritardo per applicare la mora
 Enter the number of days after the due payment date you want to add the late fee.;Inserisci il numero di giorni di ritardo dopo la scadenza della fattura per applicare gli interessi di mora.
+Available domains;Domini disponibili
+Selected domains;Domini selezionati
+Setup Configuration;Impostazioni configurazione
+Here you can read the service configuration written by the ISP modules. These information are read-only.;Da qui puoi leggere le impostazioni del servizio generate dai moduli ISP. Queste informazioni sono in sola-lettura.
+Enable or disable the automatic renewal of the service;Attiva o disattiva il rinnovo automatico del servizio.
+
 
 ### SETTINGS
 settings_list;Settings List

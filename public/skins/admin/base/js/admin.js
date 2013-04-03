@@ -377,6 +377,11 @@ $(document).ready(function(){
 	 $('.goto').change(function() {
 	  window.location = $(this).val();
 	});
+	
+	
+	/* ######################## ALERTS ####################### */
+
+	
     
 });
 
