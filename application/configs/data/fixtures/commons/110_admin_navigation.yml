@@ -379,3 +379,9 @@ Navigation:
     parent_id: '32'
     module: admin
     controller: notes
+  Navigation_57:
+    label: 'Payment Transactions'
+    uri: /admin/payments
+    parent_id: '16'
+    module: admin
+    controller: payments    
