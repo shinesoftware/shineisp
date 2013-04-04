@@ -46,23 +46,22 @@ class ProductsUpgrades extends BaseProductsUpgrades {
 	}	
 	
 	/**
-	 * getItemsbyProductID
+	 * getUpgradesbyProductID
 	 * Get all the products upgrade with a specific product id
 	 * @param integer $product_id
 	 */
-	public static function getItemsbyProductID_($product_id,$locale = 1) {
+	public static function getUpgradesbyProductID($product_id,$locale = 1) {
 		$data = array ();
-		$upgrade = Doctrine_Query::create ()
-						->select ('p.product_id as productid, pd.name as productname')
+		$doctrine	= Doctrine_Query::create ();
+		$upgrades = $doctrine->select ('pu.upgrade_product_id, pd.name as productname')
 						->from ( 'ProductsUpgrades pu' )
 						->leftJoin('pu.Products p')
 						->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-						->where ( 'pu.product_id = ?', $product_id )
-						->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		
-		if (! empty ( $upgrade )) {
-			foreach ( $upgrade as $item ) {
-				$data [$item['productid']] = $item ['productname'];
+						->where ( 'pu.product_id = ?', $product_id );
+		$upgrades = $doctrine->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		if (! empty ( $upgrades )) {
+			foreach ( $upgrades as $item ) {
+				$data [$item['upgrade_product_id']] = $item ['productname'];
 			}
 		}
 		

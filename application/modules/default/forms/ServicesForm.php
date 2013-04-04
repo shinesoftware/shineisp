@@ -45,7 +45,7 @@ class Default_Form_ServicesForm extends Zend_Form
 	 * Add select to form if there is some upgrade for service
 	 ****/
 	public function addUpgradeService( $productid ){
-		$productForUpgrade	= ProductsUpgrades::getItemsbyProductID($productid);
+		$productForUpgrade	= ProductsUpgrades::getUpgradesbyProductID($productid);
 		if( empty( $productForUpgrade ) ) {
 			return;
 		}
