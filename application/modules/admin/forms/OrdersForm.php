@@ -320,11 +320,11 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         
         $this->addElement('select', 'status_id', array(
-        'label' => 'Status',
-        'required' => true,
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
-        ));
+	        'label' => 'Status',
+	        'required' => true,
+	        'decorators' => array('Composite'),
+	        'class'      => 'text-input large-input'
+	    ));
         
         $this->getElement('status_id')
                   ->setAllowEmpty(false)
@@ -334,7 +334,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => 'Payment date',
             'decorators' => array('Composite'),
-            'class'      => 'text-input little-input date'
+            'class'      => 'text-input large-input date'
         ));           
                   
        $this->addElement('text', 'reference', array(
@@ -361,7 +361,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => 'Income',
             'decorators' => array('Composite'),
-            'class'      => 'text-input little-input'
+            'class'      => 'text-input large-input'
         ));           
 
         $this->addElement('text', 'payment_description', array(
@@ -371,24 +371,16 @@ class Admin_Form_OrdersForm extends Zend_Form
             'class'      => 'text-input large-input'
         ));
         
-        $this->addElement('checkbox', 'confirmed', array(
-            'label'      => 'Payment confirmed',
-            'decorators' => array('Composite')
+        $this->addElement('select', 'confirmed', array(
+        		'filters'    => array('StringTrim'),
+        		'label'      => 'Does the Transaction has been confirmed?',
+        		'decorators' => array('Composite'),
+        		'class'      => 'text-input large-input'
         ));
         
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'save'
-        ));
-        
-        $this->addElement('reset', 'reset', array(
-            'required' => false,
-            'label'    => 'reset',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
+        $this->getElement('confirmed')
+        ->setAllowEmpty(false)
+        ->setMultiOptions(array('0' => "No, it has been not", '1' => "Yes, it has been" ));
         
         $this->addElement('hidden', 'order_id');
     }

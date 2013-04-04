@@ -196,7 +196,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/orders/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
