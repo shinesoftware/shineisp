@@ -291,8 +291,51 @@ class Payments extends BasePayments
 										->orderBy(!empty($orderby) ? $orderby : "")
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
-	
 
+	/**
+	 * Get the order id by the payment id
+	 * @param integer $id
+	 * @return integer or null
+	 */
+	public static function getOrderId($id) {
+		
+		if(is_numeric($id)){
+			$record = Doctrine_Query::create ()->select('order_id')
+											->from ( 'Payments p' )
+											->whereIn( "payment_id", $id)
+											->execute ( array (), Doctrine::HYDRATE_ARRAY );
+			return !empty($record[0]['order_id']) ? $record[0]['order_id'] : NULL;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Delete a payment transaction using its ID.
+	 * @param $id
+	 * @return boolean
+	 */
+	public static function deleteByID($id) {
+		if(is_numeric($id)){
+			return Doctrine_Query::create ()->delete ()->from ( 'Payments p' )->where ( 'payment_id = ?', $id )->execute ();
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * delete the payment transactions selected
+	 * @param array
+	 * @return Boolean
+	 */
+	public static function massdelete($items) {
+		if(is_array($items)){
+			return Doctrine_Query::create ()->delete ()->from ( 'Payments' )->whereIn ( 'payment_id', $items )->execute ();
+		}else{
+			return false;
+		}
+	}
+	
 	######################################### BULK ACTIONS ############################################
 	
 	

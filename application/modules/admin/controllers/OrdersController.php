@@ -322,30 +322,45 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		}
 	}
 	
+	/**
+	 * Creation of the payment transaction grid 
+	 * @return multitype:boolean multitype:string
+	 */
 	private function paymentsGrid() {
-		$request   = Zend_Controller_Front::getInstance ()->getRequest ();
-		$requestId = intval($request->id);
+		$currency = new Zend_Currency();
+		$myrec = array ();
+		$requestId = $this->getParam('id');
 				
-		if (isset ( $request->id ) && is_numeric ( $requestId )) {
-			$rs = Payments::findbyorderid ( $requestId, '*', true );
+		if (!empty($requestId) && is_numeric ( $requestId )) {
+			$rs = Payments::findbyorderid ( $requestId, 'payment_id, paymentdate, b.name as bank, description, reference, confirmed, income, outcome', true );
+			
 			if (isset ( $rs )) {
-				$myrec = array ();
+				$i = 0;
+				
+				// Format some data
 				foreach ( $rs as $record ) {
-					$record['income'] = number_format ( $record ['income'], 2 );
+					$myrec[$i]['id'] = $record['payment_id'];
 					
-					if ( isset($record['Banks'])) {
-						if ( isset($record['Banks']['name'])) {
-							$record['bank_name'] = $record['Banks']['name'];
-						}
-						unset($record['Banks']);
-					}
+					// Set the date format
+					$myrec[$i]['payment_date'] = Shineisp_Commons_Utilities::formatDateOut ($record['paymentdate']);
 					
-					$myrec [] = $record;
+					$myrec[$i]['description'] = $record['description'];
+					$myrec[$i]['reference'] = $record['reference'];
+					$myrec[$i]['confirmed'] = $record['confirmed'] ? $this->translator->translate ( 'Yes' ) : $this->translator->translate ( 'No' );
+					$myrec[$i]['type'] = $record['bank'];
+					
+					// Checking the currency set in the configuration
+					$myrec[$i]['income'] = $currency->toCurrency($record['income'], array('currency' => Settings::findbyParam('currency')));
+					$myrec[$i]['outcome'] = $currency->toCurrency($record['outcome'], array('currency' => Settings::findbyParam('currency')));
+						
+					$i++;
 				}
 				
 				return array (
-					'records' => $myrec 
-					,'pager'  => true 
+					'records' => $myrec, 
+					'pager'  => true,
+					'edit' => array ('controller' => 'payments', 'action' => 'edit' ),
+					'delete' => array ('controller' => 'orders', 'action' => 'deletepayment' ),
 				);
 			}
 		}
@@ -364,6 +379,28 @@ class Admin_OrdersController extends Zend_Controller_Action {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $newOrderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			} else {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'renew_failed' ), 'status' => 'error' ) );
+			}
+		}
+		$this->_helper->redirector ( 'list', 'orders', 'admin' );
+	}
+	
+	/*
+	 * Delete payment transaction
+	 */
+	public function deletepaymentAction() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		if (isset ( $request->id ) && is_numeric ( $request->id )) {
+
+			// Get the order id attached to the payment transaction
+			$orderId = Payments::getOrderId($request->id);
+			if(is_numeric($orderId)){
+				
+				// Delete the payment transaction
+				if (Payments::deleteByID($request->id)) {
+					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+				} else {
+					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'error' ) );
+				}
 			}
 		}
 		$this->_helper->redirector ( 'list', 'orders', 'admin' );

@@ -1246,7 +1246,6 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Delete
 	 * Delete an order using its ID and the customer id.
 	 * @param $id, $customerid
 	 * @return boolean

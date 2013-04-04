@@ -174,6 +174,10 @@ class Admin_PaymentsController extends Zend_Controller_Action {
 			
 			if (! empty ( $rs [0] )) {
 				$rs[0]['paymentdate'] = Shineisp_Commons_Utilities::formatDateOut($rs[0]['paymentdate']);
+				
+				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" . $rs[0]['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/customers/edit/id/" . $rs[0]['customer_id'], "label" => $this->translator->translate('Customer'), "params" => array('css' => array('button', 'float_right')));
+				
 				$form->populate ( $rs [0] );
 			}
 			
