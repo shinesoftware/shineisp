@@ -129,7 +129,7 @@ class Admin_PaymentsController extends Zend_Controller_Action {
 				$this->view->description = $this->translator->translate ( 'If you delete the Payment Transaction the record will no longer available' );
 				
 				$record = $this->payments->getbyId( $id );
-				$this->view->recordselected = $record->reference;
+				$this->view->recordselected = "# " . $id . " - " . $record->reference;
 			} else {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
 			}

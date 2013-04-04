@@ -106,7 +106,7 @@ class Payments extends BasePayments
 											->leftJoin ( 'c.Addresses a' )
 											->leftJoin ( 'a.Countries co' )
 											->leftJoin ( 'o.Statuses s' )
-											->where ( "order_id = $id" )
+											->where ( "payment_id = ?", $id )
 											->limit ( 1 );
 				
 			if($fields != "*"){
