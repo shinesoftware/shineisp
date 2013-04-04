@@ -234,8 +234,6 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				
 				$rs['language_id'] = $this->session->langid; // added to the form the language id selected
 				$rs['related'] = ProductsRelated::getItemsbyProductID($rs ['product_id']);
-				//add panel for select upgrade
-				$rs['upgrade'] = ProductsUpgrades::getItemsbyProductID($rs ['product_id']);
 				
 				// Get the wiki pages attached to the product selected
 				$rs['wikipages'] =	Wikilinks::getWikiPagesList($rs ['product_id'], "products", $this->session->langid);

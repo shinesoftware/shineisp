@@ -793,48 +793,6 @@ class Orders extends BaseOrders {
 		}
 	}
 
-	public static function createUpgrade( $customerId, $productOld, $productNew ){
-		/**
-		 * Create the order
-		 * create($customerId, $statusId = 9, $note = "")
-		 * $statusId = 9 --> To be pay 
-		 * 
-		 */
-		$theOrder = Orders::create ( $customerId, Statuses::id('tobepaid', 'orders') );
-		// Check the Tranche selected by the user
-		if (! empty ( $productNew ['trancheid'] )) {
-			$trancheID = $productNew ['trancheid'];
-		} else {
-			$trancheID = null;
-		}
-			
-		// Create the order item for other products
-		Orders::addItem ( $productNew ['product_id'], 1, $productNew['billingid'], $trancheID, $productNew['ProductsData'][0]['name'] );
-		
-		$orderID = $theOrder ['order_id'];
-		Orders::sendOrder ( $orderID );
-
-		// echo '<pre>';
-		// print_r($theOrder);
-		// die();
-		/*		
-		// Get the totals
-		$NS->cart->totals = $this->Totals ();
-		$NS->cart->payment->notes = ! empty ( $params ['note'] ) ? $params ['note'] : "";
-		
-		// Calculate the Grand Total
-		$amount = $NS->cart->totals ['total'];
-		
-		if (is_numeric ( $params ['payment'] )) {
-			$NS->cart->payment->id = $params ['payment'];
-			$this->_helper->redirector ( 'gateway', 'cart', 'default' );
-		} else {
-			$this->_helper->redirector ( 'index', 'index', 'default' );
-			unset ( $NS->cart );
-		}*/		
-	}
-	
-	
 	/**
 	 * Create and Retrieve the OrderID
 	 * @param integer $id

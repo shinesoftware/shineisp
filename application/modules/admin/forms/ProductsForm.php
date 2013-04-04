@@ -83,25 +83,12 @@ class Admin_Form_ProductsForm extends Zend_Form
         'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
         'class'      => 'text-input large-input'
         ));
-		
-        $this->addElement('multiselect', 'upgrade', array(
-        'label' => 'Product Upgrades',
-        'decorators' => array('Composite'),
-        'size'	 => '20x',
-        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
-        'class'      => 'text-input large-input'
-        ));		
-        
+		        
         $this->getElement('related')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
                   ->setMultiOptions(Products::getList());
 			
-        $this->getElement('upgrade')
-                  ->setAllowEmpty(false)
-                  ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
-                  ->setMultiOptions(Products::getList());
-				  
                   
        $this->addElement('select', 'tax_id', array(
         'label' => 'Tax',

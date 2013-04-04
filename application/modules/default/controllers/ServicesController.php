@@ -82,11 +82,7 @@ class ServicesController extends Zend_Controller_Action {
 			$form = $this->getForm ( '/services/process' );
 			//Add upgrade service if exists
 			
-			/****
-			 * JAY - 20130329 - GUEST
-			 * Get productid fields
-			 ******/
-			$fields = "o.order_id as order, p.product_id as productid, pd.name as product, CONCAT(d.domain, '.', ws.tld) as domain, oi.status_id, oi.detail_id, DATE_FORMAT(o.order_date, '%d/%m/%Y') as order_date, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as next_deadline, (DATEDIFF(oi.date_end, CURRENT_DATE)) as daysleft, b.name, oi.price as price, t.name as tax, t.percentage as vat, s.status as status, bc.name as billing_cycle, oi.autorenew as autorenew, oi.note as note";
+			$fields = "o.order_id as order, pd.name as product, CONCAT(d.domain, '.', ws.tld) as domain, oi.status_id, oi.detail_id, DATE_FORMAT(o.order_date, '%d/%m/%Y') as order_date, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as next_deadline, (DATEDIFF(oi.date_end, CURRENT_DATE)) as daysleft, b.name, oi.price as price, t.name as tax, t.percentage as vat, s.status as status, bc.name as billing_cycle, oi.autorenew as autorenew, oi.note as note";
 			$rs = $this->services->getAllInfo ( $id, $fields, 'c.customer_id = ' . $NS->customer ['customer_id'] . ' OR c.parent_id = ' . $NS->customer ['customer_id'] );
 			
 			if (empty ( $rs )) 
@@ -97,7 +93,6 @@ class ServicesController extends Zend_Controller_Action {
 				$rs['tax'] = $rs ['vat'] . "% " . $this->translator->translate ( $rs['tax'] );
 			}
 			
-			$form->addUpgradeService( $rs['productid'] );
 			$form->populate ( $rs  );
 			
 			// Hide these fields and values inside the vertical grid object
@@ -175,49 +170,6 @@ class ServicesController extends Zend_Controller_Action {
 			Messages::sendMessage ( "message_admin", $isp['email'], $placeholder);
 			
 		}
-		
-		/***
-		 * JAY - 20130329 - GUEST
-		 * If I want do an upgrade, put the upgrade on cart and do redirect to checkout
-		 *****/
-		 $paramsPost	= $request->getPost ();
-		 if( ! empty( $paramsPost['upgrade'] ) && intval($paramsPost['upgrade']) != 0 ) {
-		 	$NS = new Zend_Session_Namespace ( 'Default' );
-			 
-		 	$productid	= intval($paramsPost['upgrade']);
-		 	$product = Products::getAllInfo ( $productid );
-			$product ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product ['categories'] );
-			
-			$fields			= "p.product_id as productid";
-			$rs = $this->services->getAllInfo ( $id, $fields, 'c.customer_id = ' . $NS->customer ['customer_id'] . ' OR c.parent_id = ' . $NS->customer ['customer_id'] );
-			
-			$productidold	= $rs['productid'];
-			$productold		 = Products::getAllInfo ( $productidold );
-			$productold ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $productold ['categories'] );
-			
-			
-			Orders::createUpgrade($NS->customer ['customer_id'],$productold,$product);
-			/*
-			if (empty ( $rs ) || intval( $rs['daysleft'] ) == 0 ) {
-				$product ['price_1'] 	= $product ['price_1'];	
-			} else {
-				echo $product ['price_1'];
-				$priceForDay			= 	$product ['price_1'] / 365;
-				$product ['price_1']	= 	$priceForDay * intval($rs['daysleft']);
-			}
-			
-			$product ['quantity'] 	= 1;
-			$product ['billingid'] 	= 5; // No expiring
-			 **/
-			
-			echo '<pre>';
-			print_r($product); 
-			die();
-						
-
-			$NS->cart->products [] = $product;
-			$this->_helper->redirector ( 'domain', 'cart', 'default' );
-		 }
 		 
 		$this->_helper->redirector ( 'edit', 'services', 'default', array ('id'=>$id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 	}
