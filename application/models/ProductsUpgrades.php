@@ -30,7 +30,27 @@ class ProductsUpgrades extends BaseProductsUpgrades {
 	 * Get all the products upgrade with a specific product id
 	 * @param integer $product_id
 	 */
-	public static function getItemsbyProductID($product_id,$locale = 1) {
+	public static function getItemsbyProductID($product_id) {
+		$data = array ();
+		$upgrades = Doctrine_Query::create ()->select ()->from ( 'ProductsUpgrades pu' )
+														->where ( 'pu.product_id = ?', $product_id )
+														->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		if (! empty ( $upgrades )) {
+			foreach ( $upgrades as $item ) {
+				$data [] = $item ['upgrade_product_id'];
+			}
+		}
+		
+		return $data;
+	}	
+	
+	/**
+	 * getItemsbyProductID
+	 * Get all the products upgrade with a specific product id
+	 * @param integer $product_id
+	 */
+	public static function getItemsbyProductID_($product_id,$locale = 1) {
 		$data = array ();
 		$upgrade = Doctrine_Query::create ()
 						->select ('p.product_id as productid, pd.name as productname')
