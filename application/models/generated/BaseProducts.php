@@ -34,6 +34,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Taxes $Taxes
  * @property Doctrine_Collection $ProductsData
  * @property Doctrine_Collection $ProductsRelated
+ * @property Doctrine_Collection $ProductsUpgrades
  * @property Doctrine_Collection $Wikilinks
  * @property Doctrine_Collection $UrlRewrite
  * @property Doctrine_Collection $Reviews
@@ -189,6 +190,10 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasMany('ProductsRelated', array(
              'local' => 'product_id',
              'foreign' => 'related_product_id'));
+
+        $this->hasMany('ProductsUpgrades', array(
+             'local' => 'product_id',
+             'foreign' => 'upgrade_product_id'));
 
         $this->hasMany('Wikilinks', array(
              'local' => 'product_id',

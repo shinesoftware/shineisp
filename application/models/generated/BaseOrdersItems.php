@@ -24,6 +24,7 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $product_id
  * @property integer $tld_id
  * @property integer $review_id
+ * @property integer $parent_detail_id
  * @property string $description
  * @property Orders $Orders
  * @property Products $Products
@@ -129,6 +130,10 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'length' => '4',
              ));
         $this->hasColumn('review_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('parent_detail_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => '4',
              ));

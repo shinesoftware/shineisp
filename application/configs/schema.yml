@@ -2259,6 +2259,10 @@ Products:
       local: product_id
       foreign: related_product_id
       type: many
+    ProductsUpgrades:
+      local: product_id
+      foreign: upgrade_product_id
+      type: many      
     Wikilinks:
       local: product_id
       foreign: product_id
@@ -2584,6 +2588,26 @@ ProductsRelated:
       local: related_product_id
       foreign: product_id
       onDelete: CASCADE
+      
+ProductsUpgrades:
+  connection: doctrine
+  tableName: products_upgrades
+  columns:
+    related_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    product_id:
+      type: integer(4)
+      notnull: false
+    upgrade_product_id:
+      type: integer(4)
+      notnull: false
+  relations:
+    Products:
+      local: upgrade_product_id
+      foreign: product_id
+      onDelete: CASCADE       
 
 ProductsTranches:
   connection: doctrine

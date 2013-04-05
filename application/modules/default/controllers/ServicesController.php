@@ -56,7 +56,8 @@ class ServicesController extends Zend_Controller_Action {
 		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
 		
 		$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
-		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
+		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id,p.group_id as groupid", $page, $NS->recordsperpage, $arrSort, $params );
+		
 		$data ['currentpage'] = $page;
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
@@ -64,6 +65,24 @@ class ServicesController extends Zend_Controller_Action {
 		$this->view->title = "Services List";
 		$this->view->description = "List of all your own services subscribed";
 		$this->view->service = $data;
+	}
+
+	public function changeAction(){
+		$NS = new Zend_Session_Namespace ( 'Default' );
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$id	= intval($id);
+		if ( $id == 0 ) {
+			return $this->_helper->redirector ( 'services/list' );
+		}
+
+		$service 	= $this->services->getDetail($id);
+		$product	= $service['Products'];
+		$groupid	= $product['group_id'];
+		$category	= ProductsCategories::getID($groupid);
+		
+		$NS->upgrade->parentorder	= $id;
+		
+		// return $this->_helper->redirector ( '/categories/'.$category->uri.'.html' );
 	}
 	
 	/**
