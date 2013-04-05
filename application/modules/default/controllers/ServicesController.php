@@ -77,12 +77,27 @@ class ServicesController extends Zend_Controller_Action {
 
 		$service 	= $this->services->getDetail($id);
 		$product	= $service['Products'];
-		$groupid	= $product['group_id'];
-		$category	= ProductsCategories::getID($groupid);
+		$productid	= $product['product_id'];
+		
+		$productsUpgrades	= ProductsUpgrades::getUpgradesbyProductID($productid);
+		
+		$products	= array();
+		foreach($productsUpgrades as $productUpgradeId => $productUpgradeName ) {
+			$productUpgrade					= Products::getAllInfo($productUpgradeId);	
+			$productUpgrade['name']			= $productUpgrade['ProductsData'][0]['name'];
+			$productUpgrade['shortdescription']= $productUpgrade['ProductsData'][0]['shortdescription'];
+			$productUpgrade['reviews'] 		= Reviews::countItems($product['product_id']);
+			$productUpgrade['attributes'] 	= ProductsAttributes::getAttributebyProductID($product['product_id'], $NS->langid, true);
+			
+			$products[]		= $productUpgrade;
+		}
+		$this->view->products = $products;
 		
 		$NS->upgrade->parentorder	= $id;
 		
-		// return $this->_helper->redirector ( '/categories/'.$category->uri.'.html' );
+		$this->view->title = "Upgrade products List";
+		$this->view->description = "List of all your own services subscribed";
+		$this->view->service = $data;
 	}
 	
 	/**

@@ -81,6 +81,13 @@ class CartController extends Zend_Controller_Action {
 					$product ['billingid'] = 5; // No expiring
 				}
 				
+				//JAY - 20130405 - if is upgrade add the referer to parent order
+				if( isset( $NS->upgrade) ) {
+					$product['parentorder']		= $NS->upgrade->parentorder;
+					unset( $NS->upgrade );
+				}
+				//END
+				
 				// Check if the product is already within the cart 
 				if ($this->checkIfProductIsPresentWithinCart ( $product )) {
 					// Delete the old product and add the new one
@@ -98,6 +105,7 @@ class CartController extends Zend_Controller_Action {
 						$NS->cart->products [] = $product;
 					}
 				}
+				
 				
 				// Check if the product is present in the cart
 				if ($this->checkIfHostingProductIsPresentWithinCart ()) {
@@ -512,8 +520,13 @@ class CartController extends Zend_Controller_Action {
 						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'] ) );
 					
 					} else {
+						$upgrade	= intval($product['parentorder']);
+						if( $upgrade == 0 ) {
+							$upgrade	= false;
+						}
+						
 						// Create the order item for other products
-						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'] );
+						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array(), $upgrade );
 					}
 				}
 				

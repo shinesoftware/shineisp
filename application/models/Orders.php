@@ -964,14 +964,15 @@ class Orders extends BaseOrders {
 	
 	/**
 	 * Add an item in the order 
-	 * @param integer $productId
-	 * @param integer $qta
-	 * @param integer $billing [default 3 = Annual]
-	 * @param string $description
-	 * @param array $options
-	 * @return array $item
-	 */
-	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array()) {
+	 * @param integer 	$productId
+	 * @param integer 	$qta
+	 * @param integer 	$billing [default 3 = Annual]
+	 * @param string 	$description
+	 * @param array 	$options
+	 * @param integer 	$upgrade
+	 * @return array 	$item
+	 ******/
+	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
 		
 		// Check if the variable has been set correctly
 		if(is_numeric($productId)){
@@ -993,10 +994,10 @@ class Orders extends BaseOrders {
 				$item['date_start'] = date ( 'Y-m-d H:i:s' );
 					
 				// Manages all the products that have no recursion payment
-				$item['description'] = $product ['name'];
-				$item['billing_cycle_id'] = $billing; 
-				$item['quantity'] = $qta;
-				$item['price'] = $product['price_1'];
+				$item['description'] 		= $product ['name'];
+				$item['billing_cycle_id'] 	= $billing; 
+				$item['quantity'] 			= $qta;
+				$item['price'] 				= $product['price_1'];
 				
 				// Count of the day until the expiring
 				$months = BillingCycle::getMonthsNumber ( $billing );
@@ -1017,6 +1018,19 @@ class Orders extends BaseOrders {
 				}else{
 					$item['date_end'] = null;
 				}
+
+				/*
+				TODO finish upgrade product
+				if( $upgrade == false ) {
+					
+				} else {
+					$detailOrderParent	= OrdersItems::getDetail($upgrade);
+					
+					
+					echo '<pre>';
+					print_r($detailOrderParent);
+					die();
+				}*/
 				
 				// IMPORTANT //
 				// TODO: This condition is temporary: $product ['type'] != "domain" 

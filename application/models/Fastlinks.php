@@ -93,7 +93,7 @@ class Fastlinks extends BaseFastlinks {
 	 * checkFastlinkCode
 	 * Check if the fastlink is already used in the database
 	 */
-	private function checkFastlinkCode($code){
+	private static function checkFastlinkCode($code){
         $result = Doctrine_Query::create ()->from ( 'Fastlinks f' )->where ( 'code = ?', $code )->count();
         if($result > 0){
         	self::checkFastlinkCode(Shineisp_Commons_Utilities::GenerateRandomString ());
