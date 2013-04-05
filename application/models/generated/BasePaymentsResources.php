@@ -50,7 +50,7 @@ abstract class BasePaymentsResources extends Doctrine_Record
              'autoincrement' => false,
              'length' => '',
              ));
-        $this->hasColumn('beginning_balance', 'float', 4, array(
+        $this->hasColumn('beginning_balance', 'float', 10, array(
              'type' => 'float',
              'fixed' => 0,
              'unsigned' => false,
@@ -58,7 +58,7 @@ abstract class BasePaymentsResources extends Doctrine_Record
              'notnull' => false,
              'default' => 0,
              'autoincrement' => false,
-             'length' => '4',
+             'length' => '10',
              ));
         $this->hasColumn('method_id', 'integer', 4, array(
              'type' => 'integer',

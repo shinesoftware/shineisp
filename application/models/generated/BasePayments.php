@@ -102,7 +102,7 @@ abstract class BasePayments extends Doctrine_Record
              'autoincrement' => false,
              'length' => '1',
              ));
-        $this->hasColumn('income', 'float', 4, array(
+        $this->hasColumn('income', 'float', 10, array(
              'type' => 'float',
              'fixed' => 0,
              'unsigned' => false,
@@ -110,9 +110,9 @@ abstract class BasePayments extends Doctrine_Record
              'notnull' => false,
              'default' => 0,
              'autoincrement' => false,
-             'length' => '4',
+             'length' => '10',
              ));
-        $this->hasColumn('outcome', 'float', 4, array(
+        $this->hasColumn('outcome', 'float', 10, array(
              'type' => 'float',
              'fixed' => 0,
              'unsigned' => false,
@@ -120,7 +120,7 @@ abstract class BasePayments extends Doctrine_Record
              'notnull' => false,
              'default' => 0,
              'autoincrement' => false,
-             'length' => '4',
+             'length' => '10',
              ));
     }
 

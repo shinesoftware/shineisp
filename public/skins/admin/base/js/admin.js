@@ -76,7 +76,7 @@ $(document).ready(function(){
 	/* Tab Management*/
 	$( "#tabs" ).tabs({
 		 select: function(event, ui) {window.location.hash = ui.tab.hash;},
-		 cookie: {expires: 7, name: this.hash}
+		 cookie: {expires: 1, name: this.hash}
 	});
 	 
 	 /* MultiSelect Management */

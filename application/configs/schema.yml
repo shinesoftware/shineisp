@@ -2064,7 +2064,7 @@ Payments:
       notnull: true
       autoincrement: false
     income:
-      type: float(4)
+      type: float(10)
       fixed: 0
       unsigned: false
       primary: false
@@ -2072,7 +2072,7 @@ Payments:
       default: 0
       autoincrement: false
     outcome:
-      type: float(4)
+      type: float(10)
       fixed: 0
       unsigned: false
       primary: false
@@ -2148,7 +2148,7 @@ PaymentsResources:
       notnull: false
       autoincrement: false
     beginning_balance:
-      type: float(4)
+      type: float(10)
       fixed: 0
       unsigned: false
       primary: false
