@@ -92,7 +92,7 @@ class Shineisp_Commons_Hasher {
 		}
 	}	
 
-	public function hash_string($password, $salt = FALSE) {
+	public static function hash_string($password, $salt = FALSE) {
         $salt_pattern = self::getSalt();
 
 		if ($salt === FALSE) {
@@ -131,7 +131,7 @@ class Shineisp_Commons_Hasher {
 		return $password.$hash;
 	}
 
-	public function unhash_string($password)
+	public static function unhash_string($password)
 	{
         $salt_pattern   = self::getSalt();
 		$clean_password = '';
@@ -148,12 +148,12 @@ class Shineisp_Commons_Hasher {
 	}
 
 
-	private function hash($str)
+	private static function hash($str)
 	{
 		return hash('sha1', $str);
 	}
 
-	public function find_salt($password)
+	public static function find_salt($password)
 	{
         $salt_pattern = self::getSalt();
 		$salt = '';

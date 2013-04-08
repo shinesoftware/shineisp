@@ -247,7 +247,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 				
 				$this->view->buttons[] = array("url" => "/admin/orders/new", "label" => $this->translator->translate('New Order'), "params" => array('css' => array('button', 'float_right')));
 				$this->view->buttons[] = array("url" => "/admin/customers/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
-				$this->view->buttons[] = array("url" => "/default/index/fastlogin/id/" . md5($rs['email']) . "-" . $rs['password'], "label" => $this->translator->translate('Public profile'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/default/index/fastlogin/id/" . Shineisp_Commons_Hasher::hash_string($rs['email']), "label" => $this->translator->translate('Public profile'), "params" => array('css' => array('button', 'float_right')));
 				
 			}
 		}

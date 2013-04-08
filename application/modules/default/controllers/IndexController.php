@@ -109,15 +109,15 @@ class IndexController extends Zend_Controller_Action {
 		$registry = Zend_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
 						
-		$passphrase = $request->getParam ( 'id' );
-		if (! empty ( $passphrase )) {
-			$credentials = explode ( "-", $passphrase );
+		$secretKey = $request->getParam ( 'id' );
+		if (! empty ( $secretKey )) {
+			$sha1 = Shineisp_Commons_Hasher::unhash_string($secretKey);
 			
 			// Trying to get the user in the database
-			$retval = Customers::getCustomerbyLogin ( $credentials [0], $credentials [1] );
+			$retval = Customers::getCustomerbyEmailSha1 ( $sha1 );
 			
 			if (count ( $retval ) == 0) {
-				$result = new Zend_Auth_Result ( Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, $passphrase );
+				$result = new Zend_Auth_Result ( Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, $secretKey );
 				$NS->customer = null;
 				$this->view->message = $translator->translate ( 'Email or Password incorrect' );
 				return $this->_helper->viewRenderer ( 'generic' ); 

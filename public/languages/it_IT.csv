@@ -658,6 +658,7 @@ There was a problem during the payment process.;Si è verificato un problema dur
 Here you can read all your questions and the admin replies about this order.;In questa sezione puoi leggere le tue domande poste all'amministratore e le risposte inerenti l'ordine selezionato.
 To be paid;Da pagare
 Are you sure to create or overwrite invoice for this order?;Sei sicuro di voler creare o sovrascrivere la fattura per questo ordine?
+Are you sure to create or overwrite invoice for this order? The order is not paid.;Sei sicuro di voler creare o sovrascrivere la fattura per questo ordine? Questo ordine non e\' stato pagato per intero.
 Visits;Visite
 Expiring Date;Data di scadenza
 Order Date;Data ordine
