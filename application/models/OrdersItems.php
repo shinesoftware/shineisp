@@ -157,7 +157,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @param integer $status
 	 * @param integer $autorenew [0, 1]
 	 */
-    public static function getExpiringSerivcesByDays($days=0, $status="", $autorenew=null) {
+    public static function getExpiringSerivcesByDays($days=0, $status=null, $autorenew=null) {
         $dq = Doctrine_Query::create ()->select ( "oi.detail_id, 
         										   pd.name as product,
         										   c.customer_id as id, 
@@ -190,7 +190,9 @@ class OrdersItems extends BaseOrdersItems {
         	$dq->andWhere ( 'oi.autorenew = ?', $autorenew );  
         }
         
-        return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+        $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+        
+        return $records;
             
     }
 		
@@ -823,6 +825,7 @@ class OrdersItems extends BaseOrdersItems {
 				
 			// Get all the services active that expire the day after
 			$services = OrdersItems::getExpiringSerivcesByDays ( 1, Statuses::id("complete", "orders") );
+			
 			if ($services) {
 				// Create the customer group list for the email summary
 				foreach ( $services as $service ) {
