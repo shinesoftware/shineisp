@@ -1193,8 +1193,7 @@ class Orders extends BaseOrders {
 		
 		// Add the panel action tasks
 		$hostingplans = self::get_hostingplans_from_order($orderid);
-		print_r($hostingplans);
-		die();
+
 		foreach ( $hostingplans as $data ) {
 			die('faccio add task');
 			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
@@ -1210,7 +1209,7 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			if ( ! self::RunTaks($orderid) ) {
+			if ( ! self::RunTasks($orderid) ) {
 				return false;
 			}
 			
