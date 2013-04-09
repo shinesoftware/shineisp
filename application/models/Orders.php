@@ -1163,6 +1163,45 @@ class Orders extends BaseOrders {
 	}
 	
 	/*
+	 * Run task functions
+	 */
+	public static function RunTasks($orderid) {
+		if (empty($orderid) || !is_numeric($orderid) ) {
+			return false;
+		}
+		
+		
+		// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
+		$domains = self::getDomainsFromOrder ( $orderid );
+		
+		if (count ( $domains ) > 0) {
+			
+			// Create the domain name in the database
+			$domainIDs = Domains::CreateDomainsbyOrderID ( $orderid );
+			
+			// Prepare the domain tasks
+			foreach ( $domains as $data ) {
+				$domainsdata [] = array ('domain' => $data ['domain'], 'action' => $data ['action'], 'registrar_id' => $data ['registrar_id'] );
+			}
+			
+			// Save the tasks to do by cronjob
+			if (! empty ( $domainsdata )) {
+				// Add the domains found in the task table action in order to execute the register/transfer procedure
+				DomainsTasks::AddTasks ( $domainsdata );
+			} 
+		}
+		
+		// Add the panel action tasks
+		$hostingplans = self::get_hostingplans_from_order($orderid);
+		print_r($hostingplans);
+		die();
+		foreach ( $hostingplans as $data ) {
+			die('faccio add task');
+			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+		}
+	}	
+	
+	/*
 	 * Complete 
 	 * this function complete the order
 	 * set the payment, create the domain tasks, and set the status of the new domains
@@ -1171,31 +1210,7 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
-			$domains = self::getDomainsFromOrder ( $orderid );
-			
-			if (count ( $domains ) > 0) {
-				
-				// Create the domain name in the database
-				$domainIDs = Domains::CreateDomainsbyOrderID ( $orderid );
-				
-				// Prepare the domain tasks
-				foreach ( $domains as $data ) {
-					$domainsdata [] = array ('domain' => $data ['domain'], 'action' => $data ['action'], 'registrar_id' => $data ['registrar_id'] );
-				}
-				
-				// Save the tasks to do by cronjob
-				if (! empty ( $domainsdata )) {
-					// Add the domains found in the task table action in order to execute the register/transfer procedure
-					DomainsTasks::AddTasks ( $domainsdata );
-				} 
-			}
-			
-			// Add the panel action tasks
-			$hostingplans = self::get_hostingplans_from_order($orderid);
-			foreach ( $hostingplans as $data ) {
-				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
-			}
+			self::RunTaks($orderid);
 			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete

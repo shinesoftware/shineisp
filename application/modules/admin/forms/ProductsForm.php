@@ -155,6 +155,13 @@ class Admin_Form_ProductsForm extends Zend_Form
             'class'      => 'text-input large-input',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
+
+        $this->addElement('select', 'isrefundable', array(
+            'label'      => 'Is Refundable',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input',
+            'multioptions' => array('0' => 'No', '1'=>'Yes')
+        ));
         
         $this->addElement('select', 'default', array(
             'label'      => 'Default Image',

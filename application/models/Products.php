@@ -211,6 +211,7 @@ class Products extends BaseProducts {
 				$products->position      = !empty($params ['position']) ? $params ['position'] : NULL;
 				$products->setup         = !empty($params ['setup']) ? $params ['setup'] : NULL;
 				$products->ishighlighted = !empty($params ['ishighlighted']) ? 1 : 0;
+				$products->isrefundable  = !empty($params ['isrefundable']) ? 1 : 0;
 				$products->showonrss     = !empty($params ['showonrss']) ? 1 : 0;
 				$products->external_id   = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
 				$products->downgradable  = !empty($params['downgradable']) ? 1: 0;
@@ -891,6 +892,21 @@ class Products extends BaseProducts {
 										->leftJoin ( "p.ProductsMedia pm" )
 										->addWhere ( "p.enabled = ?", 1)
 										->addWhere ( "p.ishighlighted = ?", 1)
+										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+	}
+
+	/**
+	 * getAllRefundables
+	 * Get all active and refundables products
+	 * @param $locale
+	 * @return Doctrine Record
+	 */
+	public static function getAllRefundables($locale = 1) {
+		return Doctrine_Query::create ()->from ( 'Products p' )
+										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+										->leftJoin ( "p.ProductsMedia pm" )
+										->addWhere ( "p.enabled = ?", 1)
+										->addWhere ( "p.isrefundable = ?", 1)
 										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
 	

@@ -10,6 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTlds', 'doctrine');
  * @property integer $tld_id
  * @property integer $server_id
  * @property boolean $ishighlighted
+ * @property boolean $isrefundable
  * @property float $registration_price
  * @property float $transfer_price
  * @property float $renewal_price
@@ -48,6 +49,11 @@ abstract class BaseDomainsTlds extends Doctrine_Record
              'length' => '4',
              ));
         $this->hasColumn('ishighlighted', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
+             ));
+        $this->hasColumn('isrefundable', 'boolean', 25, array(
              'type' => 'boolean',
              'default' => 0,
              'length' => '25',
