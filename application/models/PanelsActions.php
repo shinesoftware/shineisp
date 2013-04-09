@@ -137,13 +137,13 @@ class PanelsActions extends BasePanelsActions
 		$panel = Panels::getActivePanel();
 		if(!empty($panel)){
 			$task = new PanelsActions();
-			$task->panel_id = $panel['panel_id'];
-			$task->start = date ( 'Y-m-d H:i:s' );
-			$task->customer_id = $customer_id;
+			$task->panel_id     = $panel['panel_id'];
+			$task->start        = date ( 'Y-m-d H:i:s' );
+			$task->customer_id  = $customer_id;
 			$task->orderitem_id = $orderitem_id;
-			$task->action = $action;
-			$task->parameters = $parameters;
-			$task->status_id = Statuses::id("active", "domains_tasks"); // Task Processing;
+			$task->action       = $action;
+			$task->parameters   = $parameters;
+			$task->status_id    = Statuses::id("active", "domains_tasks"); // Task Processing;
 			return $task->trySave ();
 		}else{
 			return false;
