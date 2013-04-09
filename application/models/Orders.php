@@ -1730,9 +1730,10 @@ class Orders extends BaseOrders {
 		$hplan = array ();
 		$i = 0;
 		$items = OrdersItems::getAllDetails ( $orderID, null, true );
+
 		if (count ( $items ) > 0) {
 			foreach ( $items as $item ) {
-				if ($item ['Products'] ['type'] == "hosting") {
+				if (strtolower($item ['Products']['type']) == "hosting") {
 					if (! empty ( $item ['parameters'] )) {
 						$hplan [$i] ['orderitem_id'] = $item ['detail_id'];
 						$hplan [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
