@@ -275,7 +275,7 @@ class Panels extends BasePanels
 	 * @param $attribute
 	 * @return string
 	 */
-	public function getXmlFieldbyAttribute($panel, $attribute) {
+	public static function getXmlFieldbyAttribute($panel, $attribute) {
 		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels/$panel";
 		if (file_exists ( $path . "/config.xml" )) {
 			
