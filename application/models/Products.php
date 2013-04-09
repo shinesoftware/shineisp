@@ -364,7 +364,9 @@ class Products extends BaseProducts {
 	/**
 	 * getPrices
 	 * Get the price of the product
+	 * If there's a refund subtrack to the price (20130409)
 	 * @param integer $productid
+	 * @param float   $refund
 	 */
 	public static function getPrices($productid,$refund = false) {
 		$prices = array ();
@@ -377,6 +379,15 @@ class Products extends BaseProducts {
 			
 			if (! empty ( $product )) {
 				if (! empty ( $product ['price_1'] ) && $product ['price_1'] > 0) {
+					//JAY 20130409
+					if( $refund !== false ) {
+						$priceToPayWithRefund	= $product ['price_1'] - $refund;
+						if( $priceToPayWithRefund < 0 ) {
+							$product ['price_1']	= $priceToPayWithRefund;
+						}
+					}
+					/** 20130409 ***/
+					
 					// Taxes calculation
 					if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
 						$taxincluded = ($product ['price_1'] * ($tax['percentage'] + 100) / 100);
@@ -389,6 +400,7 @@ class Products extends BaseProducts {
 					// Get the price min & max interval tranches
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
 					if (!empty($tranches[1])) {
+						//JAY 20130409
 						if( $refund !== false ) {
 							$idBillingCircle		= $tranches[0]['BillingCycle']['billing_cycle_id'];
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
@@ -408,6 +420,7 @@ class Products extends BaseProducts {
 							}
 							$tranches[1]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
 						}
+						/** 20130409 ***/
 						
 						// Taxes calculation
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
@@ -426,6 +439,15 @@ class Products extends BaseProducts {
 						return array ('type' => 'multiple', 'measurement' => $tranches[0]['measurement'], 'tranches' => $tranches, 'minvalue' => $minvalue, 'maxvalue' => $maxvalue, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => $maxvaluewithtaxes, 'discount' => $discount, 'taxes' => $tax );
 					}else{
 						// Taxes calculation
+						
+						//JAY 20130409
+						if( $refund !== false ) {
+							$priceToPayWithRefund	= $tranches['price'] - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$tranches['price']	= $priceToPayWithRefund;
+							}
+						}
+						/** 20130409 ***/						
 						
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
 							$minvaluewithtaxes = ($tranches['price'] * ($tax['percentage'] + 100) / 100);

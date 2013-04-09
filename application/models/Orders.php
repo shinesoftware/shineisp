@@ -1018,19 +1018,12 @@ class Orders extends BaseOrders {
 				}else{
 					$item['date_end'] = null;
 				}
-
-				/*
-				TODO finish upgrade product
-				if( $upgrade == false ) {
-					
+				
+				if( $upgrade != false ) {
+					$item['parent_detail_id']	= $upgrade;
 				} else {
-					$detailOrderParent	= OrdersItems::getDetail($upgrade);
-					
-					
-					echo '<pre>';
-					print_r($detailOrderParent);
-					die();
-				}*/
+					$item['parent_detail_id']	= 0;
+				}
 				
 				// IMPORTANT //
 				// TODO: This condition is temporary: $product ['type'] != "domain" 

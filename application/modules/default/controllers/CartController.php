@@ -42,6 +42,53 @@ class CartController extends Zend_Controller_Action {
 			$this->_helper->redirector ( 'contacts' );
 		}
 	}
+	
+	private function getPricesWithRefundIfIsRecurring( $orderid, $price ) {
+		$refundInfo		= OrdersItems::getRefundInfo($orderid);
+		if( $refundInfo != false ) {
+			$refund					= $refundInfo['refund'];
+			$idBillingCircle		= $tranche['BillingCycle']['billing_cycle_id'];
+			$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+			$priceToPay				= $price * $monthBilling;
+			$priceToPayWithRefund	= $priceToPay - $refund;
+			if( $priceToPayWithRefund < 0 ) {
+				$priceToPayWithRefund	= $priceToPay;
+			}
+			
+			return round( $priceToPayWithRefund / $monthBilling,2 );
+		}	
+		
+		return false;	
+	}
+	
+	private function getPriceWithRefund( $orderid, $price ) {
+		$refundInfo		= OrdersItems::getRefundInfo($orderid);
+		if( $refundInfo != false ) {
+			$refund					= $refundInfo['refund'];
+			$priceToPayWithRefund	= $price - $refund;
+			if( $priceToPayWithRefund > 0 ) {
+				return $priceToPayWithRefund;
+			}
+			
+			return $price; 
+		}
+		
+		return false;
+	}
+	
+	private function checkIfIsUpgrade(){
+		$NS = new Zend_Session_Namespace ( 'Default' );
+		if( is_array($NS->upgrade) ) {
+			//Check if the product is OK for upgrade and if OK take refund
+			foreach( $NS->upgrade as $orderid => $upgradeProduct ) {
+				if( in_array( $request ['product_id'], $upgradeProduct) ) {
+					return $orderid;
+				}
+			}
+			
+		}
+		return false;
+	}
 
 	/**
 	 * Check the product and redirect the user to the right destination
@@ -65,28 +112,61 @@ class CartController extends Zend_Controller_Action {
 				// Get the categories
 				$product ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product ['categories'] );
 				
+				$NS = new Zend_Session_Namespace ( 'Default' );
+				$product['parent_orderid']		= "";
 				if ($request ['isrecurring']) {
 					// Get the tranche selected
 					$tranche = ProductsTranches::getTranchebyId ( $request ['quantity'] );
+					
+					// JAY 20130409 - Add refund if exist
+					//Check if the product is OK for upgrade
+					$orderid	= $this->checkIfIsUpgrade();
+					if( $orderid != false ) {
+						$product['parent_orderid']	= $orderid;
+						$tranche['price']			= $this->getPricesWithRefundIfIsRecurring($orderid, $tranche ['price'] );
+						unset($NS->upgrade[$orderid]);
+					} else {
+						$index	= $this->getIndexProduct($product);
+						if( $index !== false ) {
+							$oldProduct	= $NS->cart->products[$index];
+							$orderid	= intval( $oldProduct['parent_orderid'] );
+							if( $orderid != 0 ) {
+								$tranche['price']			= $this->getPricesWithRefundIfIsRecurring($orderid, $tranche ['price'] );		
+							}
+						}
+					}					
+					/*** 20130409 ***/
 					
 					$product ['isrecurring'] = true;
 					$product ['quantity'] = $tranche ['quantity'];
 					$product ['price_1'] = $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
 					$product ['trancheid'] = $tranche ['tranche_id'];
 					$product ['billingid'] = $tranche ['billing_cycle_id'];
+					
 				} else {
 					$product ['isrecurring'] = false;
+					// JAY 20130409 - Add refund if exist
+					$orderid	= $this->checkIfIsUpgrade();
+					if( $orderid != false ) {
+						$product['parent_orderid']	= $orderid;
+						$product ['price_1']		= $this->getPriceWithRefund($orderid, $product ['price_1']);
+						unset($NS->upgrade[$orderid]);
+					} else {
+						$index	= $this->getIndexProduct($product);
+						if( $index !== false ) {
+							$oldProduct	= $NS->cart->products[$index];
+							$orderid	= intval( $oldProduct['parent_orderid'] );
+							if( $orderid != 0 ) {
+								$product ['price_1']		= $this->getPriceWithRefund($orderid, $product ['price_1']);		
+							}
+						}
+					}							
+					/** 20130409 **/					
+					
 					$product ['price_1'] = $product ['price_1'];
 					$product ['quantity'] = $request ['quantity'];
 					$product ['billingid'] = 5; // No expiring
 				}
-				
-				//JAY - 20130405 - if is upgrade add the referer to parent order
-				if( isset( $NS->upgrade) ) {
-					$product['parentorder']		= $NS->upgrade->parentorder;
-					unset( $NS->upgrade );
-				}
-				//END
 				
 				// Check if the product is already within the cart 
 				if ($this->checkIfProductIsPresentWithinCart ( $product )) {
@@ -758,6 +838,27 @@ class CartController extends Zend_Controller_Action {
 	 * Changing of the product
 	 */
 	private function changeProduct($newproduct) {
+		$index	= $this->getProductForChange($newproduct);
+		if( $index === false ) {
+			$NS->cart->products [] = $newproduct;
+		} else {
+			$products	= $NS->cart->products;
+			$product	= $products[$index];
+			// Delete the old product
+			unset( $products[$index] );
+			
+			// Reorder the indexes
+			$NS->cart->products = array_values ( $products );
+			
+			// Adding the new hosting product in the cart
+			$NS->cart->products [] = $newproduct;
+		}
+	}
+	
+	/**
+	 * Get index product in the cart
+	 ****/
+	private function getIndexProduct ( $newproduct ) {
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
 			$products = $NS->cart->products;
@@ -769,22 +870,14 @@ class CartController extends Zend_Controller_Action {
 				foreach ( $products as $product ) {
 					// Match the product cycled with the hosting product previously inserted in the cart
 					if ($product ['product_id'] == $newproduct ['product_id']) {
-						// Delete the old product
-						unset ( $products [$index] );
-						
-						// Reorder the indexes
-						$NS->cart->products = array_values ( $products );
-						
-						// Adding the new hosting product in the cart
-						$NS->cart->products [] = $newproduct;
+						return $index;
 					}
-					$index ++;
+					$index++;
 				}
-			} else {
-				// No products have been found. Adding the new hosting product in the cart
-				$NS->cart->products [] = $newproduct;
 			}
 		}
+		
+		return false;
 	}
 	
 	/*

@@ -773,6 +773,48 @@ class OrdersItems extends BaseOrdersItems {
 		
 	}
 	
+	/***
+	 * Get the refund info
+	 * @param orderid
+	 * @return productid and refundPrice
+	 *****/
+	public static function getRefundInfo( $orderid ) {
+		$service 	= self::getDetail($orderid);
+		$product	= $service['Products'];
+		$productid	= $product['product_id'];
+		
+		//TODO add not refund cost
+		$pricePayed	= $service['price'];
+		
+		$date		= explode(' ',$service['date_start']);
+		$date		= array_shift($date);
+		list($yyyy,$mm,$dd)	= explode('-',$date);
+		$tsStartService		= mktime(0,0,0,$mm,$dd,$yyyy);
+		
+		$date		= explode(' ',$service['date_end']);
+		$date		= array_shift($date);
+		list($yyyy,$mm,$dd)	= explode('-',$date);
+		$tsEndService	= mktime(0,0,0,$mm,$dd,$yyyy);
+		$tsToday		= mktime(0,0,0,date('m'),date('d'),date('Y'));
+		
+		$dayService		= round( ($tsEndService - $tsStartService) / ( 60*60*24 ) );
+		$priceServiceForDay	= $pricePayed / $dayService;
+		
+		$tsRemain		= 0;
+		$priceRefund	= false;
+		if( $tsEndService > $tsToday ) {
+			$dayRemain		= round( ( $tsEndService - $tsToday ) / (60*60*24) );
+			$priceRefund	= round($priceServiceForDay * $dayRemain,2);
+		}
+		
+		$result	= array(
+			 'productid'	=> $productid
+			,'refund'		=> $priceRefund
+		);
+		
+		return $result;					
+	}	
+	
 	######################################### CRON METHODS ############################################
 
 	/**
@@ -932,4 +974,5 @@ class OrdersItems extends BaseOrdersItems {
 	
 		return true;
 	}
+
 }

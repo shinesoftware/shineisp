@@ -75,51 +75,31 @@ class ServicesController extends Zend_Controller_Action {
 			return $this->_helper->redirector ( 'services/list' );
 		}
 
-		$service 	= $this->services->getDetail($id);
-		$product	= $service['Products'];
-		$productid	= $product['product_id'];
-		
-		//TODO add not refund cost
-		$pricePayed	= $service['price'];
-		
-		$date		= explode(' ',$service['date_start']);
-		$date		= array_shift($date);
-		list($yyyy,$mm,$dd)	= explode('-',$date);
-		$tsStartService		= mktime(0,0,0,$mm,$dd,$yyyy);
-		
-		$date		= explode(' ',$service['date_end']);
-		$date		= array_shift($date);
-		list($yyyy,$mm,$dd)	= explode('-',$date);
-		$tsEndService	= mktime(0,0,0,$mm,$dd,$yyyy);
-		$tsToday		= mktime(0,0,0,date('m'),date('d'),date('Y'));
-		
-		$dayService		= round( ($tsEndService - $tsStartService) / ( 60*60*24 ) );
-		$priceServiceForDay	= $pricePayed / $dayService;
-		
-		$tsRemain		= 0;
-		$priceRefund	= false;
-		if( $tsEndService > $tsToday ) {
-			$dayRemain		= round( ( $tsEndService - $tsToday ) / (60*60*24) );
-			$priceRefund	= round($priceServiceForDay * $dayRemain,2);
+		$refundInfo		= $this->services->getRefundInfo($id);
+		$productid		= $refundInfo['productid'];
+		$priceRefund	= $refundInfo['refund'];
+
+		if( ! property_exists($NS, 'upgrade') ) {
+			$NS->upgrade				= array();	
 		}
 		
+		$NS->upgrade[$id]	= array();
 		$productsUpgrades	= ProductsUpgrades::getUpgradesbyProductID($productid);
 		$products	= array();
 		foreach($productsUpgrades as $productUpgradeId => $productUpgradeName ) {
 			$productUpgrade					= Products::getAllInfo($productUpgradeId);	
 			$productUpgrade['name']			= $productUpgrade['ProductsData'][0]['name'];
 			$productUpgrade['shortdescription']= $productUpgrade['ProductsData'][0]['shortdescription'];
-			$productUpgrade['reviews'] 		= Reviews::countItems($product['product_id']);
-			$productUpgrade['attributes'] 	= ProductsAttributes::getAttributebyProductID($product['product_id'], $NS->langid, true);
+			$productUpgrade['reviews'] 		= Reviews::countItems($productUpgradeId);
+			$productUpgrade['attributes'] 	= ProductsAttributes::getAttributebyProductID($productUpgradeId, $NS->langid, true);
 			
 			$products[]		= $productUpgrade;
+			
+			$NS->upgrade[$id][]	= $productUpgradeId;
 		}
 
 		$this->view->priceRefund 	= $priceRefund;
 		$this->view->products 		= $products;
-		
-		$NS->upgrade	= new stdClass;
-		$NS->upgrade->parentorder	= $id;
 		
 		$this->view->title = "Upgrade products List";
 		$this->view->description = "List of all your own services subscribed";
