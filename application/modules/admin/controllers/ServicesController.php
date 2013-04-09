@@ -129,6 +129,20 @@ class Admin_ServicesController extends Zend_Controller_Action {
 	}
 	
 	/**
+	 * createAction
+	 * Create service on server
+	 * @return null
+	 */
+	public function createAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		if (is_numeric ( $id )) {
+			Orders::RunTasks($id);
+		}
+		$this->view->goto = "/admin/$controller/edit/id/$id";
+	}
+	
+	
+	/**
 	 * deleteAction
 	 * Delete a record previously selected by the service
 	 * @return unknown_type
@@ -162,6 +176,7 @@ class Admin_ServicesController extends Zend_Controller_Action {
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 				array("url" => "/admin/services/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 				array("url" => "/admin/services/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "/admin/services/create/id/$id", "label" => $this->translator->translate('Create'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
 		try {
