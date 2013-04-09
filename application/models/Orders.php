@@ -1210,7 +1210,9 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			self::RunTaks($orderid);
+			if ( ! self::RunTaks($orderid) ) {
+				return false;
+			}
 			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
