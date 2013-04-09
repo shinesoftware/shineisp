@@ -20,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property integer $position
  * @property boolean $iscomparable
  * @property boolean $ishighlighted
+ * @property boolean $isrefundable
  * @property boolean $send_request_review
  * @property boolean $showonrss
  * @property boolean $downgradable
@@ -119,6 +120,11 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasColumn('ishighlighted', 'boolean', 25, array(
              'type' => 'boolean',
              'default' => '0',
+             'length' => '25',
+             ));
+        $this->hasColumn('isrefundable', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
              'length' => '25',
              ));
         $this->hasColumn('send_request_review', 'boolean', 25, array(

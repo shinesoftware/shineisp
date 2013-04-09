@@ -1056,6 +1056,9 @@ DomainsTlds:
     ishighlighted:
       type: boolean(25)
       default: 0
+    isrefundable:
+      type: boolean(25)
+      default: 0
     registration_price:
       type: float(10)
       default: '0.00'
@@ -2219,6 +2222,9 @@ Products:
     ishighlighted:
       type: boolean(25)
       default: '0'
+    isrefundable:
+      type: boolean(25)
+      default: 0
     send_request_review:
       type: boolean(25)
       default: '0'
