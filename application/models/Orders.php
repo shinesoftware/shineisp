@@ -978,6 +978,7 @@ class Orders extends BaseOrders {
 		if(is_numeric($productId)){
 		
 			// Get the product information
+			echo $productId; die();
 			$product = Products::getAllInfo($productId);
 			
 			if(!empty($product)){
@@ -1782,6 +1783,8 @@ class Orders extends BaseOrders {
 				$invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
 				$customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
 				$customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
+				echo $order [0] ['Customers'] ['parent_id'];
+				die();
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['parent_id'], 'orders' );
 			} else {
 				$customer_email = Contacts::getEmails($order [0] ['Customers'] ['customer_id']);
