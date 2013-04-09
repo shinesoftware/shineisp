@@ -79,8 +79,31 @@ class ServicesController extends Zend_Controller_Action {
 		$product	= $service['Products'];
 		$productid	= $product['product_id'];
 		
-		$productsUpgrades	= ProductsUpgrades::getUpgradesbyProductID($productid);
+		//TODO add not refund cost
+		$pricePayed	= $service['price'];
 		
+		$date		= explode(' ',$service['date_start']);
+		$date		= array_shift($date);
+		list($yyyy,$mm,$dd)	= explode('-',$date);
+		$tsStartService		= mktime(0,0,0,$mm,$dd,$yyyy);
+		
+		$date		= explode(' ',$service['date_end']);
+		$date		= array_shift($date);
+		list($yyyy,$mm,$dd)	= explode('-',$date);
+		$tsEndService	= mktime(0,0,0,$mm,$dd,$yyyy);
+		$tsToday		= mktime(0,0,0,date('m'),date('d'),date('Y'));
+		
+		$dayService		= round( ($tsEndService - $tsStartService) / ( 60*60*24 ) );
+		$priceServiceForDay	= $pricePayed / $dayService;
+		
+		$tsRemain		= 0;
+		$priceRefund	= false;
+		if( $tsEndService > $tsToday ) {
+			$dayRemain		= round( ( $tsEndService - $tsToday ) / (60*60*24) );
+			$priceRefund	= round($priceServiceForDay * $dayRemain,2);
+		}
+		
+		$productsUpgrades	= ProductsUpgrades::getUpgradesbyProductID($productid);
 		$products	= array();
 		foreach($productsUpgrades as $productUpgradeId => $productUpgradeName ) {
 			$productUpgrade					= Products::getAllInfo($productUpgradeId);	
@@ -91,13 +114,15 @@ class ServicesController extends Zend_Controller_Action {
 			
 			$products[]		= $productUpgrade;
 		}
-		$this->view->products = $products;
+
+		$this->view->priceRefund 	= $priceRefund;
+		$this->view->products 		= $products;
 		
+		$NS->upgrade	= new stdClass;
 		$NS->upgrade->parentorder	= $id;
 		
 		$this->view->title = "Upgrade products List";
 		$this->view->description = "List of all your own services subscribed";
-		$this->view->service = $data;
 	}
 	
 	/**

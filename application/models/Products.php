@@ -365,7 +365,7 @@ class Products extends BaseProducts {
 	 * Get the price of the product
 	 * @param integer $productid
 	 */
-	public static function getPrices($productid) {
+	public static function getPrices($productid,$refund = false) {
 		$prices = array ();
 		
 		if (is_numeric ( $productid )) {
@@ -376,7 +376,6 @@ class Products extends BaseProducts {
 			
 			if (! empty ( $product )) {
 				if (! empty ( $product ['price_1'] ) && $product ['price_1'] > 0) {
-					
 					// Taxes calculation
 					if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
 						$taxincluded = ($product ['price_1'] * ($tax['percentage'] + 100) / 100);
@@ -386,10 +385,28 @@ class Products extends BaseProducts {
 					
 					return array ('type' => 'flat', 'value' => $product ['price_1'], 'taxincluded' => $taxincluded, 'taxes' => $tax );
 				} else {
-
 					// Get the price min & max interval tranches
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
 					if (!empty($tranches[1])) {
+						if( $refund !== false ) {
+							$idBillingCircle		= $tranches[0]['BillingCycle']['billing_cycle_id'];
+							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+							$priceToPay				= $tranches[0]['price'] * $monthBilling;
+							$priceToPayWithRefund	= $priceToPay - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$priceToPayWithRefund	= $priceToPay;
+							}
+							$tranches[0]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							
+							$idBillingCircle		= $tranches[1]['BillingCycle']['billing_cycle_id'];
+							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+							$priceToPay				= $tranches[1]['price'] * $monthBilling;
+							$priceToPayWithRefund	= $priceToPay - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$priceToPayWithRefund	= $priceToPay;
+							}
+							$tranches[1]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+						}
 						
 						// Taxes calculation
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
