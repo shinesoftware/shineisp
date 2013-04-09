@@ -1195,7 +1195,6 @@ class Orders extends BaseOrders {
 		$hostingplans = self::get_hostingplans_from_order($orderid);
 
 		foreach ( $hostingplans as $data ) {
-			die('faccio add task');
 			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
 		}
 	}	
