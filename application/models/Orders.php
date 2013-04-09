@@ -1194,10 +1194,8 @@ class Orders extends BaseOrders {
 		
 		// Add the panel action tasks
 		$hostingplans = self::get_hostingplans_from_order($orderid);
-		print_r($hostingplans);
-		die();
+
 		foreach ( $hostingplans as $data ) {
-			die('faccio add task');
 			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
 		}
 	}	
@@ -1211,7 +1209,9 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			self::RunTaks($orderid);
+			if ( ! self::RunTasks($orderid) ) {
+				return false;
+			}
 			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
@@ -1731,9 +1731,10 @@ class Orders extends BaseOrders {
 		$hplan = array ();
 		$i = 0;
 		$items = OrdersItems::getAllDetails ( $orderID, null, true );
+
 		if (count ( $items ) > 0) {
 			foreach ( $items as $item ) {
-				if ($item ['Products'] ['type'] == "hosting") {
+				if (strtolower($item ['Products']['type']) == "hosting") {
 					if (! empty ( $item ['parameters'] )) {
 						$hplan [$i] ['orderitem_id'] = $item ['detail_id'];
 						$hplan [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];

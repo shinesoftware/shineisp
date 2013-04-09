@@ -176,7 +176,6 @@ class Admin_ServicesController extends Zend_Controller_Action {
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 				array("url" => "/admin/services/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 				array("url" => "/admin/services/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
-				array("url" => "/admin/services/create/id/$id", "label" => $this->translator->translate('Create'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
 		try {
