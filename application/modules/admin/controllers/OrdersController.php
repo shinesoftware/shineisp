@@ -260,7 +260,8 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$this->view->mex = urldecode ( $this->getRequest ()->getParam ( 'mex' ) );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		$createInvoiceConfirmText = $this->translator->translate('Are you sure to create or overwrite invoice for this order?');
+		$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure to create or overwrite invoice for this order? The order is not paid.') : $this->translator->translate('Are you sure to create or overwrite invoice for this order?');
+		
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(

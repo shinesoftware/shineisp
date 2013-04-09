@@ -243,7 +243,8 @@ class Products extends BaseProducts {
 				
 				// Create the price tranches
 				if (! empty ( $params ['tranche_qty'] ) && ! empty ( $params ['tranche_measure'] ) && ! empty ( $params ['tranche_price'] )) {
-					ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price']);
+					$params['tranche_setupfee'] = (isset($params['tranche_setupfee'])) ? $params['tranche_setupfee'] : 0;
+					ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
 				}
 				
 				// Attach the wiki pages to a product

@@ -422,6 +422,17 @@ class Customers extends BaseCustomers {
 	}
 	
 	/**
+	 * getCustomerbyEmailSha1
+	 * Get a customer by SHA1 email  
+	 * @param $email
+	 * @return Array
+	 */
+	public static function getCustomerbyEmailSha1($email) {
+		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "SHA1(email) = ?", $email )->limit ( 1 );
+		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+	}
+	
+	/**
 	 * isReseller
 	 * Get if the customer is a reseller  
 	 * @return Array
