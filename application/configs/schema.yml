@@ -2622,6 +2622,10 @@ ProductsTranches:
     quantity:
       type: integer(4)
       notnull: true
+    setupfee:
+      type: float(10)
+      default: '0.00'
+      notnull: true
     price:
       type: float(10)
       notnull: true

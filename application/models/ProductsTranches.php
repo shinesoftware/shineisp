@@ -22,11 +22,12 @@ class ProductsTranches extends BaseProductsTranches
 	 * @param string $measure
 	 * @param float $price
 	 */
-	public static function saveAll($productId, $billingId, $qta, $measure, $price) {
+	public static function saveAll($productId, $billingId, $qta, $measure, $price, $setupfee = 0) {
 		$tranches = new ProductsTranches ();
 		$tranches->quantity = $qta;
 		$tranches->measurement = $measure;
 		$tranches->billing_cycle_id = $billingId;
+		$tranches->setupfee = $setupfee;
 		$tranches->price = $price;
 		$tranches->product_id = $productId;
 		$tranches->save ();

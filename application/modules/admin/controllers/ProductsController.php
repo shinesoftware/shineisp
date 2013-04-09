@@ -253,7 +253,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 					$this->view->media = array ('records' => $media, 'delete' => array ('controller' => 'products', 'action' => 'delmedia' ) );
 				}
 				
-				$tranches = ProductsTranches::getTranches ( $id, "tranche_id, quantity, measurement, price, bc.name as billingcycle, selected" );
+				$tranches = ProductsTranches::getTranches ( $id, "tranche_id, quantity, measurement, setupfee, price, bc.name as billingcycle, selected" );
 				if (isset ( $tranches [0] )) {
 					$this->view->tranches = array ('records' => $tranches, 'actions' => array ('/admin/products/setdefaultrance/id/' => 'Set as default' ), 'delete' => array ('controller' => 'products', 'action' => 'deltranche' ) );
 				}

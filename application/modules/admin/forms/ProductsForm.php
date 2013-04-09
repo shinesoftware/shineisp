@@ -253,7 +253,14 @@ class Admin_Form_ProductsForm extends Zend_Form
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));          
-        
+
+        $this->addElement('text', 'tranche_setupfee', array(
+            'filters'    => array('StringTrim'),
+            'label'      => 'Setup fee',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input little-input'
+        ));  
+		
         $this->addElement('text', 'tranche_price', array(
             'filters'    => array('StringTrim'),
             'label'      => 'Unit Price',
