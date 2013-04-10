@@ -1098,8 +1098,15 @@ class Orders extends BaseOrders {
 					$item['parameters'] = json_encode ( $hostingplan );
 				}	
 				
-				echo 'Prezzo '.$item['price']."<br/>";
-				die();
+				//If there is a refund update the price
+				if( $upgrade !== false ) {
+					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
+					$refund			= $refundInfo['refund'];
+					$priceWithRefund= $item['price'] - $refund;
+					if( $priceWithRefund > 0 ) {
+						$item['price']	= $priceWithRefund;
+					}
+				}
 				
 				$item['cost'] = $product ['cost'];
 				$item['setupfee'] = $product ['setupfee'];
