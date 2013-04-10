@@ -1062,12 +1062,6 @@ class Orders extends BaseOrders {
 					$item['date_end'] = null;
 				}
 				
-				if( $upgrade != false ) {
-					$item['parent_detail_id']	= $upgrade;
-				} else {
-					$item['parent_detail_id']	= 0;
-				}
-				
 				// IMPORTANT //
 				// TODO: This condition is temporary: $product ['type'] != "domain" 
 
@@ -1099,6 +1093,7 @@ class Orders extends BaseOrders {
 				}	
 				
 				//If there is a refund update the price
+				$item['parent_detail_id']	= 0;
 				if( $upgrade !== false ) {
 					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
 					$refund			= $refundInfo['refund'];
@@ -1106,6 +1101,12 @@ class Orders extends BaseOrders {
 					if( $priceWithRefund > 0 ) {
 						$item['price']	= $priceWithRefund;
 					}
+					$item['parent_detail_id']	= $upgrade;
+					
+					//Update description
+					//$item['description'] 		= 'Change service from '.$name;
+					
+					
 				}
 				
 				$item['cost'] = $product ['cost'];
