@@ -92,18 +92,23 @@
 	   </div>
 	   
 	   <div class="ui-tabs-hide" id="tab3">
-	   		<?= $this->simplegrid($this->paymentsdatagrid);?> <br/>
-	   		<br/>
-	   		<h2><?php echo $this->translate('Add new payment')?></h2>
-	   		<br/>
+	   		<?= $this->simplegrid($this->paymentsdatagrid);?>
 	   		
-            <?php echo $form->paymentdate->render()?>
-            <?php echo $form->income->render()?>
-            <?php echo $form->confirmed->render()?>
-
-            <?php echo $form->bank_id->render()?>
-            <?php echo $form->reference->render()?>
-            <?php echo $form->payment_description->render()?>
+	   		<div class="paymentgroup">
+		   		<fieldset class="column-left">
+		   			<?php echo $form->paymentdate->render()?>
+		            <?php echo $form->income->render()?>
+		            <?php echo $form->confirmed->render()?>
+		   		</fieldset>
+		   		
+		   		<fieldset class="column-right">
+			   		<?php echo $form->bank_id->render()?>
+		            <?php echo $form->reference->render()?>
+		            <?php echo $form->payment_description->render()?>
+		   		</fieldset>
+		   	</div>
+	   		<div class="clear"></div>
+	   		
 	   </div>
 	   
 	   <div class="ui-tabs-hide" id="tab4">

@@ -105,6 +105,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
     	$this->addElement('text', 'defaultvalue', array(
             'filters'    => array('StringTrim'),
             'label'      => 'Default Value',
+            'description'      => 'When the type of the object is a selectbox you have to use the Json code. eg: {"1": "True", "0": "False"}',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));

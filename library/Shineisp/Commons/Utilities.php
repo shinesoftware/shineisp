@@ -12,7 +12,7 @@
 class Shineisp_Commons_Utilities {
 	
 	/**
-	 * 
+	 * Get the quarter number by month number
 	 * @param unknown_type $monthNumber
 	 */
 	public static function getQuarterByMonth($monthNumber) {
@@ -26,13 +26,13 @@ class Shineisp_Commons_Utilities {
 	 * @param string $text
 	 */
 	public static function format($text) {
-	 	if(empty($text)){
-	 		return false;
-	 	}
-	 
-	 	// If you need more symbols you can add them before ]
+		if(empty($text)){
+			return false;
+		}
+
+		// If you need more symbols you can add them before ]
 		return preg_replace("/[^a-zA-Z0-9_]+/", "", $text);
-	}	
+	}
 	
 	/**
 	 * Check the database connection

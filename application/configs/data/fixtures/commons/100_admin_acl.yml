@@ -536,6 +536,11 @@ AdminResources:
     module: default
     controller: atom
     parent_id: 1    
+  AdminResources_88:
+    name: Payment Transactions
+    module: admin
+    controller: payments
+    parent_id: 1    
     
         
 AdminPermissions:
@@ -725,6 +730,10 @@ AdminPermissions:
     permission: allow
   AdminPermissions_149:
     resource_id: 82
+    role_id: 1
+    permission: allow
+  AdminPermissions_150:
+    resource_id: 88
     role_id: 1
     permission: allow
 

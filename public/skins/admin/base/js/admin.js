@@ -74,10 +74,13 @@ $(document).ready(function(){
 	});
 	
 	/* Tab Management*/
-	 $( "#tabs" ).tabs();
-	
+	$( "#tabs" ).tabs({
+		 select: function(event, ui) {window.location.hash = ui.tab.hash;},
+		 cookie: {expires: 1, name: this.hash}
+	});
+	 
 	 /* MultiSelect Management */
-	 $(".multiselect").multiselect({minWidth:350}).multiselectfilter();
+	$(".multiselect").multiselect({minWidth:350}).multiselectfilter();
 
 	/* Date picker */
 	$(function() {

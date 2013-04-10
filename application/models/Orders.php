@@ -399,16 +399,9 @@ class Orders extends BaseOrders {
 					}
 				}
 				
-				// Update the totals of the order selected
-				$total = self::updateTotalsOrder ( $id );
-				
+				// Handle the payment transaction
 				if (! empty ( $params ['paymentdate'] )) {
-					//$payment_exist = Payments::findbyorderid ( $id, null, true );
-					//if (count ( $payment_exist ) == 0) {
-						$payment = new Payments ();
-					//} else {
-					//	$payment = Doctrine::getTable ( 'Payments' )->find ( $payment_exist [0] ['payment_id'] );
-					//}
+					$payment = new Payments ();
 					$payment->paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $params ['paymentdate'] );
 					$payment->order_id = $id;
 					$payment->bank_id = $params ['bank_id'];
@@ -416,12 +409,14 @@ class Orders extends BaseOrders {
 					$payment->description = $params ['payment_description'];
 					$payment->reference = $params ['reference'];
 					$payment->confirmed = $params ['confirmed'];
-					//$payment->income = $total;
 					$payment->income = $params['income'];
 					$payment->save ();
 				}
 				
+				// Set the status of the order
 				OrdersItems::setNewStatus ( $id, $params ['status_id'] );
+				
+				// Update the totals of the order selected
 				self::updateTotalsOrder ( $id );
 				
 				return $id;
@@ -648,11 +643,12 @@ class Orders extends BaseOrders {
 								$orderitem->billing_cycle_id = $oldOrderDetails [0] ['billing_cycle_id'];
 								
 								if ($product ['type'] == "service") {
+									
 									// Get the number of the months to be sum to the expiration date of the service
 									$date_end = Shineisp_Commons_Utilities::add_date ( date ( $oldOrderDetails [0] ['date_end'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
 									
 									$orderitem->date_start = $oldOrderDetails [0] ['date_end']; // The new order will have the date_end as date_start
-									$orderitem->date_end = $date_end;
+									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 								
 								} elseif ($product ['type'] == "domain") {
 									// Get the number of the months to be sum to the expiration date of the domain
@@ -661,7 +657,7 @@ class Orders extends BaseOrders {
 									$date_end = Shineisp_Commons_Utilities::add_date ( date ( $product ['expiring_date'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
 									$orderitem->date_start = $product ['expiring_date']; // The new order will have the date_end as date_start
 									$orderitem->tld_id = !empty($parameters['tldid']) ? $parameters['tldid'] : NULL;
-									$orderitem->date_end = $date_end;
+									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 									$orderitem->parameters = json_encode ( array ('domain' => trim($parameters['domain']), 'action' => 'renewDomain', 'tldid' => $parameters['tldid'] ) );
 								}
 								
@@ -674,7 +670,7 @@ class Orders extends BaseOrders {
 								
 								$orderitem->save ();
 								$orderitemid = $orderitem->getIncremented ();
-								
+
 								// sum of all the products prices 
 								$total = $total + ($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']);
 								
@@ -1337,7 +1333,6 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Delete
 	 * Delete an order using its ID and the customer id.
 	 * @param $id, $customerid
 	 * @return boolean
