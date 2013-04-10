@@ -215,7 +215,7 @@ class Products extends BaseProducts {
 				$products->showonrss     = !empty($params ['showonrss']) ? 1 : 0;
 				$products->external_id   = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
 				$products->downgradable  = !empty($params['downgradable']) ? 1: 0;
-				
+
 				// Save the data
 				$products->save ();
 				$product_id = $products->product_id;
