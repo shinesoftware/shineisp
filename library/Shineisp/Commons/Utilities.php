@@ -12,11 +12,26 @@
 class Shineisp_Commons_Utilities {
 	
 	/**
-	 * 
+	 * Get the quarter number by month number
 	 * @param unknown_type $monthNumber
 	 */
 	public static function getQuarterByMonth($monthNumber) {
 		return floor(($monthNumber - 1) / 3) + 1;
+	}
+	
+	/**
+	 * filter a text string that only contains a to z, A to Z, 0 to 9 
+	 * symbol underscore or low dash "_" included 
+	 * 
+	 * @param string $text
+	 */
+	public static function format($text) {
+		if(empty($text)){
+			return false;
+		}
+
+		// If you need more symbols you can add them before ]
+		return preg_replace("/[^a-zA-Z0-9_]+/", "", $text);
 	}
 	
 	/**
