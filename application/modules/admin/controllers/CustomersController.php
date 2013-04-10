@@ -282,18 +282,47 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	
 	private function servicesGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
-		try {
-			if (isset ( $request->id ) && is_numeric ( $request->id )) {
-				// In order to select only the fields interested we have to add an alias to all the fields. If the aliases are not created Doctrine will require an index field for each join created.
-				//$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
-				$rs = Products::getAllActiveServicesByCustomerID ( $request->id, 'o.order_id, oi.detail_id as detail_id, oi.order_id as orderid, oi.date_start as datestart, oi.date_end as dateend, pd.name as productname' );
-				if ($rs) {
-					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'services', 'action' => 'edit' ), 'pager' => true );
+		if (isset ( $request->id ) && is_numeric ( $request->id )) {
+			$rs = Orders::getOrdersDetailsByCustomerID ( $request->id );
+			
+			if (isset ( $rs )) {
+				// In this section I will delete the empty OrdersItemsDomains subarray created by Doctrine because the simplegrid works only with a flat array
+				// where the array keys are the fields. So, if the OrdersItemsDomains is empty means that if the order item doesn't has 
+				// a domain attached it this empty array will be deleted in all the recordset.
+				// TODO: improve this section when doctrine improve the engine. 
+				$myrec = array ();
+				foreach ( $rs as $record ) {
+					echo "<xmp>";
+					print_r($record);
+					$amount = $record ['quantity'] * $record ['price'] + $record ['setupfee'];
+					
+					// Add the taxes if the product need them
+					if ($record ['taxpercentage'] > 0) {
+						$record ['vat']        = number_format ( ($amount * $record ['taxpercentage'] / 100), 2 );
+						$record ['grandtotal'] = number_format ( ($amount * (100 + $record ['taxpercentage']) / 100), 2 );
+					} else {
+						$record ['vat'] = 0;
+						$record ['grandtotal'] = $amount;
+					}
+					
+					if ( isset ( $record ['OrdersItemsDomains'] ) ) {
+						unset ( $record ['OrdersItemsDomains'] );
+					}
+					unset ( $record ['taxpercentage'] );
+					$myrec [] = $record;
 				}
+				echo "<xmp>";
+				print_r($myrec);
+				
+				
+				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 			}
 		} catch ( Exception $e ) {
 			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
+				
+		
+		
 	}
 	
 	private function addressesGrid() {
