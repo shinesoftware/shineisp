@@ -365,9 +365,9 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
-		
+
 		$form = $this->createAttributesElements ( $form, $request->getParam('group_id') );
-		
+
 		// Check if we have a POST request
 		if (! $request->isPost ()) {
 			return $this->_helper->redirector ( 'list', 'products', 'admin' );
@@ -411,7 +411,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 						// Check the label
 						$label = (! empty ( $element ['ProductsAttributes']['ProductsAttributesData'] [0] ['label'] )) ? $element ['ProductsAttributes']['ProductsAttributesData'] [0] ['label'] : $element ['ProductsAttributes']['code'];
 						$description = (!empty($element ['ProductsAttributes']['ProductsAttributesData'] [0] ['description'])) ? $element ['ProductsAttributes']['ProductsAttributesData'] [0] ['description'] : "";
-						
+
 						// Create the element
 						$attributeForm->addElement ( $element ['ProductsAttributes']['type'], $element ['ProductsAttributes']['code'], array ('label' => $label, 'class' => 'text-input large-input', 'decorators' => array('Composite'), 'description' => $description) );
 						
