@@ -238,7 +238,8 @@ class Orders extends BaseOrders {
                      d.setupfee as setupfee, 
                      t.percentage as taxpercentage,
                      DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
-                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
+                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end,
+                     d.setup" )
 		->from ( 'OrdersItems d' )
 		->leftJoin ( 'd.Orders o' )
 		->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )

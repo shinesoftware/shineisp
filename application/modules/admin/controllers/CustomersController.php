@@ -303,16 +303,25 @@ class Admin_CustomersController extends Zend_Controller_Action {
 						$record ['grandtotal'] = $amount;
 					}
 					
+					$record['username'] = '';
+					if ( isset($record['setup']) ) {
+						$setup = json_decode($record['setup']);
+						unset($record['setup']);
+					
+						if ( isset($setup->webpanel) && isset($setup->webpanel->username) ) {
+							$record['username'] = $setup->webpanel->username;
+						}
+						
+					}
+					
 					if ( isset ( $record ['OrdersItemsDomains'] ) ) {
 						unset ( $record ['OrdersItemsDomains'] );
 					}
 					unset ( $record ['taxpercentage'] );
+					
 					$myrec [] = $record;
 				}
-				echo "<xmp>";
-				print_r($myrec);
-				
-				
+
 				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 			}
 		}
