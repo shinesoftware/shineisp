@@ -132,7 +132,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 						OrdersItems::set_setup($task ['orderitem_id'], array('username'=>$email, 'password'=>$password), "emails");
 					
 						// Add relation between order_item and server
-						OrdersItemsServers::addServer($task['orderitem_id'], $ServerId);
+						OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
 					
 						// Create the log message
 						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
@@ -234,7 +234,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 					OrdersItems::set_setup($task ['orderitem_id'], array('db'=>$dbname, 'username'=>$dbuser, 'password'=>$password), "database");
 					
 					// Add relation between order_item and server
-					OrdersItemsServers::addServer($task['orderitem_id'], $ServerId);
+					OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
 					
 					// Create the log message
 					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
@@ -449,7 +449,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 					}
 					
 					// Add relation between order_item and server
-					OrdersItemsServers::addServer($task['orderitem_id'], $ServerId);
+					OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
 					
 					// Create the log message
 					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
