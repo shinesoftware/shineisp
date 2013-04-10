@@ -1027,7 +1027,16 @@ class Orders extends BaseOrders {
 				$item['date_start'] = date ( 'Y-m-d H:i:s' );
 					
 				// Manages all the products that have no recursion payment
-				$item['description'] 		= $product ['name'];
+				$name	= "";
+				if( isset( $product['ProductsData']) ) {
+					$textInfo	= array_shift($product['ProductsData']);
+					if( ! empty($textInfo) ) {
+						if( isset( $textInfo['name'] ) ) {
+							$name	= $textInfo['name'];
+						}
+					}
+				}
+				$item['description'] 		= $name;
 				$item['billing_cycle_id'] 	= $billing; 
 				$item['quantity'] 			= $qta;
 				
