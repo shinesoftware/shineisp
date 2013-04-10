@@ -307,12 +307,10 @@ class Admin_CustomersController extends Zend_Controller_Action {
 						unset ( $record ['OrdersItemsDomains'] );
 					}
 					unset ( $record ['taxpercentage'] );
+					
 					$myrec [] = $record;
 				}
-				echo "<xmp>";
-				print_r($myrec);
-				
-				
+
 				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 			}
 		}
