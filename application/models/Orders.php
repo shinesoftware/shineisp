@@ -1066,12 +1066,6 @@ class Orders extends BaseOrders {
 					$item['date_end'] = null;
 				}
 				
-				if( $upgrade != false ) {
-					$item['parent_detail_id']	= $upgrade;
-				} else {
-					$item['parent_detail_id']	= 0;
-				}
-				
 				// IMPORTANT //
 				// TODO: This condition is temporary: $product ['type'] != "domain" 
 
@@ -1103,6 +1097,7 @@ class Orders extends BaseOrders {
 				}	
 				
 				//If there is a refund update the price
+				$item['parent_detail_id']	= 0;
 				if( $upgrade !== false ) {
 					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
 					$refund			= $refundInfo['refund'];
@@ -1110,11 +1105,28 @@ class Orders extends BaseOrders {
 					if( $priceWithRefund > 0 ) {
 						$item['price']	= $priceWithRefund;
 					}
+					$item['parent_detail_id']	= $upgrade;
+					
+					//Update description
+					$orderItem		= OrdersItems::getDetail($upgrade);
+					$productIdOld	= $orderItem['product_id'];
+					$productOld 	= Products::getAllInfo($productIdOld);
+					$name	= "";
+					if( isset( $productOld['ProductsData']) ) {
+						$textInfo	= array_shift($productOld['ProductsData']);
+						if( ! empty($textInfo) ) {
+							if( isset( $textInfo['name'] ) ) {
+								$name	= $textInfo['name'];
+							}
+						}
+					}					
+					
+					$item['description'] 		= 'Change service from '.$name.' to '.$item['description'];
 				}
 				
 				$item['cost'] = $product ['cost'];
 				$item['setupfee'] = $product ['setupfee'];
-				$item['description'] = !empty($description) ? $description : $product['name'];
+				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
 				$item->save();
 				
