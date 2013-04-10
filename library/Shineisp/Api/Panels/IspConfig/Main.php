@@ -305,23 +305,23 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				$username .= "_ftp$id"; 
 				
 				// Create a random password string
-				$password = Shineisp_Commons_Utilities::GenerateRandomString();
+				$password = Shineisp_Commons_Utilities::GenerateRandomPassword();
 				
 				$params = array(
-						'server_id' => 1,
+						'server_id'        => 1,
 						'parent_domain_id' => $websiteID,
-						'username' => $username,
-						'password' => $password,
-						'quota_size' => $parameters['webspace'],
-						'active' => 'y',
-						'uid' => 'web' . $websiteID,
-						'gid' => 'client' . $clientId,
-						'dir' => '/var/www/clients/client' .$clientId. '/web' . $websiteID,
-						'quota_files' => -1,
-						'ul_ratio' => -1,
-						'dl_ratio' => 200,
-						'ul_bandwidth' => -1,
-						'dl_bandwidth' => 100);
+						'username'         => $username,
+						'password'         => $password,
+						'quota_size'       => $parameters['webspace'],
+						'active'           => 'y',
+						'uid'              => 'web' . $websiteID,
+						'gid'              => 'client' . $clientId,
+						'dir'              => '/var/www/clients/client' .$clientId. '/web' . $websiteID,
+						'quota_files'      => -1,
+						'ul_ratio'         => -1,
+						'dl_ratio'         => 200,
+						'ul_bandwidth'     => -1,
+						'dl_bandwidth'     => 100);
 					
 				try{
 					$ftpUserID = $client->sites_ftp_user_add($this->getSession(), $clientId, $params);
@@ -519,24 +519,24 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		// Customer Profile
 		$record ['company_name'] = $customer ['company'];
 		$record ['contact_name'] = $customer ['firstname'] . " " . $customer ['lastname'];
-		$record ['customer_no'] = $customer ['customer_id'];
-		$record ['vat_id'] = $customer ['vat'];
-		$record ['email'] = $customer ['email'];
-		$record ['street'] = ! empty ( $customer ['Addresses'] [0] ['address'] ) ? $customer ['Addresses'] [0] ['address'] : "";
-		$record ['zip'] = ! empty ( $customer ['Addresses'] [0] ['code'] ) ? $customer ['Addresses'] [0] ['code'] : "";
-		$record ['city'] = ! empty ( $customer ['Addresses'] [0] ['city'] ) ? $customer ['Addresses'] [0] ['city'] : "";
-		$record ['state'] = ! empty ( $customer ['Addresses'] [0] ['area'] ) ? $customer ['Addresses'] [0] ['area'] : "";
-		$record ['country'] = ! empty ( $customer ['Addresses'] [0] ['Countries'] ['code'] ) ? $customer ['Addresses'] [0] ['Countries'] ['code'] : "";
-		$record ['mobile'] = Contacts::getContact ( $customer ['customer_id'], "Mobile" );
-		$record ['fax'] = Contacts::getContact ( $customer ['customer_id'], "Fax" );
-		$record ['telephone'] = Contacts::getContact ( $customer ['customer_id'] );
+		$record ['customer_no']  = $customer ['customer_id'];
+		$record ['vat_id']       = $customer ['vat'];
+		$record ['email']        = $customer ['email'];
+		$record ['street']       = ! empty ( $customer ['Addresses'] [0] ['address'] ) ? $customer ['Addresses'] [0] ['address'] : "";
+		$record ['zip']          = ! empty ( $customer ['Addresses'] [0] ['code'] ) ? $customer ['Addresses'] [0] ['code'] : "";
+		$record ['city']         = ! empty ( $customer ['Addresses'] [0] ['city'] ) ? $customer ['Addresses'] [0] ['city'] : "";
+		$record ['state']        = ! empty ( $customer ['Addresses'] [0] ['area'] ) ? $customer ['Addresses'] [0] ['area'] : "";
+		$record ['country']      = ! empty ( $customer ['Addresses'] [0] ['Countries'] ['code'] ) ? $customer ['Addresses'] [0] ['Countries'] ['code'] : "";
+		$record ['mobile']       = Contacts::getContact ( $customer ['customer_id'], "Mobile" );
+		$record ['fax']          = Contacts::getContact ( $customer ['customer_id'], "Fax" );
+		$record ['telephone']    = Contacts::getContact ( $customer ['customer_id'] );
 		
 		// System Configuration
-		$record ['language'] = substr ( $customer ['language'], - 5, 2 );
-		$record ['usertheme'] = "default";
-		$record ['template_master'] = 0;
+		$record ['language']            = substr ( $customer ['language'], - 5, 2 );
+		$record ['usertheme']           = "default";
+		$record ['template_master']     = 0;
 		$record ['template_additional'] = "";
-		$record ['created_at'] = 0;
+		$record ['created_at']          = 0;
 		
 		// Get the Json encoded parameters in the task
 		$parameters = json_decode ( $task ['parameters'], true );
@@ -556,9 +556,32 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 			// Get the web server setup
 			$server = Servers::getActiveWebserver();
 			
-			// Create the username string for instance from John Doe to jdoe
-			$username = strtolower(substr($customer ['firstname'], 0, 1) . preg_replace("#[^a-zA-Z0-9]*#", "", $customer ['lastname']));
-
+			$arrUsernames = array();
+			if ( isset($customer ['company']) && isset($customer ['company']) && !empty($customer ['vat']) && !empty($customer ['vat']) ) {
+				// Microsoft Corp => microsoftcorp
+				$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", $customer ['company']));
+			} else {
+				// Jon Doe => jdoe				
+				$arrUsernames[]  = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", substr($customer ['firstname'], 0, 1).$customer ['lastname']));
+				
+				// Jon Doe => doej
+				$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", $customer['lastname'].substr($customer ['firstname'], 0, 1)));
+				
+				// Jon Doe => jond
+				$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", $customer['firstname'].substr($customer ['lastname'], 0, 1)));
+				
+				// Jon Doe => djon
+				$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", substr($customer ['lastname'], 0, 1).$customer ['firstname']));
+			}
+			$arrUsernames[] = $arrUsernames[0].time(); // fallback to first generated username (microsoftcorp or jdoe) followed by timestamp
+			
+			// Check if username is available
+			foreach ( $arrUsernames as $username ) {
+				if ( ! $client->client_get_by_username($this->getSession (), $username) ) {
+					break;	
+				}	
+			}
+			
 			// Create a random password string
 			$password = Shineisp_Commons_Utilities::GenerateRandomString();
 			
