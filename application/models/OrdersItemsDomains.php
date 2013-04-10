@@ -187,8 +187,8 @@ class OrdersItemsDomains extends BaseOrdersItemsDomains {
 	    			if ($detail->Products['type'] == "hosting") {
 	    				#if(FALSE === self::check_domains_in_order($orderID, $domainID)){
 			    			$domain = new OrdersItemsDomains();
-							$domain ['domain_id'] = $domainID;
-							$domain ['order_id'] = $orderID;
+							$domain ['domain_id']    = $domainID;
+							$domain ['order_id']     = $orderID;
 							$domain ['orderitem_id'] = $detail['detail_id'];
 							$domain->save ();
 	    				#}
@@ -200,5 +200,20 @@ class OrdersItemsDomains extends BaseOrdersItemsDomains {
     	}
     	return false;
     }
+
+    /**
+     * Remove all domain names from an hosting service
+     * 
+     * @param integer $orderID
+     */
+    public static function removeAllDomains($orderID){
+    	if( is_numeric($orderID) ) {
+			return Doctrine_Query::create ()->delete ()->from ( 'OrdersItemsDomains oid' )
+				->where ( 'orderitem_id = ?', $orderID )
+				->execute ();
+    	}
+    	return false;
+    }
+
 
 }
