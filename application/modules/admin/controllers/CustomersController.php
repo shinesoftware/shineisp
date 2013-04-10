@@ -317,12 +317,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 				
 				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 			}
-		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
-				
-		
-		
+
 	}
 	
 	private function addressesGrid() {
