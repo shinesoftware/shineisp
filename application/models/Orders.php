@@ -1107,9 +1107,20 @@ class Orders extends BaseOrders {
 					$item['parent_detail_id']	= $upgrade;
 					
 					//Update description
-					//$item['description'] 		= 'Change service from '.$name;
+					$orderItem		= OrdersItems::getDetail($upgrade);
+					$productIdOld	= $orderItem['product_id'];
+					$productOld 	= Products::getAllInfo($productIdOld);
+					$name	= "";
+					if( isset( $product['ProductsData']) ) {
+						$textInfo	= array_shift($product['ProductsData']);
+						if( ! empty($textInfo) ) {
+							if( isset( $textInfo['name'] ) ) {
+								$name	= $textInfo['name'];
+							}
+						}
+					}					
 					
-					
+					$item['description'] 		= 'Change service from '.$name.' to '.$item['description'];
 				}
 				
 				$item['cost'] = $product ['cost'];
