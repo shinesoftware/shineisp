@@ -573,6 +573,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				// Jon Doe => djon
 				$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", substr($customer ['lastname'], 0, 1).$customer ['firstname']));
 			}
+			$arrUsernames[] = $arrUsernames[0].$customer ['customer_id']; // fallback to first generated username (microsoftcorp or jdoe) followed by customer_id
 			$arrUsernames[] = $arrUsernames[0].time(); // fallback to first generated username (microsoftcorp or jdoe) followed by timestamp
 			
 			// Check if username is available
