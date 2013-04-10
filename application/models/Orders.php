@@ -223,8 +223,10 @@ class Orders extends BaseOrders {
 	 * Get all the details from a order
 	 */
 	public static function getOrdersDetailsByCustomerID($id) {
+		$id = intval($id);
+		
 		$dq = Doctrine_Query::create ()->select ( "
-		             o.order_id AS order_id
+		             o.order_id AS order_id,
                      oid.relationship_id, 
                      dm.domain_id, 
                      dt.tld_id,

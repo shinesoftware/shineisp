@@ -292,8 +292,6 @@ class Admin_CustomersController extends Zend_Controller_Action {
 				// TODO: improve this section when doctrine improve the engine. 
 				$myrec = array ();
 				foreach ( $rs as $record ) {
-					echo "<xmp>";
-					print_r($record);
 					$amount = $record ['quantity'] * $record ['price'] + $record ['setupfee'];
 					
 					// Add the taxes if the product need them
