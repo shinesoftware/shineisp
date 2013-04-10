@@ -180,7 +180,7 @@ class OrdersItemsDomains extends BaseOrdersItemsDomains {
      */
     public static function addDomain($orderID, $domainID){
     	
-    	if(is_numeric($orderID) && is_numeric($orderID)){
+    	if(is_numeric($orderID) && is_numeric($domainID)){
 	    	$order = Orders::find($orderID);
 	    	if(!empty($order)){
 		    	foreach ( $order->OrdersItems as $detail ) {
