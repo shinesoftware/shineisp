@@ -219,6 +219,41 @@ class Orders extends BaseOrders {
 		}
 	}
 	
+	/*
+	 * Get all the details from a order
+	 */
+	public static function getOrdersDetailsByCustomerID($id) {
+		$dq = Doctrine_Query::create ()->select ( "
+                     oid.relationship_id, 
+                     dm.domain_id, 
+                     dt.tld_id,
+                     ws.tld,
+                     CONCAT(dm.domain, '.',ws.tld) as domain, 
+                     d.quantity, 
+                     d.description, 
+                     d.price as price, 
+                     d.setupfee as setupfee, 
+                     t.percentage as taxpercentage,
+                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
+                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
+		->from ( 'OrdersItems d' )
+		->leftJoin ( 'd.Orders o' )
+		->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
+		->leftJoin ( 'oid.Domains dm' )
+		->leftJoin ( 'd.Products p' )
+		->leftJoin ( 'dm.DomainsTlds dt' )
+		->leftJoin ( 'dt.WhoisServers ws' )
+		->leftJoin ( 'p.Taxes t' )
+		->leftJoin ( 'o.Customers c' )
+		->leftJoin ( 'c.Customers r' )
+		->leftJoin ( 'd.Statuses s' )
+		->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id));
+		$rs = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		return $rs;
+	}
+	
+	
 	/**
 	 * Upload document files
 	 */
