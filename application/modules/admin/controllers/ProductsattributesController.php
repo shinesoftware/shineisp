@@ -159,7 +159,6 @@ class Admin_ProductsattributesController extends Zend_Controller_Action {
 	public function editAction() {
 		$Session = new Zend_Session_Namespace ( 'Admin' );
 		$form = $this->getForm ( '/admin/productsattributes/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
