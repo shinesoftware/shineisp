@@ -1514,11 +1514,14 @@ class Orders extends BaseOrders {
 	
 		$customer = Customers::getAllInfo($customerid);
 		
+		$order = self::getAllInfo ( $id, null, true );
+		$date  = explode ( "-", $order [0] ['order_date'] );
+		
 		if ($retval) {
 			$subject = $retval ['subject'];
 			$Template =  $retval ['template'] ;
 			$subject = str_replace ( "[orderid]", $id, $subject );
-			$Template = str_replace ( "[orderid]", $id, $Template );
+			$Template = str_replace ( "[orderid]", sprintf ( "%03s", $id ) . "-" . $date [0], $Template );
 			$Template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $Template );
 			$Template = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['website'], $Template );
 			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], $isp ['email'], $subject, $Template);
