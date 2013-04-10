@@ -38,10 +38,23 @@ class Admin_Form_CustomersForm extends Zend_Form
         'decorators' => array('Composite'),
         'class'      => 'text-input large-input'
         ));
-        
+
         $this->getElement('taxfree')
                   ->setAllowEmpty(true)
                   ->setMultiOptions(array('0'=>'No', '1'=>'Yes'));
+
+        $this->addElement('select', 'ignore_latefee', array(
+        'label' => 'Ignore late fee',
+        'description' => 'If it is set as Yes this customers is not subject to late fee',
+        'decorators' => array('Composite'),
+        'class'      => 'text-input large-input'
+        ));
+
+        $this->getElement('ignore_latefee')
+                  ->setAllowEmpty(true)
+                  ->setMultiOptions(array('0'=>'No', '1'=>'Yes'));
+
+
 
         $this->addElement('select', 'language', array(
         'label' => 'Default Language',

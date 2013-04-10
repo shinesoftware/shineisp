@@ -71,7 +71,8 @@ class Shineisp_Commons_UrlRewrites {
     static public function format($string)
     {
     	if(!empty($string)){
-	    	$urlKey = preg_replace ( '#[^0-9a-z]+#i', '-', strtr($string, self::$convertTable) );
+    		$regex  = '#[^0-9a-z]+#i'; 
+	    	$urlKey = preg_replace ( $regex, '-', strtr($string, self::$convertTable) );
 	        $urlKey = strtolower ( $urlKey );
 	        $urlKey = trim ( $urlKey, '-' );
 	        return $urlKey;

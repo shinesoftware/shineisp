@@ -259,10 +259,13 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$this->view->mex = urldecode ( $this->getRequest ()->getParam ( 'mex' ) );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
+		$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure to create or overwrite invoice for this order? The order is not paid.') : $this->translator->translate('Are you sure to create or overwrite invoice for this order?');
+		
+		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 									array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('id'=>'submit', 'css' => array('button', 'float_right', 'submit'))),
-									array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right'))),
+									array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')"),
 									array("url" => "/admin/orders/print/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/renew/id/$id", "label" => $this->translator->translate('Renew'), "params" => array('css' => array('button', 'float_right'))),

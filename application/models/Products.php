@@ -211,10 +211,11 @@ class Products extends BaseProducts {
 				$products->position      = !empty($params ['position']) ? $params ['position'] : NULL;
 				$products->setup         = !empty($params ['setup']) ? $params ['setup'] : NULL;
 				$products->ishighlighted = !empty($params ['ishighlighted']) ? 1 : 0;
+				$products->isrefundable  = !empty($params ['isrefundable']) ? 1 : 0;
 				$products->showonrss     = !empty($params ['showonrss']) ? 1 : 0;
 				$products->external_id   = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
 				$products->downgradable  = !empty($params['downgradable']) ? 1: 0;
-				
+
 				// Save the data
 				$products->save ();
 				$product_id = $products->product_id;
@@ -243,7 +244,8 @@ class Products extends BaseProducts {
 				
 				// Create the price tranches
 				if (! empty ( $params ['tranche_qty'] ) && ! empty ( $params ['tranche_measure'] ) && ! empty ( $params ['tranche_price'] )) {
-					ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price']);
+					$params['tranche_setupfee'] = (isset($params['tranche_setupfee'])) ? $params['tranche_setupfee'] : 0;
+					ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
 				}
 				
 				// Attach the wiki pages to a product
@@ -255,6 +257,12 @@ class Products extends BaseProducts {
 				if(!empty($params ['related'])){
 					self::AddRelatedProducts ( $product_id, $params ['related'] );
 				}
+				
+				// Add the upgrade products
+				if(!empty($params ['upgrade'])){
+					self::AddUpgradeProducts ( $product_id, $params ['upgrade'] );
+				}
+				
 				
 				// Before to get the Values of the form I upload the files in the folders
 				if (! empty ( $file )) {
@@ -357,9 +365,11 @@ class Products extends BaseProducts {
 	/**
 	 * getPrices
 	 * Get the price of the product
+	 * If there's a refund subtrack to the price (20130409)
 	 * @param integer $productid
+	 * @param float   $refund
 	 */
-	public static function getPrices($productid) {
+	public static function getPrices($productid,$refund = false) {
 		$prices = array ();
 		
 		if (is_numeric ( $productid )) {
@@ -370,6 +380,14 @@ class Products extends BaseProducts {
 			
 			if (! empty ( $product )) {
 				if (! empty ( $product ['price_1'] ) && $product ['price_1'] > 0) {
+					//JAY 20130409
+					if( $refund !== false ) {
+						$priceToPayWithRefund	= $product ['price_1'] - $refund;
+						if( $priceToPayWithRefund < 0 ) {
+							$product ['price_1']	= $priceToPayWithRefund;
+						}
+					}
+					/** 20130409 ***/
 					
 					// Taxes calculation
 					if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
@@ -380,10 +398,30 @@ class Products extends BaseProducts {
 					
 					return array ('type' => 'flat', 'value' => $product ['price_1'], 'taxincluded' => $taxincluded, 'taxes' => $tax );
 				} else {
-
 					// Get the price min & max interval tranches
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
 					if (!empty($tranches[1])) {
+						//JAY 20130409
+						if( $refund !== false ) {
+							$idBillingCircle		= $tranches[0]['BillingCycle']['billing_cycle_id'];
+							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+							$priceToPay				= $tranches[0]['price'] * $monthBilling;
+							$priceToPayWithRefund	= $priceToPay - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$priceToPayWithRefund	= $priceToPay;
+							}
+							$tranches[0]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							
+							$idBillingCircle		= $tranches[1]['BillingCycle']['billing_cycle_id'];
+							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+							$priceToPay				= $tranches[1]['price'] * $monthBilling;
+							$priceToPayWithRefund	= $priceToPay - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$priceToPayWithRefund	= $priceToPay;
+							}
+							$tranches[1]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+						}
+						/** 20130409 ***/
 						
 						// Taxes calculation
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
@@ -402,6 +440,15 @@ class Products extends BaseProducts {
 						return array ('type' => 'multiple', 'measurement' => $tranches[0]['measurement'], 'tranches' => $tranches, 'minvalue' => $minvalue, 'maxvalue' => $maxvalue, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => $maxvaluewithtaxes, 'discount' => $discount, 'taxes' => $tax );
 					}else{
 						// Taxes calculation
+						
+						//JAY 20130409
+						if( $refund !== false ) {
+							$priceToPayWithRefund	= $tranches['price'] - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$tranches['price']	= $priceToPayWithRefund;
+							}
+						}
+						/** 20130409 ***/						
 						
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
 							$minvaluewithtaxes = ($tranches['price'] * ($tax['percentage'] + 100) / 100);
@@ -439,6 +486,27 @@ class Products extends BaseProducts {
 			$related->save ();
 		}
 	}
+	
+	/*
+     * AddUpgradeProducts
+     * add the related products 
+     */
+	private static function AddUpgradeProducts($id, $upgradeproducts) {
+		$i = 0;
+		
+		// Delete all the products related before adding the new one
+		ProductsUpgrades::delItemsbyProductID ( $id );
+		
+		$upgrade = new Doctrine_Collection ( 'ProductsUpgrades' );
+		if(!empty($upgradeproducts)){
+			foreach ( $upgradeproducts as $item ) {
+				$upgrade [$i]->upgrade_product_id = $item;
+				$upgrade [$i]->product_id = $id;
+				$i ++;
+			}
+			$upgrade->save ();
+		}
+	}	
 	
 	/**
 	 * getProductbyUriID
@@ -826,6 +894,21 @@ class Products extends BaseProducts {
 										->addWhere ( "p.ishighlighted = ?", 1)
 										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
+
+	/**
+	 * getAllRefundables
+	 * Get all active and refundables products
+	 * @param $locale
+	 * @return Doctrine Record
+	 */
+	public static function getAllRefundables($locale = 1) {
+		return Doctrine_Query::create ()->from ( 'Products p' )
+										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+										->leftJoin ( "p.ProductsMedia pm" )
+										->addWhere ( "p.enabled = ?", 1)
+										->addWhere ( "p.isrefundable = ?", 1)
+										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+	}
 	
 	/**
 	 * getAllRss
@@ -1019,7 +1102,7 @@ class Products extends BaseProducts {
 	}
 	
 	/**
-	 * Get all the services subscribed by a customer using his identifier 
+	 * Get all services subscribed by a customer using his identifier 
 	 * @param $id
 	 * @param $fields
 	 * @return Array
@@ -1036,14 +1119,43 @@ class Products extends BaseProducts {
 			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 			->where ( "p.type <> ?", 'domain' )
 			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) );
-			
+
 			return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
+			
 		}
 		
 		return array();
 	}
 	
+	/**
+	 * Get all active services subscribed by a customer using his identifier 
+	 * @param $id
+	 * @param $fields
+	 * @return Array
+	 */
+	public static function getAllActiveServicesByCustomerID($id, $fields = "*", $locale = 1) {
+		$items = array ();
+		
+		if (is_numeric ( $id )) {
+			$dq = Doctrine_Query::create ()->select ( $fields )
+			->from ( 'Orders o' )
+			->leftJoin ( 'o.Customers c' )
+			->leftJoin ( 'o.OrdersItems oi' )
+			->leftJoin ( 'oi.Products p' )
+			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+			->where ( "p.type <> ?", 'domain' )
+			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) )
+			->addWhere ( '? BETWEEN oi.date_start AND oi.date_end', date('Y-m-d'));
+			
 
+			return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
+			
+		}
+		
+		return array();
+	}
+	
+	
 	/**
 	 * delete the products selected 
 	 * @param array

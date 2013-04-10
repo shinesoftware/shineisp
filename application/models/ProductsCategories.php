@@ -386,10 +386,31 @@ class ProductsCategories extends BaseProductsCategories {
 		
 		return $items;
 	}
+
+	/**
+	 * getListForSettings
+	 * Get a list ready for the selectbox in general settings page
+	 * @return array
+	 */
+	public static function getListForSettings() {
+		$items = array ();
+		$arrTypes = Doctrine::getTable ( 'ProductsCategories' )->findAll ();
+	
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		
+		//$items [] = $translator->translate ( 'Select ...' );
+		
+		foreach ( $arrTypes->getData () as $c ) {
+			$items [$c ['category_id']] = $c ['name'];
+		}
+		
+		return $items;
+	}
+
 	
 	/**
-	 * getList
-	 * Get a list ready for the html select object
+	 * getAll
+	 * Get all categories
 	 * @return array
 	 */
 	public static function getAll() {

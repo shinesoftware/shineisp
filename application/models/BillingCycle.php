@@ -45,7 +45,7 @@ class BillingCycle extends BaseBillingCycle {
 	 * Get the billing cycle months 
 	 * @return integer
 	 */
-	public function getMonthsNumber($id) {
+	public static function getMonthsNumber($id) {
 		if(is_numeric($id)){
 			$record = Doctrine::getTable ( 'BillingCycle' )->findOneBy ( 'billing_cycle_id', $id, Doctrine::HYDRATE_ARRAY );
 			return $record ['months'];

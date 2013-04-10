@@ -1,15 +1,20 @@
-<?php 
-	$income = $this->income_quarter; 
-	$currency = Settings::findbyParam('currency'); 
+<?php
+	$currency       = Settings::findbyParam('currency'); 
+	$income_quarter = $this->income_quarter; 
+	$income_monthly = $this->income_monthly;
+
+  	$currentYear    = date('Y');
+	$lastYear       = $currentYear -1;
+  	$arrGrafico     = array();
 ?>
 
-<?php if(!empty($income)): ?>
+<?php if(!empty($income_quarter)): ?>
 <div class="portlet" id="income-quarter">
 	<div class="widget-wrapper">
 		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Quarter')?></a></h3></div>
 		<div class="widget-content">
 			<ul class="stats">
-				<?php foreach($income as $inc):?>
+				<?php foreach($income_quarter as $inc):?>
 					<?php if($inc['year'] == date('Y')): ?>
 					<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
 						<small><?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?></small> 
@@ -26,9 +31,9 @@
 </div>
 <?php endif;?>
 
-<?php $income = $this->income_monthly; ?>
+<?php  ?>
 
-<?php if(!empty($income)): ?>
+<?php if(!empty($income_monthly)): ?>
 <div class="portlet" id="income-month">
 	<div class="widget-wrapper">
 		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month')?></a></h3></div>
@@ -56,25 +61,24 @@
       function drawMonthlyIncomeChart() {
 		var data = new google.visualization.DataTable({
 	       cols: [{id: 'month',          label: '<?=$this->translate('Month')?>', type: 'string'},
-	              {id: 'grandTotal',     label: '<?=$this->translate('Grand Total')?> <?=$inc['year']?>', type: 'number'},
+	              {id: 'grandTotal',     label: '<?=$this->translate('Income')?> <?=$currentYear?>', type: 'number'},
 	              {'p': {'role':'tooltip','html':true}}, // tooltip for current year
-	              {id: 'grandTotalLast', label: '<?=$this->translate('Grand Total')?> <?=$inc['old']['year']?>', type: 'number'},
+	              {id: 'grandTotalLast', label: '<?=$this->translate('Income')?> <?=$lastYear?>', type: 'number'},
 	              {'p': {'role':'tooltip','html':true}} // tooltip for previous year
 	       ],
 	       
 	       rows: [
 	          <?php
-	          	$currentYear = date('Y');
-				$lastYear    = $currentYear -1;
-	          	$arrGrafico  = array();
-	          	foreach($income[$currentYear] as $yearIncome):
+	          	foreach($income_monthly[$currentYear] as $yearIncome):
 					$month    = $yearIncome['month'];
 					
-					$currentMonthTitle = strftime('%B %Y', mktime(0,0,0,$month,1,$currentYear));
-					$lastMonthTitle    = strftime('%B %Y', mktime(0,0,0,$month,1,$lastYear));
+					$currentTS = new Zend_Date(mktime(0,0,0,$month,1,$currentYear));
+					$lastTS    = new Zend_Date(mktime(0,0,0,$month,1,$lastYear));
+					$currentMonthTitle = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear);
+					$lastMonthTitle    = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
 					
 					$total    = (isset($yearIncome['total'])) ? $yearIncome['total'] : 0;
-					$oldTotal = (isset($income[$lastYear][$month]['total'])) ? $income[$lastYear][$month]['total'] : 0;
+					$oldTotal = (isset($income_monthly[$lastYear][$month]['total'])) ? $income_monthly[$lastYear][$month]['total'] : 0;
 					$growDiff = (isset($yearIncome['growDiff'])) ? $yearIncome['growDiff'] : 0;
 					$growPercent = (isset($yearIncome['growPercent'])) ? $yearIncome['growPercent'] : 0;
 					
@@ -83,9 +87,9 @@
 					$arrColonne   = array();
 					$arrColonne[] = "{v: '".$yearIncome['month']."'}";				
 					$arrColonne[] = "{v:".$total."}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><strong>".$currentMonthTitle."</strong><br/>".$this->translate('Grand Total').": &euro; ".$total."<br/>".$this->translate('Grand Total')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$growDiff." (".$growPercent."%)</span></div>'}"; // tooltip for current year
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$currentMonthTitle."</strong></span><br/>".$this->translate('Income').": &euro; ".$total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$growDiff." (".$growPercent."%)</span></div>'}"; // tooltip for current year
 					$arrColonne[] = "{v:".$oldTotal."}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><strong>".$lastMonthTitle."</strong><br/>".$this->translate('Grand Total')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$lastMonthTitle."</strong></span><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
 
 					$arrGrafico[] = "{c:[".implode(',',$arrColonne)."]}\n";
 	          	endforeach;

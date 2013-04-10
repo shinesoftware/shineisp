@@ -159,6 +159,20 @@ class Servers extends BaseServers {
          $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
          return !empty($record[0]) ? $record[0] : false; 
 	}
+
+	/*
+	 * Get Active Webserver information 
+	 */
+	public static function getActiveWebserver(){
+		$dq = Doctrine_Query::create ()->from ( 'Servers i' )
+										->leftJoin ( 'i.Servers_Types st ON st.type_id = i.type_id' )
+										->where ( "type_id = ?", 1 )
+										->where ( "status_id = ?", Statuses::id('active','servers') )
+										->andWhere ( "isp_id = ?", Isp::getActiveISPID());
+         $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+         return !empty($record[0]) ? $record[0] : false; 
+	}
+
 	
 	/*
 	 * Get DB Server information 

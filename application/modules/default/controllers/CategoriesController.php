@@ -86,7 +86,6 @@ class CategoriesController extends Zend_Controller_Action {
 						$product['attributes'] = ProductsAttributes::getAttributebyProductID($product['product_id'], $ns->langid, true);
 						$products [] = $product;
 					}
-					
 					$this->view->products = $products;
 					$this->view->pager = $data['pager'];
 				}

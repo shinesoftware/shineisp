@@ -190,8 +190,9 @@ class Languages extends BaseLanguages {
 	public static function setDefaultLanguage($path, $locale) {
 		$zl = new Zend_Locale ();
 		
-		if(!empty($locale)){
+		if (!empty($locale)) {
 			$zl->setLocale ( $locale );
+			
 			Zend_Registry::set ( 'Zend_Locale', $zl );
 	
 			$translations_file = $path . "/languages/" . $locale . '.csv';

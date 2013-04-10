@@ -80,6 +80,7 @@ class DomainsTlds extends BaseDomainsTlds
 		$tld['transfer_cost'] = $params['transfer_cost'];
 		$tld['registrars_id'] = $params['registrars_id'];
 		$tld['ishighlighted'] = $params['ishighlighted'];
+		$tld['isrefundable']  = (isset($params['isrefundable'])) ? intval($params['isrefundable']) : 0;
   		$tld['tax_id'] = $params['tax_id'];      
 		
 		if($tld->trySave()){
@@ -283,6 +284,44 @@ class DomainsTlds extends BaseDomainsTlds
         try {
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
             								->where('dt.ishighlighted = ?', true)
+            								->andWhere('dt.tld_id = ?', $id)
+            								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        } catch (Exception $e) {
+            die ( $e->getMessage () );
+        }
+    }
+
+	/**
+     * Get all refundables tlds records
+     * 
+     * 
+     * @return Array
+     */
+    public static function getRefundables($locale=1) {
+        
+        try {
+            return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
+            								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
+            								->leftJoin('dt.Registrars r')
+            								->leftJoin('dt.Taxes t')
+            								->where('dt.isrefundable = ?', true)
+            								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        } catch (Exception $e) {
+            die ( $e->getMessage () );
+        }
+    }
+    
+	/**
+     * Check if a domain is refundable
+     * 
+     * @param integer $id
+     * @return boolean
+     */
+    public static function isRefundable($id) {
+        
+        try {
+            return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
+            								->where('dt.isrefundable = ?', true)
             								->andWhere('dt.tld_id = ?', $id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {

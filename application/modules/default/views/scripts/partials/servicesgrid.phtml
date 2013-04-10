@@ -1,0 +1,142 @@
+<?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
+    <div class="notification attention"><?=$this->translate('The search view is active.')?> 
+    <a href="/<?= $this->controller ?>/reset"><?=$this->translate('Click here to reset the results.')?></a> </div>
+<?php endif; ?>
+   
+<?php if(!empty($this->mex)) :?>
+    <div class="notification <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+<?php endif;?>
+
+<div class="records align-left">  
+   <?php echo $this->translate('Records') . ": " . $this->recordcount; ?>
+</div>
+
+<div class="filters">
+<?php if($this->filters):?>
+   <b><?=$this->translate('Filters');?>:</b> 
+   <select name="filter" id="filter">
+        <option value=""><?=$this->translate('Show All');?></option>
+            <?php foreach ( $this->filters as $id=>$status ) : ?>
+                <option value="<?=$id?>"><?=$this->translate($status);?></option>
+            <?php endforeach;?>
+    </select>
+    <input type="button" class="littlebutton" rel="<?= $this->controller ?>" id="filterbtn" value="<?=$this->translate('Execute');?>">
+<?php endif;?>
+
+<?php if($this->tags):?>
+   <b><?=$this->translate('Tags');?>:</b> 
+   <select name="tags" id="tags" rel="<?= $this->controller ?>">
+        <option value=""><?=$this->translate('Show All');?></option>
+            <?php foreach ( $this->tags as $id=>$tag ) : ?>
+                <option value="<?=$id?>"><?=$tag;?></option>
+            <?php endforeach;?>
+    </select>
+    <input type="button" class="littlebutton" rel="<?= $this->controller ?>" id="tagsbtn" value="<?=$this->translate('Execute');?>">
+<?php endif;?>
+</div>  
+
+<?php 
+if (isset($this->records[0])):
+    // Get all the items inside a multidimensional array
+    $items = Shineisp_Commons_Utilities::array_flatten($this->records[0]);
+    // Get all the fields
+    $fields = array_keys($items);
+    
+    // Counting the field
+    $numcols = count($fields);
+    
+?>
+        <div class="notification infos" id="mex" style="display:none"></div>
+        
+        <table border="0" cellpadding="5" class="simplegrid zebratable" id="itemlist">
+            <thead>
+                <tr>
+                   <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><th><input type="checkbox" class="selectall" value=""></th><?php endif;?>
+                    <?php // Creation of the Rows and Columns?>
+                       <?php foreach ( $fields as $field ) : ?>
+                           <?php if(strpos($field, "_id")=== false):?>
+                                <th>
+                                  <?php $label = str_replace("_", " ", $field);?>
+                                  <?=$this->translate(ucwords($label))?>
+                                  <a href="/<?= $this->module ?>/<?= $this->controller ?>/<?= $this->action ?>/page/<?=$this->currentpage;?>/sort/<?=$field;?>,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a>
+                                  <a href="/<?= $this->module ?>/<?= $this->controller ?>/<?= $this->action ?>/page/<?=$this->currentpage;?>/sort/<?=$field;?>,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a>
+                                </th>
+                           <?php endif;?>
+                       <?php endforeach;?>
+                   
+                    <th><?=$this->translate('Commands');?></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                 <?php // Creation of the Rows?>
+                 <?php foreach ( $this->records as $record ) : ?>
+                   <tr>
+                   <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><td><input type="checkbox" name="item[]" value="<?php echo $record[$this->fields[0]] ?>"></td><?php endif;?>
+                   <?php foreach ( $fields as $field ) : ?>
+                       <?php if(strpos($field, "_id")=== false):?>
+                        <?php
+                                // Manage the sub arrays created by the HYDRATE_ARRAY records fetching mode  
+                                 $res = "";  
+                                 Shineisp_Commons_Utilities::search(array($field), $record, $res);
+                                 $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";?>
+                                <td class="values"><a href="/<?= $this->module ?>/<?= $this->controller ?>/edit/id/<?=$record[$this->fields[0]]?>"><?=$value?></a></td>
+                       <?php endif;?>
+                   <?php endforeach;?>
+                   <td>
+                       <a href="/<?= $this->module ?>/<?= $this->controller ?>/edit/id/<?=$record[$this->fields[0]]?>"><img alt="<?= $this->translate('Edit') ?>" src="<?=$this->paths('skin')?>/images/commons/pencil.png" border="0"></a>
+                       <a href="/<?= $this->module ?>/<?= $this->controller ?>/change/id/<?=$record[$this->fields[0]]?>"><img alt="<?= $this->translate('Change') ?>" src="<?=$this->paths('skin')?>/images/commons/pencil.png" border="0"></a>
+                   </td>
+                   </tr>
+                <?php endforeach;?>
+            
+            </tbody>
+            <tfoot>
+                <tr>
+                   <td colspan="<?=$numcols+1?>"> 
+                       <div class="bulktools">
+                           <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?>
+                               <b><?=$this->translate('Actions');?>:</b> 
+                               <select name="actions" id="actions">
+                                   <option value=""><?=$this->translate('Select ...');?></option>
+                                   <?php if($this->statuses):?>
+                                       <optgroup label="<?=$this->translate('Statuses');?>">
+                                           <?php foreach ( $this->statuses as $id=>$status ) : ?>
+                                               <option value="set_status&status=<?=$id?>"><?=$this->translate($status);?></option>
+                                           <?php endforeach;?>
+                                       </optgroup>
+                                   <?php endif; ?>
+                                   <?php if($this->customactions):?>
+                                       <optgroup label="<?=$this->translate('Actions');?>">
+                                       <?php foreach ( $this->customactions as $name=>$action ) : ?>
+                                           <option value="<?=$name;?>"><?=$this->translate($action);?></option>
+                                       <?php endforeach;?>
+                                       </optgroup>
+                                   <?php endif; ?>
+                               </select>
+                               <input type="button" rel="<?= $this->controller ?>" id="bulkactions" value="<?=$this->translate('Execute');?>"><br />
+                               <?=$this->translate('Select the items and then use the bulk action system to set more than one item.');?>
+                            <?php endif; ?> 
+                       </div>
+                       <div class="pagingtools">
+                           <?=$this->translate('Records');?>: <?=$this->recordcount?> - 
+                            <?=$this->translate('Records per page');?>: 
+                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/5">5</a>
+                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/15">15</a>
+                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/30">30</a>
+                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/50">50</a>
+                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/100">100</a>
+                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/all"><?=$this->translate('Show All');?></a>
+                       </div>
+                   </td>
+                </tr>
+                <tr>
+                   <td colspan="<?=$numcols+1?>">
+                        <div class="pagination"><?=$this->pagination; ?></div>
+                   </td>
+                </tr>
+            </tfoot>
+        </table>
+    <?php else: ?>
+    <div class="notification infos"><?=$this->translate('No Records')?></div>
+<?php endif; ?>

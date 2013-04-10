@@ -48,6 +48,7 @@
           		<h3><?php echo $this->translate('Main') ?></h3>
 	            <?php echo $this->verticalgrid($this->datagrid)?>
 	            <?php echo $form->autorenew->render() ?>
+	            <?php if( isset( $form->upgrade ) ) { echo $form->upgrade->render(); } ?>
 	            <br/>
 	            <p align="right"><?php echo $form->submit->render()?></p>
 	        </div>

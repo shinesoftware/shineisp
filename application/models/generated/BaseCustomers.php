@@ -35,6 +35,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property timestamp $updated_at
  * @property boolean $taxfree
  * @property boolean $isreseller
+ * @property boolean $ignore_latefee
  * @property CustomersGroups $CustomersGroups
  * @property CompanyTypes $CompanyTypes
  * @property Legalforms $Legalforms
@@ -206,6 +207,11 @@ abstract class BaseCustomers extends Doctrine_Record
              ));
         $this->hasColumn('isreseller', 'boolean', 25, array(
              'type' => 'boolean',
+             'length' => '25',
+             ));
+        $this->hasColumn('ignore_latefee', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
              'length' => '25',
              ));
     }

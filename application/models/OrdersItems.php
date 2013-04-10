@@ -29,6 +29,7 @@ class OrdersItems extends BaseOrdersItems {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Lastname' ), 'field' => 'c.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'd.date_end', 'alias' => 'daysleft', 'sortable' => true, 'searchable' => false, 'type' => 'integer' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start date' ), 'field' => 'd.date_start', 'alias' => 'date_start', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End date' ), 'field' => 'd.date_end', 'alias' => 'date_end', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
 		
@@ -38,6 +39,7 @@ class OrdersItems extends BaseOrdersItems {
 											c.company as company, 
 											c.lastname as lastname,
 											d.order_id, 
+											DATE_FORMAT(d.date_start, '%d/%m/%Y') as date_start, 
 											DATE_FORMAT(d.date_end, '%d/%m/%Y') as date_end, 
 											pd.name as productname, 
 											s.status as status, 
@@ -446,8 +448,8 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Doctrine Record
 	 */
 	public static function find($id, $fields = "*", $retarray = false) {
+		$id = intval($id);
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )->where ( "detail_id = $id" )->limit ( 1 );
-		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$item = $dq->execute ( array (), $retarray );
 		return $item;
@@ -773,6 +775,48 @@ class OrdersItems extends BaseOrdersItems {
 		
 	}
 	
+	/***
+	 * Get the refund info
+	 * @param orderid
+	 * @return productid and refundPrice
+	 *****/
+	public static function getRefundInfo( $orderid ) {
+		$service 	= self::getDetail($orderid);
+		$product	= $service['Products'];
+		$productid	= $product['product_id'];
+		
+		//TODO add not refund cost
+		$pricePayed	= $service['price'];
+		
+		$date		= explode(' ',$service['date_start']);
+		$date		= array_shift($date);
+		list($yyyy,$mm,$dd)	= explode('-',$date);
+		$tsStartService		= mktime(0,0,0,$mm,$dd,$yyyy);
+		
+		$date		= explode(' ',$service['date_end']);
+		$date		= array_shift($date);
+		list($yyyy,$mm,$dd)	= explode('-',$date);
+		$tsEndService	= mktime(0,0,0,$mm,$dd,$yyyy);
+		$tsToday		= mktime(0,0,0,date('m'),date('d'),date('Y'));
+		
+		$dayService		= round( ($tsEndService - $tsStartService) / ( 60*60*24 ) );
+		$priceServiceForDay	= $pricePayed / $dayService;
+		
+		$tsRemain		= 0;
+		$priceRefund	= false;
+		if( $tsEndService > $tsToday ) {
+			$dayRemain		= round( ( $tsEndService - $tsToday ) / (60*60*24) );
+			$priceRefund	= round($priceServiceForDay * $dayRemain,2);
+		}
+		
+		$result	= array(
+			 'productid'	=> $productid
+			,'refund'		=> $priceRefund
+		);
+		
+		return $result;					
+	}	
+	
 	######################################### CRON METHODS ############################################
 
 	/**
@@ -933,4 +977,5 @@ class OrdersItems extends BaseOrdersItems {
 	
 		return true;
 	}
+
 }

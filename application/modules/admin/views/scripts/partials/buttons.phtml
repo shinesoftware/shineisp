@@ -1,7 +1,11 @@
 <div class="dashboard-buttons-container">
 	<ul class="dashboard-buttons-set">
 	    <?php foreach ($this->buttons as $button) : ?>
-	    <li><a href="<?=$button['url']?>" title="<?= $this->translate($button['desc'])?>" class="dashboard-button"><span class="png_bg <?=strtolower($button['label'])?>"><?= $this->translate($button['label'])?></span></a></li>
+		    <li>
+		    	<a href="<?=$button['url']?>" title="<?= $this->translate($button['desc'])?>" <?=(isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"':''?> class="dashboard-button">
+		    		<span class="png_bg <?=strtolower($button['label'])?>"><?= $this->translate($button['label'])?></span>
+		    	</a>
+	    	</li>
 	    <?php endforeach; ?>
 	</ul>
 </div>

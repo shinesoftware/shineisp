@@ -123,7 +123,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->getElement('autorenew')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(array('1'=>'Yes, I would like to renew the service at the expiration date.', '0'=>'No, I am not interested in the service renew.'));
-                  
+				  
         $this->addElement('submit', 'save', array(
             'required' => false,
             'label'    => 'Save',

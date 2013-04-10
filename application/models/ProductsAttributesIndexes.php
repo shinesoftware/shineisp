@@ -51,7 +51,7 @@ class ProductsAttributesIndexes extends BaseProductsAttributesIndexes
 		
 		// Get all the product attributes  
 		$attributes = ProductsAttributesGroups::getAttributesProfiles($data['group_id']);
-		
+
 		// Loop of the posted variables
 		foreach ($data as $var => $value) {
 				
