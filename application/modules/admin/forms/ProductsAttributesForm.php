@@ -13,7 +13,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
-    	
+    			
         $this->addElement('select', 'is_visible_on_front', array(
             'decorators'  => array('Composite'),
             'label'       => 'Visible on Product page',
@@ -110,14 +110,6 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'class'      => 'text-input large-input'
         ));
     	
-    	$this->addElement('text', 'code', array(
-            'filters'    => array('StringTrim'),
-            'required'   => true,
-            'label'      => 'Attribute Code',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
-        ));
-        
         $this->addElement('hidden', 'language_id', array(
             'decorators'  => array('Composite')
         ));

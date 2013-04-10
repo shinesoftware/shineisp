@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsTranches', 'doctrine');
  * 
  * @property integer $tranche_id
  * @property integer $quantity
+ * @property float $setupfee
  * @property float $price
  * @property integer $product_id
  * @property integer $billing_cycle_id
@@ -39,6 +40,12 @@ abstract class BaseProductsTranches extends Doctrine_Record
              'type' => 'integer',
              'notnull' => true,
              'length' => '4',
+             ));
+        $this->hasColumn('setupfee', 'float', 10, array(
+             'type' => 'float',
+             'default' => '0.00',
+             'notnull' => true,
+             'length' => '10',
              ));
         $this->hasColumn('price', 'float', 10, array(
              'type' => 'float',

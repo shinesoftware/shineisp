@@ -149,8 +149,15 @@ class Settings extends BaseSettings {
 		$currencies = ($locale->getTranslationList('NameToCurrency'));
 		 
 		asort($currencies, SORT_LOCALE_STRING);
-		
+
 		return $currencies;
+	}
+
+	/**
+	 * Get the late fee types
+	 */
+	public static function getLateFeeTypes() {
+		return array('fixed'=>'Fixed', 'percentage'=>'Percentage');
 	}
 	
 	/**

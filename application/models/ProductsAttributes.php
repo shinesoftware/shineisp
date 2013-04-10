@@ -277,7 +277,7 @@ class ProductsAttributes extends BaseProductsAttributes {
 		$productsattributes['is_required'] = $is_required;
 		$productsattributes['is_comparable'] = $is_comparable;
 		$productsattributes['on_product_listing'] = $on_product_listing;
-		
+				
 		$productsattributes->save ();
 		
 		$productsattributesdata = Doctrine::getTable('ProductsAttributesData')

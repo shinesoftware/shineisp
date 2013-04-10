@@ -24,6 +24,7 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $product_id
  * @property integer $tld_id
  * @property integer $review_id
+ * @property integer $parent_detail_id
  * @property string $description
  * @property Orders $Orders
  * @property Products $Products
@@ -34,6 +35,7 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $Messages
  * @property Doctrine_Collection $OrdersItemsDomains
+ * @property Doctrine_Collection $OrdersItemsServers
  * @property Doctrine_Collection $PanelsActions
  * 
  * @package    ##PACKAGE##
@@ -132,6 +134,10 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'type' => 'integer',
              'length' => '4',
              ));
+        $this->hasColumn('parent_detail_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
              'length' => '',
@@ -176,6 +182,10 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'foreign' => 'detail_id'));
 
         $this->hasMany('OrdersItemsDomains', array(
+             'local' => 'detail_id',
+             'foreign' => 'orderitem_id'));
+
+        $this->hasMany('OrdersItemsServers', array(
              'local' => 'detail_id',
              'foreign' => 'orderitem_id'));
 

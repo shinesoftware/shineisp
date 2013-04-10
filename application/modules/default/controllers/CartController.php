@@ -42,6 +42,53 @@ class CartController extends Zend_Controller_Action {
 			$this->_helper->redirector ( 'contacts' );
 		}
 	}
+	
+	private function getPricesWithRefundIfIsRecurring( $orderid, $price, $billing_cicle_id ) {
+		$refundInfo		= OrdersItems::getRefundInfo($orderid);
+		if( $refundInfo != false ) {
+			$refund					= $refundInfo['refund'];
+			$idBillingCircle		= $billing_cicle_id;
+			$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+			$priceToPay				= $price * $monthBilling;
+			$priceToPayWithRefund	= $priceToPay - $refund;
+			if( $priceToPayWithRefund < 0 ) {
+				$priceToPayWithRefund	= $priceToPay;
+			}
+			
+			return round( $priceToPayWithRefund / $monthBilling,2 );
+		}	
+		
+		return false;	
+	}
+	
+	private function getPriceWithRefund( $orderid, $price ) {
+		$refundInfo		= OrdersItems::getRefundInfo($orderid);
+		if( $refundInfo != false ) {
+			$refund					= $refundInfo['refund'];
+			$priceToPayWithRefund	= $price - $refund;
+			if( $priceToPayWithRefund > 0 ) {
+				return $priceToPayWithRefund;
+			}
+			
+			return $price; 
+		}
+		
+		return false;
+	}
+	
+	private function checkIfIsUpgrade( $productid ){
+		$NS = new Zend_Session_Namespace ( 'Default' );
+		if( is_array($NS->upgrade) ) {
+			//Check if the product is OK for upgrade and if OK take refund
+			foreach( $NS->upgrade as $orderid => $upgradeProduct ) {
+				if( in_array( $productid, $upgradeProduct) ) {
+					return $orderid;
+				}
+			}
+			
+		}
+		return false;
+	}
 
 	/**
 	 * Check the product and redirect the user to the right destination
@@ -65,17 +112,52 @@ class CartController extends Zend_Controller_Action {
 				// Get the categories
 				$product ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product ['categories'] );
 				
+				$product['parent_orderid']		= "";
 				if ($request ['isrecurring']) {
 					// Get the tranche selected
 					$tranche = ProductsTranches::getTranchebyId ( $request ['quantity'] );
-					
+
 					$product ['isrecurring'] = true;
-					$product ['quantity'] = $tranche ['quantity'];
-					$product ['price_1'] = $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
-					$product ['trancheid'] = $tranche ['tranche_id'];
-					$product ['billingid'] = $tranche ['billing_cycle_id'];
+					$product ['quantity'] 	= $tranche ['quantity'];
+					$product ['trancheid'] 	= $tranche ['tranche_id'];
+					$product ['billingid'] 	= $tranche ['billing_cycle_id'];
+					
+					// JAY 20130409 - Add refund if exist
+					//Check if the product is OK for upgrade
+					$orderid	= $this->checkIfIsUpgrade( $request ['product_id'] );
+					if( $orderid != false ) {
+						unset ( $NS->cart );
+						$product['parent_orderid']	= $orderid;
+						$tranche['price']			= $this->getPricesWithRefundIfIsRecurring($orderid, $tranche ['price'], $tranche['BillingCycle']['billing_cycle_id'] );
+						$product ['price_1'] 		= $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
+						
+						$NS->cart->products [] 				= $product;
+						$NS->cart->contacts['customer_id']	= $NS->customer['customer_id'];
+						//add new order
+						$theOrder = Orders::create ( $NS->customer['customer_id'], Statuses::id('tobepaid', 'orders') );
+						$trancheID 	= $tranche['tranche_id'];
+						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array(), $orderid );
+						
+						$orderID = $theOrder ['order_id'];
+						Orders::sendOrder ( $orderID );
+						
+						unset ( $NS->cart );
+						$this->_helper->redirector->gotoUrl ( 'orders/edit/id/'.$orderID );				
+						exit();						
+					} 				
+					/*** 20130409 ***/
+					
+					
 				} else {
 					$product ['isrecurring'] = false;
+					// JAY 20130409 - Add refund if exist
+					$orderid	= $this->checkIfIsUpgrade( $request ['product_id'] );
+					if( $orderid != false ) {
+						$product['parent_orderid']	= $orderid;
+						$product ['price_1']		= $this->getPriceWithRefund($orderid, $product ['price_1']);
+					}						
+					/** 20130409 **/					
+					
 					$product ['price_1'] = $product ['price_1'];
 					$product ['quantity'] = $request ['quantity'];
 					$product ['billingid'] = 5; // No expiring
@@ -99,6 +181,7 @@ class CartController extends Zend_Controller_Action {
 					}
 				}
 				
+				
 				// Check if the product is present in the cart
 				if ($this->checkIfHostingProductIsPresentWithinCart ()) {
 					$this->_helper->redirector ( 'domain', 'cart', 'default' );
@@ -118,6 +201,7 @@ class CartController extends Zend_Controller_Action {
 		
 		// Get all the params sent by the customer
 		$params = $this->getRequest ()->getParams ();
+		
 		
 		if (empty ( $params ['domain'] ) || empty ( $params ['tlds'] )) {
 			$this->_helper->redirector ( 'domain', 'cart', 'default', array ('mex' => 'The domain is a mandatory field. Choose a domain name.', 'status' => 'error' ) );
@@ -512,8 +596,13 @@ class CartController extends Zend_Controller_Action {
 						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'] ) );
 					
 					} else {
+						$upgrade	= intval($product['parentorder']);
+						if( $upgrade == 0 ) {
+							$upgrade	= false;
+						}
+						
 						// Create the order item for other products
-						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'] );
+						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array(), $upgrade );
 					}
 				}
 				
@@ -745,6 +834,27 @@ class CartController extends Zend_Controller_Action {
 	 * Changing of the product
 	 */
 	private function changeProduct($newproduct) {
+		$index	= $this->getIndexProduct($newproduct);
+		if( $index === false ) {
+			$NS->cart->products [] = $newproduct;
+		} else {
+			$products	= $NS->cart->products;
+			$product	= $products[$index];
+			// Delete the old product
+			unset( $products[$index] );
+			
+			// Reorder the indexes
+			$NS->cart->products = array_values ( $products );
+			
+			// Adding the new hosting product in the cart
+			$NS->cart->products [] = $newproduct;
+		}
+	}
+	
+	/**
+	 * Get index product in the cart
+	 ****/
+	private function getIndexProduct ( $newproduct ) {
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
 			$products = $NS->cart->products;
@@ -756,22 +866,14 @@ class CartController extends Zend_Controller_Action {
 				foreach ( $products as $product ) {
 					// Match the product cycled with the hosting product previously inserted in the cart
 					if ($product ['product_id'] == $newproduct ['product_id']) {
-						// Delete the old product
-						unset ( $products [$index] );
-						
-						// Reorder the indexes
-						$NS->cart->products = array_values ( $products );
-						
-						// Adding the new hosting product in the cart
-						$NS->cart->products [] = $newproduct;
+						return $index;
 					}
-					$index ++;
+					$index++;
 				}
-			} else {
-				// No products have been found. Adding the new hosting product in the cart
-				$NS->cart->products [] = $newproduct;
 			}
 		}
+		
+		return false;
 	}
 	
 	/*

@@ -28,6 +28,49 @@ class Admin_ServersController extends Zend_Controller_Action {
 		$this->datagrid->setModule ( "servers" )->setModel ( $this->servers );		
 	}
 	
+	/**
+	 * confirmAction
+	 * Ask to the user a confirmation before to execute the task
+	 * @return null
+	 */
+	public function confirmAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		try {
+			if (is_numeric ( $id )) {
+				$this->view->back = "/admin/$controller/edit/id/$id";
+				$this->view->goto = "/admin/$controller/delete/id/$id";
+				$this->view->title = $this->translator->translate ( 'Are you sure to delete this server?' );
+				$this->view->description = $this->translator->translate ( 'If you delete this server all the data will be no more longer available.' );
+				
+				$record = Servers::find ( $id );
+			} else {
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+			}
+		} catch ( Exception $e ) {
+			echo $e->getMessage ();
+		}
+	
+	}
+	
+	/**
+	 * deleteAction
+	 * Delete a record previously selected by the order
+	 * @return unknown_type
+	 */
+	public function deleteAction() {
+		$files = new Files ();
+		$id = $this->getRequest ()->getParam ( 'id' );
+		try {
+			if (is_numeric ( $id )) {
+				Servers::bulk_delete(array($id));
+			}
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () . " " . $e->getTraceAsString () );
+		}
+		
+		return $this->_helper->redirector ( 'index', 'servers' );
+	}	
 	
 	/**
 	 * indexAction

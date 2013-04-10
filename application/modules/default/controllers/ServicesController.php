@@ -56,7 +56,8 @@ class ServicesController extends Zend_Controller_Action {
 		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
 		
 		$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
-		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
+		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id,p.group_id as groupid", $page, $NS->recordsperpage, $arrSort, $params );
+		
 		$data ['currentpage'] = $page;
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
@@ -64,6 +65,44 @@ class ServicesController extends Zend_Controller_Action {
 		$this->view->title = "Services List";
 		$this->view->description = "List of all your own services subscribed";
 		$this->view->service = $data;
+	}
+
+	public function changeAction(){
+		$NS = new Zend_Session_Namespace ( 'Default' );
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$id	= intval($id);
+		if ( $id == 0 ) {
+			return $this->_helper->redirector ( 'services/list' );
+		}
+
+		$refundInfo		= $this->services->getRefundInfo($id);
+		$productid		= $refundInfo['productid'];
+		$priceRefund	= $refundInfo['refund'];
+
+		if( ! property_exists($NS, 'upgrade') ) {
+			$NS->upgrade				= array();	
+		}
+		
+		$NS->upgrade[$id]	= array();
+		$productsUpgrades	= ProductsUpgrades::getUpgradesbyProductID($productid);
+		$products	= array();
+		foreach($productsUpgrades as $productUpgradeId => $productUpgradeName ) {
+			$productUpgrade					= Products::getAllInfo($productUpgradeId);	
+			$productUpgrade['name']			= $productUpgrade['ProductsData'][0]['name'];
+			$productUpgrade['shortdescription']= $productUpgrade['ProductsData'][0]['shortdescription'];
+			$productUpgrade['reviews'] 		= Reviews::countItems($productUpgradeId);
+			$productUpgrade['attributes'] 	= ProductsAttributes::getAttributebyProductID($productUpgradeId, $NS->langid, true);
+			
+			$products[]		= $productUpgrade;
+			
+			$NS->upgrade[$id][]	= $productUpgradeId;
+		}
+
+		$this->view->priceRefund 	= $priceRefund;
+		$this->view->products 		= $products;
+		
+		$this->view->title = "Upgrade products List";
+		$this->view->description = "List of all your own services subscribed";
 	}
 	
 	/**
@@ -73,12 +112,15 @@ class ServicesController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		$currency = new Zend_Currency();
-		$form = $this->getForm ( '/services/process' );
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
+			$NS = new Zend_Session_Namespace ( 'Default' );
+			$NS->productid	= $id;
+			
+			$form = $this->getForm ( '/services/process' );
+			//Add upgrade service if exists
+			
 			$fields = "o.order_id as order, pd.name as product, CONCAT(d.domain, '.', ws.tld) as domain, oi.status_id, oi.detail_id, DATE_FORMAT(o.order_date, '%d/%m/%Y') as order_date, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as next_deadline, (DATEDIFF(oi.date_end, CURRENT_DATE)) as daysleft, b.name, oi.price as price, t.name as tax, t.percentage as vat, s.status as status, bc.name as billing_cycle, oi.autorenew as autorenew, oi.note as note";
 			$rs = $this->services->getAllInfo ( $id, $fields, 'c.customer_id = ' . $NS->customer ['customer_id'] . ' OR c.parent_id = ' . $NS->customer ['customer_id'] );
 			
@@ -89,6 +131,7 @@ class ServicesController extends Zend_Controller_Action {
 				$rs['total_with_tax'] = $currency->toCurrency($rs['price'] * (100 + $rs['vat']) / 100, array('currency' => Settings::findbyParam('currency')));
 				$rs['tax'] = $rs ['vat'] . "% " . $this->translator->translate ( $rs['tax'] );
 			}
+			
 			$form->populate ( $rs  );
 			
 			// Hide these fields and values inside the vertical grid object
@@ -134,7 +177,6 @@ class ServicesController extends Zend_Controller_Action {
 		
 		// Get our form and validate it
 		$form = $this->getForm ( '/admin/service/process' );
-		
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
@@ -151,7 +193,6 @@ class ServicesController extends Zend_Controller_Action {
 		
 		if (is_numeric ( $id )) {
 			OrdersItems::setAutorenew($id, $params ['autorenew']);
-			print_r($params);
 		}
 		
 		// Save the message note
@@ -168,7 +209,7 @@ class ServicesController extends Zend_Controller_Action {
 			Messages::sendMessage ( "message_admin", $isp['email'], $placeholder);
 			
 		}
-		
+		 
 		$this->_helper->redirector ( 'edit', 'services', 'default', array ('id'=>$id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 	}
 	

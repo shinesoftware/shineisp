@@ -36,10 +36,10 @@ class System_CronController extends Zend_Controller_Action {
 					
 					foreach ( $cron as $code ) {
 						
-						$class = (string)$code['class'];
+						$class  = (string)$code['class'];
 						$method = (string)$code['method'];
 						$params = json_decode((string)$code['params']);
-						$log = (string)$code;
+						$log    = (string)$code;
 						
 						Shineisp_Commons_Utilities::log($log, 'cron.log');
 

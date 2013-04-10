@@ -13,6 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property integer $isp_id
  * @property date $order_date
  * @property boolean $is_renewal
+ * @property boolean $is_upgrade
  * @property integer $status_id
  * @property float $total
  * @property float $cost
@@ -28,6 +29,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property Doctrine_Collection $Messages
  * @property Doctrine_Collection $OrdersItems
  * @property Doctrine_Collection $OrdersItemsDomains
+ * @property Doctrine_Collection $OrdersItemsServers
  * @property Doctrine_Collection $Payments
  * 
  * @package    ##PACKAGE##
@@ -69,6 +71,11 @@ abstract class BaseOrders extends Doctrine_Record
              'length' => '25',
              ));
         $this->hasColumn('is_renewal', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
+             ));
+        $this->hasColumn('is_upgrade', 'boolean', 25, array(
              'type' => 'boolean',
              'default' => 0,
              'length' => '25',
@@ -145,6 +152,10 @@ abstract class BaseOrders extends Doctrine_Record
              'foreign' => 'order_id'));
 
         $this->hasMany('OrdersItemsDomains', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id'));
+
+        $this->hasMany('OrdersItemsServers', array(
              'local' => 'order_id',
              'foreign' => 'order_id'));
 

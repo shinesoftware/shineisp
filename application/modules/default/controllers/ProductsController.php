@@ -50,8 +50,21 @@ class ProductsController extends Zend_Controller_Action {
 				
 				$ns->cart->lastproduct = $uri;
 				
+				$refund	= false;
+				if( is_array($ns->upgrade) ) {
+					//Check if the product is OK for upgrade and if OK take refund
+					foreach( $ns->upgrade as $orderid => $upgradeProduct ) {
+						if( in_array( $data ['product_id'], $upgradeProduct) ) {
+							$refundInfo		= OrdersItems::getRefundInfo($orderid);
+							$refund			= $refundInfo['refund'];
+							
+							break;
+						}
+					}
+				}
+				
 				$form = $this->CreateProductForm ( );
-				$items = ProductsTranches::getList ( $data ['product_id'] );
+				$items = ProductsTranches::getList ( $data ['product_id'],$refund );
 
 				// Check the default quantity value
 				$qta = ProductsTranches::getDefaultItem ( $data ['product_id'] );
@@ -104,7 +117,7 @@ class ProductsController extends Zend_Controller_Action {
 				// Send the variables to the view
 				$this->view->headertitle = $data ['name'];
 				$this->view->product = $data;
-				$this->view->prices = Products::getPrices($data ['product_id']);
+				$this->view->prices = Products::getPrices($data ['product_id'],$refund);
 				$this->view->form = $form;
 				
 				$form->populate ( $data );
@@ -182,12 +195,38 @@ class ProductsController extends Zend_Controller_Action {
 	 * Get the price of the product
 	 */
 	public function getpriceAction() {
-		$currency = new Zend_Currency();
-		$id = $this->getRequest ()->getParam ( 'id' );
+		$currency 	= new Zend_Currency();
+		$id 		= $this->getRequest ()->getParam ( 'id' );
+		$refund 	= $this->getRequest ()->getParam ( 'refund' );
 		$data = array ();
 		
 		if (is_numeric ( $id )) {
 			$tranche = ProductsTranches::getTranchebyId ( $id );
+			
+			// JAY 20130409 - Add refund if exist
+			$NS = new Zend_Session_Namespace ( 'Default' );
+			if( is_array($NS->upgrade) ) {
+				//Check if the product is OK for upgrade and if OK take refund
+				foreach( $NS->upgrade as $orderid => $upgradeProduct ) {
+					if( $orderid != 0 ) {
+						if( in_array( $id, $upgradeProduct) ) {
+							$refundInfo		= OrdersItems::getRefundInfo($orderid);
+							$refund			= $refundInfo['refund'];
+							$idBillingCircle		= $tranche['BillingCycle']['billing_cycle_id'];
+							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+							$priceToPay				= $tranche['price'] * $monthBilling;
+							$priceToPayWithRefund	= $priceToPay - $refund;
+							if( $priceToPayWithRefund < 0 ) {
+								$priceToPayWithRefund	= $priceToPay;
+							}
+							$tranche['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							
+							break;
+						}
+					}
+				}
+			}
+			/** 20130409 **/		
 
 			// Prepare the data to send to the json
 			$data['price'] = $tranche['price'];

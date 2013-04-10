@@ -212,6 +212,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function editAction() {
+		
 		$form = $this->getForm ( '/admin/customers/process' );
 		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
@@ -246,7 +247,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 				
 				$this->view->buttons[] = array("url" => "/admin/orders/new", "label" => $this->translator->translate('New Order'), "params" => array('css' => array('button', 'float_right')));
 				$this->view->buttons[] = array("url" => "/admin/customers/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
-				$this->view->buttons[] = array("url" => "/default/index/fastlogin/id/" . md5($rs['email']) . "-" . $rs['password'], "label" => $this->translator->translate('Public profile'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/default/index/fastlogin/id/" . Shineisp_Commons_Hasher::hash_string($rs['email']), "label" => $this->translator->translate('Public profile'), "params" => array('css' => array('button', 'float_right')));
 				
 			}
 		}
@@ -285,7 +286,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			if (isset ( $request->id ) && is_numeric ( $request->id )) {
 				// In order to select only the fields interested we have to add an alias to all the fields. If the aliases are not created Doctrine will require an index field for each join created.
 				//$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
-				$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, oi.order_id as orderid, oi.date_start as datestart, oi.date_end as dateend, pd.name as productname' );
+				$rs = Products::getAllActiveServicesByCustomerID ( $request->id, 'o.order_id, oi.detail_id as detail_id, oi.order_id as orderid, oi.date_start as datestart, oi.date_end as dateend, pd.name as productname' );
 				if ($rs) {
 					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'services', 'action' => 'edit' ), 'pager' => true );
 				}

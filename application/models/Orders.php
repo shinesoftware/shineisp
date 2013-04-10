@@ -788,8 +788,7 @@ class Orders extends BaseOrders {
 			die ();
 		}
 	}
-	
-	
+
 	/**
 	 * Create and Retrieve the OrderID
 	 * @param integer $id
@@ -889,22 +888,93 @@ class Orders extends BaseOrders {
 		
 	}
 	
+	/**
+	 * Apply late fee in the order
+	 * 
+	 * 
+	 * @param integer $orderID
+	 */
+	public static function applyLateFee($orderid) {
+		$oderid = (int)$orderid;
+		if ( $oderid > 0 ) {
+			$translations = Zend_Registry::getInstance ()->Zend_Translate;
+			
+			$order = self::find ( $orderid );
+			if ( !isset($order->order_id) || !is_numeric($order->order_id) ) {
+				return null;
+			}
+						
+			//* Get late fee details
+			$late_fee_days   = (int)Settings::findbyParam('late_fee_days');
+			$late_fee_amount = (int)Settings::findbyParam('late_fee_amount');
+			$late_fee_type   = strtolower(Settings::findbyParam('late_fee_type'));
+			
+			//* No late fee
+			if ( $late_fee_amount < 1 ) {
+				return $order->toArray();		
+			}
+			
+			$datetime1 = new DateTime($order->expiring_date);
+			$datetime2 = new DateTime(date('Y-m-d'));
+			$interval  = $datetime1->diff($datetime2);
+			$days      = (int)$interval->format('%R%a');
+			
+			//* To early, skip late fee
+			if ( $days < $late_fee_days ) {
+				return $order->toArray();	
+			}
+			
+			//* Check if late fee already exists in this order. In that case, do not apply a new fee
+			foreach ( OrdersItems::getAllDetails($order->order_id) as $_item ) {
+				if ( isset($_item->description) && stripos($_item->description, 'Late fee') !== false ) {
+					return $order->toArray();
+				}
+			}
+
+			//* Calculate the late fee amount based on settings
+			$lateFeeAmount = ( $late_fee_type == 'fixed' ) ? $late_fee_amount : $order->total + ($order->total*$late_fee_amount/100);
+			
+			$item = new OrdersItems();
+			
+			$item['order_id']         = $orderid;
+			$item['status_id']        = Statuses::id("tobepaid", "orders");
+			$item['description']      = 'Late fee';
+			$item['billing_cycle_id'] = 5; //* TODO: Detect 'No expiring' billing
+			$item['quantity']         = 1;
+			$item['setupfee']         = $lateFeeAmount;
+		
+			$item->save();
+			
+			self::updateTotalsOrder($orderid);
+			
+			$order = self::find ( $orderid );
+			
+			return $order->toArray();			
+		}
+		
+		return null;
+		
+	}
+	
+	
 	
 	/**
 	 * Add an item in the order 
-	 * @param integer $productId
-	 * @param integer $qta
-	 * @param integer $billing [default 3 = Annual]
-	 * @param string $description
-	 * @param array $options
-	 * @return array $item
-	 */
-	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array()) {
+	 * @param integer 	$productId
+	 * @param integer 	$qta
+	 * @param integer 	$billing [default 3 = Annual]
+	 * @param string 	$description
+	 * @param array 	$options
+	 * @param integer 	$upgrade
+	 * @return array 	$item
+	 ******/
+	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
 		
 		// Check if the variable has been set correctly
 		if(is_numeric($productId)){
 		
 			// Get the product information
+			echo $productId; die();
 			$product = Products::getAllInfo($productId);
 			
 			if(!empty($product)){
@@ -921,10 +991,10 @@ class Orders extends BaseOrders {
 				$item['date_start'] = date ( 'Y-m-d H:i:s' );
 					
 				// Manages all the products that have no recursion payment
-				$item['description'] = $product ['name'];
-				$item['billing_cycle_id'] = $billing; 
-				$item['quantity'] = $qta;
-				$item['price'] = $product['price_1'];
+				$item['description'] 		= $product ['name'];
+				$item['billing_cycle_id'] 	= $billing; 
+				$item['quantity'] 			= $qta;
+				$item['price'] 				= $product['price_1'];
 				
 				// Count of the day until the expiring
 				$months = BillingCycle::getMonthsNumber ( $billing );
@@ -944,6 +1014,12 @@ class Orders extends BaseOrders {
 					$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
 				}else{
 					$item['date_end'] = null;
+				}
+				
+				if( $upgrade != false ) {
+					$item['parent_detail_id']	= $upgrade;
+				} else {
+					$item['parent_detail_id']	= 0;
 				}
 				
 				// IMPORTANT //
@@ -1084,6 +1160,43 @@ class Orders extends BaseOrders {
 	}
 	
 	/*
+	 * Run task functions
+	 */
+	public static function RunTasks($orderid) {
+		if (empty($orderid) || !is_numeric($orderid) ) {
+			return false;
+		}
+		
+		
+		// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
+		$domains = self::getDomainsFromOrder ( $orderid );
+		
+		if (count ( $domains ) > 0) {
+			
+			// Create the domain name in the database
+			$domainIDs = Domains::CreateDomainsbyOrderID ( $orderid );
+			
+			// Prepare the domain tasks
+			foreach ( $domains as $data ) {
+				$domainsdata [] = array ('domain' => $data ['domain'], 'action' => $data ['action'], 'registrar_id' => $data ['registrar_id'] );
+			}
+			
+			// Save the tasks to do by cronjob
+			if (! empty ( $domainsdata )) {
+				// Add the domains found in the task table action in order to execute the register/transfer procedure
+				DomainsTasks::AddTasks ( $domainsdata );
+			} 
+		}
+		
+		// Add the panel action tasks
+		$hostingplans = self::get_hostingplans_from_order($orderid);
+
+		foreach ( $hostingplans as $data ) {
+			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+		}
+	}	
+	
+	/*
 	 * Complete 
 	 * this function complete the order
 	 * set the payment, create the domain tasks, and set the status of the new domains
@@ -1092,30 +1205,8 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
-			$domains = self::getDomainsFromOrder ( $orderid );
-			
-			if (count ( $domains ) > 0) {
-				
-				// Create the domain name in the database
-				$domainIDs = Domains::CreateDomainsbyOrderID ( $orderid );
-				
-				// Prepare the domain tasks
-				foreach ( $domains as $data ) {
-					$domainsdata [] = array ('domain' => $data ['domain'], 'action' => $data ['action'], 'registrar_id' => $data ['registrar_id'] );
-				}
-				
-				// Save the tasks to do by cronjob
-				if (! empty ( $domainsdata )) {
-					// Add the domains found in the task table action in order to execute the register/transfer procedure
-					DomainsTasks::AddTasks ( $domainsdata );
-				} 
-			}
-			
-			// Add the panel action tasks
-			$hostingplans = self::get_hostingplans_from_order($orderid);
-			foreach ( $hostingplans as $data ) {
-				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+			if ( ! self::RunTasks($orderid) ) {
+				return false;
 			}
 			
 			// Set the status of the orders and the status of the items within the order just created
@@ -1397,7 +1488,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function updateTotalsOrder($id) {
 		$total = 0;
-		$vat = 0;
+		$vat   = 0;
 		$costs = 0;
 		try {
 			$order = self::find ( $id );
@@ -1635,9 +1726,10 @@ class Orders extends BaseOrders {
 		$hplan = array ();
 		$i = 0;
 		$items = OrdersItems::getAllDetails ( $orderID, null, true );
+
 		if (count ( $items ) > 0) {
 			foreach ( $items as $item ) {
-				if ($item ['Products'] ['type'] == "hosting") {
+				if (strtolower($item ['Products']['type']) == "hosting") {
 					if (! empty ( $item ['parameters'] )) {
 						$hplan [$i] ['orderitem_id'] = $item ['detail_id'];
 						$hplan [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
@@ -1687,6 +1779,8 @@ class Orders extends BaseOrders {
 				$invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
 				$customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
 				$customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
+				echo $order [0] ['Customers'] ['parent_id'];
+				die();
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['parent_id'], 'orders' );
 			} else {
 				$customer_email = Contacts::getEmails($order [0] ['Customers'] ['customer_id']);
@@ -2182,18 +2276,23 @@ class Orders extends BaseOrders {
 
 	/**
 	 * Check if a order must be payed or not and send an email to the customer
-	 * with a reminder.
+	 * with a reminder. Add late fee if needed
 	 */
 	public static function checkOrders() {
-		$isp = Isp::getActiveISP ();
+		$isp    = Isp::getActiveISP ();
 		$orders = Orders::find_all_not_paid_orders();
-	
-		foreach ( $orders as $order ) {
+
+		foreach ( $orders as $order ) {			
 			$customer = Customers::getAllInfo($order ['customer_id']);
-				
 			// Get the template from the main email template folder
-			if($order['is_renewal']){
+			if( $order['is_renewal'] ) {
 				$template = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_reminder_renewal' );
+
+				// Try to add a late fee if not an exempt customer
+				if ( ! (int)$customer['ignore_latefee'] ) {
+					$order = array_merge($order, Orders::applyLateFee($order['order_id']));
+				}
+				
 			}else{
 				$template = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_reminder' );
 			}

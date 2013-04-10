@@ -22,11 +22,12 @@ class ProductsTranches extends BaseProductsTranches
 	 * @param string $measure
 	 * @param float $price
 	 */
-	public static function saveAll($productId, $billingId, $qta, $measure, $price) {
+	public static function saveAll($productId, $billingId, $qta, $measure, $price, $setupfee = 0) {
 		$tranches = new ProductsTranches ();
 		$tranches->quantity = $qta;
 		$tranches->measurement = $measure;
 		$tranches->billing_cycle_id = $billingId;
+		$tranches->setupfee = $setupfee;
 		$tranches->price = $price;
 		$tranches->product_id = $productId;
 		$tranches->save ();
@@ -198,7 +199,7 @@ class ProductsTranches extends BaseProductsTranches
      * @param $productid
      * @return array 
      */
-    public static function getList($productid) {
+    public static function getList($productid, $refund = false) {
         $translator = Zend_Registry::getInstance ()->Zend_Translate;
     	try {
             $items = array();
@@ -213,6 +214,19 @@ class ProductsTranches extends BaseProductsTranches
             $currency = new Zend_Currency();
             
 	        foreach ( $records as $c ) {
+				//JAY 20130409
+				if( $refund !== false ) {
+					$idBillingCircle		= $c['BillingCycle']['billing_cycle_id'];
+					$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
+					$priceToPay				= $c['price'] * $monthBilling;
+					$priceToPayWithRefund	= $priceToPay - $refund;
+					if( $priceToPayWithRefund < 0 ) {
+						$priceToPayWithRefund	= $priceToPay;
+					}
+					$c['price']	= round( $priceToPayWithRefund / $monthBilling,2 );					
+				}
+				/** 20130409 ***/
+				
 	        	$items [$c ['tranche_id']] = $translator->translate($c['BillingCycle']['name']) .  " - " . $currency->toCurrency($c ['price'], array('currency' => Settings::findbyParam('currency')));
 	            if(!empty($c ['measurement'])){
 	            	 $items [$c ['tranche_id']] .= "/" . $translator->translate($c ['measurement']);

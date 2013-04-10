@@ -41,7 +41,7 @@
 	        <field type="integer" default="0">limit_spamfilter_policy</field>
 	        <field type="string" default="">limit_web_ip</field>
 	        <field type="integer" default="0">limit_web_domain</field>
-	        <field type="string" default="no,fast-cgi,cgi,mod,suphp">web_php_options</field>
+	        <field type="string" default="no,fast-cgi,cgi,mod,suphp,php-fpm">web_php_options</field>
 	        <field type="integer" default="0">limit_web_subdomain</field>
 	        <field type="integer" default="0">limit_web_aliasdomain</field>
 	        <field type="integer" default="0">limit_ftp_user</field>
