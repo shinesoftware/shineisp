@@ -68,10 +68,10 @@ class Shineisp_Commons_UrlRewrites {
      * @param   string $string
      * @return  string
      */
-    static public function format($string, $allowUnderscores = false)
+    static public function format($string)
     {
     	if(!empty($string)){
-    		$regex  = ($allowUnderscores) ? '#[^0-9a-z\_]+#i' : '#[^0-9a-z]+#i'; 
+    		$regex  = '#[^0-9a-z]+#i'; 
 	    	$urlKey = preg_replace ( $regex, '-', strtr($string, self::$convertTable) );
 	        $urlKey = strtolower ( $urlKey );
 	        $urlKey = trim ( $urlKey, '-' );
