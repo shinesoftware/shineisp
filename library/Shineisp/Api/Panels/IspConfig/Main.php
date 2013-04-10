@@ -131,6 +131,9 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 						// Save the setup in the service setup field
 						OrdersItems::set_setup($task ['orderitem_id'], array('username'=>$email, 'password'=>$password), "emails");
 					
+						// Add relation between order_item and server
+						OrdersItemsServers::addServer($task['orderitem_id'], $ServerId);
+					
 						// Create the log message
 						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
 					}
@@ -229,6 +232,9 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 					
 					// Save the setup in the service setup field
 					OrdersItems::set_setup($task ['orderitem_id'], array('db'=>$dbname, 'username'=>$dbuser, 'password'=>$password), "database");
+					
+					// Add relation between order_item and server
+					OrdersItemsServers::addServer($task['orderitem_id'], $ServerId);
 					
 					// Create the log message
 					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
@@ -441,6 +447,9 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 					} catch ( SoapFault $e ) {
 						throw new Exception("There was a problem with " . $domains[0]['domain'] . " website creation: " . $e->getMessage() . " - Paramenters: " . json_encode($params) , "3504");
 					}
+					
+					// Add relation between order_item and server
+					OrdersItemsServers::addServer($task['orderitem_id'], $ServerId);
 					
 					// Create the log message
 					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );

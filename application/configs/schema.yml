@@ -1939,6 +1939,38 @@ OrdersItemsDomains:
       local: orderitem_id
       foreign: detail_id
       onDelete: CASCADE
+OrdersItemsServers:
+  connection: doctrine
+  tableName: orders_items_servers
+  columns:
+    relationship_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    server_id:
+      type: int(4)
+      notnull: true
+    order_id:
+      type: int(4)
+      notnull: true
+    orderitem_id:
+      type: int(4)
+      notnull: true
+  relations:
+    Servers:
+      local: server_id
+      foreign: server_id
+      onDelete: CASCADE
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    OrdersItems:
+      local: orderitem_id
+      foreign: detail_id
+      onDelete: CASCADE      
 Panels:
   connection: doctrine
   tableName: panels

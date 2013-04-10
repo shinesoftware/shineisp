@@ -446,8 +446,8 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Doctrine Record
 	 */
 	public static function find($id, $fields = "*", $retarray = false) {
+		$id = intval($id);
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )->where ( "detail_id = $id" )->limit ( 1 );
-		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$item = $dq->execute ( array (), $retarray );
 		return $item;

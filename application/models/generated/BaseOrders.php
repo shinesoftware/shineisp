@@ -29,6 +29,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property Doctrine_Collection $Messages
  * @property Doctrine_Collection $OrdersItems
  * @property Doctrine_Collection $OrdersItemsDomains
+ * @property Doctrine_Collection $OrdersItemsServers
  * @property Doctrine_Collection $Payments
  * 
  * @package    ##PACKAGE##
@@ -151,6 +152,10 @@ abstract class BaseOrders extends Doctrine_Record
              'foreign' => 'order_id'));
 
         $this->hasMany('OrdersItemsDomains', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id'));
+
+        $this->hasMany('OrdersItemsServers', array(
              'local' => 'order_id',
              'foreign' => 'order_id'));
 
