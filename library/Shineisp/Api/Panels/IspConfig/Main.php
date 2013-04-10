@@ -647,7 +647,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				$sysVariable = $sysAttribute[0]['system_var'];
 				// Get the system product attribute
 				$modAttribute = Panels::getXmlFieldbyAttribute ( "IspConfig", $sysVariable );
-				print_r($modAttribute);
+
 				if(!empty($modAttribute ['field'])){
 					// Sum the old resource value with the new ones
 					if(!empty($record[$modAttribute ['field']])){
