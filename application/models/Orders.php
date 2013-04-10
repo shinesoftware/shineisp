@@ -1112,8 +1112,8 @@ class Orders extends BaseOrders {
 					$productIdOld	= $orderItem['product_id'];
 					$productOld 	= Products::getAllInfo($productIdOld);
 					$name	= "";
-					if( isset( $product['ProductsData']) ) {
-						$textInfo	= array_shift($product['ProductsData']);
+					if( isset( $productOld['ProductsData']) ) {
+						$textInfo	= array_shift($productOld['ProductsData']);
 						if( ! empty($textInfo) ) {
 							if( isset( $textInfo['name'] ) ) {
 								$name	= $textInfo['name'];
@@ -1126,7 +1126,7 @@ class Orders extends BaseOrders {
 				
 				$item['cost'] = $product ['cost'];
 				$item['setupfee'] = $product ['setupfee'];
-				$item['description'] = !empty($description) ? $description : $product['name'];
+				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
 				$item->save();
 				
