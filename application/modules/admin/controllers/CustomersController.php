@@ -282,6 +282,23 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	
 	private function servicesGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		try {
+			if (isset ( $request->id ) && is_numeric ( $request->id )) {
+				// In order to select only the fields interested we have to add an alias to all the fields. If the aliases are not created Doctrine will require an index field for each join created.
+				//$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
+				$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname, oi.order_id as orderid, oi.date_start as datestart, oi.date_end as dateend' );
+				if ($rs) {
+					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+				}
+			}
+		} catch ( Exception $e ) {
+			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+		}
+	}	
+	
+	/*
+	private function servicesGrid() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Orders::getOrdersDetailsByCustomerID ( $request->id );
 			
@@ -327,6 +344,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		}
 
 	}
+	*/
 	
 	private function addressesGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
