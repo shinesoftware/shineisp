@@ -249,7 +249,8 @@ class ProductsAttributes extends BaseProductsAttributes {
 			$productsattributes = Doctrine::getTable ( 'ProductsAttributes' )->find ( $id );
 		}
 		
-		$code = Shineisp_Commons_UrlRewrites::format($code );
+		// format the attribute code
+		$code = Shineisp_Commons_Utilities::format($code );
 		
 		// Check if the code has been already used before
 		$thecode = self::getAttributebyCode($code);
@@ -276,7 +277,7 @@ class ProductsAttributes extends BaseProductsAttributes {
 		$productsattributes['is_required'] = $is_required;
 		$productsattributes['is_comparable'] = $is_comparable;
 		$productsattributes['on_product_listing'] = $on_product_listing;
-		
+				
 		$productsattributes->save ();
 		
 		$productsattributesdata = Doctrine::getTable('ProductsAttributesData')
