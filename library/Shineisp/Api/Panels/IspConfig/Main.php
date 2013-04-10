@@ -270,7 +270,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		$client = $this->connect ();
 			
 		// Get the web server setup
-		$server = Servers::getWebserver();
+		$server = Servers::getActiveWebserver();
 
 		// Get the server id
 		if(is_numeric($server['server_id'])){
@@ -366,7 +366,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		$client = $this->connect ();
 		
 		// Get the web server setup
-		$server = Servers::getWebserver();
+		$server = Servers::getActiveWebserver();
 
 		// Get the server id
 		if(is_numeric($server['server_id'])){
@@ -534,18 +534,18 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		
 		// Match all the ShineISP product system attribute and IspConfig attributes (see below about info)
 		$retval = self::matchFieldsValues ( $parameters, $record );
-		
+
 		if (is_array ( $retval )) {
 			$record = array_merge ( $record, $retval );
 		}
-		
+
 		// Execute the SOAP action
 		if (! empty ( $clientId ) && is_numeric($clientId)) {
 			$client->client_update ( $this->getSession (), $clientId, 1, $record );
 		} else {
 			
 			// Get the web server setup
-			$server = Servers::getWebserver();
+			$server = Servers::getActiveWebserver();
 			
 			// Create the username string for instance from John Doe to jdoe
 			$username = strtolower(substr($customer ['firstname'], 0, 1) . preg_replace("#[^a-zA-Z0-9]*#", "", $customer ['lastname']));
@@ -631,16 +631,14 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 
 		// Loop of system product attributes
 		foreach ( $attributes as $attribute => $value ) {
-
 			// Get the saved system attribute
 			$sysAttribute = ProductsAttributes::getAttributebyCode($attribute);
 			
 			if(!empty($sysAttribute[0]['system_var'])){
 				$sysVariable = $sysAttribute[0]['system_var'];
-				
 				// Get the system product attribute
 				$modAttribute = Panels::getXmlFieldbyAttribute ( "IspConfig", $sysVariable );
-				
+				print_r($modAttribute);
 				if(!empty($modAttribute ['field'])){
 					// Sum the old resource value with the new ones
 					if(!empty($record[$modAttribute ['field']])){
@@ -666,6 +664,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				}
 			}
 		}
+
 		return $fields;
 	}
 
