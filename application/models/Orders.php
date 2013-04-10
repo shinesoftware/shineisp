@@ -1268,16 +1268,33 @@ class Orders extends BaseOrders {
 		}
 	}	
 	
+	
+	private static function isUpgrade( $orderid ) {
+		$orderDetails	= Orders::getDetails($orderid);
+		foreach( $orderDetails as $orderDetail ) {
+			$parent_orderid	= intval($orderDetail['parent_orderid']);
+			if( $parent_orderid != 0 ) {
+				return $parent_orderid;
+			}
+		}
+		
+		return false;		
+	}
 	/*
 	 * Complete 
 	 * this function complete the order
 	 * set the payment, create the domain tasks, and set the status of the new domains
 	 */
 	public static function Complete($orderid, $sendemail=false) {
-		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			if ( ! self::RunTasks($orderid) ) {
+			$upgrade	= Orders::isUpgrade($orderid);
+			if( $upgrade !== false ) {
+				$orderItem	= OrdersItems::getDetail($upgrade);
+				$oldOrderId	= $orderItem['order_id'];
+
+				self::set_status ( $oldOrderId, Statuses::id("closed", "changed") ); // Close the old order ::status changed
+			} elseif ( ! self::RunTasks($orderid) ) {
 				return false;
 			}
 			
@@ -1714,6 +1731,7 @@ class Orders extends BaseOrders {
                      d.description, 
                      d.price as price, 
                      d.setupfee as setupfee, 
+                     d.parent_detail_id as parent_orderid,
                      t.percentage as taxpercentage,
                      DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
                      DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
