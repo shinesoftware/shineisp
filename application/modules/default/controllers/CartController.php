@@ -127,10 +127,6 @@ class CartController extends Zend_Controller_Action {
 					$orderid	= $this->checkIfIsUpgrade( $request ['product_id'] );
 					if( $orderid != false ) {
 						unset ( $NS->cart );
-						$product['parent_orderid']	= $orderid;
-						$tranche['price']			= $this->getPricesWithRefundIfIsRecurring($orderid, $tranche ['price'], $tranche['BillingCycle']['billing_cycle_id'] );
-						$product ['price_1'] 		= $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
-						
 						$NS->cart->products [] 				= $product;
 						$NS->cart->contacts['customer_id']	= $NS->customer['customer_id'];
 						//add new order

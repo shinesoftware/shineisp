@@ -974,9 +974,10 @@ class Orders extends BaseOrders {
 		if(is_numeric($productId)){
 		
 			// Get the product information
-			echo $productId; die();
 			$product = Products::getAllInfo($productId);
-			
+			// echo '<pre>';
+			// print_r($product);
+			// die();
 			if(!empty($product)){
 				if(empty(self::$order)){
 					throw new Exception('The order has not been created yet', 1000);
@@ -994,6 +995,7 @@ class Orders extends BaseOrders {
 				$item['description'] 		= $product ['name'];
 				$item['billing_cycle_id'] 	= $billing; 
 				$item['quantity'] 			= $qta;
+				
 				$item['price'] 				= $product['price_1'];
 				
 				// Count of the day until the expiring
@@ -1051,6 +1053,9 @@ class Orders extends BaseOrders {
 					}
 					$item['parameters'] = json_encode ( $hostingplan );
 				}	
+				
+				echo 'Prezzo '.$item['price']."<br/>";
+				die();
 				
 				$item['cost'] = $product ['cost'];
 				$item['setupfee'] = $product ['setupfee'];
