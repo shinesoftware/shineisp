@@ -1903,10 +1903,13 @@ class Orders extends BaseOrders {
 			
 			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 			if ($retval) {
+				$isp = Isp::getActiveISP ();
+				
 				$subject = $retval ['subject'];
 				$subject = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $subject );
 				$subject = str_replace ( "[fullname]", $customer, $subject );
 				$orderTemplate = $retval ['template'];
+				$orderTemplate = str_replace ( "[storename]", $isp ['company'], $orderTemplate );
 				$orderTemplate = str_replace ( "[fullname]", $customer, $orderTemplate );
 				$orderTemplate = str_replace ( "[email]", $email, $orderTemplate );
 				$orderTemplate = str_replace ( "[bank]", $bank, $orderTemplate );
