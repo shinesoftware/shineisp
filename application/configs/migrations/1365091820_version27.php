@@ -6,14 +6,16 @@ class Version27 extends Doctrine_Migration_Base
 {
     public function up()
     {
-        $this->dropTable('products_upgrades');
+        /*$this->dropTable('products_upgrades');
         $this->removeColumn('orders_items', 'detail_old_id');
         $this->addColumn('orders_items', 'parent_detail_id', 'type: integer', '4', array(
              ));
+		 */
     }
 
     public function down()
     {
+    	/*
         $this->createTable('products_upgrades', array(
              'upgrade_id' => 
              array(
@@ -49,5 +51,6 @@ class Version27 extends Doctrine_Migration_Base
         $this->addColumn('orders_items', 'detail_old_id', 'type: integer', '4', array(
              ));
         $this->removeColumn('orders_items', 'parent_detail_id');
+		 */
     }
 }

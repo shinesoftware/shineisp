@@ -7,8 +7,8 @@ class Version26 extends Doctrine_Migration_Base
     public function up()
     {
         $this->dropTable('products_upgrades');
-        $this->addColumn('orders_items', 'detail_old_id', 'type: integer', '4', array(
-             ));
+        /*$this->addColumn('orders_items', 'detail_old_id', 'type: integer', '4', array(
+             ));*/
     }
 
     public function down()
@@ -45,6 +45,6 @@ class Version26 extends Doctrine_Migration_Base
              'collate' => '',
              'charset' => 'UTF8',
              ));
-        $this->removeColumn('orders_items', 'detail_old_id');
+        //$this->removeColumn('orders_items', 'detail_old_id');
     }
 }
