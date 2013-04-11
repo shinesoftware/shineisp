@@ -337,21 +337,24 @@ class OrdersItems extends BaseOrdersItems {
 			
 		
 		$details = Doctrine::getTable ( 'OrdersItems' )->find ( $id );
-		$details->quantity = $params ['quantity'];
-		$details->date_start = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
-		$details->date_end = Shineisp_Commons_Utilities::formatDateIn($params ['date_end']);
+		$details->quantity         = $params ['quantity'];
+		$details->date_start       = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
+		$details->date_end         = Shineisp_Commons_Utilities::formatDateIn($params ['date_end']);
 		$details->billing_cycle_id = !empty($params['billing_cycle_id']) ? $params ['billing_cycle_id'] : null;
-		$details->price = $params ['price'];
-		$details->cost = $params ['cost'];
-		$details->product_id = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
-		$details->setupfee = $params ['setupfee'];
-		$details->status_id = $params ['status_id'];
-		$details->description = $params ['description'];
-		$details->parameters = $params ['parameters'];
+		$details->price            = $params ['price'];
+		$details->cost             = $params ['cost'];
+		$details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
+		$details->setupfee         = $params ['setupfee'];
+		$details->status_id        = $params ['status_id'];
+		$details->description      = $params ['description'];
+		$details->parameters       = $params ['parameters'];
 		
 		if($details->trySave ())
 			OrdersItems::setAutorenew($id, $params ['autorenew']);
-			
+
+			// Remove all domains
+			OrdersItemsDomains::removeAllDomains($id);
+
 			if ($params ['domains_selected']) {
 				foreach ( $params ['domains_selected'] as $domain ) {
 					OrdersItemsDomains::addDomain($details ['order_id'], $domain);

@@ -286,15 +286,91 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			if (isset ( $request->id ) && is_numeric ( $request->id )) {
 				// In order to select only the fields interested we have to add an alias to all the fields. If the aliases are not created Doctrine will require an index field for each join created.
 				//$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
-				$rs = Products::getAllActiveServicesByCustomerID ( $request->id, 'o.order_id, oi.detail_id as detail_id, oi.order_id as orderid, oi.date_start as datestart, oi.date_end as dateend, pd.name as productname' );
+				$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, oi.order_id as orderid, pd.name as productname, DATE_FORMAT(oi.date_start, "%d/%m/%Y") AS date_start as date_start, DATE_FORMAT(oi.date_end, "%d/%m/%Y") AS date_end, DATEDIFF(oi.date_end, CURRENT_DATE) AS daysleft, oi.price as price, oi.autorenew as autorenew, oi.status_id as status' );
 				if ($rs) {
-					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'services', 'action' => 'edit' ), 'pager' => true );
+					$arrStatuses = Statuses::getList('orders');
+					
+					foreach ( $rs as $k => $v) {
+						if ( isset($v['price']) ) {
+							//* TODO: Format price based on locale
+							$rs[$k]['price'] = $v['price'];
+						}
+
+						if ( isset($v['status']) && isset($arrStatuses[$v['status']]) ) {
+							$rs[$k]['status'] = $arrStatuses[$v['status']];
+						}
+						
+						if ( isset($v['autorenew']) ) {
+							$rs[$k]['autorenew'] = ($v['autorenew'] == 1) ? $this->translator->translate('Yes') : $this->translator->translate('Yes');
+						}
+						
+						if ( isset($v['date_start']) ) {
+							$rs[$k]['date_start'] = Shineisp_Commons_Utilities::formatDateIn ( $v['date_start'] );
+						}
+						if ( isset($v['date_end']) ) {
+							$rs[$k]['date_end'] = Shineisp_Commons_Utilities::formatDateIn ( $v['date_end'] );
+						}
+
+					}
+						
+					
+					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 				}
 			}
 		} catch ( Exception $e ) {
 			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
+	}	
+	
+	/*
+	private function servicesGrid() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		if (isset ( $request->id ) && is_numeric ( $request->id )) {
+			$rs = Orders::getOrdersDetailsByCustomerID ( $request->id );
+			
+			if (isset ( $rs )) {
+				// In this section I will delete the empty OrdersItemsDomains subarray created by Doctrine because the simplegrid works only with a flat array
+				// where the array keys are the fields. So, if the OrdersItemsDomains is empty means that if the order item doesn't has 
+				// a domain attached it this empty array will be deleted in all the recordset.
+				// TODO: improve this section when doctrine improve the engine. 
+				$myrec = array ();
+				foreach ( $rs as $record ) {
+					$amount = $record ['quantity'] * $record ['price'] + $record ['setupfee'];
+					
+					// Add the taxes if the product need them
+					if ($record ['taxpercentage'] > 0) {
+						$record ['vat']        = number_format ( ($amount * $record ['taxpercentage'] / 100), 2 );
+						$record ['grandtotal'] = number_format ( ($amount * (100 + $record ['taxpercentage']) / 100), 2 );
+					} else {
+						$record ['vat'] = 0;
+						$record ['grandtotal'] = $amount;
+					}
+					
+					$record['username'] = '';
+					if ( isset($record['setup']) ) {
+						$setup = json_decode($record['setup']);
+						unset($record['setup']);
+					
+						if ( isset($setup->webpanel) && isset($setup->webpanel->username) ) {
+							$record['username'] = $setup->webpanel->username;
+						}
+						
+					}
+					
+					if ( isset ( $record ['OrdersItemsDomains'] ) ) {
+						unset ( $record ['OrdersItemsDomains'] );
+					}
+					unset ( $record ['taxpercentage'] );
+					
+					$myrec [] = $record;
+				}
+
+				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+			}
+		}
+
 	}
+	*/
 	
 	private function addressesGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();

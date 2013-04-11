@@ -219,6 +219,45 @@ class Orders extends BaseOrders {
 		}
 	}
 	
+	/*
+	 * Get all the details from a order
+	 */
+	public static function getOrdersDetailsByCustomerID($id) {
+		$id = intval($id);
+		
+		$dq = Doctrine_Query::create ()->select ( "
+		             o.order_id AS order_id,
+                     oid.relationship_id, 
+                     dm.domain_id, 
+                     dt.tld_id,
+                     ws.tld,
+                     CONCAT(dm.domain, '.',ws.tld) as domain, 
+                     d.quantity, 
+                     d.description, 
+                     d.price as price, 
+                     d.setupfee as setupfee, 
+                     t.percentage as taxpercentage,
+                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
+                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end,
+                     d.setup" )
+		->from ( 'OrdersItems d' )
+		->leftJoin ( 'd.Orders o' )
+		->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
+		->leftJoin ( 'oid.Domains dm' )
+		->leftJoin ( 'd.Products p' )
+		->leftJoin ( 'dm.DomainsTlds dt' )
+		->leftJoin ( 'dt.WhoisServers ws' )
+		->leftJoin ( 'p.Taxes t' )
+		->leftJoin ( 'o.Customers c' )
+		->leftJoin ( 'c.Customers r' )
+		->leftJoin ( 'd.Statuses s' )
+		->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id));
+		$rs = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		return $rs;
+	}
+	
+	
 	/**
 	 * Upload document files
 	 */
@@ -974,9 +1013,10 @@ class Orders extends BaseOrders {
 		if(is_numeric($productId)){
 		
 			// Get the product information
-			echo $productId; die();
 			$product = Products::getAllInfo($productId);
-			
+			// echo '<pre>';
+			// print_r($product);
+			// die();
 			if(!empty($product)){
 				if(empty(self::$order)){
 					throw new Exception('The order has not been created yet', 1000);
@@ -991,9 +1031,19 @@ class Orders extends BaseOrders {
 				$item['date_start'] = date ( 'Y-m-d H:i:s' );
 					
 				// Manages all the products that have no recursion payment
-				$item['description'] 		= $product ['name'];
+				$name	= "";
+				if( isset( $product['ProductsData']) ) {
+					$textInfo	= array_shift($product['ProductsData']);
+					if( ! empty($textInfo) ) {
+						if( isset( $textInfo['name'] ) ) {
+							$name	= $textInfo['name'];
+						}
+					}
+				}
+				$item['description'] 		= $name;
 				$item['billing_cycle_id'] 	= $billing; 
 				$item['quantity'] 			= $qta;
+				
 				$item['price'] 				= $product['price_1'];
 				
 				// Count of the day until the expiring
@@ -1014,12 +1064,6 @@ class Orders extends BaseOrders {
 					$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
 				}else{
 					$item['date_end'] = null;
-				}
-				
-				if( $upgrade != false ) {
-					$item['parent_detail_id']	= $upgrade;
-				} else {
-					$item['parent_detail_id']	= 0;
 				}
 				
 				// IMPORTANT //
@@ -1052,9 +1096,37 @@ class Orders extends BaseOrders {
 					$item['parameters'] = json_encode ( $hostingplan );
 				}	
 				
+				//If there is a refund update the price
+				$item['parent_detail_id']	= 0;
+				if( $upgrade !== false ) {
+					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
+					$refund			= $refundInfo['refund'];
+					$priceWithRefund= $item['price'] - $refund;
+					if( $priceWithRefund > 0 ) {
+						$item['price']	= $priceWithRefund;
+					}
+					$item['parent_detail_id']	= $upgrade;
+					
+					//Update description
+					$orderItem		= OrdersItems::getDetail($upgrade);
+					$productIdOld	= $orderItem['product_id'];
+					$productOld 	= Products::getAllInfo($productIdOld);
+					$name	= "";
+					if( isset( $productOld['ProductsData']) ) {
+						$textInfo	= array_shift($productOld['ProductsData']);
+						if( ! empty($textInfo) ) {
+							if( isset( $textInfo['name'] ) ) {
+								$name	= $textInfo['name'];
+							}
+						}
+					}					
+					
+					$item['description'] 		= 'Change service from '.$name.' to '.$item['description'];
+				}
+				
 				$item['cost'] = $product ['cost'];
 				$item['setupfee'] = $product ['setupfee'];
-				$item['description'] = !empty($description) ? $description : $product['name'];
+				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
 				$item->save();
 				
@@ -1196,16 +1268,33 @@ class Orders extends BaseOrders {
 		}
 	}	
 	
+	
+	private static function isUpgrade( $orderid ) {
+		$orderDetails	= Orders::getDetails($orderid);
+		foreach( $orderDetails as $orderDetail ) {
+			$parent_orderid	= intval($orderDetail['parent_orderid']);
+			if( $parent_orderid != 0 ) {
+				return $parent_orderid;
+			}
+		}
+		
+		return false;		
+	}
 	/*
 	 * Complete 
 	 * this function complete the order
 	 * set the payment, create the domain tasks, and set the status of the new domains
 	 */
 	public static function Complete($orderid, $sendemail=false) {
-		
 		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
 			
-			if ( ! self::RunTasks($orderid) ) {
+			$upgrade	= Orders::isUpgrade($orderid);
+			if( $upgrade !== false ) {
+				$orderItem	= OrdersItems::getDetail($upgrade);
+				$oldOrderId	= $orderItem['order_id'];
+
+				self::set_status ( $oldOrderId, Statuses::id("closed", "changed") ); // Close the old order ::status changed
+			} elseif ( ! self::RunTasks($orderid) ) {
 				return false;
 			}
 			
@@ -1425,11 +1514,14 @@ class Orders extends BaseOrders {
 	
 		$customer = Customers::getAllInfo($customerid);
 		
+		$order = self::getAllInfo ( $id, null, true );
+		$date  = explode ( "-", $order [0] ['order_date'] );
+		
 		if ($retval) {
 			$subject = $retval ['subject'];
 			$Template =  $retval ['template'] ;
 			$subject = str_replace ( "[orderid]", $id, $subject );
-			$Template = str_replace ( "[orderid]", $id, $Template );
+			$Template = str_replace ( "[orderid]", sprintf ( "%03s", $id ) . "-" . $date [0], $Template );
 			$Template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $Template );
 			$Template = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['website'], $Template );
 			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], $isp ['email'], $subject, $Template);
@@ -1639,6 +1731,7 @@ class Orders extends BaseOrders {
                      d.description, 
                      d.price as price, 
                      d.setupfee as setupfee, 
+                     d.parent_detail_id as parent_orderid,
                      t.percentage as taxpercentage,
                      DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
                      DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
