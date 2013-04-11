@@ -673,7 +673,6 @@ class Products extends BaseProducts {
 		$product = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if (isset ( $product [0] )) {
-			
 			// Handle the Attributes Values
 			if (! empty ( $product [0] ['ProductsAttributesIndexes'] )) {
 				$attributes = $product [0] ['ProductsAttributesIndexes'];

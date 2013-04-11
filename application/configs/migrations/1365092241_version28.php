@@ -6,8 +6,8 @@ class Version28 extends Doctrine_Migration_Base
 {
     public function up()
     {
-        $this->changeColumn('orders_items', 'parent_detail_id', 'integer', '4', array(
-             ));
+        /* $this->changeColumn('orders_items', 'parent_detail_id', 'integer', '4', array(
+             )); */
     }
 
     public function down()

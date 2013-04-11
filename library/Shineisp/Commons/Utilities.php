@@ -986,6 +986,27 @@ class Shineisp_Commons_Utilities {
 		$newpass = $password;
 		return $newpass;
 	}
+
+	/**
+	 * GenerateRandomPassword
+	 * generate a random password
+	 * @param $length
+	 * @return string
+	 */
+	public static function GenerateRandomPassword($length = 16) {
+		$chars       = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    	$password    = array();
+    	$alphaLength = strlen($chars) - 1;
+		
+    	for ($i = 0; $i < $length; $i++) {
+        	$n = rand(0, $alphaLength);
+        	$password[] = $chars[$n];
+    	}
+		
+    	return implode($password);
+	}
+
+
 	
 	/**
 	 * 

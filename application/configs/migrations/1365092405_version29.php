@@ -6,12 +6,12 @@ class Version29 extends Doctrine_Migration_Base
 {
     public function up()
     {
-        $this->removeColumn('orders_items', 'parent_detail_id');
+        /* $this->removeColumn('orders_items', 'parent_detail_id'); */
     }
 
     public function down()
     {
-        $this->addColumn('orders_items', 'parent_detail_id', 'integer', '4', array(
-             ));
+        /* $this->addColumn('orders_items', 'parent_detail_id', 'integer', '4', array(
+             )); */
     }
 }
