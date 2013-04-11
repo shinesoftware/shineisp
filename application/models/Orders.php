@@ -1045,25 +1045,30 @@ class Orders extends BaseOrders {
 				$item['quantity'] 			= $qta;
 				
 				$item['price'] 				= $product['price_1'];
-				
-				// Count of the day until the expiring
-				$months = BillingCycle::getMonthsNumber ( $billing );
-				if($months > 0){
-					$totmonths = intval ( $qta * $months );
-					
-					// Calculate the total of the months 
-					$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
-					
-					if($months >= 12){
-						$qty = $months / 12;
+				$tranches					= $product['ProductsTranches'];
+				if( $trancheID != null && array_key_exists($trancheID,$tranches)) {				
+					// Count of the day until the expiring
+					$months = BillingCycle::getMonthsNumber ( $billing );
+					$tranche	= $tranches[$trancheID];
+					if($months > 0){
+						$totmonths = intval ( $qta * $months );
+						
+						// Calculate the total of the months 
+						$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
+						
+						if($months >= 12){
+							$qty = $months / 12;
+						}else{
+							$qty = 1;
+						}
+						
+						//$item['price'] 		= $product['price_1'] * $qty; 
+						$item['price'] 		= $tranche['price'] * $qty;
+						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
 					}else{
-						$qty = 1;
+						$item['date_end'] 	= null;
+						$item['price'] 		= $tranche['price'];
 					}
-					
-					$item['price'] = $product['price_1'] * $qty; 
-					$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
-				}else{
-					$item['date_end'] = null;
 				}
 				
 				// IMPORTANT //
