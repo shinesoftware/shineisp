@@ -405,21 +405,40 @@ class Products extends BaseProducts {
 						if( $refund !== false ) {
 							$idBillingCircle		= $tranches[0]['BillingCycle']['billing_cycle_id'];
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
-							$priceToPay				= $tranches[0]['price'] * $monthBilling;
-							$priceToPayWithRefund	= $priceToPay - $refund;
-							if( $priceToPayWithRefund < 0 ) {
-								$priceToPayWithRefund	= $priceToPay;
+							
+							if( $monthBilling > 0 ) {
+								$priceToPay				= $tranches[0]['price'] * $monthBilling;
+								$priceToPayWithRefund	= $priceToPay - $refund;
+								if( $priceToPayWithRefund < 0 ) {
+									$priceToPayWithRefund	= $priceToPay;
+								}
+								
+								$tranches[0]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							} else {
+								$priceToPayWithRefund	= $tranches[0]['price'] - $refund;
+								if( $priceToPayWithRefund > 0 ) {
+									$tranches[0]['price']	= $priceToPayWithRefund;
+								}
 							}
-							$tranches[0]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							
 							
 							$idBillingCircle		= $tranches[1]['BillingCycle']['billing_cycle_id'];
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
-							$priceToPay				= $tranches[1]['price'] * $monthBilling;
-							$priceToPayWithRefund	= $priceToPay - $refund;
-							if( $priceToPayWithRefund < 0 ) {
-								$priceToPayWithRefund	= $priceToPay;
+							if( $monthBilling > 0 ) {
+								$priceToPay				= $tranches[1]['price'] * $monthBilling;
+								$priceToPayWithRefund	= $priceToPay - $refund;
+								if( $priceToPayWithRefund < 0 ) {
+									$priceToPayWithRefund	= $priceToPay;
+								}
+								$tranches[1]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+								
+							} else {
+								$priceToPayWithRefund	= $tranches[1]['price'] - $refund;
+								if( $priceToPayWithRefund > 0 ) {
+									$tranches[1]['price']	= $priceToPayWithRefund;
+								}
 							}
-							$tranches[1]['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							
 						}
 						/** 20130409 ***/
 						
