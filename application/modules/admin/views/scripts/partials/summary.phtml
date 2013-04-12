@@ -1,45 +1,44 @@
 <?php
 	$currency       = Settings::findbyParam('currency'); 
 	$income_quarter = $this->income_quarter; 
-	$income_monthly = $this->income_monthly;
+	$income_graph_monthly = $this->income_graph_monthly;
+	$income_text_monthly  = $this->income_text_monthly;
 
-  	$currentYear    = date('Y');
-	$lastYear       = $currentYear -1;
-  	$arrGrafico     = array();
+  	$currentYear = date('Y');
+	$lastYear    = $currentYear -1;
+  	$arrgraph    = array();
 ?>
 
 <?php if(!empty($income_quarter)): ?>
-<div class="portlet" id="income-quarter">
-	<div class="widget-wrapper">
-		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Quarter')?></a></h3></div>
-		<div class="widget-content">
-			<ul class="stats">
-				<?php foreach($income_quarter as $inc):?>
-					<?php if($inc['year'] == date('Y')): ?>
-					<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
-						<small><?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?></small> 
-						<?php if(!empty($inc['old']['total'])): ?>
-							<small><?php echo $this->translate('%s° quarter %s: %s', $inc['old']['quarter'], $inc['old']['year'], $this->currency($inc['old']['total'], array('currency' => $currency))) ?></small>
-						<?php endif;?> 
-						<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $inc['yieldrate'] ?>%</span>
-					</li>
-					<?php endif; ?>
-				<?php endforeach;?>
-			</ul>
+	<div class="portlet" id="income-quarter">
+		<div class="widget-wrapper">
+			<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Quarter')?></a></h3></div>
+			<div class="widget-content">
+				<ul class="stats">
+					<?php foreach($income_quarter as $inc):?>
+						<?php if($inc['year'] == date('Y')): ?>
+						<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
+							<small><?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?></small> 
+							<?php if(!empty($inc['old']['total'])): ?>
+								<small><?php echo $this->translate('%s° quarter %s: %s', $inc['old']['quarter'], $inc['old']['year'], $this->currency($inc['old']['total'], array('currency' => $currency))) ?></small>
+							<?php endif;?> 
+							<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $inc['yieldrate'] ?>%</span>
+						</li>
+						<?php endif; ?>
+					<?php endforeach;?>
+				</ul>
+			</div>
 		</div>
 	</div>
-</div>
 <?php endif;?>
 
-<?php  ?>
-
-<?php if(!empty($income_monthly)): ?>
-<div class="portlet" id="income-month">
+<?php if(!empty($income_text_monthly)): ?>
+<div class="portlet" id="income-text-month">
 	<div class="widget-wrapper">
-		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month')?></a></h3></div>
+		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month (text)')?></a></h3></div>
 		<div class="widget-content">
 			<ul class="stats">
-				<?php /* foreach($income as $inc):?>
+				<?php foreach($income_text_monthly as $inc):?>
 					<?php if($inc['year'] == date('Y')): ?>
 					<li title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
 						<small><?php echo $this->translate('%s° month of %s', $inc['monthly'], $inc['year'])?></small> 
@@ -49,8 +48,17 @@
 						<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $inc['yieldrate'] ?>%</span>
 					</li>
 					<?php endif; ?>
-				<?php endforeach; */ ?>
+				<?php endforeach; ?>
 			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="portlet" id="income-graph-month">	
+	<div class="widget-wrapper">
+		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month (graph)')?></a></h3></div>
+		<div class="widget-content">
+			<div id='graph'></div>
 		</div>
 	</div>
 	
@@ -69,7 +77,7 @@
 	       
 	       rows: [
 	          <?php
-	          	foreach($income_monthly[$currentYear] as $yearIncome):
+	          	foreach($income_graph_monthly[$currentYear] as $yearIncome):
 					$month    = $yearIncome['month'];
 					
 					$currentTS = new Zend_Date(mktime(0,0,0,$month,1,$currentYear));
@@ -78,7 +86,7 @@
 					$lastMonthTitle    = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
 					
 					$total    = (isset($yearIncome['total'])) ? $yearIncome['total'] : 0;
-					$oldTotal = (isset($income_monthly[$lastYear][$month]['total'])) ? $income_monthly[$lastYear][$month]['total'] : 0;
+					$oldTotal = (isset($income_graph_monthly[$lastYear][$month]['total'])) ? $income_graph_monthly[$lastYear][$month]['total'] : 0;
 					$growDiff = (isset($yearIncome['growDiff'])) ? $yearIncome['growDiff'] : 0;
 					$growPercent = (isset($yearIncome['growPercent'])) ? $yearIncome['growPercent'] : 0;
 					
@@ -91,10 +99,10 @@
 					$arrColonne[] = "{v:".$oldTotal."}";
 					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$lastMonthTitle."</strong></span><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
 
-					$arrGrafico[] = "{c:[".implode(',',$arrColonne)."]}\n";
+					$arrgraph[] = "{c:[".implode(',',$arrColonne)."]}\n";
 	          	endforeach;
 				
-				echo implode(',', $arrGrafico);
+				echo implode(',', $arrgraph);
 				
 	      		?>
 			]
@@ -106,7 +114,7 @@
         	,tooltip: {isHtml: true}
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('grafico'));
+        var chart = new google.visualization.LineChart(document.getElementById('graph'));
         chart.draw(data, options);
 
 		$(window).smartresize(function(){
@@ -114,8 +122,6 @@
 		});
       }
     </script>	
-	
-	<div id='grafico'></div>
 	
 </div>
 <?php endif;?>

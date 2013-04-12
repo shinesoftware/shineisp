@@ -20,7 +20,7 @@ class Version31 extends Doctrine_Migration_Base
               'notnull' => '',
               'length' => '4',
              ),
-             'related_product_id' => 
+             'upgrade_product_id' => 
              array(
               'type' => 'integer',
               'notnull' => '',

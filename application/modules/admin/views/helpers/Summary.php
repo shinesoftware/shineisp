@@ -15,7 +15,9 @@ class Admin_View_Helper_Summary extends Zend_View_Helper_Abstract{
 	 */
 	public function summary($year = null) {
 		$this->view->income_quarter = Orders::incomeQuarter($year);
-		$this->view->income_monthly = Orders::incomeMonthly($year);
+		$this->view->income_graph_monthly = Orders::incomeMonthly($year);
+		$this->view->income_text_monthly = Orders::incomeMonthlyText($year);
+				
 		return $this->view->render ( 'partials/summary.phtml' );
 	}
 
