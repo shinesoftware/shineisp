@@ -2201,6 +2201,74 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
+	 * Yield total percentage between months
+	 *
+	 * @return ArrayObject
+	 */
+	public static function incomeMonthlyText($year = null ) {
+		$present_year = !empty($year) ? $year : date("Y");
+		$last_year = $present_year - 1;
+	
+		// Get the invoices montly total
+		$income = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as monthly, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
+											->from ( 'Invoices i' )
+											->leftJoin ( 'i.Orders o' )
+											->where('o.status_id = ?', Statuses::id('complete', 'orders'))
+											->groupBy("monthly, year")
+											->orderBy('year, monthly')
+											->execute ( null, Doctrine::HYDRATE_ARRAY );
+										
+		// Get the credit notes montly total
+		$creditnotes = Doctrine_Query::create ()->select ( "creditnote_id, MONTH(c.creationdate) as monthly, YEAR(c.creationdate) as year, SUM(c.total) as grandtotal, SUM(c.total_net) as total, SUM(c.total_vat) as vat" )
+											->from ( 'CreditNotes c' )
+											->groupBy("monthly, year")
+											->orderBy('year, monthly')
+											->execute ( null, Doctrine::HYDRATE_ARRAY );
+	
+		for ($i=0; $i<count($income); $i++){
+	
+			// Yield Percentage
+			$income[$i]['yieldrate'] = 0;
+	
+			// Before the last year
+			$income[$i]['old'] = array();
+	
+			// For each Quarter do
+			foreach ($income as $item){
+	
+				// If the selected year is before last year and the quarter is the same do
+				if($item['year'] == ($income[$i]['year'] - 1) && $item['monthly'] == $income[$i]['monthly']){
+	
+					// Calculate the Yield percentage on diff
+					if($income[$i]['total'] > 0){
+						$diff = $income[$i]['total'] - $item['total'];
+						$percent = $diff / $item['total'] * 100;
+					}else{
+						$percent = 0;
+					}
+	
+					$income[$i]['old'] = $item;
+	
+					// Assign the yield percentage value
+					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');;
+					continue;
+				}
+			}
+		}
+	
+		// Zend_Debug::dump($income);
+		// Zend_Debug::dump($creditnotes);
+	
+		foreach ($creditnotes as $item){
+			// If the selected year is before last year and the quarter is the same do
+	
+	
+		}
+	
+		return !empty($income[0]) ? $income: array();
+	}
+	
+	/**
 	 * Yield total percentage between months 
 	 * 
 	 * @return ArrayObject

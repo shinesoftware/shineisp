@@ -242,7 +242,8 @@ Public Site;Sito pubblico
 ### GRAPHS
 domains_summary_per_month;Sommario mensile domini 
 Domains Summary;Sommario Domini
-Income by Month;Incassi per mese
+Income by Month (text);Incassi per mese (testo)
+Income by Month (graph);Incassi per mese (grafico)
 Income by Quarter;Incassi per trimestre
 
 ### ERRORS
