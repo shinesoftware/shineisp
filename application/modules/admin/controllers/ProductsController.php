@@ -204,6 +204,21 @@ class Admin_ProductsController extends Zend_Controller_Action {
 		}
 	}
 	
+	public function gettrancheAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$trance	= ProductsTranches::getTranchebyId($id);
+
+		$params	= array();
+		$params['title']	= 'Update billing oppure <a href="#" onclick="return onCleanTranche()">Inserisci nuovo</a>';
+		$params['quantity']	= $trance['quantity'];
+		$params['setupfee']	= $trance['setupfee'];
+		$params['price']	= $trance['price'];
+		$params['billing_cycle_id']	= $trance['billing_cycle_id'];
+		$params['measurement']	= $trance['measurement'];				
+		echo json_encode($params);
+		exit();
+	}
+	
 	/**
 	 * editAction
 	 * Get a record and populate the application form 

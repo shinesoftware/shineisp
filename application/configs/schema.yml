@@ -592,11 +592,17 @@ CustomAttributes:
     section:
       type: string(255)
       notnull: true
+    panel_id:
+      type: integer(11)
   relations:
     CustomAttributesValues:
       local: attribute_id
       foreign: attribute_id
       type: many
+    Panels:
+      local: panel_id
+      foreign: panel_id
+      type: one
 CustomAttributesValues:
   connection: doctrine
   tableName: custom_attributes_values
