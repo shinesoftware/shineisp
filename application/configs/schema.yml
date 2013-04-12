@@ -2651,6 +2651,32 @@ ProductsUpgrades:
       foreign: product_id
       onDelete: CASCADE       
 
+ProductsTranchesIncludes:
+  connection: doctrine
+  tableName: products_tranches_includes
+  columns:
+    tranche_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+    include_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+  relations:
+    Products:
+      local: include_id
+      foreign: product_id
+      onDelete: NO ACTION
+    ProductsTranches:
+      local: tranche_id
+      foreign: tranche_id
+      onDelete: NO ACTION       
+
 ProductsTranches:
   connection: doctrine
   tableName: products_tranches
@@ -2688,6 +2714,31 @@ ProductsTranches:
       local: billing_cycle_id
       foreign: billing_cycle_id
       type: one
+ProductsTranchesIncludes:
+  connection: doctrine
+  tableName: products_tranches_includes
+  columns:
+    tranche_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+    include_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+  relations:
+    Products:
+      local: include_id
+      foreign: product_id
+      onDelete: NO ACTION
+    ProductsTranches:
+      local: tranche_id
+      foreign: tranche_id
+      onDelete: NO ACTION       
 PurchaseCategories:
   connection: doctrine
   tableName: invoices_purchases_categories

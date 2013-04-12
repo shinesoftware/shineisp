@@ -44,6 +44,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Doctrine_Collection $ProductsTranches
  * @property Doctrine_Collection $ProductsMedia
  * @property Doctrine_Collection $ProductsAttributesIndexes
+ * @property Doctrine_Collection $ProductsTranchesIncludes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -232,5 +233,9 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasMany('ProductsAttributesIndexes', array(
              'local' => 'product_id',
              'foreign' => 'product_id'));
+
+        $this->hasMany('ProductsTranchesIncludes', array(
+             'local' => 'product_id',
+             'foreign' => 'include_id'));
     }
 }

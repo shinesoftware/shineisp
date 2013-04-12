@@ -17,6 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsTranches', 'doctrine');
  * @property boolean $selected
  * @property Products $Products
  * @property BillingCycle $BillingCycle
+ * @property Doctrine_Collection $ProductsTranchesIncludes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -83,5 +84,9 @@ abstract class BaseProductsTranches extends Doctrine_Record
         $this->hasOne('BillingCycle', array(
              'local' => 'billing_cycle_id',
              'foreign' => 'billing_cycle_id'));
+
+        $this->hasMany('ProductsTranchesIncludes', array(
+             'local' => 'tranche_id',
+             'foreign' => 'tranche_id'));
     }
 }

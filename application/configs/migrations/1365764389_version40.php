@@ -6,21 +6,12 @@ class Version40 extends Doctrine_Migration_Base
 {
     public function up()
     {
-        $this->addColumn('panels', 'uri', 'string', '', array(
-             ));
-        $this->addColumn('panels', 'location', 'string', '', array(
-             ));
-        $this->addColumn('panels', 'username', 'string', '', array(
-             ));
-        $this->addColumn('panels', 'password', 'string', '', array(
+        $this->addColumn('servers', 'panel_id', 'integer', '4', array(
              ));
     }
 
     public function down()
     {
-        $this->removeColumn('panels', 'uri');
-        $this->removeColumn('panels', 'location');
-        $this->removeColumn('panels', 'username');
-        $this->removeColumn('panels', 'password');
+        $this->removeColumn('servers', 'panel_id');
     }
 }
