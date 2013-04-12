@@ -2,11 +2,11 @@
 	$currency       = Settings::findbyParam('currency'); 
 	$income_quarter = $this->income_quarter; 
 	$income_graph_monthly = $this->income_graph_monthly;
-	$income_text_monthly = $this->income_text_monthly;
+	$income_text_monthly  = $this->income_text_monthly;
 
-  	$currentYear    = date('Y');
-	$lastYear       = $currentYear -1;
-  	$arrgraph     = array();
+  	$currentYear = date('Y');
+	$lastYear    = $currentYear -1;
+  	$arrgraph    = array();
 ?>
 
 <?php if(!empty($income_quarter)): ?>

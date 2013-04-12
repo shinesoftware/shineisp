@@ -6,17 +6,21 @@ class Version34 extends Doctrine_Migration_Base
 {
     public function up()
     {
+    	/*
         $this->removeColumn('products_upgrades', 'related_product_id');
         $this->addColumn('products_upgrades', 'upgrade_product_id', 'integer', '4', array(
              'notnull' => '',
              ));
+		 */
     }
 
     public function down()
     {
+		/*
         $this->addColumn('products_upgrades', 'related_product_id', 'integer', '4', array(
              'notnull' => '',
              ));
         $this->removeColumn('products_upgrades', 'upgrade_product_id');
+		 */
     }
 }

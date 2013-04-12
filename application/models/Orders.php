@@ -630,10 +630,10 @@ class Orders extends BaseOrders {
 	 */
 	public static function renewOrder($customer_id, $products) {
 		$order = new Orders ();
-		$isp = Isp::getActiveISP ();
-		$i = 0;
+		$isp   = Isp::getActiveISP ();
+		$i     = 0;
 		$total = 0;
-		$vat = 0;
+		$vat   = 0;
 		
 		if (! self::checkAutorenewProducts ( $products )) {
 			return false;
@@ -1025,8 +1025,8 @@ class Orders extends BaseOrders {
 				$order = self::$order;
 				$item = new OrdersItems();
 				
-				$item['order_id'] = $order['order_id'];
-				$item['status_id'] = Statuses::id("tobepaid", "orders");
+				$item['order_id']   = $order['order_id'];
+				$item['status_id']  = Statuses::id("tobepaid", "orders");
 				$item['product_id'] = $productId;
 				$item['date_start'] = date ( 'Y-m-d H:i:s' );
 					
@@ -1045,25 +1045,30 @@ class Orders extends BaseOrders {
 				$item['quantity'] 			= $qta;
 				
 				$item['price'] 				= $product['price_1'];
-				
-				// Count of the day until the expiring
-				$months = BillingCycle::getMonthsNumber ( $billing );
-				if($months > 0){
-					$totmonths = intval ( $qta * $months );
-					
-					// Calculate the total of the months 
-					$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
-					
-					if($months >= 12){
-						$qty = $months / 12;
+				$tranches					= $product['ProductsTranches'];
+				if( $trancheID != null && array_key_exists($trancheID,$tranches)) {				
+					// Count of the day until the expiring
+					$months = BillingCycle::getMonthsNumber ( $billing );
+					$tranche	= $tranches[$trancheID];
+					if($months > 0){
+						$totmonths = intval ( $qta * $months );
+						
+						// Calculate the total of the months 
+						$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
+						
+						if($months >= 12){
+							$qty = $months / 12;
+						}else{
+							$qty = 1;
+						}
+						
+						//$item['price'] 		= $product['price_1'] * $qty; 
+						$item['price'] 		= $tranche['price'] * $qty;
+						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
 					}else{
-						$qty = 1;
+						$item['date_end'] 	= null;
+						$item['price'] 		= $tranche['price'];
 					}
-					
-					$item['price'] = $product['price_1'] * $qty; 
-					$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
-				}else{
-					$item['date_end'] = null;
 				}
 				
 				// IMPORTANT //
@@ -1121,7 +1126,7 @@ class Orders extends BaseOrders {
 						}
 					}					
 					
-					$item['description'] 		= 'Change service from '.$name.' to '.$item['description'];
+					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
 				}
 				
 				$item['cost'] = $product ['cost'];
@@ -1903,10 +1908,14 @@ class Orders extends BaseOrders {
 			
 			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 			if ($retval) {
+				$isp = Isp::getActiveISP ();
+				
 				$subject = $retval ['subject'];
 				$subject = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $subject );
 				$subject = str_replace ( "[fullname]", $customer, $subject );
+				$subject = str_replace ( "[storename]", $isp ['company'], $subject );
 				$orderTemplate = $retval ['template'];
+				$orderTemplate = str_replace ( "[storename]", $isp ['company'], $orderTemplate );
 				$orderTemplate = str_replace ( "[fullname]", $customer, $orderTemplate );
 				$orderTemplate = str_replace ( "[email]", $email, $orderTemplate );
 				$orderTemplate = str_replace ( "[bank]", $bank, $orderTemplate );
@@ -2224,7 +2233,7 @@ class Orders extends BaseOrders {
 											->groupBy("monthly, year")
 											->orderBy('year, monthly')
 											->execute ( null, Doctrine::HYDRATE_ARRAY );
-	
+		
 		for ($i=0; $i<count($income); $i++){
 	
 			// Yield Percentage

@@ -592,13 +592,8 @@ class CartController extends Zend_Controller_Action {
 						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'] ) );
 					
 					} else {
-						$upgrade	= intval($product['parentorder']);
-						if( $upgrade == 0 ) {
-							$upgrade	= false;
-						}
-						
 						// Create the order item for other products
-						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array(), $upgrade );
+						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array() );
 					}
 				}
 				
