@@ -6,9 +6,12 @@ class Version40 extends Doctrine_Migration_Base
 {
     public function up()
     {
+        $this->addColumn('servers', 'panel_id', 'integer', '4', array(
+             ));
     }
 
     public function down()
     {
+        $this->removeColumn('servers', 'panel_id');
     }
 }
