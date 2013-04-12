@@ -2233,7 +2233,7 @@ class Orders extends BaseOrders {
 											->groupBy("monthly, year")
 											->orderBy('year, monthly')
 											->execute ( null, Doctrine::HYDRATE_ARRAY );
-	
+		
 		for ($i=0; $i<count($income); $i++){
 	
 			// Yield Percentage
