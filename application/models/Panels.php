@@ -139,6 +139,24 @@ class Panels extends BasePanels
 	}	
 		
 	/**
+	 * Get all data using the name 
+	 * @param $panelName
+	 * @param $fields
+	 * @return ArrayObject
+	 */
+	public static function getAllInfoByName($panelName, $fields = "*") {
+		$record = Doctrine_Query::create ()->select ( $fields )->from ( 'Panels p' )
+										->leftJoin ( 'p.Isp i' )
+										->where ( "name = ?", $panelName )
+										->limit ( 1 )
+										->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+										
+		return !empty($record[0]) ? $record[0] : array();
+		
+	}	
+		
+		
+	/**
 	 * Get the config panel variables 
 	 * @param string $panelvar
 	 * @return ArrayObject
@@ -421,5 +439,40 @@ class Panels extends BasePanels
 		}
 		return null;
 	}
+	
+	
+	
+	
+	/**
+	 * Get all the customfields for this module
+	 * 
+	 * 
+	 * @param $panel
+	 * @return string
+	 */
+	public static function getXmlCustomFields($panel) {
+		$i = 0;
+		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels/$panel";
+		
+		$result = array();
+		if (file_exists ( $path . "/config.xml" )) {
+		
+			// Load the xml configuration file
+			$config = simplexml_load_file ( $path . "/config.xml" );
+
+			// For each field in matchfield xml node
+			foreach ( $config->customfields->field as $node ) {
+				$result[] = (string)$node;
+			}
+		}
+		return $result;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }

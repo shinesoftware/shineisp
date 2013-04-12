@@ -25,6 +25,8 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 			if(!empty($info['extension']) && $info['extension'] == "xml"){
 				if (file_exists ($filename)) {
 					$config = simplexml_load_file ( $filename );
+					
+					$panelName = ( string ) $config->attributes ()->name;
 
 					$help = (string)$config->general->help ? (string)$config->general->help : NULL;
 					$description = (string)$config->general->description ? (string)$config->general->description : NULL;
@@ -32,10 +34,10 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 					$group_id = SettingsGroups::addGroup($config['name'], $description, $help);
 					
 					foreach ($config->settings->children() as $node) {
-						$arr = $node->attributes();
-						$var = strtolower($config['var']) . "_" . (string) $arr['var'];
+						$arr   = $node->attributes();
+						$var   = strtolower($config['var']) . "_" . (string) $arr['var'];
 						$label = (string) $arr['label'];
-						$type = (string) $arr['type'];
+						$type  = (string) $arr['type'];
 						$description = (string) $arr['description'];
 					
 						if(!empty($var) && !empty($label) && !empty($type)){
@@ -44,14 +46,21 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 					}
 					if(!empty($config->customfields)){
 						foreach ($config->customfields->children() as $node) {
-							$arr = $node->attributes();
-							$var = ( string ) $node;
-							$label = (string) $arr['label'];
-							$type = (string) $arr['type'];
-							$section = (string) $arr['section'];
-						
+							$arr      = $node->attributes();
+							$var      = ( string ) $node;
+							$label    = (string) $arr['label'];
+							$type     = (string) $arr['type'];
+							$section  = (string) $arr['section'];
+					
+							// Fetch panel_id from database
+							if ( !empty($panelName) ) {
+								$Panels = Panels::getAllInfoByName($panelName);
+							}
+							
+							$panel_id = (!empty($Panels) && isset($Panels['panel_id']) && $Panels['panel_id'] > 0) ? intval($Panels['panel_id']) : null;
+												
 							if(!empty($var) && !empty($label) && !empty($type)){
-								CustomAttributes::createAttribute($var, $label, $type, $section);
+								CustomAttributes::createAttribute($var, $label, $type, $section, $panel_id);
 							}
 						}
 					}

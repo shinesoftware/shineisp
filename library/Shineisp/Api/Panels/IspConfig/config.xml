@@ -5,22 +5,29 @@
 <config name="IspConfig" var="IspConfig" version="3.0.3.3">
 
     <settings>
+    	<!--
         <field var="endpointlocation" label="Endpoint Location" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/index.php"/>
         <field var="endpointuri" label="Endpoint URI" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/"/>
+       -->
         <field var="class" label="ShineISP Class Handler" type="text" description="This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Api_Panels_Ispconfig_Main"/>
+        <!--
         <field var="username" label="Write here the ISPConfig SOAP username" type="text" description="This is the ISPConfig remote username set in the ISPConfig control panel."/>
         <field var="password" label="Write here the SOAP password" type="text" description="This is the ISPConfig user remote password set in the ISPConfig control panel."/>
         <field var="url" label="Write here the public URL" type="text" description="This is the ISPConfig public url. eg. http://www.mywebsite.com:8080/"/>
+        -->
     </settings>    
 
     <!-- IspConfig Custom fields -->
     <customfields>
-        <field label="IspConfig Client ID" type="text" section="customers">client_id</field>
-        <field label="IspConfig Server ID" type="text" section="servers">remote_server_id</field>
-        <field label="IspConfig URL" type="text" section="servers">remote_server_url</field>
-        <field label="Webmail URL" type="text" section="servers">remote_server_webmail_url</field>
-        <field label="PhpMyAdmin URL" type="text" section="servers">remote_server_phpmyadmin_url</field>
-   </customfields>
+        <field label="ISPConfig Client ID"  type="text" section="customers">client_id</field>
+        <field label="ISPConfig Server ID"  type="text" section="servers">remote_server_id</field>
+        <field label="ISPConfig Public URL" type="text" section="servers">remote_server_url</field>
+        
+        <field label="ISPConfig API Location" type="text" section="servers">endpointlocation</field>
+        <field label="ISPConfig API URI"      type="text" section="servers">endpointuri</field>
+        <field label="ISPConfig API Username" type="text" section="servers">username</field>
+        <field label="ISPConfig API Password" type="text" section="servers">password</field>
+    </customfields>
     
     <matchfields>
         <hosting_attributes>
