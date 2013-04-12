@@ -86,15 +86,16 @@ class Servers extends BaseServers {
 			$server = new Servers();
 		}
 		
-		$server->name = $params ['name'];
-		$server->ip = $params ['ip'];
-		$server->netmask = $params ['netmask'];
-		$server->host = $params ['host'];
-		$server->domain = $params ['domain'];
+		$server->name        = $params ['name'];
+		$server->ip          = $params ['ip'];
+		$server->netmask     = $params ['netmask'];
+		$server->host        = $params ['host'];
+		$server->domain      = $params ['domain'];
 		$server->description = $params ['description'];
-		$server->status_id = $params ['status_id'];
-		$server->isp_id = $params ['isp_id'];
-		$server->type_id = $params ['type_id'];
+		$server->status_id   = intval($params ['status_id']);
+		$server->isp_id      = intval($params ['isp_id']);
+		$server->type_id     = intval($params ['type_id']);
+		$server->panel_id    = (intval($params ['panel_id'])) ? intval($params ['panel_id']) : null;
 		$server->save ();
 		
 		return $server['server_id'];

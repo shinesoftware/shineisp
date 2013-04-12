@@ -95,6 +95,16 @@ class Admin_Form_ServersForm extends Zend_Form
             'class'      => 'textarea large-input'
         ));
         
+		
+        $this->addElement('select', 'panel_id', array(
+            'filters'    => array('StringTrim'),
+            'label'      => 'Control Panel',
+            'class'      => 'text-input large-input'
+        ));
+        $this->getElement('panel_id')
+                  ->setAllowEmpty(false)
+                  ->setMultiOptions(Panels::getListInstalled(true));            
+		
 
         $this->addElement('submit', 'save', array(
             'required' => false,
