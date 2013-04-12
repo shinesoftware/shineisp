@@ -17,10 +17,12 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property integer $isp_id
  * @property integer $type_id
  * @property integer $status_id
+ * @property integer $panel_id
  * @property Isp $Isp
  * @property Servers_Types $Servers_Types
  * @property Statuses $Statuses
  * @property CustomAttributesValues $CustomAttributesValues
+ * @property Panels $Panels
  * @property Doctrine_Collection $OrdersItemsServers
  * 
  * @package    ##PACKAGE##
@@ -83,6 +85,10 @@ abstract class BaseServers extends Doctrine_Record
              'type' => 'integer',
              'length' => '4',
              ));
+        $this->hasColumn('panel_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
     }
 
     public function setUp()
@@ -103,6 +109,10 @@ abstract class BaseServers extends Doctrine_Record
         $this->hasOne('CustomAttributesValues', array(
              'local' => 'server_id',
              'foreign' => 'external_id'));
+
+        $this->hasOne('Panels', array(
+             'local' => 'panel_id',
+             'foreign' => 'panel_id'));
 
         $this->hasMany('OrdersItemsServers', array(
              'local' => 'server_id',

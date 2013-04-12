@@ -44,13 +44,15 @@ class Servers extends BaseServers {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'r.subject', 'alias' => 'servername', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'IP' ), 'field' => 's.ip', 'alias' => 'ip', 'sortable' => true, 'searchable' => true);
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 'stat.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Panel' ), 'field' => 'panel.name', 'alias' => 'panel_name', 'sortable' => true, 'searchable' => true );
 		
-		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, s.ip as ip, stat.status as status";
+		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, s.ip as ip, stat.status as status, panel.name as panel_name";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
 																		->from ( 'Servers s' )
 																        ->leftJoin ( 's.Isp i' )
 																        ->leftJoin ( 's.Servers_Types st' )
-																        ->leftJoin ( 's.Statuses stat' );
+																        ->leftJoin ( 's.Statuses stat' )
+																		->leftJoin ( 's.Panels panel' );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		

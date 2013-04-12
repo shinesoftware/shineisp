@@ -2918,6 +2918,7 @@ Servers:
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)
+    panel_id: integer(4)
   relations:
     Isp:
       local: isp_id
@@ -2934,6 +2935,10 @@ Servers:
     CustomAttributesValues:
       local: server_id
       foreign: external_id
+      type: one
+    Panels:
+      local: panel_id
+      foreign: panel_id
       type: one
 Servers_Types:
   connection: doctrine
