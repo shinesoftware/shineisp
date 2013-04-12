@@ -2918,6 +2918,7 @@ Servers:
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)
+    panel_id: integer(4)
   relations:
     Isp:
       local: isp_id

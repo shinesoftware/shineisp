@@ -17,6 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property integer $isp_id
  * @property integer $type_id
  * @property integer $status_id
+ * @property integer $panel_id
  * @property Isp $Isp
  * @property Servers_Types $Servers_Types
  * @property Statuses $Statuses
@@ -80,6 +81,10 @@ abstract class BaseServers extends Doctrine_Record
              'length' => '4',
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('panel_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => '4',
              ));
