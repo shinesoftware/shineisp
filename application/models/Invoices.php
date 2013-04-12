@@ -735,7 +735,6 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['subtotal'] = $currency->toCurrency($order[0] ['total'], array('currency' => Settings::findbyParam('currency')));
 				//$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
 				//$orderinfo ['vat'] = $currency->toCurrency($order[0] ['vat'], array('currency' => Settings::findbyParam('currency')));
-				//echo $orderinfo ['vat']; die();
 				$orderinfo ['vat'] = $order[0] ['vat'];
 				$orderinfo ['grandtotal'] = $order[0] ['grandtotal'];
 				$orderinfo ['delivery'] = 0;
