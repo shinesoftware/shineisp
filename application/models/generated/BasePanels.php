@@ -11,10 +11,6 @@ Doctrine_Manager::getInstance()->bindComponent('Panels', 'doctrine');
  * @property string $name
  * @property integer $isp_id
  * @property boolean $active
- * @property string $uri
- * @property string $location
- * @property string $username
- * @property string $password
  * @property Isp $Isp
  * @property Doctrine_Collection $PanelsActions
  * @property Doctrine_Collection $Servers
@@ -50,22 +46,6 @@ abstract class BasePanels extends Doctrine_Record
         $this->hasColumn('active', 'boolean', 25, array(
              'type' => 'boolean',
              'length' => '25',
-             ));
-        $this->hasColumn('uri', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
-        $this->hasColumn('location', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
-        $this->hasColumn('username', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
-        $this->hasColumn('password', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
              ));
     }
 

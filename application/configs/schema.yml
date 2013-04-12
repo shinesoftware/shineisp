@@ -1988,10 +1988,6 @@ Panels:
       type: integer(4)
       notnull: true
     active: boolean(25)
-    uri: string()
-    location: string()
-    username: string()
-    password: string()
   relations:
     Isp:
       local: isp_id
