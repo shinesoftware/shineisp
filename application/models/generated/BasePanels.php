@@ -51,22 +51,6 @@ abstract class BasePanels extends Doctrine_Record
              'type' => 'boolean',
              'length' => '25',
              ));
-        $this->hasColumn('uri', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
-        $this->hasColumn('location', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
-        $this->hasColumn('username', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
-        $this->hasColumn('password', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
-             ));
     }
 
     public function setUp()
