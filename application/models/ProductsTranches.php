@@ -218,12 +218,19 @@ class ProductsTranches extends BaseProductsTranches
 				if( $refund !== false ) {
 					$idBillingCircle		= $c['BillingCycle']['billing_cycle_id'];
 					$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
-					$priceToPay				= $c['price'] * $monthBilling;
-					$priceToPayWithRefund	= $priceToPay - $refund;
-					if( $priceToPayWithRefund < 0 ) {
-						$priceToPayWithRefund	= $priceToPay;
-					}
-					$c['price']	= round( $priceToPayWithRefund / $monthBilling,2 );					
+					if( $monthBilling > 0 ) {
+						$priceToPay				= $c['price'] * $monthBilling;
+						$priceToPayWithRefund	= $priceToPay - $refund;
+						if( $priceToPayWithRefund < 0 ) {
+							$priceToPayWithRefund	= $priceToPay;
+						}
+						$c['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+					} else {
+						$priceToPayWithRefund	= $c['price'] - $refund;
+						if( $priceToPayWithRefund > 0 ) {
+							$c['price']	= $priceToPayWithRefund;
+						}
+					}					
 				}
 				/** 20130409 ***/
 				

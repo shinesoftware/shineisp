@@ -214,12 +214,19 @@ class ProductsController extends Zend_Controller_Action {
 							$refund			= $refundInfo['refund'];
 							$idBillingCircle		= $tranche['BillingCycle']['billing_cycle_id'];
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
-							$priceToPay				= $tranche['price'] * $monthBilling;
-							$priceToPayWithRefund	= $priceToPay - $refund;
-							if( $priceToPayWithRefund < 0 ) {
-								$priceToPayWithRefund	= $priceToPay;
+							if( $monthBilling > 0 ) {
+								$priceToPay				= $tranche['price'] * $monthBilling;
+								$priceToPayWithRefund	= $priceToPay - $refund;
+								if( $priceToPayWithRefund < 0 ) {
+									$priceToPayWithRefund	= $priceToPay;
+								}
+								$tranche['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
+							} else {
+								$priceToPayWithRefund	= $tranche['price'] - $refund;
+								if( $priceToPayWithRefund > 0 ) {
+									$tranche['price']	= $priceToPayWithRefund;
+								}								
 							}
-							$tranche['price']	= round( $priceToPayWithRefund / $monthBilling,2 );
 							
 							break;
 						}
