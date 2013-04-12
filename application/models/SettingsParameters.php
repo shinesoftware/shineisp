@@ -39,19 +39,23 @@ class SettingsParameters extends BaseSettingsParameters {
 	}
 	
 	/**
-	 * createForm
 	 * Create the setting form and populate with the custom setting values
+	 * 
 	 * @param integer $groupid
 	 */
 	public static function createForm($groupid) {
 		$form = new Zend_Form (array ('action' => '/admin/settings/index/groupid/' . $groupid, 'method' => 'post' ));
 		$form->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+		
 		$records = Doctrine_Query::create ()->from ( 'SettingsParameters s' )->where ( 'group_id = ?', $groupid )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		if (! empty ( $records )) {
 			foreach ( $records as $record ) {
-					
-				$form->addElement ( $record['type'], $record ['var'], array ('decorators' => array('Composite'), 'filters' => array ('StringTrim' ), 'label' => $record ['name'], 'description' => $record ['description'], 'class' => 'text-input large-input' ) );
 				
+				// Custom style added to the textareas
+				$style = ( $record['type'] == "textarea") ? array('rows'=>4) : array();
+				
+				$form->addElement ( $record['type'], $record ['var'], $style + array ('decorators' => array('Composite'), 'filters' => array ('StringTrim' ), 'label' => $record ['name'], 'description' => $record ['description'], 'class' => 'text-input large-input obj_' . $record ['var'] ) );
+					
 				if(!empty($record ['config'])){
 					$config = json_decode($record ['config'], true);
 					
