@@ -630,10 +630,10 @@ class Orders extends BaseOrders {
 	 */
 	public static function renewOrder($customer_id, $products) {
 		$order = new Orders ();
-		$isp = Isp::getActiveISP ();
-		$i = 0;
+		$isp   = Isp::getActiveISP ();
+		$i     = 0;
 		$total = 0;
-		$vat = 0;
+		$vat   = 0;
 		
 		if (! self::checkAutorenewProducts ( $products )) {
 			return false;
@@ -1025,8 +1025,8 @@ class Orders extends BaseOrders {
 				$order = self::$order;
 				$item = new OrdersItems();
 				
-				$item['order_id'] = $order['order_id'];
-				$item['status_id'] = Statuses::id("tobepaid", "orders");
+				$item['order_id']   = $order['order_id'];
+				$item['status_id']  = Statuses::id("tobepaid", "orders");
 				$item['product_id'] = $productId;
 				$item['date_start'] = date ( 'Y-m-d H:i:s' );
 					
@@ -1126,7 +1126,7 @@ class Orders extends BaseOrders {
 						}
 					}					
 					
-					$item['description'] 		= 'Change service from '.$name.' to '.$item['description'];
+					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
 				}
 				
 				$item['cost'] = $product ['cost'];
@@ -1913,6 +1913,7 @@ class Orders extends BaseOrders {
 				$subject = $retval ['subject'];
 				$subject = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $subject );
 				$subject = str_replace ( "[fullname]", $customer, $subject );
+				$subject = str_replace ( "[storename]", $isp ['company'], $subject );
 				$orderTemplate = $retval ['template'];
 				$orderTemplate = str_replace ( "[storename]", $isp ['company'], $orderTemplate );
 				$orderTemplate = str_replace ( "[fullname]", $customer, $orderTemplate );
