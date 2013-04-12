@@ -2936,6 +2936,10 @@ Servers:
       local: server_id
       foreign: external_id
       type: one
+    Panels:
+      local: panel_id
+      foreign: panel_id
+      type: one
 Servers_Types:
   connection: doctrine
   tableName: servers_types

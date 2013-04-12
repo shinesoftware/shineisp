@@ -17,6 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('Panels', 'doctrine');
  * @property string $password
  * @property Isp $Isp
  * @property Doctrine_Collection $PanelsActions
+ * @property Doctrine_Collection $Servers
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -76,6 +77,10 @@ abstract class BasePanels extends Doctrine_Record
              'foreign' => 'isp_id'));
 
         $this->hasMany('PanelsActions', array(
+             'local' => 'panel_id',
+             'foreign' => 'panel_id'));
+
+        $this->hasMany('Servers', array(
              'local' => 'panel_id',
              'foreign' => 'panel_id'));
     }
