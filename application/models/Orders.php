@@ -1244,7 +1244,6 @@ class Orders extends BaseOrders {
 			return false;
 		}
 		
-		
 		// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
 		$domains = self::getDomainsFromOrder ( $orderid );
 		
@@ -1267,9 +1266,10 @@ class Orders extends BaseOrders {
 		
 		// Add the panel action tasks
 		$hostingplans = self::get_hostingplans_from_order($orderid);
-
-		foreach ( $hostingplans as $data ) {
-			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+		if($hostingplans){
+			foreach ( $hostingplans as $data ) {
+				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+			}
 		}
 	}	
 	
@@ -1299,9 +1299,10 @@ class Orders extends BaseOrders {
 				$oldOrderId	= $orderItem['order_id'];
 
 				self::set_status ( $oldOrderId, Statuses::id("closed", "changed") ); // Close the old order ::status changed
-			} elseif ( ! self::RunTasks($orderid) ) {
-				return false;
-			}
+			} 
+			
+			// Check and create task for domains and hosting services
+			self::RunTasks($orderid);
 			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
@@ -1787,8 +1788,8 @@ class Orders extends BaseOrders {
 	}
 	
 	/*
-	 * getDomainsFromOrder
 	 * Get all the domains requested from the order list items.
+	 * 
 	 * @param $orderID
 	 */
 	public static function getDomainsFromOrder($orderID) {
@@ -1797,19 +1798,17 @@ class Orders extends BaseOrders {
 		$items = OrdersItems::getAllDetails ( $orderID, null, true );
 		if (count ( $items ) > 0) {
 			foreach ( $items as $item ) {
-				#if (!empty($item ['tld_id'])) {
-					$params = json_decode ( $item ['parameters'], true );
-					if (! empty ( $params ['domain'] )) {
-						$domains [$i] ['orderitem_id'] = $item ['detail_id'];
-						$domains [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
-						$domains [$i] ['action'] = ! empty ( $params ['action'] ) ? $params ['action'] : "registerDomain";
-						$domains [$i] ['domain'] = trim ( strtolower ( $params ['domain'] ) );
-						$domains [$i] ['authinfocode'] = !empty($params ['authinfocode']) ? trim ( $params ['authinfocode']) : "";
-						$domains [$i] ['tld_id'] = Domains::getDomainIDbyName($domains [$i] ['domain']);
-						$domains [$i] ['registrar_id'] = Domains::getRegistrarsIDbyName($params ['domain']);
-						$i ++;
-					}
-				#}
+				$params = json_decode ( $item ['parameters'], true );
+				if (! empty ( $params ['domain'] )) {
+					$domains [$i] ['orderitem_id'] = $item ['detail_id'];
+					$domains [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
+					$domains [$i] ['action'] = ! empty ( $params ['action'] ) ? $params ['action'] : "registerDomain";
+					$domains [$i] ['domain'] = trim ( strtolower ( $params ['domain'] ) );
+					$domains [$i] ['authinfocode'] = !empty($params ['authinfocode']) ? trim ( $params ['authinfocode']) : "";
+					$domains [$i] ['tld_id'] = Domains::getDomainIDbyName($domains [$i] ['domain']);
+					$domains [$i] ['registrar_id'] = Domains::getRegistrarsIDbyName($params ['domain']);
+					$i ++;
+				}
 			}
 		}
 		return $domains;
@@ -1833,6 +1832,8 @@ class Orders extends BaseOrders {
 						$hplan [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
 						$hplan [$i] ['parameters'] = $item ['parameters'];
 						$i ++;
+					}else{
+						Shineisp_Commons_Utilities::log("Hosting plan ".$item['Products']['sku']." has been skipped because it has not any parameters configured yet");
 					}
 				}
 			}
