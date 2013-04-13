@@ -1422,7 +1422,7 @@ class Orders extends BaseOrders {
 										->where ( "s.status_id = ?", Statuses::id("tobepaid", "orders") )
 										->andWhere("o.expiring_date <= ?", $date)
 										->andWhere('o.is_renewal = ?', FALSE);
-										
+							
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
@@ -1726,31 +1726,31 @@ class Orders extends BaseOrders {
 	 * Get all the details from a order
 	 */
 	public static function getDetails($id) {
-		$dq = Doctrine_Query::create ()->select ( "
-                     oid.relationship_id, 
-                     dm.domain_id, 
-                     dt.tld_id,
-                     ws.tld,
-                     CONCAT(dm.domain, '.',ws.tld) as domain, 
-                     d.quantity, 
-                     d.description, 
-                     d.price as price, 
-                     d.setupfee as setupfee, 
-                     d.parent_detail_id as parent_orderid,
-                     t.percentage as taxpercentage,
-                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
-                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
-		->from ( 'OrdersItems d' )
-		->leftJoin ( 'd.Orders o' )
-		->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
-		->leftJoin ( 'oid.Domains dm' )
-		->leftJoin ( 'd.Products p' )
-		->leftJoin ( 'dm.DomainsTlds dt' )
-		->leftJoin ( 'dt.WhoisServers ws' )
-		->leftJoin ( 'p.Taxes t' )
-		->leftJoin ( 'o.Customers c' )
-		->leftJoin ( 'd.Statuses s' )
-		->where ( 'o.order_id = ?', $id );
+		$dq = Doctrine_Query::create ()->select ( "oid.relationship_id, 
+								                     dm.domain_id, 
+								                     dt.tld_id,
+								                     ws.tld,
+								                     CONCAT(dm.domain, '.',ws.tld) as domain, 
+								                     d.quantity, 
+								                     d.description, 
+								                     d.price as price, 
+								                     d.setupfee as setupfee, 
+								                     d.parent_detail_id as parent_orderid,
+								                     t.percentage as taxpercentage,
+								                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
+								                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
+										->from ( 'OrdersItems d' )
+										->leftJoin ( 'd.Orders o' )
+										->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
+										->leftJoin ( 'oid.Domains dm' )
+										->leftJoin ( 'd.Products p' )
+										->leftJoin ( 'dm.DomainsTlds dt' )
+										->leftJoin ( 'dt.WhoisServers ws' )
+										->leftJoin ( 'p.Taxes t' )
+										->leftJoin ( 'o.Customers c' )
+										->leftJoin ( 'd.Statuses s' )
+										->where ( 'o.order_id = ?', $id );
+		
 		$rs = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return $rs;
@@ -2405,7 +2405,7 @@ class Orders extends BaseOrders {
 	public static function checkExpiringOrders() {
 		$isp = Isp::getActiveISP ();
 		$orders = Orders::find_all_expired_orders(date('Y-m-d'));
-	
+		
 		$arrTemplate = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_expired' );
 	
 		foreach ( $orders as $order ) {

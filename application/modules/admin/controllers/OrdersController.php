@@ -196,6 +196,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/orders/process' );
+		$currency = new Zend_Currency();
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
@@ -221,6 +222,9 @@ class Admin_OrdersController extends Zend_Controller_Action {
 						$rs ['missing_income']  -= (isset($payment['income'])) ? $payment['income'] : 0;
 					}
 				}
+
+				// set the default income to prepare the payment task
+				$rs ['income'] = $rs ['missing_income'];
 				$rs ['missing_income'] = sprintf('%.2f',$rs ['missing_income']);
 				unset($payments);
 				
@@ -260,7 +264,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
 		$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure to create or overwrite invoice for this order? The order is not paid.') : $this->translator->translate('Are you sure to create or overwrite invoice for this order?');
-		
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -319,6 +322,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 					unset ( $record ['taxpercentage'] );
 					$myrec [] = $record;
 				}
+				
 				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 			}
 		}
