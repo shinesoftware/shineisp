@@ -63,8 +63,7 @@ class Orders extends BaseOrders {
 		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/orders/delete/id/%d";
-		$config ['datagrid'] ['massactions'] = array ('bulk_delete'=>'Mass Delete', 
-													  'bulk_export'=>'Export List');
+		$config ['datagrid'] ['massactions']['commons'] = array ('bulk_delete'=>'Mass Delete', 'bulk_export'=>'Export List');
 		return $config;
 	}
 	
@@ -1897,7 +1896,7 @@ class Orders extends BaseOrders {
 				$bank = strip_tags($bankInfo['description']);
 			}
 			
-			$signature = $order [0] ['Isp'] ['company'];
+			$storename= $order [0] ['Isp'] ['company'];
 			
 			if (! empty ( $fastlink [0] ['code'] )) {
 				$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
@@ -1909,21 +1908,20 @@ class Orders extends BaseOrders {
 			
 			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 			if ($retval) {
-				$isp = Isp::getActiveISP ();
-				
 				$subject = $retval ['subject'];
 				$subject = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $subject );
 				$subject = str_replace ( "[fullname]", $customer, $subject );
-				$subject = str_replace ( "[storename]", $isp ['company'], $subject );
+				$subject = str_replace ( "[storename]", $storename, $subject );
 				$orderTemplate = $retval ['template'];
-				$orderTemplate = str_replace ( "[storename]", $isp ['company'], $orderTemplate );
+				
+				$orderTemplate = str_replace ( "[storename]", $storename, $orderTemplate );
 				$orderTemplate = str_replace ( "[fullname]", $customer, $orderTemplate );
 				$orderTemplate = str_replace ( "[email]", $email, $orderTemplate );
 				$orderTemplate = str_replace ( "[bank]", $bank, $orderTemplate );
 				$orderTemplate = str_replace ( "[url]", $url, $orderTemplate );
 				$orderTemplate = str_replace ( "[conditions]", strip_tags(Settings::findbyParam('conditions')), $orderTemplate );
 				$orderTemplate = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $orderTemplate );
-				$orderTemplate = str_replace ( "[signature]", $signature, $orderTemplate );
+				$orderTemplate = str_replace ( "[signature]", $storename, $orderTemplate );
 				$orderTemplate = utf8_decode ( $orderTemplate );
 				Shineisp_Commons_Utilities::SendEmail ( $email, $customer_email, $email, $subject, $orderTemplate );
 			}
