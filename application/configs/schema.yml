@@ -2965,6 +2965,13 @@ Servers:
     description:
       type: string()
       notnull: false
+    datacenter:
+      type: string(200)
+      notnull: true
+    cost:
+      type: float(10)
+      default: '0.00'
+    max_accounts: integer(4)      
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)
