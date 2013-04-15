@@ -31,6 +31,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property integer $external_id
  * @property integer $group_id
  * @property string $blocks
+ * @property integer $server_group_id
  * @property ProductsAttributesGroups $ProductsAttributesGroups
  * @property Taxes $Taxes
  * @property Doctrine_Collection $ProductsData
@@ -44,6 +45,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Doctrine_Collection $ProductsTranches
  * @property Doctrine_Collection $ProductsMedia
  * @property Doctrine_Collection $ProductsAttributesIndexes
+ * @property ServersGroups $ServersGroups
  * @property Doctrine_Collection $ProductsTranchesIncludes
  * 
  * @package    ##PACKAGE##
@@ -176,6 +178,11 @@ abstract class BaseProducts extends Doctrine_Record
              'type' => 'string',
              'length' => '',
              ));
+        $this->hasColumn('server_group_id', 'integer', 4, array(
+             'type' => 'integer',
+             'unsigned' => true,
+             'length' => '4',
+             ));
     }
 
     public function setUp()
@@ -233,6 +240,10 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasMany('ProductsAttributesIndexes', array(
              'local' => 'product_id',
              'foreign' => 'product_id'));
+
+        $this->hasOne('ServersGroups', array(
+             'local' => 'server_group_id',
+             'foreign' => 'group_id'));
 
         $this->hasMany('ProductsTranchesIncludes', array(
              'local' => 'product_id',

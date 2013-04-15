@@ -11,6 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('ServersGroups', 'doctrine');
  * @property string $name
  * @property integer $fill_type
  * @property boolean $active
+ * @property Doctrine_Collection $Products
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -50,6 +51,8 @@ abstract class BaseServersGroups extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasMany('Products', array(
+             'local' => 'group_id',
+             'foreign' => 'server_group_id'));
     }
 }
