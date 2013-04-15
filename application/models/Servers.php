@@ -47,7 +47,7 @@ class Servers extends BaseServers {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Usage' ), 'field' => 's.usage', 'alias' => 'usage', 'sortable' => false, 'searchable' => false );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Panel' ), 'field' => 'panel.name', 'alias' => 'panel_name', 'sortable' => true, 'searchable' => true );
 		
-		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, CONCAT(s.accounts,'/',s.max_accounts,' (',ROUND(s.accounts*100/s.max_accounts),'%)') AS usage, s.ip as ip, stat.status as status, panel.name as panel_name";
+		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, CONCAT(s.services,'/',s.max_services,' (',ROUND(s.services*100/s.max_services),'%)') AS usage, s.ip as ip, stat.status as status, panel.name as panel_name";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
 																		->from ( 'Servers s' )
 																        ->leftJoin ( 's.Isp i' )
@@ -98,7 +98,7 @@ class Servers extends BaseServers {
 		$server->type_id      = intval($params ['type_id']);
 		$server->panel_id     = (intval($params ['panel_id'])) ? intval($params ['panel_id']) : null;
 		$server->cost         = (isset($params['cost']) && is_numeric($params['cost'])) ? $params['cost'] : 0;
-		$server->max_accounts = (isset($params['max_accounts'])) ? intval($params['max_accounts']) : 0;
+		$server->max_services = (isset($params['max_services'])) ? intval($params['max_services']) : 0;
 		$server->datacenter   = (isset($params['datacenter'])) ? $params['datacenter'] : '';
 				
 		$server->save ();

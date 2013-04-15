@@ -2971,11 +2971,11 @@ Servers:
     cost:
       type: float(10)
       default: '0.00'
-    accounts: 
+    services: 
       type: integer(4)
       default: 0
       notnull: true
-    max_accounts: integer(4)      
+    max_services: integer(4)      
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)

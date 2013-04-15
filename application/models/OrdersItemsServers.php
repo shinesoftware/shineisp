@@ -66,7 +66,7 @@ class OrdersItemsServers extends BaseOrdersItemsServers
 			
 			// Always update server stats		
 			$Server = Servers::find($serverID);
-			$Server->accounts = OrdersItemsServers::countByServerId($serverID);
+			$Server->services = OrdersItemsServers::countByServerId($serverID);
 			$Server->save();
 			
 			return $ret;
