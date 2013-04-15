@@ -2283,6 +2283,9 @@ Products:
     external_id: integer(4)
     group_id: integer(4)
     blocks: string()
+    server_group_id: 
+      type: integer(4)
+      unsigned: true
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2336,6 +2339,11 @@ Products:
       local: product_id
       foreign: product_id
       type: many
+    ServersGroups:
+      local: server_group_id
+      foreign: group_id
+      type: one
+
       
 ProductsAttributes:
   connection: doctrine
