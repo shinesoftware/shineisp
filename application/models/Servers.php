@@ -38,6 +38,14 @@ class Servers extends BaseServers {
 	public static function grid($rowNum = 10) {
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+
+		// Return usage/max_services or usage/infinity if max_services is 0 or null 
+		$sqlIF = "
+			(IF ( s.max_services 
+     			 ,CONCAT(s.services,'/',s.max_services,' (',ROUND(s.services*100/s.max_services),'%)')
+     			 ,CONCAT(s.services,'/&infin;') 
+			))
+		";
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.server_id', 'alias' => 'server_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 's.server_id', 'alias' => 'server_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -46,14 +54,14 @@ class Servers extends BaseServers {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 'stat.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Usage' ), 'field' => 's.usage', 'alias' => 'usage', 'sortable' => false, 'searchable' => false );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Panel' ), 'field' => 'panel.name', 'alias' => 'panel_name', 'sortable' => true, 'searchable' => true );
-		
-		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, CONCAT(s.services,'/',s.max_services,' (',ROUND(s.services*100/s.max_services),'%)') AS usage, s.ip as ip, stat.status as status, panel.name as panel_name";
+
+		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, ".$sqlIF." AS usage, s.max_services AS max_services, s.ip as ip, stat.status as status, panel.name as panel_name";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
 																		->from ( 'Servers s' )
 																        ->leftJoin ( 's.Isp i' )
 																        ->leftJoin ( 's.Servers_Types st' )
 																        ->leftJoin ( 's.Statuses stat' )
-																		->leftJoin ( 's.Panels panel' );
+																		->leftJoin ( 's.Panels panel' );;
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
