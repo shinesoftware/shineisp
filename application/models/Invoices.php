@@ -638,7 +638,7 @@ class Invoices extends BaseInvoices {
 			$invoice = Invoices::find ( $invoice_id );
 			//* GUEST - ALE - 20130225: invoice not found?
 			if ( !$invoice ) {
-				echo "sono qui?";die();
+				die();
 				return false;
 			}
 			
