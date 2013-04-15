@@ -2286,6 +2286,11 @@ Products:
     server_group_id: 
       type: integer(4)
       unsigned: true
+    autosetup: 
+      type: integer(4)
+      unsigned: true
+      notnull: true
+      default: '0'
   relations:
     ProductsAttributesGroups:
       local: group_id

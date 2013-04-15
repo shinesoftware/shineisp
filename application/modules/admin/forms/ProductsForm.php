@@ -89,6 +89,25 @@ class Admin_Form_ProductsForm extends Zend_Form
                   ->setMultiOptions(ServersGroups::getList(true));
 
 
+        $this->addElement('select', 'autosetup', array(
+        'label' => 'Automatic setup',
+        'decorators' => array('Composite'),
+        'class'      => 'text-input large-input'
+        ));
+        
+        $this->getElement('autosetup')
+                  ->setAllowEmpty(false)
+                  ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
+                  ->setMultiOptions(array(
+				  	 '0' => 'Do not automatically setup this product'
+				  	,'1' => 'Automatically setup the product as soon as an order is placed'
+				  	,'2' => 'Automatically setup the product as soon as the first payment is received'
+				  	,'3' => 'Automatically setup the product when you manually accept a pending order'
+				  	,'4' => 'Automatically setup the product as soon as the payment is complete'
+				  ));
+
+
+
 
         
         $this->addElement('multiselect', 'related', array(

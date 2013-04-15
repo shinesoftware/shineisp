@@ -32,6 +32,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property integer $group_id
  * @property string $blocks
  * @property integer $server_group_id
+ * @property integer $autosetup
  * @property ProductsAttributesGroups $ProductsAttributesGroups
  * @property Taxes $Taxes
  * @property Doctrine_Collection $ProductsData
@@ -181,6 +182,13 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasColumn('server_group_id', 'integer', 4, array(
              'type' => 'integer',
              'unsigned' => true,
+             'length' => '4',
+             ));
+        $this->hasColumn('autosetup', 'integer', 4, array(
+             'type' => 'integer',
+             'unsigned' => true,
+             'notnull' => true,
+             'default' => '0',
              'length' => '4',
              ));
     }
