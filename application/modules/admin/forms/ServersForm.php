@@ -105,6 +105,33 @@ class Admin_Form_ServersForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Panels::getListInstalled(true));            
 		
+        $this->addElement('text', 'datacenter', array(
+            'filters'    => array('StringTrim'),
+            'required'   => false,
+            'label'      => 'Datacenter',
+            'description'      => 'desc_datacenter',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input'
+        ));
+		
+        $this->addElement('text', 'cost', array(
+            'filters'    => array('StringTrim'),
+            'required'   => true,
+            'label'      => 'Server cost',
+            'description'      => 'desc_cost',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input'
+        ));
+		
+        $this->addElement('text', 'max_accounts', array(
+            'filters'    => array('StringTrim'),
+            'required'   => false,
+            'label'      => 'Max accounts',
+            'description'      => 'desc_maxaccounts',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input'
+        ));
+		
 
         $this->addElement('submit', 'save', array(
             'required' => false,

@@ -217,7 +217,10 @@ class Admin_ServersController extends Zend_Controller_Action {
 		}
 		
 		// Save the data
-		$serverID = Servers::saveAll($request->getPost ());
+		$serverID = Servers::saveAll($form->getValues ());
+		
+		OrdersItemsServers::removeServer(89,6);
+		die();	
 
 		// Save the attributes
 		$attributeValues = $form->getSubForm('attributes')->getValues();

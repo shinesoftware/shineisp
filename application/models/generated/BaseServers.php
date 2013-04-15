@@ -16,6 +16,7 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property string $description
  * @property string $datacenter
  * @property float $cost
+ * @property integer $accounts
  * @property integer $max_accounts
  * @property integer $isp_id
  * @property integer $type_id
@@ -85,6 +86,12 @@ abstract class BaseServers extends Doctrine_Record
              'type' => 'float',
              'default' => '0.00',
              'length' => '10',
+             ));
+        $this->hasColumn('accounts', 'integer', 4, array(
+             'type' => 'integer',
+             'default' => 0,
+             'notnull' => true,
+             'length' => '4',
              ));
         $this->hasColumn('max_accounts', 'integer', 4, array(
              'type' => 'integer',
