@@ -24,6 +24,7 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	<?php echo $form->name->render() ?>
 	<?php echo $form->fill_type->render() ?>
+	<?php echo $form->servers->render() ?>
 	<?php echo $form->active->render()?>
     <?php echo $form->group_id->render()?>
 </form>

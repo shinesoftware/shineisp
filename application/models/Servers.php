@@ -141,6 +141,38 @@ class Servers extends BaseServers {
     }
 	
 	/**
+	 * getServers
+	 * Get all servers
+	 * @param $id
+	 * @return ARRAY Record
+	 */
+	public static function getServers($locale = null) {
+		if ( $locale === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$locale = $Session->langid;
+		}
+		
+		try {
+			$records = array();
+			$items = Doctrine_Query::create ()->select ( '*' )
+			->from ( 'Servers s' )
+			->orderBy('s.name')
+			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+
+			foreach ( $items as $c ) {
+				$records [$c ['server_id']] = $c['name'] . " - (".$c ['host'].".".$c['domain'].")";
+			}
+			
+			return $records;
+			
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+	
+	}
+	
+	
+	/**
      * setStatus
      * Set a record with a status
      * @param $id, $status

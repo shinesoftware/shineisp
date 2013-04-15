@@ -31,6 +31,18 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
 				);		
 		
 
+		$this->addElement('multiselect', 'servers', array(
+            'label'      => 'Servers',
+            'decorators' => array('Composite'),
+    		'size'	     => '10x',
+            'class'      => 'multiselect'
+        ));
+        
+        $this->getElement('servers')
+                  ->setAllowEmpty(false)
+                  ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
+                  ->setMultiOptions(Servers::getServers());
+
     	$this->addElement('checkbox', 'active', array(
             'label'      => 'Active',
             'decorators' => array('Composite')

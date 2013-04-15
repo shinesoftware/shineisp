@@ -169,6 +169,9 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 			if (! empty ( $rs )) {
 				$this->view->id = $id;
 				
+				// Get all the servers for the group selected. 
+				$rs['servers'] = ServersGroups::getServers($id);
+				
 				$form->populate ( $rs );
 				$this->view->buttons[] = array("url" => "/admin/serversgroups/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 				
@@ -225,6 +228,15 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 				$this->serversgroups->active    = $params ['active'] ? 1 : 0;
 
 				$this->serversgroups->save ();
+				
+				$id = is_numeric ( $id ) ? $id : $this->serversgroups->getIncremented ();
+				
+				// Delete the old group
+				ServersGroupsIndexes::deleteAllServers($id);
+				
+				if(!empty($params['servers'])){
+					ServersGroupsIndexes::AddServers($id, $params['servers']);
+				}
 				
 				$this->_helper->redirector ( 'edit', 'serversgroups', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			

@@ -83,5 +83,32 @@ class ServersGroups extends BaseServersGroups
 	}
 
 
+    /**
+     * getAttributes
+     * Get all the attributes within the selected group
+     * @param $id
+     * @return ARRAY Record
+     */
+    public static function getServers($id) {
+        try {
+        	$servers = array();
+            $records = Doctrine_Query::create ()
+            ->select('server_id')
+            ->from ( 'ServersGroupsIndexes p' )
+            ->where ( 'p.group_id = ?', $id )
+            ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+            
+            
+	        foreach ( $records as $c ) {
+				$servers [] = $c ['server_id'];
+			}
+			
+            return $servers;
+        
+        } catch ( Exception $e ) {
+            die ( $e->getMessage () );
+        }
+    }   
+
 
 }
