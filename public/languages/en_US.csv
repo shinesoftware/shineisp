@@ -2,6 +2,6 @@ italian;Italiano
 english;English
 
 ### SERVERS
-desc_maxaccounts;Maximum numbers of accounts that will be created in this server
+desc_maxservices;Maximum numbers of services that will be created in this server
 desc_datacenter;Server location (Datacenter, Rack, City, ...)
 desc_cost;Monthly cost for this server

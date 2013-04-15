@@ -890,9 +890,9 @@ host;Host
 desc_host;Write here the host part of your main domain
 desc_domain;Write here the domain part with the TLD.
 furtherinfo;Information
-Max accounts;Numero massimo di account
+Max services;Numero massimo di servizi
 Server cost;Costo mensile
-desc_maxaccounts;Numero massimo di account attivabili su questo server
+desc_maxservices;Numero massimo di servizi attivabili su questo server
 desc_datacenter;Ubicazione server (Datacenter, Rack, City, ...)
 desc_cost;Costo mensile del server
 
