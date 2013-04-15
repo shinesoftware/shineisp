@@ -111,4 +111,28 @@ class ServersGroups extends BaseServersGroups
     }   
 
 
+
+	/**
+	 * getList
+	 * Get a list ready for the html select object
+	 * @return array
+	 */
+	public static function getList($empty = false) {
+		$items = array ();
+		$arrTypes = Doctrine::getTable ( 'ServersGroups' )->findAll ();
+	
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		
+		if ($empty) {
+			$items [0] = '';
+		}
+		
+		foreach ( $arrTypes->getData () as $c ) {
+			$items [$c ['group_id']] = $c ['name'];
+		}
+		
+		return $items;
+	}
+
+
 }

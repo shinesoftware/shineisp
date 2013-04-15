@@ -75,6 +75,21 @@ class Admin_Form_ProductsForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
                   ->setMultiOptions(ProductsCategories::getList());
+
+
+        $this->addElement('select', 'server_group_id', array(
+        'label' => 'Server group',
+        'decorators' => array('Composite'),
+        'class'      => 'text-input large-input'
+        ));
+        
+        $this->getElement('server_group_id')
+                  ->setAllowEmpty(false)
+                  ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
+                  ->setMultiOptions(ServersGroups::getList(true));
+
+
+
         
         $this->addElement('multiselect', 'related', array(
         'label' => 'Related Products',
