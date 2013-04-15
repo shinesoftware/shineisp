@@ -27,7 +27,7 @@ class System_TasksController extends Zend_Controller_Action {
 		$this->panelTask();
 		
 		// Execute all the Domain active tasks
-		//$this->domainsTask();
+		$this->domainsTask();
 		
 		die ( 'Done' );
 	}
