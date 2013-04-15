@@ -28,6 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property CustomAttributesValues $CustomAttributesValues
  * @property Panels $Panels
  * @property Doctrine_Collection $OrdersItemsServers
+ * @property Doctrine_Collection $ServersGroupsIndexes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -139,6 +140,10 @@ abstract class BaseServers extends Doctrine_Record
              'foreign' => 'panel_id'));
 
         $this->hasMany('OrdersItemsServers', array(
+             'local' => 'server_id',
+             'foreign' => 'server_id'));
+
+        $this->hasMany('ServersGroupsIndexes', array(
              'local' => 'server_id',
              'foreign' => 'server_id'));
     }

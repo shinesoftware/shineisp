@@ -3001,6 +3001,52 @@ Servers:
       local: panel_id
       foreign: panel_id
       type: one
+      
+ServersGroups:
+  connection: doctrine
+  tableName: servers_groups
+  columns:
+    group_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    name: string(100)
+    fill_type:
+      type: integer(4)
+      unsigned: true
+      notnull: true
+    active:
+      type: boolean(25)
+      default: 1
+ 
+ServersGroupsIndexes:
+  connection: doctrine
+  tableName: servers_groups_indexes
+  columns:
+    relationship_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    server_id:
+      type: int(4)
+      notnull: true
+    group_id:
+      type: integer(4)
+      notnull: true
+  relations:
+    Servers:
+      local: server_id
+      foreign: server_id
+      onDelete: CASCADE
+    Groups:
+      local: group_id
+      foreign: group_id
+      onDelete: CASCADE
+         
 Servers_Types:
   connection: doctrine
   tableName: servers_types
