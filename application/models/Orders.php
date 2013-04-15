@@ -1235,6 +1235,19 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
+	private static function isUpgrade( $orderid ) {
+		$orderDetails	= Orders::getDetails($orderid);
+		foreach( $orderDetails as $orderDetail ) {
+			$parent_orderid	= intval($orderDetail['parent_orderid']);
+			if( $parent_orderid != 0 ) {
+				return $parent_orderid;
+			}
+		}
+		
+		return false;		
+	}
+	
+	
 	/*
 	 * Run task functions
 	 */
@@ -1267,23 +1280,15 @@ class Orders extends BaseOrders {
 		$hostingplans = self::get_hostingplans_from_order($orderid);
 		if($hostingplans){
 			foreach ( $hostingplans as $data ) {
+				//* TODO: Check autosetup valute and operate accordingly
+				//...
+				
 				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
 			}
 		}
 	}	
 	
 	
-	private static function isUpgrade( $orderid ) {
-		$orderDetails	= Orders::getDetails($orderid);
-		foreach( $orderDetails as $orderDetail ) {
-			$parent_orderid	= intval($orderDetail['parent_orderid']);
-			if( $parent_orderid != 0 ) {
-				return $parent_orderid;
-			}
-		}
-		
-		return false;		
-	}
 	/*
 	 * Complete 
 	 * this function complete the order
@@ -1300,9 +1305,6 @@ class Orders extends BaseOrders {
 				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
 			} 
 			
-			// Check and create task for domains and hosting services
-			self::RunTasks($orderid);
-			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
 			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
@@ -1313,6 +1315,10 @@ class Orders extends BaseOrders {
 			if($sendemail){
 				Invoices::sendInvoice ( $invoiceid );
 			}
+
+			// Check and create task for domains and hosting services
+			// Moved after invoice creation to support autosetup multiple modes
+			self::RunTasks($orderid);
 			
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
