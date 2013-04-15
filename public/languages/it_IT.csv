@@ -197,6 +197,7 @@ Closed;Chiuso
 Solved;Risolto
 Queue;In Coda
 Active;Attivo
+Changed;Modificato
 
 ### MODULES
 Domains;Domini
@@ -595,7 +596,7 @@ Complete the order choosing your preferite payment method.;Completare l'ordine s
 Payment Methods;Metodi di Pagamento
 Order no.;Ordine n.
 InvoiceId;Fattura
-Setup fee;Canone di attivazione
+Setup fee;Costo Attivazione
 startdate;Data
 Reply;Rispondi
 Fastlink Code;Codice Fastlink

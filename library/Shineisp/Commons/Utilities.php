@@ -839,8 +839,16 @@ class Shineisp_Commons_Utilities {
 		
 		$locale = Zend_Registry::get('Zend_Locale');
 		$date = new Zend_Date($dbindata, "yyyy-MM-dd HH:mm:ss", $locale);
+
+		// override the preferences
+		$dateformat = Settings::findbyParam('dateformat');
 		
-		return $date->get($format);
+		if(!empty($dateformat)){
+			return $date->get($dateformat);
+		}else{
+			return $date->get($format);
+		}
+		
 	}
 	
 	/**

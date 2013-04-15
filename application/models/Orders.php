@@ -63,8 +63,7 @@ class Orders extends BaseOrders {
 		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/orders/delete/id/%d";
-		$config ['datagrid'] ['massactions'] = array ('bulk_delete'=>'Mass Delete', 
-													  'bulk_export'=>'Export List');
+		$config ['datagrid'] ['massactions']['commons'] = array ('bulk_delete'=>'Mass Delete', 'bulk_export'=>'Export List');
 		return $config;
 	}
 	
@@ -1244,7 +1243,6 @@ class Orders extends BaseOrders {
 			return false;
 		}
 		
-		
 		// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
 		$domains = self::getDomainsFromOrder ( $orderid );
 		
@@ -1267,9 +1265,10 @@ class Orders extends BaseOrders {
 		
 		// Add the panel action tasks
 		$hostingplans = self::get_hostingplans_from_order($orderid);
-
-		foreach ( $hostingplans as $data ) {
-			PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+		if($hostingplans){
+			foreach ( $hostingplans as $data ) {
+				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+			}
 		}
 	}	
 	
@@ -1298,10 +1297,11 @@ class Orders extends BaseOrders {
 				$orderItem	= OrdersItems::getDetail($upgrade);
 				$oldOrderId	= $orderItem['order_id'];
 
-				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
-			} elseif ( ! self::RunTasks($orderid) ) {
-				return false;
-			}
+				self::set_status ( $oldOrderId, Statuses::id("closed", "changed") ); // Close the old order ::status changed
+			} 
+			
+			// Check and create task for domains and hosting services
+			self::RunTasks($orderid);
 			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
@@ -1422,7 +1422,7 @@ class Orders extends BaseOrders {
 										->where ( "s.status_id = ?", Statuses::id("tobepaid", "orders") )
 										->andWhere("o.expiring_date <= ?", $date)
 										->andWhere('o.is_renewal = ?', FALSE);
-										
+							
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
@@ -1726,31 +1726,31 @@ class Orders extends BaseOrders {
 	 * Get all the details from a order
 	 */
 	public static function getDetails($id) {
-		$dq = Doctrine_Query::create ()->select ( "
-                     oid.relationship_id, 
-                     dm.domain_id, 
-                     dt.tld_id,
-                     ws.tld,
-                     CONCAT(dm.domain, '.',ws.tld) as domain, 
-                     d.quantity, 
-                     d.description, 
-                     d.price as price, 
-                     d.setupfee as setupfee, 
-                     d.parent_detail_id as parent_orderid,
-                     t.percentage as taxpercentage,
-                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
-                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
-		->from ( 'OrdersItems d' )
-		->leftJoin ( 'd.Orders o' )
-		->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
-		->leftJoin ( 'oid.Domains dm' )
-		->leftJoin ( 'd.Products p' )
-		->leftJoin ( 'dm.DomainsTlds dt' )
-		->leftJoin ( 'dt.WhoisServers ws' )
-		->leftJoin ( 'p.Taxes t' )
-		->leftJoin ( 'o.Customers c' )
-		->leftJoin ( 'd.Statuses s' )
-		->where ( 'o.order_id = ?', $id );
+		$dq = Doctrine_Query::create ()->select ( "oid.relationship_id, 
+								                     dm.domain_id, 
+								                     dt.tld_id,
+								                     ws.tld,
+								                     CONCAT(dm.domain, '.',ws.tld) as domain, 
+								                     d.quantity, 
+								                     d.description, 
+								                     d.price as price, 
+								                     d.setupfee as setupfee, 
+								                     d.parent_detail_id as parent_orderid,
+								                     t.percentage as taxpercentage,
+								                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
+								                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
+										->from ( 'OrdersItems d' )
+										->leftJoin ( 'd.Orders o' )
+										->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
+										->leftJoin ( 'oid.Domains dm' )
+										->leftJoin ( 'd.Products p' )
+										->leftJoin ( 'dm.DomainsTlds dt' )
+										->leftJoin ( 'dt.WhoisServers ws' )
+										->leftJoin ( 'p.Taxes t' )
+										->leftJoin ( 'o.Customers c' )
+										->leftJoin ( 'd.Statuses s' )
+										->where ( 'o.order_id = ?', $id );
+		
 		$rs = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return $rs;
@@ -1787,8 +1787,8 @@ class Orders extends BaseOrders {
 	}
 	
 	/*
-	 * getDomainsFromOrder
 	 * Get all the domains requested from the order list items.
+	 * 
 	 * @param $orderID
 	 */
 	public static function getDomainsFromOrder($orderID) {
@@ -1797,19 +1797,17 @@ class Orders extends BaseOrders {
 		$items = OrdersItems::getAllDetails ( $orderID, null, true );
 		if (count ( $items ) > 0) {
 			foreach ( $items as $item ) {
-				#if (!empty($item ['tld_id'])) {
-					$params = json_decode ( $item ['parameters'], true );
-					if (! empty ( $params ['domain'] )) {
-						$domains [$i] ['orderitem_id'] = $item ['detail_id'];
-						$domains [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
-						$domains [$i] ['action'] = ! empty ( $params ['action'] ) ? $params ['action'] : "registerDomain";
-						$domains [$i] ['domain'] = trim ( strtolower ( $params ['domain'] ) );
-						$domains [$i] ['authinfocode'] = !empty($params ['authinfocode']) ? trim ( $params ['authinfocode']) : "";
-						$domains [$i] ['tld_id'] = Domains::getDomainIDbyName($domains [$i] ['domain']);
-						$domains [$i] ['registrar_id'] = Domains::getRegistrarsIDbyName($params ['domain']);
-						$i ++;
-					}
-				#}
+				$params = json_decode ( $item ['parameters'], true );
+				if (! empty ( $params ['domain'] )) {
+					$domains [$i] ['orderitem_id'] = $item ['detail_id'];
+					$domains [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
+					$domains [$i] ['action'] = ! empty ( $params ['action'] ) ? $params ['action'] : "registerDomain";
+					$domains [$i] ['domain'] = trim ( strtolower ( $params ['domain'] ) );
+					$domains [$i] ['authinfocode'] = !empty($params ['authinfocode']) ? trim ( $params ['authinfocode']) : "";
+					$domains [$i] ['tld_id'] = Domains::getDomainIDbyName($domains [$i] ['domain']);
+					$domains [$i] ['registrar_id'] = Domains::getRegistrarsIDbyName($params ['domain']);
+					$i ++;
+				}
 			}
 		}
 		return $domains;
@@ -1833,6 +1831,8 @@ class Orders extends BaseOrders {
 						$hplan [$i] ['customer_id'] = $item ['Orders'] ['Customers'] ['customer_id'];
 						$hplan [$i] ['parameters'] = $item ['parameters'];
 						$i ++;
+					}else{
+						Shineisp_Commons_Utilities::log("Hosting plan ".$item['Products']['sku']." has been skipped because it has not any parameters configured yet");
 					}
 				}
 			}
@@ -1896,7 +1896,7 @@ class Orders extends BaseOrders {
 				$bank = strip_tags($bankInfo['description']);
 			}
 			
-			$signature = $order [0] ['Isp'] ['company'];
+			$storename= $order [0] ['Isp'] ['company'];
 			
 			if (! empty ( $fastlink [0] ['code'] )) {
 				$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
@@ -1908,21 +1908,20 @@ class Orders extends BaseOrders {
 			
 			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 			if ($retval) {
-				$isp = Isp::getActiveISP ();
-				
 				$subject = $retval ['subject'];
 				$subject = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $subject );
 				$subject = str_replace ( "[fullname]", $customer, $subject );
-				$subject = str_replace ( "[storename]", $isp ['company'], $subject );
+				$subject = str_replace ( "[storename]", $storename, $subject );
 				$orderTemplate = $retval ['template'];
-				$orderTemplate = str_replace ( "[storename]", $isp ['company'], $orderTemplate );
+				
+				$orderTemplate = str_replace ( "[storename]", $storename, $orderTemplate );
 				$orderTemplate = str_replace ( "[fullname]", $customer, $orderTemplate );
 				$orderTemplate = str_replace ( "[email]", $email, $orderTemplate );
 				$orderTemplate = str_replace ( "[bank]", $bank, $orderTemplate );
 				$orderTemplate = str_replace ( "[url]", $url, $orderTemplate );
 				$orderTemplate = str_replace ( "[conditions]", strip_tags(Settings::findbyParam('conditions')), $orderTemplate );
 				$orderTemplate = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $orderTemplate );
-				$orderTemplate = str_replace ( "[signature]", $signature, $orderTemplate );
+				$orderTemplate = str_replace ( "[signature]", $storename, $orderTemplate );
 				$orderTemplate = utf8_decode ( $orderTemplate );
 				Shineisp_Commons_Utilities::SendEmail ( $email, $customer_email, $email, $subject, $orderTemplate );
 			}
@@ -2406,7 +2405,7 @@ class Orders extends BaseOrders {
 	public static function checkExpiringOrders() {
 		$isp = Isp::getActiveISP ();
 		$orders = Orders::find_all_expired_orders(date('Y-m-d'));
-	
+		
 		$arrTemplate = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_expired' );
 	
 		foreach ( $orders as $order ) {

@@ -164,6 +164,7 @@ class OrdersItems extends BaseOrdersItems {
         										   pd.name as product,
         										   c.customer_id as id, 
         										   oi.date_end as expiringdate, 
+        										   DATEDIFF(oi.date_end, CURRENT_DATE) as daystoend,
         										   o.customer_id as customer_id,
         										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
         										   c.email as email, 
@@ -191,7 +192,7 @@ class OrdersItems extends BaseOrdersItems {
         if(is_numeric($autorenew)){
         	$dq->andWhere ( 'oi.autorenew = ?', $autorenew );  
         }
-        
+
         $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
         
         return $records;
