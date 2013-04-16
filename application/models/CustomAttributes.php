@@ -108,7 +108,7 @@ class CustomAttributes extends BaseCustomAttributes
 	/**
 	 * get all the custom external fields values
 	 */
-	public static function getElementsValues($external_id, $section, $panel_id = null){
+	public static function getElementsValues($external_id, $section = null, $panel_id = null){
 		$record = array();
 				
 		$fields = Doctrine_Query::create ()->select ( "ca.var, cav.value" )
