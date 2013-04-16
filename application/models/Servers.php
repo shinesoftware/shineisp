@@ -108,8 +108,12 @@ class Servers extends BaseServers {
 		$server->cost         = (isset($params['cost']) && is_numeric($params['cost'])) ? $params['cost'] : 0;
 		$server->max_services = (isset($params['max_services'])) ? intval($params['max_services']) : 0;
 		$server->datacenter   = (isset($params['datacenter'])) ? $params['datacenter'] : '';
-				
+		$server->is_default   = (isset($params['is_default'])) ? intval($params['is_default']) : 0;
+		$server->buy_date     = Shineisp_Commons_Utilities::formatDateIn ($params ['buy_date']);
+
 		$server->save ();
+		
+		// TODO: clear other default servers for the same group. Only one server can be default in the group
 		
 		return $server['server_id'];
 	}

@@ -132,6 +132,22 @@ class Admin_Form_ServersForm extends Zend_Form
             'class'      => 'text-input large-input'
         ));
 		
+        $this->addElement('text', 'buy_date', array(
+            'filters'     => array('StringTrim'),
+            'label'       => 'Buy Date',
+            'description' => 'Purchase date of this server',
+            'decorators'  => array('Composite'),
+            'class'       => 'text-input large-input date'
+        ));		
+		
+        $this->addElement('checkbox', 'is_default', array(
+            'filters'     => array('StringTrim'),
+            'required'    => false,
+            'label'       => 'Default server',
+            'description' => 'Default server for the group',
+            'decorators'  => array('Composite'),
+            'class'       => 'text-input large-input'
+        ));
 
         $this->addElement('submit', 'save', array(
             'required' => false,
