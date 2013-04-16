@@ -6,12 +6,14 @@ class Version49 extends Doctrine_Migration_Base
 {
     public function up()
     {
-        $this->addColumn('products', 'server_group_id', 'integer', '4', array(
+        $this->addColumn('servers', 'accounts', 'integer', '4', array(
+             'default' => '0',
+             'notnull' => '1',
              ));
     }
 
     public function down()
     {
-        $this->removeColumn('products', 'server_group_id');
+        $this->removeColumn('servers', 'accounts');
     }
 }

@@ -45,7 +45,6 @@ class IndexController extends Zend_Controller_Action {
 	 * QrCode Invoice Order Management
 	 */
 	public function qrcodeAction() {
-		$this->getHelper ( 'layout' )->setLayout ('mobile');
 		$qrcode = $this->getRequest ()->getParam('q');
 		if(!empty($qrcode)){
 			$decoded = base64_decode($qrcode);
