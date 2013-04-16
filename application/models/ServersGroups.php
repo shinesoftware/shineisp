@@ -84,8 +84,8 @@ class ServersGroups extends BaseServersGroups
 
 
     /**
-     * getAttributes
-     * Get all the attributes within the selected group
+     * getServers
+     * Get all the servers within the selected group
      * @param $id
      * @return ARRAY Record
      */
