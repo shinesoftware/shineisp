@@ -592,11 +592,14 @@ CustomAttributes:
     section:
       type: string(255)
       notnull: true
+    panel_id:
+      type: integer(11)
   relations:
     CustomAttributesValues:
       local: attribute_id
       foreign: attribute_id
       type: many
+
 CustomAttributesValues:
   connection: doctrine
   tableName: custom_attributes_values
@@ -2280,6 +2283,14 @@ Products:
     external_id: integer(4)
     group_id: integer(4)
     blocks: string()
+    server_group_id: 
+      type: integer(4)
+      unsigned: true
+    autosetup: 
+      type: integer(4)
+      unsigned: true
+      notnull: true
+      default: '0'
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2333,6 +2344,11 @@ Products:
       local: product_id
       foreign: product_id
       type: many
+    ServersGroups:
+      local: server_group_id
+      foreign: group_id
+      type: one
+
       
 ProductsAttributes:
   connection: doctrine
@@ -2647,6 +2663,32 @@ ProductsUpgrades:
       foreign: product_id
       onDelete: CASCADE       
 
+ProductsTranchesIncludes:
+  connection: doctrine
+  tableName: products_tranches_includes
+  columns:
+    tranche_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+    include_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+  relations:
+    Products:
+      local: include_id
+      foreign: product_id
+      onDelete: NO ACTION
+    ProductsTranches:
+      local: tranche_id
+      foreign: tranche_id
+      onDelete: NO ACTION       
+
 ProductsTranches:
   connection: doctrine
   tableName: products_tranches
@@ -2684,6 +2726,31 @@ ProductsTranches:
       local: billing_cycle_id
       foreign: billing_cycle_id
       type: one
+ProductsTranchesIncludes:
+  connection: doctrine
+  tableName: products_tranches_includes
+  columns:
+    tranche_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+    include_id: 
+      type: integer(4)
+      unsigned: false
+      notnull: true
+      primary: true
+      autoincrement: false
+  relations:
+    Products:
+      local: include_id
+      foreign: product_id
+      onDelete: NO ACTION
+    ProductsTranches:
+      local: tranche_id
+      foreign: tranche_id
+      onDelete: NO ACTION       
 PurchaseCategories:
   connection: doctrine
   tableName: invoices_purchases_categories
@@ -2911,9 +2978,21 @@ Servers:
     description:
       type: string()
       notnull: false
+    datacenter:
+      type: string(200)
+      notnull: true
+    cost:
+      type: float(10)
+      default: '0.00'
+    services: 
+      type: integer(4)
+      default: 0
+      notnull: true
+    max_services: integer(4)      
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)
+    panel_id: integer(4)
   relations:
     Isp:
       local: isp_id
@@ -2931,6 +3010,56 @@ Servers:
       local: server_id
       foreign: external_id
       type: one
+    Panels:
+      local: panel_id
+      foreign: panel_id
+      type: one
+      
+ServersGroups:
+  connection: doctrine
+  tableName: servers_groups
+  columns:
+    group_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    name: string(100)
+    fill_type:
+      type: integer(4)
+      unsigned: true
+      notnull: true
+    active:
+      type: boolean(25)
+      default: 1
+ 
+ServersGroupsIndexes:
+  connection: doctrine
+  tableName: servers_groups_indexes
+  columns:
+    relationship_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    server_id:
+      type: int(4)
+      notnull: true
+    group_id:
+      type: integer(4)
+      notnull: true
+  relations:
+    Servers:
+      local: server_id
+      foreign: server_id
+      onDelete: CASCADE
+    Groups:
+      local: group_id
+      foreign: group_id
+      onDelete: CASCADE
+         
 Servers_Types:
   connection: doctrine
   tableName: servers_types

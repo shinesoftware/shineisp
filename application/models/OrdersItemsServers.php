@@ -14,6 +14,69 @@ class OrdersItemsServers extends BaseOrdersItemsServers
 {
 
     /**
+     * Add or Remove an order item to/from a server
+     * 
+     * 
+     * @param integer $orderItemID
+     * @param integer $serverID
+     */
+    private static function doAddRemove($orderItemID, $serverID, $action = ''){
+    	$ret = false;
+		
+    	if(is_numeric($orderItemID) && is_numeric($serverID) && ($action == 'add' || $action == 'remove')){
+			$serverID = intval($serverID);
+			$itemID   = intval($orderItemID);
+
+			if ( $action == 'remove' ) {
+				/*
+				 * REMOVE
+				 */
+				
+				$record = self::findByServerAndItem($serverID, $itemID);
+				$record->delete();
+				$ret = true;	
+			} else {
+				/*
+				 * ADD
+				 */
+	
+		    	$order = OrdersItems::find($orderItemID, 'order_id', true);
+	
+		    	if ( !empty($order) && is_array($order) && count($order) > 0 ) {
+		    		$order   = $order[0];
+					
+					if ( !isset($order['order_id']) || intval($order['order_id']) == 0 ) {
+						$ret = false;
+					}
+					
+					$orderID  = intval($order['order_id']);
+						
+	    			$OrdersItemsServers = new self;
+					$OrdersItemsServers->server_id    = $serverID;
+					$OrdersItemsServers->order_id     = $orderID;
+					$OrdersItemsServers->orderitem_id = $itemID;
+					$OrdersItemsServers->save();
+	
+					$ret = true;
+					
+		    	}
+			}
+			
+			
+			
+			// Always update server stats		
+			$Server = Servers::find($serverID);
+			$Server->services = OrdersItemsServers::countByServerId($serverID);
+			$Server->save();
+			
+			return $ret;
+		
+    	}
+
+    	return false;
+    }
+	
+    /**
      * Attach an order item to a server
      * 
      * 
@@ -22,27 +85,58 @@ class OrdersItemsServers extends BaseOrdersItemsServers
      */
     public static function addServer($orderItemID, $serverID){
     	if(is_numeric($orderItemID) && is_numeric($serverID)){
-	    	$order = OrdersItems::find($orderItemID, 'order_id', true);
+			return self::doAddRemove($orderItemID, $serverID, 'add');
+    	}
+    }
 
-	    	if ( !empty($order) && is_array($order) && count($order) > 0 ) {
-	    		$order   = $order[0];
-				
-				if ( !isset($order['order_id']) || intval($order['order_id']) == 0 ) {
-					return false;
-				}
-				
-				$orderID = $order['order_id'];
-
-    			$OrdersItemsServers = new OrdersItemsServers();
-				$OrdersItemsServers ['server_id']    = intval($serverID);
-				$OrdersItemsServers ['order_id']     = intval($orderID);
-				$OrdersItemsServers ['orderitem_id'] = intval($orderItemID);
-				$OrdersItemsServers->save ();
-				
-				return true;
-	    	}
+    /**
+     * Remove an order item from a server
+     * 
+     * 
+     * @param integer $orderItemID
+     * @param integer $serverID
+     */
+    public static function removeServer($orderItemID, $serverID){
+    	if(is_numeric($orderItemID) && is_numeric($serverID)){
+			return self::doAddRemove($orderItemID, $serverID, 'remove');    	
     	}
     	return false;
     }
+
+	
+	/**
+     * Get a record 
+     * @param $id
+     * @return Doctrine_Record
+     */
+    public static function find($id) {
+        return Doctrine::getTable ( 'OrdersItemsServers' )->find ( $id );
+    }	
+
+	/**
+     * Count records by serverId
+     * @param $id
+     * @return int
+     */
+    public static function countByServerId($serverId) {
+        //return Doctrine_Query::create ()->select ('COUNT(relationship_id) AS count')->from ( 'OrdersItemsServers' )->where ('server_id = ?', $serverId )->execute ();
+        return Doctrine::getTable('OrdersItemsServers')->createQuery('t')->where('server_id = ?', $serverId) ->count();
+    }	
+
+
+	/**
+     * Get a record by ServerID and ItemId
+     * @param $id
+     * @return Doctrine_Record
+     */
+    public static function findByServerAndItem($serverId, $itemId) {
+    	$serverId = intval($serverId);
+		$itemId   = intval($itemId);
+				
+		return Doctrine::getTable ( 'OrdersItemsServers' )->findByDql ('orderitem_id = ? AND server_id = ?', array($itemId, $serverId));
+		
+		//return Doctrine_Query::create ()->select ('*')->from ( 'orders_items_servers' )->where ('server_id = ?', $serverId )->andWhere('orderitem_id = ?', $itemId)->execute ();
+    }	
+
 
 }

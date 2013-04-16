@@ -30,6 +30,7 @@ class Products extends BaseProducts {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'pd.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'type' => 'string', 'searchable' => true );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Server group' ), 'field' => 'sg.name', 'alias' => 'servergroupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Inserted at' ), 'field' => 'p.inserted_at', 'sortable' => true, 'searchable' => false, 'alias' => 'insertedat', 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Updated at' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'p.enabled', 'sortable' => true, 'searchable' => false, 'alias' => 'enabled', 'type' => 'string' );
@@ -38,6 +39,7 @@ class Products extends BaseProducts {
 											pd.name as name, 
 											p.type as type, 
 											pag.name as groupname, 
+											sg.name as servergroupname,
 											DATE_FORMAT(p.inserted_at, '%d/%m/%Y %H:%i:%s') as insertedat,  
 											DATE_FORMAT(p.updated_at, '%d/%m/%Y %H:%i:%s') as updatedat,  
 											IF( p.enabled = 1, 'Yes', 'No' ) as enabled";
@@ -45,6 +47,7 @@ class Products extends BaseProducts {
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
 																		->from ( 'Products p' )
 																		->leftJoin ( 'p.ProductsAttributesGroups pag' )
+																		->leftJoin ( 'p.ServersGroups sg' )
 																		->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" );
 		
 		$config ['datagrid'] ['basepath'] = "/admin/products/";
@@ -195,26 +198,28 @@ class Products extends BaseProducts {
 				}
 			}
 			if(is_array($params)){
-				$products->updated_at    = date('Y-m-d H:i:s');
-				$products->categories    = ! empty ( $params ['categories'] ) ? $params ['categories'] : null;
-				$products->uri           = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
-				$products->sku           = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
-				$products->cost          = $params ['cost'];
-				$products->price_1       = $params ['price_1'];
-				$products->setupfee      = $params ['setupfee'];
-				$products->enabled       = $params ['enabled'] == 1 ? 1 : 0;
-				$products->iscomparable  = !empty($params ['iscomparable']) ? 1 : 0;
-				$products->tax_id        = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
-				$products->type          = !empty($params ['type']) ? $params ['type'] : "generic";
-				$products->blocks        = !empty($params ['blocks']) ? $params ['blocks'] : NULL;
-				$products->group_id      = !empty($params ['group_id']) ? $params ['group_id'] : NULL;
-				$products->position      = !empty($params ['position']) ? $params ['position'] : NULL;
-				$products->setup         = !empty($params ['setup']) ? $params ['setup'] : NULL;
-				$products->ishighlighted = !empty($params ['ishighlighted']) ? 1 : 0;
-				$products->isrefundable  = !empty($params ['isrefundable']) ? 1 : 0;
-				$products->showonrss     = !empty($params ['showonrss']) ? 1 : 0;
-				$products->external_id   = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
-				$products->downgradable  = !empty($params['downgradable']) ? 1: 0;
+				$products->updated_at      = date('Y-m-d H:i:s');
+				$products->categories      = ! empty ( $params ['categories'] ) ? $params ['categories'] : null;
+				$products->uri             = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
+				$products->sku             = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
+				$products->cost            = $params ['cost'];
+				$products->price_1         = $params ['price_1'];
+				$products->setupfee        = $params ['setupfee'];
+				$products->enabled         = $params ['enabled'] == 1 ? 1 : 0;
+				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
+				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
+				$products->type            = !empty($params ['type']) ? $params ['type'] : "generic";
+				$products->blocks          = !empty($params ['blocks']) ? $params ['blocks'] : NULL;
+				$products->group_id        = !empty($params ['group_id']) ? $params ['group_id'] : NULL;
+				$products->position        = !empty($params ['position']) ? $params ['position'] : NULL;
+				$products->setup           = !empty($params ['setup']) ? $params ['setup'] : NULL;
+				$products->ishighlighted   = !empty($params ['ishighlighted']) ? 1 : 0;
+				$products->isrefundable    = !empty($params ['isrefundable']) ? 1 : 0;
+				$products->showonrss       = !empty($params ['showonrss']) ? 1 : 0;
+				$products->external_id     = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
+				$products->downgradable    = !empty($params['downgradable']) ? 1: 0;
+				$products->server_group_id = !empty($params['server_group_id']) ? intval($params['server_group_id']) : null;
+				$products->autosetup       = !empty($params['server_group_id']) ? intval($params['autosetup']) : 0;
 
 				// Save the data
 				$products->save ();

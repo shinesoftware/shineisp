@@ -43,7 +43,8 @@
 				<js>/js/admin.js</js> 
 				<js>/js/iscroll.js</js> 
 				<js>/js/widget.js</js> 
-				<js>/js/smartresize.js</js> 
+				<js>/js/smartresize.js</js>
+				<js>/js/arcfun.js</js>  
 				
 				<!-- In this case the files must be located in /skins/default/YOURTEMPLATE/css folder -->
 				<css>/css/html.css</css>  

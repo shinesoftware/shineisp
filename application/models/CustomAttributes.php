@@ -18,7 +18,7 @@ class CustomAttributes extends BaseCustomAttributes
 	 * @param string $label
 	 * @param string $type
 	 */
-	public static function createAttribute($var, $label, $type="text", $section="customers"){
+	public static function createAttribute($var, $label, $type="text", $section="customers", $panel_id = null){
 
 		// Check if the attribute exists
 		$attr = self::getAttributeIdByVar($var, $section);
@@ -27,35 +27,51 @@ class CustomAttributes extends BaseCustomAttributes
 		}
 		
 		$attribute = new CustomAttributes();
-		$attribute['var'] = $var;
-		$attribute['label'] = $label;
-		$attribute['type'] = $type;
+		$attribute['var']     = $var;
+		$attribute['label']   = $label;
+		$attribute['type']    = $type;
 		$attribute['section'] = $section;
+		$attribute['panel_id'] = $panel_id;
 		return $attribute->trySave();
 	}
 	
 	/**
 	 * save all the custom customer fields 
 	 */
-	public static function saveElementsValues(array $params, $external_id, $section){
-		
+	public static function saveElementsValues(array $params, $external_id, $section) {
 		foreach ($params as $param){
 			foreach ($param as $attr => $value){
 				$attribute = self::getAttribute($external_id, $attr);
-				
+
 				if(!empty($attribute['value_id'])){
 					$theAttribute = Doctrine::getTable ( 'CustomAttributesValues' )->find($attribute['value_id']);	
 				}else{
 					$theAttribute = new CustomAttributesValues();
 				}
 				
-				$theAttribute['external_id'] = $external_id;
+				$theAttribute['external_id']  = $external_id;
 				$theAttribute['attribute_id'] = self::getAttributeIdByVar($attr, $section);
-				$theAttribute['value'] = !empty($value) ? $value : null;
+				$theAttribute['value']        = !empty($value) ? $value : null;
+								
 				$theAttribute->save();
 			}
 		}
 	}
+	
+	/**
+	 * clear all custom fields for an external id in a section
+	 */
+	public static function clearValues($external_id, $section) {
+		return Doctrine_Query::create ()
+			->from ( 'CustomAttributesValues cav' )
+			->leftJoin ( 'cav.CustomAttributes ca' )
+			->where ( "ca.section = ?", $section )
+			->andWhere ( "cav.external_id = ?", $external_id )
+			->execute ()
+			->delete();
+	}
+	
+	
 	
 	/**
 	 * Get the attribute 
@@ -92,15 +108,17 @@ class CustomAttributes extends BaseCustomAttributes
 	/**
 	 * get all the custom external fields values
 	 */
-	public static function getElementsValues($external_id){
+	public static function getElementsValues($external_id, $section, $panel_id = null){
 		$record = array();
-		
+				
 		$fields = Doctrine_Query::create ()->select ( "ca.var, cav.value" )
 											->from ( 'CustomAttributesValues cav' )
 											->leftJoin ( 'cav.CustomAttributes ca' )
 											->where ( "cav.external_id = ?", $external_id )
+											->andWhere('ca.section = ?', $section)
+											->andWhere('ca.panel_id = ? OR ca.panel_id IS ?', array(intval($panel_id), null))
 											->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-										
+																																
 		foreach ($fields as $field) {
 			$record[$field['CustomAttributes']['var']] = $field['value'];
 		}
@@ -111,13 +129,14 @@ class CustomAttributes extends BaseCustomAttributes
 	/**
 	 * get all the custom external fields 
 	 */
-	public static function getElements(Zend_Form $form, $section="customers"){
+	public static function getElements(Zend_Form $form, $section="customers", $panel_id = null){
 		$attributeForm = new Zend_Form_SubForm ();
 		
 		// Get the list field
 		$fields = Doctrine_Query::create ()
 				->from ( 'CustomAttributes ca' )
 				->andWhere ( "ca.section = ?", $section )
+				->andWhere('ca.panel_id = ? OR ca.panel_id IS ?', array(intval($panel_id), null))
 				->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 				
 		// Set the decorator

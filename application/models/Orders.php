@@ -1297,7 +1297,7 @@ class Orders extends BaseOrders {
 				$orderItem	= OrdersItems::getDetail($upgrade);
 				$oldOrderId	= $orderItem['order_id'];
 
-				self::set_status ( $oldOrderId, Statuses::id("closed", "changed") ); // Close the old order ::status changed
+				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
 			} 
 			
 			// Check and create task for domains and hosting services

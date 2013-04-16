@@ -890,6 +890,12 @@ host;Host
 desc_host;Write here the host part of your main domain
 desc_domain;Write here the domain part with the TLD.
 furtherinfo;Information
+Max services;Numero massimo di servizi
+Server cost;Costo mensile
+desc_maxservices;Numero massimo di servizi attivabili su questo server
+desc_datacenter;Ubicazione server (Datacenter, Rack, City, ...)
+desc_cost;Costo mensile del server
+
  
 ### PAYMENTS GATEWAYS
 You will be redirected to the bank secure website, please be patience.;Verrai reindirizzato nel sito sicuro della banca, un momento di pazienza.

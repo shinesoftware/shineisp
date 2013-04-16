@@ -67,6 +67,15 @@ if (isset($this->records[0])):
 	                            <a href="<? echo $url . $record[$fields[0]]?>" title="<?=$this->translate($name); ?>"><?=$this->translate($name); ?></a>
 	                        <?php endforeach;?>
                         <?php endif;?>
+                        
+                        <?php if($this->onclick):?>
+	                        <?php foreach ($this->onclick as $onclick=>$name): ?>
+	                            <a href="#" title="<?=$this->translate($name); ?>" onclick="<?=str_replace('[id]', $record[$fields[0]], $onclick);?>" >
+	                            	<?=$this->translate($name); ?>
+	                            </a>
+	                        <?php endforeach;?>
+                        <?php endif;?>
+                        
                    </td>
                    <?php endif;?>
                    </tr>

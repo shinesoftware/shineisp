@@ -14,14 +14,21 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property string $host
  * @property string $domain
  * @property string $description
+ * @property string $datacenter
+ * @property float $cost
+ * @property integer $services
+ * @property integer $max_services
  * @property integer $isp_id
  * @property integer $type_id
  * @property integer $status_id
+ * @property integer $panel_id
  * @property Isp $Isp
  * @property Servers_Types $Servers_Types
  * @property Statuses $Statuses
  * @property CustomAttributesValues $CustomAttributesValues
+ * @property Panels $Panels
  * @property Doctrine_Collection $OrdersItemsServers
+ * @property Doctrine_Collection $ServersGroupsIndexes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -71,6 +78,26 @@ abstract class BaseServers extends Doctrine_Record
              'notnull' => false,
              'length' => '',
              ));
+        $this->hasColumn('datacenter', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '200',
+             ));
+        $this->hasColumn('cost', 'float', 10, array(
+             'type' => 'float',
+             'default' => '0.00',
+             'length' => '10',
+             ));
+        $this->hasColumn('services', 'integer', 4, array(
+             'type' => 'integer',
+             'default' => 0,
+             'notnull' => true,
+             'length' => '4',
+             ));
+        $this->hasColumn('max_services', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => '4',
@@ -80,6 +107,10 @@ abstract class BaseServers extends Doctrine_Record
              'length' => '4',
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('panel_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => '4',
              ));
@@ -104,7 +135,15 @@ abstract class BaseServers extends Doctrine_Record
              'local' => 'server_id',
              'foreign' => 'external_id'));
 
+        $this->hasOne('Panels', array(
+             'local' => 'panel_id',
+             'foreign' => 'panel_id'));
+
         $this->hasMany('OrdersItemsServers', array(
+             'local' => 'server_id',
+             'foreign' => 'server_id'));
+
+        $this->hasMany('ServersGroupsIndexes', array(
              'local' => 'server_id',
              'foreign' => 'server_id'));
     }
