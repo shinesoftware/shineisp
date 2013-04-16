@@ -35,6 +35,7 @@ class Admin_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 			// for instance $actions['/admin/customers'] = "Customers"; 
 			// the label customers will be translated
 			$this->view->actions = ! empty ( $data ['actions'] ) ? $data ['actions'] : false;
+			$this->view->onclick = ! empty ( $data ['onclick'] ) ? $data ['onclick'] : false;
 			
 		}else{
 			$this->view->records = "";

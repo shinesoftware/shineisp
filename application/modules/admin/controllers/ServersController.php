@@ -135,8 +135,12 @@ class Admin_ServersController extends Zend_Controller_Action {
 	private function getForm($action) {
 		$form = new Admin_Form_ServersForm ( array ('action' => $action, 'method' => 'post' ) );
 		
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$rs = Servers::getAll($id);
+		$panel_id = ( isset($rs['panel_id']) ) ? $rs['panel_id']: null;
+		
 		// Add the customer custom attributes
-		$form = CustomAttributes::getElements($form, "servers");
+		$form = CustomAttributes::getElements($form, "servers" , $panel_id);
 		
 		return $form;
 	}
@@ -149,7 +153,7 @@ class Admin_ServersController extends Zend_Controller_Action {
 	public function editAction() {
 		
 		$form = $this->getForm ( '/admin/servers/process' );
-		$id = $this->getRequest ()->getParam ( 'id' );
+		$id   = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -161,9 +165,13 @@ class Admin_ServersController extends Zend_Controller_Action {
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			
 			$rs = Servers::getAll($id);
-			
 			if (! empty ( $rs )) {
-				$rs += CustomAttributes::getElementsValues($id);
+				$panel_id = ( isset($rs['panel_id']) ) ? $rs['panel_id']: null;
+				
+				$arrCustomAttributes = CustomAttributes::getElementsValues($id, 'servers', $panel_id);
+
+				$rs += $arrCustomAttributes;
+				
 				$form->populate ( $rs );
 				$this->view->buttons[] = array("url" => "/admin/servers/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 			}
@@ -209,10 +217,14 @@ class Admin_ServersController extends Zend_Controller_Action {
 		}
 		
 		// Save the data
-		$serverID = Servers::saveAll($request->getPost ());
+		$serverID = Servers::saveAll($form->getValues ());
+		
+		OrdersItemsServers::removeServer(89,6);
+		die();	
 
 		// Save the attributes
-		CustomAttributes::saveElementsValues($form->getSubForm('attributes')->getValues(), $serverID, "servers");
+		$attributeValues = $form->getSubForm('attributes')->getValues();
+		CustomAttributes::saveElementsValues($attributeValues, $serverID, "servers");
 		
 		return $this->_helper->redirector ( 'list', 'servers', 'admin' );
 	

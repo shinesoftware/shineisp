@@ -63,6 +63,7 @@
 		        <?php echo $form->nickname->render() ?>
 		        <?php echo $form->ishighlighted->render() ?>
 		        <?php echo $form->isrefundable->render() ?>
+		        <?php echo $form->autosetup->render() ?>
 		    </fieldset>
 		    <fieldset class=column-right>
 		        <?php echo $form->uri->render()?>
@@ -71,6 +72,7 @@
 	            <?php echo $form->iscomparable->render()?>
 	            <?php echo $form->showonrss->render()?>
 	            <?php echo $form->downgradable->render()?>
+	            <?php echo $form->server_group_id->render()?>
 	        </fieldset>
 		    <div class="clear"></div>
 	    </div>
@@ -87,6 +89,7 @@
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->tranches) ?>
 	            <div id="trancheform">
+	            	<div id="trancheOperationTitle"><?=$this->translate('Insert new billing')?></div>
 	                <?php echo $form->tranche_qty->render()?>
 	                <?php echo $form->tranche_billing_cycle_id->render()?>
 	                <?php echo $form->tranche_setupfee->render()?>

@@ -638,6 +638,7 @@ class Invoices extends BaseInvoices {
 			$invoice = Invoices::find ( $invoice_id );
 			//* GUEST - ALE - 20130225: invoice not found?
 			if ( !$invoice ) {
+				die();
 				return false;
 			}
 			
@@ -732,8 +733,10 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['company'] ['slogan'] = $order [0] ['Isp'] ['slogan'];
 				
 				$orderinfo ['subtotal'] = $currency->toCurrency($order[0] ['total'], array('currency' => Settings::findbyParam('currency')));
-				$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-				$orderinfo ['vat'] = $currency->toCurrency($order[0] ['vat'], array('currency' => Settings::findbyParam('currency')));
+				//$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
+				//$orderinfo ['vat'] = $currency->toCurrency($order[0] ['vat'], array('currency' => Settings::findbyParam('currency')));
+				$orderinfo ['vat'] = $order[0] ['vat'];
+				$orderinfo ['grandtotal'] = $order[0] ['grandtotal'];
 				$orderinfo ['delivery'] = 0;
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed

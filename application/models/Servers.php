@@ -38,19 +38,30 @@ class Servers extends BaseServers {
 	public static function grid($rowNum = 10) {
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+
+		// Return usage/max_services or usage/infinity if max_services is 0 or null 
+		$sqlIF = "
+			(IF ( s.max_services 
+     			 ,CONCAT(s.services,'/',s.max_services,' (',ROUND(s.services*100/s.max_services),'%)')
+     			 ,CONCAT(s.services,'/&infin;') 
+			))
+		";
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.server_id', 'alias' => 'server_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 's.server_id', 'alias' => 'server_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'r.subject', 'alias' => 'servername', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'IP' ), 'field' => 's.ip', 'alias' => 'ip', 'sortable' => true, 'searchable' => true);
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 'stat.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true );
-		
-		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, s.ip as ip, stat.status as status";
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Usage' ), 'field' => 's.usage', 'alias' => 'usage', 'sortable' => false, 'searchable' => false );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Panel' ), 'field' => 'panel.name', 'alias' => 'panel_name', 'sortable' => true, 'searchable' => true );
+
+		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, ".$sqlIF." AS usage, s.max_services AS max_services, s.ip as ip, stat.status as status, panel.name as panel_name";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
 																		->from ( 'Servers s' )
 																        ->leftJoin ( 's.Isp i' )
 																        ->leftJoin ( 's.Servers_Types st' )
-																        ->leftJoin ( 's.Statuses stat' );
+																        ->leftJoin ( 's.Statuses stat' )
+																		->leftJoin ( 's.Panels panel' );;
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
@@ -84,15 +95,20 @@ class Servers extends BaseServers {
 			$server = new Servers();
 		}
 		
-		$server->name = $params ['name'];
-		$server->ip = $params ['ip'];
-		$server->netmask = $params ['netmask'];
-		$server->host = $params ['host'];
-		$server->domain = $params ['domain'];
-		$server->description = $params ['description'];
-		$server->status_id = $params ['status_id'];
-		$server->isp_id = $params ['isp_id'];
-		$server->type_id = $params ['type_id'];
+		$server->name         = $params ['name'];
+		$server->ip           = $params ['ip'];
+		$server->netmask      = $params ['netmask'];
+		$server->host         = $params ['host'];
+		$server->domain       = $params ['domain'];
+		$server->description  = $params ['description'];
+		$server->status_id    = intval($params ['status_id']);
+		$server->isp_id       = intval($params ['isp_id']);
+		$server->type_id      = intval($params ['type_id']);
+		$server->panel_id     = (intval($params ['panel_id'])) ? intval($params ['panel_id']) : null;
+		$server->cost         = (isset($params['cost']) && is_numeric($params['cost'])) ? $params['cost'] : 0;
+		$server->max_services = (isset($params['max_services'])) ? intval($params['max_services']) : 0;
+		$server->datacenter   = (isset($params['datacenter'])) ? $params['datacenter'] : '';
+				
 		$server->save ();
 		
 		return $server['server_id'];
@@ -123,6 +139,38 @@ class Servers extends BaseServers {
         			
     	return !empty($record[0]) ? $record[0] : array();
     }
+	
+	/**
+	 * getServers
+	 * Get all servers
+	 * @param $id
+	 * @return ARRAY Record
+	 */
+	public static function getServers($locale = null) {
+		if ( $locale === null ) {
+			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$locale = $Session->langid;
+		}
+		
+		try {
+			$records = array();
+			$items = Doctrine_Query::create ()->select ( '*' )
+			->from ( 'Servers s' )
+			->orderBy('s.name')
+			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+
+			foreach ( $items as $c ) {
+				$records [$c ['server_id']] = $c['name'] . " - (".$c ['host'].".".$c['domain'].")";
+			}
+			
+			return $records;
+			
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+	
+	}
+	
 	
 	/**
      * setStatus
@@ -209,7 +257,7 @@ class Servers extends BaseServers {
          return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
-		
+
 	/**
 	 * massdelete
 	 * delete the attributes selected 

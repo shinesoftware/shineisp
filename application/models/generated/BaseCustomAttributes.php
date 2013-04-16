@@ -12,6 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('CustomAttributes', 'doctrine');
  * @property string $label
  * @property string $type
  * @property string $section
+ * @property integer $panel_id
  * @property Doctrine_Collection $CustomAttributesValues
  * 
  * @package    ##PACKAGE##
@@ -51,6 +52,10 @@ abstract class BaseCustomAttributes extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '255',
+             ));
+        $this->hasColumn('panel_id', 'integer', 11, array(
+             'type' => 'integer',
+             'length' => '11',
              ));
     }
 
