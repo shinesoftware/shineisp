@@ -180,6 +180,8 @@ class Servers extends BaseServers {
 	 * 
 	 */
 	public static function extractServersFromGroup($group_id, $server_type = null) {
+		Shineisp_Commons_Utilities::logs ('in Servers::extractServersFromGroup('.$group_id.', '.$server_type.')', 'servers.log');
+		
 		$arrOutput   = array();
 		$group_id    = isset($group_id)    ? intval($group_id)    : null;
 		$server_type = isset($server_type) ? intval($server_type) : null;
@@ -303,10 +305,12 @@ class Servers extends BaseServers {
 		if (isset($server_type) && isset($arrOutput[$server_type])) {
 			// return just the server array
 			$key = key($arrOutput[$server_type]);
-			return $arrOutput[$server_type][$key];
+			$arrOutput = $arrOutput[$server_type][$key];
 		}
 		
-		// Return all
+		Shineisp_Commons_Utilities::logs ('out from Servers::extractServersFromGroup('.$group_id.', '.$server_type.'): '.serialize($arrOutput), 'servers.log');
+		
+		// Return
 		return $arrOutput;
 		
 	}
