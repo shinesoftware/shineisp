@@ -9,19 +9,19 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsAttributes', 'doctrine')
  * 
  * @property integer $attribute_id
  * @property integer $position
- * @property integer $is_visible_on_front
- * @property integer $active
- * @property integer $system
+ * @property boolean $is_visible_on_front
+ * @property boolean $active
+ * @property boolean $system
  * @property string $code
  * @property string $type
  * @property string $system_var
  * @property string $defaultvalue
- * @property integer $is_required
- * @property integer $is_comparable
- * @property integer $on_product_listing
- * @property Doctrine_Collection $ProductsAttributesData
+ * @property boolean $is_required
+ * @property boolean $is_comparable
+ * @property boolean $on_product_listing
  * @property Doctrine_Collection $ProductsAttributesGroupsIndexes
  * @property Doctrine_Collection $ProductsAttributesIndexes
+ * @property Doctrine_Collection $ProductsAttributesData
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -35,128 +35,74 @@ abstract class BaseProductsAttributes extends Doctrine_Record
         $this->setTableName('products_attributes');
         $this->hasColumn('attribute_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('position', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
+             'default' => 0,
+             'length' => '4',
              ));
-        $this->hasColumn('is_visible_on_front', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('is_visible_on_front', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
              ));
-        $this->hasColumn('active', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('active', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 1,
+             'length' => '25',
              ));
-        $this->hasColumn('system', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('system', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
              ));
         $this->hasColumn('code', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '150',
              ));
         $this->hasColumn('type', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('system_var', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '150',
              ));
         $this->hasColumn('defaultvalue', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
-        $this->hasColumn('is_required', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('is_required', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
              ));
-        $this->hasColumn('is_comparable', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('is_comparable', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
              ));
-        $this->hasColumn('on_product_listing', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('on_product_listing', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('ProductsAttributesData', array(
-             'local' => 'attribute_id',
-             'foreign' => 'attribute_id'));
-
         $this->hasMany('ProductsAttributesGroupsIndexes', array(
              'local' => 'attribute_id',
              'foreign' => 'attribute_id'));
 
         $this->hasMany('ProductsAttributesIndexes', array(
+             'local' => 'attribute_id',
+             'foreign' => 'attribute_id'));
+
+        $this->hasMany('ProductsAttributesData', array(
              'local' => 'attribute_id',
              'foreign' => 'attribute_id'));
     }

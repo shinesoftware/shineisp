@@ -18,8 +18,8 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTasks', 'doctrine');
  * @property integer $times
  * @property integer $status_id
  * @property Domains $Domains
- * @property Registrars $Registrars
  * @property Statuses $Statuses
+ * @property Registrars $Registrars
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -33,89 +33,56 @@ abstract class BaseDomainsTasks extends Doctrine_Record
         $this->setTableName('domains_tasks');
         $this->hasColumn('task_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
-        $this->hasColumn('startdate', 'timestamp', null, array(
+        $this->hasColumn('startdate', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('enddate', 'timestamp', null, array(
+        $this->hasColumn('enddate', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('action', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('domain', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('log', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('domain_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('registrars_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('times', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
              'notnull' => false,
-             'autoincrement' => false,
+             'default' => '0',
+             'length' => '4',
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -124,14 +91,15 @@ abstract class BaseDomainsTasks extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Domains', array(
              'local' => 'domain_id',
-             'foreign' => 'domain_id'));
-
-        $this->hasOne('Registrars', array(
-             'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
+             'foreign' => 'domain_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Statuses', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
+
+        $this->hasOne('Registrars', array(
+             'local' => 'registrars_id',
+             'foreign' => 'registrars_id'));
     }
 }

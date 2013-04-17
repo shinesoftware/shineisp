@@ -17,7 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('SettingsParameters', 'doctrine')
  * @property integer $group_id
  * @property string $config
  * @property SettingsGroups $SettingsGroups
- * @property Doctrine_Collection $Settings
+ * @property Settings $Settings
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -31,82 +31,49 @@ abstract class BaseSettingsParameters extends Doctrine_Record
         $this->setTableName('settings_parameters');
         $this->hasColumn('parameter_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('var', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('type', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('module', 'string', 20, array(
              'type' => 'string',
-             'length' => 20,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '20',
              ));
         $this->hasColumn('enabled', 'integer', 1, array(
              'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'default' => '1',
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '1',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('config', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
     }
 
@@ -115,10 +82,12 @@ abstract class BaseSettingsParameters extends Doctrine_Record
         parent::setUp();
         $this->hasOne('SettingsGroups', array(
              'local' => 'group_id',
-             'foreign' => 'group_id'));
+             'foreign' => 'group_id',
+             'onDelete' => 'CASCADE'));
 
-        $this->hasMany('Settings', array(
+        $this->hasOne('Settings', array(
              'local' => 'parameter_id',
-             'foreign' => 'parameter_id'));
+             'foreign' => 'parameter_id',
+             'onDelete' => 'CASCADE'));
     }
 }

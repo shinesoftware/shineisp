@@ -13,7 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Reviews', 'doctrine');
  * @property string $nick
  * @property string $subject
  * @property string $email
- * @property integer $active
+ * @property boolean $active
  * @property integer $stars
  * @property string $review
  * @property string $city
@@ -36,127 +36,69 @@ abstract class BaseReviews extends Doctrine_Record
         $this->setTableName('reviews');
         $this->hasColumn('review_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('publishedat', 'timestamp', null, array(
+        $this->hasColumn('publishedat', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('nick', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('subject', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('email', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '250',
              ));
-        $this->hasColumn('active', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('active', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
              ));
         $this->hasColumn('stars', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('review', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('city', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('latitude', 'string', 25, array(
              'type' => 'string',
-             'length' => 25,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('longitude', 'string', 25, array(
              'type' => 'string',
-             'length' => 25,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('referer', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('ip', 'string', 25, array(
              'type' => 'string',
-             'length' => 25,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
     }
 
@@ -165,7 +107,8 @@ abstract class BaseReviews extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasMany('OrdersItems', array(
              'local' => 'review_id',

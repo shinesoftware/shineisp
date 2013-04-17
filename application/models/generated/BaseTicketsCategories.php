@@ -23,20 +23,20 @@ abstract class BaseTicketsCategories extends Doctrine_Record
         $this->setTableName('tickets_categories');
         $this->hasColumn('category_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('category', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '50',
              ));
     }
 

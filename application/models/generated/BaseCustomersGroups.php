@@ -23,20 +23,16 @@ abstract class BaseCustomersGroups extends Doctrine_Record
         $this->setTableName('customers_groups');
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '250',
              ));
     }
 

@@ -11,8 +11,8 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsAttributesIndexes', 'doc
  * @property integer $product_id
  * @property integer $attribute_id
  * @property string $value
- * @property ProductsAttributes $ProductsAttributes
  * @property Products $Products
+ * @property ProductsAttributes $ProductsAttributes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -26,49 +26,40 @@ abstract class BaseProductsAttributesIndexes extends Doctrine_Record
         $this->setTableName('products_attributes_indexes');
         $this->hasColumn('index_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('attribute_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('value', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('ProductsAttributes', array(
-             'local' => 'attribute_id',
-             'foreign' => 'attribute_id'));
-
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
+
+        $this->hasOne('ProductsAttributes', array(
+             'local' => 'attribute_id',
+             'foreign' => 'attribute_id',
+             'onDelete' => 'CASCADE'));
     }
 }

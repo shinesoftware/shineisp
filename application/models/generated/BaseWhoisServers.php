@@ -25,38 +25,24 @@ abstract class BaseWhoisServers extends Doctrine_Record
         $this->setTableName('whois_servers');
         $this->hasColumn('server_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('tld', 'string', 10, array(
              'type' => 'string',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '10',
              ));
         $this->hasColumn('server', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('response', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
     }
 

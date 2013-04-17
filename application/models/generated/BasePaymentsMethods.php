@@ -9,9 +9,9 @@ Doctrine_Manager::getInstance()->bindComponent('PaymentsMethods', 'doctrine');
  * 
  * @property integer $method_id
  * @property string $method
- * @property Doctrine_Collection $Banks
- * @property Doctrine_Collection $InvoicesPurchases
+ * @property Doctrine_Collection $PurchaseInvoices
  * @property Doctrine_Collection $PaymentsResources
+ * @property Doctrine_Collection $Banks
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -25,35 +25,35 @@ abstract class BasePaymentsMethods extends Doctrine_Record
         $this->setTableName('payments_methods');
         $this->hasColumn('method_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('method', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '50',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Banks', array(
-             'local' => 'method_id',
-             'foreign' => 'method_id'));
-
-        $this->hasMany('InvoicesPurchases', array(
+        $this->hasMany('PurchaseInvoices', array(
              'local' => 'method_id',
              'foreign' => 'method_id'));
 
         $this->hasMany('PaymentsResources', array(
+             'local' => 'method_id',
+             'foreign' => 'method_id'));
+
+        $this->hasMany('Banks', array(
              'local' => 'method_id',
              'foreign' => 'method_id'));
     }

@@ -30,84 +30,81 @@ abstract class BaseFastlinks extends Doctrine_Record
         $this->setTableName('fastlinks');
         $this->hasColumn('fastlink_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('controller', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('action', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('params', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('code', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('sqltable', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('visits', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
+             'default' => '0',
              'unsigned' => false,
              'primary' => false,
-             'default' => '0',
-             'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -116,6 +113,7 @@ abstract class BaseFastlinks extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
-             'foreign' => 'customer_id'));
+             'foreign' => 'customer_id',
+             'onDelete' => 'CASCADE'));
     }
 }

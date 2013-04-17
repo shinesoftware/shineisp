@@ -26,37 +26,36 @@ abstract class BaseSettings extends Doctrine_Record
         $this->setTableName('settings');
         $this->hasColumn('setting_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('parameter_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('value', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '',
              ));
     }
 
@@ -65,10 +64,12 @@ abstract class BaseSettings extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Isp', array(
              'local' => 'isp_id',
-             'foreign' => 'isp_id'));
+             'foreign' => 'isp_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('SettingsParameters', array(
              'local' => 'parameter_id',
-             'foreign' => 'parameter_id'));
+             'foreign' => 'parameter_id',
+             'onDelete' => 'CASCADE'));
     }
 }

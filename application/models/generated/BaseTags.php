@@ -23,20 +23,20 @@ abstract class BaseTags extends Doctrine_Record
         $this->setTableName('tags');
         $this->hasColumn('tag_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('tag', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '100',
              ));
     }
 

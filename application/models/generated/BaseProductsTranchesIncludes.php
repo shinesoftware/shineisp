@@ -24,19 +24,17 @@ abstract class BaseProductsTranchesIncludes extends Doctrine_Record
         $this->setTableName('products_tranches_includes');
         $this->hasColumn('tranche_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('include_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -45,10 +43,12 @@ abstract class BaseProductsTranchesIncludes extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Products', array(
              'local' => 'include_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'NO ACTION'));
 
         $this->hasOne('ProductsTranches', array(
              'local' => 'tranche_id',
-             'foreign' => 'tranche_id'));
+             'foreign' => 'tranche_id',
+             'onDelete' => 'NO ACTION'));
     }
 }

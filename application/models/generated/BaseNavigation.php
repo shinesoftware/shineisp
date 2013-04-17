@@ -27,66 +27,42 @@ abstract class BaseNavigation extends Doctrine_Record
         $this->setTableName('navigation');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('label', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('description', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('uri', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('parent_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'default' => '0',
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('module', 'string', 20, array(
              'type' => 'string',
-             'length' => 20,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '20',
              ));
         $this->hasColumn('controller', 'string', 20, array(
              'type' => 'string',
-             'length' => 20,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '20',
              ));
     }
 

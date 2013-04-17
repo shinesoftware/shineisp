@@ -16,8 +16,8 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsData', 'doctrine');
  * @property integer $language_id
  * @property string $metakeywords
  * @property string $metadescription
- * @property Languages $Languages
  * @property Products $Products
+ * @property Languages $Languages
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -31,92 +31,64 @@ abstract class BaseProductsData extends Doctrine_Record
         $this->setTableName('products_data');
         $this->hasColumn('productdata_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '150',
              ));
         $this->hasColumn('nickname', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '150',
              ));
         $this->hasColumn('shortdescription', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('language_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
              'notnull' => true,
-             'autoincrement' => false,
+             'default' => 1,
+             'length' => '4',
              ));
         $this->hasColumn('metakeywords', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('metadescription', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Languages', array(
-             'local' => 'language_id',
-             'foreign' => 'language_id'));
-
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
+
+        $this->hasOne('Languages', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id',
+             'onDelete' => 'CASCADE'));
     }
 }

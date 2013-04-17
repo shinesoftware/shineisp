@@ -12,7 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsBulk', 'doctrine');
  * @property string $domain
  * @property integer $tld_id
  * @property string $sessionid
- * @property integer $isavailable
+ * @property boolean $isavailable
  * @property integer $customer_id
  * @property float $price
  * @property float $cost
@@ -32,91 +32,55 @@ abstract class BaseDomainsBulk extends Doctrine_Record
         $this->setTableName('domains_bulk');
         $this->hasColumn('domain_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
-        $this->hasColumn('startingdate', 'timestamp', null, array(
+        $this->hasColumn('startingdate', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('domain', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('tld_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('sessionid', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
-        $this->hasColumn('isavailable', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('isavailable', 'boolean', 25, array(
+             'type' => 'boolean',
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('price', 'float', 10, array(
              'type' => 'float',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '10',
              ));
         $this->hasColumn('cost', 'float', 10, array(
              'type' => 'float',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '10',
              ));
         $this->hasColumn('authinfo', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
     }
 

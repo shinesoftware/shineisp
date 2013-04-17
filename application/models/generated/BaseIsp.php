@@ -26,13 +26,13 @@ Doctrine_Manager::getInstance()->bindComponent('Isp', 'doctrine');
  * @property string $isppanel
  * @property string $logo
  * @property string $slogan
- * @property integer $active
+ * @property boolean $active
+ * @property Servers $Servers
+ * @property Orders $Orders
+ * @property Settings $Settings
+ * @property Panels $Panels
  * @property Doctrine_Collection $AdminUser
  * @property Doctrine_Collection $Messages
- * @property Doctrine_Collection $Orders
- * @property Doctrine_Collection $Panels
- * @property Doctrine_Collection $Servers
- * @property Doctrine_Collection $Settings
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -46,207 +46,133 @@ abstract class BaseIsp extends Doctrine_Record
         $this->setTableName('isp');
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('company', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('vatnumber', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('manager', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('address', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('zip', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('city', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('country', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('telephone', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('fax', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('bankname', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('iban', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('bic', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('website', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('email', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('password', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('isppanel', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('logo', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('slogan', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
-        $this->hasColumn('active', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('active', 'boolean', 25, array(
+             'type' => 'boolean',
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Servers', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
+
+        $this->hasOne('Orders', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
+
+        $this->hasOne('Settings', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
+
+        $this->hasOne('Panels', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
+
         $this->hasMany('AdminUser', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
 
         $this->hasMany('Messages', array(
-             'local' => 'isp_id',
-             'foreign' => 'isp_id'));
-
-        $this->hasMany('Orders', array(
-             'local' => 'isp_id',
-             'foreign' => 'isp_id'));
-
-        $this->hasMany('Panels', array(
-             'local' => 'isp_id',
-             'foreign' => 'isp_id'));
-
-        $this->hasMany('Servers', array(
-             'local' => 'isp_id',
-             'foreign' => 'isp_id'));
-
-        $this->hasMany('Settings', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
     }

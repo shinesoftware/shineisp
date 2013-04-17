@@ -25,29 +25,28 @@ abstract class BaseTaxes extends Doctrine_Record
         $this->setTableName('taxes');
         $this->hasColumn('tax_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('percentage', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 

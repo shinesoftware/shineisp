@@ -9,7 +9,9 @@ Doctrine_Manager::getInstance()->bindComponent('SettingsGroups', 'doctrine');
  * 
  * @property integer $group_id
  * @property string $name
- * @property Doctrine_Collection $SettingsParameters
+ * @property string $description
+ * @property string $help
+ * @property SettingsParameters $SettingsParameters
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -23,28 +25,32 @@ abstract class BaseSettingsGroups extends Doctrine_Record
         $this->setTableName('settings_groups');
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '100',
+             ));
+        $this->hasColumn('description', 'string', null, array(
+             'type' => 'string',
+             'length' => '',
+             ));
+        $this->hasColumn('help', 'string', null, array(
+             'type' => 'string',
+             'length' => '',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('SettingsParameters', array(
+        $this->hasOne('SettingsParameters', array(
              'local' => 'group_id',
-             'foreign' => 'group_id'));
+             'foreign' => 'group_id',
+             'onDelete' => 'CASCADE'));
     }
 }

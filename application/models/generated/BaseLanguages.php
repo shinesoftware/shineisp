@@ -10,14 +10,14 @@ Doctrine_Manager::getInstance()->bindComponent('Languages', 'doctrine');
  * @property integer $language_id
  * @property string $language
  * @property string $locale
- * @property integer $base
- * @property integer $active
- * @property Doctrine_Collection $CmsBlocksData
- * @property Doctrine_Collection $CmsPagesData
+ * @property boolean $base
+ * @property boolean $active
  * @property Doctrine_Collection $DomainsTldsData
- * @property Doctrine_Collection $ProductsAttributesData
- * @property Doctrine_Collection $ProductsData
+ * @property Doctrine_Collection $CMSPagesData
+ * @property Doctrine_Collection $CMSBlocksData
  * @property Doctrine_Collection $Wiki
+ * @property Doctrine_Collection $ProductsData
+ * @property Doctrine_Collection $ProductsAttributesData
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -31,68 +31,50 @@ abstract class BaseLanguages extends Doctrine_Record
         $this->setTableName('languages');
         $this->hasColumn('language_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('language', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('locale', 'string', 5, array(
              'type' => 'string',
-             'length' => 5,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '5',
              ));
-        $this->hasColumn('base', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('base', 'boolean', 25, array(
+             'type' => 'boolean',
              'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('active', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('active', 'boolean', 25, array(
+             'type' => 'boolean',
              'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('CmsBlocksData', array(
-             'local' => 'language_id',
-             'foreign' => 'language_id'));
-
-        $this->hasMany('CmsPagesData', array(
-             'local' => 'language_id',
-             'foreign' => 'language_id'));
-
         $this->hasMany('DomainsTldsData', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
 
-        $this->hasMany('ProductsAttributesData', array(
+        $this->hasMany('CMSPagesData', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
+        $this->hasMany('CMSBlocksData', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
+        $this->hasMany('Wiki', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
 
@@ -100,7 +82,7 @@ abstract class BaseLanguages extends Doctrine_Record
              'local' => 'language_id',
              'foreign' => 'language_id'));
 
-        $this->hasMany('Wiki', array(
+        $this->hasMany('ProductsAttributesData', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
     }

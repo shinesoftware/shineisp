@@ -12,7 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $billing_cycle_id
  * @property timestamp $date_start
  * @property timestamp $date_end
- * @property integer $autorenew
+ * @property boolean $autorenew
  * @property integer $quantity
  * @property float $cost
  * @property float $price
@@ -24,13 +24,14 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $product_id
  * @property integer $tld_id
  * @property integer $review_id
+ * @property integer $parent_detail_id
  * @property string $description
- * @property BillingCycle $BillingCycle
  * @property Orders $Orders
  * @property Products $Products
- * @property Reviews $Reviews
- * @property Statuses $Statuses
  * @property DomainsTlds $DomainsTlds
+ * @property BillingCycle $BillingCycle
+ * @property Statuses $Statuses
+ * @property Reviews $Reviews
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $Messages
  * @property Doctrine_Collection $OrdersItemsDomains
@@ -49,190 +50,128 @@ abstract class BaseOrdersItems extends Doctrine_Record
         $this->setTableName('orders_items');
         $this->hasColumn('detail_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('order_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('billing_cycle_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('date_start', 'timestamp', null, array(
+        $this->hasColumn('date_start', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('date_end', 'timestamp', null, array(
+        $this->hasColumn('date_end', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('autorenew', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('autorenew', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 1,
+             'length' => '25',
              ));
         $this->hasColumn('quantity', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('cost', 'float', 10, array(
              'type' => 'float',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '10',
              ));
         $this->hasColumn('price', 'float', 10, array(
              'type' => 'float',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '10',
              ));
         $this->hasColumn('setupfee', 'float', 10, array(
              'type' => 'float',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0.00',
-             'notnull' => false,
-             'autoincrement' => false,
+             'default' => 0,
+             'length' => '10',
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'default' => '1',
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('parameters', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('setup', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('tld_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('review_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
+             ));
+        $this->hasColumn('parent_detail_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('BillingCycle', array(
-             'local' => 'billing_cycle_id',
-             'foreign' => 'billing_cycle_id'));
-
         $this->hasOne('Orders', array(
              'local' => 'order_id',
-             'foreign' => 'order_id'));
+             'foreign' => 'order_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
 
-        $this->hasOne('Reviews', array(
-             'local' => 'review_id',
-             'foreign' => 'review_id'));
+        $this->hasOne('DomainsTlds', array(
+             'local' => 'tld_id',
+             'foreign' => 'tld_id'));
+
+        $this->hasOne('BillingCycle', array(
+             'local' => 'billing_cycle_id',
+             'foreign' => 'billing_cycle_id'));
 
         $this->hasOne('Statuses', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
 
-        $this->hasOne('DomainsTlds', array(
-             'local' => 'tld_id',
-             'foreign' => 'tld_id'));
+        $this->hasOne('Reviews', array(
+             'local' => 'review_id',
+             'foreign' => 'review_id'));
 
         $this->hasMany('Domains', array(
              'local' => 'detail_id',

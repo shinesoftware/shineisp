@@ -13,8 +13,8 @@ Doctrine_Manager::getInstance()->bindComponent('CustomersDomainsRegistrars', 'do
  * @property integer $registrars_id
  * @property date $creationdate
  * @property string $value
- * @property Registrars $Registrars
  * @property Customers $Customers
+ * @property Registrars $Registrars
  * @property Domains $Domains
  * 
  * @package    ##PACKAGE##
@@ -29,68 +29,49 @@ abstract class BaseCustomersDomainsRegistrars extends Doctrine_Record
         $this->setTableName('customers_domains_registrars');
         $this->hasColumn('nic_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('domain_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('registrars_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('creationdate', 'date', null, array(
+        $this->hasColumn('creationdate', 'date', 25, array(
              'type' => 'date',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('value', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '100',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Registrars', array(
-             'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
-
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
              'foreign' => 'customer_id'));
+
+        $this->hasOne('Registrars', array(
+             'local' => 'registrars_id',
+             'foreign' => 'registrars_id'));
 
         $this->hasOne('Domains', array(
              'local' => 'domain_id',

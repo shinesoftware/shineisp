@@ -28,61 +28,39 @@ abstract class BaseNotes extends Doctrine_Record
         $this->setTableName('notes');
         $this->hasColumn('note_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
-        $this->hasColumn('expire', 'timestamp', null, array(
+        $this->hasColumn('expire', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('created', 'timestamp', null, array(
+        $this->hasColumn('created', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('changed', 'timestamp', null, array(
+        $this->hasColumn('changed', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('user_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
     }
 

@@ -23,30 +23,22 @@ abstract class BaseInvoicesSettings extends Doctrine_Record
         $this->setTableName('invoices_settings');
         $this->hasColumn('setting_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('year', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('next_number', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
              'notnull' => true,
-             'autoincrement' => false,
+             'default' => 1,
+             'length' => '4',
              ));
     }
 

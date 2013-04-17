@@ -29,64 +29,38 @@ abstract class BaseProductsAttributesData extends Doctrine_Record
         $this->setTableName('products_attributes_data');
         $this->hasColumn('data_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('attribute_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('label', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '150',
              ));
         $this->hasColumn('language_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('prefix', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '150',
              ));
         $this->hasColumn('suffix', 'string', 150, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '150',
              ));
     }
 
@@ -95,10 +69,12 @@ abstract class BaseProductsAttributesData extends Doctrine_Record
         parent::setUp();
         $this->hasOne('ProductsAttributes', array(
              'local' => 'attribute_id',
-             'foreign' => 'attribute_id'));
+             'foreign' => 'attribute_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Languages', array(
              'local' => 'language_id',
-             'foreign' => 'language_id'));
+             'foreign' => 'language_id',
+             'onDelete' => 'CASCADE'));
     }
 }

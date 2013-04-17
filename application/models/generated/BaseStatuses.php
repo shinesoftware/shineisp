@@ -11,14 +11,14 @@ Doctrine_Manager::getInstance()->bindComponent('Statuses', 'doctrine');
  * @property string $code
  * @property string $status
  * @property string $section
- * @property integer $public
+ * @property boolean $public
  * @property Doctrine_Collection $Customers
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $DomainsTasks
- * @property Doctrine_Collection $InvoicesPurchases
  * @property Doctrine_Collection $Orders
  * @property Doctrine_Collection $OrdersItems
  * @property Doctrine_Collection $PanelsActions
+ * @property Doctrine_Collection $PurchaseInvoices
  * @property Doctrine_Collection $Servers
  * @property Doctrine_Collection $Tickets
  * 
@@ -34,48 +34,31 @@ abstract class BaseStatuses extends Doctrine_Record
         $this->setTableName('statuses');
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('code', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('status', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('section', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
-        $this->hasColumn('public', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('public', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 1,
+             'length' => '25',
              ));
     }
 
@@ -94,10 +77,6 @@ abstract class BaseStatuses extends Doctrine_Record
              'local' => 'status_id',
              'foreign' => 'status_id'));
 
-        $this->hasMany('InvoicesPurchases', array(
-             'local' => 'status_id',
-             'foreign' => 'status_id'));
-
         $this->hasMany('Orders', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
@@ -107,6 +86,10 @@ abstract class BaseStatuses extends Doctrine_Record
              'foreign' => 'status_id'));
 
         $this->hasMany('PanelsActions', array(
+             'local' => 'status_id',
+             'foreign' => 'status_id'));
+
+        $this->hasMany('PurchaseInvoices', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
 

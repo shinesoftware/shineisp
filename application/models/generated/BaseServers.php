@@ -14,20 +14,21 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property string $host
  * @property string $domain
  * @property string $description
+ * @property string $datacenter
+ * @property float $cost
+ * @property boolean $is_default
+ * @property integer $services
+ * @property integer $max_services
+ * @property timestamp $buy_date
  * @property integer $isp_id
  * @property integer $type_id
  * @property integer $status_id
  * @property integer $panel_id
- * @property float $cost
- * @property string $datacenter
- * @property integer $services
- * @property integer $max_services
- * @property integer $is_default
- * @property timestamp $buy_date
  * @property Isp $Isp
- * @property Panels $Panels
+ * @property Servers_Types $Servers_Types
  * @property Statuses $Statuses
- * @property ServersTypes $ServersTypes
+ * @property CustomAttributesValues $CustomAttributesValues
+ * @property Panels $Panels
  * @property Doctrine_Collection $OrdersItemsServers
  * @property Doctrine_Collection $ServersGroupsIndexes
  * 
@@ -43,156 +44,86 @@ abstract class BaseServers extends Doctrine_Record
         $this->setTableName('servers');
         $this->hasColumn('server_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('ip', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('netmask', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('host', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('domain', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
-             ));
-        $this->hasColumn('isp_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
-        $this->hasColumn('type_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
-        $this->hasColumn('status_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
-        $this->hasColumn('panel_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
-        $this->hasColumn('cost', 'float', 10, array(
-             'type' => 'float',
-             'length' => 10,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0.00',
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('datacenter', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
+             ));
+        $this->hasColumn('cost', 'float', 10, array(
+             'type' => 'float',
+             'default' => '0.00',
+             'length' => '10',
+             ));
+        $this->hasColumn('is_default', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
              ));
         $this->hasColumn('services', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
+             'default' => 0,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('max_services', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('is_default', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
-        $this->hasColumn('buy_date', 'timestamp', null, array(
+        $this->hasColumn('buy_date', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('type_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('status_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('panel_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
              ));
     }
 
@@ -203,17 +134,21 @@ abstract class BaseServers extends Doctrine_Record
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
 
-        $this->hasOne('Panels', array(
-             'local' => 'panel_id',
-             'foreign' => 'panel_id'));
+        $this->hasOne('Servers_Types', array(
+             'local' => 'type_id',
+             'foreign' => 'type_id'));
 
         $this->hasOne('Statuses', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
 
-        $this->hasOne('ServersTypes', array(
-             'local' => 'type_id',
-             'foreign' => 'type_id'));
+        $this->hasOne('CustomAttributesValues', array(
+             'local' => 'server_id',
+             'foreign' => 'external_id'));
+
+        $this->hasOne('Panels', array(
+             'local' => 'panel_id',
+             'foreign' => 'panel_id'));
 
         $this->hasMany('OrdersItemsServers', array(
              'local' => 'server_id',

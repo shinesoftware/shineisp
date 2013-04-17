@@ -25,39 +25,27 @@ abstract class BaseCompanyTypes extends Doctrine_Record
         $this->setTableName('company_types');
         $this->hasColumn('type_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
-             'length' => 255,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '255',
              ));
         $this->hasColumn('legalform_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('active', 'integer', 1, array(
              'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'default' => '1',
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '1',
              ));
     }
 

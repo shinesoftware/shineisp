@@ -14,6 +14,8 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property string $sex
  * @property string $email
  * @property string $password
+ * @property timestamp $last_password_change
+ * @property tinyint $force_password_change
  * @property date $birthdate
  * @property string $birthplace
  * @property string $birthdistrict
@@ -28,16 +30,18 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property integer $status_id
  * @property integer $group_id
  * @property string $language
- * @property integer $issubscriber
+ * @property boolean $issubscriber
  * @property timestamp $created_at
  * @property timestamp $updated_at
- * @property integer $taxfree
- * @property integer $isreseller
+ * @property boolean $taxfree
+ * @property boolean $isreseller
+ * @property boolean $ignore_latefee
  * @property CustomersGroups $CustomersGroups
- * @property Legalform $Legalform
- * @property Doctrine_Collection $Customers
- * @property Statuses $Statuses
  * @property CompanyTypes $CompanyTypes
+ * @property Legalforms $Legalforms
+ * @property Statuses $Statuses
+ * @property Customers $Customers
+ * @property CustomAttributesValues $CustomAttributesValues
  * @property Doctrine_Collection $Addresses
  * @property Doctrine_Collection $Contacts
  * @property Doctrine_Collection $CustomersDomainsRegistrars
@@ -65,234 +69,150 @@ abstract class BaseCustomers extends Doctrine_Record
         $this->setTableName('customers');
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
-        $this->hasColumn('company', 'string', 150, array(
+        $this->hasColumn('company', 'string', 50, array(
              'type' => 'string',
-             'length' => 150,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
+             'notnull' => false,
+             'length' => '50',
              ));
         $this->hasColumn('firstname', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('lastname', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('sex', 'string', 1, array(
              'type' => 'string',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '1',
              ));
         $this->hasColumn('email', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '100',
              ));
         $this->hasColumn('password', 'string', 100, array(
              'type' => 'string',
-             'length' => 100,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '100',
              ));
-        $this->hasColumn('birthdate', 'date', null, array(
-             'type' => 'date',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('last_password_change', 'timestamp', 25, array(
+             'type' => 'timestamp',
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
+             ));
+        $this->hasColumn('force_password_change', 'tinyint', 1, array(
+             'type' => 'tinyint',
+             'notnull' => true,
+             'fixed' => 0,
+             'length' => '1',
+             ));
+        $this->hasColumn('birthdate', 'date', 25, array(
+             'type' => 'date',
+             'notnull' => false,
+             'length' => '25',
              ));
         $this->hasColumn('birthplace', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('birthdistrict', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('birthcountry', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('birthnationality', 'string', 50, array(
              'type' => 'string',
-             'length' => 50,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '50',
              ));
         $this->hasColumn('taxpayernumber', 'string', 20, array(
              'type' => 'string',
-             'length' => 20,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '20',
              ));
         $this->hasColumn('vat', 'string', 20, array(
              'type' => 'string',
-             'length' => 20,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '20',
              ));
         $this->hasColumn('type_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('parent_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('legalform_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('language', 'string', 5, array(
              'type' => 'string',
-             'length' => 5,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '5',
              ));
-        $this->hasColumn('issubscriber', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('issubscriber', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 1,
+             'length' => '25',
              ));
-        $this->hasColumn('created_at', 'timestamp', null, array(
+        $this->hasColumn('created_at', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('updated_at', 'timestamp', null, array(
+        $this->hasColumn('updated_at', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('taxfree', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('taxfree', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
              ));
-        $this->hasColumn('isreseller', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('isreseller', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
+             ));
+        $this->hasColumn('ignore_latefee', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
              ));
     }
 
@@ -303,21 +223,27 @@ abstract class BaseCustomers extends Doctrine_Record
              'local' => 'group_id',
              'foreign' => 'group_id'));
 
-        $this->hasOne('Legalform', array(
-             'local' => 'legalform_id',
-             'foreign' => 'legalform_id'));
+        $this->hasOne('CompanyTypes', array(
+             'local' => 'type_id',
+             'foreign' => 'type_id',
+             'onDelete' => 'Set Null'));
 
-        $this->hasMany('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'parent_id'));
+        $this->hasOne('Legalforms', array(
+             'local' => 'legalform_id',
+             'foreign' => 'legalform_id',
+             'onDelete' => 'Set Null'));
 
         $this->hasOne('Statuses', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
 
-        $this->hasOne('CompanyTypes', array(
-             'local' => 'type_id',
-             'foreign' => 'type_id'));
+        $this->hasOne('Customers', array(
+             'local' => 'parent_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasOne('CustomAttributesValues', array(
+             'local' => 'customer_id',
+             'foreign' => 'external_id'));
 
         $this->hasMany('Addresses', array(
              'local' => 'customer_id',

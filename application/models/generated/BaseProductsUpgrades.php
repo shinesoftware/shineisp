@@ -24,29 +24,19 @@ abstract class BaseProductsUpgrades extends Doctrine_Record
         $this->setTableName('products_upgrades');
         $this->hasColumn('related_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('upgrade_product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -55,6 +45,7 @@ abstract class BaseProductsUpgrades extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Products', array(
              'local' => 'upgrade_product_id',
-             'foreign' => 'product_id'));
+             'foreign' => 'product_id',
+             'onDelete' => 'CASCADE'));
     }
 }

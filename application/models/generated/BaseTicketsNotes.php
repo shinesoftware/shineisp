@@ -9,8 +9,8 @@ Doctrine_Manager::getInstance()->bindComponent('TicketsNotes', 'doctrine');
  * 
  * @property integer $note_id
  * @property string $note
- * @property integer $admin
- * @property integer $ticket_id
+ * @property boolean $admin
+ * @property int $ticket_id
  * @property timestamp $date_post
  * @property integer $vote
  * @property Tickets $Tickets
@@ -27,54 +27,34 @@ abstract class BaseTicketsNotes extends Doctrine_Record
         $this->setTableName('tickets_notes');
         $this->hasColumn('note_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
-        $this->hasColumn('admin', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('admin', 'boolean', 25, array(
+             'type' => 'boolean',
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('ticket_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('ticket_id', 'int', 4, array(
+             'type' => 'int',
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('date_post', 'timestamp', null, array(
+        $this->hasColumn('date_post', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('vote', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -83,6 +63,7 @@ abstract class BaseTicketsNotes extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Tickets', array(
              'local' => 'ticket_id',
-             'foreign' => 'ticket_id'));
+             'foreign' => 'ticket_id',
+             'onDelete' => 'CASCADE'));
     }
 }

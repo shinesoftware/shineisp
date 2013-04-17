@@ -10,8 +10,8 @@ Doctrine_Manager::getInstance()->bindComponent('BillingCycle', 'doctrine');
  * @property integer $billing_cycle_id
  * @property string $name
  * @property integer $months
- * @property integer $domain
- * @property integer $enabled
+ * @property boolean $domain
+ * @property boolean $enabled
  * @property Doctrine_Collection $OrdersItems
  * @property Doctrine_Collection $ProductsTranches
  * 
@@ -27,49 +27,31 @@ abstract class BaseBillingCycle extends Doctrine_Record
         $this->setTableName('billing_cycle');
         $this->hasColumn('billing_cycle_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
-             'length' => 200,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '200',
              ));
         $this->hasColumn('months', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('domain', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
+        $this->hasColumn('domain', 'boolean', 25, array(
+             'type' => 'boolean',
              'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('enabled', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('enabled', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 1,
+             'length' => '25',
              ));
     }
 

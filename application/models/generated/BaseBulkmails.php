@@ -24,36 +24,27 @@ abstract class BaseBulkmails extends Doctrine_Record
         $this->setTableName('bulkmails');
         $this->hasColumn('mail_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
-        $this->hasColumn('senddate', 'timestamp', null, array(
+        $this->hasColumn('senddate', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('subject', 'string', 250, array(
              'type' => 'string',
-             'length' => 250,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '250',
              ));
         $this->hasColumn('body', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
     }
 

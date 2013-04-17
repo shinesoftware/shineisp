@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Invoices', 'doctrine');
  * @property date $invoice_date
  * @property string $note
  * @property Customers $Customers
- * @property Doctrine_Collection $Orders
+ * @property Orders $Orders
  * @property Doctrine_Collection $CreditNotes
  * 
  * @package    ##PACKAGE##
@@ -29,54 +29,56 @@ abstract class BaseInvoices extends Doctrine_Record
         $this->setTableName('invoices');
         $this->hasColumn('invoice_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('number', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('order_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
-        $this->hasColumn('invoice_date', 'date', null, array(
+        $this->hasColumn('invoice_date', 'date', 25, array(
              'type' => 'date',
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '25',
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '',
              ));
     }
 
@@ -85,11 +87,13 @@ abstract class BaseInvoices extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
-             'foreign' => 'customer_id'));
+             'foreign' => 'customer_id',
+             'onDelete' => 'CASCADE'));
 
-        $this->hasMany('Orders', array(
-             'local' => 'invoice_id',
-             'foreign' => 'invoice_id'));
+        $this->hasOne('Orders', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasMany('CreditNotes', array(
              'local' => 'invoice_id',

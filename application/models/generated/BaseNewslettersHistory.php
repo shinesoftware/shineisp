@@ -13,9 +13,9 @@ Doctrine_Manager::getInstance()->bindComponent('NewslettersHistory', 'doctrine')
  * @property string $log
  * @property timestamp $date_added
  * @property timestamp $date_sent
- * @property integer $sent
- * @property Newsletters $Newsletters
+ * @property boolean $sent
  * @property NewslettersSubscribers $NewslettersSubscribers
+ * @property Newsletters $Newsletters
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -29,74 +29,49 @@ abstract class BaseNewslettersHistory extends Doctrine_Record
         $this->setTableName('newsletters_history');
         $this->hasColumn('newsletter_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('subscriber_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('news_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => false,
-             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('log', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '',
              ));
-        $this->hasColumn('date_added', 'timestamp', null, array(
+        $this->hasColumn('date_added', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('date_sent', 'timestamp', null, array(
+        $this->hasColumn('date_sent', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '25',
              ));
-        $this->hasColumn('sent', 'integer', 1, array(
-             'type' => 'integer',
-             'length' => 1,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+        $this->hasColumn('sent', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Newsletters', array(
-             'local' => 'news_id',
-             'foreign' => 'news_id'));
-
         $this->hasOne('NewslettersSubscribers', array(
              'local' => 'subscriber_id',
              'foreign' => 'subscriber_id'));
+
+        $this->hasOne('Newsletters', array(
+             'local' => 'news_id',
+             'foreign' => 'news_id'));
     }
 }
