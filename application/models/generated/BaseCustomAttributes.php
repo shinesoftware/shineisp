@@ -53,9 +53,9 @@ abstract class BaseCustomAttributes extends Doctrine_Record
              'notnull' => true,
              'length' => '255',
              ));
-        $this->hasColumn('panel_id', 'integer', 11, array(
+        $this->hasColumn('panel_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '11',
+             'length' => '4',
              ));
     }
 

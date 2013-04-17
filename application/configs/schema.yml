@@ -593,7 +593,7 @@ CustomAttributes:
       type: string(255)
       notnull: true
     panel_id:
-      type: integer(11)
+      type: integer(4)
   relations:
     CustomAttributesValues:
       local: attribute_id

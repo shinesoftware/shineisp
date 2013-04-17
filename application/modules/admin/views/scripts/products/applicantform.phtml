@@ -64,6 +64,7 @@
 		        <?php echo $form->ishighlighted->render() ?>
 		        <?php echo $form->isrefundable->render() ?>
 		        <?php echo $form->autosetup->render() ?>
+		        <?php echo $form->cost->render()?>
 		    </fieldset>
 		    <fieldset class=column-right>
 		        <?php echo $form->uri->render()?>
@@ -73,18 +74,19 @@
 	            <?php echo $form->showonrss->render()?>
 	            <?php echo $form->downgradable->render()?>
 	            <?php echo $form->server_group_id->render()?>
+	            <?php echo $form->tax_id->render()?>
 	        </fieldset>
 		    <div class="clear"></div>
 	    </div>
+	    
 	   <div class="ui-tabs-hide" id="tab2">
 	        <fieldset>
 	            <?php echo $form->price_1->render()?>
 	            <?php echo $form->setupfee->render()?>
-	            <?php echo $form->tax_id->render()?>
-	            <?php echo $form->cost->render()?>
 	        </fieldset>
 	        <div class="clear"></div>
-	   </div> 
+	   </div>
+	    
 	   <div class="ui-tabs-hide" id="tab3">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->tranches) ?>

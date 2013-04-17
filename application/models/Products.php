@@ -385,7 +385,7 @@ class Products extends BaseProducts {
 			
 			if (! empty ( $product )) {
 				if (! empty ( $product ['price_1'] ) && $product ['price_1'] > 0) {
-					//JAY 20130409
+
 					if( $refund !== false ) {
 						$priceToPayWithRefund	= $product ['price_1'] - $refund;
 						if( $priceToPayWithRefund < 0 ) {
@@ -404,7 +404,9 @@ class Products extends BaseProducts {
 					return array ('type' => 'flat', 'value' => $product ['price_1'], 'taxincluded' => $taxincluded, 'taxes' => $tax );
 				} else {
 					// Get the price min & max interval tranches
+					
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
+					//JAY 20130409
 					if (!empty($tranches[1])) {
 						//JAY 20130409
 						if( $refund !== false ) {
@@ -412,7 +414,7 @@ class Products extends BaseProducts {
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
 							
 							if( $monthBilling > 0 ) {
-								$priceToPay				= $tranches[0]['price'] * $monthBilling;
+								$priceToPay				= ( $tranches[0]['price'] + $trance[0]['setupfee'] )* $monthBilling;
 								$priceToPayWithRefund	= $priceToPay - $refund;
 								if( $priceToPayWithRefund < 0 ) {
 									$priceToPayWithRefund	= $priceToPay;

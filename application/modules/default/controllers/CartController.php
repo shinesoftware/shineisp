@@ -122,7 +122,8 @@ class CartController extends Zend_Controller_Action {
 					$product ['quantity'] 	= $tranche ['quantity'];
 					$product ['trancheid'] 	= $tranche ['tranche_id'];
 					$product ['billingid'] 	= $tranche ['billing_cycle_id'];
-					$product ['price_1'] = $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
+					$product ['price_1'] 	= $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
+					$product ['setupfee']	= $tranche ['setupfee'];
 					
 					// JAY 20130409 - Add refund if exist
 					//Check if the product is OK for upgrade
@@ -135,7 +136,7 @@ class CartController extends Zend_Controller_Action {
 						//add new order
 						$theOrder = Orders::create ( $NS->customer['customer_id'], Statuses::id('tobepaid', 'orders') );
 						$trancheID 	= $tranche['tranche_id'];
-						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array(), $orderid );
+						Orders::addItem ( $product ['product_id'], 1, $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array(), $orderid );
 						
 						$orderID = $theOrder ['order_id'];
 						Orders::sendOrder ( $orderID );
@@ -154,6 +155,20 @@ class CartController extends Zend_Controller_Action {
 					if( $orderid != false ) {
 						$product['parent_orderid']	= $orderid;
 						$product ['price_1'] = $this->getPriceWithRefund($orderid, $product ['price_1']);
+						
+						unset ( $NS->cart );
+						$NS->cart->products [] 				= $product;
+						$NS->cart->contacts['customer_id']	= $NS->customer['customer_id'];
+						//add new order
+						$theOrder = Orders::create ( $NS->customer['customer_id'], Statuses::id('tobepaid', 'orders') );
+						Orders::addItem ( $product ['product_id'], 1, 5, false, $product['ProductsData'][0]['name'], array(), $orderid );
+						
+						$orderID = $theOrder ['order_id'];
+						Orders::sendOrder ( $orderID );
+						
+						unset ( $NS->cart );
+						$this->_helper->redirector->gotoUrl ( 'orders/edit/id/'.$orderID );				
+						exit();								
 					}						
 					/** 20130409 **/					
 					
@@ -623,6 +638,7 @@ class CartController extends Zend_Controller_Action {
 			}
 		} else {
 			
+			$this->view->isVATFree	= $isVATFree;
 			$this->view->cart = $NS->cart;
 			$this->view->totals = $this->Totals ();
 			$this->view->form = $form;

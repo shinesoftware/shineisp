@@ -250,6 +250,7 @@ class ProductsController extends Zend_Controller_Action {
 			$data['name'] = $this->translator->translate ($tranche['BillingCycle']['name']);
 			$data['pricetax'] = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
 			$data['pricepermonths'] = $currency->toCurrency($data['pricepermonths'], array('currency' => Settings::findbyParam('currency')));
+			$data['setupfee'] = $currency->toCurrency($tranche['setupfee'], array('currency' => Settings::findbyParam('currency')));
 			
 		}
 		die ( json_encode ( $data ) );

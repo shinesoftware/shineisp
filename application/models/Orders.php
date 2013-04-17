@@ -1044,6 +1044,8 @@ class Orders extends BaseOrders {
 				$item['quantity'] 			= $qta;
 				
 				$item['price'] 				= $product['price_1'];
+				$item['setupfee'] 			= $product ['setupfee'];
+				
 				$tranches					= $product['ProductsTranches'];
 				if( $trancheID != null && array_key_exists($trancheID,$tranches)) {				
 					// Count of the day until the expiring
@@ -1063,10 +1065,12 @@ class Orders extends BaseOrders {
 						
 						//$item['price'] 		= $product['price_1'] * $qty; 
 						$item['price'] 		= $tranche['price'] * $qty;
+						$item['setupfee'] 	= $tranche ['setupfee'];
 						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
 					}else{
 						$item['date_end'] 	= null;
 						$item['price'] 		= $tranche['price'];
+						$item['setupfee'] 	= $tranche ['setupfee'];
 					}
 				}
 				
@@ -1128,14 +1132,13 @@ class Orders extends BaseOrders {
 					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
 				}
 				
-				$item['cost'] = $product ['cost'];
-				$item['setupfee'] = $product ['setupfee'];
+				$item['cost'] 		= $product ['cost'];
 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
 				$item->save();
 				
 				// Update the totals
-				if(!empty($order['order_id'])){
+				if(!empty($order['order_id'])) {
 					self::updateTotalsOrder($order['order_id']);
 				}
 				
