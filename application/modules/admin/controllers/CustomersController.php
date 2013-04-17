@@ -233,7 +233,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			
 			if (! empty ( $rs )) {
 				
-				$rs += CustomAttributes::getElementsValues($id);
+				$rs += CustomAttributes::getElementsValues($id, 'customers');
 				$rs['birthdate'] = Shineisp_Commons_Utilities::formatDateOut($rs['birthdate']);
 				
 				$this->view->id = $id;

@@ -1235,14 +1235,30 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
+	private static function isUpgrade( $orderid ) {
+		$orderDetails	= Orders::getDetails($orderid);
+		foreach( $orderDetails as $orderDetail ) {
+			$parent_orderid	= intval($orderDetail['parent_orderid']);
+			if( $parent_orderid != 0 ) {
+				return $parent_orderid;
+			}
+		}
+		
+		return false;		
+	}
+	
+	
 	/*
 	 * Run task functions
+	 * THIS METHOD MUST BE CALLED ONLY WHEN AN ORDER IS COMPLETE
 	 */
-	public static function RunTasks($orderid) {
+	private static function RunTasks($orderid) {
 		if (empty($orderid) || !is_numeric($orderid) ) {
 			return false;
 		}
 		
+		/* GUEST - ALE - 20130415: PROBABLY DEPRECATED
+		 * 
 		// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
 		$domains = self::getDomainsFromOrder ( $orderid );
 		
@@ -1262,28 +1278,100 @@ class Orders extends BaseOrders {
 				DomainsTasks::AddTasks ( $domainsdata );
 			} 
 		}
+		*/
 		
-		// Add the panel action tasks
+		
+		//* GUEST - ALE - 20130415: Should I use this?
+		self::CreateDomainTasks($orderid);
+		
+		
+		//* Hosting creation actions
+		self::CreateHostingTasks($orderid);
+	}	
+
+
+
+
+
+	
+	private static function CreateHostingTasks($orderid) {
+		if (empty($orderid) || !is_numeric($orderid) ) {
+			return false;
+		}
+		
 		$hostingplans = self::get_hostingplans_from_order($orderid);
 		if($hostingplans){
 			foreach ( $hostingplans as $data ) {
-				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
-			}
-		}
-	}	
-	
-	
-	private static function isUpgrade( $orderid ) {
-		$orderDetails	= Orders::getDetails($orderid);
-		foreach( $orderDetails as $orderDetail ) {
-			$parent_orderid	= intval($orderDetail['parent_orderid']);
-			if( $parent_orderid != 0 ) {
-				return $parent_orderid;
+				$autoSetup = (string)$data['autosetup'];
+				$doCreate  = false;
+				
+				//* TODO: Check autosetup valute and operate accordingly
+				//...
+				
+				/*
+				 * SE:
+				 *      0 = non attivo nulla
+				 *      1 = ATTIVO, perche' ho ricevuto un ordine (questa funzione e' chiamata solo da Orders::Complete)
+				 *      2 = SE ci sono transazioni in fattura, ATTIVO
+				 *      3 = ATTIVO, perche' se arrivo qui, ho settato l'ordine a mano
+				 *      4 = SE missing_income fattura <= 0 ATTIVO perche' ho pagato tutto
+				 */
+
+				
+				if ( $autoSetup === '0' ) {
+					// autosetup = 0: no automatic creation of services
+					return true;
+				}
+				
+				// Auto setup based on order status (recieved or completed)
+				if ( $autoSetup === '1' || $autoSetup === '3' ) {
+					$doCreate = true;	
+				}
+
+				// Auto setup based on payment				
+				if ( $autoSetup === '2' || $autoSetup === '4' ) {
+					// Fetch the payment list for this order
+					$payments = Payments::findbyorderid ( $orderid, 'income', true );
+					
+					if ( !$payments || count($payments) < 1 ) {
+						// No payments, skip creation
+						$doCreate = false;
+					} else {
+						if ( $autoSetup === '2' ) {
+							// At least 1 paymnet recieved						
+							$doSetup = true;	
+						} else {
+							// Fetch details for this order
+							$order = self::getAllInfo($orderid);
+							if ( !$order ) {
+								$doSetup = false;
+							} else {
+								$received_income = 0;
+								foreach ( $payments as $payment ) {
+									$received_income += (isset($payment['income'])) ? $payment['income'] : 0;
+								}
+								
+								$missing_income = $order['grandtotal'] - $received_income;
+								
+								if ( $missing_income <= 0 ) {
+									$doCreate = true;
+								}
+							}
+						}
+					}
+				} 				
+				
+
+				if ( $doCreate === true ) {			
+					PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+				}
 			}
 		}
 		
-		return false;		
 	}
+	
+	
+	
 	/*
 	 * Complete 
 	 * this function complete the order
@@ -1300,9 +1388,6 @@ class Orders extends BaseOrders {
 				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
 			} 
 			
-			// Check and create task for domains and hosting services
-			self::RunTasks($orderid);
-			
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
 			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
@@ -1313,6 +1398,10 @@ class Orders extends BaseOrders {
 			if($sendemail){
 				Invoices::sendInvoice ( $invoiceid );
 			}
+
+			// Check and create task for domains and hosting services
+			// Moved after invoice creation to support autosetup multiple modes
+			self::RunTasks($orderid);
 			
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
@@ -1328,7 +1417,7 @@ class Orders extends BaseOrders {
 	 * create the tasks for each domain within a order
 	 * Add the domains found in the task table action in order to execute the register/transfer procedure
 	 */
-	public static function CreateDomainTasks($OrderID) {
+	private static function CreateDomainTasks($OrderID) {
 		// Check if the order contains domains
 		if (is_numeric ( $OrderID )) {
 			$domains = self::getDomainsFromOrder ( $OrderID );

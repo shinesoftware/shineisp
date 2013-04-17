@@ -1125,5 +1125,5 @@ class Shineisp_Commons_Utilities {
 		}
 		return $str;
 	}
-	
+
 }

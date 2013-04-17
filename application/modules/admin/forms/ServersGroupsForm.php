@@ -26,7 +26,9 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
                     	'3' => 'Fill servers starting from the newest to the older',
                     	'4' => 'Fill servers starting from the older to the newest',
                     	'5' => 'Fill servers randomly',
-                    	'6' => 'Fill manually. Only default server will be used.'
+                    	'6' => 'Fill manually. Only default server will be used.',
+                    	'7' => 'Fill servers starting from the cheaper to the expensive.',
+                    	'8' => 'Fill servers starting from the expensive to the cheaper.',
                     )
 				);		
 		

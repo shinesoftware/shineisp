@@ -108,8 +108,12 @@ class Servers extends BaseServers {
 		$server->cost         = (isset($params['cost']) && is_numeric($params['cost'])) ? $params['cost'] : 0;
 		$server->max_services = (isset($params['max_services'])) ? intval($params['max_services']) : 0;
 		$server->datacenter   = (isset($params['datacenter'])) ? $params['datacenter'] : '';
-				
+		$server->is_default   = (isset($params['is_default'])) ? intval($params['is_default']) : 0;
+		$server->buy_date     = Shineisp_Commons_Utilities::formatDateIn ($params ['buy_date']);
+
 		$server->save ();
+		
+		// TODO: clear other default servers for the same group. Only one server can be default in the group
 		
 		return $server['server_id'];
 	}
@@ -122,7 +126,7 @@ class Servers extends BaseServers {
     public static function find($id) {
         return Doctrine::getTable ( 'Servers' )->find ( $id );
     }
-	
+
 	/**
      * Get all the information about the server 
      * @param $id
@@ -134,9 +138,9 @@ class Servers extends BaseServers {
         			->from ( 'Servers s' )
         			->leftJoin ( 's.Servers_Types' )
         			->leftJoin ( 's.CustomAttributesValues' )
-        			->where ( "s.server_id = ?", $id )
+        			->where ( "s.server_id = ? ", $id)
         			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-        			
+        		
     	return !empty($record[0]) ? $record[0] : array();
     }
 	
@@ -171,6 +175,177 @@ class Servers extends BaseServers {
 	
 	}
 	
+	/**
+	 * extractServersFromGroup:
+	 * extract servers from group accordingly to server group fill_type
+	 * @param INT  $group_id:    id of the group to extract from
+	 * @param INT  $server_type: optional server type id to extract. If empty, one server for each type is extracted
+	 * @return ARRAY
+	 * 
+	 */
+	public static function extractServersFromGroup($group_id, $server_type = null) {
+		Shineisp_Commons_Utilities::logs ('in Servers::extractServersFromGroup('.$group_id.', '.$server_type.')', 'servers.log');
+		
+		$arrOutput   = array();
+		$group_id    = isset($group_id)    ? intval($group_id)    : null;
+		$server_type = isset($server_type) ? intval($server_type) : null;
+		
+		if ( !$group_id ) {
+			return $arrOutput;
+		}
+
+		// Get the fill_type for requested group		
+		$ServersGroups = ServersGroups::find($group_id);
+		if ( !$ServersGroups || !isset($ServersGroups->fill_type) ) {
+			return $arrOutput;
+		}
+		$fill_type = (int)$ServersGroups->fill_type;
+	
+		//echo "fill_type: ".$fill_type."\n";
+		/*
+        	'1' => 'Create services on the least full server',
+        	'2' => 'Fill default server until full then switch to next least used', 
+        	'3' => 'Fill servers starting from the newest to the older',
+        	'4' => 'Fill servers starting from the older to the newest',
+        	'5' => 'Fill servers randomly',
+        	'6' => 'Fill manually. Only default server will be used.',
+        	'7' => 'Fill servers starting from the cheaper to the expensive.',
+        	'8' => 'Fill servers starting from the expensive to the cheaper.',
+		*/
+
+
+
+		// Get all servers inside this group
+		$serverIds = ServersGroups::getServers($group_id, 's.*');
+		
+		//echo "Ci sono questi server nel gruppo: ".implode(',', $serverIds)."\n";
+		
+		// Get servers details
+		$ORM = Doctrine_Query::create ()
+							 ->from ( 'Servers s' )
+					         ->leftJoin ( 's.Servers_Types st' )
+					         ->leftJoin ( 's.Statuses stat' )
+							 ->leftJoin ( 's.Panels panel' )
+							 ->leftJoin ( 's.Servers_Types' )
+    			             ->leftJoin ( 's.CustomAttributesValues' )
+							 ->whereIn ('s.server_id', $serverIds);
+
+		if ( $server_type ) {
+			$ORM = $ORM->andWhere('s.type_id = ?', $server_type);		
+		}
+
+		$ORM = $ORM->execute();
+							 
+				
+		// Create an array with type_id as index
+		$arrServers = array();
+		foreach ( $ORM as $y ) {
+			$type_id       = $y->type_id;
+			$server_id     = $y->server_id;
+			$services      = isset($y->services) ? intval($y->services) : 0;
+			$max_services  = (isset($y->max_services) && $y->max_services > 0) ? intval($y->max_services) : PHP_INT_SIZE;
+			$buy_timestamp = isset($y->buy_date) ? strtotime($y->buy_date) : 0;
+			$is_default    = isset($y->is_default) ? intval($y->is_default) : 0;
+
+			// Skip full servers
+			if ( $services >= $max_services ) {
+				continue;
+			}
+
+			$usagePercent = round(($services*100)/$max_services);
+			
+			$arrServers[$type_id][$server_id] = $y->toArray();
+			$arrServers[$type_id][$server_id]['is_default']    = $is_default;
+			$arrServers[$type_id][$server_id]['_usagePercent'] = $usagePercent;
+			$arrServers[$type_id][$server_id]['_buyTimestamp'] = $buy_timestamp;
+		}
+		
+		// Cycle servers by type
+		foreach ( $arrServers as $type_id => $serverType ) {
+			$tmp = array(); // temporary array
+			
+			//echo "Faccio elaborazione di fill_type ".$fill_type."\n";
+			
+			// Extract server
+			switch ( $fill_type ) {
+				case 1: // 'Create services on the least full server'
+				case 2: // 'Fill default server until full then switch to next least used'
+				 	$method = ($fill_type === 1) ? SORT_ASC : SORT_DESC;
+				 	$tmp    = Shineisp_Commons_ArraySorter::multisort($serverType, '_usagePercent', $method);
+					break;
+
+				case 3: // 'Fill servers starting from the newest to the older'
+				case 4: // 'Fill servers starting from the older to the newest'
+				 	$method = ($fill_type === 3) ? SORT_DESC : SORT_ASC;
+				 	$tmp    = Shineisp_Commons_ArraySorter::multisort($serverType, '_buyTimestamp', $method);
+					break;
+					
+				case 5: // 'Fill servers randomly'
+					$randKey = array_rand($serverType);
+					$tmp     = array($randKey => $randKey);
+					break;
+
+				case 6: // 'Fill manually. Only default server will be used.'
+					$tmp    = Shineisp_Commons_ArraySorter::multisort($serverType, 'is_default', SORT_DESC);
+					break;
+					
+				case 7: // 'Fill servers starting from the cheaper to the expensive.'
+				case 8: // 'Fill servers starting from the expensive to the cheaper.'
+					$method = ($fill_type === 7) ? SORT_ASC : SORT_DESC;
+					$tmp    = Shineisp_Commons_ArraySorter::multisort($serverType, 'cost', $method);
+			}
+
+			reset($tmp);
+			$selectedServer = key($tmp);
+		
+			//echo "Selezionato il server ".$selectedServer."\n";
+			$arrOutput[$type_id][$selectedServer] = $arrServers[$type_id][$selectedServer];					
+		}
+		
+
+		//echo "SPARO FUORI: \n";
+		//print_r($arrOutput);
+		
+		if (isset($server_type) && isset($arrOutput[$server_type])) {
+			// return just the server array
+			$key = key($arrOutput[$server_type]);
+			$arrOutput = $arrOutput[$server_type][$key];
+		}
+		
+		Shineisp_Commons_Utilities::logs ('out from Servers::extractServersFromGroup('.$group_id.', '.$server_type.'): '.serialize($arrOutput), 'servers.log');
+		
+		// Return
+		return $arrOutput;
+		
+	}
+	
+	
+	
+	/**
+	 * getServerFromGroup:
+	 * extract a webserver from group accordingly to server group fill_type
+	 * @param INT     $group_id:    id of the group to extract from
+	 * @param STRING  $server_type: server type to extract.
+	 * @return ARRAY
+	 * 
+	 */
+	public static function getServerFromGroup($group_id = null, $server_type = null) {
+		$group_id    = isset($group_id)    ? intval($group_id)    : null;
+		
+		if ( !$group_id || !$server_type) {
+			return array();
+		}
+		
+		if ( $server_type == 'web' )      { $server_type_id = 1; }
+		if ( $server_type == 'mail' )     { $server_type_id = 2; }
+		if ( $server_type == 'database' ) { $server_type_id = 3; }
+		if ( $server_type == 'dns' )      { $server_type_id = 4; }
+		
+		return self::extractServersFromGroup($group_id, $server_type_id);
+	}
+	
+
+	
 	
 	/**
      * setStatus
@@ -195,7 +370,7 @@ class Servers extends BaseServers {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Servers i' )->leftJoin ( 'i.Servers_Types st ON st.type_id = i.type_id' )->andWhere ( "isp_id = $isp_id" );
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
-	
+
 	/*
 	 * Get Webserver information 
 	 */

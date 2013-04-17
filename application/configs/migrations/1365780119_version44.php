@@ -6,12 +6,13 @@ class Version44 extends Doctrine_Migration_Base
 {
     public function up()
     {
-        $this->createForeignKey('custom_attributes', 'custom_attributes_panel_id_panels_panel_id', array(
+        /*$this->createForeignKey('custom_attributes', 'custom_attributes_panel_id_panels_panel_id', array(
              'name' => 'custom_attributes_panel_id_panels_panel_id',
              'local' => 'panel_id',
              'foreign' => 'panel_id',
              'foreignTable' => 'panels',
              ));
+		 */
         $this->addIndex('custom_attributes', 'custom_attributes_panel_id', array(
              'fields' => 
              array(
@@ -22,7 +23,7 @@ class Version44 extends Doctrine_Migration_Base
 
     public function down()
     {
-        $this->dropForeignKey('custom_attributes', 'custom_attributes_panel_id_panels_panel_id');
+        //$this->dropForeignKey('custom_attributes', 'custom_attributes_panel_id_panels_panel_id');
         $this->removeIndex('custom_attributes', 'custom_attributes_panel_id', array(
              'fields' => 
              array(

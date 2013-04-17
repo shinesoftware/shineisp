@@ -593,7 +593,7 @@ CustomAttributes:
       type: string(255)
       notnull: true
     panel_id:
-      type: integer(11)
+      type: integer(4)
   relations:
     CustomAttributesValues:
       local: attribute_id
@@ -2984,11 +2984,15 @@ Servers:
     cost:
       type: float(10)
       default: '0.00'
+    is_default:
+      type: boolean(25)
+      default: 0   
     services: 
       type: integer(4)
       default: 0
       notnull: true
-    max_services: integer(4)      
+    max_services: integer(4)
+    buy_date: timestamp(25)
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)
