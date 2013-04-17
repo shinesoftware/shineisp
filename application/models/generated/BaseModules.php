@@ -28,76 +28,75 @@ abstract class BaseModules extends Doctrine_Record
         $this->setTableName('modules');
         $this->hasColumn('module_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('menu', 'string', 100, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 100,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '100',
              ));
         $this->hasColumn('class', 'string', 100, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 100,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '100',
              ));
         $this->hasColumn('link', 'string', 100, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 100,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '100',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '',
              ));
         $this->hasColumn('icon', 'string', 100, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 100,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '100',
              ));
         $this->hasColumn('enabled', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 1,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'default' => '1',
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '1',
              ));
         $this->hasColumn('parent', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'default' => '0',
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
     }
 

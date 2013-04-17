@@ -16,8 +16,8 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsData', 'doctrine');
  * @property integer $language_id
  * @property string $metakeywords
  * @property string $metadescription
- * @property Products $Products
  * @property Languages $Languages
+ * @property Products $Products
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -31,64 +31,92 @@ abstract class BaseProductsData extends Doctrine_Record
         $this->setTableName('products_data');
         $this->hasColumn('productdata_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 150, array(
              'type' => 'string',
+             'length' => 150,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '150',
+             'autoincrement' => false,
              ));
         $this->hasColumn('nickname', 'string', 150, array(
              'type' => 'string',
+             'length' => 150,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '150',
+             'autoincrement' => false,
              ));
         $this->hasColumn('shortdescription', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('language_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '1',
              'notnull' => true,
-             'default' => 1,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('metakeywords', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('metadescription', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Products', array(
-             'local' => 'product_id',
-             'foreign' => 'product_id',
-             'onDelete' => 'CASCADE'));
-
         $this->hasOne('Languages', array(
              'local' => 'language_id',
-             'foreign' => 'language_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'language_id'));
+
+        $this->hasOne('Products', array(
+             'local' => 'product_id',
+             'foreign' => 'product_id'));
     }
 }

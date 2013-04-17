@@ -9,7 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('WikiCategories', 'doctrine');
  * 
  * @property integer $category_id
  * @property string $category
- * @property boolean $public
+ * @property integer $public
  * @property Doctrine_Collection $Wiki
  * 
  * @package    ##PACKAGE##
@@ -24,25 +24,30 @@ abstract class BaseWikiCategories extends Doctrine_Record
         $this->setTableName('wiki_categories');
         $this->hasColumn('category_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('category', 'string', 250, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 250,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '250',
              ));
-        $this->hasColumn('public', 'boolean', 25, array(
-             'type' => 'boolean',
+        $this->hasColumn('public', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
-             'length' => '25',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

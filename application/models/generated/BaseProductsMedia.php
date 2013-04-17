@@ -10,11 +10,11 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsMedia', 'doctrine');
  * @property integer $media_id
  * @property string $filename
  * @property string $path
- * @property boolean $is_default
+ * @property integer $is_default
  * @property integer $product_id
  * @property integer $category_id
  * @property string $description
- * @property boolean $enabled
+ * @property integer $enabled
  * @property Products $Products
  * 
  * @package    ##PACKAGE##
@@ -29,46 +29,75 @@ abstract class BaseProductsMedia extends Doctrine_Record
         $this->setTableName('products_media');
         $this->hasColumn('media_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('filename', 'string', 200, array(
              'type' => 'string',
+             'length' => 200,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '200',
+             'autoincrement' => false,
              ));
         $this->hasColumn('path', 'string', 200, array(
              'type' => 'string',
+             'length' => 200,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '200',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('is_default', 'boolean', 25, array(
-             'type' => 'boolean',
+        $this->hasColumn('is_default', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0',
-             'length' => '25',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('category_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('enabled', 'boolean', 25, array(
-             'type' => 'boolean',
+        $this->hasColumn('enabled', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
-             'length' => '25',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

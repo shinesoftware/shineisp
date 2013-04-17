@@ -21,7 +21,7 @@ Doctrine_Manager::getInstance()->bindComponent('Wiki', 'doctrine');
  * @property integer $ishelpful
  * @property WikiCategories $WikiCategories
  * @property Languages $Languages
- * @property Doctrine_Collection $Wikilinks
+ * @property Doctrine_Collection $WikiLinks
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -35,66 +35,108 @@ abstract class BaseWiki extends Doctrine_Record
         $this->setTableName('wiki');
         $this->hasColumn('wiki_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
-        $this->hasColumn('creationdate', 'date', 25, array(
+        $this->hasColumn('creationdate', 'date', null, array(
              'type' => 'date',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
         $this->hasColumn('category_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('language_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('views', 'integer', 4, array(
              'type' => 'integer',
-             'default' => 0,
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('active', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => false,
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
-             'length' => '4',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('subject', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('uri', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('content', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('metadescription', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('metakeywords', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('ishelpful', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
@@ -107,10 +149,9 @@ abstract class BaseWiki extends Doctrine_Record
 
         $this->hasOne('Languages', array(
              'local' => 'language_id',
-             'foreign' => 'language_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'language_id'));
 
-        $this->hasMany('Wikilinks', array(
+        $this->hasMany('WikiLinks', array(
              'local' => 'wiki_id',
              'foreign' => 'wiki_id'));
     }

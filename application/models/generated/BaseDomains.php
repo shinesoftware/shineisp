@@ -9,8 +9,6 @@ Doctrine_Manager::getInstance()->bindComponent('Domains', 'doctrine');
  * 
  * @property integer $domain_id
  * @property string $domain
- * @property integer $tld_id
- * @property integer $product_id
  * @property string $tld
  * @property date $creation_date
  * @property date $modification_date
@@ -19,22 +17,24 @@ Doctrine_Manager::getInstance()->bindComponent('Domains', 'doctrine');
  * @property integer $customer_id
  * @property integer $orderitem_id
  * @property integer $status_id
- * @property boolean $autorenew
+ * @property integer $autorenew
  * @property string $note
+ * @property integer $tld_id
  * @property string $authinfocode
- * @property OrdersItems $OrdersItems
- * @property DomainsTlds $DomainsTlds
+ * @property integer $product_id
  * @property Customers $Customers
- * @property Statuses $Statuses
- * @property Registrars $Registrars
+ * @property OrdersItems $OrdersItems
  * @property Products $Products
- * @property Doctrine_Collection $DomainsTasks
- * @property Doctrine_Collection $TagsConnections
+ * @property Registrars $Registrars
+ * @property Statuses $Statuses
+ * @property DomainsTlds $DomainsTlds
  * @property Doctrine_Collection $CustomersDomainsRegistrars
+ * @property Doctrine_Collection $DnsZones
+ * @property Doctrine_Collection $DomainsTasks
  * @property Doctrine_Collection $Messages
- * @property Doctrine_Collection $Dns_Zones
- * @property Doctrine_Collection $Tickets
  * @property Doctrine_Collection $OrdersItemsDomains
+ * @property Doctrine_Collection $TagsConnections
+ * @property Doctrine_Collection $Tickets
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -48,120 +48,172 @@ abstract class BaseDomains extends Doctrine_Record
         $this->setTableName('domains');
         $this->hasColumn('domain_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('domain', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
-             ));
-        $this->hasColumn('tld_id', 'integer', 4, array(
-             'type' => 'integer',
-             'notnull' => true,
-             'length' => '4',
-             ));
-        $this->hasColumn('product_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('tld', 'string', 25, array(
              'type' => 'string',
+             'length' => 25,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('creation_date', 'date', 25, array(
+        $this->hasColumn('creation_date', 'date', null, array(
              'type' => 'date',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('modification_date', 'date', 25, array(
+        $this->hasColumn('modification_date', 'date', null, array(
              'type' => 'date',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '25',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('expiring_date', 'date', 25, array(
+        $this->hasColumn('expiring_date', 'date', null, array(
              'type' => 'date',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '25',
+             'autoincrement' => false,
              ));
         $this->hasColumn('registrars_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('orderitem_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('autorenew', 'boolean', 25, array(
-             'type' => 'boolean',
+        $this->hasColumn('autorenew', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('tld_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('authinfocode', 'string', 100, array(
              'type' => 'string',
-             'length' => '100',
+             'length' => 100,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('product_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('OrdersItems', array(
-             'local' => 'orderitem_id',
-             'foreign' => 'detail_id',
-             'onDelete' => 'CASCADE'));
-
-        $this->hasOne('DomainsTlds', array(
-             'local' => 'tld_id',
-             'foreign' => 'tld_id'));
-
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
              'foreign' => 'customer_id'));
 
-        $this->hasOne('Statuses', array(
-             'local' => 'status_id',
-             'foreign' => 'status_id'));
+        $this->hasOne('OrdersItems', array(
+             'local' => 'orderitem_id',
+             'foreign' => 'detail_id'));
+
+        $this->hasOne('Products', array(
+             'local' => 'product_id',
+             'foreign' => 'product_id'));
 
         $this->hasOne('Registrars', array(
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
 
-        $this->hasOne('Products', array(
-             'local' => 'product_id',
-             'foreign' => 'product_id',
-             'onDelete' => 'CASCADE'));
+        $this->hasOne('Statuses', array(
+             'local' => 'status_id',
+             'foreign' => 'status_id'));
 
-        $this->hasMany('DomainsTasks', array(
-             'local' => 'domain_id',
-             'foreign' => 'domain_id'));
-
-        $this->hasMany('TagsConnections', array(
-             'local' => 'domain_id',
-             'foreign' => 'domain_id'));
+        $this->hasOne('DomainsTlds', array(
+             'local' => 'tld_id',
+             'foreign' => 'tld_id'));
 
         $this->hasMany('CustomersDomainsRegistrars', array(
+             'local' => 'domain_id',
+             'foreign' => 'domain_id'));
+
+        $this->hasMany('DnsZones', array(
+             'local' => 'domain_id',
+             'foreign' => 'domain_id'));
+
+        $this->hasMany('DomainsTasks', array(
              'local' => 'domain_id',
              'foreign' => 'domain_id'));
 
@@ -169,15 +221,15 @@ abstract class BaseDomains extends Doctrine_Record
              'local' => 'domain_id',
              'foreign' => 'domain_id'));
 
-        $this->hasMany('Dns_Zones', array(
+        $this->hasMany('OrdersItemsDomains', array(
+             'local' => 'domain_id',
+             'foreign' => 'domain_id'));
+
+        $this->hasMany('TagsConnections', array(
              'local' => 'domain_id',
              'foreign' => 'domain_id'));
 
         $this->hasMany('Tickets', array(
-             'local' => 'domain_id',
-             'foreign' => 'domain_id'));
-
-        $this->hasMany('OrdersItemsDomains', array(
              'local' => 'domain_id',
              'foreign' => 'domain_id'));
     }

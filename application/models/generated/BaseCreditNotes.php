@@ -30,46 +30,75 @@ abstract class BaseCreditNotes extends Doctrine_Record
         $this->setTableName('credit_notes');
         $this->hasColumn('creditnote_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('number', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('creationdate', 'date', 25, array(
+        $this->hasColumn('creationdate', 'date', null, array(
              'type' => 'date',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
         $this->hasColumn('invoice_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('total_net', 'float', 10, array(
              'type' => 'float',
-             'notnull' => true,
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => true,
+             'autoincrement' => false,
              ));
         $this->hasColumn('total_vat', 'float', 10, array(
              'type' => 'float',
-             'notnull' => true,
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => true,
+             'autoincrement' => false,
              ));
         $this->hasColumn('total', 'float', 10, array(
              'type' => 'float',
-             'notnull' => true,
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => true,
+             'autoincrement' => false,
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

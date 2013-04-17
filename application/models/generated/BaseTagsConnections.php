@@ -27,26 +27,38 @@ abstract class BaseTagsConnections extends Doctrine_Record
         $this->setTableName('tags_connections');
         $this->hasColumn('tagconnection_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('tag_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('domain_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
     }
 

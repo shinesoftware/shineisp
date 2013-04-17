@@ -24,30 +24,30 @@ abstract class BaseContactsTypes extends Doctrine_Record
         $this->setTableName('contacts_types');
         $this->hasColumn('type_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 200,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '200',
              ));
         $this->hasColumn('enabled', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 1,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'default' => '1',
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '1',
              ));
     }
 

@@ -17,10 +17,10 @@ Doctrine_Manager::getInstance()->bindComponent('PanelsActions', 'doctrine');
  * @property timestamp $end
  * @property string $parameters
  * @property string $log
- * @property Panels $Panels
- * @property Statuses $Statuses
  * @property Customers $Customers
  * @property OrdersItems $OrdersItems
+ * @property Panels $Panels
+ * @property Statuses $Statuses
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -34,76 +34,108 @@ abstract class BasePanelsActions extends Doctrine_Record
         $this->setTableName('panels_actions');
         $this->hasColumn('action_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('panel_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('orderitem_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('start', 'timestamp', 25, array(
+        $this->hasColumn('start', 'timestamp', null, array(
              'type' => 'timestamp',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
         $this->hasColumn('action', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
+             'autoincrement' => false,
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('end', 'timestamp', 25, array(
+        $this->hasColumn('end', 'timestamp', null, array(
              'type' => 'timestamp',
-             'length' => '25',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('parameters', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('log', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Customers', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasOne('OrdersItems', array(
+             'local' => 'orderitem_id',
+             'foreign' => 'detail_id'));
+
         $this->hasOne('Panels', array(
              'local' => 'panel_id',
-             'foreign' => 'panel_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'panel_id'));
 
         $this->hasOne('Statuses', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
-
-        $this->hasOne('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'CASCADE'));
-
-        $this->hasOne('OrdersItems', array(
-             'local' => 'orderitem_id',
-             'foreign' => 'detail_id',
-             'onDelete' => 'CASCADE'));
     }
 }

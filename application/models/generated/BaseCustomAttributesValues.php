@@ -12,8 +12,6 @@ Doctrine_Manager::getInstance()->bindComponent('CustomAttributesValues', 'doctri
  * @property integer $attribute_id
  * @property string $value
  * @property CustomAttributes $CustomAttributes
- * @property Doctrine_Collection $Customers
- * @property Doctrine_Collection $Servers
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -27,34 +25,37 @@ abstract class BaseCustomAttributesValues extends Doctrine_Record
         $this->setTableName('custom_attributes_values');
         $this->hasColumn('value_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('external_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('attribute_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('value', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '',
+             'autoincrement' => false,
              ));
     }
 
@@ -64,13 +65,5 @@ abstract class BaseCustomAttributesValues extends Doctrine_Record
         $this->hasOne('CustomAttributes', array(
              'local' => 'attribute_id',
              'foreign' => 'attribute_id'));
-
-        $this->hasMany('Customers', array(
-             'local' => 'external_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasMany('Servers', array(
-             'local' => 'external_id',
-             'foreign' => 'server_id'));
     }
 }

@@ -17,9 +17,9 @@ Doctrine_Manager::getInstance()->bindComponent('Payments', 'doctrine');
  * @property integer $confirmed
  * @property float $income
  * @property float $outcome
+ * @property Banks $Banks
  * @property Customers $Customers
  * @property Orders $Orders
- * @property Banks $Banks
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -33,112 +33,107 @@ abstract class BasePayments extends Doctrine_Record
         $this->setTableName('payments');
         $this->hasColumn('payment_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
-        $this->hasColumn('paymentdate', 'timestamp', 25, array(
+        $this->hasColumn('paymentdate', 'timestamp', null, array(
              'type' => 'timestamp',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '25',
              ));
         $this->hasColumn('bank_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('order_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
-             'length' => '',
              ));
         $this->hasColumn('reference', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
-             'length' => '',
              ));
         $this->hasColumn('confirmed', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 1,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '1',
              ));
         $this->hasColumn('income', 'float', 10, array(
              'type' => 'float',
-             'fixed' => 0,
+             'length' => 10,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'default' => '0.00',
              'notnull' => false,
-             'default' => 0,
              'autoincrement' => false,
-             'length' => '10',
              ));
         $this->hasColumn('outcome', 'float', 10, array(
              'type' => 'float',
-             'fixed' => 0,
+             'length' => 10,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'default' => '0.00',
              'notnull' => false,
-             'default' => 0,
              'autoincrement' => false,
-             'length' => '10',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'CASCADE'));
-
-        $this->hasOne('Orders', array(
-             'local' => 'order_id',
-             'foreign' => 'order_id',
-             'onDelete' => 'CASCADE'));
-
         $this->hasOne('Banks', array(
              'local' => 'bank_id',
              'foreign' => 'bank_id'));
+
+        $this->hasOne('Customers', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasOne('Orders', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id'));
     }
 }

@@ -12,18 +12,16 @@ Doctrine_Manager::getInstance()->bindComponent('AdminUser', 'doctrine');
  * @property string $lastname
  * @property string $email
  * @property string $password
- * @property timestamp $last_password_change
- * @property tinyint $force_password_change
  * @property timestamp $created
  * @property timestamp $changed
  * @property integer $lognum
  * @property integer $role_id
  * @property string $config
  * @property integer $isp_id
- * @property AdminRoles $AdminRoles
  * @property Isp $Isp
- * @property Doctrine_Collection $Tickets
+ * @property AdminRoles $AdminRoles
  * @property Doctrine_Collection $Notes
+ * @property Doctrine_Collection $Tickets
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -37,86 +35,117 @@ abstract class BaseAdminUser extends Doctrine_Record
         $this->setTableName('admin_user');
         $this->hasColumn('user_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('firstname', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('lastname', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('email', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('password', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('last_password_change', 'timestamp', 25, array(
+        $this->hasColumn('created', 'timestamp', null, array(
              'type' => 'timestamp',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '25',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('force_password_change', 'tinyint', 1, array(
-             'type' => 'tinyint',
-             'notnull' => true,
-             'fixed' => 0,
-             'length' => '1',
-             ));
-        $this->hasColumn('created', 'timestamp', 25, array(
+        $this->hasColumn('changed', 'timestamp', null, array(
              'type' => 'timestamp',
-             'length' => '25',
-             ));
-        $this->hasColumn('changed', 'timestamp', 25, array(
-             'type' => 'timestamp',
-             'length' => '25',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('lognum', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('role_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('config', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('AdminRoles', array(
-             'local' => 'role_id',
-             'foreign' => 'role_id'));
-
         $this->hasOne('Isp', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
 
-        $this->hasMany('Tickets', array(
+        $this->hasOne('AdminRoles', array(
+             'local' => 'role_id',
+             'foreign' => 'role_id'));
+
+        $this->hasMany('Notes', array(
              'local' => 'user_id',
              'foreign' => 'user_id'));
 
-        $this->hasMany('Notes', array(
+        $this->hasMany('Tickets', array(
              'local' => 'user_id',
              'foreign' => 'user_id'));
     }

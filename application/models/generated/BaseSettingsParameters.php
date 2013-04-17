@@ -17,7 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('SettingsParameters', 'doctrine')
  * @property integer $group_id
  * @property string $config
  * @property SettingsGroups $SettingsGroups
- * @property Settings $Settings
+ * @property Doctrine_Collection $Settings
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -31,49 +31,82 @@ abstract class BaseSettingsParameters extends Doctrine_Record
         $this->setTableName('settings_parameters');
         $this->hasColumn('parameter_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
+             'length' => 200,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '200',
+             'autoincrement' => false,
              ));
         $this->hasColumn('var', 'string', 50, array(
              'type' => 'string',
+             'length' => 50,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '50',
+             'autoincrement' => false,
              ));
         $this->hasColumn('type', 'string', 50, array(
              'type' => 'string',
+             'length' => 50,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '50',
+             'autoincrement' => false,
              ));
         $this->hasColumn('module', 'string', 20, array(
              'type' => 'string',
+             'length' => 20,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '20',
+             'autoincrement' => false,
              ));
         $this->hasColumn('enabled', 'integer', 1, array(
              'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
              'notnull' => true,
-             'length' => '1',
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('config', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
@@ -82,12 +115,10 @@ abstract class BaseSettingsParameters extends Doctrine_Record
         parent::setUp();
         $this->hasOne('SettingsGroups', array(
              'local' => 'group_id',
-             'foreign' => 'group_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'group_id'));
 
-        $this->hasOne('Settings', array(
+        $this->hasMany('Settings', array(
              'local' => 'parameter_id',
-             'foreign' => 'parameter_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'parameter_id'));
     }
 }

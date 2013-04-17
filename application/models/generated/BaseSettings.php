@@ -26,36 +26,37 @@ abstract class BaseSettings extends Doctrine_Record
         $this->setTableName('settings');
         $this->hasColumn('setting_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('parameter_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('value', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '',
              ));
     }
 
@@ -64,12 +65,10 @@ abstract class BaseSettings extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Isp', array(
              'local' => 'isp_id',
-             'foreign' => 'isp_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'isp_id'));
 
         $this->hasOne('SettingsParameters', array(
              'local' => 'parameter_id',
-             'foreign' => 'parameter_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'parameter_id'));
     }
 }

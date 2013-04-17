@@ -26,47 +26,47 @@ abstract class BasePaymentsResources extends Doctrine_Record
         $this->setTableName('payments_resources');
         $this->hasColumn('resource_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('resource', 'string', 50, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 50,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '50',
              ));
         $this->hasColumn('bank_account', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
-             'length' => '',
              ));
         $this->hasColumn('beginning_balance', 'float', 10, array(
              'type' => 'float',
-             'fixed' => 0,
+             'length' => 10,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'default' => '0.00',
              'notnull' => false,
-             'default' => 0,
              'autoincrement' => false,
-             'length' => '10',
              ));
         $this->hasColumn('method_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
     }
 

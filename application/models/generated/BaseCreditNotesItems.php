@@ -28,40 +28,67 @@ abstract class BaseCreditNotesItems extends Doctrine_Record
         $this->setTableName('credit_notes_items');
         $this->hasColumn('creditnoteitem_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('creditnote_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('vat', 'float', 10, array(
              'type' => 'float',
-             'notnull' => true,
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => true,
+             'autoincrement' => false,
              ));
         $this->hasColumn('price', 'float', 10, array(
              'type' => 'float',
-             'notnull' => true,
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => true,
+             'autoincrement' => false,
              ));
         $this->hasColumn('total', 'float', 10, array(
              'type' => 'float',
-             'notnull' => true,
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => true,
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('quantity', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

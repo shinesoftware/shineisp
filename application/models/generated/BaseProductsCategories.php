@@ -13,15 +13,15 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsCategories', 'doctrine')
  * @property string $uri
  * @property string $googlecategs
  * @property integer $parent
- * @property boolean $enabled
- * @property boolean $show_in_menu
+ * @property integer $enabled
+ * @property integer $show_in_menu
  * @property string $keywords
  * @property string $blocks
  * @property integer $position
  * @property integer $externalid
  * @property string $custom
- * @property Doctrine_Collection $Wikilinks
  * @property Doctrine_Collection $UrlRewrite
+ * @property Doctrine_Collection $WikiLinks
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -35,78 +35,129 @@ abstract class BaseProductsCategories extends Doctrine_Record
         $this->setTableName('products_categories');
         $this->hasColumn('category_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
+             'length' => 200,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '200',
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('uri', 'string', 150, array(
              'type' => 'string',
+             'length' => 150,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '150',
+             'autoincrement' => false,
              ));
         $this->hasColumn('googlecategs', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('parent', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0',
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('enabled', 'boolean', 25, array(
-             'type' => 'boolean',
+        $this->hasColumn('enabled', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
-             'length' => '25',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('show_in_menu', 'boolean', 25, array(
-             'type' => 'boolean',
+        $this->hasColumn('show_in_menu', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
-             'length' => '25',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('keywords', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('blocks', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('position', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('externalid', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('custom', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Wikilinks', array(
+        $this->hasMany('UrlRewrite', array(
              'local' => 'category_id',
              'foreign' => 'category_id'));
 
-        $this->hasMany('UrlRewrite', array(
+        $this->hasMany('WikiLinks', array(
              'local' => 'category_id',
              'foreign' => 'category_id'));
     }

@@ -24,16 +24,20 @@ abstract class BaseAdminRoles extends Doctrine_Record
         $this->setTableName('admin_roles');
         $this->hasColumn('role_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
     }
 

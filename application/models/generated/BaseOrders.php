@@ -12,8 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property string $external_id
  * @property integer $isp_id
  * @property date $order_date
- * @property boolean $is_renewal
- * @property boolean $is_upgrade
+ * @property integer $is_renewal
  * @property integer $status_id
  * @property float $total
  * @property float $cost
@@ -23,8 +22,8 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property date $expiring_date
  * @property string $note
  * @property Customers $Customers
+ * @property Doctrine_Collection $Invoices
  * @property Isp $Isp
- * @property Invoices $Invoices
  * @property Statuses $Statuses
  * @property Doctrine_Collection $Messages
  * @property Doctrine_Collection $OrdersItems
@@ -44,81 +43,131 @@ abstract class BaseOrders extends Doctrine_Record
         $this->setTableName('orders');
         $this->hasColumn('order_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('external_id', 'string', 50, array(
              'type' => 'string',
+             'length' => 50,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '50',
+             'autoincrement' => false,
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('order_date', 'date', 25, array(
+        $this->hasColumn('order_date', 'date', null, array(
              'type' => 'date',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('is_renewal', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
-             ));
-        $this->hasColumn('is_upgrade', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
+        $this->hasColumn('is_renewal', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
-             'length' => '4',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('total', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('cost', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
-             'length' => '10',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('vat', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('grandtotal', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('invoice_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('expiring_date', 'date', 25, array(
+        $this->hasColumn('expiring_date', 'date', null, array(
              'type' => 'date',
-             'length' => '25',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
@@ -127,17 +176,15 @@ abstract class BaseOrders extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'Cascade'));
+             'foreign' => 'customer_id'));
+
+        $this->hasMany('Invoices', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id'));
 
         $this->hasOne('Isp', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
-
-        $this->hasOne('Invoices', array(
-             'local' => 'invoice_id',
-             'foreign' => 'invoice_id',
-             'onDelete' => 'Cascade'));
 
         $this->hasOne('Statuses', array(
              'local' => 'status_id',

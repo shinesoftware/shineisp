@@ -16,10 +16,10 @@ Doctrine_Manager::getInstance()->bindComponent('Messages', 'doctrine');
  * @property integer $order_id
  * @property integer $detail_id
  * @property Customers $Customers
- * @property Domains $Domains
  * @property OrdersItems $OrdersItems
- * @property Orders $Orders
+ * @property Domains $Domains
  * @property Isp $Isp
+ * @property Orders $Orders
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -33,69 +33,72 @@ abstract class BaseMessages extends Doctrine_Record
         $this->setTableName('messages');
         $this->hasColumn('message_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
-        $this->hasColumn('dateposted', 'timestamp', 25, array(
+        $this->hasColumn('dateposted', 'timestamp', null, array(
              'type' => 'timestamp',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '25',
              ));
         $this->hasColumn('message', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
-             'length' => '',
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('domain_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('order_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('detail_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
     }
 
@@ -104,27 +107,22 @@ abstract class BaseMessages extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'CASCADE'));
-
-        $this->hasOne('Domains', array(
-             'local' => 'domain_id',
-             'foreign' => 'domain_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'customer_id'));
 
         $this->hasOne('OrdersItems', array(
              'local' => 'detail_id',
-             'foreign' => 'detail_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'detail_id'));
 
-        $this->hasOne('Orders', array(
-             'local' => 'order_id',
-             'foreign' => 'order_id',
-             'onDelete' => 'CASCADE'));
+        $this->hasOne('Domains', array(
+             'local' => 'domain_id',
+             'foreign' => 'domain_id'));
 
         $this->hasOne('Isp', array(
              'local' => 'isp_id',
-             'foreign' => 'isp_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'isp_id'));
+
+        $this->hasOne('Orders', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id'));
     }
 }

@@ -9,14 +9,13 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsTranches', 'doctrine');
  * 
  * @property integer $tranche_id
  * @property integer $quantity
- * @property float $setupfee
  * @property float $price
  * @property integer $product_id
  * @property integer $billing_cycle_id
  * @property string $measurement
- * @property boolean $selected
- * @property Products $Products
+ * @property integer $selected
  * @property BillingCycle $BillingCycle
+ * @property Products $Products
  * @property Doctrine_Collection $ProductsTranchesIncludes
  * 
  * @package    ##PACKAGE##
@@ -31,59 +30,78 @@ abstract class BaseProductsTranches extends Doctrine_Record
         $this->setTableName('products_tranches');
         $this->hasColumn('tranche_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('quantity', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
-             ));
-        $this->hasColumn('setupfee', 'float', 10, array(
-             'type' => 'float',
-             'default' => '0.00',
-             'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('price', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('billing_cycle_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('measurement', 'string', 50, array(
              'type' => 'string',
-             'length' => '50',
+             'length' => 50,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('selected', 'boolean', 25, array(
-             'type' => 'boolean',
-             'length' => '25',
+        $this->hasColumn('selected', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Products', array(
-             'local' => 'product_id',
-             'foreign' => 'product_id',
-             'onDelete' => 'CASCADE'));
-
         $this->hasOne('BillingCycle', array(
              'local' => 'billing_cycle_id',
              'foreign' => 'billing_cycle_id'));
+
+        $this->hasOne('Products', array(
+             'local' => 'product_id',
+             'foreign' => 'product_id'));
 
         $this->hasMany('ProductsTranchesIncludes', array(
              'local' => 'tranche_id',

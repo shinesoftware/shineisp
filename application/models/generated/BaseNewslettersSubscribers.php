@@ -26,23 +26,37 @@ abstract class BaseNewslettersSubscribers extends Doctrine_Record
         $this->setTableName('newsletters_subscribers');
         $this->hasColumn('subscriber_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
-        $this->hasColumn('subscriptiondate', 'timestamp', 25, array(
+        $this->hasColumn('subscriptiondate', 'timestamp', null, array(
              'type' => 'timestamp',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '25',
+             'autoincrement' => false,
              ));
         $this->hasColumn('email', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
@@ -51,8 +65,7 @@ abstract class BaseNewslettersSubscribers extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'customer_id'));
 
         $this->hasMany('NewslettersHistory', array(
              'local' => 'subscriber_id',

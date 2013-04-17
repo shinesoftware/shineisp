@@ -12,8 +12,8 @@ Doctrine_Manager::getInstance()->bindComponent('Contacts', 'doctrine');
  * @property integer $type_id
  * @property integer $base
  * @property integer $customer_id
- * @property ContactsTypes $ContactsTypes
  * @property Customers $Customers
+ * @property ContactsTypes $ContactsTypes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -27,58 +27,60 @@ abstract class BaseContacts extends Doctrine_Record
         $this->setTableName('contacts');
         $this->hasColumn('contact_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('contact', 'string', 100, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 100,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '100',
              ));
         $this->hasColumn('type_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('base', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 1,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'default' => '0',
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '1',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '4',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Customers', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
         $this->hasOne('ContactsTypes', array(
              'local' => 'type_id',
              'foreign' => 'type_id'));
-
-        $this->hasOne('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'CASCADE'));
     }
 }

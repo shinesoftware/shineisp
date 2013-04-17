@@ -10,7 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('ServersGroups', 'doctrine');
  * @property integer $group_id
  * @property string $name
  * @property integer $fill_type
- * @property boolean $active
+ * @property integer $active
  * @property Doctrine_Collection $Products
  * 
  * @package    ##PACKAGE##
@@ -25,26 +25,39 @@ abstract class BaseServersGroups extends Doctrine_Record
         $this->setTableName('servers_groups');
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 100, array(
              'type' => 'string',
-             'length' => '100',
+             'length' => 100,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('fill_type', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => true,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('active', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 1,
-             'length' => '25',
+        $this->hasColumn('active', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '1',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

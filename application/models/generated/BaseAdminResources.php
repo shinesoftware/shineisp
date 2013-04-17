@@ -9,10 +9,10 @@ Doctrine_Manager::getInstance()->bindComponent('AdminResources', 'doctrine');
  * 
  * @property integer $resource_id
  * @property string $name
- * @property boolean $hidden
- * @property boolean $is_container
- * @property boolean $is_allowed
- * @property boolean $admin
+ * @property integer $hidden
+ * @property integer $is_container
+ * @property integer $is_allowed
+ * @property integer $admin
  * @property string $module
  * @property string $controller
  * @property integer $parent_id
@@ -30,48 +30,87 @@ abstract class BaseAdminResources extends Doctrine_Record
         $this->setTableName('admin_resources');
         $this->hasColumn('resource_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 250, array(
              'type' => 'string',
-             'length' => '250',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('hidden', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
+        $this->hasColumn('hidden', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('is_container', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
+        $this->hasColumn('is_container', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('is_allowed', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
+        $this->hasColumn('is_allowed', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('admin', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
+        $this->hasColumn('admin', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('module', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('controller', 'string', 250, array(
              'type' => 'string',
-             'length' => '250',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('parent_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

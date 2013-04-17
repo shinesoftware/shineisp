@@ -31,47 +31,82 @@ abstract class BaseAddresses extends Doctrine_Record
         $this->setTableName('addresses');
         $this->hasColumn('address_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('address', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('city', 'string', 150, array(
              'type' => 'string',
+             'length' => 150,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '150',
+             'autoincrement' => false,
              ));
         $this->hasColumn('code', 'string', 20, array(
              'type' => 'string',
+             'length' => 20,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '20',
+             'autoincrement' => false,
              ));
         $this->hasColumn('country_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('area', 'string', 100, array(
              'type' => 'string',
-             'length' => '100',
+             'length' => 100,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('latitude', 'string', 20, array(
              'type' => 'string',
-             'length' => '20',
+             'length' => 20,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('longitude', 'string', 20, array(
              'type' => 'string',
-             'length' => '20',
+             'length' => 20,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
@@ -84,7 +119,6 @@ abstract class BaseAddresses extends Doctrine_Record
 
         $this->hasOne('Customers', array(
              'local' => 'customer_id',
-             'foreign' => 'customer_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'customer_id'));
     }
 }

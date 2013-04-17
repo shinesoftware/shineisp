@@ -13,8 +13,8 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTldsData', 'doctrine');
  * @property string $name
  * @property string $description
  * @property string $tags
- * @property DomainsTlds $DomainsTlds
  * @property Languages $Languages
+ * @property DomainsTlds $DomainsTlds
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -28,47 +28,67 @@ abstract class BaseDomainsTldsData extends Doctrine_Record
         $this->setTableName('domains_tlds_data');
         $this->hasColumn('data_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('tld_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('language_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '1',
              'notnull' => true,
-             'default' => 1,
-             'length' => '4',
+             'autoincrement' => false,
              ));
         $this->hasColumn('name', 'string', 250, array(
              'type' => 'string',
+             'length' => 250,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '250',
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('tags', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Languages', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
         $this->hasOne('DomainsTlds', array(
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
-
-        $this->hasOne('Languages', array(
-             'local' => 'language_id',
-             'foreign' => 'language_id',
-             'onDelete' => 'CASCADE'));
     }
 }

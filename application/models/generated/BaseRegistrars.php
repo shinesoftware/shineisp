@@ -17,10 +17,10 @@ Doctrine_Manager::getInstance()->bindComponent('Registrars', 'doctrine');
  * @property integer $credit
  * @property integer $active
  * @property timestamp $lastupdate
- * @property Doctrine_Collection $DomainsTlds
- * @property Doctrine_Collection $DomainsTasks
  * @property Doctrine_Collection $CustomersDomainsRegistrars
  * @property Doctrine_Collection $Domains
+ * @property Doctrine_Collection $DomainsTasks
+ * @property Doctrine_Collection $DomainsTlds
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -34,94 +34,105 @@ abstract class BaseRegistrars extends Doctrine_Record
         $this->setTableName('registrars');
         $this->hasColumn('registrars_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 200,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '200',
              ));
         $this->hasColumn('wsdl', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 200,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '200',
              ));
         $this->hasColumn('class', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 200,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '200',
              ));
         $this->hasColumn('username', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 200,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '200',
              ));
         $this->hasColumn('password', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
+             'length' => 200,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => '200',
              ));
         $this->hasColumn('testmode', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
-             'default' => '1',
+             'length' => 1,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'default' => '1',
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '1',
              ));
         $this->hasColumn('credit', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
-             'default' => '0',
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'default' => '0',
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '4',
              ));
         $this->hasColumn('active', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
-             'default' => '1',
+             'length' => 1,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => false,
+             'default' => '1',
+             'notnull' => false,
              'autoincrement' => false,
-             'length' => '1',
              ));
-        $this->hasColumn('lastupdate', 'timestamp', 25, array(
+        $this->hasColumn('lastupdate', 'timestamp', null, array(
              'type' => 'timestamp',
-             'length' => '25',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('DomainsTlds', array(
+        $this->hasMany('CustomersDomainsRegistrars', array(
+             'local' => 'registrars_id',
+             'foreign' => 'registrars_id'));
+
+        $this->hasMany('Domains', array(
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
 
@@ -129,11 +140,7 @@ abstract class BaseRegistrars extends Doctrine_Record
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
 
-        $this->hasMany('CustomersDomainsRegistrars', array(
-             'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
-
-        $this->hasMany('Domains', array(
+        $this->hasMany('DomainsTlds', array(
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
     }

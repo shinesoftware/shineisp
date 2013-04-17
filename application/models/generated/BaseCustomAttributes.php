@@ -27,35 +27,56 @@ abstract class BaseCustomAttributes extends Doctrine_Record
         $this->setTableName('custom_attributes');
         $this->hasColumn('attribute_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('var', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
+             'autoincrement' => false,
              ));
         $this->hasColumn('label', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
+             'autoincrement' => false,
              ));
         $this->hasColumn('type', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
+             'autoincrement' => false,
              ));
         $this->hasColumn('section', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('panel_id', 'integer', 11, array(
+        $this->hasColumn('panel_id', 'integer', 8, array(
              'type' => 'integer',
-             'length' => '11',
+             'length' => 8,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

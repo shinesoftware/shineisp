@@ -10,7 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('Panels', 'doctrine');
  * @property integer $panel_id
  * @property string $name
  * @property integer $isp_id
- * @property boolean $active
+ * @property integer $active
  * @property Isp $Isp
  * @property Doctrine_Collection $PanelsActions
  * @property Doctrine_Collection $Servers
@@ -27,25 +27,38 @@ abstract class BasePanels extends Doctrine_Record
         $this->setTableName('panels');
         $this->hasColumn('panel_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '255',
+             'autoincrement' => false,
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('active', 'boolean', 25, array(
-             'type' => 'boolean',
-             'length' => '25',
+        $this->hasColumn('active', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 

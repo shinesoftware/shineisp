@@ -13,10 +13,10 @@ Doctrine_Manager::getInstance()->bindComponent('UrlRewrite', 'doctrine');
  * @property string $request_path
  * @property string $target_path
  * @property string $description
- * @property boolean $temporary
+ * @property integer $temporary
  * @property timestamp $date_added
- * @property Products $Products
  * @property ProductsCategories $ProductsCategories
+ * @property Products $Products
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -30,49 +30,82 @@ abstract class BaseUrlRewrite extends Doctrine_Record
         $this->setTableName('url_rewrite');
         $this->hasColumn('url_rewrite_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('product_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('category_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('request_path', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('target_path', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('temporary', 'boolean', 25, array(
-             'type' => 'boolean',
-             'length' => '25',
+        $this->hasColumn('temporary', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('date_added', 'timestamp', 25, array(
+        $this->hasColumn('date_added', 'timestamp', null, array(
              'type' => 'timestamp',
-             'length' => '25',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Products', array(
-             'local' => 'product_id',
-             'foreign' => 'product_id'));
-
         $this->hasOne('ProductsCategories', array(
              'local' => 'category_id',
              'foreign' => 'category_id'));
+
+        $this->hasOne('Products', array(
+             'local' => 'product_id',
+             'foreign' => 'product_id'));
     }
 }

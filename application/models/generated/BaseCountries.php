@@ -26,32 +26,48 @@ abstract class BaseCountries extends Doctrine_Record
         $this->setTableName('countries');
         $this->hasColumn('country_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
+             'length' => 200,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '200',
+             'autoincrement' => false,
              ));
         $this->hasColumn('code', 'string', 10, array(
              'type' => 'string',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('tld', 'string', 10, array(
              'type' => 'string',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('enabled', 'integer', 1, array(
              'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
              'notnull' => true,
-             'length' => '1',
+             'autoincrement' => false,
              ));
     }
 

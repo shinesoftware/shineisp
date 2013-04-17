@@ -9,8 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTlds', 'doctrine');
  * 
  * @property integer $tld_id
  * @property integer $server_id
- * @property boolean $ishighlighted
- * @property boolean $isrefundable
+ * @property integer $ishighlighted
  * @property float $registration_price
  * @property float $transfer_price
  * @property float $renewal_price
@@ -20,11 +19,11 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTlds', 'doctrine');
  * @property integer $registrars_id
  * @property integer $tax_id
  * @property Registrars $Registrars
- * @property Taxes $Taxes
  * @property WhoisServers $WhoisServers
- * @property Doctrine_Collection $DomainsTldsData
- * @property Doctrine_Collection $DomainsBulk
+ * @property Taxes $Taxes
  * @property Doctrine_Collection $Domains
+ * @property Doctrine_Collection $DomainsBulk
+ * @property Doctrine_Collection $DomainsTldsData
  * @property Doctrine_Collection $OrdersItems
  * 
  * @package    ##PACKAGE##
@@ -39,68 +38,108 @@ abstract class BaseDomainsTlds extends Doctrine_Record
         $this->setTableName('domains_tlds');
         $this->hasColumn('tld_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('server_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '4',
+             'autoincrement' => false,
              ));
-        $this->hasColumn('ishighlighted', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
-             ));
-        $this->hasColumn('isrefundable', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
+        $this->hasColumn('ishighlighted', 'integer', 1, array(
+             'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('registration_price', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('transfer_price', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('renewal_price', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('registration_cost', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('transfer_cost', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('renewal_cost', 'float', 10, array(
              'type' => 'float',
+             'length' => 10,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0.00',
              'notnull' => true,
-             'length' => '10',
+             'autoincrement' => false,
              ));
         $this->hasColumn('registrars_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('tax_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
@@ -111,15 +150,15 @@ abstract class BaseDomainsTlds extends Doctrine_Record
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
 
-        $this->hasOne('Taxes', array(
-             'local' => 'tax_id',
-             'foreign' => 'tax_id'));
-
         $this->hasOne('WhoisServers', array(
              'local' => 'server_id',
              'foreign' => 'server_id'));
 
-        $this->hasMany('DomainsTldsData', array(
+        $this->hasOne('Taxes', array(
+             'local' => 'tax_id',
+             'foreign' => 'tax_id'));
+
+        $this->hasMany('Domains', array(
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
 
@@ -127,7 +166,7 @@ abstract class BaseDomainsTlds extends Doctrine_Record
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
 
-        $this->hasMany('Domains', array(
+        $this->hasMany('DomainsTldsData', array(
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
 

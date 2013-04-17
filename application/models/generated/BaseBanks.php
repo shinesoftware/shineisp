@@ -32,56 +32,91 @@ abstract class BaseBanks extends Doctrine_Record
         $this->setTableName('banks');
         $this->hasColumn('bank_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
+             'length' => 4,
+             'fixed' => false,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
-             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 50, array(
              'type' => 'string',
+             'length' => 50,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '50',
+             'autoincrement' => false,
              ));
         $this->hasColumn('classname', 'string', 100, array(
              'type' => 'string',
+             'length' => 100,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => true,
-             'length' => '100',
+             'autoincrement' => false,
              ));
         $this->hasColumn('account', 'string', 50, array(
              'type' => 'string',
+             'length' => 50,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '50',
+             'autoincrement' => false,
              ));
         $this->hasColumn('url_test', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('url_official', 'string', null, array(
              'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'notnull' => false,
-             'length' => '',
+             'autoincrement' => false,
              ));
         $this->hasColumn('test_mode', 'integer', 1, array(
              'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '1',
              'notnull' => true,
-             'length' => '1',
+             'autoincrement' => false,
              ));
         $this->hasColumn('enabled', 'integer', 1, array(
              'type' => 'integer',
+             'length' => 1,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
              'default' => '0',
              'notnull' => false,
-             'length' => '1',
+             'autoincrement' => false,
              ));
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'length' => '',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
         $this->hasColumn('method_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => '4',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
              ));
     }
 
