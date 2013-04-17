@@ -414,7 +414,7 @@ class Products extends BaseProducts {
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
 							
 							if( $monthBilling > 0 ) {
-								$priceToPay				= ( $tranches[0]['price'] + $trance[0]['setupfee'] )* $monthBilling;
+								$priceToPay				= ( $tranches[0]['price'] )* $monthBilling;
 								$priceToPayWithRefund	= $priceToPay - $refund;
 								if( $priceToPayWithRefund < 0 ) {
 									$priceToPayWithRefund	= $priceToPay;
