@@ -697,8 +697,19 @@ class Products extends BaseProducts {
 								->where ( 'p.product_id = ?', $id );
 								
 		$product = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		
+        
 		if (isset ( $product [0] )) {
+            if( array_key_exists('ProductsTranches',$product[0]) ) {
+                $tranches       =  $product[0]['ProductsTranches'];
+                $tranchesIndex  = array();
+                foreach( $tranches as $tranche ) {
+                    $tranchesIndex[$tranche['tranche_id']]  = $tranche;
+                }
+    
+                unset($product[0]['ProductsTranches']);
+                $product[0]['ProductsTranches']    = $tranchesIndex;
+            }		    
+                
 			// Handle the Attributes Values
 			if (! empty ( $product [0] ['ProductsAttributesIndexes'] )) {
 				$attributes = $product [0] ['ProductsAttributesIndexes'];

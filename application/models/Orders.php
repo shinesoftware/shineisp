@@ -1065,7 +1065,7 @@ class Orders extends BaseOrders {
 						
 						//$item['price'] 		= $product['price_1'] * $qty; 
 						$item['price'] 		= $tranche['price'] * $qty;
-						$item['setupfee'] 	= $tranche ['setupfee'];
+						$item['setupfee'] 	= $tranche['setupfee'];
 						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
 					}else{
 						$item['date_end'] 	= null;
