@@ -473,6 +473,7 @@ ContactsTypes:
       local: type_id
       foreign: type_id
       type: many
+
 Countries:
   connection: doctrine
   tableName: countries
@@ -501,6 +502,7 @@ Countries:
       local: country_id
       foreign: country_id
       type: many
+
 CreditNotes:
   connection: doctrine
   tableName: credit_notes
@@ -540,6 +542,7 @@ CreditNotes:
       local: creditnote_id
       foreign: creditnote_id
       type: many
+
 CreditNotesItems:
   connection: doctrine
   tableName: credit_notes_items
@@ -570,6 +573,7 @@ CreditNotesItems:
       local: creditnote_id
       foreign: creditnote_id
       type: one
+
 CustomAttributes:
   connection: doctrine
   tableName: custom_attributes
@@ -1147,6 +1151,115 @@ DomainsTldsData:
     Languages:
       local: language_id
       foreign: language_id
+      onDelete: CASCADE
+      
+EmailsTemplates:
+  connection: doctrine
+  tableName: emails_templates
+  columns:
+    template_id:
+      type: integer(5)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    type:
+      type: enum
+      values: ['products', 'domains', 'supports', 'general', 'invoices', 'affiliates', 'customers', 'orders']      
+    code:
+      type: string(150)
+    name:
+      type: string(150)
+    fromname:
+      type: string(150)
+    fromemail:
+      type: string(150)
+    cc:
+      type: string(150)
+    bcc:
+      type: string(150)
+    plaintext:
+      type: boolean(25)
+      default: '0'
+    active:
+      type: boolean(25)      
+      default: '1'
+  relations:
+    EmailsTemplatesData:
+      local: template_id
+      foreign: template_id
+      type: many
+      onDelete: CASCADE
+      
+EmailsTemplatesData:
+  connection: doctrine
+  tableName: emails_templates_data
+  columns:
+    id:
+      type: integer(5)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    template_id:
+      type: integer(5)
+      unsigned: true
+    language_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+    fromname:
+      type: string(150)
+    fromemail:
+      type: string(150)
+    subject:
+      type: string(150)
+    html:
+      type: string()
+      notnull: false
+    text:
+      type: string()
+      notnull: false
+  relations:
+    EmailsTemplates:
+      local: template_id
+      foreign: template_id
+      type: one
+      
+EmailsTemplatesSends:
+  connection: doctrine
+  tableName: emails_templates_sends
+  columns:
+    id:
+      type: integer(5)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    customer_id:
+      type: integer(4)
+      unsigned: false
+    fromname:
+      type: string(150)
+    fromname:
+      type: string(150)
+    subject:
+      type: string(150)
+    recipient:
+      type: string(150)
+    cc:
+      type: string(150)
+    bcc:
+      type: string(150)
+    html:
+      type: string()
+    text:
+      type: string()
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      type: one
       onDelete: CASCADE
       
 Fastlinks:
