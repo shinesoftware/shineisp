@@ -673,7 +673,9 @@ class CartController extends Zend_Controller_Action {
 						$cost = $product ['isavailable'] ? $domain ['registration_cost'] : $domain ['transfer_cost'];
                         
                         // Check if domain include in a hosting
-                        $hosting    = $this->checkIfDomainIncluse( $product['domain_selected']);
+                        if( $this->checkIfDomainIncluse( $product['domain_selected']) != false ) {
+                            $price  = 0;
+                        }
 						// Create the order item for the domain
 						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'], 'hosting' => $hosting ) );
 					
