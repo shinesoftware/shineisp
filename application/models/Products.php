@@ -203,8 +203,8 @@ class Products extends BaseProducts {
 				$products->uri             = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
 				$products->sku             = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
 				$products->cost            = $params ['cost'];
-				$products->price_1         = $params ['price_1'];
-				$products->setupfee        = $params ['setupfee'];
+                // $products->price_1         = $params ['price_1'];
+				// $products->setupfee        = $params ['setupfee'];
 				$products->enabled         = $params ['enabled'] == 1 ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
@@ -250,7 +250,14 @@ class Products extends BaseProducts {
 				// Create the price tranches
 				if (! empty ( $params ['tranche_qty'] ) && ! empty ( $params ['tranche_measure'] ) && ! empty ( $params ['tranche_price'] )) {
 					$params['tranche_setupfee'] = (isset($params['tranche_setupfee'])) ? $params['tranche_setupfee'] : 0;
-					ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
+					$tranches  = ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
+                    
+                    $idtranches = $tranches['tranche_id'];
+                    
+                    //ProductsTranchesIncludes::save()
+                    echo '<pre>';
+                    var_dump($idtranches);
+                    die();
 				}
 				
 				// Attach the wiki pages to a product
@@ -267,7 +274,7 @@ class Products extends BaseProducts {
 				if(!empty($params ['upgrade'])){
 					self::AddUpgradeProducts ( $product_id, $params ['upgrade'] );
 				}
-				
+                
 				
 				// Before to get the Values of the form I upload the files in the folders
 				if (! empty ( $file )) {

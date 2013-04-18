@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsTranchesIncludes', 'doct
  * 
  * @property integer $tranche_id
  * @property integer $include_id
+ * @property string $category
  * @property Products $Products
  * @property ProductsTranches $ProductsTranches
  * 
@@ -35,6 +36,11 @@ abstract class BaseProductsTranchesIncludes extends Doctrine_Record
              'primary' => true,
              'autoincrement' => false,
              'length' => '4',
+             ));
+        $this->hasColumn('category', 'string', 150, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '150',
              ));
     }
 

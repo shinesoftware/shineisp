@@ -92,12 +92,12 @@
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->tranches) ?>
 	            <div id="trancheform">
-	            	<div id="trancheOperationTitle"><?=$this->translate('Insert new billing')?></div>
 	                <?php echo $form->tranche_qty->render()?>
 	                <?php echo $form->tranche_billing_cycle_id->render()?>
 	                <?php echo $form->tranche_setupfee->render()?>
 	                <?php echo $form->tranche_price->render()?>
 	                <?php echo $form->tranche_measure->render()?>
+	                <?php echo $form->tranche_includes_domains->render()?>
 	            </div>
 	        </fieldset>
 	        <div class="clear"></div>
