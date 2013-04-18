@@ -255,7 +255,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$rs['related'] = ProductsRelated::getItemsbyProductID($rs ['product_id']);
 				//add panel for select upgrade
 				$rs['upgrade'] = ProductsUpgrades::getItemsbyProductID($rs ['product_id']);
-				
+                
 				// Get the wiki pages attached to the product selected
 				$rs['wikipages'] =	Wikilinks::getWikiPagesList($rs ['product_id'], "products", $this->session->langid);
 				
@@ -275,7 +275,17 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$tranches = ProductsTranches::getTranches ( $id, "tranche_id, quantity, measurement, setupfee, price, bc.name as billingcycle, selected" );
 				if (isset ( $tranches [0] )) {
 					$onclick	= array();
-					
+                    
+                    foreach( $tranches as &$tranche ) {
+                        $trancheid  = $tranche['tranche_id'];
+                        $include    = ProductsTranchesIncludes::getIncludeForTrancheId( $trancheid );
+                        $textInclude    = array();
+                        if( array_key_exists('domains', $include) ) {
+                            $textInclude[]    = "Domains: ".implode(", ",$include['domains']);
+                        }
+                        $tranche['include']    = implode("<br/>",$textInclude);
+                    }
+                    
 					$this->view->tranches = array (
 												 'records' 	=> $tranches
 												,'actions' 	=> array ( '/admin/products/setdefaultrance/id/' => 'Set as default')

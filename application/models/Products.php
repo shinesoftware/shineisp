@@ -255,20 +255,12 @@ class Products extends BaseProducts {
                     $trancheid = $tranches['tranche_id'];
                     
                     if(!empty($params['tranche_includes_domains'])){
-                        foreach( $params['tranche_includes_domains'] as $include ) {
-                            $p              = array();
-                            $p['category']  = 'domain';
-                            ProductsTranchesIncludes::save($trancheid,$p);
+                        foreach( $params['tranche_includes_domains'] as $includeid ) {
+                            ProductsTranchesIncludes::saveAll($trancheid,$includeid,'DomainsTlds');
                         }
-                        
-                 }
-                        // 
-//                        
-                    // echo '<pre>';
-                    // var_dump($idtranches);
-                    // die();
+                    }
+                    
 				}
-                die();
 				
 				// Attach the wiki pages to a product
 				if(!empty($params['wikipages'])){
