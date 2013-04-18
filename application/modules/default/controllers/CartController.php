@@ -205,7 +205,27 @@ class CartController extends Zend_Controller_Action {
 		}
 		$this->_helper->redirector ( 'index', 'index', 'default' );
 	}
-	
+
+    private function findHostingWithoutSite( ) {
+        $NS = new Zend_Session_Namespace ( 'Default' );
+     
+        $lastproduct    = "";
+        if( isset( $NS->cart->lastproduct ) ) {
+            $lastproduct    = $NS->cart->lastproduct;
+        }   
+        
+        foreach( $NS->cart->products as $key => $products ) {
+            if( $products['type'] == 'hosting' ) {
+                if( $products['uri'] == $lastproduct && ( ! isset($products['domain']) || $products['domain'] != false ) ) {
+                    return array( 'key' => $key, 'value' => $products );
+                } elseif( ! isset($products['domain']) || $products['domain'] != false ) {
+                    return array( 'key' => $key, 'value' => $products );
+                }
+            }
+        }
+        
+        return false;
+    }
 	/*
      * Check the domain availability
      */
@@ -236,15 +256,37 @@ class CartController extends Zend_Controller_Action {
 					
 					// Adding the name of the product in the cart sidebar
 					$completeproduct ['tld_id'] = $tldInfo ['tld_id'];
-					$completeproduct ['domain_selected'] = strtolower ( $NS->cart->domain );
-					$completeproduct ['domain_action'] = "transferDomain";
-					$completeproduct ['quantity'] = 1;
-					$completeproduct ['billingid'] = 3;
-					$completeproduct ['name'] = $tldInfo ['DomainsTldsData'] [0] ['name'];
-					$completeproduct ['description'] = $tldInfo ['DomainsTldsData'] [0] ['description'];
-					$completeproduct ['shortdescription'] = $tldInfo ['DomainsTldsData'] [0] ['description'];
-					$completeproduct ['price_1'] = $tldInfo ['transfer_price'];
-					$completeproduct ['tax_id'] = $tldInfo ['tax_id'];
+					$completeproduct ['domain_selected']   = strtolower ( $NS->cart->domain );
+					$completeproduct ['domain_action']     = "transferDomain";
+					$completeproduct ['quantity']          = 1;
+					$completeproduct ['billingid']         = 3;
+					$completeproduct ['name']              = $tldInfo ['DomainsTldsData'] [0] ['name'];
+					$completeproduct ['description']       = $tldInfo ['DomainsTldsData'] [0] ['description'];
+					$completeproduct ['shortdescription']  = $tldInfo ['DomainsTldsData'] [0] ['description'];
+                    
+                    
+                    $completeproduct ['price_1']    = $tldInfo ['transfer_price'];
+                    $completeproduct ['tax_id']     = $tldInfo ['tax_id'];
+                    $completeproduct ['hosting']    = false;
+
+                    //Check if in the cart there is a hosting without site
+                    $hosting    = $this->findHostingWithoutSite();
+                    //If find it, check if domains is incluse in hosting price.
+                    if( $hosting != false ) {
+                        $trancheid  = $hosting['value']['trancheid'];
+                        $includes   = ProductsTranchesIncludes::getIncludeForTrancheId( $trancheid );
+                        if( ! empty($includes) && array_key_exists('domains', $includes) ) {
+                            if( in_array($tldInfo['name'], $includes['domains']) ) {
+                                $completeproduct ['price_1']    = 0;
+                                $completeproduct ['tax_id']     = 0;
+                                
+                                $key    = $hosting['key'];
+                                $NS->cart->products[$key]['site']   = $params ['domain'] . "." . $tldInfo ['DomainsTldsData'] [0] ['name'];                                
+                            }
+                        }
+                    }
+                    
+                    
 					$completeproduct ['type'] = "domain";
 					$completeproduct ['setupfee'] = 0;
 					$completeproduct ['isavailable'] = 0;
@@ -257,8 +299,6 @@ class CartController extends Zend_Controller_Action {
 				}
 			
 			} else { // If the domain is still free and the customer needs to register it then ...
-				
-
 				$strDomain = $params ['domain'] . "." . $tldInfo ['DomainsTldsData'] [0] ['name'];
 				
 				// Check if the domain is still free
@@ -266,7 +306,6 @@ class CartController extends Zend_Controller_Action {
 				
 				if ($result) { // If it is free
 					
-
 					// Add the domain in the session variable
 					$NS->cart->domain = $params ['domain'] . "." . $tldInfo ['DomainsTldsData'] [0] ['name'];
 					
@@ -281,6 +320,23 @@ class CartController extends Zend_Controller_Action {
 					$completeproduct ['shortdescription'] = $tldInfo ['DomainsTldsData'] [0] ['description'];
 					$completeproduct ['price_1'] = $tldInfo ['registration_price'];
 					$completeproduct ['tax_id'] = $tldInfo ['tax_id'];
+                    
+                    //Check if in ther cart there is a hosting without site
+                    $hosting    = $this->findHostingWithoutSite();
+                    //If find it, check if domains is incluse in hosting price.
+                    if( $hosting != false ) {
+                        $trancheid  = $hosting['trancheid'];
+                        $includes   = ProductsTranchesIncludes::getIncludeForTrancheId( $trancheid );
+                        if( ! empty($includes) && array_key_exists('domains', $includes) ) {
+                            if( in_array($tldInfo['name'], $includes['domains']) ) {
+                                $completeproduct ['price_1']    = 0;
+                                $completeproduct ['tax_id']     = 0;
+                            }
+                            
+                        }
+                    }
+                    //////
+                                        
 					$completeproduct ['type'] = "domain";
 					$completeproduct ['setupfee'] = 0;
 					$completeproduct ['isavailable'] = 1;
@@ -538,6 +594,17 @@ class CartController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 	}
+
+    private function checkIfDomainIncluse( $nameDomain ){
+        $NS = new Zend_Session_Namespace ( 'Default' );
+        foreach ( $NS->cart->products as $product ) {
+            if( $product['type'] == 'hosting' && isset($product['site']) && $product['site'] == $nameDomain ) {
+                return $product;
+            }
+        }
+        
+        return false;
+    }
 	
 	/*
      * Request the payment of the order
@@ -604,9 +671,11 @@ class CartController extends Zend_Controller_Action {
 						$action = $product ['isavailable'] ? "registerDomain" : "transferDomain";
 						$price = $product ['isavailable'] ? $domain ['registration_price'] : $domain ['transfer_price'];
 						$cost = $product ['isavailable'] ? $domain ['registration_cost'] : $domain ['transfer_cost'];
-						
+                        
+                        // Check if domain include in a hosting
+                        $hosting    = $this->checkIfDomainIncluse( $product['domain_selected']);
 						// Create the order item for the domain
-						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'] ) );
+						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'], 'hosting' => $hosting ) );
 					
 					} else {
 						// Create the order item for other products
@@ -704,13 +773,16 @@ class CartController extends Zend_Controller_Action {
 		
 		// If the product is a domain delete the temporary session domain information
 		if (! empty ( $params ['tld'] )) {
-			foreach ( $products as $product ) {
-				if (! empty ( $product ['domain_selected'] ) && $product ['domain_selected'] == $params ['tld']) {
+			foreach ( $products as $key => $product ) {
+			    #Delete domain in hosting if is incluse
+                if (! empty ( $product ['domain_selected'] ) && $product ['domain_selected'] == $params ['tld']) {
 					unset ( $products [$index] );  // Delete the product from the session cart 
 					$NS->cart->products = array_values ( $products );
 					unset ( $NS->cart->domain );
-					break;
-				}
+				} elseif( $products['type'] == 'hosting' && $products['site'] == $params ['tld']) {
+                   unset( $NS->cart->products[$key]['site'] ); 
+                }
+                
 				$index ++;
 			}
 		}

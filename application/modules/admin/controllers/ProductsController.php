@@ -283,6 +283,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
                         if( array_key_exists('domains', $include) ) {
                             $textInclude[]    = "Domains: ".implode(", ",$include['domains']);
                         }
+                        
                         $tranche['include']    = implode("<br/>",$textInclude);
                     }
                     

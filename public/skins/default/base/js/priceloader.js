@@ -10,12 +10,13 @@ $(document).ready(function(){
 		        $('#priceval').empty();
 		        $('#pricetaxval').empty();
 		        $('#pricefreq').empty();
-		        $('#setupfee').empty();
+		        $('#setupfee').empty();		        
 		        $('#priceval').append(pricelbl);
 		        $('#pricetaxval').append(pricetax);
 		        $('#pricefreq').append(data.name);
 		        $('.sticker').fadeIn("slow");
 		        $('#setupfee').append(data.setupfee);
+		        $('#tranche_includes').html(data.includes);
 		    }, 'json');
 		}
 	}		
