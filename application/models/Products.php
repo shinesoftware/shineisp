@@ -252,13 +252,23 @@ class Products extends BaseProducts {
 					$params['tranche_setupfee'] = (isset($params['tranche_setupfee'])) ? $params['tranche_setupfee'] : 0;
 					$tranches  = ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
                     
-                    $idtranches = $tranches['tranche_id'];
+                    $trancheid = $tranches['tranche_id'];
                     
-                    //ProductsTranchesIncludes::save()
-                    echo '<pre>';
-                    var_dump($idtranches);
-                    die();
+                    if(!empty($params['tranche_includes_domains'])){
+                        foreach( $params['tranche_includes_domains'] as $include ) {
+                            $p              = array();
+                            $p['category']  = 'domain';
+                            ProductsTranchesIncludes::save($trancheid,$p);
+                        }
+                        
+                 }
+                        // 
+//                        
+                    // echo '<pre>';
+                    // var_dump($idtranches);
+                    // die();
 				}
+                die();
 				
 				// Attach the wiki pages to a product
 				if(!empty($params['wikipages'])){
