@@ -739,8 +739,9 @@ class Shineisp_Commons_Utilities {
 				foreach ( $bcc as $b ) {
 					$mail->addBcc ( $b );	
 				}
+			} else {
+				$mail->addBcc ( $bcc );
 			}
-			$mail->addBcc ( $bcc );
 		}
 
 		if (! empty ( $cc )) {
@@ -748,8 +749,9 @@ class Shineisp_Commons_Utilities {
 				foreach ( $cc as $c ) {
 					$mail->addCc ( $c );	
 				}
+			} else {
+				$mail->addCc ( $cc );
 			}
-			$mail->addCc ( $cc );
 		}
 		
 		$mail->setSubject ( $subject );
