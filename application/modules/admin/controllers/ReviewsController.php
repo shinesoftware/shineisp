@@ -35,10 +35,6 @@ class Admin_ReviewsController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		Orders::sendOrder(33);
-		die();
-		
-		
 		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/admin/reviews/list' );
 	}
