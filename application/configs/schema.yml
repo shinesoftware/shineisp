@@ -1225,6 +1225,7 @@ EmailsTemplatesData:
       local: template_id
       foreign: template_id
       type: one
+      onDelete: CASCADE
       
 EmailsTemplatesSends:
   connection: doctrine
@@ -2828,7 +2829,7 @@ ProductsTranchesIncludes:
       notnull: true
       primary: true
       autoincrement: false
-    category:
+    type:
       type: string(150)
       notnull: true      
   relations:

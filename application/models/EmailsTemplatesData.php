@@ -13,4 +13,39 @@
 class EmailsTemplatesData extends BaseEmailsTemplatesData
 {
 
+	/**
+	 * Get a record by ID
+	 * 
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function find($id, $fields = "*", $retarray = false, $locale = 1) {
+		$dq = Doctrine_Query::create ()->select ( $fields )
+									->from ( 'EmailsTemplatesData etd' )
+									->where ( "etd.id = ?", $id )
+									->andWhere( 'etd.language_id = ?', $locale)
+									->limit ( 1 );
+		
+		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
+		$record = $dq->execute ( array (), $retarray );
+		return $record;
+	}
+
+	/**
+	 * Get a record by template_id
+	 * 
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function findByTemplateId($id, $fields = "*", $retarray = false, $locale = 1) {
+		$locale = intval($locale);
+		
+		$dq = Doctrine_Query::create ()->select ( $fields )
+									->from ( 'EmailsTemplatesData' )
+									->where ( "template_id = ? AND language_id = ?", array($id, $locale) )
+									->limit ( 1 );
+		
+		return $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
+	}
+
 }
