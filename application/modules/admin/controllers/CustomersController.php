@@ -266,6 +266,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$this->view->ordersdatagrid = $this->ordersGrid ();
 		$this->view->tickets = $this->ticketsGrid ();
 		$this->view->invoicesdatagrid = $this->invoicesGrid ();
+		$this->view->sentmailsdatagrid = $this->sentmailsGrid ();
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
 	}
@@ -444,7 +445,18 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		}
 	}
 	
+
+	private function sentmailsGrid() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		if (isset ( $request->id ) && is_numeric ( $request->id )) {
+			$fields = "subject";
+			$rs = EmailsTemplatesSends::getByCustomerID ($request->id, $fields);
+			
+			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'edit' => array ('controller' => 'emailstemplatessends', 'action' => 'view' ) );
+		}
+	}
 	
+		
 	/**
 	 * processAction
 	 * Update the record previously selected

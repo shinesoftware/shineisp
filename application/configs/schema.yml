@@ -1240,6 +1240,9 @@ EmailsTemplatesSends:
     customer_id:
       type: integer(4)
       unsigned: false
+    date:
+      type: timestamp(25)
+      notnull: true
     fromemail:
       type: string(150)
     fromname:
