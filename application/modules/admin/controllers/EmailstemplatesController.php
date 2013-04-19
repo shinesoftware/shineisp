@@ -3,6 +3,7 @@
  * Hostingplans
  * Manage the hostingplans table
  * @version 1.0
+ * @author  GUEST.it s.r.l. <assistenza@guest.it>
  */
 
 class Admin_EmailstemplatesController extends Zend_Controller_Action {

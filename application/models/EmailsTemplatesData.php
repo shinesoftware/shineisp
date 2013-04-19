@@ -7,7 +7,7 @@
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @author     GUEST.it s.r.l. <assistenza@guest.it>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class EmailsTemplatesData extends BaseEmailsTemplatesData

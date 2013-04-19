@@ -7,7 +7,7 @@
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @author     GUEST.it s.r.l. <assistenza@guest.it>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class EmailsTemplates extends BaseEmailsTemplates
@@ -23,6 +23,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'template_id', 'alias' => 'template_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'template_id', 'alias' => 'template_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Code' ), 'field' => 'code', 'alias' => 'code', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Section' ), 'field' => 'type', 'alias' => 'type', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['fields'] = "template_id, code AS code, name AS name";
 		
