@@ -722,8 +722,7 @@ class Shineisp_Commons_Utilities {
 		} else {
 			$mail->setFrom ( $from );
 		}
-		
-		
+				
 		// If the $to is a group of emails addresses
 		if(is_array($to)){
 			foreach ($to as $recipient){
@@ -831,6 +830,9 @@ class Shineisp_Commons_Utilities {
 				$locale .= "_" . strtoupper ( $locale );
 			}
 		}
+
+		// TODO: properly manage ISP ID
+		$isp = Isp::getActiveISP();
 		
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
@@ -852,7 +854,7 @@ class Shineisp_Commons_Utilities {
 				
 				// Also the fallback template is missing. Something strange is going on.....
 				if (! file_exists ( $filename )) {
-					return array('template' => "Template: ".$template." non trovato", 'subject' => $template);
+					return array('template' => "Template: ".$template." non trovato", 'subject' => $template, 'fromemail' => $isp['email'] );
 				}
 			}
 
@@ -872,26 +874,26 @@ class Shineisp_Commons_Utilities {
 			}
 			
 			
-			// TODO: properly manage ISP ID
-			$isp = Isp::getActiveISP();
-
 			// Store mail in DB
-			EmailsTemplates::saveAll(null, array(
+			$saveArray = array(
 			     'type'      => 'general'
 				,'name'      => $template
 				,'code'      => $template
 				,'plaintext' => 0
 				,'active'    => 1
-				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'Shine ISP'        // TODO: remove this hardcoded value
-				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
+				,'fromname'  => ( is_array($isp) && !empty($isp['company']) ) ? $isp['company'] : 'Shine ISP'          // TODO: remove this hardcoded value
+				,'fromemail' => ( is_array($isp) && !empty($isp['email']) )   ? $isp['email']   : 'info@shineisp.com'  // TODO: remove this hardcoded value
 				,'subject'   => $subject
-				,'html'      => $body
+				,'html'      => nl2br($body)
 			
-			), $language_id);
+			);
+			EmailsTemplates::saveAll(null, $saveArray, $language_id);
 			
-				
-			// Return the email template
-			return array('template' => $body, 'subject' => $subject);
+			// Return the email template (saveArray is pretty similiar to array needed for send, i can safely do a merge)
+			return array_merge($saveArray, array(
+				 'template' => $body
+				,'subject'  => $subject
+			));
 		}
 		
 		$email = array(
@@ -970,7 +972,7 @@ class Shineisp_Commons_Utilities {
 				$arrCC[] = $arrTemplate['cc'];
 			}
 		}
-				
+						
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
 	}
