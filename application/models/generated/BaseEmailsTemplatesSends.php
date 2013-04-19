@@ -9,12 +9,13 @@ Doctrine_Manager::getInstance()->bindComponent('EmailsTemplatesSends', 'doctrine
  * 
  * @property integer $id
  * @property integer $customer_id
+ * @property string $fromemail
  * @property string $fromname
  * @property string $subject
  * @property string $recipient
  * @property string $cc
  * @property string $bcc
- * @property string $html
+ * @property boolean $html
  * @property string $text
  * @property Customers $Customers
  * 
@@ -41,6 +42,10 @@ abstract class BaseEmailsTemplatesSends extends Doctrine_Record
              'unsigned' => false,
              'length' => '4',
              ));
+        $this->hasColumn('fromemail', 'string', 150, array(
+             'type' => 'string',
+             'length' => '150',
+             ));
         $this->hasColumn('fromname', 'string', 150, array(
              'type' => 'string',
              'length' => '150',
@@ -61,9 +66,9 @@ abstract class BaseEmailsTemplatesSends extends Doctrine_Record
              'type' => 'string',
              'length' => '150',
              ));
-        $this->hasColumn('html', 'string', null, array(
-             'type' => 'string',
-             'length' => '',
+        $this->hasColumn('html', 'boolean', 25, array(
+             'type' => 'boolean',
+             'length' => '25',
              ));
         $this->hasColumn('text', 'string', null, array(
              'type' => 'string',

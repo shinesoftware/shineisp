@@ -1606,23 +1606,20 @@ class Orders extends BaseOrders {
 		
 		$isp = Isp::getActiveISP ();
 		
-		// Get the template from the main email template folder
-		$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_deleted' );
-	
 		$customer = Customers::getAllInfo($customerid);
 		
 		$order = self::getAllInfo ( $id, null, true );
 		$date  = explode ( "-", $order [0] ['order_date'] );
 		
-		if ($retval) {
-			$subject = $retval ['subject'];
-			$Template =  $retval ['template'] ;
-			$subject = str_replace ( "[orderid]", $id, $subject );
-			$Template = str_replace ( "[orderid]", sprintf ( "%03s", $id ) . "-" . $date [0], $Template );
-			$Template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $Template );
-			$Template = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['website'], $Template );
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], $isp ['email'], $subject, $Template);
-		}
+		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
+			 'orderid'    => sprintf ( "%03s", $id ) . "-" . $date [0]
+			,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+			,'storename'  => $isp ['company']
+			,'email'      => $isp ['email']
+			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
+			,'signature'  => $isp ['company'] . "\n" . $isp ['website']
+		));
+
 		return true;
 	}
 	
@@ -1998,25 +1995,18 @@ class Orders extends BaseOrders {
 			
 			$date = explode ( "-", $order [0] ['order_date'] );
 			
-			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
-			if ($retval) {
-				$subject = $retval ['subject'];
-				$subject = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $subject );
-				$subject = str_replace ( "[fullname]", $customer, $subject );
-				$subject = str_replace ( "[storename]", $storename, $subject );
-				$orderTemplate = $retval ['template'];
-				
-				$orderTemplate = str_replace ( "[storename]", $storename, $orderTemplate );
-				$orderTemplate = str_replace ( "[fullname]", $customer, $orderTemplate );
-				$orderTemplate = str_replace ( "[email]", $email, $orderTemplate );
-				$orderTemplate = str_replace ( "[bank]", $bank, $orderTemplate );
-				$orderTemplate = str_replace ( "[url]", $url, $orderTemplate );
-				$orderTemplate = str_replace ( "[conditions]", strip_tags(Settings::findbyParam('conditions')), $orderTemplate );
-				$orderTemplate = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "-" . $date [0], $orderTemplate );
-				$orderTemplate = str_replace ( "[signature]", $storename, $orderTemplate );
-				$orderTemplate = utf8_decode ( $orderTemplate );
-				Shineisp_Commons_Utilities::SendEmail ( $email, $customer_email, $email, $subject, $orderTemplate );
-			}
+			
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
+				 'orderid'    => sprintf ( "%03s", $orderid ) . "-" . $date [0]
+				,'fullname'   => $customer
+				,'storename'  => $storename
+				,'email'      => $email
+				,'bank'       => $bank
+				,'url'        => $url
+				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
+				,'signature'  => $storename
+			));
+
 			return true;
 		}
 		return false;
@@ -2497,9 +2487,7 @@ class Orders extends BaseOrders {
 	public static function checkExpiringOrders() {
 		$isp = Isp::getActiveISP ();
 		$orders = Orders::find_all_expired_orders(date('Y-m-d'));
-		
-		$arrTemplate = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_expired' );
-	
+			
 		foreach ( $orders as $order ) {
 			$customer = Customers::getAllInfo($order ['customer_id']);
 	
@@ -2513,20 +2501,15 @@ class Orders extends BaseOrders {
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
-			if ($arrTemplate) {
-				$subject = $arrTemplate ['subject'];
-				$Template =  $arrTemplate ['template'] ;
-	
-				$subject = str_replace ( "[orderid]", $order ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut($order ['order_date']), $subject );
-				$Template = str_replace ( "[orderid]", $order ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut($order ['order_date']), $Template );
-				$Template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $Template );
-				$Template = str_replace ( "[url]", $customer_url, $Template );
-				$Template = str_replace ( "[email]", $isp ['email'], $Template );
-				$Template = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['website'], $Template );
-	
-				Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], $isp ['email'], $subject, $Template);
-					
-			}
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
+				 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
+				,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+				,'storename'  => $isp ['company']
+				,'email'      => $isp ['email']
+				,'url'        => $customer_url
+				,'signature'  => $isp ['company'] . "\n" . $isp ['website']
+			));
+			
 	
 			// Set the order as deleted
 			Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
@@ -2547,7 +2530,7 @@ class Orders extends BaseOrders {
 			$customer = Customers::getAllInfo($order ['customer_id']);
 			// Get the template from the main email template folder
 			if( $order['is_renewal'] ) {
-				$template = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_reminder_renewal' );
+				$template = 'order_reminder_renewal';
 
 				// Try to add a late fee if not an exempt customer
 				if ( ! (int)$customer['ignore_latefee'] ) {
@@ -2555,7 +2538,7 @@ class Orders extends BaseOrders {
 				}
 				
 			}else{
-				$template = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_reminder' );
+				$template = 'order_reminder';
 			}
 				
 			// Get the fastlink attached
@@ -2568,17 +2551,17 @@ class Orders extends BaseOrders {
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
-			if ($template) {
-				$subject = $template ['subject'];
-				$Template =  $template ['template'] ;
-				$subject = str_replace ( "[orderid]", $order ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut($order ['order_date']), $subject );
-				$Template = str_replace ( "[orderid]", $order ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut($order ['order_date']), $Template );
-				$Template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $Template );
-				$Template = str_replace ( "[url]", $customer_url, $Template );
-				$Template = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['website'], $Template );
-	
-				Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], null, $subject, $Template);
-			}
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
+				 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
+				,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+				,'storename'  => $isp ['company']
+				,'email'      => $isp ['email']
+				,'url'        => $customer_url
+				,'signature'  => $isp ['company'] . "\n" . $isp ['website']
+			));
+			
+			
+			
 		}
 		return true;
 	}
@@ -2590,8 +2573,6 @@ class Orders extends BaseOrders {
 	public static function cleanNotPayedOrders() {
 		$isp = Isp::getActiveISP ();
 		$orders = Orders::find_all_not_paid_orders();
-	
-		$arrTemplate = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_cleaned' );
 	
 		foreach ( $orders as $order ) {
 			if(empty($order['expiring_date'])){
@@ -2614,20 +2595,15 @@ class Orders extends BaseOrders {
 						
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 						
-					if ($arrTemplate) {
-						$subject = $arrTemplate ['subject'];
-						$Template =  $arrTemplate ['template'] ;
-	
-						$subject = str_replace ( "[orderid]", $order ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut($order ['order_date']), $subject );
-						$Template = str_replace ( "[orderid]", $order ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut($order ['order_date']), $Template );
-						$Template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $Template );
-						$Template = str_replace ( "[url]", $customer_url, $Template );
-						$Template = str_replace ( "[email]", $isp ['email'], $Template );
-						$Template = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['website'], $Template );
-	
-						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], null, $subject, $Template);
-							
-					}
+					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_cleaned', array(
+						 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
+						,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+						,'storename'  => $isp ['company']
+						,'email'      => $isp ['email']
+						,'url'        => $customer_url
+						,'signature'  => $isp ['company'] . "\n" . $isp ['website']
+					));
+
 	
 					// Set the order as deleted
 					Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
@@ -2737,18 +2713,15 @@ class Orders extends BaseOrders {
 				}
 	
 				if (! empty ( $items )) {
-					// Get the template from the main email template folder
-					$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'reminder' );
-					if ($retval) {
-						$subject = $retval ['subject'];
-						$Template = $retval ['template'];
-						$Template = str_replace ( "[fullname]", $customer ['fullname'], $Template );
-						$Template = str_replace ( "[email]", $isp ['email'], $Template );
-						$Template = str_replace ( "[items]", $items, $Template );
-						$Template = str_replace ( "[signature]", $signature, $Template );
-	
-						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], $isp ['email'], $subject, $Template );
-					}
+					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
+						 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
+						,'fullname'   => $customer ['fullname']
+						,'storename'  => $isp ['company']
+						,'email'      => $isp ['email']
+						,'url'        => $customer_url
+						,'items'      => $items
+						,'signature'  => $signature
+					));
 				}
 			}
 		}

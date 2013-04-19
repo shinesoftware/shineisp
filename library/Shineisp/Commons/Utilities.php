@@ -650,9 +650,9 @@ class Shineisp_Commons_Utilities {
 	 * @param string/array $attachments
 	 * @return boolean|multitype:unknown NULL
 	 */
-	public static function SendEmail($from, $to, $bcc = NULL, $subject, $body, $html = false, $inreplyto = NULL, $attachments = NULL, $replyto = NULL) {
+	public static function SendEmail($from, $to, $bcc = NULL, $subject, $body, $html = false, $inreplyto = NULL, $attachments = NULL, $replyto = NULL, $cc = null) {
 		$transport = null;
-		$config = array ();
+		$config    = array ();
 		
 		$host = Settings::findbyParam ( 'smtp_host' );
 		if (! empty ( $host )) {
@@ -717,7 +717,12 @@ class Shineisp_Commons_Utilities {
 			$mail->setBodyText ( $body );
 		}
 		
-		$mail->setFrom ( $from );
+		if ( is_array($from ) ) {
+			$mail->setFrom ( $from['email'], $from['name'] );	
+		} else {
+			$mail->setFrom ( $from );
+		}
+		
 		
 		// If the $to is a group of emails addresses
 		if(is_array($to)){
@@ -730,7 +735,23 @@ class Shineisp_Commons_Utilities {
 		
 		
 		if (! empty ( $bcc )) {
-			$mail->addBcc ( $bcc );
+			if ( is_array($bcc) && count($bcc) > 0 ) {
+				foreach ( $bcc as $b ) {
+					$mail->addBcc ( $b );	
+				}
+			} else {
+				$mail->addBcc ( $bcc );
+			}
+		}
+
+		if (! empty ( $cc )) {
+			if ( is_array($cc) && count($cc) > 0 ) {
+				foreach ( $cc as $c ) {
+					$mail->addCc ( $c );	
+				}
+			} else {
+				$mail->addCc ( $cc );
+			}
 		}
 		
 		$mail->setSubject ( $subject );
@@ -738,6 +759,49 @@ class Shineisp_Commons_Utilities {
 		
 		try {
 			$mail->send ( $transport );
+
+			// All good, log to DB
+			if(is_array($to)){
+				foreach ($to as $recipient){
+					// get customer_id
+					$Customers = Customers::findbyemail($recipient);
+					if ( is_object($Customers) && is_object($Customers->{0}) && isset($Customers->{0}->customer_id) ) {
+						$customerId = $Customers->{0}->customer_id;
+					}
+					
+					$EmailsTemplatesSends = new EmailsTemplatesSends();
+					$EmailsTemplatesSends->customer_id = $customerId;         
+					$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';    
+					$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
+					$EmailsTemplatesSends->subject     = $subject;
+					$EmailsTemplatesSends->recipient   = $recipient;
+					$EmailsTemplatesSends->cc          = (is_array($cc))  ? implode(',', $cc)  : $cc;
+					$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? implode(',', $bcc) : $bcc;
+					$EmailsTemplatesSends->html        = $html;
+					$EmailsTemplatesSends->text        = $body;
+					$EmailsTemplatesSends->save();
+				}
+			}else{
+				// get customer_id
+				$Customers = Customers::findbyemail($to);
+				if ( is_object($Customers) && is_object($Customers->{0}) && isset($Customers->{0}->customer_id) ) {
+					$customerId = $Customers->{0}->customer_id;
+				}
+				
+				$EmailsTemplatesSends = new EmailsTemplatesSends();
+				$EmailsTemplatesSends->customer_id = $customerId;         
+				$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';    
+				$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
+				$EmailsTemplatesSends->subject     = $subject;
+				$EmailsTemplatesSends->recipient   = $to;
+				$EmailsTemplatesSends->cc          = (is_array($cc))  ? trim(implode(',', $cc),',')  : $cc;
+				$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? trim(implode(',', $bcc),',') : $bcc;
+				$EmailsTemplatesSends->html        = $html;
+				$EmailsTemplatesSends->text        = $body;
+				$EmailsTemplatesSends->save();
+			}
+						
+			
 			return true;
 		} catch ( Exception $e ) {
 			return array ('email' => $to, 'message' => $e->getMessage () );
@@ -745,55 +809,180 @@ class Shineisp_Commons_Utilities {
 		return false;
 	}
 	
+	
+	
+	
+	
+	
 	/*
 	 *  getEmailTemplate
-	 *  Get the email template from the filesystem
+	 *  Get the email template from database, if missing, try to load from filesystem and save to database
 	 */
 	public static function getEmailTemplate($template) {
-		$email = false;
 		$subject = "";
-		$locale = Zend_Registry::get ( 'Zend_Locale' );
+		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
+		$fallbackLocale = 'it_IT';
 		
 		// Check the locale of the template
 		if (empty ( $locale )) {
-			$locale = "it_IT";
+			$locale = $fallbackLocale;
 		} else {
 			if (strlen ( $locale ) == 2) {
 				$locale .= "_" . strtoupper ( $locale );
 			}
 		}
 		
-		$filename = PUBLIC_PATH . "/languages/emails/$locale/$template.htm";
-		
-		// Check if the file exists
-		if (! file_exists ( $filename )) {
-			$filename = PUBLIC_PATH . "/languages/emails/it_IT/$template.htm";
+		$language_id          = Languages::get_language_id($locale);
+		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
+				
+		if ( is_numeric($language_id) && $language_id > 0 ) {
+			// Load mail template from database
+			$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+		} else {
+			$language_id = $fallback_language_id;
 		}
-		
-		if (file_exists ( $filename )) {
-			$handle = fopen ( $filename, "r" );
+
+		// Template missing from DB. Let's add it.
+		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
+			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
 			
+			// Check if the file exists
+			if (! file_exists ( $filename )) {
+				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
+				
+				// Also the fallback template is missing. Something strange is going on.....
+				if (! file_exists ( $filename )) {
+					return array('template' => "Template: ".$template." non trovato", 'subject' => $template);
+				}
+			}
+
 			// Get the content of the file
-			$templateText = fread ( $handle, filesize ( $filename ) );
-			
-			// Get the subject written in the template file
-			if (preg_match ( '/<!--@subject\s*(.*?)\s*@-->/', $templateText, $matches )) {
-				$subject = $matches [1]; // Get the subject
-				$templateText = str_replace ( $matches [0], '', $templateText );
-				$templateText = trim ( $templateText );
+			$body = '';
+			foreach ( file ($filename) as $line ) {
+				// Get the subject written in the template file
+				if (preg_match ( '/<!--@subject\s*(.*?)\s*@-->/', $line, $matches )) {
+					$subject = $matches [1]; // Get the subject
+					$subject = trim ( $subject );
+					$subject = $subject;
+					continue;
+				}
+				
+				// Delete all the comments
+				$body .= preg_replace ( '#\{\*.*\*\}#suU', '', $line );
 			}
 			
-			// Delete all the comments
-			$email ['template'] = preg_replace ( '#\{\*.*\*\}#suU', '', $templateText );
-			$email ['subject'] = $subject;
-			fclose ( $handle );
-		} else {
-			$email ['template'] = "Template: $template non trovato";
-			$email ['subject'] = "$template";
+			
+			// TODO: properly manage ISP ID
+			$isp = Isp::getActiveISP();
+
+			// Store mail in DB
+			EmailsTemplates::saveAll(null, array(
+			     'type'      => 'general'
+				,'name'      => $template
+				,'code'      => $template
+				,'plaintext' => 0
+				,'active'    => 1
+				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'Shine ISP'        // TODO: remove this hardcoded value
+				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
+				,'subject'   => $subject
+				,'html'      => $body
+			
+			), $language_id);
+			
+				
+			// Return the email template
+			return array('template' => $body, 'subject' => $subject);
 		}
+		
+		$email = array(
+			 'subject'   => $EmailTemplate->EmailsTemplatesData->{0}->subject
+			,'plaintext' => intval($EmailTemplate->plaintext)
+			,'fromname'  => $EmailTemplate->EmailsTemplatesData->{0}->fromname
+			,'fromemail' => $EmailTemplate->EmailsTemplatesData->{0}->fromemail
+			,'cc'        => $EmailTemplate->cc
+			,'bcc'       => $EmailTemplate->bcc
+			,'template'  => ''
+		);
+		
+		if ( !empty($EmailTemplate->EmailsTemplatesData->{0}->html) && !empty($EmailTemplate->EmailsTemplatesData->{0}->text) ) {
+			// Both version are present
+			$body = (intval($EmailTemplate->plaintext)) ? $EmailTemplate->EmailsTemplatesData->{0}->text : $EmailTemplate->EmailsTemplatesData->{0}->html;	
+		} else if ( empty($EmailTemplate->EmailsTemplatesData->{0}->html) && !empty($EmailTemplate->EmailsTemplatesData->{0}->text) ) {
+			// Only TEXT version
+			$body = $EmailTemplate->EmailsTemplatesData->{0}->text;
+		} else {
+			// Only HTML version
+			$body = $EmailTemplate->EmailsTemplatesData->{0}->html;
+		}
+		
+		$email['template'] = $body;
 		
 		return $email;
 	}
+
+
+
+
+
+	/**
+	 * sendEmailTemplate: send an email template replacing all placeholders
+	 */
+	public static function sendEmailTemplate($recipient = '', $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
+		if ( empty($recipient) || empty($template) || !is_array($replace) ) {
+			return false;
+		} 
+		
+		// Get email template
+		$arrTemplate = self::getEmailTemplate($template);
+		if ( !is_array($arrTemplate) ) {
+			return false;
+		}
+		
+		$arrReplaced = array();
+
+		// Replace all placeholders in everything
+		foreach ( $replace as $placeholder => $value ) {
+			foreach ( $arrTemplate as $k => $v ) {
+				$arrTemplate[$k] = str_replace('['.$placeholder.']', $value, $v);
+			}
+		}
+		
+		
+
+		// Send the email
+		$arrBCC  = array();
+		$arrCC   = array();
+		$arrFrom = array('email' => $arrTemplate['fromemail'], 'name' => $arrTemplate['fromname']);
+		
+		if ( isset($arrTemplate['bcc']) && !empty($arrTemplate['bcc']) ) {
+			if (is_array($arrTemplate['bcc']) && count($arrTemplate['bcc']) > 0) {
+				$arrBCC = array_merge($arrBCC, $arrTemplate['bcc']);
+			} else {
+				$arrBCC[] = $arrTemplate['bcc'];
+			}
+		}
+		$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
+
+		if ( isset($arrTemplate['cc']) && !empty($arrTemplate['cc']) ) {
+			if (is_array($arrTemplate['cc'])  && count($arrTemplate['cc']) > 0) {
+				$arrCC = array_merge($arrCC, $arrTemplate['cc']);
+			} else {
+				$arrCC[] = $arrTemplate['cc'];
+			}
+		}
+				
+	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
+		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
+	}
+
+
+
+
+
+
+
+
+
 	
 	public static function cvsExport($recordset) {
 		$cvs = "";

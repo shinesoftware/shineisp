@@ -75,6 +75,7 @@ abstract class BaseEmailsTemplatesData extends Doctrine_Record
         parent::setUp();
         $this->hasOne('EmailsTemplates', array(
              'local' => 'template_id',
-             'foreign' => 'template_id'));
+             'foreign' => 'template_id',
+             'onDelete' => 'CASCADE'));
     }
 }
