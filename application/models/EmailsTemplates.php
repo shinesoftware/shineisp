@@ -25,7 +25,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Code' ), 'field' => 'code', 'alias' => 'code', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Section' ), 'field' => 'type', 'alias' => 'type', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['fields'] = "template_id, code AS code, name AS name";
+		$config ['datagrid'] ['fields'] = "template_id, code AS code, name AS name, type AS type";
 		
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'EmailsTemplates et' );
 		
