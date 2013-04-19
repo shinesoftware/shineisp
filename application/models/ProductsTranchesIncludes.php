@@ -20,11 +20,11 @@ class ProductsTranchesIncludes extends BaseProductsTranchesIncludes
      * @param integer $includeid
      * @param string $category
      */
-    public static function saveAll($trancheid, $includeid, $category) {
+    public static function saveAll($trancheid, $includeid, $type) {
         $includes   = new ProductsTranchesIncludes ();
         $includes->tranche_id   = $trancheid;
         $includes->include_id   = $includeid;
-        $includes->category     = $category;
+        $includes->type         = $type;
         $includes->save ();
     }
     
@@ -43,7 +43,7 @@ class ProductsTranchesIncludes extends BaseProductsTranchesIncludes
         
         $data   = array();
         foreach( $includes as $include ) {
-            if( $include['category'] == 'DomainsTlds' ) {
+            if( $include['type'] == 'domains' ) {
                 if( ! array_key_exists('domains', $data ) ) {
                     $data['domains']    = array();
                 }

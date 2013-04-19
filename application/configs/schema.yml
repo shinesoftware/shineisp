@@ -2828,7 +2828,7 @@ ProductsTranchesIncludes:
       notnull: true
       primary: true
       autoincrement: false
-    category:
+    type:
       type: string(150)
       notnull: true      
   relations:
