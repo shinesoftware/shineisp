@@ -773,8 +773,8 @@ class Shineisp_Commons_Utilities {
 					$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
 					$EmailsTemplatesSends->subject     = $subject;
 					$EmailsTemplatesSends->recipient   = $recipient;
-					$EmailsTemplatesSends->cc          = (is_array($cc))  ? trim(implode(',', $cc),',')  : $cc;
-					$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? trim(implode(',', $bcc),',') : $bcc;
+					$EmailsTemplatesSends->cc          = (is_array($cc))  ? implode(',', $cc)  : $cc;
+					$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? implode(',', $bcc) : $bcc;
 					$EmailsTemplatesSends->html        = $html;
 					$EmailsTemplatesSends->text        = $body;
 					$EmailsTemplatesSends->save();
@@ -952,7 +952,7 @@ class Shineisp_Commons_Utilities {
 		$arrCC   = array();
 		$arrFrom = array('email' => $arrTemplate['fromemail'], 'name' => $arrTemplate['fromname']);
 		
-		if ( isset($arrTemplate['bcc']) ) {
+		if ( isset($arrTemplate['bcc']) && !empty($arrTemplate['bcc']) ) {
 			if (is_array($arrTemplate['bcc']) && count($arrTemplate['bcc']) > 0) {
 				$arrBCC = array_merge($arrBCC, $arrTemplate['bcc']);
 			} else {
@@ -961,14 +961,14 @@ class Shineisp_Commons_Utilities {
 		}
 		$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
 
-		if ( isset($arrTemplate['cc']) ) {
+		if ( isset($arrTemplate['cc']) && !empty($arrTemplate['cc']) ) {
 			if (is_array($arrTemplate['cc'])  && count($arrTemplate['cc']) > 0) {
 				$arrCC = array_merge($arrCC, $arrTemplate['cc']);
 			} else {
 				$arrCC[] = $arrTemplate['cc'];
 			}
 		}
-		
+				
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
 	}
