@@ -7,7 +7,7 @@ class Setup_IndexController extends Zend_Controller_Action {
 	 * @see Zend_Controller_Action::preDispatch()
 	 */
 	public function preDispatch() {
-		$this->_helper->redirector ( 'index', 'localization', 'setup');
+		$this->_helper->redirector ( 'index', 'checker', 'setup');
 	}
 	
 }

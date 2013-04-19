@@ -40,6 +40,10 @@ class Setup_PreferencesController extends Zend_Controller_Action {
 		if(empty($session->db)){
 			$this->_helper->redirector ( 'index', 'database', 'setup');
 		}
+		
+		if(empty($session->permissions) || $session->permissions == false){
+			$this->_helper->redirector ( 'index', 'checker', 'setup');
+		}
 	}
 	
 	/**

@@ -2,94 +2,111 @@
 
 /*
  * Shineisp_Commons_Utilities
-* -------------------------------------------------------------
-* Type:     class
-* Name:     Shineisp_Commons_Utilities
-* Purpose:  Class for the utilities
-* -------------------------------------------------------------
-*/
+ * ------------------------------------------------------------- Type: class
+ * Name: Shineisp_Commons_Utilities Purpose: Class for the utilities
+ * -------------------------------------------------------------
+ */
 
 class Shineisp_Commons_Utilities {
 	
 	/**
-	 * Get the quarter number by month number
-	 * @param unknown_type $monthNumber
+	 * Check if the directory is writtable
+	 * @param string $path
 	 */
-	public static function getQuarterByMonth($monthNumber) {
-		return floor(($monthNumber - 1) / 3) + 1;
+	public static function isWritable($dirpath) {
+		if(is_dir($dirpath)){
+			$dummyfile = $dirpath . "/" . uniqid ( mt_rand () ) . '.tmp';
+			if (! ($f = @fopen ( $dummyfile, 'w+' ))){
+					return false;
+			}
+			fclose ( $f );
+			unlink ( $dummyfile );
+			return true;
+		}
 	}
 	
 	/**
-	 * filter a text string that only contains a to z, A to Z, 0 to 9 
-	 * symbol underscore or low dash "_" included 
+	 * Get the quarter number by month number
 	 * 
-	 * @param string $text
+	 * @param $monthNumber unknown_type       	
+	 */
+	public static function getQuarterByMonth($monthNumber) {
+		return floor ( ($monthNumber - 1) / 3 ) + 1;
+	}
+	
+	/**
+	 * filter a text string that only contains a to z, A to Z, 0 to 9
+	 * symbol underscore or low dash "_" included
+	 *
+	 * @param $text string       	
 	 */
 	public static function format($text) {
-		if(empty($text)){
+		if (empty ( $text )) {
 			return false;
 		}
-
+		
 		// If you need more symbols you can add them before ]
-		return preg_replace("/[^a-zA-Z0-9_]+/", "", $text);
+		return preg_replace ( "/[^a-zA-Z0-9_]+/", "", $text );
 	}
 	
 	/**
 	 * Check the database connection
-	 * 
-	 * @param string $username
-	 * @param string $password
-	 * @param string $hostname
-	 * @param string $database
+	 *
+	 * @param $username string       	
+	 * @param $password string       	
+	 * @param $hostname string       	
+	 * @param $database string       	
 	 * @return boolean or string
 	 */
-	public static function chkdatabase($username,$password,$hostname,$database){
-		try{
+	public static function chkdatabase($username, $password, $hostname, $database) {
+		try {
 			$dsn = "mysql://$username:$password@$hostname/$database";
-			$conn = Doctrine_Manager::connection($dsn, 'shineisp test connection');
-			$conn->execute('SHOW TABLES'); # Lazy loading of the connection. If I execute a simple command the connection to the database starts.
+			$conn = Doctrine_Manager::connection ( $dsn, 'shineisp test connection' );
+			$conn->execute ( 'SHOW TABLES' ); // Lazy loading of the connection. If I
+			                               // execute a simple command the connection to
+			                               // the database starts.
 			
-			if ($conn->isConnected()) {
+			if ($conn->isConnected ()) {
 				// Closing the test connection
-				$manager = Doctrine_Manager::getInstance();
-				$manager->closeConnection($conn);
+				$manager = Doctrine_Manager::getInstance ();
+				$manager->closeConnection ( $conn );
 				return true;
-		
-			}else{
+			
+			} else {
 				return "There is a database connection problem, please check the credencials ($dsn)";
 			}
-		}catch (Exception $e){
-			return $e->getMessage();
+		} catch ( Exception $e ) {
+			return $e->getMessage ();
 		}
 	}
 	
 	/**
 	 * Unzip a archive file
-	 * 
-	 * @param string $filename
-	 * @param string $destination
+	 *
+	 * @param $filename string       	
+	 * @param $destination string       	
 	 */
-	public static function unZip($filename, $destination){
-		$zip = new ZipArchive;
-	    $res = $zip->open($filename);
-	     if ($res === TRUE) {
-	         $zip->extractTo($destination);
-	         $zip->close();
-	         return true;
-	     } else {
-	         return false;
-	     }
+	public static function unZip($filename, $destination) {
+		$zip = new ZipArchive ();
+		$res = $zip->open ( $filename );
+		if ($res === TRUE) {
+			$zip->extractTo ( $destination );
+			$zip->close ();
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
 	 * Get the tld and the domain name splitting them within an array
 	 *
-	 * @param string $domainame
+	 * @param $domainame string       	
 	 * @return array
 	 */
-	public static function getTld($domainame){
-		if(!empty($domainame)){
-			return explode('.', $domainame, 2);
+	public static function getTld($domainame) {
+		if (! empty ( $domainame )) {
+			return explode ( '.', $domainame, 2 );
 		}
 		
 		return false;
@@ -97,47 +114,50 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * Log file
-	 * @param $str
+	 * 
+	 * @param
+	 *       	 $str
 	 * @return void
 	 */
 	
 	public static function log($message, $filename = "errors.log") {
-		$writer = new Zend_Log_Writer_Firebug();
-		$logger = new Zend_Log($writer);
+		$writer = new Zend_Log_Writer_Firebug ();
+		$logger = new Zend_Log ( $writer );
 		$debug = true;
 		$debug_log = true;
 		
-		if(Shineisp_Main::isReady()){
-			$debug = Settings::findbyParam('debug');
-			$debug_log = Settings::findbyParam('debug_log');
-		}
-				
-		if($debug){
-			$logger->log($message, Zend_Log::INFO);
+		if (Shineisp_Main::isReady ()) {
+			$debug = Settings::findbyParam ( 'debug' );
+			$debug_log = Settings::findbyParam ( 'debug_log' );
 		}
 		
-		if($debug_log){
-			@mkdir(PUBLIC_PATH . '/logs/');
-			if(is_writable(PUBLIC_PATH . '/logs/')){
+		if ($debug) {
+			$logger->log ( $message, Zend_Log::INFO );
+		}
+		
+		if ($debug_log) {
+			@mkdir ( PUBLIC_PATH . '/logs/' );
+			if (is_writable ( PUBLIC_PATH . '/logs/' )) {
 				$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
-				if(is_array($message)){
-					fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
-				}else{
+				if (is_array ( $message )) {
+					fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" . var_export ( $message, true ) );
+				} else {
 					fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
 				}
 				fclose ( $log );
-			}else{
-				$logger->log(PUBLIC_PATH . '/logs/ is not writable', Zend_Log::INFO);
+			} else {
+				$logger->log ( PUBLIC_PATH . '/logs/ is not writable', Zend_Log::INFO );
 			}
 		}
 	}
 	
 	/**
 	 * Check if the browser is an Apple client
+	 * 
 	 * @return boolean
 	 */
-	public static function isAppleClient(){
-		if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod') || strstr($_SERVER['HTTP_USER_AGENT'],'iPad')) {
+	public static function isAppleClient() {
+		if (strstr ( $_SERVER ['HTTP_USER_AGENT'], 'iPhone' ) || strstr ( $_SERVER ['HTTP_USER_AGENT'], 'iPod' ) || strstr ( $_SERVER ['HTTP_USER_AGENT'], 'iPad' )) {
 			return true;
 		}
 		return false;
@@ -145,15 +165,16 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * Get the google latitude longitude
-	 * @param string $address
+	 * 
+	 * @param $address string       	
 	 */
-	public static function getCoordinates($address){
-		$address = urlencode($address);
+	public static function getCoordinates($address) {
+		$address = urlencode ( $address );
 		$uri = "http://maps.googleapis.com/maps/api/geocode/json?address=$address&sensor=true";
 		$json = @file_get_contents ( $uri );
-		if(!empty($json)){
-			$data = json_decode($json, true);
-			if(!empty($data['status']) && $data['status'] == "OK"){
+		if (! empty ( $json )) {
+			$data = json_decode ( $json, true );
+			if (! empty ( $data ['status'] ) && $data ['status'] == "OK") {
 				return $data;
 			}
 		}
@@ -162,8 +183,9 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * is_valid_domain_name
-	 * Check if the domain is valid 
-	 * @param unknown_type $domain_name
+	 * Check if the domain is valid
+	 * 
+	 * @param $domain_name unknown_type       	
 	 */
 	public static function is_valid_domain_name($url) {
 		if (preg_match ( "/^[a-z0-9][a-z0-9\-]+[a-z0-9](\.[a-z]{2,4})+$/i", $url )) {
@@ -175,44 +197,44 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * Create a little table using a multidimensional array
-	 * @param array $data
+	 * 
+	 * @param $data array       	
 	 */
-	public static function array2table(array $data){
+	public static function array2table(array $data) {
 		$cell_address = "[A1,A2,D3,H3]";
-
-		$ar_columns = array_keys($data[0]);
-		$ar_rows = $data[0];
 		
-		$ar_addresses = explode(",", substr($cell_address, 1, -1));
+		$ar_columns = array_keys ( $data [0] );
+		$ar_rows = $data [0];
+		
+		$ar_addresses = explode ( ",", substr ( $cell_address, 1, - 1 ) );
 		
 		$html = "<table>
 		  <tr>
 		    <th></th>
-		    <th>".implode("</td><td>", $ar_columns)."</th>
+		    <th>" . implode ( "</td><td>", $ar_columns ) . "</th>
 		  </tr>\n";
 		
-		foreach($ar_rows as $row)
-		{
-		  $html .= "<tr><th>".$row."</th>\n";
-		
-		  foreach($ar_columns as $col)
-		  {
-		    $cell_str = (in_array($col.$row, $ar_addresses) ? "match" : "&nbsp;");
-		    $html .= "<td>".$cell_str."</td>\n";
-		  }
-		
-		  $html .= "</tr>\n";
+		foreach ( $ar_rows as $row ) {
+			$html .= "<tr><th>" . $row . "</th>\n";
+			
+			foreach ( $ar_columns as $col ) {
+				$cell_str = (in_array ( $col . $row, $ar_addresses ) ? "match" : "&nbsp;");
+				$html .= "<td>" . $cell_str . "</td>\n";
+			}
+			
+			$html .= "</tr>\n";
 		}
 		
 		$html .= "</table>\n";
-
+		
 		return $html;
 	}
 	
 	/**
 	 * List all the directories
-	 * @param string $directory
 	 * 
+	 * @param $directory string       	
+	 *
 	 */
 	public static function dirlist($dir) {
 		$dirs = array ();
@@ -234,40 +256,43 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	/**
-	 * This function simply returns an array containing a list of a directory's contents.
-	 * @param unknown_type $directory
+	 * This function simply returns an array containing a list of a directory's
+	 * contents.
+	 * 
+	 * @param $directory unknown_type       	
 	 */
-	public static function getDirectoryList ($directory)
-	{
-	
+	public static function getDirectoryList($directory) {
+		
 		// create an array to hold directory list
-		$results = array();
-	
+		$results = array ();
+		
 		// create a handler for the directory
-		$handler = opendir($directory);
-	
+		$handler = opendir ( $directory );
+		
 		// open directory and walk through the filenames
-		while ($file = readdir($handler)) {
-	
+		while ( $file = readdir ( $handler ) ) {
+			
 			// if file isn't this directory or its parent, add it to the results
 			if ($file != "." && $file != "..") {
-				$results[] = $file;
+				$results [] = $file;
 			}
-	
+		
 		}
-	
+		
 		// tidy up: close the handler
-		closedir($handler);
-	
+		closedir ( $handler );
+		
 		// done!
 		return $results;
 	
 	}
 	
 	/**
-	 * 
+	 *
+	 *
 	 * Check if the string is a date
-	 * @param unknown_type $str
+	 * 
+	 * @param $str unknown_type       	
 	 */
 	public static function isDate($str) {
 		if (! empty ( $str )) {
@@ -290,8 +315,7 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	public static function isAjax() {
-		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-				($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+		return (isset ( $_SERVER ['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER ['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 	}
 	
 	/**
@@ -303,31 +327,35 @@ class Shineisp_Commons_Utilities {
 	 * is_date('30-01-2008', 'dd-mm-yyyy'); // returns true
 	 * is_date('2008 01 30', 'yyyy mm dd'); // returns true
 	 * </code>
-	 * @param string $value the variable being evaluated.
-	 * @param string $format Format of the date. Any combination of <i>mm<i>, <i>dd<i>, <i>yyyy<i>
-	 * with single character separator between.
+	 * 
+	 * @param $value string
+	 *       	 the variable being evaluated.
+	 * @param $format string
+	 *       	 Format of the date. Any combination of <i>mm<i>, <i>dd<i>,
+	 *        	<i>yyyy<i>
+	 *       	 with single character separator between.
 	 */
-	public static function is_valid_date($value, $format = 'dd.mm.yyyy'){
-		if(strlen($value) >= 6 && strlen($format) == 10){
-			 
+	public static function is_valid_date($value, $format = 'dd.mm.yyyy') {
+		if (strlen ( $value ) >= 6 && strlen ( $format ) == 10) {
+			
 			// find separator. Remove all other characters from $format
-			$separator_only = str_replace(array('m','d','y'),'', $format);
-			$separator = $separator_only[0]; // separator is first character
-			 
-			if($separator && strlen($separator_only) == 2){
+			$separator_only = str_replace ( array ('m', 'd', 'y' ), '', $format );
+			$separator = $separator_only [0]; // separator is first character
+			
+			if ($separator && strlen ( $separator_only ) == 2) {
 				// make regex
-				$regexp = str_replace('mm', '(0?[1-9]|1[0-2])', $format);
-				$regexp = str_replace('dd', '(0?[1-9]|[1-2][0-9]|3[0-1])', $regexp);
-				$regexp = str_replace('yyyy', '(19|20)?[0-9][0-9]', $regexp);
-				$regexp = str_replace($separator, "\\" . $separator, $regexp);
-				if($regexp != $value && preg_match('/'.$regexp.'\z/', $value)){
-	
+				$regexp = str_replace ( 'mm', '(0?[1-9]|1[0-2])', $format );
+				$regexp = str_replace ( 'dd', '(0?[1-9]|[1-2][0-9]|3[0-1])', $regexp );
+				$regexp = str_replace ( 'yyyy', '(19|20)?[0-9][0-9]', $regexp );
+				$regexp = str_replace ( $separator, "\\" . $separator, $regexp );
+				if ($regexp != $value && preg_match ( '/' . $regexp . '\z/', $value )) {
+					
 					// check date
-					$arr=explode($separator,$value);
-					$day=$arr[0];
-					$month=$arr[1];
-					$year=$arr[2];
-					if(@checkdate($month, $day, $year))
+					$arr = explode ( $separator, $value );
+					$day = $arr [0];
+					$month = $arr [1];
+					$year = $arr [2];
+					if (@checkdate ( $month, $day, $year ))
 						return true;
 				}
 			}
@@ -336,9 +364,9 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	/*
-     * formatSearchvalue
-     * format the search posted values before use them in the sql query
-     */
+	 * formatSearchvalue format the search posted values before use them in the
+	 * sql query
+	 */
 	public static function formatSearchvalue($value) {
 		
 		// If is a numeric
@@ -378,14 +406,14 @@ class Shineisp_Commons_Utilities {
 	/*
 	 * Remove empty directories
 	 */
-	public static function removeEmptySubFolders($path){
-		$empty=true;
+	public static function removeEmptySubFolders($path) {
+		$empty = true;
 		
-		foreach (glob($path.DIRECTORY_SEPARATOR."*") as $file){
-     		$empty = is_dir($file) && self::RemoveEmptySubFolders($file);
-  		}
-  		
-  		return $empty && @rmdir($path);
+		foreach ( glob ( $path . DIRECTORY_SEPARATOR . "*" ) as $file ) {
+			$empty = is_dir ( $file ) && self::RemoveEmptySubFolders ( $file );
+		}
+		
+		return $empty && @rmdir ( $path );
 	}
 	
 	// Check if the string is an email
@@ -396,7 +424,8 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * Crop a sentence
 	 *
-	 * @param string $strText, $intLength, $strTrail
+	 * @param $strText, string
+	 *       	 $intLength, $strTrail
 	 * @return string $CropSentence
 	 */
 	public static function CropSentence($strText, $intLength, $strTrail) {
@@ -421,8 +450,10 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	/**
-	 * Converts a simpleXML element into an array. Preserves attributes and everything.
-	 * You can choose to get your elements either flattened, or stored in a custom index that
+	 * Converts a simpleXML element into an array.
+	 * Preserves attributes and everything.
+	 * You can choose to get your elements either flattened, or stored in a
+	 * custom index that
 	 * you define.
 	 * For example, for a given element
 	 * <field name="someName" type="someType"/>
@@ -443,13 +474,27 @@ class Shineisp_Commons_Utilities {
 	 * $array['parent']['child'][1] = 'b';
 	 * ...And so on.
 	 * _____________________________________
-	 * @param simpleXMLElement $xml the XML to convert
-	 * @param boolean $flattenValues      Choose wether to flatten values or to set them under a particular index. defaults to true;
-	 * @param boolean $flattenAttributes  Choose wether to flatten attributes or to set them under a particular index. Defaults to true;
-	 * @param boolean $flattenChildren    Choose wether to flatten children or to set them under a particular index. Defaults to true;
-	 * @param string $valueKey            index for values, in case $flattenValues was set to false. Defaults to "@value"
-	 * @param string $attributesKey       index for attributes, in case $flattenAttributes was set to false. Defaults to "@attributes"
-	 * @param string $childrenKey         index for children, in case $flattenChildren was set to false. Defaults to "@children"
+	 * 
+	 * @param $xml simpleXMLElement
+	 *       	 the XML to convert
+	 * @param $flattenValues boolean
+	 *       	 Choose wether to flatten values or to set them under a
+	 *        	particular index. defaults to true;
+	 * @param $flattenAttributes boolean
+	 *       	 Choose wether to flatten attributes or to set them under a
+	 *        	particular index. Defaults to true;
+	 * @param $flattenChildren boolean
+	 *       	 Choose wether to flatten children or to set them under a
+	 *        	particular index. Defaults to true;
+	 * @param $valueKey string
+	 *       	 index for values, in case $flattenValues was set to false.
+	 *        	Defaults to "@value"
+	 * @param $attributesKey string
+	 *       	 index for attributes, in case $flattenAttributes was set to
+	 *        	false. Defaults to "@attributes"
+	 * @param $childrenKey string
+	 *       	 index for children, in case $flattenChildren was set to false.
+	 *        	Defaults to "@children"
 	 * @return array the resulting array.
 	 */
 	public static function simpleXMLToArray($xml, $flattenValues = true, $flattenAttributes = true, $flattenChildren = true, $valueKey = '@value', $attributesKey = '@attributes', $childrenKey = '@children') {
@@ -518,16 +563,22 @@ class Shineisp_Commons_Utilities {
 	 * Cuts a string to the length of $length and replaces the last characters
 	 * with the ending if the text is longer than length.
 	 *
-	 * @param string  $text String to truncate.
-	 * @param integer $length Length of returned string, including ellipsis.
-	 * @param string  $ending Ending to be appended to the trimmed string.
-	 * @param boolean $exact If false, $text will not be cut mid-word
-	 * @param boolean $considerHtml If true, HTML tags would be handled correctly
+	 * @param $text string
+	 *       	 String to truncate.
+	 * @param $length integer
+	 *       	 Length of returned string, including ellipsis.
+	 * @param $ending string
+	 *       	 Ending to be appended to the trimmed string.
+	 * @param $exact boolean
+	 *       	 If false, $text will not be cut mid-word
+	 * @param $considerHtml boolean
+	 *       	 If true, HTML tags would be handled correctly
 	 * @return string Trimmed string.
 	 */
 	public static function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
 		if ($considerHtml) {
-			// if the plain text is shorter than the maximum length, return the whole text
+			// if the plain text is shorter than the maximum length, return the
+			// whole text
 			if (strlen ( preg_replace ( '/<.*?>/', '', $text ) ) <= $length) {
 				return $text;
 			}
@@ -537,20 +588,22 @@ class Shineisp_Commons_Utilities {
 			$open_tags = array ();
 			$truncate = '';
 			foreach ( $lines as $line_matchings ) {
-				// if there is any html-tag in this line, handle it and add it (uncounted) to the output
+				// if there is any html-tag in this line, handle it and add it
+				// (uncounted) to the output
 				if (! empty ( $line_matchings [1] )) {
-					// if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
+					// if it's an "empty element" with or without xhtml-conform
+					// closing slash (f.e. <br/>)
 					if (preg_match ( '/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is', $line_matchings [1] )) {
 						// do nothing
-					// if tag is a closing tag (f.e. </b>)
+						// if tag is a closing tag (f.e. </b>)
 					} else if (preg_match ( '/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings [1], $tag_matchings )) {
 						// delete tag from $open_tags list
 						$pos = array_search ( $tag_matchings [1], $open_tags );
 						if ($pos !== false) {
 							unset ( $open_tags [$pos] );
 						}
-					
-		// if tag is an opening tag (f.e. <b>)
+						
+						// if tag is an opening tag (f.e. <b>)
 					} else if (preg_match ( '/^<\s*([^\s>!]+).*?>$/s', $line_matchings [1], $tag_matchings )) {
 						// add tag to the beginning of $open_tags list
 						array_unshift ( $open_tags, strtolower ( $tag_matchings [1] ) );
@@ -558,7 +611,8 @@ class Shineisp_Commons_Utilities {
 					// add html-tag to $truncate'd text
 					$truncate .= $line_matchings [1];
 				}
-				// calculate the length of the plain text part of the line; handle entities as one character
+				// calculate the length of the plain text part of the line;
+				// handle entities as one character
 				$content_length = strlen ( preg_replace ( '/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', ' ', $line_matchings [2] ) );
 				if ($total_length + $content_length > $length) {
 					// the number of characters which are left
@@ -566,7 +620,8 @@ class Shineisp_Commons_Utilities {
 					$entities_length = 0;
 					// search for html entities
 					if (preg_match_all ( '/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', $line_matchings [2], $entities, PREG_OFFSET_CAPTURE )) {
-						// calculate the real length of all entities in the legal range
+						// calculate the real length of all entities in the
+						// legal range
 						foreach ( $entities [0] as $entity ) {
 							if ($entity [1] + 1 - $entities_length <= $left) {
 								$left --;
@@ -618,7 +673,8 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * delTree
 	 * Delete the directory selected and all its subfolders
-	 * @param string $dir
+	 * 
+	 * @param $dir string       	
 	 */
 	public static function delTree($dir) {
 		$files = glob ( $dir . '*', GLOB_MARK );
@@ -636,19 +692,20 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * SendEmail
-     * Smtp Configuration.
-     * If you would like to use the smtp authentication, you have to add 
-     * the paramenters in the Setting Module of the Control Panel
-     * 
-	 * @param string $from
-	 * @param string or array $to
-	 * @param string $bcc
-	 * @param string $subject
-	 * @param string $body
-	 * @param string $html
-	 * @param string $inreplyto
-	 * @param string/array $attachments
-	 * @return boolean|multitype:unknown NULL
+	 * Smtp Configuration.
+	 * If you would like to use the smtp authentication, you have to add
+	 * the paramenters in the Setting Module of the Control Panel
+	 *
+	 * @param $from string       	
+	 * @param
+	 *       	 string or array $to
+	 * @param $bcc string       	
+	 * @param $subject string       	
+	 * @param $body string       	
+	 * @param $html string       	
+	 * @param $inreplyto string       	
+	 * @param $attachments string/array       	
+	 * @return boolean multitype:unknown
 	 */
 	public static function SendEmail($from, $to, $bcc = NULL, $subject, $body, $html = false, $inreplyto = NULL, $attachments = NULL, $replyto = NULL) {
 		$transport = null;
@@ -669,46 +726,46 @@ class Shineisp_Commons_Utilities {
 		
 		$mail = new Zend_Mail ( 'UTF-8' );
 		
-		if(!empty($attachments)){
-			if(is_array($attachments)){
-				foreach($attachments as $attachment){
-					if(file_exists($attachment)){
-						$filename = basename($attachment);
+		if (! empty ( $attachments )) {
+			if (is_array ( $attachments )) {
+				foreach ( $attachments as $attachment ) {
+					if (file_exists ( $attachment )) {
+						$filename = basename ( $attachment );
 						
 						// Get the content of the file
-						$content = file_get_contents($attachment);
-	
+						$content = file_get_contents ( $attachment );
+						
 						// Create the attachment
-						$zend_attachment = new Zend_Mime_Part($content);
+						$zend_attachment = new Zend_Mime_Part ( $content );
 						$zend_attachment->disposition = Zend_Mime::DISPOSITION_ATTACHMENT;
-						$zend_attachment->encoding    = Zend_Mime::ENCODING_BASE64;
-						$zend_attachment->filename    = $filename;
-						$mail->addAttachment($zend_attachment);
+						$zend_attachment->encoding = Zend_Mime::ENCODING_BASE64;
+						$zend_attachment->filename = $filename;
+						$mail->addAttachment ( $zend_attachment );
 					}
 				}
-			}else{
-				if(file_exists($attachments)){
-					$filename = basename($attachments);
-						
+			} else {
+				if (file_exists ( $attachments )) {
+					$filename = basename ( $attachments );
+					
 					// Get the content of the file
-					$content = file_get_contents($attachments);
+					$content = file_get_contents ( $attachments );
 					
 					// Create the attachment
-					$zend_attachment = new Zend_Mime_Part($content);
+					$zend_attachment = new Zend_Mime_Part ( $content );
 					$zend_attachment->disposition = Zend_Mime::DISPOSITION_ATTACHMENT;
-					$zend_attachment->encoding    = Zend_Mime::ENCODING_BASE64;
-					$zend_attachment->filename    = $filename;
-					$mail->addAttachment($zend_attachment);
+					$zend_attachment->encoding = Zend_Mime::ENCODING_BASE64;
+					$zend_attachment->filename = $filename;
+					$mail->addAttachment ( $zend_attachment );
 				}
 			}
 		}
 		
-		if(!empty($inreplyto)){
-			$mail->addHeader("In-Reply-To", $inreplyto);
+		if (! empty ( $inreplyto )) {
+			$mail->addHeader ( "In-Reply-To", $inreplyto );
 		}
 		
-		if(!empty($replyto)){
-			$mail->setReplyTo($replyto);
+		if (! empty ( $replyto )) {
+			$mail->setReplyTo ( $replyto );
 		}
 		
 		if ($html) {
@@ -720,14 +777,13 @@ class Shineisp_Commons_Utilities {
 		$mail->setFrom ( $from );
 		
 		// If the $to is a group of emails addresses
-		if(is_array($to)){
-			foreach ($to as $recipient){
+		if (is_array ( $to )) {
+			foreach ( $to as $recipient ) {
 				$mail->addTo ( $recipient );
 			}
-		}else{
+		} else {
 			$mail->addTo ( $to );
 		}
-		
 		
 		if (! empty ( $bcc )) {
 			$mail->addBcc ( $bcc );
@@ -746,8 +802,7 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	/*
-	 *  getEmailTemplate
-	 *  Get the email template from the filesystem
+	 * getEmailTemplate Get the email template from the filesystem
 	 */
 	public static function getEmailTemplate($template) {
 		$email = false;
@@ -821,7 +876,7 @@ class Shineisp_Commons_Utilities {
 			return $e->message ();
 		}
 	}
-
+	
 	public static function in_arrayi($needle, $haystack) {
 		return in_array ( strtolower ( $needle ), array_map ( 'strtolower', $haystack ) );
 	}
@@ -829,81 +884,84 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * Convert a date from yyyy/mm/dd formatted by the locale setting
 	 *
-	 * @param date $dbindata
-	 * @param $format Zend_date format
+	 * @param $dbindata date       	
+	 * @param $format Zend_date
+	 *       	 format
 	 * @return date formatted by the locale setting
 	 */
-	public static function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM) {
+	public static function formatDateOut($dbindata, $format = Zend_Date::DATE_MEDIUM) {
 		if (empty ( $dbindata ))
 			return false;
 		
-		$locale = Zend_Registry::get('Zend_Locale');
-		$date = new Zend_Date($dbindata, "yyyy-MM-dd HH:mm:ss", $locale);
-
+		$locale = Zend_Registry::get ( 'Zend_Locale' );
+		$date = new Zend_Date ( $dbindata, "yyyy-MM-dd HH:mm:ss", $locale );
+		
 		// override the preferences
-		$dateformat = Settings::findbyParam('dateformat');
+		$dateformat = Settings::findbyParam ( 'dateformat' );
 		
-		if(!empty($dateformat)){
-			return $date->get($dateformat);
-		}else{
-			return $date->get($format);
+		if (! empty ( $dateformat )) {
+			return $date->get ( $dateformat );
+		} else {
+			return $date->get ( $format );
 		}
-		
+	
 	}
 	
 	/**
 	 * Convert a date from Zend Locale selected to yyyy/mm/dd H:i:s
 	 *
-	 * @param string $dboutdata
+	 * @param $dboutdata string       	
 	 * @return string Y-m-d H:i:s
 	 */
 	public static function formatDateIn($dboutdata) {
 		if (empty ( $dboutdata ))
 			return null;
 		
-		$date = new Zend_Date($dboutdata);
+		$date = new Zend_Date ( $dboutdata );
 		
-		return $date->toString('yyyy-MM-dd HH:mm:ss');
+		return $date->toString ( 'yyyy-MM-dd HH:mm:ss' );
 	}
 	
 	/**
 	 * Adding a number of days and/or months and/or years to a date
-	 * 
-	 * @param string $givendate
-	 * @param integer $day
-	 * @param integer $mth
-	 * @param integer $yr
-	 * @return boolean|Zend_Date
+	 *
+	 * @param $givendate string       	
+	 * @param $day integer       	
+	 * @param $mth integer       	
+	 * @param $yr integer       	
+	 * @return boolean Zend_Date
 	 */
 	public static function add_date($givendate, $day = 0, $mth = 0, $yr = 0) {
 		if (empty ( $givendate ))
 			return false;
 		
-		try{
-			$date = new Zend_Date($givendate);
-
-			if($day > 0){
-				$date->add($day, Zend_Date::DAY);
+		try {
+			$date = new Zend_Date ( $givendate );
+			
+			if ($day > 0) {
+				$date->add ( $day, Zend_Date::DAY );
 			}
 			
-			if($mth > 0){
-				$date->add($mth, Zend_Date::MONTH);
+			if ($mth > 0) {
+				$date->add ( $mth, Zend_Date::MONTH );
 			}
 			
-			if($yr > 0){
-				$date->add($yr, Zend_Date::YEAR);
+			if ($yr > 0) {
+				$date->add ( $yr, Zend_Date::YEAR );
 			}
-			
-		}catch (Exception $e){
-			die($e->getMessage());
+		
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
 		}
 		return $date;
 	}
 	
-	// ***************************************** START GRID CUSTOM FUNCTIONS *****************************************
+	// ***************************************** START GRID CUSTOM FUNCTIONS
+	// *****************************************
 	/**
 	 * array_flatten
 	 * Create a flat array starting from a multidimensional array
+	 * 
 	 * @return array
 	 */
 	public static function array_flatten($a, $f = array()) {
@@ -920,7 +978,8 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * search
-	 * Get the value of a specific key in a multidimensional array 
+	 * Get the value of a specific key in a multidimensional array
+	 * 
 	 * @var string
 	 */
 	public static function search($keys, $search, &$results) {
@@ -933,13 +992,15 @@ class Shineisp_Commons_Utilities {
 		}
 	}
 	
-	// ***************************************** END GRID CUSTOM FUNCTIONS *****************************************
+	// ***************************************** END GRID CUSTOM FUNCTIONS
+	// *****************************************
 	
-
 	/**
 	 * readfile
 	 * Open file
-	 * @param $filename (full path of the file)
+	 * 
+	 * @param $filename (full
+	 *       	 path of the file)
 	 * @return string
 	 */
 	
@@ -949,7 +1010,9 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * Write File
-	 * @param $str
+	 * 
+	 * @param
+	 *       	 $str
 	 * @return void
 	 */
 	
@@ -962,7 +1025,9 @@ class Shineisp_Commons_Utilities {
 	
 	/**
 	 * Log file
-	 * @param $str
+	 * 
+	 * @param
+	 *       	 $str
 	 * @return void
 	 */
 	
@@ -975,13 +1040,15 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * GenerateRandomString
 	 * generate a random string
-	 * @param $length
+	 * 
+	 * @param
+	 *       	 $length
 	 * @return string
 	 */
 	public static function GenerateRandomString($length = 8) {
-		// Must be a multiple of 2 !! So 14 will work, 15 won't, 16 will, 17 won't and so on
+		// Must be a multiple of 2 !! So 14 will work, 15 won't, 16 will, 17
+		// won't and so on
 		
-
 		$conso = array ("b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "y", "z" );
 		$vocal = array ("a", "e", "i", "o", "u" );
 		$password = "";
@@ -994,33 +1061,35 @@ class Shineisp_Commons_Utilities {
 		$newpass = $password;
 		return $newpass;
 	}
-
+	
 	/**
 	 * GenerateRandomPassword
 	 * generate a random password
-	 * @param $length
+	 * 
+	 * @param
+	 *       	 $length
 	 * @return string
 	 */
 	public static function GenerateRandomPassword($length = 16) {
-		$chars       = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-    	$password    = array();
-    	$alphaLength = strlen($chars) - 1;
+		$chars = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+		$password = array ();
+		$alphaLength = strlen ( $chars ) - 1;
 		
-    	for ($i = 0; $i < $length; $i++) {
-        	$n = rand(0, $alphaLength);
-        	$password[] = $chars[$n];
-    	}
+		for($i = 0; $i < $length; $i ++) {
+			$n = rand ( 0, $alphaLength );
+			$password [] = $chars [$n];
+		}
 		
-    	return implode($password);
+		return implode ( $password );
 	}
-
-
 	
 	/**
-	 * 
+	 *
+	 *
 	 * Enter description here ...
-	 * @param unknown_type $array
-	 * @param unknown_type $cols
+	 * 
+	 * @param $array unknown_type       	
+	 * @param $cols unknown_type       	
 	 */
 	public static function columnSort($unsorted, $column) {
 		$sorted = $unsorted;
@@ -1034,58 +1103,46 @@ class Shineisp_Commons_Utilities {
 		}
 		return $sorted;
 	}
-
+	
 	/**
 	 * Convert from the bytes in human reading
-	 * 
-	 * @param long $bytes
+	 *
+	 * @param $bytes long       	
 	 * @return string
 	 */
-	public static function formatSizeUnits($bytes)
-    {
-        if ($bytes >= 1073741824)
-        {
-            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
-        }
-        elseif ($bytes >= 1048576)
-        {
-            $bytes = number_format($bytes / 1048576, 2) . ' MB';
-        }
-        elseif ($bytes >= 1024)
-        {
-            $bytes = number_format($bytes / 1024, 2) . ' KB';
-        }
-        elseif ($bytes > 1)
-        {
-            $bytes = $bytes . ' bytes';
-        }
-        elseif ($bytes == 1)
-        {
-            $bytes = $bytes . ' byte';
-        }
-        else
-        {
-            $bytes = '0 bytes';
-        }
-
-        return $bytes;
+	public static function formatSizeUnits($bytes) {
+		if ($bytes >= 1073741824) {
+			$bytes = number_format ( $bytes / 1073741824, 2 ) . ' GB';
+		} elseif ($bytes >= 1048576) {
+			$bytes = number_format ( $bytes / 1048576, 2 ) . ' MB';
+		} elseif ($bytes >= 1024) {
+			$bytes = number_format ( $bytes / 1024, 2 ) . ' KB';
+		} elseif ($bytes > 1) {
+			$bytes = $bytes . ' bytes';
+		} elseif ($bytes == 1) {
+			$bytes = $bytes . ' byte';
+		} else {
+			$bytes = '0 bytes';
+		}
+		
+		return $bytes;
 	}
 	
 	/**
-	 * Convert from Megabytes to Bytes 
-	 * @param integer $megabytes
+	 * Convert from Megabytes to Bytes
+	 * 
+	 * @param $megabytes integer       	
 	 * @return integer
 	 */
-	public static function MB2Bytes($megabytes)
-	{
-		if($megabytes > 0){
+	public static function MB2Bytes($megabytes) {
+		if ($megabytes > 0) {
 			return $megabytes * 1048576;
-		}else{
+		} else {
 			return 0;
 		}
 	}
 	
-	public static function Capitalize($str, $is_name=false) {
+	public static function Capitalize($str, $is_name = false) {
 		// exceptions to standard case conversion
 		if ($is_name) {
 			$all_uppercase = '';
@@ -1097,33 +1154,34 @@ class Shineisp_Commons_Utilities {
 		}
 		$prefixes = 'Mc';
 		$suffixes = "'S";
-	
+		
 		// captialize all first letters
-		$str = preg_replace('/\\b(\\w)/e', 'strtoupper("$1")', strtolower(trim($str)));
-	
+		$str = preg_replace ( '/\\b(\\w)/e', 'strtoupper("$1")', strtolower ( trim ( $str ) ) );
+		
 		if ($all_uppercase) {
 			// capitalize acronymns and initialisms e.g. PHP
-			$str = preg_replace("/\\b($all_uppercase)\\b/e", 'strtoupper("$1")', $str);
+			$str = preg_replace ( "/\\b($all_uppercase)\\b/e", 'strtoupper("$1")', $str );
 		}
 		if ($all_lowercase) {
 			// decapitalize short words e.g. and
 			if ($is_name) {
 				// all occurences will be changed to lowercase
-				$str = preg_replace("/\\b($all_lowercase)\\b/e", 'strtolower("$1")', $str);
+				$str = preg_replace ( "/\\b($all_lowercase)\\b/e", 'strtolower("$1")', $str );
 			} else {
-				// first and last word will not be changed to lower case (i.e. titles)
-				$str = preg_replace("/(?<=\\W)($all_lowercase)(?=\\W)/e", 'strtolower("$1")', $str);
+				// first and last word will not be changed to lower case (i.e.
+				// titles)
+				$str = preg_replace ( "/(?<=\\W)($all_lowercase)(?=\\W)/e", 'strtolower("$1")', $str );
 			}
 		}
 		if ($prefixes) {
 			// capitalize letter after certain name prefixes e.g 'Mc'
-			$str = preg_replace("/\\b($prefixes)(\\w)/e", '"$1".strtoupper("$2")', $str);
+			$str = preg_replace ( "/\\b($prefixes)(\\w)/e", '"$1".strtoupper("$2")', $str );
 		}
 		if ($suffixes) {
 			// decapitalize certain word suffixes e.g. 's
-			$str = preg_replace("/(\\w)($suffixes)\\b/e", '"$1".strtolower("$2")', $str);
+			$str = preg_replace ( "/(\\w)($suffixes)\\b/e", '"$1".strtolower("$2")', $str );
 		}
 		return $str;
 	}
-	
+
 }
