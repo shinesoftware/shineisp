@@ -52,10 +52,10 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function find($id, $fields = "*", $retarray = false, $locale = 1) {
+	public static function find($id, $fields = "*", $retarray = false, $language_id = 1) {
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
-									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($locale) )
+									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )
 									->where ( "et.template_id = ?", $id )
 									->limit ( 1 );
 		
@@ -69,11 +69,11 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function findByCode($code, $fields = "*", $retarray = false, $locale = 1) {
+	public static function findByCode($code, $fields = "*", $retarray = false, $language_id = 1) {
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
-									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($locale) )
-									->where ( "et.code = ?", $id )
+									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )
+									->where ( "et.code = ?", $code )
 									->limit ( 1 );
 		
 		return $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
@@ -106,6 +106,10 @@ class EmailsTemplates extends BaseEmailsTemplates
 				$EmailsTemplates->bcc       = ! empty ( $params ['bcc'] ) ? $params ['bcc'] : '';
 				$EmailsTemplates->plaintext = (isset($params['plaintext'])) ? intval($params['plaintext']) : 0;
 				$EmailsTemplates->active    = (isset($params['active'])) ? intval($params['active']) : 0;
+				
+				if ( !empty($params['code']) ) {
+					$EmailsTemplates->code = $params['code'];
+				}
 
 				// Save the data
 				$EmailsTemplates->save ();

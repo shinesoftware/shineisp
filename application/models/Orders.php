@@ -1998,6 +1998,19 @@ class Orders extends BaseOrders {
 			
 			$date = explode ( "-", $order [0] ['order_date'] );
 			
+			
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
+				 'orderid'    => sprintf ( "%03s", $orderid ) . "-" . $date [0]
+				,'fullname'   => $customer
+				,'storename'  => $storename
+				,'email'      => $email
+				,'bank'       => $bank
+				,'url'        => $url
+				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
+				,'signature'  => $storename
+			));
+			
+			/*
 			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 			if ($retval) {
 				$subject = $retval ['subject'];
@@ -2016,7 +2029,7 @@ class Orders extends BaseOrders {
 				$orderTemplate = str_replace ( "[signature]", $storename, $orderTemplate );
 				$orderTemplate = utf8_decode ( $orderTemplate );
 				Shineisp_Commons_Utilities::SendEmail ( $email, $customer_email, $email, $subject, $orderTemplate );
-			}
+			}*/
 			return true;
 		}
 		return false;

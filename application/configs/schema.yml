@@ -1240,7 +1240,7 @@ EmailsTemplatesSends:
     customer_id:
       type: integer(4)
       unsigned: false
-    fromname:
+    fromemail:
       type: string(150)
     fromname:
       type: string(150)
@@ -1253,7 +1253,7 @@ EmailsTemplatesSends:
     bcc:
       type: string(150)
     html:
-      type: string()
+      type: boolean(25)
     text:
       type: string()
   relations:
