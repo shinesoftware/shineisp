@@ -256,7 +256,7 @@ class Products extends BaseProducts {
                     
                     if(!empty($params['tranche_includes_domains'])){
                         foreach( $params['tranche_includes_domains'] as $includeid ) {
-                            ProductsTranchesIncludes::saveAll($trancheid,$includeid,'DomainsTlds');
+                            ProductsTranchesIncludes::saveAll($trancheid,$includeid,'domains');
                         }
                     }
                     

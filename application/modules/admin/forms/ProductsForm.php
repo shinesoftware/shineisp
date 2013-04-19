@@ -313,7 +313,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         'isArray' => true,
         'label' => 'Domain includes',
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input multiselect'
+        'class'      => 'text-input large-input'
         ));
         
         $this->getElement('tranche_includes_domains')
