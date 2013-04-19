@@ -735,7 +735,7 @@ class Shineisp_Commons_Utilities {
 		
 		
 		if (! empty ( $bcc )) {
-			if ( is_array($bcc) ) {
+			if ( is_array($bcc) && count($bcc) > 0 ) {
 				foreach ( $bcc as $b ) {
 					$mail->addBcc ( $b );	
 				}
@@ -744,7 +744,7 @@ class Shineisp_Commons_Utilities {
 		}
 
 		if (! empty ( $cc )) {
-			if ( is_array($cc) ) {
+			if ( is_array($cc) && count($cc) > 0 ) {
 				foreach ( $cc as $c ) {
 					$mail->addCc ( $c );	
 				}
@@ -769,7 +769,8 @@ class Shineisp_Commons_Utilities {
 					
 					$EmailsTemplatesSends = new EmailsTemplatesSends();
 					$EmailsTemplatesSends->customer_id = $customerId;         
-					$EmailsTemplatesSends->fromname    = (is_array($from)) ? '"'.$from['name'].'" <'.$from['email'].'>' : $from;    
+					$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';    
+					$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
 					$EmailsTemplatesSends->subject     = $subject;
 					$EmailsTemplatesSends->recipient   = $recipient;
 					$EmailsTemplatesSends->cc          = (is_array($cc))  ? trim(implode(',', $cc),',')  : $cc;
@@ -787,7 +788,8 @@ class Shineisp_Commons_Utilities {
 				
 				$EmailsTemplatesSends = new EmailsTemplatesSends();
 				$EmailsTemplatesSends->customer_id = $customerId;         
-				$EmailsTemplatesSends->fromname    = (is_array($from)) ? '"'.$from['name'].'" <'.$from['email'].'>' : $from;    
+				$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';    
+				$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
 				$EmailsTemplatesSends->subject     = $subject;
 				$EmailsTemplatesSends->recipient   = $to;
 				$EmailsTemplatesSends->cc          = (is_array($cc))  ? trim(implode(',', $cc),',')  : $cc;
@@ -951,7 +953,7 @@ class Shineisp_Commons_Utilities {
 		$arrFrom = array('email' => $arrTemplate['fromemail'], 'name' => $arrTemplate['fromname']);
 		
 		if ( isset($arrTemplate['bcc']) ) {
-			if (is_array($arrTemplate['bcc'])) {
+			if (is_array($arrTemplate['bcc']) && count($arrTemplate['bcc']) > 0) {
 				$arrBCC = array_merge($arrBCC, $arrTemplate['bcc']);
 			} else {
 				$arrBCC[] = $arrTemplate['bcc'];
@@ -960,7 +962,7 @@ class Shineisp_Commons_Utilities {
 		$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
 
 		if ( isset($arrTemplate['cc']) ) {
-			if (is_array($arrTemplate['cc'])) {
+			if (is_array($arrTemplate['cc'])  && count($arrTemplate['cc']) > 0) {
 				$arrCC = array_merge($arrCC, $arrTemplate['cc']);
 			} else {
 				$arrCC[] = $arrTemplate['cc'];
