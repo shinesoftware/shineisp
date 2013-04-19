@@ -1,0 +1,25 @@
+<div id="page_wrapper">
+	<div id="page">
+		<?php echo $this->render('partials/header.phtml') ?>
+		<div id="content">
+			<h2><?php echo $this->translate('Requirements')?></h2>
+			<small><?php echo $this->translate('please check the process results and fix them')?></small>
+			<br/><br/>
+			<p><?php echo $this->translate('There was a problem during the configuration of the application. Please check the directory permission and refresh the page.')?></p>
+			<ul class="requirements">
+				<li><?php echo $this->translate('Is the public directory writable?')?>: <b><?php echo $this->public_folder ? $this->translate('Yes') : $this->translate('No') ?></b></li>
+				<li><?php echo $this->translate('Is the application config directory writable?')?>: <b><?php echo $this->application_folder ? $this->translate('Yes') : $this->translate('No') ?></b></li>
+				<li>
+					<?php echo $this->translate('These directories or they parents are not writable')?>:
+					<ul>
+					<?php foreach ($this->errors as $error): ?>
+						<li><?php echo $error ?></li>
+					<?php endforeach;?>
+					</ul>
+				</li>
+			</ul>
+			<input type="button" value="<?php echo $this->translate('Try Again')?>" onclick="location.href='/setup'"><br/><br/>
+			<?= $this->render('partials/footer.phtml') ?>	
+		</div>
+	</div>
+</div>
