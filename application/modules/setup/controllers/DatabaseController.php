@@ -37,6 +37,10 @@ class Setup_DatabaseController extends Zend_Controller_Action {
 		$session = new Zend_Session_Namespace ( 'setup' );
 		Languages::setDefaultLanguage (PUBLIC_PATH, $session->locale );
 		
+		if(empty($session->permissions) || $session->permissions == false){
+			$this->_helper->redirector ( 'index', 'checker', 'setup');
+		}
+		
 	}
 	
 	/**
