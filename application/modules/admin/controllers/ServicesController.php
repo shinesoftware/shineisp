@@ -128,19 +128,6 @@ class Admin_ServicesController extends Zend_Controller_Action {
 		}
 	}
 	
-	/**
-	 * createAction
-	 * Create service on server
-	 * @return null
-	 */
-	public function createAction() {
-		$id = $this->getRequest ()->getParam ( 'id' );
-		if (is_numeric ( $id )) {
-			Orders::RunTasks($id);
-		}
-		$this->view->goto = "/admin/$controller/edit/id/$id";
-	}
-	
 	
 	/**
 	 * deleteAction

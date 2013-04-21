@@ -38,6 +38,7 @@
 			<li><a href="#tab11"><?=$this->translate('Atributes');?></a></li>
 			<li><a href="#tab12"><?=$this->translate('Options');?></a></li>
 			<li><a href="#tab13"><?=$this->translate('Invoices');?></a></li>
+			<li><a href="#tab14"><?=$this->translate('E-Mails');?></a></li>
 		</ul>
 	
 	    <div id="tab1"> 
@@ -181,6 +182,12 @@
 	       <div class="clear"></div>
 	   </div>   
 	   
+	   <div class="ui-tabs-hide" id="tab14">
+	        <fieldset> 
+	            <?= $this->simplegrid($this->sentmailsdatagrid);?>
+	       </fieldset>
+	       <div class="clear"></div>
+	   </div>   
 	   
 	   <?php echo $form->customer_id->render()?>
 	

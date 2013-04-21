@@ -203,8 +203,8 @@ class Products extends BaseProducts {
 				$products->uri             = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
 				$products->sku             = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
 				$products->cost            = $params ['cost'];
-				$products->price_1         = $params ['price_1'];
-				$products->setupfee        = $params ['setupfee'];
+                // $products->price_1         = $params ['price_1'];
+				// $products->setupfee        = $params ['setupfee'];
 				$products->enabled         = $params ['enabled'] == 1 ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
@@ -250,7 +250,16 @@ class Products extends BaseProducts {
 				// Create the price tranches
 				if (! empty ( $params ['tranche_qty'] ) && ! empty ( $params ['tranche_measure'] ) && ! empty ( $params ['tranche_price'] )) {
 					$params['tranche_setupfee'] = (isset($params['tranche_setupfee'])) ? $params['tranche_setupfee'] : 0;
-					ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
+					$tranches  = ProductsTranches::saveAll($id, $params ['tranche_billing_cycle_id'], $params ['tranche_qty'], $params ['tranche_measure'], $params ['tranche_price'], $params['tranche_setupfee']);
+                    
+                    $trancheid = $tranches['tranche_id'];
+                    
+                    if(!empty($params['tranche_includes_domains'])){
+                        foreach( $params['tranche_includes_domains'] as $includeid ) {
+                            ProductsTranchesIncludes::saveAll($trancheid,$includeid,'domains');
+                        }
+                    }
+                    
 				}
 				
 				// Attach the wiki pages to a product
@@ -267,7 +276,7 @@ class Products extends BaseProducts {
 				if(!empty($params ['upgrade'])){
 					self::AddUpgradeProducts ( $product_id, $params ['upgrade'] );
 				}
-				
+                
 				
 				// Before to get the Values of the form I upload the files in the folders
 				if (! empty ( $file )) {
@@ -385,7 +394,7 @@ class Products extends BaseProducts {
 			
 			if (! empty ( $product )) {
 				if (! empty ( $product ['price_1'] ) && $product ['price_1'] > 0) {
-					//JAY 20130409
+
 					if( $refund !== false ) {
 						$priceToPayWithRefund	= $product ['price_1'] - $refund;
 						if( $priceToPayWithRefund < 0 ) {
@@ -404,7 +413,9 @@ class Products extends BaseProducts {
 					return array ('type' => 'flat', 'value' => $product ['price_1'], 'taxincluded' => $taxincluded, 'taxes' => $tax );
 				} else {
 					// Get the price min & max interval tranches
+					
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
+					//JAY 20130409
 					if (!empty($tranches[1])) {
 						//JAY 20130409
 						if( $refund !== false ) {
@@ -412,7 +423,7 @@ class Products extends BaseProducts {
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
 							
 							if( $monthBilling > 0 ) {
-								$priceToPay				= $tranches[0]['price'] * $monthBilling;
+								$priceToPay				= ( $tranches[0]['price'] )* $monthBilling;
 								$priceToPayWithRefund	= $priceToPay - $refund;
 								if( $priceToPayWithRefund < 0 ) {
 									$priceToPayWithRefund	= $priceToPay;
@@ -695,8 +706,19 @@ class Products extends BaseProducts {
 								->where ( 'p.product_id = ?', $id );
 								
 		$product = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		
+        
 		if (isset ( $product [0] )) {
+            if( array_key_exists('ProductsTranches',$product[0]) ) {
+                $tranches       =  $product[0]['ProductsTranches'];
+                $tranchesIndex  = array();
+                foreach( $tranches as $tranche ) {
+                    $tranchesIndex[$tranche['tranche_id']]  = $tranche;
+                }
+    
+                unset($product[0]['ProductsTranches']);
+                $product[0]['ProductsTranches']    = $tranchesIndex;
+            }		    
+                
 			// Handle the Attributes Values
 			if (! empty ( $product [0] ['ProductsAttributesIndexes'] )) {
 				$attributes = $product [0] ['ProductsAttributesIndexes'];

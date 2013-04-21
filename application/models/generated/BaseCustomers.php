@@ -47,6 +47,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property Doctrine_Collection $CustomersDomainsRegistrars
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $DomainsBulk
+ * @property Doctrine_Collection $EmailsTemplatesSends
  * @property Doctrine_Collection $Fastlinks
  * @property Doctrine_Collection $Invoices
  * @property Doctrine_Collection $Messages
@@ -262,6 +263,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'foreign' => 'customer_id'));
 
         $this->hasMany('DomainsBulk', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasMany('EmailsTemplatesSends', array(
              'local' => 'customer_id',
              'foreign' => 'customer_id'));
 

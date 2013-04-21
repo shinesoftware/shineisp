@@ -78,11 +78,14 @@
             </td>
 
 	        <td width="100">
-	         	<?php if($product['type'] == "domain"): ?>
+	         	<?php if( $product['type'] == "domain" && array_key_exists('tld_id', $product) ): ?>
                 	<?php $tax = Taxes::getTaxbyTldID($product['tld_id']); ?>
                 <?php else: ?>
                 	<?php $tax = Taxes::getTaxbyProductID($product['product_id']); ?>
                 <?php endif;?>
+                <?php if( $this->isVATFree == false ): ?>
+                	<?php $tax['percentage'] = 0; ?> 
+                <?php endif; ?>
                 
                 <?php if(!empty($tax['name'])) :?>
                     <?php $partialtotal = ($price * $tax['percentage']) / 100 ?>

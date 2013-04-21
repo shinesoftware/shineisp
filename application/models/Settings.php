@@ -70,6 +70,23 @@ class Settings extends BaseSettings {
 	}
 	
 	/**
+	 * get the setup date from the xml config file
+	 */
+	public static function getConfigSetupDate() {
+		$configfile = APPLICATION_PATH . "/configs/config.xml";
+		if(file_exists($configfile)){
+			$xml = simplexml_load_file($configfile);
+			$attributes = $xml->attributes();
+			if(!empty($attributes['setupdate'])){
+				return (string) $attributes['setupdate'];
+			}else{
+				throw new Exception('Setup date has been not set in the config xml file at the installation process');
+			}
+		}
+		
+	}
+	
+	/**
 	 * Create the ShineISP Database
 	 */
 	public static function createDb($installsampledata=true) {

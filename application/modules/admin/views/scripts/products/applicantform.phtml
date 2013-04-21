@@ -37,7 +37,7 @@
 	<div id="tabs">
 		<ul>
 			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Prices');?></a></li> 
+			<!-- <li><a href="#tab2"><?=$this->translate('Prices');?></a></li> --> 
 			<li><a href="#tab3"><?=$this->translate('Billing');?></a></li> 
 			<li><a href="#tab4"><?=$this->translate('Categories');?></a></li> 
 			<li><a href="#tab5"><?=$this->translate('Content');?></a></li> 
@@ -64,6 +64,7 @@
 		        <?php echo $form->ishighlighted->render() ?>
 		        <?php echo $form->isrefundable->render() ?>
 		        <?php echo $form->autosetup->render() ?>
+		        <?php echo $form->cost->render()?>
 		    </fieldset>
 		    <fieldset class=column-right>
 		        <?php echo $form->uri->render()?>
@@ -73,28 +74,30 @@
 	            <?php echo $form->showonrss->render()?>
 	            <?php echo $form->downgradable->render()?>
 	            <?php echo $form->server_group_id->render()?>
+	            <?php echo $form->tax_id->render()?>
 	        </fieldset>
 		    <div class="clear"></div>
 	    </div>
+	    <!--
 	   <div class="ui-tabs-hide" id="tab2">
 	        <fieldset>
 	            <?php echo $form->price_1->render()?>
 	            <?php echo $form->setupfee->render()?>
-	            <?php echo $form->tax_id->render()?>
-	            <?php echo $form->cost->render()?>
 	        </fieldset>
 	        <div class="clear"></div>
-	   </div> 
+	   </div>
+	   -->
+	    
 	   <div class="ui-tabs-hide" id="tab3">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->tranches) ?>
 	            <div id="trancheform">
-	            	<div id="trancheOperationTitle"><?=$this->translate('Insert new billing')?></div>
 	                <?php echo $form->tranche_qty->render()?>
 	                <?php echo $form->tranche_billing_cycle_id->render()?>
 	                <?php echo $form->tranche_setupfee->render()?>
 	                <?php echo $form->tranche_price->render()?>
 	                <?php echo $form->tranche_measure->render()?>
+	                <?php echo $form->tranche_includes_domains->render()?>
 	            </div>
 	        </fieldset>
 	        <div class="clear"></div>

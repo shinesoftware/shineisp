@@ -31,6 +31,7 @@ class ProductsTranches extends BaseProductsTranches
 		$tranches->price = $price;
 		$tranches->product_id = $productId;
 		$tranches->save ();
+        return $tranches;
 	}
     
     /**

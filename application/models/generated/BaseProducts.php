@@ -47,7 +47,6 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Doctrine_Collection $ProductsMedia
  * @property Doctrine_Collection $ProductsAttributesIndexes
  * @property ServersGroups $ServersGroups
- * @property Doctrine_Collection $ProductsTranchesIncludes
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -252,9 +251,5 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasOne('ServersGroups', array(
              'local' => 'server_group_id',
              'foreign' => 'group_id'));
-
-        $this->hasMany('ProductsTranchesIncludes', array(
-             'local' => 'product_id',
-             'foreign' => 'include_id'));
     }
 }
