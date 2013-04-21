@@ -219,7 +219,7 @@ class Products extends BaseProducts {
 				$products->external_id     = !empty($params ['external_id']) ? $params ['external_id'] : NULL;
 				$products->downgradable    = !empty($params['downgradable']) ? 1: 0;
 				$products->server_group_id = !empty($params['server_group_id']) ? intval($params['server_group_id']) : null;
-				$products->autosetup       = !empty($params['server_group_id']) ? intval($params['autosetup']) : 0;
+				$products->autosetup       = !empty($params['autosetup']) ? intval($params['autosetup']) : 0;
 
 				// Save the data
 				$products->save ();
