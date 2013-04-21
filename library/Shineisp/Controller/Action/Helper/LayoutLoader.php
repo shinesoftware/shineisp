@@ -12,7 +12,6 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 	 * @see Zend_Controller_Action_Helper_Abstract::preDispatch()
 	 */
 	public function preDispatch() {
-
 		$module = $this->getRequest ()->getModuleName ();
 		$controller = $this->getRequest ()->getControllerName ();
 		$keywords = Settings::findbyParam ( 'default_html_keywords' );

@@ -12,9 +12,9 @@
  */
 class Admin_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 	public function simplegrid($data) {
-		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
+		$this->view->module     = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$this->view->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
-		$this->view->action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
+		$this->view->action     = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		
 		if (isset ( $data ['records'] )) {
 			
@@ -28,7 +28,8 @@ class Admin_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 			$this->view->records = $data ['records'];
 			
 			// If these options are true a link appear for each row in a table
-			$this->view->edit = ! empty ( $data ['edit'] ) ? $data ['edit'] : false;
+			$this->view->view   = ! empty ( $data ['view'] ) ? $data ['view'] : false;
+			$this->view->edit   = ! empty ( $data ['edit'] ) ? $data ['edit'] : false;
 			$this->view->delete = ! empty ( $data ['delete'] ) ? $data ['delete'] : false;
 			
 			// If you need more action use this parameter Array{'url'=>'name'} 

@@ -35,6 +35,7 @@ class Shineisp_Main {
 			echo $e->getMessage();
 		}
 	}
+    
 	
 	/**
 	 * Get the DSN string to connect the database
