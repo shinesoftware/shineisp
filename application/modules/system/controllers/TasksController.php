@@ -96,10 +96,9 @@ class System_TasksController extends Zend_Controller_Action {
 				$ISPclass->sendMail($task); 
 				
 			}elseif($action == "fullProfile"){
-				
-				$websiteID = $ISPclass->create_website($task);  // Create the website plan
-				$ftpID = $ISPclass->create_ftp($task, $websiteID);  // Create the main ftp account
-				$emailID = $ISPclass->create_mail($task);  // Create the email account
+				$websiteID  = $ISPclass->create_website($task);  // Create the website plan
+				$ftpID      = $ISPclass->create_ftp($task, $websiteID);  // Create the main ftp account
+				$emailID    = $ISPclass->create_mail($task);  // Create the email account
 				$databaseID = $ISPclass->create_database($task);  // Create the database
 
 				// Send the configuration email

@@ -75,6 +75,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		$service = OrdersItems::getAllInfo($task['orderitem_id']);
 		
 		if(!empty($service)){
+			$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
 			
 			// Get the Json encoded parameters in the task
 			$parameters = json_decode ( $task ['parameters'], true );
@@ -84,7 +85,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 			}
 			
 			// Get the mail server setup
-			$server = Servers::getMailserver();
+			$server = Servers::getServerFromGroup($server_group_id, 'mail');
 
 			// Get the server id
 			if(is_numeric($server['server_id'])){
@@ -210,9 +211,15 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		if(empty($parameters)){
 			throw new Exception("No parameters found in the service", 3501);
 		}
-		
-		// Get the db server setup
-		$server = Servers::getDbserver();
+
+		// Get the service details
+		$service = OrdersItems::getAllInfo($task['orderitem_id']);
+		if ( !$service ) {
+			return false;
+		}
+		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
+		$server = Servers::getServerFromGroup($server_group_id, 'database');		
+				
 
 		// Get the server id
 		if(is_numeric($server['server_id'])){
@@ -306,9 +313,15 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		
 		// Connection to the SOAP system
 		$client = $this->connect ();
-			
-		// Get the web server setup
-		$server = Servers::getActiveWebserver();
+
+		// Get the service details
+		$service = OrdersItems::getAllInfo($task['orderitem_id']);
+		if ( !$service ) {
+			return false;
+		}
+		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
+		$server = Servers::getServerFromGroup($server_group_id, 'web');		
+					
 
 		// Get the server id
 		if(is_numeric($server['server_id'])){
@@ -403,8 +416,14 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		// Connection to the SOAP system
 		$client = $this->connect ();
 		
-		// Get the web server setup
-		$server = Servers::getActiveWebserver();
+		// Get the service details
+		$service = OrdersItems::getAllInfo($task['orderitem_id']);
+		if ( !$service ) {
+			return false;
+		}
+		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
+		$server = Servers::getServerFromGroup($server_group_id, 'web');		
+
 
 		// Get the server id
 		if(is_numeric($server['server_id'])){
@@ -520,7 +539,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		if(empty($task)){
 			throw new Exception('Task empty.', '3000');
 		}
-		
+				
 		// Connection to the SOAP system
 		$client = $this->connect ();
 
@@ -547,6 +566,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				$clientId = "";
 			}
 		}
+		
 		
 		// Customer Profile
 		$record ['company_name'] = $customer ['company'];
@@ -585,8 +605,13 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 			$client->client_update ( $this->getSession (), $clientId, 1, $record );
 		} else {
 			
-			// Get the web server setup
-			$server = Servers::getActiveWebserver();
+			// Get the service details
+			$service = OrdersItems::getAllInfo($task['orderitem_id']);
+			if ( !$service ) {
+				return false;
+			}
+			$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
+			$server = Servers::getServerFromGroup($server_group_id, 'web');		
 			
 			$arrUsernames = array();
 			$arrUsernames = self::generateUsernames($customer);

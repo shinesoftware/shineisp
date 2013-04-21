@@ -204,20 +204,24 @@ class Admin_ProductsController extends Zend_Controller_Action {
 		}
 	}
 	
+	/*
 	public function gettrancheAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
 		$trance	= ProductsTranches::getTranchebyId($id);
 
 		$params	= array();
-		$params['title']	= 'Update billing oppure <a href="#" onclick="return onCleanTranche()">Inserisci nuovo</a>';
+		$params['title']	= 'Update billing or <a href="#" onclick="return onCleanTranche()">Insert new</a>';
 		$params['quantity']	= $trance['quantity'];
 		$params['setupfee']	= $trance['setupfee'];
 		$params['price']	= $trance['price'];
 		$params['billing_cycle_id']	= $trance['billing_cycle_id'];
-		$params['measurement']	= $trance['measurement'];				
+		$params['measurement']	= $trance['measurement'];	
+		
+		$params['cost']				= array();
+		//$params['cost']['title']	= 			
 		echo json_encode($params);
 		exit();
-	}
+	}*/
 	
 	/**
 	 * editAction
@@ -251,7 +255,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$rs['related'] = ProductsRelated::getItemsbyProductID($rs ['product_id']);
 				//add panel for select upgrade
 				$rs['upgrade'] = ProductsUpgrades::getItemsbyProductID($rs ['product_id']);
-				
+                
 				// Get the wiki pages attached to the product selected
 				$rs['wikipages'] =	Wikilinks::getWikiPagesList($rs ['product_id'], "products", $this->session->langid);
 				
@@ -271,11 +275,22 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$tranches = ProductsTranches::getTranches ( $id, "tranche_id, quantity, measurement, setupfee, price, bc.name as billingcycle, selected" );
 				if (isset ( $tranches [0] )) {
 					$onclick	= array();
-					
+                    
+                    foreach( $tranches as &$tranche ) {
+                        $trancheid  = $tranche['tranche_id'];
+                        $include    = ProductsTranchesIncludes::getIncludeForTrancheId( $trancheid );
+                        $textInclude    = array();
+                        if( array_key_exists('domains', $include) ) {
+                            $textInclude[]    = "Domains: ".implode(", ",$include['domains']);
+                        }
+                        
+                        $tranche['include']    = implode("<br/>",$textInclude);
+                    }
+                    
 					$this->view->tranches = array (
 												 'records' 	=> $tranches
 												,'actions' 	=> array ( '/admin/products/setdefaultrance/id/' => 'Set as default')
-												,'onclick' 	=> array ( 'return onEditTranche([id])' => 'Edit')
+												//,'onclick' 	=> array ( 'return onEditTranche([id])' => 'Edit')
 												,'delete' 	=> array ('controller' => 'products', 'action' => 'deltranche' )
 											);
 				}

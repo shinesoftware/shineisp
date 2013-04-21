@@ -9,7 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsTranchesIncludes', 'doct
  * 
  * @property integer $tranche_id
  * @property integer $include_id
- * @property Products $Products
+ * @property string $type
  * @property ProductsTranches $ProductsTranches
  * 
  * @package    ##PACKAGE##
@@ -36,19 +36,19 @@ abstract class BaseProductsTranchesIncludes extends Doctrine_Record
              'autoincrement' => false,
              'length' => '4',
              ));
+        $this->hasColumn('type', 'string', 150, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '150',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Products', array(
-             'local' => 'include_id',
-             'foreign' => 'product_id',
-             'onDelete' => 'NO ACTION'));
-
         $this->hasOne('ProductsTranches', array(
              'local' => 'tranche_id',
              'foreign' => 'tranche_id',
-             'onDelete' => 'NO ACTION'));
+             'onDelete' => 'CASCADE'));
     }
 }

@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormSelect.php 25053 2012-10-16 15:30:11Z matthew $
+ * @version    $Id: FormSelect.php 25187 2013-01-08 08:21:00Z frosch $
  */
 
 
@@ -177,8 +177,7 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
 
 
         $opt = '<option'
-             . ' value="' . $this->view->escape($value) . '"'
-             . ' label="' . $this->view->escape($label) . '"';
+             . ' value="' . $this->view->escape($value) . '"';
 
              if ($class) {
              $opt .= ' class="' . $class . '"';

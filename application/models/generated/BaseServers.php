@@ -16,8 +16,10 @@ Doctrine_Manager::getInstance()->bindComponent('Servers', 'doctrine');
  * @property string $description
  * @property string $datacenter
  * @property float $cost
+ * @property boolean $is_default
  * @property integer $services
  * @property integer $max_services
+ * @property timestamp $buy_date
  * @property integer $isp_id
  * @property integer $type_id
  * @property integer $status_id
@@ -88,6 +90,11 @@ abstract class BaseServers extends Doctrine_Record
              'default' => '0.00',
              'length' => '10',
              ));
+        $this->hasColumn('is_default', 'boolean', 25, array(
+             'type' => 'boolean',
+             'default' => 0,
+             'length' => '25',
+             ));
         $this->hasColumn('services', 'integer', 4, array(
              'type' => 'integer',
              'default' => 0,
@@ -97,6 +104,10 @@ abstract class BaseServers extends Doctrine_Record
         $this->hasColumn('max_services', 'integer', 4, array(
              'type' => 'integer',
              'length' => '4',
+             ));
+        $this->hasColumn('buy_date', 'timestamp', 25, array(
+             'type' => 'timestamp',
+             'length' => '25',
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',

@@ -233,7 +233,18 @@ class ProductsController extends Zend_Controller_Action {
 					}
 				}
 			}
-			/** 20130409 **/		
+			/** 20130409 **/	
+			
+			$includes    = 	ProductsTranchesIncludes::getIncludeForTrancheId( $id );
+            $textIncludes    = array();
+            if( array_key_exists('domains', $includes) ) {
+                $textIncludes[]    = " - Domains: ".implode(", ",$includes['domains']);
+            }
+            
+            $textInclude    = "";
+            if( ! empty($textIncludes) ) {
+                $textInclude    = " Includes :<br/>".implode("<br/>",$textIncludes);    
+            }
 
 			// Prepare the data to send to the json
 			$data['price'] = $tranche['price'];
@@ -244,14 +255,16 @@ class ProductsController extends Zend_Controller_Action {
 				$data['pricetax'] = $tranche['price'];
 			}
 			
-			$data['pricelbl'] = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
-			$data['months'] = $tranche['BillingCycle']['months'];
-			$data['pricepermonths'] = $data['pricetax'] * $tranche['BillingCycle']['months'];
-			$data['name'] = $this->translator->translate ($tranche['BillingCycle']['name']);
-			$data['pricetax'] = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
-			$data['pricepermonths'] = $currency->toCurrency($data['pricepermonths'], array('currency' => Settings::findbyParam('currency')));
-			
+			$data['pricelbl']           = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
+			$data['months']             = $tranche['BillingCycle']['months'];
+			$data['pricepermonths']     = $data['pricetax'] * $tranche['BillingCycle']['months'];
+			$data['name']               = $this->translator->translate ($tranche['BillingCycle']['name']);
+			$data['pricetax']           = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
+			$data['pricepermonths']     = $currency->toCurrency($data['pricepermonths'], array('currency' => Settings::findbyParam('currency')));
+			$data['setupfee']           = $currency->toCurrency($tranche['setupfee'], array('currency' => Settings::findbyParam('currency')));
+            $data['includes']           = $textInclude;
 		}
+
 		die ( json_encode ( $data ) );
 	}
 	

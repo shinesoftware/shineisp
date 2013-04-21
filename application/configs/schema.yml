@@ -473,6 +473,7 @@ ContactsTypes:
       local: type_id
       foreign: type_id
       type: many
+
 Countries:
   connection: doctrine
   tableName: countries
@@ -501,6 +502,7 @@ Countries:
       local: country_id
       foreign: country_id
       type: many
+
 CreditNotes:
   connection: doctrine
   tableName: credit_notes
@@ -540,6 +542,7 @@ CreditNotes:
       local: creditnote_id
       foreign: creditnote_id
       type: many
+
 CreditNotesItems:
   connection: doctrine
   tableName: credit_notes_items
@@ -570,6 +573,7 @@ CreditNotesItems:
       local: creditnote_id
       foreign: creditnote_id
       type: one
+
 CustomAttributes:
   connection: doctrine
   tableName: custom_attributes
@@ -593,7 +597,7 @@ CustomAttributes:
       type: string(255)
       notnull: true
     panel_id:
-      type: integer(11)
+      type: integer(4)
   relations:
     CustomAttributesValues:
       local: attribute_id
@@ -1147,6 +1151,119 @@ DomainsTldsData:
     Languages:
       local: language_id
       foreign: language_id
+      onDelete: CASCADE
+      
+EmailsTemplates:
+  connection: doctrine
+  tableName: emails_templates
+  columns:
+    template_id:
+      type: integer(5)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    type:
+      type: enum
+      values: ['products', 'domains', 'supports', 'general', 'invoices', 'affiliates', 'customers', 'orders']      
+    code:
+      type: string(150)
+    name:
+      type: string(150)
+    fromname:
+      type: string(150)
+    fromemail:
+      type: string(150)
+    cc:
+      type: string(150)
+    bcc:
+      type: string(150)
+    plaintext:
+      type: boolean(25)
+      default: '0'
+    active:
+      type: boolean(25)      
+      default: '1'
+  relations:
+    EmailsTemplatesData:
+      local: template_id
+      foreign: template_id
+      type: many
+      onDelete: CASCADE
+      
+EmailsTemplatesData:
+  connection: doctrine
+  tableName: emails_templates_data
+  columns:
+    id:
+      type: integer(5)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    template_id:
+      type: integer(5)
+      unsigned: true
+    language_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+    fromname:
+      type: string(150)
+    fromemail:
+      type: string(150)
+    subject:
+      type: string(150)
+    html:
+      type: string()
+      notnull: false
+    text:
+      type: string()
+      notnull: false
+  relations:
+    EmailsTemplates:
+      local: template_id
+      foreign: template_id
+      type: one
+      onDelete: CASCADE
+      
+EmailsTemplatesSends:
+  connection: doctrine
+  tableName: emails_templates_sends
+  columns:
+    id:
+      type: integer(5)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    customer_id:
+      type: integer(4)
+      unsigned: false
+    date:
+      type: timestamp(25)
+      notnull: true
+    fromemail:
+      type: string(150)
+    fromname:
+      type: string(150)
+    subject:
+      type: string(150)
+    recipient:
+      type: string(150)
+    cc:
+      type: string(150)
+    bcc:
+      type: string(150)
+    html:
+      type: boolean(25)
+    text:
+      type: string()
+  relations:
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      type: one
       onDelete: CASCADE
       
 Fastlinks:
@@ -2661,34 +2778,7 @@ ProductsUpgrades:
     Products:
       local: upgrade_product_id
       foreign: product_id
-      onDelete: CASCADE       
-
-ProductsTranchesIncludes:
-  connection: doctrine
-  tableName: products_tranches_includes
-  columns:
-    tranche_id: 
-      type: integer(4)
-      unsigned: false
-      notnull: true
-      primary: true
-      autoincrement: false
-    include_id: 
-      type: integer(4)
-      unsigned: false
-      notnull: true
-      primary: true
-      autoincrement: false
-  relations:
-    Products:
-      local: include_id
-      foreign: product_id
-      onDelete: NO ACTION
-    ProductsTranches:
-      local: tranche_id
-      foreign: tranche_id
-      onDelete: NO ACTION       
-
+      onDelete: CASCADE
 ProductsTranches:
   connection: doctrine
   tableName: products_tranches
@@ -2735,22 +2825,21 @@ ProductsTranchesIncludes:
       unsigned: false
       notnull: true
       primary: true
-      autoincrement: false
+      autoincrement: false    
     include_id: 
       type: integer(4)
       unsigned: false
       notnull: true
       primary: true
       autoincrement: false
+    type:
+      type: string(150)
+      notnull: true      
   relations:
-    Products:
-      local: include_id
-      foreign: product_id
-      onDelete: NO ACTION
     ProductsTranches:
       local: tranche_id
       foreign: tranche_id
-      onDelete: NO ACTION       
+      onDelete: CASCADE
 PurchaseCategories:
   connection: doctrine
   tableName: invoices_purchases_categories
@@ -2984,11 +3073,15 @@ Servers:
     cost:
       type: float(10)
       default: '0.00'
+    is_default:
+      type: boolean(25)
+      default: 0   
     services: 
       type: integer(4)
       default: 0
       notnull: true
-    max_services: integer(4)      
+    max_services: integer(4)
+    buy_date: timestamp(25)
     isp_id: integer(4)
     type_id: integer(4)
     status_id: integer(4)

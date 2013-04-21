@@ -307,7 +307,20 @@ class Admin_Form_ProductsForm extends Zend_Form
             'label'      => 'Unit Price',
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
-        ));  
+        )); 
+                
+        $this->addElement('multiselect', 'tranche_includes_domains', array(
+        'isArray' => true,
+        'label' => 'Domain includes',
+        'decorators' => array('Composite'),
+        'class'      => 'text-input large-input'
+        ));
+        
+        $this->getElement('tranche_includes_domains')
+                  ->setAllowEmpty(true)
+                  ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic list.
+                  ->setMultiOptions(DomainsTlds::getList());        
+        
     	
         $this->addElement('select', 'group_id', array(
             'decorators'  => array('Composite'),

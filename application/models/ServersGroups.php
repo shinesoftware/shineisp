@@ -84,8 +84,8 @@ class ServersGroups extends BaseServersGroups
 
 
     /**
-     * getAttributes
-     * Get all the attributes within the selected group
+     * getServers
+     * Get all the servers within the selected group
      * @param $id
      * @return ARRAY Record
      */
@@ -111,6 +111,34 @@ class ServersGroups extends BaseServersGroups
     }   
 
 
+    /**
+     * Save the data of the server group
+     * 
+     * @param string $name
+     * @param integer $fill_type
+     * @param boolean $active
+     * @param integer $serverGroupId
+     * 
+     * @return number|boolean
+     */
+    public static function saveAll($name, $fill_type, $active=false, $serverGroupId=null) {
+    	
+    	if(!empty($serverGroupId) && is_numeric($serverGroupId)){
+    		$servergroup = Doctrine::getTable ( 'ServersGroups' )->find ( $serverGroupId);
+    	}else{
+    		$servergroup = new ServersGroups();
+    	}
+    	
+    	$servergroup->name      = $name;
+    	$servergroup->fill_type = intval($fill_type);
+    	$servergroup->active    = $active ? 1 : 0;
+    	
+    	if($servergroup->trySave()){
+    		return $servergroup->group_id;
+    	}
+    	
+    	return false;
+    }
 
 	/**
 	 * getList
