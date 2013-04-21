@@ -22,7 +22,8 @@ class EmailsTemplatesSends extends BaseEmailsTemplatesSends
 	public static function getByCustomerID($customerID, $fields = '*') {
 		$records = Doctrine_Query::create ()->select ( $fields )
 							->from ( 'EmailsTemplatesSends' )
-							->where ( "customer_id = ?", $customerID )
+							->where ( 'customer_id = ?', intval($customerID) )
+							->orderBy('id desc')
 							->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		
 		return $records;

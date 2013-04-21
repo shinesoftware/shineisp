@@ -1610,7 +1610,7 @@ class Orders extends BaseOrders {
 		
 		$order = self::getAllInfo ( $id, null, true );
 		$date  = explode ( "-", $order [0] ['order_date'] );
-		
+				
 		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
 			 'orderid'    => sprintf ( "%03s", $id ) . "-" . $date [0]
 			,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']

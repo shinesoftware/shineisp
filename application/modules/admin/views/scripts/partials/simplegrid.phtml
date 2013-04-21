@@ -34,7 +34,7 @@ if (isset($this->records[0])):
                            
                        <?php endforeach;?>
                    
-                    <?php if($this->edit || $this->delete || $this->actions ):?><th><?=$this->translate('Commands');?></th><?php endif;?>
+                    <?php if($this->view || $this->edit || $this->delete || $this->actions ):?><th><?=$this->translate('Commands');?></th><?php endif;?>
                 </tr>
             </thead>
             <tbody>
@@ -51,9 +51,12 @@ if (isset($this->records[0])):
 	                         <td class="values"><?=$value?></td>
                          <?php endif;?>
                    <?php endforeach;?>
-                   
-                   <?php if($this->edit || $this->delete || $this->actions):?>
+                   <?php if($this->view || $this->edit || $this->delete || $this->actions):?>
                    <td>
+	                    <?php if($this->view):?>
+                           <a href="<? echo "/" . $this->module . "/" . $this->view['controller'] . "/" . $this->view['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('Click here to view'); ?>"><?=$this->translate('View'); ?></a>
+                        <?php endif;?>
+
 	                    <?php if($this->edit):?>
                             <a href="<? echo "/" . $this->module . "/" . $this->edit['controller'] . "/" . $this->edit['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('Click here to edit'); ?>"><?=$this->translate('Edit'); ?></a>
                         <?php endif;?>

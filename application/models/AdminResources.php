@@ -72,7 +72,7 @@ class AdminResources extends BaseAdminResources
 	 * @param integer $id [0 for the root]
 	 * @param array $selecteditem 
 	*/
-	public function createTree($id, $selecteditem = array()) {
+	public static function createTree($id, $selecteditem = array()) {
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
 		$res = array ();

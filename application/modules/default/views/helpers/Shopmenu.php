@@ -24,8 +24,6 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 		);
 		
 		$result = ProductsCategories::getMenu ();
-		// echo '<pre>';
-		// print_r($result); die();
 		foreach($result as $menuItem)
 		{
 			$menu['items'][$menuItem['category_id']] = $menuItem;
@@ -39,7 +37,6 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 		$html = substr_replace($html, $menuheader, 0, strlen("<ul class=''>\n"));
 		
 		return $html;
-		
 	}
 	
 	private function buildMenu($parentId, $menuData, $deep=0)
