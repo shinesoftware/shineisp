@@ -967,17 +967,13 @@ class OrdersItems extends BaseOrdersItems {
 			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', 20 )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
-			// Send an email to the Administrator
-			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'cron' );
-			if ($retval) {
-				$subject = $retval ['subject'];
-				$Template = $retval ['template'];
-				$signature = $isp ['company'] . "\n" . $isp ['email'];
-				$subject = str_replace ( "[cronjob]", "Check Services", $subject );
-				$Template = str_replace ( "[cronjob]", "Check Services", $Template );
-				$Template = str_replace ( "[signature]", $signature, $Template );
-				Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $Template );
-			}
+			Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], 'cron', array(
+				 'storename'  => $isp ['company']
+				,'email'      => $isp ['email']
+				,'signature'  => $isp ['company'] . "\n" . $isp ['email']
+				,'cronjob'    => 'Check Services'
+			));				
+				
 				
 		} catch ( Exception $e ) {
 			return $e->getMessage () ;
