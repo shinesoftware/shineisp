@@ -385,3 +385,9 @@ Navigation:
     parent_id: '16'
     module: admin
     controller: payments    
+  Navigation_58:
+    label: 'Server Groups'
+    uri: /admin/serversgroups
+    parent_id: '16'
+    module: admin
+    controller: serversgroups    

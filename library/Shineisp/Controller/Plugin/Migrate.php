@@ -45,22 +45,65 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 				if(is_dir($path)){
 					$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
 					try{
-						foreach($directory_iterator as $filename => $path_object)
-						{
+						// get the first setup date 
+						$setupdate = Settings::getConfigSetupDate();
+						
+						if(empty($setupdate)){
+							throw new Exception('Setup date is not set in the config.xml file');
+						}
+						
+						// for each sql file do ...
+						foreach($directory_iterator as $filename => $path_object){
+							
+							// get the sql file information
 							$info = pathinfo($filename);
+							
 							if(!empty($info['extension']) && $info['extension'] == "sql"){
-								// read the sql 
-								$sql = Shineisp_Commons_Utilities::readfile($info['dirname'] . "/" . $info['basename'] );
-
-								// execute the sql strings
-								$result = $db->execute($sql);
-
-								// close the db connection
-								$db->close();
+									
+								$name = $info['filename'];
 								
-								if($result){
+								// get the first part of the name with the filename that contains the date: YYYYMMddHis-NAME.sql
+								$arrName = explode("-", $name);
+									
+								// if the string is a valid date get the days betweeen the sql file name and the day of the setup of shineisp
+								if(!empty($arrName[0]) && Zend_Date::isdate($arrName[0], 'YYYYMMddHis')){
+									$sqldate = new Zend_Date($arrName[0], 'YYYYMMddHis');
+									$mysetupdate = new Zend_Date($setupdate, 'YYYYMMddHis');
+								
+									// get the difference of the two dates
+									$diff = $sqldate->sub($mysetupdate)->toValue();
+									$dayssincefirstsetup = floor($diff/60/60/24);
+									
+									unset($sqldate);
+									unset($mysetupdate);
+								}
+								
+								if($dayssincefirstsetup > 0){
+									// log file
+									Shineisp_Commons_Utilities::log("Update the database with " . $info['filename'] . ".sql (days: $dayssincefirstsetup)");
+									
+									// read the sql 
+									$sql = Shineisp_Commons_Utilities::readfile($info['dirname'] . "/" . $info['basename'] );
+	
+									// execute the sql strings
+									$result = $db->execute($sql);
+	
+									// close the db connection
+									$db->close();
+									
+									if($result){
+										// write a log message
+										Shineisp_Commons_Utilities::log($info['filename'] . ".sql has been executed.");
+										
+										// rename the sql
+										rename($info['dirname'] . "/" . $info['basename'], $info['dirname'] . "/" . $info['filename'] . ".sql.old");
+									}
+								}else{
 									// rename the sql
 									rename($info['dirname'] . "/" . $info['basename'], $info['dirname'] . "/" . $info['filename'] . ".sql.old");
+									
+									// write a log message 
+									Shineisp_Commons_Utilities::log($info['filename'] . ".sql has been skipped because already set in the doctrine data setup.");
 								}
 							}
 						}
