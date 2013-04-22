@@ -1170,10 +1170,6 @@ EmailsTemplates:
       type: string(150)
     name:
       type: string(150)
-    fromname:
-      type: string(150)
-    fromemail:
-      type: string(150)
     cc:
       type: string(150)
     bcc:
