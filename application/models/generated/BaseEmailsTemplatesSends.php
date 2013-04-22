@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('EmailsTemplatesSends', 'doctrine
  * 
  * @property integer $id
  * @property integer $customer_id
+ * @property timestamp $date
  * @property string $fromemail
  * @property string $fromname
  * @property string $subject
@@ -41,6 +42,11 @@ abstract class BaseEmailsTemplatesSends extends Doctrine_Record
              'type' => 'integer',
              'unsigned' => false,
              'length' => '4',
+             ));
+        $this->hasColumn('date', 'timestamp', 25, array(
+             'type' => 'timestamp',
+             'notnull' => true,
+             'length' => '25',
              ));
         $this->hasColumn('fromemail', 'string', 150, array(
              'type' => 'string',
