@@ -669,16 +669,14 @@ class CartController extends Zend_Controller_Action {
 						$domain = DomainsTlds::getAllInfo ( $product ['tld_id'] );
 						
 						$action = $product ['isavailable'] ? "registerDomain" : "transferDomain";
-						$price = $product ['isavailable'] ? $domain ['registration_price'] : $domain ['transfer_price'];
-						$cost = $product ['isavailable'] ? $domain ['registration_cost'] : $domain ['transfer_cost'];
+						$price  = $product ['isavailable'] ? $domain ['registration_price'] : $domain ['transfer_price'];
+						$cost   = $product ['isavailable'] ? $domain ['registration_cost']  : $domain ['transfer_cost'];
                         
-                        // Check if domain include in a hosting
-						$hosting = $this->checkIfDomainIncluse( $product['domain_selected']);
-                        if( $hosting != false ) {
-                            $price  = 0;
-                        }
+                        // Check if domain included in a hosting
+						$price = ( $this->checkIfDomainIncluse( $product['domain_selected']) == false ) ? 0 : $price;
+
 						// Create the order item for the domain
-						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id'], 'hosting' => $hosting ) );
+						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id']) );
 					
 					} else {
 						// Create the order item for other products
