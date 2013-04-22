@@ -944,11 +944,7 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
 	 */
-	public static function sendEmailTemplate($recipient = '', $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
-		if ( empty($recipient) || empty($template) || !is_array($replace) ) {
-			return false;
-		} 
-		
+	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
 		// Get email template
 		$arrTemplate = self::getEmailTemplate($template);
 		if ( !is_array($arrTemplate) ) {
@@ -1008,6 +1004,9 @@ class Shineisp_Commons_Utilities {
 				$arrCC[] = $arrTemplate['cc'];
 			}
 		}
+		
+		// null recipient, send only to ISP
+		$recipient = ($recipient == null) ? $ISP['email'] : $recipient;
 		
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
