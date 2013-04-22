@@ -773,6 +773,7 @@ class Shineisp_Commons_Utilities {
 		$sent = true;
 		
 		try {
+			
 			$mail->send ( $transport );
 
 			// All good, log to DB
@@ -878,7 +879,6 @@ class Shineisp_Commons_Utilities {
 				if (preg_match ( '/<!--@subject\s*(.*?)\s*@-->/', $line, $matches )) {
 					$subject = $matches [1]; // Get the subject
 					$subject = trim ( $subject );
-					$subject = $subject;
 					continue;
 				}
 				
@@ -961,8 +961,6 @@ class Shineisp_Commons_Utilities {
 				$arrTemplate[$k] = str_replace('['.$placeholder.']', $value, $v);
 			}
 		}
-		
-		
 
 		// Send the email
 		$arrBCC  = array();
@@ -985,7 +983,7 @@ class Shineisp_Commons_Utilities {
 				$arrCC[] = $arrTemplate['cc'];
 			}
 		}
-				
+		
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
 	}
