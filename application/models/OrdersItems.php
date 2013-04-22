@@ -835,7 +835,6 @@ class OrdersItems extends BaseOrdersItems {
 	 */
 	public static function checkServices() {
 		try {
-			$isp = Isp::getActiveISP ();
 			$i = 0;
 			$customers = array ();
 				
@@ -906,7 +905,6 @@ class OrdersItems extends BaseOrdersItems {
 			// Create the emailS for the customers
 			if (count ( $customers ) > 0) {
 	
-				$signature = $isp ['company'] . "\n" . $isp ['email'];
 				foreach ( $customers as $customer ) {
 					$items = "";
 						
@@ -924,17 +922,12 @@ class OrdersItems extends BaseOrdersItems {
 							$url = "http://" . $_SERVER ['HTTP_HOST'];
 						}
 	
-						// Get the template from the main email template folder
-						$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_renew' );
-						if ($retval) {
-							$subject = $retval ['subject'];
-							$Template = $retval ['template'];
-							$Template = str_replace ( "[fullname]", $customer ['fullname'], $Template );
-							$Template = str_replace ( "[email]", $isp ['email'], $Template );
-							$Template = str_replace ( "[url]", $url, $Template );
-							$Template = str_replace ( "[signature]", $signature, $Template );
-							Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer ['email'], $isp ['email'], $subject, $Template );
-						}
+						Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_renew', array(
+							':shineisp:' => $customer
+							,'url'       => $url
+						));
+						
+						
 					}
 				}
 			}
@@ -967,11 +960,8 @@ class OrdersItems extends BaseOrdersItems {
 			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', 20 )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
-			Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], 'cron', array(
-				 'storename'  => $isp ['company']
-				,'email'      => $isp ['email']
-				,'signature'  => $isp ['company'] . "\n" . $isp ['email']
-				,'cronjob'    => 'Check Services'
+			Shineisp_Commons_Utilities::sendEmailTemplate(null, 'cron', array(
+				'cronjob'    => 'Check Services'
 			));				
 				
 				
