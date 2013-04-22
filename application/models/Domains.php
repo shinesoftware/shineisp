@@ -1275,22 +1275,13 @@ class Domains extends BaseDomains {
 	 * @return void
 	 */	
 	public static function sendRenewConfirm($domain_id){
-		$isp = Isp::getActiveISP ();
 		if(is_numeric($domain_id)){
-			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.email as email, CONCAT(d.domain, '.', d.tld) as name", true);
+			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.email as email, CONCAT(d.domain, '.', d.tld) as domain", true);
 			
 			if(!empty($domain[0])){
-				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'domain_renewed' );
-				if ($retval) {
-					$subject = $retval ['subject'];
-					$subject = str_replace ( "[domain]", $domain[0]['name'], $subject );
-					$body = $retval ['template'];
-					$body = str_replace ( "[domain]", $domain[0] ['name'], $body );
-					$body = str_replace ( "[fullname]", $domain[0] ['fullname'], $body );
-					$body = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['email'], $body );
-					
-					Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $domain[0] ['email'], $isp ['email'], $subject, $body );
-				}
+				Shineisp_Commons_Utilities::sendEmailTemplate($domain[0] ['email'], 'domain_renewed', array(
+					':shineisp:' => $domain
+				));
 			}
 		}
 	}
@@ -1302,22 +1293,13 @@ class Domains extends BaseDomains {
 	 * @return void
 	 */	
 	public static function sendCreateConfirm($domain_id){
-		$isp = Isp::getActiveISP ();
 		if(is_numeric($domain_id)){
-			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.email as email, CONCAT(d.domain, '.', d.tld) as name", true);
+			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.email as email, CONCAT(d.domain, '.', d.tld) as domain", true);
 			
 			if(!empty($domain[0])){
-				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'domain_created' );
-				if ($retval) {
-					$subject = $retval ['subject'];
-					$subject = str_replace ( "[domain]", $domain[0]['name'], $subject );
-					$body = $retval ['template'];
-					$body = str_replace ( "[domain]", $domain[0] ['name'], $body );
-					$body = str_replace ( "[fullname]", $domain[0] ['fullname'], $body );
-					$body = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['email'], $body );
-					
-					Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $domain[0] ['email'], $isp ['email'], $subject, $body );
-				}
+				Shineisp_Commons_Utilities::sendEmailTemplate($domain[0] ['email'], 'domain_created', array(
+					':shineisp:' => $domain
+				));
 			}
 		}
 	}
