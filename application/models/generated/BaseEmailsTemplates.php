@@ -11,8 +11,6 @@ Doctrine_Manager::getInstance()->bindComponent('EmailsTemplates', 'doctrine');
  * @property enum $type
  * @property string $code
  * @property string $name
- * @property string $fromname
- * @property string $fromemail
  * @property string $cc
  * @property string $bcc
  * @property boolean $plaintext
@@ -56,14 +54,6 @@ abstract class BaseEmailsTemplates extends Doctrine_Record
              'length' => '150',
              ));
         $this->hasColumn('name', 'string', 150, array(
-             'type' => 'string',
-             'length' => '150',
-             ));
-        $this->hasColumn('fromname', 'string', 150, array(
-             'type' => 'string',
-             'length' => '150',
-             ));
-        $this->hasColumn('fromemail', 'string', 150, array(
              'type' => 'string',
              'length' => '150',
              ));

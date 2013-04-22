@@ -154,36 +154,31 @@ class Customers extends BaseCustomers {
 	 */
 	public static function welcome_mail($customerid, $passwd="") {
 	
-		$data = self::getAllInfo($customerid);
+		$data     = self::getAllInfo($customerid);
+		$subject  = $retval ['subject'];
+		$template = $retval ['template'];
+		$isp      = Isp::getActiveISP ();
 		
-		$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_account' );
-		if ($retval) {
-			$subject = $retval ['subject'];
-			$template = $retval ['template'];
-			$isp = Isp::getActiveISP ();
-			
-			if(!empty($data ['lastname']) && !empty($data ['firstname'])){
-				$subject = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $subject );
-				$template = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $template );	
-			}else{
-				$subject = str_replace ( "[fullname]", "", $subject );
-			}
+		if (!empty($data ['lastname']) && !empty($data ['firstname'])) {
+			$subject  = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $subject );
+			$template = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $template );	
+		} else {
+			$subject = str_replace ( "[fullname]", "", $subject );
+		}
 
-			// Reset password
-			if(empty($passwd)){
-				$passwd = Shineisp_Commons_Utilities::GenerateRandomString();
-				self::reset_password($customerid, $passwd);
-			}
-			
-			$template = str_replace ( "[storename]", $isp ['company'], $template );
-			$template = str_replace ( "[website]", $isp ['website'], $template );
-			$template = str_replace ( "[email]", $data ['email'], $template );
-			$template = str_replace ( "[signature]", $isp ['company'], $template );
-			$template = str_replace ( "[password]", $passwd, $template );
-			
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $data ['email'], $isp ['email'], $subject, $template );
-			
-		}		
+		// Reset password
+		if (empty($passwd)) {
+			$passwd = Shineisp_Commons_Utilities::GenerateRandomPassword();
+			self::reset_password($customerid, $passwd);
+		}
+		
+		Shineisp_Commons_Utilities::sendEmailTemplate($data ['email'], 'new_account', array(
+			 'storename' => $isp['company']
+			,'website'   => $isp['website']
+			,'email'     => $data['email']
+			,'signature' => $isp['company']
+			,'password'  => $passwd
+		));
 	}
 	
 	/**
@@ -586,6 +581,14 @@ class Customers extends BaseCustomers {
 			$customer = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 			if (isset ( $customer [0] )) {
+				// Add "fullname" value, needed almost everywhere
+				if ( isset($customer[0]['company']) && !empty($customer[0]['company']) ) {
+					$customer[0]['fullname']        = $customer[0]['company'];
+					$customer[0]['full_personname'] = $customer[0]['lastname'].' '.$customer [0]['firstname'];
+				} else {
+					$customer[0]['fullname'] = $customer[0]['lastname'].' '.$customer [0]['firstname'];	
+				}
+				
 				return $customer [0];
 			} else {
 				return array ();

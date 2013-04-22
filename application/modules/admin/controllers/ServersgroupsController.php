@@ -213,23 +213,12 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 			}
 			
 			if ($form->isValid ( $request->getPost () )) {
-				// Get the id 
-				$id = $this->getRequest ()->getParam ( 'group_id' );
-				
-				// Set the new values
-				if (is_numeric ( $id )) {
-					$this->serversgroups = $this->serversgroups->find ( $id );
-				}
-				
+
 				// Get the values posted
 				$params = $form->getValues ();
-				$this->serversgroups->name      = $params ['name'];
-				$this->serversgroups->fill_type = intval($params ['fill_type']);
-				$this->serversgroups->active    = $params ['active'] ? 1 : 0;
 
-				$this->serversgroups->save ();
-				
-				$id = is_numeric ( $id ) ? $id : $this->serversgroups->getIncremented ();
+				// Save the data
+				$id = ServersGroups::saveAll($params ['name'], $params ['fill_type'], $params ['active'], $this->getRequest ()->getParam ( 'group_id' ));
 				
 				// Delete the old group
 				ServersGroupsIndexes::deleteAllServers($id);
