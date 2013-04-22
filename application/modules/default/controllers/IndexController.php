@@ -165,7 +165,6 @@ class IndexController extends Zend_Controller_Action {
 		$emailmd5   = $request->getParam ( 'id' );
 		$registry   = Zend_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
-		$isp        = Isp::getActiveISP ();
 		
 		$customer = Customers::getCustomerbyEmailMd5 ( $emailmd5 );
 		if ($customer) {

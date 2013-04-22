@@ -957,6 +957,20 @@ class Shineisp_Commons_Utilities {
 		
 		$arrReplaced = array();
 
+		// Get ISP details. Having this here is always usefull
+		$ISP = Isp::getActiveISP ();
+		// Add some mixed parameters
+		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
+		$ISP['storename'] = $ISP['company'];
+		// Remove unneeded parameters
+		unset($ISP['isp_id']);
+		unset($ISP['password']);
+		unset($ISP['active']);
+		unset($ISP['isppanel']);
+
+		// Merge original placeholder with ISP value. This is done to override standard ISP values
+		$replace = array_merge($ISP, $replace);
+
 		// Replace all placeholders in everything
 		foreach ( $replace as $placeholder => $value ) {
 			foreach ( $arrTemplate as $k => $v ) {
