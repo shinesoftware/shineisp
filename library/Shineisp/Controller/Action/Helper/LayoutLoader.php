@@ -18,13 +18,13 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		$description = Settings::findbyParam ( 'default_html_description' );
 		$copyright = Settings::findbyParam ( 'default_copyright' );
 		
-		// Get the skin paramenter set in the Settings Table in the database
+		// Get the skin paramenter set in the Settings Table in the database		
 		if($module == "default"){
 			$customskin = Settings::findbyParam ( 'skin' );
 			$skin = !empty ( $customskin ) ? $customskin : "base";
 		}elseif($module == "admin"){
 			$customskin = Settings::findbyParam ( 'adminskin' );
-			$skin = !empty ( $customskin ) ? $customskin : "base";
+			$skin = !empty ( $customskin ) ? $customskin : "base";        
 		}else{
 			$customskin = "";
 			$skin = "";
