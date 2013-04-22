@@ -971,6 +971,15 @@ class Shineisp_Commons_Utilities {
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);
 
+		// Check if special placeholder :shineisp: is set. If is set and is an array, it will use it as a source of key/value
+		if ( isset($replace[':shineisp:']) && is_array($replace[':shineisp:']) ) {
+			foreach ( $replace[':shineisp:'] as $k => $v ) {
+				$replace[$k] = $v;
+			}
+			
+			unset($replace[':shineisp:']);	
+		}
+
 		// Replace all placeholders in everything
 		foreach ( $replace as $placeholder => $value ) {
 			foreach ( $arrTemplate as $k => $v ) {

@@ -65,11 +65,10 @@ class IndexController extends Zend_Controller_Action {
 	 * @see Shineisp_Custom_Callmeback
 	 */
 	public function callmebackAction() {
-		$isp = Isp::getActiveISP ();
-		$request = $this->getRequest ();
+		$isp        = Isp::getActiveISP ();
+		$request    = $this->getRequest ();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		
-		$form = new Default_Form_CallmebackForm( array ('action' => '/index/callmeback', 'method' => 'post' ) );
+		$form       = new Default_Form_CallmebackForm( array ('action' => '/index/callmeback', 'method' => 'post' ) );
 		
 		// Check if we have a POST request
 		if (! $request->isPost ()) {
@@ -145,7 +144,8 @@ class IndexController extends Zend_Controller_Action {
 			$customer = Customers::findbyemail ( $email, "email, password", true );
 			if (count ( $customer ) > 0) {
 				Shineisp_Commons_Utilities::sendEmailTemplate($customer [0] ['email'], 'password_reset_link', array(
-					'link' => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] )
+					 'link'       => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] )
+					,':shineisp:' => $customer
 				));		
 				
 				$this->view->mextype = "information";
@@ -163,8 +163,8 @@ class IndexController extends Zend_Controller_Action {
 		$emailmd5   = $request->getParam ( 'id' );
 		$registry   = Zend_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
+		$customer   = Customers::getCustomerbyEmailMd5 ( $emailmd5 );
 		
-		$customer = Customers::getCustomerbyEmailMd5 ( $emailmd5 );
 		if ($customer) {
 			$newPwd = Shineisp_Commons_Utilities::GenerateRandomPassword();
 			
@@ -178,8 +178,9 @@ class IndexController extends Zend_Controller_Action {
 			
 			// Getting the email template
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer[0]['email'], 'password_new', array(
-				  'email'    => $customer[0]['email']
-				 ,'password' => $newPwd
+				  'email'      => $customer[0]['email']
+				 ,':shineisp:' => $customer
+				 ,'password'   => $newPwd
 			));				
 			
 			$this->view->mextype = "information";

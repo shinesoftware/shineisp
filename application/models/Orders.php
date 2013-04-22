@@ -1611,7 +1611,7 @@ class Orders extends BaseOrders {
 				
 		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
 			 'orderid'    => sprintf ( "%03s", $id ) . "-" . $date [0]
-			,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+			,':shineisp:' => $customer
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
 		));
 
@@ -1991,10 +1991,10 @@ class Orders extends BaseOrders {
 			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
 				 'orderid'    => sprintf ( "%03s", $orderid ) . "-" . $date [0]
-				,'fullname'   => $customer
 				,'email'      => $email
 				,'bank'       => $bank
 				,'url'        => $url
+				,':shineisp:' => $order [0] ['Customers']
 				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
 			));
 
@@ -2493,7 +2493,7 @@ class Orders extends BaseOrders {
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
 				 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-				,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			));
 			
@@ -2539,7 +2539,7 @@ class Orders extends BaseOrders {
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
 				 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-				,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			));
 			
@@ -2579,7 +2579,7 @@ class Orders extends BaseOrders {
 						
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_cleaned', array(
 						 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-						,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
+						,':shineisp:' => $customer
 						,'url'        => $customer_url
 					));
 
@@ -2691,9 +2691,9 @@ class Orders extends BaseOrders {
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
 						 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-						,'fullname'   => $customer ['fullname']
 						,'url'        => $customer_url
 						,'items'      => $items
+						,':shineisp:' => $customer
 					));
 				}
 			}
