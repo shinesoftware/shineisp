@@ -581,6 +581,14 @@ class Customers extends BaseCustomers {
 			$customer = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 			if (isset ( $customer [0] )) {
+				// Add "fullname" value, needed almost everywhere
+				if ( isset($customer[0]['company']) && !empty($customer[0]['company']) ) {
+					$customer[0]['fullname']        = $customer[0]['company'];
+					$customer[0]['full_personname'] = $customer[0]['lastname'].' '.$customer [0]['firstname'];
+				} else {
+					$customer[0]['fullname'] = $customer[0]['lastname'].' '.$customer [0]['firstname'];	
+				}
+				
 				return $customer [0];
 			} else {
 				return array ();

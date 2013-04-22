@@ -137,17 +137,15 @@ class IndexController extends Zend_Controller_Action {
 	}
 	
 	public function passwordAction() {
-		$request = $this->getRequest ();
+		$request    = $this->getRequest ();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$isp = Isp::getActiveISP ();
 		
 		if ($request->isPost ()) {
-			$email = $request->getParam ( 'account' );
+			$email    = $request->getParam ( 'account' );
 			$customer = Customers::findbyemail ( $email, "email, password", true );
 			if (count ( $customer ) > 0) {
 				Shineisp_Commons_Utilities::sendEmailTemplate($customer [0] ['email'], 'password_reset_link', array(
-					 'company' => $isp['company'] 
-					,'link'    => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] )
+					'link' => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] )
 				));		
 				
 				$this->view->mextype = "information";
