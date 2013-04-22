@@ -795,6 +795,7 @@ class Shineisp_Commons_Utilities {
 					$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? implode(',', $bcc) : $bcc;
 					$EmailsTemplatesSends->html        = $html;
 					$EmailsTemplatesSends->text        = $body;
+					$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 					$EmailsTemplatesSends->save();
 				}
 			}else{
@@ -814,6 +815,7 @@ class Shineisp_Commons_Utilities {
 				$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? trim(implode(',', $bcc),',') : $bcc;
 				$EmailsTemplatesSends->html        = $html;
 				$EmailsTemplatesSends->text        = $body;
+				$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 				$EmailsTemplatesSends->save();
 			}
 						
