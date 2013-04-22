@@ -168,7 +168,7 @@ class Customers extends BaseCustomers {
 
 		// Reset password
 		if (empty($passwd)) {
-			$passwd = Shineisp_Commons_Utilities::GenerateRandomString();
+			$passwd = Shineisp_Commons_Utilities::GenerateRandomPassword();
 			self::reset_password($customerid, $passwd);
 		}
 		

@@ -80,18 +80,12 @@ class IndexController extends Zend_Controller_Action {
 			// Get the values posted
 			$params = $form->getValues ();
 			
-			// Getting the email template
-			$result = Shineisp_Commons_Utilities::getEmailTemplate ( 'callmeback' );
-			if ($result) {
-				$subject = str_replace ( "[fullname]", $params['fullname'], $result ['subject'] );
-				$template = str_replace ( "[fullname]", $params['fullname'], $result ['template'] );
-				$template = str_replace ( "[telephone]", $params['telephone'], $template);
+			Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], 'callmeback', array(
+				 'fullname'  => $params['fullname']
+				,'telephone' => $params['telephone']
+			));				
 				
-				// Sending an email to the customer with the reset link.
-				Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $template );
-				
-				$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => $translator->translate ( 'Thanks for your interest in our services. Our staff will contact you shortly.' ), "status" => 'information') );
-			}
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => $translator->translate ( 'Thanks for your interest in our services. Our staff will contact you shortly.' ), "status" => 'information') );
 			
 		}
 		
@@ -151,17 +145,10 @@ class IndexController extends Zend_Controller_Action {
 			$email = $request->getParam ( 'account' );
 			$customer = Customers::findbyemail ( $email, "email, password", true );
 			if (count ( $customer ) > 0) {
-				
-				// Getting the email template
-				$result = Shineisp_Commons_Utilities::getEmailTemplate ( 'password_reset_link' );
-				
-				if ($result) {
-					$subject = $result ['subject'];
-					$template = str_replace ( "[link]", "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] ), $result ['template'] );
-					
-					// Sending an email to the customer with the reset link.
-					Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer [0] ['email'], null, $subject, $template );
-				}
+				Shineisp_Commons_Utilities::sendEmailTemplate($customer [0] ['email'], 'password_reset_link', array(
+					 'company' => $isp['company'] 
+					,'link'    => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] )
+				));		
 				
 				$this->view->mextype = "information";
 				$this->view->mex = $translator->translate ( 'Password sent to your email box. You have to click in the link written in the email.' );
@@ -174,15 +161,15 @@ class IndexController extends Zend_Controller_Action {
 	}
 	
 	public function resetpwdAction() {
-		$request = $this->getRequest ();
-		$emailmd5 = $request->getParam ( 'id' );
-		$registry = Zend_Registry::getInstance ();
+		$request    = $this->getRequest ();
+		$emailmd5   = $request->getParam ( 'id' );
+		$registry   = Zend_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
-		$isp = Isp::getActiveISP ();
+		$isp        = Isp::getActiveISP ();
 		
 		$customer = Customers::getCustomerbyEmailMd5 ( $emailmd5 );
 		if ($customer) {
-			$newPwd = Shineisp_Commons_Utilities::GenerateRandomString ( 8 );
+			$newPwd = Shineisp_Commons_Utilities::GenerateRandomPassword();
 			
 			try {
 				// Update the record
@@ -193,15 +180,10 @@ class IndexController extends Zend_Controller_Action {
 			}
 			
 			// Getting the email template
-			$result = Shineisp_Commons_Utilities::getEmailTemplate ( 'password_new' );
-			if ($result) {
-				
-				$subject = $result ['subject'];
-				$template = str_replace ( "[password]", $newPwd, $result ['template'] );
-				
-				// Sending an email to the customer with the reset link.
-				Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $customer[0]['email'], null, $subject, $template );
-			}
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer[0]['email'], 'password_new', array(
+				  'email'    => $customer[0]['email']
+				 ,'password' => $newPwd
+			));				
 			
 			$this->view->mextype = "information";
 			$this->view->mex = $translator->translate ( 'Email sent' );
