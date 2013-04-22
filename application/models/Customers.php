@@ -154,36 +154,31 @@ class Customers extends BaseCustomers {
 	 */
 	public static function welcome_mail($customerid, $passwd="") {
 	
-		$data = self::getAllInfo($customerid);
+		$data     = self::getAllInfo($customerid);
+		$subject  = $retval ['subject'];
+		$template = $retval ['template'];
+		$isp      = Isp::getActiveISP ();
 		
-		$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_account' );
-		if ($retval) {
-			$subject = $retval ['subject'];
-			$template = $retval ['template'];
-			$isp = Isp::getActiveISP ();
-			
-			if(!empty($data ['lastname']) && !empty($data ['firstname'])){
-				$subject = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $subject );
-				$template = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $template );	
-			}else{
-				$subject = str_replace ( "[fullname]", "", $subject );
-			}
+		if (!empty($data ['lastname']) && !empty($data ['firstname'])) {
+			$subject  = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $subject );
+			$template = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $template );	
+		} else {
+			$subject = str_replace ( "[fullname]", "", $subject );
+		}
 
-			// Reset password
-			if(empty($passwd)){
-				$passwd = Shineisp_Commons_Utilities::GenerateRandomString();
-				self::reset_password($customerid, $passwd);
-			}
-			
-			$template = str_replace ( "[storename]", $isp ['company'], $template );
-			$template = str_replace ( "[website]", $isp ['website'], $template );
-			$template = str_replace ( "[email]", $data ['email'], $template );
-			$template = str_replace ( "[signature]", $isp ['company'], $template );
-			$template = str_replace ( "[password]", $passwd, $template );
-			
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $data ['email'], $isp ['email'], $subject, $template );
-			
-		}		
+		// Reset password
+		if (empty($passwd)) {
+			$passwd = Shineisp_Commons_Utilities::GenerateRandomString();
+			self::reset_password($customerid, $passwd);
+		}
+		
+		Shineisp_Commons_Utilities::sendEmailTemplate($data ['email'], 'new_account', array(
+			 'storename' => $isp['company']
+			,'website'   => $isp['website']
+			,'email'     => $data['email']
+			,'signature' => $isp['company']
+			,'password'  => $passwd
+		));
 	}
 	
 	/**
