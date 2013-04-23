@@ -1133,50 +1133,7 @@ class Shineisp_Commons_Utilities {
 		}
 		return $date;
 	}
-	
-	/**
-	 * Format ad order number in a consistent way across the whole system
-	 * TODO: order format should be placed in database as a setting
-	 * 
-	 * @param array $order
-	 * @return string $orderNumber
-	 */
-	public static function formatOrderNumber($order) {
-		if ( !is_array($order) ) {
-			return '';
-		}
 		
-		if ( isset($order[0]) ) {
-			$order = $order[0];
-		}
-		
-		// TODO: CUSTOMIZE ORDER FORMAT HERE:
-		$orderNumber = $order['isp_id'].'-'.$order['customer_id'].'-'.sprintf ( "%05s", $order['order_id']).'-'.substr($order['order_date'],0,4);
-		
-		
-		
-		return $orderNumber;
-	}
-	
-	/**
-	 * Get an order id from an order number
-	 * THIS MUST BE THE REVERSE OF formatOrderNumber
-	 * TODO: order format should be placed in database as a setting
-	 * 
-	 * @param string $orderNumber
-	 * @return int $orderID
-	 */
-	public static function getOrderIdByNumber($orderNumber) {
-		if ( empty($orderNumber) ) {
-			return 0;
-		}
-	
-		list($isp_id, $customer_id, $order_id, $order_year) = explode('-',$orderNumber);
-		
-		return (int)$order_id;
-	}
-	
-	
 	
 	// ***************************************** START GRID CUSTOM FUNCTIONS *****************************************
 	/**
