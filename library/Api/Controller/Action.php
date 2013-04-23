@@ -111,6 +111,7 @@ abstract class Api_Controller_Action extends Zend_Controller_Action {
                     );
            
         if( $this->format == 'xml' ) {
+            echo "ciao"; die();
             $output = $this->_helper->xmlloader('createFromArray',array( $array ));
         } else {
             $output = json_encode($array);
@@ -128,11 +129,13 @@ abstract class Api_Controller_Action extends Zend_Controller_Action {
                     );
            
         if( $this->format == 'xml' ) {
-            $output = $this->_helper->xmlloader('createFromArray',array( $array ));
+            $output = $this->_helper->xmlloader->xmlToArray ( $array );            
         } else {
             $output = json_encode($array);
         }
         
+        echo $output;
+        die();
         header('HTTP/1.1 '.$codehttp.' '.$this->httpcodes[$codehttp]);
         return $output;
     }      
