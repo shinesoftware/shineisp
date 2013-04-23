@@ -1,7 +1,7 @@
 <?php
 /**
- *
- * @version 0.1
+ * Dashboard Alert Messages 
+ * @version 0.2
  */
 /**
  * Alerts helper
@@ -15,6 +15,7 @@ class Zend_View_Helper_Alerts extends Zend_View_Helper_Abstract {
 	 */
 	public function Alerts() {
 		$registry = Zend_Registry::getInstance ();
+		$currency = new Zend_Currency();
 		$translation = $registry->Zend_Translate;
 		$alerts = array ();
 		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
@@ -39,10 +40,11 @@ class Zend_View_Helper_Alerts extends Zend_View_Helper_Abstract {
 			
 			if (count ( $orders ) > 0) {
 				foreach ( $orders as $order ) {
+					$order ['grandtotal'] = $currency->toCurrency($order ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
 					if(!empty($order['invoice_id'])){
-						$alerts [] = array ('message' => $translation->_ ( 'The invoice number %s of %s (%s euro) has been not payed yet, click here to show more details.', $order ['Invoices']['number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'error' );	 	
+						$alerts [] = array ('message' => $translation->_ ( 'The invoice %s of %s (%s) has been not payed yet, click here to show more details.', $order ['Invoices']['number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'error' );	 	
 					}else{
-						$alerts [] = array ('message' => $translation->_ ( 'The order number %s that you have requested the %s with total %s euro has been not payed yet, click here to show more details.', $order ['order_id'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'attention' );
+						$alerts [] = array ('message' => $translation->_ ( 'The order %s that you have requested the %s with total %s has been not payed yet, click here to show more details.', Orders::formatOrderId($order ['order_id']), Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'attention' );
 					}
 				}
 			}
