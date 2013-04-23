@@ -81,8 +81,8 @@ Within this list you can see the services subscribed by the customers.;Nella seg
 You will earn about;Guadagnerai circa
 Add a new product;Aggiungi Servizio
 The field %s is a mandatory field;Il campo %s è un campo obbligatorio.
-The order number %s that you have requested the %s with total %s euro has been not payed yet, click here to show more details.;L'ordine numero %s emesso il %s con l'importo di euro %s non è stato ancora saldato, click qui per visualizzare ulteriori dettagli.
-The invoice number %s of %s (%s euro) has been not payed yet, click here to show more details.;La fattura numero %s del %s dell'importo di euro %s non è stata ancora saldata. Click qui per ulteriori dettagli.
+The order %s that you have requested the %s with total %s has been not payed yet, click here to show more details.;L'ordine %s emesso il %s con l'importo di %s non è stato ancora saldato, click qui per visualizzare ulteriori dettagli.
+The invoice %s of %s (%s) has been not payed yet, click here to show more details.;La fattura %s del %s dell'importo di %s non è stata ancora saldata. Click qui per ulteriori dettagli.
 Unable to process request at this time.;Impossibile elaborare la richiesta in questo momento.
 Our apologies...;Ci scusiamo...
 The page you requested cannot be displayed.;La pagina richiesta non può essere visualizzata.

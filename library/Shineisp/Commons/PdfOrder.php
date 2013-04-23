@@ -25,7 +25,7 @@ class Shineisp_Commons_PdfOrder {
 	protected $page;
 	protected $font;
 	protected $colors;
-	protected $locale;
+	protected $translator;
 	protected $data;
 	protected $h;
 	
@@ -37,7 +37,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->pdf = new Zend_Pdf ();
 		$this->font = Zend_Pdf_Font::FONT_HELVETICA;
 		$this->data = array ();
-		$this->locale = $registry->Zend_Translate;
+		$this->translator = $registry->Zend_Translate;
 	}
 	
 	/**
@@ -98,11 +98,11 @@ class Shineisp_Commons_PdfOrder {
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_ITALIC, 7 );
 		$toppos -= 10;
-		$this->Write ( $this->locale->translate ( 'Site Web' ) . ": " . $records ['company'] ['website'] . " - " . $this->locale->translate ( 'eMail' ) . ": " . $records ['company'] ['email'] . " - " . $this->locale->translate ( 'Telephone' ) . ": " . $records ['company'] ['telephone'] . " - " . $this->locale->translate ( 'FAX' ) . ": " . $records ['company'] ['fax'], HEADER_LEFT, $toppos );
+		$this->Write ( $this->translator->translate ( 'Site Web' ) . ": " . $records ['company'] ['website'] . " - " . $this->translator->translate ( 'eMail' ) . ": " . $records ['company'] ['email'] . " - " . $this->translator->translate ( 'Telephone' ) . ": " . $records ['company'] ['telephone'] . " - " . $this->translator->translate ( 'FAX' ) . ": " . $records ['company'] ['fax'], HEADER_LEFT, $toppos );
 		$toppos -= 10;
-		$this->Write ( $this->locale->translate ( 'Address' ) . ": " . $records ['company'] ['address'] . " - " . $records ['company'] ['zip'] . " - " . $records ['company'] ['city'] . " - " . $records ['company'] ['country'], HEADER_LEFT, $toppos );
+		$this->Write ( $this->translator->translate ( 'Address' ) . ": " . $records ['company'] ['address'] . " - " . $records ['company'] ['zip'] . " - " . $records ['company'] ['city'] . " - " . $records ['company'] ['country'], HEADER_LEFT, $toppos );
 		$toppos -= 10;
-		$this->Write ( $this->locale->translate ( 'VAT Number' ) . ": " . $records ['company'] ['vat'], HEADER_LEFT, $toppos );
+		$this->Write ( $this->translator->translate ( 'VAT Number' ) . ": " . $records ['company'] ['vat'], HEADER_LEFT, $toppos );
 		
 		$this->h = $toppos - 20;
 	}
@@ -230,7 +230,7 @@ class Shineisp_Commons_PdfOrder {
 		
 		// Left Square
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, 9 );
-		$this->Write ( $this->locale->translate ( 'Addressee' ), 30, $toppos );
+		$this->Write ( $this->translator->translate ( 'Addressee' ), 30, $toppos );
 		
 		$this->page->setLineWidth ( 0.5 );
 		$this->page->setFillColor ( new Zend_Pdf_Color_Html ( '#ffffff' ) );
@@ -255,8 +255,8 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( $records ['customer'] ['code'] . " " . $records ['customer'] ['city'], 40, $toppos - 40 );
 		$this->Write ( $records ['customer'] ['country'], 40, $toppos - 50 );
 		
-		$this->Write ( $this->locale->translate ( 'VAT Number' ) . ": " . $records ['customer'] ['vat'], 40, $toppos - 80 );
-		$this->Write ( $this->locale->translate ( 'Tax payer number' ) . ": " . $records ['customer'] ['taxpayernumber'], 40, $toppos - 95 );
+		$this->Write ( $this->translator->translate ( 'VAT Number' ) . ": " . $records ['customer'] ['vat'], 40, $toppos - 80 );
+		$this->Write ( $this->translator->translate ( 'Tax payer number' ) . ": " . $records ['customer'] ['taxpayernumber'], 40, $toppos - 95 );
 	
 	}
 	
@@ -273,7 +273,7 @@ class Shineisp_Commons_PdfOrder {
 		// Right Square     
 		$this->page->setFillColor ( new Zend_Pdf_Color_Html ( '#000000' ) );
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, 9 );
-		$this->Write ( $this->locale->translate ( 'Destination' ), 300, $toppos );
+		$this->Write ( $this->translator->translate ( 'Destination' ), 300, $toppos );
 		
 		$this->page->setLineWidth ( 0.5 );
 		$this->page->setFillColor ( new Zend_Pdf_Color_Html ( '#ffffff' ) );
@@ -355,7 +355,7 @@ class Shineisp_Commons_PdfOrder {
 			// Check if the row is close to the end of the document
 			If ($h < 150) {
 				// Write the label "continue the next page"
-				$this->Write ( $this->locale->translate ( 'Continue' ), PAGE_BOTH_MARGIN, 25 );
+				$this->Write ( $this->translator->translate ( 'Continue' ), PAGE_BOTH_MARGIN, 25 );
 				// Create a new page
 				$this->CreatePage ();
 				// Creating of the table header
@@ -403,7 +403,7 @@ class Shineisp_Commons_PdfOrder {
 			
 			// Write the header labels
 			$this->page->setFillColor ( new Zend_Pdf_Color_Html ( '#000000' ) );
-			$this->WriteText ( $this->locale->translate ( $column [$i] ['value'] ), $size, $z, $top_table_position + 3, $align, "Helvetica", 8 );
+			$this->WriteText ( $this->translator->translate ( $column [$i] ['value'] ), $size, $z, $top_table_position + 3, $align, "Helvetica", 8 );
 			$z += $size;
 		}
 		
@@ -517,19 +517,19 @@ class Shineisp_Commons_PdfOrder {
 		$this->page->setFillColor ( new Zend_Pdf_Color_Html ( '#000000' ) );
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 5 );
 		$leftspace = $leftpos;
-		$this->Write ( $this->locale->translate ( "Order Number" ), $leftspace + 2, $toppos - 6 );
+		$this->Write ( $this->translator->translate ( "Order Number" ), $leftspace + 2, $toppos - 6 );
 		$leftspace += 100;
-		$this->Write ( $this->locale->translate ( "Payment Date" ), $leftspace + 2, $toppos - 6 );
+		$this->Write ( $this->translator->translate ( "Payment Date" ), $leftspace + 2, $toppos - 6 );
 		$leftspace += 100;
-		$this->Write ( $this->locale->translate ( "Tax Free Total" ), $leftspace + 2, $toppos - 6 );
+		$this->Write ( $this->translator->translate ( "Tax Free Total" ), $leftspace + 2, $toppos - 6 );
 		$leftspace += 100;
-		$this->Write ( $this->locale->translate ( "Tax Total" ), $leftspace + 2, $toppos - 6 );
+		$this->Write ( $this->translator->translate ( "Tax Total" ), $leftspace + 2, $toppos - 6 );
 		$leftspace += 100;
-		$this->Write ( $this->locale->translate ( "Total with Tax" ), $leftspace + 2, $toppos - 6 );
+		$this->Write ( $this->translator->translate ( "Total with Tax" ), $leftspace + 2, $toppos - 6 );
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$leftspace = $leftpos;
-		$this->Write ( sprintf("%03d", $records ['order_number']), $leftspace + 2, $toppos - 16 );
+		$this->Write ( Orders::formatOrderId($records ['order_number']), $leftspace + 2, $toppos - 16 );
 		
 		$records ['payment_date'] = ! empty ( $records ['payment_date'] ) ? $records ['payment_date'] : "";
 		
@@ -550,6 +550,8 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function FooterDetails() {
+		$currency = new Zend_Currency();
+		
 		if ($this->h < 190) {
 			$this->CreatePage ();
 		}
@@ -599,27 +601,24 @@ class Shineisp_Commons_PdfOrder {
 		//$toppos -= 30;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos ); // Ultima riga, deve essere fissa
 
-		
-		
-		
-		
 				
 		// Reset of the height for writing the labels
 		$toppos = $originalToppos;
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 5 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Bank Name" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 10 );
-		$this->Write ( $this->locale->translate ( "IBAN" ), PAGE_BOTH_MARGIN + 300, $toppos - 10 );
-		$this->Write ( $this->locale->translate ( "BIC" ), PAGE_BOTH_MARGIN + 445, $toppos - 10 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Company Name" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 50 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 50 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Payment note" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 80 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Customer Information" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 90 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Transaction ID" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 150 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Order Number" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 120 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Invoice Number" ) ), PAGE_BOTH_MARGIN + 400, $toppos - 120 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
-		$this->Write ( strtoupper ( $this->locale->translate ( "EURO" ) ), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Bank Name" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 10 );
+		$this->Write ( $this->translator->translate ( "IBAN" ), PAGE_BOTH_MARGIN + 300, $toppos - 10 );
+		$this->Write ( $this->translator->translate ( "BIC" ), PAGE_BOTH_MARGIN + 445, $toppos - 10 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Company Name" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 50 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 50 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Payment note" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 80 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Customer Information" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 90 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Transaction ID" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 150 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Order Number" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 120 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Invoice Number" ) ), PAGE_BOTH_MARGIN + 400, $toppos - 120 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
+		
+		$this->Write ( $currency->getShortName(Settings::findbyParam('currency'), $this->translator->getLocale()), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$this->Write ( $records ['company'] ['bankname'], PAGE_BOTH_MARGIN + 2, $toppos - 24 );
@@ -637,8 +636,8 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( $records ['customer'] ['code'] . " " . $records ['customer'] ['city'], PAGE_BOTH_MARGIN + 2, $toppos - 125 );
 		$this->Write ( $records ['customer'] ['country'], PAGE_BOTH_MARGIN + 2, $toppos - 135 );
 		
-		$this->Write ( sprintf("%03d", $records ['order_number']), PAGE_BOTH_MARGIN + 300, $toppos - 130 );
-		$this->Write ( sprintf("%03d", $records ['invoice_number']), PAGE_BOTH_MARGIN + 400, $toppos - 130 );
+		$this->Write ( Orders::formatOrderId($records ['order_number']), PAGE_BOTH_MARGIN + 300, $toppos - 130 );
+		$this->Write ( Orders::formatOrderId($records ['invoice_number']), PAGE_BOTH_MARGIN + 400, $toppos - 130 );
 
 		$records ['payment_description'] = ! empty ( $records ['payment_description'] ) ? $records ['payment_description'] : "";
 		$records ['payment_mode'] = ! empty ( $records ['payment_mode'] ) ? $records ['payment_mode'] : "";
@@ -683,9 +682,9 @@ class Shineisp_Commons_PdfOrder {
 		$toppos = 20;
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_ITALIC, 6 );
-		$this->Write ( $records ['company'] ['name'] . " - " . $this->locale->translate ( 'Site Web' ) . ": " . $records ['company'] ['website'] . " - " . $this->locale->translate ( 'eMail' ) . ": " . $records ['company'] ['email'] . " - " . $this->locale->translate ( 'Telephone' ) . ": " . $records ['company'] ['telephone'] . " - " . $this->locale->translate ( 'fax' ) . ": " . $records ['company'] ['fax'], PAGE_BOTH_MARGIN, $toppos );
+		$this->Write ( $records ['company'] ['name'] . " - " . $this->translator->translate ( 'Site Web' ) . ": " . $records ['company'] ['website'] . " - " . $this->translator->translate ( 'eMail' ) . ": " . $records ['company'] ['email'] . " - " . $this->translator->translate ( 'Telephone' ) . ": " . $records ['company'] ['telephone'] . " - " . $this->translator->translate ( 'fax' ) . ": " . $records ['company'] ['fax'], PAGE_BOTH_MARGIN, $toppos );
 		$toppos -= 10;
-		$this->Write ( $this->locale->translate ( 'Address' ) . ": " . $records ['company'] ['address'] . " - " . $records ['company'] ['zip'] . " - " . $records ['company'] ['city'] . " - " . $records ['company'] ['country'] . " " . $this->locale->translate ( 'VAT Number' ) . ": " . $records ['company'] ['vat'], PAGE_BOTH_MARGIN, $toppos );
+		$this->Write ( $this->translator->translate ( 'Address' ) . ": " . $records ['company'] ['address'] . " - " . $records ['company'] ['zip'] . " - " . $records ['company'] ['city'] . " - " . $records ['company'] ['country'] . " " . $this->translator->translate ( 'VAT Number' ) . ": " . $records ['company'] ['vat'], PAGE_BOTH_MARGIN, $toppos );
 	
 	}
 	
@@ -699,9 +698,9 @@ class Shineisp_Commons_PdfOrder {
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, 9 );
 		
 		if (is_numeric ( $this->data ['records'] ['invoice_number'] )) {
-			$this->Write ( $this->locale->translate ( 'Invoice Number' ) . " " . $this->data ['records'] ['invoice_number'] . " " . $this->locale->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
+			$this->Write ( $this->translator->translate ( 'Invoice Number' ) . " " . $this->data ['records'] ['invoice_number'] . " " . $this->translator->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
 		} else {
-			$this->Write ( $this->locale->translate ( 'Order Number' ) . " " . $this->data ['records'] ['order_number'] . " " . $this->locale->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
+			$this->Write ( $this->translator->translate ( 'Order Number' ) . " " . Orders::formatOrderId($this->data ['records'] ['order_number']) . " " . $this->translator->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
 		}
 		
 		$this->Embellishments ();

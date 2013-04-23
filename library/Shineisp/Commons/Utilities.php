@@ -795,6 +795,7 @@ class Shineisp_Commons_Utilities {
 					$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? implode(',', $bcc) : $bcc;
 					$EmailsTemplatesSends->html        = $html;
 					$EmailsTemplatesSends->text        = $body;
+					$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 					$EmailsTemplatesSends->save();
 				}
 			}else{
@@ -814,6 +815,7 @@ class Shineisp_Commons_Utilities {
 				$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? trim(implode(',', $bcc),',') : $bcc;
 				$EmailsTemplatesSends->html        = $html;
 				$EmailsTemplatesSends->text        = $body;
+				$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 				$EmailsTemplatesSends->save();
 			}
 						
@@ -942,11 +944,7 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
 	 */
-	public static function sendEmailTemplate($recipient = '', $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
-		if ( empty($recipient) || empty($template) || !is_array($replace) ) {
-			return false;
-		} 
-		
+	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
 		// Get email template
 		$arrTemplate = self::getEmailTemplate($template);
 		if ( !is_array($arrTemplate) ) {
@@ -954,6 +952,29 @@ class Shineisp_Commons_Utilities {
 		}
 		
 		$arrReplaced = array();
+
+		// Get ISP details. Having this here is always usefull
+		$ISP = Isp::getActiveISP ();
+		// Add some mixed parameters
+		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
+		$ISP['storename'] = $ISP['company'];
+		// Remove unneeded parameters
+		unset($ISP['isp_id']);
+		unset($ISP['password']);
+		unset($ISP['active']);
+		unset($ISP['isppanel']);
+
+		// Merge original placeholder with ISP value. This is done to override standard ISP values
+		$replace = array_merge($ISP, $replace);
+
+		// Check if special placeholder :shineisp: is set. If is set and is an array, it will use it as a source of key/value
+		if ( isset($replace[':shineisp:']) && is_array($replace[':shineisp:']) ) {
+			foreach ( $replace[':shineisp:'] as $k => $v ) {
+				$replace[$k] = $v;
+			}
+			
+			unset($replace[':shineisp:']);	
+		}
 
 		// Replace all placeholders in everything
 		foreach ( $replace as $placeholder => $value ) {
@@ -983,6 +1004,9 @@ class Shineisp_Commons_Utilities {
 				$arrCC[] = $arrTemplate['cc'];
 			}
 		}
+		
+		// null recipient, send only to ISP
+		$recipient = ($recipient == null) ? $ISP['email'] : $recipient;
 		
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
@@ -1101,6 +1125,50 @@ class Shineisp_Commons_Utilities {
 		}
 		return $date;
 	}
+	
+	/**
+	 * Format ad order number in a consistent way across the whole system
+	 * TODO: order format should be placed in database as a setting
+	 * 
+	 * @param array $order
+	 * @return string $orderNumber
+	 */
+	public static function formatOrderNumber($order) {
+		if ( !is_array($order) ) {
+			return '';
+		}
+		
+		if ( isset($order[0]) ) {
+			$order = $order[0];
+		}
+		
+		// TODO: CUSTOMIZE ORDER FORMAT HERE:
+		$orderNumber = $order['isp_id'].'-'.$order['customer_id'].'-'.sprintf ( "%05s", $order['order_id']).'-'.substr($order['order_date'],0,4);
+		
+		
+		
+		return $orderNumber;
+	}
+	
+	/**
+	 * Get an order id from an order number
+	 * THIS MUST BE THE REVERSE OF formatOrderNumber
+	 * TODO: order format should be placed in database as a setting
+	 * 
+	 * @param string $orderNumber
+	 * @return int $orderID
+	 */
+	public static function getOrderIdByNumber($orderNumber) {
+		if ( empty($orderNumber) ) {
+			return 0;
+		}
+	
+		list($isp_id, $customer_id, $order_id, $order_year) = explode('-',$orderNumber);
+		
+		return (int)$order_id;
+	}
+	
+	
 	
 	// ***************************************** START GRID CUSTOM FUNCTIONS *****************************************
 	/**

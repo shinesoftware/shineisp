@@ -1604,20 +1604,15 @@ class Orders extends BaseOrders {
 					->where ( 'order_id = ?', $id );
 		$dq->execute ();
 		
-		$isp = Isp::getActiveISP ();
-		
 		$customer = Customers::getAllInfo($customerid);
 		
 		$order = self::getAllInfo ( $id, null, true );
 		$date  = explode ( "-", $order [0] ['order_date'] );
 				
 		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
-			 'orderid'    => sprintf ( "%03s", $id ) . "-" . $date [0]
-			,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
-			,'storename'  => $isp ['company']
-			,'email'      => $isp ['email']
+			 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+			,':shineisp:' => $customer
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-			,'signature'  => $isp ['company'] . "\n" . $isp ['website']
 		));
 
 		return true;
@@ -1984,9 +1979,7 @@ class Orders extends BaseOrders {
 				$bankInfo['description'] = str_replace("<br />", "\n", $bankInfo['description']);
 				$bank = strip_tags($bankInfo['description']);
 			}
-			
-			$storename= $order [0] ['Isp'] ['company'];
-			
+						
 			if (! empty ( $fastlink [0] ['code'] )) {
 				$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
 			} else {
@@ -1997,14 +1990,12 @@ class Orders extends BaseOrders {
 			
 			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
-				 'orderid'    => sprintf ( "%03s", $orderid ) . "-" . $date [0]
-				,'fullname'   => $customer
-				,'storename'  => $storename
+				 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
 				,'email'      => $email
 				,'bank'       => $bank
 				,'url'        => $url
+				,':shineisp:' => $order [0] ['Customers']
 				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-				,'signature'  => $storename
 			));
 
 			return true;
@@ -2485,7 +2476,6 @@ class Orders extends BaseOrders {
 	 * about the expiring of the order.
 	 */
 	public static function checkExpiringOrders() {
-		$isp = Isp::getActiveISP ();
 		$orders = Orders::find_all_expired_orders(date('Y-m-d'));
 			
 		foreach ( $orders as $order ) {
@@ -2502,12 +2492,9 @@ class Orders extends BaseOrders {
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
-				 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-				,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
-				,'storename'  => $isp ['company']
-				,'email'      => $isp ['email']
+				 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+				,':shineisp:' => $customer
 				,'url'        => $customer_url
-				,'signature'  => $isp ['company'] . "\n" . $isp ['website']
 			));
 			
 	
@@ -2523,7 +2510,6 @@ class Orders extends BaseOrders {
 	 * with a reminder. Add late fee if needed
 	 */
 	public static function checkOrders() {
-		$isp    = Isp::getActiveISP ();
 		$orders = Orders::find_all_not_paid_orders();
 
 		foreach ( $orders as $order ) {			
@@ -2552,12 +2538,9 @@ class Orders extends BaseOrders {
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
-				 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-				,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
-				,'storename'  => $isp ['company']
-				,'email'      => $isp ['email']
+				 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+				,':shineisp:' => $customer
 				,'url'        => $customer_url
-				,'signature'  => $isp ['company'] . "\n" . $isp ['website']
 			));
 			
 			
@@ -2571,7 +2554,6 @@ class Orders extends BaseOrders {
 	 * Set the obsolete orders as deleted
 	 */
 	public static function cleanNotPayedOrders() {
-		$isp = Isp::getActiveISP ();
 		$orders = Orders::find_all_not_paid_orders();
 	
 		foreach ( $orders as $order ) {
@@ -2596,12 +2578,9 @@ class Orders extends BaseOrders {
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 						
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_cleaned', array(
-						 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-						,'fullname'   => $customer ['lastname'] . " " . $customer ['firstname']
-						,'storename'  => $isp ['company']
-						,'email'      => $isp ['email']
+						 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+						,':shineisp:' => $customer
 						,'url'        => $customer_url
-						,'signature'  => $isp ['company'] . "\n" . $isp ['website']
 					));
 
 	
@@ -2688,10 +2667,7 @@ class Orders extends BaseOrders {
 		// EMAIL SUMMARY FOR ALL THE EXPIRED AND NOT AUTORENEWABLE DOMAINS/SERVICES
 		// =========================================================================
 		// Create the emailS for the customers
-		if (count ( $customers ) > 0) {
-			$isp = Isp::getActiveISP ();
-			$signature = $isp ['company'] . "\n" . $isp ['email'];
-				
+		if (count ( $customers ) > 0) {		
 			// For each client do ...
 			foreach ( $customers as $customer ) {
 				$items = "";
@@ -2714,13 +2690,10 @@ class Orders extends BaseOrders {
 	
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
-						 'orderid'    => sprintf ( "%03s", $id ) . "-" . $order ['order_date']
-						,'fullname'   => $customer ['fullname']
-						,'storename'  => $isp ['company']
-						,'email'      => $isp ['email']
+						 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
 						,'url'        => $customer_url
 						,'items'      => $items
-						,'signature'  => $signature
+						,':shineisp:' => $customer
 					));
 				}
 			}
