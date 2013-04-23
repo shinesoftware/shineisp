@@ -683,6 +683,7 @@ class Shineisp_Commons_Utilities {
 		}
 		
 		$mail = new Zend_Mail ( 'UTF-8' );
+		$mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
 		
 		if(!empty($attachments)){
 			if(is_array($attachments)){
@@ -725,11 +726,11 @@ class Shineisp_Commons_Utilities {
 		if(!empty($replyto)){
 			$mail->setReplyTo($replyto);
 		}
-		
+				
 		if ($html) {
-			$mail->setBodyHtml ( $body );
+			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
-			$mail->setBodyText ( $body );
+			$mail->setBodyText ( $body);
 		}
 		
 		if ( is_array($from ) ) {
@@ -905,7 +906,7 @@ class Shineisp_Commons_Utilities {
 				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'Shine ISP'        // TODO: remove this hardcoded value
 				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
 				,'subject'   => $subject
-				,'html'      => $body
+				,'html'      => nl2br($body)
 			
 			);
 			EmailsTemplates::saveAll(null, $array, $language_id);
