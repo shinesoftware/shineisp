@@ -8,15 +8,47 @@ abstract class Api_Controller_Action extends Zend_Controller_Action {
      * (non-PHPdoc)
      * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
      */
-    public function init(){
+    public function init() {
         $this->_helper->layout()->disableLayout();
-        echo '<pre>';
-        print_r($this->_helper->layout());
-        die();
         $this->_helper->viewRenderer->setNoRender(true);
         
-        $this->getHelper ( 'layout' )->setLayout ( 'system' );
+        $format = $this->getRequest ()->getParam ( 'format' );
+        switch( $format ) {
+            case 'xml':
+                $this->format   = 'xml';
+                break;
+            default:
+                $this->format   = 'json';
+                break;
+        }
+        
+        $auth = Zend_Auth::getInstance ();
+        $auth->setStorage ( new Zend_Auth_Storage_Session ( 'api' ) );
+        
+        if ($auth->hasIdentity ()) {
+            $this->getHelper ( 'layout' )->setLayout ( 'system' );
+        } else {
+            echo $this->error(5001,'Authentication failure');
+            exit();
+        }
     }
+    
+    protected function error( $codeerror, $message ) {
+        $array  = array (
+                         'result'   => 'error'
+                        ,'code'     => $codeerror
+                        ,'message'  => $message
+                    );
+           
+        if( $this->format == 'xml' ) {
+            $output = $this->_helper->xmlloader('createFromArray',array( $array ));
+        } else {
+            $output = json_encode($array);
+        }
+        
+        return $output;
+        
+    } 
     
     protected function success( $response ){
         $array  = array (
@@ -25,7 +57,7 @@ abstract class Api_Controller_Action extends Zend_Controller_Action {
                     );
            
         if( $this->format == 'xml' ) {
-            $output = $this->_helper->xmlLoader('createFromArray',array( $array ));
+            $output = $this->_helper->xmlloader('createFromArray',array( $array ));
         } else {
             $output = json_encode($array);
         }
