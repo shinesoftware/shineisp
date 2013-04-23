@@ -896,7 +896,7 @@ class Shineisp_Commons_Utilities {
 			$isp = Isp::getActiveISP();
 
 			// Store mail in DB
-			EmailsTemplates::saveAll(null, array(
+			$array = array(
 			     'type'      => 'general'
 				,'name'      => $template
 				,'code'      => $template
@@ -907,11 +907,11 @@ class Shineisp_Commons_Utilities {
 				,'subject'   => $subject
 				,'html'      => $body
 			
-			), $language_id);
-			
+			);
+			EmailsTemplates::saveAll(null, $array, $language_id);
 				
 			// Return the email template
-			return array('template' => $body, 'subject' => $subject);
+			return array_merge($array, array('template' => $body, 'subject' => $subject));
 		}
 		
 		$email = array(
