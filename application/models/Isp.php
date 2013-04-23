@@ -57,7 +57,6 @@ class Isp extends BaseIsp {
 	/**
 	 * return the active ISP
 	 * 
-	 * 
 	 * @return array
 	 */
 	public static function getActiveISP() {
