@@ -840,10 +840,12 @@ class Shineisp_Commons_Utilities {
 		$subject = "";
 		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
+		$isFallback = false;
 		
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
+			$isFallback = true;
 		} else {
 			if (strlen ( $locale ) == 2) {
 				$locale .= "_" . strtoupper ( $locale );
@@ -853,6 +855,7 @@ class Shineisp_Commons_Utilities {
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
 				
+				
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
 			$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
@@ -861,9 +864,9 @@ class Shineisp_Commons_Utilities {
 		}
 
 		// Template missing from DB. Let's add it.
-		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
+		if ( !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
-			
+
 			// Check if the file exists
 			if (! file_exists ( $filename )) {
 				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
@@ -958,23 +961,27 @@ class Shineisp_Commons_Utilities {
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
-		// Remove unneeded parameters
-		unset($ISP['isp_id']);
-		unset($ISP['password']);
-		unset($ISP['active']);
-		unset($ISP['isppanel']);
 
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);
 
 		// Check if special placeholder :shineisp: is set. If is set and is an array, it will use it as a source of key/value
 		if ( isset($replace[':shineisp:']) && is_array($replace[':shineisp:']) ) {
+			if ( isset($replace[':shineisp:'][0]) ) {
+				$replace[':shineisp:'] = array_merge($replace[':shineisp:'], $replace[':shineisp:'][0]);
+				unset($replace[':shineisp:'][0]);
+			}
 			foreach ( $replace[':shineisp:'] as $k => $v ) {
 				$replace[$k] = $v;
 			}
 			
 			unset($replace[':shineisp:']);	
 		}
+
+		// Remove unneeded parameters
+		unset($replace['password']);
+		unset($replace['active']);
+		unset($replace['isppanel']);
 
 		// Replace all placeholders in everything
 		foreach ( $replace as $placeholder => $value ) {
