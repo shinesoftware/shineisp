@@ -30,7 +30,6 @@ class Api_ProductscategoriesController extends Api_Controller_Action {
         }
         
         $infoCategory   = ProductsCategories::getAllInfobyURI($uri);
-        $infoCategory   = array();
         if( empty($infoCategory) ) {
             echo $this->error(400,'003',":: uri=>'{$uri}' not category assigned");
             exit();
@@ -45,5 +44,31 @@ class Api_ProductscategoriesController extends Api_Controller_Action {
         exit();
     }
     
+    public function getallinfoproductsAction(){
+        $uri = $this->getRequest ()->getParam ( 'uri' );
+        if( empty($uri) ) {
+            echo $this->error(400,'002',":: 'uri' field");
+            exit();
+        }
+        
+        $infoCategory   = ProductsCategories::getAllInfobyURI($uri);
+        if( empty($infoCategory) ) {
+            echo $this->error(400,'003',":: uri=>'{$uri}' not category assigned");
+            exit();
+        }
+        
+        //get the first elemnt
+        $infoCategory   = array_shift($infoCategory);
+        $categoryid     = $infoCategory['category_id'];
+        $products       = ProductsCategories::getProductListbyCatID($categoryid);
+        $getProducts    = array();
+        foreach( $products as $product ) {
+            $productid  = $product['product_id'];
+            $getProducts[]  = Products::getAllInfo($productid);
+        }
+        
+        echo parent::success(200,$getProducts);
+        exit();
+    }
     
 }
