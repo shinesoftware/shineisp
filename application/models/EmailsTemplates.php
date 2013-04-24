@@ -81,6 +81,38 @@ class EmailsTemplates extends BaseEmailsTemplates
 
 
 	/**
+	 * Get a record by code ignoring language
+	 * 
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function fetchRecord($code) {
+		$dq = Doctrine_Query::create ()->select ( '*' )
+									->from ( 'EmailsTemplates et' )
+									->where ( "et.code = ?", $code )
+									->limit ( 1 );
+		
+		return $dq->fetchOne ();
+	}
+
+
+	/**
+	 * Delete an email template
+	 * 
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function deleteByCode($code) {
+		return Doctrine_Query::create ()->select ('*')
+									->from ( 'EmailsTemplates et' )
+									->where ( "et.code = ?", $code )
+									->limit ( 1 )
+									->delete();
+	}
+
+
+
+	/**
 	 * Save all the data
 	 * 
 	 * 
@@ -95,7 +127,12 @@ class EmailsTemplates extends BaseEmailsTemplates
 		if (is_numeric ( $id ) && $id > 0) {
 			$EmailsTemplates = self::find($id, null, false, $locale);
 		} else {
-			$EmailsTemplates = new self;
+			if ( !empty($params['code']) ) {
+				$EmailsTemplates = self::fetchRecord($params['code']);
+				if ( !is_object($EmailsTemplates) ) {
+					$EmailsTemplates = new self;	
+				}
+			}
 		}
 
 		try {
@@ -123,7 +160,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 					if ( isset($currentEmailsTemplatesData->id) && $currentEmailsTemplatesData->id > 0 ) {
 						$EmailsTemplatesData = $currentEmailsTemplatesData;
 					} else {
-						$EmailsTemplatesData = new EmailsTemplatesData();	
+						$EmailsTemplatesData = new EmailsTemplatesData();
 					}
 					
 					$EmailsTemplatesData->template_id = intval($template_id);
@@ -134,7 +171,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 					$EmailsTemplatesData->html        = ! empty ( $params ['html'] )      ? $params ['html']      : '';
 					$EmailsTemplatesData->text        = ! empty ( $params ['text'] )      ? $params ['text']      : '';
 					$EmailsTemplatesData->save ();
-					
+										
 					$email_template_date_id = $EmailsTemplatesData->id;
 				}
 			
