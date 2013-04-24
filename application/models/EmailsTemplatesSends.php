@@ -14,19 +14,30 @@ class EmailsTemplatesSends extends BaseEmailsTemplatesSends
 {
 
 	/**
-	 * getByCustomerID
-	 * Get all data  
-	 * @param $customerID
+	 * get all the email of by the selected customer id
+	 *  
+	 * @param integer $customerID
+	 * @param string $fields
 	 * @return Array
 	 */
 	public static function getByCustomerID($customerID, $fields = '*') {
-		$records = Doctrine_Query::create ()->select ( $fields )
-							->from ( 'EmailsTemplatesSends' )
-							->where ( 'customer_id = ?', intval($customerID) )
-							->orderBy('id desc')
-							->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+		if(is_numeric($customerID)){
+
+			// create the dq query 
+			$dq = Doctrine_Query::create ()
+								->from ( 'EmailsTemplatesSends et' )
+								->where ( 'et.customer_id = ?', intval($customerID) );
+			
+			if(!empty($fields) && $fields != "*"){
+				$dq->select ( $fields );
+			}
+
+			// execute the query
+			return $dq->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+		}
 		
-		return $records;
+		return false;
+		
 	}
 
 
