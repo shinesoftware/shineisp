@@ -451,7 +451,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	private function sentmailsGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$fields = "id, date, subject, recipient";
+			$fields = "date, subject, recipient";
 			$rs = EmailsTemplatesSends::getByCustomerID ($request->id, $fields);
 			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'view' => array ('controller' => 'emailstemplatessends', 'action' => 'view' ) );
 		}
