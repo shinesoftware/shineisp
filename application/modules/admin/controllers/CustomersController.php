@@ -445,15 +445,15 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		}
 	}
 	
-
-	//* TODO: sort by ID/DATE desc
+	/**
+	 * get the email list sent to the customer
+	 */
 	private function sentmailsGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$fields = "subject";
+			$fields = "id, date, subject, recipient";
 			$rs = EmailsTemplatesSends::getByCustomerID ($request->id, $fields);
-			
-			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'view' => array ('controller' => 'emailstemplatessends', 'action' => 'view' ) );
+			return array ('name' => 'emailstemplatessends', 'sort' => array('field'=>'date', 'dir'=>'DESC'), 'records' => $rs, 'view' => array ('controller' => 'emailstemplatessends', 'action' => 'view' ) );
 		}
 	}
 	
