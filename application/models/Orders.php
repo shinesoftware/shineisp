@@ -1779,6 +1779,16 @@ class Orders extends BaseOrders {
 			$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 			$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
+			// Manage fullname
+			if ( is_array($items) && isset($items[0]) && isset($items [0] ['Customers']) ) {
+				if ( !empty($items [0] ['Customers']['company']) ) {
+					$items [0] ['Customers']['fullname']        = $items [0] ['Customers']['company'];
+					$items [0] ['Customers']['full_personname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];
+				} else {
+					$items [0] ['Customers']['fullname'] = $order [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
+				}
+			}
+			
 			return $items;
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
@@ -1961,8 +1971,6 @@ class Orders extends BaseOrders {
 				$invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
 				$customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
 				$customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
-				echo $order [0] ['Customers'] ['parent_id'];
-				die();
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['parent_id'], 'orders' );
 			} else {
 				$customer_email = Contacts::getEmails($order [0] ['Customers'] ['customer_id']);
@@ -1971,7 +1979,7 @@ class Orders extends BaseOrders {
 				$customer .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['customer_id'], 'orders' );
 			}
-			
+
 			$email = $order [0] ['Isp'] ['email'];
 			
 			$bankInfo = Banks::getBankInfo();
