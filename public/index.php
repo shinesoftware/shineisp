@@ -49,9 +49,6 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 
-$autoloader=Zend_Loader_Autoloader::getInstance();
-$autoloader->registerNamespace('Api_');
-
 $application->bootstrap()
             ->run();
             

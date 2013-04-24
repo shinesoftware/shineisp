@@ -18,7 +18,7 @@ class Api_ProductscategoriesController extends Api_Controller_Action {
     public function getallAction(){
         $productsCategorie  =   ProductsCategories::getMenu();
         
-        echo parent::success($productsCategorie);
+        echo parent::success(200, $productsCategorie);
         exit();
     }
     

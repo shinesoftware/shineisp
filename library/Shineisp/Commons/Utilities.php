@@ -837,9 +837,9 @@ class Shineisp_Commons_Utilities {
 	 *  getEmailTemplate
 	 *  Get the email template from database, if missing, try to load from filesystem and save to database
 	 */
-	public static function getEmailTemplate($template) {
+	public static function getEmailTemplate($template, $forceLocale = null) {
 		$subject = "";
-		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
+		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
 		
@@ -909,6 +909,7 @@ class Shineisp_Commons_Utilities {
 				,'html'      => nl2br($body)
 			
 			);
+			echo "Faccio save per la lingua ".$language_id."\n<br>";
 			EmailsTemplates::saveAll(null, $array, $language_id);
 				
 			// Return the email template
