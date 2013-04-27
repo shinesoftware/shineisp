@@ -27,11 +27,13 @@ Taxes:
     
 FilesCategories:
   FilesCategories_1:
-    name: applicationforms
+    name: Application Forms
   FilesCategories_2:
-    name: quote
+    name: Quotation
   FilesCategories_3:
-    name: documents
+    name: Generic Document
+  FilesCategories_4:
+    name: Download
 
 InvoicesSettings:
   InvoicesSettings_1:

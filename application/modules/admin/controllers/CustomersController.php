@@ -256,7 +256,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		
+		$this->view->editmode = true;
 		
 		$this->view->addressesdatagrid = $this->addressesGrid ();
 		$this->view->contactsdatagrid = $this->contactsGrid ();

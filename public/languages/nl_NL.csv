@@ -1,767 +1,1356 @@
-"Dutch";"Nederlands"
-"English";"Engels"
-;
-"### HOMEPAGE";
-"Index";"Homepage"
-"Homepage";"Homepage"
-"Dashboard";"Controlepaneel"
-"Sign in";"Inloggen"
-"Welcome";"Welkom"
-"Welcome to the administration of your own services and domain panel.";"Welkom bij het beheerscherm van uw diensten en domeinen "
-"Expiring Domains";"Verlopende domeinen"
-"Tickets System";"Tickets systeem"
-"expiration_date";"Vervaldatum"
-"Days";"Dagen"
-"Back to home";"Terug naar Homepage"
-"Type here the domain name";"Geef hier de domeinnaam in"
-"Commands";"Opdrachten"
-"Expiring Services";"Verlopende diensten"
-"Here you can see all the options available.";"Alle beschikbare opties"
-"Here you can manage your own domains.";"Beheer uw domeinen"
-"Here you can manage your own services.";"Beheer uw diensten"
-"Here you can manage your own orders.";"Beheer uw opdrachten"
-"Here you can add and reply your help requests.";"Hulpvragen opgeven en beantwoorden"
-"Here below you can see all the domains near at the expiring date.";"Alle domeinen die hun vervaldatum naderen"
-"Here below you can see all the services near at the expiring date.";"Alle diensten die hun vervaldatum naderen"
-"Fullname";"Voor- en achternaam"
-"Product";"Product"
-"TLD Summary by Owner";"TLD samenvatting per eigenaar"
-"desc_owner_tld_summary";"Samenvatting TLD groepen"
-"Last Tickets";"Meest recente tickets"
-"In this section you can see all the requested support issues.";"Alle gestelde hulpvragen"
-"subject";"onderwerp"
-"services_stats";"Services stats"
-"desc_services_stats";"Alle diensten van klanten"
-"Solditems";"Aantal verkocht"
-"domains_stats";"Domein stats"
-"desc_domains_stats, This list shows all the costs and earnings of the domains sold grouped by tld.";"Alle kosten en opbrengsten van domeinen, gesorteerd op TLD"
-"tld";"TLD"
-"costs";"Kosten"
-"Administration";"Beheer"
-"login";"Inloggen"
-"There was a problem during the login. Your profile is suspended or your credentials are wrong.";"Bij het inloggen is een fout opgetreden. U hebt mogelijk onjuiste inloggegevens verstrekt of dit account bestaat niet (meer)."
-"Here you can see all information about the customers";"Klanteninformatie"
-"earnings";"Opbrengsten"
-"costearns_summary";"Verkochte domeinen"
-"Show All";"Laat alles zien"
-"Select ...";"Selecteer …"
-"Here you can filter the result by the statuses";"Resultaten sorteren op status"
-"Records";"Records"
-"Save";"Opslaan"
-"Pay Now";"Nu betalen"
-"Services Stats";"Diensten stats"
-"Within this list you can see the services subscribed by the customers.";"Diensten van de klanten"
-"You will earn about";"U verdient ongeveer"
-"Add a new product";"Voeg een nieuw product toe"
-"The field %s is a mandatory field";"Het veld %s is verplicht!"
-"The order number %s that you have requested the %s with total %s euro has been not payed yet,  click here to show more details.";"Opdrachtnummer %s met uw bestelling %s en een bedrag van %s euro is nog niet betaald. Klik hier om de details in te zien."
-"Unable to process request at this time.";"Het is helaas op dit moment niet mogelijk dit verzoek te behandelen."
-"Our apologies...";"Neemt u ons niet kwalijk."
-"The page you requested cannot be displayed.";"Deze pagina kan niet getoond worden."
-"Are you looking for one of these products?";"Zoekt u misschien een van deze producten?"
-"Report this problem";"Meld dit probleem."
-"Tell us which is the broken link. You will not be contacted by us about this report.";"Laat ons weten welke link niet (meer) werkt. Wij zullen u niet benaderen over uw melding."
-;
-;
-"### BULK DOMAINS";
-"Domains Bulk Registration";"Bulk registratie van domeinen"
-"It's easy to register your new domain names in bulk.";"Het is erg eenvoudig om veel domeinnamen in één keer te registreren."
-"Just enter your names in the field below. One domain name for each row.";"Geef hieronder de domeinnamen in. Gebruik voor elke domeinnaam een nieuwe regel."
-"Registering more than one domain name? Click here!";"Wilt u meer dan één domeinnaam registreren? Klik hier!"
-"When the 'Search' button is clicked,  please be patient while we check domain availability.";"Na het klikken op de 'Zoek' button kan het een ogenblik duren voor de beschikbaarheid van de domeinnaam bekend is."
-"Check Now";"Nu controleren"
-"Domain Bulk Registration Order";"Bulk domein registratie opdracht"
-"Create your new order with the following domains.";"Maak een nieuwe opdracht aan met de volgende domeinen."
-"Domain Transfer";"Domein verhuizing"
-"Domain Registration";"Domein registratie"
-"Domain Registration Order";"Domein registratie opdracht"
-"Please write here your AuthCode in order to transfer the domain";"Gee hier de EEP-code of AuthCode in om het domein te verhuizen."
-"Domain Available";"Domein is beschikbaar!"
-"Create the Order";"Maak een opdracht aan"
-"The request has been executed correctly.";"Uw verzoek is geheel correct uitgevoerd."
-"years";"jaren"
-"months";"maanden"
-"weeks";"weken"
-"days";"dagen "
-"hours";"uren"
-"minutes";"minuten"
-"Review by";"Beoordeeld door"
-"Stars";"Sterren"
-"Review";"Beoordeling"
-"Write down your review with details and you will earn points and discounts";"Schrijf een beoordeling en verdien kortingen en waardepunten."
-"Add your own nickname";"Voeg uw alias toe"
-"Nick";"Alias"
-"Write down a subject of the review";"Onderwerp van de beoordeling"
-"Add your review for";"Toevoegen beoordeling van"
-"Your email will be not published";"Uw e-mail zal niet openbaar gemaakt worden"
-"Publish your Review";"Publiceer uw beoordeling"
-"No Reviews yet";"Nog geen beoordelingen"
-"Get more information";"Meer informatie"
-;
-"### LOGIN";
-"adminlogin";"Beheerder log in"
-"Email";"E-mail"
-"Write your own email";"E-mail schrijven"
-"Password";"Wachtwoord"
-"Write your own password";"Wachtwoord invoeren"
-"Sign in to get subscribed services.";"Log in om uw diensten te bekijken"
-"Login";"Login"
-"User not found. Check your credentials.";"Dit account bestaat niet. Controleer uw inloggegevens."
-"Forgot your password?";"Wachtwoord vergeten?"
-"This field";"Dit veld"
-"is empty. This field is mandatory.";"is niet ingevuld. Het is een verplicht veld."
-"Main";"Hoofd"
-"New password";"Nieuw wachtwoord"
-"Password sent to your email box. You have to click in the link written in the email.";"Er is een nieuw wachtwoord naar uw e-mail adres verstuurd. U dient de link in die e-mail te volgen."
-"Email sent";"E-mail verzonden"
-"Error occurred during setting of the password.";"Er is een fout opgetreden tijdens het aanmaken van het wachtwoord."
-;
-"### WIKI";
-"Wiki Help Guide";"Wiki/FAQ"
-"Write here what you looking for.";"Wat zoekt u?"
-"Here you can see the wiki guides list.";"Overzicht van de resultaten."
-"Posted";"Ingezonden"
-"Help";"Help"
-"Do you need help?";"Hebt u hulp nodig?"
-"Have you found what you need? If not write a question here.";"Hebt u gevonden wat u zocht? Zo niet, stel ons uw vraag."
-;
-"### STATUSES";
-"To Pay";"Te betalen"
-"Suspended";"Tijdelijk onderbroken"
-"Deleted";"Verwijderd"
-"Complete";"Compleet"
-"Expired";"Vervallen"
-"Pending";"In afwachting"
-"Processing";"In bewerking"
-"Closed";"Gesloten"
-"Solved";"Opgelost"
-"Queue";"Wachtrij"
-"Active";"Actief"
-;
-"### MODULES";
-"Domains";"Domeinen"
-"Services";"Diensten"
-"Tickets";"Tickets"
-"Products";"Producten"
-"Settings";"Instellingen"
-"Orders";"Opdrachten"
-"Customers";"Klanten"
-"Registrars";"Registrars"
-"Product Categories";"Productgroepen"
-"Profile";"Profiel"
-"Banks";"Banken"
-;
-"### GRAPHS";
-"domains_summary_per_month";"Samevatting domeinen per maand"
-"Domains Summary";"Samenvatting domeinen"
-;
-"### ERRORS";
-"emailAddressInvalidFormat";"geen geldig e-mail adres"
-"isEmpty";"is leeg"
-"Email or Password incorrect";"E-mail of wachtwoord zijn onjuist."
-;
-"### GENERAL";
-"field";"veld"
-"New";"Nieuw"
-"VAT";"BTW"
-"Total";"Totaal"
-"index";"index"
-"Date";"Datum"
-"records";"Records"
-"Domain";"Domein"
-"date";"Datum"
-"daysleft";"dagen te gaan"
-"status";"status"
-"commands";"Opdrachten"
-"Show";"Toon"
-"Required fields";"Veplichte velden"
-"Fast Search";"Snel zoeken"
-"italian";"italiaans"
-"english";"Engels"
-"myaccount";"mijn account"
-"welcome";"Welkom"
-"servers";"Servers"
-"Logout";"Uitloggen"
-"general";"Algemeen"
-"bulkcommands";"Bulk opdrachten"
-"Records per page";"Records per pagina"
-"Status";"Status "
-"statusmgmt";
-"actions";"Acties"
-"bulkdelete";"Verwijderen"
-"No Records";"Geen records gevonden"
-"Recordcount";"Aantal records"
-"Filters";"Filters"
-"Messages";"Berichten"
-"Message";"Bericht"
-"Delete";"Verwijderen"
-"YES";"JA"
-"NO";"NEE"
-"Click here to edit";"Klik hier om te bewerken."
-"List";"Overzicht"
-"Search";"Zoeken"
-"Selected record";"Geselecteerd record"
-"confirm";"Bevestigen"
-"confirmdelete";"Bevestig verwijderen"
-"delete_question";"Weet u zeker dat u het geselecteerde record wilt verwijderen?"
-"desc_delete_question";"Het geselecteerde record kan niet meer hersteld worden!"
-"desc_confirm";"Kies om de actie te bevestigen of te annuleren."
-"areusure";"Weet u het zeker?"
-"noiwrong";"Nee, annuleer de actie."
-"yesiwant";"Ja, ik wil het ECHT VERWIJDEREN!"
-"methodnotset";
-"enabled";"Ingeschakeld"
-"desc_enabled";"Het item werd ingeschakeld."
-"add";"Toevoegen"
-"remove";"Verwijderen"
-"The search view is active.";"Het zoekvenster is actief."
-"Click here to reset the results.";"Klik hier om de resultaten te wissen."
-"By creating an account with our store,  you will be able to move through the checkout process faster";"Door het aanmaken van een account, verloopt het bestelproces sneller"
-"Create an Account";"Maak een account aan"
-"Login or Create a new Account";"Log in op uw bestaande account of maak een nieuw account aan."
-"The task requested has been executed successfully.";"De bewerking is met succes voltooid."
-"Reset your password";"Uw wachtwoord resetten"
-"Write your email in the follow text box in order to reset your password.";"Vul hier uw e-mail adres in om uw wachtwoord te resetten."
-"Type anything for Creating or Selecting a Tag.";"?????"
-"Searching...";"Aan het zoeken …"
-"Create";"Aanmaken"
-;
-"### BILLING CYCLES";
-"Monthly";"maandelijks"
-"Semiannual";"per half jaar"
-"Annual";"per jaar"
-"Biannual";"per twee jaar"
-"No expiring";"geen vervaldatum"
-;
-"### CUSTOMER SECTION";
-"Reseller";"Reseller"
-"customer_edit";"Wijzigen klantgegevens"
-"desc_customer_edit";"De gegevens van klanten wijzigen."
-"Create Remote Profile";"Remote profile aanmaken"
-"Create Domain";"Domein aanmaken"
-"Create Order";"Opdracht aanmaken"
-"customer_details";"Klantgegevens"
-"desc_customer_details";"Onderhoud van klantgegevens"
-"Legalform";"Rechtspersoonlijkheid"
-"Firstname";"Voornaam"
-"Lastname";"Achternaam"
-"Birthdate";"Geboortedatum"
-"Birthplace";"Geboorteplaats"
-"zipcode";"postcode"
-"company_type";"Juridische bedrijfsvorm"
-"companyname";"bedrijfsnaam"
-"vat";"BTW nummer"
-"birth date";"geboorte datum "
-"birth place";"geboorte plaats "
-"birth district";"geboorte provincie"
-"birth country";"geboorte land"
-"birth nationality";"nationaliteit"
-"taxpayernumber";"KvK nummer"
-"address";"adres"
-"province";"provincie"
-"country";"land"
-"desc_contact_type";"Kies een contactpersoon"
-"desc_firstname";"Voornaam"
-"desc_lastname";"Achternaam"
-"desc_birthdate";"Geboortedatum"
-"desc_birthplace";"Geboorteplaats"
-"desc_zipcode";"postcode"
-"Select the company type";"Juridische bedrijfsvorm"
-"desc_companyname";"bedrijfsnaam"
-"desc_vat";"BTW nummer"
-"desc_address";"geboorte datum "
-"desc_province";"geboorte plaats "
-"desc_country";"geboorte land"
-"addresses";"adressen"
-"contacts";"contactpersonen"
-"attachments";"Bijlagen"
-"various";"verschillende"
-"tools";"instrumenten"
-"admin";"Beheerder"
-"edit";"wijzigen"
-"Select ...";"Selecteer …"
-"individual";"Privé persoon"
-"corporation";"Onderneming"
-"association";"Non-profit organisatie"
-"other";"Anders"
-"desc_legalform";"Kies een van de rechtspersonen uit de lijst"
-"city";"Woonplaats"
-"area";"wijk"
-"baseaddress";"Factuuradres"
-"No invoices have been found.";"Er zijn geen facturen gevonden"
-"desc_city";"Woonplaats"
-"desc_area";"wijk"
-"desc_baseaddress";"Gebruik dit als standaard-adres"
-"contact_type";"Soort contact"
-"contact";"Contactpersoon"
-"desc_contact";"Vul de contactpersoon in"
-"filecategory";"Bestandscategorieën"
-"applicationforms";"Aanvraagformulier"
-"quote";"Offerte"
-"documents";"Algemene documenten"
-"desc_filecategory";"Kies een van de waarden"
-"desc_attachments";"Zoeken en uploaden van een bestand"
-"desc_status";"Status "
-"nichandle";"nic-handle"
-"desc_nichandle";"Wordt gebruikt om uw identiteit vast te stellen"
-"desc_taxpayernumber";"BTW nummer"
-"Personal Information";"Persoonlijke gegevens"
-"Private Notes";"Opmerkingen"
-"desc_private_note";"Deze opmerkingen kunnen niet door klanten worden gelezen."
-"magento_customers";"Magento klanten"
-"desc_magento_customers";"Klik in het overzicht en wacht dan even."
-"download_customer_selected";"Klanten importeren"
-"customer_list";"Klanten overzicht"
-"desc_customer_list";"Overzicht van de klanten"
-"Select a filter";"Kies een filter"
-"company";"Onderneming"
-"Customer";"Klant"
-"Tax payer number";"BTW nummer"
-"Birthdate";"Geboortedatum"
-"Write here your birthday (eg. dd/mm/yyyy)";"(dd/mm/jjjj)"
-"Write here the birthplace.";"Geboorteplaats"
-"Write the tax payer number.";"BTW nummer"
-"Print Invoice";"Factuur afdrukken"
-"Print Order";"Opdracht afdrukken"
-"Invoice";"Factuur"
-"Write here your firstname.";"Voornaam"
-"Write here your lastname.";"Achternaam"
-"Write here your email";"E-mail adres"
-"Write here your password. (min.6 chars - max.20 chars)";"Wachtwoord"
-"Write here the VAT number.Inserisci la tua Partita IVA";"BTW nummer"
-"Select the type of company.Seleziona la forma legale";"Bedrijfsvorm"
-"Company Type";"Bedrijfsvorm"
-"Write here your company name.Inserisci la tua Ragione Sociale.";"bedrijfsnaam"
-"Birth District";"geboorte provincie "
-"Country of Birth";"geboorte land"
-"Birth Nationality";"nationaliteit"
-"Sex";"geslacht"
-"Addresses";"adres"
-"Zip";"postcode"
-"City";"Plaats"
-"Area";"wijk"
-"Country";"land"
-"Default Address";"Standaard adres"
-"Write the address";"adres"
-"Write the zip code";"postcode"
-"Write here your city name";"Plaats"
-"Write the area code";"wijk"
-"Select your own country";"land"
-"Contacts";"contactpersonen"
-"contact";"Contactpersoon"
-"type";"Soort"
-"Contact Types";"Soort contact"
-"Select the contact type";"Kies een contactpersoon"
-"Write here the contact (eg. +39.98368276)";"(+31.1213456789)"
-"General";"Algemeen"
-"Write here your company name.";"bedrijfsnaam"
-"Select the type of company.";"Rechtsvorm"
-"Write here the VAT code. Eg: IT123456789.";"BTW nummer"
-"Profile details";"Klantgegevens"
-"Update here your details filling the applicant form with all the information about you.";"Actualiseer uw gegevens."
-"Select the company";"kies het bedrijf"
-"Total %s records found";"Totaal %s records gevonden"
-"Page";"pagina"
-"View";"Toon"
-"Actions";"Acties"
-;
-"### DOMAINS";
-"Yes,  I would like to renew the domain at the expiration date.";"Ja, ik het domein verlengen op de vervaldatum."
-"No,  I am not interested in the renew.";"Nee, ik wil het domein niet verlengen."
-"By default,  all domains are set to auto-renew. Choose if the domain must be auto-renew or not at the expiring date.";"Alle domeinen worden standaard automatisch verlengd. U kunt deze instelling hier wijzigen."
-"Update Domain Information";"Actualiseer domein gegevens"
-"Domains List";"Overzicht domeinen"
-"Domain Edit";"Wijzig domeinen"
-"Here you can edit your own domain parameters.";"Wijzig de parameters van uw domeinen"
-"Here you can see all the list of your domains.";"Overzicht van uw domeinen"
-"Starting";"Aanvangsdatum"
-"Ending";"Vervaldatum"
-"Termination";"Vervaldatum"
-"Write here a message for the administrator about this domain.";"Stuur ons een bericht over dit domein."
-"Your message";"Uw bericht"
-"Autorenew";"Automatisch verlengen"
-"No Autorenew";"Niet automatisch verlengen"
-"Domain Summary per Month";"Samenvatting domeinen per maand"
-"Import";"Importeren"
-"Update Domains";"Domeinen actualiseren"
-"Here you can show all the services subscribed with the domain.";"Overzicht van aan het domein verbonden diensten"
-"This domain will be not renewed at the expiring day.";"Dit domein wordt niet automatisch verlengd op de vervaldatum."
-"This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day.";"Dit domein wordt verlengd op de vervaldatum."
-"Here you can see all the questions and replies about this service/domain";"Overzicht van vragen en antwoorden over het domein of de dienst."
-"Owner";"Eigenaar"
-"DNS Zones";"DNS zone"
-"Register";"Registreer"
-"Actions";"Acties"
-"Execute";"Uitvoeren"
-"Renew Domains";"Verleng domeinen"
-"Renew";"Verlengen"
-"Download DNS";"Download DNS"
-"Update DNS";"Actualiseer DNS"
-"Update domain";"Actualiseer domein"
-"The requested task has been completed successfully";"De actie werd met succes uitgevoerd."
-"Authinfo code";"Authinfo code"
-"Transfer";"Verhuis"
-"desc_domainname";"domeinnaam zonder extensie of spaties"
-"desc_tld";"kies het TLD uit de lijst"
-"desc_authinfo";"Vul de Authinfo code in om het domein naar ons te verhuizen"
-"Creation date";"Aanmaakdatum"
-"Transaction ID";"Transactie nummer"
-"Payment mode";"Betaalwijze"
-"Payment note";"Opmerking bij de betaling"
-"The domain selected has not been attached in a order.The Autorenew setting is not saved.";"Dit domein is geen onderdeel van een bestelling. De instelling voor automatische verlenging werd niet opgeslagen."
-"DNS successfully updated";"DNS werd aangepast"
-"Subdomain";"subdomein"
-"Target";"doel"
-"Zone";"zone"
-"A problem has been occurred during the updating of the DNS. Check the settings in the Record DNS tab.";"Er trad een fout op bij het actualiseren van de DNS. Controleer de instellingen in het DNS-scherm."
-"err_nichandle_not_found";"De eigenaar van het domein heeft geen standaard nic-handle opgegeven."
-"Want you register the selected domain?";"Wilt u het gekozen domein registereren?"
-"The domain will be register using the Registrant set in the domain page.";"Het domein wordt geregistreerd op naam van de opgegeven Registrant."
-"Want you renew the selected domain?";"Wilt u het gekozen domein vernieuwen?"
-"The domain will be renewed using the Registrant set in the domain page.";"Het domein wordt vernieuwd op naam van de opgegeven Registrant."
-"Are you sure to delete the domain?";"Weet u zeker dat u dit domein wilt verwijderen?"
-"If a domain has been deleted it is no more restorable.";"Deze actie kan niet meer ongedaan worden gemaakt."
-"Select the items and then use the bulk action system to set more than one item.";"Kies alle onderdelen en gebruik vervolgens het bulk systeem om alle items in te stellen."
-"Transfer here your domain";"Verhuis uw domein naar ons."
-"To protect against theft the domain,  the domain is placed in a state that does not allow the transfer. If another registrar requires the transfer of the domain,  the operation will be automatically rejected. If you wish to transfer the domain to a new registrar remove the protection. In this state  the domain will not be protected and another registrar may request the transfer.";"Om diefstal van het domein te voorkomen wordt verhuizing van het domein automatisch geblokkeerd. If another registrar requires the transfer of the domain,  the operation will be automatically rejected. Wilt u het domein verhuizen, dan dient u die blokkering op te (laten) heffen, zodat de nieuwe registrar de verhuizing kan aanvragen."
-"The authinfo is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrant of this code,  necessary to perform all operations. Without this code you cannot transfer this domain.";"Authinfo is een code die toegekend werd tijdens de registratie en is direct verbonden aan het domein. Uw Registrar moet u hierover informeren. U hebt de code nodig om  uw domein te verhuizen."
-"To transfer your own domain name here you have to set the AuthInfo Code in the following textbox area.";"Om uw domein te verhuizen dient u hier de AuthInfo Code in te vullen."
-"The domain has been unlocked. Now wait some minutes";"Het domein is open voor verhuizing. Een paar minuten geduld a.u.b. "
-"Protect your domain";"Beveilig uw domein"
-"Request the AUTHINFO";"Vraag de Authinfo op"
-"authinfo";"authinfo"
-"Options";"Opties"
-"Here you can unlock the domain before the transfer it in another hosting provider.";"Hef de domeinbeveiliging op om het domein naar een andere registrar te verhuizen."
-"Here you can update the status of your domain.";"Actualiseer de status van uw domein"
-"In this section you can execute various operation with your domain name.";"Voer verschillende bewerkingen met uw domein uit."
-"Update Domain";"Actualiseer domein"
-"Here you can lock the domain and protect it from the thieves.";"Beveilig uw domein tegen diefstal van de domeinnaam"
-"Lock Domain";"Beveilig het domein"
-"The authinfo domain code has not been found. Please add the code in the domain control panel.";"De Authinfo code werd niet gevonden. Vul de code in in het domeinbeheerscherm."
-;
-"### ORDERS";
-"Product Name";"Productnaam"
-"OrderID";"Bestelnummer"
-"Order Summary";"Samenvatting bestelling"
-"Complete the order choosing your preferite payment method.";"Rond de bestelling af."
-"Payment Methods";"Betaalwijzen"
-"Order no.";"Opdracht nummer"
-"InvoiceId";"Factuur nummer"
-"Setup fee";"Instelkosten"
-"startdate";"Aanvangsdatum"
-"Reply";"Antwoord"
-"Fastlink Code";"Fastlink Code"
-"Order";"Opdracht"
-"Bank Transfer";"Bankoverschrijving"
-"How will you pay?";"Hoe wilt u betalen?"
-"Select your preferred payment method among those listed below.";"Kies uw betaalwijze uit de lijst."
-"Account Name";"Rekeninghouder"
-"Bank";"naam van de bank"
-"Bank Account Number";"bankrekeningnummer"
-"The domain is a mandatory field. Choose a domain name.";"Het invullen van de domeinnaam is verplicht. Kies een domeinnaam"
-"Invoice destination";"Factuur t.a.v."
-"Order Now";"Nu bestellen"
-"Here you can see all the order information.";"Overzicht van uw bestelling"
-"Orders List";"Overzicht opdrachten"
-"Order Details";"Opdrachtgegevens"
-"Here you can create a new order";"Nieuwe bestelling"
-"Here you can manage all the orders.";"Beheer uw bestellingen"
-"Grandtotal";"Groottotaal"
-"Invoice Nr.";"Factuur nummer"
-"Select here the company or the customer";"kies het bedrijf of de klant"
-"Message about the order";"Bericht bij de bestelling"
-"Check the information posted and then click on the save button.";"Controleer de gegevens en klik dan op Opslaan."
-"Order process";"Bestelproces"
-"order_date";"besteldatum"
-"next_deadline";"eerstvolgende vervaldatum"
-"grandtotal";"Groottotaal"
-"sku";"interne code"
-"total";"totaal"
-"invoice_number";"Factuur nummer"
-"Download Invoices";"Facturen downloaden"
-"To be pay";"Te betalen"
-"order_edit";"Wijzig de bestelling"
-"desc_order_edit";"Wijzig uw bestelling"
-"details";"Details"
-"createinvoice";"Factuur"
-"renew";"Vernieuw"
-"Quantity";"Hoeveelheid"
-"quantity";"Hoeveelheid"
-"Description";"Beschrijving"
-"description";"Beschrijving"
-"Price";"prijs"
-"price";"prijs"
-"setupfee";"Instelkosten"
-"Billing_cycle";"Factureringscyclus"
-"Tax";"BTW"
-"Days left";"dagen tot vervaldatum"
-"categories";"groepen"
-"Reviews";"Beoordelingen"
-"Date Start";"Aanvangsdatum"
-"billingcycle";"Factureringscyclus"
-"referdomain";"refering domain"
-"searchdomains";"Zoek domein"
-"There was a problem during the payment process.";"Er is een fout opgetreden in het betaalproces."
-;
-"### TICKETS SYSTEM";
-"Replies";"Antwoorden"
-"Attachments";"Bijlagen"
-"Ticket";"Ticket"
-"Add new Issue";"Voeg een nieuwe vraag toe"
-"Post a new issue.";"Stuur een nieuwe vraag in"
-"Select a category.";"Kies een categorie"
-"Write here a subject of the issue.";"Onderwerp"
-"Your Response";"Uw antwoord"
-"Send Request";"Verstuur het verzoek"
-"Tickets list";"Overzicht tickets"
-"Here you can write down your problem. Remember to be clear and analytic in order to explain the problem that has been occurred.";"Stel hier uw vraag. Beschrijf het probleem zo duidelijk mogelijk en beschrijf wat uw vraag precies is. Dat helpt ons om uw vraag zo goed mogelijk te beantwoorden."
-"Here you can see the list of all the issue posted.";"Overzicht van alle ingezonden tickets."
-"Post new ticket";"Stuur nieuwe ticket"
-"Back to list";"Terug naar het overzicht"
-"Ticket Edit";"Bewerk het ticket"
-"Ticket process";"Ticket verwerkingsproces"
-"Check the information before save again.";"Controleer de gegevens en sla opnieuw op."
-"ticketnotes";"Opmerkingen"
-"Notes";"Opmerkingen"
-"Write here a note.";"Opmerking"
-"Write here a note. An email will be sent to the ISP staff.";"Uw opmerking"
-"Write here all the information.";"Alle informatie"
-"Further notes";"Verdere opmerkingen"
-"Set the issue status";"Stel de ticket status in"
-"Expecting a reply";"In afwachting van een antwoord"
-;
-"### PRODUCTS";
-"Starting at";"Begint op"
-"Related Products";"vergelijkbare producten"
-"VAT not included";"exclusief BTW"
-"Name";"Naam"
-"Cost";"Kosten"
-"Category";"Groep"
-"Features";"Kenmerken"
-"Keywords";"trefwoorden"
-"Learn more";"Lees meer"
-"Customer Reviews";"Beoordelingen van klanten"
-;
-"### SERVICES";
-"Setup fees";"Instelkosten"
-"Services List";"Overzicht van diensten"
-"Yes";"Ja"
-"No";"Nee"
-"List of all your own services subscribed";"Overzicht van al uw diensten"
-"date_end";"einddatum"
-"domains_selected";"geselecteerd domein"
-"desc_domains_selected";"De geselecteerde domeinen zullen aan de gekozen diensten gekoppeld worden."
-"service_edit";"Diensten"
-"desc_service_edit";"Beheer de diensten van de klant"
-"Expiring_Date";"Vervaldatum"
-"Creation_Date";"Aanmaakdatum"
-"Service Details";"Details van de dienst"
-"List of all the service details.";"Overzicht van alle details van de dienst"
-"  ";
-"### SETTINGS";
-"settings_list";"Overzicht instellingen"
-"desc_settings_list";"Beheerd de ShineISP instellingen"
-"value";"Waarde"
-"parameter";"Parameter"
-"desc_parameter";"Kies de parameter om in te stellen"
-"settings_edit";"wijzig instellingen"
-"desc_settings_edit";"Wijzig de instellingen of voeg nieuwe toe"
-;
-"### REGISTRANTS";
-"registrant_list";"Registrants list"
-"desc_registrant_list";"Beheer de SOAP classes om een verbinding te maken tussen ShineISP en andere registrant services."
-"wsdl";"WSDL"
-"desc_name";"Vul een naam in"
-"desc_wsdl";"URL van de remote WSDL"
-"desc_class";"PHP class name located in /library/Shineisp/Api/Registrars/"
-"desc_username";"PHP class name located in /library/Shineisp/Api/Registrars/"
-"desc_testmode";"Test de class."
-"class";"Class name"
-"username";"Gebruikersnaam"
-"testmode";"Test mode"
-"registrant_edit";"Registrant Edit"
-"desc_registrant_edit";"Wijzig de paramenters van de verbinding met de remote service en de php class."
-;
-"### CATEGORIES";
-"category_list";"Categorie overzicht"
-"desc_category_list";"Beheer alle categorieën"
-"parent";"Bovenliggende categorie"
-"desc_parent";"Kies de bovenliggende categorie"
-"category_edit";"Wijzig de categorie"
-"desc_category_edit";"Wijzig de gegevens van de gekozen categorie"
-;
-"### ISP PROFILE";
-"isp_account";"ISP account"
-"desc_isp_account";"Beheer uw instellingen"
-"vatnumber";"BTW nummer"
-"desc_vatnumber";"BTW nummer"
-"slogan";"Slogan"
-"desc_slogan";"Deze tekst wordt in de pdf factuur opgenomen"
-"manager";"Beheerder"
-"desc_manager";"Voor- en achternaam van de bedrijfsleider/directeur"
-"website";"website"
-"desc_website";"URL van de bedrijfswebsite"
-"bankinfo";"Bankgegevens"
-"bankname";"naam van de bank"
-"desc_bankname";"naam van de bank"
-"bankaccount";"bankrekeningnummer"
-"desc_bankaccount";"bankrekeningnummer"
-"iban";"IBAN"
-"desc_iban";"IBAN"
-"bic";"BIC"
-"desc_bic";"BIC"
-"telephone";"Telefoon"
-"desc_telephone";"tefefoon nummer"
-"fax";"Fax"
-"desc_fax";"Fax nummer"
-"ip";"IP"
-"netmask";"netmask"
-"  ";
-"### SERVERS";
-"servers_list";"Overzicht servers"
-"desc_servers_list";"Overzicht van alle beschikbare servers in het datacentrum"
-"desc_servers";"Wijzig de instellingen van de gekozen server"
-"servername";"server naam"
-"servertype";"server type"
-"desc_servertype";"kies het server type"
-"desc_servername";"UNIX naam van de server"
-"desc_ip";"public IP van de server"
-"desc_netmask";"netmask van de server"
-"host";"host"
-"desc_host";"host part van het hoofddomein"
-"desc_domain";"domein deel met het TLD"
-"furtherinfo";"Informatie"
-" ";
-"### PAYMENTS GATEWAYS";
-"You will be redirected to the bank secure website,  please be patience.";"Even geduld, u wordt doorverwezen naar het beveiligde deel van de website."
-"bank_list";"Overzicht banken"
-"desc_bank_list";"Beheer alle bank gateways"
-"account";"Rekening"
-"bank_edit";"Wijzig bank"
-"desc_bank_edit";"Wijzig de bank gateway"
-"url_test";"URL test"
-"desc_url_test";"Sommige banken hebben een test URL om het proces te testen."
-"url_official";"Officiële URL"
-"desc_url_official";"Deze URL is de gateway voor echte transacties."
-"classname";"PHP class name"
-"desc_classname";"PHP Class name om de bank gateway te beheren. Dit bestand moet zich in /library/Shineisp/Banks/[BANKNAME]/Gateway.php bevinden."
-;
-"### PDF INVOICE";
-"Site Web";"website"
-"eMail:eMail";"E-mail"
-"Telephone";"Telefoon"
-"FAX";"Fax"
-"VAT Number";"BTW nummer"
-"Invoice Number";"Factuurnummer"
-"dated";"d.d."
-"Address";"adres"
-"Addressee";"t.a.v."
-"Destination";"bestemming"
-"SKU";"COD"
-"Description";"Omschrijving"
-"Qty";"aantal"
-"Unit";"eenheid"
-"Tax Free Price";"exclusief BTW"
-"Tax %";"BTW %"
-"Discount";"Korting"
-"Total";"totaal"
-"Continue";"Vervolg"
-"Order Number";"Bestelnummer"
-"Payment Date";"Betaald op"
-"Tax Free Total";"Totaal excl. BTW"
-"Tax Total";"Totaal BTW"
-"Total with Tax";"Totaal "
-"Bank Name";"naam van de bank"
-"Company Name";"Naam van het bedrijf"
-"Customer Information";"klantgegevens"
-"Click here to delete";"Klik hier om te verwijderen"
-;
-"### EMAILS";
-"Dear Customer";"Geachte klant"
-"subject";"Onderwerp"
-"expired";"Vervaldatum"
-"expired_on";"vervallen op"
-"daysleft";"dagen tot vervaldatum"
-"email_newpassword";"nieuw wachtwoord"
-"email_password";"wachtwoord"
-;
-"### CART";
-"Contact page";"Contact pagina"
-"Complete Order";"Bestelling afronden"
-"You are already registered.";"U bent al geregistreerd"
-"Delete All";"Alles verwijderen"
-"Add to cart";"In winkelwagentje doen"
-"The email is already registered in our database.";"De e-mail werd al geregistreerd in de database."
-"Service Recipient";"Ontvanger van de dienst"
-"My Cart";"Mijn winkelwagentje"
-"cart";"winkelwagentje"
-"contacts";"Contactpersonen"
-"Selected products";"Gekozen producten"
-"Here you can see the domain choosen and its status. Furthermore,  you can register or transfer other domains extension.";"Het gekozen domein en de status daarvan. Eventueel kunt u andere domein-extensies registreren of verhuizen."
-"Create a new domain";"Maak een nieuw domein aan."
-"Checkout page";"Bestelling afronden"
-"Cart Summary";"Overzicht winkelwagentje"
-"Please %s or fill the applicant form below.";"%s of vul het formulier hieronder in."
-"You can complete the order checkout or delete one or more products and inserting a new one. Just click on the delete link in the cart summary.";"U kunt uw bestelling afronden, één of meer producten uit uw wagentje verwijderen of juist nieuwe producten toevoegen. Klik daarvoor op de desbetreffende link in het overzicht van uw winkelwagentje."
-"Personal data";"Persoonlijke gegevens"
-"Next";"volgende"
-"Back";"terug"
-"Continue Order";"vervolg uw bestelling"
-"domain";"domein"
-"Register your own domain";"Registreer uw domein"
-"Type the domain name in the input box shown below and follow only 3 steps.";"Vul de domeinnaam hieronder in en volg de 3 stappen."
-"The domain has been deleted from the cart list. Choose another domain name.";"Het domein werd verwijderd uit uw winkelwagentje. Kies een andere domeinnaam."
-"I would like to register this domain.";"Ik wil dit domein registreren."
-"Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.";"Registreer nu uw eigen domeinnaam en wij zorgen ervoor dat de registratie ieder jaar verlengd wordt. (U kunt deze instelling zelf veranderen in uw beheerpagina.)"
-"I am this domain's owner.";"Ik ben eigenaar van dit domein."
-"Write your own domain name previosly registered with another company.";"Vul de domeinnaam in die u wilt verhuizen."
-"The domain is not available for registration. Choose another domain name.";"Dit domein kan niet geregistreerd worden. Kies een andere domeinnaam."
-"reseller";"reseller"
-"payment";"betaling"
-"Write the domain name here in order to check if available.";"Vul de domeinnaam in om de beschikbaarheid te controleren."
-"CHECK NOW";"Controleer nu."
-"This is the domain selected";"Dit is de naam van het gekozen domein"
-"Other Domains";"andere domeinen"
-"Green domains are available and they can be register.";"Groen weergegeven domeinen zijn beschikbaar."
-"Red domains are not available but if you are the owner you can transfer them.";"Rood weergegeven domeinen zijn niet beschikbaar. Bent u eigenaar van zo'n domein, dan kan het domein verhuisd worden."
-"Checkout";"Bestellen"
-"Subscription of the service domain %s for %s";"Registratie van het domein %s in opdracht van %s"
-"If you fill the company field you have to set your legalform as corporation and write down your VAT code.";"Wanneer u het veld Onderneming aanvinkt, dient u uw bedrijfsvorm en BTW nummer op te geven."
-"The VAT code is wrong.";"Het BTW nummer is niet juist."
-"Features";"Kenmerken"
-"Installment";"Installatie"
-"Add your review";"Voeg uw beoordeling toe"
-"just";"slechts op"
-"Add to Cart";"Leg in uw winkelwagentje"
-"get";"pak"
-"products";"producten"
-"The domain is available for registration";"Het domein is beschikbaar voor registratie"
-"Well done! Now you have to choose your preferite payment method";"Uw bestelling is bijna afgerond. U dient nu uw betaalwijze te kiezen"
-;
-"### SYSTEM MODULE";
-"email_tickets";"?"
-"email_subject_domains_check";"?"
-"email_subject_services_check";"?"
-"email_domains_expired";"?"
-"email_services_expired";"?"
-"email_reminder_expired";"?"
-"email_renew";"?"
-"email_renew_subject";"?"
-"email_items_expired";"?"
-"email_new_order";"?"
-"email_new_order_subject";"?"
-;
-"### CONTACTS MODULE";
-"Contact us";"Neem contact met ons op"
-"Fill the form with your requests,  we will reply you as soon as possible.";"Vul dit formulier in en wij zullen u zo snel mogelijk antwoorden."
-"Sales Question";"vraag aan de afdeling Verkoop"
-"Billing Question";"vraag aan de afdeling Facturering"
-"Partnership Inquiry";"aanvraag samenwerking"
-"Website Feedback";"Reactie op de website"
-"Write here your message.";"Uw bericht hier"
-"Write the chars to the field";"schrijf de letters naar het veld"
-"Submit your request";"Stuur uw vraag in."
-"Subject";"Onderwerp"
-"Company";"Bedrijf"
-"Write here your firstname and lastname.";"Uw voor- en achternaam"
-"Captcha value is wrong";"Captcha code is onjuist"
+Dutch;Nederlands
+English;Engels
+
+### HOMEPAGE;
+Index;Homepage
+Homepage;Homepage
+Looking for a domain name?;Een domeinnaam registeren?
+Dashboard;Controlepaneel
+%s° quarter of %s;%s° kwart van %s
+%s° quarter %s: %s %s;%s° kwart %s: %s %s
+ShineIsp version %s;ShineIsp versie %s
+Sign in;Inloggen
+Welcome;Welkom
+Welcome Mr. %s;Welkom meneer %s
+Welcome Mrs. %s;Welkom mevrouw %s
+Configuration;Configuratie
+Support;Helpdesk
+Sales;Administratie
+Attributes;Productkenmerken
+Attributes Groups;Productgroepen
+Taxes;Belasting
+Invoices;Facturen
+Purchase Invoices;Inkoopfacturen
+Welcome to the administration of your own services and domain panel.;Welkom bij het beheerscherm van uw diensten en domeinen 
+Expiring Domains;Verlopende domeinen
+Tickets System;Tickets systeem
+Generic Issue;Algemene vraag
+expiration_date;Vervaldatum
+Days;Dagen
+Tasks;Taken
+List of all the tasks executed.;Overzicht van alle uitgevoerde taken
+Back to home;Terug naar Homepage
+Type here the domain name;Geef hier de domeinnaam in
+Commands;Opdrachten
+Expiring Services;Verlopende diensten
+Here you can see all the options available.;Alle beschikbare opties
+Here you can manage your own domains.;Beheer uw domeinen
+Here you can manage your own services.;Beheer uw diensten
+Here you can manage your own orders.;Beheer uw opdrachten
+Here you can add and reply your help requests.;Hulpvragen opgeven en beantwoorden
+Here below you can see all the domains near at the expiring date.;Alle domeinen die hun vervaldatum naderen
+Here below you can see all the services near at the expiring date.;Alle diensten die hun vervaldatum naderen
+Fullname;Voor- en achternaam
+Sign Up;Inschrijven
+Buy Now;Nu kopen
+Product;Product
+TLD Summary by Owner;TLD samenvatting per eigenaar
+desc_owner_tld_summary;Samenvatting TLD groepen
+Last Tickets;Meest recente tickets
+In this section you can see all the requested support issues.;Alle gestelde hulpvragen
+subject;onderwerp
+services_stats;Services stats
+desc_services_stats;Alle diensten van klanten
+Solditems;Aantal verkocht
+domains_stats;Domein stats
+desc_domains_stats, This list shows all the costs and earnings of the domains sold grouped by tld.;Alle kosten en opbrengsten van domeinen, gesorteerd op TLD
+tld;TLD
+costs;kosten
+Costs;Bedrag
+Write here the domain name or a simple description of the problem.;Noteer hier de domeinnaam of een omschrijving van het probleem
+Net Revenues (Taxable incomes - Costs);Netto marge (inkomsten – kosten)
+Revenues (Taxable incomes);Inkomsten (opbrengst voor belastingen)
+Body Message;Uw bericht
+Administration;Beheer
+login;Inloggen
+There was a problem during the login. Your profile is suspended or your credentials are wrong.;Bij het inloggen is een fout opgetreden. U hebt mogelijk onjuiste inloggegevens verstrekt of dit account bestaat niet (meer).
+Here you can see all information about the customers;Klanteninformatie
+earnings;Opbrengsten
+costearns_summary;Verkochte domeinen
+Show All;Laat alles zien
+Select ...;Selecteer …
+Here you can filter the result by the statuses;Resultaten sorteren op status
+Records;Records
+Save;Opslaan
+Pay Now;Nu betalen
+Services Stats;Diensten stats
+Estimated revenue through %s %s %s;Geschatte inkomsten door %s %s %s
+Estimate revenues for %s;Geschatte inkomsten voor %s
+Here below the economic summary of the %s.;Hieronder het financiële overzicht van  %s.
+Click one of these links to show the economic reports;Klik op een van deze links om de financiële overzichten te zien
+Within this list you can see the services subscribed by the customers.;Diensten van de klanten
+You will earn about;U verdient ongeveer
+Add a new product;Voeg een nieuw product toe
+The field %s is a mandatory field;Het veld %s is verplicht!
+The order number %s that you have requested the %s with total %s euro has been not payed yet,  click here to show more details.;Opdrachtnummer %s met uw bestelling %s en een bedrag van %s euro is nog niet betaald. Klik hier om de details in te zien.
+The invoice number %s of %s (%s euro) has been not payed yet;Factuurnummerr %s van %s (%s euro) is nog niet betaald
+Unable to process request at this time.;Het is helaas op dit moment niet mogelijk dit verzoek te behandelen.
+Our apologies...;Neemt u ons niet kwalijk.
+The page you requested cannot be displayed.;Deze pagina kan niet getoond worden.
+Are you looking for one of these products?;Zoekt u misschien een van deze producten?
+Report this problem;Meld dit probleem.
+Tell us which is the broken link. You will not be contacted by us about this report.;Laat ons weten welke link niet (meer) werkt. Wij zullen u niet benaderen over uw melding.
+stringLengthTooShort;Het woord heeft onvoldoende tekens
+items;items
+Customers Summary;Overzicht klanten
+Tickets Summary;Overzicht tickets
+Product Reviews Summary;Overzicht van klantbeoordelingen
+Thank you %s for supporting;Hartelijk dank %s voor uw beoordeling
+Please write down a review regarding the subscribed service;Wilt u zo vriendelijk zijn een beoordeling te geven van de geleverde diensten en producten?
+Login here as customer;Klanten login
+Services Subscribed;Uw diensten
+New Message;Nieuw bericht
+View all available plans now;Bekijk alle leverbare pakketten
+Last Domain Tasks;Recente domeinbewerkingen
+Last Panel Tasks;Recente acties
+Customer Hit Parade;Klanten top tien
+
+### BULK DOMAINS;
+Domains Bulk Registration;Bulk registratie van domeinen
+It's easy to register your new domain names in bulk.;Het is erg eenvoudig om veel domeinnamen in één keer te registreren.
+Just enter your names in the field below. One domain name for each row.;Geef hieronder de domeinnamen in. Gebruik voor elke domeinnaam een nieuwe regel.
+Registering more than one domain name? Click here!;Wilt u meer dan één domeinnaam registreren? Klik hier!
+When the 'Search' button is clicked,  please be patient while we check domain availability.;Na het klikken op de 'Zoek' button kan het een ogenblik duren voor de beschikbaarheid van de domeinnaam bekend is.
+Check Now;Nu controleren
+Domain Bulk Registration Order;Bulk domein registratie opdracht
+Create your new order with the following domains.;Maak een nieuwe opdracht aan met de volgende domeinen.
+Domain Transfer;Domein verhuizing
+Domain Registration;Domein registratie
+Domain Registration Order;Domein registratie opdracht
+Please write here your AuthCode in order to transfer the domain;Geef hier de EEP-code of AuthCode in om het domein te verhuizen.
+Domain Available;Domein is beschikbaar!
+Create the Order;Maak een opdracht aan
+The request has been executed correctly.;Uw verzoek is geheel correct uitgevoerd.
+years;jaren
+months;maanden
+weeks;weken
+days;dagen 
+hours;uren
+minutes;minuten
+Review by;Beoordeeld door
+Stars;Sterren
+%s stars for %s;%s sterren voor %s
+Review;Beoordeling
+Write down your review with details and you will earn points and discounts;Schrijf een beoordeling en verdien kortingen en waardepunten.
+Which is your own city? If added we will promote your review in our website using Google Maps;Wanneer u uw woonplaats opgeeft, kan uw beoordeling worden vermeld in Google Maps
+Who is Talking About Us?;Who is Talking About Us?
+Where did you find us?;Hoe hebt u ons gevonden?
+Add your own nickname;Voeg uw alias toe
+Nick;Alias
+Write down a subject of the review;Onderwerp van de beoordeling
+Add your review for;Toevoegen beoordeling van
+Your email will be not published;Uw e-mail zal niet openbaar gemaakt worden
+Publish your Review;Publiceer uw beoordeling
+No Reviews yet;Nog geen beoordelingen
+Get more information;Meer informatie
+Call me back service;Terugbelservice
+Call me back service helps you to get the first contact with our company.;We bellen u op het door u gewenste tijdstip
+Call me;Bel me
+What time?;Hoe laat
+Required;Verplicht
+Thanks for your interest in our services. Our staff will contact you shortly.;Hartelijk dank. Een van onze medewerkers neemt contact met u op
+Landline phone;Uw vaste telefoonnummer
+
+### LOGIN;
+adminlogin;Beheerder log in
+Email;E-mail
+Write your own email;E-mail schrijven
+Password;Wachtwoord
+Write your own password;Wachtwoord invoeren
+Sign in to get subscribed services.;Log in om uw diensten te bekijken
+Login;Login
+User not found. Check your credentials.;Dit account bestaat niet. Controleer uw inloggegevens.
+Forgot your password?;Wachtwoord vergeten?
+This field;Dit veld
+is empty. This field is mandatory.;is niet ingevuld. Het is een verplicht veld.
+Main;Hoofd
+New password;Nieuw wachtwoord
+Password sent to your email box. You have to click in the link written in the email.;Er is een nieuw wachtwoord naar uw e-mail adres verstuurd. U dient de link in die e-mail te volgen.
+Email sent;E-mail verzonden
+Error occurred during setting of the password.;Er is een fout opgetreden tijdens het aanmaken van het wachtwoord.
+
+### WIKI;
+Table of Contents;Inhoudsopgave
+Wiki Help Guide;Wiki/FAQ
+Write here what you looking for.;Wat zoekt u?
+Here you can see the wiki guides list.;Overzicht van de resultaten.
+Posted;Ingezonden
+Help;Help
+Products Reference;Product referentie
+Do you need help?;Hebt u hulp nodig?
+Have you found what you need? If not write a question here.;Hebt u gevonden wat u zocht? Zo niet, stel ons uw vraag.
+back to the list;terug naar het overzicht
+This article has been read %s times;Dit artikel is %s keer gelezen
+posted;Ingezonden
+Read our wiki articles before asking.;Lees ook onze wiki wanneer u een probleem tegenkomt
+Search on Wiki Help Guide;Zoeken in de Wiki
+Category;Categorie
+%s Subcategories;%s Subcategorieën
+Result search for %s;Zoekresultaten van %s
+
+### STATUSES;
+To be Paid;Nog te betalen
+Payed;Betaald
+To Pay;Te betalen
+Suspended;Tijdelijk onderbroken
+Deleted;Verwijderd
+Complete;Compleet
+Expired;Vervallen
+Pending;In afwachting
+Processing;In bewerking
+Closed;Gesloten
+Solved;Opgelost
+Queue;Wachtrij
+Active;Actief
+Changed;Gewijzigd
+
+### MODULES;
+Domains;Domeinen
+Services;Diensten
+Tickets;Tickets
+Products;Producten
+Settings;Instellingen
+Orders;Opdrachten
+Customers;Klanten
+Registrars;Registrars
+Product Categories;Producten
+Profile;Profiel
+Banks;Banken
+
+Customers Groups;Klantgroepen
+Url Rewrites;URL rewrites
+Languages;Talen
+Ticket Categories;Ticket categorieën
+Wiki Categories;Wiki categorieën
+Legal forms;Rechtsvormen
+Company types;Bedrijfsvormen
+Cms;CMS
+Cms Pages;CMS pagina's
+Cms Blocks;CMS blokken
+Newsletter;Nieuwsbrief
+Newsletter Messages;Nieuwsbriefberichten
+Subscribers;Abonnees
+Reports;Rapporten
+Profit of the Year;Inkomsten & uitgaven
+Domains Statistics;Domein statistieken
+Domains Tasks;Domein bewerkingen
+Domains per Client;Domeinen per klant
+Domains per Month;Domeinen per maand
+Services Summary;Samenvatting diensten
+Panels Actions;Klant activiteiten
+Email Configuration;E-mail configuratie
+Design;Ontwerp
+Registrars Options;Registrars opties
+reCaptcha Service;reCaptcha service
+Cache System;Cache systeem
+Upload System;Upload systeem
+Public Site;Website
+
+### GRAPHS;
+domains_summary_per_month;Samenvatting domeinen per maand
+Domains Summary;Samenvatting domeinen
+Income by Month (text);Inkomsten per maand (tekst)
+Income by Month (graph);Inkomsten per maand (grafiek)
+Income by Quarter;Inkomsten per kwartaal
+
+### ERRORS;
+emailAddressInvalidFormat;geen geldig e-mail adres
+isEmpty;is leeg
+Email or Password incorrect;E-mail of wachtwoord zijn onjuist.
+
+### GENERAL;
+field;veld
+New;Nieuw
+VAT;BTW
+Total;Totaal
+index;index
+Date;Datum
+records;Records
+Domain;Domein
+date;Datum
+daysleft;dagen te gaan
+status;status
+commands;Opdrachten
+Show;Toon
+Showing;Getoond
+Required fields;Verplichte velden
+Fast Search;Snel zoeken
+italian;italiaans
+english;Engels
+myaccount;mijn account
+welcome;Welkom
+servers;Servers
+Logout;Uitloggen
+general;Algemeen
+bulkcommands;Bulk opdrachten
+Records per page;Records per pagina
+Status;Status 
+statusmgmt;statusbeheer
+actions;Acties
+bulkdelete;Verwijderen
+No Records;Geen records gevonden
+Recordcount;Aantal records
+Filters;Filters
+Messages;Berichten
+Message;Bericht
+Delete;Verwijderen
+YES;JA
+NO;NEE
+Yes;Ja 
+No;Nee 
+Add;Toevoegen
+Remove;Verwijderen
+Disabled;Uitgeschakeld
+Click here to edit;Klik hier om te bewerken.
+List;Overzicht
+Search;Zoeken
+Selected record;Geselecteerd record
+confirm;Bevestigen
+confirmdelete;Bevestig verwijderen
+delete_question;Weet u zeker dat u het geselecteerde record wilt verwijderen?
+desc_delete_question;Het geselecteerde record kan niet meer hersteld worden!
+desc_confirm;Kies om de actie te bevestigen of te annuleren.
+areusure;Weet u het zeker?
+noiwrong;Nee, annuleer de actie.
+yesiwant;Ja, ik wil het ECHT VERWIJDEREN!
+methodnotset;methode niet ingesteld
+enabled;Ingeschakeld
+desc_enabled;Het item werd ingeschakeld.
+add;Toevoegen
+remove;Verwijderen
+The search view is active.;Het zoekvenster is actief.
+Click here to reset the results.;Klik hier om de resultaten te wissen.
+By creating an account with our store,  you will be able to move through the checkout process faster;Door het aanmaken van een account, verloopt het bestelproces sneller
+Create an Account;Maak een account aan
+New Account;Nieuwe account
+Create your new account today!;Maak nu een nieuwe account aan!
+Login or Create a new Account;Inloggen of een nieuw account aanmaken.
+Already registered?;Bent u al geregisteerd?
+Create my account;Maak mijn account aan
+The task requested has been executed successfully.;De bewerking is met succes voltooid.
+Reset your password;Uw wachtwoord resetten
+Write your email in the follow text box in order to reset your password.;Vul hier uw e-mail adres in om uw wachtwoord te resetten.
+Type anything for Creating or Selecting a Tag.;Voer hier een tag in
+Searching...;Aan het zoeken …
+Create;Aanmaken
+What can you do?;Wat kunt u doen?
+Have no fear;Geen paniek!
+Go back to the previous page.;Ga terug naar de vorige pagina
+Follow this link to get you back on track!;Klik op deze link om weer op het juiste spoor te komen
+notMatch;geen match
+missingValue;er mist een waarde
+Please write again the password;Nogmaals uw wachtwoord
+Print;Afdrukken
+Roles;Rollen
+Search:Cerca;Zoeken
+Action;Actie
+Startdate;Aanvangsdatum
+Enddate;Einddatum
+Actions;Acties
+Expiringdate;Verloopdatum
+Orderdate;Besteldatum
+Late fee;Toeslag te late betaling
+Income;Bedrag betaald
+Grow;Groei
+Please wait a moment...;Een ogenblik geduld a.u.b.
+Start date;Aanvangsdatum
+End date;Einddatum
+Statuses;Status
+Order ID;Bestel ID
+Service;Dienst
+Mass Delete;Bulk wissen
+Export;Exporteren
+Common;Gemeenschappelijk
+Services list;Overzicht diensten
+New Order;Nieuwe bestelling
+
+### BILLING CYCLES;
+Month;Maand
+Monthly;maandelijks
+month;maand 
+months;maanden
+1 Month;1 maand
+6 Months;6 maanden
+12 Months;12 maanden
+24 Months;24 maanden
+36 Months;36 maanden
+1 Year;1 jaar
+2 Years;2 jaar
+Semiannual;per half jaar
+Annual;per jaar
+Biannual;per twee jaar
+No expiring;geen verloopdatum
+Unit Price;Prijs per eenheid
+
+### CUSTOMER SECTION;
+Reseller;Reseller
+customer_edit;Wijzigen klantgegevens
+desc_customer_edit;De gegevens van klanten wijzigen.
+Create Remote Profile;Remote profile aanmaken
+Create Domain;Domein aanmaken
+Create Order;Opdracht aanmaken
+customer_details;Klantgegevens
+desc_customer_details;Onderhoud van klantgegevens
+Legalform;Rechtspersoonlijkheid
+Firstname;Voornaam
+Lastname;Achternaam
+Birthdate;Geboortedatum
+Birthplace;Geboorteplaats
+zipcode;postcode
+company_type;Juridische bedrijfsvorm
+companyname;bedrijfsnaam
+vat;BTW nummer
+birth date;geboorte datum 
+birth place;geboorte plaats 
+birth district;geboorte provincie
+birth country;geboorte land
+birth nationality;nationaliteit
+taxpayernumber;KvK nummer
+address;Adres
+province;provincie
+country;land
+desc_contact_type;Kies een contactpersoon
+desc_firstname;Voornaam
+desc_lastname;Achternaam
+desc_birthdate;Geboortedatum
+desc_birthplace;Geboorteplaats
+desc_zipcode;postcode
+Select the company type;Juridische bedrijfsvorm
+desc_companyname;bedrijfsnaam
+desc_vat;BTW nummer
+desc_address;geboorte datum 
+desc_province;geboorte plaats 
+desc_country;geboorte land
+addresses;adressen
+contacts;contactpersonen
+attachments;Bijlagen
+various;verschillende
+tools;instrumenten
+admin;Beheerder
+edit;wijzigen
+Select ...;Selecteer …
+individual;Privé persoon
+corporation;Onderneming
+association;Non-profit organisatie
+other;Anders
+desc_legalform;Kies een van de rechtspersonen uit de lijst
+city;Woonplaats
+area;wijk
+baseaddress;Factuuradres
+No invoices have been found.;Er zijn geen facturen gevonden
+desc_city;Woonplaats
+desc_area;wijk
+desc_baseaddress;Gebruik dit als standaard-adres
+contact_type;Soort contact
+contact;Contactpersoon
+desc_contact;Vul de contactpersoon in
+filecategory;Bestandscategorieën
+applicationforms;Aanvraagformulier
+quote;Offerte
+documents;Algemene documenten
+desc_filecategory;Kies een van de waarden
+desc_attachments;Zoeken en uploaden van een bestand
+desc_status;Status 
+nichandle;nic-handle
+desc_nichandle;Wordt gebruikt om uw identiteit vast te stellen
+desc_taxpayernumber;BTW nummer
+Personal Information;Persoonlijke gegevens
+Private Notes;Opmerkingen
+desc_private_note;Deze opmerkingen kunnen niet door klanten worden gelezen.
+magento_customers;Magento klanten
+desc_magento_customers;Klik in het overzicht en wacht dan even.
+download_customer_selected;Klanten importeren
+customer_list;Klanten overzicht
+desc_customer_list;Overzicht van de klanten
+Select a filter;Kies een filter
+company;Onderneming
+Customer;Klant
+Tax payer number;BTW nummer
+Birthdate;Geboortedatum
+Write here your birthday (eg. dd/mm/yyyy);(dd/mm/jjjj)
+Write here the birthplace.;Geboorteplaats
+Write the tax payer number.;BTW nummer
+Print Invoice;Factuur afdrukken
+Credit Notes;Credit nota's
+Credit Note No.;Credit nota nr.
+Invoice No.;Factuur nr.
+Order No.;Bestel nr.
+Print Order;Opdracht afdrukken
+Invoice;Factuur
+Supplier;Leverancier
+Write here your firstname.;Voornaam
+Write here your lastname.;Achternaam
+Write here your email;E-mail adres
+Write here your password. (min.6 chars - max.20 chars);Wachtwoord
+Write here the VAT number.Inserisci la tua Partita IVA;BTW nummer
+Select the type of company.Seleziona la forma legale;Bedrijfsvorm
+Company Type;Bedrijfsvorm
+Write here your company name.Inserisci la tua Ragione Sociale.;bedrijfsnaam
+Birth District;geboorte provincie 
+Country of Birth;geboorte land
+Birth Nationality;nationaliteit
+Sex;geslacht
+Addresses;Adres
+Zip;postcode
+City;Plaats
+Area;wijk
+Country;land
+Default Address;Standaard adres
+Write the address;Adres
+Write the zip code;postcode
+Write here your city name;Plaats
+Write the area code;wijk
+Select your own country;land
+Contacts;contactpersonen
+contact;Contactpersoon
+type;Soort
+Contact Types;Soort contact
+We have found some errors;Er zijn fouten ontstaan
+Select the contact type;Kies een contactpersoon
+Write here the contact (eg. +39.98368276);(+31.1213456789)
+Your personal data are mandatories to register or transfer a domain name.;U dient uw gegevens in te vullen om een domein te kunnen registreren of verhuizen
+General;Algemeen
+Write here your company name.;bedrijfsnaam
+Select the type of company.;Rechtsvorm
+Write here the VAT code. Eg: IT123456789.;BTW nummer
+Profile details;Klantgegevens
+Update here your details filling the applicant form with all the information about you.;Actualiseer uw gegevens.
+Select the company;kies het bedrijf
+Total %s records found;Totaal %s records gevonden
+Page;pagina
+View;Toon
+Actions;Acties
+Search %s;Zoek %s
+
+### DOMAINS;
+Yes,  I would like to renew the domain at the expiration date.;Ja, ik het domein verlengen op de vervaldatum.
+No,  I am not interested in the renew.;Nee, ik wil het domein niet verlengen.
+By default,  all domains are set to auto-renew. Choose if the domain must be auto-renew or not at the expiring date.;Alle domeinen worden standaard automatisch verlengd. U kunt deze instelling hier wijzigen.
+Domain Expiration;Domein verloopdatums
+This view helps you to check which are all the domain next to the expiration.;Hier worden al uw domeinen getoond die binnenkort verlopen
+.%s domain;.%s domein
+domain registration;domeinregistratie
+.%s domain registration;.%s domein registratie
+%s is already taken.;%s is niet meer beschikbaar.
+%s is still free.;%s is nog beschikbaar.
+Yes;Ja
+No;Nee
+By default;Standaard
+Update Domain Information;Actualiseer domein gegevens
+Domains List;Overzicht domeinen
+Domain Edit;Wijzig domeinen
+Here you can edit your own domain parameters.;Wijzig de parameters van uw domeinen
+Here you can see all the list of your domains.;Overzicht van uw domeinen
+Starting;Aanvangsdatum
+Ending;Vervaldatum
+Termination;Vervaldatum
+Write here a message for the administrator about this domain.;Stuur ons een bericht over dit domein.
+Your message;Uw bericht
+Renew;Verlengen
+Autorenew;Automatisch verlengen
+No Autorenew;Niet automatisch verlengen
+Domain Summary per Month;Samenvatting domeinen per maand
+Import;Importeren
+Update Domains;Domeinen actualiseren
+Here you can show all the services subscribed with the domain.;Overzicht van aan het domein verbonden diensten
+This domain will be not renewed at the expiring day.;Dit domein wordt niet automatisch verlengd op de vervaldatum.
+This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day.;Dit domein wordt verlengd op de vervaldatum.
+Here you can see all the questions and replies about this service/domain;Overzicht van vragen en antwoorden over het domein of de dienst.
+Owner;Eigenaar
+DNS Zones;DNS zone
+Register;Registreer
+Actions;Acties
+Execute;Uitvoeren
+Renew Domains;Verleng domeinen
+Renew;Verlengen
+Active Hosting Services;Uw huidige diensten
+Last Messages;Laatste berichten
+Last Orders;Laatste bestellingen
+New Orders;Nieuwe bestellingen
+Processing Orders;Bestellingen in behandeling
+Download DNS;Download DNS
+Update DNS;Actualiseer DNS
+Update domain;Actualiseer domein
+The requested task has been completed successfully;De actie werd met succes uitgevoerd.
+Authinfo code;Authinfo code
+Transfer;Verhuis
+desc_domainname;domeinnaam zonder extensie of spaties
+desc_tld;kies het TLD uit de lijst
+desc_authinfo;Vul de Authinfo code in om het domein naar ons te verhuizen
+Creation date;Aanmaakdatum
+Transaction ID;Transactie nummer
+Payment mode;Betaalwijze
+Payment Transactions;Betalingen
+Payment note;Opmerking bij de betaling
+The domain selected has not been attached in a order.The Autorenew setting is not saved.;Dit domein is geen onderdeel van een bestelling. De instelling voor automatische verlenging werd niet opgeslagen.
+DNS successfully updated;DNS werd aangepast
+Subdomain;subdomein
+Target;doel
+Zone;zone
+A problem has been occurred during the updating of the DNS. Check the settings in the Record DNS tab.;Er trad een fout op bij het actualiseren van de DNS. Controleer de instellingen in het DNS-scherm.
+err_nichandle_not_found;De eigenaar van het domein heeft geen standaard nic-handle opgegeven.
+Want you register the selected domain?;Wilt u het gekozen domein registereren?
+The domain will be register using the Registrant set in the domain page.;Het domein wordt geregistreerd op naam van de opgegeven Registrant.
+Want you renew the selected domain?;Wilt u het gekozen domein vernieuwen?
+The domain will be renewed using the Registrant set in the domain page.;Het domein wordt vernieuwd op naam van de opgegeven Registrant.
+Are you sure to delete the domain?;Weet u zeker dat u dit domein wilt verwijderen?
+If a domain has been deleted it is no more restorable.;Deze actie kan niet meer ongedaan worden gemaakt.
+Select the items and then use the bulk action system to set more than one item.;Kies alle onderdelen en gebruik vervolgens het bulk systeem om alle items in te stellen.
+Transfer here your domain;Verhuis uw domein naar ons.
+To protect against theft the domain,  the domain is placed in a state that does not allow the transfer. If another registrar requires the transfer of the domain,  the operation will be automatically rejected. If you wish to transfer the domain to a new registrar remove the protection. In this state  the domain will not be protected and another registrar may request the transfer.;Om diefstal van het domein te voorkomen wordt verhuizing van het domein automatisch geblokkeerd. If another registrar requires the transfer of the domain,  the operation will be automatically rejected. Wilt u het domein verhuizen, dan dient u die blokkering op te (laten) heffen, zodat de nieuwe registrar de verhuizing kan aanvragen.
+The authinfo is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrant of this code,  necessary to perform all operations. Without this code you cannot transfer this domain.;Authinfo is een code die toegekend werd tijdens de registratie en is direct verbonden aan het domein. Uw Registrar moet u hierover informeren. U hebt de code nodig om  uw domein te verhuizen.
+To transfer your own domain name here you have to set the AuthInfo Code in the following textbox area.;Om uw domein te verhuizen dient u hier de AuthInfo Code in te vullen.
+The domain has been unlocked. Now wait some minutes;Het domein is open voor verhuizing. Een paar minuten geduld a.u.b. 
+Protect your domain;Beveilig uw domein
+Request the AUTHINFO;Vraag de Authinfo op
+Request a NEW AUTHINFO;Vraag een nieuwe Authinfo op
+authinfo;authinfo
+service;dienst
+List of all the services attached to the domain.;Overzicht van de diensten die aan het domein zijn gekoppeld
+fromdate;van (datum)
+todate;tot (datum)
+Options;Opties
+Here you can unlock the domain before the transfer it in another hosting provider.;Hef de domeinbeveiliging op om het domein naar een andere registrar te verhuizen.
+Here you can update the status of your domain.;Actualiseer de status van uw domein
+In this section you can execute various operation with your domain name.;Voer verschillende bewerkingen met uw domein uit.
+Update Domain;Actualiseer domein
+Here you can lock the domain and protect it from the thieves.;Beveilig uw domein tegen diefstal van de domeinnaam
+Lock Domain;Beveilig het domein
+The authinfo domain code has not been found. Please add the code in the domain control panel.;De Authinfo code werd niet gevonden. Vul de code in in het domeinbeheerscherm.
+
+Here you can set your DNS Zones. All the edits have need one hour at least.;Stel hier de DNS zones is. Het duurt minstens een uur voordat een wijziging effectief is.
+DNS Zone for %s;DNS zone voor %s
+
+### ORDERS;
+Order nr. %s - %s;Bestel nr. %s - %s
+Product Name;Productnaam
+OrderID;Bestelnummer
+This is the list of all your orders.;Overzicht van al uw bestellingen
+Order Summary;Samenvatting bestelling
+Complete the order choosing your preferite payment method.;Rond de bestelling af.
+Payment Methods;Betaalwijzen
+Order no.;Opdracht nummer
+InvoiceId;Factuur nummer
+Setup fee;Instelkosten
+startdate;Aanvangsdatum
+Reply;Antwoord
+Fastlink Code;Fastlink Code
+Order;Opdracht
+Order %s;Bestelling %s
+Open a ticket;Maak een helpticket aan
+Bank Transfer;Bankoverschrijving
+How will you pay?;Hoe wilt u betalen?
+Select your preferred payment method among those listed below.;Kies uw betaalwijze uit de lijst.
+Account Name;Rekeninghouder
+Bank;naam van de bank
+Bank Account Number;bankrekeningnummer
+The domain is a mandatory field. Choose a domain name.;Het invullen van de domeinnaam is verplicht. Kies een domeinnaam
+Invoice destination;Factuur t.a.v.
+Order Now;Nu bestellen
+Here you can see all the order information.;Overzicht van uw bestelling
+Orders List;Overzicht opdrachten
+Order Details;Opdrachtgegevens
+Here you can create a new order;Nieuwe bestelling
+Here you can manage all the orders.;Beheer uw bestellingen
+Grandtotal;Groottotaal
+Invoice Nr.;Factuur nummer
+Select here the company or the customer;kies het bedrijf of de klant
+Message about the order;Bericht bij de bestelling
+Check the information posted and then click on the save button.;Controleer de gegevens en klik dan op Opslaan.
+Order process;Bestelproces
+order_date;Besteldatum
+next_deadline;eerstvolgende vervaldatum
+grandtotal;Groottotaal
+sku;interne code
+total;Totaal
+invoice_number;Factuur nummer
+Download Invoices;Facturen downloaden
+To be pay;Te betalen
+order_edit;Wijzig de bestelling
+desc_order_edit;Wijzig uw bestelling
+order;bestelling
+id;id
+details;details
+List of all the orders where the domain appears.;Overzicht van alle bestellingen met deze domeinnaam
+createinvoice;Factuur
+renew;Vernieuw
+Quantity;Hoeveelheid
+quantity;Hoeveelheid
+Description;Beschrijving
+description;Beschrijving
+Price;prijs
+price;prijs
+setupfee;Instelkosten
+Billing_cycle;Factureringscyclus
+Tax;BTW
+enddate;einddatum
+action;actie
+log;log
+times;keer
+Days left;dagen tot vervaldatum
+categories;groepen
+Reviews;Beoordelingen
+Date Start;Aanvangsdatum
+billingcycle;factureringscyclus 
+Billing Cycle;Factureringscyclus
+referdomain;refering domain
+searchdomains;Zoek domein
+There was a problem during the payment process.;Er is een fout opgetreden in het betaalproces.
+Here you can read all your questions and the admin replies about this order.;Hier leest u alle door u gestelde vragen en de antwoorden daarop
+To be paid;Te betalen
+Are you sure to create or overwrite invoice for this order?;Weet u zeker dat u de factuur van deze bestelling wilt aanmaken of overschrijven?
+Are you sure to create or overwrite invoice for this order? The order is not paid.;De bestelling is (nog) niet betaald. Weet u zeker dat u de factuur van deze bestelling wilt aanmaken of overschrijven?
+Visits;Bezoeken
+Expiring Date;Verloopdatum
+Order Date;besteldatum
+Is a Renewal?;Is een verlenging?
+Grand Total;Groot totaal
+Missing income;Gemiste inkomsten
+Start;Aanvang
+End;Einde
+
+### TICKETS SYSTEM;
+Replies;Antwoorden
+Attachments;Bijlagen
+Ticket;Ticket
+Choose the domain name reference;Kies de domeinnaam referentie
+This is the list of the last tickets posted by the customers.;Overzicht van recente helptickets van klanten
+Add new Issue;Voeg een nieuwe vraag toe
+Post a new issue.;Stuur een nieuwe vraag in
+Select a category.;Kies een categorie
+Write here a subject of the issue.;Onderwerp
+Your Response;Uw antwoord
+Send Request;Verstuur het verzoek
+Tickets list;Overzicht tickets
+Here you can write down your problem. Remember to be clear and analytic in order to explain the problem that has been occurred.;Stel hier uw vraag. Beschrijf het probleem zo duidelijk mogelijk en beschrijf wat uw vraag precies is. Dat helpt ons om uw vraag zo goed mogelijk te beantwoorden.
+Here you can see the list of all the issue posted.;Overzicht van alle ingezonden tickets.
+Post new ticket;Stuur nieuwe ticket
+Back to list;Terug naar het overzicht
+Ticket Edit;Bewerk het ticket
+Ticket process;Ticket verwerkingsproces
+Check the information before save again.;Controleer de gegevens en sla opnieuw op.
+ticketnotes;Opmerkingen
+Notes;Opmerkingen
+Write here a note.;Opmerking
+Write here a note. An email will be sent to the ISP staff.;Uw opmerking
+Write here all the information.;Alle informatie
+Further notes;Verdere opmerkingen
+Set the issue status;Stel de ticket status in
+Expecting a reply;In afwachting van een antwoord
+This issue is connected with the ticket: %s;Deze vraag houdt verband met ticket: %s
+Select the document to upload. Files allowed are (%s) - Max %s;Kies het bestand om te uploaden. Toegestane bestanden zijn (%s) - Max %s
+
+### TICKET RATINGS;### TICKET RATINGS
+Very poor;Erg slecht
+Poor;Slecht
+OK;Goed
+Good;Erg goed
+Very Good;Uitmuntend
+
+
+### PRODUCTS;
+Starting at;Begint op
+Related Products;vergelijkbare producten
+Product Upgrades;Uitbreidingen
+Blocks;Blokken
+Billing;Facturering
+Prices;Prijzen
+Categories;Categorieën
+Content;Inhoud
+VAT not included;exclusief BTW
+VAT included;inclusief BTW
+Prices list;Prijslijst
+Details;Bijzonderheden
+Other extensions;Andere extensies
+Register your new .%s domain;Registreer uw nieuwe %s domein
+Registration price;Registratie prijs
+Transfer price;Verhuis prijs
+Renewal price;Verlenging prijs
+Name;Naam
+Cost;Bedrag
+Category;Groep
+Features;Kenmerken
+Keywords;trefwoorden
+Learn more;Lees meer
+Customer Reviews;Beoordelingen van klanten
+Compare Products;Vergelijk producten
+Compare;Vergelijk
+On line in minutes!;In een paar minuten on line!
+Choose your service;Kies uw dienst
+Type here what you are looking for;Wat zoekt u?
+Product Type;Productsoort
+Attribute Group;Attributengroep
+Product name;Productnaam
+Product Nickname;Productbijnaam
+Is Highlighted;Wordt benadrukt
+Position;Positie
+Enabled;Aanzetten
+Is Comparable;Opnemen in productvergelijkingen
+Publish on RSS Feed;Publiceren in de RSS feed
+Allow downgrades;Sta het beperken van producten toe
+Short Description;Korte omschrijving
+Wiki Pages;Wiki paginas
+Attachment;Bijlage
+Default Image;Standaard afbeelding
+Customer;Klant
+Orderid;Bestelnr.
+Select all the items related to the product selected using the CTRL/SHIFT button;Selecteer alle aan het gekozen product verbonden opties met behulp van CTRL/SHiFT
+Select all the items upgrade to the product selected using the CTRL/SHIFT button;Selecteer alle aan het gekozen product verbonden uitbreidingen met behulp van CTRL/SHiFT
+Here you can edit the product details;Wijzig hier de bijzonderheden van het product
+Here you can see all the products.;Overzicht van alle beschikbare producten
+Inserted at;Toegevoegd op
+Updated at;Bijgewerkt op
+Type;Soort
+
+### SERVICES;
+Setup fees;Instelkosten
+Services List;Overzicht van diensten
+Yes;Ja
+No;Nee
+List of all your own services subscribed;Overzicht van al uw diensten
+Datestart;Aanvangsdatum
+date_start;aanvangsdatum 
+Dateend;Einddatum 
+date_end;einddatum
+Productname;Productnaam
+domains_selected;geselecteerde domeinen
+desc_domains_selected;De geselecteerde domeinen zullen aan de gekozen diensten gekoppeld worden.
+service_edit;Diensten
+desc_service_edit;Beheer de diensten van de klant
+Expiring_Date;Vervaldatum
+Expiring date;Vervaldatum
+Valid Up;Geldig tot
+Creation_Date;Aanmaakdatum
+Service Details;Details van de dienst
+Configurations;Configuratie
+List of all the service details.;Overzicht van alle details van de dienst
+Write here your reply. An email will be sent to the ISP staff.;Hier kunt u uw antwoord invoeren. Een van onze medewerkers neemt daarna zo spoedig mogelijk contact met u op.
+Late fee days;dagen
+Enter the number of days after the due payment date you want to add the late fee.;Voer hier het aantal dagen in, waarna een toeslag voor te late betaling wordt berekend
+Available domains;Beschikbare domeinen
+Selected domains;Gekozen domeinen
+Setup Configuration;Setup configuratie
+Here you can read the service configuration written by the ISP modules. These information are read-only.;Hier ziet u de standaard instellingen. U kunt deze instellingen niet wijzigen.
+Enable or disable the automatic renewal of the service;Schakel de automatische verlenging van de dienst aan of uit
+
+
+### SETTINGS;
+settings_list;Overzicht instellingen
+desc_settings_list;Beheerd de ShineISP instellingen
+value;Waarde
+parameter;Parameter
+desc_parameter;Kies de parameter om in te stellen
+settings_edit;wijzig instellingen
+desc_settings_edit;Wijzig de instellingen of voeg nieuwe toe
+Google Analytics Code;Google Analytics Code
+Paste here the code for the Google Analytics monitoring service;Voeg hier de code van Google Analytics in
+Legal Conditions;Algemene voorwaarden
+Write here your legal conditions. This message will appear in the order emails and in the order details page.;Voeg hier uw Algemene Voorwaarden. Dit bericht verschijnt dan in alle bestelbevestigingen en op de bestelpagina.
+Orders Zero Prefix;Bestelling voorloopnul
+Adding the zero number before the order identification number.;Voeg een nul toe voorafgaand aan het bestelnummer
+Slideshow Product Category ID;Slideshow product categorie ID
+Slideshow Product Category;Slideshow product categorie
+Product category ID for the slideshow widget on homepage.;Product categorie ID voor de slideshow widget op de homepage.
+Product category for the slideshow widget on homepage.;Product categorie voor de slideshow widget op de homepage.
+Tickets Helpdesk Operator;Tickets Helpdesk Operator
+Select the operator from this list who reply to all the users at the first request.;Kies de operator die als eerste alle tickets beantwoordt
+Currency;Valuta
+Fixed;Vast
+Percentage;Percentage
+Late fee type;Soort toeslag
+Select the late fee type.;Kies de soort toeslag
+Late fee amount;Toeslag bedrag
+Late fee amount. 0 or empty to disable.;Toeslag bedrag of 0 voor geen
+
+
+### REGISTRANTS;
+registrant_list;Overzicht registrants
+desc_registrant_list;Beheer de SOAP classes om een verbinding te maken tussen ShineISP en andere registrant services.
+wsdl;WSDL
+desc_name;Vul een naam in
+desc_wsdl;URL van de remote WSDL
+desc_class;PHP class name located in /library/Shineisp/Api/Registrars/
+desc_username;PHP class name located in /library/Shineisp/Api/Registrars/
+desc_testmode;Test de class.
+class;Class name
+username;Gebruikersnaam
+testmode;Test mode
+registrant_edit;Registrant Edit
+desc_registrant_edit;Wijzig de paramenters van de verbinding met de remote service en de php class.
+
+### CATEGORIES;
+category_list;Categorie overzicht
+desc_category_list;Beheer alle categorieën
+parent;Bovenliggende categorie
+desc_parent;Kies de bovenliggende categorie
+category_edit;Wijzig de categorie
+desc_category_edit;Wijzig de gegevens van de gekozen categorie
+
+### ISP PROFILE;
+
+isp_account;ISP account
+desc_isp_account;Beheer uw instellingen
+vatnumber;BTW nummer
+desc_vatnumber;BTW nummer
+slogan;Slogan
+desc_slogan;Deze tekst wordt in de pdf factuur opgenomen
+manager;Beheerder
+desc_manager;Voor- en achternaam van de bedrijfsleider/directeur
+website;website
+desc_website;URL van de bedrijfswebsite
+bankinfo;Bankgegevens
+bankname;naam van de bank
+desc_bankname;naam van de bank
+bankaccount;bankrekeningnummer
+desc_bankaccount;bankrekeningnummer
+iban;IBAN
+desc_iban;IBAN
+bic;BIC
+desc_bic;BIC
+telephone;Telefoon
+desc_telephone;tefefoon nummer
+fax;Fax
+desc_fax;Fax nummer
+ip;IP
+netmask;netmask
+
+### SERVERS;
+servers_list;Overzicht servers
+desc_servers_list;Overzicht van alle beschikbare servers in het datacentrum
+desc_servers;Wijzig de instellingen van de gekozen server
+servername;server naam
+servertype;server type
+desc_servertype;kies het server type
+desc_servername;UNIX naam van de server
+desc_ip;public IP van de server
+desc_netmask;netmask van de server
+host;host
+desc_host;host part van het hoofddomein
+desc_domain;domein deel met het TLD
+furtherinfo;Informatie
+
+### PAYMENTS GATEWAYS;
+You will be redirected to the bank secure website,  please be patience.;Even geduld, u wordt doorverwezen naar het beveiligde deel van de website.
+bank_list;Overzicht banken
+desc_bank_list;Beheer alle bank gateways
+account;Rekening
+bank_edit;Wijzig bank
+desc_bank_edit;Wijzig de bank gateway
+url_test;URL test
+desc_url_test;Sommige banken hebben een test URL om het proces te testen.
+url_official;Officiële URL
+desc_url_official;Deze URL is de gateway voor echte transacties.
+classname;PHP class name
+desc_classname;PHP Class name om de bank gateway te beheren. Dit bestand moet zich in /library/Shineisp/Banks/[BANKNAME]/Gateway.php bevinden.
+
+### PDF INVOICE;
+Site Web;website
+eMail:eMail;E-mail
+Telephone;Telefoon
+FAX;Fax
+VAT Number;BTW nummer
+Invoice Number;Factuurnummer
+dated;d.d.
+Address;Adres
+Addressee;t.a.v.
+Destination;bestemming
+SKU;COD
+Description;Omschrijving
+Qty;aantal
+Unit;eenheid
+Tax Free Price;exclusief BTW
+Tax %;BTW %
+Discount;Korting
+Subscribing %s you can save %s;Een abonnement van %s bespaart u %s
+Save %s;Bespaar %s
+2 Years;2 jaar
+You can save;Het kan goedkoper
+Total;Totaal
+Continue;Vervolg
+Order Number;Bestelnummer
+Payment Date;Betaald op
+Tax Free Total;Totaal excl. BTW
+Tax Total;Totaal BTW
+Total with Tax;Totaal 
+Bank Name;naam van de bank
+Company Name;Naam van het bedrijf
+Customer Information;klantgegevens
+Click here to delete;Klik hier om te verwijderen
+
+### EMAILS;
+Dear Customer;Geachte klant
+subject;Onderwerp
+expired;Vervaldatum
+expired_on;vervallen op
+daysleft;dagen tot vervaldatum
+email_newpassword;nieuw wachtwoord
+email_password;wachtwoord
+
+### CART;
+Dear %s welcome back in to our store!;Beste %s, welkom terug!
+Your registered email is %s;Uw bij ons bekende e-mail adres is %s
+Contact page;Contact pagina
+Complete Order;Bestelling afronden
+You are already registered.;U bent al geregistreerd
+Delete All;Alles verwijderen
+Add to cart;In winkelwagentje doen
+The email is already registered in our database.;De e-mail werd al geregistreerd in de database.
+Service Recipient;Ontvanger van de dienst
+My Cart;Mijn winkelwagentje
+cart;winkelwagentje
+Cart;Winkelwagentje 
+contacts;Contactpersonen
+Selected products;Gekozen producten
+Here you can see the domain choosen and its status. Furthermore,  you can register or transfer other domains extension.;Het gekozen domein en de status daarvan. Eventueel kunt u andere domein-extensies registreren of verhuizen.
+Create a new domain;Maak een nieuw domein aan.
+Checkout page;Bestelling afronden
+Cart Summary;Overzicht winkelwagentje
+Please %s or fill the applicant form below.;%s of vul het formulier hieronder in.
+login;inloggen
+You can complete the order checkout or delete one or more products and inserting a new one. Just click on the delete link in the cart summary.;U kunt uw bestelling afronden, één of meer producten uit uw wagentje verwijderen of juist nieuwe producten toevoegen. Klik daarvoor op de desbetreffende link in het overzicht van uw winkelwagentje.
+Personal data;Persoonlijke gegevens
+Next;volgende
+Back;terug
+Continue Order;vervolg uw bestelling
+domain;domein
+Register your own domain;Registreer uw domein
+Type the domain name in the input box shown below and follow only 3 steps.;Vul de domeinnaam hieronder in en volg de 3 stappen.
+The domain has been deleted from the cart list. Choose another domain name.;Het domein werd verwijderd uit uw winkelwagentje. Kies een andere domeinnaam.
+I would like to register this domain.;Ik wil dit domein registreren.
+I would like to register %s;Ja, registreer voor mij %s
+Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.;Registreer nu uw eigen domeinnaam en wij zorgen ervoor dat de registratie ieder jaar verlengd wordt. (U kunt deze instelling zelf veranderen in uw beheerpagina.)
+I am this domain's owner.;Ik ben eigenaar van dit domein.
+Write your own domain name previosly registered with another company.;Vul de domeinnaam in die u wilt verhuizen.
+The domain is not available for registration. Choose another domain name.;Dit domein kan niet geregistreerd worden. Kies een andere domeinnaam.
+The domain is not available for registration but if you are the domain's owner and you can transfer it!;Dit domein is al geregisteerd. Bent u de eigenaar van dit domein dan kunt u het naar ons verhuizen!
+reseller;reseller
+payment;betaling
+Write the domain name here in order to check if available.;Vul de domeinnaam in om de beschikbaarheid te controleren.
+CHECK NOW;Controleer nu.
+This is the domain selected;Dit is de naam van het gekozen domein
+Other Domains;andere domeinen
+Green domains are available and they can be register.;Groen weergegeven domeinen zijn beschikbaar.
+Red domains are not available but if you are the owner you can transfer them.;Rood weergegeven domeinen zijn niet beschikbaar. Bent u eigenaar van zo'n domein, dan kan het domein verhuisd worden.
+Checkout;Bestellen
+Subscription of the service domain %s for %s;Registratie van het domein %s in opdracht van %s
+If you fill the company field you have to set your legalform as corporation and write down your VAT code.;Wanneer u het veld Onderneming aanvinkt, dient u uw bedrijfsvorm en BTW nummer op te geven.
+The VAT code is wrong.;Het BTW nummer is niet juist.
+Features;Kenmerken
+Installment;Installatie
+Add your review;Voeg uw beoordeling toe
+just;nu slechts
+Add to Cart;Leg in uw winkelwagentje
+get;pak
+products;producten
+The domain is available for registration;Het domein is beschikbaar voor registratie
+
+Well done! Now you have to choose your preferite payment method;Uw bestelling is bijna afgerond. U dient nu uw betaalwijze te kiezen
+
+
+### SYSTEM MODULE;
+email_tickets;email_tickets
+email_subject_domains_check;email_subject_domains_check
+email_subject_services_check;email_subject_services_check
+email_domains_expired;email_domains_expired
+email_services_expired;email_services_expired
+email_reminder_expired;email_reminder_expired
+email_renew;email_renew
+email_renew_subject;email_renew_subject
+email_items_expired;email_items_expired
+email_new_order;email_new_order
+email_new_order_subject;email_new_order_subject
+
+### CONTACTS MODULE;
+Contact us;Contact
+Fill the form with your requests,  we will reply you as soon as possible.;Vul dit formulier in en wij zullen u zo snel mogelijk antwoorden.
+Sales Question;vraag aan de afdeling Verkoop
+Billing Question;vraag aan de afdeling Facturering
+Partnership Inquiry;aanvraag samenwerking
+Website Feedback;Reactie op de website
+Write here your message.;Uw bericht hier
+Write the chars to the field;schrijf de letters naar het veld
+Submit your request;Stuur uw vraag in.
+Subject;Onderwerp
+Company;Bedrijf
+Write here your firstname and lastname.;Uw voor- en achternaam
+Captcha value is wrong;Captcha code is onjuist
+
+### DOMAIN CHECKER PLUGIN;
+You have to login or create a new account profile to go on.;U dient in te loggen of een nieuwe account aan te maken om verder te gaan
+Choose your new domain name!;Kies uw nieuwe domeinnaam!
+GO;Doen
+yourdomain;uw domein
+companyname;bedrijfsnaam
+Domain name is empty!;De domeinnaam is niet ingevuld!
+%s is still free.;%s is beschikbaar voor registratie
+%s is already taken.;Helaas, %s is niet meer beschikbaar.
+Register it;Registreer deze domeinnaam
+Register;Registreer
+Transfer it;Verhuis deze domeinnaam
+I would like to transfer %s;Ik wil de domeinnaam %s verhuizen
+Select all the domains;Selecteer alle domeinen
+Domain Suggestions;Suggesties voor andere domeinnamen
+Search another domain name;Zoek een andere domeinnaam op
+Order Selected;Bestel de gekozen domeinnaam
+Change Name;Wijzig de naam
+Read more;Meer weten?
+To transfer your domain name;Om uw domeinnaam te verhuizen
+Write here your AUTHINFO code for your domain %s (optional);dient u hier de AUTHINFO code van domein %s in te voeren.
+You have to check one of the domain tlds.;Controleer een van de domeinnaam extensies
+
+### BROWSER PLUGIN;
+Your browser is not supported here;Helaas ondersteunt deze website uw browser niet
+You are currently using an unsupported browser;U maakt gebruik van een browser die niet door deze website ondersteund wordt.
+Please install one of the many optional browsers below to proceed;Overweeg een van de onderstaande browsers te installeren voor u verder gaat
+Close this window at your own demise!;Het sluiten van dit venster is op eigen risico!
+Close This Window;Sluit dit venster
+
+### bJQueryUI ;### bJQueryUI 
+Display _MENU_ records per page;Toon _MENU_ records per pagina
+Nothing found - sorry;Niets gevonden
+Showing _START_ to _END_ of _TOTAL_ records;Getoond worden _START_ tot _END_ van _TOTAL_ records
+Showing 0 to 0 of 0 records;Getoond worden 0 tot 0 van 0 records
+(filtered from _MAX_ total records);(gefilterd uit _MAX_ totaal records)
+
+Show all the reviews;Toon alle beoordelingen
+
+Locale Settings;Locale instelling
+I agree with the legal terms;Ik ga accoord met de Algemene Voorwaarden
+Agreements;Instemming
+Locale;Locale
+
+Database Connection;Database verbinding
+Hostname;Hostnaam
+Write here the hostname eg. localhost. You can specify server port;Voer hier de hostnaam (meestal: localhost) in. U kunt eventueel een server poort opgeven
+Username;Gebruikersnaam
+Write here the database username.;De gebruikersnaam met voldoende toegangsrechten tot de databas.
+Write here the database password.;Het wachtwoord dat hoort bij de gebruikersnaam.
+Write here the database name.;De naam van de database.
+Check DB Connection;Controleer de verbinding met de database
+Continue;Ga verder
+
+# New and omitted
+# no effect
+No data available in table;Er zijn geen gegevens beschikbaar
+Showing %s to %s of %s entries;Bericht %s tot %s van %s berichten
+Search;Zoek
+First;Eerste
+Last;Laatste
+Previous;Vorige
+Next;Volgende
+Expecting a reply;Wacht op beantwoording
+Orderid;Bestelnr.
+Expiringdate;Verloopdatum
+Autorenew;Aut.verlenging
+Customer;Klant
+Cost;Bedrag
+Select the document to upload. Files allowed are (%s) - Max %s;Kies het bestand om up te loaden. Toegestane bestandstypes zijn %s - maximale omvang %s
+#/no effect
+%s's profile;profiel van: %s
+%s's %s profile;Profiel van: %s (%s)
+
+Panel actions;Klant activiteiten
+Here you can see all the panel actions.;Onderstaand worden de recente activiteiten van klanten getoond.
+Note;Opmerkingen
+Here you can see all the notes.;Onderstaand worden alle opmerkingen getoond.
+Show;Toon
+entries;berichten
+Created;Aangemaakt
+
+Domains list;Overzicht domeinen
+Here you can see all the domains.;Overzicht van alle domeinen
+
+Here you can see all the subscribed services list from the customer.;Overzicht van alle verkochte diensten en producten
+
+Customer list;Overzicht klanten
+Here you can see all the customers.;Overzicht van alle klanten
+
+Customer's Groups;Klantgroepen
+Here you can see all the customers group.;Overzicht van alle klantgroepen
+Here you can see all the tickets.;Overzicht van alle helptickets
+Updating date;Wijzigingsdatum
+Files;Bijlagen
+
+Wiki list;Wiki overzicht
+Here you can see all the wiki articles.;Overzicht van alle Wiki artikelen
+Creation Date;Aanmaakdatum
+
+#Product, product attribute, product group ?????
+
+Here you can see all the attributes.;Overzicht van alle attributen???
+
+Product Category list;Overzicht producten???
+Here you can see all the product categories.;Overzicht van alle producten???
+
+Here you can see all the attributes groups.;Overzicht van de productcategorieën
+
+Group;Productgroep
+Groups;Productgroepen
+System Attributes;Systeem attributen???
+Default;Standaard
+Visible on Frontend;Tonen op de website
+
+Products list;Productoverzicht
+
+Here you can edit the attribute group details.;Wijzigen van de attributengroep eigenschappen
+System;Systeem
+Attribute Code;Attribuutcode
+Visible on Product page;Tonen op de productpagina
+Is Required;Verplicht?
+Default Value;Standaardwaarde
+If the type is a dropdown selector you have to set the options using the Json structure in the default value textbox.;In het geval van een dropdown selector, dient de Json structuur te gebruiken om de verschillende opties in de textbox in te voeren
+When the type of the object is a selectbox you have to use the Json code. eg: {"1": "True", "0": "False"};In het geval van een selectbox dient u Json code te gebruiken, bijv: {"1": "True", "0": "False"}
+Prefix;Voorvoegsel
+Suffix;Achtervoegsel
+Use on Product Listing;Gebruiken in het productenoverzicht?
+System Variable;Systeem-variabele
+
+Reviews list;Overzicht beoordelingen
+Here you can see all the reviews.;Overzicht van alle klantbeoordelingen
+Published on;Gepubliceerd op
+
+Domains Tlds list;Overzicht TLD's
+Here you can see all the domain tlds.;Overzicht van alle Top Level Domeinen
+
+Invoice list;Overzicht facturen
+Here you can see all the invoices.;Overzicht van verzonden facturen
+Number;Nummer
+Invoice Edit;Factuur bekijken en wijzigen
+Here you can edit the selected order.;Bekijk en wijzig de opdracht
+
+Orders list;Overzicht opdrachten
+Here you can see all the orders.;Overzicht van verworven opdrachten
+Renewal;Vernieuwing
+
+Purchases list;Overzicht inkopen
+Here you can see all the purchases.;Overzicht van ingekochte goederen en diensten
+Payment Method;Betaald via
+
+Credit notes list;Overzicht creditnota's
+Here you can see all the credit notes.;Overzicht van creditnota's
+Credit Note;Credit nota
+
+Payments list;Overzicht betalingen
+Here you can see all the payment transactions.;Overzicht van alle ontvangen betalingen
+Transaction Date;Datum transactie
+
+Payment Transaction Details;Details van de betaling
+Here you can edit the Payment Transaction information paramenters.;Bekijken en wijzigen van de betaling
+Payment date;Datum betaling
+Outcome;Resultaat
+Method of Payments;Betaalwijze
+Does the Transaction has been confirmed?;Is de transactie bevestigd door de bank?
+Yes, it has been;Ja, bevestigd
+No, it has been not;Nee, onbevestigd
+Transaction Reference;Transactie referentie
+
+Purchase invoice;Inkoopfactuur
+Here you can edit the selected purchase invoice.;Bekijk en wijzig de inkoopfactuur
+Total Net;Totaal excl. BTW
+Total VAT;BTW
+Payments;Betaling
+
+No, it's not;Nee
+Yes, it is;Ja
+If this order is a renewal, it will be checked by ShineISP and it cannot be deleted by the customer in the customer order frontend panel.;Wanneer de opdracht een verlenging van een bestaande opdracht is, wordt dit gecontroleerd door ShineISP en kan de klant de opdracht niet annuleren.
+If this date is set ShineISP will suspend the order at the specified date.;Wanneer hier een datum wordt ingevuld, wordt de opdracht op die datum buiten werking gesteld.
+Here you can read a unique code for redirect a user in the order page using the fastlink.;Gebruik deze code om een gebruiker door te geleiden naar de bestelpagina via de fastlink.
+Here you can read how many times the order has been viewed by the customer.;Het aantal keren dat de klant de opdracht heeft bekeken.
+Bank name;Naam van de bank
+Payment Reference;Betalingsreferentie
+Edit;Wijzigen
+
+Post a comment;Verstuur een reactie
+Save again in order to update the totals.;Opnieuw opslaan om de bedragen te updaten
+
+Pages list;Overzicht van pagina's
+Here you can see all the published pages.;Overzicht van alle gepubliceerde pagina's
+Title;Titel
+Language;Taal
+This is the name of the page. For multilanguages website you can create more page with the same Url-key with different languages.;Dit is de URL naar de pagina. Voor elke gebruikte taal kunt u een afzonderlijke pagina aanmaken met dezelfde Url-key
+Page layouts;Pagina layout
+Visit;Bekijken
+Content layouts;Inhoud layout
+Parent;Ouderpagina
+Show in the navigation menu;Tonen in het navigatie menu
+Disable/Enable Wysiwyg;WYSIWYG aan/uit
+Visible;Zichtbaar
+Not Visible;Onzichtbaar
+Published;Ja, publiceren
+Not Published;Niet publiceren
+Here you can edit the page.;Wijzigen van de pagina
+
+CMS Blocks list:Overzicht CMS blokken
+Here you can see all the cms blocks;Overzicht van de CMS blokken
+Newsletter list;Overzicht van nieuwsbriefberichten
+Here you can see all the messages of the newsletter.;Overzicht van de berichten voor de nieuwsbrief
+
+Newsletter Subscribers list;Overzicht nieuwsbrief abonnees
+Here you can see all the emails of the subscribers.;Overzicht van de e-mail adressen van de nieuwsbrief abonnees
+Subscription Date;Aanmelddatum
+
+Incoming data report;Rapport Inkomsten
+Expenses data report;Rapport Uitgaven
+Month nr.;maand nr.
+Domains Stats;Domein statistieken
+This list shows all the costs and earnings of the domains sold grouped by tld.;Dit overzicht toont de inkomsten en uitgaven van de verkochte domeinen, gegroepeerd per TLD.
+
+Domains Tasks forms;Domein bewerkingen
+Here you can see all the domains tasks forms.;Overzicht van alle domein bewerkingen.
+
+Summary by Client;Samenvatting domeinen per klant
+By this list you can see the summary of the domains bought per client.;Overzicht van de domeinen die een klant gekocht heeft.
+
+Month TLD Summary;Samenvatting TLD's per maand
+In this list you can see the summary of the TLD per month.;Overzicht van de verkochte TLD's per maand.
+
+List of the Recurring Services;Overzicht van door klanten gekochte diensten
+By this list you can see the summary of the services bought per client.;Overzicht van de diensten die klanten kochten.
+
+Here you can edit the customer details.;Bekijk en wijzig klantgegevens.
+Taxpayer Number;BTW nummer
+Birth district;Geboorteprovincie
+Birth date;Geboortedatum
+Birth country;Geboorteland
+Birth place;Geboorteplaats
+Birth nationality;Nationaliteit
+Default Language;Voorkeurstaal
+Legal form;Rechtsvorm
+Zip code;Postcode
+Public profile;Openbaar profiel
+Write here at least 6 characters.;Een wachtwoord heeft minstens 6 tekens.
+Select the client who you want to join with the selected customer.;Kies de klant die u met deze klant wilt combineren.
+Set the user as reseller;Stel deze klant in als Reseller
+Newsletter Subscription;Nieuwsbrief abonnee
+Tax free;Geen BTW
+If it is set as Yes all the taxes will be not added in the orders;Indien "Ja" dan wordt geen BTW in rekening gebracht 
+Ignore late fee;Geen toeslag voor te late betaling
+If it is set as Yes this customers is not subject to late fee;Indien "Ja" dan wordt geen toeslag in rekening gebracht
+Invoice;Factuur
+
+Here you can see the datails of the service subscribed by the customer.;Bekijk en wijzig de details van de diensten van de klant.
+
+Yes, I would like to renew the service at the expiration date.;Ja, verleng de dienst automatisch
+No, I am not interested in the service renew.;Nee, niet automatisch verlengen
+
+Write down the name of the domain without any extension, white spaces, or symbols.;Geef hier de domeinnaam in, zonder extensie, spaties of symbolen.
+Select the TLD from the list;Kies het TLD uit de lijst
+Write down the Authinfo code in order to transfer the domain to this ISP;Geef hier de verhuiscode in, om het domein naar hier te verhuizen.
+
+Group edit;Klantgroepen wijzigen
+Here you can edit the customer group information.;Bekijken en wijzigen van klantgroepen.
+
+Edit Ticket;Helpticket
+Ticket support from %s;Helpticket van %s
+Opened at %s;Geopend op %s
+Closed at %s;Gesloten op %s
+Operator;Medewerker
+Relationships;Verbanden
+Go to;Ga naar
+Set as solved;Zet op Opgelost
+Set as closed;Zet op Afgesloten
+
+
+Send Email;Stuur e-mail
+Send an email to the customer.;Stuur de klant een e-mail
+Reply to the client;Antwoord aan de klant
