@@ -5,7 +5,6 @@ $(document).ready(function(){
 			if($('#bulkactions').val()){
 				$.post('/admin/' + $('#bulkactions').attr('rel') + '/bulk/', {params: $.param($('.datatable :checkbox:checked')) + '&do='+$('#actions').val()}, 
 						function(data){
-							
 							if(data.reload !== undefined){
 								window.location.href = data.reload;
 							}
@@ -15,8 +14,8 @@ $(document).ready(function(){
 							}
 							
 							if(data.mex !== undefined){
-								$("#mex").html(data.mex).fadeIn(1000, function(){
-									setTimeout(function() {window.location.reload();} , 15000); // delays 15 sec
+								$("#mex").html(data.mex).fadeIn(300, function(){
+									setTimeout(function() {window.location.reload();} , 500); // delays 0,5 sec
 								});
 							}
 				}, 'json');
