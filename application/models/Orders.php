@@ -1530,7 +1530,8 @@ class Orders extends BaseOrders {
 		if(is_numeric($customerid)){
 			$dq->andWhere ( "customer_id = ?", $customerid );
 		}
-				
+			
+        echo '<pre>';
 		return $dq->execute ();
 	}
 	
