@@ -36,7 +36,6 @@ class Admin_Form_RegistrarsForm extends Zend_Form
         
         $this->addElement('hidden', 'registrars_id');
     }
-    
 
     /**
      * Create the custom registrars parameters
@@ -69,16 +68,19 @@ class Admin_Form_RegistrarsForm extends Zend_Form
     				if ($required) {
     					$attributeForm->getElement ( $var )->setRequired ( true );
     				}
-    					
+    				
     				// Handle the default option items for the dropdown selector
     				if ($type == "select") {
     					$items = trim((string)$node);
     					$data = ! empty ( $items ) ? json_decode ( $items, true ) : array ();
     					$attributeForm->getElement ( $var )->setAllowEmpty ( false )->setRegisterInArrayValidator ( false )->setMultiOptions ( $data );
-    				} else {
+    				}
+    				
+    				if(!empty($default)){
     					$attributeForm->getElement ( $var )->setValue ( $default );
     				}
-    
+    			
+    				
     				$form->addSubForm ( $attributeForm, 'settings' );
     			}
     		}

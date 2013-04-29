@@ -9,6 +9,8 @@ Doctrine_Manager::getInstance()->bindComponent('Registrars', 'doctrine');
  * 
  * @property integer $registrars_id
  * @property string $name
+ * @property string $description
+ * @property string $help
  * @property string $class
  * @property string $config
  * @property integer $active
@@ -40,6 +42,15 @@ abstract class BaseRegistrars extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '200',
+             ));
+        $this->hasColumn('description', 'string', null, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '',
+             ));
+        $this->hasColumn('help', 'string', null, array(
+             'type' => 'string',
+             'length' => '',
              ));
         $this->hasColumn('class', 'string', 200, array(
              'type' => 'string',

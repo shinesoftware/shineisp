@@ -146,12 +146,12 @@ abstract class BaseDomains extends Doctrine_Record
 
         $this->hasOne('Registrars', array(
              'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
+             'foreign' => 'registrars_id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Products', array(
              'local' => 'product_id',
-             'foreign' => 'product_id',
-             'onDelete' => 'CASCADE'));
+             'foreign' => 'product_id'));
 
         $this->hasMany('DomainsTasks', array(
              'local' => 'domain_id',

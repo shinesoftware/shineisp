@@ -128,7 +128,7 @@ class System_TasksController extends Zend_Controller_Action {
 		// Get 20 Active tasks items
 		$tasks = DomainsTasks::getTasks ( Statuses::id('active', 'domains_tasks'), 20 );
 		
-		// Get the active ISP in order to register/transfer the domains
+		// Check if an active registrar is active
 		$registrant = Registrars::findActiveRegistrars ();
 		
 		// If exist a registrant set in the database
@@ -171,7 +171,7 @@ class System_TasksController extends Zend_Controller_Action {
 					$class = $registrar ['class'];
 					$regclass = new $class ();
 					$action = $task ['action'];
-					
+									
 					// Check if the task is REGISTER or TRANSFER the domain name
 					if ($action == "registerDomain") {
 						

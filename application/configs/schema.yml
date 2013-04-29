@@ -923,11 +923,10 @@ Domains:
     Registrars:
       local: registrars_id
       foreign: registrars_id
-      type: one
+      onDelete: SET NULL
     Products:
       local: product_id
       foreign: product_id
-      onDelete: CASCADE
     DomainsTasks:
       local: domain_id
       foreign: domain_id
@@ -1049,6 +1048,8 @@ DomainsTasks:
       local: registrars_id
       foreign: registrars_id
       type: one
+      onDelete: CASCADE
+      
 DomainsTlds:
   connection: doctrine
   tableName: domains_tlds
@@ -1097,6 +1098,7 @@ DomainsTlds:
       local: registrars_id
       foreign: registrars_id
       type: one
+      onDelete: SET NULL
     Taxes:
       local: tax_id
       foreign: tax_id
