@@ -24,7 +24,6 @@
 		<div id="tabs">
 			<ul>
 				<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-				<li><a href="#tab2"><?=$this->translate('Translations');?></a></li> 
 			</ul>
 	    
 		    <div id="tab1"> 
@@ -33,10 +32,6 @@
 	            <?php echo $form->base->render()?>
 	            <?php echo $form->active->render()?>
 		    </div>
-		    
-		    <div id="tab2">
-		    	<?php echo $form->translations->render()?>
-		    </div> 
 		    
 	   		<?php echo $form->language_id->render()?>
 	   	</div>

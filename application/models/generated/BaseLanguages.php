@@ -10,6 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('Languages', 'doctrine');
  * @property integer $language_id
  * @property string $language
  * @property string $locale
+ * @property string $code
  * @property boolean $base
  * @property boolean $active
  * @property Doctrine_Collection $DomainsTldsData
@@ -46,6 +47,11 @@ abstract class BaseLanguages extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '5',
+             ));
+        $this->hasColumn('code', 'string', 2, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '2',
              ));
         $this->hasColumn('base', 'boolean', 25, array(
              'type' => 'boolean',

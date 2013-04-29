@@ -14,14 +14,6 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
-    	
-        $this->addElement('textarea', 'translations', array(
-            'filters'     => array('StringTrim'),
-            'label'       => 'Translations',
-            'description' => 'Write a translation each per row and you have to split the translation by semicolon. Eg. Contact us;Contactez-nous',
-            'decorators'  => array('Composite'),
-            'class'       => 'textarea-input large-input'
-        ));
         
         $this->addElement('text', 'locale', array(
             'filters'    => array('StringTrim'),

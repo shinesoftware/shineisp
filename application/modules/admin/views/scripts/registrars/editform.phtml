@@ -25,25 +25,22 @@
 	<div id="tabs">
 		<ul>
 			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<?php if(!empty($this->help)): ?><li><a href="#tab2"><?=$this->translate('Help');?></a></li> <?php endif;?>
+			<li><a href="#tab2"><?=$this->translate('Options');?></a></li> 
 		</ul>
     
 	    <div id="tab1"> 
-	        <?php echo $form->name->render() ?>
-	        <?php echo $form->active->render() ?>
-	        <?php if(!empty($form->settings)): ?>
-			   <?php echo $form->settings->render()?>
-	    	<?php endif;?>
+	        <?php echo $form->class->render() ?>
+	        <?php echo $form->username->render() ?>
+	        <?php echo $form->password->render() ?>
     	</div>
-    	
-    	<?php if(!empty($this->help)): ?>
-	    	<div id="tab2"> 
-	    		<?php echo $this->help ?>
-	    	</div>
-    	<?php endif;?>
-    </div>
     
-     <?php echo $form->registrars_id->render() ?>
+	    <div id="tab2"> 
+	        <?php echo $form->credit->render() ?>
+	        <?php echo $form->testmode->render() ?>
+	        <?php echo $form->active->render() ?>
+		    <?php echo $form->registrars_id->render()?>
+    	</div>
+    </div>
 </form>
 
 </div>

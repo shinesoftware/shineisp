@@ -12,7 +12,7 @@
 class Admin_View_Helper_Languageswitcher extends Zend_View_Helper_Abstract{
     
     public function languageswitcher() {
-    	$Session = new Zend_Session_Namespace ( 'Admin' );
+    	$ns = new Zend_Session_Namespace ( 'Admin' );
 		$t = new Zend_Controller_Request_Http();
 		
 		$url = $t->getRequestUri();
@@ -26,7 +26,8 @@ class Admin_View_Helper_Languageswitcher extends Zend_View_Helper_Abstract{
 		
 		$this->view->languages = Languages::getActiveLanguageList();
 		$this->view->uri = $uri;
-		$this->view->langselected = $Session->langid;
+		$this->view->langselected = $ns->lang;
+		
 		return $this->view->render ( 'partials/switcher.phtml' );
     }
     

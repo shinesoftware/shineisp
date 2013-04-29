@@ -113,7 +113,7 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 		if (is_numeric ( $id )) {
 			Registrars::deleteItem( $id );
 		}
-		return $this->_helper->redirector ( 'index', 'reviews' );
+		return $this->_helper->redirector ( 'index', 'registrars' );
 	}
 	
 	/**
@@ -148,7 +148,6 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/registrars/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form
@@ -158,9 +157,26 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 				array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
+		$this->view->description = "Here you can edit the registrar data.";
+		
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$rs = Registrars::find ( $id, null, true );
 			if (! empty ( $rs[0] )) {
+				$this->view->title = "Registrar edit: " . $rs[0]['name'];
+				
+				// Create the registrar custom form
+				list($form, $config) = Admin_Form_RegistrarsForm::createRegistrarForm ( $form, $rs[0]['name'] );
+				
+				if(!empty($config->general->description)){
+					$this->view->description = (string)$config->general->description;
+				}
+				
+				if(!empty($config->general->help)){
+					$this->view->help = (string)$config->general->help;
+				}
+				
+				// Get the custom registrar settings
+				$rs[0]['settings'] = json_decode($rs[0]['config'], true);
 				$form->populate ( $rs[0] );
 			}
 			
@@ -170,8 +186,8 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Registrar edit";
-		$this->view->description = "Here you can edit the registrar data.";
+		
+		
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -198,12 +214,14 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 		if (! $request->isPost ()) {
 			return $this->_helper->redirector ( 'list', 'registrars', 'admin' );
 		}
+
+		// Create the registrar custom form
+		list($form, $config) = Admin_Form_RegistrarsForm::createRegistrarForm ( $form, $request->getParam('name') );
 		
 		if ($form->isValid ( $request->getPost () )) {
-			
 			$params = $form->getValues ();
 			
-			// Get the id 
+			// Save the data and get the registrar id 
 			$id = Registrars::saveData($params, $params ['registrars_id']);;
 			if (is_numeric ( $id )) {
 				$this->_helper->redirector ( 'edit', 'registrars', 'admin', array ('id'=>$id, 'mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
@@ -211,9 +229,10 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 				$redirector->gotoUrl ( "/admin/registrars/list/" );
 			}
 		} else {
+			
 			$this->view->form = $form;
-			$this->view->title = "Registrar edit";
-			$this->view->description = "Here you can edit the registrar data.";
+			$this->view->title = "Registrar review";
+			$this->view->description = "Here you can fix the registrar parameters.";
 			return $this->render ( 'applicantform' );
 		}
 	}

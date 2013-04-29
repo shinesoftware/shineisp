@@ -1585,6 +1585,9 @@ Languages:
     locale:
       type: string(5)
       notnull: true
+    code:
+      type: string(2)
+      notnull: true
     base:
       type: boolean(25)
       default: '0'
@@ -2905,6 +2908,7 @@ PurchaseInvoices:
       local: status_id
       foreign: status_id
       type: one
+      
 Registrars:
   connection: doctrine
   tableName: registrars
@@ -2917,78 +2921,22 @@ Registrars:
       autoincrement: true
     name:
       type: string(200)
-      fixed: 0
-      unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    wsdl:
-      type: string(200)
-      fixed: 0
-      unsigned: false
-      primary: false
+    description:
+      type: string()
       notnull: true
-      autoincrement: false
+    help:
+      type: string()
     class:
       type: string(200)
-      fixed: 0
-      unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    username:
-      type: string(200)
-      fixed: 0
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    password:
-      type: string(200)
-      fixed: 0
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    testmode:
-      type: integer(1)
-      fixed: 0
-      default: '1'
-      unsigned: false
-      primary: false
-      autoincrement: false
-    credit:
-      type: integer(4)
-      fixed: 0
-      default: '0'
-      unsigned: false
-      primary: false
-      autoincrement: false
+    config:
+      type: string()
     active:
       type: integer(1)
-      fixed: 0
-      default: '1'
-      unsigned: false
-      primary: false
-      autoincrement: false
-    lastupdate: timestamp(25)
-  relations:
-    DomainsTlds:
-      local: registrars_id
-      foreign: registrars_id
-      type: many
-    DomainsTasks:
-      local: registrars_id
-      foreign: registrars_id
-      type: many
-    CustomersDomainsRegistrars:
-      local: registrars_id
-      foreign: registrars_id
-      type: many
-    Domains:
-      local: registrars_id
-      foreign: registrars_id
-      type: many
+    lastupdate: 
+      type: timestamp(25)
+
 Reviews:
   connection: doctrine
   tableName: reviews

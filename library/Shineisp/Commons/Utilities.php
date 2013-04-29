@@ -260,20 +260,15 @@ class Shineisp_Commons_Utilities {
 		$results = array();
 	
 		// create a handler for the directory
-		$handler = opendir($directory);
-	
-		// open directory and walk through the filenames
-		while ($file = readdir($handler)) {
+		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+		foreach($directory_iterator as $filename => $path_object) {
 	
 			// if file isn't this directory or its parent, add it to the results
-			if ($file != "." && $file != "..") {
-				$results[] = $file;
+			if ($filename != "." && $filename != "..") {
+				$results[] = $filename;
 			}
 	
 		}
-	
-		// tidy up: close the handler
-		closedir($handler);
 	
 		// done!
 		return $results;

@@ -1,12 +1,13 @@
 <?php
 
 /**
- * Shineisp_Api_Registrars_Ovh
+ * Shineisp_Api_Registrars_Main_Ovh
+ * 
+ * @version 1.2
  * @author Shine Software
- *
  */
 
-class Shineisp_Api_Registrars_Ovh extends Shineisp_Api_Registrars_Base implements Shineisp_Api_Registrars_Interface {
+class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base implements Shineisp_Api_Registrars_Interface {
 	
 	/**
 	 * Enumerate all the registrar actions 
