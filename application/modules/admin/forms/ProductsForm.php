@@ -77,6 +77,19 @@ class Admin_Form_ProductsForm extends Zend_Form
                   ->setMultiOptions(ProductsCategories::getList());
 
 
+        $this->addElement('select', 'welcome_mail_id', array(
+        'label' => 'Welcome E-Mail',
+        'decorators' => array('Composite'),
+        'class'      => 'text-input large-input'
+        ));
+        
+        $this->getElement('welcome_mail_id')
+                  ->setAllowEmpty(false)
+                  ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
+                  ->setMultiOptions(EmailsTemplates::getList());
+
+
+
         $this->addElement('select', 'server_group_id', array(
         'label' => 'Server group',
         'decorators' => array('Composite'),

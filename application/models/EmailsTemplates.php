@@ -111,6 +111,37 @@ class EmailsTemplates extends BaseEmailsTemplates
 	}
 
 
+	/**
+	 * getList
+	 * Get a list ready for the html select object
+	 * @return array
+	 */
+	public static function getList($type = null) {
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$items      = array ();
+		$arrFilter  = array('general');
+		$items      = array($translator->translate ( 'Select ...' ));
+		
+		if ( !empty($type) ) {
+			$arrFilter[] = $type;
+		}
+
+		$db = Doctrine_Query::create ()
+				->select ( 'template_id, name' )
+				->from ( 'EmailsTemplates et' )
+				->where ( "et.type IN ?", $arrFilter )
+				->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+		
+		if ( is_array($db) ) {
+			foreach ( $db as $v ) {
+				$items [$v ['template_id']] = $v ['name'];			
+			}
+		}
+		
+		return $items;
+	}
+
+
 
 	/**
 	 * Save all the data

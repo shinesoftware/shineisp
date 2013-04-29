@@ -89,51 +89,44 @@ class Shineisp_Api_Panels_Base {
 	public function sendMail($task){
 		$isp = Isp::getActiveISP();
 		
-		$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_hosting' );
-		if ($retval) {
-			$subject = $retval ['subject'];
-			$template = $retval ['template'];
-			
-			// Get the service details
-			$service = OrdersItems::getAllInfo($task['orderitem_id']);
-			
-			// If the setup has been written by the task action then ...
-			if(!empty($service['setup'])){
-				$setup = json_decode($service['setup'], true);
-					
-				// Get the service/product name
-				$productname = !empty($service['Products']['ProductsData'][0]['name']) ? $service['Products']['ProductsData'][0]['name'] : "";
+		// Get the service details
+		$service = OrdersItems::getAllInfo($task['orderitem_id']);
+		
+		// If the setup has been written by the task action then ...
+		if(!empty($service['setup'])){
+			$setup = json_decode($service['setup'], true);
+				
+			// Get the service/product name
+			$productname  = !empty($service['Products']['ProductsData'][0]['name']) ? $service['Products']['ProductsData'][0]['name'] : "";
+			$welcome_mail = (!empty($service['Products']['welcome_mail_id']) && intval($service['Products']['welcome_mail_id']) > 0) ? intval($service['Products']['welcome_mail_id']) : 'new_hosting'; // new_hosting = fallback to old method if no template is set
 
-				// Check if the customer is present in the service
-				if(!empty($service['Orders']['Customers'])){
-					
-					// Getting the customer
-					$customer = $service['Orders']['Customers'];
-					
-					// Creating the subject of the email
-					$subject = str_replace ( "[hostingplan]", $productname, $subject );
-
-					$template = str_replace ( "[fullname]", $customer ['lastname'] . " " . $customer ['firstname'], $template );
-					$template = str_replace ( "[hostingplan]", $productname, $template );
-					$template = str_replace ( "[controlpanel]", $isp ['website'] . ":8080", $template );
-					$template = str_replace ( "[signature]", $isp ['company'], $template );
-					
-					$strSetup = "";
-					foreach ($setup as $section => $details) {
-						$strSetup .= strtoupper($section) . "\n===============\n";
-						foreach ($details as $label => $detail){
-							$strSetup .= "$label: " . $detail . "\n"; 
-						}
-						$strSetup .= "\n";
+			// Check if the customer is present in the service and if there is a welcome_mail set for the bought product 
+			if( !empty($service['Orders']['Customers']) ){
+				
+				// Getting the customer
+				$customer = $service['Orders']['Customers'];
+				
+				$strSetup = "";
+				foreach ($setup as $section => $details) {
+					$strSetup .= strtoupper($section) . "\n===============\n";
+					foreach ($details as $label => $detail){
+						$strSetup .= "$label: " . $detail . "\n"; 
 					}
-					
-					$template = str_replace ( "[setup]", $strSetup, $template );
-					
-					// Send the email
-					Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $template );
+					$strSetup .= "\n";
 				}
+				
+				Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], $welcome_mail, array(
+					'setup'        => $strSetup
+				   ,'fullname'     => $customer ['fullname']
+                   ,'hostingplan'  => $productname
+				   ,'controlpanel' => $isp ['website'].":8080"
+				   ,'signature'    => $isp ['company']
+				));
+									
+				
 			}
-		}	
+		}
+	
 	}
 	
 }

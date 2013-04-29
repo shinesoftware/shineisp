@@ -859,13 +859,19 @@ class Shineisp_Commons_Utilities {
 				
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
-			$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+			if ( is_numeric($template) ) {
+				$template      = intval($template);
+				$EmailTemplate = EmailsTemplates::find($template, null, false, $language_id);
+			} else {
+				$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);	
+			}
+			
 		} else {
 			$language_id = $fallback_language_id;
 		}
 
 		// Template missing from DB. Let's add it.
-		if ( !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
+		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
 
 			// Check if the file exists
@@ -915,6 +921,14 @@ class Shineisp_Commons_Utilities {
 			// Return the email template
 			return array_merge($array, array('template' => $body, 'subject' => $subject));
 		}
+		
+		// template is numeric but there is not template in db. something strange happened. Exit.
+		if ( is_numeric($template) && !is_object($EmailTemplate) ) {
+			return false;
+		}
+		
+		
+		
 		
 		$email = array(
 			 'subject'   => $EmailTemplate->EmailsTemplatesData->{0}->subject
