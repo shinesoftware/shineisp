@@ -266,7 +266,7 @@ $(document).ready(function(){
 	}); 
 	
     /* ######################## PRODUCTS ####################### */
-	$('.sublist').dataTable({
+	 $('.sublist').dataTable({
 	    "bRetrieve":true,
 		"sPaginationType": "full_numbers",
 	 });

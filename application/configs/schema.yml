@@ -2407,6 +2407,9 @@ Products:
       unsigned: true
       notnull: true
       default: '0'
+    welcome_mail_id:
+      type: integer(5)
+      unsigned: true
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2464,7 +2467,10 @@ Products:
       local: server_group_id
       foreign: group_id
       type: one
-
+    EmailsTemplates:
+      local: welcome_mail_id
+      foreign: template_id
+      type: one
       
 ProductsAttributes:
   connection: doctrine

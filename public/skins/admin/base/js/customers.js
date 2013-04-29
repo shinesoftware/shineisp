@@ -1,7 +1,6 @@
-
-// Sorting of the email grid list 
-$('#sublist_emailstemplatessends').dataTable({
-    "bRetrieve":true,
-	"sPaginationType": "full_numbers",
-	"aaSorting": [[ 0, "desc" ]]
+$(document).ready(function() {
+	var obj = $('#sublist_emailstemplatessends');
+	if ( 'undefined' != typeof obj.html() ) {	
+		obj.dataTable().fnSort([ [0,'desc'] ]);
+	}
 });
