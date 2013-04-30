@@ -183,6 +183,7 @@ class Admin_Form_CustomersForm extends Zend_Form
          // If the browser client is an Apple client hide the file upload html object  
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
+	        $adminuploadfiletypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(
@@ -190,23 +191,28 @@ class Admin_Form_CustomersForm extends Zend_Form
 	            'description'      => 'Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max ' . Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit),
 	            'class'      => 'text-input large-input'
 	        ));
-	        
-	        $file->addValidator ( 'Extension', false, 'zip,rtf,doc,pdf' )
-				 ->addValidator ( 'Size', false, $Byteslimit )
-				 ->addValidator ( 'Count', false, 1 );
+			
+			if($adminuploadfiletypes){
+				$file->addValidator ( 'Extension', false, $adminuploadfiletypes );
+			}
+			
+			if($Byteslimit){
+				$file->addValidator ( 'Size', false, $Byteslimit );
+			}
+			
+	        $file->addValidator ( 'Count', false, 1 );
 	        
 			$this->addElement($file);          
         
 	        $this->addElement('select', 'filecategory', array(
-	            'label'      => 'Category',
+	            'label'      => 'File Category',
 	            'decorators' => array('Composite'),
 	            'class'      => 'text-input'
 	        ));
 	        
 	        $this->getElement('filecategory')
-	                  ->setAllowEmpty(false)
-	                  ->setMultiOptions(FilesCategories::getList())
-	                  ->setRequired(true);
+	                  ->setAllowEmpty(true)
+	                  ->setMultiOptions(FilesCategories::getList());
         }
         
         $this->addElement('text', 'address', array(

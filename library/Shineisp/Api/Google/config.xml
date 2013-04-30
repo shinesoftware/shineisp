@@ -2,7 +2,7 @@
 
 <!-- Google Analytics Configuration File -->
 
-<config name="Google Analytics" var="ganalytics" version="1.0">
+<config name="Google Analytics" type="generic" var="ganalytics" version="1.0">
     
     <settings>
         <field var="email" label="Email" type="text" description="Set your google email connected to the google analytics service"/>

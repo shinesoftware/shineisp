@@ -288,27 +288,33 @@ class Customers extends BaseCustomers {
 			$customer['isreseller'] = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
 			$customer['ignore_latefee'] = (bool)$data ['ignore_latefee'];
 			$customer['language'] = $data['language'];
+			
 			$customer->save();
-	
-			// Handle the customer address				
+				
+			// get the customer ID
+			$data['customer_id'] = empty($data['customer_id']) ? $customer['customer_id'] : $data['customer_id'];
+			
+			// Handle the customer address
 			if(!empty($data['address'])){
 				Addresses::AddNew($data);
 			}
-			
+				
 			// Handle the customer contact
 			if (! empty ( $data ['contact'] )) {
 				Contacts::AddNew(array('contact' => $data['contact'], 'type_id' => $data['contacttypes'], 'customer_id' => $customer['customer_id']));
 			}
-
+			
 			// Newsletter OptIn
 			if(!empty($data ['issubscriber']) && $data ['issubscriber'] == 1){
 				NewslettersSubscribers::customer_optIn($customer['customer_id']);  // Add the customer email in the newsletter list
 			}else{
 				NewslettersSubscribers::customer_optOut($customer['customer_id']); // Remove the customer email from the newsletter subscriber list
-			}	
-	
+			}
+			
 			// Save the upload file
 			self::UploadDocument($customer['customer_id'], $data['filecategory']);
+	
+			
 		
 			return $customer['customer_id'];
 		}

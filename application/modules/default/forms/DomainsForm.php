@@ -48,7 +48,6 @@ class Default_Form_DomainsForm extends Zend_Form
         $status = $this->addElement('select', 'status_id', array(
         'label' => 'Status',
         'decorators' => array('Composite'),
-        'description'      => 'desc_status',
         'class'      => 'text-input large-input'
         ));
         

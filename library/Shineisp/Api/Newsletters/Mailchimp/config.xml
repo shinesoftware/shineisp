@@ -2,7 +2,7 @@
 
 <!-- Main configuration of the Mailchimp module for ShineISP -->
 
-<config name="Mailchimp" var="MailChimp" version="1.0">
+<config name="Mailchimp" type="generic" var="MailChimp" version="1.0">
 
     <settings>
         <field var="key" label="API Key" type="text" description="MailChimp Api Key."/>

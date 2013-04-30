@@ -16,7 +16,8 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
 		
     	$this->addElement('select', 'type', array(
             'label'      => 'Section',
-            'decorators' => array('Composite')
+            'decorators' => array('Composite'),
+    		'class'      => 'text-input large-input'
         ));
         $this->getElement('type')
                   ->setAllowEmpty(false)

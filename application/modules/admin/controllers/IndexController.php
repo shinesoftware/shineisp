@@ -22,7 +22,6 @@ class Admin_IndexController extends Zend_Controller_Action {
 		$auth = Zend_Auth::getInstance ();
 		
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
-		
 		if ($auth->hasIdentity ()) {
 			$this->view->show_dashboard = true;
 			$this->view->user = $auth->getIdentity();

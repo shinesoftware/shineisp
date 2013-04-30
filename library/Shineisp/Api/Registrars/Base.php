@@ -22,6 +22,30 @@ class Shineisp_Api_Registrars_Base {
 						);
 
 	/**
+	 * Get the registrars list
+	 * 
+	 * @return ArrayObject
+	 */
+	public function getList($emptyitem = false) {
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$registrars = array();
+		$path = PROJECT_PATH . "/library/Shineisp/Api/Registrars/";
+		
+		if($emptyitem){
+			$registrars[] = $translator->translate("Select ...");
+		}
+		
+		foreach(glob("$path/*", GLOB_ONLYDIR) as $dir) {
+		    $dir = str_replace("$path/", '', $dir);
+		    $class = "Shineisp_Api_Registrars_" . $dir . "_Main";
+		    if (class_exists($class)) {
+		    	$registrars[$dir] = $dir;
+		    }
+		}
+		return $registrars;
+	}
+	
+	/**
 	 * @return the $isLive
 	 */
 	public function getIsLive() {

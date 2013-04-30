@@ -27,11 +27,13 @@ Taxes:
     
 FilesCategories:
   FilesCategories_1:
-    name: applicationforms
+    name: Application Forms
   FilesCategories_2:
-    name: quote
+    name: Quotation
   FilesCategories_3:
-    name: documents
+    name: Generic Document
+  FilesCategories_4:
+    name: Download
 
 InvoicesSettings:
   InvoicesSettings_1:
@@ -84,18 +86,6 @@ Banks:
     PaymentsMethods: PaymentsMethods_2
     enabled: '1'
 
-Registrars:
-  Registrars_1:
-    name: Ovh
-    wsdl: 'http://www.ovh.com/soapi/soapi-re-1.29.wsdl'
-    class: Shineisp_Api_Registrars_Ovh
-    username: TEST-OVH
-    password: test
-    testmode: '1'
-    credit: {  }
-    lastupdate: '2012-03-19 11:21:57'
-    active: '1'
-
 PaymentsMethods:
   PaymentsMethods_1:
     method: 'Credit Card'
@@ -112,11 +102,13 @@ Languages:
   Languages_1:
     language: English
     locale: en_US
+    code: en
     base: true
     active: true
   Languages_2:
     language: Italiano
     locale: it_IT
+    code: it
     base: false
     active: true
 

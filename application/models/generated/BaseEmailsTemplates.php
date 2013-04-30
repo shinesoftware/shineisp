@@ -16,6 +16,7 @@ Doctrine_Manager::getInstance()->bindComponent('EmailsTemplates', 'doctrine');
  * @property boolean $plaintext
  * @property boolean $active
  * @property Doctrine_Collection $EmailsTemplatesData
+ * @property Doctrine_Collection $Products
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -84,5 +85,9 @@ abstract class BaseEmailsTemplates extends Doctrine_Record
              'local' => 'template_id',
              'foreign' => 'template_id',
              'onDelete' => 'CASCADE'));
+
+        $this->hasMany('Products', array(
+             'local' => 'template_id',
+             'foreign' => 'welcome_mail_id'));
     }
 }

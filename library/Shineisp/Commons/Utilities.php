@@ -260,20 +260,15 @@ class Shineisp_Commons_Utilities {
 		$results = array();
 	
 		// create a handler for the directory
-		$handler = opendir($directory);
-	
-		// open directory and walk through the filenames
-		while ($file = readdir($handler)) {
+		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+		foreach($directory_iterator as $filename => $path_object) {
 	
 			// if file isn't this directory or its parent, add it to the results
-			if ($file != "." && $file != "..") {
-				$results[] = $file;
+			if ($filename != "." && $filename != "..") {
+				$results[] = $filename;
 			}
 	
 		}
-	
-		// tidy up: close the handler
-		closedir($handler);
 	
 		// done!
 		return $results;
@@ -683,6 +678,7 @@ class Shineisp_Commons_Utilities {
 		}
 		
 		$mail = new Zend_Mail ( 'UTF-8' );
+		$mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
 		
 		if(!empty($attachments)){
 			if(is_array($attachments)){
@@ -725,11 +721,11 @@ class Shineisp_Commons_Utilities {
 		if(!empty($replyto)){
 			$mail->setReplyTo($replyto);
 		}
-		
+				
 		if ($html) {
-			$mail->setBodyHtml ( $body );
+			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
-			$mail->setBodyText ( $body );
+			$mail->setBodyText ( $body);
 		}
 		
 		if ( is_array($from ) ) {
@@ -827,23 +823,20 @@ class Shineisp_Commons_Utilities {
 		return false;
 	}
 	
-	
-	
-	
-	
-	
 	/*
 	 *  getEmailTemplate
 	 *  Get the email template from database, if missing, try to load from filesystem and save to database
 	 */
-	public static function getEmailTemplate($template) {
+	public static function getEmailTemplate($template, $forceLocale = null) {
 		$subject = "";
-		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
+		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
+		$isFallback = false;
 		
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
+			$isFallback = true;
 		} else {
 			if (strlen ( $locale ) == 2) {
 				$locale .= "_" . strtoupper ( $locale );
@@ -855,13 +848,19 @@ class Shineisp_Commons_Utilities {
 				
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
-			$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+			if ( is_numeric($template) ) {
+				$template      = intval($template);
+				$EmailTemplate = EmailsTemplates::find($template, null, false, $language_id);
+			} else {
+				$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);	
+			}
+			
 		} else {
 			$language_id = $fallback_language_id;
 		}
 
 		// Template missing from DB. Let's add it.
-		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
+		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
 			
 			// Check if the file exists
@@ -892,23 +891,33 @@ class Shineisp_Commons_Utilities {
 			// TODO: properly manage ISP ID
 			$isp = Isp::getActiveISP();
 
+			$body = trim($body);
+			$subject = trim($subject);
+			
 			// Store mail in DB
-			EmailsTemplates::saveAll(null, array(
+			$array = array(
 			     'type'      => 'general'
 				,'name'      => $template
 				,'code'      => $template
 				,'plaintext' => 0
 				,'active'    => 1
-				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'Shine ISP'        // TODO: remove this hardcoded value
+				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'ShineISP'        // TODO: remove this hardcoded value
 				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
 				,'subject'   => $subject
-				,'html'      => $body
+				,'html'      => nl2br($body)
 			
-			), $language_id);
-			
+			);
+
+			// Save the data
+			EmailsTemplates::saveAll(null, $array, $language_id);
 				
 			// Return the email template
-			return array('template' => $body, 'subject' => $subject);
+			return array_merge($array, array('template' => $body, 'subject' => $subject));
+		}
+		
+		// template is numeric but there is not template in db. something strange happened. Exit.
+		if ( is_numeric($template) && !is_object($EmailTemplate) ) {
+			return false;
 		}
 		
 		$email = array(
@@ -958,23 +967,27 @@ class Shineisp_Commons_Utilities {
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
-		// Remove unneeded parameters
-		unset($ISP['isp_id']);
-		unset($ISP['password']);
-		unset($ISP['active']);
-		unset($ISP['isppanel']);
 
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);
 
 		// Check if special placeholder :shineisp: is set. If is set and is an array, it will use it as a source of key/value
 		if ( isset($replace[':shineisp:']) && is_array($replace[':shineisp:']) ) {
+			if ( isset($replace[':shineisp:'][0]) ) {
+				$replace[':shineisp:'] = array_merge($replace[':shineisp:'], $replace[':shineisp:'][0]);
+				unset($replace[':shineisp:'][0]);
+			}
 			foreach ( $replace[':shineisp:'] as $k => $v ) {
 				$replace[$k] = $v;
 			}
 			
 			unset($replace[':shineisp:']);	
 		}
+
+		// Remove unneeded parameters
+		unset($replace['password']);
+		unset($replace['active']);
+		unset($replace['isppanel']);
 
 		// Replace all placeholders in everything
 		foreach ( $replace as $placeholder => $value ) {
@@ -1125,50 +1138,7 @@ class Shineisp_Commons_Utilities {
 		}
 		return $date;
 	}
-	
-	/**
-	 * Format ad order number in a consistent way across the whole system
-	 * TODO: order format should be placed in database as a setting
-	 * 
-	 * @param array $order
-	 * @return string $orderNumber
-	 */
-	public static function formatOrderNumber($order) {
-		if ( !is_array($order) ) {
-			return '';
-		}
 		
-		if ( isset($order[0]) ) {
-			$order = $order[0];
-		}
-		
-		// TODO: CUSTOMIZE ORDER FORMAT HERE:
-		$orderNumber = $order['isp_id'].'-'.$order['customer_id'].'-'.sprintf ( "%05s", $order['order_id']).'-'.substr($order['order_date'],0,4);
-		
-		
-		
-		return $orderNumber;
-	}
-	
-	/**
-	 * Get an order id from an order number
-	 * THIS MUST BE THE REVERSE OF formatOrderNumber
-	 * TODO: order format should be placed in database as a setting
-	 * 
-	 * @param string $orderNumber
-	 * @return int $orderID
-	 */
-	public static function getOrderIdByNumber($orderNumber) {
-		if ( empty($orderNumber) ) {
-			return 0;
-		}
-	
-		list($isp_id, $customer_id, $order_id, $order_year) = explode('-',$orderNumber);
-		
-		return (int)$order_id;
-	}
-	
-	
 	
 	// ***************************************** START GRID CUSTOM FUNCTIONS *****************************************
 	/**
