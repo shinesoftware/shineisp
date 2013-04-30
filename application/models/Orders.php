@@ -1395,7 +1395,7 @@ class Orders extends BaseOrders {
 				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
 				
 				// log
-				Shineisp_Commons_Utilities::logs ( "Order changed from order #".$oldOrderId." to order #".$orderid, "orders.log" );
+				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
 			// Set the status of the orders and the status of the items within the order just created
