@@ -106,7 +106,11 @@ class Orders extends BaseOrders {
 	 * @param $id, $status
 	 * @return Void
 	 */
-	public static function set_status($id, $status) {
+	public static function set_status($id, $status = null) {
+		if ( empty($status) ) {
+			return false;
+		}
+		
 		return Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
 									->where('o.order_id = ?', $id)
