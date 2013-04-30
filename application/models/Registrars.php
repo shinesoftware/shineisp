@@ -87,7 +87,13 @@ class Registrars extends BaseRegistrars
     									->where ( "class = ?", $classname )
     									->andWhere('active = ?', true)
     									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-    									
+
+    	if(!empty($registrar[0]['config'])){
+    		$settings = json_decode($registrar[0]['config'], true);
+    		$registrar[0] = array_merge($registrar[0], $settings);
+    	}
+    	
+    	
     	return !empty($registrar[0]) ? $registrar[0] : array();									
     }	
 	

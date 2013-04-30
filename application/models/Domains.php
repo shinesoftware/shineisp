@@ -58,11 +58,11 @@ class Domains extends BaseDomains {
 		$config ['datagrid'] ['index'] = "domain_id";
 		
 		// Autorenew function											
-		$customer['bulk_set_autorenew&status=1'] = "Enable Autorenew";
-		$customer['bulk_set_autorenew&status=0'] = "Disable Autorenew";
-		$customer['bulk_delete'] = 'Mass Delete';
-		$customer['bulk_export'] = 'Export Domains List';
-		$config ['datagrid'] ['massactions']['common'] = $customer;
+		$massactions['bulk_set_autorenew&status=1'] = "Enable Autorenew";
+		$massactions['bulk_set_autorenew&status=0'] = "Disable Autorenew";
+		$massactions['bulk_delete'] = 'Mass Delete';
+		$massactions['bulk_export'] = 'Export Domains List';
+		$config ['datagrid'] ['massactions']['common'] = $massactions;
 													
 		$statuses = Statuses::getList('domains');
 		

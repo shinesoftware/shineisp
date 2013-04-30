@@ -22,7 +22,7 @@
         <field var="password" label="Password" type="text" description="Write here your OVH password." required="1" />
         <field var="testmode" label="Test Mode" type="select" description="Set the test mode in order to check the connection with the OVH Servers">
         	<![CDATA[
-        		["Yes","No"]
+        		["No","Yes"]
         	]]>
         </field>
     </settings>
