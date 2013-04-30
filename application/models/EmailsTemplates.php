@@ -52,7 +52,10 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function find($id, $fields = "*", $retarray = false, $language_id = 1) {
+	public static function find($id, $fields = "*", $retarray = false, $lang="en") {
+		
+		$language_id = Languages::get_language_id($lang);
+		
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
 									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )
@@ -69,7 +72,10 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function findByCode($code, $fields = "*", $retarray = false, $language_id = 1) {
+	public static function findByCode($code, $fields = "*", $retarray = false, $lang="en") {
+		
+		$language_id = Languages::get_language_id($lang);
+		
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
 									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )

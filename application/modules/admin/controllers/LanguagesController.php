@@ -226,6 +226,7 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 			try {
 				
 				$this->languages->language = $params ['language'];
+				$this->languages->code = $params ['code'];
 				$this->languages->locale = $params ['locale'];
 				$this->languages->active = $params ['active'];
 				$this->languages->base = $params ['base'];

@@ -37,6 +37,8 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
             }
 		}
 		
+		$ns->lang = $lang;
+		
 		// Set language to global param so that our language route can fetch it nicely.
 		$front = Zend_Controller_Front::getInstance ();
 		$router = $front->getRouter ();

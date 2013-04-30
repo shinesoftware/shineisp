@@ -823,11 +823,6 @@ class Shineisp_Commons_Utilities {
 		return false;
 	}
 	
-	
-	
-	
-	
-	
 	/*
 	 *  getEmailTemplate
 	 *  Get the email template from database, if missing, try to load from filesystem and save to database
@@ -851,7 +846,6 @@ class Shineisp_Commons_Utilities {
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
 				
-				
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
 			if ( is_numeric($template) ) {
@@ -868,7 +862,7 @@ class Shineisp_Commons_Utilities {
 		// Template missing from DB. Let's add it.
 		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
-
+			
 			// Check if the file exists
 			if (! file_exists ( $filename )) {
 				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
@@ -897,6 +891,9 @@ class Shineisp_Commons_Utilities {
 			// TODO: properly manage ISP ID
 			$isp = Isp::getActiveISP();
 
+			$body = trim($body);
+			$subject = trim($subject);
+			
 			// Store mail in DB
 			$array = array(
 			     'type'      => 'general'
@@ -904,13 +901,14 @@ class Shineisp_Commons_Utilities {
 				,'code'      => $template
 				,'plaintext' => 0
 				,'active'    => 1
-				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'Shine ISP'        // TODO: remove this hardcoded value
+				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'ShineISP'        // TODO: remove this hardcoded value
 				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
 				,'subject'   => $subject
 				,'html'      => nl2br($body)
 			
 			);
-			echo "Faccio save per la lingua ".$language_id."\n<br>";
+
+			// Save the data
 			EmailsTemplates::saveAll(null, $array, $language_id);
 				
 			// Return the email template
@@ -921,9 +919,6 @@ class Shineisp_Commons_Utilities {
 		if ( is_numeric($template) && !is_object($EmailTemplate) ) {
 			return false;
 		}
-		
-		
-		
 		
 		$email = array(
 			 'subject'   => $EmailTemplate->EmailsTemplatesData->{0}->subject

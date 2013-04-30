@@ -18,7 +18,15 @@ class Admin_Form_LanguagesForm extends Zend_Form
         $this->addElement('text', 'locale', array(
             'filters'    => array('StringTrim'),
             'label'      => 'Locale',
-        	'description'=> 'Write here the name of the locale (eg. en_US). Then you have to create the en_US.csv file in the /application/languages/en_US.csv',
+        	'description'=> 'Write here the name of the locale (eg. en). Then you have to create the en.mo file in the /application/languages/en.mo',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input large-input'
+        ));
+        
+        $this->addElement('text', 'code', array(
+            'filters'    => array('StringTrim'),
+            'label'      => 'Code',
+        	'description'=> 'Write here the name of the locale (eg. en). ',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
