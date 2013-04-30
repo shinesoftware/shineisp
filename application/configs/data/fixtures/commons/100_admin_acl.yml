@@ -456,7 +456,8 @@ AdminResources:
     name: Languages 
     module: admin
     controller: languages
-    parent_id: 1       
+    parent_id: 60
+    admin: 1       
   AdminResources_73:
     name: Ticket Categories 
     module: admin

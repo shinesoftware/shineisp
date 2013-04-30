@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- OVH Configuration File -->
+
+<config name="OVH" type="registrars" var="ovh" version="1.0">
+    <general>
+	    <description><![CDATA[Fondée en 1999 par Octave Klaba, OVH est une société française indépendante basée à Roubaix. Elle est le n°1 de l’hébergement en France et se positionne comme le 1er hébergeur européen. ]]></description>
+	    <help><![CDATA[<p>This module offers you the way to register your domains by OVH company. <br/>In order to setup the module, you need:</p>
+	        <ul>
+	            <li>Get the soap URI from http://www.ovh.com/soapi/en/ look at the changelog.</li>
+	            <li>OVH Account Credencials</li>
+	            <li>Set the server information</li>
+	            <li>Set the TLD prices and costs</li>
+	        </ul>
+	        <p>The Soap URI is the endpoint to connect ShineISP to OVH: eg: http://www.ovh.com/soapi/soapi-re-1.58.wsdl (version 1.58)</p>
+	        <p>In order to check the connection with the OVH Servers is high suggested to use the "test mode" before to start.</p>
+	    ]]></help>
+    </general>
+    <settings>
+        <field var="soapuri" label="SOAP URL" type="text" description="Get the soap URI from http://www.ovh.com/soapi/en/ look at the changelog" required="1" default="http://www.ovh.com/soapi/soapi-re-1.58.wsdl"/>
+        <field var="username" label="Username" type="text" description="Set your OVH username" required="1" />
+        <field var="password" label="Password" type="text" description="Write here your OVH password." required="1" />
+        <field var="testmode" label="Test Mode" type="select" description="Set the test mode in order to check the connection with the OVH Servers">
+        	<![CDATA[
+        		["No","Yes"]
+        	]]>
+        </field>
+    </settings>
+    
+</config>

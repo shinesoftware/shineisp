@@ -1,3 +1,4 @@
+<?php if(!empty($this->records)): ?>
 <ul class="addresses">
 	<?php foreach ( $this->records as $record ) : ?>
 		<li>
@@ -9,3 +10,5 @@
 		</li>
 	<?php endforeach;?>
 </ul>
+<?php endif;?>
+

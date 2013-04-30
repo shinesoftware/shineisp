@@ -74,12 +74,17 @@ class Languages extends BaseLanguages {
 	}
 	
 	/**
-	 * getLanguageId
 	 * get the language configuration by the identifier
-	 * @param unknown_type $locale
+	 * 
+	 * @param string $locale [en,it,fr]
 	 */
-	public static function get_language_id($locale) {
-		$record = Doctrine::getTable ( 'Languages' )->findBy ( 'locale', $locale, Doctrine_Core::HYDRATE_ARRAY );
+	public static function get_language_id($code) {
+		
+		if(empty($code)){
+			return 1; // get the first language in the languages table
+		}
+		
+		$record = Doctrine::getTable ( 'Languages' )->findBy ( 'code', $code, Doctrine_Core::HYDRATE_ARRAY );
 		if (isset ( $record [0] )) {
 			return $record [0]['language_id'];
 		} else {
@@ -164,18 +169,18 @@ class Languages extends BaseLanguages {
 			$ext = pathinfo($file, PATHINFO_EXTENSION);
 			
 			// If the extension is csv ...
-			if($ext == "csv"){
+			if($ext == "mo"){
 				
 				// Get the locale of the translation file, for ex: en_US
 				$locale = new Zend_Locale($name);
 
 				// Get all the translation of the territory for the en_US locale  
-				$territories = $locale->getTranslationList('Territory', $name, 2);
+				$territories = $locale->getTranslationList('language', $name, 2);
 				
 				// Check if the territories array is full of data
-				if(is_array($territories)){
+				if(!empty($territories) && is_array($territories)){
 					// Get the name of the territory using only the two letter, for ex: US in order to get United States 
-					$locales[$name] = $territories[$name[3].$name[4]];
+					$locales[$name] = $territories[$name];
 				}
 			}
 		}

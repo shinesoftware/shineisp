@@ -114,7 +114,7 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the invoice selected?' );
-				$this->view->description = $this->translator->translate ( 'The invoice will not be longer available ' );
+				$this->view->description = $this->translator->translate ( 'The invoice will not be longer available' );
 				$record = $this->invoices->find ( $id );
 				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['invoice_date'] );
 			} else {

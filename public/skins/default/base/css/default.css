@@ -1493,10 +1493,18 @@ img.imageZoomBox {
 }
 
 /* ############ VERSION ############# */
-.version {
+.legality {
 	text-align: center;
 	color: #999999;
 	padding: 5px;
+}
+.legality a{
+	color: #999999;
+}
+
+.copyright{
+	font-size: 11px;
+	text-align: center;
 }
 
 /* ############ SUB FOOTER ############# */

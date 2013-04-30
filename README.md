@@ -1,15 +1,19 @@
 ShineISP
 ==========
 
-ShineISP is a complex ISP software management that helps you to manage your online hosting company and your own clients. We are trying to create a free alternative at the commons ISP softwares on the market. Read more at http://www.shineisp.com
+ShineISP is a complete web based solution to manage your web hosting business and your web hosting clients. Our aim is to create a free alternative to the well known management systems for web hosting and Internet Service Provider businesses.The main demands of web hosting and ISP business owners for such a solution are to have a complete environment for managing their business, including
 
-The main requests of the ISP maintainers are:
+    CRM – Customers Relationship Management
+    CMS – Content Management System
+    WHD – Web Helpdesk Support
+    DMS – Domain Management System
+    eCommerce Software included
 
-    CRM - Customers Relationship Management
-    CMS - Content Management System
-    WHD - Web Helpdesk Support
-    DMS - Domain Management System
-    eCommerce Integrated Software 
+ShineISP offers all these features, and a few more.
+
+The system has been developed over the last four years and it has now become a modular basic system to serve the needs of small and medium sized web hosting businesses.
+
+ShineISP is open source software and we welcome all contributions and cooperation.
 
 The idea behind the project
 
@@ -28,9 +32,7 @@ Get involved
 If you would like to participate you have a ready workstation with this software installed:
 
 Install and configure the last version of Apache Web Server
-Install and configure the last version of MySql?
-Install a SVN Client like tortoise or use linux is better!
-Install Zend Studio in order to edit the project or use the simple SciTe? editor 
+Install and configure the last version of MySql
 
 What do I know before starting to develop?
 
@@ -43,3 +45,9 @@ What do I know before starting to develop?
 - MVC Programming
 - XML
 - Base UNIX application server configuration 
+
+Can I help you to translate the project in my language?
+
+YES, of Course! Join with us using this free service: https://poeditor.com/join/project?hash=baf0f8490ff29729da4e3fc8fdbb1ca8
+
+It is really simple! Select the language that you want to translate and click the button "join"!

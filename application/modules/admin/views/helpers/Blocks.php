@@ -23,7 +23,7 @@ class Admin_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 	public function showblock($side) {
 		$ns = new Zend_Session_Namespace ( 'Admin' );
 		$languageID = Languages::get_language_id ( $ns->lang );
-		
+
 		$record = array ();
 		$blocks = array ();
 		

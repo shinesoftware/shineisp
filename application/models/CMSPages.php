@@ -68,7 +68,7 @@ class CMSPages extends BaseCMSPages {
 		return Doctrine_Query::create ()->from ( 'CMSPages cms' )
 										->leftJoin ( 'cms.CMSPagesData cpd' )
 										->leftJoin ( 'cpd.Languages l' )
-										->where ( 'l.locale = ?', $locale )
+										->where ( 'l.code = ?', $locale )
 										->andWhere ( 'cms.parent_id = ?', $id )
 										->andWhere ( 'cms.showinmenu = ?', 1 )
 										->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -79,11 +79,11 @@ class CMSPages extends BaseCMSPages {
 	 * Get all the active cms pages records
 	 * @return Array
 	 */
-	public static function getpages($locale = "en_US") {
+	public static function getpages($locale = "en") {
 		$dq = Doctrine_Query::create ()->from ( 'CMSPages cms' )
 								->leftJoin ( 'cms.CMSPagesData cpd' )
 								->leftJoin ( 'cpd.Languages l' )
-								->where ( 'l.locale = ?', $locale )
+								->where ( 'l.code = ?', $locale )
 								->addWhere('cms.active = ?', 1);
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -93,11 +93,11 @@ class CMSPages extends BaseCMSPages {
 	 * Get all the pages published on RSS feed
 	 * @return Array
 	 */
-	public static function getRssPages($locale = "en_US") {
+	public static function getRssPages($locale = "en") {
 		$dq = Doctrine_Query::create ()->from ( 'CMSPages cms' )
 									   ->leftJoin ( 'cms.CMSPagesData cpd' )
 									   ->leftJoin ( 'cpd.Languages l' )
-									   ->where ( 'l.locale = ?', $locale )
+									   ->where ( 'l.code = ?', $locale )
 									   ->addWhere('cms.showonrss = ?', 1)
 									   ->addWhere('cms.active = ?', 1);
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -109,11 +109,11 @@ class CMSPages extends BaseCMSPages {
 	 * @param $var
 	 * @return array
 	 */
-	public static function findbyvar($var, $locale = "en_US") {
+	public static function findbyvar($var, $locale = "en") {
 		$record = Doctrine_Query::create ()->from ( 'CMSPages cms' )
 										   ->leftJoin ( 'cms.CMSPagesData cpd' )
 										   ->leftJoin ( 'cpd.Languages l' )
-										   ->where ( 'l.locale = ?', $locale )
+										   ->where ( 'l.code = ?', $locale )
 										   ->andWhere ( 'cms.var = ?', $var )
 										   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		

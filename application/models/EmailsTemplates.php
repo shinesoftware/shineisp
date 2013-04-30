@@ -52,7 +52,10 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function find($id, $fields = "*", $retarray = false, $language_id = 1) {
+	public static function find($id, $fields = "*", $retarray = false, $lang="en") {
+		
+		$language_id = Languages::get_language_id($lang);
+		
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
 									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )
@@ -69,7 +72,10 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function findByCode($code, $fields = "*", $retarray = false, $language_id = 1) {
+	public static function findByCode($code, $fields = "*", $retarray = false, $lang="en") {
+		
+		$language_id = Languages::get_language_id($lang);
+		
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
 									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )
@@ -78,6 +84,69 @@ class EmailsTemplates extends BaseEmailsTemplates
 		
 		return $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
 	}
+
+
+	/**
+	 * Get a record by code ignoring language
+	 * 
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function fetchRecord($code) {
+		$dq = Doctrine_Query::create ()->select ( '*' )
+									->from ( 'EmailsTemplates et' )
+									->where ( "et.code = ?", $code )
+									->limit ( 1 );
+		
+		return $dq->fetchOne ();
+	}
+
+
+	/**
+	 * Delete an email template
+	 * 
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function deleteByCode($code) {
+		return Doctrine_Query::create ()->select ('*')
+									->from ( 'EmailsTemplates et' )
+									->where ( "et.code = ?", $code )
+									->limit ( 1 )
+									->delete();
+	}
+
+
+	/**
+	 * getList
+	 * Get a list ready for the html select object
+	 * @return array
+	 */
+	public static function getList($type = null) {
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$items      = array ();
+		$arrFilter  = array('general');
+		$items      = array($translator->translate ( 'Select ...' ));
+		
+		if ( !empty($type) ) {
+			$arrFilter[] = $type;
+		}
+
+		$db = Doctrine_Query::create ()
+				->select ( 'template_id, name' )
+				->from ( 'EmailsTemplates et' )
+				->where ( "et.type IN ?", $arrFilter )
+				->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+		
+		if ( is_array($db) ) {
+			foreach ( $db as $v ) {
+				$items [$v ['template_id']] = $v ['name'];			
+			}
+		}
+		
+		return $items;
+	}
+
 
 
 	/**
@@ -95,7 +164,12 @@ class EmailsTemplates extends BaseEmailsTemplates
 		if (is_numeric ( $id ) && $id > 0) {
 			$EmailsTemplates = self::find($id, null, false, $locale);
 		} else {
-			$EmailsTemplates = new self;
+			if ( !empty($params['code']) ) {
+				$EmailsTemplates = self::fetchRecord($params['code']);
+				if ( !is_object($EmailsTemplates) ) {
+					$EmailsTemplates = new self;	
+				}
+			}
 		}
 
 		try {
@@ -123,7 +197,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 					if ( isset($currentEmailsTemplatesData->id) && $currentEmailsTemplatesData->id > 0 ) {
 						$EmailsTemplatesData = $currentEmailsTemplatesData;
 					} else {
-						$EmailsTemplatesData = new EmailsTemplatesData();	
+						$EmailsTemplatesData = new EmailsTemplatesData();
 					}
 					
 					$EmailsTemplatesData->template_id = intval($template_id);
@@ -134,7 +208,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 					$EmailsTemplatesData->html        = ! empty ( $params ['html'] )      ? $params ['html']      : '';
 					$EmailsTemplatesData->text        = ! empty ( $params ['text'] )      ? $params ['text']      : '';
 					$EmailsTemplatesData->save ();
-					
+										
 					$email_template_date_id = $EmailsTemplatesData->id;
 				}
 			

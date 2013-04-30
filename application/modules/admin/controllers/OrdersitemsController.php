@@ -50,8 +50,8 @@ class Admin_OrdersitemsController extends Zend_Controller_Action {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'delete_question' );
-				$this->view->description = $this->translator->translate ( 'desc_delete_question' );
+				$this->view->title = $this->translator->translate ( 'Are you sure to delete this item?' );
+				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will be no more longer available.' );
 				
 				$record = $this->details->find ( $id, "description", true );
 				$this->view->recordselected = $record [0] ['description'];
@@ -179,8 +179,8 @@ class Admin_OrdersitemsController extends Zend_Controller_Action {
 			}
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "detail_edit";
-			$this->view->description = "desc_detail_edit";
+			$this->view->title = "Service edit";
+			$this->view->description = "Here you can edit the service selected";
 			return $this->render ( 'applicantform' );
 		}
 	}

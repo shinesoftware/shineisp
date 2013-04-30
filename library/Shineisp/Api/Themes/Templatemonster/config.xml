@@ -2,7 +2,7 @@
 
 <!-- Template Monster Configuration File -->
 
-<config name="Template Monster" var="templatemonster" version="1.0">
+<config name="Template Monster" type="generic" var="templatemonster" version="1.0">
     
     <settings>
         <field var="login" label="Login" type="text" description="Register yourself at http://www.mytemplatestorage.com/"/>

@@ -109,7 +109,8 @@ abstract class BaseDomainsTlds extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Registrars', array(
              'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
+             'foreign' => 'registrars_id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Taxes', array(
              'local' => 'tax_id',

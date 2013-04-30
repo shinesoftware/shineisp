@@ -9,18 +9,16 @@ Doctrine_Manager::getInstance()->bindComponent('Registrars', 'doctrine');
  * 
  * @property integer $registrars_id
  * @property string $name
- * @property string $wsdl
+ * @property string $description
+ * @property string $help
  * @property string $class
- * @property string $username
- * @property string $password
- * @property integer $testmode
- * @property integer $credit
+ * @property string $config
  * @property integer $active
  * @property timestamp $lastupdate
- * @property Doctrine_Collection $DomainsTlds
- * @property Doctrine_Collection $DomainsTasks
  * @property Doctrine_Collection $CustomersDomainsRegistrars
  * @property Doctrine_Collection $Domains
+ * @property Doctrine_Collection $DomainsTasks
+ * @property Doctrine_Collection $DomainsTlds
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -42,74 +40,29 @@ abstract class BaseRegistrars extends Doctrine_Record
              ));
         $this->hasColumn('name', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
              'length' => '200',
              ));
-        $this->hasColumn('wsdl', 'string', 200, array(
+        $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
-             'length' => '200',
+             'length' => '',
+             ));
+        $this->hasColumn('help', 'string', null, array(
+             'type' => 'string',
+             'length' => '',
              ));
         $this->hasColumn('class', 'string', 200, array(
              'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
              'notnull' => true,
-             'autoincrement' => false,
              'length' => '200',
              ));
-        $this->hasColumn('username', 'string', 200, array(
+        $this->hasColumn('config', 'string', null, array(
              'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '200',
-             ));
-        $this->hasColumn('password', 'string', 200, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '200',
-             ));
-        $this->hasColumn('testmode', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'default' => '1',
-             'unsigned' => false,
-             'primary' => false,
-             'autoincrement' => false,
-             'length' => '1',
-             ));
-        $this->hasColumn('credit', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'default' => '0',
-             'unsigned' => false,
-             'primary' => false,
-             'autoincrement' => false,
-             'length' => '4',
+             'length' => '',
              ));
         $this->hasColumn('active', 'integer', 1, array(
              'type' => 'integer',
-             'fixed' => 0,
-             'default' => '1',
-             'unsigned' => false,
-             'primary' => false,
-             'autoincrement' => false,
              'length' => '1',
              ));
         $this->hasColumn('lastupdate', 'timestamp', 25, array(
@@ -121,7 +74,11 @@ abstract class BaseRegistrars extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('DomainsTlds', array(
+        $this->hasMany('CustomersDomainsRegistrars', array(
+             'local' => 'registrars_id',
+             'foreign' => 'registrars_id'));
+
+        $this->hasMany('Domains', array(
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
 
@@ -129,11 +86,7 @@ abstract class BaseRegistrars extends Doctrine_Record
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
 
-        $this->hasMany('CustomersDomainsRegistrars', array(
-             'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
-
-        $this->hasMany('Domains', array(
+        $this->hasMany('DomainsTlds', array(
              'local' => 'registrars_id',
              'foreign' => 'registrars_id'));
     }

@@ -126,7 +126,7 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the language information all the translations items' );
+				$this->view->description = $this->translator->translate ( 'If you delete the language information all the translated items will be deleted' );
 				
 				$record = $this->languages->find ( $id );
 				$this->view->recordselected = $record [0] ['language'];
@@ -173,7 +173,6 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 			$rs = $this->languages->getAllInfo ( $id, null, true );
 			
 			if (! empty ( $rs [0] )) {
-				$rs [0]['translations'] = Shineisp_Commons_Utilities::readfile(APPLICATION_PATH . "/languages/" . $rs[0]['locale'] . ".csv");
 				$form->populate ( $rs [0] );
 			}
 			
@@ -227,6 +226,7 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 			try {
 				
 				$this->languages->language = $params ['language'];
+				$this->languages->code = $params ['code'];
 				$this->languages->locale = $params ['locale'];
 				$this->languages->active = $params ['active'];
 				$this->languages->base = $params ['base'];

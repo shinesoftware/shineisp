@@ -1,0 +1,2 @@
+INSERT INTO settings_parameters SET name = 'Days after expire date to show domains for renewal', var = 'domains_show_after_expire_days', type = 'text', module = 'admin', enabled = 1, description = 'Show domains for renewal up to this number of days after their expire', group_id = 1;
+INSERT INTO settings_parameters SET name = 'Days before expire date to show domains for renewal', var = 'domains_show_before_expire_days', type = 'text', module = 'admin', enabled = 1, description = 'Show domains for renewal starting from this number of days before their expire', group_id = 1;

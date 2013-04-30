@@ -2,7 +2,7 @@
 
 <!-- Dropbox Configuration File -->
 
-<config name="Dropbox" var="dropbox" version="1.0">
+<config name="Dropbox" type="generic" var="dropbox" version="1.0">
     <general>
 	    <description><![CDATA[ <a href="https://www.dropbox.com/">Dropbox</a> is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again! Open your account <a href="https://www.dropbox.com/">now</a>!]]></description>
 	    <help><![CDATA[<p>This module offers you the way to store your important documents like invoices and orders in a remote dropbox account. <br/>In order to setup the module, you need:</p>

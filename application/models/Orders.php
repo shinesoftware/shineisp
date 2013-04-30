@@ -106,7 +106,11 @@ class Orders extends BaseOrders {
 	 * @param $id, $status
 	 * @return Void
 	 */
-	public static function set_status($id, $status) {
+	public static function set_status($id, $status = null) {
+		if ( empty($status) ) {
+			return false;
+		}
+		
 		return Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
 									->where('o.order_id = ?', $id)
@@ -1389,6 +1393,9 @@ class Orders extends BaseOrders {
 				$oldOrderId	= $orderItem['order_id'];
 
 				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
+				
+				// log
+				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
 			// Set the status of the orders and the status of the items within the order just created
@@ -1530,7 +1537,8 @@ class Orders extends BaseOrders {
 		if(is_numeric($customerid)){
 			$dq->andWhere ( "customer_id = ?", $customerid );
 		}
-				
+			
+        echo '<pre>';
 		return $dq->execute ();
 	}
 	
@@ -1610,7 +1618,7 @@ class Orders extends BaseOrders {
 		$date  = explode ( "-", $order [0] ['order_date'] );
 				
 		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
-			 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+			 'orderid'    => self::formatOrderId($order)
 			,':shineisp:' => $customer
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
 		));
@@ -1778,6 +1786,16 @@ class Orders extends BaseOrders {
 			
 			$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 			$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+			
+			// Manage fullname
+			if ( is_array($items) && isset($items[0]) && isset($items [0] ['Customers']) ) {
+				if ( !empty($items [0] ['Customers']['company']) ) {
+					$items [0] ['Customers']['fullname']        = $items [0] ['Customers']['company'];
+					$items [0] ['Customers']['full_personname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];
+				} else {
+					$items [0] ['Customers']['fullname'] = $order [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
+				}
+			}
 			
 			return $items;
 		} catch ( Exception $e ) {
@@ -1961,8 +1979,6 @@ class Orders extends BaseOrders {
 				$invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
 				$customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
 				$customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
-				echo $order [0] ['Customers'] ['parent_id'];
-				die();
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['parent_id'], 'orders' );
 			} else {
 				$customer_email = Contacts::getEmails($order [0] ['Customers'] ['customer_id']);
@@ -1971,7 +1987,7 @@ class Orders extends BaseOrders {
 				$customer .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['customer_id'], 'orders' );
 			}
-			
+
 			$email = $order [0] ['Isp'] ['email'];
 			
 			$bankInfo = Banks::getBankInfo();
@@ -1990,7 +2006,7 @@ class Orders extends BaseOrders {
 			
 			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
-				 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+				 'orderid'    => self::formatOrderId($order)
 				,'email'      => $email
 				,'bank'       => $bank
 				,'url'        => $url
@@ -2005,21 +2021,89 @@ class Orders extends BaseOrders {
 	
 	
 	/**
-	 * Format the order id
-	 * @param unknown_type $orderId
+	 * Format the order id. Old way used as fallback
 	 */
-	public static function formatOrderId($orderId){
-
+	private static function formatOrderId_fallback($orderId) {
 		// Get the administration preferences
 		$prefix = Settings::findbyParam('orders_zero_prefix', 'admin');
-		
+
 		if(!empty($orderId) && is_numeric($prefix)){
 			return sprintf("%0" . $prefix . "d", $orderId);
 		}elseif(!empty($orderId) && !is_numeric($prefix)){
 			return $orderId;
 		}
+	}
+	
+	/**
+	 * Format the order id
+	 * @param array|object|int $order
+	 */
+	public static function formatOrderId($order) {
+		if ( empty($order) ) {
+			return false;
+		}
 		
-		return null;
+		// Check type of $order. Used for backward compatibility
+		if ( is_object($order) ) {
+			if ( isset($order->{0}) && isset($order->{0}->order_id) ) {
+				$orderId = intval($order->{0}->order_id);
+			} else if ( isset($order->order_id) ) {
+				$orderId = intval($order->order_id);
+			}
+		} else if ( is_array($order) ) {
+			if ( isset($order[0]) && isset($order[0]['order_id']) ) {
+				$orderId = intval($order[0]['order_id']);
+			} else if ( isset($order['order_id']) ) {
+				$orderId = intval($order['order_id']);
+			}
+		} else {
+			$orderId = intval($order);
+		}
+		
+		$orders_zero_prefix = self::formatOrderId_fallback($orderId);
+
+		$rs = Doctrine_Query::create ()->select ( "o.order_id, s.value AS orders_number_format
+													, YEAR(o.order_date) AS order_year
+													, MONTH(o.order_date) AS order_month
+													, DAY(o.order_date) AS order_day
+													, o.order_id AS order_id
+													, o.*" )
+									   ->from('orders o')
+									   ->leftJoin('o.Isp isp')
+									   ->leftJoin('isp.Settings s')
+									   ->leftJoin('s.SettingsParameters sp')
+									   ->where('o.order_id = ?', $orderId)
+									   ->andWhere('sp.var = "orders_number_format"')
+									   ->fetchOne();
+									   
+		if ( !is_object($rs) || empty($rs) || empty($rs->orders_number_format) ) {
+			// fallback to old method
+			return $orders_zero_prefix;
+		}
+								
+		// Some shortcuts
+		$orders_number_format = $rs->orders_number_format;
+		
+		// Get all placeholders in orders_number_format
+		preg_match_all('/\[([a-z0-9_]+)\]/', $orders_number_format, $out);
+		if ( is_array($out) && isset($out[1]) ) {
+			foreach ( $out[1] as $placeholder ) {
+				if ( $placeholder == 'order_id' ) {
+					$v = $orders_zero_prefix;
+				} else if ( $placeholder == 'order_year2' ) {
+					$v = substr($rs->order_year,2,2);	
+				} else {
+					$v = '['.$placeholder.']';
+					if ( isset($rs->{$placeholder})) {
+						$v = $rs->{$placeholder};
+					}
+				}
+				
+				$orders_number_format = str_replace('['.$placeholder.']', $v, $orders_number_format);
+			}
+		}
+		
+		return $orders_number_format;
 	}
 	
     /**
@@ -2492,7 +2576,7 @@ class Orders extends BaseOrders {
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
-				 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+				 'orderid'    => self::formatOrderId($order)
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			));
@@ -2538,7 +2622,7 @@ class Orders extends BaseOrders {
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
-				 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+				 'orderid'    => self::formatOrderId($order)
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			));
@@ -2578,7 +2662,7 @@ class Orders extends BaseOrders {
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 						
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_cleaned', array(
-						 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+						 'orderid'    => self::formatOrderId($order)
 						,':shineisp:' => $customer
 						,'url'        => $customer_url
 					));
@@ -2690,7 +2774,7 @@ class Orders extends BaseOrders {
 	
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
-						 'orderid'    => Shineisp_Commons_Utilities::formatOrderNumber($order)
+						 'orderid'    => self::formatOrderId($order)
 						,'url'        => $customer_url
 						,'items'      => $items
 						,':shineisp:' => $customer

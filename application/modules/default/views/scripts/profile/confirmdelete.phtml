@@ -1,10 +1,10 @@
 <div class="headtitle">
-    <h3><?php echo $this->translate('deleteaction');;?></h3>
-    <small><?php echo $this->translate('desc_deleteaction');?></small>
+    <h3><?php echo $this->translate('Are you sure to delete this profile?');;?></h3>
+    <small><?php echo $this->translate('If you delete this order all the data will be no more longer available.');?></small>
 </div>
 <h3><?=$this->contact[0]['contact']; ?></h3>
 <p><?=$this->translate('areusure'); ?></p>
 <p>
-<a href="/profile"><?=$this->translate('noiwrong'); ?></a>
-<a href="/profile/delete/id/<?=$this->contact[0]['contact_id']; ?>"><?=$this->translate('yesiwant'); ?></a>
+<a href="/profile"><?=$this->translate('No, I was wrong'); ?></a>
+<a href="/profile/delete/id/<?=$this->contact[0]['contact_id']; ?>"><?=$this->translate('Yes I would like to delete my account!'); ?></a>
 </p>

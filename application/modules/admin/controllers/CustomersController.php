@@ -256,7 +256,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		
+		$this->view->editmode = true;
 		
 		$this->view->addressesdatagrid = $this->addressesGrid ();
 		$this->view->contactsdatagrid = $this->contactsGrid ();
@@ -445,14 +445,14 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		}
 	}
 	
-
-	//* TODO: sort by ID/DATE desc
+	/**
+	 * get the email list sent to the customer
+	 */
 	private function sentmailsGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$fields = "subject";
+			$fields = "date, subject, recipient";
 			$rs = EmailsTemplatesSends::getByCustomerID ($request->id, $fields);
-			
 			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'view' => array ('controller' => 'emailstemplatessends', 'action' => 'view' ) );
 		}
 	}

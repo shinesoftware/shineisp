@@ -11,8 +11,6 @@ $(document).ready(function(){
 	    });
 	});
 	
-	$('.notification').delay(1500).fadeTo("slow", 0);
-	
 	tinyMCE.baseURL='/resources/js/wysiwyg/tiny_mce'; // your path to tinyMCE
     tinyMCE.init({
         // General options
@@ -268,7 +266,7 @@ $(document).ready(function(){
 	}); 
 	
     /* ######################## PRODUCTS ####################### */
-	$('.sublist').dataTable({
+	 $('.sublist').dataTable({
 	    "bRetrieve":true,
 		"sPaginationType": "full_numbers",
 	 });

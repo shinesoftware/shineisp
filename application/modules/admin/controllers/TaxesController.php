@@ -128,8 +128,8 @@ class Admin_TaxesController extends Zend_Controller_Action {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'delete_question' );
-				$this->view->description = $this->translator->translate ( 'desc_delete_question' );
+				$this->view->title = $this->translator->translate ( 'Are you sure to delete this tax class?' );
+				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will be no more longer available.' );
 				
 				$record = $this->taxes->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];

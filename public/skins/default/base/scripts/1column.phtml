@@ -1,12 +1,12 @@
-<?= $this->render('includes/header.phtml') ?>
+<?php echo $this->render('includes/startpage.phtml') ?>
 
-	<?=$this->blocks()->showblock('startbody');?>
+	<?php echo $this->blocks()->showblock('startbody');?>
     <div id="container">
     
-		<?= $this->render('includes/top.phtml') ?>
-		<?= $this->render('includes/content-header.phtml') ?>
+		<?php echo $this->render('includes/top.phtml') ?>
+		<?php echo $this->render('includes/content-header.phtml') ?>
 		
-		<?=$this->blocks()->showblock('beforecontent');?>
+		<?php echo $this->blocks()->showblock('beforecontent');?>
 	
 		<div id="content">
 			<div class="outerShadow"></div>
@@ -14,24 +14,24 @@
 			<div class="center">
             	<div class="clearfix"></div>
 				<?php echo $this->Messages(); ?>
-		    	<?=$this->cmsheader($this->headerdata);?>
-	            <?=$this->blocks()->showblock('contentstart');?>
-	            <?= $this->layout()->content ?>
-	            <?=$this->blocks()->showblock('contentend');?>
+		    	<?php echo $this->cmsheader($this->headerdata);?>
+	            <?php echo $this->blocks()->showblock('contentstart');?>
+	            <?php echo $this->layout()->content ?>
+	            <?php echo $this->blocks()->showblock('contentend');?>
 	            <div class="clearfix"></div>
             </div>
 		</div> 
 		
-		<?=$this->blocks()->showblock('beforefooter');?>
+		<?php echo $this->blocks()->showblock('beforefooter');?>
         <div id="footer">
         	<div class="center clearfix">
-	            <?=$this->footer();?>
-	            <?=$this->blocks()->showblock('footer');?>
+	            <?php echo $this->footer();?>
+	            <?php echo $this->blocks()->showblock('footer');?>
 	        </div>
         </div><!-- End #footer -->
-        <?=$this->blocks()->showblock('endfooter');?>
+        <?php echo $this->blocks()->showblock('endfooter');?>
     </div>	<!-- End #main-container -->
     
-<?=$this->blocks()->showblock('endbody');?>
+<?php echo $this->blocks()->showblock('endbody');?>
 
-<?= $this->render('includes/footer.phtml') ?>
+<?php echo $this->render('includes/endpage.phtml') ?>

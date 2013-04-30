@@ -1,7 +1,8 @@
 <?php if(count($this->languages) > 1): ?>
 	<ul class="languageswitcher">
 		<?php foreach ($this->languages as $language): ?>
-			<li><a class="<?php echo strtolower($language['language'])?>" href="<?=$this->uri ?>?lang=<?php echo $language['locale']?>"><?=$this->translate($language['language']) ?></a></li>
+			<?php $locale = strtolower($language['language'][0].$language['language'][1])?>
+			<li><a class="<?php echo strtolower($language['language'])?>" href="<?=$this->uri ?>?lang=<?php echo $locale?>"><?=$this->translate($language['language']) ?></a></li>
 	    <?php endforeach;?>
 	</ul>	    
 <?php endif;?>    

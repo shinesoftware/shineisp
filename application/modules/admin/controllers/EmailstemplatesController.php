@@ -39,7 +39,9 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 	public function listAction() {
 		$this->view->title = "Email Templates";
 		$this->view->description = "Here you can see all groups of servers.";
-		$this->view->buttons = array(array("url" => "/admin/emailstemplates/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/emailstemplates/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right')))
+									,array("url" => "/admin/emailstemplates/confirmimport/", "label" => $this->translator->translate('Import'), "params" => array('css' => array('button', 'float_right')))
+								);
 		$this->datagrid->setConfig ( EmailsTemplates::grid() )->datagrid ();
 	}
 
@@ -135,6 +137,74 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 			echo $e->getMessage ();
 		}
 	}
+
+	/**
+	 * confirmimportAction
+	 * Ask to the user a confirmation before execute the import
+	 * @return null
+	 */
+	public function confirmimportAction() {
+		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		
+		try {
+			$this->view->back = "/admin/$controller/list/";
+			$this->view->goto = "/admin/$controller/import/";
+			$this->view->title = $this->translator->translate ( 'Are you  sure to reimport all templates?' );
+			$this->view->description = $this->translator->translate ( 'If you force import, all customization made to a template from the admin panel will no longer be available' );
+		} catch ( Exception $e ) {
+			echo $e->getMessage ();
+		}
+	}
+	/**
+	 * importAcetion
+	 * Import all templates from disks
+	 * @return unknown_type
+	 */
+	public function importAction() {
+		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		$importOK   = 0;
+		$arrDeleted = array();
+
+		/*
+		 * Cycle all template and all languages
+		 */
+		$arrLanguages = Languages::getActiveLanguageList();
+		if ( is_array($arrLanguages) && !empty($arrLanguages) ) {
+			foreach ( $arrLanguages as $lang ) {
+				if ( empty($lang['locale']) ) {
+					continue;
+				}
+				
+				$dir = PUBLIC_PATH . "/languages/emails/".$lang['locale'];
+								
+				foreach ( scandir($dir) as $file ) {
+					if ( !preg_match('/^([a-z0-9A-Z\-\_]+)\.htm$/', $file, $out) ) {
+						continue;
+					}
+					
+					if ( empty($out[1]) ) {
+						continue;
+					}
+					
+					// Import
+					$outArray = Shineisp_Commons_Utilities::getEmailTemplate($out[1], $lang['locale']);
+					
+					if ( !empty($outArray) ) {
+						$importOK++;
+					}
+				}
+				
+			}
+		}
+				
+		if ( $importOK > 0 ) {
+			$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Template imported successfully' ), 'status' => 'success' ) );
+		}
+
+		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'An error occurred' ), 'status' => 'success' ) );	
+		
+	}
+
 	
 	/**
 	 * deleteAction
@@ -177,7 +247,7 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 		);
 		
 		if ( !empty($id) && is_numeric($id) ) {
-			$rs = $this->emailstemplates->find( $id, null, true, $this->session->langid );
+			$rs = $this->emailstemplates->find( $id, null, true, $this->session->lang );
 			
 			if (! empty ( $rs )) {
 				// Join the translated data information to populate the form
