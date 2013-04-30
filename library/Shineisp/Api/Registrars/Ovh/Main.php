@@ -188,8 +188,6 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 					call_user_func_array(array( $soap, 'resellerDomainCreate'), $params);
 					
 				}
-				Zend_Debug::dump($registrar);
-				die;
 				
 				return true;
 			}

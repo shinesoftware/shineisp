@@ -35,8 +35,12 @@ class Reviews extends BaseReviews
 		$config ['datagrid'] ['id'] = "reviews";
 		$config ['datagrid'] ['index'] = "review_id";
 
-		$config ['datagrid'] ['massactions']['common'] = array ('bulk_delete'=>'Mass Delete', 
-													  'bulk_export'=>'Export List');
+		$config ['datagrid'] ['massactions']['common'] = array ('bulk_delete'=> $translator->translate ('Mass Delete'), 'bulk_export' => $translator->translate ('Export List'));
+		
+		$statuses['bulk_set_status&status=1'] = $translator->translate ("Set as active");
+		$statuses['bulk_set_status&status=0'] = $translator->translate ("Set as suspended");
+		$config ['datagrid'] ['massactions']['statuses'] = $statuses;
+		
 		return $config;
 	}
 
@@ -262,8 +266,32 @@ class Reviews extends BaseReviews
 		return array('data' => $newarray, 'chart' => $chart);
 	}      
 	
+	/**
+	 * setStatus
+	 * Set a record with a status
+	 * @param $id, $status
+	 * @return Void
+	 */
+	public static function setStatus($id, $status) {
+		$dq = Doctrine_Query::create ()->update ( 'Reviews r' )->set ( 'r.active', '?', $status )->where ( "review_id = ?", $id );
+		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	}
+	
+	
 
 	######################################### BULK ACTIONS ############################################
+	
+	/**
+	 * Set the status of the records
+	 * @param array $items Items selected
+	 * @param array $parameters Custom paramenters
+	 */
+	public function bulk_set_status($items, $parameters) {
+		foreach ($items as $item) {
+			self::setStatus($item, $parameters['status']);
+		}
+		return true;
+	}
 	
 	
 	/**
