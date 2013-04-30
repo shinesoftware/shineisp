@@ -106,7 +106,11 @@ class Orders extends BaseOrders {
 	 * @param $id, $status
 	 * @return Void
 	 */
-	public static function set_status($id, $status) {
+	public static function set_status($id, $status = null) {
+		if ( empty($status) ) {
+			return false;
+		}
+		
 		return Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
 									->where('o.order_id = ?', $id)
@@ -1389,6 +1393,9 @@ class Orders extends BaseOrders {
 				$oldOrderId	= $orderItem['order_id'];
 
 				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
+				
+				// log
+				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
 			// Set the status of the orders and the status of the items within the order just created
