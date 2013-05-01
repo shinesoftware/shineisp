@@ -966,6 +966,7 @@ class Shineisp_Commons_Utilities {
 
 		// Get ISP details. Having this here is always usefull
 		$ISP = Isp::getActiveISP ();
+		
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
