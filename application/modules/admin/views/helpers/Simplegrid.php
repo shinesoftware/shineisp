@@ -31,6 +31,7 @@ class Admin_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 			$this->view->view   = ! empty ( $data ['view'] ) ? $data ['view'] : false;
 			$this->view->edit   = ! empty ( $data ['edit'] ) ? $data ['edit'] : false;
 			$this->view->delete = ! empty ( $data ['delete'] ) ? $data ['delete'] : false;
+			$this->view->targetlink = ! empty ( $data ['targetlink'] ) ? $data ['targetlink'] : null;
 			
 			// If you need more action use this parameter Array{'url'=>'name'} 
 			// for instance $actions['/admin/customers'] = "Customers"; 

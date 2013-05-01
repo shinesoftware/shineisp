@@ -1,18 +1,17 @@
 <?php
 
 /**
- * Manage the cron tasks
- * 
- * @version 1.0
- */
+	* This procedure is executed by cronjob every 5 minutes and it will check,
+	* custom tasks set in the /application/modules/system/layout.xml file.
+	*
+	* CREATE A SYSTEM CRONJOB EACH 5 MINUTES
+	*
+	* @version 1.1
+*/
 
 class System_CronController extends Zend_Controller_Action {
 
-	protected $translations;
-
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
-		$this->translations = $registry->Zend_Translate;
 		$this->getHelper ( 'layout' )->setLayout ( 'system' );
 	}
 	
@@ -71,6 +70,7 @@ class System_CronController extends Zend_Controller_Action {
 				}
 			}
 		}
+		
 		die ();
 	}
 	
