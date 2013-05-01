@@ -637,6 +637,7 @@ class Orders extends BaseOrders {
 		$i     = 0;
 		$total = 0;
 		$vat   = 0;
+		$tldid = null;
 		
 		if (! self::checkAutorenewProducts ( $products )) {
 			return false;
@@ -693,14 +694,25 @@ class Orders extends BaseOrders {
 									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 								
 								} elseif ($product ['type'] == "domain") {
+									
 									// Get the number of the months to be sum to the expiration date of the domain
 									$parameters = json_decode($oldOrderDetails [0] ['parameters'], true);
+									$tldid = !empty($parameters['tldid']) ? $parameters['tldid'] : NULL;
+									$domain = !empty($parameters['domain']) ? $parameters['domain'] : NULL;
+									
+									// get the tld information
+									$arrdomain = Shineisp_Commons_Utilities::getTld($domain);
+									if(!empty($arrdomain[1])){
+										$tld = DomainsTlds::getbyTld($arrdomain[1]);
+										if(!empty($tld['tld_id'])){
+											$orderitem->tld_id = $tld['tld_id'];
+										}
+									}
 									
 									$date_end = Shineisp_Commons_Utilities::add_date ( date ( $product ['expiring_date'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
 									$orderitem->date_start = $product ['expiring_date']; // The new order will have the date_end as date_start
-									$orderitem->tld_id = !empty($parameters['tldid']) ? $parameters['tldid'] : NULL;
 									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
-									$orderitem->parameters = json_encode ( array ('domain' => trim($parameters['domain']), 'action' => 'renewDomain', 'tldid' => $parameters['tldid'] ) );
+									$orderitem->parameters = json_encode ( array ('domain' => trim($domain), 'action' => 'renewDomain', 'tldid' => $tldid ) );
 								}
 								
 								$orderitem->autorenew = $oldOrderDetails [0] ['autorenew'];
@@ -712,7 +724,7 @@ class Orders extends BaseOrders {
 								
 								$orderitem->save ();
 								$orderitemid = $orderitem->getIncremented ();
-
+								
 								// sum of all the products prices 
 								$total = $total + ($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']);
 								

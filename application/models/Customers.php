@@ -774,8 +774,10 @@ class Customers extends BaseCustomers {
 		$registry = Zend_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
-		if ($empty) {
+		if ($empty === true) {
 			$items [] = $translations->translate ( 'Select ...' );
+		}elseif(is_string($empty)){
+			$items [] = $translations->translate ( $empty );
 		}
 		
 		$Customers = Doctrine_Query::create ()->from ( 'Customers u' );

@@ -936,28 +936,28 @@ class OrdersItems extends BaseOrdersItems {
 			 * Now we have to set as expired all the domains records that the date is the date of the expiring of the domain
 			* // Expired
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', 5 )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', 0 )->addWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ?', 0 );
+			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', Statuses::id('expired', 'domains') )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', 0 )->addWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ?', 0 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			/*
 			 * Now we have to set as closed all the domains records that the date is older of -2 days
 			* // Closed
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', 28 )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', - 2 );
+			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', Statuses::id('suspended', 'domains') )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			/*
 			 * Now we have to set as expired all the services records
 			* // Expired
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', 10 )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', 0 );
+			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', Statuses::id('expired', 'orders') )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', 0 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			/*
 			 * Now we have to set as deleted all the services records
 			* // Deleted
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', 20 )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
+			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', Statuses::id('deleted', 'domains') )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate(null, 'cron', array(
