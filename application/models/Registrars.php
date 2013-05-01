@@ -103,6 +103,7 @@ class Registrars extends BaseRegistrars
 	public static function getActions($registrarID) {
 		if(is_numeric($registrarID)){
 			$registrar = Registrars::find ( $registrarID, null, true );
+			
 			if (! empty ( $registrar [0] ['class'] ) && class_exists ( $registrar [0] ['class'] )) {
 				$class = $registrar [0] ['class'];
 				$reg = new $class ();
@@ -208,8 +209,13 @@ class Registrars extends BaseRegistrars
         								->limit ( 1 );
         
         $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
-        $record = $dq->execute ( array (), $retarray );
-        return $record;
+        $registrar = $dq->execute ( array (), $retarray );
+    
+    	if(!empty($registrar[0]['config'])){
+    		$settings = json_decode($registrar[0]['config'], true);
+    		$registrar[0] = array_merge($registrar[0], $settings);
+    	}
+        return $registrar;
     }	
 	
     /**

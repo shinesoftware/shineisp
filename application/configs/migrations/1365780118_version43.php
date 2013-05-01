@@ -7,7 +7,6 @@ class Version43 extends Doctrine_Migration_Base
     public function up()
     {
     	
-        $this->dropTable('products_tranches_includes');
         $this->removeColumn('panels', 'uri');
         $this->removeColumn('panels', 'location');
         $this->removeColumn('panels', 'username');

@@ -6,6 +6,7 @@ class Version41 extends Doctrine_Migration_Base
 {
     public function up()
     {
+    	
         $this->createTable('products_tranches_includes', array(
              'tranche_id' => 
              array(
