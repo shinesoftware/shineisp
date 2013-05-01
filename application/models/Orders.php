@@ -1805,7 +1805,7 @@ class Orders extends BaseOrders {
 					$items [0] ['Customers']['fullname']        = $items [0] ['Customers']['company'];
 					$items [0] ['Customers']['full_personname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];
 				} else {
-					$items [0] ['Customers']['fullname'] = $order [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
+					$items [0] ['Customers']['fullname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
 				}
 			}
 			
@@ -2004,8 +2004,7 @@ class Orders extends BaseOrders {
 			
 			$bankInfo = Banks::getBankInfo();
 			if(!empty($bankInfo['description'])){
-				$bankInfo['description'] = str_replace("<br />", "\n", $bankInfo['description']);
-				$bank = strip_tags($bankInfo['description']);
+				$bank = $bankInfo['description'];
 			}
 						
 			if (! empty ( $fastlink [0] ['code'] )) {
