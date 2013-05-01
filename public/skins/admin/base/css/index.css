@@ -15,6 +15,33 @@ h4{
 	clear: both
 }
 
+.fastcontainer{
+	text-align: right;
+	padding-right: 6px;
+}
+#fastwidget {
+	font-size: 13px;
+    margin-top: 11px;
+    padding: 1px;
+    width: 90% ;
+}
+
+.emailpreview .content{
+	margin: 20px auto;
+	width: 800px;
+}
+
+.emailpreview .header{
+	background-color: #eee;
+	padding: 5px;
+}
+
+.emailpreview .body{
+	margin-top: 10px;
+	padding: 5px;
+}
+
+
 /* End Columns section */
 table.gridsimple {
 	padding-top: 5px;

@@ -518,7 +518,7 @@ class Domains extends BaseDomains {
         }
                                            
         $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
-        
+
         return $records;
     }
 	
@@ -572,10 +572,12 @@ class Domains extends BaseDomains {
      * @return Void
      */
     public static function getExpiringDomains($customerID=null, $from=null, $to=null, $limit=null) {
-		if ( empty($from) || !is_numeric($from) ) {
+		
+    	if ( empty($from) || !is_numeric($from) ) {
 			// Try to read from DB
 			$from = Settings::findbyParam('domains_show_before_expire_days');
 		}
+		
 		if ( empty($to) || !is_numeric($to) ) {
 			// Try to read from DB
 			$to = Settings::findbyParam('domains_show_after_expire_days');
@@ -605,6 +607,7 @@ class Domains extends BaseDomains {
 		if(is_numeric($limit)){
 			$dq->limit($limit);
 		}
+		
 		$result = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 		return $result;

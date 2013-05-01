@@ -771,9 +771,10 @@ class Shineisp_Commons_Utilities {
 		try {
 			
 			$mail->send ( $transport );
-
+			
 			// All good, log to DB
 			if(is_array($to)){
+				
 				foreach ($to as $recipient){
 					// get customer_id
 					$Customers = Customers::findbyemail($recipient);
@@ -813,11 +814,12 @@ class Shineisp_Commons_Utilities {
 				$EmailsTemplatesSends->text        = $body;
 				$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 				$EmailsTemplatesSends->save();
+				
 			}
-						
 			
 			return true;
 		} catch ( Exception $e ) {
+			Zend_Debug::dump($e->getMessage());
 			return array ('email' => $to, 'message' => $e->getMessage () );
 		}
 		return false;
@@ -990,12 +992,16 @@ class Shineisp_Commons_Utilities {
 		unset($replace['isppanel']);
 
 		// Replace all placeholders in everything
-		foreach ( $replace as $placeholder => $value ) {
+		foreach ( $replace as $placeholder => $emailcontent ) {
 			foreach ( $arrTemplate as $k => $v ) {
-				$arrTemplate[$k] = str_replace('['.$placeholder.']', $value, $v);
+				
+				// $replace contains the order header information
+				if(is_string($emailcontent)){
+					$arrTemplate[$k] = str_replace('['.$placeholder.']', $emailcontent, $v);
+				}
 			}
 		}
-
+		
 		// Send the email
 		$arrBCC  = array();
 		$arrCC   = array();
@@ -1026,14 +1032,6 @@ class Shineisp_Commons_Utilities {
 	}
 
 
-
-
-
-
-
-
-
-	
 	public static function cvsExport($recordset) {
 		$cvs = "";
 		@unlink ( "documents/export.csv" );
