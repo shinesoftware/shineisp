@@ -76,9 +76,23 @@ class Languages extends BaseLanguages {
 	/**
 	 * get the language configuration by the identifier
 	 * 
+	 * @param unknown_type $locale
+	 */
+	public static function get_language_id($locale) {
+		$record = Doctrine::getTable ( 'Languages' )->findBy ( 'locale', $locale, Doctrine_Core::HYDRATE_ARRAY );
+		if (isset ( $record [0] )) {
+			return $record [0]['language_id'];
+		} else {
+			return 1;
+		}
+	}
+	
+	/**
+	 * get the language id by the code
+	 * 
 	 * @param string $locale [en,it,fr]
 	 */
-	public static function get_language_id($code) {
+	public static function get_language_id_by_code($code) {
 		
 		if(empty($code)){
 			return 1; // get the first language in the languages table

@@ -834,7 +834,7 @@ class Shineisp_Commons_Utilities {
 		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
-		
+				
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
@@ -844,10 +844,10 @@ class Shineisp_Commons_Utilities {
 				$locale .= "_" . strtoupper ( $locale );
 			}
 		}
-		
+				
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
-				
+		
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
 			if ( is_numeric($template) ) {
@@ -860,7 +860,7 @@ class Shineisp_Commons_Utilities {
 		} else {
 			$language_id = $fallback_language_id;
 		}
-
+		
 		// Template missing from DB. Let's add it.
 		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";

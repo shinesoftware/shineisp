@@ -541,12 +541,20 @@ AdminResources:
     name: Payment Transactions
     module: admin
     controller: payments
-    parent_id: 1    
+    parent_id: 1
+    admin: 1    
   AdminResources_89:
     name: Servers Groups
     module: admin
     controller: serversgroups
+    parent_id: 1
+    admin: 1    
+  AdminResources_90:
+    name: Email Templates
+    module: admin
+    controller: emailstemplates
     parent_id: 1    
+    admin: 1
     
         
 AdminPermissions:
@@ -744,6 +752,10 @@ AdminPermissions:
     permission: allow
   AdminPermissions_151:
     resource_id: 89
+    role_id: 1
+    permission: allow
+  AdminPermissions_152:
+    resource_id: 90
     role_id: 1
     permission: allow
 
