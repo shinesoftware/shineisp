@@ -196,7 +196,7 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 				
 			}
 		}
-				
+								
 		if ( $importOK > 0 ) {
 			$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Template imported successfully' ), 'status' => 'success' ) );
 		}
