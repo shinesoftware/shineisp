@@ -65,17 +65,13 @@ class EmailsTemplates extends BaseEmailsTemplates
 		return $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
 	}
 
-
 	/**
 	 * Get a record by code
 	 * 
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function findByCode($code, $fields = "*", $retarray = false, $lang="en") {
-		
-		$language_id = Languages::get_language_id($lang);
-		
+	public static function findByCode($code, $fields = "*", $retarray = false, $language_id = 1) {
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
 									->leftJoin ( "et.EmailsTemplatesData etd WITH etd.language_id = ".intval($language_id) )

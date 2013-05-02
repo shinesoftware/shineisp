@@ -48,7 +48,7 @@ class Shineisp_Controller_Plugin_LangSelector extends Zend_Controller_Plugin_Abs
 		
 		// check if the configuration file has been already set
 		if(Shineisp_Main::isReady()){
-			$ns->langid = Languages::get_language_id ( $ns->lang );
+			$ns->langid = Languages::get_language_id_by_code ( $ns->lang );
 		}else{
 			$ns->langid = 1;
 		}
