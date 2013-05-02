@@ -25,6 +25,20 @@ $(document).ready(function(){
         remove_script_host : true,
         theme_advanced_resizing : true
     });
+
+    tinyMCE.init({
+        // General options
+    	mode : "specific_textareas",
+        editor_selector : "wysiwyg_fullpage",
+        theme : "advanced",
+        plugins : "table,save,advhr,advimage,advlink,inlinepopups,insertdatetime,preview,media,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,fullpage",
+        width : "900",
+        height : "400",
+        convert_urls : false,
+        relative_urls : false,
+        remove_script_host : true,
+        theme_advanced_resizing : true
+    });
     
     tinyMCE.init({
     	// General options
