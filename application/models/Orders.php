@@ -2086,7 +2086,7 @@ class Orders extends BaseOrders {
 									   ->where('o.order_id = ?', $orderId)
 									   ->andWhere('sp.var = "orders_number_format"')
 									   ->fetchOne();
-									   
+
 		if ( !is_object($rs) || empty($rs) || empty($rs->orders_number_format) ) {
 			// fallback to old method
 			return $orders_zero_prefix;
@@ -2258,7 +2258,7 @@ class Orders extends BaseOrders {
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records'] [] = array ($item ['product_id'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
+					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
 				}
 				
 				if (isset ( $order [0] )) {

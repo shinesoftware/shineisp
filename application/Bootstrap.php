@@ -58,15 +58,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	{
 		$locale = new Zend_Locale(Zend_Locale::BROWSER);
 		$langcode = $locale->getLanguage();
-		
 		$translate = new Zend_Translate(
 									    array(
-									        'adapter' => 'gettext',
+									        'adapter' => "Shineisp_Translate_Adapter_Gettext",
 									        'content' => PUBLIC_PATH . "/languages/$langcode/$langcode.mo",
 									        'locale'  => $langcode,
 									    	'disableNotices' => true
 									    ));
-		
+
 		$registry = Zend_Registry::getInstance();
 		$registry->set('Zend_Translate', $translate);
 		$translate->setLocale('en');
