@@ -10,13 +10,13 @@
 		 and you have to set the start of the cron each 5 minutes
 	-->
 	<cron>
-		<!-- 8:00 every day -->
+		<!-- 8:30 every day -->
 		<execute time="30 8 * * *">
 			<script class="Orders" method="checkExpiringOrders">Check the expired orders</script>
 		</execute>
 		
 		<!-- 0:30 every day -->
-		<execute time="* * * * *">
+		<execute time="0 30 * * *">
 			<script class="OrdersItems" method="checkServices">Check subscribed services</script>
 		</execute>
 		
