@@ -1,26 +1,26 @@
 <?php $form = $this->form; ?>
 <div class="headtitle">
-    <h2><?php echo $this->translate('Order %s', $this->orderid); ?></h2>
+    <h2><?php echo $this->translate('Order %s', $this->formattedid); ?></h2>
     <small><?php echo $this->translate($this->description);?></small>
 </div>
 
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
+	<? if( $form->isErrors() ): ?>
+		<div class="messages">    
+		   <? foreach( $form->getElements() as $field){
+		         $errors = array();
+		   	     if($field->hasErrors()){
+		        	foreach( $field->getErrors() as $error){
+		        		$errors[] = $this->translate($error);
+		        	}
+		            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+		        }   
+		    } ?>
+		</div>    
+	<? endif; ?>
 
-		<p align="right" class="order-buttons">
-			<a href="/orders" class="grey-button"><?php echo $this->translate('Order list')?></a> 
-			<a href="/orders/print/id/<?php echo $this->orderid?>" class="grey-button"><?php echo $this->translate('Print Order')?></a> 
+	<p align="right" class="order-buttons">
+		<a href="/orders" class="grey-button"><?php echo $this->translate('Order list')?></a> 
+		<a href="/orders/print/id/<?php echo $this->orderid?>" class="grey-button"><?php echo $this->translate('Print Order')?></a> 
             <?php if($this->invoiced): ?>
                 <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="blue-button"><?php echo $this->translate('Print Invoice')?></a> 
             <?php else: ?>
@@ -42,32 +42,32 @@
         
         <?php // Files attached ?>
         <?php if($this->files[0]): ?>
-	    	<ul>
-	    		<?php foreach($this->files as $files): ?>
-	    		<li>- <a href="/documents/customers/<?php echo $this->customer_id ?>/orders/<?php echo $this->orderid ?>/<?php echo $files['file'] ?>"><?php echo $files['file']?></a></li>
-	    		<?php endforeach; ?>
-	    	</ul>
-	    	<?php endif; ?>
+    	<ul>
+    		<?php foreach($this->files as $files): ?>
+    		<li>- <a href="/documents/customers/<?php echo $this->customer_id ?>/orders/<?php echo $this->orderid ?>/<?php echo $files['file'] ?>"><?php echo $files['file']?></a></li>
+    		<?php endforeach; ?>
+    	</ul>
+    	<?php endif; ?>
         
         <?php 
-		 // Create a payment form  
-		 if($this->tobepaid): ?>
-		    <div class="payment-form"><?= $this->payments()->getPaymentsForm('order', $this->orderid);?></div>
-		 <?php endif;?>
+	 // Create a payment form  
+	 if($this->tobepaid): ?>
+	    <div class="payment-form"><?= $this->payments()->getPaymentsForm('order', $this->orderid);?></div>
+	 <?php endif;?>
 		 
-    	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-    		<h2><?php echo $this->translate('Messages')?></h2>
-	    	<small><?= $this->translate('Here you can read all your questions and the admin replies about this order.') ?></small>
-	    	
-	    	<?php echo $this->bbslist($this->messages); ?>
-	    	
-	    	<?php if(Orders::IsCommentable($this->orderid)): ?>
-	            <p><?php echo $form->note->render()?></p>
-	            <p align="right"><?php echo $form->save->render();?></p>
-	        <?php endif; ?>
+    <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+    	<h2><?php echo $this->translate('Messages')?></h2>
+    	<small><?= $this->translate('Here you can read all your questions and the admin replies about this order.') ?></small>
+    	
+    	<?php echo $this->bbslist($this->messages); ?>
+    	
+    	<?php if(Orders::IsCommentable($this->orderid)): ?>
+            <p><?php echo $form->note->render()?></p>
+            <p align="right"><?php echo $form->save->render();?></p>
+        <?php endif; ?>
             
             <?php if(!Orders::IsCommentable($this->orderid)): ?>
-	        	<br/><br/><a class="red-button" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
-	        <?php endif; ?>
+        	<br/><br/><a class="red-button" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
+        <?php endif; ?>
             <?php echo $form->order_id->render()?>
-		</form>        
+	</form>        

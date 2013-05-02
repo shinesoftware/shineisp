@@ -65,6 +65,7 @@ class OrdersController extends Zend_Controller_Action {
 												o.grandtotal as Total", 
 												$page, $NS->recordsperpage, $arrSort, $params );
 			$data ['currentpage'] = $page;
+			
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
 		}
