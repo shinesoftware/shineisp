@@ -251,7 +251,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 					$this->view->titlelink = "/index/link/id/" . $rs['fastlink'];
 				}
 				
-				$this->view->title = $this->translator->_( "Order nr. %s - %s", Orders::formatOrderId($id), $rs ['order_date']);
+				$this->view->title = $this->translator->_( "Order nr. %s", Orders::formatOrderId($id));
 				$this->view->messages = Messages::find ( 'order_id', $id, true );
 			} else {
 				$this->_helper->redirector ( 'list', 'orders', 'admin' );

@@ -38,6 +38,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->font = Zend_Pdf_Font::FONT_HELVETICA;
 		$this->data = array ();
 		$this->translator = $registry->Zend_Translate;
+		$this->locale = $registry->Zend_Locale;
 	}
 	
 	/**
@@ -485,8 +486,7 @@ class Shineisp_Commons_PdfOrder {
 	}
 	
 	/**
-	 * Summary
-	 * summary of the invoice
+	 * Invoice Summary
 	 * @return void
 	 */
 	private function Summary() {
@@ -545,7 +545,7 @@ class Shineisp_Commons_PdfOrder {
 	}
 	
 	/**
-	 * FooterDetails
+	 * Creation of the footer details
 	 * 
 	 * @return void
 	 */
@@ -591,9 +591,6 @@ class Shineisp_Commons_PdfOrder {
 		$toppos -= 30;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN + 295, $toppos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $toppos );
 		
-		
-		
-		
 		$toppos -= 60;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos+$h_offset, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos+$h_offset); // Prima riga, va dinamicizzata in base all'altezza
 		$this->page->drawLine ( PAGE_BOTH_MARGIN + 490, $bottomPos+$h_offset, PAGE_BOTH_MARGIN + 490, $bottomPos ); // Vertical line
@@ -601,7 +598,6 @@ class Shineisp_Commons_PdfOrder {
 		//$toppos -= 30;
 		$this->page->drawLine ( PAGE_BOTH_MARGIN, $bottomPos, PAGE_WIDTH - PAGE_BOTH_MARGIN, $bottomPos ); // Ultima riga, deve essere fissa
 
-				
 		// Reset of the height for writing the labels
 		$toppos = $originalToppos;
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 5 );
@@ -618,7 +614,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
 		
-		$this->Write ( $currency->getShortName(Settings::findbyParam('currency'), $this->translator->getLocale()), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
+		$this->Write ( $currency->getShortName(Settings::findbyParam('currency'), $this->locale), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$this->Write ( $records ['company'] ['bankname'], PAGE_BOTH_MARGIN + 2, $toppos - 24 );
@@ -642,7 +638,6 @@ class Shineisp_Commons_PdfOrder {
 		$records ['payment_description'] = ! empty ( $records ['payment_description'] ) ? $records ['payment_description'] : "";
 		$records ['payment_mode'] = ! empty ( $records ['payment_mode'] ) ? $records ['payment_mode'] : "";
 
-
 		if ( $totalPayments > 1 ) {
 			$c = 0;
 			foreach ( $records['payments'] as $payment ) {
@@ -665,9 +660,6 @@ class Shineisp_Commons_PdfOrder {
 			$this->Write ( $records ['payment_date'], PAGE_BOTH_MARGIN + 420, $toppos - 162 );
 		}
 
-		//print_r($records);
-		//die();
-
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA_BOLD, 9 );
 		$this->Write ( $records ['grandtotal'], PAGE_BOTH_MARGIN + 500, $toppos - 162 );
 
@@ -678,6 +670,9 @@ class Shineisp_Commons_PdfOrder {
 		$this->h = $toppos - 210;
 	}
 	
+	/**
+	 * Create the footer of the pdf file
+	 */
 	private function Footer() {
 		$toppos = 20;
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
@@ -688,6 +683,9 @@ class Shineisp_Commons_PdfOrder {
 	
 	}
 	
+	/**
+	 * Create a new page
+	 */
 	private function CreatePage() {
 		$this->page = $this->pdf->newPage ( Zend_Pdf_Page::SIZE_A4 );
 		$this->pdf->pages [] = $this->page;
@@ -892,8 +890,8 @@ class Shineisp_Commons_PdfOrder {
 			}
 		
 		} catch ( exception $e ) {
-			Shineisp_Commons_Utilities::log($e->message ());
-			return $e->message ();
+			Shineisp_Commons_Utilities::log($e->getMessage ());
+			return $e->getMessage ();
 		}
 	}
 	
