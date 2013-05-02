@@ -2258,7 +2258,7 @@ class Orders extends BaseOrders {
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records'] [] = array ($item ['product_id'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
+					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
 				}
 				
 				if (isset ( $order [0] )) {
