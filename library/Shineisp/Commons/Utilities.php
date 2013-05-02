@@ -847,7 +847,7 @@ class Shineisp_Commons_Utilities {
 				
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
-				
+		
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
 			if ( is_numeric($template) ) {
@@ -860,7 +860,7 @@ class Shineisp_Commons_Utilities {
 		} else {
 			$language_id = $fallback_language_id;
 		}
-
+		
 		// Template missing from DB. Let's add it.
 		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
@@ -896,6 +896,12 @@ class Shineisp_Commons_Utilities {
 			$body = trim($body);
 			$subject = trim($subject);
 			
+			// check if the string contains html tags and if it does not contain tags
+			// means that it is a simple text. In this case add the tag "<br/>" for each return carrier
+			if(!self::isHtml($body)){
+				$body = nl2br($body);
+			}
+			
 			// Store mail in DB
 			$array = array(
 			     'type'      => 'general'
@@ -906,7 +912,7 @@ class Shineisp_Commons_Utilities {
 				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'ShineISP'        // TODO: remove this hardcoded value
 				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
 				,'subject'   => $subject
-				,'html'      => nl2br($body)
+				,'html'      => $body
 			
 			);
 
@@ -948,9 +954,18 @@ class Shineisp_Commons_Utilities {
 		return $email;
 	}
 
-
-
-
+	/**
+	 * Check if the string contains html tags
+	 * @param unknown_type $string
+	 */
+	public static function isHtml($string){
+		 preg_match("/<\/?\w+((\s+\w+(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)\/?>/",$string, $matches);
+	     if(count($matches)==0){
+	        return FALSE;
+	      }else{
+	         return TRUE;
+	      }
+	}
 
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
