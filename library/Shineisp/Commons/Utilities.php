@@ -834,7 +834,7 @@ class Shineisp_Commons_Utilities {
 		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
-		
+				
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
@@ -844,7 +844,7 @@ class Shineisp_Commons_Utilities {
 				$locale .= "_" . strtoupper ( $locale );
 			}
 		}
-		
+				
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
 				
