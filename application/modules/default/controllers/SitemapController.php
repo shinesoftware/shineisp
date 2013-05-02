@@ -7,7 +7,7 @@ class SitemapController extends Zend_Controller_Action {
 	 * Create the sitemap for google
 	 */
 	public function indexAction() {
-		$pages = CMSPages::getpages('it_IT');
+		$pages = CmsPages::getpages('it_IT');
 
 		// add the homepage
 		$cats [] = array ("loc" => "http://" . $_SERVER ['HTTP_HOST'], "changefreq" => "weekly" );

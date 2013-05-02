@@ -31,7 +31,7 @@ class Admin_CmsblocksController extends Zend_Controller_Action {
 	
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
-		$this->cmsblocks = new CMSBlocks ();
+		$this->cmsblocks = new CmsBlocks ();
 		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "cmsblocks" )->setModel ( $this->cmsblocks );		
@@ -53,11 +53,11 @@ class Admin_CmsblocksController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "CMS Blocks list";
+		$this->view->title = "Cms Blocks list";
 		$this->view->description = "Here you can see all the cms blocks.";
 		$this->view->buttons = array(array("url" => "/admin/cmsblocks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
-		$this->datagrid->setConfig ( CMSBlocks::grid() )->datagrid ();
+		$this->datagrid->setConfig ( CmsBlocks::grid() )->datagrid ();
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Admin_CmsblocksController extends Zend_Controller_Action {
 	 * @return string Json records
 	 */
 	public function loadrecordsAction() {
-		$this->_helper->ajaxgrid->setConfig ( CMSBlocks::grid() )->loadRecords ($this->getRequest ()->getParams());
+		$this->_helper->ajaxgrid->setConfig ( CmsBlocks::grid() )->loadRecords ($this->getRequest ()->getParams());
 	}	
 	
 	/**
@@ -75,7 +75,7 @@ class Admin_CmsblocksController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function searchprocessAction() {
-		$this->_helper->ajaxgrid->setConfig ( CMSBlocks::grid() )->search ();
+		$this->_helper->ajaxgrid->setConfig ( CmsBlocks::grid() )->search ();
 	}
 	
 	/*
@@ -145,7 +145,7 @@ class Admin_CmsblocksController extends Zend_Controller_Action {
 	public function deleteAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
 		if (is_numeric ( $id )) {
-			CMSBlocks::deleteItem( $id );
+			CmsBlocks::deleteItem( $id );
 		}
 		return $this->_helper->redirector ( 'index', 'cmsblocks' );
 	}
@@ -209,7 +209,7 @@ class Admin_CmsblocksController extends Zend_Controller_Action {
 			// Get the id 
 			$id = $this->getRequest ()->getParam ( 'block_id' );
 			
-			CMSBlocks::saveAll($id, $form->getValues ());
+			CmsBlocks::saveAll($id, $form->getValues ());
 			
 			$redirector->gotoUrl ( "/admin/cmsblocks/edit/id/$id" );
 		

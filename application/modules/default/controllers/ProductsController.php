@@ -95,7 +95,7 @@ class ProductsController extends Zend_Controller_Action {
 				}				
 				
 				// Attaching the WIKI Pages
-				$wikipages = Wikilinks::getWikiPages($data ['product_id'], "products", $ns->langid);
+				$wikipages = WikiLinks::getWikiPages($data ['product_id'], "products", $ns->langid);
 				if(count($wikipages) > 0){
 					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'products/wikipages.phtml', array ('wikipages' => $wikipages) ) );
 					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );

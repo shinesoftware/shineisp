@@ -100,7 +100,7 @@ class Shineisp_Commons_Contents {
 	}
 	
 	/**
-	 * chkCMSBlocks
+	 * chkCmsBlocks
 	 * Replace all the blocks with the cms blocks found
 	 * 
 	 * In the cms page you have to write in this way within the text body
@@ -109,7 +109,7 @@ class Shineisp_Commons_Contents {
 	 * @param string $text
 	 * @return string
 	 */
-	public static function chkCMSBlocks($text, $locale="en_US") {
+	public static function chkCmsBlocks($text, $locale="en_US") {
 		$languageID = Languages::get_language_id($locale);
 		
 		// Get all the blocks in the whole text
@@ -130,13 +130,13 @@ class Shineisp_Commons_Contents {
 					$blockname = str_replace("\"", "", $matches[2][0]);	
 					
 					// Get the block information
-					$rsblock = CMSBlocks::findbyvar($blockname, $languageID);
+					$rsblock = CmsBlocks::findbyvar($blockname, $languageID);
 
 					// Replace the block placeholder with the cmsblock body
 					if(!empty($rsblock[0])){
 						$text = str_replace($block, $rsblock[0]['body'], $text);
 					}else{
-						$text = str_replace($block, "[ERROR CMS block: $blockname doesn't exist.]", $text);
+						$text = str_replace($block, "[ERROR Cms block: $blockname doesn't exist.]", $text);
 					}
 				}
 			}

@@ -19,8 +19,7 @@ class CmsController extends Zend_Controller_Action {
 		$locale = $ns->lang;
 		
 		if (! empty ( $var )) {
-			$page = CMSPages::findbyvar ( $var, $locale );
-			
+			$page = CmsPages::findbyvar ( $var, $locale );
 			if($page['active'] == false){
 				return $this->_helper->redirector ( 'index', 'index', 'default' );
 			}
@@ -70,7 +69,7 @@ class CmsController extends Zend_Controller_Action {
 			$locale = $locale . "_" . strtoupper ( $locale );
 		}
 		if (is_array ( $page )) {
-			$pages = CMSPages::getParent ( $page ['page_id'], $locale );
+			$pages = CmsPages::getParent ( $page ['page_id'], $locale );
 			
 			// Set the title of the subheader
 			$data ['title'] = $page ['title'];

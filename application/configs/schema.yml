@@ -252,7 +252,7 @@ Bulkmails:
     body:
       type: string()
       notnull: true
-CMSBlocks:
+CmsBlocks:
   connection: doctrine
   tableName: cms_blocks
   columns:
@@ -277,7 +277,7 @@ CMSBlocks:
       type: string()
       notnull: true
 
-CMSBlocksData:
+CmsBlocksData:
   connection: doctrine
   tableName: cms_blocks_data
   columns:
@@ -296,12 +296,12 @@ CMSBlocksData:
       local: language_id
       foreign: language_id
       onDelete: CASCADE
-    CMSBlocks:
+    CmsBlocks:
       local: block_id
       foreign: block_id
       onDelete: CASCADE
 
-CMSPages:
+CmsPages:
   connection: doctrine
   tableName: cms_pages
   columns:
@@ -347,7 +347,7 @@ CMSPages:
     blocks: string()
     xmllayout: string()
 
-CMSPagesData:
+CmsPagesData:
   connection: doctrine
   tableName: cms_pages_data
   columns:
@@ -367,7 +367,7 @@ CMSPagesData:
       local: language_id
       foreign: language_id
       onDelete: CASCADE
-    CMSPages:
+    CmsPages:
       local: page_id
       foreign: page_id
       onDelete: CASCADE
@@ -1586,11 +1586,11 @@ Languages:
       local: language_id
       foreign: language_id
       type: many
-    CMSPagesData:
+    CmsPagesData:
       local: language_id
       foreign: language_id
       type: many
-    CMSBlocksData:
+    CmsBlocksData:
       local: language_id
       foreign: language_id
       type: many
@@ -2418,7 +2418,7 @@ Products:
       local: product_id
       foreign: upgrade_product_id
       type: many      
-    Wikilinks:
+    WikiLinks:
       local: product_id
       foreign: product_id
       type: many
@@ -2646,7 +2646,7 @@ ProductsCategories:
     externalid: integer(4)
     custom: string()
   relations:
-    Wikilinks:
+    WikiLinks:
       local: category_id
       foreign: category_id
       type: many
@@ -3531,7 +3531,7 @@ Wiki:
       local: language_id
       foreign: language_id
       onDelete: CASCADE
-    Wikilinks:
+    WikiLinks:
       local: wiki_id
       foreign: wiki_id
       type: many
@@ -3560,7 +3560,7 @@ WikiCategories:
       local: category_id
       foreign: category_id
       type: many
-Wikilinks:
+WikiLinks:
   connection: doctrine
   tableName: wiki_links
   columns:

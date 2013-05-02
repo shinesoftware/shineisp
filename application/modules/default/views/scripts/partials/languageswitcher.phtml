@@ -2,7 +2,7 @@
 	<ul class="languageswitcher">
 		<?php foreach ($this->languages as $language): ?>
 			<?php $locale = strtolower($language['language'][0].$language['language'][1])?>
-			<li><a class="<?php echo strtolower($language['language'])?>" href="<?=$this->uri ?>?lang=<?php echo $locale?>"><?=$this->translate($language['language']) ?></a></li>
+			<li><a class="<?php echo strtolower($language['language'])?>" href="/index/index/lang/<?php echo $locale?>"><?=$this->translate($language['language']) ?></a></li>
 	    <?php endforeach;?>
 	</ul>	    
 <?php endif;?>    
