@@ -725,7 +725,11 @@ class Shineisp_Commons_Utilities {
 		if ($html) {
 			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
-			$mail->setBodyText ( $body);
+			if(self::isHtml($body)){
+				$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
+			}else{
+				$mail->setBodyText ( $body);
+			}
 		}
 		
 		if ( is_array($from ) ) {
