@@ -54,7 +54,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 */
 	public static function find($id, $fields = "*", $retarray = false, $lang="en") {
 		
-		$language_id = Languages::get_language_id($lang);
+		$language_id = Languages::get_language_id_by_code($lang);
 		
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'EmailsTemplates et' )
