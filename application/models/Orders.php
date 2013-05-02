@@ -2086,7 +2086,7 @@ class Orders extends BaseOrders {
 									   ->where('o.order_id = ?', $orderId)
 									   ->andWhere('sp.var = "orders_number_format"')
 									   ->fetchOne();
-									   
+
 		if ( !is_object($rs) || empty($rs) || empty($rs->orders_number_format) ) {
 			// fallback to old method
 			return $orders_zero_prefix;
