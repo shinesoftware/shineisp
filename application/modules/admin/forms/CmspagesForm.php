@@ -62,7 +62,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->getElement('parent_id')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(CMSPages::getList(true));
+                  ->setMultiOptions(CmsPages::getList(true));
         
         $this->addElement('select', 'layout', array(
             'decorators'  => array('Composite'),
@@ -73,7 +73,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->getElement('layout')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(CMSPages::getLayouts());
+                  ->setMultiOptions(CmsPages::getLayouts());
         
         $this->addElement('select', 'pagelayout', array(
             'decorators'  => array('Composite'),
@@ -84,7 +84,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->getElement('pagelayout')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(CMSPages::getPageLayouts());
+                  ->setMultiOptions(CmsPages::getPageLayouts());
         
         $this->addElement('multiselect', 'language_id', array(
             'decorators'  => array('Composite'),

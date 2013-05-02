@@ -35,7 +35,7 @@ class RssController extends Zend_Controller_Action {
 			$feed->addHub ( $ISP['website'] );
 			
 			// Get all the cms pages
-			$records = CMSPages::getRssPages($locale);
+			$records = CmsPages::getRssPages($locale);
 			
 			foreach ( $records as $record ) {
 				$link = 'http://' . $_SERVER ['HTTP_HOST'] . '/cms/' . $record ['var'] . '.html';

@@ -35,7 +35,7 @@ msgstr "Permessi"
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:39
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:38
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:41
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:40
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:40
 #: /Library/WebServer/Documents/shineisp/application/models/CompanyTypes.php:35
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:53
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:63
@@ -78,7 +78,7 @@ msgstr "Modifica"
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:43
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:42
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:45
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:44
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:44
 #: /Library/WebServer/Documents/shineisp/application/models/CompanyTypes.php:39
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:57
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:67
@@ -164,7 +164,7 @@ msgstr "Cancella"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:25
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:24
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/CompanyTypes.php:23
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:23
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:44
@@ -224,7 +224,7 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Banks.php:25
-#: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:25
+#: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1192
 #: /Library/WebServer/Documents/shineisp/application/models/Languages.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:25
@@ -254,13 +254,13 @@ msgstr "Nome"
 msgid "Test Mode"
 msgstr "Modalità Teste"
 
-#: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:26
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:26
+#: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:26
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:26
 msgid "Variable"
 msgstr "Variabile"
 
-#: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:27
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:27
+#: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:27
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:408
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:27
@@ -273,13 +273,13 @@ msgstr "Variabile"
 msgid "Date"
 msgstr "Data"
 
-#: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:28
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:25
+#: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:28
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:25
 msgid "Title"
 msgstr "Titolo"
 
-#: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:29
-#: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:28
+#: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:29
+#: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1211
 msgid "Language"
 msgstr "Lingua"
@@ -2112,8 +2112,8 @@ msgid "There was an error on save the data."
 msgstr "C'è un problema durante il salvataggio dei dati."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:55
-msgid "CMS"
-msgstr "CMS"
+msgid "Cms"
+msgstr "Cms"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:82
 msgid "Product"

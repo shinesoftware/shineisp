@@ -119,11 +119,11 @@ ProductsAttributesGroupsIndexes:
     ProductsAttributes: ProductsAttributes_1
     ProductsAttributesGroups: ProductsAttributesGroups_3
     
-Wikilinks:
-  Wikilinks_1:
+WikiLinks:
+  WikiLinks_1:
     Products: Products_2
     Wiki: Wiki_1
-  Wikilinks_2:
+  WikiLinks_2:
     ProductsCategories: ProductsCategories_5
     Wiki: Wiki_1
 
@@ -479,7 +479,7 @@ ProductsCategories:
     externalid: null
     custom: null
   ProductsCategories_5:
-    name: 'CMS Hosting'
+    name: 'Cms Hosting'
     description: '<p>Here you can insert your own category description</p>'
     keywords: 'hosting plans, php hosting, website'
     uri: cms-hosting
@@ -562,8 +562,8 @@ ProductsData:
   ProductsData_5:
     name: 'Gold Hosting Plan'
     nickname: Gold
-    shortdescription: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, CMS and so on.</p>'
-    description: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, CMS and so on.</p>'
+    shortdescription: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, Cms and so on.</p>'
+    description: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, Cms and so on.</p>'
     metakeywords: ''
     metadescription: ''
     Products: Products_3

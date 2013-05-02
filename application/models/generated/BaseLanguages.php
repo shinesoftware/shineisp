@@ -14,8 +14,8 @@ Doctrine_Manager::getInstance()->bindComponent('Languages', 'doctrine');
  * @property boolean $base
  * @property boolean $active
  * @property Doctrine_Collection $DomainsTldsData
- * @property Doctrine_Collection $CMSPagesData
- * @property Doctrine_Collection $CMSBlocksData
+ * @property Doctrine_Collection $CmsPagesData
+ * @property Doctrine_Collection $CmsBlocksData
  * @property Doctrine_Collection $Wiki
  * @property Doctrine_Collection $ProductsData
  * @property Doctrine_Collection $ProductsAttributesData
@@ -72,11 +72,11 @@ abstract class BaseLanguages extends Doctrine_Record
              'local' => 'language_id',
              'foreign' => 'language_id'));
 
-        $this->hasMany('CMSPagesData', array(
+        $this->hasMany('CmsPagesData', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
 
-        $this->hasMany('CMSBlocksData', array(
+        $this->hasMany('CmsBlocksData', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
 
