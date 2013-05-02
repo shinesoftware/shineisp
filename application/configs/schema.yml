@@ -1107,22 +1107,7 @@ DomainsTlds:
       local: server_id
       foreign: server_id
       type: one
-    DomainsTldsData:
-      local: tld_id
-      foreign: tld_id
-      type: many
-    DomainsBulk:
-      local: tld_id
-      foreign: tld_id
-      type: many
-    Domains:
-      local: tld_id
-      foreign: tld_id
-      type: many
-    OrdersItems:
-      local: tld_id
-      foreign: tld_id
-      type: many
+
 DomainsTldsData:
   connection: doctrine
   tableName: domains_tlds_data
@@ -3321,15 +3306,7 @@ Taxes:
       unsigned: false
       primary: false
       autoincrement: false
-  relations:
-    DomainsTlds:
-      local: tax_id
-      foreign: tax_id
-      type: many
-    Products:
-      local: tax_id
-      foreign: tax_id
-      type: many
+
 Tickets:
   connection: doctrine
   tableName: tickets
