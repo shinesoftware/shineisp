@@ -196,7 +196,7 @@ class Newsletters extends BaseNewsletters
 		
 		// Get all the cms pages
 		$contents['pages'] = "";
-		$records = CMSPages::getRssPages($ns->lang);
+		$records = CmsPages::getRssPages($ns->lang);
 		foreach ( $records as $record ) {
 			$link = 'http://' . $_SERVER ['HTTP_HOST'] . '/cms/' . $record ['var'] . '.html';
 			$contents['pages'] .= "<p><b><a href='".$link."'>" . $record ['title'] . "</a></b></p>";

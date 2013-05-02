@@ -29,7 +29,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 	}
 	
 	private function createMenu($parent, $locale) {
-		$children = CMSPages::getParent ( $parent, $locale );
+		$children = CmsPages::getParent ( $parent, $locale );
 		$items = array ();
 		
 		if (is_array ( $children )) {

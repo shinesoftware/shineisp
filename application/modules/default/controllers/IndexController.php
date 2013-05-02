@@ -18,7 +18,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
 		// Call the static Homepage
-		$homepage = CMSPages::findbyvar ( "homepage", $locale );
+		$homepage = CmsPages::findbyvar ( "homepage", $locale );
 		if (! empty ( $homepage ['body'] )) {
 
 			// Set the custom layout of the page
