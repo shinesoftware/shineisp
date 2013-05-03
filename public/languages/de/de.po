@@ -3,9 +3,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
+"X-Generator: Poedit 1.5.5\n"
 "Project-Id-Version: ShineISP\n"
-"Language: nl\n"
+"Language: de\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Rein <reingramsma@hetverschil.info>\n"
+"Language-Team: \n"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:24
 msgid "Module"
@@ -13,20 +17,20 @@ msgstr "Module"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:25
 msgid "Controller"
-msgstr "Controle paneel"
+msgstr "Steuerung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:26
 msgid "Resource"
-msgstr "Bron"
+msgstr "Quelle"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:29
 msgid "Role"
-msgstr "Rol"
+msgstr "Rolle"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:28
 msgid "Permission"
-msgstr "Toestemming"
+msgstr "Erlaubnis"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:39
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:38
@@ -69,7 +73,7 @@ msgstr "Toestemming"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:87
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:59
 msgid "Edit"
-msgstr "Wijzigen"
+msgstr "Bearbeiten"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminPermissions.php:43
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:42
@@ -156,7 +160,7 @@ msgstr "Wijzigen"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:63
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/taglist.phtml:3
 msgid "Delete"
-msgstr "Verwijderen"
+msgstr "Löschen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:25
@@ -195,7 +199,7 @@ msgstr "ID"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminRoles.php:27
 msgid "Role Name"
-msgstr "Rolnaam"
+msgstr "Rollename"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:984
@@ -203,7 +207,7 @@ msgstr "Rolnaam"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:36
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:66
 msgid "Firstname"
-msgstr "Voornaam"
+msgstr "Vorname"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:985
@@ -213,7 +217,7 @@ msgstr "Voornaam"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:40
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:70
 msgid "Lastname"
-msgstr "Achternaam"
+msgstr "Nachname"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:28
 msgid "E-Mail"
@@ -244,16 +248,16 @@ msgstr "Id"
 #: /Library/WebServer/Documents/shineisp/application/models/ServersGroups.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/Taxes.php:26
 msgid "Name"
-msgstr "Naam"
+msgstr "Name"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Banks.php:27
 msgid "Test Mode"
-msgstr "Test modus"
+msgstr "Test Modus"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:26
 msgid "Variable"
-msgstr "Variabele"
+msgstr "Variable"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CMSBlocks.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:27
@@ -278,7 +282,7 @@ msgstr "Titel"
 #: /Library/WebServer/Documents/shineisp/application/models/CMSPages.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1211
 msgid "Language"
-msgstr "Taal"
+msgstr "Sprache"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CompanyTypes.php:130
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:778
@@ -299,13 +303,13 @@ msgstr "Taal"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:100
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:101
 msgid "Select ..."
-msgstr "Selecteer …"
+msgstr "Wählen …"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:406
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CreditnotesController.php:178
 msgid "Credit Note"
-msgstr "Creditfactuur"
+msgstr "Gutschrift"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:25
@@ -313,7 +317,7 @@ msgstr "Creditfactuur"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:617
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:701
 msgid "Invoice Number"
-msgstr "Factuurnummer"
+msgstr "Rechnungnummer"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:26
@@ -321,7 +325,7 @@ msgstr "Factuurnummer"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:616
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:703
 msgid "Order Number"
-msgstr "Bestelnummer"
+msgstr "Bestellnummer"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:32
@@ -332,7 +336,7 @@ msgstr "Bestelnummer"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:28
 msgid "Customer"
-msgstr "Klant"
+msgstr "Kunde"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:29
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:413
@@ -346,19 +350,19 @@ msgstr "Klant"
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:32
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:329
 msgid "Grand Total"
-msgstr "Groot totaal"
+msgstr "Gesamtsumme"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:280
 msgid "Credit Note No."
-msgstr "Creditfactuur nr."
+msgstr "Gutschrift Nr."
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:399
 msgid "Credit Notes List"
-msgstr "Creditfacturen"
+msgstr "Gutschriften"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:400
 msgid "List of the credit notes"
-msgstr "Overzicht van de creditfacturen"
+msgstr "Liste der Gutschriften."
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:407
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:946
@@ -369,7 +373,7 @@ msgstr "Overzicht van de creditfacturen"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CreditnotesController.php:188
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:271
 msgid "Invoice"
-msgstr "Factuur"
+msgstr "Rechnung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:409
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:45
@@ -388,7 +392,7 @@ msgstr "Factuur"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:32
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:62
 msgid "Company"
-msgstr "Bedrijf"
+msgstr "Unternehmen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:410
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:46
@@ -396,7 +400,7 @@ msgstr "Bedrijf"
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2821
 #: /Library/WebServer/Documents/shineisp/application/models/PanelsActions.php:25
 msgid "Fullname"
-msgstr "Voor- en achternaam"
+msgstr "Vor-und Nachname"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:411
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:29
@@ -410,7 +414,7 @@ msgstr "Voor- en achternaam"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:65
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:15
 msgid "Total"
-msgstr "Totaal"
+msgstr "Gesamtsumme"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:412
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1205
@@ -424,7 +428,7 @@ msgstr "Totaal"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:48
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:78
 msgid "VAT"
-msgstr "BTW"
+msgstr "MwSt."
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:414
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:989
@@ -470,96 +474,96 @@ msgstr "Status"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:976
 msgid "Customers List"
-msgstr "Klanten"
+msgstr "Kunden"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:977
 msgid "List of all the customers selected"
-msgstr "Overzicht van de geselecteerde klanten"
+msgstr "Liste der ausgewählten Kunden"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:987
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1218
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:27
 msgid "City"
-msgstr "Plaats"
+msgstr "Ort"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:988
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1221
 msgid "Area"
-msgstr "wijk"
+msgstr "Bezirk"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1184
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1185
 msgid "Customer List"
-msgstr "Klanten"
+msgstr "Kunden"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1196
 msgid "Sex"
-msgstr "geslacht"
+msgstr "M/F"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1198
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:16
 msgid "Password"
-msgstr "Wachtwoord"
+msgstr "Passwort"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1199
 msgid "Birthdate"
-msgstr "Geboortedatum"
+msgstr "Geburtsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1200
 msgid "Birthplace"
-msgstr "Geboorteplaats"
+msgstr "Geburtsort"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1201
 msgid "Birthdistrict"
-msgstr "Geboorteprovincie"
+msgstr "Bundesland"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1202
 msgid "Birthcountry"
-msgstr "Geboorteland"
+msgstr "Heimatland"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1203
 msgid "Birth Nationality"
-msgstr "nationaliteit"
+msgstr "Staatsangehörigkeit"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1204
 msgid "Tax Payer Number"
-msgstr "Burger servicenummer"
+msgstr "Steuernummer"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1206
 msgid "Company Type"
-msgstr "Bedrijfsvorm"
+msgstr "Betriebsart"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1207
 msgid "Legalform"
-msgstr "Rechtspersoonlijkheid"
+msgstr "Rechtsfähigkeit"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1208
 msgid "Note"
-msgstr "Opmerkingen"
+msgstr "Bemerkungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1210
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:32
 msgid "Group"
-msgstr "Productgroep"
+msgstr "Produktgruppe"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1212
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:103
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:105
 msgid "Newsletter"
-msgstr "Nieuwsbrief"
+msgstr "Newsletter"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1213
 msgid "Created at"
-msgstr "Aangemaakt op"
+msgstr "Angefertigt am"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1214
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:35
 msgid "Updated at"
-msgstr "Bijgewerkt op"
+msgstr "Aktualisiert am"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1215
 msgid "Taxfree"
-msgstr "Geen BTW"
+msgstr "keine MwSt."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1217
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:103
@@ -568,17 +572,17 @@ msgstr "Geen BTW"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:38
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:68
 msgid "Address"
-msgstr "Adres"
+msgstr "Adresse"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1219
 #: /Library/WebServer/Documents/shineisp/application/models/EmailsTemplates.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:29
 msgid "Code"
-msgstr "Code"
+msgstr "Kode"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1220
 msgid "Country"
-msgstr "land"
+msgstr "Land"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1518
@@ -591,7 +595,7 @@ msgstr "land"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:6
 msgid "Domain"
-msgstr "Domein"
+msgstr "Domain"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:26
@@ -607,16 +611,16 @@ msgstr "Automatisch verlengen"
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:21
 msgid "Creation date"
-msgstr "Aanmaakdatum"
+msgstr "Anfertigungsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:29
 msgid "Expiring date"
-msgstr "Vervaldatum"
+msgstr "Verfallsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:30
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:31
 msgid "Days left"
-msgstr "dagen tot vervaldatum"
+msgstr "Tage bis zum Verfallsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:32
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:27
@@ -625,79 +629,83 @@ msgstr "Registrar"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:178
 msgid "The domains selected have been registered."
-msgstr "De gekozen domeinen zijn geregistreerd."
+msgstr "Die gewählte Domains sind registriert worden."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1331
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Graphs.php:83
 msgid "Domain Summary per Month"
-msgstr "Samenvatting domeinen per maand"
+msgstr "Zusammenfassung Domains pro Monat"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1366
 msgid "Earning Summary"
-msgstr "Samenvatting opbrengsten"
+msgstr "Zusammenfassung Einkommen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1367
 msgid "Earnings"
-msgstr "Opbrengsten"
+msgstr "Einkommen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1457
 msgid "TLD name have been not set in the administration panel yet"
-msgstr "Er zijn nog geen TLD's gedefiniëerd door de beheerder."
+msgstr "Es sind noch keine TLDs vom Administrator definiert."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1459
 msgid "Domain name is not correct: %s"
-msgstr "Deze domeinnaam is onjuist: %s"
+msgstr "Der Domainname stimmt nicht: %s"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1463
 msgid "Domain name is empty!"
-msgstr "De domeinnaam is niet ingevuld!"
+msgstr "Der Domainname ist nicht ausgefüllt!"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1481
 msgid "All the items have been deleted"
-msgstr "Alle items werden gewist"
+msgstr "Alle Elemente wurden gelöscht"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1483
 msgid "There was a problem during the record delete process."
-msgstr "Er is een probleem ontstaan bij het wissen van het record."
+msgstr "Es gab ein Problem beim Löschen des Datensatzes."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1511
 msgid "Domains List"
-msgstr "Overzicht domeinen"
+msgstr "Domains Liste"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1512
-msgid "List of the domains updated at %s and sorted by the expiring date and domain name"
-msgstr "Overzicht van de domeinen, geüpdate op %s en gesorteerd op verloopdatum en domeinnaam"
+msgid ""
+"List of the domains updated at %s and sorted by the expiring date and domain "
+"name"
+msgstr ""
+"Liste der am %s aktualisierten Domains und sortiert nach dem Ablaufdatum und "
+"Domainnamen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1519
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:26
 msgid "Creation Date"
-msgstr "Aanmaakdatum"
+msgstr "Anfertigungsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1520
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/dashboard.phtml:6
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:30
 msgid "Expiring Date"
-msgstr "Verloopdatum"
+msgstr "Verfallsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1521
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:31
 msgid "Days"
-msgstr "Dagen"
+msgstr "Tage"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/PanelsActions.php:26
 msgid "Action"
-msgstr "Actie"
+msgstr "Aktion"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/PanelsActions.php:27
 msgid "Start"
-msgstr "Aanvang"
+msgstr "Anfangen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:29
 #: /Library/WebServer/Documents/shineisp/application/models/PanelsActions.php:28
 msgid "End"
-msgstr "Einde"
+msgstr "Ende"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTlds.php:26
 msgid "TLD"
@@ -706,17 +714,17 @@ msgstr "TLD"
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTlds.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:14
 msgid "Registration price"
-msgstr "Registratie prijs"
+msgstr "Registrierung Preis"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTlds.php:28
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:18
 msgid "Transfer price"
-msgstr "Verhuis prijs"
+msgstr "Transfer Preis"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTlds.php:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:22
 msgid "Renewal price"
-msgstr "Verlenging prijs"
+msgstr "Verlängerung Preis"
 
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTlds.php:30
 msgid "Whois"
@@ -724,41 +732,41 @@ msgstr "Whois"
 
 #: /Library/WebServer/Documents/shineisp/application/models/EmailsTemplates.php:26
 msgid "Section"
-msgstr "Sectie"
+msgstr "Sektion"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:232
 msgid "Cost"
-msgstr "Bedrag"
+msgstr "Betrag"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:31
 msgid "Grandtotal"
-msgstr "Groottotaal"
+msgstr "Gesamtsumme"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:87
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:324
 msgid "Month nr."
-msgstr "maand nr."
+msgstr "Monat Nr."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:88
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:325
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:71
 msgid "Month"
-msgstr "Maand"
+msgstr "Monat"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:89
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:326
 msgid "Year"
-msgstr "jaar"
+msgstr "Jahr"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:106
 msgid "Incoming data report"
-msgstr "Rapport Inkomsten"
+msgstr "Einnahmenrapport"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:225
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:228
 msgid "Months"
-msgstr "maanden"
+msgstr "Monate"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:226
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:271
@@ -767,58 +775,58 @@ msgstr "Euro"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:230
 msgid "Revenues (Taxable incomes)"
-msgstr "Inkomsten (opbrengst voor belastingen)"
+msgstr "Umsatz (Steuerpflichtiges Einkommen)"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:231
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:274
 msgid "Net Revenues (Taxable incomes - Costs)"
-msgstr "Netto marge (inkomsten – kosten)"
+msgstr "Netto-Marge (Umsatz - Kosten)"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:233
 msgid "Vat"
-msgstr "BTW"
+msgstr "MwSt."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:251
 msgid "%s Performances in %s - %s net - %s gross"
-msgstr "Resultaten %s in %s - excl.BTW %s ( incl.BTW %s )"
+msgstr "Ergebnisse%s in %s - exkl.MwSt %s ( inkl.MwSt %s )"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:270
 msgid "Week Number - Month"
-msgstr "weeknr./maand"
+msgstr "Wochen Nr./Monat"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:273
 msgid "Week"
-msgstr "week"
+msgstr "Woche"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:283
 msgid "%s Week Performances"
-msgstr "Weekresultaten %s"
+msgstr "Wochenergebnisse %s"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:655
 msgid "Invoice No."
-msgstr "Factuur nr."
+msgstr "Rechnung Nr."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:743
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2200
 msgid "To be Payed"
-msgstr "Te betalen"
+msgstr "Zu bezahlen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:747
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2204
 msgid "Payed"
-msgstr "Betaald"
+msgstr "Bezahlt"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:876
 msgid "Invoices uploaded to the Dropbox folder"
-msgstr "Facturen geüpload naar de Dropbox map"
+msgstr "Rechnung hochgeladen zum Dropbox"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:935
 msgid "Invoices List"
-msgstr "Facturen"
+msgstr "Rechnungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:936
 msgid "List of the the invoices"
-msgstr "Overzicht van de facturen"
+msgstr "Liste der Rechnungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:947
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2817
@@ -830,11 +838,11 @@ msgstr "Overzicht van de facturen"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:99
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:246
 msgid "Order"
-msgstr "Bestelling"
+msgstr "Bestellung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:966
 msgid "Totals"
-msgstr "Totalen"
+msgstr "Gesamtsumme"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Languages.php:26
 msgid "Locale"
@@ -844,7 +852,7 @@ msgstr "Locale"
 #: /Library/WebServer/Documents/shineisp/application/models/Panels.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:30
 msgid "Active"
-msgstr "Actief"
+msgstr "Activ"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Newsletters.php:26
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:26
@@ -852,30 +860,30 @@ msgstr "Actief"
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:25
 msgid "Subject"
-msgstr "Onderwerp"
+msgstr "Betreff"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Newsletters.php:27
 msgid "Send at"
-msgstr "Verzonden op"
+msgstr "Abgeschickt am"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Newsletters.php:28
 msgid "Sent"
-msgstr "Verzonden"
+msgstr "Abgeschickt"
 
 #: /Library/WebServer/Documents/shineisp/application/models/NewslettersSubscribers.php:27
 msgid "Subscription Date"
-msgstr "Aanmelddatum"
+msgstr "Abonnement seit"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Notes.php:27
 msgid "Created"
-msgstr "Aangemaakt"
+msgstr "Angefertigt"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:393
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:29
 msgid "Reseller"
-msgstr "Reseller"
+msgstr "Wiederverkäufer"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:30
 msgid "Renewal"
@@ -884,47 +892,47 @@ msgstr "Vernieuwing"
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:360
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:205
 msgid "Order Details"
-msgstr "Bestelgegevens"
+msgstr "Bestelldaten"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2121
 msgid "Order No."
-msgstr "Bestel nr."
+msgstr "Bestell Nr."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2810
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:80
 msgid "Orders List"
-msgstr "Overzicht bestellingen"
+msgstr "Liste der Bestellungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2811
 msgid "List of the orders"
-msgstr "Overzicht van de bestellingen"
+msgstr "Liste der Bestellungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:26
 msgid "Order ID"
-msgstr "Bestel ID"
+msgstr "Bestell ID"
 
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:127
 msgid "Service"
-msgstr "Dienst"
+msgstr "Dienstleistung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:32
 msgid "Start date"
-msgstr "Aanvangsdatum"
+msgstr "Anfangsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:33
 msgid "End date"
-msgstr "Einddatum"
+msgstr "Endedatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:23
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:391
 msgid "Transaction Date"
-msgstr "Datum transactie"
+msgstr "Datum Transaktion"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:389
 msgid "Order Date"
-msgstr "besteldatum"
+msgstr "Bestelldatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:30
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:396
@@ -933,12 +941,12 @@ msgstr "besteldatum"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:98
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:100
 msgid "Income"
-msgstr "Inkomsten"
+msgstr "Einnahmen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:31
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:397
 msgid "Outcome"
-msgstr "Resultaat"
+msgstr "Ergebnis"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:380
 msgid "Payment Transactions List"
@@ -946,61 +954,61 @@ msgstr "Betalingstransacties"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:381
 msgid "List of the payment transactions"
-msgstr "Overzicht van de betalingstransacties"
+msgstr "Liste der Zahlungstransaktionen."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:387
 msgid "Payment"
-msgstr "Betaling"
+msgstr "Bezahlung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:394
 msgid "Reference"
-msgstr "Referentie"
+msgstr "Referenz"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:395
 msgid "Confirmed"
-msgstr "Bevestigd"
+msgstr "Bestätigt"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:31
 msgid "Type"
-msgstr "Soort"
+msgstr "Art"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:33
 msgid "Server group"
-msgstr "Server groep"
+msgstr "Server-Gruppe"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:34
 msgid "Inserted at"
-msgstr "Toegevoegd op"
+msgstr "Hinzugefügt am"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:36
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:27
 msgid "Enabled"
-msgstr "Actief"
+msgstr "Activ"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:30
 msgid "Label"
-msgstr "Label"
+msgstr "Bezeichnung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:31
 msgid "System Attributes"
-msgstr "Systeem attributen???"
+msgstr "System Attributen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:32
 msgid "Default"
-msgstr "Standaard"
+msgstr "Standard"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:33
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:26
 msgid "Position"
-msgstr "Positie"
+msgstr "Position"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:34
 msgid "Visible on Frontend"
-msgstr "Tonen op de website"
+msgstr "Zeigen auf der Website"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:35
 msgid "Groups"
-msgstr "Productgroepen"
+msgstr "Produktgruppen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:33
@@ -1011,7 +1019,7 @@ msgstr "Productgroepen"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/wikisidebar.phtml:12
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/help.phtml:4
 msgid "Category"
-msgstr "Categorie"
+msgstr "Kategorie"
 
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:382
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:118
@@ -1022,31 +1030,31 @@ msgstr "Categorie"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/dashboard.phtml:5
 msgid "Domains"
-msgstr "Domeinen"
+msgstr "Domains"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:26
 msgid "Supplier"
-msgstr "Leverancier"
+msgstr "Lieferant"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:28
 msgid "Attachment"
-msgstr "Bijlage"
+msgstr "Anlage"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:29
 msgid "Payment Method"
-msgstr "Betaald via"
+msgstr "Zahlungsweise"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:345
 msgid "Expenses data report"
-msgstr "Rapport Uitgaven"
+msgstr "Ausgabenrapport"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:377
 msgid "Purchases Invoices List"
-msgstr "Inkoopfacturen"
+msgstr "Liste der Einkaufsrechnungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:378
 msgid "List of the the purchases invoices"
-msgstr "Overzicht van de inkoopfacturen"
+msgstr "Liste der Einkaufsrechnungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:389
 msgid "Number"
@@ -1058,17 +1066,17 @@ msgstr "Methode"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:392
 msgid "Total Net"
-msgstr "Totaal excl. BTW"
+msgstr "Summe exkl. MwSt."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Registrars.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/registrants.phtml:5
 msgid "Credit"
-msgstr "Credit"
+msgstr "Kredit"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Registrars.php:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/registrants.phtml:4
 msgid "Username"
-msgstr "Gebruikersnaam"
+msgstr "Benutzername"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Registrars.php:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NewsletterController.php:169
@@ -1077,28 +1085,28 @@ msgstr "Test"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Registrars.php:190
 msgid "No Registrar"
-msgstr "Geen registrar"
+msgstr "Kein Registrar"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:305
 msgid "Nick"
-msgstr "Alias"
+msgstr "Spitzname"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:29
 msgid "Published on"
-msgstr "Gepubliceerd op"
+msgstr "Veröffentlicht am"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:298
 msgid "Product Reviews List"
-msgstr "Productbeoordelingen"
+msgstr "Produktbewertungen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:299
 msgid "List of the product reviews."
-msgstr "Overzicht van de productbeoordelingen"
+msgstr "Liste der Kundenbewertungen."
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:307
 msgid "review"
-msgstr "beoordeling"
+msgstr "Bewertung"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Servers.php:53
 msgid "IP"
@@ -1106,36 +1114,36 @@ msgstr "IP"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Servers.php:55
 msgid "Usage"
-msgstr "Gebruik"
+msgstr "Verbrauch"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Servers.php:56
 msgid "Panel"
-msgstr "Paneel"
+msgstr "Schirm"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Taxes.php:27
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "Prozentsatz"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:22
 msgid "Updating date"
-msgstr "Wijzigingsdatum"
+msgstr "Aktualisierungsdatum"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:27
 msgid "Replies"
-msgstr "Antwoorden"
+msgstr "Antworte"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:28
 msgid "Files"
-msgstr "Bijlagen"
+msgstr "Anlagen"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:432
 msgid "nosubject"
-msgstr "geen onderwerp"
+msgstr "kein Betreff"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:434
 #: /Library/WebServer/Documents/shineisp/application/models/TicketsNotes.php:121
 msgid "Generic Issue"
-msgstr "Algemene vraag"
+msgstr "Algemeine Frage"
 
 #: /Library/WebServer/Documents/shineisp/application/models/UrlRewrite.php:26
 msgid "Request"
@@ -1143,15 +1151,15 @@ msgstr "Request"
 
 #: /Library/WebServer/Documents/shineisp/application/models/UrlRewrite.php:27
 msgid "Target"
-msgstr "doel"
+msgstr "Ziel"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:28
 msgid "Visits"
-msgstr "Bezoeken"
+msgstr "Besuche"
 
 #: /Library/WebServer/Documents/shineisp/application/models/WikiCategories.php:26
 msgid "Public"
-msgstr "Publiceren?"
+msgstr "Veröffentlichen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:49
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:169
@@ -1269,7 +1277,7 @@ msgstr "Publiceren?"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:159
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:193
 msgid "New"
-msgstr "Nieuw"
+msgstr "Neu"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:100
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:167
@@ -1393,7 +1401,7 @@ msgstr "Nieuw"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:157
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:191
 msgid "Save"
-msgstr "Opslaan"
+msgstr "Speichern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:101
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:168
@@ -1514,7 +1522,7 @@ msgstr "Opslaan"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:7
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/thumbs.phtml:14
 msgid "List"
-msgstr "Overzicht"
+msgstr "Liste"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:128
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CompanytypesController.php:131
@@ -1534,7 +1542,7 @@ msgstr "Overzicht"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:124
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:128
 msgid "Are you sure to delete the record selected?"
-msgstr "Weet u zeker dat u deze vermelding definitief wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diesen Eintrag dauerhaft löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:129
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstldsController.php:128
@@ -1542,8 +1550,12 @@ msgstr "Weet u zeker dat u deze vermelding definitief wilt verwijderen?"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:115
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:125
-msgid "If you delete the bank information parameters the customers cannot pay you anymore with this method of payment"
-msgstr "Wanneer u de gegevens van deze betaalrekening verwijderd, kunnen klanten deze rekening niet meer gebruiken om te betalen."
+msgid ""
+"If you delete the bank information parameters the customers cannot pay you "
+"anymore with this method of payment"
+msgstr ""
+"Wenn Sie die Parameter der Bank Informationen löschen können die Kunden "
+"nicht mehr mit dieser Art der Zahlung bezahlen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:134
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:151
@@ -1610,37 +1622,37 @@ msgstr "Wanneer u de gegevens van deze betaalrekening verwijderd, kunnen klanten
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Ajaxgrid.php:160
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Datagrid.php:297
 msgid "Unable to process request at this time."
-msgstr "Het is helaas op dit moment niet mogelijk dit verzoek te behandelen."
+msgstr "Anforderung kann zu dieser Zeit nicht verarbeitet werden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmsblocksController.php:127
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmspagesController.php:122
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:173
 msgid "Are you sure to delete this page?"
-msgstr "Weet u zeker dat u deze pagina wilt wissen?"
+msgstr "Sind Sie sicher, dass Sie diese Seite löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmsblocksController.php:128
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmspagesController.php:123
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:174
 msgid "The page will be no more longer available."
-msgstr "De pagina is niet meer beschikbaar."
+msgstr "Die Seite ist nicht mehr verfügbar."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmspagesController.php:177
 msgid "Visit"
-msgstr "Bekijken"
+msgstr "Besuchen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:104
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:129
 msgid "Customers"
-msgstr "Klanten"
+msgstr "Kunden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:111
 msgid "Customer email"
-msgstr "Email klant"
+msgstr "Email Kunde"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:125
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:27
 msgid "Products"
-msgstr "Producten"
+msgstr "Produkte"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:39
@@ -1649,7 +1661,7 @@ msgstr "Producten"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:99
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:101
 msgid "Orders"
-msgstr "Bestellingen"
+msgstr "Bestellungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:139
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:116
@@ -1658,8 +1670,11 @@ msgstr "Wiki"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CompanytypesController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LegalformsController.php:132
-msgid "If you delete the customer legal form information the data will be no longer restored"
-msgstr "Rechtspersoonlijkheid"
+msgid ""
+"If you delete the customer legal form information the data will be no longer "
+"restored"
+msgstr ""
+"Wenn Sie die Rechtsform entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CompanytypesController.php:207
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CreditnotesController.php:152
@@ -1700,28 +1715,34 @@ msgstr "Rechtspersoonlijkheid"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Ajaxgrid.php:151
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Datagrid.php:288
 msgid "The task requested has been executed successfully."
-msgstr "De bewerking is met succes voltooid."
+msgstr "Die Operation wurde erfolgreich abgeschlossen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CreditnotesController.php:109
 msgid "Are you sure to delete the credit note selected?"
-msgstr "Weet u zeker dat u de geselecteerde creditfactuur wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie die ausgewählte Gutschrift löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CreditnotesController.php:110
 msgid "The credit note will not be longer available "
-msgstr "De creditfactuur is dan niet meer beschikbaar."
+msgstr "Die Gutschrift ist dann nicht mehr verfügbar."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CreditnotesController.php:187
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:272
 msgid "Print"
-msgstr "Afdrukken"
+msgstr "Drucken"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:116
-msgid "WARNING: Are you sure to delete this customer, domains, invoices, orders, tickets?"
-msgstr "OPGELET! Weet u zeker dat u deze klant en zijn domeinen, facturen, bestellingen en helptickets wilt verwijderen?"
+msgid ""
+"WARNING: Are you sure to delete this customer, domains, invoices, orders, "
+"tickets?"
+msgstr ""
+"VORSICHT! Sind Sie sicher, dass Sie diesen Kunden und die angehörige "
+"Domains, Rechnungen, Bestellungen und Hilfe Tickets löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:117
-msgid "If you delete this customer whole information will be no longer available anymore."
-msgstr "Wanneer u deze klant verwijdert zullen ook alle daaraan gekoppelde gegevens definitief worden gewist."
+msgid ""
+"If you delete this customer whole information will be no longer available "
+"anymore."
+msgstr "Wenn Sie den Kunden entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:248
 msgid "New Order"
@@ -1729,7 +1750,7 @@ msgstr "Nieuwe bestelling"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:250
 msgid "Public profile"
-msgstr "Openbaar profiel"
+msgstr "Öffentliches Profil"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:305
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:356
@@ -1740,64 +1761,74 @@ msgid "Yes"
 msgstr "Ja "
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersgroupsController.php:132
-msgid "If you delete the customer group information the data will be no longer restored"
-msgstr "Wanneer u deze klantgroep verwijdert, worden de gegevens definitief gewist."
+msgid ""
+"If you delete the customer group information the data will be no longer "
+"restored"
+msgstr ""
+"Wenn Sie diese Kundengruppe entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsController.php:134
 msgid "Are you sure to delete the domain?"
-msgstr "Weet u zeker dat u dit domein wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diese Domain löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsController.php:135
 msgid "If a domain has been deleted it is no more restorable."
-msgstr "Deze actie kan niet meer ongedaan worden gemaakt."
+msgstr "Wenn eine Domain gelöscht wurde ist es nicht mehr wiederherstellbar."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:132
-msgid "If you delete the domains tasks form information the data will be no longer restored"
-msgstr "Wanneer u domein bewerkingen verwijdert worden deze definitief gewist."
+msgid ""
+"If you delete the domains tasks form information the data will be no longer "
+"restored"
+msgstr ""
+"Wenn Sie Domainaufgaben entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:43
 msgid "Import"
-msgstr "Importeren"
+msgstr "Importieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:123
 msgid "Are you  sure to delete the selected template?"
-msgstr "Weet u zeker dat u de geselecteerde template wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie die ausgewählte Schablone löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:124
 msgid "If you delete this template, it will be no longer available."
-msgstr "Wanneer u de template verwijdert wordt deze definitief gewist."
+msgstr "Wenn Sie die Schablone entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:152
 msgid "Are you  sure to reimport all templates?"
-msgstr "Weet u zeker dat u alle templates opnieuw wilt importeren?"
+msgstr "Sind Sie sicher, dass Sie alle Schablone neu importieren wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:153
-msgid "If you force import, all customization made to a template from the admin panel will no longer be available"
-msgstr "Wanneer u doorgaat met de import zullen alle wijzigingen die u zelf in de templates heeft aangebracht worden overschreven."
+msgid ""
+"If you force import, all customization made to a template from the admin "
+"panel will no longer be available"
+msgstr ""
+"Wenn Sie mit dem Import fortfahren, werden alle Änderungen, die Sie selbst "
+"in den Templates gemacht haben, überschrieben."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:203
 msgid "Template imported successfully"
-msgstr "Template werd geïmporteerd."
+msgstr "Schablone importiert"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:206
 msgid "An error eccorued"
-msgstr "Er is een fout opgetreden."
+msgstr "Es gab einen Fehler."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:223
 msgid "You can not delete system templates"
-msgstr "U kunt geen systeem templates wissen."
+msgstr "Sie können Systemschablonen nicht löschen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:230
 msgid "Template deleted successfully"
-msgstr "Template gewist."
+msgstr "Schablone gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:116
 msgid "Are you sure to delete the invoice selected?"
-msgstr "Weet u zeker dat u de geselecteerde factuur wilt verwijderen?"
+msgstr "Sind Sie sicher, dass die ausgewählte Rechnung löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:117
 msgid "The invoice will not be longer available "
-msgstr "Deze factuur wordt dan definitief gewist."
+msgstr "Diese Rechnung wird dauerhaft gelöscht werden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:188
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:273
@@ -1807,16 +1838,16 @@ msgstr "Dropbox.it"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:195
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:284
 msgid "Email invoice"
-msgstr "E-mail de factuur"
+msgstr "E-mail die Rechnung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:221
 msgid "The invoice has been uploaded in dropbox."
-msgstr "De factuur is in de dropbox gedaan."
+msgstr "Die Rechnung ist in Dropbox hochgeladen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:223
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:609
 msgid "There was a problem during the process."
-msgstr "Er is een probleem opgetreden in het proces."
+msgstr "Es gab ein Problem in den Vorgang."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:241
 msgid "Already exist an invoice for this order."
@@ -1824,238 +1855,268 @@ msgstr "Voor deze bestelling is al een factuur aangemaakt."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:291
 msgid "The invoice cannot be created. Please check all the data written."
-msgstr "De factuur kan niet worden aangemaakt. Controleer de gegevens."
+msgstr "Die Rechnung kann nicht erstellt werden. Überprüfen Sie die Daten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LanguagesController.php:129
 msgid "If you delete the language information all the translations items"
-msgstr "Wanneer u de taalgegevens verwijdert, worden alle vertalingen???"
+msgstr ""
+"Wenn Sie eine Sprache entfernen, werden die Daten endgültig gelöscht.???"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:62
 msgid "User has been not found."
-msgstr "Deze gebruiker werd niet gevonden."
+msgstr "Der Benutzer wurde nicht gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:68
 msgid "The email address or password is incorrect. please try again."
-msgstr "Het e-mail adres of het wachtwoord zijn onjuist. Probeer het opnieuw."
+msgstr ""
+"Die E-Mail-Adresse oder Passwort ist falsch. Versuchen Sie es noch einmal."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:81
 msgid "There was a problem during the login."
-msgstr "Er is een probleem ontstaan bij het inloggen."
+msgstr "Es gab ein Problem beim Anmelden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:87
 msgid "Post request is not valid"
-msgstr "Ongeldige Post request"
+msgstr "Ungültige Post request"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:130
-msgid "An email has been sent. Please click at the link included in the body of the email."
-msgstr "Er is een e-mail aan u verzonden. Klik op de link in de e-mail."
+msgid ""
+"An email has been sent. Please click at the link included in the body of the "
+"email."
+msgstr ""
+"Eine E-Mail wurde abgeschickt. Bitte klicken Sie auf die in der E-Mail "
+"enthaltenen Link."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:172
 msgid "An email has been sent with the new login credencials"
-msgstr "Er is een e-mail verzonden met de nieuwe inloggegevens."
+msgstr "Eine E-Mail mit den neuen Anmeldeinformationen ist gesendet worden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:132
 msgid "If you delete the note will be no longer restored"
-msgstr "Wanneer u het bericht verwijdert, wordt het definitief gewist."
+msgstr ""
+"Wenn Sie eine Nachricht entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:49
 msgid "New order"
-msgstr "Nieuwe bestelling"
+msgstr "Neue Bestellung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:100
 msgid "Save order"
-msgstr "Bestelling opslaan"
+msgstr "Bestellung speichern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:116
 msgid "Are you sure to delete this order?"
-msgstr "Weet u zeker dat u deze bestelling wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diesen Auftrag löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:117
 msgid "If you delete this order all the data will be no more longer available."
-msgstr "Wanneer u de bestelling verwijdert, worden alle gegevens van de bestelling definitief gewist."
+msgstr ""
+"Wenn Sie die Bestellung entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:254
 msgid "Order nr. %s - %s"
-msgstr "Bestel nr. %s - %s"
+msgstr "Bestel Nr. %s - %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:266
-msgid "Are you sure to create or overwrite invoice for this order? The order is not paid."
-msgstr "De bestelling is (nog) niet betaald. Weet u zeker dat u de factuur van deze bestelling wilt aanmaken of overschrijven?"
+msgid ""
+"Are you sure to create or overwrite invoice for this order? The order is not "
+"paid."
+msgstr ""
+"Die Bestellung wurde (noch) nicht bezahlt. Sind Sie sicher, dass Sie die "
+"Rechnung für diesen Auftrag erstellen oder überschreiben wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:266
 msgid "Are you sure to create or overwrite invoice for this order?"
-msgstr "Weet u zeker dat u de factuur van deze bestelling wilt aanmaken of overschrijven?"
+msgstr ""
+"Sind Sie sicher, dass Sie die Rechnung für diesen Auftrag erstellen oder "
+"überschreiben wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:274
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:33
 msgid "Renew"
-msgstr "Verlengen"
+msgstr "Verlängern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:285
 msgid "Print invoice"
-msgstr "Factuur afdrukken"
+msgstr "Rechnung drucken"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:286
 msgid "Dropbox invoice"
-msgstr "Dropbox factuur"
+msgstr "Dropbox Rechnung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:356
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:63
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:10
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:11
 msgid "No"
-msgstr "Nee "
+msgstr "Nein"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:388
 msgid "renew_failed"
-msgstr "vernieuwing mislukt"
+msgstr "Erneuerung gescheitert"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:409
 msgid "There was a problem"
-msgstr "Er is een probleem ontstaan"
+msgstr "Es gab ein Problem"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:552
 msgid "The order has been sent successfully."
-msgstr "De bestelling werd verzonden."
+msgstr "Ihr Auftrag ist versendet worden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:555
 msgid "The order has not been found."
-msgstr "De bestelling werd niet gevonden."
+msgstr "Der Auftrag wurde nicht gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:571
 msgid "The invoice has been sent successfully."
-msgstr "De factuur werd verzonden."
+msgstr "Die Rechnung wurde abgeschickt."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:574
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:576
 msgid "The invoice has not been found."
-msgstr "De factuur werd niet gevonden."
+msgstr "Die Rechnung wurde nicht gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:607
 msgid "The order has been uploaded in dropbox."
-msgstr "De bestelling is in de dropbox gedaan."
+msgstr "Der Auftrag wurde in der Dropbox gestellt."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:35
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:135
 msgid "Unable to find the order item selected."
-msgstr "Het gekozen bestel-item werd niet gevonden."
+msgstr "Kann die ausgewählte Bestellposition nicht finden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:53
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:131
 msgid "delete_question"
-msgstr "Weet u zeker dat u het geselecteerde record wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie den ausgewählten Datensatz löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:54
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:132
 msgid "desc_delete_question"
-msgstr "Het geselecteerde record kan niet meer hersteld worden!"
+msgstr "Der ausgewählte Datensatz kann nicht wiederhergestellt werden!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:218
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:249
 msgid "Service item has been not found."
-msgstr "Dit item van de dienst werd niet gevonden."
+msgstr "Dieser Artikel wurde nicht gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:132
-msgid "If you delete the panel actions information the data will be no longer restored"
-msgstr "Wanneer u de gegevens van de klantactiviteiten verwijdert, worden die gegevens definitief gewist."
+msgid ""
+"If you delete the panel actions information the data will be no longer "
+"restored"
+msgstr ""
+"Wenn Sie diese Information entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsController.php:109
 msgid "Are you sure to delete this panel configuration?"
-msgstr "Weet u zeker dat u de configuratie wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie die Konfiguration löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsController.php:110
 msgid "The configuration will be no more longer available."
-msgstr "De configuratie zal definitief worden gewist."
+msgstr "Die Konfiguration wird dauerhaft gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PaymentsController.php:129
-msgid "If you delete the Payment Transaction the record will no longer available"
-msgstr "Wanneer u de betalingstransactie verwijdert, worden de gegevens definitief gewist."
+msgid ""
+"If you delete the Payment Transaction the record will no longer available"
+msgstr ""
+"Wenn Sie die Zahlungstransaktion entfernen, werden die Daten endgültig "
+"gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:148
 msgid "Attribute deleted"
-msgstr "Attribuut gewist"
+msgstr "Attribut gelöscht"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:119
 msgid "Are you  sure to delete the feature selected?"
-msgstr "Weet u zeker dat u deze eigenschap wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie die ausgewählte Funktion löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:120
 msgid "If you delete this feature, it will be no longer available."
-msgstr "Wanneer u deze eigenschap verwijdert, wordt deze definitief gewist."
+msgstr ""
+"Wenn Sie die Eigenschaft entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductscategoriesController.php:116
 msgid "Do you want delete this category?"
-msgstr "Wilt u deze categorie verwijderen?"
+msgstr "Wollen Sie diese Kategorie löschen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductscategoriesController.php:117
 msgid "If you delete the record, the category is no longer available."
-msgstr "Wanneer u de categorie verwijdert, wordt deze definitief gewist."
+msgstr "Wenn Sie die Kategorie entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsController.php:122
 msgid "Are you sure to delete this product?"
-msgstr "Weet u zeker dat u dit product wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie dieses Produkt löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsController.php:123
 msgid "The product will be not longer available."
-msgstr "Het product wordt dan definitief gewist."
+msgstr "Das Produkt wird dann endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:137
 msgid "You can not delete yourself."
-msgstr "U kunt uw eigen gegevens niet wissen."
+msgstr "Sie können Ihre eigenen Daten nicht löschen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:144
 msgid "The administrator profile can be deleted only by administrator."
-msgstr "Een beheerdersprofriel kan alleen verwijdert worden door de hoofdbeheerder."
+msgstr ""
+"Der Administrator-Profil kann nur von einem Administrator gelöscht werden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:151
 msgid "You can not delete the latest administrator"
-msgstr "U kunt de enige beheerder niet verwijderen."
+msgstr "Der einzige Administrator kann nicht gelöscht werden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasesController.php:115
 msgid "Are you sure to delete the purchase invoice selected?"
-msgstr "Weet u zeker dat u deze inkoopfactuur wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diesen Einkaufsrechnung löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasesController.php:116
 msgid "The purchase will not be longer available "
-msgstr "De gegevens worden dan definitief gewist."
+msgstr "Die Daten werden dann dauerhaft gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasesController.php:172
 msgid "Purchase invoice"
-msgstr "Inkoopfactuur"
+msgstr "Einkaufsrechnung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasesController.php:241
 msgid "The file has not been found."
-msgstr "Het bestand werd niet gevonden."
+msgstr "Die Datei wurde nicht gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:132
-msgid "If you delete the bank information parameters the registrar will be no more available."
-msgstr "Wanneer u de gegevens van de betaalrekening verwijdert, is de registrar niet meer beschikbaar."
+msgid ""
+"If you delete the bank information parameters the registrar will be no more "
+"available."
+msgstr ""
+"Wenn Sie die Parameter der Bank Informationen löschen, steht der Registrar "
+"nicht mehr zur Verfügung."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:48
 msgid "Click one of these links to show the economic reports"
-msgstr "Klik op een van deze links om de financiële overzichten te zien"
+msgstr "Klicken Sie auf einen der Links für die Finanzübersichten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:55
 msgid "Estimate revenues for %s"
-msgstr "Geschatte inkomsten voor %s"
+msgstr "Geschätzte Einnahmen für %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:58
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:60
 msgid "Here below the economic summary of the %s."
-msgstr "Hieronder het financiële overzicht van  %s."
+msgstr "Nachstehende die Finanzübersicht vom  %s."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:133
 msgid "Are you sure to delete this role?"
-msgstr "Weet u zeker dat u deze rol wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diese Rolle löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:134
-msgid "The permision will be no more longer available and the users attached cannot use the resource."
-msgstr "De bevoegdheden zijn dan niet meer beschikbaar en de gekoppelde gebruikers kunnen niet langer gebruik maken van de bron."
+msgid ""
+"The permision will be no more longer available and the users attached cannot "
+"use the resource."
+msgstr ""
+"Die Erlaubnisse sind dann nicht mehr verfügbar und die zugehörigen Benutzer "
+"können die Ressource nicht mehr benutzen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:224
 msgid "There was an error on save the data."
-msgstr "Er is een fout opgetreden bij het opslaan van de gegevens."
+msgstr "Fehler beim Speichern der Daten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:55
 msgid "CMS"
@@ -2063,7 +2124,7 @@ msgstr "CMS"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:82
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:107
 msgid "Ticket"
@@ -2076,76 +2137,83 @@ msgstr "Tickets"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersController.php:43
 msgid "Are you sure to delete this server?"
-msgstr "Weet u zeker dat u deze server wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diesen Server löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersController.php:44
-msgid "If you delete this server all the data will be no more longer available."
-msgstr "Wanneer u de server verwijdert, worden ook alle gegevens gewist."
+msgid ""
+"If you delete this server all the data will be no more longer available."
+msgstr "Wenn Sie den Server entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersgroupsController.php:119
 msgid "Are you  sure to delete the selected group?"
-msgstr "Weet u zeker dat u de geselecteerde groep wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie die ausgewählte Gruppe löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersgroupsController.php:120
 msgid "If you delete this group, it will be no longer available."
-msgstr "Wanneer u de groep verwijdert, wordt deze definitief gewist."
+msgstr "Wenn Sie die Gruppe entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:118
 msgid "Are you sure to delete the service selected?"
-msgstr "Weet u zeker dat u de geselecteerde dienst wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie den ausgewählten Dienst löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:119
 msgid "The service will no longer be recoverable"
-msgstr "De dienst zal definitief worden gewist."
+msgstr "Die Dienstleistung wird dauerhaft gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketscategoriesController.php:129
 msgid "If you delete the ticket category the record will no longer available"
-msgstr "Wanneer u de ticket categorie verwijdert, wordt de categorie definitief gewist."
+msgstr "Wenn Sie die Kategorie entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:120
 msgid "Are you sure to delete this ticket and its messages?"
-msgstr "Weet u zeker dat u deze helpticket en alle bijbehorende berichten wilt verwijderen?"
+msgstr ""
+"Sind Sie sicher, dass Sie dieses Supportticket und alle zugehörigen "
+"Nachrichten entfernen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:121
 msgid "The ticket will be no more longer available."
-msgstr "De ticket en alle bijbehorende berichten worden dan definitief gewist."
+msgstr ""
+"Das Ticket und alle damit verbundenen Nachrichten werden dann endgültig "
+"gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:188
 msgid "Set as closed"
-msgstr "Zet op Afgesloten"
+msgstr "Einstellen als geschlossen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:189
 msgid "Set as solved"
-msgstr "Zet op Opgelost"
+msgstr "Einstellen als behoben"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:225
 msgid "Ticket support from %s"
-msgstr "Helpticket van %s"
+msgstr "Ticket von %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:227
 msgid "Opened at %s"
-msgstr "Geopend op %s"
+msgstr "Geöffnet am %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:230
 msgid "Closed at %s"
-msgstr "Gesloten op %s"
+msgstr "Gesschlossen am %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:129
 msgid "If you delete the wiki category the record will no longer available"
-msgstr "Wanneer u de Wiki categorie verwijdert, wordt deze definitief gewist."
+msgstr "Wenn Sie die Kategorie entfernen, werden die Daten endgültig gelöscht."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:118
 msgid "Are you sure to delete this article?"
-msgstr "Weet u zeker dat u dit artikel wilt verwijderen?"
+msgstr "Sind Sie sicher, dass Sie diesen Artikel löschen wollen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:119
 msgid "The article will be no more longer available."
-msgstr "Het artikel wordt dan definitief gewist."
+msgstr "Der Artikel wird dauerhaft gelöscht werden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/TicketsForm.php:94
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/TicketsForm.php:72
 msgid "Select the document to upload. Files allowed are (%s) - Max %s"
-msgstr "Kies het bestand om te uploaden. Toegestane bestanden zijn (%s) - Max %s"
+msgstr ""
+"Wählen Sie die Datei, die Sie hochladen möchten. Zulässige Dateien sind (%s) "
+"- Max. % s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/helpers/Menu.php:51
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:27
@@ -2153,7 +2221,7 @@ msgstr "Kies het bestand om te uploaden. Toegestane bestanden zijn (%s) - Max %s
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:59
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:61
 msgid "Configuration"
-msgstr "Configuratie"
+msgstr "Konfiguration"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/CommonController.php:196
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainschkController.php:156
@@ -2161,23 +2229,27 @@ msgstr "Configuratie"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:45
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:56
 msgid "just"
-msgstr "nu slechts"
+msgstr "jetzt nur"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/CommonController.php:199
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainschkController.php:159
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainschkController.php:201
 msgid "The domain is available for registration"
-msgstr "Het domein is beschikbaar voor registratie"
+msgstr "Die Domain ist noch frei"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/CommonController.php:199
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainschkController.php:159
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainschkController.php:201
-msgid "The domain is not available for registration but if you are the domain's owner and you can transfer it!"
-msgstr "Dit domein is al geregisteerd. Bent u de eigenaar van dit domein dan kunt u het naar ons verhuizen!"
+msgid ""
+"The domain is not available for registration but if you are the domain's "
+"owner and you can transfer it!"
+msgstr ""
+"Diese Domain ist bereits registriert worden. Sind Sie der Inhaber dieser "
+"Domain können Sie ihn zu uns transferieren!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/CompareController.php:27
 msgid "Compare %s"
-msgstr "Vergelijk %s"
+msgstr "Vergleiche %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ContactsController.php:18
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/contacts/index.phtml:2
@@ -2185,182 +2257,196 @@ msgstr "Vergelijk %s"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/notfound/index.phtml:21
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/content-header.phtml:9
 msgid "Contact us"
-msgstr "Contact"
+msgstr "Kontakt"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ContactsController.php:59
 msgid "Message from the website"
-msgstr "Bericht van de website"
+msgstr "Nachricht von der Website"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/CustomerController.php:66
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:155
 msgid "User not found. Check your credentials."
-msgstr "Dit account bestaat niet. Controleer uw inloggegevens."
+msgstr "Dieses Konto gibt es nicht. Überprüfen Sie Ihre Zugangsdaten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:242
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:257
 msgid "You are not the domain's owner."
-msgstr "U bent niet de eigenaar van dit domein."
+msgstr "Sie sind nicht der Inhaber dieser Domain."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:475
 msgid "The domain has been added in your order"
-msgstr "Het domein is aan uw bestelling toegevoegd"
+msgstr "Die Domain ist zu Ihrer Bestellung hinzugefügt"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:477
 msgid "The domain tld selected has been not found."
-msgstr "Het gekozen TLD werd niet gevonden."
+msgstr "Diese Domainendung wurde nicht gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:588
 msgid "Download"
-msgstr "Downloaden"
+msgstr "Herunterladen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:590
 msgid "An error has occured during the export task"
-msgstr "Tijdens het exporteren is een fout ontstaan"
+msgstr "Beim Export gab es einen Fehler"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:87
-msgid "Thanks for your interest in our services. Our staff will contact you shortly."
-msgstr "Hartelijk dank. Een van onze medewerkers neemt contact met u op"
+msgid ""
+"Thanks for your interest in our services. Our staff will contact you shortly."
+msgstr "Herzlichen Dank. Einer unserer Mitarbeiter wird Sie kontaktieren."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:91
 msgid "Check the telephone number and submit your data again."
-msgstr "Controleer het telefoonnummer en voer de gegevens opnieuw in."
+msgstr "Überprüfen Sie die Telefonnummer und geben Sie die Daten erneut ein."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:114
 msgid "Email or Password incorrect"
-msgstr "E-mail of wachtwoord zijn onjuist."
+msgstr "E-Mail oder Passwort sind falsch."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:152
-msgid "Password sent to your email box. You have to click in the link written in the email."
-msgstr "Er is een nieuw wachtwoord naar uw e-mail adres verstuurd. U dient de link in die e-mail te volgen."
+msgid ""
+"Password sent to your email box. You have to click in the link written in "
+"the email."
+msgstr ""
+"Ein neues Passwort wurde an Ihre E-Mail-Adresse gesendet. Sie sollten dem "
+"Link in dieser E-Mail folgen. "
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:187
 msgid "Email sent"
-msgstr "E-mail verzonden"
+msgstr "E-mail abgeschickt"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:190
 msgid "Error occurred during setting of the password."
-msgstr "Er is een fout opgetreden tijdens het aanmaken van het wachtwoord."
+msgstr "Es gab einen Fehler beim Erstellen des Passworts."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:150
 msgid "Order page"
-msgstr "Bestelpagina"
+msgstr "Bestellseite"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:155
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:175
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:3
 msgid "Order %s"
-msgstr "Bestelling %s"
+msgstr "Bestellung %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:352
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:278
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TicketsController.php:260
 msgid "download"
-msgstr "downloaden"
+msgstr "herunterladen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:354
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:280
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TicketsController.php:262
 msgid "exporterror"
-msgstr "Export fout"
+msgstr "Export Fehler"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:375
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:301
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TicketsController.php:283
 msgid "methodnotset"
-msgstr "methode niet ingesteld"
+msgstr "Methode nicht konfiguriert"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:378
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:304
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TicketsController.php:286
 msgid "An error has occured during the task requested."
-msgstr "Er is een fout opgetreden bij het uitvoeren van de bewerking."
+msgstr "Fehler beim Ausführen der Operation."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ProductsController.php:78
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:16
 msgid "Billing Cycle"
-msgstr "Factureringscyclus"
+msgstr "Rechnungszyklus"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ProductsController.php:81
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:12
 msgid "Quantity"
-msgstr "Hoeveelheid"
+msgstr "Anzahl"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TicketsController.php:132
 msgid "Ticket page"
-msgstr "Helptickets"
+msgstr "Hilfe Tickets"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:40
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:42
 msgid ".%s domain registration"
-msgstr ".%s domein registratie"
+msgstr ".%s Domain Registrierung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:41
 msgid "domain registration"
-msgstr "domeinregistratie"
+msgstr "Domainregistrierung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:41
 msgid "%s domain"
-msgstr "%s domein"
+msgstr "%s Domain"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/WikiController.php:83
 msgid "Wiki page"
-msgstr "Wiki pagina"
+msgstr "Wiki Seite"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Alerts.php:45
-msgid "The invoice %s of %s (%s) has been not payed yet, click here to show more details."
-msgstr "Factuur nr. %s van %s (%s) is nog niet voldaan. Klik hier voor nadere informatie."
+msgid ""
+"The invoice %s of %s (%s) has been not payed yet, click here to show more "
+"details."
+msgstr ""
+"Rechnung Nr. %s vom %s (%s) ist noch nicht bezahlt. Klicken Sie hier für "
+"weitere Informationen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Alerts.php:47
-msgid "The order %s that you have requested the %s with total %s has been not payed yet, click here to show more details."
-msgstr "Bestelling nr. %s die u deed op %s (factuurbedrag %s) is nog niet betaald. Klik hier voor nadere informatie."
+msgid ""
+"The order %s that you have requested the %s with total %s has been not payed "
+"yet, click here to show more details."
+msgstr ""
+"Best.-Nr. %s, die Sie am %s getan haben (%s Rechnungsbetrag) wurde noch "
+"nicht bezahlt. Klicken Sie hier für weitere Informationen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Dashboard.php:34
 msgid "Hosting Panel"
-msgstr "Controle paneel"
+msgstr "Systemsteuerung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Dashboard.php:34
 msgid "Click here to login into your hosting control panel"
-msgstr "Klik hier om op uw controle paneel in te loggen"
+msgstr "Klicken Sie hier, zum Anmelden in Ihrem Hosting Control Panel"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Graphs.php:32
 msgid "Domains Summary"
-msgstr "Samenvatting domeinen"
+msgstr "Zusammenfassung Domains"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Graphs.php:84
 msgid "No Autorenew"
-msgstr "Niet automatisch verlengen"
+msgstr "Nicht automatisch verlängern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Shopmenu.php:89
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/prices.phtml:4
 msgid "VAT not included"
-msgstr "exclusief BTW"
+msgstr "MwSt. nicht einbegriffen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php:109
 #: /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php:224
 msgid "The request has been executed correctly."
-msgstr "Uw verzoek is geheel correct uitgevoerd."
+msgstr "Ihre Anfrage wurde korrekt ausgeführt."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Blank/Gateway.php:37
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/IWBank/Gateway.php:37
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Paypal/Gateway.php:36
 msgid "Order no."
-msgstr "Bestelnummer"
+msgstr "Bestellnummer"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Blank/Gateway.php:48
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/IWBank/Gateway.php:48
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Paypal/Gateway.php:47
 msgid "Pay Now"
-msgstr "Nu betalen"
+msgstr "Jetzt zahlen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Blank/Gateway.php:68
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/IWBank/Gateway.php:69
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Paypal/Gateway.php:66
 msgid "You will be redirected to the bank secure website, please be patience."
-msgstr "U wordt doorgeleid naar de beveiligde website van uw bank. Even geduld a.u.b."
+msgstr ""
+"Sie werden auf der Bank sichere Website umgeleitet. Seien Sie bitte geduldig."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Ajaxgrid.php:750
 msgid "Search %s"
-msgstr "Zoek %s"
+msgstr "Suche %s"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Ajaxgrid.php:789
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:799
@@ -2374,7 +2460,7 @@ msgstr "Zoek %s"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:110
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:11
 msgid "Actions"
-msgstr "Acties"
+msgstr "Aktionen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Ajaxgrid.php:803
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:817
@@ -2390,43 +2476,43 @@ msgstr "Acties"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:34
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:117
 msgid "Execute"
-msgstr "Uitvoeren"
+msgstr "Durchführen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:528
 msgid "Search"
-msgstr "Zoeken"
+msgstr "Suchen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:699
 msgid "more information"
-msgstr "meer informatie"
+msgstr "weitere Informationen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:711
 msgid "No records found"
-msgstr "Geen gegevens gevonden"
+msgstr "Keine Daten vorhanden"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:780
 msgid "Page"
-msgstr "pagina"
+msgstr "Seite"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:781
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:57
 msgid "View"
-msgstr "Toon"
+msgstr "Zeigen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:789
 msgid "Total %s records found"
-msgstr "Totaal %s records gevonden"
+msgstr "insgesamt %s Datensätze gefunden"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfList.php:143
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfList.php:144
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:358
 msgid "Continue"
-msgstr "Vervolg"
+msgstr "Fortsetzung"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:101
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:685
 msgid "Site Web"
-msgstr "website"
+msgstr "Website"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:101
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:685
@@ -2436,7 +2522,7 @@ msgstr "e-mail"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:101
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:685
 msgid "Telephone"
-msgstr "Telefoon"
+msgstr "Telefon"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:101
 msgid "FAX"
@@ -2446,40 +2532,40 @@ msgstr "Fax"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:258
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:687
 msgid "VAT Number"
-msgstr "BTW nummer"
+msgstr "Steuernummer"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:233
 msgid "Addressee"
-msgstr "t.a.v."
+msgstr "z.H."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:259
 msgid "Tax payer number"
-msgstr "BTW nummer"
+msgstr "Steuernummer"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:276
 msgid "Destination"
-msgstr "bestemming"
+msgstr "Ziel"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:522
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:619
 msgid "Payment Date"
-msgstr "Betaald op"
+msgstr "Bezahlt am"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:524
 msgid "Tax Free Total"
-msgstr "Totaal excl. BTW"
+msgstr "Summe ohne MwSt."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:526
 msgid "Tax Total"
-msgstr "Totaal BTW"
+msgstr "MwSt."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:528
 msgid "Total with Tax"
-msgstr "Totaal "
+msgstr "Summe inkl. MwSt."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:608
 msgid "Bank Name"
-msgstr "naam van de bank"
+msgstr "Name der Bank"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:609
 msgid "IBAN"
@@ -2491,24 +2577,24 @@ msgstr "BIC"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:611
 msgid "Company Name"
-msgstr "Naam van het bedrijf"
+msgstr "Betriebsname"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:612
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:618
 msgid "Payment mode"
-msgstr "Betaalwijze"
+msgstr "Zahlungsweise"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:613
 msgid "Payment note"
-msgstr "Opmerking bij de betaling"
+msgstr "Bemerkung zur Bezahlung"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:614
 msgid "Customer Information"
-msgstr "klantgegevens"
+msgstr "Kundendaten"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:615
 msgid "Transaction ID"
-msgstr "Transactie nummer"
+msgstr "Transaktion Nummer"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:685
 msgid "fax"
@@ -2517,64 +2603,64 @@ msgstr "Fax"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:701
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:703
 msgid "dated"
-msgstr "d.d."
+msgstr "vom"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/TimeSince.php:11
 msgid "years"
-msgstr "jaren"
+msgstr "Jahre"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/TimeSince.php:12
 msgid "months"
-msgstr "maanden"
+msgstr "Monate"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/TimeSince.php:13
 msgid "weeks"
-msgstr "weken"
+msgstr "Wochen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/TimeSince.php:14
 msgid "days"
-msgstr "dagen "
+msgstr "Tage"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/TimeSince.php:15
 msgid "hours"
-msgstr "uren"
+msgstr "Stunden"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/TimeSince.php:16
 msgid "minutes"
-msgstr "minuten"
+msgstr "Minuten"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Ajaxgrid.php:154
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Datagrid.php:291
 msgid "No item selected."
-msgstr "Geen item geselecteerd"
+msgstr "Kein Artikel ausgewählt."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Ajaxgrid.php:157
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Datagrid.php:294
 msgid "The action requested has not been developed yet."
-msgstr "Deze actie bestaat nog niet."
+msgstr "Diese Aktion gibt's noch nicht."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Custom/Productlistattributes.php:48
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/slideshow.phtml:36
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/slideshow.phtml:44
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Custom/views/productlist.phtml:11
 msgid "Starting at"
-msgstr "Begint op"
+msgstr "Fängt an am"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Custom/Productlistattributes.php:52
 msgid "Save %s"
-msgstr "Bespaar %s"
+msgstr "Sparen Sie %s ein"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Custom/Productlistattributes.php:67
 msgid "Buy Now"
-msgstr "Nu kopen"
+msgstr "Jetzt kaufen"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Decorator/Composite.php:52
 msgid "Required"
-msgstr "Verplicht"
+msgstr "Erforderlich"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Decorator/Simple.php:35
 msgid "required"
-msgstr "verplicht"
+msgstr "erforderlich"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:16
@@ -2590,7 +2676,7 @@ msgstr "verplicht"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:35
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:16
 msgid "field"
-msgstr "veld"
+msgstr "Feld"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:26
@@ -2633,7 +2719,7 @@ msgstr "veld"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:46
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:48
 msgid "Main"
-msgstr "Algemeen"
+msgstr "Algemeines"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:28
@@ -2645,7 +2731,7 @@ msgstr "Algemeen"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:131
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:133
 msgid "Options"
-msgstr "Opties"
+msgstr "Optionen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/confirm.phtml:5
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/confirm.phtml:5
@@ -2689,7 +2775,7 @@ msgstr "Opties"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/confirm.phtml:5
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wikicategories/confirm.phtml:5
 msgid "Selected record"
-msgstr "Geselecteerd record"
+msgstr "Ausgewählte Eintrag"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/confirm.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/confirm.phtml:8
@@ -2734,7 +2820,7 @@ msgstr "Geselecteerd record"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/confirm.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wikicategories/confirm.phtml:8
 msgid "No, I don't!"
-msgstr "Nee"
+msgstr "Nein, danke"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/confirm.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/confirm.phtml:9
@@ -2783,11 +2869,11 @@ msgstr "Ja"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/bulkmail/index.phtml:6
 msgid "Bulk Customers Mail"
-msgstr "Bulk klanten mail"
+msgstr "Kunden Massen-E-Mail"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/bulkmail/index.phtml:7
 msgid "Write here a message to send to all your own customers."
-msgstr "Stel hier het bericht op dat u aan alle klanten wilt sturen."
+msgstr "Schreiben Sie hier die Nachricht, die Sie alle Kunden senden möchten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:16
@@ -2829,20 +2915,20 @@ msgstr "Stel hier het bericht op dat u aan alle klanten wilt sturen."
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:12
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/reviews.phtml:16
 msgid "This field"
-msgstr "Dit veld"
+msgstr "Dieses Feld"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:34
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:44
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:40
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/applicantform.phtml:36
 msgid "Disable/Enable Wysiwyg"
-msgstr "WYSIWYG aan/uit"
+msgstr "WYSIWYG ein/aus"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:43
 msgid "Content"
-msgstr "Inhoud"
+msgstr "Inhalt"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:29
 msgid "Layouts"
@@ -2850,27 +2936,27 @@ msgstr "Layouts"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cpanels/index.phtml:1
 msgid "ISP Control Panel Configuration"
-msgstr "Beheerscherm configuraties"
+msgstr "Systemsteuerung Konfiguration"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:27
 msgid "Details"
-msgstr "Bijzonderheden"
+msgstr "Einzelheiten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/invoices/applicantform.phtml:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:28
 msgid "Notes"
-msgstr "Opmerkingen"
+msgstr "Bemerkungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:27
 msgid "Personal"
-msgstr "Persoonlijk"
+msgstr "Persönlich"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:27
 msgid "Addresses"
-msgstr "Adres"
+msgstr "Adresse"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:28
@@ -2878,36 +2964,36 @@ msgstr "Adres"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:80
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:82
 msgid "Contacts"
-msgstr "contactpersonen"
+msgstr "Kontakte"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:32
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:31
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/attachments.phtml:3
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/attachments.phtml:3
 msgid "Attachments"
-msgstr "Bijlagen"
+msgstr "Anlagen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:37
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:46
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:110
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:112
 msgid "Services"
-msgstr "Diensten"
+msgstr "Dienstleistungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:40
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:49
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:34
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:31
 msgid "Private Notes"
-msgstr "Opmerkingen"
+msgstr "Bemerkungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:42
 msgid "Atributes"
-msgstr "Attributen?"
+msgstr "Attribute"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:44
 msgid "Invoices"
-msgstr "Facturen"
+msgstr "Rechnungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:45
 msgid "E-Mails"
@@ -2915,25 +3001,25 @@ msgstr "E-mails"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:27
 msgid "Registrars Actions"
-msgstr "Registrar handelingen"
+msgstr "Registrar Aktionen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:34
 msgid "Add to Tasks list"
-msgstr "Toevoegen aan de takenlijst"
+msgstr "Zum Aufgabenliste hinzufügen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:35
 msgid "A new window will be open"
-msgstr "Opent in een nieuw scherm"
+msgstr "Öffnet in einem neuen Fenster"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:35
 msgid "Execute all the Tasks"
-msgstr "Alle taken uitvoeren"
+msgstr "Alle Aufgaben durchführen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:45
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:60
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:62
 msgid "DNS Zones"
-msgstr "DNS zone"
+msgstr "DNS Zonen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:48
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:33
@@ -2944,11 +3030,11 @@ msgstr "DNS zone"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:77
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:79
 msgid "Messages"
-msgstr "Berichten"
+msgstr "Nachrichten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:56
 msgid "Check Domain Availability"
-msgstr "Controleer of het domein beschikbaar is"
+msgstr "Domain Verfügbarkeit überprüfen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstasks/applicantform.phtml:12
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panelsactions/applicantform.phtml:12
@@ -2958,7 +3044,7 @@ msgstr "Logs"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:40
 msgid "Prices"
-msgstr "Prijzen"
+msgstr "Preise"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:29
 msgid "Costs"
@@ -2966,102 +3052,102 @@ msgstr "Kosten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:29
 msgid "Bank"
-msgstr "naam van de bank"
+msgstr "Bank"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:30
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:6
 msgid "Servers"
-msgstr "Servers"
+msgstr "Servern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:31
 msgid "ISP Control Panel"
-msgstr "Beheerscherm"
+msgstr "Systemsteuerung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/index.phtml:11
 msgid "Control Panel"
-msgstr "Controlepaneel"
+msgstr "Systemsteuerung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/index.phtml:12
 msgid "please fill up the form with the administration credencials."
-msgstr "Vul hieronder uw inloggegevens in"
+msgstr "Bitte geben Sie Ihre Zugangsdaten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/index.phtml:20
 msgid "I forgot my password"
-msgstr "Wachtwoord vergeten?"
+msgstr "Passwort vergessen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/noauth.phtml:1
 msgid "Forbidden"
-msgstr "Geen toegang"
+msgstr "Kein Zugang"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/noauth.phtml:2
 msgid "You have not the sufficient permission to see this page"
-msgstr "U hebt geen toestemming om deze pagina te mogen zien"
+msgstr "Sie haben keine Erlaubnis diese Seite zu sehen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/password.phtml:11
 msgid "Reset Password"
-msgstr "Reset het wachtwoord"
+msgstr "Passwort zurücksetzen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/password.phtml:12
 msgid "reset the administration password."
-msgstr "reset het beheerderswachtwoord"
+msgstr "Administration passwort zurücksetzen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/login/password.phtml:20
 msgid "Try to login again"
-msgstr "Probeer opnieuw in te loggen"
+msgstr "Bitte versuchen Sie sich erneut an zu melden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/newsletter/applicantform.phtml:27
 msgid "Queue"
-msgstr "Wachtrij"
+msgstr "Warteschlange"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:27
 msgid "Payments"
-msgstr "Betaling"
+msgstr "Bezahlung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:79
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:52
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:59
 msgid "Add"
-msgstr "Toevoegen"
+msgstr "Hinzufügen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:79
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:52
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:59
 msgid "Remove"
-msgstr "Verwijderen"
+msgstr "Entfernen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:28
 msgid "Isp Panel"
-msgstr "Beheerscherm"
+msgstr "Systemsteuerung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:59
 msgid "Update Configuration"
-msgstr "Configuratie bijwerken"
+msgstr "Konfiguration aktualisieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:63
 msgid "Create Full Profile"
-msgstr "Volledig profiel aanmaken"
+msgstr "Vollständiges Profil anfertigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:64
 msgid "Create Client"
-msgstr "Klant aanmaken"
+msgstr "Kunde anfertigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:65
 msgid "Create Website"
-msgstr "Website maken"
+msgstr "Website anfertigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:66
 msgid "Create Database"
-msgstr "Database aanmaken"
+msgstr "Datenbank anfertigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:67
 msgid "Create eMail"
-msgstr "Email aanmaken"
+msgstr "Email anfertigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/attachments.phtml:13
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/attachments.phtml:9
 msgid "File not found"
-msgstr "Het bestand werd niet gevonden"
+msgstr "Datei nicht gefunden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/bbslist.phtml:18
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:144
@@ -3073,38 +3159,38 @@ msgstr "Het bestand werd niet gevonden"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:80
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:53
 msgid "No Records"
-msgstr "Geen records gevonden"
+msgstr "Keine Daten vorhanden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/dashboard.phtml:3
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:27
 msgid "Expiring Domains"
-msgstr "Verlopende domeinen"
+msgstr "Fällige Domains"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/dashboard.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/dashboard.phtml:7
 msgid "Remaining Days"
-msgstr "Resterend aantal dagen"
+msgstr "Verbleibende Tage"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:2
 msgid "A search request is still active."
-msgstr "Er is nog een zoekactie bezig."
+msgstr "Zur Zeit läuft noch eine Suche."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:2
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:11
 msgid "Reset"
-msgstr "Resetten"
+msgstr "Zurücksetzen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:2
 msgid "Search Again"
-msgstr "Opnieuw zoeken"
+msgstr "Erneut suchen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:6
 msgid "Sort by"
-msgstr "Sorteren op"
+msgstr "Sortieren nach"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:11
 msgid "Sort"
-msgstr "Sorteren"
+msgstr "Sortieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:23
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:131
@@ -3117,7 +3203,7 @@ msgstr "Sorteren"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:129
 msgid "Show All"
-msgstr "Laat alles zien"
+msgstr "Alles zeigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:69
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:37
@@ -3128,15 +3214,19 @@ msgstr "Laat alles zien"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:38
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:43
 msgid "Commands"
-msgstr "Bestellingen"
+msgstr "Aufträge"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:101
 msgid "Bulk Actions"
-msgstr "Bulk acties"
+msgstr "Massenaktionen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:120
-msgid "Select the checkboxes in order to execute the same action to all items selected."
-msgstr "Selecteer de vakjes om dezelfde actie uit te voeren op de geselecteerde items."
+msgid ""
+"Select the checkboxes in order to execute the same action to all items "
+"selected."
+msgstr ""
+"Markieren Sie die Kästchen, um dieselbe Aktion auf die ausgewählten Objekte "
+"durch zu führen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:124
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:143
@@ -3145,16 +3235,16 @@ msgstr "Selecteer de vakjes om dezelfde actie uit te voeren op de geselecteerde 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:11
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:122
 msgid "Records"
-msgstr "Records"
+msgstr "Einträge"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:125
 msgid "Items to show"
-msgstr "Items om te laten zien"
+msgstr "Elemente zu zeigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/mapgrid.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:65
 msgid "delete"
-msgstr "wissen"
+msgstr "löschen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/menu.phtml:2
 msgid "Home"
@@ -3163,21 +3253,21 @@ msgstr "Home"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:5
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:14
 msgid "Logout"
-msgstr "Uitloggen"
+msgstr "Abmelden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:7
 msgid "%s's profile"
-msgstr "Bedrijfsprofiel van: %s"
+msgstr "Betriebsprofil von: %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/webmenu.phtml:16
 msgid "Profile"
-msgstr "Bedrijfsprofiel"
+msgstr "Betriebsprofil"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:8
 msgid "%s's %s profile"
-msgstr "Profiel van: %s (%s)"
+msgstr "Profil von: %s (%s)"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:9
 msgid "Roles"
@@ -3185,72 +3275,72 @@ msgstr "Rollen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/registrants.phtml:6
 msgid "Last update"
-msgstr "Laatste update"
+msgstr "Zuletzt aktualisiert"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/searchbox.phtml:2
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/searchbox.phtml:1
 msgid "Type here what you are looking for"
-msgstr "Wat zoekt u?"
+msgstr "Was suchen Sie?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:57
 msgid "Click here to view"
-msgstr "Hier klikken"
+msgstr "Hier klicken"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:61
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/verticalgrid.phtml:41
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:59
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:45
 msgid "Click here to edit"
-msgstr "Klik hier om te bewerken."
+msgstr "Hier klicken zum Bearbeiten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:15
 msgid "Income by Quarter"
-msgstr "Inkomsten per kwartaal"
+msgstr "Einnahmen pro Vierteljahr"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:20
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:43
 msgid "Grand Total: %s - Total: %s - VAT: %s"
-msgstr "Groot totaal: %s - Totaal: %s - BTW: %s"
+msgstr "Gesamtsumme: %s - Summe: %s - MwSt.: %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:21
 msgid "%s° quarter of %s"
-msgstr "%s° kwart van %s"
+msgstr "%s° Vierteljahr von %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:23
 msgid "%s° quarter %s: %s"
-msgstr "%s° kwartaal %s: %s"
+msgstr "%s° Vierteljahr %s: %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:38
 msgid "Income by Month (text)"
-msgstr "Inkomsten per maand (tekst)"
+msgstr "Einnahmen pro Monat (Text)"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:44
 msgid "%s° month of %s"
-msgstr "%s° maand van %s"
+msgstr "%s° Monat vom %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:46
 msgid "%s° month %s: %s"
-msgstr "%s° maand %s: %s"
+msgstr "%s° Monat %s: %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:59
 msgid "Income by Month (graph)"
-msgstr "Inkomsten per maand (grafiek)"
+msgstr "Einnahmen pro Monat (Grafik)"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:98
 msgid "Grow"
-msgstr "Groei"
+msgstr "Zunahme"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/verticalgrid.phtml:54
 msgid "norecords"
-msgstr "geen records"
+msgstr "Keine Daten vorhanden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:41
 msgid "Billing"
-msgstr "Facturering"
+msgstr "Fakturierung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:42
 msgid "Categories"
-msgstr "Categorieën"
+msgstr "Kategorien"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:45
 msgid "Media"
@@ -3259,157 +3349,166 @@ msgstr "Media"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:47
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/related.phtml:5
 msgid "Related Products"
-msgstr "vergelijkbare producten"
+msgstr "Ähnliche Produkte"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:48
 msgid "Product Upgrades"
-msgstr "Uitbreidingen"
+msgstr "Erweiterungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:50
 msgid "Attributes"
-msgstr "Productkenmerken"
+msgstr "Merkmale"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:51
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:29
 msgid "Blocks"
-msgstr "Blokken"
+msgstr "Blöcke"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:52
 msgid "Metatags"
-msgstr "meta tags"
+msgstr "Metatags"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:53
 msgid "Setup"
-msgstr "Setup"
+msgstr "Installierung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:28
 msgid "System"
-msgstr "Systeem"
+msgstr "System"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/roles/applicantform.phtml:27
 msgid "Resources"
-msgstr "Bronnen"
+msgstr "Quellen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/roles/applicantform.phtml:28
 msgid "Users"
-msgstr "Gebruikers"
+msgstr "Benutzer"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/servers/applicantform.phtml:27
 msgid "Custom Fields"
-msgstr "Maatwerk velden"
+msgstr "Benutzerdefinierte Felder."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/servers/applicantform.phtml:28
 msgid "Information"
-msgstr "Informatie"
+msgstr "Information"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:32
 msgid "Configurations"
-msgstr "Configuratie"
+msgstr "Konfiguration"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/tickets/applicantform.phtml:16
 msgid "Go to"
-msgstr "Ga naar"
+msgstr "Zu"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/tickets/applicantform.phtml:31
 msgid "Relationships"
-msgstr "Verbanden"
+msgstr "Zusammenhänge"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contactlogged.phtml:5
 msgid "Dear %s welcome back in to our store!"
-msgstr "Beste %s, welkom terug!"
+msgstr "Wilkommen zurück %s!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contactlogged.phtml:6
 msgid "Your registered email is %s"
-msgstr "Uw bij ons bekende e-mail adres is %s"
+msgstr "Ihre E-Mail-Adresse ist %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contactlogged.phtml:7
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:4
 msgid "Dashboard"
-msgstr "Controlepaneel"
+msgstr "Systemsteuerung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contactlogged.phtml:11
 msgid "Complete Order"
-msgstr "Bestelling afronden"
+msgstr "Bestellung abschließen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:1
 msgid "Sign Up"
-msgstr "Inschrijven"
+msgstr "Registrieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:2
 msgid "login"
-msgstr "Inloggen"
+msgstr "Anmelden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:2
 msgid "Please %s or fill the applicant form below."
-msgstr "%s of vul het formulier hieronder in."
+msgstr "Bitte %s oder füllen Sie das untenstehende Formular aus."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:7
 msgid "We have found some errors"
-msgstr "Er zijn fouten ontstaan"
+msgstr "Es gab einige Fehler"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:23
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:19
 msgid "General"
-msgstr "Algemeen"
+msgstr "Algemein"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:43
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:50
 msgid "Personal data"
-msgstr "Persoonlijke gegevens"
+msgstr "Persönliche Daten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:44
-msgid "Your personal data are mandatories to register or transfer a domain name."
-msgstr "U dient uw gegevens in te vullen om een domein te kunnen registreren of verhuizen"
+msgid ""
+"Your personal data are mandatories to register or transfer a domain name."
+msgstr ""
+"Sie müssen Ihren Angaben ausfüllen, damit Sie eine Domain registrieren oder "
+"übertragen können."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:3
 msgid "Register your own domain"
-msgstr "Registreer uw domein"
+msgstr "Registrieren Sie Ihre Domain"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:4
-msgid "Type the domain name in the input box shown below and follow only 3 steps."
-msgstr "Vul de domeinnaam hieronder in en volg de 3 stappen."
+msgid ""
+"Type the domain name in the input box shown below and follow only 3 steps."
+msgstr "Geben Sie den Domainnamen ein und folge den drei Schritten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:15
 msgid "I would like to register this domain."
-msgstr "Ik wil dit domein registreren."
+msgstr "Ich möchte diese Domain registrieren."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:16
-msgid "Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel."
-msgstr "Registreer nu uw eigen domeinnaam en wij zorgen ervoor dat de registratie ieder jaar verlengd wordt. (U kunt deze instelling zelf veranderen in uw beheerpagina.)"
+msgid ""
+"Register now your domain name now and every year we will renew it "
+"automatically. Anyway you can disable this option by your Control Panel."
+msgstr ""
+"Registrieren Sie jetzt Ihre eigenen Domainnamen und wir werden "
+"sicherstellen, dass die Registrierung jedes Jahr erneuert wird. (Sie können "
+"diese Einstellung selbst in Ihrem Administrations-Seite ändern.)"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:19
 msgid "I am this domain's owner."
-msgstr "Ik ben eigenaar van dit domein."
+msgstr "Diese Domain ist meins."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:20
 msgid "Write your own domain name previosly registered with another company."
-msgstr "Vul de domeinnaam in die u wilt verhuizen."
+msgstr "Geben Sie den Domainnamen ein die Sie übertragen möchten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/domain.phtml:24
 msgid "Continue Order"
-msgstr "vervolg uw bestelling"
+msgstr "Bestellung fortsetzen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:4
 msgid "Order Summary"
-msgstr "Samenvatting bestelling"
+msgstr "Zusammenfassung Bestellung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:5
 msgid "Complete the order choosing your preferite payment method."
-msgstr "Rond de bestelling af."
+msgstr "Bestellung abschließen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:59
 msgid "Service Recipient"
-msgstr "Ontvanger van de dienst"
+msgstr "Service-Empfänger"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:89
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:14
 msgid "Tax"
-msgstr "BTW"
+msgstr "MwSt."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:101
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/paymentmethods.phtml:2
 msgid "Payment Methods"
-msgstr "Betaalwijzen"
+msgstr "Zahlungsweisen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/reseller.phtml:9
 msgid "E-mail"
@@ -3418,51 +3517,51 @@ msgstr "E-mail"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/thumbs.phtml:15
 msgid "Thumb"
-msgstr "Kleine afbeelding."
+msgstr "Vorschaubild"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:16
 msgid "%s Subcategories"
-msgstr "%s Subcategorieën"
+msgstr "%s Subkategorien"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:48
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/thumbs.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:33
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/change.phtml:28
 msgid "Learn more"
-msgstr "Lees meer"
+msgstr "Weiter lesen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:50
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:35
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/change.phtml:30
 msgid "Compare Products"
-msgstr "Vergelijk producten"
+msgstr "Vergleiche Produkte"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:53
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:38
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/change.phtml:33
 msgid "Reviews"
-msgstr "Beoordelingen"
+msgstr "Bewertungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:55
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:40
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/change.phtml:35
 msgid "Add your review"
-msgstr "Voeg uw beoordeling toe"
+msgstr "Fügen Sie Ihre Bewertung hinzu"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:77
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:85
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:46
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/change.phtml:57
 msgid "Keywords"
-msgstr "trefwoorden"
+msgstr "Stichwörte"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:88
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/thumbs.phtml:31
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:57
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/change.phtml:68
 msgid "No product has been found."
-msgstr "Er werd geen product gevonden."
+msgstr "Es wurde kein Produkt gefunden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:89
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/thumbs.phtml:32
@@ -3476,33 +3575,40 @@ msgstr "Homepage"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/compare/index.phtml:19
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/attributes.phtml:12
 msgid "Unlimited"
-msgstr "Onbeperkt"
+msgstr "Unbeschränkt"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/compare/index.phtml:42
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/checkdomains.phtml:8
 msgid "Order Now"
-msgstr "Nu bestellen"
+msgstr "Jetzt bestellen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/contacts/index.phtml:3
-msgid "Fill the form with your requests, we will reply you as soon as possible."
-msgstr "Vul hieronder uw gegevens in en stel uw vraag. We doen ons best u zo snel mogelijk te antwoorden."
+msgid ""
+"Fill the form with your requests, we will reply you as soon as possible."
+msgstr ""
+"Geben Sie Ihre Daten ein und stellen Sie Ihre Frage. Wir bemühen uns, Sie so "
+"schnell wie möglich zu antworten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:2
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/content-header.phtml:23
 msgid "Login or Create a new Account"
-msgstr "Inloggen of een nieuw account aanmaken."
+msgstr "Anmelden oder erstellen eines neues Konto"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:5
 msgid "Create a new Account"
-msgstr "Maak een nieuwe account aan."
+msgstr "Neues Konto erstellen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:7
-msgid "By creating an account with our store, you will be able to move through the checkout process faster, view and track your orders in your account and more."
-msgstr "Door een klanten-account aan te maken kunt u onder andere sneller en gemakkelijker bestellingen plaatsen en de status van uw bestellingen volgen."
+msgid ""
+"By creating an account with our store, you will be able to move through the "
+"checkout process faster, view and track your orders in your account and more."
+msgstr ""
+"Durch Ihre Anmeldung werden Sie schneller durch den Bestellvorgang geführt, "
+"können Sie Ihre Aufträge in Ihrem Konto verfolgen und vieles mehr."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:10
 msgid "Create an Account"
-msgstr "Maak een account aan"
+msgstr "Konto erstellen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/loginbox.phtml:25
@@ -3512,242 +3618,285 @@ msgstr "Login"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:25
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/loginbox.phtml:26
 msgid "Sign in to get subscribed services."
-msgstr "Log in om uw diensten te bekijken"
+msgstr "Anmelden um Ihre Dienstleistungen zu sehen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/login.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/loginbox.phtml:30
 msgid "Forgot your password?"
-msgstr "Wachtwoord vergeten?"
+msgstr "Passwort vergessen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:2
 msgid "New Account"
-msgstr "Nieuwe account"
+msgstr "Neues Konto"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:3
 msgid "Create your new account today!"
-msgstr "Maak nu een nieuwe account aan!"
+msgstr "Jetzt ein neues Konto erstellen!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:22
 msgid "Already registered?"
-msgstr "Bent u al geregisteerd?"
+msgstr "Sind Sie bereits registriert?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:22
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:20
 msgid "Sign in"
-msgstr "Inloggen"
+msgstr "Anmelden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:10
 msgid "Welcome"
-msgstr "Welkom"
+msgstr "Wilkommen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:11
 msgid "Welcome to the administration of your own services and domain panel."
-msgstr "Welkom bij het beheerscherm van uw diensten en domeinen "
+msgstr "Willkommen im Verwaltungsschirm Ihrer Dienstleistungen und Domains"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:26
 msgid "Here below you can see all the domains near at the expiring date."
-msgstr "Alle domeinen die hun vervaldatum naderen"
+msgstr "Alle fällige Domains."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:35
 msgid "Here below you can see all the services near at the expiring date."
-msgstr "Alle diensten die hun vervaldatum naderen"
+msgstr "Alle fällige Dienstleistungen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:36
 msgid "Expiring Services"
-msgstr "Verlopende diensten"
+msgstr "Fällige Dienstleistungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:44
 msgid "In this section you can see all the requested support issues."
-msgstr "Alle gestelde hulpvragen"
+msgstr "Sämtliche Hilfsanfragen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:45
 msgid "Last Tickets"
-msgstr "Meest recente tickets"
+msgstr "Neueste Tickets"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:53
 msgid "Here some statistics about your domains and services."
-msgstr "Hieronder vindt u een aantal gegevens van uw domeinen en diensten."
+msgstr "Nachstehende finden sie Details Ihrer Domains und Dienstleistungen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:54
 msgid "Statistiche"
-msgstr "Statistieken"
+msgstr "Statistik"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomains.phtml:1
 msgid "Domains Bulk Registration"
-msgstr "Bulk registratie van domeinen"
+msgstr "Massenregistrierung von Domains"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomains.phtml:2
 msgid "It's easy to register your new domain names in bulk."
-msgstr "Het is erg eenvoudig om veel domeinnamen in één keer te registreren."
+msgstr "Es ist ganz einfach, Ihre neue Domainmamen massenweise zu registrieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomains.phtml:3
 msgid "Just enter your names in the field below. One domain name for each row."
-msgstr "Geef hieronder de domeinnamen in. Gebruik voor elke domeinnaam een nieuwe regel."
+msgstr ""
+"Geben Sie die Domainnamen hierunter ein. Für jede Domain eine neue Linie."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomains.phtml:16
 msgid "Select All"
-msgstr "Selecteer alles"
+msgstr "Alles wählen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomains.phtml:26
-msgid "When the 'Search' button is clicked, please be patient while we check domain availability."
-msgstr "We verzoeken u om even geduld te hebben nadat u op \"Zoeken\" hebt geklikt. We onderzoeken de beschikbaarheid van de domeinnamen."
+msgid ""
+"When the 'Search' button is clicked, please be patient while we check domain "
+"availability."
+msgstr ""
+"Wir bitten um ein bißchen Geduld. Wir untersuchen die Verfügbarkeit von "
+"Domainnamen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:1
 msgid "Domain Registration Order"
-msgstr "Domein registratie opdracht"
+msgstr "Auftrag zur Domainregistrierung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:2
 msgid "Create your new order with the following domains."
-msgstr "Maak een nieuwe bestelling aan met de volgende domeinen."
+msgstr "Neuen Auftrage erstellen mit den folgenden Domains."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:13
 msgid "Select all"
-msgstr "Selecteer alles"
+msgstr "Alles wählen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:17
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:48
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:13
 msgid "Price"
-msgstr "prijs"
+msgstr "Preis"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:48
 msgid "Get more information"
-msgstr "Meer informatie"
+msgstr "Weiter lesen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:53
 msgid "Authentication Code"
-msgstr "EPP code"
+msgstr "EPP kode"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:54
 msgid "Please write here your AuthCode in order to transfer the domain"
-msgstr "Geef hier de EEP-code of AuthCode in om het domein te verhuizen."
+msgstr "Geben Sie den EPP Kode oder AUTHCODE, um die Domain zu transferieren."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/bulkdomainsorder.phtml:57
 msgid "Domain Available"
-msgstr "Domein is beschikbaar!"
+msgstr "Domain ist verfügbar!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:40
-msgid "This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day."
-msgstr "Dit domein wordt verlengd op de vervaldatum."
+msgid ""
+"This domain will be renewed at the expiring day. Auto-Renew setting is "
+"active. You can edit this option until 3 days before the expiring day."
+msgstr "Diese Domain wird bei Fälligkeit erneuert."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:42
 msgid "This domain will be not renewed at the expiring day."
-msgstr "Dit domein wordt niet automatisch verlengd op de vervaldatum."
+msgstr "Diese Domain wird bei Fälligkeit nicht automatisch erneuert."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:63
-msgid "Here you can set your DNS Zones. All the edits have need one hour at least."
-msgstr "Stel hier de DNS zones is. Het duurt minstens een uur voordat een wijziging effectief is."
+msgid ""
+"Here you can set your DNS Zones. All the edits have need one hour at least."
+msgstr ""
+"Einstellung der DNS-Zonen. Es dauert mindestens eine Stunde, bevor eine "
+"Änderung wirksam ist."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:75
 msgid "Update DNS Zones"
-msgstr "Update DNS zones"
+msgstr "Aktualisieren DNS-Zonen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:85
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:80
-msgid "Here you can see all the questions and replies about this service/domain"
-msgstr "Overzicht van vragen en antwoorden over het domein of de dienst."
+msgid ""
+"Here you can see all the questions and replies about this service/domain"
+msgstr "Lesen Sie hier die Fragen, die Sie stellten und deren Antworten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:102
 msgid "List of all the orders where the domain appears."
-msgstr "Overzicht van alle bestellingen met deze domeinnaam"
+msgstr "Liste aller Bestellungenbei denen der Domain angezeigt wird."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:113
 msgid "List of all the services attached to the domain."
-msgstr "Overzicht van de diensten die aan het domein zijn gekoppeld"
+msgstr "Liste aller mit der Domain verbundenen Dienstleistungen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:121
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:123
 msgid "Tasks"
-msgstr "Taken"
+msgstr "Aufgaben"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:124
 msgid "List of all the tasks executed."
-msgstr "Overzicht van alle uitgevoerde taken"
+msgstr "Liste mit allen  ausgeführten Bearbeitungen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:134
-msgid "In this section you can execute various operation with your domain name."
-msgstr "Voer verschillende bewerkingen met uw domein uit."
+msgid ""
+"In this section you can execute various operation with your domain name."
+msgstr ""
+"n diesem Abschnitt können Sie verschiedene Bearbeitungen mit Ihren "
+"Domainnamen ausführen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:140
 msgid "Transfer here your domain"
-msgstr "Verhuis uw domein naar ons."
+msgstr "Übertragen Sie Ihre Domain zu uns."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:141
-msgid "To transfer your own domain name here you have to set the AuthInfo Code in the following textbox area."
-msgstr "Om uw domein te verhuizen dient u hier de AuthInfo Code in te vullen."
+msgid ""
+"To transfer your own domain name here you have to set the AuthInfo Code in "
+"the following textbox area."
+msgstr "Um Ihre Domain zu übertragen, bitte hier die EPP-Kode ausfüllen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:150
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:152
 msgid "Protect your domain"
-msgstr "Beveilig uw domein"
+msgstr "Ihre Domain sichern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:151
-msgid "To protect against theft the domain, the domain is placed in a state that does not allow the transfer. If another registrar requires the transfer of the domain, the operation will be automatically rejected. If you wish to transfer the domain to a new registrar, remove the protection. In this state, the domain will not be protected and another registrar may request the transfer."
-msgstr "Om diefstal en ongewenste verhuizing van een domein te voorkomen is een domein beveiligd. In het geval een andere provider een verhuizing aanvraagt, wordt deze automatisch afgewezen. Wanneer u uw domein naar een andere provider wilt verhuizen, dient u deze beveiliging op te heffen.Uw nieuwe provider kan het domein daarna verhuizen met behulp van de EPP code die u hem verstrekt."
+msgid ""
+"To protect against theft the domain, the domain is placed in a state that "
+"does not allow the transfer. If another registrar requires the transfer of "
+"the domain, the operation will be automatically rejected. If you wish to "
+"transfer the domain to a new registrar, remove the protection. In this "
+"state, the domain will not be protected and another registrar may request "
+"the transfer."
+msgstr ""
+"Um Diebstahl und unerwünschte Übertragung eines Domain zu verhindern, ist "
+"eine Domain gesichert. Wenn ein anderer Anbieter einen Umzug anfordert, wird "
+"der automatisch abgelehnt. Möchten Sie Ihre Domain zu einem anderen Provider "
+"übertragen, so sollten Sie diese Sicherung ausschalten. Ihr neuer Anbieter "
+"kann dann die Domain umziehen mit der EPP Kode, den Sie ihm geben."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:155
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:164
 msgid "Request the AUTHINFO"
-msgstr "Vraag de Authinfo op"
+msgstr "AUTHINFO anfordern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:157
-msgid "The authinfocode is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrant of this code, necessary to perform all operations. Without this code you cannot transfer this domain."
-msgstr "De EPP code is een beveiliging tegen een ongewenste verhuizing van de domeinnaam. De EPP code is uniek en hoort uitsluitend bij de daaraan verbonden domeinnaam. Uw huidige provider is verplicht u op uw verzoek deze code door te geven. Zonder deze EPP code kan een domein niet worden verhuisd."
+msgid ""
+"The authinfocode is a code that is assigned at the time of registration and "
+"that uniquely identifies the domain. The Registrar must notify the "
+"Registrant of this code, necessary to perform all operations. Without this "
+"code you cannot transfer this domain."
+msgstr ""
+"Bei Domainnamen mit bestimmten Endungen benötigen wir den sogenannten "
+"Authcode (auch Authinfo, EPP Key, Domain Key) genannt, um den "
+"Providerwechsel starten zu können.Da nur der Domaininhaber diesen Authcode "
+"kennt soll darüber sichergestellt werden, dass keine unrechtmäßige "
+"Domainübernahme erfolgen kann. Das bedeutet jedoch nicht, dass Ihnen Ihr "
+"Provider den Authcode automatisch mitteilt. Meist müssen Sie gezielt danach "
+"fragen und häufig wird er Ihnen auch erst mitgeteilt, wenn Sie Ihre Domain "
+"bereits gekündigt haben."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:159
 msgid "Authinfo"
-msgstr "EPP code"
+msgstr "EPP kode"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:166
 msgid "Request a NEW AUTHINFO"
-msgstr "Vraag een nieuwe Authinfo op"
+msgstr "Eine neue AUTHINFO anfordern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/index.phtml:16
 msgid "Looking for a domain name?"
-msgstr "Een domeinnaam registeren?"
+msgstr "Auf der Suche nach einem Domainnamen?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/index.phtml:17
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/index.phtml:18
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:67
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:31
 msgid "Choose your new domain name!"
-msgstr "Kies uw nieuwe domeinnaam!"
+msgstr "Wählen Sie Ihre neue Domain-Namen!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:13
 msgid "%s is still free."
-msgstr "%s is nog beschikbaar."
+msgstr "%s ist noch frei."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:15
 msgid "%s is already taken."
-msgstr "%s is niet meer beschikbaar."
+msgstr "%s ist bereits vergeben."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:23
 msgid "I would like to register %s"
-msgstr "Ja, registreer voor mij %s"
+msgstr "Ja, ich möchte %s registrieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:25
 msgid "Register"
-msgstr "Registreer"
+msgstr "Registriere"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:28
 msgid "I would like to transfer %s"
-msgstr "Ik wil de domeinnaam %s verhuizen"
+msgstr "Ich möchte %s transferieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:31
 msgid "Write here your AUTHINFO code for your domain %s (optional)"
-msgstr "dient u hier de AUTHINFO code van domein %s in te voeren."
+msgstr "Hier bitte die EPP-Kode der Domain %s eingeben."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:32
-msgid "To transfer your domain name, please unlock it at the old provider control panel website and get the AUTHINFO code of your domain."
-msgstr "Om uw domein te verhuizen dient u bij uw huidige provider de EPP code op te vragen en de beveiliging van het domein op te heffen."
+msgid ""
+"To transfer your domain name, please unlock it at the old provider control "
+"panel website and get the AUTHINFO code of your domain."
+msgstr ""
+"Um Ihren Domainnamen zu übertragen, bitte entsperren Sie die Name beim alten "
+"Anbieter und fragen Sie dort dem EPP-Kode Ihrer Domain nach."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:32
 msgid "Read more"
-msgstr "Meer weten?"
+msgstr "Weiter lesen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:36
 msgid "Change Name"
-msgstr "Wijzig de naam"
+msgstr "Namen ändern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:37
 msgid "WHOIS"
@@ -3755,153 +3904,164 @@ msgstr "WHOIS"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:44
 msgid "Domain Suggestions"
-msgstr "Suggesties voor andere domeinnamen"
+msgstr "Vorschläge für andere Domainnamen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:54
 msgid "Show"
-msgstr "Toon"
+msgstr "Zeigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:60
 msgid "Select all the domains"
-msgstr "Selecteer alle domeinen"
+msgstr "Alle Domains wählen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:61
 msgid "Order Selected"
-msgstr "Bestel de gekozen domeinnaam"
+msgstr "Bestellen Sie die gewählte Domainname"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domainschk/result.phtml:66
 msgid "Search another domain name"
-msgstr "Zoek een andere domeinnaam op"
+msgstr "Suche eine andere Domainnamen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/generic.phtml:5
 msgid "What can you do?"
-msgstr "Wat kunt u doen?"
+msgstr "Was können Sie tun?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/generic.phtml:6
-msgid "Have no fear, help is near! There are many ways you can get back on track with our store."
-msgstr "U bent blijkbaar verdwaald geraakt op onze website. Kies één van de mogelijkheden om uw weg terug te vinden."
+msgid ""
+"Have no fear, help is near! There are many ways you can get back on track "
+"with our store."
+msgstr ""
+"Offenbar haben Sie sich auf unserer Website verloren. Wählen Sie eine der "
+"Optionen, um Ihren Weg zurück zu finden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/generic.phtml:9
 msgid "Go back to the previous page."
-msgstr "Ga terug naar de vorige pagina"
+msgstr "Zurück zur vorherigen Seite"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/generic.phtml:10
 msgid "Follow this link to get you back on track!"
-msgstr "Klik op deze link om weer op het juiste spoor te komen"
+msgstr ""
+"Klicken Sie auf diesen Link, um wieder auf dem richtigen Weg zu geraten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/generic.phtml:13
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/notfound/index.phtml:20
-msgid "Tell us which is the broken link. You will not be contacted by us about this report."
-msgstr "Laat ons weten welke link niet (meer) werkt. Wij zullen u niet benaderen over uw melding."
+msgid ""
+"Tell us which is the broken link. You will not be contacted by us about this "
+"report."
+msgstr "Sagen Sie es uns bitte wenn ein Link nicht (mehr) stimmt."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/password.phtml:2
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/password.phtml:14
 msgid "Reset your password"
-msgstr "Uw wachtwoord resetten"
+msgstr "Ihr Passwort zurücksetzen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/password.phtml:10
-msgid "Write your email in the follow text box in order to reset your password."
-msgstr "Vul hier uw e-mail adres in om uw wachtwoord te resetten."
+msgid ""
+"Write your email in the follow text box in order to reset your password."
+msgstr ""
+"Geben Sie einfach Ihre E-Mail-Adresse ein um Ihr Passwort zurückzusetzen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/qrcode.phtml:4
 msgid "Thank you %s for supporting"
-msgstr "Hartelijk dank %s voor uw beoordeling"
+msgstr "Vielen Dank %s für Ihre Bewertung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/qrcode.phtml:8
 msgid "Services Subscribed"
-msgstr "Uw diensten"
+msgstr "Ihre Dienstleistungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/qrcode.phtml:13
 msgid "Please write down a review regarding the subscribed service"
-msgstr "Wilt u zo vriendelijk zijn een beoordeling te geven van de geleverde diensten en producten?"
+msgstr "Bitte schreiben Sie eine Bewertung der Dienstleistungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/qrcode.phtml:20
 msgid "Login here as customer"
-msgstr "Klanten login"
+msgstr "Kundenanmeldung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/index/qrcode.phtml:20
 msgid "Back to home"
-msgstr "Terug naar Homepage"
+msgstr "Zurück zur Homepage"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/notfound/index.phtml:3
 msgid "Our apologies..."
-msgstr "Neemt u ons niet kwalijk."
+msgstr "Verzeihung bitte."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/notfound/index.phtml:4
 msgid "The page you requested cannot be displayed."
-msgstr "Deze pagina kan niet getoond worden."
+msgstr "Diese Seite kann nicht angezeigt werden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/notfound/index.phtml:8
 msgid "Are you looking for one of these products?"
-msgstr "Zoekt u misschien een van deze producten?"
+msgstr "Vielleicht sind Sie auf der Suche nach einem dieser Produkte?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/notfound/index.phtml:19
 msgid "Report this problem"
-msgstr "Meld dit probleem."
+msgstr "Problem melden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:22
 msgid "Order list"
-msgstr "Overzicht bestellingen"
+msgstr "Liste der Bestellungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:23
 msgid "Print Order"
-msgstr "Bestelling afdrukken"
+msgstr "Bestellung drucken"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:25
 msgid "Print Invoice"
-msgstr "Factuur afdrukken"
+msgstr "Rechnung drucken"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:60
-msgid "Here you can read all your questions and the admin replies about this order."
-msgstr "Hier leest u alle door u gestelde vragen en de antwoorden daarop"
+msgid ""
+"Here you can read all your questions and the admin replies about this order."
+msgstr "Lesen Sie hier die Fragen, die Sie stellten und deren Antworten."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:70
 msgid "Open a ticket"
-msgstr "Maak een helpticket aan"
+msgstr "Erstellen Sie ein Hilfeticket"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/list.phtml:15
 msgid "Download Invoices"
-msgstr "Facturen downloaden"
+msgstr "Rechnungen herunterladen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/attributes.phtml:2
 msgid "Features"
-msgstr "Kenmerken"
+msgstr "Eigenschaften"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cart.phtml:2
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:6
 msgid "Cart"
-msgstr "Winkelwagentje "
+msgstr "Warenkorb"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:50
 msgid "Setup Fee"
-msgstr "Instelkosten"
+msgstr "Einrichtungsgebühr"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:68
 msgid "Delete All"
-msgstr "Alles verwijderen"
+msgstr "Alles löschen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/checkdomains.phtml:16
 msgid "Registering more than one domain name? Click here!"
-msgstr "Wilt u meer dan één domeinnaam registreren? Klik hier!"
+msgstr ""
+"Möchten Sie mehr als einen Domainnamen registrieren? Dann hier klicken!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:2
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:2
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:2
 msgid "The search view is active."
-msgstr "Het zoekvenster is actief."
+msgstr "Das Suchfenster ist aktiv."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:3
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:3
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:3
 msgid "Click here to reset the results."
-msgstr "Klik hier om de resultaten te wissen."
+msgstr "Hier klicken zum Zurückstellen der Ergebnisse."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:77
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:119
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:16
 msgid "Filters"
-msgstr "Filters"
+msgstr "Filter"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:105
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:27
@@ -3913,14 +4073,18 @@ msgstr "Tags"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:139
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:117
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:118
-msgid "Select the items and then use the bulk action system to set more than one item."
-msgstr "Kies alle onderdelen en gebruik vervolgens het bulk systeem om alle items in te stellen."
+msgid ""
+"Select the items and then use the bulk action system to set more than one "
+"item."
+msgstr ""
+"Wählen Sie die Komponenten und verwenden Sie dann den Massenystem um alle "
+"Elemente zu setzen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:144
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:122
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:123
 msgid "Records per page"
-msgstr "Records per pagina"
+msgstr "Einträge pro Seite"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/prices.phtml:23
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/prices.phtml:37
@@ -3930,11 +4094,11 @@ msgstr "Records per pagina"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:19
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:24
 msgid "VAT included"
-msgstr "inclusief BTW"
+msgstr "MwSt. einbegriffen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/prices.phtml:27
 msgid "Subscribing %s you can save %s"
-msgstr "Een abonnement van %s bespaart u %s"
+msgstr "Im Abonnement %s sparen Sie %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:4
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:9
@@ -3943,51 +4107,51 @@ msgstr "Een abonnement van %s bespaart u %s"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/webmenu.phtml:5
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/webmenu.phtml:16
 msgid "Press %s to open the page"
-msgstr "Druk op %s om de pagina te openen"
+msgstr "Drücken Sie %s, um die Seite zu öffnen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/reviews.phtml:4
 msgid "Customer Reviews"
-msgstr "Beoordelingen van klanten"
+msgstr "Kundenbewertungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/reviews.phtml:13
 msgid "Review by"
-msgstr "Beoordeeld door"
+msgstr "Bewertet von"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/searchbox.phtml:1
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/searchdomain.phtml:2
 msgid "Fast Search"
-msgstr "Snel zoeken"
+msgstr "Schnell Suchen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/searchdomain.phtml:2
 msgid "Type here the domain name"
-msgstr "Geef hier de domeinnaam in"
+msgstr "Bitte geben Sie hier den Domainnamen ein."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:88
 msgid "Change"
-msgstr "Wijzigen"
+msgstr "Ändern"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:10
 msgid "Product Name"
-msgstr "Productnaam"
+msgstr "Produkt Name"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:55
 msgid "You can add the Authcode after the payment has already been done"
-msgstr "U kunt de EPP code ook na uw betaling opgeven."
+msgstr "Sie können die EPP-Kode auch noch nach Ihrer Zahlung eingeben."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:59
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:51
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:65
 msgid "Setup fee"
-msgstr "Instelkosten"
+msgstr "Einrichtungsgebühr"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:63
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:46
 msgid "Click here to delete"
-msgstr "Klik hier om te verwijderen"
+msgstr "Hier klicken zum Löschen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/slideshow.phtml:51
 msgid "View all available plans now"
-msgstr "Bekijk alle leverbare pakketten"
+msgstr "Alle verfügbaren Pakete zeigen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/webmenu.phtml:5
 msgid "Blog"
@@ -3995,72 +4159,72 @@ msgstr "Blog"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/wikisidebar.phtml:3
 msgid "Wiki Help"
-msgstr "Wiki hulp"
+msgstr "Wiki Hilfe"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/wikisidebar.phtml:5
 msgid "Read our wiki articles before asking."
-msgstr "Lees ook onze wiki wanneer u een probleem tegenkomt"
+msgstr "Bitte lesen Sie unsere Wiki, wenn Sie auf ein Problem stoßen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/wikisidebar.phtml:6
 msgid "Search on Wiki Help Guide"
-msgstr "Zoeken in de Wiki"
+msgstr "Durchsuchen der Wiki"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:32
 msgid "Compare"
-msgstr "Vergelijk"
+msgstr "Vergleiche"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:73
 msgid "Subscribe"
-msgstr "Abonneren"
+msgstr "Abonnieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:73
 msgid "Add to cart"
-msgstr "In winkelwagentje doen"
+msgstr "Im Warenkorb"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/reviews.phtml:5
 msgid "Add your review for"
-msgstr "Toevoegen beoordeling van"
+msgstr "Fügen Sie Ihre Bewertung hinzu für "
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/wikipages.phtml:3
 msgid "Wiki Pages"
-msgstr "Wiki paginas"
+msgstr "Wiki Seiten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:28
 msgid "Generic data"
-msgstr "Algemene gegevens"
+msgstr "Algemeine Daten"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:92
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:94
 msgid "My Customers"
-msgstr "Mijn klanten"
+msgstr "Meine Kunden"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:2
 msgid "deleteaction"
-msgstr "verwijderen"
+msgstr "löschen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:3
 msgid "desc_deleteaction"
-msgstr "wissen"
+msgstr "löschen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:6
 msgid "areusure"
-msgstr "Weet u het zeker?"
+msgstr "Sind Sie sicher?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:8
 msgid "noiwrong"
-msgstr "Nee, annuleer de actie."
+msgstr "Nein, die Aktion abbrechen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:9
 msgid "yesiwant"
-msgstr "Ja, ik wil het ECHT VERWIJDEREN!"
+msgstr "Ja, ich möchte es wirklich löschen!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:7
 msgid "Result search for %s"
-msgstr "Zoekresultaten van %s"
+msgstr "Suchergebnisse von %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:24
 msgid "Tickets list"
-msgstr "Overzicht tickets"
+msgstr "Tickets Liste"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:30
 msgid "Request ID"
@@ -4069,7 +4233,7 @@ msgstr "Request ID"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:37
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:111
 msgid "Very poor"
-msgstr "Erg slecht"
+msgstr "Sehr slecht"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:38
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:112
@@ -4079,127 +4243,143 @@ msgstr "Slecht"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:39
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:113
 msgid "OK"
-msgstr "Goed"
+msgstr "Gut"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:40
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:114
 msgid "Good"
-msgstr "Erg goed"
+msgstr "Sehr gut"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:41
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:115
 msgid "Very Good"
-msgstr "Uitmuntend"
+msgstr "Sehr gut"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/customform.phtml:54
 msgid "This issue is connected with the ticket: %s"
-msgstr "Deze vraag houdt verband met ticket: %s"
+msgstr "Dieses Problem ist verbunden mit dem Ticket: %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tickets/index.phtml:13
 msgid "Post new ticket"
-msgstr "Stuur nieuwe ticket"
+msgstr "Neues Ticket senden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:30
 msgid "Domain Checker"
-msgstr "Domein controle"
+msgstr "Domain Checker"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:41
 msgid "Other extensions"
-msgstr "Andere extensies"
+msgstr "Andere Erweiterungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/tlds/index.phtml:44
 msgid "Register your new .%s domain"
-msgstr "Registreer uw nieuwe .%s domein"
+msgstr "Registrieren Sie Ihre neue .%s Domain"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/help.phtml:10
 msgid "posted"
-msgstr "Ingezonden"
+msgstr "eingereicht"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/help.phtml:10
 msgid "This article has been read %s times"
-msgstr "Dit artikel is %s keer gelezen"
+msgstr "Dieser Artikel wurde %s mal gelesen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/help.phtml:11
 msgid "back to the list"
-msgstr "terug naar het overzicht"
+msgstr "Zurück zur Liste"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/index.phtml:28
 msgid "Posted"
-msgstr "Ingezonden"
+msgstr "Eingereicht"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/index.phtml:36
 msgid "Have you found what you need? If not write a question here."
-msgstr "Hebt u gevonden wat u zocht? Zo niet, stel ons uw vraag."
+msgstr ""
+"Haben Sie gefunden, was Sie gesucht haben? Wenn nicht, fragen Sie uns bitte."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/wiki/products_reference.phtml:3
 msgid "Products Reference"
-msgstr "Product referentie"
+msgstr "Produkt Referenz"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:5
 msgid "Requirements"
-msgstr "Vereisten"
+msgstr "Anforderungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:6
 msgid "please check the process results and fix them"
-msgstr "Controleer het resultaat en herstel de eventuele fouten"
+msgstr ""
+"Bitte überprüfen Sie die Ergebnisse und versuchen Sie die Fehler zu "
+"korrigieren"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:8
-msgid "There was a problem during the configuration of the application. Please check the directory permission and refresh the page."
-msgstr "Er is een probleem ontstaan bij de configuratie van het systeem. Controleer de schrijfrechten van de directories en vernieuw de pagina."
+msgid ""
+"There was a problem during the configuration of the application. Please "
+"check the directory permission and refresh the page."
+msgstr ""
+"Es gab ein Problem bei der Konfiguration des Systems. Überprüfen Sie die "
+"Schreibrechte der Verzeichnisse und laden Sie die Seite erneut."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:10
 msgid "Is the public directory writable?"
-msgstr "Is de directory /public schrijfbaar?"
+msgstr "Ist die /public Verzeichnis beschreibbar?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:11
 msgid "Is the application config directory writable?"
-msgstr "Is de directory /application/configs schrijfbaar?"
+msgstr "Ist die /application/configs Verzeichnis beschreibbar?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:13
 msgid "These directories or they parents are not writable"
-msgstr "Deze directories en/of de daarboven liggende directories hebben onvoldoende schrijfrechten."
+msgstr ""
+"Diese Verzeichnisse und / oder die darüberliegenden Verzeichnisse haben "
+"unzureichende Schreibrechte."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/checker/index.phtml:21
 msgid "Try Again"
-msgstr "Opnieuw proberen"
+msgstr "Nochmals versuchen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/database/form.phtml:16
 msgid "Database Connection"
-msgstr "Database verbinding"
+msgstr "Datenbank Verbindung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/database/form.phtml:22
 msgid "Check DB Connection"
-msgstr "Controleer de verbinding met de database"
+msgstr "Überprüfen der Verbindung zur Datenbank"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/localization/form.phtml:15
 msgid "Locale Settings"
-msgstr "Locale instelling"
+msgstr "Locale Einstellung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/preferences/form.phtml:15
 msgid "Preferences Settings"
-msgstr "Voorkeurinstellingen"
+msgstr "Einstellungen"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:8
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/1column.phtml:6
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/2columns-right.phtml:6
 msgid "Summary"
-msgstr "In het kort"
+msgstr "Zusammenfassung"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:9
 msgid "Setup has been Completed!"
-msgstr "De setup is afgerond!"
+msgstr "Installierung is abgeschlossen!"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:10
-msgid "ShineISP has been configured. Now you can start to customize your ShineISP configuration."
-msgstr "ShineISP is nu geconfigureerd. U kunt nu beginnen met het aan uw wensen aanpassen van het systeem."
+msgid ""
+"ShineISP has been configured. Now you can start to customize your ShineISP "
+"configuration."
+msgstr ""
+"ShineISP ist konfiguriert worden. Jetzt können Sie beginnen, Ihre ShineISP "
+"Konfiguration an zu passen."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:12
 msgid "Administration Credencials"
-msgstr "Inloggegevens beheerder"
+msgstr "Anmeldeinformationen Administration"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:14
-msgid "Please write down your own credencials to login at the administration control panel."
-msgstr "Vul hieronder uw gebruikersnaam en wachtwoord in om in te loggen."
+msgid ""
+"Please write down your own credencials to login at the administration "
+"control panel."
+msgstr ""
+"Geben Sie Ihren Benutzernamen und Ihr Passwort ein, um sich anzumelden."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:19
 msgid "ShineISP Disclaimer"
@@ -4207,7 +4387,7 @@ msgstr "ShineISP disclaimer"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:21
 msgid "Administration"
-msgstr "Beheer"
+msgstr "Administration"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:22
 msgid "Public Site"
@@ -4215,48 +4395,49 @@ msgstr "Website"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Custom/views/callmeback.phtml:3
 msgid "Call me back service"
-msgstr "Terugbelservice"
+msgstr "Rückruf"
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Custom/views/callmeback.phtml:4
-msgid "Call me back service helps you to get the first contact with our company."
-msgstr "We bellen u op het door u gewenste tijdstip"
+msgid ""
+"Call me back service helps you to get the first contact with our company."
+msgstr "Wir werden Sie an der Zeit, die Sie wollen, anrufen."
 
 #: /Library/WebServer/Documents/shineisp/public/skins/admin/base/scripts/1column.phtml:4
 msgid "Please wait a moment..."
-msgstr "Een ogenblik geduld a.u.b."
+msgstr "Moment bitte..."
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/1column.phtml:10
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/2columns-right.phtml:10
 msgid "Ooops! Sorry, it's our fault!"
-msgstr "Oeps, foutje..."
+msgstr "Es gab ein Fehler."
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/1column.phtml:12
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/2columns-right.phtml:12
 msgid "The page that you are trying to get is no longer available."
-msgstr "De pagina die u wilde bezoeken is niet (meer) beschikbaar."
+msgstr "Die Seite, die Sie besuchen wollten ist nicht (mehr) vorhanden."
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/1column.phtml:13
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/2columns-right.phtml:13
 msgid "What can I do?"
-msgstr "Wat kan ik voor u doen?"
+msgstr "Was kann ich für Sie tun?"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/1column.phtml:15
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/2columns-right.phtml:15
 msgid "Go to the homepage"
-msgstr "Ga naar de homepage"
+msgstr "Zur homepage"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/1column.phtml:16
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/cms/2columns-right.phtml:16
 msgid "Login as customer"
-msgstr "Als klant inloggen"
+msgstr "Anmelden als Kunde"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/content-header.phtml:14
 msgid "Welcome Mrs. %s"
-msgstr "Welkom mevrouw %s"
+msgstr "Wilkommen Frau %s"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/content-header.phtml:16
 msgid "Welcome Mr. %s"
-msgstr "Welkom meneer %s"
+msgstr "Wilkommen Herrn %s"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/content-header.phtml:18
 msgid "Welcome %s"
@@ -4264,9 +4445,8 @@ msgstr "Welkom mevrouw, meneer %s"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/endpage.phtml:2
 msgid "Connect with the ShineISP Community"
-msgstr "Naar de ShineISP community"
+msgstr "Zur ShineISP community"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/default/base/scripts/includes/endpage.phtml:2
 msgid "ver. %s"
-msgstr "versie %s"
-
+msgstr "version %s"
