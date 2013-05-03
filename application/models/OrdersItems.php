@@ -966,7 +966,8 @@ class OrdersItems extends BaseOrdersItems {
 				
 				
 		} catch ( Exception $e ) {
-			return $e->getMessage () ;
+			Shineisp_Commons_Utilities::logs ($e->getMessage(), "cron.log" );
+			return false;
 		}
 	
 		return true;
