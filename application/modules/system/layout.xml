@@ -20,6 +20,11 @@
 			<script class="OrdersItems" method="checkServices">Check subscribed services</script>
 		</execute>
 		
+		<!-- 0:00 every first day of the month -->
+		<execute time="0 0 1 * *">
+			<script class="Shineisp_Api_POEditor_Main" method="download">Update the language translation</script>
+		</execute>
+		
 		<!-- 2:00 every 1st of the month -->
 		<execute time="0 2 1 * *">
 			<script class="Orders" method="cleanNotPayedOrders">Clean not payed orders</script>
