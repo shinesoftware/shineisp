@@ -89,7 +89,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
 		$this->addElement('textarea', 'html', array(
             'filters'    => array('StringTrim'),
             'label'      => 'HTML Content',
-            'class'      => 'wysiwyg'
+            'class'      => 'wysiwyg_fullpage'
         ));		 
 		$this->addElement('textarea', 'text', array(
             'filters'    => array('StringTrim'),
