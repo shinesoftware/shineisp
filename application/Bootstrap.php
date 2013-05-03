@@ -65,7 +65,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 									        'locale'  => $langcode,
 									    	'disableNotices' => true
 									    ));
-
+		
 		$registry = Zend_Registry::getInstance();
 		$registry->set('Zend_Translate', $translate);
 		$translate->setLocale('en');

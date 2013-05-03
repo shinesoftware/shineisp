@@ -23,18 +23,30 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 				$lang = $ns->lang;
 			}
 		}
-		$translate = Zend_Registry::get ( 'Zend_Translate' );
 		
-		if ($translate->isAvailable ( $lang )) {
+		if(file_exists(PUBLIC_PATH . "/languages/$lang/$lang.mo")){
+			$translate = new Zend_Translate(
+					array(
+							'adapter' => "Shineisp_Translate_Adapter_Gettext",
+							'content' => PUBLIC_PATH . "/languages/$lang/$lang.mo",
+							'locale'  => $lang,
+							'disableNotices' => true
+					));
+			
+			$registry = Zend_Registry::getInstance();
 			$translate->setLocale ( $lang );
-		} else {
-		 	// Otherwise get default language
-            $locale = $translate->getLocale();
-            if ($locale instanceof Zend_Locale) {
-                $lang = $locale->getLanguage();
-            } else {
-                $lang = $locale;
-            }
+			$registry->set('Zend_Translate', $translate);
+			
+		}else{
+			$translate = Zend_Registry::get ( 'Zend_Translate' );
+			
+			// Otherwise get default language
+			$locale = $translate->getLocale();
+			if ($locale instanceof Zend_Locale) {
+				$lang = $locale->getLanguage();
+			} else {
+				$lang = $locale;
+			}
 		}
 		
 		$ns->lang = $lang;
