@@ -155,16 +155,7 @@ class Customers extends BaseCustomers {
 	public static function welcome_mail($customerid, $passwd="") {
 	
 		$data     = self::getAllInfo($customerid);
-		$subject  = $retval ['subject'];
-		$template = $retval ['template'];
 		$isp      = Isp::getActiveISP ();
-		
-		if (!empty($data ['lastname']) && !empty($data ['firstname'])) {
-			$subject  = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $subject );
-			$template = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $template );	
-		} else {
-			$subject = str_replace ( "[fullname]", "", $subject );
-		}
 
 		// Reset password
 		if (empty($passwd)) {
@@ -176,6 +167,7 @@ class Customers extends BaseCustomers {
 			 'storename' => $isp['company']
 			,'website'   => $isp['website']
 			,'email'     => $data['email']
+			,'fullname'  => $data['fullname']
 			,'signature' => $isp['company']
 			,'password'  => $passwd
 		));

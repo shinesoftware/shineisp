@@ -1007,7 +1007,6 @@ class Shineisp_Commons_Utilities {
 		}
 
 		// Remove unneeded parameters
-		unset($replace['password']);
 		unset($replace['active']);
 		unset($replace['isppanel']);
 
