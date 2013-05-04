@@ -644,6 +644,9 @@ class Orders extends BaseOrders {
 		}
 		
 		if (is_numeric ( $customer_id )) {
+			
+			$customer = Customers::getAllInfo($customer_id);
+			
 			if (count ( $products ) > 0) {
 				
 				$order->customer_id = $customer_id;
@@ -653,6 +656,9 @@ class Orders extends BaseOrders {
 				$order->status_id = Statuses::id("tobepaid", "orders"); // To be pay
 				$order->save ();
 				$orderid = $order->getIncremented ();
+				
+				// Log data 
+				Shineisp_Commons_Utilities::log("A new order (" . Orders::formatOrderId($orderid) . ") for ".$customer['fullname']." has been created successfully");
 				
 				// Add a fastlink to a order
 				$link_exist = Fastlinks::findlinks ( $orderid, $customer_id, 'orders' );
