@@ -48,7 +48,9 @@
 		                   <br/>
 		                   <span id="pricetaxval"></span> <?php echo $this->translate('VAT included')?>
 		                   <br/>
-		                   <small><?php echo $this->translate('Setup fee')?></small>: <span id="setupfee"></span><br/>
+		                   <span id="setupfeecontainer">
+		                   		<?php echo $this->translate('Setup fee')?>: <span id="setupfee"></span>
+		                   </span>
 		                   <span id="tranche_includes"></span> 
 		                </div>
 	                <?php else: ?>
@@ -60,11 +62,6 @@
 		                </div>
 	                <?php endif;?>
 	                
-	             	<?php if(!empty($this->product['setupfee']) && $this->product['setupfee'] > 0): ?>
-	                    <div class="sticker">
-	                        <small><?php echo $this->translate('Setup fee') ?>: <?php echo $this->currency($this->product['setupfee'], array('currency' => Settings::findbyParam('currency')))?></small>
-	                     </div>
-                	<?php endif;?>	  
                 	<?=$this->blocks()->showblock('products_after_price');?>              
 	            </div>
 	            <div class="product-info">
