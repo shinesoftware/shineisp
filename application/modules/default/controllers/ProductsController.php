@@ -239,12 +239,12 @@ class ProductsController extends Zend_Controller_Action {
 			$includes    = 	ProductsTranchesIncludes::getIncludeForTrancheId( $id );
             $textIncludes    = array();
             if( array_key_exists('domains', $includes) ) {
-                $textIncludes[]    = $this->translator->translate('Domains') . ": ".implode(", ",$includes['domains']);
+                $textIncludes[]    = $this->translator->translate('Domains Included') . ": ".implode(", ",$includes['domains']);
             }
             
             $textInclude    = "";
             if( ! empty($textIncludes) ) {
-                $textInclude = $translator->_("Includes: %s", implode("<br/>",$textIncludes));    
+                $textInclude = implode("<br/>",$textIncludes);    
             }
 
 			// Prepare the data to send to the json

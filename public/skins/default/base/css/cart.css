@@ -842,6 +842,17 @@ font-weight: bold;
 	padding-top: 5px;
 }
 
+#setupfeecontainer{
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#tranche_includes{
+	display: block;
+	margin-top: 15px;
+}
+
 /* ***************** REVIEWS  ******************* */
 
 .reviewheader {
