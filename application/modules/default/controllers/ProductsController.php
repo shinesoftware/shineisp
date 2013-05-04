@@ -65,7 +65,7 @@ class ProductsController extends Zend_Controller_Action {
 				
 				$form = $this->CreateProductForm ( );
 				$items = ProductsTranches::getList ( $data ['product_id'],$refund );
-
+				
 				// Check the default quantity value
 				$qta = ProductsTranches::getDefaultItem ( $data ['product_id'] );
 				if (! empty ( $qta )) {
@@ -195,7 +195,9 @@ class ProductsController extends Zend_Controller_Action {
 	 * Get the price of the product
 	 */
 	public function getpriceAction() {
-		$currency 	= new Zend_Currency();
+		$currency = Zend_Registry::get ( 'Zend_Currency' );
+    	$translator = Zend_Registry::get ( 'Zend_Translate' );
+		
 		$id 		= $this->getRequest ()->getParam ( 'id' );
 		$refund 	= $this->getRequest ()->getParam ( 'refund' );
 		$data = array ();
@@ -233,17 +235,16 @@ class ProductsController extends Zend_Controller_Action {
 					}
 				}
 			}
-			/** 20130409 **/	
 			
 			$includes    = 	ProductsTranchesIncludes::getIncludeForTrancheId( $id );
             $textIncludes    = array();
             if( array_key_exists('domains', $includes) ) {
-                $textIncludes[]    = " - Domains: ".implode(", ",$includes['domains']);
+                $textIncludes[]    = $this->translator->translate('Domains') . ": ".implode(", ",$includes['domains']);
             }
             
             $textInclude    = "";
             if( ! empty($textIncludes) ) {
-                $textInclude    = " Includes :<br/>".implode("<br/>",$textIncludes);    
+                $textInclude = $translator->_("Includes: %s", implode("<br/>",$textIncludes));    
             }
 
 			// Prepare the data to send to the json

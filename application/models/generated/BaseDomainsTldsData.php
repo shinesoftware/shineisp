@@ -64,7 +64,8 @@ abstract class BaseDomainsTldsData extends Doctrine_Record
         parent::setUp();
         $this->hasOne('DomainsTlds', array(
              'local' => 'tld_id',
-             'foreign' => 'tld_id'));
+             'foreign' => 'tld_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Languages', array(
              'local' => 'language_id',

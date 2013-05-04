@@ -213,9 +213,7 @@ class Admin_DomainstldsController extends Zend_Controller_Action {
 		}
 		
 		if ($form->isValid ( $request->getPost () )) {
-			
-			$id = DomainsTlds::saveAll($request->getPost ());
-			
+			$id = DomainsTlds::saveAll($request->getPost (), $this->session->langid);
 			$redirector->gotoUrl ( "/admin/domainstlds/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
