@@ -873,7 +873,7 @@ class Customers extends BaseCustomers {
 	 * @return ArrayObject
 	 */
 	public static function Hitparade() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$records = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
 							->from ( 'Invoices i' )

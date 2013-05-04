@@ -196,7 +196,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/orders/process' );
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
@@ -334,7 +334,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 * @return multitype:boolean multitype:string
 	 */
 	private function paymentsGrid() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$myrec = array ();
 		$requestId = $this->getParam('id');
 				

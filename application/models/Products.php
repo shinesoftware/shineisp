@@ -340,7 +340,7 @@ class Products extends BaseProducts {
 	 * @param boolean $taxincluded
 	 */
 	public static function getPriceSuggested($productid, $taxincluded=false) {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$price = 0;
 		
 		if (is_numeric ( $productid )) {

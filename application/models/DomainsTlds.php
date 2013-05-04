@@ -62,8 +62,7 @@ class DomainsTlds extends BaseDomainsTlds
 	 * 
 	 * @param array $params
 	 */
-	public static function saveAll(array $params){
-		$ns = new Zend_Session_Namespace ( 'Default' );
+	public static function saveAll(array $params, $locale){
 		
 		if(!empty($params['tld_id'])){
 			$tld = self::find($params['tld_id']);
@@ -85,8 +84,7 @@ class DomainsTlds extends BaseDomainsTlds
 		
 		if($tld->trySave()){
 			if(is_numeric($tld['tld_id'])){
-					
-				$record = self::getTranslation($tld['tld_id'], $ns->langid);
+				$record = self::getTranslation($tld['tld_id'], $locale);
 				if($record === false){
 					$record = new DomainsTldsData();
 				}
@@ -96,7 +94,7 @@ class DomainsTlds extends BaseDomainsTlds
 				$record->description = $params['description'];
 				$record->tags = $params['tags'];
 				$record->tld_id = $tld['tld_id'];
-				$record->language_id = $ns->langid;
+				$record->language_id = $locale;
 				$record->save();
 				
 			}

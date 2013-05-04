@@ -3,6 +3,10 @@
 <h2><?php echo $this->translate('Register your own domain')?></h2>
 <small><?php echo $this->translate('Type the domain name in the input box shown below and follow only 3 steps.')?></small><br><br>
 
+<?php if(!empty($this->mex)):?>
+	<div class="notification error"><?php echo $this->mex ?></div>
+<?php endif; ?>
+
 <div id="checkdomain">
     <form method="<?php echo $form->getMethod() ?>" id="domainselector" action="<?php echo $form->getAction()?>">
         <div class="domain-box">

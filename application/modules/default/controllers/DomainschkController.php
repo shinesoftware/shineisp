@@ -126,7 +126,7 @@ class DomainschkController extends Zend_Controller_Action {
      *  Check the domain availability
      */
 	public function checkAction() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$form = new Default_Form_DomainsinglecheckerForm ( array ('action' => '/domainschk/check', 'method' => 'post' ) );
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
@@ -177,7 +177,7 @@ class DomainschkController extends Zend_Controller_Action {
 	 */
 	private function chktlds($name, $exluded=""){
 		$result = array();
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$tlds = DomainsTlds::getAll();
 		

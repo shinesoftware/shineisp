@@ -4,6 +4,7 @@ class CartController extends Zend_Controller_Action {
 	protected $customer;
 	protected $cart;
 	protected $translator;
+	protected $currency;
 	
 	/**
 	 * preDispatch
@@ -19,7 +20,9 @@ class CartController extends Zend_Controller_Action {
 			$this->customer = $ns->customer;
 		}
 		
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->currency = Zend_Registry::get ( 'Zend_Currency' );
+		$this->translator = Zend_Registry::get ( 'Zend_Translate' );
+		
 		$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
 	}
 	
@@ -94,7 +97,7 @@ class CartController extends Zend_Controller_Action {
 	 * Check the product and redirect the user to the right destination
 	 */
 	public function addAction() {
-		$currency = new Zend_Currency();
+    	
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		$tranche = "";
 		
@@ -997,7 +1000,6 @@ class CartController extends Zend_Controller_Action {
 	 * Create the total of the order
 	 */
 	private function Totals() {
-		$currency = new Zend_Currency();
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		
 		$isVATFree = Customers::isVATFree($NS->cart->contacts['customer_id']);
@@ -1026,8 +1028,8 @@ class CartController extends Zend_Controller_Action {
 				$total += $price;
 				$taxes += $vat;
 			}
-			$total = $currency->toCurrency($total, array('currency' => Settings::findbyParam('currency')));
-			$taxes = $currency->toCurrency($taxes, array('currency' => Settings::findbyParam('currency')));
+			$total = $this->currency->toCurrency($total, array('currency' => Settings::findbyParam('currency')));
+			$taxes = $this->currency->toCurrency($taxes, array('currency' => Settings::findbyParam('currency')));
 			return array ('total' => $total, 'taxes' => $taxes );
 		} else {
 			return array ('total' => '0', 'taxes' => '0' );

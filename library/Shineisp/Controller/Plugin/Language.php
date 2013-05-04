@@ -33,8 +33,9 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 							'disableNotices' => true
 					));
 			
-			$registry = Zend_Registry::getInstance();
 			$translate->setLocale ( $lang );
+			
+			$registry = Zend_Registry::getInstance();
 			$registry->set('Zend_Translate', $translate);
 			
 		}else{
@@ -50,11 +51,12 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		}
 		
 		$ns->lang = $lang;
+		$ns->langid = Languages::get_language_id_by_code($lang);
 		
 		// Set language to global param so that our language route can fetch it nicely.
-		$front = Zend_Controller_Front::getInstance ();
-		$router = $front->getRouter ();
-		$router->setGlobalParam ( 'lang', $lang );
+		// 		$front = Zend_Controller_Front::getInstance ();
+		// 		$router = $front->getRouter ();
+		// 		$router->setGlobalParam ( 'lang', $lang );
 		
 	}
 }

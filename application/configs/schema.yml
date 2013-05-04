@@ -1134,7 +1134,7 @@ DomainsTldsData:
     DomainsTlds:
       local: tld_id
       foreign: tld_id
-      type: one
+      onDelete: CASCADE
     Languages:
       local: language_id
       foreign: language_id

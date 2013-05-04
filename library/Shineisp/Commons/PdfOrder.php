@@ -173,9 +173,12 @@ class Shineisp_Commons_PdfOrder {
 			return false;
 		}
 		
-		$totalPayments = count($records['payments']);
-		$h_offset      = ($totalPayments > 1) ? ($totalPayments * TRANSACTION_MULTIPLIER) : 0;
-		
+		if(!empty($records['payments'])){
+			$totalPayments = count($records['payments']);
+			$h_offset      = ($totalPayments > 1) ? ($totalPayments * TRANSACTION_MULTIPLIER) : 0;
+		}else{
+			$h_offset = 0;
+		}
 		// QRCode Image
 		$code['order'] = $records ['order_number'];
 		$code['customer'] = $records['customer'] ['customer_id'];
@@ -495,9 +498,11 @@ class Shineisp_Commons_PdfOrder {
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
 		
 		//* Total payments
-		$totalPayments = count($records['payments']);
-		$h_offset      = ($totalPayments > 1) ? ($totalPayments * TRANSACTION_MULTIPLIER) : 0;
-		$toppos        += $h_offset;
+		if(!empty($records['payments'])){
+			$totalPayments = count($records['payments']);
+			$h_offset      = ($totalPayments > 1) ? ($totalPayments * TRANSACTION_MULTIPLIER) : 0;
+			$toppos        += $h_offset;
+		}
 		
 		$this->page->setLineWidth ( 0.5 );
 		
@@ -550,7 +555,8 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function FooterDetails() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::get ( 'Zend_Currency' );
+		$locale = Zend_Registry::get ( 'Zend_Locale' );
 		
 		if ($this->h < 190) {
 			$this->CreatePage ();
@@ -560,13 +566,16 @@ class Shineisp_Commons_PdfOrder {
 		$toppos         = 200;
 		$bottomPos      = 30;
 		$h_offset       = 30;
+		$totalPayments  = 0;
 		
 		$records = isset ( $this->data ['records'] ) ? $this->data ['records'] : array ();
 		
-		$totalPayments = count($records['payments']);
-		if ( $totalPayments > 1 ) {
-			$toppos    += $totalPayments * TRANSACTION_MULTIPLIER;	
-			$h_offset  += $totalPayments * TRANSACTION_MULTIPLIER;
+		if(!empty($records['payments'])){
+			$totalPayments = count($records['payments']);
+			if ( $totalPayments > 1 ) {
+				$toppos    += $totalPayments * TRANSACTION_MULTIPLIER;	
+				$h_offset  += $totalPayments * TRANSACTION_MULTIPLIER;
+			}
 		}
 		
 		$originalToppos = $toppos;
@@ -614,7 +623,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
 		
-		$this->Write ( $currency->getShortName(Settings::findbyParam('currency'), $this->locale), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
+		$this->Write ( $currency->getShortName(Settings::findbyParam('currency'), $locale->getLocaleToTerritory($locale) ), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$this->Write ( $records ['company'] ['bankname'], PAGE_BOTH_MARGIN + 2, $toppos - 24 );
@@ -622,6 +631,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( $records ['company'] ['bic'], PAGE_BOTH_MARGIN + 445, $toppos - 24 );
 		$this->Write ( $records ['company'] ['name'], PAGE_BOTH_MARGIN + 2, $toppos - 65 );
 		$this->Write ( $records ['customer'] ['company'], PAGE_BOTH_MARGIN + 2, $toppos - 105 );
+
 		
 		$records ['customer'] ['address'] = ! empty ( $records ['customer'] ['address'] ) ? $records ['customer'] ['address'] : "";
 		$records ['customer'] ['code'] = ! empty ( $records ['customer'] ['code'] ) ? $records ['customer'] ['code'] : "";

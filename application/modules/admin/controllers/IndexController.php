@@ -21,9 +21,6 @@ class Admin_IndexController extends Zend_Controller_Action {
 		
 		$auth = Zend_Auth::getInstance ();
 		
-		Shineisp_Api_Themes_Templatemonster_Main::parse();
-		die;
-		
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
 		if ($auth->hasIdentity ()) {
 			$this->view->show_dashboard = true;

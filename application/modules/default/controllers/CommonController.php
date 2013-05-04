@@ -165,7 +165,7 @@ class CommonController extends Zend_Controller_Action {
      *  Check the domain availability
      */
 	public function checkdomainAction() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
 		try{

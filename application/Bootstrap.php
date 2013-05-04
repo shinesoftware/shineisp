@@ -57,18 +57,36 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	protected function _initTranslate()
 	{
 		$locale = new Zend_Locale(Zend_Locale::BROWSER);
+		
 		$langcode = $locale->getLanguage();
-		$translate = new Zend_Translate(
-									    array(
-									        'adapter' => "Shineisp_Translate_Adapter_Gettext",
-									        'content' => PUBLIC_PATH . "/languages/$langcode/$langcode.mo",
-									        'locale'  => $langcode,
-									    	'disableNotices' => true
-									    ));
+		$regioncode = $locale->getLocaleToTerritory($locale) ;
+		$currency = new Zend_Currency($regioncode);
+		
+		if(file_exists(PUBLIC_PATH . "/languages/$langcode/$langcode.mo")){
+			$translate = new Zend_Translate(
+				array(
+						'adapter' => "Shineisp_Translate_Adapter_Gettext",
+						'content' => PUBLIC_PATH . "/languages/$langcode/$langcode.mo",
+						'locale'  => $langcode,
+						'disableNotices' => true
+				));
+		}else{
+			$translate = new Zend_Translate(array(
+						'adapter' => "Shineisp_Translate_Adapter_Gettext",
+						'locale'  => 'en',
+						'disableNotices' => true
+				));
+		}
+		
+		
+		$translate->setLocale($langcode);
 		
 		$registry = Zend_Registry::getInstance();
+		
 		$registry->set('Zend_Translate', $translate);
-		$translate->setLocale('en');
+		$registry->set('Zend_Locale', $locale);
+		$registry->set('Zend_Currency', $currency);
+		
 	}
 	
 	protected function _initRouter() {

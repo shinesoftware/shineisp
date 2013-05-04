@@ -111,7 +111,7 @@ class ServicesController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function editAction() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
