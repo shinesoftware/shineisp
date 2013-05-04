@@ -54,12 +54,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		}
 	}
 	
+	// init the translation module
 	protected function _initTranslate()
 	{
-		$locale = new Zend_Locale(Zend_Locale::BROWSER);
+		$registry = Zend_Registry::getInstance();
+		
+		// Check if the Zend_Locale can catch the BROWSER
+		// There is an issue when a BOT read the website. 
+		// The BOT doesn't send the LOCALE! In this case we set the english locale as default 
+		try{
+			$locale = new Zend_Locale(Zend_Locale::BROWSER);
+			$regioncode = $locale->getLocaleToTerritory($locale) ;
+		}catch (Exception $e){
+			$locale = new Zend_Locale("en_US");
+			$regioncode = "en_US" ;
+		}
 		
 		$langcode = $locale->getLanguage();
-		$regioncode = $locale->getLocaleToTerritory($locale) ;
 		$currency = new Zend_Currency($regioncode);
 		
 		if(file_exists(PUBLIC_PATH . "/languages/$langcode/$langcode.mo")){
@@ -78,10 +89,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 				));
 		}
 		
-		
 		$translate->setLocale($langcode);
-		
-		$registry = Zend_Registry::getInstance();
 		
 		$registry->set('Zend_Translate', $translate);
 		$registry->set('Zend_Locale', $locale);
