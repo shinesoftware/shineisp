@@ -6,7 +6,7 @@ class IndexController extends Zend_Controller_Action {
 		$ns = new Zend_Session_Namespace ( 'Default' );
 		$locale = $ns->lang;
 		
-		Shineisp_Commons_Utilities::log("ShineISP starts now!");
+		Shineisp_Commons_Utilities::log("ShineISP starts now from " . $_SERVER['SERVER_ADDR']);
 		
 		if (empty($ns->customer)) {
 			$this->view->dashboard = true;

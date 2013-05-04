@@ -492,7 +492,7 @@ class Domains extends BaseDomains {
 		}
 		    	
         $dq = Doctrine_Query::create ()->select ( "domain_id, 
-											        CONCAT(d.domain, '.', d.tld) as domain, 
+											        CONCAT(domain, '.', ws.tld) as domain, 
 											        d.orderitem_id as detail_id, 
 											        d.autorenew as renew, 
 											        d.expiring_date as expiringdate, 
@@ -504,6 +504,8 @@ class Domains extends BaseDomains {
                                            ->from ( 'Domains d' )
                                            ->leftJoin ( 'd.Customers c' )
                                            ->leftJoin ( 'd.OrdersItems oi' )
+                                           ->leftJoin ( 'd.DomainsTlds dt' )
+                                           ->leftJoin ( 'dt.WhoisServers ws' )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' );
         if(is_numeric($days)){
         	$dq->andWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) = ?', $days );
@@ -539,7 +541,7 @@ class Domains extends BaseDomains {
 		}
     	
         $dq = Doctrine_Query::create ()->select ( "domain_id, 
-											        CONCAT(d.domain, '.', d.tld) as domain, 
+											        CONCAT(domain, '.', ws.tld) as domain, 
 											        oi.detail_id as detail_id, 
 											        d.autorenew as renew, 
 											        DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiringdate,
@@ -551,6 +553,8 @@ class Domains extends BaseDomains {
                                            ->from ( 'Domains d' )
                                            ->leftJoin ( 'd.Customers c' )
                                            ->leftJoin ( 'd.OrdersItems oi' )
+                                           ->leftJoin ( 'd.DomainsTlds dt' )
+                                           ->leftJoin ( 'dt.WhoisServers ws' )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' )
                                            ->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ? and DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', array($from, $to) );
         
