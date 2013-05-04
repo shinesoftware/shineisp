@@ -117,34 +117,40 @@ class Shineisp_Commons_Utilities {
 	 * @return void
 	 */
 	
-	public static function log($message, $filename = "errors.log") {
-		$writer = new Zend_Log_Writer_Firebug();
-		$logger = new Zend_Log($writer);
-		$debug = true;
-		$debug_log = true;
-		
-		if(Shineisp_Main::isReady()){
-			$debug = Settings::findbyParam('debug');
-			$debug_log = Settings::findbyParam('debug_log');
-		}
-				
-		if($debug){
-			$logger->log($message, Zend_Log::INFO);
-		}
-		
-		if($debug_log){
-			@mkdir(PUBLIC_PATH . '/logs/');
-			if(is_writable(PUBLIC_PATH . '/logs/')){
-				$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
-				if(is_array($message)){
-					fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
-				}else{
-					fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
-				}
-				fclose ( $log );
-			}else{
-				$logger->log(PUBLIC_PATH . '/logs/ is not writable', Zend_Log::INFO);
+	public static function log($message, $filename = "errors.log", $priority=Zend_Log::INFO) {
+		try{
+			$logger = new Zend_Log();
+			$debug = true;
+			$debug_log = true;
+			
+			if(Shineisp_Main::isReady()){
+				$debug = Settings::findbyParam('debug');
+				$debug_log = Settings::findbyParam('debug_log');
 			}
+	
+			if($debug){
+				$writer = new Zend_Log_Writer_Firebug();
+				$logger->addWriter($writer);
+				$logger->log($message, $priority);
+			}
+			
+			if($debug_log){
+				@mkdir(PUBLIC_PATH . '/logs/');
+				if(is_writable(PUBLIC_PATH . '/logs/')){
+					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
+					if(is_array($message)){
+						fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
+					}else{
+						fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
+					}
+					fclose ( $log );
+				}else{
+					$logger->log(PUBLIC_PATH . '/logs/ is not writable', Zend_Log::INFO);
+				}
+			}
+			
+		}catch (Exception $e){
+			die($e->getMessage());
 		}
 	}
 	
@@ -798,6 +804,9 @@ class Shineisp_Commons_Utilities {
 					$EmailsTemplatesSends->text        = $body;
 					$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 					$EmailsTemplatesSends->save();
+
+					// log the data
+					Shineisp_Commons_Utilities::log("An email has been sent to $to");
 				}
 			}else{
 				// get customer_id
@@ -819,11 +828,16 @@ class Shineisp_Commons_Utilities {
 				$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 				$EmailsTemplatesSends->save();
 				
+				// log the data
+				Shineisp_Commons_Utilities::log("An email has been sent to $to");
+				
 			}
-			
 			return true;
 		} catch ( Exception $e ) {
-			Zend_Debug::dump($e->getMessage());
+			
+			// log the data
+			Shineisp_Commons_Utilities::log($e->getMessage ());
+			
 			return array ('email' => $to, 'message' => $e->getMessage () );
 		}
 		return false;

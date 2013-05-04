@@ -21,6 +21,9 @@ class System_CronController extends Zend_Controller_Action {
 	public function indexAction() {
 		$resources = Shineisp_Commons_Layout::getData ("system", null);
 		
+		// log the data
+		Shineisp_Commons_Utilities::log("ShineISP Cron started");
+
 		// Get the cron default configuration
 		$xmlobject = $resources->xpath ( "cron/execute" ) ;
 		
@@ -71,7 +74,6 @@ class System_CronController extends Zend_Controller_Action {
 			}
 		}
 		
-		die ();
 	}
 	
 	/**
