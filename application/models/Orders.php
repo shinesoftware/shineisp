@@ -555,7 +555,7 @@ class Orders extends BaseOrders {
 			foreach ( $oldOrderDetails as $details ) {
 				
 				$orderitem = new OrdersItems ();
-				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null, BillingCycle::getMonthsNumber ( $details ['billing_cycle_id'] ) ); // Fixed Renew
+			
 				$isDomain = Products::CheckIfProductIsTLDDomain ( $details ['product_id'] );
 				
 				if ($details['Products']['type'] == "domain") {
@@ -564,7 +564,7 @@ class Orders extends BaseOrders {
 				
 				$date_end = Shineisp_Commons_Utilities::add_date ( date ( $oldOrderDetails [0] ['date_end'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
 				$orderitem->date_start = $oldOrderDetails [0] ['date_end']; // The new order will have the date_end as date_start
-				$orderitem->date_end = $date_end;
+				$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 
 				$orderitem->order_id = $id;
 				$orderitem->product_id = $details ['product_id'];
@@ -589,7 +589,7 @@ class Orders extends BaseOrders {
 						$ordersitemsdomains->orderitem_id = $detailid;
 						$ordersitemsdomains->save ();
 						Domains::setStatus ( $oldOID [0] ['domain_id'], Statuses::id("processing", "domains") ); // Set the domains status as processing
-						Domains::setExpirationDate ( $oldOID [0] ['domain_id'], $date_end ); // Set the new expiration date
+						Domains::setExpirationDate ( $oldOID [0] ['domain_id'], Shineisp_Commons_Utilities::formatDateIn ($date_end) ); // Set the new expiration date
 					}
 				}
 				unset ( $orderitem );
@@ -716,6 +716,7 @@ class Orders extends BaseOrders {
 									}
 									
 									$date_end = Shineisp_Commons_Utilities::add_date ( date ( $product ['expiring_date'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
+									
 									$orderitem->date_start = $product ['expiring_date']; // The new order will have the date_end as date_start
 									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 									$orderitem->parameters = json_encode ( array ('domain' => trim($domain), 'action' => 'renewDomain', 'tldid' => $tldid ) );
