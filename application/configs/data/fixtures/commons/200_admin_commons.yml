@@ -9,7 +9,7 @@ Isp:
     country: France
     telephone: '+334097123985'
     fax: '+334097123985'
-    bankname: IWSmile
+    bankname: MyBank
     iban: IT28G0316501600000708754625
     bic: IWBKITXX
     website: 'http://www.shineisp.com'
@@ -56,7 +56,7 @@ WikiCategories:
     
 Banks:
   Banks_1:
-    name: IWSmile
+    name: Credit Card
     description: "<p><strong>Carta di Credito</strong></p>\r\n<p>Paga adesso con <strong>IWSmile</strong> un servizio <strong>veloce</strong> e <strong>sicuro</strong> che ti permette di  effettuare tutti i pagamenti che desideri con le carte di credito pi&ugrave;  conosciute.<strong> IWSMILE</strong> &egrave; l'innovativo conto di moneta elettronica estremamente<strong> comodo</strong> e <strong>facile</strong> da usare. Fai click nel bottone qui di seguito per effettuare il tuo  pagamento con carta di credito direttamente nel sito della banca.</p>\r\n<p>Paga con:</p>\r\n<p><img style=\"margin: 5px;\" src=\"https://checkout.iwsmile.it/Pagamenti/images/circuiti_carte_credito.gif\" alt=\"paga con la tua carta di credito\" width=\"132\" height=\"24\" /></p>\r\n<p>Fai click nel seguente pulsante:</p>"
     classname: Shineisp_Banks_IWBank_Gateway
     account: '700000001'

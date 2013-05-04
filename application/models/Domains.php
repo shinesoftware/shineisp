@@ -1365,7 +1365,7 @@ class Domains extends BaseDomains {
 	public static function earningsSummary() {
 		$max = 0;
 		$total = 0;
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$str = "";
 		$summary = Domains::getSummary ();

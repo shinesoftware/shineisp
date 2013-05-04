@@ -210,7 +210,7 @@ class Invoices extends BaseInvoices {
 	 * @return string
 	 */
 	public static function graph(array $years) {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$isp = Isp::getActiveISP();
 		$grosstotal = 0;
@@ -572,7 +572,7 @@ class Invoices extends BaseInvoices {
      * @return Ambigous <number, string, mixed>
      */
    	public static function Total($values) {
-   		$currency = new Zend_Currency();
+   		$currency = Zend_Registry::getInstance ()->Zend_Currency;
    		
    		$value = 0;
    		if(count($values)>0){
@@ -629,7 +629,7 @@ class Invoices extends BaseInvoices {
      * @param unknown_type $invoiceid
      */
     public static function PrintPDF($invoice_id, $show = true, $force=false, $path="/documents/invoices/") {
-    		$currency = new Zend_Currency();
+    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
     	
     		if(!is_numeric($invoice_id)){
     			return false;

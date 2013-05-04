@@ -1550,7 +1550,6 @@ class Orders extends BaseOrders {
 			$dq->andWhere ( "customer_id = ?", $customerid );
 		}
 			
-        echo '<pre>';
 		return $dq->execute ();
 	}
 	
@@ -2124,7 +2123,7 @@ class Orders extends BaseOrders {
      */
     public static function pdf($order_id, $show = true, $force=false, $path="/documents/orders/") {
     		$taxpercent = "";
-    		$currency = new Zend_Currency();
+    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
     		if(!is_numeric($order_id)){
     			return false;
     		}
@@ -2293,8 +2292,8 @@ class Orders extends BaseOrders {
 	 * @return array
 	 */
 	public static function Last(array $statuses, $limit=10) {
-		$currency = new Zend_Currency();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
