@@ -263,8 +263,9 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
 
 					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain[0] ['authinfocode'];					// the domain name
-					$params[] = 'none';										// authinfo code, mandatory for domains managed by -REG
+					$params[] = $domain_name;								// the domain name
+					$params[] = $domain[0] ['authinfocode'];				// authinfo code, mandatory for domains managed by -REG
+					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
 					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
@@ -285,17 +286,18 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 					$params[] = $customer ['birthplace'];					// owner or legal representant birth city
 					$params[] = $customer ['birthdistrict'];				// owner or legal representant birth departement
 					$params[] = $customer ['birthcountry'];					// owner or legal representant birth country
-					$params[] = $customer ['birthnationality'];				// owner or legal representant nationality (2 letter country code)
+					$params[] = "IT";				// owner or legal representant nationality (2 letter country code)
 					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
 					
 					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainTransferIT'), $params);
+					call_user_func_array(array( $soap, 'resellerDomainTransfer'), $params);
 					
 				}else{
 					
 					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain[0] ['authinfocode'];				// the domain name
-					$params[] = 'none';										// authinfo code, mandatory for domains managed by -REG
+					$params[] = $domain_name;								// the domain name
+					$params[] = $domain[0] ['authinfocode'];				// authinfo code, mandatory for domains managed by -REG
+					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
 					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
