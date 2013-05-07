@@ -220,6 +220,9 @@ class Products extends BaseProducts {
 				$products->downgradable    = !empty($params['downgradable']) ? 1: 0;
 				$products->server_group_id = !empty($params['server_group_id']) ? intval($params['server_group_id']) : null;
 				$products->autosetup       = !empty($params['autosetup']) ? intval($params['autosetup']) : 0;
+				
+				// If 0 or NULL, se to NULL. Avoid constraint errors
+				$products->welcome_mail_id = ( !empty($params['welcome_mail_id']) && intval($params['welcome_mail_id']) > 0 ) ? intval($params['welcome_mail_id']) : null;
 
 				// Save the data
 				$products->save ();
@@ -264,7 +267,7 @@ class Products extends BaseProducts {
 				
 				// Attach the wiki pages to a product
 				if(!empty($params['wikipages'])){
-					Wikilinks::addWikiPages2Products ( $product_id, $params['wikipages'] );
+					WikiLinks::addWikiPages2Products ( $product_id, $params['wikipages'] );
 				}
 				
 				// Add the related products
@@ -337,7 +340,7 @@ class Products extends BaseProducts {
 	 * @param boolean $taxincluded
 	 */
 	public static function getPriceSuggested($productid, $taxincluded=false) {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$price = 0;
 		
 		if (is_numeric ( $productid )) {

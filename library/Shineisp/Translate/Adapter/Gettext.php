@@ -1,5 +1,5 @@
 <?php
-class Shineisp_Translate_Adapter_Csv extends Zend_Translate_Adapter_Csv
+class Shineisp_Translate_Adapter_Gettext extends Zend_Translate_Adapter_Gettext
 {
     public function _($messageId, $locale = null) {
         $translation = $this->translate($messageId, $this->getLocale());

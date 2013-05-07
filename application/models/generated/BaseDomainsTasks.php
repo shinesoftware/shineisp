@@ -100,6 +100,7 @@ abstract class BaseDomainsTasks extends Doctrine_Record
 
         $this->hasOne('Registrars', array(
              'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
+             'foreign' => 'registrars_id',
+             'onDelete' => 'CASCADE'));
     }
 }

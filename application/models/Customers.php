@@ -155,16 +155,7 @@ class Customers extends BaseCustomers {
 	public static function welcome_mail($customerid, $passwd="") {
 	
 		$data     = self::getAllInfo($customerid);
-		$subject  = $retval ['subject'];
-		$template = $retval ['template'];
 		$isp      = Isp::getActiveISP ();
-		
-		if (!empty($data ['lastname']) && !empty($data ['firstname'])) {
-			$subject  = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $subject );
-			$template = str_replace ( "[fullname]", $data ['lastname'] . " " . $data ['firstname'], $template );	
-		} else {
-			$subject = str_replace ( "[fullname]", "", $subject );
-		}
 
 		// Reset password
 		if (empty($passwd)) {
@@ -176,6 +167,7 @@ class Customers extends BaseCustomers {
 			 'storename' => $isp['company']
 			,'website'   => $isp['website']
 			,'email'     => $data['email']
+			,'fullname'  => $data['fullname']
 			,'signature' => $isp['company']
 			,'password'  => $passwd
 		));
@@ -288,27 +280,33 @@ class Customers extends BaseCustomers {
 			$customer['isreseller'] = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
 			$customer['ignore_latefee'] = (bool)$data ['ignore_latefee'];
 			$customer['language'] = $data['language'];
+			
 			$customer->save();
-	
-			// Handle the customer address				
+				
+			// get the customer ID
+			$data['customer_id'] = empty($data['customer_id']) ? $customer['customer_id'] : $data['customer_id'];
+			
+			// Handle the customer address
 			if(!empty($data['address'])){
 				Addresses::AddNew($data);
 			}
-			
+				
 			// Handle the customer contact
 			if (! empty ( $data ['contact'] )) {
 				Contacts::AddNew(array('contact' => $data['contact'], 'type_id' => $data['contacttypes'], 'customer_id' => $customer['customer_id']));
 			}
-
+			
 			// Newsletter OptIn
 			if(!empty($data ['issubscriber']) && $data ['issubscriber'] == 1){
 				NewslettersSubscribers::customer_optIn($customer['customer_id']);  // Add the customer email in the newsletter list
 			}else{
 				NewslettersSubscribers::customer_optOut($customer['customer_id']); // Remove the customer email from the newsletter subscriber list
-			}	
-	
+			}
+			
 			// Save the upload file
 			self::UploadDocument($customer['customer_id'], $data['filecategory']);
+	
+			
 		
 			return $customer['customer_id'];
 		}
@@ -768,8 +766,10 @@ class Customers extends BaseCustomers {
 		$registry = Zend_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
-		if ($empty) {
+		if ($empty === true) {
 			$items [] = $translations->translate ( 'Select ...' );
+		}elseif(is_string($empty)){
+			$items [] = $translations->translate ( $empty );
 		}
 		
 		$Customers = Doctrine_Query::create ()->from ( 'Customers u' );
@@ -873,7 +873,7 @@ class Customers extends BaseCustomers {
 	 * @return ArrayObject
 	 */
 	public static function Hitparade() {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$records = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
 							->from ( 'Invoices i' )

@@ -186,10 +186,8 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 						continue;
 					}
 					
-					$code = $out[1];
-
 					// Import
-					$outArray = Shineisp_Commons_Utilities::getEmailTemplate($code, $lang['locale']);
+					$outArray = Shineisp_Commons_Utilities::getEmailTemplate($out[1], $lang['locale']);
 					
 					if ( !empty($outArray) ) {
 						$importOK++;
@@ -198,12 +196,12 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 				
 			}
 		}
-				
+								
 		if ( $importOK > 0 ) {
 			$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Template imported successfully' ), 'status' => 'success' ) );
 		}
 
-		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'An error eccorued' ), 'status' => 'success' ) );	
+		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'An error occurred' ), 'status' => 'success' ) );	
 		
 	}
 
@@ -249,7 +247,7 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 		);
 		
 		if ( !empty($id) && is_numeric($id) ) {
-			$rs = $this->emailstemplates->find( $id, null, true, $this->session->langid );
+			$rs = $this->emailstemplates->find( $id, null, true, $this->session->lang );
 			
 			if (! empty ( $rs )) {
 				// Join the translated data information to populate the form

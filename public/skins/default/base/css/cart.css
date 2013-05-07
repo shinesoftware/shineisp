@@ -8,11 +8,35 @@
 	padding-left: 23px !important;
 }
 .english{
-	background: transparent url(/skins/default/base/images/commons/flags/english.png) no-repeat 3px 8px;
+	background: transparent url(/skins/default/base/images/commons/flags/en.png) no-repeat 3px 10px;
 }
 
 .italiano{
-	background: transparent url(/skins/default/base/images/commons/flags/italiano.png) no-repeat 3px 8px;
+	background: transparent url(/skins/default/base/images/commons/flags/it.png) no-repeat 3px 10px;
+}
+
+.german{
+	background: transparent url(/skins/default/base/images/commons/flags/de.png) no-repeat 3px 10px;
+}
+
+.dutch{
+	background: transparent url(/skins/default/base/images/commons/flags/nl.png) no-repeat 3px 10px;
+}
+
+.greek{
+	background: transparent url(/skins/default/base/images/commons/flags/gr.png) no-repeat 3px 10px;
+}
+
+.spanish{
+	background: transparent url(/skins/default/base/images/commons/flags/es.png) no-repeat 3px 10px;
+}
+
+.hungarian{
+	background: transparent url(/skins/default/base/images/commons/flags/hu.png) no-repeat 3px 10px;
+}
+
+.french{
+	background: transparent url(/skins/default/base/images/commons/flags/fr.png) no-repeat 3px 10px;
 }
 
 #searchbar {
@@ -816,6 +840,17 @@ font-weight: bold;
 	padding-left: 7px;
 	padding-right: 5px;
 	padding-top: 5px;
+}
+
+#setupfeecontainer{
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#tranche_includes{
+	display: block;
+	margin-top: 15px;
 }
 
 /* ***************** REVIEWS  ******************* */

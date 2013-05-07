@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CMSPagesController
+ * CmsPagesController
  * Manage the Pages Article Items
  * @version 1.0
  */
@@ -22,7 +22,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 	
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
-		$this->cmspages = new CMSPages ();
+		$this->cmspages = new CmsPages ();
 		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "cmspages" )->setModel ( $this->cmspages );		
@@ -47,7 +47,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 		$this->view->title = "Pages list";
 		$this->view->description = "Here you can see all the published pages.";
 		$this->view->buttons = array(array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
-		$this->datagrid->setConfig ( CMSPages::grid() )->datagrid ();
+		$this->datagrid->setConfig ( CmsPages::grid() )->datagrid ();
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 	 * @return string Json records
 	 */
 	public function loadrecordsAction() {
-		$this->_helper->ajaxgrid->setConfig ( CMSPages::grid() )->loadRecords ($this->getRequest ()->getParams());
+		$this->_helper->ajaxgrid->setConfig ( CmsPages::grid() )->loadRecords ($this->getRequest ()->getParams());
 	}
 	
 	/**
@@ -65,7 +65,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function searchprocessAction() {
-		$this->_helper->ajaxgrid->setConfig ( CMSPages::grid() )->search ();
+		$this->_helper->ajaxgrid->setConfig ( CmsPages::grid() )->search ();
 	}
 	
 	/*
@@ -140,7 +140,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 	public function deleteAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
 		if (is_numeric ( $id )) {
-			CMSPages::deleteItem( $id );
+			CmsPages::deleteItem( $id );
 		}
 		return $this->_helper->redirector ( 'index', 'cmspages' );
 	}
@@ -211,7 +211,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 			// Get the values posted
 			$params = $form->getValues ();
 			
-			$id = CMSPages::saveAll($id, $params);
+			$id = CmsPages::saveAll($id, $params);
 			$redirector->gotoUrl ( "/admin/cmspages/edit/id/$id" );
 		
 		} else {

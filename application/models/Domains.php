@@ -58,11 +58,11 @@ class Domains extends BaseDomains {
 		$config ['datagrid'] ['index'] = "domain_id";
 		
 		// Autorenew function											
-		$customer['bulk_set_autorenew&status=1'] = "Enable Autorenew";
-		$customer['bulk_set_autorenew&status=0'] = "Disable Autorenew";
-		$customer['bulk_delete'] = 'Mass Delete';
-		$customer['bulk_export'] = 'Export Domains List';
-		$config ['datagrid'] ['massactions']['common'] = $customer;
+		$massactions['bulk_set_autorenew&status=1'] = "Enable Autorenew";
+		$massactions['bulk_set_autorenew&status=0'] = "Disable Autorenew";
+		$massactions['bulk_delete'] = 'Mass Delete';
+		$massactions['bulk_export'] = 'Export Domains List';
+		$config ['datagrid'] ['massactions']['common'] = $massactions;
 													
 		$statuses = Statuses::getList('domains');
 		
@@ -492,7 +492,7 @@ class Domains extends BaseDomains {
 		}
 		    	
         $dq = Doctrine_Query::create ()->select ( "domain_id, 
-											        CONCAT(d.domain, '.', d.tld) as domain, 
+											        CONCAT(domain, '.', ws.tld) as domain, 
 											        d.orderitem_id as detail_id, 
 											        d.autorenew as renew, 
 											        d.expiring_date as expiringdate, 
@@ -504,6 +504,8 @@ class Domains extends BaseDomains {
                                            ->from ( 'Domains d' )
                                            ->leftJoin ( 'd.Customers c' )
                                            ->leftJoin ( 'd.OrdersItems oi' )
+                                           ->leftJoin ( 'd.DomainsTlds dt' )
+                                           ->leftJoin ( 'dt.WhoisServers ws' )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' );
         if(is_numeric($days)){
         	$dq->andWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) = ?', $days );
@@ -518,7 +520,7 @@ class Domains extends BaseDomains {
         }
                                            
         $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
-        
+
         return $records;
     }
 	
@@ -539,7 +541,7 @@ class Domains extends BaseDomains {
 		}
     	
         $dq = Doctrine_Query::create ()->select ( "domain_id, 
-											        CONCAT(d.domain, '.', d.tld) as domain, 
+											        CONCAT(domain, '.', ws.tld) as domain, 
 											        oi.detail_id as detail_id, 
 											        d.autorenew as renew, 
 											        DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiringdate,
@@ -551,6 +553,8 @@ class Domains extends BaseDomains {
                                            ->from ( 'Domains d' )
                                            ->leftJoin ( 'd.Customers c' )
                                            ->leftJoin ( 'd.OrdersItems oi' )
+                                           ->leftJoin ( 'd.DomainsTlds dt' )
+                                           ->leftJoin ( 'dt.WhoisServers ws' )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' )
                                            ->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ? and DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', array($from, $to) );
         
@@ -571,30 +575,46 @@ class Domains extends BaseDomains {
      * @param $customerID
      * @return Void
      */
-    public static function getExpiringDomains($customerID=null, $from=31, $to=-2, $limit=null) {
-    	   $fields = "d.domain_id, CONCAT(d.domain, '.', d.tld) as domains, 
-                       DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiringdate, 
-                       DATEDIFF(expiring_date, CURRENT_DATE) as days,
-                       IF(d.autorenew = 1, 'YES', 'NO') as renew";
-            
-            $dq = Doctrine_Query::create ()
-                                 ->select ( $fields )
-                                 ->from ( 'Domains d' )
-                                 ->leftjoin ( 'd.OrdersItems oi' )
-                                 ->leftjoin ( 'd.Statuses s' )
-                                 ->where ( 'DATEDIFF(expiring_date, CURRENT_DATE) <= ' . $from )
-                                 ->addWhere ( 'DATEDIFF(expiring_date, CURRENT_DATE) >= ' . $to )
-                                 ->orderBy ( 'd.expiring_date asc' );
+    public static function getExpiringDomains($customerID=null, $from=null, $to=null, $limit=null) {
+		
+    	if ( empty($from) || !is_numeric($from) ) {
+			// Try to read from DB
+			$from = Settings::findbyParam('domains_show_before_expire_days');
+		}
+		
+		if ( empty($to) || !is_numeric($to) ) {
+			// Try to read from DB
+			$to = Settings::findbyParam('domains_show_after_expire_days');
+		}
 
-            if(is_numeric($customerID)){
-            	$dq->addWhere ( 'customer_id = ?', $customerID );
-            }
-            
-            if(is_numeric($limit)){
-            	$dq->limit($limit);
-            }
-            
-            return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$from = is_numeric($from) ? intval($from)     : 31;
+		$to   = is_numeric($to)   ? intval($to) * -1  : -2; // force a negative value
+			
+		$fields = "d.domain_id, CONCAT(d.domain, '.', d.tld) as domains, 
+		       DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiringdate, 
+		       DATEDIFF(expiring_date, CURRENT_DATE) as days,
+		       IF(d.autorenew = 1, 'YES', 'NO') as renew";
+		
+		$dq = Doctrine_Query::create ()
+		                     ->select ( $fields )
+		                     ->from ( 'Domains d' )
+		                     ->leftjoin ( 'd.OrdersItems oi' )
+		                     ->leftjoin ( 'd.Statuses s' )
+		                     ->where ( 'DATEDIFF(expiring_date, CURRENT_DATE) <= ' . $from )
+		                     ->addWhere ( 'DATEDIFF(expiring_date, CURRENT_DATE) >= ' . $to )
+		                     ->orderBy ( 'd.expiring_date asc' );
+		
+		if(is_numeric($customerID)){
+			$dq->addWhere ( 'customer_id = ?', $customerID );
+		}
+		
+		if(is_numeric($limit)){
+			$dq->limit($limit);
+		}
+		
+		$result = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+				
+		return $result;
     }
 	
 	/**
@@ -1349,7 +1369,7 @@ class Domains extends BaseDomains {
 	public static function earningsSummary() {
 		$max = 0;
 		$total = 0;
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$str = "";
 		$summary = Domains::getSummary ();

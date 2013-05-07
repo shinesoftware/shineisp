@@ -164,6 +164,8 @@ class OrdersItems extends BaseOrdersItems {
         										   pd.name as product,
         										   c.customer_id as id, 
         										   oi.date_end as expiringdate, 
+        										   oi.date_start as startingdate, 
+        										   oi.description as description, 
         										   DATEDIFF(oi.date_end, CURRENT_DATE) as daystoend,
         										   o.customer_id as customer_id,
         										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
@@ -175,9 +177,11 @@ class OrdersItems extends BaseOrdersItems {
                                            ->from ( 'OrdersItems oi' )
                                            ->leftJoin ( 'oi.Orders o' )
                                            ->leftJoin ( 'oi.Products p' )
+                                           ->leftJoin ( 'oi.BillingCycle bc' )
                                            ->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
                                            ->leftJoin ( 'o.Customers c' )
-                                           ->where ( 'p.type <> ?', 'domain');
+                                           ->where ( 'p.type <> ?', 'domain') // get all the services
+        								   ->addWhere('bc.months > ?', 0);  // get the recurring services only
 
         if(is_numeric($days)){
         	$dq->andWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) = ?', $days );
@@ -193,8 +197,10 @@ class OrdersItems extends BaseOrdersItems {
         	$dq->andWhere ( 'oi.autorenew = ?', $autorenew );  
         }
 
+        $dq->orderBy('oi.date_end asc');
         $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
-        
+//         Zend_Debug::dump($records);
+//         die;
         return $records;
             
     }
@@ -828,7 +834,6 @@ class OrdersItems extends BaseOrdersItems {
 	######################################### CRON METHODS ############################################
 
 	/**
-	 * checkservicesAction
 	 * CREATE THE ORDER FOR ALL THE AUTORENEWABLE DOMAINS/SERVICES
 	 * Check all the services [domains, products] and create the orders for each customer only if the service has been set as renewable
 	 * @return void
@@ -847,6 +852,8 @@ class OrdersItems extends BaseOrdersItems {
 			$domains = Domains::getExpiringDomainsByDays ( 1, Statuses::id("active", "domains") );
 				
 			if ($domains) {
+				Shineisp_Commons_Utilities::log("There are (".count($domains).") new domains to renew");
+				
 				// Create the customer group list for the email summary
 				foreach ( $domains as $domain ) {
 					if (is_numeric($domain ['reseller'])) {
@@ -865,6 +872,8 @@ class OrdersItems extends BaseOrdersItems {
 					$customers [$domain ['customer_id']] ['products'] [$i] ['expiring_date'] = $domain ['expiringdate'];
 					$customers [$domain ['customer_id']] ['products'] [$i] ['days'] = $domain ['days'];
 					$customers [$domain ['customer_id']] ['products'] [$i] ['oldorderitemid'] = $domain ['detail_id'];
+					
+					Shineisp_Commons_Utilities::log("- " . $domain ['domain']);
 					$i ++;
 				}
 			}
@@ -878,6 +887,9 @@ class OrdersItems extends BaseOrdersItems {
 			$services = OrdersItems::getExpiringSerivcesByDays ( 1, Statuses::id("complete", "orders") );
 			
 			if ($services) {
+				
+				Shineisp_Commons_Utilities::log("There are (".count($services).") new services to renew");
+				
 				// Create the customer group list for the email summary
 				foreach ( $services as $service ) {
 					if (is_numeric($service ['reseller'])) {
@@ -898,10 +910,12 @@ class OrdersItems extends BaseOrdersItems {
 					$customers [$service ['customer_id']] ['products'] [$i] ['expiring_date'] = $service ['expiringdate'];
 					$customers [$service ['customer_id']] ['products'] [$i] ['days'] = $service ['days'];
 					$customers [$service ['customer_id']] ['products'] [$i] ['oldorderitemid'] = $service ['detail_id'];
+					
+					Shineisp_Commons_Utilities::log("- " . $service ['product']);
 					$i ++;
 				}
 			}
-				
+			
 			// Create the emailS for the customers
 			if (count ( $customers ) > 0) {
 	
@@ -936,28 +950,28 @@ class OrdersItems extends BaseOrdersItems {
 			 * Now we have to set as expired all the domains records that the date is the date of the expiring of the domain
 			* // Expired
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', 5 )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', 0 )->addWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ?', 0 );
+			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', Statuses::id('expired', 'domains') )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', 0 )->addWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ?', 0 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			/*
 			 * Now we have to set as closed all the domains records that the date is older of -2 days
 			* // Closed
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', 28 )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', - 2 );
+			$dq = Doctrine_Query::create ()->update ( 'Domains d' )->set ( 'd.status_id', Statuses::id('suspended', 'domains') )->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			/*
 			 * Now we have to set as expired all the services records
 			* // Expired
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', 10 )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', 0 );
+			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', Statuses::id('expired', 'orders') )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', 0 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			/*
 			 * Now we have to set as deleted all the services records
 			* // Deleted
 			*/
-			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', 20 )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
+			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', Statuses::id('deleted', 'orders') )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate(null, 'cron', array(
@@ -966,7 +980,8 @@ class OrdersItems extends BaseOrdersItems {
 				
 				
 		} catch ( Exception $e ) {
-			return $e->getMessage () ;
+			Shineisp_Commons_Utilities::logs ($e->getMessage(), "cron.log" );
+			return false;
 		}
 	
 		return true;

@@ -67,7 +67,7 @@ class WikiController extends Zend_Controller_Action {
 				}				
 				
 				// Getting the Products
-				$products = Wikilinks::getProductsAttached($data [0] ['wiki_id'], $ns->langid);
+				$products = WikiLinks::getProductsAttached($data [0] ['wiki_id'], $ns->langid);
 				if(count($products) > 0){
 					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'wiki/products_reference.phtml', array ('products' => $products) ) );
 					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
@@ -77,7 +77,7 @@ class WikiController extends Zend_Controller_Action {
 				Wiki::update_views($data [0] ['wiki_id']);
 				
 				$data [0] ['content'] = Shineisp_Commons_Contents::chkModule($data[0]['content']);
-				$data [0] ['content'] = Shineisp_Commons_Contents::chkCMSBlocks ( $data [0] ['content'], $ns->lang );
+				$data [0] ['content'] = Shineisp_Commons_Contents::chkCmsBlocks ( $data [0] ['content'], $ns->lang );
 				
 				// Send the content to the page
 				$this->view->headertitle = $this->translations->translate('Wiki page');

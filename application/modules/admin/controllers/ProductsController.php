@@ -257,7 +257,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$rs['upgrade'] = ProductsUpgrades::getItemsbyProductID($rs ['product_id']);
                 
 				// Get the wiki pages attached to the product selected
-				$rs['wikipages'] =	Wikilinks::getWikiPagesList($rs ['product_id'], "products", $this->session->langid);
+				$rs['wikipages'] =	WikiLinks::getWikiPagesList($rs ['product_id'], "products", $this->session->langid);
 				
 				$form->populate ( $rs );
 				

@@ -119,11 +119,11 @@ ProductsAttributesGroupsIndexes:
     ProductsAttributes: ProductsAttributes_1
     ProductsAttributesGroups: ProductsAttributesGroups_3
     
-Wikilinks:
-  Wikilinks_1:
+WikiLinks:
+  WikiLinks_1:
     Products: Products_2
     Wiki: Wiki_1
-  Wikilinks_2:
+  WikiLinks_2:
     ProductsCategories: ProductsCategories_5
     Wiki: Wiki_1
 
@@ -250,23 +250,6 @@ ProductsAttributesIndexes:
     ProductsAttributes: ProductsAttributes_1
     value: '20000'
 
-Domains:
-  Domains_1:
-    domain: shinemagento
-    tld: ''
-    DomainsTlds: DomainsTlds_1
-    authinfocode: ''
-    creation_date: '2012-03-29'
-    modification_date: '2012-03-29'
-    expiring_date: '2013-03-29'
-    registrars_id: 1
-    Customers: Customers_2
-    OrdersItems: OrdersItems_3
-    status_id: 6
-    autorenew: false
-    Products: Products_1
-    note: null
-
 PurchaseCategories:
   PurchaseCategories_1:
     category: 'Servers Infrastructures Costs'
@@ -277,7 +260,7 @@ PurchaseCategories:
   PurchaseCategories_4:
     category: Softwares
   PurchaseCategories_5:
-    category: 'registrars_id Credit'
+    category: 'Registrar Credit'
   PurchaseCategories_6:
     category: 'Car Expenses'
   PurchaseCategories_7:
@@ -288,11 +271,7 @@ PurchaseCategories:
     category: 'Working Trip'
   PurchaseCategories_10:
     category: 'Books & Manuals'
-OrdersItemsDomains:
-  OrdersItemsDomains_1:
-    Domains: Domains_1
-    Orders: Orders_1
-    OrdersItems: OrdersItems_4
+
 ProductsRelated:
   ProductsRelated_1:
     product_id: '5'
@@ -315,6 +294,12 @@ ProductsRelated:
   ProductsRelated_7:
     product_id: '3'
     Products: Products_2
+    
+Taxes:
+  Taxes_1:
+    name: VAT
+    percentage: 21
+    
 Products:
   Products_1:
     categories: 1/5
@@ -323,7 +308,6 @@ Products:
     price_1: '0.00'
     setupfee: '0.00'
     setup: null
-    tax_id: 1
     external_id: null
     ProductsAttributesGroups: ProductsAttributesGroups_3
     position: '0'
@@ -448,17 +432,7 @@ Customers:
     issubscriber: true
     created_at: '2012-02-27 15:43:20'
     updated_at: '2012-02-27 15:43:20'
-DomainsTasks:
-  DomainsTasks_1:
-    startdate: '2012-03-29 07:58:17'
-    enddate: null
-    action: transferDomain
-    domain: shinemagento.com
-    log: ''
-    Domains: Domains_1
-    registrars_id: 1
-    times: '0'
-    status_id: 26
+
 ProductsCategories:
   ProductsCategories_1:
     name: 'Hosting Plans'
@@ -505,7 +479,7 @@ ProductsCategories:
     externalid: null
     custom: null
   ProductsCategories_5:
-    name: 'CMS Hosting'
+    name: 'Cms Hosting'
     description: '<p>Here you can insert your own category description</p>'
     keywords: 'hosting plans, php hosting, website'
     uri: cms-hosting
@@ -588,8 +562,8 @@ ProductsData:
   ProductsData_5:
     name: 'Gold Hosting Plan'
     nickname: Gold
-    shortdescription: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, CMS and so on.</p>'
-    description: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, CMS and so on.</p>'
+    shortdescription: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, Cms and so on.</p>'
+    description: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, Cms and so on.</p>'
     metakeywords: ''
     metadescription: ''
     Products: Products_3
@@ -726,46 +700,7 @@ PanelsActions:
     parameters: '{"emails":"5","trafficdata":"5000","databases":"1","webspace":"1000"}'
     log: null
     status_id: 26
-  PanelsActions_10:
-    Panels: Panels_1
-    Customers: Customers_2
-    OrdersItems: OrdersItems_4
-    start: '2012-03-10 15:40:04'
-    end: null
-    action: fullProfile
-    parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
-    log: null
-    status_id: 26
-  PanelsActions_11:
-    Panels: Panels_1
-    Customers: Customers_1
-    OrdersItems: OrdersItems_1
-    start: '2012-03-10 16:14:32'
-    end: null
-    action: fullProfile
-    parameters: '{"emails":"5","trafficdata":"5000","databases":"1","webspace":"1000"}'
-    log: null
-    status_id: 26
-  PanelsActions_12:
-    Panels: Panels_1
-    Customers: Customers_1
-    OrdersItems: OrdersItems_1
-    start: '2012-03-10 16:15:48'
-    end: null
-    action: fullProfile
-    parameters: '{"emails":"5","trafficdata":"5000","databases":"1","webspace":"1000"}'
-    log: null
-    status_id: 26
-  PanelsActions_13:
-    Panels: Panels_1
-    Customers: Customers_2
-    OrdersItems: OrdersItems_4
-    start: '2012-03-29 07:58:17'
-    end: null
-    action: fullProfile
-    parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
-    log: null
-    status_id: 26
+
 Orders:
   Orders_1:
     Customers: Customers_2
@@ -943,38 +878,6 @@ NewslettersSubscribers:
     Customers: Customers_2
     email: customers@shinesoftware.eu
     
-DomainsTldsData:
-  DomainsTldsData_1:
-    DomainsTlds: DomainsTlds_4
-    language_id: 1
-    name: it
-    tags: Geographic
-    description: '<p>The it tld extension is used by the Italian companies.</p>'
-  DomainsTldsData_2:
-    DomainsTlds: DomainsTlds_3
-    language_id: 1
-    name: biz
-    tags: Generic
-    description: '<p>biz is a generic top-level domain (gTLD) in the Domain Name System of the Internet. It is intended for registration of domains to be used by businesses. The name is a phonetic spelling of the first syllable of business.</p>'
-  DomainsTldsData_3:
-    DomainsTlds: DomainsTlds_1
-    language_id: 1
-    name: com
-    tags: Generic
-    description: '<p>The domain name com is a generic top-level domain (gTLD) in the Domain Name System of the Internet. Its name is derived from the word commercial, indicating its original intended purpose for domains registered by commercial organizations. However eventually the distinction was lost when .com, .org and .net were opened for unrestricted registration.</p>'
-  DomainsTldsData_4:
-    DomainsTlds: DomainsTlds_5
-    language_id: 1
-    name: org
-    tags: Generic
-    description: '<p>The domain name org is a generic top-level domain (gTLD) in the Domain Name System of the Internet. Its name is derived from the word commercial, indicating its original intended purpose for domains registered by commercial organizations. However eventually the distinction was lost when .com, .org and .net were opened for unrestricted registration.</p>'   
-  DomainsTldsData_5:
-    DomainsTlds: DomainsTlds_2
-    language_id: 1
-    name: net
-    tags: Generic
-    description: '<p>The domain name net is a generic top-level domain (gTLD) in the Domain Name System of the Internet. Its name is derived from the word commercial, indicating its original intended purpose for domains registered by commercial organizations. However eventually the distinction was lost when .com, .org and .net were opened for unrestricted registration.</p>'
-    
 ProductsAttributes:
   ProductsAttributes_1:
     code: webspace
@@ -1139,65 +1042,6 @@ ProductsTranches:
     price: '55.00'
     Products: Products_4
     billing_cycle_id: 4
-
-
-DomainsTlds:
-  DomainsTlds_1:
-    server_id: 1
-    registrars_id: 1
-    ishighlighted: true
-    registration_price: '9.90'
-    transfer_price: '9.90'
-    renewal_price: '9.90'
-    registration_cost: '5.99'
-    transfer_cost: '5.99'
-    renewal_cost: '6.99'
-    tax_id: 1
-  DomainsTlds_2:
-    server_id: 2
-    registrars_id: 1
-    ishighlighted: true
-    registration_price: '9.90'
-    transfer_price: '9.90'
-    renewal_price: '9.90'
-    registration_cost: '5.99'
-    transfer_cost: '5.99'
-    renewal_cost: '6.99'
-    tax_id: 1
-  DomainsTlds_3:
-    server_id: 301
-    registrars_id: 1
-    ishighlighted: true
-    registration_price: '16.00'
-    transfer_price: '16.00'
-    renewal_price: '16.00'
-    registration_cost: '5.99'
-    transfer_cost: '5.99'
-    renewal_cost: '7.99'
-    tax_id: 1
-  DomainsTlds_4:
-    server_id: 167
-    registrars_id: 1
-    ishighlighted: true
-    registration_price: '8.80'
-    transfer_price: '8.80'
-    renewal_price: '8.80'
-    registration_cost: '4.99'
-    transfer_cost: '4.99'
-    renewal_cost: '6.99'
-    tax_id: 1
-  DomainsTlds_5:
-    server_id: 3
-    registrars_id: 1
-    ishighlighted: true
-    registration_price: '9.90'
-    transfer_price: '9.90'
-    renewal_price: '9.90'
-    registration_cost: '5.99'
-    transfer_cost: '5.99'
-    renewal_cost: '6.99'
-    tax_id: 1
-    
     
 OrdersItems:
   OrdersItems_1:
@@ -1216,39 +1060,8 @@ OrdersItems:
     parameters: '{"emails":"5","trafficdata":"5000","databases":"1","webspace":"1000"}'
     setup: {  }
     note: "This is a private note. \r\nThe customer cannot see this note."
+ 
   OrdersItems_2:
-    Orders: Orders_2
-    DomainsTlds: DomainsTlds_1
-    billing_cycle_id: 3
-    date_start: '2012-02-23 22:33:15'
-    date_end: '2013-02-23 00:00:00'
-    autorenew: true
-    quantity: '1'
-    cost: '5.99'
-    price: '9.90'
-    setupfee: '0.00'
-    status_id: 20
-    description: company.com
-    parameters: '{"domain":"company.com","action":"transferDomain","authcode":"","tldid":"1"}'
-    setup: {  }
-    note: null
-  OrdersItems_3:
-    Orders: Orders_1
-    DomainsTlds: DomainsTlds_1
-    billing_cycle_id: 3
-    date_start: '2012-02-27 15:43:37'
-    date_end: '2013-02-27 00:00:00'
-    autorenew: true
-    quantity: '1'
-    cost: '5.99'
-    price: '9.90'
-    setupfee: '0.00'
-    status_id: 20
-    description: shinemagento.com
-    parameters: '{"domain":"shinemagento.com","action":"transferDomain","authcode":"","tldid":"1"}'
-    setup: {  }
-    note: null
-  OrdersItems_4:
     Orders: Orders_1
     Products: Products_1
     billing_cycle_id: 1
@@ -1264,35 +1077,4 @@ OrdersItems:
     parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
     setup: {  }
     note: null
-  OrdersItems_5:
-    Orders: Orders_3
-    DomainsTlds: DomainsTlds_1
-    billing_cycle_id: 3
-    date_start: '2012-03-18 11:43:47'
-    date_end: '2013-03-18 00:00:00'
-    autorenew: true
-    quantity: '1'
-    cost: '0.00'
-    price: '9.90'
-    setupfee: '0.00'
-    status_id: 19
-    description: mycompany.com
-    parameters: '{"domain":"mycompany.com","action":"transferDomain","tldid":"1"}'
-    setup: {  }
-    note: null
-  OrdersItems_10:
-    Orders: Orders_18
-    DomainsTlds: DomainsTlds_1
-    billing_cycle_id: 3
-    date_start: '2012-03-20 15:45:06'
-    date_end: '2013-03-20 00:00:00'
-    autorenew: true
-    quantity: '1'
-    cost: '5.99'
-    price: '9.90'
-    setupfee: '0.00'
-    status_id: 9
-    description: freemagento.com
-    parameters: '{"domain":"freemagento.com","action":"registerDomain","tldid":"1"}'
-    setup: {  }
-    note: null
+

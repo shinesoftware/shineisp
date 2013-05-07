@@ -24,11 +24,9 @@ class Registrars extends BaseRegistrars
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.registrars_id', 'alias' => 'registrars_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'r.registrars_id', 'alias' => 'registrars_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'r.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Credit' ), 'field' => 'r.credit', 'alias' => 'credit', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Username' ), 'field' => 'r.username', 'alias' => 'username', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Test' ), 'field' => 'r.testmode', 'alias' => 'test', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'r.active', 'alias' => 'active', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		
-		$config ['datagrid'] ['fields'] = "r.registrars_id, r.name as name, r.testmode as test, r.credit as credit, r.username as username";
+		$config ['datagrid'] ['fields'] = "r.registrars_id, r.name as name, r.active as active";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Registrars r' );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
@@ -89,17 +87,23 @@ class Registrars extends BaseRegistrars
     									->where ( "class = ?", $classname )
     									->andWhere('active = ?', true)
     									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-    									
+
+    	if(!empty($registrar[0]['config'])){
+    		$settings = json_decode($registrar[0]['config'], true);
+    		$registrar[0] = array_merge($registrar[0], $settings);
+    	}
+    	
+    	
     	return !empty($registrar[0]) ? $registrar[0] : array();									
     }	
 	
 	/**
-	 * getActions
 	 * Get the actions from the custom Registrar class
 	 */
 	public static function getActions($registrarID) {
 		if(is_numeric($registrarID)){
 			$registrar = Registrars::find ( $registrarID, null, true );
+			
 			if (! empty ( $registrar [0] ['class'] ) && class_exists ( $registrar [0] ['class'] )) {
 				$class = $registrar [0] ['class'];
 				$reg = new $class ();
@@ -110,7 +114,6 @@ class Registrars extends BaseRegistrars
 	}
 	
 	/**
-	 * find
 	 * Get a record by ID
 	 * @param $id
 	 * @return Doctrine Record
@@ -123,7 +126,6 @@ class Registrars extends BaseRegistrars
 	}
 	
 	/**
-	 * findbyDomainID
 	 * Get a record by domain ID
 	 * @param $id
 	 * @return Doctrine Record
@@ -138,7 +140,6 @@ class Registrars extends BaseRegistrars
 	}
 	
 	/**
-	 * findRegistrarIDbyDomain
 	 * Get a record by domain name
 	 * @param $domain
 	 * @return integer
@@ -176,7 +177,6 @@ class Registrars extends BaseRegistrars
 	}
 	
 	/**
-	 * getList
 	 * Get a list ready for the html select object
 	 * @return array
 	 */
@@ -198,7 +198,6 @@ class Registrars extends BaseRegistrars
 	}
 	
     /**
-     * find
      * Get a record by ID
      * @param $id
      * @return Doctrine Record
@@ -210,12 +209,16 @@ class Registrars extends BaseRegistrars
         								->limit ( 1 );
         
         $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
-        $record = $dq->execute ( array (), $retarray );
-        return $record;
+        $registrar = $dq->execute ( array (), $retarray );
+    
+    	if(!empty($registrar[0]['config'])){
+    		$settings = json_decode($registrar[0]['config'], true);
+    		$registrar[0] = array_merge($registrar[0], $settings);
+    	}
+        return $registrar;
     }	
 	
     /**
-     * findActiveRegistrars
      * Get the enabled registrant
      * @return Doctrine Record
      */
@@ -228,39 +231,52 @@ class Registrars extends BaseRegistrars
     }	
     
     /**
-     * Save the record
+     * Save the registrar configuration record 
      * 
      * @param posted var from the form
      * @return Boolean
      */
     public static function saveData($record, $id=null) {
-    	 
+    	$config = "";
+    	
     	// Set the new values
     	if (is_numeric ( $id )) {
     		$registrar = self::getbyId( $id );
     	}else{
     		$registrar = new Registrars();
     	}
-    	 
-    	$registrar->name = $record ['name'];
-    	$registrar->wsdl = $record ['wsdl'];
-    	$registrar->class = $record ['class'];
-    	$registrar->username = $record ['username'];
-    	$registrar->password = $record ['password'];
-    	$registrar->testmode = $record ['testmode'];
-    	$registrar->lastupdate = date('Y-m-d H:i:s');
-    	$registrar->credit = $record ['credit'];
-    	$registrar->active = $record ['active'];
-    	 
-    	if($registrar->trySave()){
-    		return $registrar->registrars_id;
+    	
+    	if(!empty($record ['settings'])){
+    		$config = json_encode($record['settings']);
     	}
-    	 
+    	
+    	if(!empty($record ['name'])){
+    		
+	    	$registrar->name = $record ['name'];
+	    	$registrar->class = "Shineisp_Api_Registrars_" . $record ['name'] . "_Main";
+	    	$registrar->config = !empty($config) ? $config : null;
+	    	$registrar->lastupdate = date('Y-m-d H:i:s');
+	    	$registrar->active = !empty($record ['active']) ? $record ['active'] : false;
+	    	 
+	    	if($registrar->trySave()){
+	    		return $registrar->registrars_id;
+	    	}
+    	}
+    	
     	return false;
     }
     
     /**
-     * updateCredit
+     * Read all the registrars configuration files 
+     * @param $registrar
+     * @return ArrayObject
+     */
+    public static function readConfig($registrar) {
+        
+        return array();
+    }
+    
+    /**
      * Update the credit for a registrant
      * @param $regid, $credit
      * @return Void
@@ -274,7 +290,6 @@ class Registrars extends BaseRegistrars
     }
     
     /**
-     * getCredit
      * Get the registrant credit
      * @param $regid
      * @return Void

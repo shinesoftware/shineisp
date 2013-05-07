@@ -65,6 +65,7 @@ class OrdersController extends Zend_Controller_Action {
 												o.grandtotal as Total", 
 												$page, $NS->recordsperpage, $arrSort, $params );
 			$data ['currentpage'] = $page;
+			
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
 		}
@@ -94,7 +95,7 @@ class OrdersController extends Zend_Controller_Action {
 		$form = $this->getForm ( '/orders/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		try {
 			if (! empty ( $id ) && is_numeric ( $id )) {
@@ -293,8 +294,16 @@ class OrdersController extends Zend_Controller_Action {
 	public function setdeleteAction() {
 		$ns = new Zend_Session_Namespace ( 'Default' );
 		$id = $this->getRequest ()->getParam ( 'id' );
-		Orders::setDeleted( $id, $this->customer ['customer_id'] );
-		$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'The requested task has been completed successfully', 'status' => 'success' ) );
+		if(is_numeric($id)){
+			// set the order as deleted
+			Orders::setDeleted( $id, $this->customer ['customer_id'] );
+			
+			// Update the pdf document
+			Orders::pdf($id, false, true);
+			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'The requested task has been completed successfully', 'status' => 'success' ) );
+		}else{
+			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'An error has occured during the task requested.', 'status' => 'error' ) );
+		}
 	}
 	
 	/**

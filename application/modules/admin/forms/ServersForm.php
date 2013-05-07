@@ -9,7 +9,6 @@ class Admin_Form_ServersForm extends Zend_Form
     	$this->addElement('select', 'isp_id', array(
                 'label' => 'isp',
                 'decorators' => array('Composite'),
-                'description'      => 'desc_isp',
                 'class'      => 'text-input large-input'
         ));
         
@@ -21,7 +20,6 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('select', 'type_id', array(
                 'label' => 'servertype',
                 'decorators' => array('Composite'),
-                'description'      => 'desc_servertype',
                 'class'      => 'text-input large-input'
         ));
         
@@ -33,7 +31,6 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
                 'label' => 'status',
                 'decorators' => array('Composite'),
-                'description'      => 'desc_status',
                 'class'      => 'text-input large-input'
         ));
         
@@ -46,7 +43,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => 'servername',
-            'description' => 'desc_servername',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -55,7 +51,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => 'ip',
-            'description'      => 'desc_ip',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -64,7 +59,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => 'netmask',
-            'description'      => 'desc_netmask',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -73,7 +67,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => 'host',
-            'description'      => 'desc_host',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -82,7 +75,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => 'domain',
-            'description'      => 'desc_domain',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -90,7 +82,6 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('textarea', 'description', array(
             'required'   => true,
             'label'      => 'description',
-            'description'      => 'desc_description',
             'decorators' => array('Composite'),
             'class'      => 'textarea large-input'
         ));
@@ -109,7 +100,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => 'Datacenter',
-            'description'      => 'desc_datacenter',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -118,7 +108,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => 'Server cost',
-            'description'      => 'desc_cost',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -127,7 +116,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => 'Max accounts',
-            'description'      => 'desc_maxaccounts',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -149,20 +137,6 @@ class Admin_Form_ServersForm extends Zend_Form
             'class'       => 'text-input large-input'
         ));
 
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
-        $this->addElement('reset', 'reset', array(
-            'required' => false,
-            'label'    => 'reset',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
         $this->addElement('hidden', 'server_id');
     }
 }

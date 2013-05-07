@@ -49,10 +49,10 @@ class Admin_SearchController extends Zend_Controller_Action {
 			return;
 		}
 		
-		$cms = CMSPages::getList ();
+		$cms = CmsPages::getList ();
 		foreach ( $cms as $key => $value ) {
 			if (strpos ( strtolower ( $value ), $q ) !== false) {
-				echo "$key|$value|cmspages|" . $this->translator->translate ( 'CMS' ) . "\n";
+				echo "$key|$value|cmspages|" . $this->translator->translate ( 'Cms' ) . "\n";
 			}
 		}
 					

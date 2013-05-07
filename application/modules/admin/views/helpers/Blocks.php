@@ -23,7 +23,7 @@ class Admin_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 	public function showblock($side) {
 		$ns = new Zend_Session_Namespace ( 'Admin' );
 		$languageID = Languages::get_language_id ( $ns->lang );
-		
+
 		$record = array ();
 		$blocks = array ();
 		
@@ -87,13 +87,13 @@ class Admin_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 				$blocks = $blocks ['block'];
 				if (count ( $blocks ) > 1) {
 					foreach ( $blocks as $block ) {
-						$block = CMSBlocks::findbyvar ( $block ['name'], $languageID );
+						$block = CmsBlocks::findbyvar ( $block ['name'], $languageID );
 						if (! empty ( $block [0] ['body'] )) {
 							echo $block [0] ['body'];
 						}
 					}
 				} else {
-					$block = CMSBlocks::findbyvar ( $blocks ['name'], $languageID );
+					$block = CmsBlocks::findbyvar ( $blocks ['name'], $languageID );
 					if (! empty ( $block [0] ['body'] )) {
 						echo $block [0] ['body'];
 					} else {

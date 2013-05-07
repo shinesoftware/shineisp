@@ -1,10 +1,16 @@
 <?php
 
+
 /**
- * BatchController
- * Manage the isp profile
- * @version 1.0
- */
+	* This procedure is executed by cronjob every 5 minutes and it will register,
+	* transfer a domain name using the default registrant
+	* Remember to set the points value for each domain name.
+	*
+	* CREATE A SYSTEM CRONJOB EACH 5 MINUTES
+	*
+	* Execute all the panel tasks
+	* @version 1.5
+*/
 
 class System_TasksController extends Zend_Controller_Action {
 	
@@ -16,12 +22,6 @@ class System_TasksController extends Zend_Controller_Action {
 		$this->getHelper ( 'layout' )->setLayout ( 'system' );
 	}
 	
-	/*
-	 * This procedure is executed by cronjob every 10 minutes and it will register, transfer a domain name using the default registrant
-	 * Remember to set the points value for each domain name.
-	 * 
-	 * Execute all the panel tasks
-	 */
 	public function indexAction() {
 		// Execute the Panel active tasks
 		$this->panelTask();
@@ -128,7 +128,7 @@ class System_TasksController extends Zend_Controller_Action {
 		// Get 20 Active tasks items
 		$tasks = DomainsTasks::getTasks ( Statuses::id('active', 'domains_tasks'), 20 );
 		
-		// Get the active ISP in order to register/transfer the domains
+		// Check if an active registrar is active
 		$registrant = Registrars::findActiveRegistrars ();
 		
 		// If exist a registrant set in the database
@@ -171,7 +171,7 @@ class System_TasksController extends Zend_Controller_Action {
 					$class = $registrar ['class'];
 					$regclass = new $class ();
 					$action = $task ['action'];
-					
+									
 					// Check if the task is REGISTER or TRANSFER the domain name
 					if ($action == "registerDomain") {
 						
@@ -186,9 +186,6 @@ class System_TasksController extends Zend_Controller_Action {
 					} elseif ($action == "transferDomain") {
 						
 						$regclass->transferDomain ( $task ['domain_id'] );
-						
-						// Update the domain information
-						DomainsTasks::AddTask($task ['domain'], "updateDomain");
 					
 					} elseif ($action == "renewDomain") {
 						

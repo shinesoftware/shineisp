@@ -10,14 +10,19 @@
 		 and you have to set the start of the cron each 5 minutes
 	-->
 	<cron>
-		<!-- 8:00 every day -->
+		<!-- 8:30 every day -->
 		<execute time="30 8 * * *">
 			<script class="Orders" method="checkExpiringOrders">Check the expired orders</script>
 		</execute>
 		
 		<!-- 0:30 every day -->
-		<execute time="30 0 * * *">
+		<execute time="0 30 * * *">
 			<script class="OrdersItems" method="checkServices">Check subscribed services</script>
+		</execute>
+		
+		<!-- 0:00 every first day of the month -->
+		<execute time="0 0 1 * *">
+			<script class="Shineisp_Api_POEditor_Main" method="download">Update the language translation</script>
 		</execute>
 		
 		<!-- 2:00 every 1st of the month -->
@@ -32,7 +37,7 @@
 		
 		<!-- 8:30 on monday -->
 		<execute time="30 8 * * 1">
-			<script class="Orders" method="checkOrders">Check orders to be paid</script>
+			<script class="Orders" method="checkOrders">Check orders that the customers have to paid and notice him by email</script>
 		</execute>
 		
 		<!--  all the day each 30 minutes -->

@@ -117,34 +117,40 @@ class Shineisp_Commons_Utilities {
 	 * @return void
 	 */
 	
-	public static function log($message, $filename = "errors.log") {
-		$writer = new Zend_Log_Writer_Firebug();
-		$logger = new Zend_Log($writer);
-		$debug = true;
-		$debug_log = true;
-		
-		if(Shineisp_Main::isReady()){
-			$debug = Settings::findbyParam('debug');
-			$debug_log = Settings::findbyParam('debug_log');
-		}
-				
-		if($debug){
-			$logger->log($message, Zend_Log::INFO);
-		}
-		
-		if($debug_log){
-			@mkdir(PUBLIC_PATH . '/logs/');
-			if(is_writable(PUBLIC_PATH . '/logs/')){
-				$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
-				if(is_array($message)){
-					fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
-				}else{
-					fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
-				}
-				fclose ( $log );
-			}else{
-				$logger->log(PUBLIC_PATH . '/logs/ is not writable', Zend_Log::INFO);
+	public static function log($message, $filename = "errors.log", $priority=Zend_Log::INFO) {
+		try{
+			$logger = new Zend_Log();
+			$debug = true;
+			$debug_log = true;
+			
+			if(Shineisp_Main::isReady()){
+				$debug = Settings::findbyParam('debug');
+				$debug_log = Settings::findbyParam('debug_log');
 			}
+	
+			if($debug){
+				$writer = new Zend_Log_Writer_Firebug();
+				$logger->addWriter($writer);
+				$logger->log($message, $priority);
+			}
+			
+			if($debug_log){
+				@mkdir(PUBLIC_PATH . '/logs/');
+				if(is_writable(PUBLIC_PATH . '/logs/')){
+					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
+					if(is_array($message)){
+						fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
+					}else{
+						fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
+					}
+					fclose ( $log );
+				}else{
+					$logger->log(PUBLIC_PATH . '/logs/ is not writable', Zend_Log::INFO);
+				}
+			}
+			
+		}catch (Exception $e){
+			die($e->getMessage());
 		}
 	}
 	
@@ -260,20 +266,15 @@ class Shineisp_Commons_Utilities {
 		$results = array();
 	
 		// create a handler for the directory
-		$handler = opendir($directory);
-	
-		// open directory and walk through the filenames
-		while ($file = readdir($handler)) {
+		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+		foreach($directory_iterator as $filename => $path_object) {
 	
 			// if file isn't this directory or its parent, add it to the results
-			if ($file != "." && $file != "..") {
-				$results[] = $file;
+			if ($filename != "." && $filename != "..") {
+				$results[] = $filename;
 			}
 	
 		}
-	
-		// tidy up: close the handler
-		closedir($handler);
 	
 		// done!
 		return $results;
@@ -730,7 +731,11 @@ class Shineisp_Commons_Utilities {
 		if ($html) {
 			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
-			$mail->setBodyText ( $body);
+			if(self::isHtml($body)){
+				$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
+			}else{
+				$mail->setBodyText ( $body);
+			}
 		}
 		
 		if ( is_array($from ) ) {
@@ -776,9 +781,10 @@ class Shineisp_Commons_Utilities {
 		try {
 			
 			$mail->send ( $transport );
-
+			
 			// All good, log to DB
 			if(is_array($to)){
+				
 				foreach ($to as $recipient){
 					// get customer_id
 					$Customers = Customers::findbyemail($recipient);
@@ -798,6 +804,9 @@ class Shineisp_Commons_Utilities {
 					$EmailsTemplatesSends->text        = $body;
 					$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 					$EmailsTemplatesSends->save();
+
+					// log the data
+					Shineisp_Commons_Utilities::log("An email has been sent to $to");
 				}
 			}else{
 				// get customer_id
@@ -818,20 +827,21 @@ class Shineisp_Commons_Utilities {
 				$EmailsTemplatesSends->text        = $body;
 				$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
 				$EmailsTemplatesSends->save();
+				
+				// log the data
+				Shineisp_Commons_Utilities::log("An email has been sent to $to");
+				
 			}
-						
-			
 			return true;
 		} catch ( Exception $e ) {
+			
+			// log the data
+			Shineisp_Commons_Utilities::log($e->getMessage ());
+			
 			return array ('email' => $to, 'message' => $e->getMessage () );
 		}
 		return false;
 	}
-	
-	
-	
-	
-	
 	
 	/*
 	 *  getEmailTemplate
@@ -842,7 +852,7 @@ class Shineisp_Commons_Utilities {
 		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
-		
+				
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
@@ -852,22 +862,27 @@ class Shineisp_Commons_Utilities {
 				$locale .= "_" . strtoupper ( $locale );
 			}
 		}
-		
+				
 		$language_id          = Languages::get_language_id($locale);
 		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
-				
-				
+		
 		if ( is_numeric($language_id) && $language_id > 0 ) {
 			// Load mail template from database
-			$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+			if ( is_numeric($template) ) {
+				$template      = intval($template);
+				$EmailTemplate = EmailsTemplates::find($template, null, false, $language_id);
+			} else {
+				$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);	
+			}
+			
 		} else {
 			$language_id = $fallback_language_id;
 		}
-
+		
 		// Template missing from DB. Let's add it.
-		if ( !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
+		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
-
+			
 			// Check if the file exists
 			if (! file_exists ( $filename )) {
 				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
@@ -896,6 +911,15 @@ class Shineisp_Commons_Utilities {
 			// TODO: properly manage ISP ID
 			$isp = Isp::getActiveISP();
 
+			$body = trim($body);
+			$subject = trim($subject);
+			
+			// check if the string contains html tags and if it does not contain tags
+			// means that it is a simple text. In this case add the tag "<br/>" for each return carrier
+			if(!self::isHtml($body)){
+				$body = nl2br($body);
+			}
+			
 			// Store mail in DB
 			$array = array(
 			     'type'      => 'general'
@@ -903,17 +927,23 @@ class Shineisp_Commons_Utilities {
 				,'code'      => $template
 				,'plaintext' => 0
 				,'active'    => 1
-				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'Shine ISP'        // TODO: remove this hardcoded value
+				,'fromname'  => ( is_array($isp) && isset($isp['company']) ) ? $isp['company'] : 'ShineISP'        // TODO: remove this hardcoded value
 				,'fromemail' => ( is_array($isp) && isset($isp['email']) )   ? $isp['email'] : 'info@shineisp.com'  // TODO: remove this hardcoded value
 				,'subject'   => $subject
-				,'html'      => nl2br($body)
+				,'html'      => $body
 			
 			);
-			echo "Faccio save per la lingua ".$language_id."\n<br>";
+
+			// Save the data
 			EmailsTemplates::saveAll(null, $array, $language_id);
 				
 			// Return the email template
 			return array_merge($array, array('template' => $body, 'subject' => $subject));
+		}
+		
+		// template is numeric but there is not template in db. something strange happened. Exit.
+		if ( is_numeric($template) && !is_object($EmailTemplate) ) {
+			return false;
 		}
 		
 		$email = array(
@@ -942,9 +972,18 @@ class Shineisp_Commons_Utilities {
 		return $email;
 	}
 
-
-
-
+	/**
+	 * Check if the string contains html tags
+	 * @param unknown_type $string
+	 */
+	public static function isHtml($string){
+		 preg_match("/<\/?\w+((\s+\w+(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)\/?>/",$string, $matches);
+	     if(count($matches)==0){
+	        return FALSE;
+	      }else{
+	         return TRUE;
+	      }
+	}
 
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
@@ -960,6 +999,7 @@ class Shineisp_Commons_Utilities {
 
 		// Get ISP details. Having this here is always usefull
 		$ISP = Isp::getActiveISP ();
+		
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
@@ -981,17 +1021,20 @@ class Shineisp_Commons_Utilities {
 		}
 
 		// Remove unneeded parameters
-		unset($replace['password']);
 		unset($replace['active']);
 		unset($replace['isppanel']);
 
 		// Replace all placeholders in everything
-		foreach ( $replace as $placeholder => $value ) {
+		foreach ( $replace as $placeholder => $emailcontent ) {
 			foreach ( $arrTemplate as $k => $v ) {
-				$arrTemplate[$k] = str_replace('['.$placeholder.']', $value, $v);
+				
+				// $replace contains the order header information
+				if(is_string($emailcontent)){
+					$arrTemplate[$k] = str_replace('['.$placeholder.']', $emailcontent, $v);
+				}
 			}
 		}
-
+		
 		// Send the email
 		$arrBCC  = array();
 		$arrCC   = array();
@@ -1022,14 +1065,6 @@ class Shineisp_Commons_Utilities {
 	}
 
 
-
-
-
-
-
-
-
-	
 	public static function cvsExport($recordset) {
 		$cvs = "";
 		@unlink ( "documents/export.csv" );

@@ -28,7 +28,7 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 		$this->view->action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		
 		if (! empty ( $block )) {
-			$block = CMSBlocks::findbyvar ( $block, $languageID );
+			$block = CmsBlocks::findbyvar ( $block, $languageID );
 			if (! empty ( $block [0] ['body'] )) {
 				return $block [0] ['body'];
 			}
@@ -37,7 +37,7 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 	
 	/**
 	 * showblock
-	 * Handle the CMS blocks and XML Blocks 
+	 * Handle the Cms blocks and XML Blocks 
 	 * @param unknown_type $side
 	 */
 	public function showblock($side) {
@@ -65,10 +65,10 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 		// #################
 		if ($controller == "index") {
 			
-			$record = CMSPages::findbyvar ( 'homepage', $ns->lang );
+			$record = CmsPages::findbyvar ( 'homepage', $ns->lang );
 			$var = Zend_Controller_Front::getInstance ()->getRequest ()->getParam ( 'url' );
 			if (! empty ( $var )) {
-				$record = CMSPages::findbyvar ( $var, $ns->lang );
+				$record = CmsPages::findbyvar ( $var, $ns->lang );
 			}
 		}
 		
@@ -143,13 +143,13 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 				$blocks = $blocks ['block'];
 				if (count ( $blocks ) > 1) {
 					foreach ( $blocks as $block ) {
-						$block = CMSBlocks::findbyvar ( $block ['name'], $languageID );
+						$block = CmsBlocks::findbyvar ( $block ['name'], $languageID );
 						if (! empty ( $block [0] ['body'] )) {
 							echo $block [0] ['body'];
 						}
 					}
 				} else {
-					$block = CMSBlocks::findbyvar ( $blocks ['name'], $languageID );
+					$block = CmsBlocks::findbyvar ( $blocks ['name'], $languageID );
 					if (! empty ( $block [0] ['body'] )) {
 						echo $block [0] ['body'];
 					} else {

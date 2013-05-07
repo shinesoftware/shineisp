@@ -256,7 +256,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		
+		$this->view->editmode = true;
 		
 		$this->view->addressesdatagrid = $this->addressesGrid ();
 		$this->view->contactsdatagrid = $this->contactsGrid ();
@@ -453,10 +453,26 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$fields = "date, subject, recipient";
 			$rs = EmailsTemplatesSends::getByCustomerID ($request->id, $fields);
-			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'view' => array ('controller' => 'emailstemplatessends', 'action' => 'view' ) );
+			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'targetlink'=>'_blank', 'view' => array ('controller' => 'customers', 'action' => 'emailview' ) );
 		}
 	}
 	
+		
+	/**
+	 * Show the content of the email
+	 */
+	public function emailviewAction() {
+		$this->getHelper ( 'layout' )->setLayout ( 'blank' );
+		
+		$id = $this->getRequest ()->getParam('id');
+		if(is_numeric($id)){
+			$email = EmailsTemplatesSends::getById($id);
+			$this->view->email = $email;
+			
+		}
+		
+		return $this->render ( 'emailpreview' );
+	}
 		
 	/**
 	 * processAction

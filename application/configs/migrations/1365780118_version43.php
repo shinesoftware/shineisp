@@ -6,21 +6,19 @@ class Version43 extends Doctrine_Migration_Base
 {
     public function up()
     {
-    	/*
-        $this->dropTable('products_tranches_includes');
+    	
         $this->removeColumn('panels', 'uri');
         $this->removeColumn('panels', 'location');
         $this->removeColumn('panels', 'username');
         $this->removeColumn('panels', 'password');
         $this->addColumn('custom_attributes', 'panel_id', 'integer', '11', array(
              ));
-		 * 
-		 */
+		 
     }
 
     public function down()
     {
-    	/*
+    	
         $this->createTable('products_tranches_includes', array(
              'tranche_id' => 
              array(
@@ -60,7 +58,6 @@ class Version43 extends Doctrine_Migration_Base
         $this->addColumn('panels', 'password', 'string', '', array(
              ));
         $this->removeColumn('custom_attributes', 'panel_id');
-		 * 
-		 */
+		 
     }
 }

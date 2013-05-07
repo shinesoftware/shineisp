@@ -247,7 +247,7 @@ class CreditNotes extends BaseCreditNotes
      * @param integer $creditnoteId
      */
     public static function PrintPDF($creditnoteId, $show=true) {
-    		$currency = new Zend_Currency();
+    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
     		$pdf = new Shineisp_Commons_PdfOrder ( );
     		$translator = Zend_Registry::getInstance ()->Zend_Translate;
     		

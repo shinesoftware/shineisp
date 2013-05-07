@@ -1,0 +1,36 @@
+<?php $email = $this->email; ?>
+
+<?php if(empty($email)): ?>
+	<p><?php echo $this->translate('No email found') ?></p>
+<?php else: ?>
+	<div class="emailpreview">
+		<div class="content">
+		
+			<div class="header">
+				<p>
+					<strong><?php echo $this->translate('From') ?>:</strong> 
+					<?php if ( !empty($email['fromname']) && !empty($email['fromemail']) ): ?>
+						<?php echo $email['fromname']; ?> &lt;<?php echo $email['fromemail']; ?>&gt;		
+					<?php elseif ( !empty($email['fromname']) ): ?>
+						<?php echo $email['fromname']; ?>	
+					<?php elseif ( !empty($email['fromemail']) ): ?>
+						<?php echo $email['fromemail']; ?>	
+					<?php endif; ?>
+				</p>
+				<p><strong><?php echo $this->translate('Date') ?>:</strong> <?php echo Shineisp_Commons_Utilities::formatDateOut($email['date']) ?></p>
+				<p><strong><?php echo $this->translate('Subject') ?>:</strong> <?php echo $email['subject'] ?></p>
+				<p><strong><?php echo $this->translate('To') ?>:</strong> <?php echo $email['recipient'] ?></p>
+				<?php if ( !empty($email['cc']) ): ?>
+					<p><strong><?php echo $this->translate('Cc') ?>:</strong> <?php echo $email['cc'] ?></p>
+				<?php endif; ?>
+				<?php if ( !empty($email['bcc']) ): ?>
+					<p><strong><?php echo $this->translate('Bcc') ?>:</strong> <?php echo $email['bcc'] ?></p>
+				<?php endif; ?>
+			</div>
+			
+			<div class="body">
+				<?php echo $email['text'] ?>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>

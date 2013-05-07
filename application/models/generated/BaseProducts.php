@@ -33,12 +33,13 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property string $blocks
  * @property integer $server_group_id
  * @property integer $autosetup
+ * @property integer $welcome_mail_id
  * @property ProductsAttributesGroups $ProductsAttributesGroups
  * @property Taxes $Taxes
  * @property Doctrine_Collection $ProductsData
  * @property Doctrine_Collection $ProductsRelated
  * @property Doctrine_Collection $ProductsUpgrades
- * @property Doctrine_Collection $Wikilinks
+ * @property Doctrine_Collection $WikiLinks
  * @property Doctrine_Collection $UrlRewrite
  * @property Doctrine_Collection $Reviews
  * @property Doctrine_Collection $Domains
@@ -47,6 +48,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Doctrine_Collection $ProductsMedia
  * @property Doctrine_Collection $ProductsAttributesIndexes
  * @property ServersGroups $ServersGroups
+ * @property EmailsTemplates $EmailsTemplates
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -190,6 +192,11 @@ abstract class BaseProducts extends Doctrine_Record
              'default' => '0',
              'length' => '4',
              ));
+        $this->hasColumn('welcome_mail_id', 'integer', 5, array(
+             'type' => 'integer',
+             'unsigned' => true,
+             'length' => '5',
+             ));
     }
 
     public function setUp()
@@ -216,7 +223,7 @@ abstract class BaseProducts extends Doctrine_Record
              'local' => 'product_id',
              'foreign' => 'upgrade_product_id'));
 
-        $this->hasMany('Wikilinks', array(
+        $this->hasMany('WikiLinks', array(
              'local' => 'product_id',
              'foreign' => 'product_id'));
 
@@ -251,5 +258,9 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasOne('ServersGroups', array(
              'local' => 'server_group_id',
              'foreign' => 'group_id'));
+
+        $this->hasOne('EmailsTemplates', array(
+             'local' => 'welcome_mail_id',
+             'foreign' => 'template_id'));
     }
 }

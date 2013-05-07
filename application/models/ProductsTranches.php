@@ -202,6 +202,7 @@ class ProductsTranches extends BaseProductsTranches
      */
     public static function getList($productid, $refund = false) {
         $translator = Zend_Registry::getInstance ()->Zend_Translate;
+        $currency = Zend_Registry::getInstance ()->Zend_Currency;
     	try {
             $items = array();
             
@@ -212,7 +213,6 @@ class ProductsTranches extends BaseProductsTranches
                      ->orderBy('bc.months asc');
                      
             $records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-            $currency = new Zend_Currency();
             
 	        foreach ( $records as $c ) {
 				//JAY 20130409

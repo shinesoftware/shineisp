@@ -45,6 +45,20 @@ class DomainsTasks extends BaseDomainsTasks {
 		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/domainstaks/delete/id/%d";
+		
+		$massactions['bulk_delete'] = 'Mass Delete';
+		$statuses = Statuses::getList('domains_tasks');
+		
+		if(!empty($statuses)){
+			$customacts = array();
+			foreach ($statuses as $key => $value) {
+				$customacts['bulk_set_status&status=' . $key ] = "Set as $value";
+			}
+			$config ['datagrid'] ['massactions']['statuses'] = $customacts;
+		}
+		
+		$config ['datagrid'] ['massactions']['common'] = $massactions;
+		
 		return $config;
 	}
 	
@@ -318,5 +332,57 @@ class DomainsTasks extends BaseDomainsTasks {
 								->limit($limit)
 								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $records;
+	}
+	
+
+	/**
+	 * setStatus
+	 * Set a record with a status
+	 * @param $id, $status
+	 * @return Void
+	 */
+	public static function setStatus($id, $status) {
+		$dq = Doctrine_Query::create ()->update ( 'DomainsTasks dt' )->set ( 'dt.status_id', '?', $status )->where ( "task_id = ?", $id );
+		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	}
+
+
+	######################################### BULK ACTIONS ############################################
+
+
+	/**
+	 * Set the status of the records
+	 * @param array $items Items selected
+	 * @param array $parameters Custom paramenters
+	 */
+	public function bulk_set_status($items, $parameters) {
+		if(!empty($parameters['status'])){
+			foreach ($items as $item) {
+				self::setStatus($item, $parameters['status']);
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * delete the domains selected
+	 * @param array
+	 * @return Boolean
+	 */
+	public function bulk_delete($items) {
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		if (is_array ( $items )) {
+			try {
+				$retval = Doctrine_Query::create ()->delete ()->from ( 'DomainsTasks dt' )->whereIn ( 'dt.task_id', $items )->execute ();
+				if($retval){
+					die ( json_encode ( array ('mex' => $translator->translate ( "All the items have been deleted" ) ) ) );
+				}else{
+					die ( json_encode ( array ('mex' => $translator->translate ( "There was a problem during the record delete process." ) ) ) );
+				}
+			} catch ( Exception $e ) {
+				die ( json_encode ( array ('mex' => $e->getMessage () ) ) );
+			}
+		}
+		return false;
 	}
 }

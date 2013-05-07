@@ -106,7 +106,11 @@ class Orders extends BaseOrders {
 	 * @param $id, $status
 	 * @return Void
 	 */
-	public static function set_status($id, $status) {
+	public static function set_status($id, $status = null) {
+		if ( empty($status) ) {
+			return false;
+		}
+		
 		return Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
 									->where('o.order_id = ?', $id)
@@ -551,7 +555,7 @@ class Orders extends BaseOrders {
 			foreach ( $oldOrderDetails as $details ) {
 				
 				$orderitem = new OrdersItems ();
-				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null, BillingCycle::getMonthsNumber ( $details ['billing_cycle_id'] ) ); // Fixed Renew
+			
 				$isDomain = Products::CheckIfProductIsTLDDomain ( $details ['product_id'] );
 				
 				if ($details['Products']['type'] == "domain") {
@@ -560,7 +564,7 @@ class Orders extends BaseOrders {
 				
 				$date_end = Shineisp_Commons_Utilities::add_date ( date ( $oldOrderDetails [0] ['date_end'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
 				$orderitem->date_start = $oldOrderDetails [0] ['date_end']; // The new order will have the date_end as date_start
-				$orderitem->date_end = $date_end;
+				$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 
 				$orderitem->order_id = $id;
 				$orderitem->product_id = $details ['product_id'];
@@ -585,7 +589,7 @@ class Orders extends BaseOrders {
 						$ordersitemsdomains->orderitem_id = $detailid;
 						$ordersitemsdomains->save ();
 						Domains::setStatus ( $oldOID [0] ['domain_id'], Statuses::id("processing", "domains") ); // Set the domains status as processing
-						Domains::setExpirationDate ( $oldOID [0] ['domain_id'], $date_end ); // Set the new expiration date
+						Domains::setExpirationDate ( $oldOID [0] ['domain_id'], Shineisp_Commons_Utilities::formatDateIn ($date_end) ); // Set the new expiration date
 					}
 				}
 				unset ( $orderitem );
@@ -633,12 +637,16 @@ class Orders extends BaseOrders {
 		$i     = 0;
 		$total = 0;
 		$vat   = 0;
+		$tldid = null;
 		
 		if (! self::checkAutorenewProducts ( $products )) {
 			return false;
 		}
 		
 		if (is_numeric ( $customer_id )) {
+			
+			$customer = Customers::getAllInfo($customer_id);
+			
 			if (count ( $products ) > 0) {
 				
 				$order->customer_id = $customer_id;
@@ -648,6 +656,9 @@ class Orders extends BaseOrders {
 				$order->status_id = Statuses::id("tobepaid", "orders"); // To be pay
 				$order->save ();
 				$orderid = $order->getIncremented ();
+				
+				// Log data 
+				Shineisp_Commons_Utilities::log("A new order (" . Orders::formatOrderId($orderid) . ") for ".$customer['fullname']." has been created successfully");
 				
 				// Add a fastlink to a order
 				$link_exist = Fastlinks::findlinks ( $orderid, $customer_id, 'orders' );
@@ -689,14 +700,26 @@ class Orders extends BaseOrders {
 									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
 								
 								} elseif ($product ['type'] == "domain") {
+									
 									// Get the number of the months to be sum to the expiration date of the domain
 									$parameters = json_decode($oldOrderDetails [0] ['parameters'], true);
+									$tldid = !empty($parameters['tldid']) ? $parameters['tldid'] : NULL;
+									$domain = !empty($parameters['domain']) ? $parameters['domain'] : NULL;
+									
+									// get the tld information
+									$arrdomain = Shineisp_Commons_Utilities::getTld($domain);
+									if(!empty($arrdomain[1])){
+										$tld = DomainsTlds::getbyTld($arrdomain[1]);
+										if(!empty($tld['tld_id'])){
+											$orderitem->tld_id = $tld['tld_id'];
+										}
+									}
 									
 									$date_end = Shineisp_Commons_Utilities::add_date ( date ( $product ['expiring_date'] ), null, BillingCycle::getMonthsNumber ( $oldOrderDetails [0] ['billing_cycle_id'] ) * $oldOrderDetails [0] ['quantity'] );
+									
 									$orderitem->date_start = $product ['expiring_date']; // The new order will have the date_end as date_start
-									$orderitem->tld_id = !empty($parameters['tldid']) ? $parameters['tldid'] : NULL;
 									$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn ($date_end);
-									$orderitem->parameters = json_encode ( array ('domain' => trim($parameters['domain']), 'action' => 'renewDomain', 'tldid' => $parameters['tldid'] ) );
+									$orderitem->parameters = json_encode ( array ('domain' => trim($domain), 'action' => 'renewDomain', 'tldid' => $tldid ) );
 								}
 								
 								$orderitem->autorenew = $oldOrderDetails [0] ['autorenew'];
@@ -708,7 +731,7 @@ class Orders extends BaseOrders {
 								
 								$orderitem->save ();
 								$orderitemid = $orderitem->getIncremented ();
-
+								
 								// sum of all the products prices 
 								$total = $total + ($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']);
 								
@@ -1389,6 +1412,9 @@ class Orders extends BaseOrders {
 				$oldOrderId	= $orderItem['order_id'];
 
 				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
+				
+				// log
+				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
 			// Set the status of the orders and the status of the items within the order just created
@@ -1531,7 +1557,6 @@ class Orders extends BaseOrders {
 			$dq->andWhere ( "customer_id = ?", $customerid );
 		}
 			
-        echo '<pre>';
 		return $dq->execute ();
 	}
 	
@@ -1786,7 +1811,7 @@ class Orders extends BaseOrders {
 					$items [0] ['Customers']['fullname']        = $items [0] ['Customers']['company'];
 					$items [0] ['Customers']['full_personname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];
 				} else {
-					$items [0] ['Customers']['fullname'] = $order [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
+					$items [0] ['Customers']['fullname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
 				}
 			}
 			
@@ -1985,8 +2010,7 @@ class Orders extends BaseOrders {
 			
 			$bankInfo = Banks::getBankInfo();
 			if(!empty($bankInfo['description'])){
-				$bankInfo['description'] = str_replace("<br />", "\n", $bankInfo['description']);
-				$bank = strip_tags($bankInfo['description']);
+				$bank = $bankInfo['description'];
 			}
 						
 			if (! empty ( $fastlink [0] ['code'] )) {
@@ -2068,7 +2092,7 @@ class Orders extends BaseOrders {
 									   ->where('o.order_id = ?', $orderId)
 									   ->andWhere('sp.var = "orders_number_format"')
 									   ->fetchOne();
-									   
+
 		if ( !is_object($rs) || empty($rs) || empty($rs->orders_number_format) ) {
 			// fallback to old method
 			return $orders_zero_prefix;
@@ -2106,7 +2130,7 @@ class Orders extends BaseOrders {
      */
     public static function pdf($order_id, $show = true, $force=false, $path="/documents/orders/") {
     		$taxpercent = "";
-    		$currency = new Zend_Currency();
+    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
     		if(!is_numeric($order_id)){
     			return false;
     		}
@@ -2240,7 +2264,7 @@ class Orders extends BaseOrders {
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records'] [] = array ($item ['product_id'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
+					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
 				}
 				
 				if (isset ( $order [0] )) {
@@ -2275,8 +2299,8 @@ class Orders extends BaseOrders {
 	 * @return array
 	 */
 	public static function Last(array $statuses, $limit=10) {
-		$currency = new Zend_Currency();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 

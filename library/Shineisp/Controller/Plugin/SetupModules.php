@@ -25,6 +25,12 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 			if(!empty($info['extension']) && $info['extension'] == "xml"){
 				if (file_exists ($filename)) {
 					$config = simplexml_load_file ( $filename );
+
+					// If the config file has been created for the registrar ignore it 
+					// because the configuration is delegated to the registrar management
+					if(isset($config->attributes ()->type) && "registrars" == (string)$config->attributes ()->type){
+						continue;
+					}
 					
 					$panelName = ( string ) $config->attributes ()->name;
 

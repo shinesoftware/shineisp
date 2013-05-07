@@ -2,6 +2,7 @@
 
 <body>
 	<div id="loading" style="z-index: 10500; display: none;"><?php echo $this->translate('Please wait a moment...')?></div>
+	
 	<?=$this->blocks()->showblock('admin_startbody');?> 	
 	
 	<div id="main" class="abs">
@@ -13,6 +14,7 @@
 		</div>
 		<div class="abs header_lower chrome_light">
 			<div class="breadcrumbs float_left"><?= $this->breadCrumb();?></div>
+			<div class="fastcontainer float_right"><?php echo $this->customers(); ?></div>
 		</div>
 		
 		<div id="main_content" class="abs">

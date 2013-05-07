@@ -40,8 +40,8 @@ class Zend_View_Helper_Prices extends Zend_View_Helper_Abstract
      */
     public function getPriceIncludedVat($productid)
     {
-    	$currency = new Zend_Currency();
-    	$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    	$currency = Zend_Registry::get ( 'Zend_Currency' );
+    	$translator = Zend_Registry::get ( 'Zend_Translate' );
     	$measurement = "";
     	
     	$data = Products::getPrices($productid);

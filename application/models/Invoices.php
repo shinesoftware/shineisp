@@ -210,7 +210,7 @@ class Invoices extends BaseInvoices {
 	 * @return string
 	 */
 	public static function graph(array $years) {
-		$currency = new Zend_Currency();
+		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$isp = Isp::getActiveISP();
 		$grosstotal = 0;
@@ -572,7 +572,7 @@ class Invoices extends BaseInvoices {
      * @return Ambigous <number, string, mixed>
      */
    	public static function Total($values) {
-   		$currency = new Zend_Currency();
+   		$currency = Zend_Registry::getInstance ()->Zend_Currency;
    		
    		$value = 0;
    		if(count($values)>0){
@@ -629,7 +629,7 @@ class Invoices extends BaseInvoices {
      * @param unknown_type $invoiceid
      */
     public static function PrintPDF($invoice_id, $show = true, $force=false, $path="/documents/invoices/") {
-    		$currency = new Zend_Currency();
+    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
     	
     		if(!is_numeric($invoice_id)){
     			return false;
@@ -658,7 +658,7 @@ class Invoices extends BaseInvoices {
 			$database ['columns'] [] = array ("value" => "Qty", "size" => 30, "align" => "center" );
 			$database ['columns'] [] = array ("value" => "Unit", "size" => 30 );
 			$database ['columns'] [] = array ("value" => "Tax Free Price", "size" => 60, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Setup fee", "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => "Setup fee", "size" => 70, "align" => "right" );
 			$database ['columns'] [] = array ("value" => "Tax %", "size" => 40, "align" => "center" );
 			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
 			
@@ -733,10 +733,8 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['company'] ['slogan'] = $order [0] ['Isp'] ['slogan'];
 				
 				$orderinfo ['subtotal'] = $currency->toCurrency($order[0] ['total'], array('currency' => Settings::findbyParam('currency')));
-				//$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-				//$orderinfo ['vat'] = $currency->toCurrency($order[0] ['vat'], array('currency' => Settings::findbyParam('currency')));
-				$orderinfo ['vat'] = $order[0] ['vat'];
-				$orderinfo ['grandtotal'] = $order[0] ['grandtotal'];
+				$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
+				$orderinfo ['vat'] = $currency->toCurrency($order[0] ['vat'], array('currency' => Settings::findbyParam('currency')));
 				$orderinfo ['delivery'] = 0;
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
@@ -769,7 +767,7 @@ class Invoices extends BaseInvoices {
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records'] [] = array ($item ['product_id'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $tax['percentage'], $rowtotal);
+					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $tax['percentage'], $rowtotal);
 				}
 				
 				if (isset ( $order [0] )) {

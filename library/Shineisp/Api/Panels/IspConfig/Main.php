@@ -18,38 +18,6 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		$this->setPath ( PUBLIC_PATH . "/../library/Shineisp/Api/Panels/IspConfig" );
 	}
 
-	public static function generateUsernames($customer) {
-		$arrUsernames = array();
-		
-		if ( isset($customer ['company']) && isset($customer ['company']) && !empty($customer ['vat']) && !empty($customer ['vat']) ) {
-			// Microsoft Corp => microsoftcorp
-			$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", $customer ['company']));
-		}
-		// Jon Doe => jdoe				
-		$arrUsernames[]  = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", substr($customer ['firstname'], 0, 1).$customer ['lastname']));
-		
-		// Jon Doe => doej
-		$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", $customer['lastname'].substr($customer ['firstname'], 0, 1)));
-		
-		// Jon Doe => jond
-		$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", $customer['firstname'].substr($customer ['lastname'], 0, 1)));
-		
-		// Jon Doe => djon
-		$arrUsernames[] = strtolower(preg_replace("#[^a-zA-Z0-9]*#", "", substr($customer ['lastname'], 0, 1).$customer ['firstname']));
-
-		// fallback to each generated username followed by customer_id
-		foreach ( $arrUsernames as $tmpUser ) {
-			$arrUsernames[] = $tmpUser.$customer ['customer_id'];
-		}
-		// fallback to each generated username followed by timestamp
-		foreach ( $arrUsernames as $tmpUser ) {
-			$arrUsernames[] = $tmpUser.time();
-		}
-
-		return $arrUsernames;
-		
-	}
-
 	/**
 	 * Create a new email account 
 	 * 

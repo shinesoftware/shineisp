@@ -76,13 +76,13 @@ AdminResources:
     parent_id: 64
     admin: 1
   AdminResources_7:
-    name: CMS Pages Management
+    name: Cms Pages Management
     module: admin
     controller: cmspages
     parent_id: 57
     admin: 1
   AdminResources_8:
-    name: CMS Blocks Management
+    name: Cms Blocks Management
     module: admin
     controller: cmsblocks
     parent_id: 57
@@ -265,7 +265,7 @@ AdminResources:
     controller: customer
     parent_id: 1
   AdminResources_38:
-    name: CMS pages
+    name: Cms pages
     module: default
     controller: cms
     parent_id: 1
@@ -362,7 +362,7 @@ AdminResources:
     admin: 1
     is_container: 1
   AdminResources_57:
-    name: CMS
+    name: Cms
     module: admin
     controller: -
     parent_id: 0
@@ -456,7 +456,8 @@ AdminResources:
     name: Languages 
     module: admin
     controller: languages
-    parent_id: 1       
+    parent_id: 60
+    admin: 1       
   AdminResources_73:
     name: Ticket Categories 
     module: admin
@@ -540,12 +541,20 @@ AdminResources:
     name: Payment Transactions
     module: admin
     controller: payments
-    parent_id: 1    
+    parent_id: 1
+    admin: 1    
   AdminResources_89:
     name: Servers Groups
     module: admin
     controller: serversgroups
+    parent_id: 1
+    admin: 1    
+  AdminResources_90:
+    name: Email Templates
+    module: admin
+    controller: emailstemplates
     parent_id: 1    
+    admin: 1
     
         
 AdminPermissions:
@@ -743,6 +752,10 @@ AdminPermissions:
     permission: allow
   AdminPermissions_151:
     resource_id: 89
+    role_id: 1
+    permission: allow
+  AdminPermissions_152:
+    resource_id: 90
     role_id: 1
     permission: allow
 

@@ -22,9 +22,9 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTlds', 'doctrine');
  * @property Registrars $Registrars
  * @property Taxes $Taxes
  * @property WhoisServers $WhoisServers
- * @property Doctrine_Collection $DomainsTldsData
- * @property Doctrine_Collection $DomainsBulk
  * @property Doctrine_Collection $Domains
+ * @property Doctrine_Collection $DomainsBulk
+ * @property Doctrine_Collection $DomainsTldsData
  * @property Doctrine_Collection $OrdersItems
  * 
  * @package    ##PACKAGE##
@@ -109,7 +109,8 @@ abstract class BaseDomainsTlds extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Registrars', array(
              'local' => 'registrars_id',
-             'foreign' => 'registrars_id'));
+             'foreign' => 'registrars_id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Taxes', array(
              'local' => 'tax_id',
@@ -119,7 +120,7 @@ abstract class BaseDomainsTlds extends Doctrine_Record
              'local' => 'server_id',
              'foreign' => 'server_id'));
 
-        $this->hasMany('DomainsTldsData', array(
+        $this->hasMany('Domains', array(
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
 
@@ -127,7 +128,7 @@ abstract class BaseDomainsTlds extends Doctrine_Record
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
 
-        $this->hasMany('Domains', array(
+        $this->hasMany('DomainsTldsData', array(
              'local' => 'tld_id',
              'foreign' => 'tld_id'));
 

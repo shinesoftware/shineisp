@@ -3,13 +3,13 @@
 		<select id="languageswitcher">
 		<?php foreach ($this->languages as $language): ?>
 			<?php 
-				if($language['language_id'] == $this->langselected){
+				if($language['code'] == $this->langselected){
 					$selected = "selected";
 				}else{
 					$selected = "";
 				}
 			?>
-			<option <?php echo $selected?> value="<?php echo $this->uri . "?lang=" . $language['locale'] ?>"><? echo $this->translate($language['language']) ?></option>
+			<option <?php echo $selected?> value="<?php echo "/admin/index/index/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></option>
 			
 	    <?php endforeach;?>
 	    </select>
