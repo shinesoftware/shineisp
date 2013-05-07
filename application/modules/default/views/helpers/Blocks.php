@@ -21,7 +21,7 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 	 */
 	public function getblock($block) {
 		$ns = new Zend_Session_Namespace ( 'Default' );
-		$languageID = Languages::get_language_id ( $ns->lang );
+		$languageID = Languages::get_language_id_by_code ( $ns->lang );
 		
 		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$this->view->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
@@ -42,8 +42,7 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 	 */
 	public function showblock($side) {
 		$ns = new Zend_Session_Namespace ( 'Default' );
-		$languageID = Languages::get_language_id ( $ns->lang );
-		
+		$languageID = Languages::get_language_id_by_code( $ns->lang );
 		$record = array ();
 		$blocks = array ();
 		
@@ -135,7 +134,7 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 	 */
 	private function Iterator($blocks, $side) {
 		$ns = new Zend_Session_Namespace ( 'Default' );
-		$languageID = Languages::get_language_id ( $ns->lang );
+		$languageID = Languages::get_language_id_by_code ( $ns->lang );
 		
 		if (! empty ( $blocks ['side'] )) {
 			
