@@ -56,7 +56,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 			$server = Servers::getServerFromGroup($server_group_id, 'mail');
 
 			// Get the server id
-			if(is_numeric($server['server_id'])){
+			if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
 				// Get the remote server ID set in the servers profile in ShineISP
 				$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
@@ -190,7 +190,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				
 
 		// Get the server id
-		if(is_numeric($server['server_id'])){
+		if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
 			// Get the remote server ID set in the servers profile in ShineISP
 			$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
@@ -289,10 +289,9 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		}
 		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
 		$server = Servers::getServerFromGroup($server_group_id, 'web');		
-					
 
 		// Get the server id
-		if(is_numeric($server['server_id'])){
+		if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
 			// Get the remote server ID set in the servers profile in ShineISP
 			$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
@@ -394,7 +393,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 
 
 		// Get the server id
-		if(is_numeric($server['server_id'])){
+		if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
 			// Get the remote server ID set in the servers profile in ShineISP
 			$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
