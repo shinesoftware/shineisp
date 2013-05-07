@@ -144,7 +144,7 @@ class Shineisp_Commons_PdfOrder {
 			$this->page->setLineColor ( new Zend_Pdf_Color_Html ( $color ) );
 		}
 		// Draw text        
-		$this->page->drawText ( $text, $x, $y );
+		$this->page->drawText ( $text, $x, $y, 'UTF-8' );
 	}
 	
 	/**
