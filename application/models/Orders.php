@@ -2235,9 +2235,9 @@ class Orders extends BaseOrders {
 					$orderinfo ['ribbon']['border-color'] = "#E6AC00";
 				}
 				
-				$orderinfo ['subtotal'] = $currency->toCurrency($order[0] ['total'], array('currency' => Settings::findbyParam('currency')));
-				$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-				$orderinfo ['vat'] = $currency->toCurrency($order[0] ['vat'], array('currency' => Settings::findbyParam('currency')));
+				$orderinfo ['subtotal'] = $order[0] ['total'];
+				$orderinfo ['grandtotal'] = $order[0] ['grandtotal'];
+				$orderinfo ['vat'] = $order[0] ['vat'];
 				
 				$orderinfo ['delivery'] = 0;
 				
@@ -2259,10 +2259,6 @@ class Orders extends BaseOrders {
 							$taxpercent = $taxes['percentage'];
 						} 
 					}
-					
-					$item ['price'] = $currency->toCurrency($item ['price'], array('currency' => Settings::findbyParam('currency')));
-					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
-					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
 					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
 				}
@@ -2539,27 +2535,27 @@ class Orders extends BaseOrders {
 				// Get the order information
 				$order = self::getAllInfo($OrderID, "order_date", true);
 				if($order[0]['order_date']){
-					
-					$file = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
-					
-					if(file_exists(PUBLIC_PATH . "/documents/orders/$file")){
-						$year_order = date('Y',strtotime($order[0]['order_date']));
-						$month_testual_order = date('M',strtotime($order[0]['order_date']));
-						$month_number_order = date('m',strtotime($order[0]['order_date']));
-						$quarter_number_order =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($order[0]['order_date'])));
-		
-						$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
-						$destinationPath = str_replace("{year}", $year_order, $destinationPath);
-						$destinationPath = str_replace("{month}", $month_number_order, $destinationPath);
-						$destinationPath = str_replace("{monthname}", $month_testual_order, $destinationPath);
-						$destinationPath = str_replace("{quarter}", $quarter_number_order, $destinationPath);
-		
-						$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
-						$dropbox->upload(PUBLIC_PATH . "/documents/orders/$file", $destinationPath);
-						return true;
-					}else{
-						Shineisp_Commons_Utilities::log('Dropbox module: the order '.$order[0] ['order_id'].' has been not found and it cannot be sent to the dropbox');
-						return false;
+					if(Orders::pdf($OrderID, false, true)){
+						$file = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
+						if(file_exists(PUBLIC_PATH . "/documents/orders/$file")){
+							$year_order = date('Y',strtotime($order[0]['order_date']));
+							$month_testual_order = date('M',strtotime($order[0]['order_date']));
+							$month_number_order = date('m',strtotime($order[0]['order_date']));
+							$quarter_number_order =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($order[0]['order_date'])));
+			
+							$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
+							$destinationPath = str_replace("{year}", $year_order, $destinationPath);
+							$destinationPath = str_replace("{month}", $month_number_order, $destinationPath);
+							$destinationPath = str_replace("{monthname}", $month_testual_order, $destinationPath);
+							$destinationPath = str_replace("{quarter}", $quarter_number_order, $destinationPath);
+			
+							$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
+							$dropbox->upload(PUBLIC_PATH . "/documents/orders/$file", $destinationPath);
+							return true;
+						}else{
+							Shineisp_Commons_Utilities::log('Dropbox module: the order '.$order[0] ['order_id'].' has been not found and it cannot be sent to the dropbox');
+							return false;
+						}
 					}
 				}
 			}

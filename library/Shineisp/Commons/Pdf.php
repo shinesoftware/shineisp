@@ -93,6 +93,7 @@ class Shineisp_Commons_Pdf {
 	
 	/**
 	 * Write a text
+	 * 
 	 * @param $text
 	 * @param $x
 	 * @param $y

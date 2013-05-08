@@ -3,7 +3,10 @@
 class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
-	
+
+		// Check if the config file has been created
+		$isReady = Shineisp_Main::isReady();
+		
 		$module = $request->getModuleName ();
 		
 		if($module == "default"){   // set the right session namespace per module
@@ -39,24 +42,29 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 			$registry->set('Zend_Translate', $translate);
 			
 		}else{
-			$translate = Zend_Registry::get ( 'Zend_Translate' );
 			
-			// Otherwise get default language
-			$locale = $translate->getLocale();
-			if ($locale instanceof Zend_Locale) {
-				$lang = $locale->getLanguage();
-			} else {
+			
+			if($isReady){
+				$translate = Zend_Registry::get ( 'Zend_Translate' );
+			
+				// Otherwise get default language
+				$locale = $translate->getLocale();
+				if ($locale instanceof Zend_Locale) {
+					$lang = $locale->getLanguage();
+				} else {
+					$lang = $locale;
+				}
+			}else{
 				$lang = $locale;
 			}
 		}
 		
 		$ns->lang = $lang;
-		$ns->langid = Languages::get_language_id_by_code($lang);
 		
-		// Set language to global param so that our language route can fetch it nicely.
-		// 		$front = Zend_Controller_Front::getInstance ();
-		// 		$router = $front->getRouter ();
-		// 		$router->setGlobalParam ( 'lang', $lang );
-		
+		if($isReady){
+			$ns->langid = Languages::get_language_id_by_code($lang);
+		}else{
+			$ns->langid = 1;
+		}
 	}
 }

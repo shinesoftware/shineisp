@@ -826,21 +826,23 @@ class Invoices extends BaseInvoices {
 					$invoice = self::getAllInfo($InvoiceID, "invoice_date, number", true);
 					if($invoice[0]['invoice_date']){
 						$file = $invoice[0] ['invoice_date'] . " - " . $invoice[0] ['number'] . ".pdf";
-						if(file_exists(PUBLIC_PATH . "/documents/invoices/$file")){
-							$yearoftheinvoice = date('Y',strtotime($invoice[0]['invoice_date']));
-							$month_testual_invoice = date('M',strtotime($invoice[0]['invoice_date']));
-							$month_number_invoice = date('m',strtotime($invoice[0]['invoice_date']));
-							$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($invoice[0]['invoice_date'])));
-							
-							$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
-							$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
-							$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
-							$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
-							$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
-							
-							$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
-							$dropbox->upload(PUBLIC_PATH . "/documents/invoices/$file", $destinationPath);
-							return true;
+						if(Invoices::PrintPDF($InvoiceID, false, true)){
+							if(file_exists(PUBLIC_PATH . "/documents/invoices/$file")){
+								$yearoftheinvoice = date('Y',strtotime($invoice[0]['invoice_date']));
+								$month_testual_invoice = date('M',strtotime($invoice[0]['invoice_date']));
+								$month_number_invoice = date('m',strtotime($invoice[0]['invoice_date']));
+								$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($invoice[0]['invoice_date'])));
+								
+								$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
+								$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
+								$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
+								$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
+								$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
+								
+								$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
+								$dropbox->upload(PUBLIC_PATH . "/documents/invoices/$file", $destinationPath);
+								return true;
+							}
 						}
 					}
 				}

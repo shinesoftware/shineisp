@@ -88,15 +88,19 @@ class Shineisp_Main {
 	 * @return SimpleXMLElement
 	 */
 	static public function loadConfig(){
+		$confFile = APPLICATION_PATH . "/configs/config.xml";
 		try{
-			$config = Shineisp_Commons_Utilities::readfile(APPLICATION_PATH . "/configs/config.xml");
+			$config = Shineisp_Commons_Utilities::readfile($confFile);
 			if(!empty($config)){
-				$config = new Zend_Config_Xml(APPLICATION_PATH . "/configs/config.xml");
+				$config = new Zend_Config_Xml($confFile);
 				Zend_Registry::set('config', $config);
-				return simplexml_load_file ( APPLICATION_PATH . "/configs/config.xml" );
+				return simplexml_load_file ( $confFile );
 			}
-		}catch (Exception $e){
+		} catch (Exception $e) {
 			echo $e->getMessage();
+			echo "<xmp>";
+			echo $e->getTraceAsString();
+			echo "</xmp>";
 		}
 	}
 	
