@@ -1,5 +1,5 @@
 <?php
-abstract class Api_Controller_Action extends Zend_Controller_Action {
+abstract class Shineisp_Api_Shineisp_Controller_Action extends Zend_Controller_Action {
     private $config; 
   
   
@@ -25,7 +25,7 @@ abstract class Api_Controller_Action extends Zend_Controller_Action {
         // initilizing zend autodiscover object.
         $wsdl = new Zend_Soap_AutoDiscover ();
         // register SOAP service class
-        $wsdl->setClass ( 'Api_Productscategories' );
+        $wsdl->setClass ( $classname );
         // set a SOAP action URI. here, SOAP action is 'soap' as defined above.
         $wsdl->setUri ( $this->config['soap']['url'].'api/request/soap' );
         // handle request

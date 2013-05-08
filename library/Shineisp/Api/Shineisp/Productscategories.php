@@ -1,5 +1,5 @@
 <?
-class Api_Productscategories extends Api_Abstract_Action  {
+class Shineisp_Api_Shineisp_Productscategories extends Shineisp_Api_Shineisp_Abstract_Action  {
     
     public function getall(){
         $this->authenticate();

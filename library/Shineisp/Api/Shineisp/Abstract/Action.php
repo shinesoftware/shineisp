@@ -1,5 +1,5 @@
 <?
-abstract class Api_Abstract_Action {
+abstract class Shineisp_Api_Shineisp_Abstract_Action {
     
     public function authenticate() {
         $email      = $_SERVER['PHP_AUTH_USER'];

@@ -6,12 +6,10 @@
  * @version 1.0
  */
 
-class Api_ProductscategoriesController extends Api_Controller_Action {
+class Api_ProductscategoriesController extends Shineisp_Api_Shineisp_Controller_Action {
 	
 	protected $productscategories;  
     
-     
-	
     public function preDispatch() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -24,22 +22,16 @@ class Api_ProductscategoriesController extends Api_Controller_Action {
     }
     
     public function soapAction(  ) {
-        self::soap( 'Api_Productscategories' );
+        self::soap( 'Shineisp_Api_Shineisp_Productscategories' );
         exit();
     }
     
     public function wsdlAction(  ) {
-        self::wsdl( 'Api_Productscategories' );
+        self::wsdl( 'Shineisp_Api_Shineisp_Productscategories' );
         exit();
     }
     
     /*
-    public function getallAction(){
-        $productsCategorie  =   ProductsCategories::getMenu();
-        
-        echo parent::success(200, $productsCategorie);
-        exit();
-    }
     
     public function getproductsAction(){
         $uri = $this->getRequest ()->getParam ( 'uri' );

@@ -1,5 +1,5 @@
 <?
-class Api_Exceptions extends Exception {
+class Shineisp_Api_Shineisp_Exceptions extends Exception {
     
     private $errorguest = array(
         //ERROR 400 - Bad request
