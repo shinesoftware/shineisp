@@ -3,10 +3,12 @@ class Api_Productscategories extends Api_Abstract_Action  {
     
     public function getall(){
         $this->authenticate();
+        
         return ProductsCategories::getMenu();
     }
     
     public function getproducts( $uri ){
+        $this->authenticate();
         
         if( empty($uri) ) {
             throw new Api_Exceptions( 400002, ":: 'uri' field" );
