@@ -8,13 +8,32 @@
 
 class Api_ProductscategoriesController extends Api_Controller_Action {
 	
-	protected $productscategories;    
+	protected $productscategories;  
+    
+     
 	
     public function preDispatch() {
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        
         $registry = Zend_Registry::getInstance ();
         $this->translations = $registry->Zend_Translate;
-    }  
+        
+        $application = new Zend_Application( APPLICATION_ENV,  APPLICATION_PATH . '/configs/application.ini' );
+        $this->config = $application->bootstrap()->getOptions();        
+    }
     
+    public function soapAction(  ) {
+        self::soap( 'Api_Productscategories' );
+        exit();
+    }
+    
+    public function wsdlAction(  ) {
+        self::wsdl( 'Api_Productscategories' );
+        exit();
+    }
+    
+    /*
     public function getallAction(){
         $productsCategorie  =   ProductsCategories::getMenu();
         
@@ -69,6 +88,6 @@ class Api_ProductscategoriesController extends Api_Controller_Action {
         
         echo parent::success(200,$getProducts);
         exit();
-    }
+    }*/
     
 }
