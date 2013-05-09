@@ -11,13 +11,13 @@ class Shineisp_Api_Shineisp_Productscategories extends Shineisp_Api_Shineisp_Abs
         $this->authenticate();
         
         if( empty($uri) ) {
-            throw new Api_Exceptions( 400002, ":: 'uri' field" );
+            throw new Shineisp_Api_Shineisp_Exceptions( 400002, ":: 'uri' field" );
             exit();
         }
         
         $infoCategory   = ProductsCategories::getAllInfobyURI( $uri );
         if( empty($infoCategory) ) {
-            throw new Api_Exceptions( 400003, ":: uri=>'{$uri}' not category assigned" );
+            throw new Shineisp_Api_Shineisp_Exceptions( 400003, ":: uri=>'{$uri}' not category assigned" );
             exit();
         }
         

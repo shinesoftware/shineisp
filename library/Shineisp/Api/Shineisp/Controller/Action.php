@@ -12,7 +12,7 @@ abstract class Shineisp_Api_Shineisp_Controller_Action extends Zend_Controller_A
         // set SOAP service class
         $server->setClass ( $classname );
         // register exceptions for generating SOAP faults
-        $server->registerFaultException ( array ('Api_Exceptions' ) );
+        $server->registerFaultException ( array ('Shineisp_Api_Shineisp_Exceptions' ) );
         // handle request
         $server->handle ();
         exit();

@@ -10,25 +10,25 @@ abstract class Shineisp_Api_Shineisp_Abstract_Action {
         
         //Check if username or password aren't empty
         if( $email == "" || $password == "" ) {
-            throw new Api_Exceptions( 403001 );
+            throw new Shineisp_Api_Shineisp_Exceptions( 403001 );
             exit();
         }        
         
         $result = AdminUser::fastlogin($email, $password, 0);
         switch ($result->getCode()) {
             case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
-                throw new Api_Exceptions( 401001 );
+                throw new Shineisp_Api_Shineisp_Exceptions( 401001 );
                 exit();
             case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
                 /** do stuff for invalid credential **/
-                throw new Api_Exceptions( 401002 );
+                throw new Shineisp_Api_Shineisp_Exceptions( 401002 );
                 exit();
             case Zend_Auth_Result::SUCCESS:
                 return true; 
             case Zend_Auth_Result::FAILURE:
             default:
                 /** do stuff for other failure **/
-                throw new Api_Exceptions( 401001 );
+                throw new Shineisp_Api_Shineisp_Exceptions( 401001 );
                 exit();
         }
     }
