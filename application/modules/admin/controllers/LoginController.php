@@ -58,32 +58,32 @@ class Admin_LoginController extends Zend_Controller_Action {
 				
 					case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
 						/** do stuff for nonexistent identity **/
-						Shineisp_Commons_Utilities::log("> ::LOGIN:: User has been not found.", "login.log");
+						Shineisp_Commons_Utilities::log("Login: User has been not found.", "login.log");
 						$this->view->message = $translation->translate ( 'User has been not found.' );
 						break;
 				
 					case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
 						/** do stuff for invalid credential **/
-						Shineisp_Commons_Utilities::log("> ::LOGIN:: The email address or password is incorrect. please try again.", "login.log");
+						Shineisp_Commons_Utilities::log("Login: The email address or password is incorrect. please try again.", "login.log");
 						$this->view->message = $translation->translate ( 'The email address or password is incorrect. please try again.' );
 						break;
 				
 					case Zend_Auth_Result::SUCCESS:
 						/** do stuff for successful authentication **/
-						Shineisp_Commons_Utilities::log("> ::LOGIN:: The User has been authenticated successfully.", "login.log");
+						Shineisp_Commons_Utilities::log("Login: The User has been authenticated successfully.", "login.log");
 						AdminUser::updateLog($this->getRequest()->getParam("email"));
 						$this->_helper->redirector ( 'index', 'index', 'admin' );
 						break;
 				
 					case Zend_Auth_Result::FAILURE:
 						/** do stuff for other failure **/
-						Shineisp_Commons_Utilities::log("> ::LOGIN:: There was a problem during the login.", "login.log");
+						Shineisp_Commons_Utilities::log("Login: There was a problem during the login.", "login.log");
 						$this->view->message = $translation->translate ( 'There was a problem during the login.' );
 						break;
 				}
 					
 			} else {
-				Shineisp_Commons_Utilities::log("> ::LOGIN:: Post request is not valid", "login.log");
+				Shineisp_Commons_Utilities::log("Login: Post request is not valid", "login.log");
 				$this->view->message = $translation->translate ( 'Post request is not valid' );			
 			}
 		}
@@ -203,7 +203,7 @@ class Admin_LoginController extends Zend_Controller_Action {
 				// Check if the credencials are set in the Operator profile or the credencials are set in the ISP profile
 				if ($auth->hasIdentity()) {
 					Fastlinks::updateVisits ( $link [0] ['fastlink_id'] );
-					Shineisp_Commons_Utilities::log("> ::LOGIN:: The user has been logged in correctly from " . $_SERVER['REMOTE_ADDR'], "login.log");
+					Shineisp_Commons_Utilities::log("Login: The user has been logged in correctly from " . $_SERVER['REMOTE_ADDR'], "login.log");
 					$this->_helper->redirector ( $link [0] ['action'], $link [0] ['controller'], 'admin', json_decode ( $link [0] ['params'], true ) );
 				} else {
 					
@@ -214,7 +214,7 @@ class Admin_LoginController extends Zend_Controller_Action {
 					$auth->authenticate($adapter);
 					if ($auth->hasIdentity()) {
 						Fastlinks::updateVisits ( $link [0] ['fastlink_id'] );
-						Shineisp_Commons_Utilities::log("> ::LOGIN:: The user has been logged in correctly from " . $_SERVER['REMOTE_ADDR'], "login.log");
+						Shineisp_Commons_Utilities::log("Login: The user has been logged in correctly from " . $_SERVER['REMOTE_ADDR'], "login.log");
 						$this->_helper->redirector ( $link [0] ['action'], $link [0] ['controller'], 'admin', json_decode ( $link [0] ['params'], true ) );
 					}else{
 						$auth->clearIdentity();
@@ -241,7 +241,7 @@ class Admin_LoginController extends Zend_Controller_Action {
 		$auth = Zend_Auth::getInstance ();
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
 		$auth->clearIdentity ();
-		Shineisp_Commons_Utilities::log("> ::LOGIN:: The user has been logged out correctly", "login.log");
+		Shineisp_Commons_Utilities::log("Login: The user has been logged out correctly", "login.log");
 		$this->_helper->redirector ( 'index', 'index', 'admin' ); // back to login page
 	}
 	
