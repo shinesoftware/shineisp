@@ -107,8 +107,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			Shineisp_Commons_Utilities::log('Bootstrap: translation language has been not found. We use the default one.');
 		}
 		
+		$locale->setLocale($langcode);
 		$translate->setLocale($langcode);
-		
+	
 		$registry->set('Zend_Translate', $translate);
 		$registry->set('Zend_Locale', $locale);
 		$registry->set('Zend_Currency', $currency);
