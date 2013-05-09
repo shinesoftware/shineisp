@@ -23,11 +23,11 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		
 		if (!$this->_acl->isAllowed($this->_currentRole, $resource, "allow")) {
 			if ('guest' == $this->_currentRole) {
-				Shineisp_Commons_Utilities::log("> ::LOGIN:: The role '" . $this->_currentRole . "' has not sufficient permissions to access the resource '$resource'. The user has been redirected to the login page.");
+				Shineisp_Commons_Utilities::log("Login: The role '" . $this->_currentRole . "' has not sufficient permissions to access the resource '$resource'. The user has been redirected to the login page.");
 				$request->setControllerName('login');
 				$request->setActionName('index');
 			} else {
-				Shineisp_Commons_Utilities::log("> ::LOGIN:: The role '" . $this->_currentRole . "' is not allowed to access to the $resource. It is redirected to the no authentication page.");
+				Shineisp_Commons_Utilities::log("Login: The role '" . $this->_currentRole . "' is not allowed to access to the $resource. It is redirected to the no authentication page.");
 				$request->setControllerName('login');
 				$request->setActionName('noauth');
 			}

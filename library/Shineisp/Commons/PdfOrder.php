@@ -555,7 +555,6 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function FooterDetails() {
-		$currency = Zend_Registry::get ( 'Zend_Currency' );
 		$locale = Zend_Registry::get ( 'Zend_Locale' );
 		
 		if ($this->h < 190) {
@@ -623,7 +622,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
 		
-		$this->Write ( $currency->getShortName(Settings::findbyParam('currency'), $locale->getLocaleToTerritory($locale->getLanguage()) ), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
+		$this->Write ( Settings::findbyParam('currency'), PAGE_BOTH_MARGIN + 500, $toppos - 150 );
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$this->Write ( $records ['company'] ['bankname'], PAGE_BOTH_MARGIN + 2, $toppos - 24 );

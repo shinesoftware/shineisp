@@ -54,66 +54,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		}
 	}
 	
-	// init the translation module
-	protected function _initTranslate()
-	{
-		$registry = Zend_Registry::getInstance();
-		
-		// Check if the Zend_Locale can catch the BROWSER
-		// There is an issue when a BOT read the website. 
-		// The BOT doesn't send the LOCALE! In this case we set the english locale as default 
-		try{
-			$locale = new Zend_Locale(Zend_Locale::BROWSER);
-			$regioncode = $locale->getLocaleToTerritory($locale);
-			Shineisp_Commons_Utilities::log('Bootstrap: Get the browser language: ' . $locale);
-			
-			// The browser sends a generic locale: "en" 
-			// because the "English" browser preferences contains many locale like en_US, en_GB, ...
-			// If the regioncode is empty and the locale is a generic "en" we have to set a standard en_US 
-			if(empty($regioncode) || $locale == "en"){
-				$locale = new Zend_Locale("en_US");
-				$regioncode = "en_US";
-				
-				Shineisp_Commons_Utilities::log('Bootstrap: Locale is not found. We have to use: ' . $locale);
-			}
-			
-		}catch (Exception $e){
-			$locale = new Zend_Locale("en_US");
-			$regioncode = "en_US" ;
-			
-			Shineisp_Commons_Utilities::log('Bootstrap: Error on fetch the locale. It has been not found. We have to use: ' . $locale);
-		}
-		
-		$langcode = $locale->getLanguage();
-		$currency = new Zend_Currency($regioncode);
-		
-		if(file_exists(PUBLIC_PATH . "/languages/$langcode/$langcode.mo")){
-			$translate = new Zend_Translate(
-				array(
-						'adapter' => "Shineisp_Translate_Adapter_Gettext",
-						'content' => PUBLIC_PATH . "/languages/$langcode/$langcode.mo",
-						'locale'  => $langcode,
-						'disableNotices' => true
-				));
-			
-			Shineisp_Commons_Utilities::log('Bootstrap: Load the translation language from: ' . PUBLIC_PATH . "/languages/$langcode/$langcode.mo");
-			
-		}else{
-			$translate = new Zend_Translate(array(
-						'adapter' => "Shineisp_Translate_Adapter_Gettext",
-						'locale'  => 'en',
-						'disableNotices' => true
-				));
-			Shineisp_Commons_Utilities::log('Bootstrap: translation language has been not found. We use the default one.');
-		}
-		
-		$translate->setLocale($langcode);
-		
-		$registry->set('Zend_Translate', $translate);
-		$registry->set('Zend_Locale', $locale);
-		$registry->set('Zend_Currency', $currency);
-		
-	}
 	
 	protected function _initRouter() {
 		$this->bootstrap('FrontController');

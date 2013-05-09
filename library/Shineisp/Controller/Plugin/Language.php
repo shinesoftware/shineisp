@@ -28,9 +28,11 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 			if(!empty($ns->lang)){
 				$lang = $ns->lang;
 				Shineisp_Commons_Utilities::log("Language Plugin Controller: Session language set: $lang");
+			}else{
+				$lang = "en";
 			}
 			
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: No language selection");
+			Shineisp_Commons_Utilities::log("Language Plugin Controller: No language selection get the default 'en'");
 		}
 		
 		if(file_exists(PUBLIC_PATH . "/languages/$lang/$lang.mo")){
@@ -50,6 +52,7 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 			
 			Shineisp_Commons_Utilities::log('Language Plugin Controller: Load the translation language from: ' . PUBLIC_PATH . "/languages/$lang/$lang.mo");
 			Shineisp_Commons_Utilities::log("Language Plugin Controller: Region Code: $regioncode");
+			
 		}else{
 			$locale = new Zend_Locale(Zend_Locale::BROWSER);
 			$translate = Zend_Registry::get ( 'Zend_Translate' );
