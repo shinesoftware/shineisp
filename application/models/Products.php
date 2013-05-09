@@ -236,11 +236,15 @@ class Products extends BaseProducts {
 					$Pdata    = new ProductsData ();
 				}
 				
+				// TODO: Guestisp: this criteria is not complete. I cannot translate a product already sold in another language
+				// a solution is write the name of the product sold in the order as flat data
+				 
 				//* Product name can not be changed if product is sold
-				if ( ! (bool)OrdersItems::CheckIfProductExist($product_id) ) {
-					$Pdata->name = $params ['name'];	
-				}
+// 				if ( ! (bool)OrdersItems::CheckIfProductExist($product_id) ) {
+// 					$Pdata->name = $params ['name'];	
+// 				}
 				
+				$Pdata->name 			 = $params ['name'];
 				$Pdata->nickname         = $params ['nickname'];
 				$Pdata->shortdescription = $params ['shortdescription'];
 				$Pdata->description      = $params ['description'];

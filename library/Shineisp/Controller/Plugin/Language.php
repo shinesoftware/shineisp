@@ -42,13 +42,13 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 			$registry->set('Zend_Translate', $translate);
 			
 		}else{
+			$translate = Zend_Registry::get ( 'Zend_Translate' );
+				
+			// Otherwise get default language
+			$locale = $translate->getLocale();
 			
-			
+			// check if ShineISP has been configured
 			if($isReady){
-				$translate = Zend_Registry::get ( 'Zend_Translate' );
-			
-				// Otherwise get default language
-				$locale = $translate->getLocale();
 				if ($locale instanceof Zend_Locale) {
 					$lang = $locale->getLanguage();
 				} else {

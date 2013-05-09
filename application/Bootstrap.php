@@ -64,7 +64,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		// The BOT doesn't send the LOCALE! In this case we set the english locale as default 
 		try{
 			$locale = new Zend_Locale(Zend_Locale::BROWSER);
-			$regioncode = $locale->getLocaleToTerritory($locale) ;
+			$regioncode = $locale->getLocaleToTerritory($locale);
+			
+			// The browser sends a generic locale: "en" 
+			// because the "English" browser preferences contains many locale like en_US, en_GB, ...
+			// If the regioncode is empty and the locale is a generic "en" we have to set a standard en_US 
+			if(empty($regioncode) || $locale == "en"){
+				$locale = new Zend_Locale("en_US");
+				$regioncode = "en_US";
+			}
 		}catch (Exception $e){
 			$locale = new Zend_Locale("en_US");
 			$regioncode = "en_US" ;

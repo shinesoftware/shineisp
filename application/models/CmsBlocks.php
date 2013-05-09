@@ -54,7 +54,7 @@ class CmsBlocks extends BaseCmsBlocks
      */
     public static function findbyvar($var, $language_id=null) {
 		if ( $language_id === null ) {
-			$Session = new Zend_Session_Namespace ( 'Admin' );
+			$Session = new Zend_Session_Namespace ( 'Default' );
 			$language_id = $Session->langid;
 		}
     	

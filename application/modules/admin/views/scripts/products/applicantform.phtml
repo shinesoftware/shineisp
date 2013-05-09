@@ -185,7 +185,10 @@
 	var data = <?php echo $this->categories ?>;
 	
 	$(document).ready(function() {
-		$('#name').attr('readonly', <?=$this->isSold?>);
+		<?php $name = $form->name->getValue(); ?>
+		<?php if(!empty($name) && $this->isSold): ?>
+			$('#name').attr('readonly', 1);
+		<?php endif;?>
 	});
 </script>
 </div>
