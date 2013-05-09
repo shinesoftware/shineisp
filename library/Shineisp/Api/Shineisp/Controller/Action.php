@@ -2,6 +2,10 @@
 abstract class Shineisp_Api_Shineisp_Controller_Action extends Zend_Controller_Action {
     private $config; 
   
+    public function init(){
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+    }
   
     public function soap( $classname ){
         // initialize server and set URI
