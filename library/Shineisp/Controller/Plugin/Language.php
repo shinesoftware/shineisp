@@ -87,7 +87,7 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		$currency = new Zend_Currency($regioncode);
 		
 		$registry->set('Zend_Translate', $translate);
-		$registry->set('Zend_Locale', $translate);
+		$registry->set('Zend_Locale', $locale);
 		$registry->set('Zend_Currency', $currency);
 		
 		$ns->lang = $lang;
