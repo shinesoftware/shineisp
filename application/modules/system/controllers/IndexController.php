@@ -17,7 +17,7 @@ class System_IndexController extends Zend_Controller_Action {
     	$manager = Doctrine_Manager::getInstance()->setCurrentConnection('doctrine');
     		
     	if ($conn->isConnected()) {
-    		Doctrine_Core::dumpData(APPLICATION_PATH . "/configs/data/fixtures/", false);
+    		Doctrine_Core::dumpData(APPLICATION_PATH . "/configs/data/fixtures/", true);
     	}
         die('done');
     }

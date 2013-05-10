@@ -1,0 +1,820 @@
+AdminResources:
+  AdminResources_1:
+    name: Homepage
+    hidden: true
+    is_container: false
+    is_allowed: true
+    admin: false
+    module: default
+    controller: index
+    parent_id: '0'
+  AdminResources_2:
+    name: 'Error page'
+    hidden: true
+    is_container: false
+    is_allowed: true
+    admin: false
+    module: default
+    controller: error
+    parent_id: '1'
+  AdminResources_3:
+    name: 'Admin Control Panel'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: index
+    parent_id: '0'
+  AdminResources_4:
+    name: 'Login Page'
+    hidden: true
+    is_container: false
+    is_allowed: true
+    admin: true
+    module: admin
+    controller: login
+    parent_id: '3'
+  AdminResources_5:
+    name: 'Error pages'
+    hidden: true
+    is_container: false
+    is_allowed: true
+    admin: true
+    module: admin
+    controller: error
+    parent_id: '3'
+  AdminResources_6:
+    name: Settings
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: settings
+    parent_id: '64'
+  AdminResources_7:
+    name: 'Cms Pages Management'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: cmspages
+    parent_id: '57'
+  AdminResources_8:
+    name: 'Cms Blocks Management'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: cmsblocks
+    parent_id: '57'
+  AdminResources_9:
+    name: Search
+    hidden: true
+    is_container: false
+    is_allowed: true
+    admin: true
+    module: admin
+    controller: search
+    parent_id: '3'
+  AdminResources_10:
+    name: 'Profile Management'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: profile
+    parent_id: '64'
+  AdminResources_11:
+    name: 'Roles Management'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: roles
+    parent_id: '64'
+  AdminResources_12:
+    name: Customers
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: customers
+    parent_id: '56'
+  AdminResources_13:
+    name: Domains
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: domains
+    parent_id: '56'
+  AdminResources_14:
+    name: Services
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: services
+    parent_id: '56'
+  AdminResources_15:
+    name: Tickets
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: tickets
+    parent_id: '58'
+  AdminResources_16:
+    name: Wiki
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: wiki
+    parent_id: '58'
+  AdminResources_17:
+    name: 'Product Category'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: productscategories
+    parent_id: '59'
+  AdminResources_18:
+    name: 'Attributes Groups'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: productsattributesgroups
+    parent_id: '59'
+  AdminResources_19:
+    name: Reviews
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: reviews
+    parent_id: '59'
+  AdminResources_20:
+    name: 'Products Attributes'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: productsattributes
+    parent_id: '59'
+  AdminResources_21:
+    name: Products
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: products
+    parent_id: '59'
+  AdminResources_22:
+    name: 'Domains TLDs'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: domainstlds
+    parent_id: '59'
+  AdminResources_23:
+    name: Registrars
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: registrars
+    parent_id: '60'
+  AdminResources_24:
+    name: 'ISP Profile'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: isp
+    parent_id: '60'
+  AdminResources_25:
+    name: Servers
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: servers
+    parent_id: '60'
+  AdminResources_26:
+    name: Banks
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: banks
+    parent_id: '60'
+  AdminResources_27:
+    name: 'Url Rewrites'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: urlrewrite
+    parent_id: '60'
+  AdminResources_28:
+    name: Taxes
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: taxes
+    parent_id: '60'
+  AdminResources_29:
+    name: Invoices
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: invoices
+    parent_id: '61'
+  AdminResources_30:
+    name: Orders
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: orders
+    parent_id: '61'
+  AdminResources_31:
+    name: 'Credit Memos'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: creditnotes
+    parent_id: '61'
+  AdminResources_32:
+    name: -
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: to-use
+    parent_id: '3'
+  AdminResources_33:
+    name: -
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: to-use
+    parent_id: '3'
+  AdminResources_34:
+    name: Newsletter
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: newsletter
+    parent_id: '62'
+  AdminResources_35:
+    name: Subscribers
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: subscribers
+    parent_id: '62'
+  AdminResources_36:
+    name: Reports
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: reports
+    parent_id: '63'
+  AdminResources_37:
+    name: 'Customer Login'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: customer
+    parent_id: '1'
+  AdminResources_38:
+    name: 'Cms pages'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: cms
+    parent_id: '1'
+  AdminResources_39:
+    name: Cart
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: cart
+    parent_id: '1'
+  AdminResources_40:
+    name: Common
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: common
+    parent_id: '1'
+  AdminResources_41:
+    name: Compare
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: compare
+    parent_id: '1'
+  AdminResources_42:
+    name: 'Customer Dashboard'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: dashboard
+    parent_id: '1'
+  AdminResources_43:
+    name: 'Domains Check Tool'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: domainschk
+    parent_id: '1'
+  AdminResources_44:
+    name: 'Customer Domains page'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: domains
+    parent_id: '1'
+  AdminResources_45:
+    name: 'Page not found'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: notfound
+    parent_id: '1'
+  AdminResources_46:
+    name: 'Customer Orders page'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: orders
+    parent_id: '1'
+  AdminResources_47:
+    name: Products
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: products
+    parent_id: '1'
+  AdminResources_48:
+    name: 'Customer Profile'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: profile
+    parent_id: '1'
+  AdminResources_49:
+    name: Rss
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: rss
+    parent_id: '1'
+  AdminResources_50:
+    name: 'Search tool'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: search
+    parent_id: '1'
+  AdminResources_51:
+    name: 'Customer Services page'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: services
+    parent_id: '1'
+  AdminResources_52:
+    name: Sitemap
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: sitemap
+    parent_id: '1'
+  AdminResources_53:
+    name: 'Customer Tickets page'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: tickets
+    parent_id: '1'
+  AdminResources_54:
+    name: 'Tlds Tool'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: tlds
+    parent_id: '1'
+  AdminResources_55:
+    name: 'Wiki pages'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: wiki
+    parent_id: '1'
+  AdminResources_56:
+    name: Customers
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_57:
+    name: Cms
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_58:
+    name: Support
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_59:
+    name: Products
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_60:
+    name: Settings
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_61:
+    name: Sales
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_62:
+    name: Newsletter
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_63:
+    name: Reports
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_64:
+    name: Configurations
+    hidden: false
+    is_container: true
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: -
+    parent_id: '0'
+  AdminResources_65:
+    name: System
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: system
+    controller: index
+    parent_id: '0'
+  AdminResources_66:
+    name: 'System Cron'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: system
+    controller: cron
+    parent_id: '65'
+  AdminResources_67:
+    name: 'System Tasks'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: system
+    controller: tasks
+    parent_id: '65'
+  AdminResources_68:
+    name: Categories
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: categories
+    parent_id: '1'
+  AdminResources_69:
+    name: 'Contact page'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: contacts
+    parent_id: '1'
+  AdminResources_70:
+    name: 'Customer web page'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: customer
+    parent_id: '1'
+  AdminResources_71:
+    name: 'Purchases invoices'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: purchases
+    parent_id: '1'
+  AdminResources_72:
+    name: Languages
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: languages
+    parent_id: '60'
+  AdminResources_73:
+    name: 'Ticket Categories'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: ticketscategories
+    parent_id: '1'
+  AdminResources_74:
+    name: 'Wiki Categories'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: wikicategories
+    parent_id: '1'
+  AdminResources_75:
+    name: Files
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: files
+    parent_id: '1'
+  AdminResources_76:
+    name: 'Order Items'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: ordersitems
+    parent_id: '1'
+  AdminResources_77:
+    name: 'Customers Groups'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: customersgroups
+    parent_id: '1'
+  AdminResources_78:
+    name: 'Legal Forms'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: legalforms
+    parent_id: '1'
+  AdminResources_79:
+    name: 'Company Types'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: companytypes
+    parent_id: '1'
+  AdminResources_80:
+    name: Notes
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: notes
+    parent_id: '1'
+  AdminResources_81:
+    name: 'Panels Actions'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: panelsactions
+    parent_id: '1'
+  AdminResources_82:
+    name: 'Domains Tasks'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: admin
+    controller: domainstasks
+    parent_id: '1'
+  AdminResources_83:
+    name: Setup
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: setup
+    controller: localization
+    parent_id: '1'
+  AdminResources_84:
+    name: 'Setup Database'
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: setup
+    controller: database
+    parent_id: '1'
+  AdminResources_85:
+    name: 'Setup Preferences'
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: setup
+    controller: preferences
+    parent_id: '1'
+  AdminResources_86:
+    name: 'Setup Summary'
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: setup
+    controller: summary
+    parent_id: '1'
+  AdminResources_87:
+    name: 'Atom RSS'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: atom
+    parent_id: '1'
+  AdminResources_88:
+    name: 'Payment Transactions'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: payments
+    parent_id: '1'
+  AdminResources_89:
+    name: 'Servers Groups'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: serversgroups
+    parent_id: '1'
+  AdminResources_90:
+    name: 'Email Templates'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: emailstemplates
+    parent_id: '1'
+  AdminResources_91:
+    name: 'API Products Category'
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: api
+    controller: productscategories
+    parent_id: '1'

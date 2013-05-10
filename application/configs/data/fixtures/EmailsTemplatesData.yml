@@ -1,0 +1,865 @@
+EmailsTemplatesData:
+  EmailsTemplatesData_1:
+    EmailsTemplates: EmailsTemplates_1
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Call me back request for [fullname]'
+    html: "Dear Administrator,<br />\n<br />\n[fullname] would be called directly by phone at [telephone].<br />\n<br />\nFullname: [fullname]<br />\nTelephone: [telephone]<br />\n<br />\nBest Regards,<br />\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_2:
+    EmailsTemplates: EmailsTemplates_2
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Message from website: [subject]'
+    html: "Fullname: [fullname]<br />\nCompany: [company]<br />\nemail: [email]<br />\n<br />\nSubject: [subject]<br />\n<br />\nMessage:<br />\n[message]"
+    text: ''
+  EmailsTemplatesData_3:
+    EmailsTemplates: EmailsTemplates_3
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Cronjob [cronjob] executed'
+    html: "Dear Administrator,<br />\n<br />\nthese cronjobs have been executed:<br />\n<br />\n[cronjob]<br />\n<br />\nRegards,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_4:
+    EmailsTemplates: EmailsTemplates_4
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Domain DNS changed for [domain]'
+    html: "Dear User,<br />\n<br />\nour automatic tasks system has changed the domain dns information for [domain]. <br />\n<br />\nIf you use different name servers, you can manage only the Name Server Record.<br />\nIn this case the mail system will be handle by an external service and you have to have to use the external service for the mail accounts.<br />\n<br />\nChanging the Nameservers is not immediate, you have to wait a minimum of 24/48 hours.<br />\n<br />\nFor further information please contact us via helpdesk system.<br />\n<br />\nBest Regards"
+    text: ''
+  EmailsTemplatesData_5:
+    EmailsTemplates: EmailsTemplates_5
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Domain [domain] created'
+    html: "Dear [fullname],<br />\n<br />\nthe [domain] domain has been created. <br />\n<br />\nFor further information please contact us via helpdesk system.<br />\n<br />\nBest Regards,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_6:
+    EmailsTemplates: EmailsTemplates_6
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[domain] locked'
+    html: "Gentile Cliente,<br />\n<br />\nIl Vostro dominio [domain] è attualmente protetto contro il furto. Si tratta di un'opzione gratuita che rifiuta di default qualunque trasferimento del Vostro dominio da [isp] verso altri registrar.<br />\n<br />\nEffettuate un aggiornamento delle informazioni facendo click sul bottone Aggiorna Dominio presente nella sezione:<br />\n<br />\n  Dominio > Opzioni<br />\n<br />\nIn cosa consiste il furto di un dominio?        <br />\nCiascun registrar offre la possibilità di ricevere il dominio proveniente da un altro registrar al fine di gestirlo. Il trasferimento è un'operazione che richiede particolari precauzioni che devono essere assunte dal registrar che chiede il trasferimento e che dovrà verificare che il trasferimento sia stato effettivamente richiesto dai contatti del dominio. Il registrar che rinuncia alla gestione non può verificare se il trasferimento è stato richiesto conformemente alla regola; pertanto, quando la richiesta di trasferimento viene inoltrata, l'operazione può essere eseguita (se ad esempio siete in vacanza e non potete rifiutare il trasferimento).<br />\n<br />\nIn cosa consiste la protezione contro il furto?        <br />\nPer proteggere il dominio contro il furto, il dominio viene posto in uno stato tale da non consentire il trasferimento. Se un altro registrar richiede il trasferimento del dominio, l'operazione verrà automaticamente rifiutata. Se desiderate trasferire il dominio ad un nuovo registrar, rimuovete la protezione. In questo stato il dominio non sarà protetto e un altro registrar potrà richiederne il trasferimento.    <br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_7:
+    EmailsTemplates: EmailsTemplates_7
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Rinnovo Dominio [domain]'
+    html: "Gentile [fullname],<br />\n<br />\nringraziandovi della fiducia accordata vi informiamo che il vostro dominio [domain] è stato rinnovato come richiesto.<br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_8:
+    EmailsTemplates: EmailsTemplates_8
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Dominio [domain] sbloccato'
+    html: "Gentile Cliente,<br />\n<br />\nIl Vostro dominio [domain] non è più protetto contro il furto. Adesso potete trasferire il Vostro dominio da [isp] ad un altro registrar.<br />\n<br />\nEffettuate un aggiornamento delle informazioni facendo click sul bottone Aggiorna Dominio presente nella sezione:<br />\n<br />\n  Dominio > Opzioni<br />\n<br />\nTroverete il Vostro codice di trasferimento (authInfo) nella sezione:<br />\n<br />\n  Dominio > Scheda Generale<br />\n<br />\nIn cosa consiste il furto di un dominio?        <br />\nCiascun registrar offre la possibilità di ricevere il dominio proveniente da un altro<br />\nregistrar al fine di gestirlo. Il trasferimento è un'operazione  <br />\nche richiede particolari precauzioni che devono essere assunte dal registrar<br />\nche chiede il trasferimento e che dovrà verificare che il trasferimento sia  <br />\nstato effettivamente richiesto dai contatti del dominio. Il registrar che rinuncia alla gestione  <br />\nnon può verificare se il trasferimento è stato richiesto conformemente alla regola; <br />\npertanto, quando la richiesta di trasferimento viene inoltrata, l'operazione può essere eseguita (se <br />\nad esempio siete in vacanza e non potete rifiutare il trasferimento).<br />\n<br />\nIn cosa consiste la protezione contro il furto?        <br />\nPer proteggere il dominio contro il furto, il dominio viene posto in uno stato tale  <br />\nda non consentire il trasferimento. Se un altro registrar richiede il trasferimento del  <br />\ndominio, l'operazione verrà automaticamente rifiutata. Se desiderate trasferire il dominio ad <br />\nun nuovo registrar, rimuovete la protezione. In questo stato il dominio  <br />\nnon sarà protetto e un altro registrar potrà richiederne il trasferimento.    <br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_9:
+    EmailsTemplates: EmailsTemplates_9
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Reset Password amministrativa per [lastname]'
+    html: "Gentile [lastname],<br />\n<br />\nè stata richiesta una modifica della password amministrativa collegata all'email: [email]. <br />\n<br />\nSe si desidera che la modifica abbia effetto fare click nel seguente link: <br />\n<br />\n[link]<br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_10:
+    EmailsTemplates: EmailsTemplates_10
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Password amministrativa per [lastname] modificata!'
+    html: "Gentile [lastname],<br />\n<br />\nè stata effettuata la modifica della password amministrativa collegata all'email: [email]. <br />\n<br />\nLe nuove credenziali sono:<br />\n<br />\nURL: [admin_url]<br />\nEmail: [email]<br />\nPassword: [password]<br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_11:
+    EmailsTemplates: EmailsTemplates_11
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[messagetype]: Nuovo messaggio da [fullname]'
+    html: "Gentile Amministratore,<br />\n<br />\nil cliente [fullname] ha inserito il seguente messaggio nella sezione \"[messagetype]\":<br />\n<br />\nMESSAGGIO<br />\n=========<br />\n[message]<br />\n<br />\nCordialmente,<br />\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_12:
+    EmailsTemplates: EmailsTemplates_12
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuovo messaggio da [fullname]'
+    html: "Gentile [fullname],<br />\n<br />\ncome richiesto è stata inviata la seguente notifica all'amministrazione ed a breve riceverete una risposta.<br />\n<br />\nMESSAGGIO<br />\n=========<br />\n[message]<br />\n<br />\nNon rispondere alla seguente email poichè nessuno la leggerà. Rispondere usando il pannello di controllo che manterrà la sequenza dei messaggi.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_13:
+    EmailsTemplates: EmailsTemplates_13
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuovo Cliente, [fullname]'
+    html: "Gentile [fullname],<br />\n<br />\nBenvenuto su [storename]. Per poter visitare il nostro store puoi far click su [website].  <br />\nPer poter accedere utilizza i seguenti parametri:<br />\n<br />\nEmail: [email]<br />\nPassword: [password]<br />\n<br />\nQuando accederai al tuo profilo potrai gestire le seguenti sezioni:<br />\n<br />\n- Amministrazione Domini<br />\n- Amministrazione Hosting<br />\n- Servizi Aggiuntivi<br />\n- Autorinnovo dei servizi<br />\n- Controllo dello stato degli ordini<br />\n<br />\nSe hai qualche domanda da sottoporre puoi usare il sistema di segnalazioni presente nel tuo profilo per inviare una segnalazione al nostro staff tecnico.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_14:
+    EmailsTemplates: EmailsTemplates_14
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Configurazione: [hostingplan]'
+    html: "Gentile [fullname],<br />\n<br />\ngrazie per aver scelto il nostro servizio [hostingplan].<br />\n<br />\nPer poter gestire il nuovo piano hosting è possibile utilizzare il pannello di controllo al link [controlpanel].  <br />\n<br />\nDi seguito i dati per accedere ai servizi configurati:<br />\n<br />\n[setup]<br />\n<br />\nPer qualsiasi domanda da sottoporre è possibile usare il sistema di segnalazioni presente nel pannello di controllo.<br />\n<br />\nCordialmente,<br />\n[signature]<br />\n<br />\n----<br />\nAttenzione: Per motivi di sicurezza, i dati contenuti in questa email sono strettamente confidenziali. Non devono essere divulgati ne<br />\ncondivisi con terzi. Tutte le password possono essere modificate dal pannello di controllo. Inoltre vogliamo ricordare che le impostazioni e la gestione dei domini e dei siti internet devono essere eseguite da personale specializzato se non siete abili nell'uso delle applicazioni web e nella loro configurazione potete rivolgervi ai nostri programmatori e sistemisti che vi aiuteranno a configurare il vostro piano hosting."
+    text: ''
+  EmailsTemplatesData_15:
+    EmailsTemplates: EmailsTemplates_15
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Fattura nr. [invoiceid]'
+    html: "Gentile [fullname],<br />\n<br />\nla ringraziamo per aver richiesto i nostri servizi.<br />\n<br />\nPotete scaricare la fattura [invoiceid] relativa all'ordine [orderid] direttamente utilizzando il link qui in basso:<br />\n<br />\n[url]<br />\n<br />\nSe trovate difficoltà nello scaricare la fattura potete copiare l'intero link ed incollarlo nella barra degli indirizzi del vostro browser Firefox, Chrome o Internet Explorer e premere il tasto invio.<br />\n<br />\nPer scaricare il file potete anche accedere via pannello di controllo messo a disposizione per voi per scaricare la documentazione e per sottoscrivere e gestire i vostri servizi.<br />\n<br />\nPer ogni informazione contattateci : [email]<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_16:
+    EmailsTemplates: EmailsTemplates_16
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'New Order, [orderid]!'
+    html: "Dear [fullname],<br />\n<br />\nThank you for requesting the services in the order.<br />\n<br />\nYou can pay via credit card or by bank transfer. The following coordinates:<br />\n<br />\nPay by credit card:<br />\n<br />\n- Go to: [url]<br />\n<br />\n- Pay by credit card, by clicking on the button in place of payment card details of the order.<br />\n<br />\nSend your bank transfer to:<br />\n<br />\n[bank]<br />\n<br />\nAdd the following order code within your bank transfer description: [orderid]<br />\n<br />\nFor any additional information, contact: [email]<br />\nThank you for your order.<br />\n<br />\nSincerely,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_17:
+    EmailsTemplates: EmailsTemplates_17
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuova recensione inserita'
+    html: "Gentile Amministratore,<br />\n<br />\nè stata inserita la seguente recensione per uno dei prodotti presenti nel catalogo:<br />\n<br />\n[review]<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_18:
+    EmailsTemplates: EmailsTemplates_18
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Benvenuto nella Newsletter'
+    html: "Gentile Utente,<br />\n<br />\nla registrazione del tuo indirizzo email nel servizio di newsletter è avvenuta correttamente.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_19:
+    EmailsTemplates: EmailsTemplates_19
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[subject]'
+    html: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <meta property=\"og:title\" content=\"[subject]\" />\n        <title>[subject]</title>\n        <style>\n			.rounded-corners {\n			     -moz-border-radius: 10px;\n			    -webkit-border-radius: 10px;\n			    -khtml-border-radius: 10px;\n			    border-radius: 10px;\n			}\n			\n			.content{\n	           font-family: Arial,Helvetica,sans-serif; \n	           font-size: 12px; \n	           color: rgb(122, 122, 122);\n			   line-height: 22px; \n			   padding: 15px; \n			}\n			\n			body{\n	           margin: 0pt; padding: 0pt; \n	           background-color: rgb(70, 76, 88);\n			   font-family: Arial,Helvetica,sans-serif; \n               font-size: 12px; \n			}\n			\n			.rightcol{\n			   font-family: Arial,Helvetica,sans-serif; \n               font-size: 14px; \n               color: rgb(122, 122, 122);\n               line-height: 22px; \n	           padding-top:25px;\n	           padding-left:5px;\n	           padding-right:15px;\n			   background-color: #eee;\n			}\n			.footer{\n				font-family: Arial,Helvetica,sans-serif; \n               font-size: 12px; \n               color: rgb(122, 122, 122);\n             }           \n        </style>\n    </head>\n    <body>\n       <table width=\"100%\" height=\"100%\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#464c58\" background=\"[url]/background.jpg\">\n            <tr>\n                <td style=\"padding:10px\">\n					<table class=\"rounded-corners\" width=\"720\" cellspacing=\"10\" cellpadding=\"0\" align=\"center\" bgcolor=\"#ffffff\">\n			            <tr>\n			                <td class=\"content\">\n				                <p><img src=\"[url]/logo.png\" alt=\"Logo [company]\" /></p>\n				                [body]\n				                <hr/>\n				                [pages]\n				                <br/>\n				                [company]<br/><a href=\"mailto:[email]\">[email]</a>\n			                </td>\n			                <td width=\"200\" class=\"rightcol\" valign=\"top\" align=\"left\">\n                                [products]\n                            </td>\n			            </tr>\n			            <tr>\n			                <td colspan=\"2\" class=\"footer\" align=\"right\">[optout]</td>\n			            </tr>\n			         </table>\n                </td>\n            </tr>\n         </table>\n    </body>\n</html>"
+    text: ''
+  EmailsTemplatesData_20:
+    EmailsTemplates: EmailsTemplates_20
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Ordine nr. [orderid] - Obsoleto'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che l'ordine nr. [orderid] presente nei nostri archivi è stato cancellato poichè obsoleto. <br />\nLa invitiamo ad effettuare un nuovo ordine se è interessato al servizio. <br />\n<br />\nSe desiderate visualizzare il vecchio ordine potete fare click nel seguente link: [url]<br />\n<br />\nSe necessitate di supporto amministrativo potete contattarci:<br />\n<br />\n- Via Chat nel nostro sito<br />\n- Via email a [email] <br />\n- Via Ticket System all'interno del pannello di controllo<br />\n<br />\nil nostro staff sarà lieto di offrirvi il supporto richiesto quanto prima possibile. <br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_21:
+    EmailsTemplates: EmailsTemplates_21
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Conferma Ordine nr. [orderid]'
+    html: "Gentile Cliente,<br />\n<br />\nconfermiamo l'avvenuta ricezione del Vostro pagamento eseguito a saldo<br />\ndel buono d'ordine n. [orderid]<br />\n<br />\nIl pagamento dell'ordine [orderid] sarà verificato dai nostri incaricati entro breve.<br />\nAppena il pagamento sarà stato confermato, provvederemo all'esecuzione del Vostro<br />\nordine con riserva di fattibilità.<br />\n<br />\nVi ringraziamo per la fiducia accordata e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_22:
+    EmailsTemplates: EmailsTemplates_22
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Ordine nr. [orderid] cancellato'
+    html: "Gentile [fullname],<br />\n<br />\nconfermiamo la cancellazione dell'ordine n° [orderid]. <br />\n<br />\nSe la cancellazione dell'ordine è stata accidentale potete aprire una segnalazione per richiederne la riattivazione.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_23:
+    EmailsTemplates: EmailsTemplates_23
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Ordine nr. [orderid] scaduto'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che l'ordine nr. [orderid] presente nei nostri archivi è stato cancellato poichè scaduto. <br />\nLa invitiamo ad effettuare un nuovo ordine se è interessato al servizio. <br />\n<br />\nSe desiderate visualizzare il vecchio ordine potete fare click nel seguente link: [url]<br />\n<br />\nSe necessitate di supporto amministrativo potete contattarci:<br />\n<br />\n- Via Chat nel nostro sito<br />\n- Via email a [email] <br />\n- Via Ticket System all'interno del pannello di controllo<br />\n<br />\nil nostro staff sarà lieto di offrirvi il supporto richiesto quanto prima possibile. <br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_24:
+    EmailsTemplates: EmailsTemplates_24
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Commento all''ordine n° [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\nè stato inserito un messaggio all'ordine n° [orderid].<br />\nVi invitiamo a visualizzare il messaggio facendo click nel seguente link: <br />\n<br />\n[url]<br />\n<br />\nNon rispondete a questa email, non riceverete alcuna risposta. Dovete usare il modulo di risposta presente nel link precedentemente indicato. <br />\n<br />\nGrazie per aver scelto i nostri servizi. <br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_25:
+    EmailsTemplates: EmailsTemplates_25
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Commento all''ordine n° [orderid]'
+    html: "Gentile Amministratore,<br />\n<br />\nè stato inserito un messaggio all'ordine n° [orderid] dal cliente [fullname].<br />\nLa invitiamo a rispondere al messaggio facendo click nel seguente link: <br />\n<br />\n[url]  <br />\n<br />\n[message]<br />\n<br />\nThe ShineISP Bot,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_26:
+    EmailsTemplates: EmailsTemplates_26
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Promemoria Ordine nr. [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che l'ordine n° [orderid] presente nei nostri archivi non è stato ancora sottoscritto. <br />\nVi invitiamo ad effettuare il saldo per procedere all'attivazione del servizio. <br />\n<br />\nEcco come potete procedere per effettuare il pagamento:<br />\n<br />\n- Fate click nel seguente link: [url]<br />\n- Selezionate il metodo di pagamento<br />\n- Effettuate il pagamento<br />\n<br />\nSe avete già effettuato il pagamento:<br />\n<br />\n- aprite una segnalazione o inviate una email con i dettagli dell'avvenuto pagamento.<br />\n<br />\nSe l'ordine è stato un test e/o non siete interessati all'ordine indicato nella presente email fate click nel link [url] ed all'apertura della pagina premete il bottone cancella ordine.<br />\nL'ordine verrà cancellato ed il promemoria non verrà più inviato.<br />\n<br />\nNon rispondete a questa email, non ricevereste alcuna risposta. <br />\nSe necessitate di supporto tecnico aprite una segnalazione un nostro addetto vi risponderà quanto prima possibile. <br />\n <br />\nGrazie per aver scelto i nostri servizi. <br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_27:
+    EmailsTemplates: EmailsTemplates_27
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Rinnovo Ordine n° [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\ncome da lei richiesto, l'ordine sottoscritto è stato rinnovato alla sua naturale data di scadenza.<br />\nL'ordine di rinnovo nr. [orderid] non risulta ancora saldato. <br />\n<br />\nA tal proposito la invitiamo ad effettuare il saldo. <br />\n<br />\nEcco come potete procedere per effettuare il pagamento:<br />\n<br />\n- Fate click nel seguente link: [url]<br />\n- Selezionate il metodo di pagamento<br />\n- Effettuate il pagamento<br />\n<br />\nSe avete già effettuato il pagamento:<br />\n<br />\n- aprite una segnalazione o inviate una email con i dettagli dell'avvenuto pagamento.<br />\n<br />\nTutti gli ordini realizzati dal sistema a seguito dell'attivazione dell'opzione di rinnovo automatico dovranno essere saldati come da Condizioni Contrattuali presenti nel nostro sito, e sottoscritte all'acquisto del servizio.<br />\n<br />\nNon rispondete a questa email, non riceverete alcuna risposta. La presente email vi verrà reinviata automaticamente fino al dovuto saldo.<br />\nSe necessitate di supporto tecnico aprite una segnalazione un nostro addetto vi risponderà quanto prima possibile. <br />\n <br />\nAttendendo una vostra risposta alla presente, cogliamo l'occasione per porgerle i nostri distinti saluti.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_28:
+    EmailsTemplates: EmailsTemplates_28
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Rinnovo Automatico dei Servizi'
+    html: "Gentile [fullname],<br />\n<br />\nla ringraziamo per aver scelto ancora una volta i nostri servizi.<br />\n<br />\nPotete visualizzare la lista dei servizi rinnovati direttamente nell'ordine al seguente link:<br />\n<br />\n[url]<br />\n<br />\nSe trovate difficoltà nell'apertura del link qui sopra riportato, potete copiare l'intero link ed incollarlo nella barra degli indirizzi del vostro browser Firefox, Chrome o Internet Explorer e premere il tasto invio.<br />\n<br />\nL'ordine è stato creato come richiesto ed attende di essere saldato. Potete saldare l'ordine utilizzando la vostra carta di credito direttamente dal sito internet. <br />\nA seguito del pagamento on line, riceverà via email idonea fattura di pagamento. <br />\n<br />\nPer ogni ulteriori informazioni, aprite una segnalazione on line. I nostri tecnici l'aiuteranno a risolvere il problema riscontrato.<br />\n<br />\nLa ringraziamo per la fiducia accordata alla nostra azienda e le auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_29:
+    EmailsTemplates: EmailsTemplates_29
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuova Password'
+    html: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: [password]<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_30:
+    EmailsTemplates: EmailsTemplates_30
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Link Reset Password'
+    html: "Dear Customer,<br />\n<br />\nhere below the reset password link: [link]<br />\n<br />\nFor further information don't hesitate to contact us.<br />\n<br />\nRegards."
+    text: ''
+  EmailsTemplatesData_31:
+    EmailsTemplates: EmailsTemplates_31
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Profilo Aggiornato, [user]!'
+    html: "Gentile Amministratore,<br />\n<br />\nl'utente [user] ha modificato i suoi dati anagrafici.<br />\n<br />\nProfilo Attuale<br />\n==================<br />\n[new]<br />\n<br />\nProfilo Precedente<br />\n==================<br />\n[old]<br />\n<br />\nControllate i dettagli accedendo nella sezione amministrativa di ShineISP.<br />\n<br />\nCordialmente,<br />\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_32:
+    EmailsTemplates: EmailsTemplates_32
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Servizi in Scadenza'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che i seguenti servizi sono in scadenza. Controllate nella lista qui di seguito se l'opzione dell'autorinnovo è abilitata al fine di evitare di dimenticare il rinnovo del servizio.<br />\n<br />\nPotete visualizzare la lista dei servizi qui di seguito:<br />\n<br />\n[items]<br />\n<br />\nCome indicato nella pagina Condizioni Generali del Servizio sottoscritti all'atto dell'acquisto dei servizi, tutti i servizi con autorinnovo verranno fatturati automaticamente alla scadenza.<br />\nSe non siete interessati all'autorinnovo o avete dimenticato di disabilitarlo, vi invitiamo ad accedere al vostro pannello di controllo ed effettuare la disabilitazione.<br />\n<br />\nPer ogni ulteriori informazioni, contattateci aprendo una segnalazione on line. <br />\nI nostri tecnici le risponderanno ad ogni sua richiesta.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_33:
+    EmailsTemplates: EmailsTemplates_33
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Servizi Scaduti'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che i seguenti servizi sono scaduti. L'autorinnovo non è stato abilitato per i seguenti servizi ed adesso quest'ultimi sono stati sospesi.<br />\n<br />\nPotete visualizzare la lista dei servizi scaduti qui di seguito:<br />\n<br />\n[items]<br />\n<br />\nCome indicato nella pagina Condizioni Generali del Servizio sottoscritti all'atto dell'acquisto dei servizi, tutti i servizi con autorinnovo verranno fatturati automaticamente alla scadenza.<br />\nSe non siete interessati all'autorinnovo o avete dimenticato di disabilitarlo, vi invitiamo ad accedere al vostro pannello di controllo ed effettuare la disabilitazione.<br />\n<br />\nPer ogni ulteriori informazioni, contattateci aprendo una segnalazione on line. <br />\nI nostri tecnici le risponderanno ad ogni sua richiesta.<br />\n<br />\nCi auguriamo di reincontrarvi presto e le auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_34:
+    EmailsTemplates: EmailsTemplates_34
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[company]: #[issue_number] - [subject]'
+    html: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n	<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />\n	<title>[subject]</title>\n	<style type=\"text/css\">\n		a:hover { text-decoration: none !important; }\n		.content h2 {color:#646464 !important; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif;  }\n		.content {color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif;}\n		.content a {color: #0eb6ce; text-decoration: none;}\n		.footer {font-size: 11px; color:#7d7a7a; margin: 0; padding: 5px; font-family: Helvetica, Arial, sans-serif;}\n		.footer a {color: #0eb6ce; text-decoration: none;}\n		.border{background-color:#edf9ff}\n	</style>\n	\n</head>\n<body>\n\n	<table width=\"80%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" align=\"center\">\n		\n		<tr>\n			<td colspan=\"6\" class=\"content\" style=\"min-height: 500px\" align=\"left\" valign=\"top\">\n				<h2>[subject]</h2>\n				<small><a href=\"[link]\">[customer]</a></small>\n				<p>[description]</p>\n			</td>\n		</tr>\n		<tr>\n			<td style=\"height: 200px\"></td>\n		</tr>\n		<tr class=\"border\">\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Segnalazione</b><br/><a href=\"[link]\">[issue_number] del [date_open]</a></td>\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Data Apertura</b><br/>[date_open]</td>\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Data Chiusura</b><br/>[date_close]</td>\n			<td class=\"footer\" width=\"20%\" align=\"left\" valign=\"top\"><b>Cliente</b><br/>[customer]</td>\n			<td class=\"footer\" width=\"20%\" align=\"left\" valign=\"top\"><b>Operatore</b><br/>[operator]</td>\n			<td class=\"footer\" width=\"30%\" align=\"left\" valign=\"top\"><b>Allegati</b><br/><a href=\"[attachment]\">[attachment_name]</a></td>\n		</tr>\n		<tr>\n			<td style=\"height: 50px\"></td>\n		</tr>\n		<tr>\n			<td colspan=\"6\" class=\"footer\" align=\"left\" valign=\"top\">\n				For further information about this issue we invite you to click to this link: <a href=\"[link]\">Show Ticket</a>\n				<br/><br/>Please do not reply to this email nobody will reply you. Click in this <a href=\"[link]\">link</a> in order to post a message.\n			</td>\n		</tr>\n	</table>\n	</body>\n</html>"
+    text: ''
+  EmailsTemplatesData_35:
+    EmailsTemplates: EmailsTemplates_35
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Avviso Segnalazione: [subject]'
+    html: "Gentile [lastname],\n\nLa segnalazione aperta il [date_open] riconosciuta con il numero <a href=\"[link]\">[issue_number]</a> attende una vostra risposta. \nVi invitiamo a rispondere alla segnalazione il prima possibile per agevolare la risoluzione del problema o di chiudere la segnalazione come risolta.\n\nAl fine di offrirvi il nostro migliore supporto, questo messaggio vi verrà reinviato nuovamente finchè la segnalazione non verrà completata o chiusa.  \n\nE' possibile visualizzare la segnalazione come risolta facendo click nel seguente <a href=\"[link]\">link</a>.\n\nPer ulteriori dettagli relativi alla segnalazione e per rispondere vi consigliamo di accedere al vostro pannello di controllo facendo click nel seguente link: <a href=\"[link]\">Visualizza Segnalazione</a>\n\nNon rispondete a questa email con il vostro client di posta elettronica ma usate il seguente <a href=\"[link]\">link</a> che vi porterà direttamente alla vostra segnalazione.\n\nCordialmente,\n[signature]"
+    text: ''
+  EmailsTemplatesData_36:
+    EmailsTemplates: EmailsTemplates_1
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Richiesta Contatto Diretto da [fullname]'
+    html: "Gentile Amministratore,<br />\n<br />\nil cliente [fullname] desidera essere contattato direttamente via telefono al numero [telephone].<br />\n<br />\nNome Completo: [fullname]<br />\nTelefono: [telephone]<br />\n<br />\nCordialmente,<br />\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_37:
+    EmailsTemplates: EmailsTemplates_2
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Contatto [subject]'
+    html: "Nome Completo: [fullname]<br />\nAzienda: [company]<br />\nemail: [email]<br />\n<br />\nOggetto: [subject]<br />\n<br />\nMessaggio:<br />\n[message]"
+    text: ''
+  EmailsTemplatesData_38:
+    EmailsTemplates: EmailsTemplates_3
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Cronjob [cronjob] eseguito'
+    html: "Gentile Amministratore,<br />\n<br />\nil seguente cronjob è stato eseguito:<br />\n<br />\n[cronjob]<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_39:
+    EmailsTemplates: EmailsTemplates_4
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Modifica DNS per il dominio: [domain]'
+    html: "Gentile Cliente,<br />\n<br />\nIl nostro sistema ha provveduto al cambiamento delle informazioni dns per il dominio: [domain]. <br />\n<br />\nQualora si utilizzino Nameservers diversi, sarà possibile gestire esclusivamente il Record Name Server. <br />\nIn questo caso, inoltre, la gestione della posta sarà totalmente esterna ai Server della nostra azienda e quindi a carico delle macchine che si è scelto di utilizzare.<br />\n<br />\nIn caso di cambio Nameservers, occorre ricordare che, qualora il servizio comprenda anche la gestione della posta, questa verrà inibita <br />\nsui Server Mail della nostra azienda, compresa web mail: le eventuali caselle e la posta elettronica che queste contengono verranno rimosse nelle 24 ore successive alla modifica.<br />\n<br />\nLa modifica dei Nameservers non è immediata dovete attendere da un minimo di 24/48 ore.<br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_40:
+    EmailsTemplates: EmailsTemplates_5
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Creazione del dominio [domain]'
+    html: "Gentile [fullname],<br />\n<br />\nIl dominio [domain] è stato creato a seguito della conferma del Vostro ordine. <br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_41:
+    EmailsTemplates: EmailsTemplates_6
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Dominio [domain] bloccato'
+    html: "Gentile Cliente,<br />\n<br />\nIl Vostro dominio [domain] è attualmente protetto contro il furto. Si tratta di un'opzione gratuita che rifiuta di default qualunque trasferimento del Vostro dominio da [isp] verso altri registrar.<br />\n<br />\nEffettuate un aggiornamento delle informazioni facendo click sul bottone Aggiorna Dominio presente nella sezione:<br />\n<br />\n  Dominio > Opzioni<br />\n<br />\nIn cosa consiste il furto di un dominio?        <br />\nCiascun registrar offre la possibilità di ricevere il dominio proveniente da un altro registrar al fine di gestirlo. Il trasferimento è un'operazione che richiede particolari precauzioni che devono essere assunte dal registrar che chiede il trasferimento e che dovrà verificare che il trasferimento sia stato effettivamente richiesto dai contatti del dominio. Il registrar che rinuncia alla gestione non può verificare se il trasferimento è stato richiesto conformemente alla regola; pertanto, quando la richiesta di trasferimento viene inoltrata, l'operazione può essere eseguita (se ad esempio siete in vacanza e non potete rifiutare il trasferimento).<br />\n<br />\nIn cosa consiste la protezione contro il furto?        <br />\nPer proteggere il dominio contro il furto, il dominio viene posto in uno stato tale da non consentire il trasferimento. Se un altro registrar richiede il trasferimento del dominio, l'operazione verrà automaticamente rifiutata. Se desiderate trasferire il dominio ad un nuovo registrar, rimuovete la protezione. In questo stato il dominio non sarà protetto e un altro registrar potrà richiederne il trasferimento.    <br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_42:
+    EmailsTemplates: EmailsTemplates_7
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Rinnovo Dominio [domain]'
+    html: "Gentile [fullname],<br />\n<br />\nringraziandovi della fiducia accordata vi informiamo che il vostro dominio [domain] è stato rinnovato come richiesto.<br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_43:
+    EmailsTemplates: EmailsTemplates_8
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Dominio [domain] sbloccato'
+    html: "Gentile Cliente,<br />\n<br />\nIl Vostro dominio [domain] non è più protetto contro il furto. Adesso potete trasferire il Vostro dominio da [isp] ad un altro registrar.<br />\n<br />\nEffettuate un aggiornamento delle informazioni facendo click sul bottone Aggiorna Dominio presente nella sezione:<br />\n<br />\n  Dominio > Opzioni<br />\n<br />\nTroverete il Vostro codice di trasferimento (authInfo) nella sezione:<br />\n<br />\n  Dominio > Scheda Generale<br />\n<br />\nIn cosa consiste il furto di un dominio?        <br />\nCiascun registrar offre la possibilità di ricevere il dominio proveniente da un altro<br />\nregistrar al fine di gestirlo. Il trasferimento è un'operazione  <br />\nche richiede particolari precauzioni che devono essere assunte dal registrar<br />\nche chiede il trasferimento e che dovrà verificare che il trasferimento sia  <br />\nstato effettivamente richiesto dai contatti del dominio. Il registrar che rinuncia alla gestione  <br />\nnon può verificare se il trasferimento è stato richiesto conformemente alla regola; <br />\npertanto, quando la richiesta di trasferimento viene inoltrata, l'operazione può essere eseguita (se <br />\nad esempio siete in vacanza e non potete rifiutare il trasferimento).<br />\n<br />\nIn cosa consiste la protezione contro il furto?        <br />\nPer proteggere il dominio contro il furto, il dominio viene posto in uno stato tale  <br />\nda non consentire il trasferimento. Se un altro registrar richiede il trasferimento del  <br />\ndominio, l'operazione verrà automaticamente rifiutata. Se desiderate trasferire il dominio ad <br />\nun nuovo registrar, rimuovete la protezione. In questo stato il dominio  <br />\nnon sarà protetto e un altro registrar potrà richiederne il trasferimento.    <br />\n<br />\nPer qualsiasi informazione contattateci via sistema helpdesk.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_44:
+    EmailsTemplates: EmailsTemplates_9
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Reset Password amministrativa per [lastname]'
+    html: "Gentile [lastname],<br />\n<br />\nè stata richiesta una modifica della password amministrativa collegata all'email: [email]. <br />\n<br />\nSe si desidera che la modifica abbia effetto fare click nel seguente link: <br />\n<br />\n[link]<br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_45:
+    EmailsTemplates: EmailsTemplates_10
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Password amministrativa per [lastname] modificata!'
+    html: "Gentile [lastname],<br />\n<br />\nè stata effettuata la modifica della password amministrativa collegata all'email: [email]. <br />\n<br />\nLe nuove credenziali sono:<br />\n<br />\nURL: [admin_url]<br />\nEmail: [email]<br />\nPassword: [password]<br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_46:
+    EmailsTemplates: EmailsTemplates_11
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[messagetype]: Nuovo messaggio da [fullname]'
+    html: "Gentile Amministratore,<br />\n<br />\nil cliente [fullname] ha inserito il seguente messaggio nella sezione \"[messagetype]\":<br />\n<br />\nMESSAGGIO<br />\n=========<br />\n[message]<br />\n<br />\nCordialmente,<br />\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_47:
+    EmailsTemplates: EmailsTemplates_12
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuovo messaggio da [fullname]'
+    html: "Gentile [fullname],<br />\n<br />\ncome richiesto è stata inviata la seguente notifica all'amministrazione ed a breve riceverete una risposta.<br />\n<br />\nMESSAGGIO<br />\n=========<br />\n[message]<br />\n<br />\nNon rispondere alla seguente email poichè nessuno la leggerà. Rispondere usando il pannello di controllo che manterrà la sequenza dei messaggi.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_48:
+    EmailsTemplates: EmailsTemplates_13
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuovo Cliente, [fullname]'
+    html: "Gentile [fullname],<br />\n<br />\nBenvenuto su [storename]. Per poter visitare il nostro store puoi far click su [website].  <br />\nPer poter accedere utilizza i seguenti parametri:<br />\n<br />\nEmail: [email]<br />\nPassword: [password]<br />\n<br />\nQuando accederai al tuo profilo potrai gestire le seguenti sezioni:<br />\n<br />\n- Amministrazione Domini<br />\n- Amministrazione Hosting<br />\n- Servizi Aggiuntivi<br />\n- Autorinnovo dei servizi<br />\n- Controllo dello stato degli ordini<br />\n<br />\nSe hai qualche domanda da sottoporre puoi usare il sistema di segnalazioni presente nel tuo profilo per inviare una segnalazione al nostro staff tecnico.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_49:
+    EmailsTemplates: EmailsTemplates_14
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Configurazione: [hostingplan]'
+    html: "Gentile [fullname],<br />\n<br />\ngrazie per aver scelto il nostro servizio [hostingplan].<br />\n<br />\nPer poter gestire il nuovo piano hosting è possibile utilizzare il pannello di controllo al link [controlpanel].  <br />\n<br />\nDi seguito i dati per accedere ai servizi configurati:<br />\n<br />\n[setup]<br />\n<br />\nPer qualsiasi domanda da sottoporre è possibile usare il sistema di segnalazioni presente nel pannello di controllo.<br />\n<br />\nCordialmente,<br />\n[signature]<br />\n<br />\n----<br />\nAttenzione: Per motivi di sicurezza, i dati contenuti in questa email sono strettamente confidenziali. Non devono essere divulgati ne<br />\ncondivisi con terzi. Tutte le password possono essere modificate dal pannello di controllo. Inoltre vogliamo ricordare che le impostazioni e la gestione dei domini e dei siti internet devono essere eseguite da personale specializzato se non siete abili nell'uso delle applicazioni web e nella loro configurazione potete rivolgervi ai nostri programmatori e sistemisti che vi aiuteranno a configurare il vostro piano hosting."
+    text: ''
+  EmailsTemplatesData_50:
+    EmailsTemplates: EmailsTemplates_15
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Fattura nr. [invoiceid]'
+    html: "Gentile [fullname],<br />\n<br />\nla ringraziamo per aver richiesto i nostri servizi.<br />\n<br />\nPotete scaricare la fattura [invoiceid] relativa all'ordine [orderid] direttamente utilizzando il link qui in basso:<br />\n<br />\n[url]<br />\n<br />\nSe trovate difficoltà nello scaricare la fattura potete copiare l'intero link ed incollarlo nella barra degli indirizzi del vostro browser Firefox, Chrome o Internet Explorer e premere il tasto invio.<br />\n<br />\nPer scaricare il file potete anche accedere via pannello di controllo messo a disposizione per voi per scaricare la documentazione e per sottoscrivere e gestire i vostri servizi.<br />\n<br />\nPer ogni informazione contattateci : [email]<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_51:
+    EmailsTemplates: EmailsTemplates_16
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Il suo ordine [orderid] su [storename]'
+    html: "Grazie per il suo ordine #[orderid] su [storename], [fullname].<br />\n<br />\nPuo' effettuare il pagamento via carta di credito oppure mediante bonifico bancario. Di seguito le coordinate:<br />\n<br />\nPagare con carta di credito:<br />\n<br />\n- Accedete all'indirizzo: [url]<br />\n<br />\n- Effettuate il pagamento con carta di credito, facendo click sul bottone di pagamento posto nella scheda dei dettagli dell'ordine<br />\n<br />\nPagare con bonifico bancario:<br />\n<br />\n[bank]<br />\n<br />\nIMPORTANTE: Inserite nella descrizione del bonifico il codice d'ordine: [orderid]<br />\n<br />\nPer ogni informazione complementare, contattateci : [email]<br />\n<br />\nSe desiderate cancellare l'ordine realizzato basta fare click nel bottone presente nella scheda dell'ordine: Cancella Ordine.<br />\n<br />\n[conditions]<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_52:
+    EmailsTemplates: EmailsTemplates_17
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuova recensione inserita'
+    html: "Gentile Amministratore,<br />\n<br />\nè stata inserita la seguente recensione per uno dei prodotti presenti nel catalogo:<br />\n<br />\n[review]<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_53:
+    EmailsTemplates: EmailsTemplates_18
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Benvenuto nella Newsletter'
+    html: "Gentile Utente,<br />\n<br />\nla registrazione del tuo indirizzo email nel servizio di newsletter è avvenuta correttamente.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_54:
+    EmailsTemplates: EmailsTemplates_19
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[subject]'
+    html: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <meta property=\"og:title\" content=\"[subject]\" />\n        <title>[subject]</title>\n        <style>\n			.rounded-corners {\n			     -moz-border-radius: 10px;\n			    -webkit-border-radius: 10px;\n			    -khtml-border-radius: 10px;\n			    border-radius: 10px;\n			}\n			\n			.content{\n	           font-family: Arial,Helvetica,sans-serif; \n	           font-size: 12px; \n	           color: rgb(122, 122, 122);\n			   line-height: 22px; \n			   padding: 15px; \n			}\n			\n			body{\n	           margin: 0pt; padding: 0pt; \n	           background-color: rgb(70, 76, 88);\n			   font-family: Arial,Helvetica,sans-serif; \n               font-size: 12px; \n			}\n			\n			.rightcol{\n			   font-family: Arial,Helvetica,sans-serif; \n               font-size: 14px; \n               color: rgb(122, 122, 122);\n               line-height: 22px; \n	           padding-top:25px;\n	           padding-left:5px;\n	           padding-right:15px;\n			   background-color: #eee;\n			}\n			.footer{\n				font-family: Arial,Helvetica,sans-serif; \n               font-size: 12px; \n               color: rgb(122, 122, 122);\n             }           \n        </style>\n    </head>\n    <body>\n       <table width=\"100%\" height=\"100%\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#464c58\" background=\"[url]/background.jpg\">\n            <tr>\n                <td style=\"padding:10px\">\n					<table class=\"rounded-corners\" width=\"720\" cellspacing=\"10\" cellpadding=\"0\" align=\"center\" bgcolor=\"#ffffff\">\n			            <tr>\n			                <td class=\"content\">\n				                <p><img src=\"[url]/logo.png\" alt=\"Logo [company]\" /></p>\n				                [body]\n				                <hr/>\n				                [pages]\n				                <br/>\n				                [company]<br/><a href=\"mailto:[email]\">[email]</a>\n			                </td>\n			                <td width=\"200\" class=\"rightcol\" valign=\"top\" align=\"left\">\n                                [products]\n                            </td>\n			            </tr>\n			            <tr>\n			                <td colspan=\"2\" class=\"footer\" align=\"right\">[optout]</td>\n			            </tr>\n			         </table>\n                </td>\n            </tr>\n         </table>\n    </body>\n</html>"
+    text: ''
+  EmailsTemplatesData_55:
+    EmailsTemplates: EmailsTemplates_20
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Ordine nr. [orderid] - Obsoleto'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che l'ordine nr. [orderid] presente nei nostri archivi è stato cancellato poichè obsoleto. <br />\nLa invitiamo ad effettuare un nuovo ordine se è interessato al servizio. <br />\n<br />\nSe desiderate visualizzare il vecchio ordine potete fare click nel seguente link: [url]<br />\n<br />\nSe necessitate di supporto amministrativo potete contattarci:<br />\n<br />\n- Via Chat nel nostro sito<br />\n- Via email a [email] <br />\n- Via Ticket System all'interno del pannello di controllo<br />\n<br />\nil nostro staff sarà lieto di offrirvi il supporto richiesto quanto prima possibile. <br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_56:
+    EmailsTemplates: EmailsTemplates_21
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Conferma Ordine nr. [orderid]'
+    html: "Gentile Cliente,<br />\n<br />\nconfermiamo l'avvenuta ricezione del Vostro pagamento eseguito a saldo<br />\ndel buono d'ordine n. [orderid]<br />\n<br />\nIl pagamento dell'ordine [orderid] sarà verificato dai nostri incaricati entro breve.<br />\nAppena il pagamento sarà stato confermato, provvederemo all'esecuzione del Vostro<br />\nordine con riserva di fattibilità.<br />\n<br />\nVi ringraziamo per la fiducia accordata e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_57:
+    EmailsTemplates: EmailsTemplates_22
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Ordine nr. [orderid] cancellato'
+    html: "Gentile [fullname],<br />\n<br />\nconfermiamo la cancellazione dell'ordine n° [orderid]. <br />\n<br />\nSe la cancellazione dell'ordine è stata accidentale potete aprire una segnalazione per richiederne la riattivazione.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_58:
+    EmailsTemplates: EmailsTemplates_23
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Ordine nr. [orderid] scaduto'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che l'ordine nr. [orderid] presente nei nostri archivi è stato cancellato poichè scaduto. <br />\nLa invitiamo ad effettuare un nuovo ordine se è interessato al servizio. <br />\n<br />\nSe desiderate visualizzare il vecchio ordine potete fare click nel seguente link: [url]<br />\n<br />\nSe necessitate di supporto amministrativo potete contattarci:<br />\n<br />\n- Via Chat nel nostro sito<br />\n- Via email a [email] <br />\n- Via Ticket System all'interno del pannello di controllo<br />\n<br />\nil nostro staff sarà lieto di offrirvi il supporto richiesto quanto prima possibile. <br />\n <br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_59:
+    EmailsTemplates: EmailsTemplates_24
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Commento all''ordine n° [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\nè stato inserito un messaggio all'ordine n° [orderid].<br />\nVi invitiamo a visualizzare il messaggio facendo click nel seguente link: <br />\n<br />\n[url]<br />\n<br />\nNon rispondete a questa email, non riceverete alcuna risposta. Dovete usare il modulo di risposta presente nel link precedentemente indicato. <br />\n<br />\nGrazie per aver scelto i nostri servizi. <br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_60:
+    EmailsTemplates: EmailsTemplates_25
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Commento all''ordine n° [orderid]'
+    html: "Gentile Amministratore,<br />\n<br />\nè stato inserito un messaggio all'ordine n° [orderid] dal cliente [fullname].<br />\nLa invitiamo a rispondere al messaggio facendo click nel seguente link: <br />\n<br />\n[url]  <br />\n<br />\n[message]<br />\n<br />\nThe ShineISP Bot,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_61:
+    EmailsTemplates: EmailsTemplates_26
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Promemoria Ordine nr. [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che l'ordine n° [orderid] presente nei nostri archivi non è stato ancora sottoscritto. <br />\nVi invitiamo ad effettuare il saldo per procedere all'attivazione del servizio. <br />\n<br />\nEcco come potete procedere per effettuare il pagamento:<br />\n<br />\n- Fate click nel seguente link: [url]<br />\n- Selezionate il metodo di pagamento<br />\n- Effettuate il pagamento<br />\n<br />\nSe avete già effettuato il pagamento:<br />\n<br />\n- aprite una segnalazione o inviate una email con i dettagli dell'avvenuto pagamento.<br />\n<br />\nSe l'ordine è stato un test e/o non siete interessati all'ordine indicato nella presente email fate click nel link [url] ed all'apertura della pagina premete il bottone cancella ordine.<br />\nL'ordine verrà cancellato ed il promemoria non verrà più inviato.<br />\n<br />\nNon rispondete a questa email, non ricevereste alcuna risposta. <br />\nSe necessitate di supporto tecnico aprite una segnalazione un nostro addetto vi risponderà quanto prima possibile. <br />\n <br />\nGrazie per aver scelto i nostri servizi. <br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_62:
+    EmailsTemplates: EmailsTemplates_27
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Rinnovo Ordine n° [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\ncome da lei richiesto, l'ordine sottoscritto è stato rinnovato alla sua naturale data di scadenza.<br />\nL'ordine di rinnovo nr. [orderid] non risulta ancora saldato. <br />\n<br />\nA tal proposito la invitiamo ad effettuare il saldo. <br />\n<br />\nEcco come potete procedere per effettuare il pagamento:<br />\n<br />\n- Fate click nel seguente link: [url]<br />\n- Selezionate il metodo di pagamento<br />\n- Effettuate il pagamento<br />\n<br />\nSe avete già effettuato il pagamento:<br />\n<br />\n- aprite una segnalazione o inviate una email con i dettagli dell'avvenuto pagamento.<br />\n<br />\nTutti gli ordini realizzati dal sistema a seguito dell'attivazione dell'opzione di rinnovo automatico dovranno essere saldati come da Condizioni Contrattuali presenti nel nostro sito, e sottoscritte all'acquisto del servizio.<br />\n<br />\nNon rispondete a questa email, non riceverete alcuna risposta. La presente email vi verrà reinviata automaticamente fino al dovuto saldo.<br />\nSe necessitate di supporto tecnico aprite una segnalazione un nostro addetto vi risponderà quanto prima possibile. <br />\n <br />\nAttendendo una vostra risposta alla presente, cogliamo l'occasione per porgerle i nostri distinti saluti.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_63:
+    EmailsTemplates: EmailsTemplates_28
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Rinnovo Automatico dei Servizi'
+    html: "Gentile [fullname],<br />\n<br />\nla ringraziamo per aver scelto ancora una volta i nostri servizi.<br />\n<br />\nPotete visualizzare la lista dei servizi rinnovati direttamente nell'ordine al seguente link:<br />\n<br />\n[url]<br />\n<br />\nSe trovate difficoltà nell'apertura del link qui sopra riportato, potete copiare l'intero link ed incollarlo nella barra degli indirizzi del vostro browser Firefox, Chrome o Internet Explorer e premere il tasto invio.<br />\n<br />\nL'ordine è stato creato come richiesto ed attende di essere saldato. Potete saldare l'ordine utilizzando la vostra carta di credito direttamente dal sito internet. <br />\nA seguito del pagamento on line, riceverà via email idonea fattura di pagamento. <br />\n<br />\nPer ogni ulteriori informazioni, aprite una segnalazione on line. I nostri tecnici l'aiuteranno a risolvere il problema riscontrato.<br />\n<br />\nLa ringraziamo per la fiducia accordata alla nostra azienda e le auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_64:
+    EmailsTemplates: EmailsTemplates_29
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuova Password'
+    html: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: [password]<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_65:
+    EmailsTemplates: EmailsTemplates_30
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Link Reset Password'
+    html: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: [link]<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_66:
+    EmailsTemplates: EmailsTemplates_31
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Profilo Aggiornato, [user]!'
+    html: "Gentile Amministratore,<br />\n<br />\nl'utente [user] ha modificato i suoi dati anagrafici.<br />\n<br />\nProfilo Attuale<br />\n==================<br />\n[new]<br />\n<br />\nProfilo Precedente<br />\n==================<br />\n[old]<br />\n<br />\nControllate i dettagli accedendo nella sezione amministrativa di ShineISP.<br />\n<br />\nCordialmente,<br />\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_67:
+    EmailsTemplates: EmailsTemplates_32
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Servizi in Scadenza'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che i seguenti servizi sono in scadenza. Controllate nella lista qui di seguito se l'opzione dell'autorinnovo è abilitata al fine di evitare di dimenticare il rinnovo del servizio.<br />\n<br />\nPotete visualizzare la lista dei servizi qui di seguito:<br />\n<br />\n[items]<br />\n<br />\nCome indicato nella pagina Condizioni Generali del Servizio sottoscritti all'atto dell'acquisto dei servizi, tutti i servizi con autorinnovo verranno fatturati automaticamente alla scadenza.<br />\nSe non siete interessati all'autorinnovo o avete dimenticato di disabilitarlo, vi invitiamo ad accedere al vostro pannello di controllo ed effettuare la disabilitazione.<br />\n<br />\nPer ogni ulteriori informazioni, contattateci aprendo una segnalazione on line. <br />\nI nostri tecnici le risponderanno ad ogni sua richiesta.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_68:
+    EmailsTemplates: EmailsTemplates_33
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Servizi Scaduti'
+    html: "Gentile [fullname],<br />\n<br />\nla informiamo che i seguenti servizi sono scaduti. L'autorinnovo non è stato abilitato per i seguenti servizi ed adesso quest'ultimi sono stati sospesi.<br />\n<br />\nPotete visualizzare la lista dei servizi scaduti qui di seguito:<br />\n<br />\n[items]<br />\n<br />\nCome indicato nella pagina Condizioni Generali del Servizio sottoscritti all'atto dell'acquisto dei servizi, tutti i servizi con autorinnovo verranno fatturati automaticamente alla scadenza.<br />\nSe non siete interessati all'autorinnovo o avete dimenticato di disabilitarlo, vi invitiamo ad accedere al vostro pannello di controllo ed effettuare la disabilitazione.<br />\n<br />\nPer ogni ulteriori informazioni, contattateci aprendo una segnalazione on line. <br />\nI nostri tecnici le risponderanno ad ogni sua richiesta.<br />\n<br />\nCi auguriamo di reincontrarvi presto e le auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_69:
+    EmailsTemplates: EmailsTemplates_34
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[company]: #[issue_number] - [subject]'
+    html: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n	<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />\n	<title>[subject]</title>\n	<style type=\"text/css\">\n		a:hover { text-decoration: none !important; }\n		.content h2 {color:#646464 !important; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif;  }\n		.content {color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif;}\n		.content a {color: #0eb6ce; text-decoration: none;}\n		.footer {font-size: 11px; color:#7d7a7a; margin: 0; padding: 5px; font-family: Helvetica, Arial, sans-serif;}\n		.footer a {color: #0eb6ce; text-decoration: none;}\n		.border{background-color:#edf9ff}\n	</style>\n	\n</head>\n<body>\n\n	<table width=\"80%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" align=\"center\">\n		\n		<tr>\n			<td colspan=\"6\" class=\"content\" style=\"min-height: 500px\" align=\"left\" valign=\"top\">\n				<h2>[subject]</h2>\n				<small><a href=\"[link]\">[customer]</a></small>\n				<p>[description]</p>\n			</td>\n		</tr>\n		<tr>\n			<td style=\"height: 200px\"></td>\n		</tr>\n		<tr class=\"border\">\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Segnalazione</b><br/><a href=\"[link]\">[issue_number] del [date_open]</a></td>\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Data Apertura</b><br/>[date_open]</td>\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Data Chiusura</b><br/>[date_close]</td>\n			<td class=\"footer\" width=\"20%\" align=\"left\" valign=\"top\"><b>Cliente</b><br/>[customer]</td>\n			<td class=\"footer\" width=\"20%\" align=\"left\" valign=\"top\"><b>Operatore</b><br/>[operator]</td>\n			<td class=\"footer\" width=\"30%\" align=\"left\" valign=\"top\"><b>Allegati</b><br/><a href=\"[attachment]\">[attachment_name]</a></td>\n		</tr>\n		<tr>\n			<td style=\"height: 50px\"></td>\n		</tr>\n		<tr>\n			<td colspan=\"6\" class=\"footer\" align=\"left\" valign=\"top\">\n				Per ulteriori dettagli relativi alla segnalazione e per rispondere vi consigliamo di accedere al vostro pannello di controllo facendo click nel seguente link: <a href=\"[link]\">Visualizza Segnalazione</a>\n				<br/><br/>Non rispondete a questa email con il vostro client di posta elettronica ma usate il seguente <a href=\"[link]\">link</a> che vi porterà direttamente alla vostra segnalazione.\n			</td>\n		</tr>\n	</table>\n	</body>\n</html>"
+    text: ''
+  EmailsTemplatesData_70:
+    EmailsTemplates: EmailsTemplates_35
+    language_id: '2'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Avviso Segnalazione: [subject]'
+    html: "Gentile [lastname],\n\nLa segnalazione aperta il [date_open] riconosciuta con il numero <a href=\"[link]\">[issue_number]</a> attende una vostra risposta. \nVi invitiamo a rispondere alla segnalazione il prima possibile per agevolare la risoluzione del problema o di chiudere la segnalazione come risolta.\n\nAl fine di offrirvi il nostro migliore supporto, questo messaggio vi verrà reinviato nuovamente finchè la segnalazione non verrà completata o chiusa.  \n\nE' possibile visualizzare la segnalazione facendo click nel seguente <a href=\"[link]\">link</a>.\n\nSe non vi saranno risposte alle domande poste dal nostro staff tecnico entro una settimana, la segnalazione verrà chiusa automaticamente.\n\nPer ulteriori dettagli relativi alla segnalazione e per rispondere vi consigliamo di accedere al vostro pannello di controllo facendo click nel seguente link: <a href=\"[link]\">Visualizza Segnalazione</a>\n\nNon rispondete a questa email con il vostro client di posta elettronica ma usate il seguente <a href=\"[link]\">link</a> che vi porterà direttamente alla vostra segnalazione.\n\nCordialmente,\n[signature]"
+    text: ''
+  EmailsTemplatesData_71:
+    EmailsTemplates: EmailsTemplates_1
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Terugbelverzoek van [fullname]'
+    html: "Beste beheerder,<br />\r\n<br />\r\n[fullname] wil teruggebeld worden op nummer: [telephone].<br />\r\n<br />\r\nNaam: [fullname]<br />\r\nTel.nr.: [telephone]<br />\r\n<br />\r\nVriendelijke groet,<br />\r\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_72:
+    EmailsTemplates: EmailsTemplates_2
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Bericht van ShineISP over: [subject]'
+    html: "Naam: [fullname]<br />\r\nBedrijf: [company]<br />\r\ne-mail: [email]<br />\r\n<br />\r\nOnderwerp: [subject]<br />\r\n<br />\r\nBericht:<br />\r\n[message]"
+    text: ''
+  EmailsTemplatesData_73:
+    EmailsTemplates: EmailsTemplates_3
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Cronjob [cronjob] uitgevoerd'
+    html: "Beste beheerder,<br />\r\n<br />\r\nOnderstaande cronjobs werden uitgevoerd:<br />\r\n<br />\r\n[cronjob]<br />\r\n<br />\r\nVriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_74:
+    EmailsTemplates: EmailsTemplates_4
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Domein DNS gewijzigd voor [domain]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nonze systemen hebben zojuist de DNS gegevens van [domain] gewijzigd. <br />\r\n<br />\r\nGebruikt u andere naamservers dan die van ons, dan kunt u op onze servers uitsluitend het Name Server Record beheren.<br />\r\nIn dat geval kunt u ook geen gebruik maken van onze mailservers, maar dient u gebruik te maken van een andere mailserver waarop u uw e-mail accounts aanmaakt en beheert.<br />\r\n<br />\r\nWijzigingen in de DNS gegevens van de naamservers hebben niet onmiddelijk effect. Het duurt tussen de 24 en 48 uur voordat de effecten zichtbaar zijn op het internet.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_75:
+    EmailsTemplates: EmailsTemplates_5
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Domein [domain] aangemaakt'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nDe domeinnaam [domain] is in uw opdracht aangemaakt. <br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_76:
+    EmailsTemplates: EmailsTemplates_6
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Domein [domain] is beveiligd'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nUw domein [domain] is thans beveiligd tegen illegale verhuizing van de domeinnaam. Dit is een gratis optie waardoor een overdracht van uw domein naar een andere registrar alleen met uw toestemming mogelijk is.<br />\r\n<br />\r\nIn uw klanten account kunt u ook zelf deze optie aan- of uitzetten. <br />\r\n<br />\r\nVoor nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_77:
+    EmailsTemplates: EmailsTemplates_7
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Verlenging domein [domain]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nNaar aanleiding van uw verzoek is de registratie van de domeinnaam [domain] verlengd. <br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_78:
+    EmailsTemplates: EmailsTemplates_8
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Domeinbeveiliging van [domain] is verwijderd'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nDe beveiliging van uw domein [domain] tegen illegale verhuizing is verwijderd. <br />\r\nU kunt nu uw domein verhuizen naar een andere registrar.<br />\r\nDe verhuiscode vindt u in uw klanten account.<br />\r\n<br />\r\nWilt u uw domeinnaam niet verhuizen?<br />\r\nDan kunt u de beveiliging opnieuw aanzetten in uw klanten account.<br />\r\nWilt u liever dat wij dat voor u doen? Informeer ons dan zo snel mogelijk, dan kunnen we de beveiliging tegen illegale verhuizing opnieuw aanbrengen.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_79:
+    EmailsTemplates: EmailsTemplates_9
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Wijziging wachtwoord'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nWij hebben een verzoek ontvangen om het wachtwoord van uw account met gebruikersnaam [email] te wijzigen .<br />\r\n<br />\r\nWilt u inderdaad uw wachtwoord wijzigen, klik dan op onderstaande link:<br />\r\n[link]<br />\r\n<br />\r\nHebt u niet gevraagd om uw wachtwoord te wijzigen, dan kunt u deze e-mail negeren en wordt uw wachtwoord niet gewijzigd.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_80:
+    EmailsTemplates: EmailsTemplates_10
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Password amministrativa per [lastname] modificata!'
+    html: "Gentile [lastname],<br />\r\n<br />\r\nè stata effettuata la modifica della password amministrativa collegata all'email: [email]. <br />\r\n<br />\r\nLe nuove credenziali sono:<br />\r\n<br />\r\nURL: [admin_url]<br />\r\nEmail: [email]<br />\r\nPassword: [password]<br />\r\n <br />\r\nCordialmente,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_81:
+    EmailsTemplates: EmailsTemplates_11
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[messagetype]: Nieuw bericht van: [fullname]'
+    html: "Beste beheerder,<br />\r\n<br />\r\nKlant [fullname] heeft een bericht gestuurd \"[messagetype]\":<br />\r\n<br />\r\nBericht<br />\r\n=========<br />\r\n[message]<br />\r\n<br />\r\nVriendelijke groet,<br />\r\nShineISP Bot"
+    text: ''
+  EmailsTemplatesData_82:
+    EmailsTemplates: EmailsTemplates_12
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nieuw bericht verstuurd'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nzojuist ontvingen wij uw onderstaande bericht en u mag een spoedig antwoord verwachten<br />\r\n<br />\r\nUw bericht:<br />\r\n=========<br />\r\n[message]<br />\r\n<br />\r\nHet e-mail adres waarvan dit bericht afkomstig is kan geen mail ontvangen. Maakt u voor het beantwoorden van deze mail a.u.b. gebruik van uw klanten account.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_83:
+    EmailsTemplates: EmailsTemplates_13
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nieuw klanten account, [fullname]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nWelkom bij [storename]. U kunt onze website bezoeken door op deze link te klikken: [website].  <br />\r\nOm toegang tot uw eigen klanten account te krijgen, maakt u gebruik van onderstaande inloggegevens:<br />\r\n<br />\r\nE-mail: [email]<br />\r\nWachtwoord: [password]<br />\r\n<br />\r\nIn uw klanten account kunt u onder andere:<br />\r\n<br />\r\n- Uw domeinnamen beheren<br />\r\n- Uw webruimte beheren<br />\r\n- Eventuele aanvullende diensten bestellen en beheren<br />\r\n- Zelf uw domeinnamen en andere diensten verlengen<br />\r\n- De status van uw bestellingen controleren<br />\r\n<br />\r\nHebt u vragen of loopt u tegen problemen aan, dan kunt u via uw klanten account contact opnemen met onze medewerkers. <br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_84:
+    EmailsTemplates: EmailsTemplates_14
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Configuratie: [hostingplan]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHartelijk dank voor het kiezen van [hostingplan].<br />\r\n<br />\r\nOm uw [hostingplan] te beheren kunt u gebruik maken van deze link: [controlpanel].  <br />\r\n<br />\r\nUw [hostingplan] is als volgt geconfigureerd:<br />\r\n<br />\r\n[setup]<br />\r\n<br />\r\nEen groot deel van deze instellingen kunt u zelf beheren en wijzigen in uw klanten account.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]<br />\r\n<br />\r\n----<br />\r\nNB: De gegevens in deze e-mail zijn strikt vertrouwelijk en uitsluitend bedoeld voor [fullname]. Maak deze gegevens niet openbaar en deel ze niet met anderen.<br />\r\nU kunt zelf uw wachtwoord wijzigen via uw klanten account.<br />\r\nHet beheren van domeinen en websites vraagt in sommige situaties enige kennis van zaken. Beschikt u niet over die kennis of laat u bepaalde instellingen liever aan ons over, aarzel dan niet om contact op te nemen met onze helpdesk. We helpen u graag verder."
+    text: ''
+  EmailsTemplatesData_85:
+    EmailsTemplates: EmailsTemplates_15
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Factuurnr. [invoiceid]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHartelijk dank voor het bestellen van één van onze diensten.<br />\r\n<br />\r\nU kunt de factuur nr. [invoiceid], behorende bij uw bestelling nr. [orderid] direct inzien en downloaden via deze link: [url].<br />\r\n<br />\r\nAls u problemen ondervindt bij het downloaden van de factuur, dan kunt u de link kopiëren en  vervolgens plakken in de adresbalk van uw browser en daarna op de enter-toets drukken.<br />\r\n<br />\r\nU kunt uw facturen ook steeds inzien en downloaden via uw klanten account. In uw klanten account kunt u daarnaast zelf uw domeinnamen en andere diensten beheren.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_86:
+    EmailsTemplates: EmailsTemplates_16
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nieuwe bestelling, bestelnummer [orderid]!'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHartelijk dank voor uw bestelling.<br />\r\n<br />\r\nU kunt uw bestelling betalen via PayPal (met uw PayPal rekening of een credit kaart) of via een overschrijving van het verschuldigde bedrag op onze bankrekening.<br />\r\n<br />\r\nBetaling via PayPal:<br />\r\n- Klik op deze link: [url] en volg de verdere aanwijzingen op PayPal website.<br />\r\n<br />\r\n<br />\r\nBetaling via een bankoverschrijving:<br />\r\n- Maak het verschuldigde bedrag over op onze bankrekening met behulp van onderstaande gegevens:<br />\r\n[bank]<br />\r\n<br />\r\nVermeld bij uw overschrijving a.u.b. uw bestelnummer: [orderid]<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_87:
+    EmailsTemplates: EmailsTemplates_17
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nieuwe beoordeling ingestuurd'
+    html: "Beste beheerder,<br />\r\n<br />\r\nDe onderstaande beoordeling van een van de producten werd ingestuurd:<br />\r\n<br />\r\n[review]<br />\r\n<br />\r\nVriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_88:
+    EmailsTemplates: EmailsTemplates_18
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Inschrijving op onze nieuwsbrief'
+    html: "Dit e-mail adres is zojuist geregistreerd als ontvanger van onze nieuwsbrief.<br />\r\n<br />\r\nWenst u onze nieuwsbrief niet (langer) te ontvangen, dan kunt u zich daarvoor eenvoudig afmelden via een berichtje aan onze helpdesk. Uw gegevens worden dan uit onze bestanden verwijderd.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_89:
+    EmailsTemplates: EmailsTemplates_19
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[subject]'
+    html: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html>\r\n    <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n        <meta property=\"og:title\" content=\"[subject]\" />\r\n        <title>[subject]</title>\r\n        <style>\r\n			.rounded-corners {\r\n			     -moz-border-radius: 10px;\r\n			    -webkit-border-radius: 10px;\r\n			    -khtml-border-radius: 10px;\r\n			    border-radius: 10px;\r\n			}\r\n			\r\n			.content{\r\n	           font-family: Arial,Helvetica,sans-serif; \r\n	           font-size: 12px; \r\n	           color: rgb(122, 122, 122);\r\n			   line-height: 22px; \r\n			   padding: 15px; \r\n			}\r\n			\r\n			body{\r\n	           margin: 0pt; padding: 0pt; \r\n	           background-color: rgb(70, 76, 88);\r\n			   font-family: Arial,Helvetica,sans-serif; \r\n               font-size: 12px; \r\n			}\r\n			\r\n			.rightcol{\r\n			   font-family: Arial,Helvetica,sans-serif; \r\n               font-size: 14px; \r\n               color: rgb(122, 122, 122);\r\n               line-height: 22px; \r\n	           padding-top:25px;\r\n	           padding-left:5px;\r\n	           padding-right:15px;\r\n			   background-color: #eee;\r\n			}\r\n			.footer{\r\n				font-family: Arial,Helvetica,sans-serif; \r\n               font-size: 12px; \r\n               color: rgb(122, 122, 122);\r\n             }           \r\n        </style>\r\n    </head>\r\n    <body>\r\n       <table width=\"100%\" height=\"100%\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#464c58\" background=\"[url]/background.jpg\">\r\n            <tr>\r\n                <td style=\"padding:10px\">\r\n					<table class=\"rounded-corners\" width=\"720\" cellspacing=\"10\" cellpadding=\"0\" align=\"center\" bgcolor=\"#ffffff\">\r\n			            <tr>\r\n			                <td class=\"content\">\r\n				                <p><img src=\"[url]/logo.png\" alt=\"Logo [company]\" /></p>\r\n				                [body]\r\n				                <hr/>\r\n				                [pages]\r\n				                <br/>\r\n				                [company]<br/><a href=\"mailto:[email]\">[email]</a>\r\n			                </td>\r\n			                <td width=\"200\" class=\"rightcol\" valign=\"top\" align=\"left\">\r\n                                [products]\r\n                            </td>\r\n			            </tr>\r\n			            <tr>\r\n			                <td colspan=\"2\" class=\"footer\" align=\"right\">[optout]</td>\r\n			            </tr>\r\n			         </table>\r\n                </td>\r\n            </tr>\r\n         </table>\r\n    </body>\r\n</html>"
+    text: ''
+  EmailsTemplatesData_90:
+    EmailsTemplates: EmailsTemplates_20
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Bestelling nr. [orderid] is geannuleerd'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee informeren wij u dat uw bestelling met bestelnummer [orderid] is geannuleerd. U zult hiervoor dan ook niet gefactureerd worden.<br />\r\nU kunt natuurlijk op elk moment een nieuwe bestelling plaatsen.<br />\r\n<br />\r\nU kunt u vervallen bestelling nog steeds inzien via deze link: [url].<br />\r\n<br />\r\nWilt u over een bestelling of over iets anders contact opnemen, dan kan dat <br />\r\n<br />\r\n- door het sturen van een e-mail aan [email] <br />\r\n- of door contact op te nemen met onze helpdesk.<br />\r\n<br />\r\nOnze medewerkers zullen u graag verder helpen.<br />\r\n <br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_91:
+    EmailsTemplates: EmailsTemplates_21
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Bevestiging bestelling nr. [orderid]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee bevestigen wij de ontvangst van uw bestelling met bestelnr. [orderid].<br />\r\nWij bedanken u voor het in ons gestelde vertrouwen.<br />\r\n<br />\r\nZodra wij uw betaling ontvangen hebben wordt uw bestelling met spoed uitgevoerd.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_92:
+    EmailsTemplates: EmailsTemplates_22
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Bestelling nr. [orderid] gewist'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee bevestigen wij dat uw bestelling met bestelnummer [orderid] werd geannuleerd en vervolgend verwijderd uit onze systemen. <br />\r\n<br />\r\nWanneer de annulering van de bestelling niet uw bedoeling was, dan kunt u uw bestelling opnieuw invoeren.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_93:
+    EmailsTemplates: EmailsTemplates_23
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Bestelling nr. [orderid] verlopen'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee informeren wij u dat uw bestelling met bestelnummer [orderid] in onze administratie is verlopen omdat de maximale betaaltermijn ruim is overschreden.<br />\r\n<br />\r\nU kunt uw bestelling inzien door te klikken op deze link: [url].<br />\r\n<br />\r\nHebt u hulp nodig bij het bestellen, dan kunt u contact met ons opnemen:<br />\r\n<br />\r\n- door het sturen van een e-mail aan [email], <br />\r\n- of door contact op te nemen met onze helpdesk.<br />\r\n<br />\r\nOnze medewerkers helpen u graag verder.<br />\r\n <br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_94:
+    EmailsTemplates: EmailsTemplates_24
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Uw bestelling nr. [orderid]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nWij hebben uw bestelling met bestelnummer [orderid] in goede orde ontvangen en wij willen u bedanken voor het in ons gestelde vertrouwen.<br />\r\n<br />\r\nU kunt uw bestelling en de status van uw bestelling inzien door op deze link te klikken:<br />\r\n<br />\r\n[url]<br />\r\n<br />\r\nU kunt niet antwoorden op deze e-mail. Uw antwoord zal niet worden gelezen.<br />\r\nWilt u reageren op deze e-mail, neem dan a.u.b. contact op met onze helpdesk.<br />\r\nOok voor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_95:
+    EmailsTemplates: EmailsTemplates_25
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Bericht bij bestelling nr. [orderid]'
+    html: "Beste beheerder,<br />\r\n<br />\r\nEr is een bericht ontvangen bij bestelling nr. [orderid] van klant [fullname].<br />\r\nU kunt reageren op het bericht door te klikken op de volgende link:<br />\r\n<br />\r\n[url]  <br />\r\n<br />\r\n[message]<br />\r\n<br />\r\nDe ShineISP Bot,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_96:
+    EmailsTemplates: EmailsTemplates_26
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Betalingsherinnering bestelling nr. [orderid]'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee informeren wij u dat uw bestelling met bestelnummer [orderid] volgens onze administratie nog niet betaald werd.<br />\r\nWij nodigen u graag uit om het factuurbedrag van uw bestelling alsnog te voldoen, zodat wij uw bestelling zo spoedig mogelijk daarna kunnen uitvoeren.<br />\r\n<br />\r\nU kunt eenvoudig betalen door te klikken op:<br />\r\n[url]<br />\r\nen vervolgens de door u gewenste wijze van betaling te kiezen en te betalen.<br />\r\n<br />\r\nMocht u al betaald hebben, wilt u dan zo vriendelijk zijn even contact op te nemen met onze helpdesk en daarin de datum en betaalwijze van uw betaling te vermelden.<br />\r\n<br />\r\nWilt u uw bestelling annuleren, dan kunt u dat doen door op deze link [url] te klikken en op  die pagina te kiezen voor het annuleren van de bestelling.<br />\r\nUw bestelling wordt dan geannuleerd en u zult verder geen herinneringen meer ontvangen.<br />\r\n<br />\r\nU kunt niet antwoorden op deze e-mail. Uw antwoord zal niet worden gelezen.<br />\r\nOm te reageren op deze mail en voor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_97:
+    EmailsTemplates: EmailsTemplates_27
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Uw bestelling nr. [orderid] werd vernieuwd'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nOvereenkomstig uw verzoek hebben wij uw bestelling met bestelnummer [orderid] vernieuwd nadat de maximale betaaltermijn was overschreden. Helaas hebben wij volgens onze administratie uw betaling nog niet mogen ontvangen.<br />\r\n<br />\r\nU kunt eenvoudig betalen door te klikken op:<br />\r\n[url]<br />\r\nen vervolgens de door u gewenste wijze van betaling te kiezen en te betalen.<br />\r\n<br />\r\n<br />\r\nMocht u al betaald hebben, wilt u dan zo vriendelijk zijn even contact op te nemen met onze helpdesk en daarin de datum en betaalwijze van uw betaling te vermelden.<br />\r\n<br />\r\nWilt u uw bestelling annuleren, dan kunt u dat doen door op deze link [url] te klikken en op  die pagina te kiezen voor het annuleren van de bestelling.<br />\r\nUw bestelling wordt dan geannuleerd en u zult verder geen herinneringen meer ontvangen.<br />\r\n<br />\r\nU kunt niet antwoorden op deze e-mail. Uw antwoord zal niet worden gelezen.<br />\r\nOm te reageren op deze mail en voor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_98:
+    EmailsTemplates: EmailsTemplates_28
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Verlenging van uw diensten'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nWe maken u erop attent dat één of meer van uw diensten binnenkort verloopt.<br />\r\nU kunt het overzicht van uw diensten bekijken door op onderstaande link te klikken:<br />\r\n[url]<br />\r\n<br />\r\nWanneer deze directe link niet wil openen, dan kunt u de link kopiëren en plakken in de adresbalk van uw browser en vervolgens de enter-toets indrukken.<br />\r\n<br />\r\nU kunt uw diensten eenvoudig verlengen door in het overzicht van uw diensten te kiezen voor de optie \"Verlengen\".<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_99:
+    EmailsTemplates: EmailsTemplates_29
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Wachtwoord is gewijzigd'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHet nieuwe wachtwoord voor de toegang tot uw klanten account en het gebruik maken van onze diensten is: [password]<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_100:
+    EmailsTemplates: EmailsTemplates_30
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Wachtwoord wijzigen'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nWij hebben een verzoek ontvangen om het wachtwoord van uw account met gebruikersnaam [email] te wijzigen .<br />\r\n<br />\r\nWilt u inderdaad uw wachtwoord wijzigen, klik dan op onderstaande link:<br />\r\n[link]<br />\r\n<br />\r\nHebt u ons niet gevraagd om uw wachtwoord te wijzigen, dan kunt u deze e-mail negeren en wordt uw wachtwoord niet gewijzigd.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_101:
+    EmailsTemplates: EmailsTemplates_31
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Profiel van [user] gewijzigd!'
+    html: "Beste beheerder,<br />\r\n<br />\r\nKlant [user] heeft zijn persoonlijke gegevens gewijzigd.<br />\r\n<br />\r\nNieuw profiel<br />\r\n==================<br />\r\n[new]<br />\r\n<br />\r\nVorige profiel<br />\r\n==================<br />\r\n[old]<br />\r\n<br />\r\nControleer de gegevens door in te loggen in het admin gedeelte van ShineISP.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\nDe ShineISP Bot."
+    text: ''
+  EmailsTemplatesData_102:
+    EmailsTemplates: EmailsTemplates_32
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Uw diensten kunnen automatisch verlengd worden'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee informeren wij u dat één of meer van uw diensten binnenkort verlopen. <br />\r\nU kunt in onderstaand overzicht controleren welke van uw diensten aangemeld zijn voor automatische verlenging na betaling.<br />\r\n<br />\r\n[items]<br />\r\n<br />\r\nU kunt zelf de automatische verlenging van uw diensten aan- en uitzetten in uw klanten account.<br />\r\n<br />\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_103:
+    EmailsTemplates: EmailsTemplates_33
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Verlopen diensten'
+    html: "Geachte mevrouw, meneer [fullname],<br />\r\n<br />\r\nHiermee informeren wij u dat uw onderstaande diensten niet langer actief zijn:<br />\r\n[items]<br />\r\n<br />\r\nWilt u deze diensten alsnog verlengen, dan kunt u, net als voor eventuele nadere informatie contact opnemen met onze helpdesk.<br />\r\n<br />\r\nMet vriendelijke groet,<br />\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_104:
+    EmailsTemplates: EmailsTemplates_34
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: '[company]: #[issue_number] - [subject]'
+    html: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n	<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />\r\n	<title>[subject]</title>\r\n	<style type=\"text/css\">\r\n		a:hover { text-decoration: none !important; }\r\n		.content h2 {color:#646464 !important; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif;  }\r\n		.content {color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif;}\r\n		.content a {color: #0eb6ce; text-decoration: none;}\r\n		.footer {font-size: 11px; color:#7d7a7a; margin: 0; padding: 5px; font-family: Helvetica, Arial, sans-serif;}\r\n		.footer a {color: #0eb6ce; text-decoration: none;}\r\n		.border{background-color:#edf9ff}\r\n	</style>\r\n	\r\n</head>\r\n<body>\r\n\r\n	<table width=\"80%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" align=\"center\">\r\n		\r\n		<tr>\r\n			<td colspan=\"6\" class=\"content\" style=\"min-height: 500px\" align=\"left\" valign=\"top\">\r\n				<h2>[subject]</h2>\r\n				<small><a href=\"[link]\">[customer]</a></small>\r\n				<p>[description]</p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td style=\"height: 200px\"></td>\r\n		</tr>\r\n		<tr class=\"border\">\r\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>Helpticket</b><br/><a href=\"[link]\">[issue_number] van [date_open]</a></td>\r\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>datum geopend</b><br/>[date_open]</td>\r\n			<td class=\"footer\" width=\"10%\" align=\"left\" valign=\"top\"><b>datum afgesloten</b><br/>[date_close]</td>\r\n			<td class=\"footer\" width=\"20%\" align=\"left\" valign=\"top\"><b>Client</b><br/>[customer]</td>\r\n			<td class=\"footer\" width=\"20%\" align=\"left\" valign=\"top\"><b>Medewerker</b><br/>[operator]</td>\r\n			<td class=\"footer\" width=\"30%\" align=\"left\" valign=\"top\"><b>Bijlage</b><br/><a href=\"[attachment]\">[attachment_name]</a></td>\r\n		</tr>\r\n		<tr>\r\n			<td style=\"height: 50px\"></td>\r\n		</tr>\r\n		<tr>\r\n			<td colspan=\"6\" class=\"footer\" align=\"left\" valign=\"top\">\r\n				Om uw helptickets te bekijken en om antwoord te geven kunt u uitsluitend gebruik maken van deze link <a href=\"[link]\">Tickets weergeven</a>.\r\n				<br/><br/>U kunt niet antwoorden op deze e-mail. Uw antwoord zal niet gelezen worden.\r\n			</td>\r\n		</tr>\r\n	</table>\r\n	</body>\r\n</html>"
+    text: ''
+  EmailsTemplatesData_105:
+    EmailsTemplates: EmailsTemplates_35
+    language_id: '5'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Open helpticket over: [subject]'
+    html: "Geachte mevrouw, meneer [fullname],\r\n\r\nOp [date_open] opende u een helpticket met nummer <a href=\"[link]\">[issue_number]</a> bij onze helpdesk. We hebben het onderwerp dat u aan de orde stelde nog niet kunnen afsluiten vanwege één van de volgende redenen:\r\n- we hebben u een vraag gesteld, maar jammer genoeg nog geen antwoord van u ontvangen;\r\n- of u hebt nog niet bevestigd dat uw vraag beantwoord is c.q. uw probleem opgelost is.\r\n\r\nIn het laatste geval kunt u uw bevestiging aan ons doorgeven door op deze link te klikken:\r\n<a href=\"[link]\">Bevestiging vraag beantwoord - probleem opgelost</a>.\r\n\r\nVoor meer informatie over uw helpticket en om te antwoorden dient u uitsluitend gebruik te maken van deze link:\r\na href=\"[link]\"> Helpticket weergeven </ a>\r\n\r\nU kunt niet antwoorden op deze e-mail. Uw antwoord zal niet gelezen worden.\r\n\r\nVoor eventuele nadere informatie kunt u contact opnemen met onze helpdesk.\r\n\r\nMet vriendelijke groet,\r\n[signature]"
+    text: ''
+  EmailsTemplatesData_106:
+    EmailsTemplates: EmailsTemplates_16
+    language_id: '3'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Il suo ordine [orderid] su [storename]'
+    html: "Grazie per il suo ordine #[orderid] su [storename], [fullname].<br />\n<br />\nPuo' effettuare il pagamento via carta di credito oppure mediante bonifico bancario. Di seguito le coordinate:<br />\n<br />\nPagare con carta di credito:<br />\n<br />\n- Accedete all'indirizzo: [url]<br />\n<br />\n- Effettuate il pagamento con carta di credito, facendo click sul bottone di pagamento posto nella scheda dei dettagli dell'ordine<br />\n<br />\nPagare con bonifico bancario:<br />\n<br />\n[bank]<br />\n<br />\nIMPORTANTE: Inserite nella descrizione del bonifico il codice d'ordine: [orderid]<br />\n<br />\nPer ogni informazione complementare, contattateci : [email]<br />\n<br />\nSe desiderate cancellare l'ordine realizzato basta fare click nel bottone presente nella scheda dell'ordine: Cancella Ordine.<br />\n<br />\n[conditions]<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_107:
+    EmailsTemplates: EmailsTemplates_24
+    language_id: '3'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Commento all''ordine n° [orderid]'
+    html: "Gentile [fullname],<br />\n<br />\nè stato inserito un messaggio all'ordine n° [orderid].<br />\nVi invitiamo a visualizzare il messaggio facendo click nel seguente link: <br />\n<br />\n[url]<br />\n<br />\nNon rispondete a questa email, non riceverete alcuna risposta. Dovete usare il modulo di risposta presente nel link precedentemente indicato. <br />\n<br />\nGrazie per aver scelto i nostri servizi. <br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
+  EmailsTemplatesData_108:
+    EmailsTemplates: EmailsTemplates_25
+    language_id: '3'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Commento all''ordine n° [orderid]'
+    html: "Gentile Amministratore,<br />\n<br />\nè stato inserito un messaggio all'ordine n° [orderid] dal cliente [fullname].<br />\nLa invitiamo a rispondere al messaggio facendo click nel seguente link: <br />\n<br />\n[url]  <br />\n<br />\n[message]<br />\n<br />\nThe ShineISP Bot,<br />\n[signature]"
+    text: ''

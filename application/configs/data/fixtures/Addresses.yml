@@ -1,0 +1,55 @@
+Addresses:
+  Addresses_1:
+    address: 'Via Caldera'
+    city: Milano
+    code: '20121'
+    Countries: Countries_82
+    area: MI
+    latitude: null
+    longitude: null
+    Customers: Customers_1
+  Addresses_2:
+    address: 'Via dei Cavalieri Del Santo Sepolcro, 10'
+    city: Trieste
+    code: '20121'
+    Countries: Countries_82
+    area: TS
+    latitude: null
+    longitude: null
+    Customers: Customers_2
+  Addresses_3:
+    address: 'Piccadilly road'
+    city: London
+    code: ''
+    Countries: Countries_183
+    area: ''
+    latitude: '51.5112139'
+    longitude: '-0.1198244'
+    Customers: Customers_4
+  Addresses_4:
+    address: 'Via della Conciliazione, 11'
+    city: Roma
+    code: '00100'
+    Countries: Countries_82
+    area: RM
+    latitude: '41.8929163'
+    longitude: '12.4825199'
+    Customers: Customers_3
+  Addresses_5:
+    address: '15, Shakespeare road'
+    city: Oxford
+    code: ''
+    Countries: Countries_183
+    area: ''
+    latitude: '51.7520209'
+    longitude: '-1.2577263'
+    Customers: Customers_5
+  Addresses_6:
+    address: '11, Churchil street'
+    city: Newcastle
+    code: ''
+    Countries: Countries_183
+    area: ''
+    latitude: '54.978252'
+    longitude: '-1.61778'
+    Customers: Customers_6

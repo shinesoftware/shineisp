@@ -1,0 +1,105 @@
+ProductsCategories:
+  ProductsCategories_1:
+    name: 'Hosting Plans'
+    description: 'Here you can insert your own category description'
+    uri: hosting-plans
+    googlecategs: ''
+    parent: '0'
+    enabled: true
+    show_in_menu: true
+    keywords: null
+    blocks: {  }
+    position: null
+    externalid: null
+    custom: null
+  ProductsCategories_2:
+    name: Housing
+    description: 'Here you can insert your own category description'
+    uri: housing
+    googlecategs: ''
+    parent: '0'
+    enabled: true
+    show_in_menu: true
+    keywords: null
+    blocks: {  }
+    position: null
+    externalid: null
+    custom: null
+  ProductsCategories_3:
+    name: 'Technical Assistance'
+    description: 'Here you can insert your own category description'
+    uri: technical-assistance
+    googlecategs: ''
+    parent: '0'
+    enabled: true
+    show_in_menu: true
+    keywords: null
+    blocks: {  }
+    position: null
+    externalid: null
+    custom: null
+  ProductsCategories_4:
+    name: 'eCommerce Hosting'
+    description: 'Here you can insert your own category description'
+    uri: ecommerce-hosting
+    googlecategs: ''
+    parent: '1'
+    enabled: true
+    show_in_menu: true
+    keywords: ''
+    blocks: {  }
+    position: '0'
+    externalid: null
+    custom: null
+  ProductsCategories_5:
+    name: 'Cms Hosting'
+    description: '<p>Here you can insert your own category description</p>'
+    uri: cms-hosting
+    googlecategs: ''
+    parent: '1'
+    enabled: true
+    show_in_menu: true
+    keywords: 'hosting plans, php hosting, website'
+    blocks: {  }
+    position: '0'
+    externalid: null
+    custom: null
+  ProductsCategories_6:
+    name: 'Database Hosting'
+    description: 'Here you can insert your own category description'
+    uri: database-hosting
+    googlecategs: ''
+    parent: '2'
+    enabled: true
+    show_in_menu: true
+    keywords: null
+    blocks: {  }
+    position: null
+    externalid: null
+    custom: null
+  ProductsCategories_7:
+    name: 'Linux Semi-Dedicated'
+    description: 'Here you can insert your own category description'
+    uri: linux-semi-dedicated
+    googlecategs: ''
+    parent: '3'
+    enabled: true
+    show_in_menu: true
+    keywords: null
+    blocks: {  }
+    position: null
+    externalid: null
+    custom: null
+  ProductsCategories_8:
+    name: 'Linux Dedicated Housing'
+    description: 'Here you can insert your own category description'
+    uri: linux-dedicated-hosting
+    googlecategs: ''
+    parent: '3'
+    enabled: true
+    show_in_menu: true
+    keywords: null
+    blocks: {  }
+    position: null
+    externalid: null
+    custom: null

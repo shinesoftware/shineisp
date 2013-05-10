@@ -1,0 +1,5 @@
+ServersGroups:
+  ServersGroups_1:
+    name: '1st Server Group'
+    fill_type: '5'
+    active: true

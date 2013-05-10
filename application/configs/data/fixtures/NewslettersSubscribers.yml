@@ -1,0 +1,9 @@
+NewslettersSubscribers:
+  NewslettersSubscribers_1:
+    subscriptiondate: '2012-02-23 22:32:39'
+    email: customers@shinesoftware.com
+    Customers: Customers_1
+  NewslettersSubscribers_2:
+    subscriptiondate: '2012-02-27 15:43:20'
+    email: customers@shinesoftware.eu
+    Customers: Customers_2
