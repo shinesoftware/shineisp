@@ -67,7 +67,7 @@ class WikiController extends Zend_Controller_Action {
 				}				
 				
 				// Getting the Products
-				$products = Wikilinks::getProductsAttached($data [0] ['wiki_id'], $ns->langid);
+				$products = WikiLinks::getProductsAttached($data [0] ['wiki_id'], $ns->langid);
 				if(count($products) > 0){
 					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'wiki/products_reference.phtml', array ('products' => $products) ) );
 					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );

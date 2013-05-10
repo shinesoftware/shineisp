@@ -271,7 +271,7 @@ class Products extends BaseProducts {
 				
 				// Attach the wiki pages to a product
 				if(!empty($params['wikipages'])){
-					Wikilinks::addWikiPages2Products ( $product_id, $params['wikipages'] );
+					WikiLinks::addWikiPages2Products ( $product_id, $params['wikipages'] );
 				}
 				
 				// Add the related products
