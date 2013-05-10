@@ -291,7 +291,7 @@ $(document).ready(function(){
         },
         data: {mode: "all"},
         checkbox: true,
-        // Override class name for checkbox icon, so rasio buttons are displayed:
+        // Override class name for checkbox icon, so radio buttons are displayed:
         //classNames: {checkbox: "dynatree-radio"},
         // Select mode 3: multi-hier
         selectMode: 2,

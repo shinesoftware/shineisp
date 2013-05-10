@@ -72,7 +72,7 @@ class Setup_LocalizationController extends Zend_Controller_Action {
 			if($params['chkagreement']){
 				$session->terms = true;
 				$session->locale = $params['locale'];
-				$this->_helper->redirector ( 'index', 'database', 'setup');
+				$this->_helper->redirector ( 'index', 'database', 'setup', array('lang' => $params['locale']));
 			}else{
 				$this->_helper->redirector ( 'index', 'localization', 'setup', array ('error' => "You have to accept the license terms in order to install the software") );
 			}
