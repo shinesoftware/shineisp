@@ -1,5 +1,0 @@
-insert into `settings_parameters`(`parameter_id`,`name`,`var`,`type`,`module`,`enabled`,`description`,`group_id`,`config`) values ( NULL,'Late fee type','late_fee_type','select','admin','1','Select the late fee type.','1','{\"class\":\"Settings\",\"method\":\"getLateFeeTypes\"}');
-insert into `settings_parameters`(`parameter_id`,`name`,`var`,`type`,`module`,`enabled`,`description`,`group_id`,`config`) values ( NULL,'Late fee amount','late_fee_amount','text','admin','1','Late fee amount. 0 or empty to disable.','1',NULL);
-insert into `settings_parameters`(`parameter_id`,`name`,`var`,`type`,`module`,`enabled`,`description`,`group_id`,`config`) values ( NULL,'Late fee days','late_fee_days','text','admin','1','Enter the number of days after the due payment date you want to add the late fee.','1',NULL);
-update `settings_parameters` set `type`='select',`name`='Slideshow Product Category',`description`='Product category for the slideshow widget on homepage.',`config`='{\"class\":\"ProductsCategories\",\"method\":\"getListForSettings\"}' where `var`='slidecategoryid';
-
