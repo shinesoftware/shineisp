@@ -875,7 +875,6 @@ class Zend_Soap_Server implements Zend_Server_Interface
         }
         
         $soap = $this->_getSoap();
-
         $fault = false;
         ob_start();
         if ($setRequestException instanceof Exception) {

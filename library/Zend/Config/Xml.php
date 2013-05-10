@@ -94,6 +94,7 @@ class Zend_Config_Xml extends Zend_Config
             }
         }
 
+
         set_error_handler(array($this, '_loadFileErrorHandler')); // Warnings and errors are suppressed
         if (strstr($xml, '<?xml')) {
             $config = simplexml_load_string($xml);
