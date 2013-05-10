@@ -150,3 +150,8 @@ Statuses:
     status: Complete
     section: domains_tasks
     public: true
+  Statuses_31:
+    code: changed
+    status: Changed
+    section: orders
+    public: true
