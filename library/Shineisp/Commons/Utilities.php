@@ -781,7 +781,6 @@ class Shineisp_Commons_Utilities {
 		try {
 			
 			$mail->send ( $transport );
-			
 			// All good, log to DB
 			if(is_array($to)){
 				
@@ -1025,6 +1024,7 @@ class Shineisp_Commons_Utilities {
 		unset($replace['isppanel']);
 
 		// Replace all placeholders in everything
+		
 		foreach ( $replace as $placeholder => $emailcontent ) {
 			foreach ( $arrTemplate as $k => $v ) {
 				
