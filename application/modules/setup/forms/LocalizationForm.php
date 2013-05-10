@@ -8,7 +8,7 @@ class Setup_Form_LocalizationForm extends Zend_Form
         
         $this->addElement('select', 'locale', array(
         		'decorators'  => array('Composite'),
-        		'label'       => 'Locale',
+        		'label'       => 'Language',
         		'class'       => 'text-input large-input',
         		'multioptions' => Languages::getLanguageFiles(PUBLIC_PATH . "/languages")
         ));

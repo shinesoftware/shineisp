@@ -3,6 +3,8 @@
 class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
+		$locale = new Zend_Locale(Zend_Locale::BROWSER);
+		
 		$registry = Zend_Registry::getInstance();
 		
 		// Check if the config file has been created
@@ -17,85 +19,34 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		}else{
 			$ns = new Zend_Session_Namespace ( 'Default' );
 		}
-		$ns->unsetAll();
 		
-		$lang = $request->getParam ( 'lang', null );
+		// check the user request if it is not set, please get the old prefereces
+		$lang = $request->getParam ( 'lang', $ns->lang );
 		
-		if (! empty ( $lang )) { 
-			$ns->lang = $lang;
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: User selection: $lang");
-		}else{
-			if(!empty($ns->lang)){
-				$lang = $ns->lang;
-				Shineisp_Commons_Utilities::log("Language Plugin Controller: Session language set: $lang");
-			}else{
-				$lang = "en";
-			}
-			
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: No language selection get the default 'en'");
-		}
-		
-		if(file_exists(PUBLIC_PATH . "/languages/$lang/$lang.mo")){
-			
-			$translate = new Zend_Translate(
-					array(
-							'adapter' => "Shineisp_Translate_Adapter_Gettext",
-							'content' => PUBLIC_PATH . "/languages/$lang/$lang.mo",
-							'locale'  => $lang,
-							'disableNotices' => true
-					));
-			
-			$translate->setLocale ( $lang );
-			
-			$locale = new Zend_Locale($lang);
-			$regioncode = $locale->getLocaleToTerritory($lang);
-			
-			Shineisp_Commons_Utilities::log('Language Plugin Controller: Load the translation language from: ' . PUBLIC_PATH . "/languages/$lang/$lang.mo");
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: Region Code: $regioncode");
-			
-		}else{
-			$locale = new Zend_Locale(Zend_Locale::BROWSER);
-			$translate = Zend_Registry::get ( 'Zend_Translate' );
-			
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: Get the browser language preferences");
-			
-			// check if ShineISP has been configured
-			if($isReady){
-				if ($locale instanceof Zend_Locale) {
-					$lang = $locale->getLanguage();
-				} else {
-					$lang = $locale;
-				}
-			}else{
+		if(empty($lang)){  							// Get the user preference
+			if(strlen($locale) == 2){ 				// Check if the Browser locale is formed with 2 chars
 				$lang = $locale;
+			}elseif (strlen($locale) > 4){			// Check if the Browser locale is formed with > 4 chars
+				$lang = substr($locale, 0, 2);		// Get the language code from the browser preference
 			}
-			
-			$regioncode = $locale->getLocaleToTerritory($lang);
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: Browser language selected: $regioncode");
-			Shineisp_Commons_Utilities::log("Language Plugin Controller: Region Code: $regioncode");
-			
 		}
 		
-		// The browser sends a generic locale: "en"
-		// because the "English" browser preferences contains many locale like en_US, en_GB, ...
-		// If the regioncode is empty and the locale is a generic "en" we have to set a standard en_US
-		if(empty($regioncode) || $locale == "en"){
-			$locale = new Zend_Locale("en_US");
-			$regioncode = "en_US";
+		// Get the translate language or the default language: en
+		if(file_exists(PUBLIC_PATH . "/languages/$lang/$lang.mo")){
+			$translate = new Zend_Translate(array('adapter' => "Shineisp_Translate_Adapter_Gettext", 'content' => PUBLIC_PATH . "/languages/$lang/$lang.mo", 'locale'  => $lang, 'disableNotices' => true));
+		}else{
+			$translate = new Zend_Translate(array('adapter' => "Shineisp_Translate_Adapter_Gettext", 'locale'  => $lang, 'disableNotices' => true));
 		}
-			
-		$currency = new Zend_Currency($regioncode);
 		
 		$registry->set('Zend_Translate', $translate);
 		$registry->set('Zend_Locale', $locale);
-		$registry->set('Zend_Currency', $currency);
 		
-		$ns->lang = $lang;
-
 		if($isReady){
 			$ns->langid = Languages::get_language_id_by_code($lang);
 		}else{
 			$ns->langid = 1;
 		}
+		
+		$ns->lang = $lang;
 	}
 }

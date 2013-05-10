@@ -21,6 +21,33 @@ SettingsGroups:
     
 SettingsParameters:
 
+  SettingsParameters_3:
+    name: 'How many days before to consider the domain for renewal?'
+    description: 'Number of days before showing future domains next to the expiration date in the dashboard'
+    var: domains_show_before_expire_days
+    type: text
+    module: admin
+    enabled: '1'
+    SettingsGroups: SettingsGroups_1
+
+  SettingsParameters_4:
+    name: 'How many days after to consider the domain for renewal?'
+    description: 'Number of days after the domain expiration date in the dashboard'
+    var: domains_show_after_expire_days
+    type: text
+    module: admin
+    enabled: '1'
+    SettingsGroups: SettingsGroups_1
+
+  SettingsParameters_5:
+    name: 'Orders number format'
+    description: 'Customize the format of order number. Valid placeholders are described <a href="http://www.shineisp.com/orders-number-format/" target="_blank">here</a>'
+    var: orders_number_format
+    type: text
+    module: admin
+    enabled: '1'
+    SettingsGroups: SettingsGroups_1
+
   SettingsParameters_6:
     name: 'SMTP Host'
     description: 'Here you can set the ip or the domain name of the smtp server.'
@@ -282,6 +309,14 @@ SettingsParameters:
     module: admin
     enabled: '1'
     description: 'Enter the number of days after the due payment date you want to add the late fee.'
+    SettingsGroups: SettingsGroups_1
+  SettingsParameters_50:
+    name: 'Date Format'
+    var: dateformat
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'Select the date format style. eg: dd/MM/YYYY'
     SettingsGroups: SettingsGroups_1
     
     
