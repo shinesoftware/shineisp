@@ -1,0 +1,167 @@
+Customers:
+  Customers_1:
+    company: 'Shine Software'
+    firstname: Giuseppe
+    lastname: Bucchieri
+    sex: M
+    email: null
+    password: '1234567890'
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1982-05-26'
+    birthplace: Roma
+    birthdistrict: RM
+    birthcountry: Italia
+    birthnationality: Italiana
+    taxpayernumber: GSPBCH77D12C312X
+    vat: IT03672170283
+    CompanyTypes: CompanyTypes_2
+    Legalforms: Legalforms_2
+    note: ''
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_2
+    language: it_IT
+    issubscriber: true
+    created_at: '2012-02-23 22:32:39'
+    updated_at: '2012-02-23 22:32:39'
+    taxfree: null
+    isreseller: null
+    ignore_latefee: false
+  Customers_2:
+    company: 'Italian Software S.r.l.'
+    firstname: Luisa
+    lastname: Lucci
+    sex: F
+    email: null
+    password: 25d55ad283aa400af464c76d713c07ad
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1982-01-15'
+    birthplace: Roma
+    birthdistrict: RM
+    birthcountry: Italia
+    birthnationality: Italiana
+    taxpayernumber: RPRSRA82E66H501Y
+    vat: IT03671234567
+    CompanyTypes: CompanyTypes_2
+    Legalforms: Legalforms_2
+    note: ''
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_1
+    language: it_IT
+    issubscriber: true
+    created_at: '2012-02-27 15:43:20'
+    updated_at: '2012-02-27 15:43:20'
+    taxfree: null
+    isreseller: null
+    ignore_latefee: false
+  Customers_3:
+    company: 'Smithson & Co.'
+    firstname: Paul
+    lastname: Smith
+    sex: M
+    email: null
+    password: $1$z7Givuu8$qkWwdP4RnFIWQ.GMD4Z43.
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1977-01-28'
+    birthplace: Rome
+    birthdistrict: RM
+    birthcountry: Italy
+    birthnationality: Italian
+    taxpayernumber: XHS123WWW996-D
+    vat: UK837691902883
+    CompanyTypes: CompanyTypes_1
+    Legalforms: Legalforms_2
+    note: ''
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_1
+    language: it_IT
+    issubscriber: false
+    created_at: null
+    updated_at: null
+    taxfree: false
+    isreseller: null
+    ignore_latefee: false
+  Customers_4:
+    company: 'Marion''s Ideas'
+    firstname: Mary
+    lastname: Adams
+    sex: F
+    email: null
+    password: $1$SzNTj7/t$zl538VjERUIYxoAP.ZczG.
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1955-05-10'
+    birthplace: Zagreb
+    birthdistrict: ''
+    birthcountry: Slovenia
+    birthnationality: Slovenian
+    taxpayernumber: ''
+    vat: UK12312674423
+    CompanyTypes: CompanyTypes_1
+    Legalforms: Legalforms_1
+    note: ''
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_1
+    language: it_IT
+    issubscriber: false
+    created_at: null
+    updated_at: null
+    taxfree: false
+    isreseller: null
+    ignore_latefee: false
+  Customers_5:
+    company: 'United Baker'
+    firstname: George
+    lastname: Brown
+    sex: M
+    email: null
+    password: ''
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1961-03-01'
+    birthplace: Oxford
+    birthdistrict: Oxford
+    birthcountry: 'United Kingdom'
+    birthnationality: British
+    taxpayernumber: YYYAS324WWW996-D
+    vat: UK038474382648
+    Legalforms: Legalforms_1
+    note: ''
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_1
+    language: en_US
+    issubscriber: false
+    created_at: null
+    updated_at: null
+    taxfree: false
+    isreseller: null
+    ignore_latefee: false
+  Customers_6:
+    company: 'Red Plumber'
+    firstname: Danny
+    lastname: Green
+    sex: M
+    email: null
+    password: ''
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1961-08-29'
+    birthplace: Newcastle
+    birthdistrict: ''
+    birthcountry: Newcastle
+    birthnationality: British
+    taxpayernumber: XHASD44WW996-D
+    vat: UK49857290198
+    Legalforms: Legalforms_1
+    note: null
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_1
+    language: en_US
+    issubscriber: false
+    created_at: null
+    updated_at: null
+    taxfree: false
+    isreseller: null
+    ignore_latefee: false

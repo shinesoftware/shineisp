@@ -2418,7 +2418,7 @@ Products:
       local: product_id
       foreign: upgrade_product_id
       type: many      
-    WikiLinks:
+    Wikilinks:
       local: product_id
       foreign: product_id
       type: many
@@ -2646,7 +2646,7 @@ ProductsCategories:
     externalid: integer(4)
     custom: string()
   relations:
-    WikiLinks:
+    Wikilinks:
       local: category_id
       foreign: category_id
       type: many
@@ -3531,7 +3531,7 @@ Wiki:
       local: language_id
       foreign: language_id
       onDelete: CASCADE
-    WikiLinks:
+    Wikilinks:
       local: wiki_id
       foreign: wiki_id
       type: many
@@ -3560,7 +3560,7 @@ WikiCategories:
       local: category_id
       foreign: category_id
       type: many
-WikiLinks:
+Wikilinks:
   connection: doctrine
   tableName: wiki_links
   columns:

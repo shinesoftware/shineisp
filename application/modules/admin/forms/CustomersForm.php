@@ -175,7 +175,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Taxpayer Number  ',
+            'label'      => 'Taxpayer Identification Number / SSN / TIN',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
         ));

@@ -1,0 +1,11 @@
+PanelsActions:
+  PanelsActions_1:
+    Panels: Panels_1
+    Customers: Customers_1
+    OrdersItems: OrdersItems_1
+    start: '2012-02-23 22:33:43'
+    action: fullProfile
+    Statuses: Statuses_26
+    end: null
+    parameters: '{"emails":"5","trafficdata":"5000","databases":"1","webspace":"1000"}'
+    log: null

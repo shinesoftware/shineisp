@@ -1,0 +1,1313 @@
+WhoisServers:
+  WhoisServers_1:
+    tld: com
+    server: whois.crsnic.net
+    response: 'No match for'
+  WhoisServers_2:
+    tld: net
+    server: whois.crsnic.net
+    response: 'No match for'
+  WhoisServers_3:
+    tld: org
+    server: whois.publicinterestregistry.net
+    response: 'NOT FOUND'
+  WhoisServers_4:
+    tld: co.uk
+    server: whois.nic.uk
+    response: 'No match'
+  WhoisServers_5:
+    tld: org.uk
+    server: whois.nic.uk
+    response: 'No match'
+  WhoisServers_6:
+    tld: ltd.uk
+    server: whois.nic.uk
+    response: 'No match'
+  WhoisServers_7:
+    tld: plc.uk
+    server: whois.nic.uk
+    response: 'No match'
+  WhoisServers_8:
+    tld: me.uk
+    server: whois.nic.uk
+    response: 'No match'
+  WhoisServers_9:
+    tld: edu
+    server: whois.internic.net
+    response: 'No match for'
+  WhoisServers_10:
+    tld: mil
+    server: whois.internic.net
+    response: 'No match for'
+  WhoisServers_11:
+    tld: br.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_12:
+    tld: cn.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_13:
+    tld: eu.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_14:
+    tld: hu.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_15:
+    tld: no.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_16:
+    tld: qc.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_17:
+    tld: sa.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_18:
+    tld: se.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_19:
+    tld: se.net
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_20:
+    tld: us.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_21:
+    tld: uy.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_22:
+    tld: za.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_23:
+    tld: ac
+    server: whois.nic.ac
+    response: 'No match for'
+  WhoisServers_24:
+    tld: co.ac
+    server: whois.nic.ac
+    response: 'No match for'
+  WhoisServers_25:
+    tld: gv.ac
+    server: whois.nic.ac
+    response: 'No match for'
+  WhoisServers_26:
+    tld: or.ac
+    server: whois.nic.ac
+    response: 'No match for'
+  WhoisServers_27:
+    tld: ac.ac
+    server: whois.nic.ac
+    response: 'No match for'
+  WhoisServers_28:
+    tld: af
+    server: whois.netnames.net
+    response: 'No Match'
+  WhoisServers_29:
+    tld: am
+    server: whois.nic.am
+    response: 'No information available'
+  WhoisServers_30:
+    tld: as
+    server: whois.nic.as
+    response: 'Domain Not Found'
+  WhoisServers_31:
+    tld: at
+    server: whois.nic.ir
+    response: 'no entries found'
+  WhoisServers_32:
+    tld: ac.at
+    server: whois.nic.at
+    response: 'nothing found'
+  WhoisServers_33:
+    tld: co.at
+    server: whois.nic.at
+    response: 'nothing found'
+  WhoisServers_34:
+    tld: gv.at
+    server: whois.nic.at
+    response: 'nothing found'
+  WhoisServers_35:
+    tld: or.at
+    server: whois.nic.at
+    response: 'nothing found'
+  WhoisServers_36:
+    tld: asn.au
+    server: whois-check.ausregistry.net.au
+    response: Available
+  WhoisServers_37:
+    tld: com.au
+    server: whois-check.ausregistry.net.au
+    response: Available
+  WhoisServers_38:
+    tld: edu.au
+    server: whois-check.ausregistry.net.au
+    response: Available
+  WhoisServers_39:
+    tld: org.au
+    server: whois-check.ausregistry.net.au
+    response: Available
+  WhoisServers_40:
+    tld: net.au
+    server: whois-check.ausregistry.net.au
+    response: Available
+  WhoisServers_41:
+    tld: be
+    server: whois.dns.be
+    response: 'No such domain'
+  WhoisServers_42:
+    tld: ac.be
+    server: whois.dns.be
+    response: 'No such domain'
+  WhoisServers_43:
+    tld: br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_44:
+    tld: adm.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_45:
+    tld: adv.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_46:
+    tld: am.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_47:
+    tld: arq.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_48:
+    tld: art.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_49:
+    tld: bio.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_50:
+    tld: cng.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_51:
+    tld: cnt.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_52:
+    tld: com.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_53:
+    tld: ecn.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_54:
+    tld: eng.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_55:
+    tld: esp.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_56:
+    tld: etc.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_57:
+    tld: eti.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_58:
+    tld: fm.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_59:
+    tld: fot.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_60:
+    tld: fst.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_61:
+    tld: g12.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_62:
+    tld: gov.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_63:
+    tld: ind.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_64:
+    tld: inf.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_65:
+    tld: jor.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_66:
+    tld: lel.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_67:
+    tld: med.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_68:
+    tld: mil.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_69:
+    tld: net.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_70:
+    tld: nom.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_71:
+    tld: ntr.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_72:
+    tld: odo.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_73:
+    tld: org.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_74:
+    tld: ppg.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_75:
+    tld: pro.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_76:
+    tld: psc.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_77:
+    tld: psi.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_78:
+    tld: rec.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_79:
+    tld: slg.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_80:
+    tld: tmp.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_81:
+    tld: tur.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_82:
+    tld: tv.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_83:
+    tld: vet.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_84:
+    tld: zlg.br
+    server: whois.nic.br
+    response: 'No match for'
+  WhoisServers_85:
+    tld: ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_86:
+    tld: ab.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_87:
+    tld: bc.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_88:
+    tld: mb.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_89:
+    tld: nb.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_90:
+    tld: nf.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_91:
+    tld: ns.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_92:
+    tld: nt.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_93:
+    tld: on.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_94:
+    tld: pe.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_95:
+    tld: qc.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_96:
+    tld: sk.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_97:
+    tld: yk.ca
+    server: whois.cira.ca
+    response: 'Not found'
+  WhoisServers_98:
+    tld: cc
+    server: whois.nic.cc
+    response: 'No match'
+  WhoisServers_99:
+    tld: ac.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_100:
+    tld: com.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_101:
+    tld: edu.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_102:
+    tld: gov.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_103:
+    tld: net.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_104:
+    tld: org.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_105:
+    tld: bj.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_106:
+    tld: sh.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_107:
+    tld: tj.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_108:
+    tld: cq.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_109:
+    tld: he.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_110:
+    tld: nm.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_111:
+    tld: ln.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_112:
+    tld: jl.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_113:
+    tld: hl.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_114:
+    tld: js.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_115:
+    tld: zj.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_116:
+    tld: ah.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_117:
+    tld: hb.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_118:
+    tld: hn.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_119:
+    tld: gd.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_120:
+    tld: gx.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_121:
+    tld: hi.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_122:
+    tld: sc.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_123:
+    tld: gz.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_124:
+    tld: yn.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_125:
+    tld: xz.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_126:
+    tld: sn.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_127:
+    tld: gs.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_128:
+    tld: qh.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_129:
+    tld: nx.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_130:
+    tld: xj.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_131:
+    tld: tw.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_132:
+    tld: hk.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_133:
+    tld: mo.cn
+    server: whois.cnnic.net.cn
+    response: 'No entries'
+  WhoisServers_134:
+    tld: cx
+    server: whois.nic.cx
+    response: 'No match for'
+  WhoisServers_135:
+    tld: cz
+    server: whois.nic.cz
+    response: 'No match for'
+  WhoisServers_136:
+    tld: de
+    server: whois.nic.de
+    response: 'No entries found'
+  WhoisServers_137:
+    tld: dk
+    server: whois.dk-hostmaster.dk
+    response: 'No entries found'
+  WhoisServers_138:
+    tld: fo
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_139:
+    tld: com.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_140:
+    tld: org.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_141:
+    tld: net.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_142:
+    tld: mil.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_143:
+    tld: fin.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_144:
+    tld: med.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_145:
+    tld: gov.ec
+    server: whois.lac.net
+    response: 'No match found'
+  WhoisServers_146:
+    tld: fr
+    server: whois.nic.fr
+    response: 'No entries found'
+  WhoisServers_147:
+    tld: tm.fr
+    server: whois.nic.fr
+    response: 'No entries found'
+  WhoisServers_148:
+    tld: com.fr
+    server: whois.nic.fr
+    response: 'No entries found'
+  WhoisServers_149:
+    tld: asso.fr
+    server: whois.nic.fr
+    response: 'No entries found'
+  WhoisServers_150:
+    tld: presse.fr
+    server: whois.nic.fr
+    response: 'No entries found'
+  WhoisServers_151:
+    tld: gf
+    server: whois.nplus.gf
+    response: 'not found in our database'
+  WhoisServers_152:
+    tld: gs
+    server: whois.adamsnames.tc
+    response: 'is not registered'
+  WhoisServers_153:
+    tld: co.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_154:
+    tld: org.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_155:
+    tld: net.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_156:
+    tld: ac.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_157:
+    tld: k12.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_158:
+    tld: gov.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_159:
+    tld: muni.il
+    server: whois.isoc.org.il
+    response: 'No data was found'
+  WhoisServers_160:
+    tld: ac.in
+    server: whois.iisc.ernet.in
+    response: 'no entries found'
+  WhoisServers_161:
+    tld: co.in
+    server: whois.iisc.ernet.in
+    response: 'no entries found'
+  WhoisServers_162:
+    tld: ernet.in
+    server: whois.iisc.ernet.in
+    response: 'no entries found'
+  WhoisServers_163:
+    tld: gov.in
+    server: whois.iisc.ernet.in
+    response: 'no entries found'
+  WhoisServers_164:
+    tld: net.in
+    server: whois.iisc.ernet.in
+    response: 'no entries found'
+  WhoisServers_165:
+    tld: res.in
+    server: whois.iisc.ernet.in
+    response: 'no entries found'
+  WhoisServers_166:
+    tld: is
+    server: whois.isnic.is
+    response: 'No entries found'
+  WhoisServers_167:
+    tld: it
+    server: whois.nic.it
+    response: AVAILABLE
+  WhoisServers_168:
+    tld: ac.jp
+    server: whois.nic.ad.jp
+    response: 'No match!!'
+  WhoisServers_169:
+    tld: co.jp
+    server: whois.nic.ad.jp
+    response: 'No match!!'
+  WhoisServers_170:
+    tld: go.jp
+    server: whois.nic.ad.jp
+    response: 'No match!!'
+  WhoisServers_171:
+    tld: or.jp
+    server: whois.nic.ad.jp
+    response: 'No match!!'
+  WhoisServers_172:
+    tld: ne.jp
+    server: whois.nic.ad.jp
+    response: 'No match!!'
+  WhoisServers_173:
+    tld: ac.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_174:
+    tld: co.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_175:
+    tld: go.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_176:
+    tld: ne.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_177:
+    tld: nm.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_178:
+    tld: or.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_179:
+    tld: re.kr
+    server: whois.nic.or.kr
+    response: 'is not registered'
+  WhoisServers_180:
+    tld: li
+    server: whois.nic.li
+    response: 'No match for'
+  WhoisServers_181:
+    tld: lt
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_182:
+    tld: lu
+    server: whois.dns.lu
+    response: 'No entries found'
+  WhoisServers_183:
+    tld: asso.mc
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_184:
+    tld: tm.mc
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_185:
+    tld: com.mm
+    server: whois.nic.mm
+    response: 'No domains matched'
+  WhoisServers_186:
+    tld: org.mm
+    server: whois.nic.mm
+    response: 'No domains matched'
+  WhoisServers_187:
+    tld: net.mm
+    server: whois.nic.mm
+    response: 'No domains matched'
+  WhoisServers_188:
+    tld: edu.mm
+    server: whois.nic.mm
+    response: 'No domains matched'
+  WhoisServers_189:
+    tld: gov.mm
+    server: whois.nic.mm
+    response: 'No domains matched'
+  WhoisServers_190:
+    tld: ms
+    server: whois.adamsnames.tc
+    response: 'is not registered'
+  WhoisServers_191:
+    tld: mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_192:
+    tld: com.mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_193:
+    tld: org.mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_194:
+    tld: net.mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_195:
+    tld: edu.mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_196:
+    tld: gov.mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_197:
+    tld: gob.mx
+    server: whois.nic.mx
+    response: 'Referencias de Organization No Encontradas'
+  WhoisServers_198:
+    tld: nl
+    server: whois.domain-registry.nl
+    response: 'not a registered domain'
+  WhoisServers_199:
+    tld: no
+    server: whois.norid.no
+    response: 'no matches'
+  WhoisServers_200:
+    tld: nu
+    server: whois.nic.nu
+    response: 'NO MATCH for'
+  WhoisServers_201:
+    tld: pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_202:
+    tld: com.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_203:
+    tld: net.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_204:
+    tld: org.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_205:
+    tld: aid.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_206:
+    tld: agro.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_207:
+    tld: atm.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_208:
+    tld: auto.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_209:
+    tld: biz.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_210:
+    tld: edu.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_211:
+    tld: gmina.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_212:
+    tld: gsm.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_213:
+    tld: info.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_214:
+    tld: mail.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_215:
+    tld: miasta.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_216:
+    tld: media.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_217:
+    tld: mil.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_218:
+    tld: nom.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_219:
+    tld: pc.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_220:
+    tld: priv.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_221:
+    tld: realestate
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_222:
+    tld: rel.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_223:
+    tld: shop.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_224:
+    tld: sklep.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_225:
+    tld: sos.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_226:
+    tld: targi.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_227:
+    tld: tm.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_228:
+    tld: tourism.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_229:
+    tld: travel.pl
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_230:
+    tld: turystyka.
+    server: whois.dns.pl
+    response: 'does not exists'
+  WhoisServers_231:
+    tld: pt
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_232:
+    tld: com.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_233:
+    tld: org.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_234:
+    tld: store.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_235:
+    tld: tm.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_236:
+    tld: firm.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_237:
+    tld: www.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_238:
+    tld: arts.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_239:
+    tld: rec.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_240:
+    tld: info.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_241:
+    tld: nom.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_242:
+    tld: nt.ro
+    server: whois.rotld.ro
+    response: 'No entries found'
+  WhoisServers_243:
+    tld: ru
+    server: whois.ripn.net
+    response: 'No entries found'
+  WhoisServers_244:
+    tld: com.ru
+    server: whois.ripn.net
+    response: 'No entries found'
+  WhoisServers_245:
+    tld: net.ru
+    server: whois.ripn.net
+    response: 'No entries found'
+  WhoisServers_246:
+    tld: org.ru
+    server: whois.ripn.net
+    response: 'No entries found'
+  WhoisServers_247:
+    tld: se
+    server: whois.nic-se.se
+    response: 'No data found'
+  WhoisServers_248:
+    tld: si
+    server: whois.arnes.si
+    response: 'No entries found'
+  WhoisServers_249:
+    tld: com.sg
+    server: whois.nic.net.sg
+    response: NOMATCH
+  WhoisServers_250:
+    tld: org.sg
+    server: whois.nic.net.sg
+    response: NOMATCH
+  WhoisServers_251:
+    tld: net.sg
+    server: whois.nic.net.sg
+    response: NOMATCH
+  WhoisServers_252:
+    tld: gov.sg
+    server: whois.nic.net.sg
+    response: NOMATCH
+  WhoisServers_253:
+    tld: sk
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_254:
+    tld: st
+    server: whois.nic.st
+    response: 'No entries found'
+  WhoisServers_255:
+    tld: tc
+    server: whois.adamsnames.tc
+    response: 'is not registered'
+  WhoisServers_256:
+    tld: tf
+    server: whois.adamsnames.tc
+    response: 'is not registered'
+  WhoisServers_257:
+    tld: ac.th
+    server: whois.thnic.net
+    response: 'No entries'
+  WhoisServers_258:
+    tld: co.th
+    server: whois.thnic.net
+    response: 'No entries'
+  WhoisServers_259:
+    tld: go.th
+    server: whois.thnic.net
+    response: 'No entries'
+  WhoisServers_260:
+    tld: mi.th
+    server: whois.thnic.net
+    response: 'No entries'
+  WhoisServers_261:
+    tld: net.th
+    server: whois.thnic.net
+    response: 'No entries'
+  WhoisServers_262:
+    tld: or.th
+    server: whois.thnic.net
+    response: 'No entries'
+  WhoisServers_263:
+    tld: tj
+    server: whois.nic.tj
+    response: 'No match'
+  WhoisServers_264:
+    tld: tm
+    server: whois.nic.tm
+    response: 'No match'
+  WhoisServers_265:
+    tld: bbs.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_266:
+    tld: com.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_267:
+    tld: edu.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_268:
+    tld: gov.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_269:
+    tld: k12.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_270:
+    tld: mil.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_271:
+    tld: net.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_272:
+    tld: org.tr
+    server: whois.metu.edu.tr
+    response: 'Not found in database'
+  WhoisServers_273:
+    tld: com.tw
+    server: whois.twnic.net
+    response: 'No Records Found'
+  WhoisServers_274:
+    tld: org.tw
+    server: whois.twnic.net
+    response: 'No Records Found'
+  WhoisServers_275:
+    tld: net.tw
+    server: whois.twnic.net
+    response: 'No Records Found'
+  WhoisServers_276:
+    tld: ac.uk
+    server: whois.ja.net
+    response: 'Sorry - no'
+  WhoisServers_277:
+    tld: uk.co
+    server: whois.uk.co
+    response: 'NO MATCH'
+  WhoisServers_278:
+    tld: uk.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_279:
+    tld: uk.net
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_280:
+    tld: gb.com
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_281:
+    tld: gb.net
+    server: whois.centralnic.com
+    response: 'No match for'
+  WhoisServers_282:
+    tld: vg
+    server: whois.adamsnames.tc
+    response: 'is not registered'
+  WhoisServers_283:
+    tld: ac.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_284:
+    tld: alt.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_285:
+    tld: co.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_286:
+    tld: edu.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_287:
+    tld: gov.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_288:
+    tld: mil.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_289:
+    tld: net.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_290:
+    tld: ngo.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_291:
+    tld: nom.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_292:
+    tld: org.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_293:
+    tld: school.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_294:
+    tld: tm.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_295:
+    tld: web.za
+    server: whois.co.za
+    response: 'No information available'
+  WhoisServers_296:
+    tld: sh
+    server: whois.nic.sh
+    response: 'No match'
+  WhoisServers_297:
+    tld: kz
+    server: whois.domain.kz
+    response: 'No entries found'
+  WhoisServers_298:
+    tld: ch
+    server: whois.nic.ch
+    response: 'not have an entry'
+  WhoisServers_299:
+    tld: info
+    server: whois.afilias.net
+    response: 'NOT FOUND'
+  WhoisServers_300:
+    tld: ua
+    server: whois.net.ua
+    response: '% No entries found'
+  WhoisServers_301:
+    tld: biz
+    server: whois.nic.biz
+    response: 'Not found'
+  WhoisServers_302:
+    tld: ws
+    server: whois.nic.ws
+    response: 'No match for'
+  WhoisServers_303:
+    tld: gov
+    server: whois.nic.gov
+    response: 'No match for'
+  WhoisServers_304:
+    tld: tv
+    server: whois.nic.tv
+    response: 'No match for'
+  WhoisServers_305:
+    tld: name
+    server: whois.nic.name
+    response: 'No match'
+  WhoisServers_306:
+    tld: pro
+    server: whois.internic.net
+    response: 'No match'
+  WhoisServers_307:
+    tld: ie
+    server: whois.domainregistry.ie
+    response: '% There was no match in the IE Domain'
+  WhoisServers_308:
+    tld: com.hk
+    server: whois.hkdnr.net.hk
+    response: 'No Match for'
+  WhoisServers_309:
+    tld: org.hk
+    server: whois.hkdnr.net.hk
+    response: 'No Match for'
+  WhoisServers_310:
+    tld: net.hk
+    server: whois.hkdnr.net.hk
+    response: 'No Match for'
+  WhoisServers_311:
+    tld: edu.hk
+    server: whois.hkdnr.net.hk
+    response: 'No Match for'
+  WhoisServers_312:
+    tld: us
+    server: whois.nic.us
+    response: 'Not found:'
+  WhoisServers_313:
+    tld: tk
+    server: whois.dot.tk
+    response: 'not known'
+  WhoisServers_314:
+    tld: cd
+    server: whois.cd
+    response: 'No match'
+  WhoisServers_315:
+    tld: aero
+    server: whois.information.aero
+    response: 'is available'
+  WhoisServers_316:
+    tld: gr
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_317:
+    tld: by
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_318:
+    tld: ad
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_319:
+    tld: lv
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_320:
+    tld: eu.lv
+    server: whois.biz
+    response: 'Not found'
+  WhoisServers_321:
+    tld: bz
+    server: mhpwhois1.verisign-grs.net
+    response: 'No match'
+  WhoisServers_322:
+    tld: es
+    server: whois.ripe.net
+    response: 'no entries found'
+  WhoisServers_323:
+    tld: jp
+    server: whois.nic.ad.jp
+    response: 'No match!!'
+  WhoisServers_324:
+    tld: cl
+    server: whois.nic.cl
+    response: 'no existe'
+  WhoisServers_325:
+    tld: ag
+    server: whois.nic.ag
+    response: 'does not exist'
+  WhoisServers_326:
+    tld: eu
+    server: whois.eu
+    response: AVAILABLE
+  WhoisServers_327:
+    tld: me
+    server: whois.nic.me
+    response: 'NOT FOUND'
+  WhoisServers_328:
+    tld: mobi
+    server: whois.dotmobiregistry.net
+    response: 'NOT FOUND'

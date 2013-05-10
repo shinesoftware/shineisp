@@ -1,0 +1,9 @@
+Registrars:
+  Registrars_1:
+    name: Ovh
+    description: ''
+    help: null
+    class: Shineisp_Api_Registrars_Ovh_Main
+    config: '{"ovh_soapuri":"http:\/\/www.ovh.com\/soapi\/soapi-re-1.58.wsdl","ovh_username":"your-ovh-user","ovh_password":"your-ovh-pass","ovh_testmode":"1"}'
+    active: '1'
+    lastupdate: '2013-05-10 23:06:47'

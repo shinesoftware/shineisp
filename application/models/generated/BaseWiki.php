@@ -21,7 +21,7 @@ Doctrine_Manager::getInstance()->bindComponent('Wiki', 'doctrine');
  * @property integer $ishelpful
  * @property WikiCategories $WikiCategories
  * @property Languages $Languages
- * @property Doctrine_Collection $WikiLinks
+ * @property Doctrine_Collection $Wikilinks
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -110,7 +110,7 @@ abstract class BaseWiki extends Doctrine_Record
              'foreign' => 'language_id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasMany('WikiLinks', array(
+        $this->hasMany('Wikilinks', array(
              'local' => 'wiki_id',
              'foreign' => 'wiki_id'));
     }

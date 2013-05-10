@@ -1,0 +1,49 @@
+ProductsAttributes:
+  ProductsAttributes_1:
+    position: '0'
+    is_visible_on_front: true
+    active: true
+    system: true
+    code: webspace
+    type: text
+    system_var: '0'
+    defaultvalue: ''
+    is_required: true
+    is_comparable: true
+    on_product_listing: true
+  ProductsAttributes_2:
+    position: '0'
+    is_visible_on_front: true
+    active: true
+    system: true
+    code: trafficdata
+    type: text
+    system_var: '0'
+    defaultvalue: ''
+    is_required: true
+    is_comparable: true
+    on_product_listing: true
+  ProductsAttributes_3:
+    position: '0'
+    is_visible_on_front: true
+    active: true
+    system: true
+    code: emails
+    type: text
+    system_var: '0'
+    defaultvalue: ''
+    is_required: true
+    is_comparable: true
+    on_product_listing: true
+  ProductsAttributes_4:
+    position: '0'
+    is_visible_on_front: true
+    active: true
+    system: true
+    code: databases
+    type: text
+    system_var: '0'
+    defaultvalue: ''
+    is_required: true
+    is_comparable: true
+    on_product_listing: true

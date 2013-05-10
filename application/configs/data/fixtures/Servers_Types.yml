@@ -1,0 +1,9 @@
+Servers_Types:
+  Servers_Types_1:
+    type: 'Web Server'
+  Servers_Types_2:
+    type: 'Mail Server'
+  Servers_Types_3:
+    type: 'Database Server'
+  Servers_Types_4:
+    type: 'DNS Server'
