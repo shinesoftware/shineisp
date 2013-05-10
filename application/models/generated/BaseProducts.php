@@ -39,7 +39,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Doctrine_Collection $ProductsData
  * @property Doctrine_Collection $ProductsRelated
  * @property Doctrine_Collection $ProductsUpgrades
- * @property Doctrine_Collection $WikiLinks
+ * @property Doctrine_Collection $Wikilinks
  * @property Doctrine_Collection $UrlRewrite
  * @property Doctrine_Collection $Reviews
  * @property Doctrine_Collection $Domains
@@ -223,7 +223,7 @@ abstract class BaseProducts extends Doctrine_Record
              'local' => 'product_id',
              'foreign' => 'upgrade_product_id'));
 
-        $this->hasMany('WikiLinks', array(
+        $this->hasMany('Wikilinks', array(
              'local' => 'product_id',
              'foreign' => 'product_id'));
 
