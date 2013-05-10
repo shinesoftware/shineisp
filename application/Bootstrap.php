@@ -47,6 +47,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$fc = Zend_Controller_Front::getInstance ();
 		$fc->registerPlugin ( new Shineisp_Controller_Plugin_Starter () );
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Language());
+		$fc->registerPlugin(new Shineisp_Controller_Plugin_Currency());
 		
 		if(Shineisp_Main::isReady()){
 			$fc->registerPlugin ( new Shineisp_Controller_Plugin_Acl(new Shineisp_Acl()));
@@ -54,48 +55,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		}
 	}
 	
-	// init the translation module
-	protected function _initTranslate()
-	{
-		$registry = Zend_Registry::getInstance();
-		
-		// Check if the Zend_Locale can catch the BROWSER
-		// There is an issue when a BOT read the website. 
-		// The BOT doesn't send the LOCALE! In this case we set the english locale as default 
-		try{
-			$locale = new Zend_Locale(Zend_Locale::BROWSER);
-			$regioncode = $locale->getLocaleToTerritory($locale) ;
-		}catch (Exception $e){
-			$locale = new Zend_Locale("en_US");
-			$regioncode = "en_US" ;
-		}
-		
-		$langcode = $locale->getLanguage();
-		$currency = new Zend_Currency($regioncode);
-		
-		if(file_exists(PUBLIC_PATH . "/languages/$langcode/$langcode.mo")){
-			$translate = new Zend_Translate(
-				array(
-						'adapter' => "Shineisp_Translate_Adapter_Gettext",
-						'content' => PUBLIC_PATH . "/languages/$langcode/$langcode.mo",
-						'locale'  => $langcode,
-						'disableNotices' => true
-				));
-		}else{
-			$translate = new Zend_Translate(array(
-						'adapter' => "Shineisp_Translate_Adapter_Gettext",
-						'locale'  => 'en',
-						'disableNotices' => true
-				));
-		}
-		
-		$translate->setLocale($langcode);
-		
-		$registry->set('Zend_Translate', $translate);
-		$registry->set('Zend_Locale', $locale);
-		$registry->set('Zend_Currency', $currency);
-		
-	}
 	
 	protected function _initRouter() {
 		$this->bootstrap('FrontController');

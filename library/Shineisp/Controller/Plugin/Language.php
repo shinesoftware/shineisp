@@ -3,7 +3,10 @@
 class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
-
+		$locale = new Zend_Locale(Zend_Locale::BROWSER);
+		
+		$registry = Zend_Registry::getInstance();
+		
 		// Check if the config file has been created
 		$isReady = Shineisp_Main::isReady();
 		
@@ -17,54 +20,33 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 			$ns = new Zend_Session_Namespace ( 'Default' );
 		}
 		
-		$lang = $request->getParam ( 'lang', null );
-
-		if (! empty ( $lang )) {
-			$ns->lang = $lang;
-		}else{
-			if(!empty($ns->lang)){
-				$lang = $ns->lang;
-			}
-		}
+		// check the user request if it is not set, please get the old prefereces
+		$lang = $request->getParam ( 'lang', $ns->lang );
 		
-		if(file_exists(PUBLIC_PATH . "/languages/$lang/$lang.mo")){
-			$translate = new Zend_Translate(
-					array(
-							'adapter' => "Shineisp_Translate_Adapter_Gettext",
-							'content' => PUBLIC_PATH . "/languages/$lang/$lang.mo",
-							'locale'  => $lang,
-							'disableNotices' => true
-					));
-			
-			$translate->setLocale ( $lang );
-			
-			$registry = Zend_Registry::getInstance();
-			$registry->set('Zend_Translate', $translate);
-			
-		}else{
-			
-			
-			if($isReady){
-				$translate = Zend_Registry::get ( 'Zend_Translate' );
-			
-				// Otherwise get default language
-				$locale = $translate->getLocale();
-				if ($locale instanceof Zend_Locale) {
-					$lang = $locale->getLanguage();
-				} else {
-					$lang = $locale;
-				}
-			}else{
+		if(empty($lang)){  							// Get the user preference
+			if(strlen($locale) == 2){ 				// Check if the Browser locale is formed with 2 chars
 				$lang = $locale;
+			}elseif (strlen($locale) > 4){			// Check if the Browser locale is formed with > 4 chars
+				$lang = substr($locale, 0, 2);		// Get the language code from the browser preference
 			}
 		}
 		
-		$ns->lang = $lang;
+		// Get the translate language or the default language: en
+		if(file_exists(PUBLIC_PATH . "/languages/$lang/$lang.mo")){
+			$translate = new Zend_Translate(array('adapter' => "Shineisp_Translate_Adapter_Gettext", 'content' => PUBLIC_PATH . "/languages/$lang/$lang.mo", 'locale'  => $lang, 'disableNotices' => true));
+		}else{
+			$translate = new Zend_Translate(array('adapter' => "Shineisp_Translate_Adapter_Gettext", 'locale'  => $lang, 'disableNotices' => true));
+		}
+		
+		$registry->set('Zend_Translate', $translate);
+		$registry->set('Zend_Locale', $locale);
 		
 		if($isReady){
 			$ns->langid = Languages::get_language_id_by_code($lang);
 		}else{
 			$ns->langid = 1;
 		}
+		
+		$ns->lang = $lang;
 	}
 }

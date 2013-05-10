@@ -79,7 +79,12 @@ class Languages extends BaseLanguages {
 	 * @param unknown_type $locale
 	 */
 	public static function get_language_id($locale) {
-		$record = Doctrine::getTable ( 'Languages' )->findBy ( 'locale', $locale, Doctrine_Core::HYDRATE_ARRAY );
+		
+		if(empty($locale)){
+			return 1; // get the first default language 
+		}
+		
+		$record = Doctrine_Query::create ()->select ( 'language_id' )->from ( 'Languages l' )->where ( "locale = ?", $locale )->limit ( 1 )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		if (isset ( $record [0] )) {
 			return $record [0]['language_id'];
 		} else {
@@ -95,11 +100,11 @@ class Languages extends BaseLanguages {
 	public static function get_language_id_by_code($code) {
 		
 		if(empty($code)){
-			return 1; // get the first language in the languages table
+			return 1; // get the first default language
 		}
-		
-		$record = Doctrine::getTable ( 'Languages' )->findBy ( 'code', $code, Doctrine_Core::HYDRATE_ARRAY );
-		if (isset ( $record [0] )) {
+
+		$record = Doctrine_Query::create ()->select ( 'language_id' )->from ( 'Languages l' )->where ( "code = ?", $code )->limit ( 1 )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		if (!empty ( $record [0] )) {
 			return $record [0]['language_id'];
 		} else {
 			return 1;
@@ -185,10 +190,10 @@ class Languages extends BaseLanguages {
 			// If the extension is csv ...
 			if($ext == "mo"){
 				
-				// Get the locale of the translation file, for ex: en_US
+				// Get the locale of the translation file, for ex: en
 				$locale = new Zend_Locale($name);
 
-				// Get all the translation of the territory for the en_US locale  
+				// Get all the translation of the territory for the en locale  
 				$territories = $locale->getTranslationList('language', $name, 2);
 				
 				// Check if the territories array is full of data
@@ -200,6 +205,22 @@ class Languages extends BaseLanguages {
 		}
 		
 		return $locales;		
+	}
+
+	/**
+	 * Get the default languages
+	 * @param $locale
+	 */
+	public static function getLocales() {
+		$locales = array();
+		$list = Zend_Locale::getTranslationList('key');
+		foreach ($list as $locale => $name){
+			if(strlen($locale) > 4){
+				$locales[$locale] = $name;
+			}
+		}
+		Zend_Debug::dump($locales);
+		return $list;
 	}
 
 	/**
