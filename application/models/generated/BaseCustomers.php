@@ -14,6 +14,8 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property string $sex
  * @property string $email
  * @property string $password
+ * @property string $resetpwd_key
+ * @property timestamp $resetpwd_expire
  * @property timestamp $last_password_change
  * @property tinyint $force_password_change
  * @property date $birthdate
@@ -105,6 +107,14 @@ abstract class BaseCustomers extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '100',
+             ));
+        $this->hasColumn('resetpwd_key', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
+             ));
+        $this->hasColumn('resetpwd_expire', 'timestamp', 25, array(
+             'type' => 'timestamp',
+             'length' => '25',
              ));
         $this->hasColumn('last_password_change', 'timestamp', 25, array(
              'type' => 'timestamp',

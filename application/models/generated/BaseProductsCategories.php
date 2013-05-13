@@ -20,7 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsCategories', 'doctrine')
  * @property integer $position
  * @property integer $externalid
  * @property string $custom
- * @property Doctrine_Collection $WikiLinks
+ * @property Doctrine_Collection $Wikilinks
  * @property Doctrine_Collection $UrlRewrite
  * 
  * @package    ##PACKAGE##
@@ -102,7 +102,7 @@ abstract class BaseProductsCategories extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('WikiLinks', array(
+        $this->hasMany('Wikilinks', array(
              'local' => 'category_id',
              'foreign' => 'category_id'));
 
