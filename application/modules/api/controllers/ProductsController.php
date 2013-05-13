@@ -6,14 +6,11 @@
  * @version 1.0
  */
 
-class Api_ProductscategoriesController extends Shineisp_Api_Shineisp_Controller_Action {
+class Api_ProductsController extends Shineisp_Api_Shineisp_Controller_Action {
 	
 	protected $productscategories;  
     
     public function preDispatch() {
-        $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-        
         $registry = Zend_Registry::getInstance ();
         $this->translations = $registry->Zend_Translate;
         
@@ -22,12 +19,12 @@ class Api_ProductscategoriesController extends Shineisp_Api_Shineisp_Controller_
     }
     
     public function soapAction(  ) {
-        self::soap( 'Shineisp_Api_Shineisp_Productscategories' );
+        self::soap( 'Shineisp_Api_Shineisp_Products' );
         exit();
     }
     
     public function wsdlAction(  ) {
-        self::wsdl( 'Shineisp_Api_Shineisp_Productscategories' );
+        self::wsdl( 'Shineisp_Api_Shineisp_Products' );
         exit();
     }
     

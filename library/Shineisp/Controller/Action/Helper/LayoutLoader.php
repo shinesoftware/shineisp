@@ -138,19 +138,23 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		}else{
 			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/base/" );
 		}
-		
+        
 		// Set the additional path for the layout templates
-		if (file_exists ( PUBLIC_PATH . "/skins/$module/$skin/" )) {
-			
-			$this->getActionController ()->view->addBasePath ( PUBLIC_PATH . "/skins/$module/$skin/" );
-			
-			// Setting the Template to be used
-			$this->getActionController ()->getHelper ( 'layout' )->setLayout ( $template );
-		
-		} else {
-			if ($module != "system") { // System module doesn't need the template folder
-				die ( "Template folder has not been found in: " . PUBLIC_PATH . "/skins/$module/$skin/" );
-			}
-		}
+		if( $this->getActionController ()->getHelper ( 'viewRenderer' )->getNoRender() == false ) {
+    		if (file_exists ( PUBLIC_PATH . "/skins/$module/$skin/" )) {
+    			
+    			$this->getActionController ()->view->addBasePath ( PUBLIC_PATH . "/skins/$module/$skin/" );
+    			
+    			// Setting the Template to be used
+    			$this->getActionController ()->getHelper ( 'layout' )->setLayout ( $template );
+    		
+    		} else {
+    		    
+                
+    			if ($module != "system") { // System module doesn't need the template folder
+    				die ( "Template folder has not been found in: " . PUBLIC_PATH . "/skins/$module/$skin/" );
+    			}
+    		}
+        }
 	}
 }

@@ -42,46 +42,46 @@ CmsBlocks:
 
 CmsBlocksData:
   CmsBlocksData_1:
-    CmsBlocks: CmsBlocks_6
+    block_id: 6
     language_id: 1
   CmsBlocksData_2:
-    CmsBlocks: CmsBlocks_6
+    block_id: 6
     language_id: 2
   CmsBlocksData_4:
-    CmsBlocks: CmsBlocks_3
+    block_id: 3
     language_id: 1
   CmsBlocksData_5:
-    CmsBlocks: CmsBlocks_3
+    block_id: 3
     language_id: 2
   CmsBlocksData_6:
-    CmsBlocks: CmsBlocks_5
+    block_id: 5
     language_id: 1
   CmsBlocksData_7:
-    CmsBlocks: CmsBlocks_5
+    block_id: 5
     language_id: 2
   CmsBlocksData_8:
-    CmsBlocks: CmsBlocks_7
+    block_id: 7
     language_id: 1
   CmsBlocksData_11:
-    CmsBlocks: CmsBlocks_4
+    block_id: 4
     language_id: 1
   CmsBlocksData_12:
-    CmsBlocks: CmsBlocks_4
+    block_id: 4
     language_id: 2
   CmsBlocksData_15:
-    CmsBlocks: CmsBlocks_9
+    block_id: 9
     language_id: 1
   CmsBlocksData_16:
-    CmsBlocks: CmsBlocks_9
+    block_id: 9
     language_id: 2
   CmsBlocksData_17:
-    CmsBlocks: CmsBlocks_1
+    block_id: 1
     language_id: 2
   CmsBlocksData_22:
-    CmsBlocks: CmsBlocks_2
+    block_id: 2
     language_id: 1
   CmsBlocksData_23:
-    CmsBlocks: CmsBlocks_2
+    block_id: 2
     language_id: 2
 
 
@@ -156,22 +156,23 @@ CmsPages:
     keywords: ''
     blocks: ''
     xmllayout: ''
+    
 CmsPagesData:
   CmsPagesData_11:
-    CmsPages: CmsPages_3
+    page_id: 3
     language_id: 2
   CmsPagesData_16:
-    CmsPages: CmsPages_1
+    page_id: 1
     language_id: 1
   CmsPagesData_17:
-    CmsPages: CmsPages_1
+    page_id: 1
     language_id: 2
   CmsPagesData_30:
-    CmsPages: CmsPages_4
+    page_id: 4
     language_id: 1
   CmsPagesData_32:
-    CmsPages: CmsPages_2
+    page_id: 2
     language_id: 2
   CmsPagesData_33:
-    CmsPages: CmsPages_5
+    page_id: 5
     language_id: 1

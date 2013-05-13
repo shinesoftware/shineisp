@@ -21,11 +21,8 @@ class Api_Bootstrap extends Zend_Application_Module_Bootstrap {
 	
     protected function _initLayoutHelper() {
         $this->bootstrap ( 'frontController' );
-        $autoloader=Zend_Loader_Autoloader::getInstance();
-        $autoloader->registerNamespace('Api_');        
-        
         if(Shineisp_Main::isReady()){
-            Zend_Controller_Action_HelperBroker::addHelper( new Api_Controller_Action_Helper_Xmlloader() );
+            //Zend_Controller_Action_HelperBroker::addHelper( new Api_Controller_Action_Helper_Xmlloader() );
         }
     }
 }

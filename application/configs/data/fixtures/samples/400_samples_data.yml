@@ -119,11 +119,11 @@ ProductsAttributesGroupsIndexes:
     ProductsAttributes: ProductsAttributes_1
     ProductsAttributesGroups: ProductsAttributesGroups_3
     
-WikiLinks:
-  WikiLinks_1:
+Wikilinks:
+  Wikilinks_1:
     Products: Products_2
     Wiki: Wiki_1
-  WikiLinks_2:
+  Wikilinks_2:
     ProductsCategories: ProductsCategories_5
     Wiki: Wiki_1
 

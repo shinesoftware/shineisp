@@ -170,7 +170,7 @@ class Admin_ProductscategoriesController extends Zend_Controller_Action {
 				}
 				
 				// Get the wiki pages attached to the product selected
-				$rs ['wikipages'] =	WikiLinks::getWikiPagesList($rs ['category_id'], "categories", $Session->langid);
+				$rs ['wikipages'] =	Wikilinks::getWikiPagesList($rs ['category_id'], "categories", $Session->langid);
 				$rs ['products'] = $prodselected;
 				$form->populate ( $rs );	
 				
@@ -222,7 +222,7 @@ class Admin_ProductscategoriesController extends Zend_Controller_Action {
 				$id = ProductsCategories::SaveAll($id, $params);
 				
 				// Attach the wiki pages to the category
-				WikiLinks::addWikiPages2Categories( $id, $params['wikipages'] );
+				Wikilinks::addWikiPages2Categories( $id, $params['wikipages'] );
 
 				// Attach the products
 				Products::add2category($id, $params['products']);
