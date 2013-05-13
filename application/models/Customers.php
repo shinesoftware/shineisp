@@ -386,6 +386,8 @@ class Customers extends BaseCustomers {
 	public static function setCustomerPassword($email, $newPwd) {
 		$q = Doctrine_Query::create ()->update ( 'Customers' )
 				->set ( 'password', '?', crypt ( $newPwd ) )
+				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
+				->set ( 'force_password_change', '?', 0)
 				->where ( 'MD5(email) = ?', $email );
 		return $q->execute ();
 	}
@@ -399,6 +401,8 @@ class Customers extends BaseCustomers {
 	public static function reset_password($customerid, $newpwd) {
 		return Doctrine_Query::create ()->update ( 'Customers' )
 				->set ( 'password', '?', crypt ( $newpwd ) )
+				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
+				->set ( 'force_password_change', '?', 0)
 				->where ( 'customer_id = ?', $customerid )
 				->execute ();
 	}
