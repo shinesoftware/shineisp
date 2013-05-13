@@ -679,6 +679,10 @@ Customers:
     password:
       type: string(100)
       notnull: true
+    resetpwd_key:
+      type: string(50)
+    resetpwd_expire:
+      type: timestamp(25)
     last_password_change:
       type: timestamp(25)
       notnull: false
