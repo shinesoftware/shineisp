@@ -1,0 +1,13 @@
+ProductsAttributesGroupsIndexes:
+  ProductsAttributesGroupsIndexes_1:
+    ProductsAttributes: ProductsAttributes_3
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+  ProductsAttributesGroupsIndexes_2:
+    ProductsAttributes: ProductsAttributes_2
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+  ProductsAttributesGroupsIndexes_3:
+    ProductsAttributes: ProductsAttributes_4
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+  ProductsAttributesGroupsIndexes_4:
+    ProductsAttributes: ProductsAttributes_1
+    ProductsAttributesGroups: ProductsAttributesGroups_3

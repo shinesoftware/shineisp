@@ -1,0 +1,21 @@
+PurchaseCategories:
+  PurchaseCategories_1:
+    category: 'Servers Infrastructures Costs'
+  PurchaseCategories_2:
+    category: Advertisement
+  PurchaseCategories_3:
+    category: 'Servers Hardware'
+  PurchaseCategories_4:
+    category: Softwares
+  PurchaseCategories_5:
+    category: 'Registrar Credit'
+  PurchaseCategories_6:
+    category: 'Car Expenses'
+  PurchaseCategories_7:
+    category: 'Personal Expenses'
+  PurchaseCategories_8:
+    category: 'Generic Hardware'
+  PurchaseCategories_9:
+    category: 'Working Trip'
+  PurchaseCategories_10:
+    category: 'Books & Manuals'

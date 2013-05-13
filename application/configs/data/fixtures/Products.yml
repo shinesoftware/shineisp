@@ -1,0 +1,97 @@
+Products:
+  Products_1:
+    uuid: null
+    sku: null
+    uri: bronze-hosting-plan
+    inserted_at: '2012-01-11 16:22:00'
+    updated_at: '2012-01-11 16:22:00'
+    cost: 0
+    price_1: '0.00'
+    setupfee: '0.00'
+    setup: null
+    position: '0'
+    iscomparable: true
+    ishighlighted: false
+    isrefundable: false
+    send_request_review: false
+    showonrss: false
+    downgradable: true
+    enabled: true
+    type: hosting
+    categories: 1/5
+    external_id: null
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+    blocks: null
+    autosetup: '0'
+  Products_2:
+    uuid: null
+    sku: null
+    uri: silver-hosting-plan
+    inserted_at: '2012-01-11 16:22:00'
+    updated_at: '2012-01-11 16:22:00'
+    cost: 0
+    price_1: '0.00'
+    setupfee: '0.00'
+    setup: null
+    position: '0'
+    iscomparable: true
+    ishighlighted: false
+    isrefundable: false
+    send_request_review: false
+    showonrss: false
+    downgradable: true
+    enabled: true
+    type: hosting
+    categories: 1/4/5
+    external_id: null
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+    blocks: null
+    autosetup: '0'
+  Products_3:
+    uuid: null
+    sku: null
+    uri: gold-hosting-plan
+    inserted_at: '2012-01-11 16:22:00'
+    updated_at: '2012-01-11 16:22:00'
+    cost: 0
+    price_1: '0.00'
+    setupfee: '0.00'
+    setup: null
+    position: '0'
+    iscomparable: true
+    ishighlighted: false
+    isrefundable: false
+    send_request_review: false
+    showonrss: false
+    downgradable: true
+    enabled: true
+    type: hosting
+    categories: 1/5
+    external_id: null
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+    blocks: null
+    autosetup: '0'
+  Products_4:
+    uuid: null
+    sku: null
+    uri: platinum-hosting-plan
+    inserted_at: '2012-01-11 16:22:00'
+    updated_at: '2012-01-11 16:22:00'
+    cost: 0
+    price_1: '0.00'
+    setupfee: '0.00'
+    setup: null
+    position: '0'
+    iscomparable: true
+    ishighlighted: false
+    isrefundable: false
+    send_request_review: false
+    showonrss: false
+    downgradable: true
+    enabled: true
+    type: hosting
+    categories: 1/4/5
+    external_id: null
+    ProductsAttributesGroups: ProductsAttributesGroups_3
+    blocks: null
+    autosetup: '0'

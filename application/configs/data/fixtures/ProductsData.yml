@@ -1,0 +1,73 @@
+ProductsData:
+  ProductsData_1:
+    name: 'Bronze Hosting Plan'
+    nickname: Bronze
+    shortdescription: '<p>Bronze blog hosting plan is a personal blog hosting with pre-installed blogging software and a FREE domain name!</p>'
+    description: "<p>bronze blog hosting plan is a personal blog hosting with pre-installed blogging software and a FREE domain name!<br /><br />Our bronze Blog Hosting Plan is perfect people wanting to start up their own online blog. It comes with the most popular blogging software (WordPress) - pre-installed and set up... ready for you to start blogging right away!<br /><br />It also comes with a FREE domain name as well, so it really is everything that you need to launch yourself into the blogging community.</p>\r\n<p>the bronze blog hosting plan is perfect for...<br /><br />- People wanting to start their own personal blog<br />- Individuals who want their own personalised email address on their own domain name<br />- People who already have a wordpress blog &amp; want to transfer it to a more reliable host.</p>"
+    Products: Products_1
+    Languages: Languages_1
+    metakeywords: 'hosting plan, wordpress, hosting base, bronze hosting, php, mysql'
+    metadescription: 'Bronze blog hosting plan is a personal blog hosting with pre-installed blogging software and a FREE domain name!'
+  ProductsData_2:
+    name: 'Piano Hosting Bronzo'
+    nickname: Bronzo
+    shortdescription: '<p><span id="result_box" lang="it"> <span class="hps">Piano&nbsp;</span></span><span id="result_box" lang="it"><span class="hps">hosting </span></span><span id="result_box" lang="it"><span class="hps">blog</span> <span class="hps">&egrave; un piano hosting per la creazione di un</span> <span class="hps">blog personale con&nbsp;</span><span class="hps">software pre-installato</span><span>!</span></span></p>'
+    description: '<p><span id="result_box" lang="it"> <span class="hps">piano&nbsp;</span></span><span id="result_box" lang="it"><span class="hps">hosting </span></span><span id="result_box" lang="it"><span class="hps">blog</span> <span class="hps">&egrave; un piano hosting per la creazione di un</span> <span class="hps">blog personale con&nbsp;</span><span class="hps">software pre-installato</span><span>!</span><br /><br /> <span class="hps">Il nostro</span> piano hosting &egrave; adatto a tutti coloro <span class="hps">che vogliono</span> <span class="hps">avviare</span> <span class="hps">il proprio blog</span> <span class="hps">online.</span> <span class="hps">Viene fornito con</span> <span class="hps">il software di</span> <span class="hps">blogging</span> <span class="hps atn">pi&ugrave; popolare (</span><span>WordPress</span><span>) -</span> <span class="hps atn">pre-</span><span>installato e configurato</span> <span class="hps">...</span> <span class="hps">pronto per</span> <span class="hps">iniziare a bloggare</span> <span class="hps">subito!</span><br /><br />Il piano <span class="hps">blog</span> <span class="hps">hosting &egrave;</span> <span class="hps">perfetto per</span> <span class="hps">...</span><br /><br /> <span class="hps">-</span> <span class="hps">Le persone che vogliono</span> <span class="hps">iniziare il loro</span> <span class="hps">blog</span> <span class="hps">personale</span><br /> <span class="hps">-</span> <span class="hps">Le persone</span> <span class="hps">che vogliono</span> <span class="hps">il proprio indirizzo</span> <span class="hps">di posta elettronica</span> <span class="hps">personalizzata</span> <span class="hps">sul proprio</span> <span class="hps">nome di dominio</span><br /> <span class="hps">- Persone</span> <span class="hps">che hanno gi&agrave; un</span> <span class="hps">blog</span> <span class="hps">wordpress</span> <span class="hps">e voglio</span> <span class="hps">trasferirlo</span> <span class="hps">a un host</span> <span class="hps">pi&ugrave; affidabile.</span></span></p>'
+    Products: Products_1
+    Languages: Languages_2
+    metakeywords: ''
+    metadescription: ''
+  ProductsData_3:
+    name: 'Hosting Plan Argento'
+    nickname: Argento
+    shortdescription: '<p><span id="result_box" lang="it"><span class="hps">I</span><span class="hps">niziare a lavorare</span> <span class="hps">sul tuo sito</span> <span class="hps">Web</span> <span class="hps">in pochi minuti</span><span>.</span><br /> <span class="hps">Vi mettiamo a disposizione</span> <span class="hps">gli strumenti</span><span>, tutorial</span> <span class="hps">e supporto</span> <span class="hps">per rendere</span> <span class="hps">l''installazione</span> <span class="hps">e la configurazione</span> <span class="hps">un compito facile.</span></span></p>'
+    description: "<p>Se hai bisogno di aiuto durante l'installazione iniziale e la configurazione del tuo account di hosting, noi di ShineISP sar&agrave; lieta di assistervi senza alcun costo aggiuntivo.</p>\r\n<p>Avete sentito bene, ho detto senza alcun costo. I nostri strumenti e tutorial risponder&agrave; la maggior parte se non tutte le vostre domande durante l'installazione e la configurazione.</p>\r\n<p>Se hai ancora bisogno di aiuto, noi vi aiuteremo senza alcun costo aggiuntivo. ShineISP &egrave; grande abbastanza per soddisfare le vostre esigenze di hosting Web e abbastanza piccolo per darvi il servizio personalizzato che vi meritate.  La nostra assistenza clienti &egrave; un elemento fondamentale per rendere la vita pi&ugrave; facile. Siamo orgogliosi di superare le aspettative dei nostri clienti.</p>"
+    Products: Products_2
+    Languages: Languages_2
+    metakeywords: ''
+    metadescription: ''
+  ProductsData_4:
+    name: 'Silver Hosting Plan'
+    nickname: Silver
+    shortdescription: '<p>Get online and start working on your Web site in minutes.<br />We provide you with the tools, tutorials, and support to make setup and configuration an easy task.</p>'
+    description: "<p>If you need help during the initial setup and configuration of your hosting account, we at ShineISP will assist you at no additional charge. You heard right, I said no charge. Our tools and tutorials will answer most if not all of your questions during setup and configuration.</p>\r\n<p>If you still need help, we will assist you at no additional cost. ShineISP is big enough to meet your Web hosting needs and small enough to give you the personalized service you deserve.<br /><br />Our Customer Support is a key part of making your life easier. We pride ourselves in exceeding our customers' expectations.</p>"
+    Products: Products_2
+    Languages: Languages_1
+    metakeywords: ''
+    metadescription: ''
+  ProductsData_5:
+    name: 'Gold Hosting Plan'
+    nickname: Gold
+    shortdescription: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, Cms and so on.</p>'
+    description: '<p>This is a gold hosting plan for all the companies who need to develop their own software management like CRM, Cms and so on.</p>'
+    Products: Products_3
+    Languages: Languages_1
+    metakeywords: ''
+    metadescription: ''
+  ProductsData_6:
+    name: 'Hosting Plan Oro'
+    nickname: Oro
+    shortdescription: '<p>Il nostro Piano Gold include download illimitati e strutture a sviluppo illimitato con Site Builder.</p>'
+    description: '<p>Il nostro Piano Gold include download illimitati e strutture a sviluppo illimitato Site Builder che consente di sviluppare il vostro sito e-commerce basato senza alcuna conoscenza tecnica, un libero comune SSL per la sicurezza del sito Web i dati, connessione ad alta velocit&agrave;, un sacco di memorizzazione dei dati e della larghezza di banda, regolare backup, supporto prioritario, pi&ugrave; grandi tubazioni di trasferimento dati, un numero illimitato di domini secondari, pi&ugrave; database pi&ugrave; tutte le caratteristiche dei pacchetti di base e professionale.</p>'
+    Products: Products_3
+    Languages: Languages_2
+    metakeywords: ''
+    metadescription: ''
+  ProductsData_7:
+    name: 'Platinum Hosting Plan'
+    nickname: Platinum
+    shortdescription: '<p>Our most popular hosting plan.&nbsp;</p>'
+    description: '<p>The Platinum plan screams with superb features. Get MYSQL, PostgreSQL,PHP5, Ruby and many more features. You have never seen anywhere. Host upto 2 Domains.&nbsp;<strong>One Domain Registration absolutely Free for one year.</strong>&nbsp;No Hidden charge.&nbsp;</p>'
+    Products: Products_4
+    Languages: Languages_1
+    metakeywords: ''
+    metadescription: ''
+  ProductsData_8:
+    name: 'Piano Hosting Platino'
+    nickname: Platino
+    shortdescription: ''
+    description: ''
+    Products: Products_4
+    Languages: Languages_2
+    metakeywords: ''
+    metadescription: ''

@@ -1,0 +1,9 @@
+Dns_Zones_Types:
+  Dns_Zones_Types_1:
+    zone: A
+  Dns_Zones_Types_2:
+    zone: 'MX 1'
+  Dns_Zones_Types_3:
+    zone: CNAME
+  Dns_Zones_Types_4:
+    zone: NS

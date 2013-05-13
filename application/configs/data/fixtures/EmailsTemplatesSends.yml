@@ -1,0 +1,66 @@
+EmailsTemplatesSends:
+  EmailsTemplatesSends_1:
+    Customers: Customers_1
+    date: '2013-05-13 19:49:50'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Link Reset Password'
+    recipient: customers@shinesoftware.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: http://www.shineisp.it/index/resetpwd/id/j3mDJCYcYjCEbknWeshY8hj1<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+  EmailsTemplatesSends_2:
+    Customers: Customers_1
+    date: '2013-05-13 19:55:03'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Link Reset Password'
+    recipient: customers@shinesoftware.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: http://www.shineisp.it/index/resetpwd/id/CJhTnqNATn3IpQRSlT4AF9SN<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+  EmailsTemplatesSends_3:
+    Customers: Customers_1
+    date: '2013-05-13 21:01:26'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Nuova Password'
+    recipient: customers@shinesoftware.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: SY8j0OgPnF01oDsr<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+  EmailsTemplatesSends_4:
+    Customers: Customers_1
+    date: '2013-05-13 21:42:24'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Link Reset Password'
+    recipient: customers@shinesoftware.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: http://www.shineisp.it/index/resetpwd/id/6s3sgXJic6q1bJSqZcrNmqQm<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+  EmailsTemplatesSends_5:
+    date: '2013-05-13 21:50:50'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Nuova Password'
+    recipient: info@shineisp.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: 4uxjUfWOu6KNhklR<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+  EmailsTemplatesSends_6:
+    Customers: Customers_1
+    date: '2013-05-13 22:01:29'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Nuova Password'
+    recipient: customers@shinesoftware.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: WzEw0Bd6JHrZjfAj<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
