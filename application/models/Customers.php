@@ -379,16 +379,16 @@ class Customers extends BaseCustomers {
 	/**
 	 * setCustomerPassword
 	 * set the password of the customer 
-	 * @param $email
+	 * @param $customerid
 	 * @param $newPwd
 	 * @return Boolean
 	 */
-	public static function setCustomerPassword($email, $newPwd) {
+	public static function setCustomerPassword($customerid, $newPwd) {
 		$q = Doctrine_Query::create ()->update ( 'Customers' )
 				->set ( 'password', '?', crypt ( $newPwd ) )
 				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
 				->set ( 'force_password_change', '?', 0)
-				->where ( 'MD5(email) = ?', $email );
+				->where ( 'customer_id = ?', intval($customerid) );
 		return $q->execute ();
 	}
 	
@@ -403,9 +403,44 @@ class Customers extends BaseCustomers {
 				->set ( 'password', '?', crypt ( $newpwd ) )
 				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
 				->set ( 'force_password_change', '?', 0)
-				->where ( 'customer_id = ?', $customerid )
+				->where ( 'customer_id = ?', intval($customerid) )
 				->execute ();
 	}
+	
+	/**
+	 * generateResetPasswordKey
+	 * generate a new key needed for password reset
+	 * @param $customerId
+	 * @return $key
+	 */
+	public static function generateResetPasswordKey($customerid) {
+		$resetKey = Shineisp_Commons_Utilities::GenerateRandomPassword(24);
+		
+		$q = Doctrine_Query::create ()->update ( 'Customers' )
+				->set ( 'resetpwd_key', '?', $resetKey )
+				->set ( 'resetpwd_expire', '?', date ( 'Y-m-d H:i:s', time()+(2*3600)) )
+				->where ( 'customer_id = ?', intval($customerid) );
+		if ( $q->execute () ) {
+			return $resetKey;
+		};
+	}
+	
+	/**
+	 * setCustomerPassword
+	 * set the password of the customer 
+	 * @param $customerid
+	 * @param $newPwd
+	 * @return Boolean
+	 */
+	public static function deleteResetPasswordKey($customerid) {
+		return Doctrine_Query::create ()->update ( 'Customers' )
+				->set ( 'resetpwd_key', '?', '')
+				->set ( 'resetpwd_expire', '?', '')
+				->where ( 'customer_id = ?', intval($customerid) )
+				->execute();
+	}
+	
+	
 	
 	/**
 	 * getCustomerbyEmailMd5
@@ -428,6 +463,26 @@ class Customers extends BaseCustomers {
 		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "SHA1(email) = ?", $email )->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
+	
+	/**
+	 * getCustomerByResetKey
+	 * Get a customer by a reset key enforced by reset key expiration  
+	 * @param $email
+	 * @return Array
+	 */
+	public static function getCustomerByResetKey($resetKey) {
+		if ( empty($resetKey) ) {
+			return false;	
+		}
+		
+		return Doctrine_Query::create ()->from ( 'Customers c' )
+			->where ('resetpwd_key = ?', $resetKey)
+			->andWhere('DATEDIFF(resetpwd_expire, NOW()) > 0')
+			->limit ( 1 )
+			->execute ( array (), Doctrine::HYDRATE_ARRAY );
+	}
+	
+	
 	
 	/**
 	 * isReseller
