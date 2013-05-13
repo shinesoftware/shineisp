@@ -1,0 +1,21 @@
+CompanyTypes:
+  CompanyTypes_1:
+    name: S.p.A.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_2:
+    name: S.r.l.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_3:
+    name: s.n.c.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_4:
+    name: s.a.s.
+    legalform_id: '2'
+    active: '1'
+  CompanyTypes_5:
+    name: s.c.a.r.l.
+    legalform_id: '2'
+    active: '1'

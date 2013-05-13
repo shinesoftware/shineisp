@@ -1,0 +1,129 @@
+ProductsTranches:
+  ProductsTranches_1:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '20.00'
+    Products: Products_1
+    BillingCycle: BillingCycle_1
+    measurement: month(s)
+    selected: false
+  ProductsTranches_2:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '10.00'
+    Products: Products_1
+    BillingCycle: BillingCycle_2
+    measurement: month(s)
+    selected: false
+  ProductsTranches_3:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '7.00'
+    Products: Products_1
+    BillingCycle: BillingCycle_3
+    measurement: month(s)
+    selected: true
+  ProductsTranches_4:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '5.00'
+    Products: Products_1
+    BillingCycle: BillingCycle_4
+    measurement: month(s)
+    selected: null
+  ProductsTranches_5:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '30.00'
+    Products: Products_2
+    BillingCycle: BillingCycle_1
+    measurement: month(s)
+    selected: null
+  ProductsTranches_6:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '25.00'
+    Products: Products_2
+    BillingCycle: BillingCycle_2
+    measurement: month(s)
+    selected: null
+  ProductsTranches_7:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '20.00'
+    Products: Products_2
+    BillingCycle: BillingCycle_3
+    measurement: month(s)
+    selected: null
+  ProductsTranches_8:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '15.00'
+    Products: Products_2
+    BillingCycle: BillingCycle_4
+    measurement: month(s)
+    selected: null
+  ProductsTranches_9:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '50.00'
+    Products: Products_3
+    BillingCycle: BillingCycle_1
+    measurement: month(s)
+    selected: null
+  ProductsTranches_10:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '48.00'
+    Products: Products_3
+    BillingCycle: BillingCycle_2
+    measurement: month(s)
+    selected: null
+  ProductsTranches_11:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '40.00'
+    Products: Products_3
+    BillingCycle: BillingCycle_3
+    measurement: month(s)
+    selected: null
+  ProductsTranches_12:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '38.00'
+    Products: Products_3
+    BillingCycle: BillingCycle_4
+    measurement: month(s)
+    selected: null
+  ProductsTranches_13:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '70.00'
+    Products: Products_4
+    BillingCycle: BillingCycle_1
+    measurement: month(s)
+    selected: null
+  ProductsTranches_14:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '65.00'
+    Products: Products_4
+    BillingCycle: BillingCycle_2
+    measurement: month(s)
+    selected: null
+  ProductsTranches_15:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '60.00'
+    Products: Products_4
+    BillingCycle: BillingCycle_3
+    measurement: month(s)
+    selected: null
+  ProductsTranches_16:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '55.00'
+    Products: Products_4
+    BillingCycle: BillingCycle_4
+    measurement: month(s)
+    selected: null

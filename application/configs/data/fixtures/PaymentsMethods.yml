@@ -1,0 +1,11 @@
+PaymentsMethods:
+  PaymentsMethods_1:
+    method: 'Credit Card'
+  PaymentsMethods_2:
+    method: 'Bank Transfer'
+  PaymentsMethods_3:
+    method: 'Bank Transfer: RI.BA.'
+  PaymentsMethods_4:
+    method: 'Debit Card'
+  PaymentsMethods_5:
+    method: 'Money (Banknote)'

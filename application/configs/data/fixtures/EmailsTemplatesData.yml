@@ -1,0 +1,17 @@
+EmailsTemplatesData:
+  EmailsTemplatesData_1:
+    EmailsTemplates: EmailsTemplates_1
+    language_id: '3'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Link Reset Password'
+    html: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: [link]<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+    text: ''
+  EmailsTemplatesData_2:
+    EmailsTemplates: EmailsTemplates_2
+    language_id: '3'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Nuova Password'
+    html: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: [password]<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+    text: ''

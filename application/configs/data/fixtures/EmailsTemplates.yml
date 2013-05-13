@@ -1,0 +1,17 @@
+EmailsTemplates:
+  EmailsTemplates_1:
+    type: general
+    code: password_reset_link
+    name: password_reset_link
+    cc: ''
+    bcc: ''
+    plaintext: false
+    active: true
+  EmailsTemplates_2:
+    type: general
+    code: password_new
+    name: password_new
+    cc: ''
+    bcc: ''
+    plaintext: false
+    active: true
