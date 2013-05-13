@@ -142,9 +142,15 @@ class IndexController extends Zend_Controller_Action {
 		if ($request->isPost ()) {
 			$email    = $request->getParam ( 'account' );
 			$customer = Customers::findbyemail ( $email, "email, password", true );
-			if (count ( $customer ) > 0) {
+
+			if ( isset($customer [0]) && is_numeric($customer[0]['customer_id']) ) {
+				// generate key
+				$resetKey = Customers::generateResetPasswordKey($customer[0]['customer_id']);
+			}
+			
+			if ( count($customer) > 0 && !empty($resetKey) ) {
 				Shineisp_Commons_Utilities::sendEmailTemplate($customer [0] ['email'], 'password_reset_link', array(
-					 'link'       => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . md5 ( $customer [0] ['email'] )
+					 'link'       => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . $resetKey
 					,':shineisp:' => $customer
 				));		
 				
@@ -160,17 +166,21 @@ class IndexController extends Zend_Controller_Action {
 	
 	public function resetpwdAction() {
 		$request    = $this->getRequest ();
-		$emailmd5   = $request->getParam ( 'id' );
+		$resetKey   = $request->getParam ( 'id' );
 		$registry   = Zend_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
-		$customer   = Customers::getCustomerbyEmailMd5 ( $emailmd5 );
+		$customer   = Customers::getCustomerByResetKey ( $resetKey );
 		
 		if ($customer) {
 			$newPwd = Shineisp_Commons_Utilities::GenerateRandomPassword();
 			
 			try {
 				// Update the record
-				Customers::setCustomerPassword ( $emailmd5, $newPwd );
+				Customers::setCustomerPassword ( $customer[0]['customer_id'], $newPwd );
+				
+				// Force expire of reset link
+				Customers::deleteResetPasswordKey($customer[0]['customer_id']);
+				
 			} catch ( Exception $e ) {
 				echo $e->getMessage ();
 				die ();

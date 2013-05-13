@@ -19,7 +19,6 @@ abstract class Shineisp_Api_Shineisp_Controller_Action extends Zend_Controller_A
         $server->registerFaultException ( array ('Shineisp_Api_Shineisp_Exceptions' ) );
         // handle request
         $server->handle ();
-        exit();
     }
     
     public function wsdl( $classname ) {
