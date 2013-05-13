@@ -1,0 +1,407 @@
+Navigation:
+  Navigation_1:
+    label: Dashboard
+    description: 'Click here to see the ISP dashboard.'
+    uri: /admin/
+    parent_id: '0'
+    module: admin
+    controller: index
+  Navigation_2:
+    label: 'Public Site'
+    description: 'Click here to see the public web site.'
+    uri: /
+    parent_id: '1'
+    module: admin
+    controller: index
+  Navigation_3:
+    label: Customers
+    description: ''
+    uri: /admin/customers/list
+    parent_id: '0'
+    module: admin
+    controller: customers
+  Navigation_4:
+    label: Support
+    description: ''
+    uri: /admin/tickets/list
+    parent_id: '0'
+    module: admin
+    controller: tickets
+  Navigation_5:
+    label: Tickets
+    description: ''
+    uri: /admin/tickets/list
+    parent_id: '4'
+    module: admin
+    controller: tickets
+  Navigation_6:
+    label: Wiki
+    description: ''
+    uri: /admin/wiki/
+    parent_id: '4'
+    module: admin
+    controller: wiki
+  Navigation_7:
+    label: Domains
+    description: ''
+    uri: /admin/domains/list
+    parent_id: '3'
+    module: admin
+    controller: domains
+  Navigation_8:
+    label: Products
+    description: 'Here you can manage the products.'
+    uri: /admin/products
+    parent_id: '0'
+    module: admin
+    controller: products
+  Navigation_9:
+    label: 'Product Categories'
+    description: 'Manage the product categories.'
+    uri: /admin/productscategories
+    parent_id: '8'
+    module: admin
+    controller: productscategories
+  Navigation_10:
+    label: 'Attributes Groups'
+    description: ''
+    uri: /admin/productsattributesgroups/
+    parent_id: '8'
+    module: admin
+    controller: productsattributesgr
+  Navigation_11:
+    label: Services
+    description: ''
+    uri: /admin/services
+    parent_id: '3'
+    module: admin
+    controller: services
+  Navigation_12:
+    label: Settings
+    description: 'Click here to set your own ISP.'
+    uri: /admin/settings
+    parent_id: '0'
+    module: admin
+    controller: settings
+  Navigation_13:
+    label: Registrars
+    description: 'Manage all the registrars credentials.'
+    uri: /admin/registrars
+    parent_id: '12'
+    module: admin
+    controller: registrars
+  Navigation_14:
+    label: Profile
+    description: 'Manage the ISP profile'
+    uri: /admin/isp/account
+    parent_id: '12'
+    module: admin
+    controller: isp
+  Navigation_15:
+    label: Servers
+    description: 'Create your own server infrastructure'
+    uri: /admin/servers
+    parent_id: '12'
+    module: admin
+    controller: servers
+  Navigation_16:
+    label: Sales
+    description: ''
+    uri: /admin/orders/list
+    parent_id: '0'
+    module: admin
+    controller: orders
+  Navigation_17:
+    label: Invoices
+    description: ''
+    uri: /admin/invoices/list
+    parent_id: '16'
+    module: admin
+    controller: invoices
+  Navigation_18:
+    label: Orders
+    description: ''
+    uri: /admin/orders/list
+    parent_id: '16'
+    module: admin
+    controller: orders
+  Navigation_19:
+    label: Cms
+    description: ''
+    uri: /admin/cmspages/
+    parent_id: '0'
+    module: admin
+    controller: cmspages
+  Navigation_20:
+    label: 'Cms Pages'
+    description: ''
+    uri: /admin/cmspages/
+    parent_id: '19'
+    module: admin
+    controller: cmspages
+  Navigation_21:
+    label: 'Cms Blocks'
+    description: ''
+    uri: /admin/cmsblocks/
+    parent_id: '19'
+    module: admin
+    controller: cmsblocks
+  Navigation_22:
+    label: Homepage
+    description: 'Here you can see all the options available.'
+    uri: /
+    parent_id: '0'
+    module: default
+    controller: index
+  Navigation_23:
+    label: Domains
+    description: 'Here you can manage your own domains.'
+    uri: /domains
+    parent_id: '0'
+    module: default
+    controller: domains
+  Navigation_24:
+    label: Services
+    description: 'Here you can manage your own services.'
+    uri: /services
+    parent_id: '0'
+    module: default
+    controller: services
+  Navigation_25:
+    label: Orders
+    description: 'Here you can manage your own orders.'
+    uri: /orders
+    parent_id: '0'
+    module: default
+    controller: orders
+  Navigation_26:
+    label: Tickets
+    description: 'Here you can add and reply your help requests.'
+    uri: /tickets
+    parent_id: '0'
+    module: default
+    controller: tickets
+  Navigation_27:
+    label: Help
+    description: 'Do you need help?'
+    uri: /wiki
+    parent_id: '0'
+    module: default
+    controller: wiki
+  Navigation_28:
+    label: Newsletter
+    description: ''
+    uri: /admin/newsletter
+    parent_id: '0'
+    module: admin
+    controller: newsletter
+  Navigation_29:
+    label: 'Newsletter Messages'
+    description: ''
+    uri: /admin/newsletter
+    parent_id: '28'
+    module: admin
+    controller: newsletter
+  Navigation_30:
+    label: Subscribers
+    description: ''
+    uri: /admin/subscribers
+    parent_id: '28'
+    module: admin
+    controller: subscribers
+  Navigation_31:
+    label: Reviews
+    description: ''
+    uri: /admin/reviews
+    parent_id: '8'
+    module: admin
+    controller: reviews
+  Navigation_32:
+    label: Reports
+    description: ''
+    uri: /admin/reports
+    parent_id: '0'
+    module: admin
+    controller: reports
+  Navigation_33:
+    label: Banks
+    description: ''
+    uri: /admin/banks
+    parent_id: '12'
+    module: admin
+    controller: banks
+  Navigation_34:
+    label: Attributes
+    description: ''
+    uri: /admin/productsattributes/
+    parent_id: '8'
+    module: admin
+    controller: productsattributes
+  Navigation_35:
+    label: Products
+    description: 'Manage the products.'
+    uri: /admin/products
+    parent_id: '8'
+    module: admin
+    controller: products
+  Navigation_36:
+    label: 'Profit of the Year'
+    description: ''
+    uri: /admin/reports/show/type/profitofyear
+    parent_id: '32'
+    module: admin
+    controller: reports
+  Navigation_37:
+    label: 'Purchase Invoices'
+    description: ''
+    uri: /admin/purchases/list
+    parent_id: '16'
+    module: admin
+    controller: purchases
+  Navigation_38:
+    label: 'Domains Statistics'
+    description: ''
+    uri: /admin/reports/show/type/domainstats
+    parent_id: '32'
+    module: admin
+    controller: reports
+  Navigation_39:
+    label: 'Domains Tasks'
+    description: ''
+    uri: /admin/domainstasks
+    parent_id: '32'
+    module: admin
+    controller: reports
+  Navigation_40:
+    label: 'Domains per Client'
+    description: ''
+    uri: /admin/reports/show/type/tldsummaryowner
+    parent_id: '32'
+    module: admin
+    controller: reports
+  Navigation_41:
+    label: 'Domains per Month'
+    description: ''
+    uri: /admin/reports/show/type/tldsummarypermonth
+    parent_id: '32'
+    module: admin
+    controller: reports
+  Navigation_42:
+    label: 'Services Summary'
+    description: ''
+    uri: /admin/reports/show/type/servicesummary
+    parent_id: '32'
+    module: admin
+    controller: reports
+  Navigation_43:
+    label: 'Url Rewrites'
+    description: ''
+    uri: /admin/urlrewrite
+    parent_id: '12'
+    module: admin
+    controller: urlrewrite
+  Navigation_44:
+    label: TLDs
+    description: ''
+    uri: /admin/domainstlds
+    parent_id: '8'
+    module: admin
+    controller: domainstlds
+  Navigation_45:
+    label: Taxes
+    description: ''
+    uri: /admin/taxes
+    parent_id: '12'
+    module: admin
+    controller: taxes
+  Navigation_46:
+    label: Customers
+    description: ''
+    uri: /admin/customers/list
+    parent_id: '3'
+    module: admin
+    controller: customers
+  Navigation_47:
+    label: 'Credit Notes'
+    description: ''
+    uri: /admin/creditnotes
+    parent_id: '16'
+    module: admin
+    controller: creditnotes
+  Navigation_48:
+    label: Languages
+    description: ''
+    uri: /admin/languages
+    parent_id: '12'
+    module: admin
+    controller: languages
+  Navigation_49:
+    label: 'Ticket Categories'
+    description: ''
+    uri: /admin/ticketscategories
+    parent_id: '12'
+    module: admin
+    controller: ticketscategories
+  Navigation_50:
+    label: 'Wiki Categories'
+    description: ''
+    uri: /admin/wikicategories
+    parent_id: '12'
+    module: admin
+    controller: wikicategories
+  Navigation_51:
+    label: 'Customers Groups'
+    description: ''
+    uri: /admin/customersgroups
+    parent_id: '3'
+    module: admin
+    controller: customersgroups
+  Navigation_52:
+    label: 'Legal forms'
+    description: ''
+    uri: /admin/legalforms
+    parent_id: '12'
+    module: admin
+    controller: legalforms
+  Navigation_53:
+    label: 'Company types'
+    description: ''
+    uri: /admin/companytypes
+    parent_id: '12'
+    module: admin
+    controller: companytypes
+  Navigation_54:
+    label: Notes
+    description: ''
+    uri: /admin/notes
+    parent_id: '1'
+    module: admin
+    controller: notes
+  Navigation_55:
+    label: 'Panels Actions'
+    description: ''
+    uri: /admin/panelsactions
+    parent_id: '32'
+    module: admin
+    controller: notes
+  Navigation_56:
+    label: 'Payment Transactions'
+    description: ''
+    uri: /admin/payments
+    parent_id: '16'
+    module: admin
+    controller: payments
+  Navigation_57:
+    label: 'Server Groups'
+    description: ''
+    uri: /admin/serversgroups
+    parent_id: '12'
+    module: admin
+    controller: serversgroups
+  Navigation_58:
+    label: 'Email Templates'
+    description: ''
+    uri: /admin/emailstemplates
+    parent_id: '12'
+    module: admin
+    controller: emailstemplates

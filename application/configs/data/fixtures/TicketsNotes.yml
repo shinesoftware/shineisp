@@ -1,0 +1,7 @@
+TicketsNotes:
+  TicketsNotes_1:
+    note: "<p>Salve,</p>\r\n<p>ha inserito correttamente tutte le impostazioni?</p>\r\n<p>Riprovi adesso, abbiamo ricontrollato e sembra tutto impostato correttamente.</p>\r\n<p>Cordialmente</p>"
+    admin: true
+    Tickets: Tickets_1
+    date_post: '2012-02-24 17:51:58'
+    vote: null

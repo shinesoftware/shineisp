@@ -1,0 +1,5 @@
+Panels:
+  Panels_1:
+    name: IspConfig
+    Isp: Isp_1
+    active: true

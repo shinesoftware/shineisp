@@ -1,0 +1,13 @@
+ContactsTypes:
+  ContactsTypes_1:
+    name: Telephone
+    enabled: '1'
+  ContactsTypes_2:
+    name: Skype
+    enabled: '1'
+  ContactsTypes_3:
+    name: Email
+    enabled: '1'
+  ContactsTypes_4:
+    name: Mobile
+    enabled: '1'

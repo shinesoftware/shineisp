@@ -1,0 +1,27 @@
+AdminUser:
+  AdminUser_1:
+    firstname: Giuseppe
+    lastname: Bucchieri
+    email: info@shineisp.com
+    password: $1$1Rs3gpDt$1m3LVsFgrvszkM9Nw4Nty0
+    last_password_change: null
+    force_password_change: '0'
+    created: '2012-08-14 16:54:00'
+    changed: '2012-08-14 16:56:00'
+    lognum: '1'
+    AdminRoles: AdminRoles_1
+    config: null
+    Isp: Isp_1
+  AdminUser_2:
+    firstname: Luisa
+    lastname: Lucci
+    email: info@shineisp.it
+    password: 25f9e794323b453885f5181f1b624d0b
+    last_password_change: null
+    force_password_change: '0'
+    created: '2012-08-23 16:54:00'
+    changed: '2012-08-23 16:56:00'
+    lognum: '0'
+    AdminRoles: AdminRoles_2
+    config: null
+    Isp: Isp_1
