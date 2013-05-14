@@ -7,7 +7,12 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
         $form = new Api_Form_CustomerForm ( array ('action' => '#', 'method' => 'post' ) );
         
         if ($form->isValid ( $params ) ) {
-            $params['status_id']    = 11;
+            if( $params['status'] == false ) {
+                $params['status']   = 'Disabled';
+            } else {
+                $params['status']   = 'Active';
+            }
+
             return Customers::Create($params);
         } else {
             $errors     = $form->getMessages();

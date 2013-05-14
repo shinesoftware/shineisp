@@ -35,15 +35,6 @@ class Api_Form_CustomerForm extends Zend_Form
             'class'        => 'text-input medium-input'
         ));
         
-        $this->addElement('text', 'birthplace', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Birthplace',
-            'required'   => true,
-            'description'      => 'Write here the birthplace.',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
-        ));
-        
         $this->addElement('select', 'company_type_id', array(
         'label' => 'Company Type',
         'decorators' => array('Composite'),
@@ -78,7 +69,6 @@ class Api_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthplace', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Birthplace',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -86,7 +76,6 @@ class Api_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthdistrict', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Birth District',
             'decorators' => array('Composite'),
             'class'      => 'text-input medium-input',
@@ -95,7 +84,6 @@ class Api_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthcountry', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Country of Birth',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -103,7 +91,6 @@ class Api_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthnationality', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Birth Nationality',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
