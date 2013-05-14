@@ -98,6 +98,8 @@ class Settings extends BaseSettings {
 			$conn->execute('SHOW TABLES'); # Lazy loading of the connection. If I execute a simple command the connection to the database starts.
 			$conn->setAttribute ( Doctrine::ATTR_USE_NATIVE_ENUM, true );
 			$conn->setCharset ( 'UTF8' );
+			$dbh = $conn->getDbh();
+			$models = Doctrine::getLoadedModels();
 
 			// Set the current connection
 			$manager = Doctrine_Manager::getInstance()->setCurrentConnection('doctrine');
@@ -112,8 +114,11 @@ class Settings extends BaseSettings {
 				}
 
 				// Clean the database
-				Doctrine_Core::dropDatabases();
-				Doctrine_Core::createDatabases();
+				$conn->execute('SET FOREIGN_KEY_CHECKS = 0');
+				foreach ($models as $model) {
+					$tablename = Doctrine::getTable($model)->getTableName();
+					$dbh->query("DROP TABLE $tablename");
+				}
 				
 				// Create the migration_version table
 				Doctrine_Manager::getInstance()->getCurrentConnection()->execute('DROP TABLE IF EXISTS `migration_version`;CREATE TABLE `migration_version` (`version` int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;INSERT INTO `migration_version` VALUES ('.$latestversion.')');
@@ -126,8 +131,13 @@ class Settings extends BaseSettings {
 				
 				// Sample data
 				if($installsampledata){
-					Doctrine_Core::loadData(APPLICATION_PATH . '/configs/data/fixtures/samples/', true);
+					$import = new Doctrine_Data_Import(APPLICATION_PATH . '/configs/data/fixtures/');
+					$import->setFormat('yml');
+					$import->setModels($models);
+					$import->doImport(true);
 				}
+				
+				$conn->execute('SET FOREIGN_KEY_CHECKS = 1');
 				
 				// Update the version in the config.xml file previously created
 				Settings::saveConfig($dbconfig, $latestversion);
