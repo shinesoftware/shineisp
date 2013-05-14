@@ -3,7 +3,11 @@
 class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
-		$locale = new Zend_Locale(Zend_Locale::BROWSER);
+		try{
+			$locale = new Zend_Locale(Zend_Locale::BROWSER);
+		}catch (Exception $e){
+			$locale = new Zend_Locale("en_GB");
+		}
 		
 		$registry = Zend_Registry::getInstance();
 		
@@ -46,6 +50,9 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		}else{
 			$ns->langid = 1;
 		}
+		
+		Shineisp_Commons_Utilities::log("System: Locale set: " . $locale);
+		Shineisp_Commons_Utilities::log("System: Language selected: " . $lang);
 		
 		$ns->lang = $lang;
 	}
