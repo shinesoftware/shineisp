@@ -92,6 +92,11 @@ class Customers extends BaseCustomers {
 	public static function Create($data) {
 		$customer = new Customers ( );
 		
+		$isDisabled = false;
+		
+		// By default, welcome mail is sent
+		$data['welcome_mail'] = isset($data['welcome_mail']) ? intval($data['welcome_mail']) : true;
+		
 		// Customer's parameters.
 		$customer->company = !empty($data ['company']) ? $data ['company'] : null;
 		$customer->firstname = !empty($data ['firstname']) ? $data ['firstname'] : null;
@@ -99,7 +104,6 @@ class Customers extends BaseCustomers {
 		$customer->sex = !empty($data ['sex']) ? $data ['sex'] : null;
 		$customer->email = $data ['email'] ? $data ['email'] : null;
 		$customer->password = crypt($data ['password']);
-		
 		$customer->birthplace = !empty($data ['birthplace']) ? $data ['birthplace'] : null;
 		$customer->birthdate = !empty($data ['birthdate']) ? Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] ) : null;
 		$customer->birthdistrict = !empty($data ['birthdistrict']) ? $data ['birthdistrict'] : null;
@@ -108,7 +112,15 @@ class Customers extends BaseCustomers {
 		$customer->note = ! empty ( $data ['note'] ) ? $data ['note'] : Null;
 		$customer->vat = ! empty ( $data ['vat'] ) ? $data ['vat'] : Null;
 		$customer->taxpayernumber = ! empty ( $data ['taxpayernumber'] ) ? $data ['taxpayernumber'] : Null;
-		$customer->status_id = ! empty ( $data ['status_id'] ) ? $data ['status_id'] : Statuses::id('Active', 'Customers'); 
+		
+		// Let's try to get status_id from status
+		if ( isset($data['status']) && !empty($data['status']) ) {
+			$customer->status_id = Statuses::id($data['status'], 'Customers');
+			$isDisabled = (isset($data['status']) && strtolower($data['status']) == 'disabled') ? true : false;
+		} else {
+			$customer->status_id = ! empty ( $data ['status_id'] ) ? $data ['status_id'] : Statuses::id('Active', 'Customers');
+		}		
+		 
 		$customer->legalform_id = ! empty ( $data ['legalform'] ) ? $data ['legalform'] : Null;
 		$customer->type_id = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
 		$customer->parent_id = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
@@ -117,17 +129,19 @@ class Customers extends BaseCustomers {
 		$customer->created_at = date ( 'Y-m-d H:i:s' );
 		$customer->updated_at = date ( 'Y-m-d H:i:s' );
 		
+		// customer disabled? Disable its password
+		if ( $isDisabled ) {
+			$customer->password = '!'.$customer->password;
+		}
+		
 		// Save the data
 		$customer->save ();
-		
-		// Add the customer email in the newsletter list
-		NewslettersSubscribers::customer_optIn($customer['customer_id']);
 		
 		if(!empty($data ['contact'])){
 			$customer->Contacts [0]->contact = ! empty ( $data ['contact'] ) ? $data ['contact'] : Null;
 			$customer->Contacts [0]->type_id = ! empty ( $data ['contacttypes'] ) ? $data ['contacttypes'] : Null;
 			$customer->Contacts [0]->base = 1;
-		  $customer->save ();
+		  	$customer->save ();
 		}
 		
 		if(!empty($data ['address'])){
@@ -141,8 +155,15 @@ class Customers extends BaseCustomers {
 		
 		$customerID = $customer->getIncremented ();
 		
-		// Send the welcome email
-		self::welcome_mail($customerID, $data ['password']);
+		if ( !$isDisabled ) {
+			// Add the customer email in the newsletter list
+			NewslettersSubscribers::customer_optIn($customer['customer_id']);
+		}
+		
+		if ( $data['welcome_mail'] == 1 && $isDisabled = false ) {
+			// Send the welcome email
+			self::welcome_mail($customerID, $data ['password']);
+		}
 		
 		return $customerID;
 	}
