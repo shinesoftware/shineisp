@@ -677,7 +677,7 @@ Customers:
       type: string(100)
       notnull: false
     password:
-      type: string(100)
+      type: string(300)
       notnull: true
     resetpwd_key:
       type: string(50)
