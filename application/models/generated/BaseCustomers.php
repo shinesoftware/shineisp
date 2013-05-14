@@ -30,6 +30,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property integer $legalform_id
  * @property string $note
  * @property integer $status_id
+ * @property integer $isp_id
  * @property integer $group_id
  * @property string $language
  * @property boolean $issubscriber
@@ -38,6 +39,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property boolean $taxfree
  * @property boolean $isreseller
  * @property boolean $ignore_latefee
+ * @property Isp $Isp
  * @property CustomersGroups $CustomersGroups
  * @property CompanyTypes $CompanyTypes
  * @property Legalforms $Legalforms
@@ -103,10 +105,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'notnull' => false,
              'length' => '100',
              ));
-        $this->hasColumn('password', 'string', 100, array(
+        $this->hasColumn('password', 'string', 300, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '100',
+             'length' => '300',
              ));
         $this->hasColumn('resetpwd_key', 'string', 50, array(
              'type' => 'string',
@@ -187,6 +189,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'notnull' => true,
              'length' => '4',
              ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
         $this->hasColumn('group_id', 'integer', 4, array(
              'type' => 'integer',
              'default' => '1',
@@ -230,6 +236,10 @@ abstract class BaseCustomers extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Isp', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
+
         $this->hasOne('CustomersGroups', array(
              'local' => 'group_id',
              'foreign' => 'group_id'));
