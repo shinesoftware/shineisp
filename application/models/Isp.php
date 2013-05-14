@@ -77,6 +77,35 @@ class Isp extends BaseIsp {
 	}
 	
 	/**
+	 * return the logged ISP
+	 * 
+	 * @return array
+	 */
+	public static function getLogged() {
+		$auth = Zend_Auth::getInstance()->getIdentity();
+		
+		if ( !is_array($auth) || empty($auth) || !isset($auth['isp_id']) || !intval($auth['isp_id']) > 0 ) {
+			return false;
+		}
+		
+		$isp_id = intval($auth['isp_id']);
+		
+		return self::getActiveIspById($isp_id);
+	}	 
+	
+	/**
+	 * return the logged ISP ID
+	 * 
+	 * @return integer isp_id
+	 */
+	public static function getLoggedId() {
+		$isp = self::getLogged();
+		return (is_array($isp) && isset($isp['isp_id'])) ? intval($isp['isp_id']) : 0;
+	}	 
+	
+	 
+	
+	/**
 	 * get the active ISP Control Panel module var
 	 * 
 	 * 
