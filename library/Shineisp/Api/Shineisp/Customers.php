@@ -8,14 +8,7 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
         
         if ($form->isValid ( $params ) ) {
             $params['status_id']    = 11;
-            $result = Customers::saveAll($params, null);
-            if( $result == false ) {
-                throw new Shineisp_Api_Shineisp_Exceptions( 400005 );
-                exit();
-            }
-            
-            return $result;
-            
+            return Customers::Create($params);
         } else {
             $errors     = $form->getMessages();
             $message    = "";
