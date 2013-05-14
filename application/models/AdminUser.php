@@ -304,7 +304,6 @@ class AdminUser extends BaseAdminUser
 	 * @param string $email
 	 */
 	public static function updateLog($email){
-		
 		return Doctrine_Query::create ()->update ( 'AdminUser' )
 										->set ( 'lognum', 'lognum + 1' )
 										->where ( 'email = ?', $email )
