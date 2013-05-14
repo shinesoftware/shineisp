@@ -677,7 +677,7 @@ Customers:
       type: string(100)
       notnull: false
     password:
-      type: string(100)
+      type: string(300)
       notnull: true
     resetpwd_key:
       type: string(50)
@@ -726,6 +726,8 @@ Customers:
     status_id:
       type: integer(4)
       notnull: true
+    isp_id:
+      type: integer(4)
     group_id:
       type: integer(4)
       default: '1'
@@ -747,6 +749,9 @@ Customers:
       type: boolean(25)
       default: 0
   relations:
+    Isp:
+      local: isp_id
+      foreign: isp_id
     CustomersGroups:
       local: group_id
       foreign: group_id

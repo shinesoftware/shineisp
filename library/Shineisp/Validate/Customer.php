@@ -9,7 +9,6 @@ class Shineisp_Validate_Customer extends Zend_Validate_Abstract {
 	public function isValid($value, $context = null) {
 		
 		if ($context ['legalform'] == 1) { // INDIVIDUAL
-			
 			// If the customer is a individual it must fill the taxpayernumber
 			if( empty( $context['taxpayernumber']) ) {
 			    $this->_error( self::ISNOTINDIVIDUAL );
@@ -30,7 +29,6 @@ class Shineisp_Validate_Customer extends Zend_Validate_Abstract {
                 $this->_error ( self::ISASSOCIATION);
                 return false;
             }
-            
 		}
 		
 		return true;

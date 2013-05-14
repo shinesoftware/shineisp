@@ -18,19 +18,21 @@ abstract class Shineisp_Api_Shineisp_Abstract_Action {
         switch ($result->getCode()) {
             case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
                 throw new Shineisp_Api_Shineisp_Exceptions( 401001 );
-                exit();
+                break;
             case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
                 /** do stuff for invalid credential **/
                 throw new Shineisp_Api_Shineisp_Exceptions( 401002 );
-                exit();
+                break;
             case Zend_Auth_Result::SUCCESS:
                 return true; 
             case Zend_Auth_Result::FAILURE:
             default:
                 /** do stuff for other failure **/
                 throw new Shineisp_Api_Shineisp_Exceptions( 401001 );
-                exit();
+                break;
         }
+		
+		die();
     }
 
 }
