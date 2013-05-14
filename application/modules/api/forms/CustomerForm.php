@@ -1,5 +1,5 @@
 <?php
-class Default_Form_CustomerForm extends Zend_Form
+class Api_Form_CustomerForm extends Zend_Form
 {   
 	
     public function init()
@@ -72,7 +72,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => 'Company Name',
             'decorators' => array('Composite'),
-            'description'      => 'Write here your company name.',
+            'description'=> 'Write here your company name.',
             'class'      => 'text-input large-input'
         ));
         
@@ -109,7 +109,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'class'      => 'text-input large-input'
         ));
         
-        $vatValidator = new Shineisp_Validate_Vat();
+        #$vatValidator = new Shineisp_Validate_Vat();
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
             'label'      => 'VAT Number',
@@ -117,11 +117,10 @@ class Default_Form_CustomerForm extends Zend_Form
             'class'      => 'text-input large-input',
             'description'      => 'Write here the VAT code. Eg: IT123456789'
         ));
-        $this->getElement('vat')->addValidator($vatValidator);
+        #$this->getElement('vat')->addValidator($vatValidator);
         
         $this->addElement('text', 'area', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Area',
             'decorators' => array('Composite'),
             'class'      => 'text-input medium-input',
@@ -131,7 +130,6 @@ class Default_Form_CustomerForm extends Zend_Form
         $fiscalcodeValidator = new Shineisp_Validate_Fiscalcode();
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Tax payer number',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
