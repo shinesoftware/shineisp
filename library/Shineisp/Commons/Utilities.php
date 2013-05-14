@@ -646,7 +646,7 @@ class Shineisp_Commons_Utilities {
 					unlink ( $file );
 			}
 			if (is_dir ( $dir ))
-				rmdir ( $dir );
+				@rmdir ( $dir );
 		}
 	}
 	

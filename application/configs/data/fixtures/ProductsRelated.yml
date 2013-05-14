@@ -1,0 +1,22 @@
+ProductsRelated:
+  ProductsRelated_1:
+    product_id: '5'
+    Products: Products_1
+  ProductsRelated_2:
+    product_id: '5'
+    Products: Products_3
+  ProductsRelated_3:
+    product_id: '5'
+    Products: Products_2
+  ProductsRelated_4:
+    product_id: '1'
+    Products: Products_2
+  ProductsRelated_5:
+    product_id: '2'
+    Products: Products_1
+  ProductsRelated_6:
+    product_id: '3'
+    Products: Products_1
+  ProductsRelated_7:
+    product_id: '3'
+    Products: Products_2

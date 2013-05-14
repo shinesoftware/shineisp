@@ -1,0 +1,57 @@
+Orders:
+  Orders_1:
+    Customers: Customers_2
+    external_id: null
+    Isp: Isp_1
+    order_date: '2012-02-27'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_20
+    total: '29.90'
+    cost: '5.99'
+    vat: '6.28'
+    grandtotal: '36.18'
+    expiring_date: null
+    note: '<p>Thanks!</p>'
+  Orders_2:
+    Customers: Customers_1
+    external_id: null
+    Isp: Isp_1
+    order_date: '2012-02-23'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_20
+    total: '93.90'
+    cost: '5.99'
+    vat: '19.72'
+    grandtotal: '113.62'
+    expiring_date: null
+    note: '<p>Grazie del supporto!</p>'
+  Orders_3:
+    Customers: Customers_2
+    external_id: null
+    Isp: Isp_1
+    order_date: '2012-03-18'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_19
+    total: '9.90'
+    cost: '0.00'
+    vat: '2.08'
+    grandtotal: '11.98'
+    expiring_date: '2012-04-17'
+    note: null
+  Orders_4:
+    Customers: Customers_2
+    external_id: null
+    Isp: Isp_1
+    order_date: '2012-03-20'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_9
+    total: '9.90'
+    cost: '5.99'
+    vat: '2.08'
+    grandtotal: '11.98'
+    expiring_date: null
+    note: ''

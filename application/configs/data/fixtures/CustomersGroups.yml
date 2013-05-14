@@ -1,0 +1,9 @@
+CustomersGroups:
+  CustomersGroups_1:
+    name: 'Not logged in'
+  CustomersGroups_2:
+    name: General
+  CustomersGroups_3:
+    name: Reseller
+  CustomersGroups_4:
+    name: Wholesale

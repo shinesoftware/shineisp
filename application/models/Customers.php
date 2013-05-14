@@ -477,7 +477,8 @@ class Customers extends BaseCustomers {
 		
 		return Doctrine_Query::create ()->from ( 'Customers c' )
 			->where ('resetpwd_key = ?', $resetKey)
-			->andWhere('DATEDIFF(resetpwd_expire, NOW()) > 0')
+			->andWhere('DATEDIFF(resetpwd_expire, NOW()) >= 0')
+			->andWhere('TIMEDIFF(resetpwd_expire, NOW()) > 0')
 			->limit ( 1 )
 			->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}

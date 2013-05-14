@@ -1,0 +1,19 @@
+Fastlinks:
+  Fastlinks_1:
+    controller: orders
+    action: edit
+    params: '{"id":"1"}'
+    code: tukoyage
+    sqltable: orders
+    id: '1'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_2:
+    controller: orders
+    action: edit
+    params: '{"id":"1"}'
+    code: ziporege
+    sqltable: orders
+    id: '1'
+    Customers: Customers_1
+    visits: '0'
