@@ -3,7 +3,6 @@
 class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
-		$locale = new Zend_Locale(Zend_Locale::BROWSER);
 		
 		$registry = Zend_Registry::getInstance();
 		
@@ -19,9 +18,28 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		}else{
 			$ns = new Zend_Session_Namespace ( 'Default' );
 		}
+		#$ns->unsetAll();
+		
+		try{
+			$locale = new Zend_Locale(Zend_Locale::BROWSER);
+			if(!empty($ns->lang)){
+				$locale = new Zend_Locale($ns->lang);
+			}
+				
+			Shineisp_Commons_Utilities::log("System: Get the browser locale: " . $locale);
+		}catch (Exception $e){
+			Shineisp_Commons_Utilities::log("System: " . $e->getMessage());
+			if(!empty($ns->lang)){
+				Shineisp_Commons_Utilities::log("System: Get the session var locale");
+				$locale = new Zend_Locale($ns->lang);
+			}else{
+				$locale = new Zend_Locale("en");
+				Shineisp_Commons_Utilities::log("System: There is not any available locale, set the default one: en_GB");
+			}
+		}
 		
 		// check the user request if it is not set, please get the old prefereces
-		$lang = $request->getParam ( 'lang', $ns->lang );
+		$lang = $request->getParam ( 'lang' );
 		
 		if(empty($lang)){  							// Get the user preference
 			if(strlen($locale) == 2){ 				// Check if the Browser locale is formed with 2 chars
@@ -48,5 +66,9 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		}
 		
 		$ns->lang = $lang;
+		
+		Shineisp_Commons_Utilities::log("System: Locale set: " . $locale);
+		Shineisp_Commons_Utilities::log("System: Language selected: " . $ns->lang);
+		
 	}
 }

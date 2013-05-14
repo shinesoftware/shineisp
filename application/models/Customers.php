@@ -894,12 +894,16 @@ class Customers extends BaseCustomers {
 			if ( $dbUser && isset($dbUser[0]) ) {
 				$dbUser = $dbUser[0];
 				$dbPass = $dbUser['password'];
+				Shineisp_Commons_Utilities::log('Login: ' . $dbUser['lastname'] . ' tries to login with ' . $dbUser['email'] . ' and ' . $password . ' as password.' );
 				
 				if ( strlen($dbPass) > 32 && substr($dbPass,0,1) == '$') {
 					$userPassword = crypt($password, $dbPass);
+					Shineisp_Commons_Utilities::log('Login: this is the hashed password:' . $userPassword);
+					Shineisp_Commons_Utilities::log('Login: this is the database hashed password:' . $dbPass);
 				} else {
 					$isMD5 = true;
 					$userPassword = md5($password);
+					Shineisp_Commons_Utilities::log('Login: this is the MD5 password:' . $userPassword);
 				}
 				
 				if ( $userPassword == $dbPass ) {
@@ -913,9 +917,12 @@ class Customers extends BaseCustomers {
 												 ->limit(1)
 												 ->execute ();					
 					} 
-	
+	                
+	                Shineisp_Commons_Utilities::log('Login: Authorization OK');
 					// Auth OK
 					return $dbUser;				
+				}else{
+				    Shineisp_Commons_Utilities::log('Login: Authorization KO');
 				}				
 			}
 			
