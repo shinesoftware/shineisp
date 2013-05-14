@@ -1,0 +1,73 @@
+CmsBlocksData:
+  CmsBlocksData_1:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_1
+  CmsBlocksData_2:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_2
+  CmsBlocksData_3:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_3
+  CmsBlocksData_4:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_4
+  CmsBlocksData_5:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_5
+  CmsBlocksData_6:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_6
+  CmsBlocksData_7:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_7
+  CmsBlocksData_8:
+    CmsBlocks: CmsBlocks_3
+    Languages: Languages_8
+  CmsBlocksData_9:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_1
+  CmsBlocksData_10:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_2
+  CmsBlocksData_11:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_3
+  CmsBlocksData_12:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_4
+  CmsBlocksData_13:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_5
+  CmsBlocksData_14:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_6
+  CmsBlocksData_15:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_7
+  CmsBlocksData_16:
+    CmsBlocks: CmsBlocks_2
+    Languages: Languages_8
+  CmsBlocksData_17:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_1
+  CmsBlocksData_18:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_2
+  CmsBlocksData_19:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_3
+  CmsBlocksData_20:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_4
+  CmsBlocksData_21:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_5
+  CmsBlocksData_22:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_6
+  CmsBlocksData_23:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_7
+  CmsBlocksData_24:
+    CmsBlocks: CmsBlocks_7
+    Languages: Languages_8

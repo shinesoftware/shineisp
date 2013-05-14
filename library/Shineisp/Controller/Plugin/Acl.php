@@ -21,6 +21,11 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		// if the current user role is not allowed to do something
 		$resource = $this->_module . ":" . $this->_controller;
 		
+		// Exclude the system index controller and the default error controller for a formal ACL check
+		if($resource == "default:error" || $resource == "system:index"){
+			return true;
+		}
+		
 		if (!$this->_acl->isAllowed($this->_currentRole, $resource, "allow")) {
 			if ('guest' == $this->_currentRole) {
 				Shineisp_Commons_Utilities::log("Login: The role '" . $this->_currentRole . "' has not sufficient permissions to access the resource '$resource'. The user has been redirected to the login page.");

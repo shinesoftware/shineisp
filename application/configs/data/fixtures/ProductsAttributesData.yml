@@ -1,0 +1,57 @@
+ProductsAttributesData:
+  ProductsAttributesData_1:
+    ProductsAttributes: ProductsAttributes_1
+    label: Webspace
+    Languages: Languages_1
+    description: 'Web space that the client can use.'
+    prefix: ''
+    suffix: Mb/month
+  ProductsAttributesData_2:
+    ProductsAttributes: ProductsAttributes_2
+    label: Bandwidth
+    Languages: Languages_1
+    description: 'Maximum of the bandwidth per month available'
+    prefix: ''
+    suffix: Mb/month
+  ProductsAttributesData_3:
+    ProductsAttributes: ProductsAttributes_3
+    label: 'Email Accounts'
+    Languages: Languages_1
+    description: 'Emails accounts pop3 and IMAP.'
+    prefix: ''
+    suffix: ''
+  ProductsAttributesData_4:
+    ProductsAttributes: ProductsAttributes_4
+    label: Databases
+    Languages: Languages_1
+    description: 'MySQL databases available'
+    prefix: ''
+    suffix: ''
+  ProductsAttributesData_5:
+    ProductsAttributes: ProductsAttributes_1
+    label: 'Spazio Web'
+    Languages: Languages_2
+    description: 'Spazio web a disposizione del cliente'
+    prefix: ''
+    suffix: ''
+  ProductsAttributesData_6:
+    ProductsAttributes: ProductsAttributes_2
+    label: 'Banda Mensile'
+    Languages: Languages_2
+    description: 'Traffico dati mensile in MB. Il pannello di controllo permetterà la visualizzazione del consumo di banda.'
+    prefix: ''
+    suffix: Mb/mese
+  ProductsAttributesData_7:
+    ProductsAttributes: ProductsAttributes_3
+    label: 'Email Accounts'
+    Languages: Languages_2
+    description: 'Emails accounts pop3 and IMAP.'
+    prefix: ''
+    suffix: ''
+  ProductsAttributesData_8:
+    ProductsAttributes: ProductsAttributes_4
+    label: Databases
+    Languages: Languages_2
+    description: 'Archivi MySQL attivabili'
+    prefix: ''
+    suffix: ''

@@ -1,0 +1,35 @@
+OrdersItems:
+  OrdersItems_1:
+    Orders: Orders_2
+    BillingCycle: BillingCycle_3
+    date_start: '2012-02-23 22:33:15'
+    date_end: '2012-03-06 00:00:00'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '84.00'
+    setupfee: '0.00'
+    Statuses: Statuses_20
+    parameters: '{"emails":"5","trafficdata":"5000","databases":"1","webspace":"1000"}'
+    setup: {  }
+    note: "This is a private note. \r\nThe customer cannot see this note."
+    Products: Products_1
+    parent_detail_id: null
+    description: 'Bronze Blog Hosting Plan'
+  OrdersItems_2:
+    Orders: Orders_1
+    BillingCycle: BillingCycle_1
+    date_start: '2012-03-10 15:37:43'
+    date_end: '2012-04-10 00:00:00'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '20.00'
+    setupfee: '0.00'
+    Statuses: Statuses_20
+    parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
+    setup: {  }
+    note: null
+    Products: Products_1
+    parent_detail_id: null
+    description: 'Piano Hosting Bronzo'

@@ -1,0 +1,19 @@
+Addresses:
+  Addresses_1:
+    address: 'Via Caldera'
+    city: Milano
+    code: '20121'
+    Countries: Countries_82
+    area: MI
+    latitude: null
+    longitude: null
+    Customers: Customers_1
+  Addresses_2:
+    address: 'Via dei Cavalieri Del Santo Sepolcro, 10'
+    city: Trieste
+    code: '20121'
+    Countries: Countries_82
+    area: TS
+    latitude: null
+    longitude: null
+    Customers: Customers_2
