@@ -164,7 +164,7 @@ class Customers extends BaseCustomers {
 			NewslettersSubscribers::customer_optIn($customer['customer_id']);
 		}
 		
-		if ( $data['welcome_mail'] == 1 && $isDisabled = false ) {
+		if ( $data['welcome_mail'] == true && $isDisabled = false ) {
 			// Send the welcome email
 			self::welcome_mail($customerID, $data ['password']);
 		}
