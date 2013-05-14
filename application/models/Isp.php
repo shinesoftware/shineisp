@@ -51,6 +51,7 @@ class Isp extends BaseIsp {
 	 */
 	public static function getActiveIspById($id) {
 		$isp = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'isp_id = ?', $id )->andWhere( 'active = ?', true )->execute (null, Doctrine::HYDRATE_ARRAY);
+
 		return !empty($isp[0]) ? $isp[0] : array();
 	}
 	

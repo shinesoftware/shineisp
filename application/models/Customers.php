@@ -90,6 +90,7 @@ class Customers extends BaseCustomers {
 	 * Create a new customer
 	 */
 	public static function Create($data) {
+		
 		$customer = new Customers ( );
 		
 		$isDisabled = false;
@@ -119,7 +120,7 @@ class Customers extends BaseCustomers {
 			$isDisabled = (isset($data['status']) && strtolower($data['status']) == 'disabled') ? true : false;
 		} else {
 			$customer->status_id = ! empty ( $data ['status_id'] ) ? $data ['status_id'] : Statuses::id('Active', 'Customers');
-		}		
+		}				
 		 
 		$customer->legalform_id = ! empty ( $data ['legalform'] ) ? $data ['legalform'] : Null;
 		$customer->type_id      = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
@@ -128,11 +129,11 @@ class Customers extends BaseCustomers {
 		$customer->language     = ! empty ( $data ['language'] ) ? $data ['language'] : "it_IT";
 		$customer->created_at   = date ( 'Y-m-d H:i:s' );
 		$customer->updated_at   = date ( 'Y-m-d H:i:s' );
-		
+
 		// Try to get logged isp_id
 		// TODO: this should be done better
 		$customer->isp_id = ISP::getLoggedId();
-		
+				
 		// customer disabled? Disable its password
 		if ( $isDisabled ) {
 			$customer->password = '!'.$customer->password;
@@ -575,7 +576,10 @@ class Customers extends BaseCustomers {
 	 * @return Array
 	 */
 	public static function getCustomerbyEmail($email) {
-		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->limit ( 1 );
+		// Filter by isp_id
+		$isp_id = ISP::getLoggedId();
+				
+		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->addWhere('isp_id = ?', $isp_id)->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
 	
