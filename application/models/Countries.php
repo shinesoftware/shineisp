@@ -115,4 +115,22 @@ class Countries extends BaseCountries {
 												, 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'CZ', 'RO', 'SK', 'SI', 'ES', 'SE', 'HU'
 		));
 	}
+    
+    /**
+     * Return true if country is IT
+     */    
+    public static function isITbyId($country_id) {
+        if( ! is_numeric($country_id) ) {
+            throw new Exception('country id paramenter is mandatory');
+        }
+
+        $country      = self::find($country_id);
+        $country_code = $country->code;
+        if( strtoupper($country_code) == 'IT' ) {
+            return true;
+        }
+            
+        return false;
+           
+    }
 }

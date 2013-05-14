@@ -109,7 +109,7 @@ class Api_Form_CustomerForm extends Zend_Form
             'class'      => 'text-input large-input'
         ));
         
-        #$vatValidator = new Shineisp_Validate_Vat();
+        $vatValidator = new Shineisp_Validate_Vat();
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
             'label'      => 'VAT Number',
@@ -117,7 +117,7 @@ class Api_Form_CustomerForm extends Zend_Form
             'class'      => 'text-input large-input',
             'description'      => 'Write here the VAT code. Eg: IT123456789'
         ));
-        #$this->getElement('vat')->addValidator($vatValidator);
+        $this->getElement('vat')->addValidator($vatValidator);
         
         $this->addElement('text', 'area', array(
             'filters'    => array('StringTrim'),
@@ -129,11 +129,11 @@ class Api_Form_CustomerForm extends Zend_Form
         
         $fiscalcodeValidator = new Shineisp_Validate_Fiscalcode();
         $this->addElement('text', 'taxpayernumber', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Tax payer number',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
-            'description'      => 'Write the tax payer number.'
+            'filters'       => array('StringTrim'),
+            'label'         => 'Tax payer number',
+            'decorators'    => array('Composite'),
+            'class'         => 'text-input large-input',
+            'description'   => 'Write the tax payer number.'
         ));
         $this->getElement('taxpayernumber')->addValidator($fiscalcodeValidator);
         
