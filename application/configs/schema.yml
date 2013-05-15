@@ -530,7 +530,7 @@ States:
       
 Provinces:
   connection: doctrine
-  tableName: area
+  tableName: provinces
   columns:
     province_id:
       type: integer(4)
@@ -542,7 +542,7 @@ Provinces:
       type: integer(4)
       fixed: 0
       unsigned: false
-      autoincrement: true
+      autoincrement: false
     country_id:
       type: integer(4)
       notnull: false
