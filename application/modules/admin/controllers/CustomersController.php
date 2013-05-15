@@ -287,7 +287,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			if (isset ( $request->id ) && is_numeric ( $request->id )) {
 				// In order to select only the fields interested we have to add an alias to all the fields. If the aliases are not created Doctrine will require an index field for each join created.
 				//$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, pd.name as productname' );
-				$rs = Products::getAllServicesByCustomerID ( $request->id, 'oi.detail_id as detail_id, oi.order_id as orderid, pd.name as productname, DATE_FORMAT(oi.date_start, "%d/%m/%Y") AS date_start as date_start, DATE_FORMAT(oi.date_end, "%d/%m/%Y") AS date_end, DATEDIFF(oi.date_end, CURRENT_DATE) AS daysleft, oi.price as price, oi.autorenew as autorenew, oi.status_id as status' );
+				$rs = Products::getAllServicesByCustomerID ( $request->id, 'o.order_id, oi.detail_id as detail_id, pd.name as productname, DATE_FORMAT(oi.date_start, "%d/%m/%Y") AS date_start, DATE_FORMAT(oi.date_end, "%d/%m/%Y") AS date_end, DATEDIFF(oi.date_end, CURRENT_DATE) AS daysleft, oi.price as price, oi.autorenew as autorenew, oi.status_id as status' );
 				if ($rs) {
 					$arrStatuses = Statuses::getList('orders');
 					
@@ -311,7 +311,6 @@ class Admin_CustomersController extends Zend_Controller_Action {
 						if ( isset($v['date_end']) ) {
 							$rs[$k]['date_end'] = Shineisp_Commons_Utilities::formatDateIn ( $v['date_end'] );
 						}
-
 					}
 						
 					
