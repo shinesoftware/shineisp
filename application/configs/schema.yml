@@ -106,6 +106,7 @@ AdminUser:
       type: timestamp(25)
     lognum:
       type: integer(4)
+      default: 0
     role_id:
       type: integer(4)
       notnull: false
@@ -501,8 +502,68 @@ Countries:
     Addresses:
       local: country_id
       foreign: country_id
-      type: many
-
+      onDelete: CASCADE
+      
+States:
+  connection: doctrine
+  tableName: states
+  columns:
+    state_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    country_id:
+      type: integer(4)
+      notnull: false
+      fixed: 0
+      unsigned: false
+    name:
+      type: string(200)
+      notnull: false
+  relations:
+    Countries:
+      local: country_id
+      foreign: country_id
+      onDelete: CASCADE
+      
+Provinces:
+  connection: doctrine
+  tableName: area
+  columns:
+    province_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    state_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      autoincrement: true
+    country_id:
+      type: integer(4)
+      notnull: false
+      fixed: 0
+      unsigned: false
+    name:
+      type: string(200)
+      notnull: false
+    code:
+      type: string(10)
+      notnull: false
+  relations:
+    Countries:
+      local: country_id
+      foreign: country_id
+      onDelete: CASCADE
+    States:
+      local: state_id
+      foreign: state_id
+      onDelete: CASCADE
+      
 CreditNotes:
   connection: doctrine
   tableName: credit_notes
@@ -1633,7 +1694,6 @@ Legalforms:
       primary: false
       notnull: true
       autoincrement: false
-
       
 Messages:
   connection: doctrine

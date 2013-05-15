@@ -4,7 +4,7 @@ class Shineisp_Api_Shineisp_Countries extends Shineisp_Api_Shineisp_Abstract_Act
     public function getAll() {
         $this->authenticate();
         
-        return Countries::getList();
+        return Countries::findAll();
     }
     
 }
