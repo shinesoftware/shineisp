@@ -106,6 +106,7 @@ AdminUser:
       type: timestamp(25)
     lognum:
       type: integer(4)
+      default: 0
     role_id:
       type: integer(4)
       notnull: false
