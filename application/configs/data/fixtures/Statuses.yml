@@ -154,3 +154,8 @@ Statuses:
     status: Changed
     section: orders
     public: true
+  Statuses_32:
+    code: disabled
+    status: Disabled
+    section: customers
+    public: true
