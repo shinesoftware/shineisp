@@ -32,7 +32,6 @@ Doctrine_Manager::getInstance()->bindComponent('Isp', 'doctrine');
  * @property Settings $Settings
  * @property Panels $Panels
  * @property Doctrine_Collection $AdminUser
- * @property Doctrine_Collection $Customers
  * @property Doctrine_Collection $Messages
  * 
  * @package    ##PACKAGE##
@@ -170,10 +169,6 @@ abstract class BaseIsp extends Doctrine_Record
              'foreign' => 'isp_id'));
 
         $this->hasMany('AdminUser', array(
-             'local' => 'isp_id',
-             'foreign' => 'isp_id'));
-
-        $this->hasMany('Customers', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
 
