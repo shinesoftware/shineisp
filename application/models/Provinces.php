@@ -8,9 +8,62 @@
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
  * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
+ * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
-class Provinces extends BaseProvinces
-{
+class Provinces extends BaseProvinces {
+	
+	/**
+	 * 
+	 * Get all the provinces
+	 */
+	public static function findAll() {
+		
+    	return Doctrine_Query::create ()->from ( 'Provinces c' )
+           								->orderBy('c.name')
+           								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
+	}
+   
+    /**
+     * 
+     * Get all the provinces by StateID
+     */    
+    public static function fildAllByStateID ( $stateid ) {
+        return Doctrine_Query::create ()
+                    ->from ( 'Provinces p' )
+                    ->where('p.state_id = ?', array($stateid))
+                    ->orderBy('p.name')
+                    ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );       
+        
+    }    
+	
+	/**
+	 * Find a province by id
+	 * 
+	 * 
+	 * @param unknown_type $id
+	 */
+	public static function find($id) {
+		return Doctrine::getTable ( 'Provinces' )->findOneBy ( 'country_id', $id );
+	}
+
+	/**
+	 * Find by name
+	 * 
+	 * 
+	 * @param unknown_type $name
+	 */
+	public static function findbyName($name) {
+		return Doctrine::getTable ( 'Provinces' )->findOneBy ( 'name', $name );
+	}
+
+	/**
+	 * Find by province code
+	 * 
+	 * 
+	 * @param unknown_type $code
+	 */
+	public static function findbyCode($code) {
+		return Doctrine::getTable ( 'Provinces' )->findOneBy ( 'code', $code );
+	}
 
 }

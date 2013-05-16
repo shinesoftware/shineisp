@@ -152,10 +152,9 @@ class Api_Form_CustomerForm extends Zend_Form
         ));
         
         $this->addElement('select', 'country_id', array(
-		        'label' => 'Country',
-		        'required'   => true,
-		        'description'      => 'Select your own country',
-		        'decorators' => array('Composite'))
+                        'label' => 'Country',
+                        'decorators' => array('Composite'),
+                        'class'      => 'text-input large-input')
         );
         $this->getElement('country_id')
                   ->setAllowEmpty(false)

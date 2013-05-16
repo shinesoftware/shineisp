@@ -6,9 +6,24 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
         
         $form = new Api_Form_CustomerForm ( array ('action' => '#', 'method' => 'post' ) );
         
+        if( array_key_exists('countrycode', $params) ) {
+            $country_id     = Countries::getIDbyCode($params['countrycode']);
+            if( $country_id == null ) {
+                throw new Shineisp_Api_Shineisp_Exceptions( 400005, ":: 'countrycode' not valid" );
+                exit();
+            }
+            
+            unset($params['coutrycode']);
+            $params['country_id']   = $country_id;
+        }
+        
         if ($form->isValid ( $params ) ) {
-            $params['status'] = 'disabled';
-            return Customers::Create($params);
+            if( $params['status'] == false ) {
+                $params['status'] = 'disabled';    
+            }
+            
+            $idcustomers    = Customers::Create($params);
+            
         } else {
             $errors     = $form->getMessages();
             $message    = "";
