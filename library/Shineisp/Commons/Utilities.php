@@ -996,11 +996,21 @@ class Shineisp_Commons_Utilities {
 		
 		$arrReplaced = array();
 
-		// Get ISP details. Having this here is always usefull
-		$ISP = Isp::getActiveISP ();
+		// Try to get customer from recipient mail
+		if ( !empty($recipient) ) {
+			$Customer = Customers::getCustomerbyEmail($recipient);
+		}
+		
+		$isp_id = (isset($Customer['isp_id'])) ? intval($Customer['isp_id']) : 0;
+
+		// Get ISP details. Having this here is always useful
+		$ISP = ISP::getActiveIspById($isp_id);
+		if ( empty($ISP) ) {
+			$ISP = ISP::getCurrentISP();
+		}
 		
 		// Add some mixed parameters
-		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
+		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
 
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
