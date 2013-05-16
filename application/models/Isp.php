@@ -84,7 +84,7 @@ class Isp extends BaseIsp {
 	 */
 	public static function getLogged() {
 		$auth = Zend_Auth::getInstance()->getIdentity();
-		print_r($auth);
+
 		if ( !is_array($auth) || empty($auth) || !isset($auth['isp_id']) || !intval($auth['isp_id']) > 0 ) {
 			return false;
 		}
