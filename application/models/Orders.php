@@ -2227,11 +2227,11 @@ class Orders extends BaseOrders {
 				$orderinfo ['company'] ['slogan'] = $order [0] ['Isp'] ['slogan'];
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
-					$orderinfo ['ribbon']['text'] = $translator->translate("To be Payed");
+					$orderinfo ['ribbon']['text'] = $translator->translate("To be Paid");
 					$orderinfo ['ribbon']['color'] = "#D60000";
 					$orderinfo ['ribbon']['border-color'] = "#BD0000";
 				}elseif($order [0] ['status_id'] == Statuses::id("complete", "orders")){  // Complete
-					$orderinfo ['ribbon']['text'] = $translator->translate("Payed");
+					$orderinfo ['ribbon']['text'] = $translator->translate("Paid");
 					$orderinfo ['ribbon']['color'] = "#009926";
 					$orderinfo ['ribbon']['border-color'] = "#00661A";
 				}else{
@@ -2655,7 +2655,7 @@ class Orders extends BaseOrders {
 	 * Clean all the obsolete orders without expiring date
 	 * Set the obsolete orders as deleted
 	 */
-	public static function cleanNotPayedOrders() {
+	public static function cleanNotPaidOrders() {
 		$orders = Orders::find_all_not_paid_orders();
 	
 		foreach ( $orders as $order ) {

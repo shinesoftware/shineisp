@@ -738,11 +738,11 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['delivery'] = 0;
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
-					$orderinfo ['ribbon']['text'] = $translator->translate("To be Payed");
+					$orderinfo ['ribbon']['text'] = $translator->translate("To be Paid");
 					$orderinfo ['ribbon']['color'] = "#D60000";
 					$orderinfo ['ribbon']['border-color'] = "#BD0000";
 				}elseif($order [0] ['status_id'] == Statuses::id("complete", "orders")){  // Complete
-					$orderinfo ['ribbon']['text'] = $translator->translate("Payed");
+					$orderinfo ['ribbon']['text'] = $translator->translate("Paid");
 					$orderinfo ['ribbon']['color'] = "#009926";
 					$orderinfo ['ribbon']['border-color'] = "#00661A";
 				}else{
