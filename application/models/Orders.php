@@ -636,7 +636,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function renewOrder($customer_id, $products) {
 		$order = new Orders ();
-		//$isp   = Isp::getLoggedId ();
+		//$isp   = Isp::getCurrentId ();
 		$i     = 0;
 		$total = 0;
 		$vat   = 0;
@@ -862,7 +862,7 @@ class Orders extends BaseOrders {
 	public static function create($customerId, $statusId = "", $note = ""){
 		$customer = Customers::getAllInfo($customerId);
 		$isp_id   = $customer['isp_id'];
-		
+				
 		if(is_numeric($customerId)){
 			$order = new Orders ();
 			$order['customer_id']   = $customerId;
@@ -2825,7 +2825,7 @@ class Orders extends BaseOrders {
 	 * @param array $items
 	 */
 	public function bulk_export($items) {
-		$isp = Isp::getLoggedId();
+		$isp = Isp::getCurrentId();
 		$pdf = new Shineisp_Commons_PdfList();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		

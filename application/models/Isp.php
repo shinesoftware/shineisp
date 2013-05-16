@@ -84,11 +84,11 @@ class Isp extends BaseIsp {
 	 */
 	public static function getLogged() {
 		$auth = Zend_Auth::getInstance()->getIdentity();
-		
+		print_r($auth);
 		if ( !is_array($auth) || empty($auth) || !isset($auth['isp_id']) || !intval($auth['isp_id']) > 0 ) {
 			return false;
 		}
-		
+
 		$isp_id = intval($auth['isp_id']);
 		
 		return self::getActiveIspById($isp_id);
@@ -104,7 +104,36 @@ class Isp extends BaseIsp {
 		return (is_array($isp) && isset($isp['isp_id'])) ? intval($isp['isp_id']) : 0;
 	}	 
 	
-	 
+	/**
+	 * return the isp_id based on logged user or current url if there is no logged user
+	 */ 
+	public static function getCurrentId() {
+		$logged_isp_id = self::getLogged();
+		
+		if ( $logged_isp_id ) {
+			return intval($logged_isp_id);
+		}
+				
+		$isp = self::getByURL($_SERVER['HTTP_HOST']);
+
+		return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1; // TODO: set to 1 for older installation that doesn't have isp_id properly set. It should be 0.
+	}
+	
+	/**
+	 * return the current ISP
+	 * 
+	 * @return array
+	 */
+	public static function getCurrentISP() {
+		$isp_id = self::getCurrentId();
+		
+		$q   = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'isp_id = ? AND active = 1', $isp_id );
+		$isp = $q->execute (null, Doctrine::HYDRATE_ARRAY);
+		return isset ( $isp [0] ) ? $isp [0] : array();
+	}
+	
+	
+	
 	
 	/**
 	 * get the active ISP Control Panel module var
@@ -221,6 +250,20 @@ class Isp extends BaseIsp {
     		return NULL;
     	}
     }
+	
+    /**
+     * Get ISP by URL
+     * @param string $email
+     */
+    public static function getByURL($url){
+		$IspUrls = IspUrls::findOneByUrl($url);
+		if ( $IspUrls ) {
+			return $IspUrls->getData();
+		}
+		
+		return 0;
+    }
+	
 	
 	/**
 	 * Check if the ISP exist

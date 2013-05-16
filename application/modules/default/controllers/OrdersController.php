@@ -208,7 +208,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function processAction() {
-		$isp = Isp::getActiveISP ();
+		$isp = ISP::getCurrentISP();
 		$request = $this->getRequest ();
 		
 		// Check if we have a POST request
@@ -468,7 +468,7 @@ class OrdersController extends Zend_Controller_Action {
 		
 		if (! empty ( $response ['custom'] ) && is_numeric ( trim ( $response ['custom'] ) )) {
 			
-			$isp = Isp::getActiveISP ();
+			$isp = ISP::getCurrentISP();
 			
 			// Orderid back from the bank
 			$order_id = trim ( $response ['custom'] );

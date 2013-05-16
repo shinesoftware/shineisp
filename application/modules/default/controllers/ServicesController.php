@@ -199,7 +199,7 @@ class ServicesController extends Zend_Controller_Action {
 		if (! empty ( $params ['message'] )) {
 			
 			Messages::addMessage($params ['message'], $this->customer ['customer_id'], null, null, $id);
-			$isp = Isp::getActiveISP();
+			$isp = ISP::getCurrentISP();
 			
 			$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 			$placeholder['messagetype'] = $this->translator->translate('Order Details');

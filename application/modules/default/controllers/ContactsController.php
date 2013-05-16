@@ -54,7 +54,7 @@ class ContactsController extends Zend_Controller_Action {
 			if ($captchaInput == $captchaWord) {
 				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'contact' );
 				if ($retval) {
-					$isp = Isp::getActiveISP();
+					$isp = ISP::getCurrentISP();
 					$subject = $retval ['subject'];
 					$subject = str_replace ( "[subject]", $this->translations->translate("Message from the website"), $subject );
 					$body = $retval ['template'];

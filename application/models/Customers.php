@@ -130,10 +130,14 @@ class Customers extends BaseCustomers {
 		$customer->created_at   = date ( 'Y-m-d H:i:s' );
 		$customer->updated_at   = date ( 'Y-m-d H:i:s' );
 
-		// Try to get logged isp_id
+		// Try to get the real isp_id, based on logged user or on request uri
 		// TODO: this should be done better
-		$customer->isp_id = ISP::getLoggedId();
-				
+		$customer->isp_id = ISP::getCurrentId();
+		
+		// Generate an UUID. Used for API when you need to sync customers between services
+		// TODO: allow custom uuid coming from api ? If yes, we should check for uniqueness in database
+		$customer->uuid = Shineisp_Commons_Uuid::generate();
+		
 		// customer disabled? Disable its password
 		if ( $isDisabled ) {
 			$customer->password = '!'.$customer->password;
@@ -577,7 +581,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function getCustomerbyEmail($email) {
 		// Filter by isp_id
-		$isp_id = ISP::getLoggedId();
+		$isp_id = ISP::getCurrentId();
 				
 		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->addWhere('isp_id = ?', $isp_id)->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
@@ -668,6 +672,9 @@ class Customers extends BaseCustomers {
 			$customer = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 			if (isset ( $customer [0] )) {
+				// workaround for missing isp_id. Older customers, created before multi-isp suppor does't have an isp_id set
+				$customer[0]['isp_id'] = (!isset($customer[0]['isp_id']) || intval($customer[0]['isp_id']) < 1) ? 1 : intval($customer[0]['isp_id']);
+				
 				// Add "fullname" value, needed almost everywhere
 				if ( isset($customer[0]['company']) && !empty($customer[0]['company']) ) {
 					$customer[0]['fullname']        = $customer[0]['company'];

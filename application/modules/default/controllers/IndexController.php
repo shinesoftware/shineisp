@@ -36,7 +36,7 @@ class IndexController extends Zend_Controller_Action {
 			
 		}
 		
-		$isp = Isp::getActiveISP();
+		$isp = ISP::getCurrentISP();
 		$this->view->headertitle = $isp['slogan'];
 		
 	}
@@ -65,7 +65,7 @@ class IndexController extends Zend_Controller_Action {
 	 * @see Shineisp_Custom_Callmeback
 	 */
 	public function callmebackAction() {
-		$isp        = Isp::getActiveISP ();
+		$isp        = ISP::getCurrentISP();
 		$request    = $this->getRequest ();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$form       = new Default_Form_CallmebackForm( array ('action' => '/index/callmeback', 'method' => 'post' ) );
