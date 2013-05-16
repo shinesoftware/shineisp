@@ -657,6 +657,7 @@ class CartController extends Zend_Controller_Action {
 				 * $statusId = 9 --> To be pay 
 				 * 
 				 */
+				 
 				$theOrder = Orders::create ( $NS->cart->contacts ['customer_id'], Statuses::id('tobepaid', 'orders'), $params ['note'] );
 				
 				foreach ( $NS->cart->products as $product ) {
@@ -683,6 +684,7 @@ class CartController extends Zend_Controller_Action {
 					
 					} else {
 						// Create the order item for other products
+
 						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array() );
 					}
 				}
