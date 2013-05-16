@@ -30,7 +30,7 @@ class Provinces extends BaseProvinces {
     public static function fildAllByStateID ( $stateid ) {
         return Doctrine_Query::create ()
                     ->from ( 'Provinces p' )
-                    ->where('p.state_id = ?', array($stateid))
+                    ->where('p.region_id = ?', array($stateid))
                     ->orderBy('p.name')
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );       
         

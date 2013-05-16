@@ -1,5 +1,6 @@
 Customers:
   Customers_1:
+    uuid: null
     company: 'Shine Software'
     firstname: Giuseppe
     lastname: Bucchieri
@@ -30,6 +31,7 @@ Customers:
     isreseller: null
     ignore_latefee: false
   Customers_2:
+    uuid: null
     company: 'Italian Software S.r.l.'
     firstname: Luisa
     lastname: Lucci
