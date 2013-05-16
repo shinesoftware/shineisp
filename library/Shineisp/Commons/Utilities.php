@@ -987,7 +987,7 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
 	 */
-	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
+	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null) {
 		// Get email template
 		$arrTemplate = self::getEmailTemplate($template);
 		if ( !is_array($arrTemplate) ) {
@@ -996,18 +996,8 @@ class Shineisp_Commons_Utilities {
 		
 		$arrReplaced = array();
 
-		// Try to get customer from recipient mail
-		if ( !empty($recipient) ) {
-			$Customer = Customers::getCustomerbyEmail($recipient);
-		}
-		
-		$isp_id = (isset($Customer['isp_id'])) ? intval($Customer['isp_id']) : 0;
-
-		// Get ISP details. Having this here is always useful
-		$ISP = ISP::getActiveIspById($isp_id);
-		if ( empty($ISP) ) {
-			$ISP = ISP::getCurrentISP();
-		}
+		// ISP missing from arguments, try to get automatically
+		$ISP = ( isset($ISP) && is_array($ISP) ) ? $ISP : ISP::getCurrentISP();
 		
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
