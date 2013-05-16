@@ -862,7 +862,7 @@ class Orders extends BaseOrders {
 	public static function create($customerId, $statusId = "", $note = ""){
 		$customer = Customers::getAllInfo($customerId);
 		$isp_id   = $customer['isp_id'];
-		
+				
 		if(is_numeric($customerId)){
 			$order = new Orders ();
 			$order['customer_id']   = $customerId;

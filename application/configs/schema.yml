@@ -722,6 +722,9 @@ Customers:
       unsigned: false
       primary: true
       autoincrement: true
+    uuid:
+      type: string(50)
+      notnull: false
     company:
       type: string(50)
       notnull: false
@@ -1625,6 +1628,30 @@ Isp:
     Panels:
       local: isp_id
       foreign: isp_id
+      
+IspUrls:
+  connection: doctrine
+  tableName: isp_urls
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+    url:
+      type: string(200)
+      notnull: true
+  relations:
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
+      
       
 Languages:
   connection: doctrine
