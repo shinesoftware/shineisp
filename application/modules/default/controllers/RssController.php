@@ -20,7 +20,7 @@ class RssController extends Zend_Controller_Action {
 	public function indexAction() {
 		$out = "";
 		try {
-			$ISP = Isp::getActiveISP();
+			$ISP = ISP::getCurrentISP();
 			$ns = new Zend_Session_Namespace ( 'Default' );
 			$localeID = $ns->idlang;
 			$locale = $ns->lang;

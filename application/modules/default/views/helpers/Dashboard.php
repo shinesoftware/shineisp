@@ -26,8 +26,8 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 		$buttons = Navigation::getNavItems($module);
 
 		// get the active isp configuration
-		$isp = Isp::getActiveISP();
-
+		$isp = ISP::getCurrentISP();
+		
 		// Get the URL of the Hosting Control Panel set to add it in the dashboard 
 		$panelsettings = SettingsParameters::getParameterbyGroupNameAndVar($isp['isppanel'], $isp['isppanel'] . "_url");
 		if(!empty($panelsettings['Settings'][0]['value'])){

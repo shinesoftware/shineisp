@@ -13,7 +13,7 @@ class AtomController extends Zend_Controller_Action {
 		Zend_Feed_Writer::addPrefixPath('Shineisp_Feed_Writer_Extension_', 'Shineisp/Feed/Writer/Extension/');
 		Zend_Feed_Writer::registerExtension('Google');
 		
-		$isp = Isp::getActiveISP();
+		$isp = ISP::getCurrentISP();
 		
 		$feed = new Zend_Feed_Writer_Feed ();
 		$feed->setTitle ( $isp['company'] );
@@ -23,7 +23,7 @@ class AtomController extends Zend_Controller_Action {
 		$feed->setDateModified ( time () );
 		$feed->setGenerator("ShineISP Atom Extension");
 		
-		$isp = Isp::getActiveISP();
+		$isp = ISP::getCurrentISP();
 		$products = Products::getAllRss();
 // 		print_r($products);
 // 		die;

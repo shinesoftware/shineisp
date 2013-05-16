@@ -106,9 +106,9 @@ class DomainsController extends Zend_Controller_Action {
 			try {
 				$Orderid = Orders::createOrderWithMultiProducts ( $items, $this->customer ['customer_id'] );
 				
-				$isp = Isp::getActiveISP ();
+				$isp   = ISP::getCurrentISP();
 				$order = Orders::getAllInfo ( $Orderid, null, true );
-				$link = Fastlinks::findlinks ( $Orderid, $this->customer ['customer_id'], 'orders' );
+				$link  = Fastlinks::findlinks ( $Orderid, $this->customer ['customer_id'], 'orders' );
 				
 				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 				if ($retval) {
@@ -296,7 +296,7 @@ class DomainsController extends Zend_Controller_Action {
 			// Save the message note
 			if (! empty ( $params ['note'] )) {
 				Messages::addMessage($params ['note'], $this->customer ['customer_id'], $id);
-				$isp = Isp::getActiveISP();
+				$isp = ISP::getCurrentISP();
 				
 				$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 				$placeholder['message'] = $params ['note'];
