@@ -84,6 +84,7 @@ abstract class BaseAdminUser extends Doctrine_Record
              ));
         $this->hasColumn('lognum', 'integer', 4, array(
              'type' => 'integer',
+             'default' => 0,
              'length' => '4',
              ));
         $this->hasColumn('role_id', 'integer', 4, array(

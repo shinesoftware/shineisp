@@ -502,8 +502,68 @@ Countries:
     Addresses:
       local: country_id
       foreign: country_id
-      type: many
-
+      onDelete: CASCADE
+      
+States:
+  connection: doctrine
+  tableName: states
+  columns:
+    state_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    country_id:
+      type: integer(4)
+      notnull: false
+      fixed: 0
+      unsigned: false
+    name:
+      type: string(200)
+      notnull: false
+  relations:
+    Countries:
+      local: country_id
+      foreign: country_id
+      onDelete: CASCADE
+      
+Provinces:
+  connection: doctrine
+  tableName: provinces
+  columns:
+    province_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    state_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      autoincrement: false
+    country_id:
+      type: integer(4)
+      notnull: false
+      fixed: 0
+      unsigned: false
+    name:
+      type: string(200)
+      notnull: false
+    code:
+      type: string(10)
+      notnull: false
+  relations:
+    Countries:
+      local: country_id
+      foreign: country_id
+      onDelete: CASCADE
+    States:
+      local: state_id
+      foreign: state_id
+      onDelete: CASCADE
+      
 CreditNotes:
   connection: doctrine
   tableName: credit_notes
@@ -662,6 +722,9 @@ Customers:
       unsigned: false
       primary: true
       autoincrement: true
+    uuid:
+      type: string(50)
+      notnull: false
     company:
       type: string(50)
       notnull: false
@@ -1566,6 +1629,30 @@ Isp:
       local: isp_id
       foreign: isp_id
       
+IspUrls:
+  connection: doctrine
+  tableName: isp_urls
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+    url:
+      type: string(200)
+      notnull: true
+  relations:
+    Isp:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
+      
+      
 Languages:
   connection: doctrine
   tableName: languages
@@ -1634,7 +1721,6 @@ Legalforms:
       primary: false
       notnull: true
       autoincrement: false
-
       
 Messages:
   connection: doctrine

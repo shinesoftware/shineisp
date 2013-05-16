@@ -170,7 +170,7 @@ class IndexController extends Zend_Controller_Action {
 		$registry   = Zend_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
 		$customer   = Customers::getCustomerByResetKey ( $resetKey );
-		
+
 		if ($customer) {
 			$newPwd = Shineisp_Commons_Utilities::GenerateRandomPassword();
 			

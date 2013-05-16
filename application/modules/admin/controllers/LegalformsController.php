@@ -13,6 +13,8 @@ class Admin_LegalformsController extends Zend_Controller_Action {
 	protected $session;
 	protected $translator;
 	
+	protected $readOnly = array(1,2,3); // These legal forms are readonly and cannot be deleted
+	
 	/**
 	 * preDispatch
 	 * Starting of the module
@@ -110,7 +112,7 @@ class Admin_LegalformsController extends Zend_Controller_Action {
 	 */
 	public function deleteAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
-		if (is_numeric ( $id )) {
+		if (is_numeric ( $id ) && !in_array($id, $this->readOnly) ) {
 			Legalforms::deleteItem( $id );
 		}
 		return $this->_helper->redirector ( 'index', 'legalforms' );
@@ -126,8 +128,8 @@ class Admin_LegalformsController extends Zend_Controller_Action {
 		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		try {
 			if (is_numeric ( $id )) {
-				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
+				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
 				$this->view->description = $this->translator->translate ( 'If you delete the customer legal form information the data will be no longer restored' );
 				
@@ -157,11 +159,14 @@ class Admin_LegalformsController extends Zend_Controller_Action {
 				array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
-		if (! empty ( $id ) && is_numeric ( $id )) {
+		if ( !empty($id) && is_numeric($id) ) {
 			$rs = Legalforms::getById( $id, null, true );
 			if (! empty ( $rs[0] )) {
 				$form->populate ( $rs[0] );
-				$this->view->buttons[] = array("url" => "/admin/legalforms/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				
+				if ( !in_array($id, $this->readOnly) ) {
+					$this->view->buttons[] = array("url" => "/admin/legalforms/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				}
 			}
 		}
 		

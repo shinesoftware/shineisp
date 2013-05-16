@@ -294,7 +294,7 @@ class Orders extends BaseOrders {
 	 * @param integer $id
 	 */
 	public static function saveAll($params, $id="") {
-		$orders = new Orders();
+		$orders     = new Orders();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
 		try{
@@ -308,17 +308,20 @@ class Orders extends BaseOrders {
 				$params ['date_start'] = ! empty ( $params ['date_start'] ) ? $params ['date_start'] : new Zend_Date();
 				$params ['order_date'] = ! empty ( $params ['order_date'] ) ? $params ['order_date'] : new Zend_Date();
 				
-				$orders->order_date = Shineisp_Commons_Utilities::formatDateIn ( $params ['order_date'] );
-				$orders->customer_id = $params ['customer_id'];
-				$orders->isp_id = $params ['isp_id'];
-				$orders->invoice_id = ! empty ( $params ['invoice_id'] ) ? $params ['invoice_id'] : null;
-				$orders->note = $params ['note'];
-				$orders->status_id = $params ['status_id'];
-				$orders->is_renewal = $params ['is_renewal'] == 1 ? 1 : 0;
+				$customer = Customers::getAllInfo($params ['customer_id']);
+				$isp_id   = $customer['isp_id'];
+				
+				$orders->order_date    = Shineisp_Commons_Utilities::formatDateIn ( $params ['order_date'] );
+				$orders->customer_id   = $params ['customer_id'];
+				$orders->isp_id        = $isp_id;
+				$orders->invoice_id    = ! empty ( $params ['invoice_id'] ) ? $params ['invoice_id'] : null;
+				$orders->note          = $params ['note'];
+				$orders->status_id     = $params ['status_id'];
+				$orders->is_renewal    = $params ['is_renewal'] == 1 ? 1 : 0;
 				$orders->expiring_date = Shineisp_Commons_Utilities::formatDateIn ($params ['expiring_date']);
-				$orders->vat = $params ['vat'];
-				$orders->total = $params ['total'];
-				$orders->grandtotal = $params ['total'] + $params ['vat']; 
+				$orders->vat           = $params ['vat'];
+				$orders->total         = $params ['total'];
+				$orders->grandtotal    = $params ['total'] + $params ['vat']; 
 				
 				// Save the data
 				$orders->save ();
@@ -329,13 +332,13 @@ class Orders extends BaseOrders {
 				$link = new Fastlinks ();
 				
 				if (count ( $link_exist ) == 0) {
-					$link->controller = "orders";
-					$link->action = "edit";
-					$link->params = json_encode ( array ('id' => $id ) );
+					$link->controller  = "orders";
+					$link->action      = "edit";
+					$link->params      = json_encode ( array ('id' => $id ) );
 					$link->customer_id = $params ['customer_id'];
-					$link->sqltable = "orders";
-					$link->id = $id;
-					$link->code = Shineisp_Commons_Utilities::GenerateRandomString ();
+					$link->sqltable    = "orders";
+					$link->id          = $id;
+					$link->code        = Shineisp_Commons_Utilities::GenerateRandomString ();
 				} else {
 					$link = Doctrine::getTable ( 'Fastlinks' )->find ( $link_exist [0] ['fastlink_id'] );
 					$link->code = $params ['fastlink'];
@@ -344,18 +347,18 @@ class Orders extends BaseOrders {
 				
 				// Save the message note and send an alert
 				if (! empty ( $params ['message'] )) {
-					$order = self::getAllInfo ( $id, null, true );
-					$link = Fastlinks::findlinks ( $id, $params ['customer_id'], 'orders' );
-					$isp = Isp::getActiveISP ();
+					$order  = self::getAllInfo ( $id, null, true );
+					$link   = Fastlinks::findlinks ( $id, $params ['customer_id'], 'orders' );
+					$isp    = Isp::find($isp_id);
 					
 					$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_message' );
+					
 					if ($retval) {
 						$subject = $retval ['subject'];
-						$body = $retval ['template'];
+						$body    = $retval ['template'];
 						
 						// Save the message
-						Messages::addMessage($params ['message'], $order [0] ['Customers'] ['customer_id'], null, $id, null, $isp['isp_id']);
-						$isp = Isp::getActiveISP();
+						Messages::addMessage($params ['message'], $order [0] ['Customers'] ['customer_id'], null, $id, null, $isp_id);
 
 						// Create the array with all the placeholders 
 						$placeholders['fullname'] = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
@@ -368,10 +371,10 @@ class Orders extends BaseOrders {
 						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders);
 
 						// Change the URL for the administrator
-						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp['email']);
+						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp->email);
 						
 						// Send a message to the administrator
-						Messages::sendMessage ( "order_message_admin", $isp['email'], $placeholders);
+						Messages::sendMessage ( "order_message_admin", $isp->email, $placeholders);
 						
 					}
 				
@@ -633,7 +636,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function renewOrder($customer_id, $products) {
 		$order = new Orders ();
-		$isp   = Isp::getActiveISP ();
+		//$isp   = Isp::getLoggedId ();
 		$i     = 0;
 		$total = 0;
 		$vat   = 0;
@@ -650,10 +653,10 @@ class Orders extends BaseOrders {
 			if (count ( $products ) > 0) {
 				
 				$order->customer_id = $customer_id;
-				$order->isp_id = $isp ['isp_id'];
-				$order->is_renewal = true;
-				$order->order_date = date ( 'Y-m-d' );
-				$order->status_id = Statuses::id("tobepaid", "orders"); // To be pay
+				$order->isp_id      = $customer ['isp_id'];
+				$order->is_renewal  = true;
+				$order->order_date  = date ( 'Y-m-d' );
+				$order->status_id   = Statuses::id("tobepaid", "orders"); // To be pay
 				$order->save ();
 				$orderid = $order->getIncremented ();
 				
@@ -664,13 +667,13 @@ class Orders extends BaseOrders {
 				$link_exist = Fastlinks::findlinks ( $orderid, $customer_id, 'orders' );
 				if (count ( $link_exist ) == 0) {
 					$link = new Fastlinks ();
-					$link->controller = "orders";
-					$link->action = "edit";
-					$link->params = json_encode ( array ('id' => $orderid ) );
+					$link->controller  = "orders";
+					$link->action      = "edit";
+					$link->params      = json_encode ( array ('id' => $orderid ) );
 					$link->customer_id = $customer_id;
-					$link->sqltable = "orders";
-					$link->id = $orderid;
-					$link->code = Shineisp_Commons_Utilities::GenerateRandomString ();
+					$link->sqltable    = "orders";
+					$link->id          = $orderid;
+					$link->code        = Shineisp_Commons_Utilities::GenerateRandomString ();
 					$link->save ();
 				}
 				
@@ -782,25 +785,26 @@ class Orders extends BaseOrders {
 	 * @return void
 	 */
 	public static function createOrderForSingleProduct(array $product, $type, $iddomgen, $customer_id, $amount, $note = "") {
-		$order = new Orders ();
+		$order    = new Orders ();
+		$customer = Customers::getAllInfo($customer_id);
 		try {
 			$tax = Taxes::getTaxbyProductID ( $product ['id'] );
 			if (is_numeric ( $amount ) && $amount > 0) {
 				// Creating a new Order.
 				$order->customer_id = $customer_id;
-				$order->isp_id = Isp::getActiveISP ();
-				$order->order_date = date ( 'Y-m-d' );
-				$order->note = $note;
-				$order->status_id = Statuses::id("processing", "orders"); // Processing
+				$order->isp_id      = $customer['isp_id'];
+				$order->order_date  = date ( 'Y-m-d' );
+				$order->note        = $note;
+				$order->status_id   = Statuses::id("processing", "orders"); // Processing
 				
 
 				if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id)) {
-					$order->total = $amount / ((100 + $tax ['percentage']) / 100);
-					$order->vat = $amount - $order->total;
+					$order->total      = $amount / ((100 + $tax ['percentage']) / 100);
+					$order->vat        = $amount - $order->total;
 					$order->grandtotal = $amount;
 				} else {
-					$order->total = $amount;
-					$order->vat = 0;
+					$order->total      = $amount;
+					$order->vat        = 0;
 					$order->grandtotal = $amount;
 				}
 				
@@ -812,15 +816,15 @@ class Orders extends BaseOrders {
 				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null, 12 ); // Fixed Renew
 				
 
-				$orderitem->order_id = $id;
-				$orderitem->product_id = $product ['id'];
+				$orderitem->order_id         = $id;
+				$orderitem->product_id       = $product ['id'];
 				$orderitem->billing_cycle_id = 1;
-				$orderitem->date_start = date ( 'Y-m-d' );
-				$orderitem->date_end = $date_end;
-				$orderitem->autorenew = true;
-				$orderitem->description = $product ['name'];
-				$orderitem->cost = $product ['cost'];
-				$orderitem->quantity = 1;
+				$orderitem->date_start       = date ( 'Y-m-d' );
+				$orderitem->date_end         = $date_end;
+				$orderitem->autorenew        = true;
+				$orderitem->description      = $product ['name'];
+				$orderitem->cost             = $product ['cost'];
+				$orderitem->quantity         = 1;
 				if (isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id)) {
 					$orderitem->price = $amount / ((100 + $tax ['percentage']) / 100);
 				} else {
@@ -856,16 +860,16 @@ class Orders extends BaseOrders {
 	 * @return Orders 
 	 */
 	public static function create($customerId, $statusId = "", $note = ""){
-		
-		$ISPid = Isp::getActiveISPID ();
-		
+		$customer = Customers::getAllInfo($customerId);
+		$isp_id   = $customer['isp_id'];
+				
 		if(is_numeric($customerId)){
 			$order = new Orders ();
-			$order['customer_id'] = $customerId;
-			$order['order_date'] = date ( 'Y-m-d H:i:s' );
+			$order['customer_id']   = $customerId;
+			$order['order_date']    = date ( 'Y-m-d H:i:s' );
 			$order['expiring_date'] = date ( 'Y-m-j' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
-			$order['isp_id'] = Isp::getActiveISPID ();
-			$order['status_id'] = is_numeric($statusId) ? $statusId : Statuses::id("tobepaid", "orders");
+			$order['isp_id']        = $isp_id;
+			$order['status_id']     = is_numeric($statusId) ? $statusId : Statuses::id("tobepaid", "orders");
 
 			// Save the data
 			$order->save();
@@ -1182,13 +1186,14 @@ class Orders extends BaseOrders {
 	public static function createOrderWithMultiProducts(array $products, $customer_id, $type = "domain") {
 		$order = new Orders ();
 		try {
-			$ISPid = Isp::getActiveISPID ();
+			$customer = Customers::getAllInfo($customer_id);
+			$isp_id   = $customer['isp_id'];
 			
 			// Creating a new Order.
 			$order->customer_id = $customer_id;
-			$order->isp_id = $ISPid;
-			$order->order_date = date ( 'Y-m-d' );
-			$order->status_id = Statuses::id("tobepaid", "orders"); // To pay
+			$order->isp_id      = $isp_id;
+			$order->order_date  = date ( 'Y-m-d' );
+			$order->status_id   = Statuses::id("tobepaid", "orders"); // To pay
 			$order->save ();
 			
 			$id = $order->getIncremented ();
@@ -1197,13 +1202,13 @@ class Orders extends BaseOrders {
 			$link_exist = Fastlinks::findlinks ( $id, $customer_id, 'orders' );
 			if (count ( $link_exist ) == 0) {
 				$link = new Fastlinks ();
-				$link->controller = "orders";
-				$link->action = "edit";
-				$link->params = json_encode ( array ('id' => $id ) );
+				$link->controller  = "orders";
+				$link->action      = "edit";
+				$link->params      = json_encode ( array ('id' => $id ) );
 				$link->customer_id = $customer_id;
-				$link->sqltable = "orders";
-				$link->id = $id;
-				$link->code = Shineisp_Commons_Utilities::GenerateRandomString ();
+				$link->sqltable    = "orders";
+				$link->id          = $id;
+				$link->code        = Shineisp_Commons_Utilities::GenerateRandomString ();
 				$link->save ();
 			}
 			
@@ -1215,19 +1220,19 @@ class Orders extends BaseOrders {
 				$orderitem = new OrdersItems ();
 				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null,  365 ); // Fixed Renew
 
-				$orderitem->order_id = $id;
-				$orderitem->product_id = $product [0] ['Products'] ['product_id'];
+				$orderitem->order_id         = $id;
+				$orderitem->product_id       = $product [0] ['Products'] ['product_id'];
 				$orderitem->billing_cycle_id = 1;
-				$orderitem->date_start = date ( 'Y-m-d H:i:s' );
-				$orderitem->date_end = $date_end;
-				$orderitem->autorenew = true;
-				$orderitem->description = $product [0] ['domain'] . "." . $product [0] ['tld'];
-				$orderitem->quantity = 1;
+				$orderitem->date_start       = date ( 'Y-m-d H:i:s' );
+				$orderitem->date_end         = $date_end;
+				$orderitem->autorenew        = true;
+				$orderitem->description      = $product [0] ['domain'] . "." . $product [0] ['tld'];
+				$orderitem->quantity         = 1;
 				
 				$tax = Taxes::getTaxbyProductID ( $product [0] ['Products'] ['product_id'] );
 				
 				$orderitem->price = $product [0] ['Products'] ['price_1'];
-				$orderitem->cost = $product [0] ['Products'] ['cost'];
+				$orderitem->cost  = $product [0] ['Products'] ['cost'];
 				
 				$orderitem->status_id = Statuses::id("processing", "orders"); // Processing status set
 				$orderitem->save ();
@@ -2820,7 +2825,7 @@ class Orders extends BaseOrders {
 	 * @param array $items
 	 */
 	public function bulk_export($items) {
-		$isp = Isp::getActiveISP();
+		$isp = Isp::getLoggedId();
 		$pdf = new Shineisp_Commons_PdfList();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
