@@ -668,6 +668,9 @@ class Customers extends BaseCustomers {
 			$customer = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 			if (isset ( $customer [0] )) {
+				// workaround for missing isp_id. Older customers, created before multi-isp suppor does't have an isp_id set
+				$customer[0]['isp_id'] = (!isset($customer[0]['isp_id']) || intval($customer[0]['isp_id']) < 1) ? 1 : intval($customer[0]['isp_id']);
+				
 				// Add "fullname" value, needed almost everywhere
 				if ( isset($customer[0]['company']) && !empty($customer[0]['company']) ) {
 					$customer[0]['fullname']        = $customer[0]['company'];
