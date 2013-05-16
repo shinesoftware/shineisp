@@ -222,6 +222,18 @@ class Isp extends BaseIsp {
     	}
     }
 	
+    /**
+     * Get ISP by URL
+     * @param string $email
+     */
+    public static function getByURL($url){
+		$IspUrl = IspUrls::findOneByUrl($url);
+		$isp_id = ( isset($IspUrl->isp_id) ) ? intval($IspUrl->isp_id) : 1; //TODO: this should be done better. Actually, returns 1 if no isp is found by url. This is a workaround for older installation
+
+		return $isp_id;
+    }
+	
+	
 	/**
 	 * Check if the ISP exist
 	 * 
