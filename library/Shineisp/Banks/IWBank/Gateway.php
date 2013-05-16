@@ -72,6 +72,8 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 			
 			return $form;
 		}
+
+        return "ERRORE";
 	
 	}
 	
