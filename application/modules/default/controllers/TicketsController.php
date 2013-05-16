@@ -97,7 +97,7 @@ class TicketsController extends Zend_Controller_Action {
 		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $id ) && is_numeric ( $id )) {
-			$isp = Isp::getActiveISP ();
+			$isp = ISP::getCurrentISP();
 			$fields = "DATE_FORMAT(t.date_open, '%d/%m/%Y %H:%i:%s') as creationdate, t.sibling_id,  DATE_FORMAT(t.date_close, '%d/%m/%Y %H:%i:%s') as expiringdate, 
 			t.subject, t.description, t.status_id as status_id, t.vote as vote, s.status as status, c.email as email, CONCAT(c.firstname, ' ', c.lastname) as customer, c.company as company, (DATEDIFF(t.date_close, t.date_open)) as days";
 			
