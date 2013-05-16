@@ -84,7 +84,7 @@ class Isp extends BaseIsp {
 	 */
 	public static function getLogged() {
 		$auth = Zend_Auth::getInstance()->getIdentity();
-		print_r($auth);
+
 		if ( !is_array($auth) || empty($auth) || !isset($auth['isp_id']) || !intval($auth['isp_id']) > 0 ) {
 			return false;
 		}
@@ -141,13 +141,23 @@ class Isp extends BaseIsp {
 	 * 
 	 * @return string
 	 */
-	public static function getPanel() {
+	public static function getPanel($isp_id = 1) {
+		$Panel = Panels::findByIspId($isp_id);
+		if ( $Panel ) {
+			$panel_data = $Panel->getData();
+		}
+
+		return (isset($panel_data['name']) && !empty($panel_data['name']) ) ? $panel_data['name'] : null;
+		
+		/*
 		$isp = Doctrine_Query::create ()->select('isppanel')
 									  ->from ( 'Isp' )
-									  ->where ( 'active = ?', 1 )
+									  ->where ('isp_id = ?', $isp_id)
+									  ->andWhere ( 'active = ?', 1 )
 									  ->execute (null, Doctrine::HYDRATE_ARRAY);
 
 		return isset ( $isp [0]['isppanel'] ) ? $isp [0]['isppanel'] : null;
+		*/
 	}
 	
 	/**
@@ -263,6 +273,18 @@ class Isp extends BaseIsp {
 		
 		return 0;
     }
+
+    /**
+     * Get ISP by Customer Id
+     * @param string $email
+     */
+    public static function getByCustomerId($id) {
+    	$Customer = Customers::get_by_customerid($id);
+		$isp_id   = (isset($Customer['isp_id']) ) ? intval($Customer['isp_id']) : 1; // TODO: remove fallback to 1
+		
+		return self::getActiveIspById($isp_id);
+    }
+
 	
 	
 	/**

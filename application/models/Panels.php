@@ -53,7 +53,18 @@ class Panels extends BasePanels
 	public static function find($id) {
 		return Doctrine::getTable ( 'Panels' )->findOneBy ( 'panel_id', $id );
 	}
+
+	/**
+	 * Get a record by isp_id
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function findByIspId($isp_id) {
+		$isp_id = intval($isp_id);
+		return Doctrine::getTable ( 'Panels' )->findOneBy ( 'isp_id', $isp_id );
+	}
 	
+
 	/**
 	 * save all the custom parameters 
 	 */

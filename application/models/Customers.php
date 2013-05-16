@@ -580,10 +580,7 @@ class Customers extends BaseCustomers {
 	 * @return Array
 	 */
 	public static function getCustomerbyEmail($email) {
-		// Filter by isp_id
-		$isp_id = ISP::getCurrentId();
-				
-		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->addWhere('isp_id = ?', $isp_id)->limit ( 1 );
+		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
 	
