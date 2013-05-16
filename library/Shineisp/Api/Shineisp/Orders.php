@@ -42,7 +42,13 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         $id         = $customers['customer_id'];
         $isVATFree  = Customers::isVATFree($id);
         
-        $theOrder = Orders::create ( $customers['customer_id'], Statuses::id('tobepaid', 'orders'), $params ['note'] );
+        if( $params['notify'] == "" ) {
+            $status = Statuses::id('complete', 'orders');   
+        } else {
+            $status = Statuses::id('tobepaid', 'orders');
+        }
+        
+        $theOrder = Orders::create ( $customers['customer_id'], $status, $params ['note'] );
         
         foreach( $params['products'] as $product ) {
             $productid  = intval( $product['productid']);

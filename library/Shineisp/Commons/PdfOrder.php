@@ -619,6 +619,7 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( strtoupper ( $this->translator->translate ( "Transaction ID" ) ), PAGE_BOTH_MARGIN + 2, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Order Number" ) ), PAGE_BOTH_MARGIN + 300, $toppos - 120 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Invoice Number" ) ), PAGE_BOTH_MARGIN + 400, $toppos - 120 );
+		$this->Write ( strtoupper ( $this->translator->translate ( "Payment amount" ) ), PAGE_BOTH_MARGIN + 240, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment mode" ) ), PAGE_BOTH_MARGIN + 295, $toppos - 150 );
 		$this->Write ( strtoupper ( $this->translator->translate ( "Payment Date" ) ), PAGE_BOTH_MARGIN + 420, $toppos - 150 );
 		
@@ -656,6 +657,7 @@ class Shineisp_Commons_PdfOrder {
 				$offset = $c * 10;
 				
 				$this->Write ( $payment ['reference'], PAGE_BOTH_MARGIN + 2, $bottomPos + $offset + TRANSACTION_MULTIPLIER);
+				$this->Write ( $payment ['income'], PAGE_BOTH_MARGIN + 240, $bottomPos + $offset + TRANSACTION_MULTIPLIER);
 				if ( isset($payment['Banks']) && isset($payment['Banks']['name']) ) {
 					$this->Write ( $payment['Banks']['name'], PAGE_BOTH_MARGIN + 295, $bottomPos + $offset + TRANSACTION_MULTIPLIER );
 				}
@@ -668,6 +670,11 @@ class Shineisp_Commons_PdfOrder {
 			$records ['payment_date'] = ! empty ( $records ['payment_date'] ) ? $records ['payment_date'] : "";
 
 			$this->Write ( $records ['payment_transaction_id'], PAGE_BOTH_MARGIN + 2, $toppos - 162 );
+			
+			if ( isset($records ['payments']) ) {
+				$this->Write ( $records ['payments'][0]['income'], PAGE_BOTH_MARGIN + 240, $toppos - 162 );
+			}
+			
 			$this->Write ( $records ['payment_mode'], PAGE_BOTH_MARGIN + 295, $toppos - 162 );
 			$this->Write ( $records ['payment_date'], PAGE_BOTH_MARGIN + 420, $toppos - 162 );
 		}
