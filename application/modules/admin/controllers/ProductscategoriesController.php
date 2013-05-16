@@ -44,8 +44,8 @@ class Admin_ProductscategoriesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Product Category list";
-		$this->view->description = "Here you can see all the product categories.";
+		$this->view->title = $this->translator->translate("Product Category list");
+		$this->view->description = $this->translator->translate("Here you can see all the product categories.");
 		$this->view->buttons = array(array("url" => "/admin/productscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( ProductsCategories::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_ProductscategoriesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/productscategories/process" );
-		$this->view->title = "New Category";
-		$this->view->description = "Add here a new product category";
+		$this->view->title = $this->translator->translate("New Category");
+		$this->view->description = $this->translator->translate("Add here a new product category");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/productscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -179,8 +179,8 @@ class Admin_ProductscategoriesController extends Zend_Controller_Action {
 			}
 		}
 		
-		$this->view->title = "Edit Category";
-		$this->view->description = "Here you can edit the product category.";
+		$this->view->title = $this->translator->translate("Edit Category");
+		$this->view->description = $this->translator->translate("Here you can edit the product category.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -236,8 +236,8 @@ class Admin_ProductscategoriesController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/productscategories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Edit Category";
-			$this->view->description = "Here you can edit the product category.";
+			$this->view->title = $this->translator->translate("Edit Category");
+			$this->view->description = $this->translator->translate("Here you can edit the product category.");
 			return $this->render ( 'applicantform' );
 		}
 	}

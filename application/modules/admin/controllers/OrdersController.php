@@ -44,8 +44,8 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function listAction() {
-		$this->view->title = "Orders list";
-		$this->view->description = "Here you can see all the orders.";
+		$this->view->title = $this->translator->translate("Orders list");
+		$this->view->description = $this->translator->translate("Here you can see all the orders.");
 		$this->view->buttons = array(array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New order'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Orders::grid () )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	public function newAction() {
 		
 		$this->view->form = $this->getForm ( "/admin/orders/process" );
-		$this->view->title = "New Order";
-		$this->view->description = "Create a new order using this form.";
+		$this->view->title = $this->translator->translate("New Order");
+		$this->view->description = $this->translator->translate("Create a new order using this form.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save order'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')));
 		$this->render ( 'applicantform' );
 	}
@@ -476,8 +476,8 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Order Edit";
-			$this->view->description = "Here you can edit the selected order.";
+			$this->view->title = $this->translator->translate("Order Edit");
+			$this->view->description = $this->translator->translate("Here you can edit the selected order.");
 			return $this->render ( 'applicantform' );
 		}
 	}

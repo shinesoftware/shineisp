@@ -2,20 +2,20 @@ Isp:
   Isp_1:
     company: ShineISP
     vatnumber: IT123123123
-    manager: ''
-    address: null
-    zip: null
-    city: null
-    country: null
-    telephone: null
-    fax: null
-    bankname: null
-    iban: null
-    bic: null
-    website: ''
+    manager: 'John Doe'
+    address: '11, Churchil street'
+    zip: '75017'
+    city: Newcastle
+    country: 'United Kingdom'
+    telephone: '+33.140081812'
+    fax: '+33.140082121'
+    bankname: 'Banc de Paris'
+    iban: 'FR74 2004 2111 0127 3468 5R02 123'
+    bic: PSSTFRPCARR
+    website: 'http://www.shineisp.com'
     email: info@shineisp.com
     password: 25f9e794323b453885f5181f1b624d0b
     isppanel: ''
     logo: logo.png
-    slogan: null
+    slogan: 'Your new hosting software partner'
     active: true

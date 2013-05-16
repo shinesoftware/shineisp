@@ -36,8 +36,8 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Servers Groups";
-		$this->view->description = "Here you can see all groups of servers.";
+		$this->view->title = $this->translator->translate("Servers Groups");
+		$this->view->description = $this->translator->translate("Here you can see all groups of servers.");
 		$this->view->buttons = array(array("url" => "/admin/serversgroups/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( ServersGroups::grid() )->datagrid ();
 	}
@@ -86,8 +86,8 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/serversgroups/process" );
-		$this->view->title = "Servers Groups";
-		$this->view->description = "Here you can edit the server group details.";
+		$this->view->title = $this->translator->translate("Servers Groups");
+		$this->view->description = $this->translator->translate("Here you can edit the server group details.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/serversgroups/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -177,8 +177,8 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 				
 			}
 		}
-		$this->view->title = "Server Group";
-		$this->view->description = "Here you can edit the server group details.";
+		$this->view->title = $this->translator->translate("Server Group");
+		$this->view->description = $this->translator->translate("Here you can edit the server group details.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -231,8 +231,8 @@ class Admin_ServersgroupsController extends Zend_Controller_Action {
 			
 			} else {
 				$this->view->form = $form;
-				$this->view->title = "Servers Groups";
-				$this->view->description = "Here you can edit the group detail";
+				$this->view->title = $this->translator->translate("Servers Groups");
+				$this->view->description = $this->translator->translate("Here you can edit the group detail");
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {

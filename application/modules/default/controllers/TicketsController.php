@@ -63,8 +63,8 @@ class TicketsController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Tickets list";
-		$this->view->description = "Here you can see the list of all the issue posted.";
+		$this->view->title = $this->translator->translate("Tickets list");
+		$this->view->description = $this->translator->translate("Here you can see the list of all the issue posted.");
 		$this->view->tickets = $data;
 		$this->_helper->viewRenderer ( 'index' );
 	}
@@ -76,8 +76,8 @@ class TicketsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$form = $this->getForm ( '/tickets/process' );
-		$this->view->title = "Add new Issue";
-		$this->view->description = "Post a new issue.";
+		$this->view->title = $this->translator->translate("Add new Issue");
+		$this->view->description = $this->translator->translate("Post a new issue.");
 		$this->view->form = $form;
 		
 		$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
@@ -135,8 +135,8 @@ class TicketsController extends Zend_Controller_Action {
 			$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'partials/wikisidebar.phtml', array ('items' => Wiki::get_items(5) ) ) );
 		}
 		
-		$this->view->title = "Ticket Edit";
-		$this->view->description = "Here you can write down your problem. Remember to be clear and analytic in order to explain the problem that has been occurred.";
+		$this->view->title = $this->translator->translate("Ticket Edit");
+		$this->view->description = $this->translator->translate("Here you can write down your problem. Remember to be clear and analytic in order to explain the problem that has been occurred.");
 		$this->view->dnsdatagrid = $this->dnsGrid ();
 		$this->view->form = $form;
 		$this->_helper->viewRenderer ( 'customform' );
@@ -162,8 +162,8 @@ class TicketsController extends Zend_Controller_Action {
 		$request = $this->getRequest ();
 		$customerid = $NS->customer ['customer_id'];
 		
-		$this->view->title = "Ticket process";
-		$this->view->description = "Check the information before save again.";
+		$this->view->title = $this->translator->translate("Ticket process");
+		$this->view->description = $this->translator->translate("Check the information before save again.");
 			
 		// Check if we have a POST request
 		if (! $request->isPost ()) {

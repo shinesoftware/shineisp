@@ -37,8 +37,8 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Email Templates";
-		$this->view->description = "Here you can see all groups of servers.";
+		$this->view->title = $this->translator->translate("Email Templates");
+		$this->view->description = $this->translator->translate("Here you can see all groups of servers.");
 		$this->view->buttons = array(array("url" => "/admin/emailstemplates/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right')))
 									,array("url" => "/admin/emailstemplates/confirmimport/", "label" => $this->translator->translate('Import'), "params" => array('css' => array('button', 'float_right')))
 								);
@@ -89,8 +89,8 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/emailstemplates/process" );
-		$this->view->title = "Email Templates";
-		$this->view->description = "Here you can edit the server group details.";
+		$this->view->title = $this->translator->translate("Email Templates");
+		$this->view->description = $this->translator->translate("Here you can edit the server group details.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/emailstemplates/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -311,8 +311,8 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/$controller/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "E-Mail Template";
-			$this->view->description = "Here you can edit the e-mail template";
+			$this->view->title = $this->translator->translate("E-Mail Template");
+			$this->view->description = $this->translator->translate("Here you can edit the e-mail template");
 			return $this->render ( 'applicantform' );
 		}
 	}

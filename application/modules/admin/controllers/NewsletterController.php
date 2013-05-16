@@ -44,8 +44,8 @@ class Admin_NewsletterController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Newsletter list";
-		$this->view->description = "Here you can see all the messages of the newsletter.";
+		$this->view->title = $this->translator->translate("Newsletter list");
+		$this->view->description = $this->translator->translate("Here you can see all the messages of the newsletter.");
 		$this->view->buttons = array(array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Newsletters::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_NewsletterController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/newsletter/process" );
-		$this->view->title = "Newsletter";
-		$this->view->description = "Here you can create the newsletter.";
+		$this->view->title = $this->translator->translate("Newsletter");
+		$this->view->description = $this->translator->translate("Here you can create the newsletter.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -174,8 +174,8 @@ class Admin_NewsletterController extends Zend_Controller_Action {
 			}
 		}
 		
-		$this->view->title = "Newsletter edit";
-		$this->view->description = "Here you can edit the newsletter.";
+		$this->view->title = $this->translator->translate("Newsletter edit");
+		$this->view->description = $this->translator->translate("Here you can edit the newsletter.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );

@@ -44,8 +44,8 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Languages list";
-		$this->view->description = "Here you can see all the languages.";
+		$this->view->title = $this->translator->translate("Languages list");
+		$this->view->description = $this->translator->translate("Here you can see all the languages.");
 		$this->view->buttons = array(array("url" => "/admin/languages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Languages::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/languages/process" );
-		$this->view->title = "Language Details";
-		$this->view->description = "Here you can handle the bank parameters";
+		$this->view->title = $this->translator->translate("Language Details");
+		$this->view->description = $this->translator->translate("Here you can handle the bank parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/languages/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -180,8 +180,8 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 				
 		}
 		
-		$this->view->title = "Language Details";
-        $this->view->description = "Here you can edit the languages";
+		$this->view->title = $this->translator->translate("Language Details");
+        $this->view->description = $this->translator->translate("Here you can edit the languages");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -250,8 +250,8 @@ class Admin_LanguagesController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/languages/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Language Edit";
-			$this->view->description = "Edit the bank information";
+			$this->view->title = $this->translator->translate("Language Edit");
+			$this->view->description = $this->translator->translate("Edit the bank information");
 			return $this->render ( 'applicantform' );
 		}
 	}

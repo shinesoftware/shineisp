@@ -44,8 +44,8 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Pages list";
-		$this->view->description = "Here you can see all the published pages.";
+		$this->view->title = $this->translator->translate("Pages list");
+		$this->view->description = $this->translator->translate("Here you can see all the published pages.");
 		$this->view->buttons = array(array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( CmsPages::grid() )->datagrid ();
 	}
@@ -102,8 +102,8 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')));
 		
-		$this->view->title = "Create a page";
-		$this->view->description = "Here you can create a static page.";
+		$this->view->title = $this->translator->translate("Create a page");
+		$this->view->description = $this->translator->translate("Here you can create a static page.");
 		$this->render ( 'applicantform' );
 	}
 	
@@ -155,8 +155,8 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 		$form = $this->getForm ( '/admin/cmspages/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
-		$this->view->title = "Edit Page";
-		$this->view->description = "Here you can edit the page.";
+		$this->view->title = $this->translator->translate("Edit Page");
+		$this->view->description = $this->translator->translate("Here you can edit the page.");
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$record = $this->cmspages->getAllInfo ( $id );
@@ -216,8 +216,8 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 		
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Cmspages Details";
-			$this->view->description = "Here you can reply to all the customers requests";
+			$this->view->title = $this->translator->translate("CMS Pages Details");
+			$this->view->description = $this->translator->translate("Here you can reply to all the customers requests");
 			return $this->render ( 'applicantform' );
 		}
 	}

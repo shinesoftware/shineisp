@@ -44,8 +44,8 @@ class Admin_NotesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Note";
-		$this->view->description = "Here you can see all the notes.";
+		$this->view->title = $this->translator->translate("Note");
+		$this->view->description = $this->translator->translate("Here you can see all the notes.");
 		$this->view->buttons = array(array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
 		$this->datagrid->setConfig ( Notes::grid() )->datagrid ();
@@ -95,8 +95,8 @@ class Admin_NotesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/notes/process" );
-		$this->view->title = "New Note";
-		$this->view->description = "Here you can create a new notes.";
+		$this->view->title = $this->translator->translate("New Note");
+		$this->view->description = $this->translator->translate("Here you can create a new notes.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -167,8 +167,8 @@ class Admin_NotesController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Note edit";
-		$this->view->description = "Here you can edit a note.";
+		$this->view->title = $this->translator->translate("Note edit");
+		$this->view->description = $this->translator->translate("Here you can edit a note.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -212,8 +212,8 @@ class Admin_NotesController extends Zend_Controller_Action {
 			}
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Note edit";
-			$this->view->description = "Here you can edit a note.";
+			$this->view->title = $this->translator->translate("Note edit");
+			$this->view->description = $this->translator->translate("Here you can edit a note.");
 			return $this->render ( 'applicantform' );
 		}
 	}

@@ -36,8 +36,8 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Attributes Groups";
-		$this->view->description = "Here you can see all the attributes groups.";
+		$this->view->title = $this->translator->translate("Attributes Groups");
+		$this->view->description = $this->translator->translate("Here you can see all the attributes groups.");
 		$this->view->buttons = array(array("url" => "/admin/productsattributesgroups/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( ProductsAttributesGroups::grid() )->datagrid ();
 	}
@@ -86,8 +86,8 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/productsattributesgroups/process" );
-		$this->view->title = "Attribute Group";
-		$this->view->description = "Here you can edit the attribute group details.";
+		$this->view->title = $this->translator->translate("Attribute Group");
+		$this->view->description = $this->translator->translate("Here you can edit the attribute group details.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/productsattributesgroups/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -177,8 +177,8 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 				
 			}
 		}
-		$this->view->title = "Attribute Group";
-		$this->view->description = "Here you can edit the attribute group details.";
+		$this->view->title = $this->translator->translate("Attribute Group");
+		$this->view->description = $this->translator->translate("Here you can edit the attribute group details.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -241,8 +241,8 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 			
 			} else {
 				$this->view->form = $form;
-				$this->view->title = "Hosting Plan Feature details";
-				$this->view->description = "Here you can fix the hosting plan feature details.";
+				$this->view->title = $this->translator->translate("Hosting Plan Feature details");
+				$this->view->description = $this->translator->translate("Here you can fix the hosting plan feature details.");
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {

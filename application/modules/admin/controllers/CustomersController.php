@@ -44,8 +44,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Customer list";
-		$this->view->description = "Here you can see all the customers.";
+		$this->view->title = $this->translator->translate("Customer list");
+		$this->view->description = $this->translator->translate("Here you can see all the customers.");
 		$this->view->buttons = array(array("url" => "/admin/customers/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Customers::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/customers/process" );
-		$this->view->title = "Customer details";
-		$this->view->description = "Here you can edit the customer details.";
+		$this->view->title = $this->translator->translate("Customer details");
+		$this->view->description = $this->translator->translate("Here you can edit the customer details.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 							   		 array("url" => "/admin/customers/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -217,8 +217,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
-		$this->view->title = "Customer edit";
-		$this->view->description = "Here you can edit the customer details.";
+		$this->view->title = $this->translator->translate("Customer edit");
+		$this->view->description = $this->translator->translate("Here you can edit the customer details.");
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -509,8 +509,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 				$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			} else {
 				$this->view->form = $form;
-				$this->view->title = "Customer details";
-				$this->view->description = "Here you can edit the customer details.";
+				$this->view->title = $this->translator->translate("Customer details");
+				$this->view->description = $this->translator->translate("Here you can edit the customer details.");
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {

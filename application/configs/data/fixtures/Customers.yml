@@ -30,34 +30,3 @@ Customers:
     taxfree: false
     isreseller: null
     ignore_latefee: false
-  Customers_2:
-    uuid: null
-    company: 'Italian Software S.r.l.'
-    firstname: Luisa
-    lastname: Lucci
-    sex: F
-    email: null
-    password: $1$jLaehy/x$gJfdv9wrIAm2IrmKCGcoO/
-    resetpwd_key: null
-    resetpwd_expire: null
-    last_password_change: null
-    force_password_change: '0'
-    birthdate: '1982-01-15'
-    birthplace: Roma
-    birthdistrict: RM
-    birthcountry: Italia
-    birthnationality: Italiana
-    taxpayernumber: RPRSRA82E66H501Y
-    vat: IT03671234567
-    CompanyTypes: CompanyTypes_2
-    Legalforms: Legalforms_2
-    note: ''
-    Statuses: Statuses_11
-    CustomersGroups: CustomersGroups_1
-    language: it_IT
-    issubscriber: true
-    created_at: '2012-02-27 15:43:20'
-    updated_at: '2012-02-27 15:43:20'
-    taxfree: false
-    isreseller: null
-    ignore_latefee: false

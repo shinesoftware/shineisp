@@ -44,8 +44,8 @@ class Admin_SubscribersController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Newsletter Subscribers list";
-		$this->view->description = "Here you can see all the emails of the subscribers.";
+		$this->view->title = $this->translator->translate("Newsletter Subscribers list");
+		$this->view->description = $this->translator->translate("Here you can see all the emails of the subscribers.");
 		$this->view->buttons = array(array("url" => "/admin/subscribers/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( NewslettersSubscribers::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_SubscribersController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/subscribers/process" );
-		$this->view->title = "Newsletter Subscriber";
-		$this->view->description = "Here you can create a new subscription.";
+		$this->view->title = $this->translator->translate("Newsletter Subscriber");
+		$this->view->description = $this->translator->translate("Here you can create a new subscription.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/subscribers/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -146,8 +146,8 @@ class Admin_SubscribersController extends Zend_Controller_Action {
 			}
 		}
 		
-		$this->view->title = "Subscriber edit";
-		$this->view->description = "Here you can edit the subscribers.";
+		$this->view->title = $this->translator->translate("Subscriber edit");
+		$this->view->description = $this->translator->translate("Here you can edit the subscribers.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -196,8 +196,8 @@ class Admin_SubscribersController extends Zend_Controller_Action {
 		
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Subscriber Details";
-			$this->view->description = "Here you can check all the submit information.";
+			$this->view->title = $this->translator->translate("Subscriber Details");
+			$this->view->description = $this->translator->translate("Here you can check all the submit information.");
 			return $this->render ( 'applicantform' );
 		}
 	}

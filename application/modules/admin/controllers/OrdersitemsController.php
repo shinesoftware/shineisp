@@ -137,8 +137,8 @@ class Admin_OrdersitemsController extends Zend_Controller_Action {
 		
 		
 		
-		$this->view->title = "Service edit";
-		$this->view->description = "Here you can edit the service selected";
+		$this->view->title = $this->translator->translate("Service edit");
+		$this->view->description = $this->translator->translate("Here you can edit the service selected");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
