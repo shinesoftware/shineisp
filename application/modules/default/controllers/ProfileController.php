@@ -235,7 +235,7 @@ class ProfileController extends Zend_Controller_Action {
 						$body = str_replace ( "[user]", $params ['firstname'] . " " . $params ['lastname'], $body );
 						$body = str_replace ( "[old]", print_r($oldCustomer, true), $body );
 						$body = str_replace ( "[new]", print_r($customer->toArray(), true), $body );
-						$isp = Isp::getActiveISP ();
+						$isp = ISP::getCurrentISP();
 						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );
 					}
 				}

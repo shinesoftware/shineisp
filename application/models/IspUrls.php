@@ -12,5 +12,10 @@
  */
 class IspUrls extends BaseIspUrls
 {
-
+	/**
+	 * Expose findOneBy method
+	 */
+	public static function findOneByUrl($url) {
+		return Doctrine::getTable ( 'IspUrls' )->findOneByUrl ( $url );
+	}
 }

@@ -34,7 +34,7 @@ class Admin_ReviewsController extends Zend_Controller_Action {
 	 * Create the User object and get all the records.
 	 * @return unknown_type
 	 */
-	public function indexAction() {
+	public function indexAction() {		
 		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/admin/reviews/list' );
 	}

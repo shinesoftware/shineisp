@@ -85,6 +85,12 @@ class Setup_PreferencesController extends Zend_Controller_Action {
 					// Save the company information
 					Isp::saveAll($params, $ispId);
 					
+					// TODO: Bind ISP to the current URL
+					$IspUrls = new IspUrls();
+					$IspUrls->isp_id = $ispId;
+					$IspUrls->url    = $_SERVER['HTTP_HOST'];
+					$IspUrls->save();
+					
 					// Adding the user as administrator 
 					AdminUser::addUser($params['firstname'], $params['lastname'], $params['email'], $params['password'], $ispId);
 					
