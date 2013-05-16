@@ -987,7 +987,7 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
 	 */
-	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null) {
+	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null) {
 		// Get email template
 		$arrTemplate = self::getEmailTemplate($template);
 		if ( !is_array($arrTemplate) ) {
@@ -996,11 +996,11 @@ class Shineisp_Commons_Utilities {
 		
 		$arrReplaced = array();
 
-		// Get ISP details. Having this here is always usefull
-		$ISP = Isp::getActiveISP ();
+		// ISP missing from arguments, try to get automatically
+		$ISP = ( isset($ISP) && is_array($ISP) ) ? $ISP : ISP::getCurrentISP();
 		
 		// Add some mixed parameters
-		$ISP['signature'] = $ISP ['company']."\n".$ISP['website'];
+		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
 
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
