@@ -6,7 +6,7 @@ Customers:
     lastname: Bucchieri
     sex: M
     email: null
-    password: $1$FT.RCjcc$VoB/ityjp2mEFmwqYIvIr.
+    password: $1$tuREYJue$.T15OcPSAMEzpyDcczYNV.
     resetpwd_key: ''
     resetpwd_expire: '0000-00-00 00:00:00'
     last_password_change: '2013-05-13 22:01:29'
