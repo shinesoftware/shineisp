@@ -14,7 +14,7 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 	 * @see Zend_Controller_Plugin_Abstract::preDispatch()
 	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-		
+		$dayssincefirstsetup = 0;
 		$migration = new Doctrine_Migration(APPLICATION_PATH . '/configs/migrations');
 		
 		$LatestVersion = $migration->getLatestVersion();

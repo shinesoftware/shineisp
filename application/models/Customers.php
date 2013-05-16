@@ -90,44 +90,63 @@ class Customers extends BaseCustomers {
 	 * Create a new customer
 	 */
 	public static function Create($data) {
+		
 		$customer = new Customers ( );
 		
-		// Customer's parameters.
-		$customer->company = !empty($data ['company']) ? $data ['company'] : null;
-		$customer->firstname = !empty($data ['firstname']) ? $data ['firstname'] : null;
-		$customer->lastname = !empty($data ['lastname']) ? $data ['lastname'] : null;
-		$customer->sex = !empty($data ['sex']) ? $data ['sex'] : null;
-		$customer->email = $data ['email'] ? $data ['email'] : null;
-		$customer->password = crypt($data ['password']);
+		$isDisabled = false;
 		
-		$customer->birthplace = !empty($data ['birthplace']) ? $data ['birthplace'] : null;
-		$customer->birthdate = !empty($data ['birthdate']) ? Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] ) : null;
-		$customer->birthdistrict = !empty($data ['birthdistrict']) ? $data ['birthdistrict'] : null;
-		$customer->birthcountry = !empty($data ['birthcountry']) ? $data ['birthcountry'] : null;
+		// By default, welcome mail is sent
+		$data['welcome_mail'] = isset($data['welcome_mail']) ? intval($data['welcome_mail']) : true;
+		
+		// Customer's parameters.
+		$customer->company          = !empty($data ['company']) ? $data ['company'] : null;
+		$customer->firstname        = !empty($data ['firstname']) ? $data ['firstname'] : null;
+		$customer->lastname         = !empty($data ['lastname']) ? $data ['lastname'] : null;
+		$customer->sex              = !empty($data ['sex']) ? $data ['sex'] : null;
+		$customer->email            = $data ['email'] ? $data ['email'] : null;
+		$customer->password         = crypt($data ['password']);
+		$customer->birthplace       = !empty($data ['birthplace']) ? $data ['birthplace'] : null;
+		$customer->birthdate        = !empty($data ['birthdate']) ? Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] ) : null;
+		$customer->birthdistrict    = !empty($data ['birthdistrict']) ? $data ['birthdistrict'] : null;
+		$customer->birthcountry     = !empty($data ['birthcountry']) ? $data ['birthcountry'] : null;
 		$customer->birthnationality = !empty($data ['birthnationality']) ? $data ['birthnationality'] : null;
-		$customer->note = ! empty ( $data ['note'] ) ? $data ['note'] : Null;
-		$customer->vat = ! empty ( $data ['vat'] ) ? $data ['vat'] : Null;
-		$customer->taxpayernumber = ! empty ( $data ['taxpayernumber'] ) ? $data ['taxpayernumber'] : Null;
-		$customer->status_id = ! empty ( $data ['status_id'] ) ? $data ['status_id'] : Statuses::id('Active', 'Customers'); 
+		$customer->note             = ! empty ( $data ['note'] ) ? $data ['note'] : Null;
+		$customer->vat              = ! empty ( $data ['vat'] ) ? $data ['vat'] : Null;
+		$customer->taxpayernumber   = ! empty ( $data ['taxpayernumber'] ) ? $data ['taxpayernumber'] : Null;
+		
+		// Let's try to get status_id from status
+		if ( isset($data['status']) && !empty($data['status']) ) {
+			$customer->status_id = Statuses::id($data['status'], 'Customers');
+			$isDisabled = (isset($data['status']) && strtolower($data['status']) == 'disabled') ? true : false;
+		} else {
+			$customer->status_id = ! empty ( $data ['status_id'] ) ? $data ['status_id'] : Statuses::id('Active', 'Customers');
+		}				
+		 
 		$customer->legalform_id = ! empty ( $data ['legalform'] ) ? $data ['legalform'] : Null;
-		$customer->type_id = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
-		$customer->parent_id = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
-		$customer->isreseller = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
-		$customer->language = ! empty ( $data ['language'] ) ? $data ['language'] : "it_IT";
-		$customer->created_at = date ( 'Y-m-d H:i:s' );
-		$customer->updated_at = date ( 'Y-m-d H:i:s' );
+		$customer->type_id      = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
+		$customer->parent_id    = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
+		$customer->isreseller   = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
+		$customer->language     = ! empty ( $data ['language'] ) ? $data ['language'] : "it_IT";
+		$customer->created_at   = date ( 'Y-m-d H:i:s' );
+		$customer->updated_at   = date ( 'Y-m-d H:i:s' );
+
+		// Try to get logged isp_id
+		// TODO: this should be done better
+		$customer->isp_id = ISP::getLoggedId();
+				
+		// customer disabled? Disable its password
+		if ( $isDisabled ) {
+			$customer->password = '!'.$customer->password;
+		}
 		
 		// Save the data
 		$customer->save ();
-		
-		// Add the customer email in the newsletter list
-		NewslettersSubscribers::customer_optIn($customer['customer_id']);
 		
 		if(!empty($data ['contact'])){
 			$customer->Contacts [0]->contact = ! empty ( $data ['contact'] ) ? $data ['contact'] : Null;
 			$customer->Contacts [0]->type_id = ! empty ( $data ['contacttypes'] ) ? $data ['contacttypes'] : Null;
 			$customer->Contacts [0]->base = 1;
-		  $customer->save ();
+		  	$customer->save ();
 		}
 		
 		if(!empty($data ['address'])){
@@ -141,8 +160,15 @@ class Customers extends BaseCustomers {
 		
 		$customerID = $customer->getIncremented ();
 		
-		// Send the welcome email
-		self::welcome_mail($customerID, $data ['password']);
+		if ( !$isDisabled ) {
+			// Add the customer email in the newsletter list
+			NewslettersSubscribers::customer_optIn($customer['customer_id']);
+		}
+		
+		if ( $data['welcome_mail'] == true && $isDisabled = false ) {
+			// Send the welcome email
+			self::welcome_mail($customerID, $data ['password']);
+		}
 		
 		return $customerID;
 	}
@@ -477,7 +503,8 @@ class Customers extends BaseCustomers {
 		
 		return Doctrine_Query::create ()->from ( 'Customers c' )
 			->where ('resetpwd_key = ?', $resetKey)
-			->andWhere('TIME_TO_SEC(TIMEDIFF(resetpwd_expire,NOW())) > 0')
+			->andWhere('DATEDIFF(resetpwd_expire, NOW()) >= 0')
+			->andWhere('TIMEDIFF(resetpwd_expire, NOW()) > 0')
 			->limit ( 1 )
 			->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -549,7 +576,10 @@ class Customers extends BaseCustomers {
 	 * @return Array
 	 */
 	public static function getCustomerbyEmail($email) {
-		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->limit ( 1 );
+		// Filter by isp_id
+		$isp_id = ISP::getLoggedId();
+				
+		$dq = Doctrine_Query::create ()->from ( 'Customers c' )->where ( "email = ?", $email )->addWhere('isp_id = ?', $isp_id)->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
 	
@@ -638,6 +668,9 @@ class Customers extends BaseCustomers {
 			$customer = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 			if (isset ( $customer [0] )) {
+				// workaround for missing isp_id. Older customers, created before multi-isp suppor does't have an isp_id set
+				$customer[0]['isp_id'] = (!isset($customer[0]['isp_id']) || intval($customer[0]['isp_id']) < 1) ? 1 : intval($customer[0]['isp_id']);
+				
 				// Add "fullname" value, needed almost everywhere
 				if ( isset($customer[0]['company']) && !empty($customer[0]['company']) ) {
 					$customer[0]['fullname']        = $customer[0]['company'];
@@ -894,16 +927,12 @@ class Customers extends BaseCustomers {
 			if ( $dbUser && isset($dbUser[0]) ) {
 				$dbUser = $dbUser[0];
 				$dbPass = $dbUser['password'];
-				Shineisp_Commons_Utilities::log('Login: ' . $dbUser['lastname'] . ' tries to login with ' . $dbUser['email'] . ' and ' . $password . ' as password.' );
 				
 				if ( strlen($dbPass) > 32 && substr($dbPass,0,1) == '$') {
 					$userPassword = crypt($password, $dbPass);
-					Shineisp_Commons_Utilities::log('Login: this is the hashed password:' . $userPassword);
-					Shineisp_Commons_Utilities::log('Login: this is the database hashed password:' . $dbPass);
 				} else {
 					$isMD5 = true;
 					$userPassword = md5($password);
-					Shineisp_Commons_Utilities::log('Login: this is the MD5 password:' . $userPassword);
 				}
 				
 				if ( $userPassword == $dbPass ) {
@@ -917,12 +946,9 @@ class Customers extends BaseCustomers {
 												 ->limit(1)
 												 ->execute ();					
 					} 
-	                
-	                Shineisp_Commons_Utilities::log('Login: Authorization OK');
+	
 					// Auth OK
 					return $dbUser;				
-				}else{
-				    Shineisp_Commons_Utilities::log('Login: Authorization KO');
 				}				
 			}
 			

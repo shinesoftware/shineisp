@@ -1,5 +1,5 @@
 <?php
-class Default_Form_CustomerForm extends Zend_Form
+class Api_Form_CustomerForm extends Zend_Form
 {   
 	
     public function init()
@@ -35,15 +35,6 @@ class Default_Form_CustomerForm extends Zend_Form
             'class'        => 'text-input medium-input'
         ));
         
-        $this->addElement('text', 'birthplace', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Birthplace',
-            'required'   => true,
-            'description'      => 'Write here the birthplace.',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
-        ));
-        
         $this->addElement('select', 'company_type_id', array(
         'label' => 'Company Type',
         'decorators' => array('Composite'),
@@ -72,13 +63,12 @@ class Default_Form_CustomerForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => 'Company Name',
             'decorators' => array('Composite'),
-            'description'      => 'Write here your company name.',
+            'description'=> 'Write here your company name.',
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'birthplace', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Birthplace',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -86,7 +76,6 @@ class Default_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthdistrict', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Birth District',
             'decorators' => array('Composite'),
             'class'      => 'text-input medium-input',
@@ -95,7 +84,6 @@ class Default_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthcountry', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Country of Birth',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -103,7 +91,6 @@ class Default_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'birthnationality', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Birth Nationality',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -121,7 +108,6 @@ class Default_Form_CustomerForm extends Zend_Form
         
         $this->addElement('text', 'area', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Area',
             'decorators' => array('Composite'),
             'class'      => 'text-input medium-input',
@@ -130,12 +116,11 @@ class Default_Form_CustomerForm extends Zend_Form
         
         $fiscalcodeValidator = new Shineisp_Validate_Fiscalcode();
         $this->addElement('text', 'taxpayernumber', array(
-            'filters'    => array('StringTrim'),
-            'required'   => true,
-            'label'      => 'Tax payer number',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
-            'description'      => 'Write the tax payer number.'
+            'filters'       => array('StringTrim'),
+            'label'         => 'Tax payer number',
+            'decorators'    => array('Composite'),
+            'class'         => 'text-input large-input',
+            'description'   => 'Write the tax payer number.'
         ));
         $this->getElement('taxpayernumber')->addValidator($fiscalcodeValidator);
         
@@ -167,10 +152,9 @@ class Default_Form_CustomerForm extends Zend_Form
         ));
         
         $this->addElement('select', 'country_id', array(
-		        'label' => 'Country',
-		        'required'   => true,
-		        'description'      => 'Select your own country',
-		        'decorators' => array('Composite'))
+                        'label' => 'Country',
+                        'decorators' => array('Composite'),
+                        'class'      => 'text-input large-input')
         );
         $this->getElement('country_id')
                   ->setAllowEmpty(false)
