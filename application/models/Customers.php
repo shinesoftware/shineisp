@@ -722,6 +722,26 @@ class Customers extends BaseCustomers {
 		
 		return !empty($customer[0]) ? $customer[0] : array();
 	}
+    
+    /**
+     * find with uuid
+     * Get a record by ID
+     * @param $id
+     * @return Doctrine Record
+     */
+    public static function findWithUuid($uuid, $fields = "*") {
+        $customer = Doctrine_Query::create ()->select ( $fields )
+                                        ->from ( 'Customers c' )
+                                        ->leftJoin ( 'c.Statuses s ON s.status_id = c.status_id' )
+                                        ->leftJoin ( 'c.CustomersDomainsRegistrars cdr' )
+                                        ->leftJoin ( 'c.Legalforms l ON c.legalform_id = l.legalform_id' )
+                                        ->leftJoin ( 'c.CompanyTypes ct ON c.type_id = ct.type_id' )
+                                        ->where ( "uuid = '$uuid'" )
+                                        ->limit ( 1 )
+                                        ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        
+        return !empty($customer[0]) ? $customer[0] : array();
+    }    
 	
     
 	/**

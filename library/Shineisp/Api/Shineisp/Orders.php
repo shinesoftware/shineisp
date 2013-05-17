@@ -5,7 +5,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         $this->authenticate();
 
         $uuid       = $params['uuid'];
-        $customers  = Customers::find($uuid); 
+        $customers  = Customers::findWithUuid($uuid);
         if( empty($customers) ) {
             throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
             exit();
@@ -24,6 +24,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             exit();            
         }
         
+        
         foreach( $params['products'] as $product ) {
             $productid  = intval( $product['productid']);
             $billingid  = intval( $product['billingid']);
@@ -39,15 +40,16 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 exit();            
             }
         }
+        
+        
         $id         = $customers['customer_id'];
-        $isVATFree  = Customers::isVATFree($id);
         
         if( $params['status'] == "complete" ) {
             $status = Statuses::id('complete', 'orders');   
         } else {
             $status = Statuses::id('tobepaid', 'orders');
         }
-        
+
         $theOrder = Orders::create ( $customers['customer_id'], $status, $params ['note'] );
         
         foreach( $params['products'] as $product ) {
@@ -56,7 +58,8 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             $quantity   = intval( $product['quantity']);
             $p          = Products::getAllInfo($productid);
             
-            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], array() );   
+            $options    = array( 'callback_url' => $product['urlactive'], 'uuid' => $product['uuid']);
+            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], $options );
         }
 
         $orderID = $theOrder ['order_id'];
@@ -83,11 +86,19 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             }
         } 
             
-        
         throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: bad request" );
         exit();            
-        
-                
     }
-    
+
+    public function getAll( $uuid ) {
+        $customers  = Customers::findWithUuid($uuid);
+        if( empty($customers) ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
+            exit();
+        }
+        $id         = $customers['customer_id'];
+        
+        return Orders::getOrdersByCustomerID($id);
+    }
+
 }
