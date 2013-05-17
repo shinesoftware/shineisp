@@ -27,10 +27,10 @@ class Provinces extends BaseProvinces {
      * 
      * Get all the provinces by StateID
      */    
-    public static function fildAllByRegionID ( $regionid ) {
+    public static function fildAllByStateID ( $stateid ) {
         return Doctrine_Query::create ()
                     ->from ( 'Provinces p' )
-                    ->where('p.region_id = ?', array($regionid))
+                    ->where('p.region_id = ?', array($stateid))
                     ->orderBy('p.name')
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );       
         
