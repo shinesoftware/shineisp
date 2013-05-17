@@ -42,7 +42,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         $id         = $customers['customer_id'];
         $isVATFree  = Customers::isVATFree($id);
         
-        if( $params['notify'] == "" ) {
+        if( $params['status'] == "complete" ) {
             $status = Statuses::id('complete', 'orders');   
         } else {
             $status = Statuses::id('tobepaid', 'orders');
