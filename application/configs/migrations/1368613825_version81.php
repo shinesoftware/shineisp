@@ -14,10 +14,10 @@ class Version81 extends Doctrine_Migration_Base
              'onUpdate' => '',
              'onDelete' => 'CASCADE',
              ));
-        $this->createForeignKey('provinces', 'provinces_state_id_states_state_id', array(
-             'name' => 'provinces_state_id_states_state_id',
-             'local' => 'state_id',
-             'foreign' => 'state_id',
+        $this->createForeignKey('provinces', 'provinces_region_id_states_region_id', array(
+             'name' => 'provinces_region_id_states_region_id',
+             'local' => 'region_id',
+             'foreign' => 'region_id',
              'foreignTable' => 'states',
              'onUpdate' => '',
              'onDelete' => 'CASCADE',
@@ -36,10 +36,10 @@ class Version81 extends Doctrine_Migration_Base
               0 => 'country_id',
              ),
              ));
-        $this->addIndex('provinces', 'provinces_state_id', array(
+        $this->addIndex('provinces', 'provinces_region_id', array(
              'fields' => 
              array(
-              0 => 'state_id',
+              0 => 'region_id',
              ),
              ));
         $this->addIndex('states', 'states_country_id', array(
@@ -53,7 +53,7 @@ class Version81 extends Doctrine_Migration_Base
     public function down()
     {
         $this->dropForeignKey('provinces', 'provinces_country_id_countries_country_id');
-        $this->dropForeignKey('provinces', 'provinces_state_id_states_state_id');
+        $this->dropForeignKey('provinces', 'provinces_region_id_states_region_id');
         $this->dropForeignKey('states', 'states_country_id_countries_country_id');
         $this->removeIndex('provinces', 'provinces_country_id', array(
              'fields' => 
@@ -61,10 +61,10 @@ class Version81 extends Doctrine_Migration_Base
               0 => 'country_id',
              ),
              ));
-        $this->removeIndex('provinces', 'provinces_state_id', array(
+        $this->removeIndex('provinces', 'provinces_region_id', array(
              'fields' => 
              array(
-              0 => 'state_id',
+              0 => 'region_id',
              ),
              ));
         $this->removeIndex('states', 'states_country_id', array(

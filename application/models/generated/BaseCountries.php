@@ -13,7 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Countries', 'doctrine');
  * @property string $tld
  * @property integer $enabled
  * @property Addresses $Addresses
- * @property Doctrine_Collection $States
+ * @property Doctrine_Collection $Regions
  * @property Doctrine_Collection $Provinces
  * 
  * @package    ##PACKAGE##
@@ -65,7 +65,7 @@ abstract class BaseCountries extends Doctrine_Record
              'foreign' => 'country_id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasMany('States', array(
+        $this->hasMany('Regions', array(
              'local' => 'country_id',
              'foreign' => 'country_id'));
 

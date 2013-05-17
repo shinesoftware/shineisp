@@ -54,8 +54,8 @@ class Admin_ProductsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Products list";
-		$this->view->description = "Here you can see all the products.";
+		$this->view->title = $this->translator->translate("Products list");
+		$this->view->description = $this->translator->translate("Here you can see all the products.");
 		$this->view->buttons = array(array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Products::grid () )->datagrid ();
 	}
@@ -99,8 +99,8 @@ class Admin_ProductsController extends Zend_Controller_Action {
 		// I have to add the language id into the hidden field in order to save the record with the language selected 
 		$this->view->form->populate ( array('language_id' => $this->session->langid) );
 		
-		$this->view->title = "Product Details";
-		$this->view->description = "Here you can edit the product details";
+		$this->view->title = $this->translator->translate("Product Details");
+		$this->view->description = $this->translator->translate("Here you can edit the product details");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 							   array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 				
@@ -423,8 +423,8 @@ class Admin_ProductsController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/products/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Product Details";
-			$this->view->description = "Here you can edit the product details";
+			$this->view->title = $this->translator->translate("Product Details");
+			$this->view->description = $this->translator->translate("Here you can edit the product details");
 			return $this->render ( 'applicantform' );
 		}
 	}

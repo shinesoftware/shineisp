@@ -1,21 +1,21 @@
 Isp:
   Isp_1:
     company: ShineISP
-    vatnumber: IT01234567890
+    vatnumber: IT123123123
     manager: 'John Doe'
-    address: '17 rue Biot'
+    address: '11, Churchil street'
     zip: '75017'
-    city: Paris
-    country: France
-    telephone: '+334097123985'
-    fax: '+334097123985'
-    bankname: MyBank
-    iban: IT28G0316501600000708754625
-    bic: IWBKITXX
+    city: Newcastle
+    country: 'United Kingdom'
+    telephone: '+33.140081812'
+    fax: '+33.140082121'
+    bankname: 'Banc de Paris'
+    iban: 'FR74 2004 2111 0127 3468 5R02 123'
+    bic: PSSTFRPCARR
     website: 'http://www.shineisp.com'
     email: info@shineisp.com
-    password: e807f1fcf82d132f9bb018ca6738a19f
-    isppanel: IspConfig
+    password: 25f9e794323b453885f5181f1b624d0b
+    isppanel: ''
     logo: logo.png
-    slogan: 'This is my slogan!'
+    slogan: 'Your new hosting software partner'
     active: true

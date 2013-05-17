@@ -59,8 +59,8 @@ class Admin_ProfileController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( '/admin/profile/account' );
 		}
 		
-		$this->view->title = "Users list";
-		$this->view->description = "Here you can see all the users.";
+		$this->view->title = $this->translator->translate("Users list");
+		$this->view->description = $this->translator->translate("Here you can see all the users.");
 		$this->view->buttons = array(array("url" => "/admin/profile/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( AdminUser::grid() )->datagrid ();
 	}
@@ -91,8 +91,8 @@ class Admin_ProfileController extends Zend_Controller_Action {
 		$form = $this->getForm ( '/admin/profile/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 	
-		$this->view->title = "Edit User";
-		$this->view->description = "Here you can edit the user.";
+		$this->view->title = $this->translator->translate("Edit User");
+		$this->view->description = $this->translator->translate("Here you can edit the user.");
 	
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$record = AdminUser::getAllInfo( $id );
@@ -236,8 +236,8 @@ class Admin_ProfileController extends Zend_Controller_Action {
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 				array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')));
 	
-		$this->view->title = "Create a new user";
-		$this->view->description = "Here you can create a new user.";
+		$this->view->title = $this->translator->translate("Create a new user");
+		$this->view->description = $this->translator->translate("Here you can create a new user.");
 		$this->render ( 'applicantform' );
 	}
 	
@@ -251,8 +251,8 @@ class Admin_ProfileController extends Zend_Controller_Action {
 		$this->view->form = $form;
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "User Account";
-		$this->view->description = "Here you can edit your user account information";
+		$this->view->title = $this->translator->translate("User Account");
+		$this->view->description = $this->translator->translate("Here you can edit your user account information");
 		$adminbuttons = array();
 		
 		// Create the buttons in the edit form
@@ -305,8 +305,8 @@ class Admin_ProfileController extends Zend_Controller_Action {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = "User Account";
-			$this->view->description = "Some information must be checked again before saving them.";
+			$this->view->title = $this->translator->translate("User Account");
+			$this->view->description = $this->translator->translate("Some information must be checked again before saving them.");
 			return $this->render ( 'applicantform' ); // re-render the login form
 		}
 		

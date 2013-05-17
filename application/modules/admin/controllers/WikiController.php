@@ -45,8 +45,8 @@ class Admin_WikiController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Wiki list";
-		$this->view->description = "Here you can see all the wiki articles.";
+		$this->view->title = $this->translator->translate("Wiki list");
+		$this->view->description = $this->translator->translate("Here you can see all the wiki articles.");
 		$this->view->buttons = array(array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Wiki::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_WikiController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/wiki/process" );
-		$this->view->title = "Wiki Details";
-		$this->view->description = "Here you can reply to all the customers requests";
+		$this->view->title = $this->translator->translate("Wiki Details");
+		$this->view->description = $this->translator->translate("Here you can reply to all the customers requests");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -169,8 +169,8 @@ class Admin_WikiController extends Zend_Controller_Action {
 			}
 		}
 		
-		$this->view->title = "Wiki Article";
-		$this->view->description = "Here you can add or edit a wiki article.";
+		$this->view->title = $this->translator->translate("Wiki Article");
+		$this->view->description = $this->translator->translate("Here you can add or edit a wiki article.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -226,8 +226,8 @@ class Admin_WikiController extends Zend_Controller_Action {
 		
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Wiki Details";
-			$this->view->description = "Here you can reply to all the customers requests";
+			$this->view->title = $this->translator->translate("Wiki Details");
+			$this->view->description = $this->translator->translate("Here you can reply to all the customers requests");
 			return $this->render ( 'applicantform' );
 		}
 	}

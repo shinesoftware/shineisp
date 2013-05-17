@@ -44,8 +44,8 @@ class Admin_TaxesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Tax";
-		$this->view->description = "Here you can see all the taxes.";
+		$this->view->title = $this->translator->translate("Tax");
+		$this->view->description = $this->translator->translate("Here you can see all the taxes.");
 		$this->view->buttons = array(array("url" => "/admin/taxes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
 		$this->datagrid->setConfig ( Taxes::grid() )->datagrid ();
@@ -95,8 +95,8 @@ class Admin_TaxesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/taxes/process" );
-		$this->view->title = "New Tax";
-		$this->view->description = "Here you can create a new taxes.";
+		$this->view->title = $this->translator->translate("New Tax");
+		$this->view->description = $this->translator->translate("Here you can create a new taxes.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/taxes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -169,8 +169,8 @@ class Admin_TaxesController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Tax edit";
-		$this->view->description = "Here you can edit the tax percentage data.";
+		$this->view->title = $this->translator->translate("Tax edit");
+		$this->view->description = $this->translator->translate("Here you can edit the tax percentage data.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -215,8 +215,8 @@ class Admin_TaxesController extends Zend_Controller_Action {
 			}
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Tax edit";
-			$this->view->description = "Here you can edit the tax percentage data.";
+			$this->view->title = $this->translator->translate("Tax edit");
+			$this->view->description = $this->translator->translate("Here you can edit the tax percentage data.");
 			return $this->render ( 'applicantform' );
 		}
 	}

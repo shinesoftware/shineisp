@@ -56,8 +56,8 @@ class Admin_DomainsController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function listAction() {
-		$this->view->title = "Domains list";
-		$this->view->description = "Here you can see all the domains.";
+		$this->view->title = $this->translator->translate("Domains list");
+		$this->view->description = $this->translator->translate("Here you can see all the domains.");
 		$this->view->buttons = array(array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Domains::grid () )->datagrid ();
 	}
@@ -106,8 +106,8 @@ class Admin_DomainsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( '/admin/domains/process' );
-		$this->view->title = "New Domain";
-		$this->view->description = "Here you can create a new domain.";
+		$this->view->title = $this->translator->translate("New Domain");
+		$this->view->description = $this->translator->translate("Here you can create a new domain.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
@@ -236,8 +236,8 @@ class Admin_DomainsController extends Zend_Controller_Action {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
 		$this->view->dns_datagrid = Domains::dnsGrid ();
-		$this->view->title = "Domain Edit";
-		$this->view->description = "Here you can edit your own domain parameters.";
+		$this->view->title = $this->translator->translate("Domain Edit");
+		$this->view->description = $this->translator->translate("Here you can edit your own domain parameters.");
 		
 		$this->view->form = $form;
 		
@@ -265,8 +265,8 @@ class Admin_DomainsController extends Zend_Controller_Action {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = "Domain process task";
-			$this->view->description = "Here you have to fix the domain parameters set.";
+			$this->view->title = $this->translator->translate("Domain process task");
+			$this->view->description = $this->translator->translate("Here you have to fix the domain parameters set.");
 			return $this->render ( 'applicantform' ); // re-render the login form
 		}
 		

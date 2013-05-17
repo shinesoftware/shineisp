@@ -44,8 +44,8 @@ class Admin_BanksController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Banks list";
-		$this->view->description = "Here you can see all the banks.";
+		$this->view->title = $this->translator->translate("Banks list");
+		$this->view->description = $this->translator->translate("Here you can see all the banks.");
 		$this->view->buttons = array(array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Banks::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_BanksController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/banks/process" );
-		$this->view->title = "Bank Details";
-		$this->view->description = "Here you can handle the bank parameters";
+		$this->view->title = $this->translator->translate("Bank Details");
+		$this->view->description = $this->translator->translate("Here you can handle the bank parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -180,8 +180,8 @@ class Admin_BanksController extends Zend_Controller_Action {
 				
 		}
 		
-		$this->view->title = "Bank Details";
-        $this->view->description = "Here you can edit the main bank information paramenters. Be careful, if you change something the module could be damaged.";
+		$this->view->title = $this->translator->translate("Bank Details");
+        $this->view->description = $this->translator->translate("Here you can edit the main bank information paramenters. Be careful, if you change something the module could be damaged.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -249,8 +249,8 @@ class Admin_BanksController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/banks/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Bank Edit";
-			$this->view->description = "Edit the bank information";
+			$this->view->title = $this->translator->translate("Bank Edit");
+			$this->view->description = $this->translator->translate("Edit the bank information");
 			return $this->render ( 'applicantform' );
 		}
 	}

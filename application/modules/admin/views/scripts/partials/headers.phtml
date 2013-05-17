@@ -3,9 +3,9 @@
     <div class="headsection float_left">
     	<div class="headtitle">
     		<?php if(!empty($this->titlelink)): ?>
-    			<a href="<?php echo $this->titlelink?>"><?php echo !empty($this->title) ? $this->translate($this->title) : "";?></a>
+    			<a href="<?php echo $this->titlelink?>"><?php echo $this->title;?></a>
     		<?php else: ?>
-    			<?php echo !empty($this->title) ? $this->translate($this->title) : "";?>
+    			<?php echo $this->title;?>
     		<?php endif;?>
     		
     	</div>

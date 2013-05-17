@@ -44,8 +44,8 @@ class Admin_WikicategoriesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Wiki Categories list";
-		$this->view->description = "Here you can see all the wiki categories.";
+		$this->view->title = $this->translator->translate("Wiki Categories list");
+		$this->view->description = $this->translator->translate("Here you can see all the wiki categories.");
 		$this->view->buttons = array(array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( WikiCategories::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_WikicategoriesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/wikicategories/process" );
-		$this->view->title = "Wiki Category Details";
-		$this->view->description = "Here you can handle the wiki category parameters";
+		$this->view->title = $this->translator->translate("Wiki Category Details");
+		$this->view->description = $this->translator->translate("Here you can handle the wiki category parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -180,8 +180,8 @@ class Admin_WikicategoriesController extends Zend_Controller_Action {
 				
 		}
 		
-		$this->view->title = "Wiki Category Details";
-        $this->view->description = "Here you can edit the wiki category information paramenters.";
+		$this->view->title = $this->translator->translate("Wiki Category Details");
+        $this->view->description = $this->translator->translate("Here you can edit the wiki category information paramenters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -241,8 +241,8 @@ class Admin_WikicategoriesController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/wikicategories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Wiki Category Edit";
-			$this->view->description = "Edit the wiki category information";
+			$this->view->title = $this->translator->translate("Wiki Category Edit");
+			$this->view->description = $this->translator->translate("Edit the wiki category information");
 			return $this->render ( 'applicantform' );
 		}
 	}

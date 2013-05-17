@@ -74,29 +74,29 @@ class Admin_ReportsController extends Zend_Controller_Action {
 				break;
 			
 			case 'tldsummarypermonth' :
-				$this->view->title = "Month TLD Summary";
-				$this->view->description = "In this list you can see the summary of the TLD per month.";
+				$this->view->title = $this->translator->translate("Month TLD Summary");
+				$this->view->description = $this->translator->translate("In this list you can see the summary of the TLD per month.");
 				$this->view->graph = array(Domains::tldSummaryPerMonth ());
 				$this->view->data = array ('records' => Domains::getSummaryPerMonth ());
 				break;
 			
 			case 'domainstats' :
-				$this->view->title = "Domains Stats";
-				$this->view->description = "This list shows all the costs and earnings of the domains sold grouped by tld.";
+				$this->view->title = $this->translator->translate("Domains Stats");
+				$this->view->description = $this->translator->translate("This list shows all the costs and earnings of the domains sold grouped by tld.");
 				$this->view->graph = array(Domains::earningsSummary ());
 				$this->view->data = array ('records' => Domains::getSummary ());
 				break;
 			
 			case 'tldsummaryowner' :
-				$this->view->title = "Summary by Client";
-				$this->view->description = "By this list you can see the summary of the domains bought per client.";
+				$this->view->title = $this->translator->translate("Summary by Client");
+				$this->view->description = $this->translator->translate("By this list you can see the summary of the domains bought per client.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => Domains::domains_per_customers (), 'pager' => true);
 				break;
 			
 			case 'domainstasks' :
-				$this->view->title = "List of all domain tasks (last 100 records)";
-				$this->view->description = "By this list you can know all the tasks for each created domain.";
+				$this->view->title = $this->translator->translate("List of all domain tasks (last 100 records)");
+				$this->view->description = $this->translator->translate("By this list you can know all the tasks for each created domain.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => DomainsTasks::GetTask(100), 'delete' => array('controller' => 'reports', 'action' => 'deletetask'), 'pager' => true);
 				break;
@@ -122,29 +122,29 @@ class Admin_ReportsController extends Zend_Controller_Action {
 							oi.cost as cost, 
 							oi.price as price";
 				
-				$this->view->title = "List of the Recurring Services";
-				$this->view->description = "By this list you can see the summary of the services bought per client.";
+				$this->view->title = $this->translator->translate("List of the Recurring Services");
+				$this->view->description = $this->translator->translate("By this list you can see the summary of the services bought per client.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => OrdersItems::getAllRecurringServices ( $fields, $groups ), 'pager' => true);
 				break;
 			
 			case 'ticketsummay' :
-				$this->view->title = "Tickets Summary";
-				$this->view->description = "List of the last help requests.";
+				$this->view->title = $this->translator->translate("Tickets Summary");
+				$this->view->description = $this->translator->translate("List of the last help requests.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => Tickets::Last(), 'actions' => array ('/admin/tickets/edit/id/' => 'show' ), 'pager' => true );
 				break;
 			
 			case 'domainsexpiration' :
-				$this->view->title = "Domain Expiration List";
-				$this->view->description = "This view helps you to check which are all the domain next to the expiration.";
+				$this->view->title = $this->translator->translate("Domain Expiration List");
+				$this->view->description = $this->translator->translate("This view helps you to check which are all the domain next to the expiration.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => Domains::getExpiringDomains(), 'actions' => array ('/admin/domains/edit/id/' => 'show' ), 'pager' => true );
 				break;
 			
 			case 'servicesexpiration' :
-				$this->view->title = "Service Expiration List";
-				$this->view->description = "This view helps you to check which are all the services next to the expiration.";
+				$this->view->title = $this->translator->translate("Service Expiration List");
+				$this->view->description = $this->translator->translate("This view helps you to check which are all the services next to the expiration.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => Products::getExpiringProducts(), 'actions' => array ('/admin/services/edit/id/' => 'show' ), 'pager' => true );
 				break;

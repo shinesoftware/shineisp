@@ -44,8 +44,8 @@ class Admin_UrlrewriteController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Url rewrite list";
-		$this->view->description = "Here you can see all the url rewrite.";
+		$this->view->title = $this->translator->translate("Url rewrite list");
+		$this->view->description = $this->translator->translate("Here you can see all the url rewrite.");
 		$this->datagrid->setConfig ( Urlrewrite::grid() )->datagrid ();
 	}
 
@@ -93,8 +93,8 @@ class Admin_UrlrewriteController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/urlrewrite/process" );
-		$this->view->title = "Url Rewrite Details";
-		$this->view->description = "Here you can handle the url rewrite parameters";
+		$this->view->title = $this->translator->translate("Url Rewrite Details");
+		$this->view->description = $this->translator->translate("Here you can handle the url rewrite parameters");
 		$this->render ( 'applicantform' );
 	}
 	
@@ -166,8 +166,8 @@ class Admin_UrlrewriteController extends Zend_Controller_Action {
 			}
 		}
 		
-		$this->view->title = "Url Rewrite Details";
-        $this->view->description = "Here you can edit the main Url Rewrite information paramenters.";
+		$this->view->title = $this->translator->translate("Url Rewrite Details");
+        $this->view->description = $this->translator->translate("Here you can edit the main Url Rewrite information paramenters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -226,8 +226,8 @@ class Admin_UrlrewriteController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/urlrewrite/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Url Rewrite Processing form";
-			$this->view->description = "There was an error during the insert of data";
+			$this->view->title = $this->translator->translate("Url Rewrite Processing form");
+			$this->view->description = $this->translator->translate("There was an error during the insert of data");
 			return $this->render ( 'applicantform' );
 		}
 	}

@@ -1,5 +1,5 @@
 <?
-class Shineisp_Api_Shineisp_States extends Shineisp_Api_Shineisp_Abstract_Action  {
+class Shineisp_Api_Shineisp_Regions extends Shineisp_Api_Shineisp_Abstract_Action  {
     
     public function getAll( $countrycode ) {
         $this->authenticate();
@@ -9,7 +9,7 @@ class Shineisp_Api_Shineisp_States extends Shineisp_Api_Shineisp_Abstract_Action
             exit();
         }    
         
-        $states = States::fildAllFromCountryCode($countrycode);
+        $states = Regions::fildAllFromCountryCode($countrycode);
         if( empty($states) ) {
             return false;
         }
