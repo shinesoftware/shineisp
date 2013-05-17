@@ -45,8 +45,8 @@ class Admin_PanelsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Panels list";
-		$this->view->description = "Here you can see all the panel articles.";
+		$this->view->title = $this->translator->translate("Panels list");
+		$this->view->description = $this->translator->translate("Here you can see all the panel articles.");
 		$this->view->buttons = array(array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Panels::grid() )->datagrid ();
 	}
@@ -86,8 +86,8 @@ class Admin_PanelsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/panels/process" );
-		$this->view->title = "Panels Details";
-		$this->view->description = "Here you can handle the ISP Panels parameters";
+		$this->view->title = $this->translator->translate("Panels Details");
+		$this->view->description = $this->translator->translate("Here you can handle the ISP Panels parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 							   array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -161,8 +161,8 @@ class Admin_PanelsController extends Zend_Controller_Action {
 			$this->view->buttons[] = array("url" => "/admin/panels/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 		}
 		
-		$this->view->title = "ISP Panels Configuration";
-		$this->view->description = "Here you can edit the ISP control panel configuration.";
+		$this->view->title = $this->translator->translate("ISP Panels Configuration");
+		$this->view->description = $this->translator->translate("Here you can edit the ISP control panel configuration.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -209,8 +209,8 @@ class Admin_PanelsController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/panels/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Panels Details";
-			$this->view->description = "Here you can correct the parameters sent";
+			$this->view->title = $this->translator->translate("Panels Details");
+			$this->view->description = $this->translator->translate("Here you can correct the parameters sent");
 			return $this->render ( 'applicantform' );
 		}
 	}

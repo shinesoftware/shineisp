@@ -81,8 +81,8 @@ class OrdersController extends Zend_Controller_Action {
 		$this->view->headTitle()->prepend ($this->translator->translate('Orders List'));
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Orders List";
-		$this->view->description = "This is the list of all your orders.";
+		$this->view->title = $this->translator->translate("Orders List");
+		$this->view->description = $this->translator->translate("This is the list of all your orders.");
 		$this->view->orders = $data;
 	}
 	
@@ -222,8 +222,8 @@ class OrdersController extends Zend_Controller_Action {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = "Order process";
-			$this->view->description = "Check the information posted and then click on the save button.";
+			$this->view->title = $this->translator->translate("Order process");
+			$this->view->description = $this->translator->translate("Check the information posted and then click on the save button.");
 			return $this->_helper->viewRenderer ( 'applicantform' ); // re-render the login form
 		}
 		

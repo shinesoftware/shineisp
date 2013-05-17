@@ -41,8 +41,8 @@ class WikiController extends Zend_Controller_Action {
 		$data = $this->wiki->findAll ( "w.wiki_id, w.subject as subject, w.creationdate as creationdate, w.content as content, w.uri as uri, wc.category_id as category_id, wc.category as category", $page, $NS->recordsperpage, $arrSort, $params ['search'] );
 		
 		$this->view->form = $form;
-		$this->view->title = "Wiki Help Guide";
-		$this->view->description = "Here you can see the wiki guides list.";
+		$this->view->title = $this->translator->translate("Wiki Help Guide");
+		$this->view->description = $this->translator->translate("Here you can see the wiki guides list.");
 		$this->view->wiki = $data;
 		$this->_helper->viewRenderer ( 'index' );
 	}

@@ -36,8 +36,8 @@ class Admin_ProductsattributesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Attributes";
-		$this->view->description = "Here you can see all the attributes.";
+		$this->view->title = $this->translator->translate("Product Attributes");
+		$this->view->description = $this->translator->translate("Here you can see all the attributes.");
 		$this->view->buttons = array(array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( ProductsAttributes::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_ProductsattributesController extends Zend_Controller_Action {
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
-		$this->view->title = "Attributes";
-		$this->view->description = "Here you can edit the attribute details.";
+		$this->view->title = $this->translator->translate("Attributes");
+		$this->view->description = $this->translator->translate("Here you can edit the attribute details.");
 		$this->render ( 'applicantform' );
 	}
 	
@@ -187,8 +187,8 @@ class Admin_ProductsattributesController extends Zend_Controller_Action {
 			$this->view->buttons[] = array("url" => "/admin/productsattributes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 				
 		}
-		$this->view->title = "Attribute Group";
-		$this->view->description = "Here you can edit the attribute group details.";
+		$this->view->title = $this->translator->translate("Attribute Group");
+		$this->view->description = $this->translator->translate("Here you can edit the attribute group details.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -249,8 +249,8 @@ class Admin_ProductsattributesController extends Zend_Controller_Action {
 			
 			} else {
 				$this->view->form = $form;
-				$this->view->title = "Hosting Plan Feature details";
-				$this->view->description = "Here you can fix the hosting plan feature details.";
+				$this->view->title = $this->translator->translate("Hosting Plan Feature details");
+				$this->view->description = $this->translator->translate("Here you can fix the hosting plan feature details.");
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {

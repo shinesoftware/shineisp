@@ -43,8 +43,8 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Invoice list";
-		$this->view->description = "Here you can see all the invoices.";
+		$this->view->title = $this->translator->translate("Invoice list");
+		$this->view->description = $this->translator->translate("Here you can see all the invoices.");
 		$this->view->buttons = array(array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Invoices::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 	public function newAction() {
 		
 		$this->view->form = $this->getForm ( "/admin/invoices/process" );
-		$this->view->title = "New Invoice";
-		$this->view->description = "Create a new invoice using this form.";
+		$this->view->title = $this->translator->translate("New Invoice");
+		$this->view->description = $this->translator->translate("Create a new invoice using this form.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 							   array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -198,8 +198,8 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 				$form->populate ( $rs );
 			}
 		}
-		$this->view->title = "Invoice Edit";
-		$this->view->description = "Here you can edit the selected order.";
+		$this->view->title = $this->translator->translate("Invoice Edit");
+		$this->view->description = $this->translator->translate("Here you can edit the selected order.");
 		
 		$this->view->mex = urldecode ( $this->getRequest ()->getParam ( 'mex' ) );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -294,8 +294,8 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Invoice Edit";
-			$this->view->description = "Here you can edit the selected invoice.";
+			$this->view->title = $this->translator->translate("Invoice Edit");
+			$this->view->description = $this->translator->translate("Here you can edit the selected invoice.");
 			return $this->render ( 'applicantform' );
 		}
 	}

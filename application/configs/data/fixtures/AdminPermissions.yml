@@ -503,3 +503,23 @@ AdminPermissions:
     AdminResources: AdminResources_91
     AdminRoles: AdminRoles_5
     permission: allow
+  AdminPermissions_127:
+    AdminResources: AdminResources_92
+    AdminRoles: AdminRoles_5
+    permission: allow
+  AdminPermissions_128:
+    AdminResources: AdminResources_93
+    AdminRoles: AdminRoles_5
+    permission: allow
+  AdminPermissions_129:
+    AdminResources: AdminResources_94
+    AdminRoles: AdminRoles_5
+    permission: allow
+  AdminPermissions_130:
+    AdminResources: AdminResources_95
+    AdminRoles: AdminRoles_5
+    permission: allow
+  AdminPermissions_131:
+    AdminResources: AdminResources_96
+    AdminRoles: AdminRoles_5
+    permission: allow

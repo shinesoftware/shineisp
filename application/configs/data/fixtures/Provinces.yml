@@ -1,0 +1,536 @@
+Provinces:
+  Provinces_1:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Agrigento
+    code: AG
+  Provinces_2:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Alessandria
+    code: AL
+  Provinces_3:
+    Regions: Regions_10
+    Countries: Countries_82
+    name: Ancona
+    code: AN
+  Provinces_4:
+    Regions: Regions_1
+    Countries: Countries_82
+    name: Aosta
+    code: AO
+  Provinces_5:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Arezzo
+    code: AR
+  Provinces_6:
+    Regions: Regions_10
+    Countries: Countries_82
+    name: 'Ascoli Piceno'
+    code: AP
+  Provinces_7:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Asti
+    code: AT
+  Provinces_8:
+    Regions: Regions_16
+    Countries: Countries_82
+    name: Avellino
+    code: AV
+  Provinces_9:
+    Regions: Regions_15
+    Countries: Countries_82
+    name: Bari
+    code: BA
+  Provinces_10:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Belluno
+    code: BL
+  Provinces_11:
+    Regions: Regions_16
+    Countries: Countries_82
+    name: Benevento
+    code: BN
+  Provinces_12:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Bergamo
+    code: BG
+  Provinces_13:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Biella
+    code: BI
+  Provinces_14:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Bologna
+    code: BO
+  Provinces_15:
+    Regions: Regions_4
+    Countries: Countries_82
+    name: 'Bolzano - Bozen'
+    code: BZ
+  Provinces_16:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Brescia
+    code: BS
+  Provinces_17:
+    Regions: Regions_15
+    Countries: Countries_82
+    name: Brindisi
+    code: BR
+  Provinces_18:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: Cagliari
+    code: CA
+  Provinces_19:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Caltanissetta
+    code: CL
+  Provinces_20:
+    Regions: Regions_13
+    Countries: Countries_82
+    name: Campobasso
+    code: CB
+  Provinces_21:
+    Regions: Regions_16
+    Countries: Countries_82
+    name: Caserta
+    code: CE
+  Provinces_22:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Catania
+    code: CT
+  Provinces_23:
+    Regions: Regions_18
+    Countries: Countries_82
+    name: Catanzaro
+    code: CZ
+  Provinces_24:
+    Regions: Regions_12
+    Countries: Countries_82
+    name: Chieti
+    code: CH
+  Provinces_25:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Como
+    code: CO
+  Provinces_26:
+    Regions: Regions_18
+    Countries: Countries_82
+    name: Cosenza
+    code: CS
+  Provinces_27:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Cremona
+    code: CR
+  Provinces_28:
+    Regions: Regions_18
+    Countries: Countries_82
+    name: Crotone
+    code: KR
+  Provinces_29:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Cuneo
+    code: CN
+  Provinces_30:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Enna
+    code: EN
+  Provinces_31:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Ferrara
+    code: FE
+  Provinces_32:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Firenze
+    code: FI
+  Provinces_33:
+    Regions: Regions_15
+    Countries: Countries_82
+    name: Foggia
+    code: FG
+  Provinces_34:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Forlì-Cesena
+    code: FC
+  Provinces_35:
+    Regions: Regions_14
+    Countries: Countries_82
+    name: Frosinone
+    code: FR
+  Provinces_36:
+    Regions: Regions_8
+    Countries: Countries_82
+    name: Genova
+    code: GE
+  Provinces_37:
+    Regions: Regions_6
+    Countries: Countries_82
+    name: Gorizia
+    code: GO
+  Provinces_38:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Grosseto
+    code: GR
+  Provinces_39:
+    Regions: Regions_8
+    Countries: Countries_82
+    name: Imperia
+    code: IM
+  Provinces_40:
+    Regions: Regions_13
+    Countries: Countries_82
+    name: Isernia
+    code: IS
+  Provinces_41:
+    Regions: Regions_12
+    Countries: Countries_82
+    name: 'L''Aquila'
+    code: AQ
+  Provinces_42:
+    Regions: Regions_8
+    Countries: Countries_82
+    name: 'La Spezia'
+    code: SP
+  Provinces_43:
+    Regions: Regions_14
+    Countries: Countries_82
+    name: Latina
+    code: LT
+  Provinces_44:
+    Regions: Regions_15
+    Countries: Countries_82
+    name: Lecce
+    code: LE
+  Provinces_45:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Lecco
+    code: LC
+  Provinces_46:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Livorno
+    code: LI
+  Provinces_47:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Lodi
+    code: LO
+  Provinces_48:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Lucca
+    code: LU
+  Provinces_49:
+    Regions: Regions_10
+    Countries: Countries_82
+    name: Macerata
+    code: MC
+  Provinces_50:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Mantova
+    code: MN
+  Provinces_51:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: 'Massa - Carrara'
+    code: MS
+  Provinces_52:
+    Regions: Regions_17
+    Countries: Countries_82
+    name: Matera
+    code: MT
+  Provinces_53:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Messina
+    code: ME
+  Provinces_54:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Milano
+    code: MI
+  Provinces_55:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Modena
+    code: MO
+  Provinces_56:
+    Regions: Regions_16
+    Countries: Countries_82
+    name: Napoli
+    code: NA
+  Provinces_57:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Novara
+    code: NO
+  Provinces_58:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: Nuoro
+    code: NU
+  Provinces_59:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: Oristano
+    code: OR
+  Provinces_60:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Padova
+    code: PD
+  Provinces_61:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Palermo
+    code: PA
+  Provinces_62:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Parma
+    code: PR
+  Provinces_64:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Pavia
+    code: PV
+  Provinces_65:
+    Regions: Regions_11
+    Countries: Countries_82
+    name: Perugia
+    code: PG
+  Provinces_66:
+    Regions: Regions_10
+    Countries: Countries_82
+    name: 'Pesaro e Urbino'
+    code: PU
+  Provinces_67:
+    Regions: Regions_12
+    Countries: Countries_82
+    name: Pescara
+    code: PE
+  Provinces_68:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Piacenza
+    code: PC
+  Provinces_69:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Pisa
+    code: PI
+  Provinces_70:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Pistoia
+    code: PT
+  Provinces_71:
+    Regions: Regions_6
+    Countries: Countries_82
+    name: Pordenone
+    code: PN
+  Provinces_72:
+    Regions: Regions_17
+    Countries: Countries_82
+    name: Potenza
+    code: PZ
+  Provinces_73:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Prato
+    code: PO
+  Provinces_74:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Ragusa
+    code: RG
+  Provinces_75:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Ravenna
+    code: RA
+  Provinces_76:
+    Regions: Regions_18
+    Countries: Countries_82
+    name: 'Reggio Calabria'
+    code: RC
+  Provinces_77:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: 'Reggio Emilia'
+    code: RE
+  Provinces_78:
+    Regions: Regions_14
+    Countries: Countries_82
+    name: Rieti
+    code: RI
+  Provinces_79:
+    Regions: Regions_7
+    Countries: Countries_82
+    name: Rimini
+    code: RN
+  Provinces_80:
+    Regions: Regions_14
+    Countries: Countries_82
+    name: Roma
+    code: RM
+  Provinces_81:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Rovigo
+    code: RO
+  Provinces_82:
+    Regions: Regions_16
+    Countries: Countries_82
+    name: Salerno
+    code: SA
+  Provinces_83:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: Sassari
+    code: SS
+  Provinces_84:
+    Regions: Regions_8
+    Countries: Countries_82
+    name: Savona
+    code: SV
+  Provinces_85:
+    Regions: Regions_9
+    Countries: Countries_82
+    name: Siena
+    code: SI
+  Provinces_86:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Siracusa
+    code: SR
+  Provinces_87:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Sondrio
+    code: SO
+  Provinces_88:
+    Regions: Regions_15
+    Countries: Countries_82
+    name: Taranto
+    code: TA
+  Provinces_89:
+    Regions: Regions_12
+    Countries: Countries_82
+    name: Teramo
+    code: TE
+  Provinces_90:
+    Regions: Regions_11
+    Countries: Countries_82
+    name: Terni
+    code: TR
+  Provinces_91:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Torino
+    code: TO
+  Provinces_92:
+    Regions: Regions_19
+    Countries: Countries_82
+    name: Trapani
+    code: TP
+  Provinces_93:
+    Regions: Regions_4
+    Countries: Countries_82
+    name: Trento
+    code: TN
+  Provinces_94:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Treviso
+    code: TV
+  Provinces_95:
+    Regions: Regions_6
+    Countries: Countries_82
+    name: Trieste
+    code: TS
+  Provinces_96:
+    Regions: Regions_6
+    Countries: Countries_82
+    name: Udine
+    code: UD
+  Provinces_97:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: Varese
+    code: VA
+  Provinces_98:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Venezia
+    code: VE
+  Provinces_99:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: 'Verbano - Cusio'
+    code: VB
+  Provinces_100:
+    Regions: Regions_2
+    Countries: Countries_82
+    name: Vercelli
+    code: VC
+  Provinces_101:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Verona
+    code: VR
+  Provinces_102:
+    Regions: Regions_18
+    Countries: Countries_82
+    name: 'Vibo - Valentia'
+    code: VV
+  Provinces_103:
+    Regions: Regions_5
+    Countries: Countries_82
+    name: Vicenza
+    code: VI
+  Provinces_104:
+    Regions: Regions_14
+    Countries: Countries_82
+    name: Viterbo
+    code: VT
+  Provinces_108:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: Olbia-Tempio
+    code: OT
+  Provinces_109:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: Carbonia-Iglesias
+    code: CI
+  Provinces_110:
+    Regions: Regions_20
+    Countries: Countries_82
+    name: 'Medio Campidano'
+    code: VS
+  Provinces_112:
+    Regions: Regions_3
+    Countries: Countries_82
+    name: 'Monza e della Brianza'
+    code: MB

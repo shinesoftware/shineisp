@@ -799,7 +799,7 @@ class OrdersItems extends BaseOrdersItems {
         $isrefundable   = intval($productInfo['isrefundable']);
         $priceRefund    = 0;
         if( $isrefundable > 0 ) {
-    		$pricePayed	= $service['price'];
+    		$pricePaid	= $service['price'];
     		
     		$date		= explode(' ',$service['date_start']);
     		$date		= array_shift($date);
@@ -813,7 +813,7 @@ class OrdersItems extends BaseOrdersItems {
     		$tsToday		= mktime(0,0,0,date('m'),date('d'),date('Y'));
     		
     		$dayService		= round( ($tsEndService - $tsStartService) / ( 60*60*24 ) );
-    		$priceServiceForDay	= $pricePayed / $dayService;
+    		$priceServiceForDay	= $pricePaid / $dayService;
     		
     		$tsRemain		= 0;
     		$priceRefund	= false;

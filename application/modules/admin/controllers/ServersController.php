@@ -88,8 +88,8 @@ class Admin_ServersController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Servers list";
-		$this->view->description = "Here you can see all the servers.";
+		$this->view->title = $this->translator->translate("Servers list");
+		$this->view->description = $this->translator->translate("Here you can see all the servers.");
 		$this->view->buttons = array(array("url" => "/admin/servers/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Servers::grid() )->datagrid ();
 	}
@@ -119,8 +119,8 @@ class Admin_ServersController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/servers/process" );
-		$this->view->title = "New server";
-		$this->view->description = "Insert all the details of the new server.";
+		$this->view->title = $this->translator->translate("New server");
+		$this->view->description = $this->translator->translate("Insert all the details of the new server.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/servers/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -180,8 +180,8 @@ class Admin_ServersController extends Zend_Controller_Action {
 		$this->view->form = $form;
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Edit Server";
-		$this->view->description = "Edit the server parameters.";
+		$this->view->title = $this->translator->translate("Edit Server");
+		$this->view->description = $this->translator->translate("Edit the server parameters.");
 		$this->render ( 'applicantform' );
 	}
 	
@@ -193,8 +193,8 @@ class Admin_ServersController extends Zend_Controller_Action {
 	public function processAction() {
 		$request = $this->getRequest ();
 		
-		$this->view->title = "Edit Server";
-		$this->view->description = "Edit the server parameters.";
+		$this->view->title = $this->translator->translate("Edit Server");
+		$this->view->description = $this->translator->translate("Edit the server parameters.");
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(

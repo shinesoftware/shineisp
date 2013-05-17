@@ -17,6 +17,8 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
             $params['country_id']   = $country_id;
         }
         
+        return $params;
+        
         if ($form->isValid ( $params ) ) {
             if( $params['status'] == false ) {
                 $params['status'] = 'disabled';    
@@ -24,7 +26,7 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
             
             $idcustomers    = Customers::Create($params);
             
-            Customers::find($idcustomers)
+            Customers::find($idcustomers);
             return $idcustomers;
         } else {
             $errors     = $form->getMessages();
