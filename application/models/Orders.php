@@ -1163,10 +1163,16 @@ class Orders extends BaseOrders {
 					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
 				}
 				
-				$item['cost'] 		= $product ['cost'];
+				$item['cost'] = $product ['cost'];
 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
+				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : '';
+				$item['callback_url'] = isset($options['callback_url']) ? $options['callback_url'] : '';
+				
 				$item->save();
+				
+				$arrayItem = $item->toArray();
+				mail('alessandro.corbelli@guest.it', 'DEBUG', print_r($arrayItem,true));
 				
 				// Update the totals
 				if(!empty($order['order_id'])) {
@@ -1176,10 +1182,17 @@ class Orders extends BaseOrders {
 				//* TODO: Attivare il prodotto nel caso l'attivazione automatica fosse contestuale la ricezione ordine
 				//* if $autosetup === 1
 				//* PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
-				mail('alessandro.corbelli@guest.it', 'DEBUG', print_r($product,true).print_r($order,true));
 				$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;				
-				if ( $autoSetup === 1 && strtolower($product['type']) == "hosting" ) {
-					PanelsActions::AddTask($order['customer_id'], $item->detail_id, "fullProfile", $item->parameters);	
+				if ( $autoSetup == '1' && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
+					// callback_url is set, skip creation and do a CURL POST
+					if ( !empty($arrayItem['callback_url']) ) {
+						$statusComplete = Statuses::id("complete", "orders");
+						OrdersItems::set_status($arrayItem['detail_id'], $statusComplete);
+						$arrayItem['status'] = $statusComplete; 
+						Shineisp_Commons_Utilities::doCallbackPOST($arrayItem['callback_url'], $arrayItem);	
+					} else {
+						PanelsActions::AddTask($order['customer_id'], $item->detail_id, "fullProfile", $item->parameters);
+					}	
 				}
 				
 				return $item;
