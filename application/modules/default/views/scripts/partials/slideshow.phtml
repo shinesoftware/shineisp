@@ -19,7 +19,7 @@
 					</div>
 					<div class="information">
 						<h1><a href="/<?php echo $product['uri']?>.html"><?php echo $firstword ?> <span><?php echo $otherwords ?></span></a></h1>
-						<p><?php echo Shineisp_Commons_Utilities::truncate($product['description'], 70, "...", false, false) ?></p>
+						<p><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 70, "...", false, false) ?></p>
 						
 						<ul class="clearfix">
 							<?php foreach($attributes as $attribute): ?>
