@@ -1021,6 +1021,65 @@ class OrdersItems extends BaseOrdersItems {
 	}
 
 
+	/**
+	 * activate
+	 * Activate an order item
+	 * @param $orderItemId
+	 * @return true|false
+	 */
+	public static function activate($orderItemId) {
+		$orderItemId = intval($orderItemId);
+		if ( $orderItemId < 1 ) {
+			return false;
+		}
+		
+		// Get OrderItem
+		$OrderItem = self::find($orderItemId);
+		if ( !$OrderItem ) {
+			return false;
+		}	
+		
+		// Get Order related to this orderItem
+		$Order = Orders::find($OrderItem->order_id);
+		if ( !$Order ) {
+			// order not found
+			return false;
+		}
+		
+		// Get product related to this item
+		$Product = Products::find($OrderItem->product_id);
+		if ( !$Product ) {
+			// product not found
+			return false;
+		}		
+		
+		
+		
+		
+		// callback_url is set, skip server activation and let's do the call to the remote API
+		if ( !empty($OrderItem->callback_url) ) {
+			$arrayItem = $OrderItem->toArray();
+			
+			// Set item to complete
+			$statusComplete = Statuses::id("complete", "orders");
+			OrdersItems::set_status($OrderItem->detail_id, $statusComplete);
+			
+			$arrayItem['status'] = $statusComplete;
+			
+			// Do the callback 
+			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem->callback_url, $arrayItem);
+			
+			return true;
+		}
+
+		// It's an hosting? execute panel task
+		if ( $Product->type == 'hosting' && !empty($OrderItem->parameters) ) {		
+			PanelsActions::AddTask($Order->customer_id, $OrderItem->detail_id, "fullProfile", $OrderItem->parameters);
+			
+			return true;
+		}
+		
+	}
 
 
 

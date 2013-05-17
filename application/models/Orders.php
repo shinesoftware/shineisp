@@ -1044,6 +1044,9 @@ class Orders extends BaseOrders {
 			// Get the product information
 			$product = Products::getAllInfo($productId);
 			
+			// Get autosetup setting
+			$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;			
+			
 			// echo '<pre>';
 			// print_r($product);
 			// die();
@@ -1166,6 +1169,7 @@ class Orders extends BaseOrders {
 				$item['cost'] = $product ['cost'];
 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
+				// these are set by API
 				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : '';
 				$item['callback_url'] = isset($options['callback_url']) ? $options['callback_url'] : '';
 				
@@ -1178,20 +1182,9 @@ class Orders extends BaseOrders {
 					self::updateTotalsOrder($order['order_id']);
 				}
 				
-				//* TODO: Attivare il prodotto nel caso l'attivazione automatica fosse contestuale la ricezione ordine
-				//* if $autosetup === 1
-				//* PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
-				$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;				
+				//* autosetup is set to 1 for this product, let's activate immediatly
 				if ( $autoSetup == '1' && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
-					// callback_url is set, skip creation and do a CURL POST
-					if ( !empty($arrayItem['callback_url']) ) {
-						$statusComplete = Statuses::id("complete", "orders");
-						OrdersItems::set_status($arrayItem['detail_id'], $statusComplete);
-						$arrayItem['status'] = $statusComplete; 
-						Shineisp_Commons_Utilities::doCallbackPOST($arrayItem['callback_url'], $arrayItem);	
-					} else {
-						PanelsActions::AddTask($order['customer_id'], $item->detail_id, "fullProfile", $item->parameters);
-					}	
+					OrdersItems::activate($arrayItem['detail_id']);				
 				}
 				
 				return $item;
