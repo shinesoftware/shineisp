@@ -146,15 +146,13 @@ Addresses:
       notnull: true
     region_id:
       type: integer(4)
-      notnull: true
-      default: "0"
     area: string(100)
     latitude: string(20)
     longitude: string(20)
     customer_id: integer(4)
   relations:
     Regions:
-      local:region_id
+      local: region_id
       foreign: region_id
       type: one
     Countries:
@@ -514,7 +512,7 @@ Countries:
       
 Regions:
   connection: doctrine
-  tableName: states
+  tableName: regions
   columns:
     region_id:
       type: integer(4)
@@ -2095,10 +2093,10 @@ OrdersItems:
     review_id: integer(4)
     parent_detail_id: integer(4)
     description: string()
-   callbackactive:
+    callbackactive:
       type: string(200)
       notnull: false
-   ouid:
+    ouid:
       type: string(50)
       notnull: false    
   relations:

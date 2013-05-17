@@ -12,10 +12,12 @@ Doctrine_Manager::getInstance()->bindComponent('Addresses', 'doctrine');
  * @property string $city
  * @property string $code
  * @property integer $country_id
+ * @property integer $region_id
  * @property string $area
  * @property string $latitude
  * @property string $longitude
  * @property integer $customer_id
+ * @property Regions $Regions
  * @property Countries $Countries
  * @property Customers $Customers
  * 
@@ -57,6 +59,12 @@ abstract class BaseAddresses extends Doctrine_Record
              'notnull' => true,
              'length' => '4',
              ));
+        $this->hasColumn('region_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 0,
+             'length' => '4',
+             ));
         $this->hasColumn('area', 'string', 100, array(
              'type' => 'string',
              'length' => '100',
@@ -78,6 +86,10 @@ abstract class BaseAddresses extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Regions', array(
+             'local' => 'region_id',
+             'foreign' => 'region_id'));
+
         $this->hasOne('Countries', array(
              'local' => 'country_id',
              'foreign' => 'country_id'));
