@@ -1397,4 +1397,32 @@ class Shineisp_Commons_Utilities {
 		return $str;
 	}
 
+	/*
+	 * do a callback post. Used by ShineISP API
+	 */
+	public function doCallbackPOST($url, $params) {
+		//open connection
+		$ch = curl_init();
+		
+		$post_string = json_encode($params);
+		
+		//set the url, number of POST vars, POST data
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    		'Content-Type: application/json',                                                                                
+    		'Content-Length: ' . strlen($post_string))                                                                       
+		);
+		
+		//execute post
+		$result = curl_exec($ch);
+		
+		Shineisp_Commons_Utilities::logs ("POST CALLBACK: url: ".$url. " - json: ".$post_string." - result: ".$result, "api-callback.log" );
+		
+		//close connection
+		curl_close($ch);		
+	}
+
 }

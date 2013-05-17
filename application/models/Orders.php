@@ -906,17 +906,17 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid)){
 			
-			$item['order_id'] = $orderid;
-			$item['tld_id'] = !empty($params['tldid']) ? $params['tldid'] : null;
+			$item['order_id']   = $orderid;
+			$item['tld_id']     = !empty($params['tldid']) ? $params['tldid'] : null;
 			$item['product_id'] = !empty($params['productid']) ? $params['productid'] : null;
-			$item['status_id'] = Statuses::id("tobepaid", "orders");
+			$item['status_id']  = Statuses::id("tobepaid", "orders");
 			$item['date_start'] = date ( 'Y-m-d H:i:s' );
 				
 			// Manages all the products that have no recursion payment
-			$item['description'] = $description;
+			$item['description']      = $description;
 			$item['billing_cycle_id'] = $billingid; 
-			$item['quantity'] = $qta;
-			$item['price'] = $price;
+			$item['quantity']         = $qta;
+			$item['price']            = $price;
 			
 			// Count of the day until the expiring
 			$months = BillingCycle::getMonthsNumber ( $billingid );
@@ -945,6 +945,9 @@ class Orders extends BaseOrders {
 			$item->save();
 			
 			self::updateTotalsOrder($orderid);
+			
+			//* TODO: Attivare il dominio nel caso l'attivazione automatica fosse contestuale la ricezione ordine
+			//* if $autosetup === 1
 			
 			return $item;
 		}
@@ -1040,6 +1043,7 @@ class Orders extends BaseOrders {
 		
 			// Get the product information
 			$product = Products::getAllInfo($productId);
+			
 			// echo '<pre>';
 			// print_r($product);
 			// die();
@@ -1159,14 +1163,35 @@ class Orders extends BaseOrders {
 					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
 				}
 				
-				$item['cost'] 		= $product ['cost'];
+				$item['cost'] = $product ['cost'];
 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
+				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : '';
+				$item['callback_url'] = isset($options['callback_url']) ? $options['callback_url'] : '';
+				
 				$item->save();
+				
+				$arrayItem = $item->toArray();
 				
 				// Update the totals
 				if(!empty($order['order_id'])) {
 					self::updateTotalsOrder($order['order_id']);
+				}
+				
+				//* TODO: Attivare il prodotto nel caso l'attivazione automatica fosse contestuale la ricezione ordine
+				//* if $autosetup === 1
+				//* PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
+				$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;				
+				if ( $autoSetup == '1' && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
+					// callback_url is set, skip creation and do a CURL POST
+					if ( !empty($arrayItem['callback_url']) ) {
+						$statusComplete = Statuses::id("complete", "orders");
+						OrdersItems::set_status($arrayItem['detail_id'], $statusComplete);
+						$arrayItem['status'] = $statusComplete; 
+						Shineisp_Commons_Utilities::doCallbackPOST($arrayItem['callback_url'], $arrayItem);	
+					} else {
+						PanelsActions::AddTask($order['customer_id'], $item->detail_id, "fullProfile", $item->parameters);
+					}	
 				}
 				
 				return $item;
@@ -1989,7 +2014,7 @@ class Orders extends BaseOrders {
      * send the order by email
      * @param $orderID
      */
-	public static function sendOrder($orderid) {
+	public static function sendOrder($orderid, $customURL = null) {
 		$bank = "";
 		if (is_numeric ( $orderid )) {
 			
@@ -2017,12 +2042,16 @@ class Orders extends BaseOrders {
 			if(!empty($bankInfo['description'])){
 				$bank = $bankInfo['description'];
 			}
-						
-			if (! empty ( $fastlink [0] ['code'] )) {
-				$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
+			
+			if ( !empty($customURL) ) {
+				$url = $customURL;				
 			} else {
-				$url = "http://" . $_SERVER ['HTTP_HOST'];
-			}
+				if (! empty ( $fastlink [0] ['code'] )) {
+					$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
+				} else {
+					$url = "http://" . $_SERVER ['HTTP_HOST'];
+				}
+			}	
 			
 			$date = explode ( "-", $order [0] ['order_date'] );
 			

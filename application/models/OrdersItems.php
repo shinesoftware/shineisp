@@ -987,4 +987,48 @@ class OrdersItems extends BaseOrdersItems {
 		return true;
 	}
 
+
+
+
+
+	/**
+	 * findByUUID
+	 * Get a record by uuid
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function findByUUID($uuid) {
+		return Doctrine::getTable ( 'OrdersItems' )->findOneBy ( 'uuid', $uuid );
+	}
+
+
+
+
+	/**
+	 * check if an order item is completed by it's uuid. Used by API
+	 */
+	public static function checkIfCompletedByUUID($uuid) {
+		if ( empty($uuid) ) {
+			return false;
+		}
+		
+		$OrderItem = self::findByUUID($uuid);
+		if ( $OrderItem && isset($OrderItem->status_id) && $OrderItem->status_id == Statuses::id("complete", "orders") ) {
+			return true;
+		}
+		
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 }
