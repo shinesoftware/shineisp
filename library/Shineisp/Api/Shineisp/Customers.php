@@ -23,6 +23,8 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
             }
             
             $idcustomers    = Customers::Create($params);
+            
+            Customers::find($idcustomers)
             return $idcustomers;
         } else {
             $errors     = $form->getMessages();
