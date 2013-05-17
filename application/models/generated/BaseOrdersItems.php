@@ -26,8 +26,8 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $review_id
  * @property integer $parent_detail_id
  * @property string $description
- * @property string $callbackactive
- * @property string $ouid
+ * @property string $callback_url
+ * @property string $uuid
  * @property Orders $Orders
  * @property Products $Products
  * @property DomainsTlds $DomainsTlds
@@ -144,12 +144,12 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'type' => 'string',
              'length' => '',
              ));
-        $this->hasColumn('callbackactive', 'string', 200, array(
+        $this->hasColumn('callback_url', 'string', 200, array(
              'type' => 'string',
              'notnull' => false,
              'length' => '200',
              ));
-        $this->hasColumn('ouid', 'string', 50, array(
+        $this->hasColumn('uuid', 'string', 50, array(
              'type' => 'string',
              'notnull' => false,
              'length' => '50',

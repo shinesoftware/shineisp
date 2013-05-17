@@ -61,8 +61,6 @@ abstract class BaseAddresses extends Doctrine_Record
              ));
         $this->hasColumn('region_id', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => true,
-             'default' => 0,
              'length' => '4',
              ));
         $this->hasColumn('area', 'string', 100, array(
