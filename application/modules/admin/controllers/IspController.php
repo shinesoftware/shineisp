@@ -59,8 +59,8 @@ class Admin_IspController extends Zend_Controller_Action {
 		$this->view->form = $form;
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "ISP Account";
-		$this->view->description = "Here you can edit your ISP account information";
+		$this->view->title = $this->translator->translate("ISP Account");
+		$this->view->description = $this->translator->translate("Here you can edit your ISP account information");
 		$this->view->serversgrid = $this->serversGrid ();
 		
 		// Create the buttons in the edit form
@@ -104,8 +104,8 @@ class Admin_IspController extends Zend_Controller_Action {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = "ISP Account";
-			$this->view->description = "Some information must be checked again before saving them.";
+			$this->view->title = $this->translator->translate("ISP Account");
+			$this->view->description = $this->translator->translate("Some information must be checked again before saving them.");
 			return $this->render ( 'applicantform' ); // re-render the login form
 		}
 		

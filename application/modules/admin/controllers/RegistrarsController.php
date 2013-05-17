@@ -44,8 +44,8 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Registrant Modules";
-		$this->view->description = "Here you can see all the registrant module.";
+		$this->view->title = $this->translator->translate("Registrant Modules");
+		$this->view->description = $this->translator->translate("Here you can see all the registrant module.");
 		$this->view->buttons = array(array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Registrars::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/registrars/process" );
-		$this->view->title = "New Registrant Modules";
-		$this->view->description = "Here you can create a new registrant module.";
+		$this->view->title = $this->translator->translate("New Registrant Modules");
+		$this->view->description = $this->translator->translate("Here you can create a new registrant module.");
 		
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/registrars/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
@@ -162,7 +162,7 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$rs = Registrars::find ( $id, null, true );
 			if (! empty ( $rs[0] )) {
-				$this->view->title = "Registrar edit: " . $rs[0]['name'];
+				$this->view->title = $this->translator->_("Registrar edit: %s", $rs[0]['name']);
 				
 				// Create the registrar custom form
 				list($form, $config) = Admin_Form_RegistrarsForm::createRegistrarForm ( $form, $rs[0]['name'] );
@@ -231,8 +231,8 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 		} else {
 			
 			$this->view->form = $form;
-			$this->view->title = "Registrar review";
-			$this->view->description = "Here you can fix the registrar parameters.";
+			$this->view->title = $this->translator->translate("Registrar review");
+			$this->view->description = $this->translator->translate("Here you can fix the registrar parameters.");
 			return $this->render ( 'applicantform' );
 		}
 	}

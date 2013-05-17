@@ -125,7 +125,12 @@ class Shineisp_Api_Panels_Base {
 	 * Send the email profile to the user
 	 */
 	public function sendMail($task){
-		$isp = Isp::getActiveISP();
+		$ISP = ISP::getByCustomerId($task['customer_id']);
+		
+		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {
+			// ISP not found, can't send mail		
+			return false;
+		}
 		
 		// Get the service details
 		$service = OrdersItems::getAllInfo($task['orderitem_id']);
@@ -153,13 +158,13 @@ class Shineisp_Api_Panels_Base {
 					$strSetup .= "\n";
 				}
 				
-				Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], $welcome_mail, array(
+				Shineisp_Commons_Utilities::sendEmailTemplate($ISP ['email'], $welcome_mail, array(
 					'setup'        => $strSetup
 				   ,'fullname'     => $customer ['fullname']
                    ,'hostingplan'  => $productname
-				   ,'controlpanel' => $isp ['website'].":8080"
-				   ,'signature'    => $isp ['company']
-				));
+				   ,'controlpanel' => $ISP ['website'].":8080"
+				   ,'signature'    => $ISP ['company']
+				),null,null,null,$ISP);
 									
 				
 			}

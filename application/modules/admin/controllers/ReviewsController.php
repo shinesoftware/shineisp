@@ -45,8 +45,8 @@ class Admin_ReviewsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Reviews list";
-		$this->view->description = "Here you can see all the reviews.";
+		$this->view->title = $this->translator->translate("Reviews list");
+		$this->view->description = $this->translator->translate("Here you can see all the reviews.");
 		$this->view->buttons = array(array("url" => "/admin/reviews/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Reviews::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_ReviewsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/reviews/process" );
-		$this->view->title = "Reviews";
-		$this->view->description = "Here you can create a new review.";
+		$this->view->title = $this->translator->translate("Reviews");
+		$this->view->description = $this->translator->translate("Here you can create a new review.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 							   array("url" => "/admin/reviews/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));		
 		$this->render ( 'applicantform' );
@@ -174,8 +174,8 @@ class Admin_ReviewsController extends Zend_Controller_Action {
 				
 		}
 		
-		$this->view->title = "Review edit";
-		$this->view->description = "Here you can edit the reviews.";
+		$this->view->title = $this->translator->translate("Review edit");
+		$this->view->description = $this->translator->translate("Here you can edit the reviews.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -221,8 +221,8 @@ class Admin_ReviewsController extends Zend_Controller_Action {
 		
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Review Details";
-			$this->view->description = "Here you can check all the submit information.";
+			$this->view->title = $this->translator->translate("Review Details");
+			$this->view->description = $this->translator->translate("Here you can check all the submit information.");
 			return $this->render ( 'applicantform' );
 		}
 	}

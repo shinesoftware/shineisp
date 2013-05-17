@@ -53,15 +53,22 @@ class System_TasksController extends Zend_Controller_Action {
 	 * Execute the panel tasks
 	 */
 	private function doPanelsTask($task) {
+		$ISP = ISP::getByCustomerId($task['customer_id']);
+		
+		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {		
+			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'isp_id not found' ) );
+			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage () );
+			return false;
+		}
 		
 		try {
-			$isp = Isp::getActiveISP ();
-			$ISPpanel = Isp::getPanel();
-			$class = "Shineisp_Api_Panels_".$ISPpanel."_Main";
+			$customer_id = (isset($task['customer_id'])) ? $task['customer_id'] : 0;
+			$ISPpanel    = ISP::getPanel($ISP['isp_id']);
+			$class       = "Shineisp_Api_Panels_".$ISPpanel."_Main";
 			
 			// Create the class registrar object 
 			$ISPclass = new $class ();
-			$action = $task ['action'];
+			$action   = $task ['action'];
 			
 			if($action == "createClient"){
 				
@@ -111,11 +118,9 @@ class System_TasksController extends Zend_Controller_Action {
 			// Update the status of the task
 			PanelsActions::UpdateTaskStatus ( $task ['action_id'], Statuses::id('complete', 'domains_tasks') ); // Set the task as "Complete"
 			
-		}catch (Exception $e){
+		} catch (Exception $e) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( $e->getMessage () ) );
-			
-			$isp = Isp::getActiveISP ();
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, "Task error panel message", $e->getMessage () );
+			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage () );
 		}
 	}
 	
@@ -154,6 +159,17 @@ class System_TasksController extends Zend_Controller_Action {
 	 * Execute the task
 	 */
 	private function doDomainTask($task) {
+		if ( !isset($task['Domains']) || !isset($task['Domains']['Customers']) || !isset($task['Domains']['Customers']['customer_id']) ) {
+			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'customer_id not found' ) );
+			continue;
+		}
+		$customer_id = intval($task['Domains']['Customers']['customer_id']);
+		$ISP         = ISP::getByCustomerId($customer_id);
+		
+		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {		
+			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'isp_id not found' ) );
+			return false;
+		}
 		
 		try {
 			
@@ -168,9 +184,9 @@ class System_TasksController extends Zend_Controller_Action {
 				if (! empty ( $registrar ['class'] )) {
 					
 					// Create the class registrar object 
-					$class = $registrar ['class'];
+					$class    = $registrar ['class'];
 					$regclass = new $class ();
-					$action = $task ['action'];
+					$action   = $task ['action'];
 									
 					// Check if the task is REGISTER or TRANSFER the domain name
 					if ($action == "registerDomain") {
@@ -234,8 +250,7 @@ class System_TasksController extends Zend_Controller_Action {
 		} catch ( Exception $e ) {
 			DomainsTasks::UpdateTaskLog ( $task ['task_id'], $this->translations->translate ( $e->getMessage () ) );
 			
-			$isp = Isp::getActiveISP ();
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, "Task error message: " . $task['domain'], $e->getMessage () );
+			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error message: " . $task['domain'], $e->getMessage () );
 			Shineisp_Commons_Utilities::logs ( "Task error message: " . $task['domain'] . ":" . $e->getMessage (), "tasks.log" );
 		}
 		

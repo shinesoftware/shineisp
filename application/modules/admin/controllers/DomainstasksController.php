@@ -44,8 +44,8 @@ class Admin_DomainstasksController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Domains Tasks forms";
-		$this->view->description = "Here you can see all the domains tasks forms.";
+		$this->view->title = $this->translator->translate("Domains Tasks forms");
+		$this->view->description = $this->translator->translate("Here you can see all the domains tasks forms.");
 		$this->view->buttons = array(array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
 		$this->datagrid->setConfig ( DomainsTasks::grid() )->datagrid ();
@@ -95,8 +95,8 @@ class Admin_DomainstasksController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/domainstasks/process" );
-		$this->view->title = "New Domain task forms";
-		$this->view->description = "Here you can create a new domains tasks.";
+		$this->view->title = $this->translator->translate("New Domain task forms");
+		$this->view->description = $this->translator->translate("Here you can create a new domains tasks.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -169,8 +169,8 @@ class Admin_DomainstasksController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Domain task edit";
-		$this->view->description = "Here you can edit the domains tasks form information.";
+		$this->view->title = $this->translator->translate("Domain task edit");
+		$this->view->description = $this->translator->translate("Here you can edit the domains tasks form information.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
@@ -211,8 +211,8 @@ class Admin_DomainstasksController extends Zend_Controller_Action {
 			}
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Domain task edit";
-			$this->view->description = "Here you can edit the domains tasks form information.";
+			$this->view->title = $this->translator->translate("Domain task edit");
+			$this->view->description = $this->translator->translate("Here you can edit the domains tasks form information.");
 			return $this->render ( 'applicantform' );
 		}
 	}

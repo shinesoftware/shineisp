@@ -45,8 +45,8 @@ class Admin_ServicesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Services list";
-		$this->view->description = "Here you can see all the subscribed services list from the customers.";
+		$this->view->title = $this->translator->translate("Services list");
+		$this->view->description = $this->translator->translate("Here you can see all the subscribed services list from the customers.");
 		$this->view->buttons = array(array("url" => "/admin/services/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( OrdersItems::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_ServicesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/services/process" );
-		$this->view->title = "New Service";
-		$this->view->description = "Create a new service";
+		$this->view->title = $this->translator->translate("New Service");
+		$this->view->description = $this->translator->translate("Create a new service");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 							   array("url" => "/admin/services/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -189,8 +189,8 @@ class Admin_ServicesController extends Zend_Controller_Action {
 			echo $e->getMessage ();
 		}
 		
-		$this->view->title = "Service Details";
-		$this->view->description = "Here you can see the datails of the service subscribed by the customer.";
+		$this->view->title = $this->translator->translate("Service Details");
+		$this->view->description = $this->translator->translate("Here you can see the datails of the service subscribed by the customer.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -307,8 +307,8 @@ class Admin_ServicesController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/services/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Service Details";
-            $this->view->description = "Here you can see the datails of the service subscribed by the customer.";
+			$this->view->title = $this->translator->translate("Service Details");
+            $this->view->description = $this->translator->translate("Here you can see the datails of the service subscribed by the customer.");
 			return $this->render ( 'applicantform' );
 		}
 	}

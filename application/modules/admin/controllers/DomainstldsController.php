@@ -44,8 +44,8 @@ class Admin_DomainstldsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Domains Tlds list";
-		$this->view->description = "Here you can see all the domain tlds.";
+		$this->view->title = $this->translator->translate("Domains Tlds list");
+		$this->view->description = $this->translator->translate("Here you can see all the domain tlds.");
 		$this->view->buttons = array(array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( DomainsTlds::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_DomainstldsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/domainstlds/process" );
-		$this->view->title = "Tld Details";
-		$this->view->description = "Here you can handle the tlds details";
+		$this->view->title = $this->translator->translate("Tld Details");
+		$this->view->description = $this->translator->translate("Here you can handle the tlds details");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -179,8 +179,8 @@ class Admin_DomainstldsController extends Zend_Controller_Action {
 			);
 		}
 		
-		$this->view->title = "Domain Tlds Details";
-        $this->view->description = "Here you can edit the main Domain Tlds information paramenters. ";
+		$this->view->title = $this->translator->translate("Domain Tlds Details");
+        $this->view->description = $this->translator->translate("Here you can edit the main Domain Tlds information paramenters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -217,8 +217,8 @@ class Admin_DomainstldsController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/domainstlds/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Domain Tlds";
-			$this->view->description = "Edit the tlds";
+			$this->view->title = $this->translator->translate("Domain Tlds");
+			$this->view->description = $this->translator->translate("Check the tlds data");
 			return $this->render ( 'applicantform' );
 		}
 	}

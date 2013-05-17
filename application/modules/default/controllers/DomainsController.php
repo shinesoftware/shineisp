@@ -89,8 +89,8 @@ class DomainsController extends Zend_Controller_Action {
 
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Domains List";
-		$this->view->description = "Here you can see all the list of your domains.";
+		$this->view->title = $this->translator->translate("Domains List");
+		$this->view->description = $this->translator->translate("Here you can see all the list of your domains.");
 		$this->view->domains = $data;
 	}
 	
@@ -106,9 +106,9 @@ class DomainsController extends Zend_Controller_Action {
 			try {
 				$Orderid = Orders::createOrderWithMultiProducts ( $items, $this->customer ['customer_id'] );
 				
-				$isp = Isp::getActiveISP ();
+				$isp   = ISP::getCurrentISP();
 				$order = Orders::getAllInfo ( $Orderid, null, true );
-				$link = Fastlinks::findlinks ( $Orderid, $this->customer ['customer_id'], 'orders' );
+				$link  = Fastlinks::findlinks ( $Orderid, $this->customer ['customer_id'], 'orders' );
 				
 				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_order' );
 				if ($retval) {
@@ -220,8 +220,8 @@ class DomainsController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		$this->view->title = "Domain Edit";
-		$this->view->description = "Here you can edit your own domain parameters.";
+		$this->view->title = $this->translator->translate("Domain Edit");
+		$this->view->description = $this->translator->translate("Here you can edit your own domain parameters.");
 		$this->view->form = $form;
 		$this->_helper->viewRenderer ( 'customform' );
 	}
@@ -277,8 +277,8 @@ class DomainsController extends Zend_Controller_Action {
 			if (! $form->isValid ( $request->getPost () )) {
 				// Invalid entries
 				$this->view->form = $form;
-				$this->view->title = "Domain Process";
-				$this->view->description = "Check all the information posted before saving them.";
+				$this->view->title = $this->translator->translate("Domain Process");
+				$this->view->description = $this->translator->translate("Check all the information posted before saving them.");
 				return $this->_helper->viewRenderer ( 'customform' ); // re-render the login form
 			}
 			
@@ -296,7 +296,7 @@ class DomainsController extends Zend_Controller_Action {
 			// Save the message note
 			if (! empty ( $params ['note'] )) {
 				Messages::addMessage($params ['note'], $this->customer ['customer_id'], $id);
-				$isp = Isp::getActiveISP();
+				$isp = ISP::getCurrentISP();
 				
 				$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 				$placeholder['message'] = $params ['note'];

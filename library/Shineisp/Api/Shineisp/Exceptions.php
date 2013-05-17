@@ -8,6 +8,7 @@ class Shineisp_Api_Shineisp_Exceptions extends SoapFault {
         ,'400003' => 'Resource not found'
         ,'400004' => 'Request fields are incorrect'
         ,'400005' => 'Error for insert new customers'
+        ,'400006' => 'Error for insert new orders'
         //ERROR 401 - Not authorized
         ,'401001' => 'User has been not found'
         ,'401002' => 'The email address or password is incorrect.'

@@ -706,6 +706,7 @@ class Invoices extends BaseInvoices {
 					if ( $payments > 1 ) {
 						foreach ( $payments as $payment ) {
 							$payment['paymentdate']  = Shineisp_Commons_Utilities::formatDateOut ( $payment['paymentdate'] );
+							$payment['income']       = $currency->toCurrency($payment['income'], array('currency' => Settings::findbyParam('currency')));
 							$orderinfo['payments'][] = $payment;	
 						}
 					}
@@ -714,6 +715,8 @@ class Invoices extends BaseInvoices {
 					$orderinfo ['payment_description'] = $payments [0] ['description'];
 					$orderinfo ['payment_transaction_id'] = $payments [0] ['reference'];
 				}
+
+
 				
 				$orderinfo ['invoice_number'] = $invoice ['number'];
 				
@@ -738,11 +741,11 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['delivery'] = 0;
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
-					$orderinfo ['ribbon']['text'] = $translator->translate("To be Payed");
+					$orderinfo ['ribbon']['text'] = $translator->translate("To be Paid");
 					$orderinfo ['ribbon']['color'] = "#D60000";
 					$orderinfo ['ribbon']['border-color'] = "#BD0000";
 				}elseif($order [0] ['status_id'] == Statuses::id("complete", "orders")){  // Complete
-					$orderinfo ['ribbon']['text'] = $translator->translate("Payed");
+					$orderinfo ['ribbon']['text'] = $translator->translate("Paid");
 					$orderinfo ['ribbon']['color'] = "#009926";
 					$orderinfo ['ribbon']['border-color'] = "#00661A";
 				}else{
@@ -769,7 +772,7 @@ class Invoices extends BaseInvoices {
 					
 					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $tax['percentage'], $rowtotal);
 				}
-				
+
 				if (isset ( $order [0] )) {
 					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
 					return $path . $filename;

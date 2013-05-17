@@ -1,0 +1,64 @@
+Regions:
+  Regions_1:
+    Countries: Countries_82
+    name: 'Valle d''Aosta'
+  Regions_2:
+    Countries: Countries_82
+    name: Piemonte
+  Regions_3:
+    Countries: Countries_82
+    name: Lombardia
+  Regions_4:
+    Countries: Countries_82
+    name: 'Trentino-Alto Adige'
+  Regions_5:
+    Countries: Countries_82
+    name: Veneto
+  Regions_6:
+    Countries: Countries_82
+    name: 'Friuli-Venezia Giulia'
+  Regions_7:
+    Countries: Countries_82
+    name: Emilia-Romagna
+  Regions_8:
+    Countries: Countries_82
+    name: Liguria
+  Regions_9:
+    Countries: Countries_82
+    name: Toscana
+  Regions_10:
+    Countries: Countries_82
+    name: Marche
+  Regions_11:
+    Countries: Countries_82
+    name: Umbria
+  Regions_12:
+    Countries: Countries_82
+    name: Abruzzo
+  Regions_13:
+    Countries: Countries_82
+    name: Molise
+  Regions_14:
+    Countries: Countries_82
+    name: Lazio
+  Regions_15:
+    Countries: Countries_82
+    name: Puglia
+  Regions_16:
+    Countries: Countries_82
+    name: Campania
+  Regions_17:
+    Countries: Countries_82
+    name: Basilicata
+  Regions_18:
+    Countries: Countries_82
+    name: Calabria
+  Regions_19:
+    Countries: Countries_82
+    name: Sicilia
+  Regions_20:
+    Countries: Countries_82
+    name: Sardegna
+  Regions_21:
+    Countries: Countries_82
+    name: 'San Marino'
