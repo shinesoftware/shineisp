@@ -1172,7 +1172,6 @@ class Orders extends BaseOrders {
 				$item->save();
 				
 				$arrayItem = $item->toArray();
-				mail('alessandro.corbelli@guest.it', 'DEBUG', print_r($arrayItem,true));
 				
 				// Update the totals
 				if(!empty($order['order_id'])) {
