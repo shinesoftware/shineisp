@@ -40,8 +40,8 @@ class Admin_CreditnotesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Credit notes list";
-		$this->view->description = "Here you can see all the credit notes.";
+		$this->view->title = $this->translator->translate("Credit notes list");
+		$this->view->description = $this->translator->translate("Here you can see all the credit notes.");
 		$this->view->buttons = array(array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( CreditNotes::grid() )->datagrid ();
 	}
@@ -88,8 +88,8 @@ class Admin_CreditnotesController extends Zend_Controller_Action {
 	public function newAction() {
 		
 		$this->view->form = $this->getForm ( "/admin/creditnotes/process" );
-		$this->view->title = "New Credit Notes";
-		$this->view->description = "Create a new credit note using this form.";
+		$this->view->title = $this->translator->translate("New Credit Notes");
+		$this->view->description = $this->translator->translate("Create a new credit note using this form.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -160,8 +160,8 @@ class Admin_CreditnotesController extends Zend_Controller_Action {
 		$form = $this->getForm ( '/admin/creditnotes/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
-		$this->view->title = "Credit Note Edit";
-		$this->view->description = "Here you can edit the selected credit notes.";
+		$this->view->title = $this->translator->translate("Credit Note Edit");
+		$this->view->description = $this->translator->translate("Here you can edit the selected credit notes.");
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -232,8 +232,8 @@ class Admin_CreditnotesController extends Zend_Controller_Action {
 			$this->_helper->redirector ( 'edit', 'creditnotes', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Credit Notes Edit";
-			$this->view->description = "Here you can edit the selected credit notes.";
+			$this->view->title = $this->translator->translate("Credit Notes Edit");
+			$this->view->description = $this->translator->translate("Here you can edit the selected credit notes.");
 			return $this->render ( 'applicantform' );
 		}
 	}

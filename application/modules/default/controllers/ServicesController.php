@@ -62,8 +62,8 @@ class ServicesController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Services List";
-		$this->view->description = "List of all your own services subscribed";
+		$this->view->title = $this->translator->translate("Services List");
+		$this->view->description = $this->translator->translate("List of all your own services subscribed");
 		$this->view->service = $data;
 	}
 
@@ -101,8 +101,8 @@ class ServicesController extends Zend_Controller_Action {
 		$this->view->priceRefund 	= $priceRefund;
 		$this->view->products 		= $products;
 		
-		$this->view->title = "Upgrade products List";
-		$this->view->description = "List of all your own services subscribed";
+		$this->view->title = $this->translator->translate("Upgrade products List");
+		$this->view->description = $this->translator->translate("List of all your own services subscribed");
 	}
 	
 	/**
@@ -155,8 +155,8 @@ class ServicesController extends Zend_Controller_Action {
 			$this->view->days = $rs ['daysleft'];
 		}
 		
-		$this->view->title = "Service Details";
-		$this->view->description = "List of all the service details.";
+		$this->view->title = $this->translator->translate("Service Details");
+		$this->view->description = $this->translator->translate("List of all the service details.");
 		$this->view->dnsdatagrid = $this->dnsGrid ();
 		$this->view->form = $form;
 		$this->_helper->viewRenderer ( 'customform' );
@@ -180,8 +180,8 @@ class ServicesController extends Zend_Controller_Action {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = "Service processing";
-			$this->view->description = "Check all the fields and click on the save button";
+			$this->view->title = $this->translator->translate("Service processing");
+			$this->view->description = $this->translator->translate("Check all the fields and click on the save button");
 			return $this->_helper->viewRenderer ( 'customform' ); // re-render the login form
 		}
 		
@@ -199,7 +199,7 @@ class ServicesController extends Zend_Controller_Action {
 		if (! empty ( $params ['message'] )) {
 			
 			Messages::addMessage($params ['message'], $this->customer ['customer_id'], null, null, $id);
-			$isp = Isp::getActiveISP();
+			$isp = ISP::getCurrentISP();
 			
 			$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 			$placeholder['messagetype'] = $this->translator->translate('Order Details');

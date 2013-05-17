@@ -16,7 +16,7 @@ class Version80 extends Doctrine_Migration_Base
               'autoincrement' => '1',
               'length' => '4',
              ),
-             'state_id' => 
+             'region_id' => 
              array(
               'type' => 'integer',
               'fixed' => '0',
@@ -52,7 +52,7 @@ class Version80 extends Doctrine_Migration_Base
              'charset' => 'UTF8',
              ));
         $this->createTable('states', array(
-             'state_id' => 
+             'region_id' => 
              array(
               'type' => 'integer',
               'fixed' => '0',
@@ -78,7 +78,7 @@ class Version80 extends Doctrine_Migration_Base
              ), array(
              'primary' => 
              array(
-              0 => 'state_id',
+              0 => 'region_id',
              ),
              'charset' => 'UTF8',
              ));

@@ -9,7 +9,7 @@
 class ProfileController extends Zend_Controller_Action {
 	
 	protected $profile;
-	protected $translations;
+	protected $translator;
 	
 	/**
 	 * preDprofileatch
@@ -27,7 +27,7 @@ class ProfileController extends Zend_Controller_Action {
 		} else {
 			return $this->_helper->redirector ( 'out', 'login', 'default' );
 		}
-		$this->translations = $registry->Zend_Translate;
+		$this->translator = $registry->Zend_Translate;
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 	}
 	
@@ -63,8 +63,8 @@ class ProfileController extends Zend_Controller_Action {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		$this->view->title = "Profile details";
-		$this->view->description = "Update here your details filling the applicant form with all the information about you.";
+		$this->view->title = $this->translator->translate("Profile details");
+		$this->view->description = $this->translator->translate("Update here your details filling the applicant form with all the information about you.");
 		
 		$rs = Customers::getAllInfo ( $this->profile ['customer_id'], "c.customer_id as customer_id, c.firstname as firstname, c.lastname as lastname, c.company as company, c.type_id as company_type_id, c.legalform_id as legalform, c.email as email, c.vat as vat, a.address as address, a.city as city, a.code as code, a.country_id as country_id, a.area as area, DATE_FORMAT(c.birthdate,'%d/%m/%Y') as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.sex as sex, c.birthdistrict as birthdistrict, c.birthcountry as birthcountry, c.birthnationality as birthnationality, c.issubscriber as newsletter" );
 		
@@ -235,7 +235,7 @@ class ProfileController extends Zend_Controller_Action {
 						$body = str_replace ( "[user]", $params ['firstname'] . " " . $params ['lastname'], $body );
 						$body = str_replace ( "[old]", print_r($oldCustomer, true), $body );
 						$body = str_replace ( "[new]", print_r($customer->toArray(), true), $body );
-						$isp = Isp::getActiveISP ();
+						$isp = ISP::getCurrentISP();
 						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );
 					}
 				}
@@ -246,8 +246,8 @@ class ProfileController extends Zend_Controller_Action {
 			return $this->_helper->redirector ( 'account', 'profile', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Profile details";
-			$this->view->description = "Update here your details filling the applicant form with all the information about you.";
+			$this->view->title = $this->translator->translate("Profile details");
+			$this->view->description = $this->translator->translate("Update here your details filling the applicant form with all the information about you.");
 			return $this->_helper->viewRenderer ( 'applicantform' );
 		}
 	

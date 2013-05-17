@@ -504,11 +504,11 @@ Countries:
       foreign: country_id
       onDelete: CASCADE
       
-States:
+Regions:
   connection: doctrine
   tableName: states
   columns:
-    state_id:
+    region_id:
       type: integer(4)
       fixed: 0
       unsigned: false
@@ -538,7 +538,7 @@ Provinces:
       unsigned: false
       primary: true
       autoincrement: true
-    state_id:
+    region_id:
       type: integer(4)
       fixed: 0
       unsigned: false
@@ -559,9 +559,9 @@ Provinces:
       local: country_id
       foreign: country_id
       onDelete: CASCADE
-    States:
-      local: state_id
-      foreign: state_id
+    Regions:
+      local: region_id
+      foreign: region_id
       onDelete: CASCADE
       
 CreditNotes:
@@ -2011,6 +2011,12 @@ Orders:
       type: float(10)
       default: '0.00'
       notnull: true
+   url_notify_api:
+      type: string(200)
+      notnull: false
+   order_uuid:
+      type: string(50)
+      notnull: false
     invoice_id: integer(4)
     expiring_date: date(25)
     note: string()

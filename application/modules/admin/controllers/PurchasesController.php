@@ -43,8 +43,8 @@ class Admin_PurchasesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Purchases list";
-		$this->view->description = "Here you can see all the purchases.";
+		$this->view->title = $this->translator->translate("Purchases list");
+		$this->view->description = $this->translator->translate("Here you can see all the purchases.");
 		$this->view->buttons = array(array("url" => "/admin/purchases/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( PurchaseInvoices::grid() )->datagrid ();
 	}
@@ -93,8 +93,8 @@ class Admin_PurchasesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/purchases/process" );
-		$this->view->title = "New Purchase Invoice";
-		$this->view->description = "Create a new purchase invoice using this form.";
+		$this->view->title = $this->translator->translate("New Purchase Invoice");
+		$this->view->description = $this->translator->translate("Create a new purchase invoice using this form.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/purchases/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -160,8 +160,8 @@ class Admin_PurchasesController extends Zend_Controller_Action {
 				array("url" => "/admin/purchases/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
-		$this->view->title = "Purchases Edit";
-		$this->view->description = "Here you can edit the selected purchase invoice.";
+		$this->view->title = $this->translator->translate("Purchases Edit");
+		$this->view->description = $this->translator->translate("Here you can edit the selected purchase invoice.");
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$rs = $this->purchases->find ( $id )->toArray ();
@@ -214,8 +214,8 @@ class Admin_PurchasesController extends Zend_Controller_Action {
 			
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Purchase Invoice Edit";
-			$this->view->description = "Here you can edit the selected purchase.";
+			$this->view->title = $this->translator->translate("Purchase Invoice Edit");
+			$this->view->description = $this->translator->translate("Here you can edit the selected purchase.");
 			return $this->render ( 'applicantform' );
 		}
 	}

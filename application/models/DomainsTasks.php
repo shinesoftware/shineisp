@@ -260,7 +260,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	 * @return Doctrine Record
 	 */
 	public static function getTasks($statusId = "", $limit = null) {
-		$dq = Doctrine_Query::create ()->from ( 'DomainsTasks dt' );
+		$dq = Doctrine_Query::create ()->from ( 'DomainsTasks dt' )->leftJoin('dt.Domains d')->leftJoin('d.Customers c');
 		
 		if (is_numeric ( $statusId )) {
 			$dq->where ( 'dt.status_id = ?', $statusId );

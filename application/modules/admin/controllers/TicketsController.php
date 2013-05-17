@@ -45,8 +45,8 @@ class Admin_TicketsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Tickets list";
-		$this->view->description = "Here you can see all the tickets.";
+		$this->view->title = $this->translator->translate("Tickets list");
+		$this->view->description = $this->translator->translate("Here you can see all the tickets.");
 		$this->view->buttons = array(array("url" => "/admin/tickets/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Tickets::grid() )->datagrid ();
 	}
@@ -96,8 +96,8 @@ class Admin_TicketsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/tickets/process" );
-		$this->view->title = "New Ticket";
-		$this->view->description = "Here you can handle the ticket support.";
+		$this->view->title = $this->translator->translate("New Ticket");
+		$this->view->description = $this->translator->translate("Here you can handle the ticket support.");
 		
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/tickets/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
@@ -173,8 +173,8 @@ class Admin_TicketsController extends Zend_Controller_Action {
 		$form->getElement ( 'save' )->setLabel ( 'Reply' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
-		$this->view->title = "Edit Ticket";
-		$this->view->description = "Here you can handle the ticket support.";
+		$this->view->title = $this->translator->translate("Edit Ticket");
+		$this->view->description = $this->translator->translate("Here you can handle the ticket support.");
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -300,8 +300,8 @@ class Admin_TicketsController extends Zend_Controller_Action {
 		$form = $this->getForm ( "/admin/tickets/process" );
 		$request = $this->getRequest ();
 		
-		$this->view->title = "New Ticket";
-		$this->view->description = "Here you can handle the ticket support.";
+		$this->view->title = $this->translator->translate("New Ticket");
+		$this->view->description = $this->translator->translate("Here you can handle the ticket support.");
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(

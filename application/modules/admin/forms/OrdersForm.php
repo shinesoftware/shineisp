@@ -373,14 +373,14 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('select', 'confirmed', array(
         		'filters'    => array('StringTrim'),
-        		'label'      => 'Does the Transaction has been confirmed?',
+        		'label'      => 'Has the Transaction been confirmed?',
         		'decorators' => array('Composite'),
         		'class'      => 'text-input large-input'
         ));
         
         $this->getElement('confirmed')
         ->setAllowEmpty(false)
-        ->setMultiOptions(array('0' => "No, it has been not", '1' => "Yes, it has been" ));
+        ->setMultiOptions(array('0' => "No, not yet", '1' => "Yes, it has been" ));
         
         $this->addElement('hidden', 'order_id');
     }

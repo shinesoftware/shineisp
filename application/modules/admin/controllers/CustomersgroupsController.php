@@ -44,8 +44,8 @@ class Admin_CustomersgroupsController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Customer's Groups";
-		$this->view->description = "Here you can see all the customers group.";
+		$this->view->title = $this->translator->translate("Customer's Groups");
+		$this->view->description = $this->translator->translate("Here you can see all the customers group.");
 		$this->view->buttons = array(array("url" => "/admin/customersgroups/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
 		$this->datagrid->setConfig ( CustomersGroups::grid() )->datagrid ();
@@ -95,8 +95,8 @@ class Admin_CustomersgroupsController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/customersgroups/process" );
-		$this->view->title = "New Customers' Groups";
-		$this->view->description = "Here you can create a new customers groups.";
+		$this->view->title = $this->translator->translate("New Customers' Groups");
+		$this->view->description = $this->translator->translate("Here you can create a new customers groups.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/customersgroups/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -167,8 +167,8 @@ class Admin_CustomersgroupsController extends Zend_Controller_Action {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Group edit";
-		$this->view->description = "Here you can edit the customer group information.";
+		$this->view->title = $this->translator->translate("Group edit");
+		$this->view->description = $this->translator->translate("Here you can edit the customer group information.");
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );

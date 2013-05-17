@@ -1,6 +1,6 @@
-INSERT INTO admin_resources SET resource_id = 95, name = 'API States';hidden = 1;is_container= 0;is_allowed= 0;admin= 1;module='api'; controller='states';parent_id='0';
+INSERT INTO admin_resources SET resource_id = 95, name = 'API States',hidden = 1,is_container= 0,is_allowed= 0,admin= 1,module='api', controller='states',parent_id='0';
 INSERT INTO admin_permissions SET permission_id = 130, resource_id=95, role_id=5, permission='allow';
-INSERT INTO admin_resources SET resource_id = 96, name = 'API Provinces';hidden = 1;is_container= 0;is_allowed= 0;admin= 1;module='api'; controller='provinces';parent_id='0';
+INSERT INTO admin_resources SET resource_id = 96, name = 'API Provinces',hidden = 1,is_container= 0,is_allowed= 0,admin= 1,module='api', controller='provinces',parent_id='0';
 INSERT INTO admin_permissions SET permission_id = 131, resource_id=96, role_id=5, permission='allow';
 
 

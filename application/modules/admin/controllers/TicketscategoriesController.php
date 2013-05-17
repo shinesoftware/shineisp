@@ -44,8 +44,8 @@ class Admin_TicketsCategoriesController extends Zend_Controller_Action {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = "Ticket Categories list";
-		$this->view->description = "Here you can see all the ticket categories.";
+		$this->view->title = $this->translator->translate("Ticket Categories list");
+		$this->view->description = $this->translator->translate("Here you can see all the ticket categories.");
 		$this->view->buttons = array(array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( TicketsCategories::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_TicketsCategoriesController extends Zend_Controller_Action {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/ticketscategories/process" );
-		$this->view->title = "Category Details";
-		$this->view->description = "Here you can handle the category parameters";
+		$this->view->title = $this->translator->translate("Category Details");
+		$this->view->description = $this->translator->translate("Here you can handle the category parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
@@ -180,8 +180,8 @@ class Admin_TicketsCategoriesController extends Zend_Controller_Action {
 				
 		}
 		
-		$this->view->title = "Ticket Category Details";
-        $this->view->description = "Here you can edit the ticket categories";
+		$this->view->title = $this->translator->translate("Ticket Category Details");
+        $this->view->description = $this->translator->translate("Here you can edit the ticket categories");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -240,8 +240,8 @@ class Admin_TicketsCategoriesController extends Zend_Controller_Action {
 			$redirector->gotoUrl ( "/admin/ticketscategories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = "Bank Edit";
-			$this->view->description = "Edit the bank information";
+			$this->view->title = $this->translator->translate("Bank Edit");
+			$this->view->description = $this->translator->translate("Edit the bank information");
 			return $this->render ( 'applicantform' );
 		}
 	}

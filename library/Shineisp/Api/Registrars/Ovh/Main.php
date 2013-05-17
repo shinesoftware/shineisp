@@ -609,24 +609,7 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 			// Import the DNS Custom Zone
 			$soap->zoneImport ( $this->session['id'], $domain_name, $zone );
 			
-			// Send the confirmation email
-			$isp = Isp::getActiveISP ();
-			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'dns_changed' );
-			if ($retval) {
-				$subject = str_replace ( "[domain]", $domain_name, $retval ['subject'] );
-				$body = str_replace ( "[domain]", $domain_name, $retval ['template'] );
-				if (!empty($customer ['parent_id'])) {
-					$reseller = Customers::get_by_customerid($customer ['parent_id']);
-					if(!empty($reseller[0])){
-						$email = $reseller[0]['email'];
-					}else{
-						$email = $customer[0]['email'];
-					}
-				}else{
-					$email = $customer['email'];
-				}
-				Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $email, $isp ['email'], $subject, $body );
-			}
+			return true;
 			
 		}	
 		return false;

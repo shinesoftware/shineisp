@@ -45,8 +45,8 @@ class Admin_SettingsController extends Zend_Controller_Action {
 			$this->view->description = $group['description'];
 			$this->view->help = $group['help'];
 		}else{
-			$this->view->title = "Settings";
-			$this->view->description = "Set here all the ShineISP parameters.";
+			$this->view->title = $this->translator->translate("Settings");
+			$this->view->description = $this->translator->translate("Set here all the ShineISP parameters.");
 		}
 		
 		$form = SettingsParameters::createForm ( $groupid );

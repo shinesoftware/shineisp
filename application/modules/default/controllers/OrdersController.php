@@ -81,8 +81,8 @@ class OrdersController extends Zend_Controller_Action {
 		$this->view->headTitle()->prepend ($this->translator->translate('Orders List'));
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = "Orders List";
-		$this->view->description = "This is the list of all your orders.";
+		$this->view->title = $this->translator->translate("Orders List");
+		$this->view->description = $this->translator->translate("This is the list of all your orders.");
 		$this->view->orders = $data;
 	}
 	
@@ -208,7 +208,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function processAction() {
-		$isp = Isp::getActiveISP ();
+		$isp = ISP::getCurrentISP();
 		$request = $this->getRequest ();
 		
 		// Check if we have a POST request
@@ -222,8 +222,8 @@ class OrdersController extends Zend_Controller_Action {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = "Order process";
-			$this->view->description = "Check the information posted and then click on the save button.";
+			$this->view->title = $this->translator->translate("Order process");
+			$this->view->description = $this->translator->translate("Check the information posted and then click on the save button.");
 			return $this->_helper->viewRenderer ( 'applicantform' ); // re-render the login form
 		}
 		
@@ -468,7 +468,7 @@ class OrdersController extends Zend_Controller_Action {
 		
 		if (! empty ( $response ['custom'] ) && is_numeric ( trim ( $response ['custom'] ) )) {
 			
-			$isp = Isp::getActiveISP ();
+			$isp = ISP::getCurrentISP();
 			
 			// Orderid back from the bank
 			$order_id = trim ( $response ['custom'] );

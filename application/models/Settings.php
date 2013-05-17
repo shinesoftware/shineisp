@@ -117,7 +117,7 @@ class Settings extends BaseSettings {
 				$conn->execute('SET FOREIGN_KEY_CHECKS = 0');
 				foreach ($models as $model) {
 					$tablename = Doctrine::getTable($model)->getTableName();
-					$dbh->query("DROP TABLE $tablename");
+					$dbh->query("DROP TABLE IF EXISTS $tablename");
 				}
 				
 				// Create the migration_version table
