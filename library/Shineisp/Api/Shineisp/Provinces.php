@@ -1,15 +1,15 @@
 <?
 class Shineisp_Api_Shineisp_Provinces extends Shineisp_Api_Shineisp_Abstract_Action  {
     
-    public function getAll( $stateid ) {
+    public function getAll( $regionid ) {
         $this->authenticate();
         
-        if( empty( $stateid ) ) {
-            throw new Shineisp_Api_Shineisp_Exceptions( 400002, ":: 'stateid' field" );
+        if( empty( $regionid ) ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400002, ":: 'regionid' field" );
             exit();
         } 
         
-        $provinces = Provinces::fildAllByStateID($stateid);
+        $provinces = Provinces::fildAllByRegionID($regionid);
         if( empty($provinces) ) {
             return false;
         }        
