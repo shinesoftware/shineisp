@@ -2093,10 +2093,10 @@ OrdersItems:
     review_id: integer(4)
     parent_detail_id: integer(4)
     description: string()
-    callbackactive:
+    callback_url:
       type: string(200)
       notnull: false
-    ouid:
+    uuid:
       type: string(50)
       notnull: false    
   relations:
