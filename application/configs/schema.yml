@@ -144,11 +144,19 @@ Addresses:
     country_id:
       type: integer(4)
       notnull: true
+    region_id:
+      type: integer(4)
+      notnull: true
+      default: "0"
     area: string(100)
     latitude: string(20)
     longitude: string(20)
     customer_id: integer(4)
   relations:
+    Regions:
+      local:region_id
+      foreign: region_id
+      type: one
     Countries:
       local: country_id
       foreign: country_id
