@@ -17,7 +17,10 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
             $params['country_id']   = $country_id;
         }
         
-        return $params;
+        if( array_key_exists('provincecode',$params) && $params['provincecode'] != "" ) {
+            $params['area'] = $params['provincecode'];
+            unset($params['provincecode']);
+        }
         
         if ($form->isValid ( $params ) ) {
             if( $params['status'] == false ) {
@@ -26,8 +29,8 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
             
             $idcustomers    = Customers::Create($params);
             
-            Customers::find($idcustomers);
-            return $idcustomers;
+            $customer       = Customers::find($idcustomers);
+            return $customer['uuid'];
         } else {
             $errors     = $form->getMessages();
             $message    = "";
