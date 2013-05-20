@@ -1331,7 +1331,7 @@ class Orders extends BaseOrders {
 	 * set the payment, create the domain tasks, and set the status of the new domains
 	 */
 	public static function Complete($orderid, $sendemail=false) {
-		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
+		if(!empty($orderid) && is_numeric($orderid) ){
 			
 			$upgrade = Orders::isUpgrade($orderid);
 			if( $upgrade !== false ) {
