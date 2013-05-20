@@ -105,7 +105,12 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         }
         $id         = $customers['customer_id'];
         
-        return Orders::getOrdersByCustomerID($id);
+        $fields     = " o.order_id,o.grandtotal as grandtotal,s.status as status,
+                        DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
+                        DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as expiringdate,
+                        o.is_renewal as is_renewal, i.number as invoice,
+                        c.firstname,c.lastname,c.company";
+        return Orders::getOrdersByCustomerID($id,$fields);
     }
 
 }
