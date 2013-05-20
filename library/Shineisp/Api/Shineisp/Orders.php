@@ -24,11 +24,6 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             exit();            
         }
         
-        $upgrade    = false;
-        if( isset( $params['type']) && $params['type'] == 'upgrade' ) {
-            $upgrade    = true;
-        }
-        
         foreach( $params['products'] as $product ) {
             $productid  = intval( $product['productid']);
             $billingid  = intval( $product['billingid']);
@@ -63,7 +58,15 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             $p          = Products::getAllInfo($productid);
             
             $options    = array( 'callback_url' => $product['urlactive'], 'uuid' => $product['uuid']);
-            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], $options );
+            
+            $upgrade    = false;
+            if( array_key_exists('upgrade', $product) && $product['upgrade'] != false ) {
+                $orderItemsUpgrade  = OrdersItems::findByUUID( $product['upgrade'] );
+                $fromUpgrade        = $orderItemsUpgrade->toArray();
+                $upgrade            = $fromUpgrade['detail_id']; 
+            }
+            
+            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], $options,$upgrade );
         }
 
         $orderID = $theOrder ['order_id'];
