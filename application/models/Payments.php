@@ -233,9 +233,9 @@ class Payments extends BasePayments
      * @param boolean $status
      * @param float $amount
      */
-    public static function addpayment($orderid, $transactionid, $bankid, $status, $amount){
+    public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null) {
     	$paymentdata = self::findbyorderid ( $orderid, null, true );
-    	
+    			
     	if (count ( $paymentdata ) == 0) {
 			$payment = new Payments ();
 		} else {
@@ -244,14 +244,37 @@ class Payments extends BasePayments
 		
     	// Set the payment data
 		$payment->paymentdate = date ( 'Y-m-d H:i:s' );
-		$payment->order_id = $orderid;
+		$payment->order_id    = $orderid;
 		$payment->customer_id = Orders::getCustomer ( $orderid );
-		$payment->bank_id = $bankid;
-		$payment->reference = $transactionid;
-		$payment->confirmed = $status ? 1 : 0;
-		$payment->income = $amount;
+		$payment->bank_id     = $bankid;
+		$payment->reference   = $transactionid;
+		$payment->confirmed   = $status ? 1 : 0;
+		$payment->income      = $amount;
 		
-		return $payment->trySave ();
+		// Additional fields for Orders::saveAll()
+		$payment->paymentdate = isset($paymentdate) ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : null;
+		$payment->customer_id = isset($customer_id) ? intval($customer_id) : null;
+		$payment->description = isset($payment_description) ? $payment_description : null;
+		
+		$save = $payment->trySave ();
+		
+		if ( $save ) {
+			// Let's check if we have the whole invoice paid.
+			$isPaid = Orders::isPaid($orderid);
+			
+			if ( $isPaid ) {
+				// If we have to autosetup as soon as first payment is received, let's do here.
+				Orders::activateItems($orderid, 4);
+				
+				// Set order status as "Paid"
+				Orders::set_status($orderid, Statuses::id('paid', 'orders'));
+			} else {
+				// If we have to autosetup as soon as first payment is received, let's do here.
+				Orders::activateItems($orderid, 3);
+			}
+		}
+				
+		return $save;
 	}
 	
 	/**
