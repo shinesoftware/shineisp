@@ -851,7 +851,7 @@ class Shineisp_Commons_Utilities {
 		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
-				
+								
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
@@ -998,7 +998,7 @@ class Shineisp_Commons_Utilities {
 
 		// ISP missing from arguments, try to get automatically
 		$ISP = ( isset($ISP) && is_array($ISP) ) ? $ISP : ISP::getCurrentISP();
-		
+				
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
