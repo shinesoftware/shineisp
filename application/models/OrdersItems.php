@@ -490,6 +490,25 @@ class OrdersItems extends BaseOrdersItems {
 	}
 	
 	/**
+	 * getAllActivableItems
+	 * Get all activable items starting from the orderID 
+	 * @param $id
+	 * @return Doctrine Record / Array
+	 */
+	public static function getAllActivableItems($id, $fields = "*", $retarray = false) {
+		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
+		->leftJoin ( 'oi.Products p' )
+		->where ( "order_id = ?", $id )
+		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' ");
+
+		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
+		$items = $dq->execute ( array (), $retarray );
+		
+		return $items;
+	}
+	
+	
+	/**
 	 * Get the setup information of a particular service 
 	 * 
 	 * @param integer $itemid
@@ -1028,14 +1047,17 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return true|false
 	 */
 	public static function activate($orderItemId) {
+		die('faccio activate');
 		$orderItemId = intval($orderItemId);
 		if ( $orderItemId < 1 ) {
+			// missing order item id from arguments
 			return false;
 		}
 		
 		// Get OrderItem
 		$OrderItem = self::find($orderItemId);
 		if ( !$OrderItem ) {
+			// order item not found
 			return false;
 		}	
 		
@@ -1056,6 +1078,11 @@ class OrdersItems extends BaseOrdersItems {
 		
 		
 		
+		/*
+		 * START ACTIVATIONS CODE
+		 */
+		
+		
 		// callback_url is set, skip server activation and let's do the call to the remote API
 		if ( !empty($OrderItem->callback_url) ) {
 			$arrayItem = $OrderItem->toArray();
@@ -1073,6 +1100,7 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 		// It's an hosting? execute panel task
+		// TODO: this should call an hook or an even bound to the panel
 		if ( $Product->type == 'hosting' && !empty($OrderItem->parameters) ) {		
 			PanelsActions::AddTask($Order->customer_id, $OrderItem->detail_id, "fullProfile", $OrderItem->parameters);
 			
