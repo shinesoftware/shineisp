@@ -205,7 +205,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getOrdersByCustomerID($id, $fields="*") {
 		try {
-			return Doctrine_Query::create ()->select ( $fields )
+			$arrOrders = Doctrine_Query::create ()->select ( $fields )
 										->from ( 'Orders o' )
 										->leftJoin ( 'o.Customers c' )
 										->leftJoin ( 'c.Customers r' )
@@ -216,6 +216,16 @@ class Orders extends BaseOrders {
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
 										->orderBy ( 'order_date desc' )
 										->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
+				
+			if ( is_array($arrOrders) && count($arrOrders) > 0 ) {
+				foreach ( $arrOrders as $k => $arrOrder ) {
+					if ( isset($arrOrder['order_id']) ) {
+						$arrOrders[$k]['order_number'] = self::formatOrderId($id);
+					}	
+				}
+			}
+										
+			return $arrOrders;
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
 			die ();
