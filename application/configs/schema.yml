@@ -2145,7 +2145,12 @@ Orders:
       local: status_id
       foreign: status_id
       type: one
-    
+  indexes:
+    OrderNumber:
+      fields: 
+        order_number
+      type: unique    
+      
 OrdersItems:
   connection: doctrine
   tableName: orders_items
