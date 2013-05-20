@@ -2084,9 +2084,6 @@ Orders:
       unsigned: false
       primary: true
       autoincrement: true
-    order_number:
-      type: string(250)
-      notnull: false
     customer_id:
       type: integer(4)
       notnull: true
@@ -2146,9 +2143,9 @@ Orders:
       foreign: status_id
       type: one
   indexes:
-    OrderNumber:
+    Uuid:
       fields: 
-        order_number
+        uuid
       type: unique    
       
 OrdersItems:
@@ -2233,6 +2230,11 @@ OrdersItems:
     Reviews:
       local: review_id
       foreign: review_id
+  indexes:
+    Uuid:
+      fields: 
+        uuid
+      type: unique  
 
 OrdersItemsDomains:
   connection: doctrine
