@@ -1173,6 +1173,8 @@ class Orders extends BaseOrders {
 					self::updateTotalsOrder($order['order_id']);
 				}
 				
+                Shineisp_Commons_Utilities::log("Autosetup::".$autoSetup." TYPE:: ".strtolower($product['type'])." Callurl::".$arrayItem['callback_url']);
+                
 				//* autosetup is set to 1 for this product, let's activate immediatly
 				if ( $autoSetup == '1' && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
 					OrdersItems::activate($arrayItem['detail_id']);				

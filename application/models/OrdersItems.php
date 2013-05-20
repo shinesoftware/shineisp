@@ -279,6 +279,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Void
 	 */
 	public static function set_status($id, $status) {
+	    Shineisp_Commons_Utilities::log("Set status of ".$id." => ".print_r($status),"api.log");
 		$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'status_id', $status )->where ( "detail_id = ?", $id );
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -1047,6 +1048,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return true|false
 	 */
 	public static function activate($orderItemId) {
+        
 		$orderItemId = intval($orderItemId);
 		if ( $orderItemId < 1 ) {
 			// missing order item id from arguments
@@ -1054,47 +1056,49 @@ class OrdersItems extends BaseOrdersItems {
 		}
 		
 		// Get OrderItem
-		$OrderItem = self::find($orderItemId);
+		$ordersItem = self::find($orderItemId);
+		$ordersItem = $ordersItem->toArray();
+        $OrderItem  = array_shift($ordersItem);
+        Shineisp_Commons_Utilities::log("Vedo dati ".print_r($OrderItem,true));
 		if ( !$OrderItem ) {
 			// order item not found
 			return false;
-		}	
-		
+		}
+        
 		// Get Order related to this orderItem
-		$Order = Orders::find($OrderItem->order_id);
+		$Order = Orders::find(intval($OrderItem['order_id']));
 		if ( !$Order ) {
 			// order not found
 			return false;
 		}
-		
+        
 		// Get product related to this item
-		$Product = Products::find($OrderItem->product_id);
+		$Product = Products::find(intval($OrderItem['product_id']));
 		if ( !$Product ) {
 			// product not found
 			return false;
 		}		
 		
-		
-		
-		
 		/*
 		 * START ACTIVATIONS CODE
 		 */
 		
-		
 		// callback_url is set, skip server activation and let's do the call to the remote API
-		Shineisp_Commons_Utilities::log("URL BACK ".$OrderItem->callback_url);
-		if ( !empty($OrderItem->callback_url) ) {
-			$arrayItem = $OrderItem->toArray();
+		if ( !empty($OrderItem['callback_url']) ) {
 			
 			// Set item to complete
 			$statusComplete = Statuses::id("complete", "orders");
-			OrdersItems::set_status($OrderItem->detail_id, $statusComplete);
+            Shineisp_Commons_Utilities::log("Status ".print_r($statusComplete,true),"api.log");
+			OrdersItems::set_status($OrderItem['detail_id'], $statusComplete);
 			
-			$arrayItem['status'] = $statusComplete;
+            $paramsOrderItem    = $OrderItem;
+            unset( $paramsOrderItem['note'] );
+            unset( $paramsOrderItem['callback_url'] );
 			
 			// Do the callback 
-			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem->callback_url, $arrayItem);
+			Shineisp_Commons_Utilities::log("URL Notifica server :: {$OrderItem['callback_url']} ","api.log");
+            Shineisp_Commons_Utilities::log("Parametri ".print_r($paramsOrderItem,true),"api.log");
+			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
 			
 			return true;
 		}
