@@ -1047,7 +1047,6 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return true|false
 	 */
 	public static function activate($orderItemId) {
-		die('faccio activate');
 		$orderItemId = intval($orderItemId);
 		if ( $orderItemId < 1 ) {
 			// missing order item id from arguments
