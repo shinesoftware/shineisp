@@ -2084,6 +2084,9 @@ Orders:
       unsigned: false
       primary: true
       autoincrement: true
+    order_number:
+      type: string(250)
+      notnull: false
     customer_id:
       type: integer(4)
       notnull: true
@@ -2093,6 +2096,8 @@ Orders:
     isp_id:
       type: integer(4)
       notnull: true
+    uuid:
+      type: string(50)      
     order_date:
       type: date(25)
       notnull: true
