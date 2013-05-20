@@ -1057,6 +1057,7 @@ class OrdersItems extends BaseOrdersItems {
 		
 		
 		// callback_url is set, skip server activation and let's do the call to the remote API
+		Shineisp_Commons_Utilities::log("URL BACK ".$OrderItem->callback_url);
 		if ( !empty($OrderItem->callback_url) ) {
 			$arrayItem = $OrderItem->toArray();
 			
@@ -1073,6 +1074,7 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 		// It's an hosting? execute panel task
+		
 		if ( $Product->type == 'hosting' && !empty($OrderItem->parameters) ) {		
 			PanelsActions::AddTask($Order->customer_id, $OrderItem->detail_id, "fullProfile", $OrderItem->parameters);
 			

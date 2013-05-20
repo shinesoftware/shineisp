@@ -24,6 +24,10 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             exit();            
         }
         
+        $upgrade    = false;
+        if( isset( $params['type']) && $params['type'] == 'upgrade' ) {
+            $upgrade    = true;
+        }
         
         foreach( $params['products'] as $product ) {
             $productid  = intval( $product['productid']);
