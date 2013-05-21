@@ -11,7 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('OauthAuthorizationCodes', 'doctr
  * @property string $authorization_code
  * @property string $client_id
  * @property integer $user_id
- * @property string $redirect_url
+ * @property string $redirect_uri
  * @property timestamp $expires
  * @property string $scope
  * 
@@ -48,7 +48,7 @@ abstract class BaseOauthAuthorizationCodes extends Doctrine_Record
              'notnull' => true,
              'length' => '4',
              ));
-        $this->hasColumn('redirect_url', 'string', 500, array(
+        $this->hasColumn('redirect_uri', 'string', 500, array(
              'type' => 'string',
              'notnull' => false,
              'length' => '500',
