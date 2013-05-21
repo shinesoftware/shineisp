@@ -128,10 +128,12 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         #TODO get order from $order_uuid
         if( $service_uuid != null ) {
             $objService     = OrdersItems::findByUUID($service_uuid);
+            if( $objService == false ) {
+                return false;
+            }
+            
             $service        = $objService->toArray();
             $orderid        = $service['order_id'];
-            
-            $formattedID = Orders::formatOrderId($orderid);
             
             $fields = "o.order_id, 
                         DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
@@ -172,6 +174,8 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 
                 $result['tobepaid'] = true;
             }
+            $order['order_number'] = Orders::formatOrderId($orderid);
+            
             $result['order']    = $order;
             
             $records = OrdersItems::getAllDetails ( $orderid, "oi.detail_id, oi.description as description, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiration_date, oi.quantity as quantity, oi.price as price, bc.name as billingcycle, oi.setupfee as setupfee", true );
@@ -180,11 +184,11 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 $records[$i]['setupfee']    = $currency->toCurrency($records[$i]['setupfee'], array('currency' => Settings::findbyParam('currency')));;
             }
             
-            $result['order-items']  = $records;
+            $result['orderitems']  = $records;
             
-            $result['invoid-id']        = ($order['status_id'] == Statuses::id("complete", "orders") && $order['Invoice'] > 0) ? true : false;
-            $result['invoid-number']    = $order['Invoice'];
-            $result['invoid-id']        = $order['invoice_id'];
+            $result['invoidid']        = ($order['status_id'] == Statuses::id("complete", "orders") && $order['Invoice'] > 0) ? true : false;
+            $result['invoidnumber']    = $order['Invoice'];
+            $result['invoidid']        = $order['invoice_id'];
             
             $result['payments']     = "";
             if( $result['tobepaid'] == true ) {
