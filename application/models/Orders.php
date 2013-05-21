@@ -1356,19 +1356,12 @@ class Orders extends BaseOrders {
 				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
+			// Activate services if autosetup is set to 3.
+			self::activateItems($orderid, 3);
+
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
 			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			
-			// Orders::Complete should only complete the order and not create the invoice
-			// Create the invoice
-			//$invoiceid = Invoices::Create ( $orderid );
-			//if($sendemail){
-			//	Invoices::sendInvoice ( $invoiceid );
-			//}
-			
-			// Activate services if autosetup is set to 3.
-			self::activateItems($orderid, 3);
 						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );

@@ -500,7 +500,8 @@ class OrdersItems extends BaseOrdersItems {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
 		->leftJoin ( 'oi.Products p' )
 		->where ( "order_id = ?", $id )
-		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' OR oi.tld_id > 0 ");
+		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' OR oi.tld_id > 0 ")
+		->andWhere ( "oi.status != ?", Statuses::id('complete','orders')); // !Complete
 
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$items = $dq->execute ( array (), $retarray );
