@@ -1380,22 +1380,26 @@ class Orders extends BaseOrders {
 	 * @return true|false 
 	 */
 	public static function activateItems($orderId, $autosetup = 0) {
-		$autosetup = intval($autosetup);
+	    $autosetup = intval($autosetup);
 		if ( $autosetup === 0 ) {
 			return true;
 		}
-		
+	   
 		$activableItems = OrdersItems::getAllActivableItems($orderId);
 		if ( empty($activableItems) ) {
 			return true;
 		}
-		
+        
 		foreach ( $activableItems as $item ) {
-			if ( empty($item->parameters) ) {
+            // echo '<pre>';
+            // print_r($item->toArray());
+            // die();		    
+			if ( empty($item->parameters) && empty( $item->callback_url) ) {
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
-			
+
+            
 			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
 				OrdersItems::activate($item->detail_id);
 			}
