@@ -11,6 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property integer $customer_id
  * @property string $external_id
  * @property integer $isp_id
+ * @property string $uuid
  * @property date $order_date
  * @property boolean $is_renewal
  * @property boolean $is_upgrade
@@ -64,6 +65,10 @@ abstract class BaseOrders extends Doctrine_Record
              'type' => 'integer',
              'notnull' => true,
              'length' => '4',
+             ));
+        $this->hasColumn('uuid', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
              ));
         $this->hasColumn('order_date', 'date', 25, array(
              'type' => 'date',
@@ -119,6 +124,15 @@ abstract class BaseOrders extends Doctrine_Record
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
              'length' => '',
+             ));
+
+
+        $this->index('uuid', array(
+             'fields' => 
+             array(
+              0 => 'uuid',
+             ),
+             'type' => 'unique',
              ));
     }
 
