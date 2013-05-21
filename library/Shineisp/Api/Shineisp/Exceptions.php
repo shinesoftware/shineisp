@@ -14,6 +14,8 @@ class Shineisp_Api_Shineisp_Exceptions extends SoapFault {
         ,'401002' => 'The email address or password is incorrect.'
         //ERROR 403 - Forbidden
         ,'403001' => 'Username or password empty'
+        //ERROR 404
+        ,'404001' => 'Resourse not found'
     ); 
     
     public function __construct( $code, $message = "" ) {
