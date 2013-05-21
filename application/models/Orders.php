@@ -1369,10 +1369,7 @@ class Orders extends BaseOrders {
 			
 			// Activate services if autosetup is set to 3.
 			self::activateItems($orderid, 3);
-			
-			// Actiavete all domains
-			self::createDomainTasks($orderid);
-			
+						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
 			
