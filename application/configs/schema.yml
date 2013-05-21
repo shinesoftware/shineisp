@@ -1172,11 +1172,6 @@ DomainsTlds:
       notnull: true
     registrars_id: integer(4)
     tax_id: integer(4)
-    autosetup: 
-      type: integer(4)
-      unsigned: true
-      notnull: true
-      default: '0'
   relations:
     Registrars:
       local: registrars_id
@@ -2130,6 +2125,7 @@ Orders:
     invoice_id: integer(4)
     expiring_date: date(25)
     note: string()
+    order_number: string(50)
   relations:
     Customers:
       local: customer_id
@@ -2151,6 +2147,9 @@ Orders:
     uuid:
       fields: [uuid]
       type: unique    
+    order_number:
+      fields: [order_number]
+
       
 OrdersItems:
   connection: doctrine
