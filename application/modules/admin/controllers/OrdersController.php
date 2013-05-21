@@ -268,7 +268,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 									array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('id'=>'submit', 'css' => array('button', 'float_right', 'submit'))),
-									array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')"),
 									array("url" => "/admin/orders/print/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/renew/id/$id", "label" => $this->translator->translate('Renew'), "params" => array('css' => array('button', 'float_right'))),
@@ -284,6 +283,9 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('button', 'float_right')));
 			$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$invoice_id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('button', 'float_right')));
 			$this->view->buttons[] = array("url" => "/admin/invoices/dropboxit/id/$invoice_id", "label" => $this->translator->translate('Dropbox invoice'), "params" => array('css' => array('button', 'float_right')));
+		} else {
+			// Order not invoiced, show button to create a new invoice
+			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
 		
 		$this->view->customer = array ('records' => $customer, 'editpage' => 'customers' );
@@ -433,8 +435,11 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 */
 	public function createinvoiceAction() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
-		if (is_numeric ( $request->id )) {
-			Orders::Complete($request->id);
+		if (is_numeric ($request->id) && !Orders::isInvoiced($request->id)) {
+			//TODO: create invoice should only create the invoice and not set order as complete
+			//Orders::Complete($request->id);
+			Invoices::Create ( $orderid );
+			
 			$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		}
 	}

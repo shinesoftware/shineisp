@@ -5,7 +5,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         $this->authenticate();
 
         $uuid       = $params['uuid'];
-        $customers  = Customers::find($uuid); 
+        $customers  = Customers::findWithUuid($uuid);
         if( empty($customers) ) {
             throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
             exit();
@@ -39,15 +39,16 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 exit();            
             }
         }
+        
+        
         $id         = $customers['customer_id'];
-        $isVATFree  = Customers::isVATFree($id);
         
         if( $params['status'] == "complete" ) {
             $status = Statuses::id('complete', 'orders');   
         } else {
             $status = Statuses::id('tobepaid', 'orders');
         }
-        
+
         $theOrder = Orders::create ( $customers['customer_id'], $status, $params ['note'] );
         
         foreach( $params['products'] as $product ) {
@@ -56,7 +57,16 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             $quantity   = intval( $product['quantity']);
             $p          = Products::getAllInfo($productid);
             
-            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], array() );   
+            $options    = array( 'callback_url' => $product['urlactive'], 'uuid' => $product['uuid']);
+            
+            $upgrade    = false;
+            if( array_key_exists('upgrade', $product) && $product['upgrade'] != false ) {
+                $orderItemsUpgrade  = OrdersItems::findByUUID( $product['upgrade'] );
+                $fromUpgrade        = $orderItemsUpgrade->toArray();
+                $upgrade            = $fromUpgrade['detail_id']; 
+            }
+            
+            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], $options,$upgrade );
         }
 
         $orderID = $theOrder ['order_id'];
@@ -83,11 +93,24 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             }
         } 
             
-        
         throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: bad request" );
         exit();            
-        
-                
     }
-    
+
+    public function getAll( $uuid ) {
+        $customers  = Customers::findWithUuid($uuid);
+        if( empty($customers) ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
+            exit();
+        }
+        $id         = $customers['customer_id'];
+        
+        $fields     = " o.order_id,o.grandtotal as grandtotal,s.status as status,
+                        DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
+                        DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as expiringdate,
+                        o.is_renewal as is_renewal, i.number as invoice,
+                        c.firstname,c.lastname,c.company";
+        return Orders::getOrdersByCustomerID($id,$fields);
+    }
+
 }

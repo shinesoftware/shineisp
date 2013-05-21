@@ -851,7 +851,7 @@ class Shineisp_Commons_Utilities {
 		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
-				
+								
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
@@ -998,7 +998,7 @@ class Shineisp_Commons_Utilities {
 
 		// ISP missing from arguments, try to get automatically
 		$ISP = ( isset($ISP) && is_array($ISP) ) ? $ISP : ISP::getCurrentISP();
-		
+				
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
@@ -1395,6 +1395,34 @@ class Shineisp_Commons_Utilities {
 			$str = preg_replace("/(\\w)($suffixes)\\b/e", '"$1".strtolower("$2")', $str);
 		}
 		return $str;
+	}
+
+	/*
+	 * do a callback post. Used by ShineISP API
+	 */
+	public function doCallbackPOST($url, $params) {
+		//open connection
+		$ch = curl_init();
+		
+		$post_string = json_encode($params);
+		
+		//set the url, number of POST vars, POST data
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    		'Content-Type: application/json',                                                                                
+    		'Content-Length: ' . strlen($post_string))                                                                       
+		);
+		
+		//execute post
+		$result = curl_exec($ch);
+		
+		Shineisp_Commons_Utilities::logs ("POST CALLBACK: url: ".$url. " - json: ".$post_string." - result: ".$result, "api-callback.log" );
+		
+		//close connection
+		curl_close($ch);		
 	}
 
 }
