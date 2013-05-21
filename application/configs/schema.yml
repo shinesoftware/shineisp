@@ -2143,9 +2143,8 @@ Orders:
       foreign: status_id
       type: one
   indexes:
-    Uuid:
-      fields: 
-        uuid
+    uuid:
+      fields: [uuid]
       type: unique    
       
 OrdersItems:
@@ -2231,11 +2230,10 @@ OrdersItems:
       local: review_id
       foreign: review_id
   indexes:
-    Uuid:
-      fields: 
-        uuid
-      type: unique  
-
+    uuid:
+      fields: [uuid]
+      type: unique
+      
 OrdersItemsDomains:
   connection: doctrine
   tableName: orders_items_domains

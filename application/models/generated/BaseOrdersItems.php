@@ -154,6 +154,15 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'notnull' => false,
              'length' => '50',
              ));
+
+
+        $this->index('uuid', array(
+             'fields' => 
+             array(
+              0 => 'uuid',
+             ),
+             'type' => 'unique',
+             ));
     }
 
     public function setUp()
