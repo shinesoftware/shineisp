@@ -354,4 +354,43 @@ class DomainsTlds extends BaseDomainsTlds
 		
 		return $items;
 	}    
+	
+	
+	/**
+	 * Get autosetup value for this TLD
+	 * Honore global preference and override it with each settings in TLD
+	 */
+	public static function getAutosetup($id) {
+		$DomainTld = self::find($id);
+		$autosetup = (isset($DomainTld) && isset($DomainTld->autosetup) ) ? $DomainTld->autosetup : '';
+
+		// autosetup configured for this tld
+		if ( !empty($autosetup) ) {
+			return $autosetup;
+		}
+		
+		// i'm here, so there is no autosetup set for this TLD. Fallback to global preference
+		$domains_autosetup = Settings::findbyParam('domains_autosetup');
+		return $domains_autosetup ? intval($domains_autosetup) : 0;
+	}	
+	
+	
+	/**
+	 * Get the domain auto setup creation values
+	 */
+	public static function getAutoSetupValues() {
+		return array(
+			 '0' => 'Do not automatically register or transfer domains'
+		  	,'1' => 'Automatically register or transfer domains as soon as an order is placed'
+		  	,'2' => 'Automatically register or transfer domains as soon as the first payment is received'
+		  	,'3' => 'Automatically register or transfer domains when you manually accept a pending order'
+		  	,'4' => 'Automatically register or transfer domains as soon as the payment is complete'
+		);
+	}
+	
+	
+	
+	
+	
+	
 }

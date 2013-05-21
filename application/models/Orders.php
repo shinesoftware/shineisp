@@ -1401,8 +1401,17 @@ class Orders extends BaseOrders {
 		}
 		
 		foreach ( $activableItems as $item ) {
+			if ( empty($item->parameters) ) {
+				// parameters are needed for both domains and hosting.
+				continue;
+			}
+			
 			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
 				OrdersItems::activate($item->detail_id);
+			}
+			
+			if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+				OrdersItems::activate($item->detail_id);	
 			}
 		}		
 	}
