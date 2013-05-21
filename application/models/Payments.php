@@ -233,9 +233,9 @@ class Payments extends BasePayments
      * @param boolean $status
      * @param float $amount
      */
-    public static function addpayment($orderid, $transactionid, $bankid, $status, $amount){
+    public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null) {
     	$paymentdata = self::findbyorderid ( $orderid, null, true );
-    	
+    			
     	if (count ( $paymentdata ) == 0) {
 			$payment = new Payments ();
 		} else {
@@ -244,14 +244,48 @@ class Payments extends BasePayments
 		
     	// Set the payment data
 		$payment->paymentdate = date ( 'Y-m-d H:i:s' );
-		$payment->order_id = $orderid;
+		$payment->order_id    = $orderid;
 		$payment->customer_id = Orders::getCustomer ( $orderid );
-		$payment->bank_id = $bankid;
-		$payment->reference = $transactionid;
-		$payment->confirmed = $status ? 1 : 0;
-		$payment->income = $amount;
+		$payment->bank_id     = $bankid;
+		$payment->reference   = $transactionid;
+		$payment->confirmed   = $status ? 1 : 0;
+		$payment->income      = $amount;
 		
-		return $payment->trySave ();
+		// Additional fields for Orders::saveAll()
+		$payment->paymentdate = isset($paymentdate) ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : null;
+		$payment->customer_id = isset($customer_id) ? intval($customer_id) : null;
+		$payment->description = isset($payment_description) ? $payment_description : null;
+		
+		$save = $payment->trySave ();
+		
+		if ( $save ) {
+			// Let's check if we have the whole invoice paid.
+			$isPaid = Orders::isPaid($orderid);
+			
+			if ( $isPaid ) {
+				// If we have to autosetup as soon as first payment is received, let's do here.
+				Orders::activateItems($orderid, 4);
+				
+				// Set order status as "Paid"
+				Orders::set_status($orderid, Statuses::id('paid', 'orders'));
+				
+				// If automatic invoice creation is set to 1, we have to create the invoice
+				$autoCreateInvoice = intval(Settings::findbyParam('auto_create_invoice_after_payment'));
+				if ( $autoCreateInvoice === 1 && !Orders::isInvoiced($orderid) ) {
+					// invoice not created yet. Let's create now
+					$invoiceid = Invoices::Create ( $orderid );
+					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $invoiceid > 0) {
+						Invoices::sendInvoice ( $invoiceid );
+					}	
+				}
+				
+			} else {
+				// If we have to autosetup as soon as first payment is received, let's do here.
+				Orders::activateItems($orderid, 3);
+			}
+		}
+				
+		return $save;
 	}
 	
 	/**
