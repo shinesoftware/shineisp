@@ -1172,6 +1172,11 @@ DomainsTlds:
       notnull: true
     registrars_id: integer(4)
     tax_id: integer(4)
+    autosetup: 
+      type: integer(4)
+      unsigned: true
+      notnull: true
+      default: '0'
   relations:
     Registrars:
       local: registrars_id

@@ -484,6 +484,10 @@ class Invoices extends BaseInvoices {
 	                
 	                // Send the invoice in to the Dropbox service
 	                Invoices::DropboxIt( $invoice->invoice_id );
+					
+					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $id > 0) {
+						Invoices::sendInvoice ( $id );
+					}	
 	                
 	                return $id;
 	            }

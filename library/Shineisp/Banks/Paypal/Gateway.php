@@ -92,8 +92,8 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
 				$amount = str_replace ( ",", ".", $response ['amount'] );
 				
 				$payment = Payments::addpayment ( $orderid, $response ['thx_id'], $bankid, 0, $amount );
-				Orders::set_status ( $orderid, Statuses::id("processing", "orders") ); // Processing
-				OrdersItems::set_statuses ( $orderid, Statuses::id("processing", "orders") ); // Processing
+				Orders::set_status ( $orderid, Statuses::id("paid", "orders") ); // Paid
+				OrdersItems::set_statuses ( $orderid, Statuses::id("paid", "orders") ); // Paid
 				
 
 				return $orderid;
