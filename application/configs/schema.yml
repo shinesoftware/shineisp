@@ -2037,7 +2037,7 @@ OauthAuthorizationCodes:
     user_id:
       type: integer(4)
       notnull: true    
-    redirect_url:
+    redirect_uri:
       type: string(500)
       notnull: false    
     expires:
