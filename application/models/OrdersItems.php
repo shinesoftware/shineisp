@@ -279,7 +279,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Void
 	 */
 	public static function set_status($id, $status) {
-	    Shineisp_Commons_Utilities::log("Set status of ".$id." => ".print_r($status),"api.log");
+	    Shineisp_Commons_Utilities::log("Set status of ".$id." => ".print_r($status,true),"api.log");
 		$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'status_id', $status )->where ( "detail_id = ?", $id );
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -1103,10 +1103,13 @@ class OrdersItems extends BaseOrdersItems {
 		// callback_url is set, skip server activation and let's do the call to the remote API
 		if ( !empty($OrderItem['callback_url']) ) {
 			
-			// Set item to complete
-			$statusComplete = Statuses::id("complete", "orders");
+			// Set item to complete			
             Shineisp_Commons_Utilities::log("Status ".print_r($statusComplete,true),"api.log");
-            OrdersItems::set_status($orderItemId, $statusComplete);
+            OrdersItems::set_status($orderItemId, Statuses::id("complete", "orders"));
+            $ordersItem = self::find($orderItemId);
+            $ordersItem = $ordersItem->toArray();
+            $OrderItem  = array_shift($ordersItem);
+            
 			
             $paramsOrderItem                = $OrderItem;
             $paramsOrderItem['upgrade']     = $upgrade_uuid;

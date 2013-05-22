@@ -1359,7 +1359,7 @@ class Orders extends BaseOrders {
 
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
+			//OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
 						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
