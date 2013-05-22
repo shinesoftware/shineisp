@@ -10,7 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('OauthClients', 'doctrine');
  * @property integer $id
  * @property string $client_id
  * @property string $secret
- * @property string $redirect_url
+ * @property string $redirect_uri
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -40,7 +40,7 @@ abstract class BaseOauthClients extends Doctrine_Record
              'notnull' => true,
              'length' => '250',
              ));
-        $this->hasColumn('redirect_url', 'string', 500, array(
+        $this->hasColumn('redirect_uri', 'string', 500, array(
              'type' => 'string',
              'notnull' => false,
              'length' => '500',

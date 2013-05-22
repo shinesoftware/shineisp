@@ -81,11 +81,7 @@ class OAuth2_ResponseType_AuthorizationCode implements OAuth2_ResponseType_Autho
     protected function generateAuthorizationCode()
     {
         $tokenLen = 40;
-        if (file_exists('/dev/urandom')) { // Get 100 bytes of random data
-            $randomData = file_get_contents('/dev/urandom', false, null, 0, 100) . uniqid(mt_rand(), true);
-        } else {
-            $randomData = mt_rand() . mt_rand() . mt_rand() . mt_rand() . microtime(true) . uniqid(mt_rand(), true);
-        }
+        $randomData = mt_rand() . mt_rand() . mt_rand() . mt_rand() . microtime(true) . uniqid(mt_rand(), true);
         return substr(hash('sha512', $randomData), 0, $tokenLen);
     }
 }

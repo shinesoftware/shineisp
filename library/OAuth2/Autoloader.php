@@ -6,6 +6,7 @@
  * @author    Brent Shaffer <bshafs at gmail dot com>
  * @license   MIT License
  */
+ 
 class OAuth2_Autoloader
 {
     private $dir;

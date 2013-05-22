@@ -87,7 +87,7 @@ class OAuth2_Controller_TokenController implements OAuth2_Controller_TokenContro
         if (!$grantType->validateRequest($request, $response)) {
             return null;
         }
-
+		
         /* Retrieve the client information from the request
          * ClientAssertionTypes allow for grant types which also assert the client data
          * in which case ClientAssertion is handled in the validateRequest method
