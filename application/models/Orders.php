@@ -1037,7 +1037,7 @@ class Orders extends BaseOrders {
 	 * @param integer 	$upgrade
 	 * @return array 	$item
 	 ******/
-	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
+	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false, $tsstart = false ) {
 		
 		// Check if the variable has been set correctly
 		if(is_numeric($productId)){
@@ -1062,7 +1062,11 @@ class Orders extends BaseOrders {
 				$item['order_id']   = $order['order_id'];
 				$item['status_id']  = Statuses::id("tobepaid", "orders");
 				$item['product_id'] = $productId;
-				$item['date_start'] = date ( 'Y-m-d H:i:s' );
+                if( $tsstart == false ) {
+				    $item['date_start'] = date ( 'Y-m-d H:i:s' );
+                } else {
+                    $item['date_start'] = date ( 'Y-m-d H:i:s', $tsstart );
+                }
 					
 				// Manages all the products that have no recursion payment
 				$name	= "";
@@ -1089,8 +1093,13 @@ class Orders extends BaseOrders {
 					if($months > 0){
 						$totmonths = intval ( $qta * $months );
 						
-						// Calculate the total of the months 
-						$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
+						// Calculate the total of the months
+						if( $tsstart == false ) {
+                            $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
+						} else {
+							$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s',$tsstart ), null, $totmonths );
+						}
+						
 						
 						if($months >= 12){
 							$qty = $months / 12;
@@ -1287,7 +1296,7 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
-	private static function isUpgrade( $orderid ) {
+	public static function isUpgrade( $orderid ) {
 		$orderDetails	= Orders::getDetails($orderid);
 		foreach( $orderDetails as $orderDetail ) {
 			$parent_orderid	= intval($orderDetail['parent_orderid']);
@@ -1345,23 +1354,12 @@ class Orders extends BaseOrders {
 	public static function Complete($orderid, $sendemail=false) {
 		if(!empty($orderid) && is_numeric($orderid) ){
 			
-			$upgrade = Orders::isUpgrade($orderid);
-			if( $upgrade !== false ) {
-				$orderItem	= OrdersItems::getDetail($upgrade);
-				$oldOrderId	= $orderItem['order_id'];
-
-				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
-				
-				// log
-				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
-			} 
-			
 			// Activate services if autosetup is set to 3.
 			self::activateItems($orderid, 3);
 
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
+			//OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
 						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
@@ -1391,22 +1389,21 @@ class Orders extends BaseOrders {
 		}
         
 		foreach ( $activableItems as $item ) {
-            // echo '<pre>';
-            // print_r($item->toArray());
-            // die();		    
 			if ( empty($item->parameters) && empty( $item->callback_url) ) {
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
-
             
-			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
-				OrdersItems::activate($item->detail_id);
-			}
-			
-			if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
-				OrdersItems::activate($item->detail_id);	
-			}
+            // echo $item->Products->autosetup;
+            // var_dump( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup );
+            if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === intval($autosetup) ) {
+                OrdersItems::activate($item->detail_id);               
+            }
+            
+            if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+                OrdersItems::activate($item->detail_id);    
+            }
+
 		}		
 	}
 
