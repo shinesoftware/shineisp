@@ -564,7 +564,7 @@ class Invoices extends BaseInvoices {
             $date = explode ( "-", $order [0] ['order_date'] );
             
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_invoice', array(
-				 'orderid'    => Orders::formatOrderId($order)
+				 'orderid'    => $order [0] ['order_number']
 				,'invoiceid'  => sprintf ( "%03s", $invoiceNum ) . "/" . $date [0]
 				,'fullname'   => $customer
 				,'email'      => $email
@@ -676,7 +676,7 @@ class Invoices extends BaseInvoices {
 			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
 			
 			if (isset ( $order [0] )) {
-				$orderinfo ['order_number'] = $order [0] ['order_id'];
+				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : Orders::formatOrderId($order[0]['order_id']);
 				$orderinfo ['invoice_id'] = $invoice ['number'];
 				$orderinfo ['date'] = Shineisp_Commons_Utilities::formatDateOut ( $invoice ['invoice_date'] );
 				
