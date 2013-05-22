@@ -2,7 +2,7 @@
 
 class WikiController extends Zend_Controller_Action {
 	protected $wiki;
-	protected $translations;
+	protected $translator;
 	
 	/**
 	 * preDispatch
@@ -15,7 +15,7 @@ class WikiController extends Zend_Controller_Action {
 		$auth = Zend_Auth::getInstance ();
 		$registry = Zend_Registry::getInstance ();
 		$this->wiki = new Wiki ();
-		$this->translations = $registry->Zend_Translate;
+		$this->translator = $registry->Zend_Translate;
 	}
 	
 	public function indexAction() {
@@ -80,7 +80,7 @@ class WikiController extends Zend_Controller_Action {
 				$data [0] ['content'] = Shineisp_Commons_Contents::chkCmsBlocks ( $data [0] ['content'], $ns->lang );
 				
 				// Send the content to the page
-				$this->view->headertitle = $this->translations->translate('Wiki page');
+				$this->view->headertitle = $this->translator->translate('Wiki page');
 				$this->view->post = $data [0];
 			}
 		}

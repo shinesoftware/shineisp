@@ -119,12 +119,12 @@ class Shineisp_Commons_Utilities {
 	
 	public static function log($message, $filename = "errors.log", $priority=Zend_Log::INFO) {
 		try{
-			$logger = new Zend_Log();
-			$debug = true;
+			$logger    = new Zend_Log();
+			$debug     = true;
 			$debug_log = true;
 			
 			if(Shineisp_Main::isReady()){
-				$debug = Settings::findbyParam('debug');
+				$debug     = Settings::findbyParam('debug');
 				$debug_log = Settings::findbyParam('debug_log');
 			}
 	
@@ -139,9 +139,9 @@ class Shineisp_Commons_Utilities {
 				if(is_writable(PUBLIC_PATH . '/logs/')){
 					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
 					if(is_array($message)){
-						fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
+						fputs ( $log, date ( 'd-m-Y H:i:s' ) . "\n" .  var_export($message, true));
 					}else{
-						fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
+						fputs ( $log, date ( 'd-m-Y H:i:s' ) . " $message\n" );
 					}
 					fclose ( $log );
 				}else{
@@ -851,7 +851,7 @@ class Shineisp_Commons_Utilities {
 		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
 		$fallbackLocale = 'it_IT';
 		$isFallback = false;
-				
+								
 		// Check the locale of the template
 		if (empty ( $locale )) {
 			$locale = $fallbackLocale;
@@ -998,10 +998,12 @@ class Shineisp_Commons_Utilities {
 
 		// ISP missing from arguments, try to get automatically
 		$ISP = ( isset($ISP) && is_array($ISP) ) ? $ISP : ISP::getCurrentISP();
-		
+				
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
+		
+		print_r($ISP);
 
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);
@@ -1395,6 +1397,34 @@ class Shineisp_Commons_Utilities {
 			$str = preg_replace("/(\\w)($suffixes)\\b/e", '"$1".strtolower("$2")', $str);
 		}
 		return $str;
+	}
+
+	/*
+	 * do a callback post. Used by ShineISP API
+	 */
+	public function doCallbackPOST($url, $params) {
+		//open connection
+		$ch = curl_init();
+		
+		$post_string = json_encode($params);
+		
+		//set the url, number of POST vars, POST data
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+    		'Content-Type: application/json',                                                                                
+    		'Content-Length: ' . strlen($post_string))                                                                       
+		);
+		
+		//execute post
+		$result = curl_exec($ch);
+		
+		Shineisp_Commons_Utilities::logs ("POST CALLBACK: url: ".$url. " - json: ".$post_string." - result: ".$result, "api-callback.log" );
+		
+		//close connection
+		curl_close($ch);		
 	}
 
 }

@@ -279,6 +279,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Void
 	 */
 	public static function set_status($id, $status) {
+	    Shineisp_Commons_Utilities::log("Set status of ".$id." => ".print_r($status),"api.log");
 		$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'status_id', $status )->where ( "detail_id = ?", $id );
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -488,6 +489,26 @@ class OrdersItems extends BaseOrdersItems {
 		
 		return $items;
 	}
+	
+	/**
+	 * getAllActivableItems
+	 * Get all activable items starting from the orderID 
+	 * @param $id
+	 * @return Doctrine Record / Array
+	 */
+	public static function getAllActivableItems($id, $fields = "*", $retarray = false) {
+		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
+		->leftJoin ( 'oi.Products p' )
+		->where ( "order_id = ?", $id )
+		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' OR oi.tld_id > 0 ")
+		->andWhere ( "oi.status_id != ?", Statuses::id('complete','orders')); // !Complete
+
+		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
+		$items = $dq->execute ( array (), $retarray );
+		
+		return $items;
+	}
+	
 	
 	/**
 	 * Get the setup information of a particular service 
@@ -986,5 +1007,140 @@ class OrdersItems extends BaseOrdersItems {
 	
 		return true;
 	}
+
+
+
+
+
+	/**
+	 * findByUUID
+	 * Get a record by uuid
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function findByUUID($uuid) {
+		return Doctrine::getTable ( 'OrdersItems' )->findOneBy ( 'uuid', $uuid );
+	}
+
+
+
+
+	/**
+	 * check if an order item is completed by it's uuid. Used by API
+	 */
+	public static function checkIfCompletedByUUID($uuid) {
+		if ( empty($uuid) ) {
+			return false;
+		}
+		
+		$OrderItem = self::findByUUID($uuid);
+		if ( $OrderItem && isset($OrderItem->status_id) && $OrderItem->status_id == Statuses::id("complete", "orders") ) {
+			return true;
+		}
+		
+		return false;
+	}
+
+
+	/**
+	 * activate
+	 * Activate an order item
+	 * @param $orderItemId
+	 * @return true|false
+	 */
+	public static function activate($orderItemId) {
+        
+		$orderItemId = intval($orderItemId);
+		if ( $orderItemId < 1 ) {
+			// missing order item id from arguments
+			return false;
+		}
+		
+		// Get OrderItem
+		$ordersItem = self::find($orderItemId);
+		$ordersItem = $ordersItem->toArray();
+        $OrderItem  = array_shift($ordersItem);
+        Shineisp_Commons_Utilities::log("Vedo dati ".print_r($OrderItem,true));
+		if ( !$OrderItem ) {
+			// order item not found
+			return false;
+		}
+        
+		// Get Order related to this orderItem
+		$Order = Orders::find(intval($OrderItem['order_id']));
+		if ( !$Order ) {
+			// order not found
+			return false;
+		}
+        
+		// Get product related to this item
+		$Product = Products::find(intval($OrderItem['product_id']));
+		if ( !$Product ) {
+			// product not found
+			return false;
+		}		
+		
+		/*
+		 * START ACTIVATIONS CODE
+		 */
+		
+		// callback_url is set, skip server activation and let's do the call to the remote API
+		if ( !empty($OrderItem['callback_url']) ) {
+			
+			// Set item to complete
+			$statusComplete = Statuses::id("complete", "orders");
+            Shineisp_Commons_Utilities::log("Status ".print_r($statusComplete,true),"api.log");
+			OrdersItems::set_status($OrderItem['detail_id'], $statusComplete);
+			
+            $paramsOrderItem    = $OrderItem;
+            unset( $paramsOrderItem['note'] );
+            unset( $paramsOrderItem['callback_url'] );
+			
+			// Do the callback 
+			Shineisp_Commons_Utilities::log("URL Notifica server :: {$OrderItem['callback_url']} ","api.log");
+            Shineisp_Commons_Utilities::log("Parametri ".print_r($paramsOrderItem,true),"api.log");
+			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
+			
+			return true;
+		}
+
+		if ( empty($OrderItem['parameters']) ) {
+			return false;
+		}
+		
+		// Is this an hosting? execute panel task
+		// TODO: this should call an hook or an even bound to the panel
+		if ( $Product->type == 'hosting' ) {		
+			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
+			
+			return true;
+		}
+		
+		// Is this a domain? execute domain task
+		if ( isset($OrderItem['tld_id']) && intval($OrderItem['tld_id']) > 0 ) {
+			$parameters = json_decode($OrderItem['parameters']);	
+
+			if ( empty($parameters->domain) ) {
+				return false;
+			}			
+			
+			return DomainsTasks::AddTasks ( array(
+												 'domain'       => $parameters->domain
+												,'tld_id'       => intval($OrderItem['tld_id'])
+												,'customer_id'  => intval($Order->customer_id)
+												,'orderitem_id' => $orderItemId) 
+										);
+		}
+
+	}
+
+
+
+
+
+
+
+
+
 
 }

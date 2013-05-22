@@ -1,0 +1,1 @@
+INSERT INTO settings_parameters SET name = 'E-Mail invoice automatically', var = 'auto_send_invoice', type = 'checkbox', module = 'admin', enabled = 1, description = 'Automatically e-mail the invoice when created', group_id = 1;  

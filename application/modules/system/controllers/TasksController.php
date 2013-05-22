@@ -19,7 +19,9 @@ class System_TasksController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$registry = Zend_Registry::getInstance ();
 		$this->translations = $registry->Zend_Translate;
-		$this->getHelper ( 'layout' )->setLayout ( 'system' );
+		
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
 	}
 	
 	public function indexAction() {

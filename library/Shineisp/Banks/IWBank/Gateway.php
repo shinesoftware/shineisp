@@ -103,8 +103,8 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 					$payment = Payments::addpayment($orderid, $response ['thx_id'], $bankid, 0, $amount);
 					
 					Shineisp_Commons_Utilities::logs ( "Set the order in the processing mode", "iwbank.log" );
-					Orders::set_status ( $orderid, Statuses::id("processing", "orders") ); // Processing
-					OrdersItems::set_status ( $orderid, Statuses::id("processing", "orders") ); // Processing
+					Orders::set_status ( $orderid, Statuses::id("paid", "orders") ); // Paid
+					OrdersItems::set_status ( $orderid, Statuses::id("paid", "orders") ); // Paid
 					
 					return $orderid;
 				}

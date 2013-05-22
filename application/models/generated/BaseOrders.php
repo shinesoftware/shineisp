@@ -11,6 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property integer $customer_id
  * @property string $external_id
  * @property integer $isp_id
+ * @property string $uuid
  * @property date $order_date
  * @property boolean $is_renewal
  * @property boolean $is_upgrade
@@ -22,6 +23,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property integer $invoice_id
  * @property date $expiring_date
  * @property string $note
+ * @property string $order_number
  * @property Customers $Customers
  * @property Isp $Isp
  * @property Invoices $Invoices
@@ -64,6 +66,10 @@ abstract class BaseOrders extends Doctrine_Record
              'type' => 'integer',
              'notnull' => true,
              'length' => '4',
+             ));
+        $this->hasColumn('uuid', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
              ));
         $this->hasColumn('order_date', 'date', 25, array(
              'type' => 'date',
@@ -119,6 +125,25 @@ abstract class BaseOrders extends Doctrine_Record
         $this->hasColumn('note', 'string', null, array(
              'type' => 'string',
              'length' => '',
+             ));
+        $this->hasColumn('order_number', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
+             ));
+
+
+        $this->index('uuid', array(
+             'fields' => 
+             array(
+              0 => 'uuid',
+             ),
+             'type' => 'unique',
+             ));
+        $this->index('order_number', array(
+             'fields' => 
+             array(
+              0 => 'order_number',
+             ),
              ));
     }
 

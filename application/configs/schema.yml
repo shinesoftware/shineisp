@@ -144,11 +144,17 @@ Addresses:
     country_id:
       type: integer(4)
       notnull: true
+    region_id:
+      type: integer(4)
     area: string(100)
     latitude: string(20)
     longitude: string(20)
     customer_id: integer(4)
   relations:
+    Regions:
+      local: region_id
+      foreign: region_id
+      type: one
     Countries:
       local: country_id
       foreign: country_id
@@ -506,7 +512,7 @@ Countries:
       
 Regions:
   connection: doctrine
-  tableName: states
+  tableName: regions
   columns:
     region_id:
       type: integer(4)
@@ -1965,6 +1971,109 @@ NewslettersSubscribers:
       local: subscriber_id
       foreign: subscriber_id
       type: many
+
+OauthClients:
+  connection: doctrine
+  tableName: oauth_clients
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    client_id:
+      type: string(250)
+      notnull: true    
+    client_secret:
+      type: string(250)
+      notnull: true    
+    redirect_uri:
+      type: string(500)
+      notnull: false    
+
+OauthAccessTokens:
+  connection: doctrine
+  tableName: oauth_access_tokens
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    access_token:
+      type: string(250)
+      notnull: true    
+    client_id:
+      type: string(250)
+      notnull: true    
+    user_id:
+      type: integer(4)
+      notnull: true    
+    expires:
+      type: timestamp(25)
+      notnull: true    
+    scope:
+      type: string(250)
+      notnull: true    
+
+OauthAuthorizationCodes:
+  connection: doctrine
+  tableName: oauth_authorization_codes
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    authorization_code:
+      type: string(250)
+      notnull: true    
+    client_id:
+      type: string(250)
+      notnull: true    
+    user_id:
+      type: integer(4)
+      notnull: true    
+    redirect_uri:
+      type: string(500)
+      notnull: false    
+    expires:
+      type: timestamp(25)
+      notnull: true    
+    scope:
+      type: string(250)
+      notnull: true    
+      
+OauthRefreshTokens:
+  connection: doctrine
+  tableName: oauth_refresh_tokens
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    refresh_token:
+      type: string(250)
+      notnull: true    
+    client_id:
+      type: string(250)
+      notnull: true    
+    user_id:
+      type: integer(4)
+      notnull: true    
+    expires:
+      type: timestamp(25)
+      notnull: true    
+    scope:
+      type: string(250)
+      notnull: true          
+      
+
 Orders:
   connection: doctrine
   tableName: orders
@@ -1984,6 +2093,8 @@ Orders:
     isp_id:
       type: integer(4)
       notnull: true
+    uuid:
+      type: string(50)      
     order_date:
       type: date(25)
       notnull: true
@@ -2011,15 +2122,10 @@ Orders:
       type: float(10)
       default: '0.00'
       notnull: true
-   url_notify_api:
-      type: string(200)
-      notnull: false
-   order_uuid:
-      type: string(50)
-      notnull: false
     invoice_id: integer(4)
     expiring_date: date(25)
     note: string()
+    order_number: string(50)
   relations:
     Customers:
       local: customer_id
@@ -2037,7 +2143,14 @@ Orders:
       local: status_id
       foreign: status_id
       type: one
-    
+  indexes:
+    uuid:
+      fields: [uuid]
+      type: unique    
+    order_number:
+      fields: [order_number]
+
+      
 OrdersItems:
   connection: doctrine
   tableName: orders_items
@@ -2093,6 +2206,12 @@ OrdersItems:
     review_id: integer(4)
     parent_detail_id: integer(4)
     description: string()
+    callback_url:
+      type: string(200)
+      notnull: false
+    uuid:
+      type: string(50)
+      notnull: false    
   relations:
     Orders:
       local: order_id
@@ -2114,7 +2233,11 @@ OrdersItems:
     Reviews:
       local: review_id
       foreign: review_id
-
+  indexes:
+    uuid:
+      fields: [uuid]
+      type: unique
+      
 OrdersItemsDomains:
   connection: doctrine
   tableName: orders_items_domains

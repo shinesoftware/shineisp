@@ -1,0 +1,7 @@
+DomainsTldsData:
+  DomainsTldsData_1:
+    DomainsTlds: DomainsTlds_1
+    Languages: Languages_2
+    name: com
+    description: '<p>Com Domain</p>'
+    tags: Generic
