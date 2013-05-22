@@ -496,12 +496,37 @@ class Invoices extends BaseInvoices {
 	        }
         }
     }
+
+    /**
+     * Get the fastlink of invoice, if not exist create it
+     ****/
+    public static function getFastlinksInvoice( $invoiceid, $orderid, $customerid ) {
+        $link_exist = Fastlinks::findlinks ( $orderid, $customerid, 'orders' );
+        
+        // The fastlink does not exists and we have to create it
+        if (count ( $link_exist ) == 0) {
+            $fastlink   =  Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
+        } else {
+            // The fastlink exists and we get it in order to write it in the email content
+            // but before we have to check if the link that we have to send to the user contain the right invoice
+            
+            // If the id of the invoice is not equal to the id of the invoice attached into the order we have to create a new fastlink 
+            $params = json_decode ( $link_exist [0] ['params'], true );
+            if (! empty ( $params ['id'] ) && $params ['id'] == $invoiceid) {
+                $fastlink = $link_exist [0] ['code'];
+            } else {
+                $fastlink = Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
+            }
+        }   
+        
+        return $fastlink;     
+    }
     
     /*
      * sendInvoice
      * send the invoice by email
      */
-    public static function sendInvoice($invoiceid){
+    public static function sendInvoice($invoiceid, $urlEmail = ""){
         if (is_numeric ( $invoiceid )) {
         	$invoice = self::getAllInfo($invoiceid, null, true);
             if (!empty($invoice[0])) {
@@ -512,24 +537,7 @@ class Invoices extends BaseInvoices {
                 return false;
             }
             
-            // Check if the fastlink is already created
-            $link_exist = Fastlinks::findlinks ( $orderid, $customerid, 'orders' );
-            
-            // The fastlink does not exists and we have to create it
-            if (count ( $link_exist ) == 0) {
-                $fastlink = Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
-            } else {
-                // The fastlink exists and we get it in order to write it in the email content
-                // but before we have to check if the link that we have to send to the user contain the right invoice
-                
-                // If the id of the invoice is not equal to the id of the invoice attached into the order we have to create a new fastlink 
-                $params = json_decode ( $link_exist [0] ['params'], true );
-                if (! empty ( $params ['id'] ) && $params ['id'] == $invoiceid) {
-                    $fastlink = $link_exist [0] ['code'];
-                } else {
-                    $fastlink = Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
-                }
-            }
+            $fastlink   = self::getFastlinksInvoice($invoiceid, $orderid, $customerid);
             
             $order = Orders::getAllInfo ( $orderid, null, true );
             
@@ -547,7 +555,12 @@ class Invoices extends BaseInvoices {
             
             $email = $order [0] ['Isp'] ['email'];
             $signature = $order [0] ['Isp'] ['company'];
-            $url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink;
+            if( $urlEmail == "" ) {
+                $url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink;    
+            } else {
+                $url = $urlEmail;
+            }
+            
             $date = explode ( "-", $order [0] ['order_date'] );
             
             // Get the template from the main email template folder

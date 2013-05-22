@@ -1037,7 +1037,7 @@ class Orders extends BaseOrders {
 	 * @param integer 	$upgrade
 	 * @return array 	$item
 	 ******/
-	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
+	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false, $tsstart = false ) {
 		
 		// Check if the variable has been set correctly
 		if(is_numeric($productId)){
@@ -1062,7 +1062,11 @@ class Orders extends BaseOrders {
 				$item['order_id']   = $order['order_id'];
 				$item['status_id']  = Statuses::id("tobepaid", "orders");
 				$item['product_id'] = $productId;
-				$item['date_start'] = date ( 'Y-m-d H:i:s' );
+                if( $tsstart == false ) {
+				    $item['date_start'] = date ( 'Y-m-d H:i:s' );
+                } else {
+                    $item['date_start'] = date ( 'Y-m-d H:i:s', $tsstart );
+                }
 					
 				// Manages all the products that have no recursion payment
 				$name	= "";
@@ -1089,8 +1093,13 @@ class Orders extends BaseOrders {
 					if($months > 0){
 						$totmonths = intval ( $qta * $months );
 						
-						// Calculate the total of the months 
-						$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
+						// Calculate the total of the months
+						if( $tsstart == false ) {
+                            $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
+						} else {
+							$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s',$tsstart ), null, $totmonths );
+						}
+						
 						
 						if($months >= 12){
 							$qty = $months / 12;
