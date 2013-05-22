@@ -264,12 +264,11 @@ class Payments extends BasePayments
 			// Let's check if we have the whole invoice paid.
 			$isPaid = Orders::isPaid($orderid);
 			if ( $isPaid ) {
+                // Set order status as "Paid"
+                Orders::set_status($orderid, Statuses::id('paid', 'orders'));
+                
 				// If we have to autosetup as soon as first payment is received, let's do here.
 				Orders::activateItems($orderid, 4);
-                // echo "arrivo qui???";
-                // die();
-				// Set order status as "Paid"
-				Orders::set_status($orderid, Statuses::id('paid', 'orders'));
 				
 				// If automatic invoice creation is set to 1, we have to create the invoice
 				$autoCreateInvoice = intval(Settings::findbyParam('auto_create_invoice_after_payment'));

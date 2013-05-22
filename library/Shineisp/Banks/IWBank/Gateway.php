@@ -34,7 +34,7 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 		if ($order) {
 			$form = "";
 			$url = $bank ['test_mode'] ? $bank ['url_test'] : $bank ['url_official'];
-			$item_name = $translator->translate ( "Order no." ) . " " . Orders::formatOrderId(self::getOrderID ()) . " - " . date ( 'Y' );
+			$item_name = $translator->translate ( "Order no." ) . " " . $order['order_number'] . " - " . date ( 'Y' );
 			
 			$custom = self::getOrderID ();
 			if (! self::isHidden ()) {
