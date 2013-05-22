@@ -496,7 +496,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @param $id
 	 * @return Doctrine Record / Array
 	 */
-	public static function getAllActivableItems($id, $fields = "*", $retarray = false) {
+	public static function getAllActivableItems($id, $fields = "*, p.type", $retarray = false) {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
 		->leftJoin ( 'oi.Products p' )
 		->where ( "order_id = ?", $id )
@@ -1049,6 +1049,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return true|false
 	 */
 	public static function activate($orderItemId) {
+        Shineisp_Commons_Utilities::log("Attivo item ".$orderItemId);
         
 		$orderItemId = intval($orderItemId);
 		if ( $orderItemId < 1 ) {
@@ -1083,6 +1084,21 @@ class OrdersItems extends BaseOrdersItems {
 		/*
 		 * START ACTIVATIONS CODE
 		 */
+		 
+        $upgrade        = Orders::isUpgrade($OrderItem['order_id']);
+        $upgrade_uuid   = false; 
+        if( $upgrade !== false ) {
+            $orderItem  = OrdersItems::getDetail($upgrade);
+            Shineisp_Commons_Utilities::logs ( "OITEM::".print_r($orderItem,true), "orders.log" );
+            $oldOrderId = $orderItem['order_id'];
+
+            Orders::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
+            OrdersItems::set_status($upgrade, Statuses::id("changed", "orders"));
+            
+            $upgrade_uuid   = $orderItem['uuid'];
+            // log
+            Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$OrderItem['order_id'], "orders.log" );
+        } 		 
 		
 		// callback_url is set, skip server activation and let's do the call to the remote API
 		if ( !empty($OrderItem['callback_url']) ) {
@@ -1090,9 +1106,10 @@ class OrdersItems extends BaseOrdersItems {
 			// Set item to complete
 			$statusComplete = Statuses::id("complete", "orders");
             Shineisp_Commons_Utilities::log("Status ".print_r($statusComplete,true),"api.log");
-			OrdersItems::set_status($OrderItem['detail_id'], $statusComplete);
+            OrdersItems::set_status($orderItemId, $statusComplete);
 			
-            $paramsOrderItem    = $OrderItem;
+            $paramsOrderItem                = $OrderItem;
+            $paramsOrderItem['upgrade']     = $upgrade_uuid;
             unset( $paramsOrderItem['note'] );
             unset( $paramsOrderItem['callback_url'] );
 			

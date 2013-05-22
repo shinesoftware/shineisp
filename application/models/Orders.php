@@ -1287,7 +1287,7 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
-	private static function isUpgrade( $orderid ) {
+	public static function isUpgrade( $orderid ) {
 		$orderDetails	= Orders::getDetails($orderid);
 		foreach( $orderDetails as $orderDetail ) {
 			$parent_orderid	= intval($orderDetail['parent_orderid']);
@@ -1345,17 +1345,6 @@ class Orders extends BaseOrders {
 	public static function Complete($orderid, $sendemail=false) {
 		if(!empty($orderid) && is_numeric($orderid) ){
 			
-			$upgrade = Orders::isUpgrade($orderid);
-			if( $upgrade !== false ) {
-				$orderItem	= OrdersItems::getDetail($upgrade);
-				$oldOrderId	= $orderItem['order_id'];
-
-				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
-				
-				// log
-				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
-			} 
-			
 			// Activate services if autosetup is set to 3.
 			self::activateItems($orderid, 3);
 
@@ -1391,22 +1380,21 @@ class Orders extends BaseOrders {
 		}
         
 		foreach ( $activableItems as $item ) {
-            // echo '<pre>';
-            // print_r($item->toArray());
-            // die();		    
 			if ( empty($item->parameters) && empty( $item->callback_url) ) {
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
-
             
-			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
-				OrdersItems::activate($item->detail_id);
-			}
-			
-			if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
-				OrdersItems::activate($item->detail_id);	
-			}
+            // echo $item->Products->autosetup;
+            // var_dump( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup );
+            if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === intval($autosetup) ) {
+                OrdersItems::activate($item->detail_id);               
+            }
+            
+            if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+                OrdersItems::activate($item->detail_id);    
+            }
+
 		}		
 	}
 

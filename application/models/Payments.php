@@ -266,8 +266,6 @@ class Payments extends BasePayments
 			if ( $isPaid ) {
 				// If we have to autosetup as soon as first payment is received, let's do here.
 				Orders::activateItems($orderid, 4);
-                // echo "arrivo qui???";
-                // die();
 				// Set order status as "Paid"
 				Orders::set_status($orderid, Statuses::id('paid', 'orders'));
 				
