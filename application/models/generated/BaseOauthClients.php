@@ -9,7 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('OauthClients', 'doctrine');
  * 
  * @property integer $id
  * @property string $client_id
- * @property string $secret
+ * @property string $client_secret
  * @property string $redirect_uri
  * 
  * @package    ##PACKAGE##
@@ -35,7 +35,7 @@ abstract class BaseOauthClients extends Doctrine_Record
              'notnull' => true,
              'length' => '250',
              ));
-        $this->hasColumn('secret', 'string', 250, array(
+        $this->hasColumn('client_secret', 'string', 250, array(
              'type' => 'string',
              'notnull' => true,
              'length' => '250',
