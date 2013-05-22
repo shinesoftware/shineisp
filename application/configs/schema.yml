@@ -1985,7 +1985,7 @@ OauthClients:
     client_id:
       type: string(250)
       notnull: true    
-    secret:
+    client_secret:
       type: string(250)
       notnull: true    
     redirect_uri:
