@@ -1003,8 +1003,6 @@ class Shineisp_Commons_Utilities {
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
 		
-		print_r($ISP);
-
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);
 

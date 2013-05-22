@@ -842,6 +842,19 @@ Customers:
     CustomAttributesValues:
       local: customer_id
       foreign: external_id
+    OauthAccessTokens:
+      local: customer_id
+      foreign: customer_id
+    OauthAuthorizationCodes:
+      local: customer_id
+      foreign: customer_id
+    OauthClients:
+      local: customer_id
+      foreign: customer_id
+    OauthRefreshTokens:
+      local: customer_id
+      foreign: customer_id
+
       
 CustomersDomainsRegistrars:
   connection: doctrine
@@ -1982,6 +1995,12 @@ OauthClients:
       unsigned: true
       primary: true
       autoincrement: true
+    customer_id:
+      type: integer(4)
+      notnull: true
+    app_name:
+      type: string(250)
+      notnull: true    
     client_id:
       type: string(250)
       notnull: true    
@@ -2008,7 +2027,7 @@ OauthAccessTokens:
     client_id:
       type: string(250)
       notnull: true    
-    user_id:
+    customer_id:
       type: integer(4)
       notnull: true    
     expires:
@@ -2034,7 +2053,7 @@ OauthAuthorizationCodes:
     client_id:
       type: string(250)
       notnull: true    
-    user_id:
+    customer_id:
       type: integer(4)
       notnull: true    
     redirect_uri:
@@ -2063,7 +2082,7 @@ OauthRefreshTokens:
     client_id:
       type: string(250)
       notnull: true    
-    user_id:
+    customer_id:
       type: integer(4)
       notnull: true    
     expires:
