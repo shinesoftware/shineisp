@@ -36,11 +36,10 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
     {
     	$result = Doctrine_Query::create ()->select ( '*' )->from ( $this->config['client_table'] )->where ( "client_id = ?", $client_id)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		$result = array_shift($result);
-        $result['client_secret'] = $client_secret;
         
         // make this extensible
-        print_r($result);
-        return $result;
+        echo "RES: ".$result['client_secret'] == $client_secret."\n";
+        return $result['client_secret'] == $client_secret;
     }
 
     public function getClientDetails($client_id)
@@ -144,7 +143,6 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
 
     public function getUserDetails($username)
     {
-    	echo "getUserDetails.username: ".$username;
         return $this->getUser($username);
     }
 

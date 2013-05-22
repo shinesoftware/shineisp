@@ -65,39 +65,24 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 $fromUpgrade        = $orderItemsUpgrade->toArray();
                 $upgrade            = $fromUpgrade['detail_id']; 
             }
-            
-            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], $options,$upgrade );
+
+            $ts_start   = false;
+            if( array_key_exists('ts_start',$product) && $product['ts_start'] != false ) {
+                $ts_start   = $product['ts_start'];
+            }
+
+            Orders::addItem ( $productid, $quantity, $billingid, $trancheid, $p['ProductsData'][0]['name'], $options,$upgrade,$ts_start );
         }
 
         $orderID = $theOrder ['order_id'];
         if( $params['sendemail'] == 1 ) {
             Orders::sendOrder ( $orderID );
         }     
-        
-        $banks = Banks::find ( $params['payment'], "*", true );
-        if (! empty ( $banks [0] ['classname'] )) {
-            
-            $class = $banks [0] ['classname'];
-            if (class_exists ( $class )) {
-                // Get the payment form object
-                $banks = Banks::findbyClassname ( $class );
-                $gateway = new $class ( $orderID );
-                $gateway->setFormHidden ( true );
-                $gateway->setRedirect ( true );
-                
-                $gateway->setUrlOk ( $_SERVER ['HTTP_HOST'] . "/orders/response/gateway/" . md5 ( $banks ['classname'] ) );
-                $gateway->setUrlKo ( $_SERVER ['HTTP_HOST'] . "/orders/response/gateway/" . md5 ( $banks ['classname'] ) );
-                $gateway->setUrlCallback ( $_SERVER ['HTTP_HOST'] . "/common/callback/gateway/" . md5 ( $banks ['classname'] ) );
-                
-                return $gateway->CreateForm ();
-            }
-        } 
-            
-        throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: bad request" );
-        exit();            
     }
 
     public function getAll( $uuid ) {
+        $this->authenticate();
+        
         $customers  = Customers::findWithUuid($uuid);
         if( empty($customers) ) {
             throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
@@ -114,6 +99,8 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
     }
     
     public function get( $uuid, $order_uuid = null, $service_uuid = null ) {
+        $this->authenticate();
+        
         $customers  = Customers::findWithUuid($uuid);
         if( empty($customers) ) {
             throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
@@ -136,6 +123,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             $orderid        = $service['order_id'];
             
             $fields = "o.order_id, 
+            		   o.order_number,
                         DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
                         DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
                         in.invoice_id as invoice_id, 
@@ -174,7 +162,6 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 
                 $result['tobepaid'] = true;
             }
-            $order['order_number'] = Orders::formatOrderId($orderid);
             
             $result['order']    = $order;
             
@@ -218,5 +205,90 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         }
                 
     }
+
+    public function getInvoice( $uuid, $order_uuid = null, $service_uuid = null ){
+        $this->authenticate();
+        
+        $customers  = Customers::findWithUuid($uuid);
+        if( empty($customers) ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400007, ":: 'uuid' not valid" );
+            exit();
+        }
+        $id         = $customers['customer_id'];
+        
+        if( $order_uuid == null && $service_uuid == null ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400007, ":: 'order_uuid' not valid and 'service_uuid' not valid" );
+        }  
+        
+        #TODO get order from $order_uuid
+        if( $service_uuid != null ) {
+            $objService     = OrdersItems::findByUUID($service_uuid);
+            if( $objService == false ) {
+                return false;
+            }
+            
+            $service        = $objService->toArray();
+            $orderid        = $service['order_id'];
+            $order          = Orders::find($orderid);
+            $fastlink       = Invoices::getFastlinksInvoice($order->invoice_id, $orderid,$id);
+            return "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/".$fastlink;
+        }              
+    }
+
+    public function sendInvoice( $uuid, $order_uuid = null, $service_uuid = null, $urlemail ){
+        $this->authenticate();
+        
+        $customers  = Customers::findWithUuid($uuid);
+        if( empty($customers) ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400007, ":: 'uuid' not valid" );
+            exit();
+        }
+        $id         = $customers['customer_id'];
+        
+        if( $order_uuid == null && $service_uuid == null ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400007, ":: 'order_uuid' not valid and 'service_uuid' not valid" );
+        }  
+        
+        #TODO get order from $order_uuid
+        if( $service_uuid != null ) {
+            $objService     = OrdersItems::findByUUID($service_uuid);
+            if( $objService == false ) {
+                return false;
+            }
+            
+            $service        = $objService->toArray();
+            $orderid        = $service['order_id'];
+            $order          = Orders::find($orderid);
+            $fastlink       = Invoices::sendInvoice($order->invoice_id, $urlemail);
+        }              
+    }
+
+    public function delete( $uuid, $order_uuid = null, $service_uuid ) {
+        $this->authenticate();
+        
+        $customers  = Customers::findWithUuid($uuid);
+        if( empty($customers) ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400007, ":: 'uuid' not valid" );
+            exit();
+        }
+        $id         = $customers['customer_id'];
+        
+        if( $order_uuid == null && $service_uuid == null ) {
+            throw new Shineisp_Api_Shineisp_Exceptions( 400007, ":: 'order_uuid' not valid and 'service_uuid' not valid" );
+        }  
+        
+        #TODO get order from $order_uuid
+        if( $service_uuid != null ) {
+            $objService     = OrdersItems::findByUUID($service_uuid);
+            if( $objService == false ) {
+                return false;
+            }
+            $service        = $objService->toArray();
+            $orderid        = $service['order_id'];
+            Orders::DeleteByID($orderid, $id);
+        }
+    }
+
+
 
 }
