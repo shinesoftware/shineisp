@@ -219,7 +219,7 @@ class Orders extends BaseOrders {
 				
 			if ( is_array($arrOrders) && count($arrOrders) > 0 ) {
 				foreach ( $arrOrders as $k => $arrOrder ) {
-					if ( isset($arrOrder['order_id']) ) {
+					if ( !isset($arrOrder['order_number']) && isset($arrOrder['order_id']) ) {
 						$arrOrders[$k]['order_number'] = self::formatOrderId($id);
 					}	
 				}
@@ -658,11 +658,18 @@ class Orders extends BaseOrders {
 				$order->is_renewal  = true;
 				$order->order_date  = date ( 'Y-m-d' );
 				$order->status_id   = Statuses::id("tobepaid", "orders"); // To be pay
-				$order->save ();
+				$order->uuid        = Shineisp_Commons_Uuid::generate();
+				$order->save();
+			
+				// Save order number
+				$order->order_number = self::formatOrderId($orderid);
+				$order->save();				
+
+				// Get the generated order id
 				$orderid = $order->getIncremented ();
 				
 				// Log data 
-				Shineisp_Commons_Utilities::log("A new order (" . Orders::formatOrderId($orderid) . ") for ".$customer['fullname']." has been created successfully");
+				Shineisp_Commons_Utilities::log("A new renewal order (" . $order->order_number . ") for ".$customer['fullname']." has been created successfully");
 				
 				// Add a fastlink to a order
 				$link_exist = Fastlinks::findlinks ( $orderid, $customer_id, 'orders' );
@@ -871,9 +878,15 @@ class Orders extends BaseOrders {
 			$order['expiring_date'] = date ( 'Y-m-j' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
 			$order['isp_id']        = $isp_id;
 			$order['status_id']     = is_numeric($statusId) ? $statusId : Statuses::id("tobepaid", "orders");
-
+			$order['uuid']          = Shineisp_Commons_Uuid::generate();
+			
 			// Save the data
 			$order->save();
+			
+			// Save order number
+			$order->order_number = self::formatOrderId($order->order_id);
+			$order->save();
+			
 			
 			// Assign the order var to the static var
 			self::$order = $order;
@@ -918,6 +931,7 @@ class Orders extends BaseOrders {
 			$item['billing_cycle_id'] = $billingid; 
 			$item['quantity']         = $qta;
 			$item['price']            = $price;
+			$item['uuid']             = isset($params['uuid']) ? $params['uuid'] : Shineisp_Commons_Uuid::generate();
 			
 			// Count of the day until the expiring
 			$months = BillingCycle::getMonthsNumber ( $billingid );
@@ -1037,7 +1051,7 @@ class Orders extends BaseOrders {
 	 * @param integer 	$upgrade
 	 * @return array 	$item
 	 ******/
-	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
+	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false, $tsstart = false ) {
 		
 		// Check if the variable has been set correctly
 		if(is_numeric($productId)){
@@ -1062,7 +1076,11 @@ class Orders extends BaseOrders {
 				$item['order_id']   = $order['order_id'];
 				$item['status_id']  = Statuses::id("tobepaid", "orders");
 				$item['product_id'] = $productId;
-				$item['date_start'] = date ( 'Y-m-d H:i:s' );
+                if( $tsstart == false ) {
+				    $item['date_start'] = date ( 'Y-m-d H:i:s' );
+                } else {
+                    $item['date_start'] = date ( 'Y-m-d H:i:s', $tsstart );
+                }
 					
 				// Manages all the products that have no recursion payment
 				$name	= "";
@@ -1089,8 +1107,13 @@ class Orders extends BaseOrders {
 					if($months > 0){
 						$totmonths = intval ( $qta * $months );
 						
-						// Calculate the total of the months 
-						$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
+						// Calculate the total of the months
+						if( $tsstart == false ) {
+                            $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
+						} else {
+							$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s',$tsstart ), null, $totmonths );
+						}
+						
 						
 						if($months >= 12){
 							$qty = $months / 12;
@@ -1171,7 +1194,7 @@ class Orders extends BaseOrders {
 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
 				// these are set by API
-				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : '';
+				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : Shineisp_Commons_Uuid::generate();
 				$item['callback_url'] = isset($options['callback_url']) ? $options['callback_url'] : '';
 				
 				$item->save();
@@ -1287,7 +1310,7 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
-	private static function isUpgrade( $orderid ) {
+	public static function isUpgrade( $orderid ) {
 		$orderDetails	= Orders::getDetails($orderid);
 		foreach( $orderDetails as $orderDetail ) {
 			$parent_orderid	= intval($orderDetail['parent_orderid']);
@@ -1345,23 +1368,12 @@ class Orders extends BaseOrders {
 	public static function Complete($orderid, $sendemail=false) {
 		if(!empty($orderid) && is_numeric($orderid) ){
 			
-			$upgrade = Orders::isUpgrade($orderid);
-			if( $upgrade !== false ) {
-				$orderItem	= OrdersItems::getDetail($upgrade);
-				$oldOrderId	= $orderItem['order_id'];
-
-				self::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
-				
-				// log
-				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
-			} 
-			
 			// Activate services if autosetup is set to 3.
 			self::activateItems($orderid, 3);
 
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
+			//OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
 						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
@@ -1391,22 +1403,21 @@ class Orders extends BaseOrders {
 		}
         
 		foreach ( $activableItems as $item ) {
-            // echo '<pre>';
-            // print_r($item->toArray());
-            // die();		    
 			if ( empty($item->parameters) && empty( $item->callback_url) ) {
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
-
             
-			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
-				OrdersItems::activate($item->detail_id);
-			}
-			
-			if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
-				OrdersItems::activate($item->detail_id);	
-			}
+            // echo $item->Products->autosetup;
+            // var_dump( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup );
+            if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === intval($autosetup) ) {
+                OrdersItems::activate($item->detail_id);               
+            }
+            
+            if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+                OrdersItems::activate($item->detail_id);    
+            }
+
 		}		
 	}
 
@@ -1606,7 +1617,7 @@ class Orders extends BaseOrders {
 		$date  = explode ( "-", $order [0] ['order_date'] );
 				
 		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
-			 'orderid'    => self::formatOrderId($order)
+			 'orderid'    => $order[0]['order_number']
 			,':shineisp:' => $customer
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
 		));
@@ -2026,7 +2037,7 @@ class Orders extends BaseOrders {
 			
 			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
-				 'orderid'    => self::formatOrderId($order)
+				 'orderid'    => $order[0]['order_number']
 				,'email'      => $email
 				,'bank'       => $bank
 				,'url'        => $url
@@ -2146,7 +2157,7 @@ class Orders extends BaseOrders {
 			// Set the name of the file
 			$filename = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
 			
-			$database ['header'] ['label'] = $translator->translate('Order No.') . " " . self::formatOrderId($order [0] ['order_id']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($order [0] ['order_date']);
+			$database ['header'] ['label'] = $translator->translate('Order No.') . " " . $order[0]['order_number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ($order [0] ['order_date']);
 			$database ['columns'] [] = array ("value" => "SKU", "size" => 30 );
 			$database ['columns'] [] = array ("value" => "Description" );
 			$database ['columns'] [] = array ("value" => "Qty", "size" => 30, "align" => "center" );
@@ -2157,7 +2168,7 @@ class Orders extends BaseOrders {
 			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
 			
 			if (isset ( $order [0] )) {
-				$orderinfo ['order_number'] = $order [0] ['order_id'];
+				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : self::formatOrderId($order[0]['order_id']);
 				$orderinfo ['invoice_id'] = "";
 				$orderinfo ['date'] = Shineisp_Commons_Utilities::formatDateOut ( $order [0] ['order_date'] );
 				
@@ -2592,7 +2603,7 @@ class Orders extends BaseOrders {
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
-				 'orderid'    => self::formatOrderId($order)
+				 'orderid'    => $order['order_number']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			));
@@ -2638,7 +2649,7 @@ class Orders extends BaseOrders {
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 				
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
-				 'orderid'    => self::formatOrderId($order)
+				 'orderid'    => $order['order_number']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			));
@@ -2678,7 +2689,7 @@ class Orders extends BaseOrders {
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 						
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_cleaned', array(
-						 'orderid'    => self::formatOrderId($order)
+						 'orderid'    => $order['order_number']
 						,':shineisp:' => $customer
 						,'url'        => $customer_url
 					));
@@ -2790,8 +2801,7 @@ class Orders extends BaseOrders {
 	
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
-						 'orderid'    => self::formatOrderId($order)
-						,'url'        => $customer_url
+						 'url'        => $customer_url
 						,'items'      => $items
 						,':shineisp:' => $customer
 					));

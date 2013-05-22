@@ -17,7 +17,7 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		$storage = new OAuth2_Storage_Doctrine();
 		
 		// create your server again
-		$server = new OAuth2_Server($storage);
+		$server = new OAuth2_Server($storage,array('enforce_state' => true));
 		
 		// Add the "Authorization Code" grant type (this is required for authorization flows)
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));

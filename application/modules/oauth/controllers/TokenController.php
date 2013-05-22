@@ -17,7 +17,7 @@ class Oauth_TokenController extends Zend_Controller_Action {
 		$storage = new OAuth2_Storage_Doctrine();
 
 		// Pass a storage object or array of storage objects to the OAuth2 server class
-		$server = new OAuth2_Server($storage);
+		$server = new OAuth2_Server($storage, array('enforce_state' => true));
 
 		$server->addGrantType(new OAuth2_GrantType_ClientCredentials($storage));
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));
