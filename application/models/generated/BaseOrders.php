@@ -23,6 +23,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property integer $invoice_id
  * @property date $expiring_date
  * @property string $note
+ * @property string $order_number
  * @property Customers $Customers
  * @property Isp $Isp
  * @property Invoices $Invoices
@@ -125,6 +126,10 @@ abstract class BaseOrders extends Doctrine_Record
              'type' => 'string',
              'length' => '',
              ));
+        $this->hasColumn('order_number', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
+             ));
 
 
         $this->index('uuid', array(
@@ -133,6 +138,12 @@ abstract class BaseOrders extends Doctrine_Record
               0 => 'uuid',
              ),
              'type' => 'unique',
+             ));
+        $this->index('order_number', array(
+             'fields' => 
+             array(
+              0 => 'order_number',
+             ),
              ));
     }
 

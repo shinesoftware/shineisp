@@ -10,7 +10,7 @@
  * NOTE: Passwords are stored in plaintext, which is never
  * a good idea.  Be sure to override this for your application
  *
- * @author Brent Shaffer <bshafs at gmail dot com>
+ * @author GUEST.it s.r.l. <assistenza@guest.it>
  */
 class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterface,
     OAuth2_Storage_AccessTokenInterface, OAuth2_Storage_ClientCredentialsInterface,
@@ -36,10 +36,10 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
     {
     	$result = Doctrine_Query::create ()->select ( '*' )->from ( $this->config['client_table'] )->where ( "client_id = ?", $client_id)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		$result = array_shift($result);
-        $result['client_secret'] = $client_secret;
         
         // make this extensible
-        return $result;
+        echo "RES: ".$result['client_secret'] == $client_secret."\n";
+        return $result['client_secret'] == $client_secret;
     }
 
     public function getClientDetails($client_id)
@@ -98,30 +98,29 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
     {
 		$result = Doctrine_Query::create ()->select ( '*' )->from ( $this->config['code_table'] )->where ( "authorization_code = ?", $code)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		$result = array_shift($result);
-		
+
         if ( $result ) {
         	$code = $result;
             // convert date string back to timestamp
             $code['expires'] = strtotime($code['expires']);
+			
+			return $code;
         }
-
-        return $code;
     }
 
     public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null)
     {
         // convert expires to datestring
         $expires = date('Y-m-d H:i:s', $expires);
-
         // if it exists, update it.
         if ($this->getAuthorizationCode($code)) {
-        	return Doctrine_Query::create()->update($this->config['code_table'])->set('client_id', $client_id)->set('redirect_uri', $redirect_uri)->set('expires', $expires)->set('user_id',$user_id)->set('scope',$scope)->where ("authorization_code = ?", code)->execute();
+        	return Doctrine_Query::create()->update($this->config['code_table'])->set('client_id', $client_id)->set('redirect_uri', $redirect_uri)->set('expires', $expires)->set('user_id',$user_id)->set('scope',$scope)->where ("authorization_code = ?", $code)->execute();
         } else {
         	$DB = new $this->config['code_table'];
-			$DB->access_token = $access_token;
+			$DB->authorization_code = $code;
 			$DB->client_id    = $client_id;
-			$DB->expires      = $user_id;
-			$DB->user_id      = $expires;
+			$DB->expires      = $expires;
+			$DB->user_id      = $user_id;
 			$DB->scope        = $scope;
 			$DB->redirect_uri = $redirect_uri;
 			return $DB->save();
@@ -144,7 +143,6 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
 
     public function getUserDetails($username)
     {
-    	echo "getUserDetails.username: ".$username;
         return $this->getUser($username);
     }
 
@@ -169,8 +167,8 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
 
     	$DB = new $this->config['refresh_token_table'];
 		$DB->client_id    = $client_id;
-		$DB->expires      = $user_id;
-		$DB->user_id      = $expires;
+		$DB->expires      = $expires;
+		$DB->user_id      = $user_id;
 		$DB->scope        = $scope;
 		$DB->refresh_token = $refresh_token;
 		return $DB->save();
