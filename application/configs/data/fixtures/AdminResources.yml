@@ -819,47 +819,11 @@ AdminResources:
     controller: productscategories
     parent_id: '1'
   AdminResources_92:
-    name: 'API Customers'
+    name: 'API Regions'
     hidden: true
     is_container: false
     is_allowed: false
     admin: true
     module: api
-    controller: customers
-    parent_id: '0'
-  AdminResources_93:
-    name: 'API LegalForms'
-    hidden: true
-    is_container: false
-    is_allowed: false
-    admin: true
-    module: api
-    controller: legalforms
-    parent_id: '0'
-  AdminResources_94:
-    name: 'API Countries'
-    hidden: true
-    is_container: false
-    is_allowed: false
-    admin: true
-    module: api
-    controller: countries
-    parent_id: '0'
-  AdminResources_95:
-    name: 'API States'
-    hidden: true
-    is_container: false
-    is_allowed: false
-    admin: true
-    module: api
-    controller: states
-    parent_id: '0'
-  AdminResources_96:
-    name: 'API Provinces'
-    hidden: true
-    is_container: false
-    is_allowed: false
-    admin: true
-    module: api
-    controller: provinces
+    controller: regions
     parent_id: '0'

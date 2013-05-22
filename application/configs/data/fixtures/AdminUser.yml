@@ -1,14 +1,40 @@
 AdminUser:
   AdminUser_1:
-    firstname: John
-    lastname: Doe
+    firstname: Michelangelo
+    lastname: Turillo
     email: info@shineisp.com
-    password: $1$O/m7jc9h$3GasKvPTEbFUqIH1my8XP0
+    password: $6$geIu.M7J$TPXXlZp6JG6ZOlVuKqlWyEt7O3SO3/nXmmLKdNkDUNaOZV4eNmTj0GNXTPdA6CFUIRrRH475Gl5ifklBnd4g0/
     last_password_change: null
     force_password_change: '0'
     created: '2012-08-14 16:54:00'
-    changed: '2013-05-16 19:40:46'
-    lognum: '4'
+    changed: '2013-05-22 14:44:31'
+    lognum: '6'
+    AdminRoles: AdminRoles_1
+    config: null
+    Isp: Isp_1
+  AdminUser_2:
+    firstname: Luisa
+    lastname: Lucci
+    email: info@shineisp.it
+    password: 25f9e794323b453885f5181f1b624d0b
+    last_password_change: null
+    force_password_change: '0'
+    created: '2012-08-23 16:54:00'
+    changed: '2012-08-23 16:56:00'
+    lognum: '0'
+    AdminRoles: AdminRoles_2
+    config: null
+    Isp: Isp_1
+  AdminUser_3:
+    firstname: Michelangelo
+    lastname: Turillo
+    email: info@shinesoftware.it
+    password: $6$kf6O0mR9$wXL7EEPRzvJ//Pbri7eUxYQ4E2vArI36SisW4RCAOZPoZYgMCVJgte/P7iT3qTBWcGofZbrPaphNB89QXOohU/
+    last_password_change: null
+    force_password_change: '0'
+    created: '2013-05-15 12:16:22'
+    changed: '2013-05-15 12:16:22'
+    lognum: '0'
     AdminRoles: AdminRoles_1
     config: null
     Isp: Isp_1
