@@ -340,8 +340,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-
-
+		
 		foreach ( $records as $c ) {
 			if(!empty($c ['DomainsTldsData'][0]['name'])){
 				if($addpointprefix){

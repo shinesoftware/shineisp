@@ -61,6 +61,7 @@ class OrdersController extends Zend_Controller_Action {
 												o.order_id as OrderID, 
 												i.number as InvoiceId, 
 												CONCAT(c.company, ' ', c.firstname,' ', c.lastname) as company, 
+												o.order_number as order_number,
 												o.order_date as start_date,
 												o.grandtotal as Total", 
 												$page, $NS->recordsperpage, $arrSort, $params );
@@ -100,6 +101,7 @@ class OrdersController extends Zend_Controller_Action {
 		try {
 			if (! empty ( $id ) && is_numeric ( $id )) {
 				$fields = "o.order_id, 
+							o.order_number as order_number,
 							DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
 							DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
 							in.invoice_id as invoice_id, 
@@ -161,7 +163,7 @@ class OrdersController extends Zend_Controller_Action {
 					// Send the data to the form
 					$form->populate ( $rs [0] );
 					
-					$this->view->formattedid = $formattedID;
+					#$this->view->formattedid = $formattedID;
 					$this->view->orderid = $id;
 					
 				}else{
@@ -171,7 +173,7 @@ class OrdersController extends Zend_Controller_Action {
 				
 			}
 			
-			$this->view->title = $this->translator->_('Order %s', $formattedID);
+			#$this->view->title = $this->translator->_('Order %s', $formattedID);
 			$this->view->description = "Here you can see all the order information.";
 			$this->view->dnsdatagrid = $this->dnsGrid ();
 			$this->view->form = $form;
