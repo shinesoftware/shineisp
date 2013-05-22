@@ -12,7 +12,8 @@
 class System_CronController extends Zend_Controller_Action {
 
 	public function preDispatch() {
-		$this->getHelper ( 'layout' )->setLayout ( 'system' );
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
 	}
 	
 	/**
@@ -22,7 +23,7 @@ class System_CronController extends Zend_Controller_Action {
 		$resources = Shineisp_Commons_Layout::getData ("system", null);
 		
 		// log the data
-		Shineisp_Commons_Utilities::log("ShineISP Cron started");
+		Shineisp_Commons_Utilities::log("ShineISP Cron started", 'cron.log');
 
 		// Get the cron default configuration
 		$xmlobject = $resources->xpath ( "cron/execute" ) ;
@@ -52,9 +53,9 @@ class System_CronController extends Zend_Controller_Action {
 							if(method_exists($class, $method)){
 
 								// Check the class
-								$theclass = new ReflectionClass($class);
+								$theclass  = new ReflectionClass($class);
 								$themethod = $theclass->getMethod($method);
-								$isStatic = $themethod->isStatic();
+								$isStatic  = $themethod->isStatic();
 								
 								Shineisp_Commons_Utilities::log("$class::$method", 'cron.log');
 								
@@ -68,12 +69,14 @@ class System_CronController extends Zend_Controller_Action {
 							}
 						}
 					}
-				}else{
-					#Shineisp_Commons_Utilities::log((string)$cron->script . " not executed", 'cron.log');
+				} else {
+					//Shineisp_Commons_Utilities::log((string)$cron->script . " not executed", 'cron.log');
 				}
 			}
 		}
-		
+
+		Shineisp_Commons_Utilities::log("ShineISP Cron ended", 'cron.log');
+			
 	}
 	
 	/**

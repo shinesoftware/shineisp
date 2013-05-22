@@ -500,7 +500,8 @@ class OrdersItems extends BaseOrdersItems {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
 		->leftJoin ( 'oi.Products p' )
 		->where ( "order_id = ?", $id )
-		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' ");
+		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' OR oi.tld_id > 0 ")
+		->andWhere ( "oi.status_id != ?", Statuses::id('complete','orders')); // !Complete
 
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$items = $dq->execute ( array (), $retarray );
@@ -1103,14 +1104,34 @@ class OrdersItems extends BaseOrdersItems {
 			return true;
 		}
 
-		// It's an hosting? execute panel task
+		if ( empty($OrderItem['parameters']) ) {
+			return false;
+		}
+		
+		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
-		if ( $Product->type == 'hosting' && !empty($OrderItem->parameters) ) {		
-			PanelsActions::AddTask($Order->customer_id, $OrderItem->detail_id, "fullProfile", $OrderItem->parameters);
+		if ( $Product->type == 'hosting' ) {		
+			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 			
 			return true;
 		}
 		
+		// Is this a domain? execute domain task
+		if ( isset($OrderItem['tld_id']) && intval($OrderItem['tld_id']) > 0 ) {
+			$parameters = json_decode($OrderItem['parameters']);	
+
+			if ( empty($parameters->domain) ) {
+				return false;
+			}			
+			
+			return DomainsTasks::AddTasks ( array(
+												 'domain'       => $parameters->domain
+												,'tld_id'       => intval($OrderItem['tld_id'])
+												,'customer_id'  => intval($Order->customer_id)
+												,'orderitem_id' => $orderItemId) 
+										);
+		}
+
 	}
 
 

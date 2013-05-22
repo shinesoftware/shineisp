@@ -194,6 +194,7 @@ class Settings extends BaseSettings {
 		return array('0'=>"Don't automatically create an invoice as soon the whole order is paid", '1'=>'Automatically create an invoice as soon the whole order is paid');
 	}
 
+
 	
 	/**
      * findbyParam

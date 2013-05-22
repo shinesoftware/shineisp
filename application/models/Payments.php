@@ -234,6 +234,8 @@ class Payments extends BasePayments
      * @param float $amount
      */
     public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null) {
+
+        
     	$paymentdata = self::findbyorderid ( $orderid, null, true );
     			
     	if (count ( $paymentdata ) == 0) {
@@ -257,15 +259,15 @@ class Payments extends BasePayments
 		$payment->description = isset($payment_description) ? $payment_description : null;
 		
 		$save = $payment->trySave ();
-		
+        
 		if ( $save ) {
 			// Let's check if we have the whole invoice paid.
 			$isPaid = Orders::isPaid($orderid);
-			
 			if ( $isPaid ) {
 				// If we have to autosetup as soon as first payment is received, let's do here.
 				Orders::activateItems($orderid, 4);
-				
+                // echo "arrivo qui???";
+                // die();
 				// Set order status as "Paid"
 				Orders::set_status($orderid, Statuses::id('paid', 'orders'));
 				
@@ -273,10 +275,7 @@ class Payments extends BasePayments
 				$autoCreateInvoice = intval(Settings::findbyParam('auto_create_invoice_after_payment'));
 				if ( $autoCreateInvoice === 1 && !Orders::isInvoiced($orderid) ) {
 					// invoice not created yet. Let's create now
-					$invoiceid = Invoices::Create ( $orderid );
-					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $invoiceid > 0) {
-						Invoices::sendInvoice ( $invoiceid );
-					}	
+					Invoices::Create ( $orderid );
 				}
 				
 			} else {

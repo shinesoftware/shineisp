@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+
+    <!-- Frontend Template Section -->
+	<default template="1column"> <!-- Template set for all the frontend pages -->
+	</default>
+
+</layout>
