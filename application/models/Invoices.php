@@ -496,74 +496,83 @@ class Invoices extends BaseInvoices {
 	        }
         }
     }
+
+    /**
+     * Get the fastlink of invoice, if not exist create it
+     ****/
+    public static function getFastlinksInvoice( $invoiceid, $orderid, $customerid ) {
+        $link_exist = Fastlinks::findlinks ( $orderid, $customerid, 'orders' );
+        
+        // The fastlink does not exists and we have to create it
+        if (count ( $link_exist ) == 0) {
+            $fastlink   =  Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
+        } else {
+            // The fastlink exists and we get it in order to write it in the email content
+            // but before we have to check if the link that we have to send to the user contain the right invoice
+            
+            // If the id of the invoice is not equal to the id of the invoice attached into the order we have to create a new fastlink 
+            $params = json_decode ( $link_exist [0] ['params'], true );
+            if (! empty ( $params ['id'] ) && $params ['id'] == $invoiceid) {
+                $fastlink = $link_exist [0] ['code'];
+            } else {
+                $fastlink = Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
+            }
+        }   
+        
+        return $fastlink;     
+    }
     
     /*
      * sendInvoice
      * send the invoice by email
      */
-    public static function sendInvoice($invoiceid){
+    public static function sendInvoice($invoiceid, $urlEmail = ""){
         if (is_numeric ( $invoiceid )) {
         	$invoice = self::getAllInfo($invoiceid, null, true);
             if (!empty($invoice[0])) {
             	$invoiceNum = $invoice[0]['number'];
-                $orderid = $invoice [0] ['order_id'];
+                $orderid    = $invoice [0] ['order_id'];
                 $customerid = $invoice [0] ['customer_id'];
             } else {
                 return false;
             }
             
-            // Check if the fastlink is already created
-            $link_exist = Fastlinks::findlinks ( $orderid, $customerid, 'orders' );
-            
-            // The fastlink does not exists and we have to create it
-            if (count ( $link_exist ) == 0) {
-                $fastlink = Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
-            } else {
-                // The fastlink exists and we get it in order to write it in the email content
-                // but before we have to check if the link that we have to send to the user contain the right invoice
-                
-                // If the id of the invoice is not equal to the id of the invoice attached into the order we have to create a new fastlink 
-                $params = json_decode ( $link_exist [0] ['params'], true );
-                if (! empty ( $params ['id'] ) && $params ['id'] == $invoiceid) {
-                    $fastlink = $link_exist [0] ['code'];
-                } else {
-                    $fastlink = Fastlinks::CreateFastlink ( "orders", "createinvoice", json_encode ( array ('id' => $invoiceid ) ), "orders", $orderid, $customerid );
-                }
-            }
+            $fastlink   = self::getFastlinksInvoice($invoiceid, $orderid, $customerid);
             
             $order = Orders::getAllInfo ( $orderid, null, true );
             
             //if customer comes from reseller
             if ($order [0] ['Customers'] ['parent_id']) {
-                $invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
-                $customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
-                $customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
-                $customer_email = $invoice_dest ['email'];
+                $invoice_dest    = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
+                $customer        = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
+                $customer       .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
+                $customer_email  = $invoice_dest ['email'];
             } else {
-                $customer = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
-                $customer .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
-                $customer_email = $order [0] ['Customers'] ['email'];
+                $customer        = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
+                $customer       .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
+                $customer_email  = $order [0] ['Customers'] ['email'];
             }
             
             $email = $order [0] ['Isp'] ['email'];
             $signature = $order [0] ['Isp'] ['company'];
-            $url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink;
+            if( $urlEmail == "" ) {
+                $url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink;    
+            } else {
+                $url = $urlEmail;
+            }
+            
             $date = explode ( "-", $order [0] ['order_date'] );
             
-            // Get the template from the main email template folder
-            $retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_invoice' );
-            if ($retval) {
-                $subject = $retval ['subject'];
-                $subject = str_replace ( "[invoiceid]", sprintf ( "%03s", $invoiceNum ) . "/" . $date [0], $subject );
-                $Template = $retval ['template'];
-                $Template = str_replace ( "[fullname]", $customer, $Template );
-                $Template = str_replace ( "[email]", $email, $Template );
-                $Template = str_replace ( "[url]", $url, $Template );
-                $Template = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "/" . $date [0], $Template );
-                $Template = str_replace ( "[invoiceid]", sprintf ( "%03s", $invoiceNum ) . "/" . $date [0], $Template );
-                $Template = str_replace ( "[signature]", $signature, $Template );
-                Shineisp_Commons_Utilities::SendEmail ( $email, $customer_email, $email, $subject, $Template );
-            }
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_invoice', array(
+				 'orderid'    => Orders::formatOrderId($order)
+				,'invoiceid'  => sprintf ( "%03s", $invoiceNum ) . "/" . $date [0]
+				,'fullname'   => $customer
+				,'email'      => $email
+				,'bank'       => $bank
+				,'url'        => $url
+				,':shineisp:' => $order [0] ['Customers']
+				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
+			));			
             return true;
         }
         

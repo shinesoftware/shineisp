@@ -53,7 +53,7 @@ class IndexController extends Zend_Controller_Action {
 				if(is_array($data)){
 					if(!empty($data['customer'])){
 						$this->view->customer = Customers::find($data['customer']);
-						$this->view->order = Orders::getAllInfo($data['order'], "*", true);
+						$this->view->order    = Orders::getAllInfo($data['order'], "*", true);
 					}
 				}
 			}
