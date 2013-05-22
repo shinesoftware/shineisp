@@ -205,7 +205,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getOrdersByCustomerID($id, $fields="*") {
 		try {
-			return Doctrine_Query::create ()->select ( $fields )
+			$arrOrders = Doctrine_Query::create ()->select ( $fields )
 										->from ( 'Orders o' )
 										->leftJoin ( 'o.Customers c' )
 										->leftJoin ( 'c.Customers r' )
@@ -216,6 +216,16 @@ class Orders extends BaseOrders {
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
 										->orderBy ( 'order_date desc' )
 										->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
+				
+			if ( is_array($arrOrders) && count($arrOrders) > 0 ) {
+				foreach ( $arrOrders as $k => $arrOrder ) {
+					if ( isset($arrOrder['order_id']) ) {
+						$arrOrders[$k]['order_number'] = self::formatOrderId($id);
+					}	
+				}
+			}
+										
+			return $arrOrders;
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
 			die ();
@@ -446,16 +456,7 @@ class Orders extends BaseOrders {
 				
 				// Handle the payment transaction
 				if (! empty ( $params ['paymentdate'] )) {
-					$payment = new Payments ();
-					$payment->paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $params ['paymentdate'] );
-					$payment->order_id = $id;
-					$payment->bank_id = $params ['bank_id'];
-					$payment->customer_id = $params ['customer_id'];
-					$payment->description = $params ['payment_description'];
-					$payment->reference = $params ['reference'];
-					$payment->confirmed = $params ['confirmed'];
-					$payment->income = $params['income'];
-					$payment->save ();
+					Payments::addPayment($id, $params ['reference'], $params ['bank_id'], $params ['confirmed'], $params['income'], $params ['paymentdate'], $params ['customer_id'], $params ['payment_description']);
 				}
 				
 				// Set the status of the order
@@ -906,17 +907,17 @@ class Orders extends BaseOrders {
 		
 		if(!empty($orderid)){
 			
-			$item['order_id'] = $orderid;
-			$item['tld_id'] = !empty($params['tldid']) ? $params['tldid'] : null;
+			$item['order_id']   = $orderid;
+			$item['tld_id']     = !empty($params['tldid']) ? $params['tldid'] : null;
 			$item['product_id'] = !empty($params['productid']) ? $params['productid'] : null;
-			$item['status_id'] = Statuses::id("tobepaid", "orders");
+			$item['status_id']  = Statuses::id("tobepaid", "orders");
 			$item['date_start'] = date ( 'Y-m-d H:i:s' );
 				
 			// Manages all the products that have no recursion payment
-			$item['description'] = $description;
+			$item['description']      = $description;
 			$item['billing_cycle_id'] = $billingid; 
-			$item['quantity'] = $qta;
-			$item['price'] = $price;
+			$item['quantity']         = $qta;
+			$item['price']            = $price;
 			
 			// Count of the day until the expiring
 			$months = BillingCycle::getMonthsNumber ( $billingid );
@@ -945,6 +946,9 @@ class Orders extends BaseOrders {
 			$item->save();
 			
 			self::updateTotalsOrder($orderid);
+			
+			//* TODO: Attivare il dominio nel caso l'attivazione automatica fosse contestuale la ricezione ordine
+			//* if $autosetup === 1
 			
 			return $item;
 		}
@@ -1040,6 +1044,10 @@ class Orders extends BaseOrders {
 		
 			// Get the product information
 			$product = Products::getAllInfo($productId);
+			
+			// Get autosetup setting
+			$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;			
+			
 			// echo '<pre>';
 			// print_r($product);
 			// die();
@@ -1159,14 +1167,27 @@ class Orders extends BaseOrders {
 					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
 				}
 				
-				$item['cost'] 		= $product ['cost'];
+				$item['cost'] = $product ['cost'];
 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
+				// these are set by API
+				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : '';
+				$item['callback_url'] = isset($options['callback_url']) ? $options['callback_url'] : '';
+				
 				$item->save();
+				
+				$arrayItem = $item->toArray();
 				
 				// Update the totals
 				if(!empty($order['order_id'])) {
 					self::updateTotalsOrder($order['order_id']);
+				}
+				
+                Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type'])." CALLBACK_URL::".$arrayItem['callback_url']);
+                
+				//* autosetup is set to 1 for this product, let's activate immediatly
+				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
+					OrdersItems::activate($arrayItem['detail_id']);				
 				}
 				
 				return $item;
@@ -1288,33 +1309,8 @@ class Orders extends BaseOrders {
 			return false;
 		}
 		
-		/* GUEST - ALE - 20130415: PROBABLY DEPRECATED
-		 * 
-		// Check if the order contains domains, if yes it creates the domains and the registration/transfer tasks
-		$domains = self::getDomainsFromOrder ( $orderid );
-		
-		if (count ( $domains ) > 0) {
-			
-			// Create the domain name in the database
-			$domainIDs = Domains::CreateDomainsbyOrderID ( $orderid );
-			
-			// Prepare the domain tasks
-			foreach ( $domains as $data ) {
-				$domainsdata [] = array ('domain' => $data ['domain'], 'action' => $data ['action'], 'registrar_id' => $data ['registrar_id'] );
-			}
-			
-			// Save the tasks to do by cronjob
-			if (! empty ( $domainsdata )) {
-				// Add the domains found in the task table action in order to execute the register/transfer procedure
-				DomainsTasks::AddTasks ( $domainsdata );
-			} 
-		}
-		*/
-		
-		
 		//* GUEST - ALE - 20130415: Should I use this?
 		self::CreateDomainTasks($orderid);
-		
 		
 		//* Hosting creation actions
 		self::CreateHostingTasks($orderid);
@@ -1333,69 +1329,7 @@ class Orders extends BaseOrders {
 		$hostingplans = self::get_hostingplans_from_order($orderid);
 		if($hostingplans){
 			foreach ( $hostingplans as $data ) {
-				$autoSetup = (string)$data['autosetup'];
-				$doCreate  = false;
-				
-				//* TODO: Check autosetup valute and operate accordingly
-				//...
-				
-				/*
-				 * SE:
-				 *      0 = non attivo nulla
-				 *      1 = ATTIVO, perche' ho ricevuto un ordine (questa funzione e' chiamata solo da Orders::Complete)
-				 *      2 = SE ci sono transazioni in fattura, ATTIVO
-				 *      3 = ATTIVO, perche' se arrivo qui, ho settato l'ordine a mano
-				 *      4 = SE missing_income fattura <= 0 ATTIVO perche' ho pagato tutto
-				 */
-
-				
-				if ( $autoSetup === '0' ) {
-					// autosetup = 0: no automatic creation of services
-					return true;
-				}
-				
-				// Auto setup based on order status (recieved or completed)
-				if ( $autoSetup === '1' || $autoSetup === '3' ) {
-					$doCreate = true;	
-				}
-
-				// Auto setup based on payment				
-				if ( $autoSetup === '2' || $autoSetup === '4' ) {
-					// Fetch the payment list for this order
-					$payments = Payments::findbyorderid ( $orderid, 'income', true );
-					
-					if ( !$payments || count($payments) < 1 ) {
-						// No payments, skip creation
-						$doCreate = false;
-					} else {
-						if ( $autoSetup === '2' ) {
-							// At least 1 paymnet recieved						
-							$doSetup = true;	
-						} else {
-							// Fetch details for this order
-							$order = self::getAllInfo($orderid);
-							if ( !$order ) {
-								$doSetup = false;
-							} else {
-								$received_income = 0;
-								foreach ( $payments as $payment ) {
-									$received_income += (isset($payment['income'])) ? $payment['income'] : 0;
-								}
-								
-								$missing_income = $order['grandtotal'] - $received_income;
-								
-								if ( $missing_income <= 0 ) {
-									$doCreate = true;
-								}
-							}
-						}
-					}
-				} 				
-				
-
-				if ( $doCreate === true ) {			
-					PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
-				}
+				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
 			}
 		}
 		
@@ -1409,9 +1343,9 @@ class Orders extends BaseOrders {
 	 * set the payment, create the domain tasks, and set the status of the new domains
 	 */
 	public static function Complete($orderid, $sendemail=false) {
-		if(!empty($orderid) && is_numeric($orderid) && !self::isInvoiced($orderid)){
+		if(!empty($orderid) && is_numeric($orderid) ){
 			
-			$upgrade	= Orders::isUpgrade($orderid);
+			$upgrade = Orders::isUpgrade($orderid);
 			if( $upgrade !== false ) {
 				$orderItem	= OrdersItems::getDetail($upgrade);
 				$oldOrderId	= $orderItem['order_id'];
@@ -1422,21 +1356,13 @@ class Orders extends BaseOrders {
 				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
+			// Activate services if autosetup is set to 3.
+			self::activateItems($orderid, 3);
+
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
 			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			
-			// Create the invoice
-			$invoiceid = Invoices::Create ( $orderid );
-			
-			if($sendemail){
-				Invoices::sendInvoice ( $invoiceid );
-			}
-
-			// Check and create task for domains and hosting services
-			// Moved after invoice creation to support autosetup multiple modes
-			self::RunTasks($orderid);
-			
+						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
 			
@@ -1445,6 +1371,45 @@ class Orders extends BaseOrders {
 		
 		return false;		
 	}
+
+	/**
+	 * activateItems: activate one or more order items based on autosetup flag
+	 * 
+	 * @param  orderId: order id to activate
+	 *         autosetup: autosetup value to manage
+	 * @return true|false 
+	 */
+	public static function activateItems($orderId, $autosetup = 0) {
+	    $autosetup = intval($autosetup);
+		if ( $autosetup === 0 ) {
+			return true;
+		}
+	   
+		$activableItems = OrdersItems::getAllActivableItems($orderId);
+		if ( empty($activableItems) ) {
+			return true;
+		}
+        
+		foreach ( $activableItems as $item ) {
+            // echo '<pre>';
+            // print_r($item->toArray());
+            // die();		    
+			if ( empty($item->parameters) && empty( $item->callback_url) ) {
+				// parameters are needed for both domains and hosting.
+				continue;
+			}
+
+            
+			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
+				OrdersItems::activate($item->detail_id);
+			}
+			
+			if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+				OrdersItems::activate($item->detail_id);	
+			}
+		}		
+	}
+
 	
 	/*
 	 * CreateDomainTasks
@@ -1911,6 +1876,35 @@ class Orders extends BaseOrders {
 		}
 	}
 	
+	/**
+	 * Check if the order is totally paid
+	 * 
+	 * 
+	 * @param $orderid
+	 * @return true|false
+	 */
+	public static function isPaid($orderId = 0) {
+		$orderId = intval($orderId);
+		if ( $orderId < 1 ) {
+			return false;
+		}
+		
+		$Order = self::find($orderId);
+		if ( !$Order || !isset($Order->grandtotal) || $Order->grandtotal <= 0 ) {
+			return true;
+		}
+		
+		$Payments    = Payments::findByOrderId($orderId);
+		$totalIncome = 0;
+		
+		foreach ( $Payments as $Payment ) {
+			$totalIncome += isset($Payment->income) ? $Payment->income : 0;
+		}
+		
+		return ($totalIncome >= $Order->grandtotal);
+	}
+	
+	
 	/*
 	 * Get all the domains requested from the order list items.
 	 * 
@@ -1989,7 +1983,7 @@ class Orders extends BaseOrders {
      * send the order by email
      * @param $orderID
      */
-	public static function sendOrder($orderid) {
+	public static function sendOrder($orderid, $customURL = null) {
 		$bank = "";
 		if (is_numeric ( $orderid )) {
 			
@@ -2017,12 +2011,16 @@ class Orders extends BaseOrders {
 			if(!empty($bankInfo['description'])){
 				$bank = $bankInfo['description'];
 			}
-						
-			if (! empty ( $fastlink [0] ['code'] )) {
-				$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
+			
+			if ( !empty($customURL) ) {
+				$url = $customURL;				
 			} else {
-				$url = "http://" . $_SERVER ['HTTP_HOST'];
-			}
+				if (! empty ( $fastlink [0] ['code'] )) {
+					$url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $fastlink [0] ['code'];
+				} else {
+					$url = "http://" . $_SERVER ['HTTP_HOST'];
+				}
+			}	
 			
 			$date = explode ( "-", $order [0] ['order_date'] );
 			

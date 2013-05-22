@@ -142,7 +142,7 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
 					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
 					$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
-					$params[] = 'birthPlace';								// only for .fr (AFNIC) : identification method (siren | inpi | birthPlace | afnicIdent)
+					$params[] = 'siren';									// only for .fr (AFNIC) : identification method (siren | inpi | birthPlace | afnicIdent)
 					$params[] = $customer ['fullname'];						// only for .fr (AFNIC) : corporation name /trademark owner
 					$params[] = $customer ['vat'];							// only for .fr (AFNIC) : SIREN/SIRET/INPI number
 					$params[] = null;										// only for .fr (AFNIC) : afnic ident code

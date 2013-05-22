@@ -1169,6 +1169,7 @@ class Products extends BaseProducts {
 			->leftJoin ( 'o.OrdersItems oi' )
 			->leftJoin ( 'oi.Products p' )
 			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+            ->leftJoin ( 'oi.Statuses s' )
 			->where ( "p.type <> ?", 'domain' )
 			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) );
 

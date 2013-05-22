@@ -220,7 +220,9 @@ class IndexController extends Zend_Controller_Action {
 			
 			if (! empty ( $link [0] ['controller'] )) {
 				$customer = Customers::find ( $link [0] ['customer_id'] );
-				if (isset ( $customer ) && $customer['status_id'] == Statuses::id("active", "customers")) {
+
+				//TODO: GUEST - ALE - 20130516: remove access for disabled customers
+				if (isset ( $customer ) && in_array($customer['status_id'], array(Statuses::id("active", "customers"),Statuses::id("disabled", "customers")) ) ) {
 					
 					$NS->customer = $customer;
 					Fastlinks::updateVisits ( $link [0] ['fastlink_id'] );

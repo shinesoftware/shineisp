@@ -186,6 +186,15 @@ class Settings extends BaseSettings {
 	public static function getLateFeeTypes() {
 		return array('fixed'=>'Fixed', 'percentage'=>'Percentage');
 	}
+
+	/**
+	 * Get the auto invoice creation values
+	 */
+	public static function getAutoInvoiceGenerationValues() {
+		return array('0'=>"Don't automatically create an invoice as soon the whole order is paid", '1'=>'Automatically create an invoice as soon the whole order is paid');
+	}
+
+
 	
 	/**
      * findbyParam

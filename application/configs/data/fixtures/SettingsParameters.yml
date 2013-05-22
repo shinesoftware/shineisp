@@ -458,3 +458,39 @@ SettingsParameters:
     description: 'This is the description for each template product. You can use all the main node value using {variable}. For the variable list you can see at http://www.templatemonster.com/webapi/doc/html/ch02s04.html#id4410924'
     SettingsGroups: SettingsGroups_14
     config: '[]'
+  SettingsParameters_52:
+    name: 'Automatic invoice creation'
+    var: auto_create_invoice_after_payment
+    type: select
+    module: admin
+    enabled: '1'
+    description: 'Automatically creates an invoice when the order is paid'
+    SettingsGroups: SettingsGroups_1
+    config: '{"class":"Settings","method":"getAutoInvoiceGenerationValues"}'
+  SettingsParameters_53:
+    name: 'E-Mail invoice automatically'
+    var: auto_send_invoice
+    type: checkbox
+    module: admin
+    enabled: '1'
+    description: 'Automatically e-mail the invoice when created'
+    SettingsGroups: SettingsGroups_1
+    config: null
+  SettingsParameters_54:
+    name: 'Automatic invoice creation'
+    var: auto_create_invoice_after_payment
+    type: select
+    module: admin
+    enabled: '1'
+    description: 'Automatically creates an invoice when the order is paid'
+    SettingsGroups: SettingsGroups_1
+    config: '{"class":"Settings","method":"getAutoInvoiceGenerationValues"}'
+  SettingsParameters_55:
+    name: 'E-Mail invoice automatically'
+    var: auto_send_invoice
+    type: checkbox
+    module: admin
+    enabled: '1'
+    description: 'Automatically e-mail the invoice when created'
+    SettingsGroups: SettingsGroups_1
+    config: null
