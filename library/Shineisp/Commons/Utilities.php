@@ -119,12 +119,12 @@ class Shineisp_Commons_Utilities {
 	
 	public static function log($message, $filename = "errors.log", $priority=Zend_Log::INFO) {
 		try{
-			$logger = new Zend_Log();
-			$debug = true;
+			$logger    = new Zend_Log();
+			$debug     = true;
 			$debug_log = true;
 			
 			if(Shineisp_Main::isReady()){
-				$debug = Settings::findbyParam('debug');
+				$debug     = Settings::findbyParam('debug');
 				$debug_log = Settings::findbyParam('debug_log');
 			}
 	
@@ -139,9 +139,9 @@ class Shineisp_Commons_Utilities {
 				if(is_writable(PUBLIC_PATH . '/logs/')){
 					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
 					if(is_array($message)){
-						fputs ( $log, date ( 'd-m-y h:i:s' ) . "\n" .  var_export($message, true));
+						fputs ( $log, date ( 'd-m-Y H:i:s' ) . "\n" .  var_export($message, true));
 					}else{
-						fputs ( $log, date ( 'd-m-y h:i:s' ) . " $message\n" );
+						fputs ( $log, date ( 'd-m-Y H:i:s' ) . " $message\n" );
 					}
 					fclose ( $log );
 				}else{
@@ -1002,6 +1002,8 @@ class Shineisp_Commons_Utilities {
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
+		
+		print_r($ISP);
 
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);

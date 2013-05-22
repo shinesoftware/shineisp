@@ -1183,10 +1183,10 @@ class Orders extends BaseOrders {
 					self::updateTotalsOrder($order['order_id']);
 				}
 				
-                Shineisp_Commons_Utilities::log("Autosetup::".$autoSetup." TYPE:: ".strtolower($product['type'])." Callurl::".$arrayItem['callback_url']);
+                Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type'])." CALLBACK_URL::".$arrayItem['callback_url']);
                 
 				//* autosetup is set to 1 for this product, let's activate immediatly
-				if ( $autoSetup == '1' && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
+				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
 					OrdersItems::activate($arrayItem['detail_id']);				
 				}
 				
@@ -1356,23 +1356,13 @@ class Orders extends BaseOrders {
 				Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$orderid, "orders.log" );
 			} 
 			
+			// Activate services if autosetup is set to 3.
+			self::activateItems($orderid, 3);
+
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
 			OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			
-			// Orders::Complete should only complete the order and not create the invoice
-			// Create the invoice
-			//$invoiceid = Invoices::Create ( $orderid );
-			//if($sendemail){
-			//	Invoices::sendInvoice ( $invoiceid );
-			//}
-			
-			// Activate services if autosetup is set to 3.
-			self::activateItems($orderid, 3);
-			
-			// Actiavete all domains
-			self::createDomainTasks($orderid);
-			
+						
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
 			
@@ -1390,19 +1380,32 @@ class Orders extends BaseOrders {
 	 * @return true|false 
 	 */
 	public static function activateItems($orderId, $autosetup = 0) {
-		$autosetup = intval($autosetup);
+	    $autosetup = intval($autosetup);
 		if ( $autosetup === 0 ) {
 			return true;
 		}
-		
+	   
 		$activableItems = OrdersItems::getAllActivableItems($orderId);
 		if ( empty($activableItems) ) {
 			return true;
 		}
-		
+        
 		foreach ( $activableItems as $item ) {
+            // echo '<pre>';
+            // print_r($item->toArray());
+            // die();		    
+			if ( empty($item->parameters) && empty( $item->callback_url) ) {
+				// parameters are needed for both domains and hosting.
+				continue;
+			}
+
+            
 			if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup ) {
 				OrdersItems::activate($item->detail_id);
+			}
+			
+			if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+				OrdersItems::activate($item->detail_id);	
 			}
 		}		
 	}

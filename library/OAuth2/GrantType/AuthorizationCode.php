@@ -27,7 +27,10 @@ class OAuth2_GrantType_AuthorizationCode implements OAuth2_GrantTypeInterface
         }
 
         $code = $request->request('code');
-        if (!$authCode = $this->storage->getAuthorizationCode($code)) {
+
+		$authCode = $this->storage->getAuthorizationCode($code);
+
+        if (!$authCode) {
             $response->setError(400, 'invalid_grant', 'Authorization code doesn\'t exist or is invalid for the client');
             return false;
         }

@@ -259,7 +259,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		}
 		
 		$customer = Customers::get_by_customerid ( $rs ['customer_id'], 'company, firstname, lastname, email' );
-		
 		$this->view->mex = urldecode ( $this->getRequest ()->getParam ( 'mex' ) );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
