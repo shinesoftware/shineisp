@@ -1120,6 +1120,11 @@ class OrdersItems extends BaseOrdersItems {
 			Shineisp_Commons_Utilities::log("URL Notifica server :: {$OrderItem['callback_url']} ","api.log");
             Shineisp_Commons_Utilities::log("Parametri ".print_r($paramsOrderItem,true),"api.log");
 			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
+            
+            //Check if all orderitem of order is complete and if is ok set order to complete
+            if( Orders::checkIfOrderItemsIsComplete( $OrderItem['order_id'] ) ) {
+                Orders::set_status($OrderItem['order_id'], Statuses::id("complete", "orders"));
+            }
 			
 			return true;
 		}
