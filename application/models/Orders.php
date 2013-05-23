@@ -2855,5 +2855,21 @@ class Orders extends BaseOrders {
 			die($pdf->create($grid));
 		
 		return false;	
-	}			
+	}	
+
+
+    /**
+     * Check if all items of order are complete
+     ***/
+    public function checkIfOrderItemsIsComplete( $orderid ) {
+        $records = OrdersItems::getAllDetails( $orderid,"s.code as statuscode", true );
+        foreach( $records as $record ) {
+            if( $record['statuscode'] != 'complete') {
+                return false;
+            }
+        }
+        
+        return true;        
+    }		
+
 }
