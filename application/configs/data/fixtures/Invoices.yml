@@ -1,0 +1,7 @@
+Invoices:
+  Invoices_1:
+    number: '1'
+    Customers: Customers_2
+    Orders: Orders_1
+    invoice_date: '2013-05-23'
+    note: null

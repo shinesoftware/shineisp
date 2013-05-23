@@ -1,0 +1,18 @@
+Orders:
+  Orders_1:
+    Customers: Customers_2
+    external_id: null
+    Isp: Isp_1
+    uuid: null
+    order_date: '2013-05-23'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_33
+    total: '84.00'
+    cost: '0.00'
+    vat: '0.00'
+    grandtotal: '84.00'
+    Invoices: Invoices_1
+    expiring_date: null
+    note: ''
+    order_number: null

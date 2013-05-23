@@ -15,3 +15,11 @@ EmailsTemplatesData:
     subject: 'Nuova Password'
     html: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: [password]<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
     text: ''
+  EmailsTemplatesData_3:
+    EmailsTemplates: EmailsTemplates_3
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Fattura nr. [invoiceid]'
+    html: "Gentile [fullname],<br />\n<br />\nla ringraziamo per aver richiesto i nostri servizi.<br />\n<br />\nPotete scaricare la fattura [invoiceid] relativa all'ordine [orderid] direttamente utilizzando il link qui in basso:<br />\n<br />\n[url]<br />\n<br />\nSe trovate difficoltà nello scaricare la fattura potete copiare l'intero link ed incollarlo nella barra degli indirizzi del vostro browser Firefox, Chrome o Internet Explorer e premere il tasto invio.<br />\n<br />\nPer scaricare il file potete anche accedere via pannello di controllo messo a disposizione per voi per scaricare la documentazione e per sottoscrivere e gestire i vostri servizi.<br />\n<br />\nPer ogni informazione contattateci : [email]<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
+    text: ''
