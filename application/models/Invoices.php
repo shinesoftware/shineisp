@@ -531,7 +531,7 @@ class Invoices extends BaseInvoices {
         	$invoice = self::getAllInfo($invoiceid, null, true);
             if (!empty($invoice[0])) {
             	$invoiceNum = $invoice[0]['number'];
-                $orderid = $invoice [0] ['order_id'];
+                $orderid    = $invoice [0] ['order_id'];
                 $customerid = $invoice [0] ['customer_id'];
             } else {
                 return false;
@@ -543,14 +543,14 @@ class Invoices extends BaseInvoices {
             
             //if customer comes from reseller
             if ($order [0] ['Customers'] ['parent_id']) {
-                $invoice_dest = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
-                $customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
-                $customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
-                $customer_email = $invoice_dest ['email'];
+                $invoice_dest    = Customers::getAllInfo ( $order [0] ['Customers'] ['parent_id'] );
+                $customer        = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
+                $customer       .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
+                $customer_email  = $invoice_dest ['email'];
             } else {
-                $customer = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
-                $customer .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
-                $customer_email = $order [0] ['Customers'] ['email'];
+                $customer        = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
+                $customer       .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
+                $customer_email  = $order [0] ['Customers'] ['email'];
             }
             
             $email = $order [0] ['Isp'] ['email'];
@@ -563,20 +563,16 @@ class Invoices extends BaseInvoices {
             
             $date = explode ( "-", $order [0] ['order_date'] );
             
-            // Get the template from the main email template folder
-            $retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_invoice' );
-            if ($retval) {
-                $subject = $retval ['subject'];
-                $subject = str_replace ( "[invoiceid]", sprintf ( "%03s", $invoiceNum ) . "/" . $date [0], $subject );
-                $Template = $retval ['template'];
-                $Template = str_replace ( "[fullname]", $customer, $Template );
-                $Template = str_replace ( "[email]", $email, $Template );
-                $Template = str_replace ( "[url]", $url, $Template );
-                $Template = str_replace ( "[orderid]", sprintf ( "%03s", $orderid ) . "/" . $date [0], $Template );
-                $Template = str_replace ( "[invoiceid]", sprintf ( "%03s", $invoiceNum ) . "/" . $date [0], $Template );
-                $Template = str_replace ( "[signature]", $signature, $Template );
-                Shineisp_Commons_Utilities::SendEmail ( $email, $customer_email, $email, $subject, $Template );
-            }
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_invoice', array(
+				 'orderid'    => $order [0] ['order_number']
+				,'invoiceid'  => sprintf ( "%03s", $invoiceNum ) . "/" . $date [0]
+				,'fullname'   => $customer
+				,'email'      => $email
+				,'bank'       => $bank
+				,'url'        => $url
+				,':shineisp:' => $order [0] ['Customers']
+				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
+			));			
             return true;
         }
         
@@ -680,7 +676,7 @@ class Invoices extends BaseInvoices {
 			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
 			
 			if (isset ( $order [0] )) {
-				$orderinfo ['order_number'] = $order [0] ['order_id'];
+				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : Orders::formatOrderId($order[0]['order_id']);
 				$orderinfo ['invoice_id'] = $invoice ['number'];
 				$orderinfo ['date'] = Shineisp_Commons_Utilities::formatDateOut ( $invoice ['invoice_date'] );
 				

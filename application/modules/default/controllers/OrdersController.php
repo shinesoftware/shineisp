@@ -61,6 +61,7 @@ class OrdersController extends Zend_Controller_Action {
 												o.order_id as OrderID, 
 												i.number as InvoiceId, 
 												CONCAT(c.company, ' ', c.firstname,' ', c.lastname) as company, 
+												o.order_number as order_number,
 												o.order_date as start_date,
 												o.grandtotal as Total", 
 												$page, $NS->recordsperpage, $arrSort, $params );
@@ -73,8 +74,8 @@ class OrdersController extends Zend_Controller_Action {
 		// Get the status of the items
 		if (! empty ( $data ['records'] )) {
 			for($i = 0; $i < count ( $data ['records'] ); $i ++) {
-				$data ['records'] [$i] ['OrderID'] = Orders::formatOrderId($data ['records'] [$i] ['order_id']);
-				$data ['records'] [$i] ['Status'] = Orders::getStatus ( $data ['records'] [$i] ['order_id'], true );
+				$data ['records'] [$i] ['OrderID']    = $data ['records'] [$i] ['order_number'];
+				$data ['records'] [$i] ['Status']     = Orders::getStatus ( $data ['records'] [$i] ['order_id'], true );
 				$data ['records'] [$i] ['start_date'] = Shineisp_Commons_Utilities::formatDateOut ( $data ['records'] [$i] ['start_date'] );
 			}
 		}
@@ -92,16 +93,15 @@ class OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function editAction() {
-		$form = $this->getForm ( '/orders/process' );
-		$id = $this->getRequest ()->getParam ( 'id' );
-		$NS = new Zend_Session_Namespace ( 'Default' );
+		$form     = $this->getForm ( '/orders/process' );
+		$id       = $this->getRequest ()->getParam ( 'id' );
+		$NS       = new Zend_Session_Namespace ( 'Default' );
 		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		try {
 			if (! empty ( $id ) && is_numeric ( $id )) {
-				$formattedID = Orders::formatOrderId($id);
-				
 				$fields = "o.order_id, 
+							o.order_number as order_number,
 							DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
 							DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
 							in.invoice_id as invoice_id, 
@@ -153,7 +153,7 @@ class OrdersController extends Zend_Controller_Action {
 					// Show the list of the messages attached to this domain
 					$this->view->messages = Messages::find ( 'order_id', $id, true );
 					
-					$this->view->headTitle()->prepend ($this->translator->_('Order %s', $formattedID));
+					$this->view->headTitle()->prepend ($this->translator->_('Order %s', $rs [0]['order_number']));
 					
 					$rsfiles = Files::findbyExternalId ( $id, "orders", "file, Date_Format(date, '%d/%m/%Y') as date" );
 					if (isset ( $rsfiles [0] )) {
@@ -163,7 +163,7 @@ class OrdersController extends Zend_Controller_Action {
 					// Send the data to the form
 					$form->populate ( $rs [0] );
 					
-					$this->view->formattedid = $formattedID;
+					#$this->view->formattedid = $formattedID;
 					$this->view->orderid = $id;
 					
 				}else{
@@ -173,7 +173,7 @@ class OrdersController extends Zend_Controller_Action {
 				
 			}
 			
-			$this->view->title = $this->translator->_('Order %s', $formattedID);
+			#$this->view->title = $this->translator->_('Order %s', $formattedID);
 			$this->view->description = "Here you can see all the order information.";
 			$this->view->dnsdatagrid = $this->dnsGrid ();
 			$this->view->form = $form;

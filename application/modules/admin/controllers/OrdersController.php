@@ -213,6 +213,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 				$rs ['expiring_date']   = Shineisp_Commons_Utilities::formatDateOut ( $rs ['expiring_date'] );
 				$rs ['received_income'] = 0;
 				$rs ['missing_income']  = $rs['grandtotal'];
+				$rs ['order_number']    = !empty($rs['order_number']) ? $rs['order_number'] : Orders::formatOrderId($rs['order_id']);
 				
 				//* GUEST - ALE - 20130325: Calculate missing income and received income based on total payments for this order
 				$payments = Payments::findbyorderid ( $id, 'income', true );
@@ -251,7 +252,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 					$this->view->titlelink = "/index/link/id/" . $rs['fastlink'];
 				}
 				
-				$this->view->title = $this->translator->_( "Order nr. %s", Orders::formatOrderId($id));
+				$this->view->title = $this->translator->_( "Order nr. %s", $rs['order_number']);
 				$this->view->messages = Messages::find ( 'order_id', $id, true );
 			} else {
 				$this->_helper->redirector ( 'list', 'orders', 'admin' );

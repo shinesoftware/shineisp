@@ -123,6 +123,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             $orderid        = $service['order_id'];
             
             $fields = "o.order_id, 
+            		   o.order_number,
                         DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
                         DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
                         in.invoice_id as invoice_id, 
@@ -163,7 +164,6 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 $order['price']         = $order['Grandtotal'];
                 $result['tobepaid'] = true;
             }
-            $order['order_number'] = Orders::formatOrderId($orderid);
             
             $result['order']    = $order;
             

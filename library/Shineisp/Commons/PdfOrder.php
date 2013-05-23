@@ -534,7 +534,7 @@ class Shineisp_Commons_PdfOrder {
 		
 		$this->setFontandSize ( Zend_Pdf_Font::FONT_HELVETICA, 8 );
 		$leftspace = $leftpos;
-		$this->Write ( Orders::formatOrderId($records ['order_number']), $leftspace + 2, $toppos - 16 );
+		$this->Write ( $records ['order_number'], $leftspace + 2, $toppos - 16 );
 		
 		$records ['payment_date'] = ! empty ( $records ['payment_date'] ) ? $records ['payment_date'] : "";
 		
@@ -642,10 +642,10 @@ class Shineisp_Commons_PdfOrder {
 		$this->Write ( $records ['customer'] ['code'] . " " . $records ['customer'] ['city'], PAGE_BOTH_MARGIN + 2, $toppos - 125 );
 		$this->Write ( $records ['customer'] ['country'], PAGE_BOTH_MARGIN + 2, $toppos - 135 );
 		
-		$this->Write ( Orders::formatOrderId($records ['order_number']), PAGE_BOTH_MARGIN + 300, $toppos - 130 );
+		$this->Write ( $records ['order_number'], PAGE_BOTH_MARGIN + 300, $toppos - 130 );
 		
 		if(!empty($records ['invoice_number'])){
-			$this->Write ( Orders::formatOrderId($records ['invoice_number']), PAGE_BOTH_MARGIN + 400, $toppos - 130 );
+			$this->Write ( $records ['invoice_number'], PAGE_BOTH_MARGIN + 400, $toppos - 130 );
 		}
 		
 		$records ['payment_description'] = ! empty ( $records ['payment_description'] ) ? $records ['payment_description'] : "";
@@ -717,7 +717,7 @@ class Shineisp_Commons_PdfOrder {
 		if (is_numeric ( $this->data ['records'] ['invoice_number'] )) {
 			$this->Write ( $this->translator->translate ( 'Invoice Number' ) . " " . $this->data ['records'] ['invoice_number'] . " " . $this->translator->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
 		} else {
-			$this->Write ( $this->translator->translate ( 'Order Number' ) . " " . Orders::formatOrderId($this->data ['records'] ['order_number']) . " " . $this->translator->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
+			$this->Write ( $this->translator->translate ( 'Order Number' ) . " " . $this->data ['records'] ['order_number'] . " " . $this->translator->translate ( 'dated' ) . " " . $this->data ['records'] ['date'], 400, $this->h - 20 );
 		}
 		
 		$this->Embellishments ();

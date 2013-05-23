@@ -8,3 +8,12 @@ Addresses:
     latitude: null
     longitude: null
     Customers: Customers_1
+  Addresses_3:
+    address: '11, Churchil street'
+    city: Newcastle
+    code: ''
+    Countries: Countries_183
+    area: Newcastle
+    latitude: '54.978252'
+    longitude: '-1.61778'
+    Customers: Customers_2

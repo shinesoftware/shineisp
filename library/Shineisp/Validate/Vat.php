@@ -33,7 +33,8 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
                 $ret   = $e->faultstring;
                 $regex = '/\{ \'([A-Z_]*)\' \}/';
                 $n     = preg_match($regex, $ret, $matches);
-                $ret   = $matches[1];
+                
+                $ret   = !empty($matches[1]) ? $matches[1] : $ret;
                 $faults = array (
                     'INVALID_INPUT'       => 'The provided CountryCode is invalid or the VAT number is empty',
                     'SERVICE_UNAVAILABLE' => 'The SOAP service is unavailable, try again later',
@@ -42,20 +43,26 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
                     'SERVER_BUSY'         => 'The service cannot process your request. Try again later.'
                 );
                 $ret = $faults[$ret];
+
+                // adding a log message
+                Shineisp_Commons_Utilities::log("Response from VIES: ".$ret);
                 
-                $subject    = 'Invalid VAT code for '.$context['firstname'].' '.$context['lastname'];
+                $subject    = 'Invalid VAT code';
                 $body       = "Response from VIES: ".$ret;            
                 $isp = Isp::getActiveISP ();
                 Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );                
-                
                 return false;
             }
+            
         } else {
+        	
             $subject    = 'Connect to VIES';
             $body       = "Impossible to connect with VIES";;            
             $isp = Isp::getActiveISP ();
             Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );             
             
+            // adding a log message
+            Shineisp_Commons_Utilities::log("Response from VIES: ".$ret);
             return false;
         }
 

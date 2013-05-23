@@ -6,7 +6,7 @@ Customers:
     lastname: Bucchieri
     sex: M
     email: null
-    password: $1$tuREYJue$.T15OcPSAMEzpyDcczYNV.
+    password: $1$FT.RCjcc$VoB/ityjp2mEFmwqYIvIr.
     resetpwd_key: ''
     resetpwd_expire: '0000-00-00 00:00:00'
     last_password_change: '2013-05-13 22:01:29'
@@ -27,6 +27,37 @@ Customers:
     issubscriber: true
     created_at: '2012-02-23 22:32:39'
     updated_at: '2012-02-23 22:32:39'
+    taxfree: false
+    isreseller: null
+    ignore_latefee: false
+  Customers_2:
+    uuid: null
+    company: 'WebDesign Software & Co.'
+    firstname: John
+    lastname: Doe
+    sex: M
+    email: null
+    password: $6$5G0LhQAw$/XxIVPFDZ8YHtXYGCFqzO2yRnimcn90gUCqJE.VYpVGLmIwRaFbws66ieKLVIA9H9IospuSKnl.ySvlPQ.7a7.
+    resetpwd_key: null
+    resetpwd_expire: null
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: '1982-01-15'
+    birthplace: London
+    birthdistrict: London
+    birthcountry: 'United Kingdom'
+    birthnationality: British
+    taxpayernumber: RPRSRA82E66H501Y
+    vat: UK03671234567
+    CompanyTypes: CompanyTypes_2
+    Legalforms: Legalforms_2
+    note: null
+    Statuses: Statuses_11
+    CustomersGroups: CustomersGroups_1
+    language: en_US
+    issubscriber: false
+    created_at: '2012-02-27 15:43:20'
+    updated_at: '2012-02-27 15:43:20'
     taxfree: false
     isreseller: null
     ignore_latefee: false
