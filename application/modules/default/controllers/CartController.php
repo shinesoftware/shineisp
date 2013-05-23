@@ -111,27 +111,32 @@ class CartController extends Zend_Controller_Action {
 				
 				// Get all the info about the product selected
 				$product = Products::getAllInfo ( $request ['product_id'] );
-				
+								
 				// Get the categories
 				$product ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product ['categories'] );
 				
 				$product['parent_orderid']		= "";
+				print_r($request);
 				if ($request ['isrecurring']) {
 					
 					// Get the tranche selected
 					$tranche = ProductsTranches::getTranchebyId ( $request ['quantity'] );
-					
+
 					$product ['isrecurring'] = true;
 					$product ['quantity'] 	= $tranche ['quantity'];
 					$product ['trancheid'] 	= $tranche ['tranche_id'];
 					$product ['billingid'] 	= $tranche ['billing_cycle_id'];
-					$product ['price_1'] 	= $tranche ['price'] * $tranche ['BillingCycle'] ['months'];
+					
+					$BillingCycleMonth      = (intval($tranche ['BillingCycle'] ['months']) > 0) ? $tranche ['BillingCycle'] ['months'] : 1;
+					
+					$product ['price_1'] 	= $tranche ['price'] * $BillingCycleMonth;
+					
 					$product ['setupfee']	= $tranche ['setupfee'];
 					
 					// JAY 20130409 - Add refund if exist
 					//Check if the product is OK for upgrade
 					$orderid = $this->checkIfIsUpgrade( $request ['product_id'] );
-					
+
 					if( $orderid != false ) {
 						unset ( $NS->cart );
 						$NS->cart->products [] 				= $product;
@@ -157,7 +162,7 @@ class CartController extends Zend_Controller_Action {
 					$orderid	= $this->checkIfIsUpgrade( $request ['product_id'] );
 					if( $orderid != false ) {
 						$product['parent_orderid']	= $orderid;
-						$product ['price_1'] = $this->getPriceWithRefund($orderid, $product ['price_1']);
+						$product ['price_1']        = $this->getPriceWithRefund($orderid, $product ['price_1']);
 						
 						unset ( $NS->cart );
 						$NS->cart->products [] 				= $product;
@@ -196,7 +201,6 @@ class CartController extends Zend_Controller_Action {
 						$NS->cart->products [] = $product;
 					}
 				}
-				
 				
 				// Check if the product is present in the cart
 				if ($this->checkIfHostingProductIsPresentWithinCart ()) {
