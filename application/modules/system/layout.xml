@@ -16,7 +16,7 @@
 		</execute>
 		
 		<!-- 0:30 every day -->
-		<execute time="0 30 * * *">
+		<execute time="30 0 * * *">
 			<script class="OrdersItems" method="checkServices">Check subscribed services</script>
 		</execute>
 		
