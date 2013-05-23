@@ -1787,12 +1787,19 @@ class Orders extends BaseOrders {
 			$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 			// Manage fullname
-			if ( is_array($items) && isset($items[0]) && isset($items [0] ['Customers']) ) {
-				if ( !empty($items [0] ['Customers']['company']) ) {
-					$items [0] ['Customers']['fullname']        = $items [0] ['Customers']['company'];
-					$items [0] ['Customers']['full_personname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];
-				} else {
-					$items [0] ['Customers']['fullname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
+			if ( is_array($items) && isset($items[0]) ) {
+				// Convert order number if empty
+				if ( !isset($items[0]['order_number']) && isset($items[0]['order_id']) ) {
+						$items[0]['order_number'] = self::formatOrderId($items[0]['order_id']);
+				}
+				
+				if ( !empty($items[0]['Customers']) ) {
+					if ( !empty($items [0] ['Customers']['company']) ) {
+						$items [0] ['Customers']['fullname']        = $items [0] ['Customers']['company'];
+						$items [0] ['Customers']['full_personname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];
+					} else {
+						$items [0] ['Customers']['fullname'] = $items [0] ['Customers']['lastname'].' '.$items [0] ['Customers']['firstname'];	
+					}
 				}
 			}
 			
@@ -2133,6 +2140,11 @@ class Orders extends BaseOrders {
 				$orders_number_format = str_replace('['.$placeholder.']', $v, $orders_number_format);
 			}
 		}
+		
+		// Update order_number. This is a fallback for older installations
+		$Order = Doctrine_Core::getTable('Orders')->find($orderId);
+		$Order->order_number = $orders_number_format;
+		$Order->save();
 		
 		return $orders_number_format;
 	}
@@ -2868,5 +2880,21 @@ class Orders extends BaseOrders {
 			die($pdf->create($grid));
 		
 		return false;	
-	}			
+	}	
+
+
+    /**
+     * Check if all items of order are complete
+     ***/
+    public function checkIfOrderItemsIsComplete( $orderid ) {
+        $records = OrdersItems::getAllDetails( $orderid,"s.code as statuscode", true );
+        foreach( $records as $record ) {
+            if( $record['statuscode'] != 'complete') {
+                return false;
+            }
+        }
+        
+        return true;        
+    }		
+
 }
