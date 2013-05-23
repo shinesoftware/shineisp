@@ -134,12 +134,14 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                         s.status as Status, 
                         o.vat as VAT, 
                         o.total as Total, 
-                        o.grandtotal as Grandtotal";
+                        o.grandtotal as Grandtotal
+                        so.code as servStatus";
             
-            $rs = Orders::getAllInfo ( $orderid, $fields, true, $id );            
+            $rs = Orders::getAllInfo ( $orderid, "*", true, $id );
             if ( empty ( $rs )) {
                 throw new Shineisp_Api_Shineisp_Exceptions( 404001, ":: Orders not found" );
             }
+            return $rs;
 
             $currency = Zend_Registry::getInstance ()->Zend_Currency;
             
@@ -159,19 +161,30 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
                 $order['Total']         = $currency->toCurrency($order['Total'], array('currency' => Settings::findbyParam('currency')));
                 $order['VAT']           = $currency->toCurrency($order['VAT'], array('currency' => Settings::findbyParam('currency')));
                 $order['Grandtotal']    = $currency->toCurrency($order['Grandtotal'], array('currency' => Settings::findbyParam('currency')));
-                
+                $order['price']         = $order['Grandtotal'];
                 $result['tobepaid'] = true;
             }
             
             $result['order']    = $order;
             
-            $records = OrdersItems::getAllDetails ( $orderid, "oi.detail_id, oi.description as description, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiration_date, oi.quantity as quantity, oi.price as price, bc.name as billingcycle, oi.setupfee as setupfee", true );
-            for ($i=0; $i<count($records); $i++){
+            $records = OrdersItems::getAllDetails ( $orderid, "oi.detail_id, oi.description as description, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiration_date, oi.quantity as quantity, oi.price as price, bc.name as billingcycle, oi.setupfee as setupfee,p.autosetup as autosetup, s.code as statuscode", true );
+            
+            $allactive  = false;
+            for ($i=0; $i<count($records); $i++) {
+                $records[$i]['itemactiveonorder']    = false;
+                if( $records[$i]['autosetup'] == 1 ) {
+                    $records[$i]['itemactiveonorder']   = true;
+                    $allactive                      = true;
+                } else {
+                    $allactive  = false;
+                }
+                
                 $records[$i]['price']       = $currency->toCurrency($records[$i]['price'], array('currency' => Settings::findbyParam('currency')));;
                 $records[$i]['setupfee']    = $currency->toCurrency($records[$i]['setupfee'], array('currency' => Settings::findbyParam('currency')));;
             }
             
-            $result['orderitems']  = $records;
+            $result['activeonorder']    = $allactive; 
+            $result['orderitems']       = $records;
             
             $result['invoidid']        = ($order['status_id'] == Statuses::id("complete", "orders") && $order['Invoice'] > 0) ? true : false;
             $result['invoidnumber']    = $order['Invoice'];
