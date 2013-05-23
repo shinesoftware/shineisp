@@ -1,0 +1,20 @@
+OrdersItems:
+  OrdersItems_1:
+    Orders: Orders_1
+    BillingCycle: BillingCycle_3
+    date_start: '2013-05-23 12:46:10'
+    date_end: '2014-05-23 12:46:10'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '84.00'
+    setupfee: '0.00'
+    Statuses: Statuses_9
+    parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
+    setup: {  }
+    note: null
+    Products: Products_1
+    parent_detail_id: null
+    description: 'Bronze Hosting Plan'
+    callback_url: null
+    uuid: null
