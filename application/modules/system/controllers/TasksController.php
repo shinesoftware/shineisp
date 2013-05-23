@@ -41,9 +41,16 @@ class System_TasksController extends Zend_Controller_Action {
 		// Get 20 Active tasks items
 		$tasks = PanelsActions::getTasks ( Statuses::id("active", "domains_tasks"), Statuses::id('active', 'domains') );
 		try {
-			// Check all the tasks saved within the Domains_Tasks table. 
+			// Check all the tasks saved within the Panels_Actions table. 
 			foreach ( $tasks as $task ) {
 				self::doPanelsTask($task);
+				
+	            // Check if all orderitem of order is complete and if is ok set order to complete
+	            $OrderItem = OrdersItems::getDetail($task['orderitem_id']);
+	            if( is_numeric($OrderItem['order_id']) && Orders::checkIfOrderItemsAreCompleted( $OrderItem['order_id'] ) ) {
+	            	Shineisp_Commons_Utilities::logs ('Order #'.$OrderItem['order_id'].' has all items completed. Set order status to complete.', "tasks.log" );
+	                Orders::set_status($OrderItem['order_id'], Statuses::id("complete", "orders"));
+	            }
 			}
 		}catch (SoapFault $e){
 			
@@ -147,7 +154,6 @@ class System_TasksController extends Zend_Controller_Action {
 				Shineisp_Commons_Utilities::logs ( $task ['action'] . " - " . $task ['domain'], "tasks.log" );
 				try {
 					self::doDomainTask($task);
-					
 				} catch ( SoapFault $e ) {
 					Shineisp_Commons_Utilities::logs ( $e->faultstring, "tasks.log" );
 				}

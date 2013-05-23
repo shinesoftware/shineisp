@@ -1122,7 +1122,7 @@ class OrdersItems extends BaseOrdersItems {
 			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
             
             //Check if all orderitem of order is complete and if is ok set order to complete
-            if( Orders::checkIfOrderItemsIsComplete( $OrderItem['order_id'] ) ) {
+            if( Orders::checkIfOrderItemsAreCompleted( $OrderItem['order_id'] ) ) {
                 Orders::set_status($OrderItem['order_id'], Statuses::id("complete", "orders"));
             }
 			
@@ -1137,7 +1137,7 @@ class OrdersItems extends BaseOrdersItems {
 		// TODO: this should call an hook or an even bound to the panel
 		if ( $Product->type == 'hosting' ) {		
 			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
-			
+
 			return true;
 		}
 		
