@@ -5,9 +5,9 @@
     <?php if(isset($products) && is_array($products)):?>
     <h3><?php echo $this->translate('Cart')?></h3>
     <ul>
-        <?php foreach($products as $product):?>
+        <?php foreach($products as $product): ?>
         
-        <?php $total += ($product['price_1'] * $product['quantity']) + $product['setupfee'];?>
+        <?php $total += ($product['price_1'] * $product['quantity']) + $product['setupfee']; ?>
         
         <li class="cart-item">
             <div class="item-picture">
@@ -23,7 +23,10 @@
                 <div class="item-title">
                     <?php if($product['type'] != "domain"): ?>
                     <a href="/products/<?php echo $product['uri'] ?>.html">
-                        <?php echo $product['ProductsData'][0]['name'] ?>
+                        <?php if ( !empty($product['ProductsData'][0]) ): 
+                        		echo $product['ProductsData'][0]['name'];
+							endif; 
+                    	?>
                     </a>
                     <?php else:?>
                         <?php echo $product['name'] ?>
