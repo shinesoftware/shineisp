@@ -182,8 +182,9 @@ class CmsPages extends BaseCmsPages {
 		
 		foreach ( $files as $file ) {
 			if(strpos($file, ".phtml")){
-				$name = str_replace(".phtml", "", $file);
-				$items [$name] = $file;
+				$filename = basename($file);
+				$name = str_replace(".phtml", "", $filename);
+				$items [$name] = $name;
 			}
 		}
 		
@@ -204,8 +205,9 @@ class CmsPages extends BaseCmsPages {
 		
 		foreach ( $files as $file ) {
 			if(strpos($file, ".phtml")){
-				$name = str_replace(".phtml", "", $file);
-				$items [$name] = $file;
+				$filename = basename($file);
+				$name = str_replace(".phtml", "", $filename);
+				$items [$name] = $name;
 			}
 		}
 		
