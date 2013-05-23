@@ -127,3 +127,19 @@ ProductsTranches:
     BillingCycle: BillingCycle_4
     measurement: month(s)
     selected: null
+  ProductsTranches_18:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '100.00'
+    Products: Products_5
+    BillingCycle: BillingCycle_5
+    measurement: 'una tantum'
+    selected: null
+  ProductsTranches_19:
+    quantity: '1'
+    setupfee: '0.00'
+    price: '30.00'
+    Products: Products_6
+    BillingCycle: BillingCycle_5
+    measurement: 'una tantum'
+    selected: null

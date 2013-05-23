@@ -95,3 +95,52 @@ Products:
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
     autosetup: '0'
+  Products_5:
+    uuid: d5f5624c-3e98-474d-936c-c54ba16134a7
+    sku: help01
+    uri: web-designer-help
+    inserted_at: '2013-05-23 12:23:45'
+    updated_at: '2013-05-23 12:35:42'
+    cost: 0
+    price_1: '0.00'
+    setupfee: '0.00'
+    setup: null
+    position: '0'
+    iscomparable: false
+    ishighlighted: false
+    isrefundable: true
+    send_request_review: false
+    showonrss: true
+    downgradable: false
+    enabled: true
+    type: generic
+    categories: '3'
+    Taxes: Taxes_1
+    external_id: null
+    ProductsAttributesGroups: ProductsAttributesGroups_1
+    blocks: null
+    autosetup: '0'
+  Products_6:
+    uuid: 43eba2c5-5a06-4fc5-b052-a49db77c4ca2
+    sku: help02
+    uri: template-customization
+    inserted_at: '2013-05-23 13:03:03'
+    updated_at: '2013-05-23 13:04:55'
+    cost: 0
+    price_1: '0.00'
+    setupfee: '0.00'
+    setup: null
+    position: '0'
+    iscomparable: false
+    ishighlighted: false
+    isrefundable: true
+    send_request_review: false
+    showonrss: false
+    downgradable: false
+    enabled: true
+    type: generic
+    categories: '3'
+    external_id: null
+    ProductsAttributesGroups: ProductsAttributesGroups_1
+    blocks: null
+    autosetup: '0'

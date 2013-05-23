@@ -15,3 +15,11 @@ EmailsTemplates:
     bcc: ''
     plaintext: false
     active: true
+  EmailsTemplates_3:
+    type: general
+    code: new_invoice
+    name: new_invoice
+    cc: ''
+    bcc: ''
+    plaintext: false
+    active: true

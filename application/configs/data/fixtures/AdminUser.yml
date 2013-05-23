@@ -8,7 +8,7 @@ AdminUser:
     force_password_change: '0'
     created: '2012-08-14 16:54:00'
     changed: '2013-05-22 14:44:31'
-    lognum: '6'
+    lognum: '8'
     AdminRoles: AdminRoles_1
     config: null
     Isp: Isp_1
