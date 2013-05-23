@@ -17,3 +17,21 @@ Fastlinks:
     id: '1'
     Customers: Customers_1
     visits: '0'
+  Fastlinks_3:
+    controller: orders
+    action: edit
+    params: '{"id":"1"}'
+    code: bebumili
+    sqltable: orders
+    id: '1'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_4:
+    controller: orders
+    action: edit
+    params: '{"id":"1"}'
+    code: kokuxede
+    sqltable: orders
+    id: '1'
+    Customers: Customers_2
+    visits: '0'

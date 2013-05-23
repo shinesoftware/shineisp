@@ -13,6 +13,7 @@ if ($this->data ['type'] == "multiple") {
 		$price = $this->data ['minvalue'];
 		$pricetax = $this->data ['minvaluewithtaxes'];
 		$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
+		$price = $this->currency($price, array('currency' => Settings::findbyParam('currency')));
 		
 		// Get the recurring period label
 		if(!empty($this->data['tranches'][0] ['measurement'])){
@@ -32,6 +33,9 @@ if ($this->data ['type'] == "multiple") {
 	
 	$price = $this->data ['value'];
 	$pricetax = $this->data ['taxincluded'];
+	
+	$price = $this->currency($price, array('currency' => Settings::findbyParam('currency')));
+	$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 	
 	// Print the price
 	echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax</strong></li>";
