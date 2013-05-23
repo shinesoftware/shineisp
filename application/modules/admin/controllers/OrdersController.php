@@ -438,7 +438,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		if (is_numeric ($request->id) && !Orders::isInvoiced($request->id)) {
 			//TODO: create invoice should only create the invoice and not set order as complete
 			//Orders::Complete($request->id);
-			Invoices::Create ( $orderid );
+			Invoices::Create ( $request->id );
 			
 			$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		}
