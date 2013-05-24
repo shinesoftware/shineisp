@@ -70,7 +70,7 @@ class Contacts extends BaseContacts {
     public static function find($id, $fields = "*", $retarray = false) {
         $dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Contacts c' )->addWhere ( "contact_id = $id" )->limit ( 1 );
         $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
-        $record = $dq->execute ( array (), $retarray );
+        $record = $dq->fetchOne ( array (), $retarray );
         return $record;
     }
 	
