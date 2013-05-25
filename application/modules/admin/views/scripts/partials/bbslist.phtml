@@ -1,13 +1,13 @@
 
 <?php if (isset($this->records)):?>
 	<?php $class = "even"?>
-	<table border="0" cellpadding="5" id="bbslist" >
+	<table id="bbslist" >
 		<?php foreach ( $this->records as $record ) : ?>
 			<?php $class = ($class == "even") ? "odd" : "even"; ?>
 			  <tr class="<?php echo $class?>">
 			    <td class="message">
 				    <div class="gravatar"><? echo !empty($record['Isp']['ispemail']) ? Shineisp_Commons_Gravatar::get_gravatar ( $record['Isp']['ispemail'], 60 ) : Shineisp_Commons_Gravatar::get_gravatar ( $record['Customers']['customeremail'], 60 ); ?></div>
-				    <div class="author"><? echo !empty($record['Isp']['company']) ? $record['Isp']['company'] : $record['Customers']['fullname']; ?></div>
+				    <div class="author"><? echo !empty($record['Isp']['company']) ? $record['Isp']['company'] : $record['Customers']['fullname']; ?></div> 
 				    <div class="postdate"><?= $record['dateposted']; ?></div>
 				    <div class="message-body"><?= $record['message']; ?></div>
 			    </td>

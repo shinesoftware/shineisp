@@ -21,7 +21,7 @@ ProductsData:
     name: 'Hosting Plan Argento'
     nickname: Argento
     shortdescription: '<p><span id="result_box" lang="it"><span class="hps">I</span><span class="hps">niziare a lavorare</span> <span class="hps">sul tuo sito</span> <span class="hps">Web</span> <span class="hps">in pochi minuti</span><span>.</span><br /> <span class="hps">Vi mettiamo a disposizione</span> <span class="hps">gli strumenti</span><span>, tutorial</span> <span class="hps">e supporto</span> <span class="hps">per rendere</span> <span class="hps">l''installazione</span> <span class="hps">e la configurazione</span> <span class="hps">un compito facile.</span></span></p>'
-    description: "<p>Se hai bisogno di aiuto durante l'installazione iniziale e la configurazione del tuo account di hosting, noi di ShineISP sar&agrave; lieta di assistervi senza alcun costo aggiuntivo.</p>\r\n<p>Avete sentito bene, ho detto senza alcun costo. I nostri strumenti e tutorial risponder&agrave; la maggior parte se non tutte le vostre domande durante l'installazione e la configurazione.</p>\r\n<p>Se hai ancora bisogno di aiuto, noi vi aiuteremo senza alcun costo aggiuntivo. ShineISP &egrave; grande abbastanza per soddisfare le vostre esigenze di hosting Web e abbastanza piccolo per darvi il servizio personalizzato che vi meritate.  La nostra assistenza clienti &egrave; un elemento fondamentale per rendere la vita pi&ugrave; facile. Siamo orgogliosi di superare le aspettative dei nostri clienti.</p>"
+    description: "<p>Se hai bisogno di aiuto durante l'installazione iniziale e la configurazione del tuo account di hosting, noi di ShineISP sar&agrave; lieta di assistervi senza alcun costo aggiuntivo.</p>\r\n<p>Avete sentito bene, ho detto senza alcun costo. I nostri strumenti e tutorial risponder&agrave; la maggior parte se non tutte le vostre domande durante l'installazione e la configurazione.</p>\r\n<p>Se hai ancora bisogno di aiuto, noi vi aiuteremo senza alcun costo aggiuntivo. ShineISP &egrave; grande abbastanza per soddisfare le vostre esigenze di hosting Web e abbastanza piccolo per darvi il servizio personalizzato che vi meritate. La nostra assistenza clienti &egrave; un elemento fondamentale per rendere la vita pi&ugrave; facile. Siamo orgogliosi di superare le aspettative dei nostri clienti.</p>"
     Products: Products_2
     Languages: Languages_2
     metakeywords: ''
@@ -72,38 +72,20 @@ ProductsData:
     metakeywords: ''
     metadescription: ''
   ProductsData_9:
-    name: 'Web Designer Help'
-    nickname: 'Web Designer'
-    shortdescription: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non erat dolor, vitae tempus magna. Nulla molestie, dui vitae pretium egestas, erat neque iaculis elit, sed vulputate lectus nunc vel libero. Curabitur hendrerit elit at ligula pulvinar ac interdum turpis vehicula. Cras cursus ornare semper. Integer dui ante, pulvinar et feugiat sed, aliquam quis quam. Sed gravida magna at justo sodales vulputate. Pellentesque ac arcu felis. Vivamus dapibus massa non nunc rutrum sodales.</p>'
-    description: "<p>Sed dui nisl, posuere vitae elementum imperdiet, eleifend ac nunc. Donec condimentum orci vitae eros placerat tempus. Sed venenatis purus eu augue posuere at ultrices lectus placerat. Nulla facilisi. Fusce hendrerit hendrerit nibh, in blandit nibh egestas sed. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eleifend, ipsum vehicula feugiat mattis, magna felis sodales tortor, et auctor lectus leo et nisl. Cras at lorem metus, ut aliquet ligula. Phasellus ac massa felis. Nulla ut turpis risus, sit amet mollis turpis. Nulla facilisi. Duis tincidunt, leo id scelerisque laoreet, augue augue malesuada nisl, in semper ipsum lacus at justo. Aliquam dapibus, elit eu rutrum lacinia, turpis lacus pretium dui, at auctor risus nisl at arcu. Integer turpis ligula, lacinia sit amet bibendum vitae, semper non nunc.</p>\r\n<p>Duis porta, ligula ut aliquam rhoncus, nisi tortor ultricies est, nec iaculis dolor felis in odio. Morbi feugiat mattis eros, vitae posuere mauris suscipit sit amet. Nullam pellentesque nibh eget dolor dapibus tristique. Suspendisse venenatis eleifend magna, eu egestas augue tempor id. Curabitur id porta sapien. Mauris cursus elit in sapien lobortis non suscipit lacus hendrerit. Donec ut massa ac nisi pretium dictum eget in augue. Vivamus vel arcu erat. Duis congue, nibh eget iaculis dictum, mi arcu vestibulum lectus, eu euismod turpis magna at nisi. Sed euismod, libero ut accumsan egestas, orci sem mollis velit, at placerat augue arcu in dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean ullamcorper vehicula justo, quis gravida quam imperdiet imperdiet. In augue ligula, auctor vel iaculis at, cursus vel libero. Donec non laoreet turpis.</p>"
+    name: Programmatore
+    nickname: Helpdesk
+    shortdescription: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras viverra ipsum quis magna adipiscing semper. Fusce vulputate sodales tortor ac interdum. Suspendisse adipiscing pulvinar lectus vitae luctus.</p>'
+    description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras viverra ipsum quis magna adipiscing semper. Fusce vulputate sodales tortor ac interdum. Suspendisse adipiscing pulvinar lectus vitae luctus. Nam sagittis dapibus dui, quis euismod nulla iaculis vel. Proin facilisis velit eget eros hendrerit egestas. Etiam interdum tempor sapien ut egestas. Suspendisse volutpat lorem vel augue lobortis porta. Aenean euismod interdum arcu, vel aliquam enim tincidunt tincidunt. In pharetra ultrices ante, eu commodo magna fermentum convallis. Sed libero nisl, ultrices sollicitudin scelerisque nec, euismod quis lectus.</p>'
     Products: Products_5
     Languages: Languages_2
     metakeywords: ''
     metadescription: ''
   ProductsData_10:
-    name: 'Web Designer Help'
-    nickname: 'Web Designer'
-    shortdescription: '<p>Duis porta, ligula ut aliquam rhoncus, nisi tortor ultricies est, nec iaculis dolor felis in odio. Morbi feugiat mattis eros, vitae posuere mauris suscipit sit amet. Nullam pellentesque nibh eget dolor dapibus tristique.</p>'
-    description: '<p>Duis porta, ligula ut aliquam rhoncus, nisi tortor ultricies est, nec iaculis dolor felis in odio. Morbi feugiat mattis eros, vitae posuere mauris suscipit sit amet. Nullam pellentesque nibh eget dolor dapibus tristique. Suspendisse venenatis eleifend magna, eu egestas augue tempor id. Curabitur id porta sapien. Mauris cursus elit in sapien lobortis non suscipit lacus hendrerit. Donec ut massa ac nisi pretium dictum eget in augue. Vivamus vel arcu erat. Duis congue, nibh eget iaculis dictum, mi arcu vestibulum lectus, eu euismod turpis magna at nisi. Sed euismod, libero ut accumsan egestas, orci sem mollis velit, at placerat augue arcu in dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean ullamcorper vehicula justo, quis gravida quam imperdiet imperdiet. In augue ligula, auctor vel iaculis at, cursus vel libero. Donec non laoreet turpis.</p>'
+    name: Developer
+    nickname: helpdesk
+    shortdescription: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras viverra ipsum quis magna adipiscing semper.</p>'
+    description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras viverra ipsum quis magna adipiscing semper. Fusce vulputate sodales tortor ac interdum. Suspendisse adipiscing pulvinar lectus vitae luctus. Nam sagittis dapibus dui, quis euismod nulla iaculis vel. Proin facilisis velit eget eros hendrerit egestas. Etiam interdum tempor sapien ut egestas. Suspendisse volutpat lorem vel augue lobortis porta. Aenean euismod interdum arcu, vel aliquam enim tincidunt tincidunt. In pharetra ultrices ante, eu commodo magna fermentum convallis. Sed libero nisl, ultrices sollicitudin scelerisque nec, euismod quis lectus.</p>'
     Products: Products_5
     Languages: Languages_1
-    metakeywords: ''
-    metadescription: ''
-  ProductsData_11:
-    name: 'Template Customization'
-    nickname: 'Custom Template'
-    shortdescription: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque congue justo, sed posuere diam convallis varius. Curabitur lectus purus, malesuada vitae convallis imperdiet, ornare vitae tellus.</p>'
-    description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque congue justo, sed posuere diam convallis varius. Curabitur lectus purus, malesuada vitae convallis imperdiet, ornare vitae tellus. Curabitur a nibh leo, in hendrerit lacus. Nam lacinia nulla ut velit euismod vel cursus mi fringilla. Sed egestas velit at urna varius malesuada. Proin ornare consectetur lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer lobortis libero ac sem tristique sit amet consectetur lectus dapibus. Phasellus ultricies aliquam dui. Quisque eu justo augue, eget imperdiet libero. Duis pretium sapien sed augue venenatis ut vulputate risus convallis.</p>'
-    Products: Products_6
-    Languages: Languages_1
-    metakeywords: ''
-    metadescription: ''
-  ProductsData_12:
-    name: 'Template Customization'
-    nickname: 'Custom Template'
-    shortdescription: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque congue justo, sed posuere diam convallis varius. Curabitur lectus purus, malesuada vitae convallis imperdiet, ornare vitae tellus. Curabitur a nibh leo, in hendrerit lacus. Nam lacinia nulla ut velit euismod vel cursus mi fringilla. Sed egestas velit at urna varius malesuada. Proin ornare consectetur lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer lobortis libero ac sem tristique sit amet consectetur lectus dapibus. Phasellus ultricies aliquam dui. Quisque eu justo augue, eget imperdiet libero. Duis pretium sapien sed augue venenatis ut vulputate risus convallis.</p>'
-    description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque congue justo, sed posuere diam convallis varius. Curabitur lectus purus, malesuada vitae convallis imperdiet, ornare vitae tellus. Curabitur a nibh leo, in hendrerit lacus. Nam lacinia nulla ut velit euismod vel cursus mi fringilla. Sed egestas velit at urna varius malesuada. Proin ornare consectetur lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer lobortis libero ac sem tristique sit amet consectetur lectus dapibus. Phasellus ultricies aliquam dui. Quisque eu justo augue, eget imperdiet libero. Duis pretium sapien sed augue venenatis ut vulputate risus convallis.</p>'
-    Products: Products_6
-    Languages: Languages_2
     metakeywords: ''
     metadescription: ''

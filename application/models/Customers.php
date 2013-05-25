@@ -126,7 +126,7 @@ class Customers extends BaseCustomers {
 		$customer->type_id      = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
 		$customer->parent_id    = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
 		$customer->isreseller   = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
-		$customer->language     = ! empty ( $data ['language'] ) ? $data ['language'] : "it_IT";
+		$customer->language_id     = ! empty ( $data ['language_id'] ) ? $data ['language_id'] : 1;
 		$customer->created_at   = date ( 'Y-m-d H:i:s' );
 		$customer->updated_at   = date ( 'Y-m-d H:i:s' );
 
@@ -200,7 +200,7 @@ class Customers extends BaseCustomers {
 			,'fullname'  => $data['fullname']
 			,'signature' => $isp['company']
 			,'password'  => $passwd
-		));
+		), null, null, null, null, $data['language_id']);
 	}
 	
 	/**
@@ -309,7 +309,7 @@ class Customers extends BaseCustomers {
 			$customer['parent_id'] = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
 			$customer['isreseller'] = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
 			$customer['ignore_latefee'] = (bool)$data ['ignore_latefee'];
-			$customer['language'] = $data['language'];
+			$customer['language_id'] = $data['language_id'];
 			
 			$customer->save();
 				
@@ -556,6 +556,7 @@ class Customers extends BaseCustomers {
 	public static function get_customers($ids, $fields=null) {
 		$dq = Doctrine_Query::create ()->from ( 'Customers c' )
 										->leftJoin ( 'c.Orders o' )
+										->leftJoin ( 'c.Languages lng' )
 										->leftJoin ( 'o.OrdersItems oi' )
 										->leftJoin ( 'c.CompanyTypes cts' )
 										->leftJoin ( 'c.Legalforms l' )
@@ -1193,7 +1194,9 @@ class Customers extends BaseCustomers {
 				
 			$customer->addChild('note',"<![CDATA[".htmlentities($item['note'])."]]>");
 				
-			$customer->addChild('language',$item['language']);
+			$language = $customer->addChild('language',$item['Languages']['language']);
+			$language->addAttribute('language_id', $item['language_id']);
+			
 			$customer->addChild('issubscriber',$item['issubscriber']);
 			$customer->addChild('created_at',$item['created_at']);
 			$customer->addChild('updated_at',$item['updated_at']);

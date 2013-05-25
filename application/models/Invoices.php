@@ -547,10 +547,12 @@ class Invoices extends BaseInvoices {
                 $customer        = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
                 $customer       .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
                 $customer_email  = $invoice_dest ['email'];
+                $language_id  = $invoice_dest ['language_id'];
             } else {
                 $customer        = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
                 $customer       .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
                 $customer_email  = $order [0] ['Customers'] ['email'];
+                $language_id  = $order [0] ['Customers'] ['language_id'];
             }
             
             $email = $order [0] ['Isp'] ['email'];
@@ -572,7 +574,7 @@ class Invoices extends BaseInvoices {
 				,'url'        => $url
 				,':shineisp:' => $order [0] ['Customers']
 				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-			));			
+			), null, null, null, null, $language_id);			
             return true;
         }
         

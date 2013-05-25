@@ -2,6 +2,12 @@ CmsPagesData:
   CmsPagesData_1:
     CmsPages: CmsPages_3
     Languages: Languages_2
+  CmsPagesData_2:
+    CmsPages: CmsPages_1
+    Languages: Languages_1
+  CmsPagesData_3:
+    CmsPages: CmsPages_1
+    Languages: Languages_2
   CmsPagesData_4:
     CmsPages: CmsPages_4
     Languages: Languages_1
@@ -32,9 +38,3 @@ CmsPagesData:
   CmsPagesData_13:
     CmsPages: CmsPages_2
     Languages: Languages_8
-  CmsPagesData_22:
-    CmsPages: CmsPages_1
-    Languages: Languages_1
-  CmsPagesData_23:
-    CmsPages: CmsPages_1
-    Languages: Languages_2

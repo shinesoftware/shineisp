@@ -1296,12 +1296,12 @@ class Domains extends BaseDomains {
 	 */	
 	public static function sendRenewConfirm($domain_id){
 		if(is_numeric($domain_id)){
-			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.email as email, CONCAT(d.domain, '.', d.tld) as domain", true);
+			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.language_id as language_id, c.email as email, CONCAT(d.domain, '.', d.tld) as domain", true);
 			
 			if(!empty($domain[0])){
 				Shineisp_Commons_Utilities::sendEmailTemplate($domain[0] ['email'], 'domain_renewed', array(
 					':shineisp:' => $domain
-				));
+				), null, null, null, null, $domain['language_id']);
 			}
 		}
 	}
@@ -1314,12 +1314,12 @@ class Domains extends BaseDomains {
 	 */	
 	public static function sendCreateConfirm($domain_id){
 		if(is_numeric($domain_id)){
-			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.email as email, CONCAT(d.domain, '.', d.tld) as domain", true);
+			$domain = self::getAllInfo($domain_id, null, "domain_id, customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.language_id as language_id, c.email as email, CONCAT(d.domain, '.', d.tld) as domain", true);
 			
 			if(!empty($domain[0])){
 				Shineisp_Commons_Utilities::sendEmailTemplate($domain[0] ['email'], 'domain_created', array(
 					':shineisp:' => $domain
-				));
+				), null, null, null, null, $customer['language_id']);
 			}
 		}
 	}

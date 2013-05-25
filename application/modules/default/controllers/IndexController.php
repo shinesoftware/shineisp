@@ -152,7 +152,7 @@ class IndexController extends Zend_Controller_Action {
 				Shineisp_Commons_Utilities::sendEmailTemplate($customer [0] ['email'], 'password_reset_link', array(
 					 'link'       => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . $resetKey
 					,':shineisp:' => $customer
-				));		
+				), null, null, null, null, $customer[0]['language_id']);		
 				
 				$this->view->mextype = "information";
 				$this->view->mex = $translator->translate ( 'Password sent to your email box. You have to click in the link written in the email.' );
@@ -192,7 +192,7 @@ class IndexController extends Zend_Controller_Action {
 				  'email'      => $customer[0]['email']
 				 ,':shineisp:' => $customer
 				 ,'password'   => $newPwd
-			));		
+			), null, null, null, null, $customer[0]['language_id']);		
 			
 			$this->view->mextype = "information";
 			$this->view->mex = $translator->translate ( 'Email sent' );

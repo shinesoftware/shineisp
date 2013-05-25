@@ -1,66 +1,32 @@
 EmailsTemplatesSends:
   EmailsTemplatesSends_1:
-    Customers: Customers_1
-    date: '2013-05-13 19:49:50'
+    date: '2013-05-25 16:49:48'
     fromemail: info@shineisp.com
     fromname: ShineISP
-    subject: 'Link Reset Password'
-    recipient: customers@shinesoftware.com
-    cc: ''
-    bcc: info@shineisp.com
-    html: true
-    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: http://www.shineisp.it/index/resetpwd/id/j3mDJCYcYjCEbknWeshY8hj1<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
-  EmailsTemplatesSends_2:
-    Customers: Customers_1
-    date: '2013-05-13 19:55:03'
-    fromemail: info@shineisp.com
-    fromname: ShineISP
-    subject: 'Link Reset Password'
-    recipient: customers@shinesoftware.com
-    cc: ''
-    bcc: info@shineisp.com
-    html: true
-    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: http://www.shineisp.it/index/resetpwd/id/CJhTnqNATn3IpQRSlT4AF9SN<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
-  EmailsTemplatesSends_3:
-    Customers: Customers_1
-    date: '2013-05-13 21:01:26'
-    fromemail: info@shineisp.com
-    fromname: ShineISP
-    subject: 'Nuova Password'
-    recipient: customers@shinesoftware.com
-    cc: ''
-    bcc: info@shineisp.com
-    html: true
-    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: SY8j0OgPnF01oDsr<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
-  EmailsTemplatesSends_4:
-    Customers: Customers_1
-    date: '2013-05-13 21:42:24'
-    fromemail: info@shineisp.com
-    fromname: ShineISP
-    subject: 'Link Reset Password'
-    recipient: customers@shinesoftware.com
-    cc: ''
-    bcc: info@shineisp.com
-    html: true
-    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo il link come da lei richiesto per reimpostare la sua password: http://www.shineisp.it/index/resetpwd/id/6s3sgXJic6q1bJSqZcrNmqQm<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
-  EmailsTemplatesSends_5:
-    date: '2013-05-13 21:50:50'
-    fromemail: info@shineisp.com
-    fromname: ShineISP
-    subject: 'Nuova Password'
+    subject: 'Commento all''ordine n° 003 - 25/05/2013'
     recipient: info@shineisp.com
     cc: ''
     bcc: info@shineisp.com
     html: true
-    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: 4uxjUfWOu6KNhklR<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
-  EmailsTemplatesSends_6:
-    Customers: Customers_1
-    date: '2013-05-13 22:01:29'
+    text: "Gentile Giuseppe Bucchieri,<br />\n<br />\nè stato inserito un messaggio all'ordine n° 003 - 25/05/2013.<br />\nVi invitiamo a visualizzare il messaggio facendo click nel seguente link: <br />\n<br />\nhttp://www.shineisp.it/index/link/id/nonanezu<br />\n<br />\nNon rispondete a questa email, non riceverete alcuna risposta. Dovete usare il modulo di risposta presente nel link precedentemente indicato. <br />\n<br />\nGrazie per aver scelto i nostri servizi. <br />\n<br />\nCordialmente,<br />\nShineISP\n"
+  EmailsTemplatesSends_2:
+    date: '2013-05-25 16:49:48'
     fromemail: info@shineisp.com
     fromname: ShineISP
-    subject: 'Nuova Password'
-    recipient: customers@shinesoftware.com
+    subject: 'Message with order no 003 - 25/05/2013'
+    recipient: info@shineisp.com
     cc: ''
     bcc: info@shineisp.com
     html: true
-    text: "Gentile Cliente,<br />\n<br />\nqui di seguito le inviamo la sua nuova password per accedere al pannello di controllo ed utilizzare i nostri servizi: WzEw0Bd6JHrZjfAj<br />\n<br />\nPer ulteriori informazioni non esiti a contattarci.<br />\n<br />\nCordialmente."
+    text: "Dear Administrator,<br />\n<br />\na message was received concerning the order no 003 - 25/05/2013 from client Giuseppe Bucchieri.<br />\nPlease reply to the message by clicking the following link:<br />\n<br />\nhttp://www.shineisp.it/admin/login/link/id/nonanezu/keypass/4ea20086700a7a1ca9ddcd8d4ad3a1017bd164b1c0d3feed2765fdd6a5a8fdfda85c<br />\n<br />\n<p>Gentile Cliente,</p>\r\n<p>grazie per aver sottoscritto il servizio hosting. A breve i sistemi creeranno il suo piano hosting e ricever&agrave; una email.</p>\r\n<p>Cordialmente</p><br />\n<br />\nThe ShineISP Bot,<br />\nShineISP\n"
+  EmailsTemplatesSends_3:
+    Customers: Customers_1
+    date: '2013-05-25 17:01:47'
+    fromemail: info@shineisp.com
+    fromname: ShineISP
+    subject: 'Il suo ordine 000004-2013 su ShineISP'
+    recipient: g.bucchieri@shineisp.com
+    cc: ''
+    bcc: info@shineisp.com
+    html: true
+    text: "Grazie per il suo ordine #000004-2013 su ShineISP, Shine Software.<br />\n<br />\nPuo' effettuare il pagamento via carta di credito oppure mediante bonifico bancario. Di seguito le coordinate:<br />\n<br />\nPagare con carta di credito:<br />\n<br />\n- Accedete all'indirizzo: http://www.shineisp.it/index/link/id/sokiselo<br />\n<br />\n- Effettuate il pagamento con carta di credito, facendo click sul bottone di pagamento posto nella scheda dei dettagli dell'ordine<br />\n<br />\nPagare con bonifico bancario:<br />\n<br />\n<p><strong>Shine Software</strong><br /><strong>IBAN: </strong>IT39P0316501600000071001251<br /><strong>c/c: </strong>701001251 <br /><strong>BIC: </strong>IWBKITMM</p>\r\n<p>Effettua il tuo pagamento adesso via bonifico bancario ed invia <strong>copia dell'avvenuto bonifico</strong> a customers@shinesoftware.com per agevolarne la pratica. I servizi e/o prodotti richiesti verranno erogati alla ricezione del pagamento.</p><br />\n<br />\nIMPORTANTE: Inserite nella descrizione del bonifico il codice d'ordine: 000004-2013<br />\n<br />\nPer ogni informazione complementare, contattateci : g.bucchieri@shineisp.com<br />\n<br />\nSe desiderate cancellare l'ordine realizzato basta fare click nel bottone presente nella scheda dell'ordine: Cancella Ordine.<br />\n<br />\n<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\nShineISP\n"
