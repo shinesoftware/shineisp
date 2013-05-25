@@ -645,6 +645,7 @@ class Invoices extends BaseInvoices {
      */
     public static function PrintPDF($invoice_id, $show = true, $force=false, $path="/documents/invoices/") {
     		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+			$pdf      = new Shineisp_Commons_PdfOrder ( );
     	
     		if(!is_numeric($invoice_id)){
     			return false;
@@ -653,19 +654,24 @@ class Invoices extends BaseInvoices {
 			$invoice = Invoices::find ( $invoice_id );
 			//* GUEST - ALE - 20130225: invoice not found?
 			if ( !$invoice ) {
-				die();
 				return false;
 			}
-			
-    		
-    		$pdf = new Shineisp_Commons_PdfOrder ( );
-    		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-			$invoice = $invoice->toArray ();
-			$payments = Payments::findbyorderid ( $invoice ['order_id'], null, true );
-			$order = Orders::getAllInfo ( $invoice ['order_id'], null, true );
-			
+			$invoice    = $invoice->toArray ();
 			// Set the name of the file
 			$filename = $invoice ['invoice_date'] . " - " . $invoice ['number'] . ".pdf";
+    		
+			// Invoice already exists, we return it
+			if ( file_exists(PUBLIC_PATH.$path.'/'.$filename) && !$force ) {
+				$pdf->CreatePDF (  null, $filename, $show, $path, false);
+				return $path.$filename;
+			}			
+			
+			
+    		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+			
+			$payments   = Payments::findbyorderid ( $invoice ['order_id'], null, true );
+			$order      = Orders::getAllInfo ( $invoice ['order_id'], null, true );
+			
 			
 			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . sprintf("%03d", $invoice['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
 			$database ['columns'] [] = array ("value" => "SKU", "size" => 30 );

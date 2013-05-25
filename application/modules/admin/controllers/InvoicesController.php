@@ -127,6 +127,35 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 	}
 	
 	/**
+	 * confirmOverwriteAction
+	 * Ask to the user a confirmation before overwriting an invoice
+	 * @return null
+	 */
+	public function confirmoverwriteAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		try {
+			if (is_numeric ( $id )) {
+				$this->view->back = "/admin/$controller/edit/id/$id";
+				$this->view->goto = "/admin/$controller/overwrite/id/$id";
+				$this->view->title = $this->translator->translate ( 'Are you sure to overwrite the invoice selected?' );
+				$this->view->description = $this->translator->translate ( 'The invoice will be overwritten with current customer/product info.' );
+				$record = $this->invoices->find ( $id );
+				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['invoice_date'] );
+				
+				$this->render ( 'confirm' );
+				
+			} else {
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+			}
+		} catch ( Exception $e ) {
+			echo $e->getMessage ();
+		}
+	
+	}
+	
+	
+	/**
 	 * deleteAction
 	 * Delete a record previously selected by the order
 	 * @return unknown_type
@@ -193,6 +222,8 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 				
 				// Check if the order has been invoiced
 				$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/invoices/confirmoverwrite/id/$id", "label" => $this->translator->translate('Overwrite invoice'), "params" => array('css' => array('button', 'float_right')));
 				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/".$rs ['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('button', 'float_right')));
 				
 				$form->populate ( $rs );
@@ -328,7 +359,25 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				$file = Invoices::PrintPDF($request->id, true, true);
+				$file = Invoices::PrintPDF($request->id, true, false);
+			}
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+		die ();
+	}
+
+	/**
+	 * overwriteAction
+	 * Overwrite a pdf invoice document
+	 * @return void
+	 */
+	public function overwriteAction() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		try {
+			if (is_numeric ( $request->id )) {
+				Invoices::PrintPDF($request->id, false, true);
+				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			}
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
