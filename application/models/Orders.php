@@ -2889,12 +2889,12 @@ class Orders extends BaseOrders {
 
 
     /**
-     * Check if all items of order are complete
+     * Check if all items of order are completed
      ***/
-    public function checkIfOrderItemsIsComplete( $orderid ) {
+    public function checkIfOrderItemsAreCompleted( $orderid ) {
         $records = OrdersItems::getAllDetails( $orderid,"s.code as statuscode", true );
         foreach( $records as $record ) {
-            if( $record['statuscode'] != 'complete') {
+            if( $record['statuscode'] != Statuses::id('complete','orders')) {
                 return false;
             }
         }
