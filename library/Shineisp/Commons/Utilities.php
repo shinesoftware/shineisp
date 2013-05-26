@@ -12,6 +12,15 @@
 class Shineisp_Commons_Utilities {
 	
 	/**
+	 * Replace a simple text link in a clickable link
+	 * @param string $str
+	 * @return string or boolean
+	 */
+	public static function makeClickableLinks($s) {
+		return preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.-]*(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $s);
+	}
+	
+	/**
 	 * Check if the directory is writtable
 	 * @param string $path
 	 */
@@ -729,9 +738,11 @@ class Shineisp_Commons_Utilities {
 		}
 				
 		if ($html) {
+			$body = self::makeClickableLinks($body);
 			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
 			if(self::isHtml($body)){
+				$body = self::makeClickableLinks($body);
 				$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 			}else{
 				$mail->setBodyText ( $body);
