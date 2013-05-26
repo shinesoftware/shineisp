@@ -141,7 +141,7 @@ class IndexController extends Zend_Controller_Action {
 		
 		if ($request->isPost ()) {
 			$email    = $request->getParam ( 'account' );
-			$customer = Customers::findbyemail ( $email, "email, password", true );
+			$customer = Customers::findbyemail ( $email, "email, password, language_id", true );
 
 			if ( isset($customer [0]) && is_numeric($customer[0]['customer_id']) ) {
 				// generate key
