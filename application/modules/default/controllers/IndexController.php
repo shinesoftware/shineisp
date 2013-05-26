@@ -189,7 +189,8 @@ class IndexController extends Zend_Controller_Action {
             $customer[0]['password']    = $newPwd;
 			// Getting the email template
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer[0]['email'], 'password_new', array(
-				  'email'      => $customer[0]['email']
+				   'fullname'       => $customer [0] ['lastname']
+				  ,'email'      => $customer[0]['email']
 				 ,':shineisp:' => $customer
 				 ,'password'   => $newPwd
 			), null, null, null, null, $customer[0]['language_id']);		
