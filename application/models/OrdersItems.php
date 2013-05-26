@@ -220,6 +220,7 @@ class OrdersItems extends BaseOrdersItems {
         										   c.customer_id as id, 
         										   DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiringdate,
         										   o.customer_id as customer_id,
+        										   o.language_id as language_id,
         										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
         										   c.email as email, 
         										   c.password as password,
@@ -960,7 +961,7 @@ class OrdersItems extends BaseOrdersItems {
 						Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_renew', array(
 							':shineisp:' => $customer
 							,'url'       => $url
-						));
+						), null, null, null, null, $customer['language_id']);
 						
 						
 					}
@@ -1122,7 +1123,7 @@ class OrdersItems extends BaseOrdersItems {
 			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
             
             //Check if all orderitem of order is complete and if is ok set order to complete
-            if( Orders::checkIfOrderItemsIsComplete( $OrderItem['order_id'] ) ) {
+            if( Orders::checkIfOrderItemsAreCompleted( $OrderItem['order_id'] ) ) {
                 Orders::set_status($OrderItem['order_id'], Statuses::id("complete", "orders"));
             }
 			
@@ -1137,7 +1138,7 @@ class OrdersItems extends BaseOrdersItems {
 		// TODO: this should call an hook or an even bound to the panel
 		if ( $Product->type == 'hosting' ) {		
 			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
-			
+
 			return true;
 		}
 		

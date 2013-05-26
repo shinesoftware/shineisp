@@ -164,7 +164,8 @@ class Shineisp_Api_Panels_Base {
                    ,'hostingplan'  => $productname
 				   ,'controlpanel' => $ISP ['website'].":8080"
 				   ,'signature'    => $ISP ['company']
-				),null,null,null,$ISP);
+				), null, null, null, $ISP, $customer['language_id']);
+				
 									
 				
 			}

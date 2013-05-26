@@ -8,7 +8,7 @@ Addresses:
     latitude: null
     longitude: null
     Customers: Customers_1
-  Addresses_3:
+  Addresses_2:
     address: '11, Churchil street'
     city: Newcastle
     code: ''
@@ -17,3 +17,12 @@ Addresses:
     latitude: '54.978252'
     longitude: '-1.61778'
     Customers: Customers_2
+  Addresses_3:
+    address: 'Viale della Conciliazione, 11'
+    city: Roma
+    code: '00100'
+    Countries: Countries_82
+    area: RM
+    latitude: null
+    longitude: null
+    Customers: Customers_3
