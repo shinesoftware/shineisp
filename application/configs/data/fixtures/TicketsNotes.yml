@@ -5,3 +5,21 @@ TicketsNotes:
     Tickets: Tickets_1
     date_post: '2012-02-24 17:51:58'
     vote: null
+  TicketsNotes_2:
+    note: "<p>Salve Sig. Bucchieri,</p>\r\n<p>grazie per averci contattato. Stiamo controllando le impostazioni del suo dominio.</p>\r\n<p>A breve le risponderemo dandole qualche suggerimento.</p>\r\n<p>Cordialmente</p>"
+    admin: true
+    Tickets: Tickets_2
+    date_post: '2013-05-25 12:30:52'
+    vote: null
+  TicketsNotes_3:
+    note: "Grazie per la celere risposta. Il dominio di riferimento è miodominio.com.<br />\r\n<br />\r\na presto"
+    admin: null
+    Tickets: Tickets_2
+    date_post: '2013-05-25 12:33:55'
+    vote: null
+  TicketsNotes_4:
+    note: '.... dimenticavo di dirvi che ho già inviato il codice AUTHINFO'
+    admin: null
+    Tickets: Tickets_2
+    date_post: '2013-05-25 15:41:17'
+    vote: null

@@ -344,7 +344,7 @@ class Admin_TicketsController extends Zend_Controller_Action {
 					if (isset ( $t ['customer_id'] ) && is_numeric ( $t ['customer_id'] )) {
 						
 						// Retrieve the customer data
-						$c = Customers::find ( $t ['customer_id'], "CONCAT(firstname,' ', lastname, ' ', company) as fullname, email", true );
+						$c = Customers::find ( $t ['customer_id'], "CONCAT(firstname,' ', lastname, ' ', company) as fullname, email, language_id", true );
 						$cc = Contacts::getAllEmails($t['customer_id']);
 							
 						if (! empty ( $params ['status_id'] )) {
@@ -376,8 +376,8 @@ class Admin_TicketsController extends Zend_Controller_Action {
 						// Save the upload file
 						TicketsNotes::UploadDocument($id, $t ['customer_id']);
 						
-						$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message' );
-
+						$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message', $c ['language_id'] );
+						
 						if ($retval && $params['sendemail'] && !empty($params['note'])) {
 							
 							$link = Fastlinks::findbyId ( $id, 'tickets', $t ['customer_id'] );

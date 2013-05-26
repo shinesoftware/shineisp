@@ -801,8 +801,9 @@ Customers:
     group_id:
       type: integer(4)
       default: '1'
-    language:
-      type: string(5)
+    language_id:
+      type: integer(4)
+      default: '1'
       notnull: false
     issubscriber:
       type: boolean(25)
@@ -839,6 +840,9 @@ Customers:
     Customers:
       local: parent_id
       foreign: customer_id
+    Languages:
+      local: language_id
+      foreign: language_id
     CustomAttributesValues:
       local: customer_id
       foreign: external_id

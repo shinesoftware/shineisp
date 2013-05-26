@@ -389,6 +389,11 @@ ul.dashboard-buttons-set li {
 }
 
 .ticketrating{
+
+}
+
+.tickets-notes pre{
+	overflow: auto;
 }
 
 .tickets-notes {

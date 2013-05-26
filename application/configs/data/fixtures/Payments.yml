@@ -1,10 +1,19 @@
 Payments:
   Payments_1:
-    paymentdate: '2013-05-23 00:00:00'
+    paymentdate: '2013-05-25 00:00:00'
+    Banks: Banks_1
+    Customers: Customers_1
+    description: ''
+    reference: AEUZM2013A54117383
+    confirmed: '1'
+    income: '729.68'
+    outcome: '0.00'
+  Payments_2:
+    paymentdate: '2013-05-26 00:00:00'
     Banks: Banks_3
     Customers: Customers_2
     description: ''
-    reference: AEUZM2013A54117388
+    reference: '64053395610'
     confirmed: '1'
-    income: '84.00'
+    income: '480.00'
     outcome: '0.00'

@@ -19,6 +19,7 @@ Doctrine_Manager::getInstance()->bindComponent('Languages', 'doctrine');
  * @property Doctrine_Collection $Wiki
  * @property Doctrine_Collection $ProductsData
  * @property Doctrine_Collection $ProductsAttributesData
+ * @property Doctrine_Collection $Customers
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -89,6 +90,10 @@ abstract class BaseLanguages extends Doctrine_Record
              'foreign' => 'language_id'));
 
         $this->hasMany('ProductsAttributesData', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
+        $this->hasMany('Customers', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
     }

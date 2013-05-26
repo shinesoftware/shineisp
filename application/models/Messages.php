@@ -118,29 +118,12 @@ class Messages extends BaseMessages
 	 * @param string $to  Email address
 	 * @param array $placeholders 
 	 */
-	public static function sendMessage($tpl, $to, array $placeholders ){
+	public static function sendMessage($tpl, $to, array $placeholders, $language_id=null ){
 		$isp = Isp::getActiveISP ();
 		
-		$retval = Shineisp_Commons_Utilities::getEmailTemplate ( $tpl );
-		if ($retval) {
-			
-			$subject = $retval ['subject'];
-			$body = $retval ['template'];
-			
-			foreach ($placeholders as $key => $value) {
-				$subject = str_replace ( "[$key]", $value, $subject );
-			}
-			
-			foreach ($placeholders as $key => $value) {
-				$body = str_replace ( "[$key]", strip_tags(html_entity_decode($value, ENT_QUOTES, 'UTF-8')), $body );
-			}
-			
-			$body = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['email'], $body );
-			
-			// Send a message 
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $to, null, $subject, $body );
-			
-		}
+		Shineisp_Commons_Utilities::sendEmailTemplate($isp['email'], $tpl, $placeholders, null, null, null, null, $language_id);
+		
+		return true;
 	}
 	
 }
