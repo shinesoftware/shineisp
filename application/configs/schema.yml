@@ -2005,7 +2005,7 @@ OauthClients:
       unsigned: true
       primary: true
       autoincrement: true
-    customer_id:
+    admin_id:
       type: integer(4)
       notnull: true
     app_name:
@@ -2654,6 +2654,7 @@ Products:
     welcome_mail_id:
       type: integer(5)
       unsigned: true
+    isp_id: integer(4)
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2714,6 +2715,10 @@ Products:
     EmailsTemplates:
       local: welcome_mail_id
       foreign: template_id
+      type: one
+    Isp:
+      local: isp_id
+      foreign: isp_id
       type: one
       
 ProductsAttributes:
