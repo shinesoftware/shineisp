@@ -56,15 +56,16 @@ class Admin_Form_CustomersForm extends Zend_Form
 
 
 
-        $this->addElement('select', 'language', array(
+        $this->addElement('select', 'language_id', array(
         'label' => 'Default Language',
+        'description' => 'All the messages sent to the customer will be send using the default language selected',
         'decorators' => array('Composite'),
         'class'      => 'text-input large-input'
         ));
         
-        $this->getElement('language')
+        $this->getElement('language_id')
                   ->setAllowEmpty(true)
-                  ->setMultiOptions(array('it_IT'=>'Italiano', 'en_US'=>'English'));
+                  ->setMultiOptions(Languages::getList());
 
         $this->addElement('select', 'issubscriber', array(
         'label' => 'Newsletter Subscription',

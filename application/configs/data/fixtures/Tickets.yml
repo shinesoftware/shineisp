@@ -4,9 +4,20 @@ Tickets:
     TicketsCategories: TicketsCategories_1
     Statuses: Statuses_21
     date_open: '2012-02-24 00:00:00'
-    date_updated: null
+    date_updated: '2013-05-25 12:06:46'
     date_close: null
     subject: 'Accesso FTP'
     description: "<p>Salve,</p>\r\n<p>non riesco ad accedere via FTP al mio account, potete aiutarmi?</p>\r\n<p>Sto usando Filezilla, c'&egrave; qualche impostazione particolare da impostare in filezilla?</p>\r\n<p>Grazie</p>"
+    AdminUser: AdminUser_1
+    vote: null
+  Tickets_2:
+    Customers: Customers_1
+    TicketsCategories: TicketsCategories_2
+    Statuses: Statuses_21
+    date_open: '2013-05-25 12:28:37'
+    date_updated: '2013-05-25 15:44:36'
+    date_close: null
+    subject: 'Dominio non ancora attivo'
+    description: "Salve,<br />\r\nsto ancora attendendo la migrazione del dominio verso i vostri servers e non ho capito se ho sbagliato in qualcosa. Potete indicarmi i passi da seguire?<br />\r\n<br />\r\nGrazie Mille"
     AdminUser: AdminUser_1
     vote: null

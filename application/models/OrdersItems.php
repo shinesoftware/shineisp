@@ -220,6 +220,7 @@ class OrdersItems extends BaseOrdersItems {
         										   c.customer_id as id, 
         										   DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiringdate,
         										   o.customer_id as customer_id,
+        										   o.language_id as language_id,
         										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
         										   c.email as email, 
         										   c.password as password,
@@ -960,7 +961,7 @@ class OrdersItems extends BaseOrdersItems {
 						Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_renew', array(
 							':shineisp:' => $customer
 							,'url'       => $url
-						));
+						), null, null, null, null, $customer['language_id']);
 						
 						
 					}

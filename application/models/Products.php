@@ -27,6 +27,7 @@ class Products extends BaseProducts {
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.product_id', 'alias' => 'product_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.product_id', 'alias' => 'product_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'SKU' ), 'field' => 'p.sku', 'alias' => 'sku', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'pd.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'type' => 'string', 'searchable' => true );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -38,6 +39,7 @@ class Products extends BaseProducts {
 		$config ['datagrid'] ['fields'] = "p.product_id, 
 											pd.name as name, 
 											p.type as type, 
+											p.sku as sku, 
 											pag.name as groupname, 
 											sg.name as servergroupname,
 											DATE_FORMAT(p.inserted_at, '%d/%m/%Y %H:%i:%s') as insertedat,  

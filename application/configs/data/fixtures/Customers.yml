@@ -6,10 +6,10 @@ Customers:
     lastname: Bucchieri
     sex: M
     email: null
-    password: $1$FT.RCjcc$VoB/ityjp2mEFmwqYIvIr.
+    password: $1$dPJ2W5U5$RgLGkbQJVEmJGdzDSQ5AT.
     resetpwd_key: ''
     resetpwd_expire: '0000-00-00 00:00:00'
-    last_password_change: '2013-05-13 22:01:29'
+    last_password_change: '2013-05-25 16:10:14'
     force_password_change: '0'
     birthdate: '1982-05-26'
     birthplace: Roma
@@ -23,7 +23,7 @@ Customers:
     note: ''
     Statuses: Statuses_11
     CustomersGroups: CustomersGroups_2
-    language: it_IT
+    Languages: Languages_2
     issubscriber: true
     created_at: '2012-02-23 22:32:39'
     updated_at: '2012-02-23 22:32:39'
@@ -33,14 +33,14 @@ Customers:
   Customers_2:
     uuid: null
     company: 'WebDesign Software & Co.'
-    firstname: John
-    lastname: Doe
+    firstname: Ron
+    lastname: Howard
     sex: M
     email: null
-    password: $6$5G0LhQAw$/XxIVPFDZ8YHtXYGCFqzO2yRnimcn90gUCqJE.VYpVGLmIwRaFbws66ieKLVIA9H9IospuSKnl.ySvlPQ.7a7.
+    password: $1$lJ8L/EfR$lbrrwuuW3VI11k9sRFmQA0
     resetpwd_key: null
     resetpwd_expire: null
-    last_password_change: null
+    last_password_change: '2013-05-25 16:10:15'
     force_password_change: '0'
     birthdate: '1982-01-15'
     birthplace: London
@@ -51,13 +51,44 @@ Customers:
     vat: UK03671234567
     CompanyTypes: CompanyTypes_2
     Legalforms: Legalforms_2
-    note: null
+    note: ''
     Statuses: Statuses_11
     CustomersGroups: CustomersGroups_1
-    language: en_US
+    Languages: Languages_5
     issubscriber: false
     created_at: '2012-02-27 15:43:20'
     updated_at: '2012-02-27 15:43:20'
     taxfree: false
+    isreseller: null
+    ignore_latefee: false
+  Customers_3:
+    uuid: d6986e96-411e-42ae-950e-02c82afeb18d
+    company: 'Shop Design & Co.'
+    firstname: John
+    lastname: Doe
+    sex: M
+    email: null
+    password: $1$wdxR8fSM$gc3Omhq4mQbrlHpySX1QC0
+    resetpwd_key: null
+    resetpwd_expire: null
+    last_password_change: '2013-05-25 16:10:16'
+    force_password_change: '0'
+    birthdate: '1961-03-01'
+    birthplace: London
+    birthdistrict: GB
+    birthcountry: Italy
+    birthnationality: British
+    taxpayernumber: TRLMHL77D11C351R
+    vat: '04504220874'
+    Legalforms: Legalforms_1
+    note: null
+    Statuses: Statuses_11
+    Isp: Isp_1
+    CustomersGroups: CustomersGroups_1
+    Languages: Languages_1
+    issubscriber: true
+    created_at: '2013-05-22 21:54:09'
+    updated_at: '2013-05-22 21:54:09'
+    taxfree: null
     isreseller: null
     ignore_latefee: false

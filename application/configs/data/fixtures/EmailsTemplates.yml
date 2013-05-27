@@ -1,24 +1,40 @@
 EmailsTemplates:
   EmailsTemplates_1:
     type: general
-    code: password_reset_link
-    name: password_reset_link
+    code: new_order
+    name: new_order
     cc: ''
     bcc: ''
     plaintext: false
     active: true
   EmailsTemplates_2:
     type: general
-    code: password_new
-    name: password_new
+    code: order_message
+    name: order_message
     cc: ''
     bcc: ''
     plaintext: false
     active: true
   EmailsTemplates_3:
     type: general
+    code: order_message_admin
+    name: order_message_admin
+    cc: ''
+    bcc: ''
+    plaintext: false
+    active: true
+  EmailsTemplates_4:
+    type: general
     code: new_invoice
     name: new_invoice
+    cc: ''
+    bcc: ''
+    plaintext: false
+    active: true
+  EmailsTemplates_5:
+    type: general
+    code: new_account
+    name: new_account
     cc: ''
     bcc: ''
     plaintext: false

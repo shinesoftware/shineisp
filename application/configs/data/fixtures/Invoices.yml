@@ -1,7 +1,13 @@
 Invoices:
   Invoices_1:
     number: '1'
-    Customers: Customers_2
+    Customers: Customers_1
     Orders: Orders_1
-    invoice_date: '2013-05-23'
+    invoice_date: '2013-05-25'
+    note: null
+  Invoices_2:
+    number: '2'
+    Customers: Customers_2
+    Orders: Orders_2
+    invoice_date: '2013-05-25'
     note: null

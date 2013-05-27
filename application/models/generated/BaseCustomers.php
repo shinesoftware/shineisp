@@ -33,7 +33,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property integer $status_id
  * @property integer $isp_id
  * @property integer $group_id
- * @property string $language
+ * @property integer $language_id
  * @property boolean $issubscriber
  * @property timestamp $created_at
  * @property timestamp $updated_at
@@ -46,7 +46,12 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property Legalforms $Legalforms
  * @property Statuses $Statuses
  * @property Customers $Customers
+ * @property Languages $Languages
  * @property CustomAttributesValues $CustomAttributesValues
+ * @property OauthAccessTokens $OauthAccessTokens
+ * @property OauthAuthorizationCodes $OauthAuthorizationCodes
+ * @property OauthClients $OauthClients
+ * @property OauthRefreshTokens $OauthRefreshTokens
  * @property Doctrine_Collection $Addresses
  * @property Doctrine_Collection $Contacts
  * @property Doctrine_Collection $CustomersDomainsRegistrars
@@ -204,10 +209,11 @@ abstract class BaseCustomers extends Doctrine_Record
              'default' => '1',
              'length' => '4',
              ));
-        $this->hasColumn('language', 'string', 5, array(
-             'type' => 'string',
+        $this->hasColumn('language_id', 'integer', 4, array(
+             'type' => 'integer',
+             'default' => '1',
              'notnull' => false,
-             'length' => '5',
+             'length' => '4',
              ));
         $this->hasColumn('issubscriber', 'boolean', 25, array(
              'type' => 'boolean',
@@ -268,9 +274,29 @@ abstract class BaseCustomers extends Doctrine_Record
              'local' => 'parent_id',
              'foreign' => 'customer_id'));
 
+        $this->hasOne('Languages', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
         $this->hasOne('CustomAttributesValues', array(
              'local' => 'customer_id',
              'foreign' => 'external_id'));
+
+        $this->hasOne('OauthAccessTokens', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasOne('OauthAuthorizationCodes', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasOne('OauthClients', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasOne('OauthRefreshTokens', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
 
         $this->hasMany('Addresses', array(
              'local' => 'customer_id',

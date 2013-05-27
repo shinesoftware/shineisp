@@ -5,3 +5,21 @@ DomainsTldsData:
     name: com
     description: '<p>Com Domain</p>'
     tags: Generic
+  DomainsTldsData_2:
+    DomainsTlds: DomainsTlds_2
+    Languages: Languages_2
+    name: net
+    description: '<p>net domain</p>'
+    tags: Generic
+  DomainsTldsData_3:
+    DomainsTlds: DomainsTlds_1
+    Languages: Languages_1
+    name: com
+    description: '<p>com domain</p>'
+    tags: Geographic
+  DomainsTldsData_4:
+    DomainsTlds: DomainsTlds_2
+    Languages: Languages_1
+    name: net
+    description: '<p>net domain</p>'
+    tags: Generic

@@ -11,3 +11,11 @@ NewslettersSubscribers:
     subscriptiondate: '2013-05-13 22:03:30'
     email: info@shinesoftware.it
     Customers: Customers_2
+  NewslettersSubscribers_4:
+    subscriptiondate: '2013-05-22 21:54:09'
+    email: jdoe@shineisp.com
+    Customers: Customers_3
+  NewslettersSubscribers_5:
+    subscriptiondate: '2013-05-25 12:27:07'
+    email: g.bucchieri@shineisp.com
+    Customers: Customers_1

@@ -378,7 +378,7 @@ class Orders extends BaseOrders {
 						$placeholders['message'] = $params ['message'];
 					
 						// Send a message to the customer
-						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders);
+						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders, $order [0] ['Customers'] ['language_id']);
 
 						// Change the URL for the administrator
 						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp->email);
@@ -1620,7 +1620,7 @@ class Orders extends BaseOrders {
 			 'orderid'    => $order[0]['order_number']
 			,':shineisp:' => $customer
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-		));
+		), null, null, null, null, $customer['language_id']);
 
 		return true;
 	}
@@ -2015,12 +2015,14 @@ class Orders extends BaseOrders {
 				$customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
 				$customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['parent_id'], 'orders' );
+				$language_id = $invoice_dest ['language_id'];
 			} else {
 				$customer_email = Contacts::getEmails($order [0] ['Customers'] ['customer_id']);
 				
 				$customer = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
 				$customer .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['customer_id'], 'orders' );
+				$language_id = $order [0] ['Customers'] ['language_id'];
 			}
 
 			$email = $order [0] ['Isp'] ['email'];
@@ -2050,7 +2052,7 @@ class Orders extends BaseOrders {
 				,'url'        => $url
 				,':shineisp:' => $order [0] ['Customers']
 				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-			));
+			), null, null, null, null, $language_id);
 
 			return true;
 		}
@@ -2618,7 +2620,7 @@ class Orders extends BaseOrders {
 				 'orderid'    => $order['order_number']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
-			));
+			), null, null, null, null, $customer['language_id']);
 			
 	
 			// Set the order as deleted
@@ -2664,7 +2666,7 @@ class Orders extends BaseOrders {
 				 'orderid'    => $order['order_number']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
-			));
+			), null, null, null, null, $customer['language_id']);
 			
 			
 			
@@ -2704,7 +2706,7 @@ class Orders extends BaseOrders {
 						 'orderid'    => $order['order_number']
 						,':shineisp:' => $customer
 						,'url'        => $customer_url
-					));
+					), null, null, null, null, $customer['language_id']);
 
 	
 					// Set the order as deleted
@@ -2771,12 +2773,15 @@ class Orders extends BaseOrders {
 					$customers [$service ['customer_id']] ['fullname'] = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'] . " " . $invoice_dest ['company'];
 					$customers [$service ['customer_id']] ['email'] = $customer_email = Contacts::getEmails($invoice_dest ['customer_id']);
 					$customers [$service ['customer_id']] ['password'] = $invoice_dest ['password'];
+					$customers [$service ['customer_id']] ['language_id'] = $invoice_dest ['language_id'];
 				} else {
 					$customers [$service ['customer_id']] ['id'] = $service ['id'];
 					$customers [$service ['customer_id']] ['fullname'] = $service ['fullname'];
 					$customers [$service ['customer_id']] ['email'] = $customer_email = Contacts::getEmails($service ['id']);
 					$customers [$service ['customer_id']] ['password'] = $service ['password'];
+					$customers [$service ['customer_id']] ['language_id'] = $service ['language_id'];
 				}
+				
 				$customers [$service ['customer_id']] ['products'] [$i] ['name'] = $service ['product'];
 				$customers [$service ['customer_id']] ['products'] [$i] ['type'] = "service";
 				$customers [$service ['customer_id']] ['products'] [$i] ['renew'] = $service ['renew'];
@@ -2816,7 +2821,7 @@ class Orders extends BaseOrders {
 						 'url'        => $customer_url
 						,'items'      => $items
 						,':shineisp:' => $customer
-					));
+					), null, null, null, null, $customer['language_id']);
 				}
 			}
 		}
