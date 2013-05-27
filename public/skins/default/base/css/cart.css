@@ -983,6 +983,11 @@ font-weight: bold;
 	color: #666;
 }
 
+#checkdomain ul li p{
+	margin-left: 25px;
+    margin-top: 2px;
+}
+
 /* ************************** CONTACT CART PAGE STYLE ************************** */
 
 .panel{

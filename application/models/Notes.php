@@ -27,7 +27,19 @@ class Notes extends BaseNotes
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Created' ), 'field' => 'n.created', 'alias' => 'created', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		
 		$config ['datagrid'] ['fields'] = "note_id, name, created, changed";
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Notes n' );
+        
+        $dq     = Doctrine_Query::create ()
+                    ->select ( $config ['datagrid'] ['fields'] )
+                    ->from ( 'Notes n' );
+                    
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'n.AdminUser au' )
+                ->where( "au.isp_id = ?", $logged_user['isp_id']);
+        }          
+        
+		$config ['datagrid'] ['dqrecordset'] = $dq;
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
@@ -54,6 +66,12 @@ class Notes extends BaseNotes
         $dq = Doctrine_Query::create ()->from ( 'Notes n' )
         							   ->where ( "n.note_id = ?", $id )
         							   ->limit ( 1 );
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'n.AdminUser au' )
+                ->whereIn( "au.isp_id", $logged_user['isp_id']);
+        }           
         
         $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         if(!empty($record)){
@@ -88,11 +106,18 @@ class Notes extends BaseNotes
      * @return Doctrine Record
      */
     public static function summary($userId) {
-        $records = Doctrine_Query::create ()->select("note_id, name, DATE_FORMAT(expire, '%d/%m/%Y') as creation_date")
+        $dq = Doctrine_Query::create ()->select("note_id, name, DATE_FORMAT(expire, '%d/%m/%Y') as creation_date")
         								->from ( 'Notes n' )
-        								->where ( "n.user_id = ?", $userId )
-        								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        								->where ( "n.user_id = ?", $userId );
         
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'n.AdminUser au' )
+                ->whereIn( "au.isp_id", $logged_user['isp_id']);
+        }         
+        
+        $records    = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         return $records;
     }	
     	   
@@ -107,6 +132,10 @@ class Notes extends BaseNotes
     		
     		if(is_numeric($id)){
     			$note = Doctrine::getTable ( 'Notes' )->find($id);
+                if( $note->user_id != $userId ) {
+                    return false;
+                }
+                
     		}else{
     			$note = new Notes();
     			$note->created = date('Y-m-d H:i:s');
@@ -131,6 +160,11 @@ class Notes extends BaseNotes
      * @param $id
      */
     public static function deleteItem($id) {
+        $item   = self::find( $id );
+        if( empty( $item->note_id ) ) {
+            return false;
+        }
+        
         Doctrine::getTable ( 'Notes' )->findOneBy ( 'note_id', $id )->delete();
     }
     	   
@@ -139,7 +173,18 @@ class Notes extends BaseNotes
      * @param $id
      */
     public static function find($id) {
-        return Doctrine::getTable ( 'Notes' )->findOneBy ( 'note_id', $id );
+        $dq = Doctrine_Query::create ()->from ( 'Notes n' )
+                                       ->where ( "n.note_id = ?", $id )
+                                       ->limit ( 1 );
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'n.AdminUser au' )
+                ->whereIn( "au.isp_id", $logged_user['isp_id']);
+        }  
+        
+        $record = $dq->execute ( );
+        return $record->{$id};
     }
     
 	/**

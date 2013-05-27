@@ -35,6 +35,7 @@ Doctrine_Manager::getInstance()->bindComponent('Isp', 'doctrine');
  * @property Doctrine_Collection $Customers
  * @property Doctrine_Collection $IspUrls
  * @property Doctrine_Collection $Messages
+ * @property Doctrine_Collection $Products
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -183,6 +184,10 @@ abstract class BaseIsp extends Doctrine_Record
              'foreign' => 'isp_id'));
 
         $this->hasMany('Messages', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
+
+        $this->hasMany('Products', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
     }

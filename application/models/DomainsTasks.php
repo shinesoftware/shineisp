@@ -319,7 +319,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	 * @return Array
 	 */
 	public static function Last($limit=10) {
-		$records = Doctrine_Query::create ()
+		$dq = Doctrine_Query::create ()
 								->select("DATE_FORMAT(startdate, '%d/%m/%Y %H:%i:%s') as startdate, 
 										  DATE_FORMAT(enddate, '%d/%m/%Y %H:%i:%s') as enddate,
 										  domain,
@@ -329,8 +329,18 @@ class DomainsTasks extends BaseDomainsTasks {
 								->from ( 'DomainsTasks dt' )
 								->leftJoin( 'dt.Statuses s' )
 								->orderBy('dt.startdate desc')
-								->limit($limit)
-								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+								->limit($limit);
+							
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin( 'dt.Domains d' )
+               ->leftJoin( 'd.Customers c' )
+               ->whereIn( "c.isp_id", $logged_user['isp_id']);
+        }
+
+        $records    = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        
 		return $records;
 	}
 	

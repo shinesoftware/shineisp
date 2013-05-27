@@ -23,6 +23,10 @@
                  <input type="radio" name="mode" value="link"> <b><?php echo $this->translate('I am this domain\'s owner.')?></b>
                  <p><?php echo $this->translate('Write your own domain name previosly registered with another company.')?></p>
              </li>
+             <li>
+                 <input type="radio" name="mode" value=""> <b><?php echo $this->translate('Do not register or transfer domain')?></b>
+                 <p><?php echo $this->translate('Skip domain transfer or registration. Only a blank hosting is bought.')?></p>
+             </li>
          </ul>
          <br><br>
         <input type="submit" class="button" value="<?php echo $this->translate('Continue Order') ?>" id="check" name="check">

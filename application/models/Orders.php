@@ -214,6 +214,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'oi.Products p' )
 										->leftJoin ( 'o.Statuses s' )
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
+										->andWhere('c.isp_id = ?', ISP::getCurrentId())
 										->orderBy ( 'order_date desc' )
 										->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
 				
@@ -657,7 +658,7 @@ class Orders extends BaseOrders {
 				$order->isp_id      = $customer ['isp_id'];
 				$order->is_renewal  = true;
 				$order->order_date  = date ( 'Y-m-d' );
-				$order->status_id   = Statuses::id("tobepaid", "orders"); // To be pay
+				$order->status_id   = Statuses::id("tobepaid", "orders"); // To be paid
 				$order->uuid        = Shineisp_Commons_Uuid::generate();
 				$order->save();
 			
@@ -2313,6 +2314,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Invoices i' )
 										->leftJoin ( 'o.Statuses s' )
 										->whereIn( "order_id", $ids)
+										->addWhere ( 'c.isp_id = ?', ISP::getCurrentId())
 										->orderBy(!empty($orderby) ? $orderby : "")
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -2324,7 +2326,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function Last(array $statuses, $limit=10) {
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency   = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
@@ -2332,10 +2334,17 @@ class Orders extends BaseOrders {
 											o.total as total, 
 											o.grandtotal as grandtotal, 
 											s.status as status" )
-								->from ( 'Orders o' )
+								->from ( 'Orders o' )							
 								->leftJoin ( 'o.Customers c' )
 								->leftJoin ( 'o.Invoices i' )
-								->leftJoin ( 'o.Statuses s' );
+								->leftJoin ( 'o.Statuses s' )
+								->addWhere ( 'c.isp_id = ?', ISP::getCurrentId());
+
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->where( "o.isp_id = ?", $logged_user['isp_id']);
+        }
 		
 		if(is_array($statuses) && !empty($statuses)){
 			$dq->whereIn('o.status_id', $statuses);
@@ -2367,7 +2376,9 @@ class Orders extends BaseOrders {
 		$income = Doctrine_Query::create ()->select ( "invoice_id, QUARTER(i.invoice_date) as quarter, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
-													->where('o.status_id = ?', Statuses::id('complete', 'orders'))
+													->leftJoin ( 'o.Customers c' )
+													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+													->andWhere('c.isp_id = ?', ISP::getCurrentId())
 													->groupBy("quarter, year")
 													->orderBy('year, quarter')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2419,7 +2430,9 @@ class Orders extends BaseOrders {
 		$income = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as monthly, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 											->from ( 'Invoices i' )
 											->leftJoin ( 'i.Orders o' )
+											->leftJoin ( 'o.Customers c' )
 											->where('o.status_id = ?', Statuses::id('complete', 'orders'))
+											->andWhere('c.isp_id = ?', ISP::getCurrentId())
 											->groupBy("monthly, year")
 											->orderBy('year, monthly')
 											->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2490,7 +2503,10 @@ class Orders extends BaseOrders {
 		$incomes = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as month, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
-													->where('o.status_id = ? AND YEAR(i.invoice_date) >= ?', array(Statuses::id('complete', 'orders'), $lastYear))
+													->leftJoin ( 'o.Customers c' )
+													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+													->andWhere('YEAR(i.invoice_date) >= ?', $lastYear)
+													->andWhere('c.isp_id = ?', ISP::getCurrentId())
 													->groupBy("month, year")
 													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2542,7 +2558,9 @@ class Orders extends BaseOrders {
 		$income_status = Doctrine_Query::create ()->select ( "o.grandtotal as grandtotal, s.status as status" )
 										->from ( 'Orders o' )
 										->leftJoin ( 'o.Statuses s' )
+										->leftJoin ( 'o.Customers c' )
 										->where('status_id = ?', Statuses::id('complete', 'orders'))
+										->andWhere('c.isp_id = ?', ISP::getCurrentId())
 										->groupBy('s.status_id')
 										->execute ( null, Doctrine::HYDRATE_ARRAY );
 		Zend_Debug::dump($income_status);
