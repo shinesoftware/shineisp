@@ -241,6 +241,12 @@ class CartController extends Zend_Controller_Action {
 		
 		// Get all the params sent by the customer
 		$params = $this->getRequest ()->getParams ();
+
+		if ( empty($params ['mode']) ) {
+			// redirect the customer to the contact form
+			$this->_helper->redirector ( 'contacts' );
+			return true;
+		}
 		
 		
 		if (empty ( $params ['domain'] ) || empty ( $params ['tlds'] )) {
