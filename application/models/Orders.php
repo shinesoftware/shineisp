@@ -2342,7 +2342,7 @@ class Orders extends BaseOrders {
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->whereIn( "o.isp_id", $logged_user['isp_id']);
+            $dq->where( "o.isp_id = ?", $logged_user['isp_id']);
         }
 		
 		if(is_array($statuses) && !empty($statuses)){

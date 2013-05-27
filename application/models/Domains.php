@@ -43,17 +43,25 @@ class Domains extends BaseDomains {
 											s.status as status, 
 											c.lastname as lastname";
 		
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()
-													             ->select ( $config ['datagrid'] ['fields'] )
-													             ->from ( 'Domains d' )
-													             ->leftJoin ( 'd.DomainsTlds dt' )
-													             ->leftJoin ( 'dt.WhoisServers ws' )
-													             ->leftJoin ( 'd.TagsConnections tc' )
-													             ->leftJoin ( 'd.Customers c' )
-													             ->leftJoin ( 'd.OrdersItems oi' )
-													             ->leftJoin ( 'd.Registrars r' )
-													             ->leftJoin ( 'd.Statuses s' )
-													             ->orderBy ( 'd.domain' );
+        $dq     = Doctrine_Query::create ()
+                     ->select ( $config ['datagrid'] ['fields'] )
+                     ->from ( 'Domains d' )
+                     ->leftJoin ( 'd.DomainsTlds dt' )
+                     ->leftJoin ( 'dt.WhoisServers ws' )
+                     ->leftJoin ( 'd.TagsConnections tc' )
+                     ->leftJoin ( 'd.Customers c' )
+                     ->leftJoin ( 'd.OrdersItems oi' )
+                     ->leftJoin ( 'd.Registrars r' )
+                     ->leftJoin ( 'd.Statuses s' )
+                     ->orderBy ( 'd.domain' );
+                      
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->where( "c.isp_id = ?", $logged_user['isp_id']);
+        }
+                             
+		$config ['datagrid'] ['dqrecordset'] = $dq;
 		
 		$config ['datagrid'] ['index'] = "domain_id";
 		
@@ -1137,6 +1145,12 @@ class Domains extends BaseDomains {
 		if(!empty($fields)){
 			$dq->select ( $fields );
 		}                      
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->where( "c.isp_id = ?", $logged_user['isp_id']);
+        }          
 		
 		$domain = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
@@ -1218,6 +1232,13 @@ class Domains extends BaseDomains {
 		if (is_numeric ( $customer_id )) {
 			$dq->where ( 'customer_id = ?', $customer_id );
 		}
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'd.Customers c' )
+                ->where( "c.isp_id = ?", $logged_user['isp_id']);
+        }        
 		
 		$records = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 		if ($empty) {
@@ -1251,6 +1272,11 @@ class Domains extends BaseDomains {
 	 */
 	public static function delete_by_id($domain_id) {
 		if(is_numeric($domain_id)){
+		    $item = self::find($domain_id);
+            if( empty($item) ) {
+                return false;
+            }
+            
 			return Doctrine_Query::create ()->delete('Domains')->where('domain_id = ?', $domain_id)->execute();
 		}
 		return false;
@@ -1436,7 +1462,7 @@ class Domains extends BaseDomains {
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
             $dq->leftJoin ( 'd.Customers c' )
-                ->whereIn( "c.isp_id", $logged_user['isp_id']);
+                ->where( "c.isp_id = ?", $logged_user['isp_id']);
         }  
         
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);

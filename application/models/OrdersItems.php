@@ -51,18 +51,26 @@ class OrdersItems extends BaseOrdersItems {
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'OrdersItems d' )
-					->leftJoin ( 'd.Orders o' )
-					->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
-					->leftJoin ( 'd.BillingCycle bc' )
-					->leftJoin ( 'oid.Domains dm' )
-					->leftJoin ( 'dm.DomainsTlds dt' )
-					->leftJoin ( 'dt.WhoisServers ws' )
-					->leftJoin ( 'd.Products p' )
-					->leftJoin ( "p.ProductsData pd WITH pd.language_id = $ns->idlang" )
-					->leftJoin ( 'p.Taxes t' )->leftJoin ( 'o.Customers c' )
-					->leftJoin ( 'd.Statuses s' )
-					->where ( 'p.type <> ?', 'domain'); // Show all the records but not the Expired services // Show only the services and not the domains
+        $dq = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'OrdersItems d' )
+                    ->leftJoin ( 'd.Orders o' )
+                    ->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
+                    ->leftJoin ( 'd.BillingCycle bc' )
+                    ->leftJoin ( 'oid.Domains dm' )
+                    ->leftJoin ( 'dm.DomainsTlds dt' )
+                    ->leftJoin ( 'dt.WhoisServers ws' )
+                    ->leftJoin ( 'd.Products p' )
+                    ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $ns->idlang" )
+                    ->leftJoin ( 'p.Taxes t' )->leftJoin ( 'o.Customers c' )
+                    ->leftJoin ( 'd.Statuses s' )
+                    ->where ( 'p.type <> ?', 'domain'); // Show all the records but not the Expired services // Show only the services and not the domains
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->where( "o.isp_id = ?", $logged_user['isp_id']);
+        }        
+        
+		$config ['datagrid'] ['dqrecordset'] = $dq;
 			
 		
 		$config ['datagrid'] ['basepath'] = "/admin/services/";
