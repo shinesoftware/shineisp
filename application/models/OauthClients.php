@@ -12,5 +12,109 @@
  */
 class OauthClients extends BaseOauthClients
 {
+	/**
+	 * grid
+	 * create the configuration of the grid
+	 */	
+	public static function grid($rowNum = 10) {
+		
+		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client ID' ), 'field' => 'client_id', 'alias' => 'client_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client Secret' ), 'field' => 'client_secret', 'alias' => 'client_secret', 'type' => 'string');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Redirect URI' ), 'field' => 'redirect_uri', 'alias' => 'redirect_uri', 'type' => 'string');
+		
+		
+		$config ['datagrid'] ['fields'] = "client_id, client_secret, redirect_uri";
+		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'OauthClients' );
+		
+		$config ['datagrid'] ['rownum'] = $rowNum;
+		
+		$config ['datagrid'] ['basepath'] = "/admin/applications/";
+		$config ['datagrid'] ['index'] = "id";
+		$config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
+		
+		$config ['datagrid'] ['buttons'] ['edit'] ['label'] = $translator->translate ( 'Edit' );
+		$config ['datagrid'] ['buttons'] ['edit'] ['cssicon'] = "edit";
+		$config ['datagrid'] ['buttons'] ['edit'] ['action'] = "/admin/applications/edit/id/%d";
+		
+		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
+		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
+		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/applications/delete/id/%d";
+		return $config;
+	}
 
+
+
+	/**
+	 * Save all the data
+	 * @param array $params
+	 */
+	public static function saveAll(array $params) {
+		
+		if(!empty($params['id']) && is_numeric($params['id'])){
+			$OauthClients = Doctrine::getTable ( 'OauthClients' )->find ( $params['id'] );
+		}else{
+			$OauthClients = new OauthClients();
+			
+			// These are generated only on first save
+			$OauthClients->client_id     = Shineisp_Commons_Utilities::generateRandomPassword(32);
+			$OauthClients->client_secret = Shineisp_Commons_Utilities::generateRandomPassword(64);
+		}
+
+		$OauthClients->redirect_uri = $params['redirect_uri'];
+
+		$OauthClients->save ();
+		
+		return $OauthClients->id;
+	}
+
+	/**
+     * Get a record 
+     * @param $id
+     * @return Doctrine_Record
+     */
+    public static function find($id) {
+        return Doctrine::getTable ( 'OauthClients' )->find ( $id );
+    }
+
+	/**
+     * Get all the information about the oauth client (application) 
+     * @param $id
+     * @return ArrayObject
+     */
+    public static function getAll($id) {
+    	
+        $record = Doctrine_Query::create ()
+        			->from ( 'OauthClients' )
+        			->where ( "id = ? ", $id)
+        			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        		
+    	return !empty($record[0]) ? $record[0] : array();
+    }
+
+
+	/**
+	 * Delete an application
+	 * 
+	 * @param integer $id
+	 * @return boolean
+	 */
+	public static function del($id){
+		$id = intval($id);
+		if ( $id <= 0 ) {
+			return false;
+		}
+		
+		Doctrine_Query::create()
+	        ->delete('OauthClients')
+	        ->where('id = ?', $id)
+			->limit(1)
+			->execute();
+		
+		return true;
+	}
+	
 }
