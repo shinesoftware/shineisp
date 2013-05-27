@@ -406,7 +406,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	private function ordersGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, i.number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
+			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
 			if (isset ( $rs )) {
 				return array ('name' => 'orders', 'records' => $rs, 'edit' => array ('controller' => 'orders', 'action' => 'edit' ) );
 			}

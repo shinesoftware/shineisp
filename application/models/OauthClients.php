@@ -57,15 +57,19 @@ class OauthClients extends BaseOauthClients
 		if(!empty($params['id']) && is_numeric($params['id'])){
 			$OauthClients = Doctrine::getTable ( 'OauthClients' )->find ( $params['id'] );
 		}else{
+			$auth = Zend_Auth::getInstance()->getIdentity();
+			
 			$OauthClients = new OauthClients();
 			
 			// These are generated only on first save
+			$OauthClients->admin_id      = isset($auth['user_id']) ? intval($auth['user_id']) : 0;
 			$OauthClients->client_id     = Shineisp_Commons_Uuid::generate();
 			$OauthClients->client_secret = Shineisp_Commons_Utilities::generateRandomPassword(48);
 		}
 
 		$OauthClients->app_name     = $params['app_name'];
 		$OauthClients->redirect_uri = $params['redirect_uri'];
+		$OauthClients->active       = isset($params['active']) ? intval($params['active']) : 1; // default is active (1)
 
 		$OauthClients->save ();
 		
