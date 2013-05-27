@@ -332,6 +332,7 @@ class Tickets extends BaseTickets {
 	public static function Last($customerid = "", $limit=10) {
 		$dq = Doctrine_Query::create ()
 								->select ( "t.ticket_id, 
+											t.ticket_id as code, 
 											t.subject as subject, 
 											tc.category as category, 
 											DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated,
@@ -616,7 +617,7 @@ class Tickets extends BaseTickets {
 	public static function summary() {
 		$chart = "";
 		
-		$dq    = Doctrine_Query::create ()
+		$dq = Doctrine_Query::create ()
 					->select ( "t.ticket_id, count(*) as items, s.status as status" )
 					->from ( 'Tickets t' )
 					->leftJoin ( 't.Statuses s' )
