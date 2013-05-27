@@ -2350,7 +2350,7 @@ class Orders extends BaseOrders {
 			$dq->whereIn('o.status_id', $statuses);
 		}
 		
-		$dq->orderBy ( 'order_date desc' )->limit ( $limit );
+		$dq->orderBy ( 'order_date desc' )->orderBy ( 'order_id desc' )->limit ( $limit );
 		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
 		for($i=0;$i<count($records);$i++){
