@@ -42,7 +42,7 @@ class Messages extends BaseMessages
 	 * @param integer $limit
 	 * @return ArrayObject
 	 */
-	public static function Last($attachedto = "orders",  $limit=5) {
+	public static function Last($attachedto = "orders",  $limit=5, $delIspReplies=true) {
 		$dq = Doctrine_Query::create ()->from ( 'Messages m' );
 
 		// Adding first the main ID index field
@@ -56,6 +56,10 @@ class Messages extends BaseMessages
 
 		// now we can add more fields
 		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '%d/%m/%Y %H:%i:%s') as date, m.message as message" );
+		
+		if($delIspReplies){
+			$dq->where ( "isp_id IS NULL");
+		}
 		
 		// Sort the items
 		$dq->orderBy ( 'm.dateposted desc' )->limit ( $limit );
