@@ -69,7 +69,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 					$columns = array_keys($data[0]);
 					foreach ($columns as $column) {
 						$column_name = str_replace("_", " ", $column);
-						$arrColumns [] = array ('label' => $translator->translate ( ucwords($column_name) ), 'field' => $column, 'alias' => $column, 'type' => 'string' );
+						$arrColumns [] = array ('label' => ucwords($column_name), 'field' => $column, 'alias' => $column, 'type' => 'string' );
 					}
 					
 						$mygrid = $grid->addColumns ( $arrColumns )

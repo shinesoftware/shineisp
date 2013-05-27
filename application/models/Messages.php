@@ -38,11 +38,11 @@ class Messages extends BaseMessages
 	 * List of the last messages attached within the orders, domains, customers detail page
 	 * 
 	 * 
-	 * @param string $attachedto [orders, domains, customers]
+	 * @param string $attachedto [orders, domains]
 	 * @param integer $limit
 	 * @return ArrayObject
 	 */
-	public static function Last($attachedto = "orders",  $limit=5) {
+	public static function Last($attachedto = "orders",  $limit=5, $delIspReplies=true) {
 		$dq = Doctrine_Query::create ()->from ( 'Messages m' );
 
 		// Adding first the main ID index field
@@ -52,13 +52,14 @@ class Messages extends BaseMessages
 		}elseif ($attachedto == "domains"){
 			$dq->select("domain_id as id");
 			$dq->where ( "domain_id IS NOT NULL");
-		}elseif ($attachedto == "customers"){
-			$dq->select("customer_id as id");
-			$dq->where ( "customer_id IS NOT NULL");
 		}
 
 		// now we can add more fields
 		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '%d/%m/%Y %H:%i:%s') as date, m.message as message" );
+		
+		if($delIspReplies){
+			$dq->where ( "isp_id IS NULL");
+		}
 		
 		// Sort the items
 		$dq->orderBy ( 'm.dateposted desc' )->limit ( $limit );
