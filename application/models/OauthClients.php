@@ -22,12 +22,12 @@ class OauthClients extends BaseOauthClients
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Application Name' ), 'field' => 'app_name', 'alias' => 'app_name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client ID' ), 'field' => 'client_id', 'alias' => 'client_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client Secret' ), 'field' => 'client_secret', 'alias' => 'client_secret', 'type' => 'string');
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Redirect URI' ), 'field' => 'redirect_uri', 'alias' => 'redirect_uri', 'type' => 'string');
 		
 		
-		$config ['datagrid'] ['fields'] = "client_id, client_secret, redirect_uri";
+		$config ['datagrid'] ['fields'] = "client_id, app_name, redirect_uri";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'OauthClients' );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
@@ -60,10 +60,11 @@ class OauthClients extends BaseOauthClients
 			$OauthClients = new OauthClients();
 			
 			// These are generated only on first save
-			$OauthClients->client_id     = Shineisp_Commons_Utilities::generateRandomPassword(32);
-			$OauthClients->client_secret = Shineisp_Commons_Utilities::generateRandomPassword(64);
+			$OauthClients->client_id     = Shineisp_Commons_Uuid::generate();
+			$OauthClients->client_secret = Shineisp_Commons_Utilities::generateRandomPassword(48);
 		}
 
+		$OauthClients->app_name     = $params['app_name'];
 		$OauthClients->redirect_uri = $params['redirect_uri'];
 
 		$OauthClients->save ();

@@ -22,8 +22,17 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div id="tabs">
-	    <?php echo $form->redirect_uri->render()?>
-	    <?php echo $form->id->render()?>
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+		</ul>
+    
+	    <div id="tab1"> 
+			<?php echo $form->app_name->render()?>
+			<?php echo $form->client_id->render()?>
+			<?php echo $form->client_secret->render()?>
+		    <?php echo $form->redirect_uri->render()?>
+		    <?php echo $form->id->render()?>
+		</div>
 	</div>
 </form>
 
