@@ -117,6 +117,7 @@ class Addresses extends BaseAddresses {
 		$address['city'] = $data['city'];
 		$address['code'] = $data['code'];
 		$address['area'] = $data['area'];
+        $address['region_id'] = intval( $data['region_id']);
 
 		// Get the latitude and longitude coordinates
     	$coords = Shineisp_Commons_Utilities::getCoordinates($data['city']);
@@ -130,4 +131,5 @@ class Addresses extends BaseAddresses {
 		$address->save();
 		return $address['address_id'];
 	}
+
 }
