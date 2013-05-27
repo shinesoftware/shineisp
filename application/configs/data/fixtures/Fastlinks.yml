@@ -21,17 +21,179 @@ Fastlinks:
     controller: orders
     action: edit
     params: '{"id":"1"}'
-    code: bebumili
+    code: vemivevu
     sqltable: orders
     id: '1'
-    Customers: Customers_2
+    Customers: Customers_3
     visits: '0'
   Fastlinks_4:
-    controller: orders
+    controller: tickets
     action: edit
     params: '{"id":"1"}'
-    code: kokuxede
-    sqltable: orders
+    code: mefexegi
+    sqltable: tickets
     id: '1'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_5:
+    controller: tickets
+    action: edit
+    params: '{"id":"2"}'
+    code: jofupecu
+    sqltable: tickets
+    id: '2'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_6:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: zufayebi
+    sqltable: orders
+    id: '2'
     Customers: Customers_2
+    visits: '1'
+  Fastlinks_7:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: fikefase
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_8:
+    controller: orders
+    action: edit
+    params: '{"id":"3"}'
+    code: beyoyiho
+    sqltable: orders
+    id: '3'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_9:
+    controller: orders
+    action: edit
+    params: '{"id":"3"}'
+    code: toveluse
+    sqltable: orders
+    id: '3'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_10:
+    controller: orders
+    action: edit
+    params: '{"id":"3"}'
+    code: xalacapa
+    sqltable: orders
+    id: '3'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_11:
+    controller: orders
+    action: createinvoice
+    params: '{"id":"1"}'
+    code: ziyamivi
+    sqltable: orders
+    id: '3'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_12:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: mihigize
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_13:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: legepuve
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_14:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: wamuticu
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_15:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: nefugeca
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_16:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: pevucolo
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_17:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: tosofage
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_18:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: pehajare
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_19:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: dijikefo
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_20:
+    controller: orders
+    action: edit
+    params: '{"id":"2"}'
+    code: xuwirize
+    sqltable: orders
+    id: '2'
+    Customers: Customers_2
+    visits: '0'
+  Fastlinks_21:
+    controller: orders
+    action: edit
+    params: '{"id":"3"}'
+    code: nonanezu
+    sqltable: orders
+    id: '3'
+    Customers: Customers_1
+    visits: '1'
+  Fastlinks_22:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: sokiselo
+    sqltable: orders
+    id: '4'
+    Customers: Customers_1
     visits: '0'

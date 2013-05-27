@@ -1,36 +1,36 @@
 ProductsAttributesIndexes:
   ProductsAttributesIndexes_1:
-    Products: Products_1
+    Products: Products_2
     ProductsAttributes: ProductsAttributes_3
     value: '5'
   ProductsAttributesIndexes_2:
-    Products: Products_1
-    ProductsAttributes: ProductsAttributes_2
-    value: '5000'
-  ProductsAttributesIndexes_3:
-    Products: Products_1
-    ProductsAttributes: ProductsAttributes_4
-    value: '1'
-  ProductsAttributesIndexes_4:
-    Products: Products_1
-    ProductsAttributes: ProductsAttributes_1
-    value: '1000'
-  ProductsAttributesIndexes_5:
-    Products: Products_2
-    ProductsAttributes: ProductsAttributes_3
-    value: '5'
-  ProductsAttributesIndexes_6:
     Products: Products_2
     ProductsAttributes: ProductsAttributes_2
     value: '15000'
-  ProductsAttributesIndexes_7:
+  ProductsAttributesIndexes_3:
     Products: Products_2
     ProductsAttributes: ProductsAttributes_4
     value: '5'
-  ProductsAttributesIndexes_8:
+  ProductsAttributesIndexes_4:
     Products: Products_2
     ProductsAttributes: ProductsAttributes_1
     value: '5000'
+  ProductsAttributesIndexes_5:
+    Products: Products_1
+    ProductsAttributes: ProductsAttributes_3
+    value: '5'
+  ProductsAttributesIndexes_6:
+    Products: Products_1
+    ProductsAttributes: ProductsAttributes_2
+    value: '5000'
+  ProductsAttributesIndexes_7:
+    Products: Products_1
+    ProductsAttributes: ProductsAttributes_4
+    value: '1'
+  ProductsAttributesIndexes_8:
+    Products: Products_1
+    ProductsAttributes: ProductsAttributes_1
+    value: '1000'
   ProductsAttributesIndexes_9:
     Products: Products_3
     ProductsAttributes: ProductsAttributes_3

@@ -361,7 +361,7 @@ class DomainsTlds extends BaseDomainsTlds
 	 */
 	public static function getAutosetup($id) {
 		$DomainTld = self::find($id);
-		$autosetup = (isset($DomainTld) && isset($DomainTld->autosetup) ) ? $DomainTld->autosetup : '';
+		$autosetup = (isset($DomainTld) && !empty($DomainTld->autosetup) ) ? $DomainTld->autosetup : '';
 
 		// autosetup configured for this tld
 		if ( !empty($autosetup) ) {

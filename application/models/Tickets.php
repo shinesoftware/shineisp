@@ -19,22 +19,24 @@ class Tickets extends BaseTickets {
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Updating date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Updating date' ), 'field' => 't.date_updated', 'alias' => 'updated_at', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'tc.category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 't.subject', 'alias' => 'subject', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Replies' ), 'field' => '', 'alias' => 'replies', 'type' => 'string', 'searchable' => false);
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Files' ), 'field' => '', 'alias' => 'files', 'type' => 'string', 'searchable' => false);
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Attachments' ), 'field' => '', 'alias' => 'files', 'type' => 'string', 'searchable' => false);
 		
 		$config ['datagrid'] ['fields'] = "t.ticket_id,
 											t.subject as subject, 
 											t.category_id as category_id,
 											tc.category as category, 
 											s.status as status, 
-											c.lastname as lastname,
-											DATE_FORMAT(t.date_open, '%d/%m/%Y') as creation_date, 
-											CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer";
+											DATE_FORMAT(t.date_open, '%d/%m/%Y %H:%i') as creation_date, 
+											DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated_at, 
+											CONCAT(c.firstname, ' ', c.lastname) as customer,
+											c.company as company";
 		
 		$dq = Doctrine_Query::create ()
 							->select ( $config ['datagrid'] ['fields'] )
@@ -481,7 +483,7 @@ class Tickets extends BaseTickets {
 				$ispmail = explode ( "@", $isp ['email'] );
 				$ispmail = "noreply@" . $ispmail [1];
 				
-				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message' );
+				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message', $customer['language_id'] );
 				
 				if ($retval) {
 					$s = $retval ['subject'];
@@ -690,7 +692,29 @@ class Tickets extends BaseTickets {
 			die;	    		
     	}
     }	
+
+    /**
+     * Get a tickets by id lists
+     * @param array $ids [1,2,3,4,...,n]
+     * @param string $fields
+     * @return Array
+     */
+    public static function get_tickets($ids, $fields=null) {
+    	$dq = Doctrine_Query::create ()->from ( 'Tickets t' )
+    	->leftJoin ( 't.Customers c' )
+    	->leftJoin ( 't.TicketsCategories tc' )
+    	->leftJoin ( 't.Domains d' )
+    	->leftJoin ( 'd.DomainsTlds dt' )
+    	->leftJoin ( 'dt.WhoisServers ws' )
+    	->leftJoin ( 't.Statuses s' )
+    	->leftJoin ( 't.Tickets t2' )
+    	->whereIn( "ticket_id", $ids);
+    	if(!empty($fields)){
+    		$dq->select($fields);
+    	}
     
+    	return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+    }
 
 	######################################### CRON METHODS ############################################
 	
@@ -734,10 +758,61 @@ class Tickets extends BaseTickets {
     	}
     	return true;
     }
+
     
 	######################################### BULK ACTIONS ############################################
 	
-	
+
+    /**
+     * export the content in a pdf file
+     * @param array $items
+     */
+    public function bulkexport($items) {
+    	$isp = Isp::getActiveISP();
+    	$pdf = new Shineisp_Commons_PdfList();
+    	$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    
+    	$fields = " t.ticket_id,
+					t.subject as subject, 
+					tc.category as category, 
+					s.status as status, 
+					DATE_FORMAT(t.date_open, '%d/%m/%Y %H:%i') as creation_date, 
+					DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated_at, 
+					CONCAT(c.firstname, ' ', c.lastname) as fullname,
+					c.company as company";
+    	
+    	// Get the records from the customer table
+    	$tickets = self::get_tickets($items, $fields);
+    	
+    	// Create the PDF header
+    	$grid['headers']['title'] = $translator->translate('Tickets List');
+    	$grid['headers']['subtitle'] = $translator->translate('List of the selected tickets');
+    	$grid['footer']['text'] = $isp['company'] . " - " . $isp['website'];
+    		
+    	if(!empty($tickets[0]))
+    
+    		// Create the columns of the grid
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Subject'), 'size' => 100);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Category'), 'size' => 80);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Status'));
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Created at'), 'size' => 100);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Updated at'), 'size' => 80);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Fullname'), 'size' => 80);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Company'), 'size' => 80);
+    
+    	// Getting the records values and delete the first column the customer_id field.
+    	foreach ($tickets as $ticket){
+    		$values = array_values($ticket);
+    		array_shift($values);
+    		$grid ['records'] [] = $values;
+    	}
+    
+    	// Create the PDF
+    	die($pdf->create($grid));
+    
+    	return false;
+    }
+    
 	/**
 	 * massdelete
 	 * delete the tickets selected 

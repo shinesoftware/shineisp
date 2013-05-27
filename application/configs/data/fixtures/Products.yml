@@ -1,10 +1,10 @@
 Products:
   Products_1:
-    uuid: null
-    sku: null
+    uuid: 2b30c9b6-6a4c-413f-b57e-02c2da880bbe
+    sku: hst-bronze
     uri: bronze-hosting-plan
     inserted_at: '2012-01-11 16:22:00'
-    updated_at: '2012-01-11 16:22:00'
+    updated_at: '2013-05-25 16:53:57'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -19,16 +19,18 @@ Products:
     enabled: true
     type: hosting
     categories: 1/5
+    Taxes: Taxes_1
     external_id: null
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
-    autosetup: '0'
+    ServersGroups: ServersGroups_1
+    autosetup: '4'
   Products_2:
-    uuid: null
-    sku: null
+    uuid: a59f3a42-ee45-452a-8ef2-ed04e3acea40
+    sku: hst-silver
     uri: silver-hosting-plan
     inserted_at: '2012-01-11 16:22:00'
-    updated_at: '2012-01-11 16:22:00'
+    updated_at: '2013-05-25 16:53:35'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -42,17 +44,19 @@ Products:
     downgradable: true
     enabled: true
     type: hosting
-    categories: 1/4/5
+    categories: 1/5/4
+    Taxes: Taxes_1
     external_id: null
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
+    ServersGroups: ServersGroups_1
     autosetup: '0'
   Products_3:
-    uuid: null
-    sku: null
+    uuid: 4dc886de-90be-4271-8000-b745ab15ebc2
+    sku: hst-gold
     uri: gold-hosting-plan
     inserted_at: '2012-01-11 16:22:00'
-    updated_at: '2012-01-11 16:22:00'
+    updated_at: '2013-05-25 16:54:38'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -67,16 +71,18 @@ Products:
     enabled: true
     type: hosting
     categories: 1/5
+    Taxes: Taxes_1
     external_id: null
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
+    ServersGroups: ServersGroups_1
     autosetup: '0'
   Products_4:
-    uuid: null
-    sku: null
+    uuid: f9c93265-f4ea-44be-9387-12fd94180ef6
+    sku: hst-plat
     uri: platinum-hosting-plan
     inserted_at: '2012-01-11 16:22:00'
-    updated_at: '2012-01-11 16:22:00'
+    updated_at: '2013-05-25 16:55:01'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -90,17 +96,19 @@ Products:
     downgradable: true
     enabled: true
     type: hosting
-    categories: 1/4/5
+    categories: 1/5/4
+    Taxes: Taxes_1
     external_id: null
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
+    ServersGroups: ServersGroups_1
     autosetup: '0'
   Products_5:
-    uuid: d5f5624c-3e98-474d-936c-c54ba16134a7
-    sku: help01
-    uri: web-designer-help
-    inserted_at: '2013-05-23 12:23:45'
-    updated_at: '2013-05-23 12:35:42'
+    uuid: 71221dda-3859-4271-9ad3-1dd3caa881ba
+    sku: help
+    uri: developer
+    inserted_at: '2013-05-25 16:57:09'
+    updated_at: '2013-05-25 17:00:46'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -108,38 +116,14 @@ Products:
     position: '0'
     iscomparable: false
     ishighlighted: false
-    isrefundable: true
+    isrefundable: false
     send_request_review: false
-    showonrss: true
+    showonrss: false
     downgradable: false
     enabled: true
     type: generic
     categories: '3'
     Taxes: Taxes_1
-    external_id: null
-    ProductsAttributesGroups: ProductsAttributesGroups_1
-    blocks: null
-    autosetup: '0'
-  Products_6:
-    uuid: 43eba2c5-5a06-4fc5-b052-a49db77c4ca2
-    sku: help02
-    uri: template-customization
-    inserted_at: '2013-05-23 13:03:03'
-    updated_at: '2013-05-23 13:04:55'
-    cost: 0
-    price_1: '0.00'
-    setupfee: '0.00'
-    setup: null
-    position: '0'
-    iscomparable: false
-    ishighlighted: false
-    isrefundable: true
-    send_request_review: false
-    showonrss: false
-    downgradable: false
-    enabled: true
-    type: generic
-    categories: '3'
     external_id: null
     ProductsAttributesGroups: ProductsAttributesGroups_1
     blocks: null

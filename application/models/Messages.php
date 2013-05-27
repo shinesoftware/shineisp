@@ -38,11 +38,11 @@ class Messages extends BaseMessages
 	 * List of the last messages attached within the orders, domains, customers detail page
 	 * 
 	 * 
-	 * @param string $attachedto [orders, domains, customers]
+	 * @param string $attachedto [orders, domains]
 	 * @param integer $limit
 	 * @return ArrayObject
 	 */
-	public static function Last($attachedto = "orders",  $limit=5) {
+	public static function Last($attachedto = "orders",  $limit=5, $delIspReplies=true) {
 		$dq = Doctrine_Query::create ()->from ( 'Messages m' );
 
 		// Adding first the main ID index field
@@ -52,13 +52,14 @@ class Messages extends BaseMessages
 		}elseif ($attachedto == "domains"){
 			$dq->select("domain_id as id");
 			$dq->where ( "domain_id IS NOT NULL");
-		}elseif ($attachedto == "customers"){
-			$dq->select("customer_id as id");
-			$dq->where ( "customer_id IS NOT NULL");
 		}
 
 		// now we can add more fields
 		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '%d/%m/%Y %H:%i:%s') as date, m.message as message" );
+		
+		if($delIspReplies){
+			$dq->where ( "isp_id IS NULL");
+		}
 		
 		// Sort the items
 		$dq->orderBy ( 'm.dateposted desc' )->limit ( $limit );
@@ -118,29 +119,12 @@ class Messages extends BaseMessages
 	 * @param string $to  Email address
 	 * @param array $placeholders 
 	 */
-	public static function sendMessage($tpl, $to, array $placeholders ){
+	public static function sendMessage($tpl, $to, array $placeholders, $language_id=null ){
 		$isp = Isp::getActiveISP ();
 		
-		$retval = Shineisp_Commons_Utilities::getEmailTemplate ( $tpl );
-		if ($retval) {
-			
-			$subject = $retval ['subject'];
-			$body = $retval ['template'];
-			
-			foreach ($placeholders as $key => $value) {
-				$subject = str_replace ( "[$key]", $value, $subject );
-			}
-			
-			foreach ($placeholders as $key => $value) {
-				$body = str_replace ( "[$key]", strip_tags(html_entity_decode($value, ENT_QUOTES, 'UTF-8')), $body );
-			}
-			
-			$body = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['email'], $body );
-			
-			// Send a message 
-			Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $to, null, $subject, $body );
-			
-		}
+		Shineisp_Commons_Utilities::sendEmailTemplate($isp['email'], $tpl, $placeholders, null, null, null, null, $language_id);
+		
+		return true;
 	}
 	
 }

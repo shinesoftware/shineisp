@@ -112,6 +112,24 @@ class Languages extends BaseLanguages {
 	}
 	
 	/**
+	 * get the locale by the language_id
+	 * 
+	 * @param integer $language_id
+	 */
+	public static function get_locale($language_id) {
+
+		$record = Doctrine_Query::create ()->select ( 'locale' )
+										   ->from ( 'Languages l' )
+										   ->where ( "language_id = ?", $language_id )
+										   ->limit ( 1 )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		if (!empty ( $record [0] )) {
+			return $record [0]['locale'];
+		} else {
+			return "en";
+		}
+	}
+	
+	/**
 	 * getDefault
 	 * get the default language
 	 */

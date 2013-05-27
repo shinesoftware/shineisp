@@ -141,7 +141,7 @@ class IndexController extends Zend_Controller_Action {
 		
 		if ($request->isPost ()) {
 			$email    = $request->getParam ( 'account' );
-			$customer = Customers::findbyemail ( $email, "email, password", true );
+			$customer = Customers::findbyemail ( $email, "email, password, language_id", true );
 
 			if ( isset($customer [0]) && is_numeric($customer[0]['customer_id']) ) {
 				// generate key
@@ -152,7 +152,7 @@ class IndexController extends Zend_Controller_Action {
 				Shineisp_Commons_Utilities::sendEmailTemplate($customer [0] ['email'], 'password_reset_link', array(
 					 'link'       => "http://" . $_SERVER ['HTTP_HOST'] . "/index/resetpwd/id/" . $resetKey
 					,':shineisp:' => $customer
-				));		
+				), null, null, null, null, $customer[0]['language_id']);		
 				
 				$this->view->mextype = "information";
 				$this->view->mex = $translator->translate ( 'Password sent to your email box. You have to click in the link written in the email.' );
@@ -189,10 +189,11 @@ class IndexController extends Zend_Controller_Action {
             $customer[0]['password']    = $newPwd;
 			// Getting the email template
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer[0]['email'], 'password_new', array(
-				  'email'      => $customer[0]['email']
+				   'fullname'       => $customer [0] ['lastname']
+				  ,'email'      => $customer[0]['email']
 				 ,':shineisp:' => $customer
 				 ,'password'   => $newPwd
-			));		
+			), null, null, null, null, $customer[0]['language_id']);		
 			
 			$this->view->mextype = "information";
 			$this->view->mex = $translator->translate ( 'Email sent' );

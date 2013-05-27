@@ -12,6 +12,15 @@
 class Shineisp_Commons_Utilities {
 	
 	/**
+	 * Replace a simple text link in a clickable link
+	 * @param string $str
+	 * @return string or boolean
+	 */
+	public static function makeClickableLinks($originalText) {
+		return preg_replace( '@(?<![.*">])\b(?:(?:https?|ftp|file)://|[a-z]\.)[-A-Z0-9+&#/%=~_|$?!:,.]*[A-Z0-9+&#/%=~_|$]@i', '<a href="\0" target="_blank">\0</a>', $originalText );
+	}
+	
+	/**
 	 * Check if the directory is writtable
 	 * @param string $path
 	 */
@@ -729,15 +738,17 @@ class Shineisp_Commons_Utilities {
 		}
 				
 		if ($html) {
+			$body = self::makeClickableLinks($body);
 			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
 			if(self::isHtml($body)){
+				$body = self::makeClickableLinks($body);
 				$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 			}else{
 				$mail->setBodyText ( $body);
 			}
 		}
-		
+
 		if ( is_array($from ) ) {
 			$mail->setFrom ( $from['email'], $from['name'] );	
 		} else {
@@ -846,48 +857,31 @@ class Shineisp_Commons_Utilities {
 	 *  getEmailTemplate
 	 *  Get the email template from database, if missing, try to load from filesystem and save to database
 	 */
-	public static function getEmailTemplate($template, $forceLocale = null) {
+	public static function getEmailTemplate($template, $language_id = null) {
+		$fallbackLocale = "en_US";
 		$subject = "";
-		$locale  = (isset($forceLocale)) ? $forceLocale : Zend_Registry::get ( 'Zend_Locale' )->toString();
-		$fallbackLocale = 'it_IT';
-		$isFallback = false;
-								
-		// Check the locale of the template
-		if (empty ( $locale )) {
-			$locale = $fallbackLocale;
-			$isFallback = true;
-		} else {
-			if (strlen ( $locale ) == 2) {
-				$locale .= "_" . strtoupper ( $locale );
-			}
-		}
-				
-		$language_id          = Languages::get_language_id($locale);
-		$fallback_language_id = Languages::get_language_id($fallbackLocale); // fallback language
+		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
 		
-		if ( is_numeric($language_id) && $language_id > 0 ) {
-			// Load mail template from database
-			if ( is_numeric($template) ) {
-				$template      = intval($template);
-				$EmailTemplate = EmailsTemplates::find($template, null, false, $language_id);
-			} else {
-				$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);	
-			}
-			
-		} else {
-			$language_id = $fallback_language_id;
+		if(empty($language_id)){
+			$language_id = Languages::get_language_id($locale);
+		}else{
+			$locale = Languages::get_locale($language_id);
 		}
 		
+		$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+
 		// Template missing from DB. Let's add it.
-		if ( !is_numeric($template) && !isset($EmailTemplate) || !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
+		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
 			
 			// Check if the file exists
 			if (! file_exists ( $filename )) {
 				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
+				Shineisp_Commons_Utilities::log("This email template has not been found: $filename");
 				
 				// Also the fallback template is missing. Something strange is going on.....
 				if (! file_exists ( $filename )) {
+					Shineisp_Commons_Utilities::log("The default email template has not been found: $filename");
 					return array('template' => "Template: ".$template." non trovato", 'subject' => $template);
 				}
 			}
@@ -932,7 +926,7 @@ class Shineisp_Commons_Utilities {
 				,'html'      => $body
 			
 			);
-
+			
 			// Save the data
 			EmailsTemplates::saveAll(null, $array, $language_id);
 				
@@ -987,9 +981,10 @@ class Shineisp_Commons_Utilities {
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
 	 */
-	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null) {
+	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null, $language_id = null) {
+		
 		// Get email template
-		$arrTemplate = self::getEmailTemplate($template);
+		$arrTemplate = self::getEmailTemplate($template, $language_id);
 		if ( !is_array($arrTemplate) ) {
 			return false;
 		}

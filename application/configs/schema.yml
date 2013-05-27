@@ -801,8 +801,9 @@ Customers:
     group_id:
       type: integer(4)
       default: '1'
-    language:
-      type: string(5)
+    language_id:
+      type: integer(4)
+      default: '1'
       notnull: false
     issubscriber:
       type: boolean(25)
@@ -839,6 +840,9 @@ Customers:
     Customers:
       local: parent_id
       foreign: customer_id
+    Languages:
+      local: language_id
+      foreign: language_id
     CustomAttributesValues:
       local: customer_id
       foreign: external_id
@@ -2001,7 +2005,7 @@ OauthClients:
       unsigned: true
       primary: true
       autoincrement: true
-    customer_id:
+    admin_id:
       type: integer(4)
       notnull: true
     app_name:
@@ -2016,6 +2020,9 @@ OauthClients:
     redirect_uri:
       type: string(500)
       notnull: false    
+    active:
+      type: boolean(25)
+      default: 1   
 
 OauthAccessTokens:
   connection: doctrine
@@ -2647,6 +2654,7 @@ Products:
     welcome_mail_id:
       type: integer(5)
       unsigned: true
+    isp_id: integer(4)
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2707,6 +2715,10 @@ Products:
     EmailsTemplates:
       local: welcome_mail_id
       foreign: template_id
+      type: one
+    Isp:
+      local: isp_id
+      foreign: isp_id
       type: one
       
 ProductsAttributes:

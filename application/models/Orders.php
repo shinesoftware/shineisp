@@ -378,7 +378,7 @@ class Orders extends BaseOrders {
 						$placeholders['message'] = $params ['message'];
 					
 						// Send a message to the customer
-						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders);
+						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders, $order [0] ['Customers'] ['language_id']);
 
 						// Change the URL for the administrator
 						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp->email);
@@ -1620,7 +1620,7 @@ class Orders extends BaseOrders {
 			 'orderid'    => $order[0]['order_number']
 			,':shineisp:' => $customer
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-		));
+		), null, null, null, null, $customer['language_id']);
 
 		return true;
 	}
@@ -2015,12 +2015,14 @@ class Orders extends BaseOrders {
 				$customer = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'];
 				$customer .= ! empty ( $invoice_dest ['company'] ) ? " - " . $invoice_dest ['company'] : "";
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['parent_id'], 'orders' );
+				$language_id = $invoice_dest ['language_id'];
 			} else {
 				$customer_email = Contacts::getEmails($order [0] ['Customers'] ['customer_id']);
 				
 				$customer = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
 				$customer .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
 				$fastlink = Fastlinks::findlinks ( $orderid, $order [0] ['Customers'] ['customer_id'], 'orders' );
+				$language_id = $order [0] ['Customers'] ['language_id'];
 			}
 
 			$email = $order [0] ['Isp'] ['email'];
@@ -2050,7 +2052,7 @@ class Orders extends BaseOrders {
 				,'url'        => $url
 				,':shineisp:' => $order [0] ['Customers']
 				,'conditions' => strip_tags(Settings::findbyParam('conditions'))
-			));
+			), null, null, null, null, $language_id);
 
 			return true;
 		}
@@ -2311,6 +2313,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Invoices i' )
 										->leftJoin ( 'o.Statuses s' )
 										->whereIn( "order_id", $ids)
+										->addWhere ( 'c.isp_id = ?', ISP::getCurrentId())
 										->orderBy(!empty($orderby) ? $orderby : "")
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -2322,7 +2325,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function Last(array $statuses, $limit=10) {
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency   = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
@@ -2330,10 +2333,11 @@ class Orders extends BaseOrders {
 											o.total as total, 
 											o.grandtotal as grandtotal, 
 											s.status as status" )
-								->from ( 'Orders o' )
+								->from ( 'Orders o' )							
 								->leftJoin ( 'o.Customers c' )
 								->leftJoin ( 'o.Invoices i' )
-								->leftJoin ( 'o.Statuses s' );
+								->leftJoin ( 'o.Statuses s' )
+								->addWhere ( 'c.isp_id = ?', ISP::getCurrentId());
 
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
@@ -2371,7 +2375,9 @@ class Orders extends BaseOrders {
 		$income = Doctrine_Query::create ()->select ( "invoice_id, QUARTER(i.invoice_date) as quarter, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
-													->where('o.status_id = ?', Statuses::id('complete', 'orders'))
+													->leftJoin ( 'o.Customers c' )
+													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+													->andWhere('c.isp_id = ?', ISP::getCurrentId())
 													->groupBy("quarter, year")
 													->orderBy('year, quarter')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2423,7 +2429,9 @@ class Orders extends BaseOrders {
 		$income = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as monthly, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 											->from ( 'Invoices i' )
 											->leftJoin ( 'i.Orders o' )
+											->leftJoin ( 'o.Customers c' )
 											->where('o.status_id = ?', Statuses::id('complete', 'orders'))
+											->andWhere('c.isp_id = ?', ISP::getCurrentId())
 											->groupBy("monthly, year")
 											->orderBy('year, monthly')
 											->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2494,7 +2502,10 @@ class Orders extends BaseOrders {
 		$incomes = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as month, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
-													->where('o.status_id = ? AND YEAR(i.invoice_date) >= ?', array(Statuses::id('complete', 'orders'), $lastYear))
+													->leftJoin ( 'o.Customers c' )
+													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+													->andWhere('YEAR(i.invoice_date) >= ?', $lastYear)
+													->andWhere('c.isp_id = ?', ISP::getCurrentId())
 													->groupBy("month, year")
 													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2546,7 +2557,9 @@ class Orders extends BaseOrders {
 		$income_status = Doctrine_Query::create ()->select ( "o.grandtotal as grandtotal, s.status as status" )
 										->from ( 'Orders o' )
 										->leftJoin ( 'o.Statuses s' )
+										->leftJoin ( 'o.Customers c' )
 										->where('status_id = ?', Statuses::id('complete', 'orders'))
+										->andWhere('c.isp_id = ?', ISP::getCurrentId())
 										->groupBy('s.status_id')
 										->execute ( null, Doctrine::HYDRATE_ARRAY );
 		Zend_Debug::dump($income_status);
@@ -2624,7 +2637,7 @@ class Orders extends BaseOrders {
 				 'orderid'    => $order['order_number']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
-			));
+			), null, null, null, null, $customer['language_id']);
 			
 	
 			// Set the order as deleted
@@ -2670,7 +2683,7 @@ class Orders extends BaseOrders {
 				 'orderid'    => $order['order_number']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
-			));
+			), null, null, null, null, $customer['language_id']);
 			
 			
 			
@@ -2710,7 +2723,7 @@ class Orders extends BaseOrders {
 						 'orderid'    => $order['order_number']
 						,':shineisp:' => $customer
 						,'url'        => $customer_url
-					));
+					), null, null, null, null, $customer['language_id']);
 
 	
 					// Set the order as deleted
@@ -2777,12 +2790,15 @@ class Orders extends BaseOrders {
 					$customers [$service ['customer_id']] ['fullname'] = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'] . " " . $invoice_dest ['company'];
 					$customers [$service ['customer_id']] ['email'] = $customer_email = Contacts::getEmails($invoice_dest ['customer_id']);
 					$customers [$service ['customer_id']] ['password'] = $invoice_dest ['password'];
+					$customers [$service ['customer_id']] ['language_id'] = $invoice_dest ['language_id'];
 				} else {
 					$customers [$service ['customer_id']] ['id'] = $service ['id'];
 					$customers [$service ['customer_id']] ['fullname'] = $service ['fullname'];
 					$customers [$service ['customer_id']] ['email'] = $customer_email = Contacts::getEmails($service ['id']);
 					$customers [$service ['customer_id']] ['password'] = $service ['password'];
+					$customers [$service ['customer_id']] ['language_id'] = $service ['language_id'];
 				}
+				
 				$customers [$service ['customer_id']] ['products'] [$i] ['name'] = $service ['product'];
 				$customers [$service ['customer_id']] ['products'] [$i] ['type'] = "service";
 				$customers [$service ['customer_id']] ['products'] [$i] ['renew'] = $service ['renew'];
@@ -2822,7 +2838,7 @@ class Orders extends BaseOrders {
 						 'url'        => $customer_url
 						,'items'      => $items
 						,':shineisp:' => $customer
-					));
+					), null, null, null, null, $customer['language_id']);
 				}
 			}
 		}
