@@ -653,6 +653,7 @@ class Customers extends BaseCustomers {
 								->leftJoin ( 'c.Addresses a' )
 								->leftJoin ( 'a.Countries ct' )
 								->leftJoin ( 'c.Contacts cn' )
+                                ->leftJoin ( 'cn.ContactsTypes cnts' )
 								->leftJoin ( 'c.Statuses s' )
 								->leftJoin ( 'c.CustomAttributesValues cav ON cav.external_id = c.customer_id' )
 								->leftJoin ( 'cav.CustomAttributes ca' )

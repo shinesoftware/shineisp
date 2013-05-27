@@ -194,22 +194,7 @@ class Api_Form_CustomerForm extends Zend_Form
             'description'      => 'Write here your email',
             'class'      => 'text-input large-input'
         ));
-        $mailValidator = new Shineisp_Validate_Email();
-        $this->getElement('email')->addValidator($mailValidator);
                 
-        $this->addElement('password', 'password', array(
-            'filters'    => array('StringTrim'),
-            'required'   => true,
-            'decorators' => array('Composite'),
-            'validators' => array(
-                array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
-            ),
-            'description'      => 'Write here your password. (min.6 chars - max.20 chars)',
-            'label'      => 'Password',
-            'class'      => 'text-input large-input'
-        ));
-        
-        
         $this->addElement('submit', 'submit', array(
             'required' => false,
             'label'    => 'Save',
