@@ -214,6 +214,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'oi.Products p' )
 										->leftJoin ( 'o.Statuses s' )
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
+										->andWhere('c.isp_id = ?', ISP::getCurrentId())
 										->orderBy ( 'order_date desc' )
 										->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
 				

@@ -13,11 +13,29 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
     }
 	
     public function indexAction() {
+		$defaultScope = ''; // empty. In this way we have a mandatory scope to request
+		$supportedScopes = array(
+		   'customers'
+		  ,'products'
+		  ,'orders'
+		  ,'domains'
+		  ,'invoices'
+		);
+
+
 		// create your storage again
 		$storage = new OAuth2_Storage_Doctrine();
 		
 		// create your server again
 		$server = new OAuth2_Server($storage,array('enforce_state' => true));
+		
+		$memory = new OAuth2_Storage_Memory(array(
+		  'default_scope'    => $defaultScope,
+		  'supported_scopes' => $supportedScopes
+		));
+		$scopeUtil = new OAuth2_Scope($memory);
+
+		$server->setScopeUtil($scopeUtil);		
 		
 		// Add the "Authorization Code" grant type (this is required for authorization flows)
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));
@@ -36,6 +54,8 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		  exit('
 		<form method="post">
 		  <label>Do You Authorize TestClient?</label><br />
+		  It needs the following privileges:<br/>
+		  <xmp>'.print_r(explode(' ',$scopeUtil->getScopeFromRequest($request)),true).'</xmp>
 		  <input type="submit" name="authorized" value="yes">
 		  <input type="submit" name="authorized" value="no">
 		</form>');
