@@ -2313,6 +2313,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Invoices i' )
 										->leftJoin ( 'o.Statuses s' )
 										->whereIn( "order_id", $ids)
+										->addWhere ( 'c.isp_id = ?', ISP::getCurrentId())
 										->orderBy(!empty($orderby) ? $orderby : "")
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -2324,7 +2325,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function Last(array $statuses, $limit=10) {
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency   = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
@@ -2332,10 +2333,11 @@ class Orders extends BaseOrders {
 											o.total as total, 
 											o.grandtotal as grandtotal, 
 											s.status as status" )
-								->from ( 'Orders o' )
+								->from ( 'Orders o' )							
 								->leftJoin ( 'o.Customers c' )
 								->leftJoin ( 'o.Invoices i' )
-								->leftJoin ( 'o.Statuses s' );
+								->leftJoin ( 'o.Statuses s' )
+								->addWhere ( 'c.isp_id = ?', ISP::getCurrentId());
 		
 		if(is_array($statuses) && !empty($statuses)){
 			$dq->whereIn('o.status_id', $statuses);
