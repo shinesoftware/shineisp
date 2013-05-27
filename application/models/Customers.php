@@ -54,6 +54,7 @@ class Customers extends BaseCustomers {
 										   s.status as status";
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
+        
         $dq = Doctrine_Query::create ()
                 ->select ( $config ['datagrid'] ['fields'] )
                 ->from ( 'Customers c' )
@@ -693,7 +694,7 @@ class Customers extends BaseCustomers {
 								->leftJoin ( 'c.CustomAttributesValues cav ON cav.external_id = c.customer_id' )
 								->leftJoin ( 'cav.CustomAttributes ca' )
 								->where ( 'c.customer_id = ?', $id )
-                                ->where( "c.isp_id = ?", ISP::getCurrentId() );
+                                ->andWhere( "c.isp_id = ?", ISP::getCurrentId() );
 			
 			if(!empty($fields) && $fields != "*"){
 				$dq->select ( $fields );
