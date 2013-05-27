@@ -38,7 +38,7 @@ class Messages extends BaseMessages
 	 * List of the last messages attached within the orders, domains, customers detail page
 	 * 
 	 * 
-	 * @param string $attachedto [orders, domains, customers]
+	 * @param string $attachedto [orders, domains]
 	 * @param integer $limit
 	 * @return ArrayObject
 	 */
@@ -52,9 +52,6 @@ class Messages extends BaseMessages
 		}elseif ($attachedto == "domains"){
 			$dq->select("domain_id as id");
 			$dq->where ( "domain_id IS NOT NULL");
-		}elseif ($attachedto == "customers"){
-			$dq->select("customer_id as id");
-			$dq->where ( "customer_id IS NOT NULL");
 		}
 
 		// now we can add more fields
