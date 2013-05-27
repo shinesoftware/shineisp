@@ -2020,6 +2020,9 @@ OauthClients:
     redirect_uri:
       type: string(500)
       notnull: false    
+    active:
+      type: boolean(25)
+      default: 1   
 
 OauthAccessTokens:
   connection: doctrine
