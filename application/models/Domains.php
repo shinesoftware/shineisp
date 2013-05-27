@@ -518,6 +518,12 @@ class Domains extends BaseDomains {
         if(is_numeric($autorenew)){
         	$dq->andWhere ( 'd.autorenew = ?', $autorenew);
         }
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
+        }        
                                            
         $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 
@@ -1419,30 +1425,46 @@ class Domains extends BaseDomains {
 	public static function summary() {
 		$chart = "";
 		
-		$records = Doctrine_Query::create ()
-									->select ( "domain_id, count(*) as items, s.status as status" )
-									->from ( 'Domains d' )
-									->leftJoin ( 'd.Statuses s' )
-									->where("s.section = 'domains'")
-									->groupBy('s.status')
-									->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
+		$dq = Doctrine_Query::create ()
+				->select ( "domain_id, count(*) as items, s.status as status" )
+				->from ( 'Domains d' )
+				->leftJoin ( 'd.Statuses s' )
+				->where("s.section = 'domains'")
+				->groupBy('s.status');
+									
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'd.Customers c' )
+                ->whereIn( "c.isp_id", $logged_user['isp_id']);
+        }  
+        
+        $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 	
 		// Strip the customer_id field
 		if(!empty($records)){
 			foreach($records as $key => $value) {
 			  	array_shift($value);
-			  	$newarray[] = $value;
-			  	$chartLabels[] = $value['status'];
-			  	$chartValues[] = $value['items'];
+			  	$newarray[]       = $value;
+			  	$chartLabels[]    = $value['status'];
+			  	$chartValues[]    = $value['items'];
 			}
 			// Chart link
 			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
 		}
 		
-		$record_group2 = Doctrine_Query::create ()
-									->select ( "domain_id, count(*) as items" )
-									->from ( 'Domains d' )
-									->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
+		$dq = Doctrine_Query::create ()
+				->select ( "domain_id, count(*) as items" )
+				->from ( 'Domains d' );
+                                    
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 'd.Customers c' )
+                ->whereIn( "c.isp_id", $logged_user['isp_id']);
+        } 
+        
+        $record_group2  =  $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
 		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
 		

@@ -559,7 +559,13 @@ class OrdersItems extends BaseOrdersItems {
 				$groups[] = "p.group_id = ?";
 			}
 			$items->andWhere ( "(" . implode(" OR ", $groups) . ")", $productgroups);
-		}						
+		}	
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $items->whereIn( "o.isp_id", $logged_user['isp_id']);
+        }        					
 	
 		$records = $items->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $records;

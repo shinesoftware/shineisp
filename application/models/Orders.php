@@ -2334,6 +2334,12 @@ class Orders extends BaseOrders {
 								->leftJoin ( 'o.Customers c' )
 								->leftJoin ( 'o.Invoices i' )
 								->leftJoin ( 'o.Statuses s' );
+
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->whereIn( "o.isp_id", $logged_user['isp_id']);
+        }
 		
 		if(is_array($statuses) && !empty($statuses)){
 			$dq->whereIn('o.status_id', $statuses);

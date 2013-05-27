@@ -989,23 +989,30 @@ class Customers extends BaseCustomers {
 	public static function Hitparade() {
 		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
-		$records = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
-							->from ( 'Invoices i' )
-							->leftJoin ( 'i.Customers c' )
-							->leftJoin ( 'i.Orders o' )
-							->groupBy('o.customer_id')
-							->orderBy ( 'c.lastname' )
-							->orderBy ( 'SUM(o.grandtotal) desc' )
-							->limit(20)
-							->execute ( null, Doctrine::HYDRATE_ARRAY );
-	
+		$dq   = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
+					->from ( 'Invoices i' )
+					->leftJoin ( 'i.Customers c' )
+					->leftJoin ( 'i.Orders o' )
+					->groupBy( 'o.customer_id' )
+					->orderBy ( 'c.lastname' )
+					->orderBy ( 'SUM(o.grandtotal) desc' )
+					->limit(20);
+                    
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
+        } 
+        
+	    $records   = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+        
 		$data = array();
-		
-		foreach ($records as $record){
+		foreach ( $records as $record ) {
 			unset($record['invoice_id']);
-			$record['grandtotal'] = $currency->toCurrency($record['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-			$data[] = $record;
+			$record['grandtotal']    = $currency->toCurrency($record['grandtotal'], array('currency' => Settings::findbyParam('currency')));
+			$data[]                  = $record;
 		}
+        
 		return $data;
 	}
 	
@@ -1017,13 +1024,20 @@ class Customers extends BaseCustomers {
 		$chart = "";
 
 		// Get the customer summary values
-		$records = Doctrine_Query::create ()
+		$dq   = Doctrine_Query::create ()
 									->select ( "customer_id, count(*) as items, s.status as status" )
 									->from ( 'Customers c' )
 									->leftJoin ( 'c.Statuses s' )
 									->where("s.section = 'customers'")
-									->groupBy('s.status')
-									->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
+									->groupBy('s.status');
+
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
+        } 
+        
+        $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 
 		// Strip the customer_id field
 		if(!empty($records)){
