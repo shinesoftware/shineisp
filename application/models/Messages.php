@@ -58,7 +58,7 @@ class Messages extends BaseMessages
 		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '%d/%m/%Y %H:%i:%s') as date, m.message as message" );
 		
 		if($delIspReplies){
-			$dq->where ( "isp_id IS NULL");
+			$dq->andWhere ( "isp_id IS NULL");
 		}
 		
 		// Sort the items
