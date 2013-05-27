@@ -16,8 +16,8 @@ class Shineisp_Commons_Utilities {
 	 * @param string $str
 	 * @return string or boolean
 	 */
-	public static function makeClickableLinks($s) {
-		return preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.-]*(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $s);
+	public static function makeClickableLinks($originalText) {
+		return preg_replace( '@(?<![.*">])\b(?:(?:https?|ftp|file)://|[a-z]\.)[-A-Z0-9+&#/%=~_|$?!:,.]*[A-Z0-9+&#/%=~_|$]@i', '<a href="\0" target="_blank">\0</a>', $originalText );
 	}
 	
 	/**
@@ -748,7 +748,7 @@ class Shineisp_Commons_Utilities {
 				$mail->setBodyText ( $body);
 			}
 		}
-		
+
 		if ( is_array($from ) ) {
 			$mail->setFrom ( $from['email'], $from['name'] );	
 		} else {
