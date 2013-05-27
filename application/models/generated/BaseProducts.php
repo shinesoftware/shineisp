@@ -34,6 +34,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property integer $server_group_id
  * @property integer $autosetup
  * @property integer $welcome_mail_id
+ * @property integer $isp_id
  * @property ProductsAttributesGroups $ProductsAttributesGroups
  * @property Taxes $Taxes
  * @property Doctrine_Collection $ProductsData
@@ -49,6 +50,7 @@ Doctrine_Manager::getInstance()->bindComponent('Products', 'doctrine');
  * @property Doctrine_Collection $ProductsAttributesIndexes
  * @property ServersGroups $ServersGroups
  * @property EmailsTemplates $EmailsTemplates
+ * @property Isp $Isp
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -197,6 +199,10 @@ abstract class BaseProducts extends Doctrine_Record
              'unsigned' => true,
              'length' => '5',
              ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
     }
 
     public function setUp()
@@ -262,5 +268,9 @@ abstract class BaseProducts extends Doctrine_Record
         $this->hasOne('EmailsTemplates', array(
              'local' => 'welcome_mail_id',
              'foreign' => 'template_id'));
+
+        $this->hasOne('Isp', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
     }
 }

@@ -346,7 +346,13 @@ class Tickets extends BaseTickets {
 		if (is_numeric ( $customerid )) {
 			$dq->where ( 't.customer_id = ?', $customerid );
 		}
-
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
+        }        
+        
 		// Open, Processing and Waiting Reply tickets
 		$statuses = array(Statuses::id("expectingreply", "tickets"), Statuses::id("processing", "tickets"));
 		$dq->whereIn('t.status_id', $statuses);
@@ -610,13 +616,21 @@ class Tickets extends BaseTickets {
 	public static function summary() {
 		$chart = "";
 		
-		$records = Doctrine_Query::create ()
-										->select ( "t.ticket_id, count(*) as items, s.status as status" )
-										->from ( 'Tickets t' )
-										->leftJoin ( 't.Statuses s' )
-										->where("s.section = 'tickets'")
-										->groupBy('s.status')
-										->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
+		$dq    = Doctrine_Query::create ()
+					->select ( "t.ticket_id, count(*) as items, s.status as status" )
+					->from ( 'Tickets t' )
+					->leftJoin ( 't.Statuses s' )
+					->where("s.section = 'tickets'")
+					->groupBy('s.status');
+        
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 't.Customers c' )
+                ->whereIn( "c.isp_id", $logged_user['isp_id']);
+        }       
+                    
+        $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
 		// Strip the customer_id field
 		if(!empty($records)){
@@ -630,11 +644,17 @@ class Tickets extends BaseTickets {
 			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
 		}
 		
-		$record_group2 = Doctrine_Query::create ()
-										->select ( "t.ticket_id, count(*) as items" )
-										->from ( 'Tickets t' )
-										->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
-		
+		$dq = Doctrine_Query::create ()
+					->select ( "t.ticket_id, count(*) as items" )
+					->from ( 'Tickets t' );
+        $auth = Zend_Auth::getInstance ();
+        if( $auth->hasIdentity () ) {
+            $logged_user= $auth->getIdentity ();
+            $dq->leftJoin ( 't.Customers c' )
+                ->whereIn( "c.isp_id", $logged_user['isp_id']);
+        }
+        		
+        $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
 		
 		return array('data' => $newarray, 'chart' => $chart);

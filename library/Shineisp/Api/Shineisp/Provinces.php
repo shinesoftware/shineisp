@@ -9,7 +9,7 @@ class Shineisp_Api_Shineisp_Provinces extends Shineisp_Api_Shineisp_Abstract_Act
             exit();
         } 
         
-        $provinces = Provinces::fildAllByRegionID($regionid);
+        $provinces = Provinces::findAllByRegionID($regionid);
         if( empty($provinces) ) {
             return false;
         }        
