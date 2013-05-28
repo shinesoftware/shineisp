@@ -7,6 +7,14 @@
 * Name:     Shineisp_Banks_IWBank_Gateway
 * Purpose:  Manage the communications with the IWBANK
 * -------------------------------------------------------------
+* 
+* TEST DATA:
+* 
+*   username: IWSTEST2
+*   password: 12345
+*   second password: MONETA
+*  
+* 
 */
 
 class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements Shineisp_Banks_Interface {
@@ -22,8 +30,8 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 	 * @return string
 	 */
 	public function CreateForm() {
-		$order = self::getOrder ();
-		$bank = self::getModule ();
+		$order      = self::getOrder ();
+		$bank       = self::getModule ();
 		$translator = self::getTranslator ();
 		
 		// Check the bank account field value
