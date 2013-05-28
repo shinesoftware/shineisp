@@ -257,6 +257,8 @@ class Payments extends BasePayments
 		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : null;
 		$payment->description = isset($payment_description) ? $payment_description : null;
 		
+		Shineisp_Commons_Utilities::logs ( "Payments::addPayment: paymentdate: ".$payment->paymentdate, "addpayment.log" );
+		
 		$save = $payment->trySave ();
         
 		if ( $save ) {
