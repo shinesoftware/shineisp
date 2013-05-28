@@ -253,9 +253,11 @@ class Payments extends BasePayments
 		$payment->income      = $amount;
 		
 		// Additional fields for Orders::saveAll()
-		$payment->paymentdate = isset($paymentdate)         ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : date ( 'Y-m-d H:i:s' );
+		$payment->paymentdate = !empty($paymentdate)        ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : date ( 'Y-m-d H:i:s' );
 		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : null;
 		$payment->description = isset($payment_description) ? $payment_description : null;
+		
+		Shineisp_Commons_Utilities::logs ( "Payments::addPayment: paymentdate: ".$payment->paymentdate, "addpayment.log" );
 		
 		$save = $payment->trySave ();
         
