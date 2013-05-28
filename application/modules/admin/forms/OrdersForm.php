@@ -17,7 +17,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->getElement('customer_id')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Customers::getList(true));
-                  
+             
     	$this->addElement('select', 'customer_parent_id', array(
             'filters'    => array('StringTrim'),
             'label'      => 'Invoice destination',

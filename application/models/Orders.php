@@ -658,7 +658,7 @@ class Orders extends BaseOrders {
 				$order->isp_id      = $customer ['isp_id'];
 				$order->is_renewal  = true;
 				$order->order_date  = date ( 'Y-m-d' );
-				$order->status_id   = Statuses::id("tobepaid", "orders"); // To be pay
+				$order->status_id   = Statuses::id("tobepaid", "orders"); // To be paid
 				$order->uuid        = Shineisp_Commons_Uuid::generate();
 				$order->save();
 			

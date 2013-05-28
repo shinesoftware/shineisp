@@ -195,13 +195,14 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function editAction() {
+		
 		$form = $this->getForm ( '/admin/orders/process' );
 		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
 		
-		$this->view->description = "Here you can edit the selected order.";
+		$this->view->description = $this->translator->translate("Here you can edit the selected order.");
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$rs = $this->orders->find ( $id );
@@ -214,6 +215,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 				$rs ['received_income'] = 0;
 				$rs ['missing_income']  = $rs['grandtotal'];
 				$rs ['order_number']    = !empty($rs['order_number']) ? $rs['order_number'] : Orders::formatOrderId($rs['order_id']);
+				
 				
 				//* GUEST - ALE - 20130325: Calculate missing income and received income based on total payments for this order
 				$payments = Payments::findbyorderid ( $id, 'income', true );
