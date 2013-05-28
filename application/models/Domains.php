@@ -58,7 +58,7 @@ class Domains extends BaseDomains {
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->where( "c.isp_id = ?", $logged_user['isp_id']);
+            $dq->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
         }
                              
 		$config ['datagrid'] ['dqrecordset'] = $dq;
@@ -1149,7 +1149,7 @@ class Domains extends BaseDomains {
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->where( "c.isp_id = ?", $logged_user['isp_id']);
+            $dq->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
         }          
 		
 		$domain = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -1231,7 +1231,7 @@ class Domains extends BaseDomains {
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'd.Customers c' )->where( "c.isp_id = ?", $logged_user['isp_id']);
+            $dq->leftJoin ( 'd.Customers c' )->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
         }   
 
         if (is_numeric ( $customer_id )) {
@@ -1461,7 +1461,7 @@ class Domains extends BaseDomains {
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
             $dq->leftJoin ( 'd.Customers c' )
-                ->where( "c.isp_id = ?", $logged_user['isp_id']);
+                ->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
         }  
         
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
