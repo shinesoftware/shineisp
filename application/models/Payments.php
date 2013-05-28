@@ -243,6 +243,13 @@ class Payments extends BasePayments
 		} else {
 			$payment = Doctrine::getTable ( 'Payments' )->find ( $paymentdata [0] ['payment_id'] );
 		}
+
+		// We make a double check to properly manage "null" output coming from Shineisp_Commons_Utilities::formatDateIn
+		if ( !empty($paymentdate) ) {
+			$paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $paymentdate );
+		}
+		$paymentdate = !empty($paymentdate) ? $paymentdate : date ( 'Y-m-d H:i:s' );
+		
 		
     	// Set the payment data
 		$payment->order_id    = $orderid;
@@ -253,12 +260,10 @@ class Payments extends BasePayments
 		$payment->income      = $amount;
 		
 		// Additional fields for Orders::saveAll()
-		$payment->paymentdate = !empty($paymentdate)        ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : date ( 'Y-m-d H:i:s' );
+		$payment->paymentdate = $paymentdate;
 		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : null;
 		$payment->description = isset($payment_description) ? $payment_description : null;
-		
-		Shineisp_Commons_Utilities::logs ( "Payments::addPayment: paymentdate: ".$payment->paymentdate, "addpayment.log" );
-		
+				
 		$save = $payment->trySave ();
         
 		if ( $save ) {
