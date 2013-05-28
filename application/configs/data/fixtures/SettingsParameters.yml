@@ -494,3 +494,12 @@ SettingsParameters:
     description: 'Automatically e-mail the invoice when created'
     SettingsGroups: SettingsGroups_1
     config: null
+  SettingsParameters_56:
+    name: 'Send a copy of all emails sent by the system to these addresses?'
+    var: always_send_to
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'If you want copies of all emails sent by the system sent to addresses of yours choise, enter the addresses here. You may enter multiple addresses seperated by a comma (,)'
+    SettingsGroups: SettingsGroups_3
+    config: null

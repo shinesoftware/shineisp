@@ -11,3 +11,9 @@ Invoices:
     Orders: Orders_2
     invoice_date: '2013-05-25'
     note: null
+  Invoices_3:
+    number: '3'
+    Customers: Customers_4
+    Orders: Orders_5
+    invoice_date: '2013-05-28'
+    note: null

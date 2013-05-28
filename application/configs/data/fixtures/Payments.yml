@@ -17,3 +17,12 @@ Payments:
     confirmed: '1'
     income: '480.00'
     outcome: '0.00'
+  Payments_3:
+    paymentdate: '2013-05-28 16:07:09'
+    Banks: Banks_1
+    Customers: Customers_4
+    description: null
+    reference: xxxyyyrrrhhhmmm
+    confirmed: '0'
+    income: '84.00'
+    outcome: '0.00'
