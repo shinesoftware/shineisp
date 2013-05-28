@@ -1226,20 +1226,19 @@ class Domains extends BaseDomains {
         
 		$dq = Doctrine_Query::create ()->from ( 'Domains d' )
 										->leftJoin('d.DomainsTlds dt')
-										->leftJoin('dt.WhoisServers ws')
-										->orderBy ( 'd.domain' );
-		
-		if (is_numeric ( $customer_id )) {
-			$dq->where ( 'customer_id = ?', $customer_id );
-		}
+										->leftJoin('dt.WhoisServers ws');
         
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'd.Customers c' )
-                ->where( "c.isp_id = ?", $logged_user['isp_id']);
-        }        
+            $dq->leftJoin ( 'd.Customers c' )->where( "c.isp_id = ?", $logged_user['isp_id']);
+        }   
+
+        if (is_numeric ( $customer_id )) {
+        	$dq->where ( 'customer_id = ?', $customer_id );
+        }
 		
+        $dq->orderBy ( 'd.domain' );
 		$records = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 		if ($empty) {
 			$items [] = "";
