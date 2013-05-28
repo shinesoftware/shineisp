@@ -476,7 +476,7 @@ class Orders extends BaseOrders {
 		return false;
 	}
 
-	private function SaveDomainsDetails($params, $orderid) {
+	private static function SaveDomainsDetails($params, $orderid) {
 		$i = 0;
 		try {
 			if (is_array ( $params )) {
