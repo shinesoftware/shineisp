@@ -252,7 +252,6 @@ class Payments extends BasePayments
 		
     	// Set the payment data
 		$payment->order_id    = $orderid;
-		$payment->customer_id = $customerId;
 		$payment->bank_id     = $bankid;
 		$payment->reference   = $transactionid;
 		$payment->confirmed   = $status ? 1 : 0;
