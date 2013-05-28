@@ -465,7 +465,6 @@ class OrdersController extends Zend_Controller_Action {
 	public function responseAction() {
 		$request = $this->getRequest ();
 		$response = $request->getParams ();
-		Zend_Debug::dump($response);
 		
 		if (! empty ( $response ['custom'] ) && is_numeric ( trim ( $response ['custom'] ) )) {
 			
@@ -473,7 +472,6 @@ class OrdersController extends Zend_Controller_Action {
 			
 			// Orderid back from the bank
 			$order_id = trim ( $response ['custom'] );
-			Zend_Debug::dump($order_id);
 			
 			// Getting the md5 value in order to match with the class name.
 			$classrequest = $request->gateway;
@@ -494,7 +492,6 @@ class OrdersController extends Zend_Controller_Action {
 					}
 				}
 			}
-			die;
 			// Check if the OrderID is a number because it 
 			// means that the order has been executed correctly
 			if (is_numeric ( $OrderID )) {
