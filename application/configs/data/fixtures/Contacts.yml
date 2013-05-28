@@ -4,3 +4,8 @@ Contacts:
     ContactsTypes: ContactsTypes_1
     base: '1'
     Customers: Customers_3
+  Contacts_2:
+    contact: {  }
+    ContactsTypes: ContactsTypes_1
+    base: '1'
+    Customers: Customers_4

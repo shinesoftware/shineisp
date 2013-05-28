@@ -113,3 +113,22 @@ OrdersItems:
     description: Developer
     callback_url: ''
     uuid: e555b694-8c0b-421c-8146-aba4c7118ab4
+  OrdersItems_7:
+    Orders: Orders_5
+    BillingCycle: BillingCycle_3
+    date_start: '2013-05-28 15:23:18'
+    date_end: '2014-05-28 15:23:18'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '84.00'
+    setupfee: '0.00'
+    Statuses: Statuses_9
+    parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
+    setup: {  }
+    note: null
+    Products: Products_1
+    parent_detail_id: '0'
+    description: 'Bronze Hosting Plan'
+    callback_url: ''
+    uuid: e68e4f3f-02aa-4c10-a88b-54c68200180f

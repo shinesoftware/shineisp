@@ -74,7 +74,6 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
         
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
-            'required'   => true,
             'label'      => 'Tax payer number',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',

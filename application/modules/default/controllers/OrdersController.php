@@ -492,7 +492,6 @@ class OrdersController extends Zend_Controller_Action {
 					}
 				}
 			}
-			
 			// Check if the OrderID is a number because it 
 			// means that the order has been executed correctly
 			if (is_numeric ( $OrderID )) {
