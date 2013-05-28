@@ -100,6 +100,19 @@ class Orders extends BaseOrders {
 		return false;
 	}
 	
+	/** 
+	 * logStatusChange
+	 * Log any status change for an order
+	 */
+	public function logStatusChange($orderId, $statusId) {
+		if ( empty($status) ) {
+			return false;
+		}
+			
+		// Log to file. This will be replaced with log to DB
+		Shineisp_Commons_Utilities::logs ("Orders::logStatusChange(".$id.", ".$status.")", "orders-set_status.log" );
+	} 
+	
 	/**
 	 * setStatus
 	 * Set a record with a status
@@ -110,6 +123,9 @@ class Orders extends BaseOrders {
 		if ( empty($status) ) {
 			return false;
 		}
+		
+		// Log status change
+		self::logStatusChange($id, $status);
 		
 		return Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
@@ -311,7 +327,8 @@ class Orders extends BaseOrders {
 		try{
 			// Set the new values
 			if (is_numeric ( $id )) {
-				$orders = Doctrine::getTable ( 'Orders' )->find ( $id );
+				$orders        = Doctrine::getTable ( 'Orders' )->find ( $id );
+				$currentStatus = $orders->status_id; // used to detect status changes
 			}
 			
 			if(!empty($params) && is_array($params)){
@@ -325,9 +342,9 @@ class Orders extends BaseOrders {
 				$orders->order_date    = Shineisp_Commons_Utilities::formatDateIn ( $params ['order_date'] );
 				$orders->customer_id   = $params ['customer_id'];
 				$orders->isp_id        = $isp_id;
+				$orders->status_id     = $params['status_id'];
 				$orders->invoice_id    = ! empty ( $params ['invoice_id'] ) ? $params ['invoice_id'] : null;
 				$orders->note          = $params ['note'];
-				$orders->status_id     = $params ['status_id'];
 				$orders->is_renewal    = $params ['is_renewal'] == 1 ? 1 : 0;
 				$orders->expiring_date = Shineisp_Commons_Utilities::formatDateIn ($params ['expiring_date']);
 				$orders->vat           = $params ['vat'];
@@ -337,6 +354,11 @@ class Orders extends BaseOrders {
 				// Save the data
 				$orders->save ();
 				$id = is_numeric ( $id ) ? $id : $orders->getIncremented ();
+
+				// Status changed? Let's call set_status. This is needed to properly log all status change.
+				if ( isset($params ['status_id']) && $params ['status_id'] != $currentStatus ) {
+					self::logStatusChange($id, $params['status_id']);	
+				}				
 				
 				// Add a fastlink to a order
 				$link_exist = Fastlinks::findlinks ( $id, 'orders' );
@@ -888,7 +910,9 @@ class Orders extends BaseOrders {
 			$order->order_number = self::formatOrderId($order->order_id);
 			$order->save();
 			
-			
+			// Log status change
+			self::logStatusChange($order->order_id, $order->status_id);
+						
 			// Assign the order var to the static var
 			self::$order = $order;
 			
