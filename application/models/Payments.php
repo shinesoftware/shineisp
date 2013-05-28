@@ -250,10 +250,9 @@ class Payments extends BasePayments
 		}
 		$paymentdate = !empty($paymentdate) ? $paymentdate : date ( 'Y-m-d H:i:s' );
 		
-		
     	// Set the payment data
 		$payment->order_id    = $orderid;
-		$payment->customer_id = Orders::getCustomer ( $orderid );
+		$payment->customer_id = $customerId;
 		$payment->bank_id     = $bankid;
 		$payment->reference   = $transactionid;
 		$payment->confirmed   = $status ? 1 : 0;
@@ -261,9 +260,9 @@ class Payments extends BasePayments
 		
 		// Additional fields for Orders::saveAll()
 		$payment->paymentdate = $paymentdate;
-		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : null;
+		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : intval(Orders::getCustomer($orderid));
 		$payment->description = isset($payment_description) ? $payment_description : null;
-				
+
 		$save = $payment->trySave ();
         
 		if ( $save ) {

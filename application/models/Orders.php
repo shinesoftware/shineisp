@@ -1817,7 +1817,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getCustomer($orderid) {
 		try {
-			$dq = Doctrine_Query::create ()->select ( 'order_id, customer_id' )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->where ( "order_id = $orderid" )->limit ( 1 );
+			$dq = Doctrine_Query::create ()->select ( 'order_id, customer_id' )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->where ( "order_id = ?", $orderid )->limit ( 1 );
 			
 			$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
