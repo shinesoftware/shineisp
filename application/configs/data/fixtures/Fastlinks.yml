@@ -197,3 +197,21 @@ Fastlinks:
     id: '4'
     Customers: Customers_1
     visits: '0'
+  Fastlinks_23:
+    controller: orders
+    action: edit
+    params: '{"id":"5"}'
+    code: galarobu
+    sqltable: orders
+    id: '5'
+    Customers: Customers_4
+    visits: '0'
+  Fastlinks_24:
+    controller: orders
+    action: createinvoice
+    params: '{"id":"3"}'
+    code: repebaxa
+    sqltable: orders
+    id: '5'
+    Customers: Customers_4
+    visits: '0'

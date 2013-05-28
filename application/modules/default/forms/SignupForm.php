@@ -114,7 +114,6 @@ class Default_Form_SignupForm extends Zend_Form
         $fiscalcodeValidator = new Shineisp_Validate_Fiscalcode();
         $this->addElement('text', 'taxpayernumber', array(
         		'filters'    => array('StringTrim'),
-        		'required'   => true,
         		'label'      => 'Tax payer number',
         		'decorators' => array('Composite'),
         		'class'      => 'text-input large-input',

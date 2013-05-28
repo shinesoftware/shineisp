@@ -827,3 +827,12 @@ AdminResources:
     module: api
     controller: regions
     parent_id: '0'
+  AdminResources_93:
+    name: Applications
+    hidden: true
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: applications
+    parent_id: '0'

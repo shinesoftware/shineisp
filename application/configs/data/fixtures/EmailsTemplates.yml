@@ -39,3 +39,11 @@ EmailsTemplates:
     bcc: ''
     plaintext: false
     active: true
+  EmailsTemplates_6:
+    type: general
+    code: order_confirm
+    name: order_confirm
+    cc: ''
+    bcc: ''
+    plaintext: false
+    active: true
