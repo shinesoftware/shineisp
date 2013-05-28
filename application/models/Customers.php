@@ -59,7 +59,7 @@ class Customers extends BaseCustomers {
                 ->select ( $config ['datagrid'] ['fields'] )
                 ->from ( 'Customers c' )
                 ->leftJoin ( 'c.Statuses s' )
-                ->where( "c.isp_id = ?", ISP::getCurrentId() );
+                ->andWhere( "c.isp_id = ?", ISP::getCurrentId() );
 
 		$config ['datagrid'] ['dqrecordset'] = $dq;
 		
@@ -100,7 +100,7 @@ class Customers extends BaseCustomers {
 		$locale = Zend_Registry::getInstance ()->Zend_Locale;
 		$customer = new Customers ( );
 
-		$isDisabled = false;
+		$isDisabled  = false;
 		$language_id = Languages::get_language_id_by_code((string)$locale);
 		
 		// By default, welcome mail is sent
@@ -134,7 +134,7 @@ class Customers extends BaseCustomers {
 		$customer->type_id      = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
 		$customer->parent_id    = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
 		$customer->isreseller   = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
-		$customer->language_id     = ! empty ( $language_id ) ? $language_id : 1;
+		$customer->language_id  = ! empty ( $language_id ) ? intval($language_id) : 1;
 		$customer->created_at   = date ( 'Y-m-d H:i:s' );
 		$customer->updated_at   = date ( 'Y-m-d H:i:s' );
 
@@ -415,7 +415,7 @@ class Customers extends BaseCustomers {
 	public static function getAll() {
 		$dq = Doctrine_Query::create ()
 		          ->from ( 'Customers c' )
-		          ->where( "c.isp_id = ?", ISP::getCurrentId() );
+		          ->andWhere( "c.isp_id = ?", ISP::getCurrentId() );
 		return $dq->execute (array (), Doctrine::HYDRATE_ARRAY);
 	}
 	
@@ -432,7 +432,7 @@ class Customers extends BaseCustomers {
 				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
 				->set ( 'force_password_change', '?', 0)
 				->where ( 'customer_id = ?', intval($customerid) )
-                ->where( "isp_id = ?", ISP::getCurrentId() );
+                ->andWhere( "isp_id = ?", ISP::getCurrentId() );
 		return $q->execute ();
 	}
 	
@@ -448,7 +448,7 @@ class Customers extends BaseCustomers {
 				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
 				->set ( 'force_password_change', '?', 0)
 				->where ( 'customer_id = ?', intval($customerid) )
-                ->where( "isp_id = ?", ISP::getCurrentId() )
+                ->andWhere( "isp_id = ?", ISP::getCurrentId() )
 				->execute ();
 	}
 	
@@ -465,7 +465,7 @@ class Customers extends BaseCustomers {
 				->set ( 'resetpwd_key', '?', $resetKey )
 				->set ( 'resetpwd_expire', '?', date ( 'Y-m-d H:i:s', time()+(2*3600)) )
 				->where ( 'customer_id = ?', intval($customerid) )
-                ->where( "isp_id = ?", ISP::getCurrentId() );
+                ->andWhere( "isp_id = ?", ISP::getCurrentId() );
 		if ( $q->execute () ) {
 			return $resetKey;
 		};
@@ -483,7 +483,7 @@ class Customers extends BaseCustomers {
 				->set ( 'resetpwd_key', '?', '')
 				->set ( 'resetpwd_expire', '?', '')
 				->where ( 'customer_id = ?', intval($customerid) )
-                ->where( "isp_id = ?", ISP::getCurrentId() )
+                ->andWhere( "isp_id = ?", ISP::getCurrentId() )
 				->execute();
 	}
 	
@@ -499,7 +499,7 @@ class Customers extends BaseCustomers {
 		$dq = Doctrine_Query::create ()
 		          ->from ( 'Customers c' )
 		          ->where ( "MD5(email) = ?", $email )
-		          ->where( "c.isp_id = ?", ISP::getCurrentId() )
+		          ->andWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		          ->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -514,7 +514,7 @@ class Customers extends BaseCustomers {
 		$dq = Doctrine_Query::create ()
 		          ->from ( 'Customers c' )
 		          ->where ( "SHA1(email) = ?", $email )
-		          ->where( "c.isp_id = ?", ISP::getCurrentId() )
+		          ->andWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		          ->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -550,7 +550,7 @@ class Customers extends BaseCustomers {
 		$record = Doctrine_Query::create ()->select('isreseller')
 											->from ( 'Customers c' )
 											->where ( "customer_id = ?", $id )
-                                            ->where( "isp_id = ?", ISP::getCurrentId() )
+                                            ->andWhere( "isp_id = ?", ISP::getCurrentId() )
 											->limit ( 1 )
 											->execute (array (), Doctrine::HYDRATE_ARRAY);
 											
@@ -571,7 +571,7 @@ class Customers extends BaseCustomers {
 		return Doctrine_Query::create ()->select($fields)
 										->from ( 'Customers c' )
 										->where ( "parent_id = ?", $parent_id )
-                                        ->where( "c.isp_id = ?", ISP::getCurrentId() )
+                                        ->andWhere( "c.isp_id = ?", ISP::getCurrentId() )
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
 	
@@ -595,7 +595,7 @@ class Customers extends BaseCustomers {
 										->leftJoin ( 'c.Statuses s' )
 										->leftJoin ( 'c.CustomersGroups g' )
 										->whereIn( "customer_id", $ids)
-                                        ->where( "isp_id = ?", ISP::getCurrentId() );
+                                        ->andWhere( "isp_id = ?", ISP::getCurrentId() );
 		if(!empty($fields)){
 			$dq->select($fields);
 		}
@@ -613,7 +613,7 @@ class Customers extends BaseCustomers {
 		$dq = Doctrine_Query::create ()
 		          ->from ( 'Customers c' )
 		          ->where ( "email = ?", $email )
-		          ->where( "isp_id = ?", ISP::getCurrentId() )
+		          ->andWhere( "isp_id = ?", ISP::getCurrentId() )
 		          ->limit ( 1 );
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -628,7 +628,7 @@ class Customers extends BaseCustomers {
 			$dbUser = Doctrine_Query::create ()
 								->from ( 'Customers u' )
 								->where ( 'MD5(u.email) = ? AND status_id = ?', array ($email, Statuses::id('active', 'customers') ) )
-                                ->where( "u.isp_id = ?", ISP::getCurrentId() )
+                                ->andWhere( "u.isp_id = ?", ISP::getCurrentId() )
 								->limit(1)
 								->fetchArray();
 								
@@ -651,7 +651,7 @@ class Customers extends BaseCustomers {
 						Doctrine_Query::create ()->update ( 'Customers u' )
 												 ->set ( 'u.password', '?', $cryptPassword )
 												 ->where ( 'MD5(u.email) = ?', $email )
-                                                 ->where( "u.isp_id = ?", ISP::getCurrentId() )
+                                                 ->andWhere( "u.isp_id = ?", ISP::getCurrentId() )
 												 ->limit(1)
 												 ->execute ();					
 					} 
@@ -946,9 +946,9 @@ class Customers extends BaseCustomers {
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $Customers->where( "u.isp_id = ?", $logged_user['isp_id']);
+            $Customers->andWhere( "u.isp_id = ?", $logged_user['isp_id']);
         }else{
-        	$Customers->where( "u.isp_id = ?", ISP::getCurrentId() );
+        	$Customers->andWhere( "u.isp_id = ?", ISP::getCurrentId() );
         }          
 		
 		if (count ( $criterias ) > 0) {
@@ -982,7 +982,7 @@ class Customers extends BaseCustomers {
 			$items [] = $translations->translate ( 'Select ...' );
 		}
 
-		$customer = Doctrine_Query::create ()->from ( 'Customers c' )->where( "c.isp_id = ?", ISP::getCurrentId() )->orderBy ( 'lastname, firstname, company' )->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
+		$customer = Doctrine_Query::create ()->from ( 'Customers c' )->andWhere( "c.isp_id = ?", ISP::getCurrentId() )->orderBy ( 'lastname, firstname, company' )->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
 		
 		foreach ( $customer as $c ) {
 			$items [$c ['customer_id']] = Shineisp_Commons_Utilities::Capitalize($c ['emaillastname'] . " (" . $c ['email'] . ")", true);
@@ -1121,7 +1121,7 @@ class Customers extends BaseCustomers {
 		$record_group2 = Doctrine_Query::create ()
 									->select ( "customer_id, count(*) as total" )
 									->from ( 'Customers c' )
-                                    ->where( "c.isp_id = ?", ISP::getCurrentId() )
+                                    ->andWhere( "c.isp_id = ?", ISP::getCurrentId() )
 									->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
 		$newarray[] = array('items' => $record_group2[0]['total'], 'status' => "Total");
