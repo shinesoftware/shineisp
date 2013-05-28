@@ -245,7 +245,6 @@ class Payments extends BasePayments
 		}
 		
     	// Set the payment data
-		$payment->paymentdate = date ( 'Y-m-d H:i:s' );
 		$payment->order_id    = $orderid;
 		$payment->customer_id = Orders::getCustomer ( $orderid );
 		$payment->bank_id     = $bankid;
@@ -254,8 +253,8 @@ class Payments extends BasePayments
 		$payment->income      = $amount;
 		
 		// Additional fields for Orders::saveAll()
-		$payment->paymentdate = isset($paymentdate) ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : null;
-		$payment->customer_id = isset($customer_id) ? intval($customer_id) : null;
+		$payment->paymentdate = isset($paymentdate)         ? Shineisp_Commons_Utilities::formatDateIn ( $paymentdate ) : date ( 'Y-m-d H:i:s' );
+		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : null;
 		$payment->description = isset($payment_description) ? $payment_description : null;
 		
 		$save = $payment->trySave ();
@@ -296,7 +295,7 @@ class Payments extends BasePayments
 			
 			Doctrine_Query::create ()->update ( 'Payments p' )
 									->set ( 'p.confirmed', '1' )
-									->where('p.order_id = ?', $orderid)
+									->where('p.order_id = ?', intval($orderid))
 									->execute ();
 			return true;
 		} catch ( Exception $e ) {
