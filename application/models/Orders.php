@@ -112,7 +112,7 @@ class Orders extends BaseOrders {
 		}
 		
 		// Log to file. This will be replaced with log to DB
-		Shineisp_Commons_Utilities::logs ("Orders::set_status(".$id.", ".$status."): ", "orders-set_status.log" );
+		Shineisp_Commons_Utilities::logs ("Orders::set_status(".$id.", ".$status.")", "orders-set_status.log" );
 		
 		return Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
