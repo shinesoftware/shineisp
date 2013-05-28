@@ -663,7 +663,7 @@ class Orders extends BaseOrders {
 				$order->save();
 			
 				// Save order number
-				$order->order_number = self::formatOrderId($orderid);
+				$order->order_number = self::formatOrderId($order->order_id);
 				$order->save();				
 
 				// Get the generated order id
