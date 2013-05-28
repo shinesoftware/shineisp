@@ -100,7 +100,7 @@ class Customers extends BaseCustomers {
 		$locale = Zend_Registry::getInstance ()->Zend_Locale;
 		$customer = new Customers ( );
 
-		$isDisabled = false;
+		$isDisabled  = false;
 		$language_id = Languages::get_language_id_by_code((string)$locale);
 		
 		// By default, welcome mail is sent
@@ -134,7 +134,7 @@ class Customers extends BaseCustomers {
 		$customer->type_id      = ! empty ( $data ['company_type_id'] ) ? $data ['company_type_id'] : Null;
 		$customer->parent_id    = ! empty ( $data ['parent_id'] ) ? $data ['parent_id'] : Null;
 		$customer->isreseller   = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
-		$customer->language_id     = ! empty ( $language_id ) ? $language_id : 1;
+		$customer->language_id  = ! empty ( $language_id ) ? intval($language_id) : 1;
 		$customer->created_at   = date ( 'Y-m-d H:i:s' );
 		$customer->updated_at   = date ( 'Y-m-d H:i:s' );
 
