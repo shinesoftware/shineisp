@@ -1042,8 +1042,22 @@ class Shineisp_Commons_Utilities {
 				$arrBCC[] = $arrTemplate['bcc'];
 			}
 		}
-		$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
-
+		// Get always-bcc from Settings
+		$always_send_to = Settings::findbyParam('always_send_to');
+		$always_send_to = trim($always_send_to);
+		if ( !empty($always_send_to) ) {
+			if ( strpos($always_send_to, ',') !== false ) {
+				$_bcc = explode(',',$always_send_to);
+				foreach ( $_bcc as $_bccAddress ) {
+					$arrBCC[] = trim($_bccAddress);	
+				}	
+			} else {
+				$arrBCC[] = $always_send_to;		
+			}	
+		}
+		//$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
+		$arrBCC = array_unique($arrBCC); // Remove duplicate bcc addresses
+		
 		if ( isset($arrTemplate['cc']) && !empty($arrTemplate['cc']) ) {
 			if (is_array($arrTemplate['cc'])  && count($arrTemplate['cc']) > 0) {
 				$arrCC = array_merge($arrCC, $arrTemplate['cc']);
