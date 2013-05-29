@@ -32,6 +32,7 @@
 			<?php endif;?>
 			<li><a href="#tab6" class="default-tab"><?=$this->translate('Messages');?></a></li>
 			<li><a href="#tab7" class="default-tab"><?=$this->translate('Private Notes');?></a></li>
+			<li><a href="#tab8" class="default-tab"><?=$this->translate('Status History');?></a></li>
 		</ul>
     
 	    <div id="tab1"> 
@@ -88,11 +89,11 @@
             </div>
             
             <br>
-            <?= $this->simplegrid($this->ordersdatagrid);?>
+            <?php echo $this->simplegrid($this->ordersdatagrid);?>
 	   </div>
 	   
 	   <div class="ui-tabs-hide" id="tab3">
-	   		<?= $this->simplegrid($this->paymentsdatagrid);?>
+	   		<?php echo $this->simplegrid($this->paymentsdatagrid);?>
 	   		
 	   		<div class="paymentgroup">
 		   		<fieldset class="column-left">
@@ -112,12 +113,12 @@
 	   </div>
 	   
 	   <div class="ui-tabs-hide" id="tab4">
-	        <?= $this->verticalgrid($this->customer);?>
+	        <?php echo $this->verticalgrid($this->customer);?>
 	   </div>
 	   
 	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
 		   <div class="ui-tabs-hide" id="tab5">
-	            <?= $this->simplegrid($this->filesgrid);?>
+	            <?php echo $this->simplegrid($this->filesgrid);?>
 	            <?php echo $form->filecategory->render()?>
 	            <?php echo $form->attachments->render()?>
 		   </div>
@@ -126,11 +127,16 @@
 	    <div class="ui-tabs-hide" id="tab6">
             <?php echo $this->bbslist($this->messages); ?>
             <?php echo $form->message->render()?>
-	   </div>
+	    </div>
 	   
-	    <div class="ui-tabs-hide" id="tab7">
-	        <?php echo $form->note->render()?>
-	   </div>
+		<div class="ui-tabs-hide" id="tab7">
+	    	<?php echo $form->note->render()?>
+		</div>
+
+		<div class="ui-tabs-hide" id="tab8">
+	    	<?php echo $this->simplegrid($this->statushistorygrid); ?>
+		</div>
+
 	   
 	   <?php echo $form->order_id->render()?>
 	</div>
