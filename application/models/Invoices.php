@@ -570,7 +570,6 @@ class Invoices extends BaseInvoices {
 				,'invoiceid'  => sprintf ( "%03s", $invoiceNum ) . "/" . $date [0]
 				,'fullname'   => $customer
 				,'email'      => $email
-				,'bank'       => $bank
 				,'url'        => $url
 				,':shineisp:' => $order [0] ['Customers']
 				,'conditions' => strip_tags(Settings::findbyParam('conditions'))

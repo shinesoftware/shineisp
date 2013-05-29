@@ -1613,6 +1613,8 @@ class Orders extends BaseOrders {
 				return true;
 			}elseif($record[0]['status_id'] == Statuses::id('paid', 'orders')){ 
 				return true;
+			}elseif($record[0]['status_id'] == Statuses::id('pending', 'orders')){ 
+				return true;
 			}elseif($record[0]['status_id'] == Statuses::id('processing', 'orders')){ 
 				return true;
 			}
