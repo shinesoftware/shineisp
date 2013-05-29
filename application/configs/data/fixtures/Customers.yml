@@ -99,7 +99,7 @@ Customers:
     company: 'Parker & sons'
     firstname: Ronald
     lastname: Parker
-    sex: null
+    sex: M
     email: null
     password: $6$4RK6Nbce$p3OVuucm697zFW2is0RtRM4w8ylyPfst2P5i0Sd/qJHYvFjwigJubS6HYJp3EqZsf67agPlAtSh5i8PtinmGx0
     resetpwd_key: null
@@ -107,14 +107,14 @@ Customers:
     last_password_change: null
     force_password_change: '0'
     birthdate: null
-    birthplace: null
-    birthdistrict: null
-    birthcountry: null
-    birthnationality: null
-    taxpayernumber: null
-    vat: null
+    birthplace: ''
+    birthdistrict: ''
+    birthcountry: ''
+    birthnationality: ''
+    taxpayernumber: ''
+    vat: ''
     Legalforms: Legalforms_1
-    note: null
+    note: ''
     Statuses: Statuses_11
     Isp: Isp_1
     CustomersGroups: CustomersGroups_1
@@ -122,6 +122,6 @@ Customers:
     issubscriber: true
     created_at: '2013-05-28 15:23:10'
     updated_at: '2013-05-28 15:23:10'
-    taxfree: null
+    taxfree: false
     isreseller: null
     ignore_latefee: false
