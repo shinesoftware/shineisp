@@ -1081,20 +1081,26 @@ class OrdersItems extends BaseOrdersItems {
 			// order item not found
 			return false;
 		}
+
+		// Get customerId related to this order
+		$customerId = Orders::getCustomer($OrderItem['order_id']);
         
 		// Get Order related to this orderItem
+		/*
 		$Order = Orders::find(intval($OrderItem['order_id']));
 		if ( !$Order ) {
 			// order not found
 			return false;
-		}
+		}*/
         
 		// Get product related to this item
+		/*
 		$Product = Products::find(intval($OrderItem['product_id']));
 		if ( !$Product ) {
 			// product not found
 			return false;
-		}		
+		}
+		*/		
 		
 		/*
 		 * START ACTIVATIONS CODE
@@ -1150,8 +1156,8 @@ class OrdersItems extends BaseOrdersItems {
 		
 		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
-		if ( $Product->type == 'hosting' ) {		
-			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
+		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {		
+			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
 			return true;
 		}
@@ -1167,7 +1173,7 @@ class OrdersItems extends BaseOrdersItems {
 			return DomainsTasks::AddTasks ( array(
 												 'domain'       => $parameters->domain
 												,'tld_id'       => intval($OrderItem['tld_id'])
-												,'customer_id'  => intval($Order->customer_id)
+												,'customer_id'  => intval($customerId)
 												,'orderitem_id' => $orderItemId) 
 										);
 		}
