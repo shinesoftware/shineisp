@@ -1151,12 +1151,14 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 		if ( empty($OrderItem['parameters']) ) {
+			Shineisp_Commons_Utilities::logs ( "OrderItems->parameters vuoto, esco", "orders.log" );
 			return false;
 		}
 		
 		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
-		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {		
+		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {
+			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un hosting", "orders.log" );		
 			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
 			return true;
@@ -1164,9 +1166,11 @@ class OrdersItems extends BaseOrdersItems {
 		
 		// Is this a domain? execute domain task
 		if ( isset($OrderItem['tld_id']) && intval($OrderItem['tld_id']) > 0 ) {
+			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un dominio", "orders.log" );	
 			$parameters = json_decode($OrderItem['parameters']);	
 
 			if ( empty($parameters->domain) ) {
+				Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): il dominio e' vuoto, esco.", "orders.log" );	
 				return false;
 			}			
 			
