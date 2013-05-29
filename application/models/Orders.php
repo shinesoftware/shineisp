@@ -105,12 +105,15 @@ class Orders extends BaseOrders {
 	 * Log any status change for an order
 	 */
 	public function logStatusChange($orderId, $statusId) {
-		if ( empty($status) ) {
+		$orderId  = intval($orderId);
+		$statusId = intval($statusId);
+		
+		if( !$orderId || !$statusId ) {
 			return false;
 		}
-			
-		// Log to file. This will be replaced with log to DB
-		Shineisp_Commons_Utilities::logs ("Orders::logStatusChange(".$id.", ".$status.")", "orders-set_status.log" );
+		
+		// Log to database	
+		StatusHistory::insert($orderId, $statusId);
 	} 
 	
 	/**
