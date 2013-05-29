@@ -502,12 +502,23 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			}
 			
 			if ($form->isValid ( $request->getPost () )) {
+			    $params = $request->getPost();
+                $area   = intval($params['area']);
+                if( $area != 0 ) {
+                    $province   = Provinces::find($area);
+                    $area       = $province->code;
+                    $params['area'] = $area;
+                }
 
 				$id = Customers::saveAll($request->getPost (), $request->getParam ( 'customer_id' ));
 				CustomAttributes::saveElementsValues($form->getSubForm('attributes')->getValues(), $request->getParam ( 'customer_id' ), "customers");
 				
 				$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			} else {
+			    echo '<pre>';
+			    print_r($form->getMessages());
+			    echo "NO";
+                die();
 				$this->view->form = $form;
 				$this->view->title = $this->translator->translate("Customer details");
 				$this->view->description = $this->translator->translate("Here you can edit the customer details.");
