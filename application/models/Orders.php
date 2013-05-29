@@ -2933,11 +2933,10 @@ class Orders extends BaseOrders {
 		return false;	
 	}	
 
-
     /**
      * Check if all items of order are completed
      ***/
-    public function checkIfOrderItemsAreCompleted( $orderid ) {
+    public static function checkIfOrderItemsAreCompleted( $orderid ) {
         $records = OrdersItems::getAllDetails( $orderid,"s.code as statuscode", true );
         foreach( $records as $record ) {
             if( $record['statuscode'] != Statuses::id('complete','orders')) {

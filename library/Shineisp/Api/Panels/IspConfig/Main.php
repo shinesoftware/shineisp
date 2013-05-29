@@ -551,7 +551,8 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		$record ['telephone']    = Contacts::getContact ( $customer ['customer_id'] );
 		
 		// System Configuration
-		$record ['language']            = substr ( $customer ['language'], - 5, 2 );
+		$languagecode = Languages::get_code($customer ['language_id']);
+		$record ['language']            = $languagecode;
 		$record ['usertheme']           = "default";
 		$record ['template_master']     = 0;
 		$record ['template_additional'] = "";
