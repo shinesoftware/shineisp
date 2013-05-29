@@ -265,12 +265,16 @@ class Payments extends BasePayments
 		$save = $payment->trySave ();
         
 		if ( $save ) {
+			Shineisp_Commons_Utilities::logs("Payments::addPayment(): save ok", "tmp_guest.log");
 			// Let's check if we have the whole invoice paid.
 			$isPaid = Orders::isPaid($orderid);
+			Shineisp_Commons_Utilities::logs("Payments::addPayment(): verifica pagamento completato.", "tmp_guest.log");
 			if ( $isPaid ) {
+				Shineisp_Commons_Utilities::logs("Payments::addPayment(): isPaid ok, pagamento completato al 100%", "tmp_guest.log");
                 // Set order status as "Paid"
                 Orders::set_status($orderid, Statuses::id('paid', 'orders'));
                 
+				Shineisp_Commons_Utilities::logs("Payments::addPayment(): faccio Orders::activateItems(".$orderid.", 4)", "tmp_guest.log");
 				// If we have to autosetup as soon as first payment is received, let's do here.
 				Orders::activateItems($orderid, 4);
 				
@@ -282,6 +286,8 @@ class Payments extends BasePayments
 				}
 				
 			} else {
+				Shineisp_Commons_Utilities::logs("Payments::addPayment(): isPaid KO, pagamento non completato", "tmp_guest.log");
+				Shineisp_Commons_Utilities::logs("Payments::addPayment(): faccio Orders::activateItems(".$orderid.", 3)", "tmp_guest.log");
 				// If we have to autosetup as soon as first payment is received, let's do here.
 				Orders::activateItems($orderid, 3);
 			}
