@@ -32,6 +32,22 @@ Orders:
     note: ''
     order_number: 000002-2013
   Orders_3:
+    Customers: Customers_4
+    external_id: null
+    Isp: Isp_1
+    uuid: fe52af0c-984a-4e6e-840d-7a377ccbc464
+    order_date: '2013-05-28'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_33
+    total: '84.00'
+    cost: '0.00'
+    vat: '0.00'
+    grandtotal: '84.00'
+    expiring_date: '2013-06-27'
+    note: null
+    order_number: 000005-2013
+  Orders_4:
     Customers: Customers_3
     external_id: null
     Isp: Isp_1
@@ -47,7 +63,7 @@ Orders:
     expiring_date: '2013-06-21'
     note: null
     order_number: 000001-2013
-  Orders_4:
+  Orders_5:
     Customers: Customers_1
     external_id: null
     Isp: Isp_1
@@ -63,20 +79,3 @@ Orders:
     expiring_date: '2013-06-24'
     note: null
     order_number: 000004-2013
-  Orders_5:
-    Customers: Customers_4
-    external_id: null
-    Isp: Isp_1
-    uuid: fe52af0c-984a-4e6e-840d-7a377ccbc464
-    order_date: '2013-05-28'
-    is_renewal: false
-    is_upgrade: false
-    Statuses: Statuses_33
-    total: '84.00'
-    cost: '0.00'
-    vat: '0.00'
-    grandtotal: '84.00'
-    Invoices: Invoices_3
-    expiring_date: '2013-06-27'
-    note: null
-    order_number: 000005-2013
