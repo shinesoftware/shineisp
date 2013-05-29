@@ -49,6 +49,16 @@
     	</ul>
     	<?php endif; ?>
         
+        
+
+		<?php // Status History ?>        
+        <?php if ( isset($this->statushistory['records']) && count($this->statushistory['records']) > 0 ): ?>
+	        <h2><?php echo $this->translate('Status history')?></h2>
+	        <?php echo $this->simplegrid($this->statushistory);?>
+	        <br/><br/>
+		<?php endif; ?>        
+        
+        
         <?php 
 	 // Create a payment form  
 	 if($this->tobepaid): ?>
