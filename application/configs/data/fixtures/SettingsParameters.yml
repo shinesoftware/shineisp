@@ -503,3 +503,12 @@ SettingsParameters:
     description: 'If you want copies of all emails sent by the system sent to addresses of yours choise, enter the addresses here. You may enter multiple addresses seperated by a comma (,)'
     SettingsGroups: SettingsGroups_3
     config: null
+  SettingsParameters_57:
+    name: 'Notify status change to customers'
+    var: notify_status_change
+    type: checkbox
+    module: admin
+    enabled: '1'
+    description: 'Notify each customers when a status change occurs on their orders'
+    SettingsGroups: SettingsGroups_3
+    config: null
