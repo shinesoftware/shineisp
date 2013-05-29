@@ -19,3 +19,7 @@ NewslettersSubscribers:
     subscriptiondate: '2013-05-25 12:27:07'
     email: g.bucchieri@shineisp.com
     Customers: Customers_1
+  NewslettersSubscribers_6:
+    subscriptiondate: '2013-05-28 15:23:10'
+    email: r.parker@shineisp.com
+    Customers: Customers_4

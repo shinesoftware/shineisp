@@ -22,6 +22,7 @@ Customers:
     Legalforms: Legalforms_2
     note: ''
     Statuses: Statuses_11
+    Isp: Isp_1
     CustomersGroups: CustomersGroups_2
     Languages: Languages_2
     issubscriber: true
@@ -53,6 +54,7 @@ Customers:
     Legalforms: Legalforms_2
     note: ''
     Statuses: Statuses_11
+    Isp: Isp_1
     CustomersGroups: CustomersGroups_1
     Languages: Languages_5
     issubscriber: false
@@ -89,6 +91,37 @@ Customers:
     issubscriber: true
     created_at: '2013-05-22 21:54:09'
     updated_at: '2013-05-22 21:54:09'
+    taxfree: null
+    isreseller: null
+    ignore_latefee: false
+  Customers_4:
+    uuid: 17630338-ad49-4fe7-9193-29001b79a1a2
+    company: 'Parker & sons'
+    firstname: Ronald
+    lastname: Parker
+    sex: null
+    email: null
+    password: $6$4RK6Nbce$p3OVuucm697zFW2is0RtRM4w8ylyPfst2P5i0Sd/qJHYvFjwigJubS6HYJp3EqZsf67agPlAtSh5i8PtinmGx0
+    resetpwd_key: null
+    resetpwd_expire: null
+    last_password_change: null
+    force_password_change: '0'
+    birthdate: null
+    birthplace: null
+    birthdistrict: null
+    birthcountry: null
+    birthnationality: null
+    taxpayernumber: null
+    vat: null
+    Legalforms: Legalforms_1
+    note: null
+    Statuses: Statuses_11
+    Isp: Isp_1
+    CustomersGroups: CustomersGroups_1
+    Languages: Languages_2
+    issubscriber: true
+    created_at: '2013-05-28 15:23:10'
+    updated_at: '2013-05-28 15:23:10'
     taxfree: null
     isreseller: null
     ignore_latefee: false

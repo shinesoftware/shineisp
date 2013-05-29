@@ -9,15 +9,16 @@ class Shineisp_Validate_Customer extends Zend_Validate_Abstract {
 	public function isValid($value, $context = null) {
 		
 		if ($context ['legalform'] == 1) { // INDIVIDUAL
-			// If the customer is a individual it must fill the taxpayernumber
-			if( empty( $context['taxpayernumber']) ) {
+
+			// If the customer is a individual it must fill the taxpayernumber ONLY FOR ITALIAN PEOPLE
+			if( empty( $context['taxpayernumber']) && $context['country_id'] == 82 ) {
 			    $this->_error( self::ISNOTINDIVIDUAL );
                 return false;
 			}
 			
 		} elseif ($context ['legalform'] == 2) { // CORPORATION 
 			// If the customer is a company it must fill also the company mandatories fields
-		    if ( empty ( $context ['company'] ) || empty ( $context ['vat'] ) ) {
+		    if ( empty (  $context['company'] ) || empty ( $context ['vat'] ) ) {
                 $this->_error ( self::ISCOMPANY );
                 return false;
             }

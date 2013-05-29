@@ -111,7 +111,6 @@ class Messages extends BaseMessages
     	return false;
     }
 
-
 	/**
 	 * Send a message using a template
 	 * 
@@ -120,10 +119,7 @@ class Messages extends BaseMessages
 	 * @param array $placeholders 
 	 */
 	public static function sendMessage($tpl, $to, array $placeholders, $language_id=null ){
-		$isp = Isp::getActiveISP ();
-		
-		Shineisp_Commons_Utilities::sendEmailTemplate($isp['email'], $tpl, $placeholders, null, null, null, null, $language_id);
-		
+		Shineisp_Commons_Utilities::sendEmailTemplate($to, $tpl, $placeholders, null, null, null, null, $language_id);
 		return true;
 	}
 	
