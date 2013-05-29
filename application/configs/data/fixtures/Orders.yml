@@ -39,13 +39,13 @@ Orders:
     order_date: '2013-05-28'
     is_renewal: false
     is_upgrade: false
-    Statuses: Statuses_33
+    Statuses: Statuses_20
     total: '84.00'
     cost: '0.00'
     vat: '0.00'
     grandtotal: '84.00'
     expiring_date: '2013-06-27'
-    note: null
+    note: ''
     order_number: 000005-2013
   Orders_4:
     Customers: Customers_3
@@ -79,3 +79,54 @@ Orders:
     expiring_date: '2013-06-24'
     note: null
     order_number: 000004-2013
+  Orders_6:
+    Customers: Customers_5
+    external_id: null
+    Isp: Isp_1
+    uuid: 3c327a0b-dc26-4bd0-90b0-32617d12b639
+    order_date: '2013-05-29'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_33
+    total: '390.00'
+    cost: '7.00'
+    vat: '81.90'
+    grandtotal: '471.90'
+    Invoices: Invoices_4
+    expiring_date: '2013-06-28'
+    note: null
+    order_number: 000006-2013
+  Orders_7:
+    Customers: Customers_6
+    external_id: null
+    Isp: Isp_1
+    uuid: d65bf8c8-00db-4c7b-863a-b2fa5f220ee1
+    order_date: '2013-05-29'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_20
+    total: '70.00'
+    cost: '0.00'
+    vat: '14.70'
+    grandtotal: '84.70'
+    Invoices: Invoices_5
+    expiring_date: '2013-06-28'
+    note: ''
+    order_number: 000007-2013
+  Orders_8:
+    Customers: Customers_7
+    external_id: null
+    Isp: Isp_1
+    uuid: a2f7426d-6d15-4f7c-bfad-284056251d54
+    order_date: '2013-05-29'
+    is_renewal: false
+    is_upgrade: false
+    Statuses: Statuses_33
+    total: '50.00'
+    cost: '0.00'
+    vat: '0.00'
+    grandtotal: '50.00'
+    Invoices: Invoices_6
+    expiring_date: '2013-06-28'
+    note: null
+    order_number: 000008-2013

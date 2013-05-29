@@ -104,7 +104,7 @@ OrdersItems:
     cost: '50.00'
     price: '0.00'
     setupfee: '0.00'
-    Statuses: Statuses_9
+    Statuses: Statuses_33
     parameters: null
     setup: {  }
     note: null
@@ -123,7 +123,7 @@ OrdersItems:
     cost: '0.00'
     price: '84.00'
     setupfee: '0.00'
-    Statuses: Statuses_9
+    Statuses: Statuses_33
     parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
     setup: {  }
     note: null
@@ -132,3 +132,79 @@ OrdersItems:
     description: 'Bronze Hosting Plan'
     callback_url: ''
     uuid: e68e4f3f-02aa-4c10-a88b-54c68200180f
+  OrdersItems_8:
+    Orders: Orders_6
+    BillingCycle: BillingCycle_2
+    date_start: '2013-05-29 16:04:35'
+    date_end: '2013-11-29 16:04:35'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '390.00'
+    setupfee: '0.00'
+    Statuses: Statuses_33
+    parameters: '{"webspace":"20000","trafficdata":"30000","emails":"20","databases":"20"}'
+    setup: {  }
+    note: null
+    Products: Products_4
+    parent_detail_id: '0'
+    description: 'Platinum Hosting Plan'
+    callback_url: ''
+    uuid: 5f727707-67dc-4758-b6ad-270574ff4d16
+  OrdersItems_9:
+    Orders: Orders_6
+    BillingCycle: BillingCycle_3
+    date_start: '2013-05-29 16:04:35'
+    date_end: '2014-05-29 16:04:35'
+    autorenew: true
+    quantity: '1'
+    cost: '7.00'
+    price: '0.00'
+    setupfee: '0.00'
+    Statuses: Statuses_9
+    parameters: '{"domain":"mydomain.com","action":"transferDomain","authcode":"","tldid":"1"}'
+    setup: {  }
+    note: null
+    DomainsTlds: DomainsTlds_1
+    parent_detail_id: null
+    description: mydomain.com
+    callback_url: null
+    uuid: 8f0320c3-fe45-49d0-a493-4d57e8877d81
+  OrdersItems_10:
+    Orders: Orders_7
+    BillingCycle: BillingCycle_1
+    date_start: '2013-05-29 16:13:32'
+    date_end: '2013-06-29 16:13:32'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '70.00'
+    setupfee: '0.00'
+    Statuses: Statuses_20
+    parameters: '{"webspace":"20000","trafficdata":"30000","emails":"20","databases":"20"}'
+    setup: {  }
+    note: null
+    Products: Products_4
+    parent_detail_id: '0'
+    description: 'Platinum Hosting Plan'
+    callback_url: ''
+    uuid: d3051571-799e-4215-95de-1eedaea019ea
+  OrdersItems_11:
+    Orders: Orders_8
+    BillingCycle: BillingCycle_1
+    date_start: '2013-05-29 17:04:56'
+    date_end: '2013-06-29 17:04:56'
+    autorenew: true
+    quantity: '1'
+    cost: '0.00'
+    price: '50.00'
+    setupfee: '0.00'
+    Statuses: Statuses_9
+    parameters: '{"webspace":"10000","trafficdata":"20000","emails":"10","databases":"15"}'
+    setup: {  }
+    note: null
+    Products: Products_3
+    parent_detail_id: '0'
+    description: 'Gold Hosting Plan'
+    callback_url: ''
+    uuid: ab91c729-23ac-4583-aed3-0f38d6fff16c

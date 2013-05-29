@@ -23,3 +23,15 @@ NewslettersSubscribers:
     subscriptiondate: '2013-05-28 15:23:10'
     email: r.parker@shineisp.com
     Customers: Customers_4
+  NewslettersSubscribers_7:
+    subscriptiondate: '2013-05-29 16:02:53'
+    email: l.romanov@shineisp.com
+    Customers: Customers_5
+  NewslettersSubscribers_8:
+    subscriptiondate: '2013-05-29 16:13:07'
+    email: s.andrews@shineisp.com
+    Customers: Customers_6
+  NewslettersSubscribers_9:
+    subscriptiondate: '2013-05-29 17:04:46'
+    email: f.dudley@shineisp.com
+    Customers: Customers_7

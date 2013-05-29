@@ -17,30 +17,6 @@ ProductsRelated:
   ProductsRelated_6:
     product_id: '1'
     Products: Products_2
-  ProductsRelated_7:
-    product_id: '3'
-    Products: Products_1
-  ProductsRelated_8:
-    product_id: '3'
-    Products: Products_3
-  ProductsRelated_9:
-    product_id: '3'
-    Products: Products_4
-  ProductsRelated_10:
-    product_id: '3'
-    Products: Products_2
-  ProductsRelated_11:
-    product_id: '4'
-    Products: Products_1
-  ProductsRelated_12:
-    product_id: '4'
-    Products: Products_3
-  ProductsRelated_13:
-    product_id: '4'
-    Products: Products_4
-  ProductsRelated_14:
-    product_id: '4'
-    Products: Products_2
   ProductsRelated_15:
     product_id: '5'
     Products: Products_1
@@ -49,4 +25,28 @@ ProductsRelated:
     Products: Products_3
   ProductsRelated_17:
     product_id: '5'
+    Products: Products_2
+  ProductsRelated_18:
+    product_id: '4'
+    Products: Products_1
+  ProductsRelated_19:
+    product_id: '4'
+    Products: Products_3
+  ProductsRelated_20:
+    product_id: '4'
+    Products: Products_4
+  ProductsRelated_21:
+    product_id: '4'
+    Products: Products_2
+  ProductsRelated_22:
+    product_id: '3'
+    Products: Products_1
+  ProductsRelated_23:
+    product_id: '3'
+    Products: Products_3
+  ProductsRelated_24:
+    product_id: '3'
+    Products: Products_4
+  ProductsRelated_25:
+    product_id: '3'
     Products: Products_2

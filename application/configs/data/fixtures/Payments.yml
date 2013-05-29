@@ -26,3 +26,30 @@ Payments:
     confirmed: '0'
     income: '84.00'
     outcome: '0.00'
+  Payments_4:
+    paymentdate: '2013-05-29 16:05:02'
+    Banks: Banks_1
+    Customers: Customers_5
+    description: null
+    reference: xxxyyyrrrhhhmmm
+    confirmed: '0'
+    income: '471.90'
+    outcome: '0.00'
+  Payments_5:
+    paymentdate: '2013-05-29 16:13:42'
+    Banks: Banks_1
+    Customers: Customers_6
+    description: null
+    reference: xxxyyyrrrhhhmmm
+    confirmed: '0'
+    income: '84.70'
+    outcome: '0.00'
+  Payments_6:
+    paymentdate: '2013-05-29 17:05:14'
+    Banks: Banks_1
+    Customers: Customers_7
+    description: null
+    reference: xxxyyyrrrhhhmmm
+    confirmed: '0'
+    income: '50.00'
+    outcome: '0.00'

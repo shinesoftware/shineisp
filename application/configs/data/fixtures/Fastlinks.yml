@@ -215,3 +215,84 @@ Fastlinks:
     id: '5'
     Customers: Customers_4
     visits: '0'
+  Fastlinks_25:
+    controller: orders
+    action: edit
+    params: '{"id":"3"}'
+    code: wafitoho
+    sqltable: orders
+    id: '3'
+    Customers: Customers_4
+    visits: '0'
+  Fastlinks_26:
+    controller: orders
+    action: edit
+    params: '{"id":"3"}'
+    code: busewoxo
+    sqltable: orders
+    id: '3'
+    Customers: Customers_4
+    visits: '0'
+  Fastlinks_27:
+    controller: orders
+    action: edit
+    params: '{"id":"6"}'
+    code: jamejujo
+    sqltable: orders
+    id: '6'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_28:
+    controller: orders
+    action: createinvoice
+    params: '{"id":"4"}'
+    code: meluweye
+    sqltable: orders
+    id: '6'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_29:
+    controller: orders
+    action: edit
+    params: '{"id":"7"}'
+    code: wobebodu
+    sqltable: orders
+    id: '7'
+    Customers: Customers_6
+    visits: '0'
+  Fastlinks_30:
+    controller: orders
+    action: createinvoice
+    params: '{"id":"5"}'
+    code: gutejika
+    sqltable: orders
+    id: '7'
+    Customers: Customers_6
+    visits: '0'
+  Fastlinks_31:
+    controller: orders
+    action: edit
+    params: '{"id":"7"}'
+    code: locozuno
+    sqltable: orders
+    id: '7'
+    Customers: Customers_6
+    visits: '0'
+  Fastlinks_32:
+    controller: orders
+    action: edit
+    params: '{"id":"8"}'
+    code: losigise
+    sqltable: orders
+    id: '8'
+    Customers: Customers_7
+    visits: '0'
+  Fastlinks_33:
+    controller: orders
+    action: createinvoice
+    params: '{"id":"6"}'
+    code: rubokepo
+    sqltable: orders
+    id: '8'
+    Customers: Customers_7
+    visits: '0'

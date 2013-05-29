@@ -11,9 +11,9 @@ ProductsUpgrades:
   ProductsUpgrades_4:
     product_id: '1'
     Products: Products_2
-  ProductsUpgrades_5:
+  ProductsUpgrades_7:
     product_id: '3'
     Products: Products_4
-  ProductsUpgrades_6:
+  ProductsUpgrades_8:
     product_id: '3'
     Products: Products_2

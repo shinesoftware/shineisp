@@ -32,3 +32,13 @@ Messages:
     message: "Salve desidero correggere un problema nel mio sito internet. Potete aiutarmi?\r\n\r\nGrazie"
     Customers: Customers_1
     Orders: Orders_5
+  Messages_7:
+    dateposted: '2013-05-29 16:04:35'
+    message: 'This is my first order '
+    Customers: Customers_5
+    Orders: Orders_6
+  Messages_8:
+    dateposted: '2013-05-29 16:13:31'
+    message: 'I have my own domain thanks!'
+    Customers: Customers_6
+    Orders: Orders_7
