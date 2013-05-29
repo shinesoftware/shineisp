@@ -18,21 +18,23 @@ class Orders extends BaseOrders {
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
-		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall' );
-		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.number', 'alias' => 'invoice', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
+		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
+		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.number', 'alias' => 'invoice', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
 		
 		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
 		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'type' => 'string');
 		
 		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes', ));
-		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
+		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('width' => 30 ));
+		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array ('width' => 70 ));
 		
 		
 		$config ['datagrid'] ['columns'] = $columns;
 		$config ['datagrid'] ['fields'] = "o.order_id,
+											  o.order_number,
                                               DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
                                               o.is_renewal as is_renewal,
                                               o.grandtotal as grandtotal,
@@ -104,13 +106,30 @@ class Orders extends BaseOrders {
 	 * logStatusChange
 	 * Log any status change for an order
 	 */
-	public function logStatusChange($orderId, $statusId) {
-		if ( empty($status) ) {
+	public static function logStatusChange($orderId, $statusId) {
+		$orderId  = intval($orderId);
+		$statusId = intval($statusId);
+		
+		if( !$orderId || !$statusId ) {
 			return false;
 		}
-			
-		// Log to file. This will be replaced with log to DB
-		Shineisp_Commons_Utilities::logs ("Orders::logStatusChange(".$id.", ".$status.")", "orders-set_status.log" );
+		
+		// If we have to notify customer, let's do here
+		$notify_status_change = (int)Settings::findbyParam('notify_status_change');
+		if ( $notify_status_change == 1 ) {
+			$orderInfo  = self::getAllInfo($orderId,'*', true);
+			$orderInfo  = array_shift($orderInfo);
+			$new_status = Statuses::getLabel($statusId);
+
+			Shineisp_Commons_Utilities::sendEmailTemplate($orderInfo['Customers']['email'], 'order_status_changed', array(
+				 'orderid'    => $orderInfo['order_number']
+				,'new_status' => $new_status
+				,':shineisp:' => array_merge($orderInfo['Customers'],$orderInfo) 
+			), null, null, null, null, $orderInfo['Customers']['language_id']);
+		}
+				
+		// Log to database	
+		StatusHistory::insert($orderId, $statusId);
 	} 
 	
 	/**
@@ -1417,6 +1436,7 @@ class Orders extends BaseOrders {
 	 * @return true|false 
 	 */
 	public static function activateItems($orderId, $autosetup = 0) {
+		Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup.")", "tmp_guest.log" );
 	    $autosetup = intval($autosetup);
 		if ( $autosetup === 0 ) {
 			return true;
@@ -1424,11 +1444,13 @@ class Orders extends BaseOrders {
 	   
 		$activableItems = OrdersItems::getAllActivableItems($orderId);
 		if ( empty($activableItems) ) {
+			Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): nessun prodotto attivabile. esco", "tmp_guest.log" );
 			return true;
 		}
         
 		foreach ( $activableItems as $item ) {
 			if ( empty($item->parameters) && empty( $item->callback_url) ) {
+				Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): prodotto ".serialize($item)." senza parameters. esco.", "tmp_guest.log" );
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
@@ -1436,14 +1458,17 @@ class Orders extends BaseOrders {
             // echo $item->Products->autosetup;
             // var_dump( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup );
             if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === intval($autosetup) ) {
+            	Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): prodotto ".$item->detail_id." attivabile. attivo.", "tmp_guest.log" );
                 OrdersItems::activate($item->detail_id);               
             }
             
             if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+            	Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): dominio ".$item->detail_id." attivabile. attivo.", "tmp_guest.log" );
                 OrdersItems::activate($item->detail_id);    
             }
-
 		}		
+
+		Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."). Fine.", "tmp_guest.log" );
 	}
 
 	
@@ -1866,6 +1891,7 @@ class Orders extends BaseOrders {
 								                     dt.tld_id,
 								                     ws.tld,
 								                     CONCAT(dm.domain, '.',ws.tld) as domain, 
+								                     o.order_number,
 								                     d.quantity, 
 								                     d.description, 
 								                     d.price as price, 

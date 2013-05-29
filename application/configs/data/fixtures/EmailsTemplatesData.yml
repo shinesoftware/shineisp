@@ -87,3 +87,11 @@ EmailsTemplatesData:
     subject: 'Il suo ordine [orderid] su [storename]'
     html: "Grazie per il suo ordine #[orderid] su [storename], [fullname].<br />\n<br />\nPuo' effettuare il pagamento via carta di credito oppure mediante bonifico bancario. Di seguito le coordinate:<br />\n<br />\nPagare con carta di credito:<br />\n<br />\n- Accedete all'indirizzo: [url]<br />\n<br />\n- Effettuate il pagamento con carta di credito, facendo click sul bottone di pagamento posto nella scheda dei dettagli dell'ordine<br />\n<br />\nPagare con bonifico bancario:<br />\n<br />\n[bank]<br />\n<br />\nIMPORTANTE: Inserite nella descrizione del bonifico il codice d'ordine: [orderid]<br />\n<br />\nPer ogni informazione complementare, contattateci : [email]<br />\n<br />\nSe desiderate cancellare l'ordine realizzato basta fare click nel bottone presente nella scheda dell'ordine: Cancella Ordine.<br />\n<br />\n[conditions]<br />\n<br />\nVi ringraziamo per la fiducia accordata alla nostra azienda e Vi auguriamo una buona giornata.<br />\n<br />\nCordialmente,<br />\n[signature]"
     text: ''
+  EmailsTemplatesData_12:
+    EmailsTemplates: EmailsTemplates_6
+    language_id: '1'
+    fromname: ShineISP
+    fromemail: info@shineisp.com
+    subject: 'Order Confirmation Order no. [orderid]'
+    html: "Dear [fullname],<br />\n<br />\nWe confirm the receipt of your payment made in settlement of the order no. [orderid]<br />\n<br />\nThe payment for order [orderid] will be checked by our staff shortly. As soon as the payment is confirmed, we will execute your order.<br />\n<br />\nWe thank you for your confidence.<br />\n<br />\nSincerely,<br />\n[signature]"
+    text: ''

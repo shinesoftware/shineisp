@@ -290,11 +290,12 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
 		
-		$this->view->customer = array ('records' => $customer, 'editpage' => 'customers' );
-		$this->view->ordersdatagrid = $this->orderdetailGrid ();
-		$this->view->paymentsdatagrid = $this->paymentsGrid ();
-		$this->view->filesgrid = $this->filesGrid ();
-		$this->view->form = $form;
+		$this->view->customer          = array ('records' => $customer, 'editpage' => 'customers' );
+		$this->view->ordersdatagrid    = $this->orderdetailGrid ();
+		$this->view->paymentsdatagrid  = $this->paymentsGrid ();
+		$this->view->filesgrid         = $this->filesGrid ();
+		$this->view->statushistorygrid = $this->statusHistoryGrid ();
+		$this->view->form              = $form;
 		$this->render ( 'applicantform' );
 	}
 	
@@ -429,6 +430,20 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			}
 		}
 	}
+	
+	/*
+	 * 
+	 */
+	private function statusHistoryGrid() {
+		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		if (isset ( $request->id ) && is_numeric ( $request->id )) {
+			$rs = StatusHistory::getAll($request->id, "orders");
+			if (isset ( $rs [0] )) {
+				return array ('name' => 'orders_statusHistoryGrid', 'records' => $rs);
+			}
+		}
+	}
+	
 	
 	/**
 	 * createinvoiceAction

@@ -466,7 +466,6 @@ class CartController extends Zend_Controller_Action {
 			$form->getElement ( 'sex' )->setRequired ( false );
 			$form->getElement ( 'birthdate' )->setRequired ( false );
 			$form->getElement ( 'birthplace' )->setRequired ( false );
-			$form->getElement ( 'taxpayernumber' )->setRequired ( false );
 			$form->getElement ( 'birthdistrict' )->setRequired ( false );
 			$form->getElement ( 'birthcountry' )->setRequired ( false );
 			$form->getElement ( 'birthnationality' )->setRequired ( false );

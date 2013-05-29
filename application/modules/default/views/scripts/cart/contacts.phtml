@@ -34,6 +34,7 @@
                     
                 	<?php echo $form->company->render()?>
                     <?php echo $form->vat->render()?>
+                    <?php echo $form->taxpayernumber->render()?>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -44,14 +45,11 @@
                 <div><small><?php echo $this->translate('Your personal data are mandatories to register or transfer a domain name.')?></small></div>
                 <div class="column-left">
 	                <?php echo $form->birthdate->render()?>
-                <?php echo $form->birthplace->render()?>
-                <?php echo $form->birthdistrict->render()?>
-                <?php echo $form->birthcountry->render()?>
-                <?php echo $form->birthnationality->render()?>
-            </div>
-                <div class="column-right">
-                <?php echo $form->sex->render()?>
-                <?php echo $form->taxpayernumber->render()?>
+	                <?php echo $form->birthplace->render()?>
+	                <?php echo $form->birthdistrict->render()?>
+	                <?php echo $form->birthcountry->render()?>
+	                <?php echo $form->birthnationality->render()?>
+	                <?php echo $form->sex->render()?>
 	            </div> 
 	            <div class="clear"></div>
             </div>

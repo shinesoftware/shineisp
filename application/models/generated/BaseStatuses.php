@@ -20,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('Statuses', 'doctrine');
  * @property Doctrine_Collection $PanelsActions
  * @property Doctrine_Collection $PurchaseInvoices
  * @property Doctrine_Collection $Servers
+ * @property Doctrine_Collection $StatusHistory
  * @property Doctrine_Collection $Tickets
  * 
  * @package    ##PACKAGE##
@@ -94,6 +95,10 @@ abstract class BaseStatuses extends Doctrine_Record
              'foreign' => 'status_id'));
 
         $this->hasMany('Servers', array(
+             'local' => 'status_id',
+             'foreign' => 'status_id'));
+
+        $this->hasMany('StatusHistory', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
 
