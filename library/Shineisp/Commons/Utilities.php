@@ -17,7 +17,7 @@ class Shineisp_Commons_Utilities {
 	 * @return string or boolean
 	 */
 	public static function makeClickableLinks($originalText) {
-		return preg_replace( '@(?<![.*">])\b(?:(?:https?|ftp|file)://|[a-z]\.)[-A-Z0-9+&#/%=~_|$?!:,.]*[A-Z0-9+&#/%=~_|$]@i', '<a href="\0" target="_blank">\0</a>', $originalText );
+		return preg_replace( "/(http|https|ftp|ftps)\:\/\/[a-z0-9\-\.]+\.[a-z]{2,6}([a-z0-9\-\.\_\/]+)?/i", '<a href="\0" target="_blank">\0</a>', $originalText );
 	}
 	
 	/**

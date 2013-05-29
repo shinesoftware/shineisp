@@ -148,6 +148,15 @@ class OrdersController extends Zend_Controller_Action {
 					$this->view->order = array ('records' => $rs );
 					$this->view->details = array ('records' => $records );
 					
+					// Get Order status history
+					$rsStatusHistory = StatusHistory::getAll($id, "orders");
+					print_r($rsStatusHistory);
+					if (isset ( $rs [0] )) {
+						$this->view->statushistory = array ('records' => $rsStatusHistory);
+					}
+					
+					
+					
 					$this->view->headertitle = $this->translator->translate('Order page');
 					
 					// Show the list of the messages attached to this domain

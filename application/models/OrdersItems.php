@@ -1081,20 +1081,26 @@ class OrdersItems extends BaseOrdersItems {
 			// order item not found
 			return false;
 		}
+
+		// Get customerId related to this order
+		$customerId = Orders::getCustomer($OrderItem['order_id']);
         
 		// Get Order related to this orderItem
+		/*
 		$Order = Orders::find(intval($OrderItem['order_id']));
 		if ( !$Order ) {
 			// order not found
 			return false;
-		}
+		}*/
         
 		// Get product related to this item
+		/*
 		$Product = Products::find(intval($OrderItem['product_id']));
 		if ( !$Product ) {
 			// product not found
 			return false;
-		}		
+		}
+		*/		
 		
 		/*
 		 * START ACTIVATIONS CODE
@@ -1145,29 +1151,33 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 		if ( empty($OrderItem['parameters']) ) {
+			Shineisp_Commons_Utilities::logs ( "OrderItems->parameters vuoto, esco", "orders.log" );
 			return false;
 		}
 		
 		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
-		if ( $Product->type == 'hosting' ) {		
-			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
+		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {
+			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un hosting", "orders.log" );		
+			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
 			return true;
 		}
 		
 		// Is this a domain? execute domain task
 		if ( isset($OrderItem['tld_id']) && intval($OrderItem['tld_id']) > 0 ) {
+			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un dominio", "orders.log" );	
 			$parameters = json_decode($OrderItem['parameters']);	
 
 			if ( empty($parameters->domain) ) {
+				Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): il dominio e' vuoto, esco.", "orders.log" );	
 				return false;
 			}			
 			
 			return DomainsTasks::AddTasks ( array(
 												 'domain'       => $parameters->domain
 												,'tld_id'       => intval($OrderItem['tld_id'])
-												,'customer_id'  => intval($Order->customer_id)
+												,'customer_id'  => intval($customerId)
 												,'orderitem_id' => $orderItemId) 
 										);
 		}

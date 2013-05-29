@@ -113,20 +113,22 @@ class Addresses extends BaseAddresses {
 			$address = new Addresses();	
 		}
 		
-		$address['address'] = $data['address'];
-		$address['city'] = $data['city'];
-		$address['code'] = $data['code'];
-		$address['area'] = $data['area'];
-        $address['region_id'] = intval( $data['region_id']);
+		$address['address']   = $data['address'];
+		$address['city']      = $data['city'];
+		$address['code']      = $data['code'];
+		$address['area']      = $data['area'];
+        $region_id            = intval( $data['region_id']);
+        if( $region_id != 0 ) {
+            $address['region_id']   = $region_id;
+        }
 
 		// Get the latitude and longitude coordinates
     	$coords = Shineisp_Commons_Utilities::getCoordinates($data['city']);
 		
-		$address['latitude'] = $coords['results'][0]['geometry']['location']['lat'];
-		$address['longitude'] = $coords['results'][0]['geometry']['location']['lng'];
-		
-		$address['country_id'] = $data['country_id'];
-		$address['customer_id'] = $data['customer_id'];
+		$address['latitude']      = $coords['results'][0]['geometry']['location']['lat'];
+		$address['longitude']     = $coords['results'][0]['geometry']['location']['lng'];
+		$address['country_id']    = $data['country_id'];
+		$address['customer_id']   = $data['customer_id'];
 		
 		$address->save();
 		return $address['address_id'];
