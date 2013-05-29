@@ -12,5 +12,49 @@
  */
 class StatusHistory extends BaseStatusHistory
 {
-
+	/**
+	 * Insert a new status
+	 * @param array $params
+	 */
+	public static function insert($section_id, $status_id) {
+		$status_id  = intval($status_id);
+		$section_id = intval($section_id);
+		
+		if( !$status_id || !$section_id ) {
+			return false;
+		}
+		
+		$StatusHistory = new self;
+		$StatusHistory->section_id = $section_id;
+		$StatusHistory->status_id  = $status_id;
+		$StatusHistory->datetime   = date('Y-m-d H:i:s');
+		$StatusHistory->save ();
+		
+		return true;
+	}
+	
+	
+	/**
+	 * getAll
+	 * Get all records by sectionId and status section
+	 * @param $sectionId, $statusSection [orders, customers, ...], $fields="*"
+	 * @return Doctrine Record
+	 */
+	public static function getAll($sectionId, $statusSection, $fields="*, s.status AS status") {
+		$sectionId = intval($sectionId);
+		
+		return Doctrine_Query::create ()->select($fields)
+									   	->from( 'StatusHistory sh' )
+									   	->leftJoin('sh.Statuses s')
+									   	->where ( 'sh.section_id = ?', $sectionId )
+									    ->andWhere ( 's.section = ?',  $statusSection )
+										->andWhere ( 's.public = 1')
+										->orderBy ( 'sh.datetime DESC')
+									    ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+										
+	}
+	
+	
+	
+	
 }
