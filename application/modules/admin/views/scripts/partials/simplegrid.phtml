@@ -10,7 +10,8 @@ if (isset($this->records[0])):
     $recordcount = count($this->records);
     
     // Counting the field
-    $numcols = count($fields); ?>
+    $numcols = count($fields);
+?>
     
     <div class="notification infos" id="mex" style="display:none"></div>
         <table border="0" cellpadding="5" class="data sublist" id="sublist_<?=$this->name?>">
@@ -18,7 +19,6 @@ if (isset($this->records[0])):
                 <tr>
                     <?php // Creation of the Rows and Columns?>
                        <?php foreach ( $fields as $field ) : ?>
-                           
                            <?php if(strpos($field, "_id")=== false):?>
                                 <th>
                                   <?php
