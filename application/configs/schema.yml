@@ -3491,6 +3491,31 @@ Statuses:
       type: boolean(25)
       default: 1
 
+StatusHistory:
+  connection: doctrine
+  tableName: status_history
+  columns:
+    history_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    datetime:
+      type: timestamp(25)
+      notnull: true
+    status_id:
+      type: integer(4)
+      notnull: true
+    section_id:
+      type: integer(4)
+      notnull: true
+  relations:
+    Statuses:
+      local: status_id
+      foreign: status_id
+      onDelete: CASCADE      
+            
 Tags:
   connection: doctrine
   tableName: tags
