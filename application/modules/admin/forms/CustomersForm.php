@@ -247,12 +247,27 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'country_id', array(
 				        'label' => 'Country',
 				        'decorators' => array('Composite'),
-				        'class'      => 'text-input large-input')
+				        'class'      => 'text-input large-input',
+                        'onchange'   => 'onChangeCountry( this );')
         );
+        
+        
         $this->getElement('country_id')
                   ->setAllowEmpty(false)
-                  ->setMultiOptions(Countries::getList())
+                  ->setMultiOptions(Countries::getList( true ))
                   ->setRequired(true);
+
+        $this->addElement('select', 'region_id', array(
+                        'label' => 'Region',
+                        'decorators' => array('Composite'),
+                        'class'      => 'text-input large-input',
+                        'onchange'   => 'onChangeRegions( this );')
+        );
+        
+        $this->getElement('region_id')
+            ->setRegisterInArrayValidator(false)
+            ->addValidator( new Shineisp_Validate_Regions( ) );
+
                   
         $this->addElement('select', 'contacttypes', array(
         'label' => 'Contact Types',

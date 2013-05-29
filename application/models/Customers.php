@@ -286,6 +286,10 @@ class Customers extends BaseCustomers {
                 if( $customer->customer_id != $id ) {
                     return false;
                 }
+                
+                if( $customer->isp_id != ISP::getCurrentId() ) {
+                    return false;
+                }
 			}else{
 				$customer = new Customers();
 			}
@@ -299,11 +303,11 @@ class Customers extends BaseCustomers {
 				$customer['password'] = crypt($data['password']);
 			}
 			
-			$customer['email'] = $data['email'];
-			$customer['birthplace'] = $data['birthplace'];
-			$customer['birthdate'] = Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] );
-			$customer['birthdistrict'] = $data['birthdistrict'];
-			$customer['birthcountry'] = $data['birthcountry'];
+			$customer['email']           = $data['email'];
+			$customer['birthplace']      = $data['birthplace'];
+			$customer['birthdate']       = Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] );
+			$customer['birthdistrict']   = $data['birthdistrict'];
+			$customer['birthcountry']    = $data['birthcountry'];
 			$customer['birthnationality'] = $data['birthnationality'];
 			$customer['note'] = $data['note'];
 			$customer['vat'] = $data['vat'];
@@ -321,6 +325,7 @@ class Customers extends BaseCustomers {
 			$customer['isreseller'] = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
 			$customer['ignore_latefee'] = (bool)$data ['ignore_latefee'];
 			$customer['language_id'] = $data['language_id'];
+            $customer['isp_id']         = ISP::getCurrentId();
 			
 			$customer->save();
 				

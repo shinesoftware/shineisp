@@ -99,11 +99,15 @@
 	    
 	    <div class="ui-tabs-hide" id="tab3"> 
 			<fieldset class="column-left">
+			    <?php echo $form->country_id->render()?>
+			    <?php echo $form->region_id->render()?>
+			    
+			    <?php echo $form->area->render()?>
+			    <?php echo $form->city->render()?>
+			    
 	            <?php echo $form->address->render()?>
 	            <?php echo $form->code->render()?>
-	            <?php echo $form->city->render()?>
-	             <?php echo $form->area->render()?>
-	            <?php echo $form->country_id->render()?>
+	            
             </fieldset>
             
             <fieldset class="column-right">

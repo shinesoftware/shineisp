@@ -43,7 +43,7 @@ class Provinces extends BaseProvinces {
 	 * @param unknown_type $id
 	 */
 	public static function find($id) {
-		return Doctrine::getTable ( 'Provinces' )->findOneBy ( 'country_id', $id );
+		return Doctrine::getTable ( 'Provinces' )->findOneBy ( 'province_id', $id );
 	}
 
 	/**
