@@ -53,3 +53,12 @@ Payments:
     confirmed: '0'
     income: '50.00'
     outcome: '0.00'
+  Payments_7:
+    paymentdate: '2013-05-29 00:00:00'
+    Banks: Banks_1
+    Customers: Customers_5
+    description: ''
+    reference: '64053395610'
+    confirmed: '1'
+    income: '471.90'
+    outcome: '0.00'

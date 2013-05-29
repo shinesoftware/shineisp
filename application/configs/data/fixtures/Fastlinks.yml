@@ -296,3 +296,57 @@ Fastlinks:
     id: '8'
     Customers: Customers_7
     visits: '0'
+  Fastlinks_34:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: xazemuha
+    sqltable: orders
+    id: '4'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_35:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: xupelaza
+    sqltable: orders
+    id: '4'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_36:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: dajuzihu
+    sqltable: orders
+    id: '4'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_37:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: musuwave
+    sqltable: orders
+    id: '4'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_38:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: delufiwo
+    sqltable: orders
+    id: '4'
+    Customers: Customers_5
+    visits: '0'
+  Fastlinks_39:
+    controller: orders
+    action: edit
+    params: '{"id":"4"}'
+    code: xicokude
+    sqltable: orders
+    id: '4'
+    Customers: Customers_5
+    visits: '1'

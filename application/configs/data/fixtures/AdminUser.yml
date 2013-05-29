@@ -3,11 +3,11 @@ AdminUser:
     firstname: John
     lastname: Doe
     email: info@shineisp.com
-    password: $6$2fe7GmT.$4C9XljF1pql0hH95tcd0i9LwpJdHmATI4qMIxX3evaCtILGDnB6TtUfhv4GFytssfu5p/NPVGkK1aMNHKSvYw.
+    password: $1$TqF8JTWp$NHgjfbEbp13waOvsYENYF/
     last_password_change: null
     force_password_change: '0'
     created: '2012-08-14 16:54:00'
-    changed: '2013-05-29 15:09:11'
+    changed: '2013-05-29 19:01:21'
     lognum: '9'
     AdminRoles: AdminRoles_1
     config: null
