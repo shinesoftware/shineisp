@@ -1,0 +1,14 @@
+<?php 
+	$status = $this->data;
+	$status_items = count($status); 
+?>
+
+<?php if($status): ?>
+	<ul id="breadcrumb-status">
+	<?php for($i=0;$i<count($status);$i++): ?>
+		<?php $current = (($status_items - 1) == $i) ? "current" : null; ?>
+		
+		<li><a href="#" class="<?php echo $current ?>"><?php echo $status[$i]['status']?></a></li>
+	<?php endfor;?>
+	</ul>
+<?php endif; ?>

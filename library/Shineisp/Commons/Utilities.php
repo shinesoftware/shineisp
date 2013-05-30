@@ -1112,7 +1112,7 @@ class Shineisp_Commons_Utilities {
 	 * @param $format Zend_date format
 	 * @return date formatted by the locale setting
 	 */
-	public static function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM) {
+	public static function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM, $showTime=false) {
 		if (empty ( $dbindata ))
 			return false;
 		
@@ -1123,8 +1123,10 @@ class Shineisp_Commons_Utilities {
 		$dateformat = Settings::findbyParam('dateformat');
 		
 		if(!empty($dateformat)){
+			$dateformat .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($dateformat);
 		}else{
+			$format .= ($format) ? " HH:mm:ss" : null;
 			return $date->get($format);
 		}
 		
