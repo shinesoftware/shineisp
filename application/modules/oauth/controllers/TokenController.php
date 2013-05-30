@@ -45,7 +45,7 @@ class Oauth_TokenController extends Zend_Controller_Action {
 		//$server->addGrantType(new OAuth2_GrantType_ClientCredentials($storage));
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));
 		$server->addGrantType(new OAuth2_GrantType_RefreshToken($storage));
-		$server->addGrantType(new OAuth2_GrantType_JWTBearer($storage,'http://shineisp.xf.guest.it/oauth/token'), 'jwt_bearer');
+		$server->addGrantType(new OAuth2_GrantType_JWTBearer($storage,'http://shineisp.xf.guest.it/oauth/token'));
 		
 		
 		// Handle a request for an OAuth2.0 Access Token and send the response to the client
