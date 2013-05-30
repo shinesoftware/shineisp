@@ -187,6 +187,7 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
 
     public function getUser($username)
     {
+    	Shineisp_Commons_Utilities::log("OAuth2_Storage_Doctrine::getUser('".$username."')", 'oauth.log');
 		$result = Doctrine_Query::create ()->select ( '*' )->from ( $this->config['user_table'] )->where ( "username = ?", $username)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		return array_shift($result);
     }
@@ -201,6 +202,7 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
     public function getClientKey($client_id, $subject)
     {
 		$result = Doctrine_Query::create ()->select ( 'public_key' )->from ( $this->config['jwt_table'] )->where ( "client_id = ?", $client_id)->andWhere('subject = ?', $subject)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
-		return array_shift($result);
+		$result = array_shift($result);
+		return $result['public_key'];
     }
 }
