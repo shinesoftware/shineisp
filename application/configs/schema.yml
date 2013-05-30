@@ -717,6 +717,16 @@ CustomersGroups:
     name:
       type: string(250)
       notnull: true
+    isp_id:
+      type: integer(4)      
+  relations:
+    Customers:
+      local: group_id
+      foreign: group_id
+    Isp:
+      local: isp_id
+      foreign: isp_id
+
             
 Customers:
   connection: doctrine
