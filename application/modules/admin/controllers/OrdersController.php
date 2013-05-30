@@ -290,6 +290,9 @@ class Admin_OrdersController extends Zend_Controller_Action {
 			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
 		
+		// Get Order status history
+		$this->view->statushistory = StatusHistory::getStatusList($id);
+		
 		$this->view->customer          = array ('records' => $customer, 'editpage' => 'customers' );
 		$this->view->ordersdatagrid    = $this->orderdetailGrid ();
 		$this->view->paymentsdatagrid  = $this->paymentsGrid ();

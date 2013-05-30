@@ -18,9 +18,9 @@
 		</div>    
 	<? endif; ?>
 
-	<p align="right" class="order-buttons">
-		<a href="/orders" class="grey-button"><?php echo $this->translate('Order list')?></a> 
-		<a href="/orders/print/id/<?php echo $this->orderid?>" class="grey-button"><?php echo $this->translate('Print Order')?></a> 
+		<p align="right" class="order-buttons">
+			<a href="/orders" class="grey-button"><?php echo $this->translate('Order list')?></a> 
+			<a href="/orders/print/id/<?php echo $this->orderid?>" class="grey-button"><?php echo $this->translate('Print Order')?></a> 
             <?php if($this->invoiced): ?>
                 <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="blue-button"><?php echo $this->translate('Print Invoice')?></a> 
             <?php else: ?>
@@ -30,6 +30,9 @@
             <?php endif; ?>
         </p> 
         
+        <?php // Status History ?>  <br/><br/>    
+		<?php echo $this->status($this->statushistory);?>  
+	
         <?php echo $this->verticalgrid($this->order)?>
         <br/><br/>
         
@@ -48,15 +51,6 @@
     		<?php endforeach; ?>
     	</ul>
     	<?php endif; ?>
-        
-        
-
-		<?php // Status History ?>        
-        <?php if ( isset($this->statushistory['records']) && count($this->statushistory['records']) > 0 ): ?>
-	        <h2><?php echo $this->translate('Status history')?></h2>
-	        <?php echo $this->simplegrid($this->statushistory);?>
-	        <br/><br/>
-		<?php endif; ?>        
         
         
         <?php 
