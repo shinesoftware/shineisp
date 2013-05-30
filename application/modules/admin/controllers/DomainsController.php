@@ -295,7 +295,9 @@ class Admin_DomainsController extends Zend_Controller_Action {
 
 			// Set the new values
 			$this->domains->domain = $params ['domain'];
-			$this->domains->tld = $tldInfo['WhoisServer']['tld'];
+            if( isset($tldInfo['WhoisServer']) ) {
+			     $this->domains->tld = $tldInfo['WhoisServer']['tld'];
+            }
 			$this->domains->tld_id = $params ['tld_id'];
 			$this->domains->authinfocode = $params ['authinfocode'];
 			$this->domains->creation_date = $params ['creation_date'];
