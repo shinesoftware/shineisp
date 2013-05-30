@@ -25,7 +25,12 @@ class CustomersGroups extends BaseCustomersGroups {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'cg.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		
 		$config ['datagrid'] ['fields'] = "group_id, name";
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'CustomersGroups cg' );
+        
+        $dq     = Doctrine_Query::create ()
+                    ->select ( $config ['datagrid'] ['fields'] )
+                    ->from ( 'CustomersGroups cg' );
+        
+		$config ['datagrid'] ['dqrecordset'] = $dq;
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		

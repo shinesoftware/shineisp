@@ -6,71 +6,72 @@
 
 <div class="content_inner">
 
-		<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-            
-            <div class="options"> 
-            	<?php echo $form->user_id->render()?>
-            	<?php echo $form->sibling_id->render()?>
-            	<?php if(!empty($this->siblings)): ?>
-	            	<div class="inputitem">
-	            	<label for="siblings"><?php echo $this->translate('Go to'); ?>:</label>
-	            	<select id="siblings" class="text-input little-input goto">
-	            		<?php foreach ($this->siblings as $id => $sibling): ?>
-	            			<option value="/admin/tickets/edit/id/<?php echo $id ?>"><?php echo $sibling?></option>
-	            		<?php endforeach;?>
-	            	</select></div>
-            	<?php endif; ?>
+	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+        
+        <div class="options"> 
+        	<?php echo $form->user_id->render()?>
+        	<?php echo $form->sibling_id->render()?>
+        	<?php if(!empty($this->siblings)): ?>
+            	<div class="inputitem">
+            	<label for="siblings"><?php echo $this->translate('Go to'); ?>:</label>
+            	<select id="siblings" class="text-input little-input goto">
+            		<?php foreach ($this->siblings as $id => $sibling): ?>
+            			<option value="/admin/tickets/edit/id/<?php echo $id ?>"><?php echo $sibling?></option>
+            		<?php endforeach;?>
+            	</select></div>
+        	<?php endif; ?>
+        </div>
+        <div class="clear"></div>
+        
+        <?php echo $this->verticalgrid($this->datagrid)?>
+        
+        <?php echo $this->Attachments($this->record['ticket_id'], 'tickets'); ?>
+        
+        <?php if(!empty($this->record['sibling_id'])): ?>
+        	<div class="relationship"><?php echo $this->translate('Relationships'); ?>: <a href="/admin/tickets/edit/id/<?php echo $this->record['sibling'][0]['ticket_id'] ?>"><?php echo $this->record['sibling'][0]['subject']?></a></div>
+        <?php endif; ?>
+		<?php if(!empty($this->record)): ?>            
+            <div id="ticket" class="ticket">
+                <div class="avatar"><?php echo $this->customeravatar ?></div>
+                <div class="ticket_owner"><a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname'];?></a> <a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company'];?></a> - <small><?php echo $this->record['date_open'];?></small></div>
+                <div class="ticket_description"><?php echo $this->record['description'];?></div>
             </div>
-            <div class="clear"></div>
-            
-            <?php echo $this->verticalgrid($this->datagrid)?>
-            
-            <?php echo $this->Attachments($this->record['ticket_id'], 'tickets'); ?>
-            
-            <?php if(!empty($this->record['sibling_id'])): ?>
-            	<div class="relationship"><?php echo $this->translate('Relationships'); ?>: <a href="/admin/tickets/edit/id/<?php echo $this->record['sibling'][0]['ticket_id'] ?>"><?php echo $this->record['sibling'][0]['subject']?></a></div>
-            <?php endif; ?>
-			<?php if(!empty($this->record)): ?>            
-	            <div id="ticket" class="ticket">
-	                <div class="avatar"><?php echo $this->customeravatar ?></div>
-	                <div class="ticket_owner"><a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname'];?></a> <a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company'];?></a> - <small><?php echo $this->record['date_open'];?></small></div>
-	                <div class="ticket_description"><?php echo $this->record['description'];?></div>
-	            </div>
+        <?php endif;?>
+        
+        <?php if(!empty($this->notes)):?>
+        	<div id="notes" class="notes">
+                <?php foreach( $this->notes as $note):?>
+                	<div class="note">
+	                	<div class="avatar"><?php echo Shineisp_Commons_Gravatar::get_gravatar ( $this->record ['email'], 50); ?></div>
+	                	<div class="note_owner"><?php if($note['adminreply']):?>Administrator<?php else:?><a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname'];?></a> <a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company'];?></a><?php endif;?> <small><?php echo $note['date_post']?> - <a class="confirm" href="/admin/tickets/deletenote/id/<?php echo $note['note_id'] ?>"><?php echo $this->translate('Delete')?></a></small></div>
+	                	<div class="description"><?php echo $note['reply']?></div>
+	                </div>
+                	<?php $i++; ?>
+                <?php endforeach;?>
+        	</div>
+        <?php endif;?>
+        
+        <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+            <?php echo $form->category_id->render()?>
+            <?php echo $form->subject->render()?>
+        <?php endif;?>
+        <br/>
+        <br/>
+	    <fieldset class="column-left"> 
+	        <?php echo $form->sendemail->render()?>	
+	        <?php echo $form->status_id->render()?>
+	    </fieldset>
+	    <fieldset class="column-right">
+	        <?php echo $form->datetime->render()?>
+	         <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
+            	<?php echo $form->attachments->render()?><br/>
             <?php endif;?>
-            
-            <?php if(!empty($this->notes)):?>
-            	<div id="notes" class="notes">
-	                <?php foreach( $this->notes as $note):?>
-	                	<div class="note">
-		                	<div class="avatar"><?php echo Shineisp_Commons_Gravatar::get_gravatar ( $this->record ['email'], 50); ?></div>
-		                	<div class="note_owner"><?php if($note['adminreply']):?>Administrator<?php else:?><a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname'];?></a> <a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company'];?></a><?php endif;?> <small><?php echo $note['date_post']?> - <a class="confirm" href="/admin/tickets/deletenote/id/<?php echo $note['note_id'] ?>"><?php echo $this->translate('Delete')?></a></small></div>
-		                	<div class="description"><?php echo $note['reply']?></div>
-		                </div>
-	                	<?php $i++; ?>
-	                <?php endforeach;?>
-	        	</div>
-            <?php endif;?>
-            
-            <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
-	            <?php echo $form->category_id->render()?>
-	            <?php echo $form->subject->render()?>
-            <?php endif;?>
-            <br/>
-            <br/>
-		    <fieldset class="column-left"> 
-		        <?php echo $form->sendemail->render()?>	
-		        <?php echo $form->status_id->render()?>
-		    </fieldset>
-		    <fieldset class="column-right">
-		        <?php echo $form->datetime->render()?>
-		         <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-	            	<?php echo $form->attachments->render()?><br/>
-	            <?php endif;?>
-	        </fieldset>
-		    <div class="clear"></div>
-		    
-            <?php echo $form->note->render()?><br/>
-   			<?php echo $form->ticket_id->render()?>
-		</form>
+        </fieldset>
+	    <div class="clear"></div>
+	    
+        <?php echo $form->note->render()?><br/>
+		<?php echo $form->ticket_id->render()?>
+		
+	</form>
 </div>
 

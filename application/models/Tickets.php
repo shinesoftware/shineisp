@@ -44,6 +44,7 @@ class Tickets extends BaseTickets {
 							->leftJoin ( 't.TicketsCategories tc' )
 							->leftJoin ( 't.Customers c' )
 							->leftJoin ( 't.Statuses s' )
+                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 							->orderBy('ticket_id desc');
 		
 		$dq->addSelect('( SELECT COUNT( * ) FROM TicketsNotes tn WHERE tn.ticket_id = t.ticket_id) as replies' );
@@ -85,7 +86,13 @@ class Tickets extends BaseTickets {
 		
 		// Defining the url sort
 		$uri = isset ( $sort [1] ) ? "/sort/$sort[1]" : "";
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Tickets t' )->leftJoin ( 't.TicketsCategories tc' )->leftJoin ( 't.Customers c' )->leftJoin ( 't.Statuses s' );
+		$dq = Doctrine_Query::create ()
+		          ->select ( $fields )
+		          ->from ( 'Tickets t' )
+		          ->leftJoin ( 't.TicketsCategories tc' )
+		          ->leftJoin ( 't.Customers c' )
+		          ->leftJoin ( 't.Statuses s' )
+                  ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 		
 		$pagerLayout = new Doctrine_Pager_Layout ( new Doctrine_Pager ( $dq, $currentPage, $rowNum ), new Doctrine_Pager_Range_Sliding ( array ('chunk' => 10 ) ), "/$module/$controller/list/page/{%page_number}" . $uri );
 		
@@ -216,7 +223,9 @@ class Tickets extends BaseTickets {
 	 */
 	public static function setStatus($id, $status) {
 		if(is_numeric($id)){
-			$object = Doctrine::getTable ( 'Tickets' )->find ( $id );
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->leftJoin ( 't.Customers c' )
+			             ->find ( $id );
 			$object->status_id = $status;
 			$object->date_close = date ( 'Y-m-d H:i:s' );
 			return $object->save ();
@@ -342,17 +351,12 @@ class Tickets extends BaseTickets {
 								->orderBy('t.date_updated')
 								->leftJoin ( 't.Customers c' )
 								->leftJoin ( 't.Statuses s' )
-								->leftJoin ( 't.TicketsCategories tc' );
+								->leftJoin ( 't.TicketsCategories tc' )
+                                ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 		
 		if (is_numeric ( $customerid )) {
 			$dq->where ( 't.customer_id = ?', $customerid );
 		}
-        
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
-        }        
         
 		// Open, Processing and Waiting Reply tickets
 		$statuses = array(Statuses::id("expectingreply", "tickets"), Statuses::id("processing", "tickets"));
@@ -377,7 +381,12 @@ class Tickets extends BaseTickets {
 		$items = array ();
 		$translations = Zend_Registry::getInstance ()->Zend_Translate;
 		
-		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )->from ( 'Tickets t' )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		$records = Doctrine_Query::create ()
+		              ->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )
+		              ->from ( 'Tickets t' )
+                      ->leftJoin ( 't.Customers c' )
+		              ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
+		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
 			$items [] = $translations->translate ( 'Select ...' );
@@ -402,7 +411,9 @@ class Tickets extends BaseTickets {
 		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject, s.status as status" )
 											->from ( 'Tickets t' )
 											->leftJoin ( 't.Statuses s' )
+											->leftJoin ( 't.Customers c' )
 											->where('t.customer_id = ?', $customer_id)
+                                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 											->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
@@ -621,7 +632,9 @@ class Tickets extends BaseTickets {
 					->select ( "t.ticket_id, count(*) as items, s.status as status" )
 					->from ( 'Tickets t' )
 					->leftJoin ( 't.Statuses s' )
+                    ->leftJoin ( 't.Customers c' )
 					->where("s.section = 'tickets'")
+                    ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 					->groupBy('s.status');
         
         $auth = Zend_Auth::getInstance ();
@@ -647,7 +660,9 @@ class Tickets extends BaseTickets {
 		
 		$dq = Doctrine_Query::create ()
 					->select ( "t.ticket_id, count(*) as items" )
-					->from ( 'Tickets t' );
+					->from ( 'Tickets t' )
+                    ->leftJoin ( 't.Customers c' )
+                    ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
@@ -709,7 +724,8 @@ class Tickets extends BaseTickets {
     	->leftJoin ( 'dt.WhoisServers ws' )
     	->leftJoin ( 't.Statuses s' )
     	->leftJoin ( 't.Tickets t2' )
-    	->whereIn( "ticket_id", $ids);
+    	->whereIn( "ticket_id", $ids)
+    	->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
     	if(!empty($fields)){
     		$dq->select($fields);
     	}
