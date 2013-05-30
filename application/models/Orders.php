@@ -143,13 +143,17 @@ class Orders extends BaseOrders {
 			return false;
 		}
 		
-		// Log status change
-		self::logStatusChange($id, $status);
-		
-		return Doctrine_Query::create ()->update ( 'Orders o' )
+		$affectedRows = Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
 									->where('o.order_id = ?', $id)
 									->execute ();
+							
+		if ( $affectedRows > 0 ) {
+			// Log status change
+			self::logStatusChange($id, $status);
+		}		
+		
+		return $affectedRows;
 	}
 	
 	/**
