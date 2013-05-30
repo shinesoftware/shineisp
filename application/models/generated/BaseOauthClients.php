@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('OauthClients', 'doctrine');
  * @property string $client_secret
  * @property string $redirect_uri
  * @property boolean $active
- * @property Doctrine_Collection $Customers
+ * @property Doctrine_Collection $AdminUser
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -69,8 +69,8 @@ abstract class BaseOauthClients extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
+        $this->hasMany('AdminUser', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
     }
 }

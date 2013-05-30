@@ -19,6 +19,7 @@ Doctrine_Manager::getInstance()->bindComponent('Wiki', 'doctrine');
  * @property string $metadescription
  * @property string $metakeywords
  * @property integer $ishelpful
+ * @property integer $isp_id
  * @property WikiCategories $WikiCategories
  * @property Languages $Languages
  * @property Doctrine_Collection $Wikilinks
@@ -94,6 +95,11 @@ abstract class BaseWiki extends Doctrine_Record
              ));
         $this->hasColumn('ishelpful', 'integer', 4, array(
              'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
              'length' => '4',
              ));
     }
