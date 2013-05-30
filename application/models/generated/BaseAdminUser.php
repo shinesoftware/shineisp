@@ -22,6 +22,11 @@ Doctrine_Manager::getInstance()->bindComponent('AdminUser', 'doctrine');
  * @property integer $isp_id
  * @property AdminRoles $AdminRoles
  * @property Isp $Isp
+ * @property OauthAccessTokens $OauthAccessTokens
+ * @property OauthAuthorizationCodes $OauthAuthorizationCodes
+ * @property OauthClients $OauthClients
+ * @property OauthRefreshTokens $OauthRefreshTokens
+ * @property OauthJwt $OauthJwt
  * @property Doctrine_Collection $Tickets
  * @property Doctrine_Collection $Notes
  * 
@@ -112,6 +117,26 @@ abstract class BaseAdminUser extends Doctrine_Record
         $this->hasOne('Isp', array(
              'local' => 'isp_id',
              'foreign' => 'isp_id'));
+
+        $this->hasOne('OauthAccessTokens', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
+
+        $this->hasOne('OauthAuthorizationCodes', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
+
+        $this->hasOne('OauthClients', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
+
+        $this->hasOne('OauthRefreshTokens', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
+
+        $this->hasOne('OauthJwt', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
 
         $this->hasMany('Tickets', array(
              'local' => 'user_id',

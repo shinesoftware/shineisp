@@ -48,10 +48,6 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property Customers $Customers
  * @property Languages $Languages
  * @property CustomAttributesValues $CustomAttributesValues
- * @property OauthAccessTokens $OauthAccessTokens
- * @property OauthAuthorizationCodes $OauthAuthorizationCodes
- * @property OauthClients $OauthClients
- * @property OauthRefreshTokens $OauthRefreshTokens
  * @property Doctrine_Collection $Addresses
  * @property Doctrine_Collection $Contacts
  * @property Doctrine_Collection $CustomersDomainsRegistrars
@@ -281,22 +277,6 @@ abstract class BaseCustomers extends Doctrine_Record
         $this->hasOne('CustomAttributesValues', array(
              'local' => 'customer_id',
              'foreign' => 'external_id'));
-
-        $this->hasOne('OauthAccessTokens', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasOne('OauthAuthorizationCodes', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasOne('OauthClients', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasOne('OauthRefreshTokens', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
 
         $this->hasMany('Addresses', array(
              'local' => 'customer_id',

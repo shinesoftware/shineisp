@@ -20,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsCategories', 'doctrine')
  * @property integer $position
  * @property integer $externalid
  * @property string $custom
+ * @property integer $isp_id
  * @property Doctrine_Collection $Wikilinks
  * @property Doctrine_Collection $UrlRewrite
  * 
@@ -96,6 +97,11 @@ abstract class BaseProductsCategories extends Doctrine_Record
         $this->hasColumn('custom', 'string', null, array(
              'type' => 'string',
              'length' => '',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'length' => '4',
              ));
     }
 

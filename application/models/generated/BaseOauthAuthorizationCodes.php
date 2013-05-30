@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('OauthAuthorizationCodes', 'doctr
  * @property string $redirect_uri
  * @property timestamp $expires
  * @property string $scope
- * @property Doctrine_Collection $Customers
+ * @property Doctrine_Collection $AdminUser
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -69,8 +69,8 @@ abstract class BaseOauthAuthorizationCodes extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
+        $this->hasMany('AdminUser', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
     }
 }
