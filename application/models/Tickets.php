@@ -637,12 +637,6 @@ class Tickets extends BaseTickets {
                     ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 					->groupBy('s.status');
         
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 't.Customers c' )
-                ->whereIn( "c.isp_id", $logged_user['isp_id']);
-        }       
                     
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
@@ -663,12 +657,6 @@ class Tickets extends BaseTickets {
 					->from ( 'Tickets t' )
                     ->leftJoin ( 't.Customers c' )
                     ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 't.Customers c' )
-                ->whereIn( "c.isp_id", $logged_user['isp_id']);
-        }
         		
         $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
