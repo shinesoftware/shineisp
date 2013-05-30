@@ -80,8 +80,6 @@ class OAuth2_GrantType_JWTBearer implements OAuth2_GrantTypeInterface, OAuth2_Cl
             return null;
         }
 		
-		print_r($jwt);
-
         // ensure these properties contain a value
         // @todo: throw malformed error for missing properties
         $jwt = array_merge(array(
