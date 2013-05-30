@@ -717,6 +717,16 @@ CustomersGroups:
     name:
       type: string(250)
       notnull: true
+    isp_id:
+      type: integer(4)      
+  relations:
+    Customers:
+      local: group_id
+      foreign: group_id
+    Isp:
+      local: isp_id
+      foreign: isp_id
+
             
 Customers:
   connection: doctrine
@@ -2005,7 +2015,7 @@ OauthClients:
       unsigned: true
       primary: true
       autoincrement: true
-    admin_id:
+    user_id:
       type: integer(4)
       notnull: true
     app_name:
@@ -2040,7 +2050,7 @@ OauthAccessTokens:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     expires:
@@ -2066,7 +2076,7 @@ OauthAuthorizationCodes:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     redirect_uri:
@@ -2095,7 +2105,7 @@ OauthRefreshTokens:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     expires:
@@ -2814,7 +2824,10 @@ ProductsAttributesGroups:
       default: 0
     name: string(150)
     code: string(150)
-      
+    isp_id:
+      type: integer(4)
+      notnull: true
+            
 ProductsAttributesGroupsIndexes:
   connection: doctrine
   tableName: products_attributes_groups_indexes
@@ -2907,6 +2920,9 @@ ProductsCategories:
     position: integer(4)
     externalid: integer(4)
     custom: string()
+    isp_id:
+      type: integer(4)
+      notnull: true    
   relations:
     Wikilinks:
       local: category_id
@@ -3105,11 +3121,13 @@ PurchaseCategories:
     category:
       type: string(150)
       notnull: true
+
   relations:
     PurchaseInvoices:
       local: category_id
       foreign: category_id
       type: many
+            
 PurchaseInvoices:
   connection: doctrine
   tableName: invoices_purchases
@@ -3191,7 +3209,10 @@ Registrars:
       type: integer(1)
     lastupdate: 
       type: timestamp(25)
-
+    isp_id:
+      type: integer(4)
+      notnull: true
+      
 Reviews:
   connection: doctrine
   tableName: reviews
@@ -3593,7 +3614,10 @@ Taxes:
       unsigned: false
       primary: false
       autoincrement: false
-
+    isp_id:
+      type: integer(4)
+      notnull: true
+      
 Tickets:
   connection: doctrine
   tableName: tickets
@@ -3673,6 +3697,9 @@ TicketsCategories:
       primary: false
       notnull: true
       autoincrement: false
+    isp_id:
+      type: integer(4)
+      notnull: true      
   relations:
     Tickets:
       local: category_id
@@ -3809,6 +3836,9 @@ Wiki:
       type: string()
       notnull: true
     ishelpful: integer(4)
+    isp_id:
+      type: integer(4)
+      notnull: true    
   relations:
     WikiCategories:
       local: category_id

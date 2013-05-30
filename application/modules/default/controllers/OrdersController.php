@@ -149,11 +149,7 @@ class OrdersController extends Zend_Controller_Action {
 					$this->view->details = array ('records' => $records );
 					
 					// Get Order status history
-					$rsStatusHistory = StatusHistory::getAll($id, "orders");
-					print_r($rsStatusHistory);
-					if (isset ( $rs [0] )) {
-						$this->view->statushistory = array ('records' => $rsStatusHistory);
-					}
+					$this->view->statushistory = StatusHistory::getStatusList($id);
 					
 					
 					

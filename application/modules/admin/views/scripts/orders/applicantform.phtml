@@ -44,20 +44,25 @@
 		        <?php echo $form->expiring_date->render() ?>
 		        <?php echo $form->fastlink->render() ?>
 		        <?php echo $form->visits->render() ?>
-		        
 		    </fieldset>
 		    
 		    <fieldset class="column-right">
 	            <?php echo $form->isp_id->render()?>
 	            <?php echo $form->status_id->render()?>
+	            <?php echo $this->status($this->statushistory);?>  <br/>
+	            
 	            <?php echo $form->is_renewal->render()?>
-	            <?php echo $form->cost->render()?>
-	            <?php echo $form->setupfee->render()?>
-	            <?php echo $form->total->render()?>
-	            <?php echo $form->vat->render()?>
-	            <?php echo $form->grandtotal->render()?>
-	            <?php echo $form->received_income->render()?>
-	            <?php echo $form->missing_income->render()?>
+	            <div class="column-left">
+		            <?php echo $form->cost->render()?>
+		            <?php echo $form->received_income->render()?>
+		            <?php echo $form->missing_income->render()?>
+		        </div>
+		        <div class="column-right">
+		        	<?php echo $form->setupfee->render()?>
+		        	<?php echo $form->total->render()?>
+		            <?php echo $form->vat->render()?>
+		            <?php echo $form->grandtotal->render()?>
+		        </div>
 		    </fieldset>
 		    <div class="clear"></div>
 	    </div>

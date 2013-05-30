@@ -17,3 +17,21 @@ Invoices:
     Orders: Orders_3
     invoice_date: '2013-05-28'
     note: null
+  Invoices_4:
+    number: '4'
+    Customers: Customers_5
+    Orders: Orders_4
+    invoice_date: '2013-05-29'
+    note: null
+  Invoices_5:
+    number: '5'
+    Customers: Customers_6
+    Orders: Orders_5
+    invoice_date: '2013-05-29'
+    note: null
+  Invoices_6:
+    number: '6'
+    Customers: Customers_7
+    Orders: Orders_6
+    invoice_date: '2013-05-29'
+    note: null

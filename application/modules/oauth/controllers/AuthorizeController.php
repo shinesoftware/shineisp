@@ -5,6 +5,8 @@
  */
 
 class Oauth_AuthorizeController extends Zend_Controller_Action {
+	protected $session;
+	
     public function init(){
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -20,13 +22,14 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		  ,'orders'
 		  ,'domains'
 		  ,'invoices'
+		  ,'payments'
+		  ,'contacts'
 		);
 
-
-		// create your storage again
+		// create storage
 		$storage = new OAuth2_Storage_Doctrine();
 		
-		// create your server again
+		// create server again
 		$server = new OAuth2_Server($storage,array('enforce_state' => true));
 		
 		$memory = new OAuth2_Storage_Memory(array(
@@ -40,8 +43,9 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		// Add the "Authorization Code" grant type (this is required for authorization flows)
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));
 		
-		$request = OAuth2_Request::createFromGlobals();
-		$response = new OAuth2_Response();
+		$request       = OAuth2_Request::createFromGlobals();
+		$response      = new OAuth2_Response();
+		$clientDetails = $storage->getClientDetails($request->query('client_id'));
 		
 		// validate the authorize request
 		if (!$server->validateAuthorizeRequest($request, $response)) {
@@ -49,25 +53,24 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		    die;
 		}
 
-		// display an authorization form
-		if (empty($_POST)) {
-		  exit('
-		<form method="post">
-		  <label>Do You Authorize TestClient?</label><br />
-		  It needs the following privileges:<br/>
-		  <xmp>'.print_r(explode(' ',$scopeUtil->getScopeFromRequest($request)),true).'</xmp>
-		  <input type="submit" name="authorized" value="yes">
-		  <input type="submit" name="authorized" value="no">
-		</form>');
+		// Check auth, if not logged, redirect to login page
+		$auth = Zend_Auth::getInstance()->getIdentity();
+		if ( !is_array($auth) || empty($auth) || !isset($auth['user_id']) || !intval($auth['user_id']) > 0 || !AdminRoles::isAdministrator($auth['user_id']) ) {
+			$this->session = new Zend_Session_Namespace ( 'OAuth' );
+			$this->session->appName         = $clientDetails['app_name'];
+			$this->session->requestedScopes = $scopeUtil->getScopeFromRequest($request);
+			$this->session->redirect        = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
+			$this->_helper->redirector ( 'oauth', 'login', 'admin' );
+			die();
 		}
-		// print the authorization code if the user has authorized your client
-		$is_authorized = ($_POST['authorized'] === 'yes');
-		$server->handleAuthorizeRequest($request, $response, $is_authorized);
-		if ($is_authorized) {
-		  // this is only here so that you get to see your code in the cURL request. Otherwise, we'd redirect back to the client
-		  $code = substr($response->getHttpHeader('Location'), strpos($response->getHttpHeader('Location'), 'code=')+5);
-		  exit("SUCCESS! Authorization Code: $code");
-		}
+		
+		// I'm here, so I'm logged as administrator
+		$server->handleAuthorizeRequest($request, $response, true);
+	    
+	    // this is only here so that you get to see your code in the cURL request. Otherwise, we'd redirect back to the client
+	    $code = substr($response->getHttpHeader('Location'), strpos($response->getHttpHeader('Location'), 'code=')+5);
+	    //exit("SUCCESS! Authorization Code: $code");
 		$response->send();		
+		
     }
 }

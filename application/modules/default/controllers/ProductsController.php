@@ -48,7 +48,9 @@ class ProductsController extends Zend_Controller_Action {
 				
 				$this->view->group = Products::GetAttributeGroupByProductID($data ['product_id']);
 				
-				$ns->cart->lastproduct = $uri;
+				if(!empty($ns->cart)){
+					$ns->cart->lastproduct = $uri;
+				}
 				
 				$refund	= false;
 				if( is_array($ns->upgrade) ) {
