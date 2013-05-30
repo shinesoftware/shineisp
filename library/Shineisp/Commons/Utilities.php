@@ -1289,7 +1289,7 @@ class Shineisp_Commons_Utilities {
     	$alphaLength = strlen($chars) - 1;
 		
     	for ($i = 0; $i < $length; $i++) {
-        	$n = rand(0, $alphaLength);
+        	$n = mt_rand(0, $alphaLength);
         	$password[] = $chars[$n];
     	}
 		

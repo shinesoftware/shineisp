@@ -128,6 +128,30 @@ class Admin_ApplicationsController extends Zend_Controller_Action {
 			echo $e->getMessage ();
 		}
 	}
+
+	/**
+	 * confirmoverwritekeysAction
+	 * Ask to the user a confirmation before overwriting keys
+	 * @return null
+	 */
+	public function confirmoverwritekeysAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		
+		try {
+			if (is_numeric ( $id )) {
+				$this->view->back = "/admin/$controller/edit/id/$id";
+				$this->view->goto = "/admin/$controller/overwritekey/id/$id";
+				$this->view->title = $this->translator->translate ( 'Are you sure to generate a new keypair? All existings application using these will be unable to access' );
+				$this->view->description = $this->translator->translate ( 'If you generate a new keypair, all existings application using these will be unable to access.' );
+			} else {
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+			}
+		} catch ( Exception $e ) {
+			echo $e->getMessage ();
+		}
+	}
+
 	
 	/**
 	 * editAction
@@ -152,6 +176,7 @@ class Admin_ApplicationsController extends Zend_Controller_Action {
 			if (! empty ( $rs )) {
 				$form->populate ( $rs );
 				$this->view->buttons[] = array("url" => "/admin/$controller/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/$controller/confirmoverwritekeys/id/$id", "label" => $this->translator->translate('Generate Keypairs'), "params" => array('css' => array('button', 'float_right')));
 			}
 			
 		}
@@ -205,6 +230,36 @@ class Admin_ApplicationsController extends Zend_Controller_Action {
 			$this->view->description = $this->translator->translate("Here you can edit the applications detail");
 			return $this->render ( 'applicantform' );
 		}
+	}
+	
+	/**
+	 * overwritekeysAction
+	 * Overwrite keypairs
+	 * @return unknown_type
+	 */
+	public function overwritekeyAction() {
+		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		$form       = $this->getForm ( '/admin/'.$controller.'/process' );
+		$id         = $this->getRequest ()->getParam ( 'id' );
+		
+		// Create the buttons in the edit form
+		$this->view->buttons = array(
+				array("url" => "/admin/$controller/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
+		);
+		
+		if (! empty ( $id ) && is_numeric ( $id )) {
+			$client = OauthClients::getAll($id);
+			if (! empty ( $client ) && isset($client['client_id']) ) {
+				$keypair = OauthJwt::generate($client['client_id']);
+			}
+		}
+		
+		$this->view->description = "Here you can see your private key and it's passphrase. You need both to access API via OAuth2";
+		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
+		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
+		$this->view->passphrase  = $keypair['passphrase'];
+		$this->view->private_key = $keypair['private_key'];
+		$this->render ( 'keypairs' );
 	}
 	
 	
