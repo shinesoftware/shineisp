@@ -2134,7 +2134,7 @@ OauthJwt:
       type: integer(4)
       notnull: true            
     subject:
-      type: string(250)
+      type: string(2048)
       notnull: true    
     public_key:
       type: string()
