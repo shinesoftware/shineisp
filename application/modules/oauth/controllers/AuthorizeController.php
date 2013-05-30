@@ -38,7 +38,7 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		));
 		$scopeUtil = new OAuth2_Scope($memory);
 
-		$server->setScopeUtil($scopeUtil);		
+		$server->setScopeUtil($scopeUtil);
 		
 		// Add the "Authorization Code" grant type (this is required for authorization flows)
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));
@@ -69,7 +69,7 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 	    
 	    // this is only here so that you get to see your code in the cURL request. Otherwise, we'd redirect back to the client
 	    $code = substr($response->getHttpHeader('Location'), strpos($response->getHttpHeader('Location'), 'code=')+5);
-	    exit("SUCCESS! Authorization Code: $code");
+	    //exit("SUCCESS! Authorization Code: $code");
 		$response->send();		
 		
     }
