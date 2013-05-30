@@ -200,7 +200,7 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
     /* OAuth2_Storage_JWTBearerInterface */
     public function getClientKey($client_id, $subject)
     {
-		$result = Doctrine_Query::create ()->select ( '*' )->from ( $this->config['jwt_table'] )->where ( "client_id = ?", $client_id)->andWhere('subject = ?', $subject)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+		$result = Doctrine_Query::create ()->select ( 'public_key' )->from ( $this->config['jwt_table'] )->where ( "client_id = ?", $client_id)->andWhere('subject = ?', $subject)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		return array_shift($result);
     }
 }
