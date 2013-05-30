@@ -27,10 +27,6 @@ Settings:
     Isp: Isp_1
     SettingsParameters: SettingsParameters_23
     value: 6LfwUdgSAAAAABnjd6BuUWkIIxHnRjEEtJjUu_R3
-  Settings_8:
-    Isp: Isp_1
-    SettingsParameters: SettingsParameters_29
-    value: 'zip,rtf,doc,pdf'
   Settings_9:
     Isp: Isp_1
     SettingsParameters: SettingsParameters_1
@@ -107,3 +103,19 @@ Settings:
     Isp: Isp_1
     SettingsParameters: SettingsParameters_7
     value: ''
+  Settings_28:
+    Isp: Isp_1
+    SettingsParameters: SettingsParameters_19
+    value: '5'
+  Settings_29:
+    Isp: Isp_1
+    SettingsParameters: SettingsParameters_29
+    value: 'zip,rtf,doc,pdf'
+  Settings_30:
+    Isp: Isp_1
+    SettingsParameters: SettingsParameters_30
+    value: '5'
+  Settings_31:
+    Isp: Isp_1
+    SettingsParameters: SettingsParameters_31
+    value: 'zip,rtf,doc,pdf'

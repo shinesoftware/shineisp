@@ -1,0 +1,69 @@
+StatusHistory:
+  StatusHistory_1:
+    datetime: '2013-05-29 15:26:35'
+    Statuses: Statuses_18
+    section_id: '3'
+  StatusHistory_2:
+    datetime: '2013-05-29 15:26:49'
+    Statuses: Statuses_20
+    section_id: '3'
+  StatusHistory_3:
+    datetime: '2013-05-29 16:04:34'
+    Statuses: Statuses_9
+    section_id: '6'
+  StatusHistory_4:
+    datetime: '2013-05-29 16:05:02'
+    Statuses: Statuses_33
+    section_id: '6'
+  StatusHistory_5:
+    datetime: '2013-05-29 16:05:03'
+    Statuses: Statuses_33
+    section_id: '6'
+  StatusHistory_6:
+    datetime: '2013-05-29 16:13:31'
+    Statuses: Statuses_9
+    section_id: '7'
+  StatusHistory_7:
+    datetime: '2013-05-29 16:13:42'
+    Statuses: Statuses_33
+    section_id: '7'
+  StatusHistory_8:
+    datetime: '2013-05-29 16:13:43'
+    Statuses: Statuses_33
+    section_id: '7'
+  StatusHistory_9:
+    datetime: '2013-05-29 16:19:20'
+    Statuses: Statuses_20
+    section_id: '7'
+  StatusHistory_10:
+    datetime: '2013-05-29 17:04:55'
+    Statuses: Statuses_9
+    section_id: '8'
+  StatusHistory_11:
+    datetime: '2013-05-29 17:05:14'
+    Statuses: Statuses_33
+    section_id: '8'
+  StatusHistory_12:
+    datetime: '2013-05-29 17:05:15'
+    Statuses: Statuses_33
+    section_id: '8'
+  StatusHistory_13:
+    datetime: '2013-05-29 19:23:23'
+    Statuses: Statuses_9
+    section_id: '4'
+  StatusHistory_14:
+    datetime: '2013-05-29 19:23:35'
+    Statuses: Statuses_33
+    section_id: '4'
+  StatusHistory_15:
+    datetime: '2013-05-29 19:24:01'
+    Statuses: Statuses_9
+    section_id: '4'
+  StatusHistory_16:
+    datetime: '2013-05-29 19:24:20'
+    Statuses: Statuses_33
+    section_id: '4'
+  StatusHistory_17:
+    datetime: '2013-05-29 19:25:22'
+    Statuses: Statuses_20
+    section_id: '4'
