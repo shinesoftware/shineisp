@@ -75,11 +75,12 @@ class OAuth2_GrantType_JWTBearer implements OAuth2_GrantTypeInterface, OAuth2_Cl
 
         // Decode the JWT
         $jwt = $this->jwtUtil->decode($request->request('assertion'), null, false);
-
         if (!$jwt) {
             $response->setError(400, 'invalid_request', "JWT is malformed");
             return null;
         }
+		
+		print_r($jwt);
 
         // ensure these properties contain a value
         // @todo: throw malformed error for missing properties
