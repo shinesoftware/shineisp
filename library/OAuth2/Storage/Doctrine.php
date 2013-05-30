@@ -187,7 +187,6 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
 
     public function getUser($username)
     {
-    	echo "getUser.username: ".$username;
 		$result = Doctrine_Query::create ()->select ( '*' )->from ( $this->config['user_table'] )->where ( "username = ?", $username)->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 		return array_shift($result);
     }

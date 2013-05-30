@@ -121,6 +121,21 @@ AdminUser:
     Isp:
       local: isp_id
       foreign: isp_id
+    OauthAccessTokens:
+      local: user_id
+      foreign: user_id
+    OauthAuthorizationCodes:
+      local: user_id
+      foreign: user_id
+    OauthClients:
+      local: user_id
+      foreign: user_id
+    OauthRefreshTokens:
+      local: user_id
+      foreign: user_id
+    OauthJwt:
+      local: user_id
+      foreign: user_id
 
 Addresses:
   connection: doctrine
@@ -856,19 +871,6 @@ Customers:
     CustomAttributesValues:
       local: customer_id
       foreign: external_id
-    OauthAccessTokens:
-      local: customer_id
-      foreign: customer_id
-    OauthAuthorizationCodes:
-      local: customer_id
-      foreign: customer_id
-    OauthClients:
-      local: customer_id
-      foreign: customer_id
-    OauthRefreshTokens:
-      local: customer_id
-      foreign: customer_id
-
       
 CustomersDomainsRegistrars:
   connection: doctrine
@@ -2114,8 +2116,29 @@ OauthRefreshTokens:
     scope:
       type: string(250)
       notnull: true          
-      
 
+OauthJwt:
+  connection: doctrine
+  tableName: oauth_jwt
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    client_id:
+      type: string(250)
+      notnull: true
+    user_id:
+      type: integer(4)
+      notnull: true            
+    subject:
+      type: string(250)
+      notnull: true    
+    public_key:
+      type: string()
+      
 Orders:
   connection: doctrine
   tableName: orders

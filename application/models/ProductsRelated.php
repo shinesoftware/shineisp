@@ -32,7 +32,13 @@ class ProductsRelated extends BaseProductsRelated {
 	 */
 	public static function getItemsbyProductID($product_id) {
 		$data = array ();
-		$related = Doctrine_Query::create ()->select ()->from ( 'ProductsRelated pr' )->where ( 'pr.product_id = ?', $product_id )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		$related = Doctrine_Query::create ()
+		              ->select ()
+		              ->from ( 'ProductsRelated pr' )
+                      ->leftJoin('pr.Products p')
+		              ->where ( 'pr.product_id = ?', $product_id )
+                      ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
+		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if (! empty ( $related )) {
 			foreach ( $related as $item ) {
@@ -53,6 +59,7 @@ class ProductsRelated extends BaseProductsRelated {
 						->leftJoin('pr.Products p')
 						->leftJoin("p.ProductsData pd WITH pd.language_id = $locale")
 						->where ( 'pr.product_id = ?', $product_id )
+                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 						->orderBy('p.group_id, p.position')
 						->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		

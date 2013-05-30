@@ -59,7 +59,7 @@ class Customers extends BaseCustomers {
                 ->select ( $config ['datagrid'] ['fields'] )
                 ->from ( 'Customers c' )
                 ->leftJoin ( 'c.Statuses s' )
-                ->andWhere( "c.isp_id = ?", ISP::getCurrentId() );
+                ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 
 		$config ['datagrid'] ['dqrecordset'] = $dq;
 		

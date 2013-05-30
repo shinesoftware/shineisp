@@ -46,11 +46,13 @@ class Products extends BaseProducts {
 											DATE_FORMAT(p.updated_at, '%d/%m/%Y %H:%i:%s') as updatedat,  
 											IF( p.enabled = 1, 'Yes', 'No' ) as enabled";
 		
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
-																		->from ( 'Products p' )
-																		->leftJoin ( 'p.ProductsAttributesGroups pag' )
-																		->leftJoin ( 'p.ServersGroups sg' )
-																		->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" );
+        $dq = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
+                    ->from ( 'Products p' )
+                    ->leftJoin ( 'p.ProductsAttributesGroups pag' )
+                    ->leftJoin ( 'p.ServersGroups sg' )
+                    ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+                    ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
+		$config ['datagrid'] ['dqrecordset'] = $dq;
 		
 		$config ['datagrid'] ['basepath'] = "/admin/products/";
 		$config ['datagrid'] ['index'] = "product_id";
@@ -100,7 +102,9 @@ class Products extends BaseProducts {
 		$status = !empty($parameters['status']) ? $parameters['status'] : null;
 		
 		foreach($items as $item){
-			$product = Doctrine::getTable ( 'Products' )->find ( $item );
+			$product = Doctrine::getTable ( 'Products' )
+                                    ->addWhere( "isp_id = ?", ISP::getCurrentId() )
+			                        ->find ( $item );
 			$product->status_id = $status;
 			$product->save ();
 		}
@@ -133,7 +137,9 @@ class Products extends BaseProducts {
 				unset($categories[$idx]);
 				
 				// Load the product details
-				$p = Doctrine::getTable('Products')->find($product['product_id']);
+				$p = Doctrine::getTable('Products')
+                        ->addWhere( "isp_id = ?", ISP::getCurrentId() )
+				        ->find($product['product_id']);
 
 				// Create the category string list
 				$categories = implode("/", $categories);
@@ -222,6 +228,7 @@ class Products extends BaseProducts {
 				$products->downgradable    = !empty($params['downgradable']) ? 1: 0;
 				$products->server_group_id = !empty($params['server_group_id']) ? intval($params['server_group_id']) : null;
 				$products->autosetup       = !empty($params['autosetup']) ? intval($params['autosetup']) : 0;
+                $products->isp_id          = ISP::getCurrentId();
 				
 				// If 0 or NULL, se to NULL. Avoid constraint errors
 				$products->welcome_mail_id = ( !empty($params['welcome_mail_id']) && intval($params['welcome_mail_id']) > 0 ) ? intval($params['welcome_mail_id']) : null;
@@ -712,7 +719,8 @@ class Products extends BaseProducts {
 								->leftJoin ( 'p.ProductsAttributesIndexes pai' )
 								->leftJoin ( 'p.ProductsTranches pt' )
 								->leftJoin(  'pt.BillingCycle bc')
-								->where ( 'p.product_id = ?', $id );
+								->where ( 'p.product_id = ?', $id )
+                                ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 								
 		$product = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
@@ -756,7 +764,7 @@ class Products extends BaseProducts {
 					->from ( 'ProductsAttributesIndexes pai' )
 					->leftJoin ( 'pai.ProductsAttributes pa' )
 					->leftJoin ( 'pa.ProductsAttributesData pad WITH pad.language_id = ' . $locale )
-					->where ( 'pai.product_id = ?', $product_id )
+					->where ( 'pai.product_id = ?', $product_id )                    
 					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 //								print_r($records);
@@ -776,7 +784,8 @@ class Products extends BaseProducts {
 		$tlds = array ();
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Products p' )
 			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-			->where ( 'p.type = ?', 'hosting' );
+			->where ( 'p.type = ?', 'hosting' )
+            ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $items;
 	}
@@ -791,7 +800,8 @@ class Products extends BaseProducts {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Products p' )
 		->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 		->where ( 'p.type <> ?', 'domain' )
-		->andWhere('p.enabled = ?', 1);
+		->andWhere('p.enabled = ?', 1)
+        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $items;
 	}
@@ -807,6 +817,7 @@ class Products extends BaseProducts {
 									->from ( 'Products p' )
 									->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 									->where ( "p.product_id = $id" )
+                                    ->addWhere ( "p.isp_id = ?", ISP::getCurrentId() )
 									->limit ( 1 );
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -821,7 +832,13 @@ class Products extends BaseProducts {
 	 * @return array
 	 */
 	public static function getCost($id) {
-		$record = Doctrine_Query::create ()->select ( 'cost' )->from ( 'Products p' )->where ( "p.product_id = ?", $id )->limit ( 1 )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		$record = Doctrine_Query::create ()
+		              ->select ( 'cost' )
+		              ->from ( 'Products p' )
+		              ->where ( "p.product_id = ?", $id )
+                      ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
+		              ->limit ( 1 )
+		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return ! empty ( $record [0] ['cost'] ) ? $record [0] ['cost'] : 0;
 	}
@@ -833,9 +850,12 @@ class Products extends BaseProducts {
 	 * @return Doctrine Record
 	 */
 	public static function findbyName($name, $fields = "*", $retarray = false, $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Products p' )
-		->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-		->where ( "pd.name = ?", $name )->limit ( 1 );
+		$dq = Doctrine_Query::create ()
+    	        ->select ( $fields )
+	            ->from ( 'Products p' )
+                ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+        		->where ( "pd.name = ?", $name )
+        		->addWhere( "p.isp_id = ?", ISP::getCurrentId() )->limit ( 1 );
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$record = $dq->execute ( array (), $retarray );
@@ -860,7 +880,8 @@ class Products extends BaseProducts {
 										->where ( "pd.name like ? and p.enabled = ?", array("%$needed%", 1) )
 										->orWhere("pd.shortdescription like ?", "%$needed%")
 										->orWhere("pd.description like ?", "%$needed%")
-										->orWhere("pd.metakeywords like ?", "%$needed%");
+										->orWhere("pd.metakeywords like ?", "%$needed%")
+                                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 										
 		if($retarray){
 			
@@ -911,9 +932,12 @@ class Products extends BaseProducts {
 	 * @return Doctrine Record
 	 */
 	public static function findbyCategoryID($category_id, $fields = "*", $retarray = false, $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Products p' )
-															->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-															->where ( "p.categories = ?", $category_id );
+		$dq = Doctrine_Query::create ()
+		          ->select ( $fields )
+		          ->from ( 'Products p' )
+				  ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+				  ->where ( "p.categories = ?", $category_id )
+                  ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$record = $dq->execute ( array (), $retarray );
@@ -931,6 +955,7 @@ class Products extends BaseProducts {
 										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 										->leftJoin ( "p.ProductsMedia pm" )
 										->addWhere ( "p.enabled = ?", 1)
+                                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
 	
@@ -946,6 +971,7 @@ class Products extends BaseProducts {
 										->leftJoin ( "p.ProductsMedia pm" )
 										->addWhere ( "p.enabled = ?", 1)
 										->addWhere ( "p.ishighlighted = ?", 1)
+                                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
 
@@ -961,6 +987,7 @@ class Products extends BaseProducts {
 										->leftJoin ( "p.ProductsMedia pm" )
 										->addWhere ( "p.enabled = ?", 1)
 										->addWhere ( "p.isrefundable = ?", 1)
+                                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
 	
@@ -976,6 +1003,7 @@ class Products extends BaseProducts {
 										->leftJoin ( "p.ProductsMedia pm" )
 										->addWhere ( "p.enabled = ?", 1)
 										->addWhere ( "p.showonrss = ?", 1)
+                                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
 	
@@ -989,7 +1017,11 @@ class Products extends BaseProducts {
 		$registry = Zend_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
-		$dq = Doctrine_Query::create ()->select ( 'product_id, pd.name' )->from ( 'Products p' )->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" );
+		$dq = Doctrine_Query::create ()
+		          ->select ( 'product_id, pd.name' )
+		          ->from ( 'Products p' )
+		          ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+                  ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		
 		if ($empty) {
 			$items [] = $translations->translate ( 'Select ...' );
@@ -1019,7 +1051,8 @@ class Products extends BaseProducts {
 		$dq = Doctrine_Query::create ()->select ( "product_id, pd.name as name" )
 							->from ( 'Products p' )
 							->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-							->where ( "p.type = 'domain'" );
+							->where ( "p.type = 'domain'" )
+							->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		$domains = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		if ($empty) {
 			$items [] = "";
@@ -1044,8 +1077,10 @@ class Products extends BaseProducts {
 
 			// If the product is locked by an order disable it
 			$product = Doctrine::getTable ( 'Products' )->find ( $id );
-			$product->enabled = 0;
-			$product->save ();
+            if( $product->isp_id == ISP::getCurrentId() ) {
+    			$product->enabled = 0;
+    			$product->save ();
+            }
 			return false;
 		}
 
@@ -1068,7 +1103,13 @@ class Products extends BaseProducts {
 	 * @return Array
 	 */
 	public static function CheckIfProductIsTLDDomain($id, $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( "count(*) as result" )->from ( 'Products p' )->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )->addWhere ( "p.type = ?", 'domain' )->addWhere ( "p.product_id = ?", $id );
+		$dq = Doctrine_Query::create ()
+		          ->select ( "count(*) as result" )
+		          ->from ( 'Products p' )
+		          ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+		          ->addWhere ( "p.type = ?", 'domain' )
+		          ->addWhere ( "p.product_id = ?", $id )
+                  ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		
 		$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $items [0] ['result'] ? true : false;
@@ -1084,7 +1125,8 @@ class Products extends BaseProducts {
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									->from ( 'Products p' )
 									->leftJoin ( 'p.ProductsData pd' )
-									->where ( "p.type = ?", 'domain' );
+									->where ( "p.type = ?", 'domain' )
+                                    ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
 		
 		if (! empty ( $tld )) {
 			$dq->where ( "pd.name = ?", trim ( strtolower ( $tld ) ) );
@@ -1105,6 +1147,7 @@ class Products extends BaseProducts {
 									->from ( 'Products p' )
 									->leftJoin ( 'p.ProductsAttributesGroups pag' )
 									->where ( "p.product_id = ?", $product_id )
+                                    ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 
 		if(!empty($record[0]['ProductsAttributesGroups'])){
@@ -1149,6 +1192,7 @@ class Products extends BaseProducts {
 									->where ( "pag.code = ?", $code )
 									->addWhere('p.enabled = ?', 1)
 									->addWhere('p.iscomparable = ?', 1)
+									->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
 									->orderBy('p.position')
 									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 
@@ -1173,6 +1217,7 @@ class Products extends BaseProducts {
 			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
             ->leftJoin ( 'oi.Statuses s' )
 			->where ( "p.type <> ?", 'domain' )
+            ->addWhere( "o.isp_id = ?", ISP::getCurrentId() )
 			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) );
 
 			return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
@@ -1200,6 +1245,7 @@ class Products extends BaseProducts {
 			->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 			->where ( "p.type <> ?", 'domain' )
 			->addWhere ( "o.customer_id = ? OR c.parent_id = ?", array($id, $id) )
+			->addWhere( "o.isp_id = ?", ISP::getCurrentId() )
 			->addWhere ( '? BETWEEN oi.date_start AND oi.date_end', date('Y-m-d'));
 			
 
