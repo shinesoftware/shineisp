@@ -53,13 +53,9 @@ class Domains extends BaseDomains {
                      ->leftJoin ( 'd.OrdersItems oi' )
                      ->leftJoin ( 'd.Registrars r' )
                      ->leftJoin ( 'd.Statuses s' )
-                     ->orderBy ( 'd.domain' );
+                     ->orderBy ( 'd.domain' )
+                     ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
                       
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
-        }
                              
 		$config ['datagrid'] ['dqrecordset'] = $dq;
 		
@@ -120,7 +116,8 @@ class Domains extends BaseDomains {
 		             ->leftJoin ( 'c.Customers r' )
 		             ->leftJoin ( 'd.OrdersItems oi' )
 		             ->leftJoin ( 'd.Statuses s' )
-		             ->orderBy ( 'd.domain' );
+		             ->orderBy ( 'd.domain' )
+                     ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 		
 		$pagerLayout = new Doctrine_Pager_Layout ( new Doctrine_Pager ( $dq, $currentPage, $rowNum ), new Doctrine_Pager_Range_Sliding ( array ('chunk' => 10 ) ), "/$module/$controller/list/page/{%page_number}" . $uri );
 		
@@ -271,6 +268,11 @@ class Domains extends BaseDomains {
 	 * @param boolean $value
 	 */
 	public static function setAutorenew($domainId, $value=true) {
+	    $domains    = self::find($domainId);
+        if( empty($domains)  ){
+            return false;
+        }
+        
 		return Doctrine_Query::create ()
 						->update ( 'Domains d' )
 						->set ( 'd.autorenew', '?', $value )
@@ -286,6 +288,10 @@ class Domains extends BaseDomains {
 	 * @param boolean 
 	 */
 	public static function setAuthInfo($domainId, $authinfocode) {
+        $domains    = self::find($domainId);
+        if( empty($domains)  ){
+            return false;
+        }
 		
 		return Doctrine_Query::create ()
 						->update ( 'Domains d' )
@@ -303,6 +309,11 @@ class Domains extends BaseDomains {
 	 * @return [boolean, Doctrine_Record]
 	 */
 	public static function updateDomain($domain_id, $domaininfo) {
+        $domains    = self::find($domain_id);
+        if( empty($domains)  ){
+            return false;
+        }	    
+        
 		// Save domain information inside the db
 		if (! empty ( $domaininfo ['creation'] )) {
 			
@@ -445,6 +456,7 @@ class Domains extends BaseDomains {
 		 					->from('Domains')
 		 					->where('domain = ?', $domain)
 		 					->andWhere('tld_id = ?', $tld['tld_id'])
+                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		 					->execute(null, Doctrine::HYDRATE_ARRAY);
 		 					
  					if(!empty($record[0]['domain_id'])){
@@ -476,6 +488,7 @@ class Domains extends BaseDomains {
 		 					->from('Domains')
 		 					->where('domain = ?', $domain)
 		 					->andWhere('tld = ?', $tld)
+                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		 					->execute(null, Doctrine::HYDRATE_ARRAY);
 		 					
  					if(!empty($record[0]['registrars_id'])){
@@ -514,6 +527,7 @@ class Domains extends BaseDomains {
                                            ->leftJoin ( 'd.OrdersItems oi' )
                                            ->leftJoin ( 'd.DomainsTlds dt' )
                                            ->leftJoin ( 'dt.WhoisServers ws' )
+                                           ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' );
         if(is_numeric($days)){
         	$dq->andWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) = ?', $days );
@@ -570,7 +584,8 @@ class Domains extends BaseDomains {
                                            ->leftJoin ( 'd.DomainsTlds dt' )
                                            ->leftJoin ( 'dt.WhoisServers ws' )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' )
-                                           ->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ? and DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', array($from, $to) );
+                                           ->where ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) >= ? and DATEDIFF(d.expiring_date, CURRENT_DATE) <= ?', array($from, $to) )
+                                           ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
         
         if(is_numeric($status)){
         	$dq->andWhere ( 'd.status_id = ?', $status ); // status 4 is active. Check the database statuses table
@@ -614,8 +629,10 @@ class Domains extends BaseDomains {
 		                     ->from ( 'Domains d' )
 		                     ->leftjoin ( 'd.OrdersItems oi' )
 		                     ->leftjoin ( 'd.Statuses s' )
+                             ->leftJoin ( 'd.Customers c' )
 		                     ->where ( 'DATEDIFF(expiring_date, CURRENT_DATE) <= ' . $from )
 		                     ->addWhere ( 'DATEDIFF(expiring_date, CURRENT_DATE) >= ' . $to )
+                             ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		                     ->orderBy ( 'd.expiring_date asc' );
 		
 		if(is_numeric($customerID)){
@@ -655,6 +672,7 @@ class Domains extends BaseDomains {
 			->from ( 'Domains d' )
 			->where('status_id = ?', $status_id)
 			->leftJoin ( 'd.Customers c' )
+            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 			->groupBy ( 'c.customer_id' )
 			->orderBy ( 'count(*) desc' );
 			
@@ -690,6 +708,7 @@ class Domains extends BaseDomains {
 		->leftJoin ( 'd.Customers c' )
 		->leftJoin ( 'd.Statuses s' )
 		->where ( "d.customer_id = ? OR c.parent_id = ?", array($userid, $userid) )
+        ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		->orderBy ( $orderby );
 		
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -710,7 +729,9 @@ class Domains extends BaseDomains {
 								(Count(*) * p.registration_price) as earnings" )
 					->from ( 'Domains d' )
 					->leftJoin ( 'd.DomainsTlds p' )
+                    ->leftJoin ( 'd.Customers c' )
 					->where ( 'd.status_id = ?', Statuses::id("active", "domains") )
+					->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 					->addGroupBy ( 'tld' )
 					->orderBy ( 'Count(*) desc' );
 		
@@ -728,12 +749,14 @@ class Domains extends BaseDomains {
 	 * @param integer $CustomerID
 	 */
 	public static function isOwner($domainID, $CustomerID) {
-		
+        
 		$record = Doctrine_Query::create ()
 					->select ( "Count(*) as total")
 					->from ( 'Domains d' )
+                    ->leftJoin ( 'd.Customers c' )
 					->where ( 'd.domain_id = ?', $domainID )
 					->addWhere ( 'd.customer_id = ?', $CustomerID )
+					->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return ($record[0]['total'] > 0) ? true : false;
@@ -771,7 +794,9 @@ class Domains extends BaseDomains {
 		$dq = Doctrine_Query::create ()
 					->select ( "Count(*) as total, Month(expiring_date) as month_number, Monthname(expiring_date) as month" )
 					->from ( 'Domains d' )
+                    ->leftJoin ( 'd.Customers c' )
 					->where ( 'expiring_date is not null' )
+                    ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 					->andWhere ( 'status_id = ?', Statuses::id("active", "domains") )
 					->addGroupBy ( 'MonthName(expiring_date)' )
 					->orderBy ( 'Month(expiring_date)' );
@@ -795,8 +820,10 @@ class Domains extends BaseDomains {
 		$dq = Doctrine_Query::create ()
 					->select ( "d.domain_id, Count(*) as total, Month(expiring_date) as monthid, Monthname(expiring_date) as month" )
 					->from ( 'Domains d' )
+					->leftJoin ( 'd.Customers c' )
 					->where ( 'expiring_date is not null' )
 					->andWhere ( 'd.autorenew = ?', true)
+                    ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 					->addGroupBy ( 'MonthName(expiring_date)' )
 					->orderBy ( 'Month(expiring_date)' );
 							
@@ -829,6 +856,7 @@ class Domains extends BaseDomains {
 										->leftJoin ( 'd.Statuses s' )
 										->leftJoin ( "p.ProductsData pd WITH pd.language_id = ".intval($language_id) )
 										->whereIn ( "d.domain_id", $items )
+                                        ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 										->orderBy($orderby)
 										->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -848,6 +876,7 @@ class Domains extends BaseDomains {
 										->leftJoin ( 'd.Statuses s' )
 										->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
 										->whereIn ( "d.status_id", Statuses::id('active', 'Domains') )
+                                        ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 										->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
@@ -896,7 +925,9 @@ class Domains extends BaseDomains {
 										->from ( 'Domains d' )
 										->leftJoin ( 'd.DomainsTlds dt' )
 										->leftJoin ( 'dt.WhoisServers ws' )
+                                        ->leftJoin ( 'd.Customers c' )
 										->where ( "domain_id = ?", $id )
+                                        ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 										->limit ( 1 );
 				
 			$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
@@ -939,6 +970,7 @@ class Domains extends BaseDomains {
 			     ->leftJoin ( 'c.Legalforms l' )
 			     ->leftJoin ( 'c.Statuses st' )
 			     ->where ( "domain_id = $id" )
+                 ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 			     ->limit ( 1 );
 			
 			if($fields != "*"){
@@ -1110,9 +1142,11 @@ class Domains extends BaseDomains {
 	public static function getName($id) {
 		$data = Doctrine_Query::create ()
 		                      ->from ( 'Domains d' )
+                              ->leftJoin ( 'd.Customers c' )
 		                      ->leftJoin ( 'd.DomainsTlds tlds' )
 		                      ->leftJoin ( 'tlds.WhoisServers ws' )
 		                      ->where ( "d.domain_id = ?", $id )
+                              ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		                      ->limit ( 1 )
 		                      ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
@@ -1140,20 +1174,14 @@ class Domains extends BaseDomains {
 		                      ->leftJoin ( 'd.Statuses s' )
 		                      ->leftJoin ( 'd.OrdersItems oi' )
 		                      ->where ( "d.domain_id = ?", $id )
+                              ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		                      ->limit ( 1 );
 		
 		if(!empty($fields)){
 			$dq->select ( $fields );
 		}                      
         
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
-        }          
-		
 		$domain = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		
 		return $domain;
 	}
 	
@@ -1167,8 +1195,10 @@ class Domains extends BaseDomains {
 		$product = Doctrine_Query::create ()
 							  ->select ( $fields )
 		                      ->from ( 'Domains d' )
+                              ->leftJoin ( 'd.Customers c' )
 		                      ->leftJoin ( 'd.Products p' )
 		                      ->where ( "d.domain_id = ?", $id )
+                              ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 		                      ->limit ( 1 )
 		                      ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
@@ -1188,7 +1218,8 @@ class Domains extends BaseDomains {
 		->leftJoin ( 'd.DomainsTlds dt' )
 		->leftJoin ( 'd.CustomersDomainsRegistrars cdr' )
 		->leftJoin ( 'dt.WhoisServers ws' )
-		->where ( "domain = ? and ws.tld = ?", array ($domain_name, $tld ) );
+		->where ( "domain = ? and ws.tld = ?", array ($domain_name, $tld ) )
+        ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$domain = $dq->execute ( array (), $retarray );
 		return $domain;
@@ -1203,9 +1234,11 @@ class Domains extends BaseDomains {
 	public static function findByLikeDomainName($domain_name, $fields = "*", $retarray = false) {
 		$dq = Doctrine_Query::create ()->select ( $fields )
 									   ->from ( 'Domains d' )
+                                       ->leftJoin ( 'd.Customers c' )
 									   ->leftJoin ( 'd.DomainsTlds dt' )
 									   ->leftJoin ( 'dt.WhoisServers ws' )
-									   ->where ( "domain like ?", '%' . $domain_name . '%' );
+									   ->where ( "domain like ?", '%' . $domain_name . '%' )
+                                       ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 									   
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$domain = $dq->execute ( array (), $retarray );
@@ -1226,13 +1259,9 @@ class Domains extends BaseDomains {
         
 		$dq = Doctrine_Query::create ()->from ( 'Domains d' )
 										->leftJoin('d.DomainsTlds dt')
-										->leftJoin('dt.WhoisServers ws');
-        
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'd.Customers c' )->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
-        }   
+										->leftJoin('dt.WhoisServers ws')
+                                        ->leftJoin ( 'd.Customers c' )
+                                        ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
 
         if (is_numeric ( $customer_id )) {
         	$dq->where ( 'customer_id = ?', $customer_id );
@@ -1302,7 +1331,9 @@ class Domains extends BaseDomains {
 											->leftJoin('d.DomainsTlds dt')
 											->leftJoin('dt.WhoisServers ws')
 											->leftJoin ( 'd.OrdersItemsDomains oid ' )
+                                            ->leftJoin ( 'd.Customers c' )
 											->whereIn ( 'd.domain_id', $DomainsInOrders, true )
+                                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 											->orderBy ( 'ws.tld, d.domain' );
 			$domains = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
@@ -1454,15 +1485,10 @@ class Domains extends BaseDomains {
 				->select ( "domain_id, count(*) as items, s.status as status" )
 				->from ( 'Domains d' )
 				->leftJoin ( 'd.Statuses s' )
+                ->leftJoin ( 'd.Customers c' )
 				->where("s.section = 'domains'")
+                ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
 				->groupBy('s.status');
-									
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'd.Customers c' )
-                ->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
-        }  
         
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 	
@@ -1480,14 +1506,10 @@ class Domains extends BaseDomains {
 		
 		$dq = Doctrine_Query::create ()
 				->select ( "domain_id, count(*) as items" )
-				->from ( 'Domains d' );
+				->from ( 'Domains d' )
+                ->leftJoin ( 'd.Customers c' )
+                ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
                                     
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'd.Customers c' )
-                ->whereIn( "c.isp_id", $logged_user['isp_id']);
-        } 
         
         $record_group2  =  $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		

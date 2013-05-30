@@ -717,6 +717,16 @@ CustomersGroups:
     name:
       type: string(250)
       notnull: true
+    isp_id:
+      type: integer(4)      
+  relations:
+    Customers:
+      local: group_id
+      foreign: group_id
+    Isp:
+      local: isp_id
+      foreign: isp_id
+
             
 Customers:
   connection: doctrine
@@ -2005,7 +2015,7 @@ OauthClients:
       unsigned: true
       primary: true
       autoincrement: true
-    admin_id:
+    user_id:
       type: integer(4)
       notnull: true
     app_name:
@@ -2040,7 +2050,7 @@ OauthAccessTokens:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     expires:
@@ -2066,7 +2076,7 @@ OauthAuthorizationCodes:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     redirect_uri:
@@ -2095,7 +2105,7 @@ OauthRefreshTokens:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     expires:
