@@ -38,7 +38,7 @@ class Oauth_AuthorizeController extends Zend_Controller_Action {
 		));
 		$scopeUtil = new OAuth2_Scope($memory);
 
-		$server->setScopeUtil($scopeUtil);		
+		$server->setScopeUtil($scopeUtil);
 		
 		// Add the "Authorization Code" grant type (this is required for authorization flows)
 		$server->addGrantType(new OAuth2_GrantType_AuthorizationCode($storage));
