@@ -105,15 +105,16 @@ class Isp extends BaseIsp {
 	}	 
 	
 	/**
-	 * return the isp_id based on logged user or current url if there is no logged user
+	 * return the isp_id based on logged user IF in admin or current url if else
 	 */ 
 	public static function getCurrentId() {
 		$logged_isp_id = self::getLogged();
 		
-		if ( $logged_isp_id ) {
+		// Use logged_isp_id ONLY IF we are in admin. If someone is browsing through the public website, it should use isp_id associated with that website
+		if ( $logged_isp_id && Zend_Controller_Front::getInstance()->getRequest()->getModuleName() != 'default' ) {
 			return intval($logged_isp_id);
 		}
-				
+
 		$isp = self::getByURL($_SERVER['HTTP_HOST']);
 
 		return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1; // TODO: set to 1 for older installation that doesn't have isp_id properly set. It should be 0.
