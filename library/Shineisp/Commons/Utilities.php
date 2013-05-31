@@ -148,9 +148,9 @@ class Shineisp_Commons_Utilities {
 				if(is_writable(PUBLIC_PATH . '/logs/')){
 					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
 					if(is_array($message)){
-						fputs ( $log, date ( 'd-m-Y H:i:s' ) . "\n" .  var_export($message, true));
+						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "]\n" .  var_export($message, true));
 					}else{
-						fputs ( $log, date ( 'd-m-Y H:i:s' ) . " $message\n" );
+						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "] $message\n" );
 					}
 					fclose ( $log );
 				}else{
@@ -1258,7 +1258,7 @@ class Shineisp_Commons_Utilities {
 	
 	public static function logs($str, $filename = "errors.log") {
 		$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
-		fputs ( $log, date ( 'd-m-y h:i:s' ) . " $str\n" );
+		fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "] $str\n" );
 		fclose ( $log );
 	}
 	
