@@ -269,6 +269,9 @@ class Payments extends BasePayments
 			// Let's check if we have the whole invoice paid.
 			$isPaid = Orders::isPaid($orderid);
 			Shineisp_Commons_Utilities::logs("Payments::addPayment(): verifica pagamento completato.", "tmp_guest.log");
+			
+			// Check to see if order is totally paid.
+			// This will generate invoice or, if an invoice is still present, it will overwrite it (proforma to invoice conversion)
 			if ( $isPaid ) {
 				Shineisp_Commons_Utilities::logs("Payments::addPayment(): isPaid ok, pagamento completato al 100%", "tmp_guest.log");
                 // Set order status as "Paid"
@@ -283,11 +286,16 @@ class Payments extends BasePayments
 				$invoiceId = intval(Orders::isInvoiced($orderid));
 				
 				if ( !$invoiceId ) { // order not invoiced?
+					Shineisp_Commons_Utilities::logs("Payments::addPayment(): ordine non fatturato.", "tmp_guest.log");
+				
 					if ( $autoCreateInvoice === 1 ) {
+						Shineisp_Commons_Utilities::logs("Payments::addPayment(): autoCreateInvoice === 1, creo fattura.", "tmp_guest.log");
 						// invoice not created yet. Let's create now
 						Invoices::Create ( $orderid );
 					}
+					
 				} else {
+					Shineisp_Commons_Utilities::logs("Payments::addPayment(): ordine gia fatturato. Sovrascrivo fattura proforma con quella pagata", "tmp_guest.log");
 					// set invoice as paid
 					Invoices::overwrite ( $invoiceId );
 				}
