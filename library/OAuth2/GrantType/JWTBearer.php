@@ -164,7 +164,9 @@ class OAuth2_GrantType_JWTBearer implements OAuth2_GrantTypeInterface, OAuth2_Cl
 
     public function getUserId()
     {
-        return $this->jwt['sub'];
+    	$clientDetails = $this->storage->getClientDetails($this->getClientId());
+		return intval($clientDetails['user_id']);
+		//return $this->jwt['sub'];
     }
 
     public function getScope()
@@ -181,6 +183,7 @@ class OAuth2_GrantType_JWTBearer implements OAuth2_GrantTypeInterface, OAuth2_Cl
     public function createAccessToken(OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         $includeRefreshToken = false;
+        Shineisp_Commons_Utilities::log("OAuth2_GrantType_JWTBearer::createAccessToken('".$user_id."')", 'oauth.log');
         return $accessToken->createAccessToken($client_id, $user_id, $scope, $includeRefreshToken);
     }
 }
