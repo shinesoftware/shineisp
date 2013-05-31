@@ -20,11 +20,11 @@ class OauthClients extends BaseOauthClients
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string', 'attributes' => array ('width' => 20 ) );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Application Name' ), 'field' => 'app_name', 'alias' => 'app_name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client ID' ), 'field' => 'client_id', 'alias' => 'client_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Redirect URI' ), 'field' => 'redirect_uri', 'alias' => 'redirect_uri', 'type' => 'string');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client ID' ), 'field' => 'client_id', 'alias' => 'client_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('width' => 320 ));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Redirect URI' ), 'field' => 'redirect_uri', 'alias' => 'redirect_uri', 'type' => 'string', 'attributes' => array ('width' => 300 ));
 		
 		
 		$config ['datagrid'] ['fields'] = "client_id, app_name, redirect_uri";
