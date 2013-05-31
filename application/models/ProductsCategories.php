@@ -463,13 +463,14 @@ class ProductsCategories extends BaseProductsCategories {
 	 * 
 	 */
 	public static function getMenu() {
-		
+		$isp_id     = ISP::getCurrentId();
 		$categories = array();
 		
 		$dq = Doctrine_Query::create ()->select ( 'c.category_id as id, c.name, c.parent, c.uri, c.description, c.keywords' )
 										->from ( 'ProductsCategories c' )
 										->where('c.enabled = ?', 1)
 										->andWhere('c.show_in_menu = ?', 1)
+										->andWhere('c.isp_id = ?', $isp_id)
 										->orderBy('c.parent, c.position, c.name');
 		
 		$records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -482,7 +483,6 @@ class ProductsCategories extends BaseProductsCategories {
 				}
 			}
 		}
-		
 		return $categories;
 	}
 	

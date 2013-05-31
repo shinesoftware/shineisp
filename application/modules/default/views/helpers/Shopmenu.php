@@ -13,7 +13,7 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 	protected $menu = array();
 	
 	public function shopmenu() {
-		$menuheader = "<ul class=\"navigation\">\n";
+		$menuheader = "<ul class='navigation'>\n";
 		$ns = new Zend_Session_Namespace ( 'Default' );
 		$this->translator = Zend_Registry::get ( 'Zend_Translate' );
 		#$this->createTldMenu();
@@ -27,7 +27,7 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 		foreach($result as $menuItem)
 		{
 			$menu['items'][$menuItem['category_id']] = $menuItem;
-			$menu['parents'][$menuItem['parent']][] = $menuItem['category_id'];
+			$menu['parents'][$menuItem['parent']][]  = $menuItem['category_id'];
 		}
 		
 		$html = $this->buildMenu(0, $menu);
