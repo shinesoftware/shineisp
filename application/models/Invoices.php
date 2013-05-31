@@ -637,6 +637,17 @@ class Invoices extends BaseInvoices {
 		die ();
 	}
 	
+	/**
+	 * orverwrite an invoice
+	 * @param int $invoice_id : invoice id
+	 */
+	public static function overwrite($invoice_id) {
+		if ( !is_numeric($invoice_id) ) {
+			return false;
+		}
+		
+		return self::PrintPDF($invoice_id, false, true);
+	}
 	
     /**
      * print the invoice

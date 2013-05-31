@@ -376,7 +376,7 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				Invoices::PrintPDF($request->id, false, true);
+				Invoices::overwrite($request->id);
 				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			}
 		} catch ( Exception $e ) {

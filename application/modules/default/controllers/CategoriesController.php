@@ -82,14 +82,14 @@ class CategoriesController extends Zend_Controller_Action {
 					
 					// Get the media information for each product
 					foreach ( $data['records'] as $product ) {
-						$product['reviews'] = Reviews::countItems($product['product_id']);
+						$product['reviews']    = Reviews::countItems($product['product_id']);
 						$product['attributes'] = ProductsAttributes::getAttributebyProductID($product['product_id'], $ns->langid, true);
 						$products [] = $product;
 					}
 					$this->view->products = $products;
 					$this->view->pager = $data['pager'];
 				}
-				
+
 				$this->_helper->viewRenderer($ns->layoutmode);
 				
 			}else{

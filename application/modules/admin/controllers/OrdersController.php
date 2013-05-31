@@ -374,7 +374,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 				return array (
 					'records' => $myrec, 
 					'pager'  => true,
-					'edit' => array ('controller' => 'payments', 'action' => 'edit' ),
+					//'edit' => array ('controller' => 'payments', 'action' => 'edit' ),
 					'delete' => array ('controller' => 'orders', 'action' => 'deletepayment' ),
 				);
 			}

@@ -34,6 +34,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		if(Shineisp_Main::isReady()){
 			$dsn = Shineisp_Main::getDsn();
 			$conn = Doctrine_Manager::connection ( $dsn, 'doctrine' );
+			
+			$queryDbg = new Shineisp_Commons_QueriesLogger();
+			$conn->addListener($queryDbg);
+			
 			$conn->setAttribute ( Doctrine::ATTR_USE_NATIVE_ENUM, true );
 			$conn->setCharset ( 'UTF8' );
 		}
