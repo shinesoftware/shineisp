@@ -280,9 +280,16 @@ class Payments extends BasePayments
 				
 				// If automatic invoice creation is set to 1, we have to create the invoice
 				$autoCreateInvoice = intval(Settings::findbyParam('auto_create_invoice_after_payment'));
-				if ( $autoCreateInvoice === 1 && !Orders::isInvoiced($orderid) ) {
-					// invoice not created yet. Let's create now
-					Invoices::Create ( $orderid );
+				$invoiceId = intval(Orders::isInvoiced($orderid));
+				
+				if ( !$invoiceId ) { // order not invoiced?
+					if ( $autoCreateInvoice === 1 ) {
+						// invoice not created yet. Let's create now
+						Invoices::Create ( $orderid );
+					}
+				} else {
+					// set invoice as paid
+					Invoices::overwrite ( $invoiceId );
 				}
 				
 			} else {
