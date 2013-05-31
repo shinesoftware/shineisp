@@ -235,7 +235,7 @@ class Payments extends BasePayments
      */
     public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null) {
 
-        
+        /*
     	$paymentdata = self::findbyorderid ( $orderid, null, true );
     			
     	if (count ( $paymentdata ) == 0) {
@@ -243,7 +243,10 @@ class Payments extends BasePayments
 		} else {
 			$payment = Doctrine::getTable ( 'Payments' )->find ( $paymentdata [0] ['payment_id'] );
 		}
+		*/
 
+		$payment = new Payments ();
+		
 		// We make a double check to properly manage "null" output coming from Shineisp_Commons_Utilities::formatDateIn
 		if ( !empty($paymentdate) ) {
 			$paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $paymentdate );

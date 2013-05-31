@@ -501,7 +501,7 @@ class Orders extends BaseOrders {
 				}
 				
 				// Handle the payment transaction
-				if (! empty ( $params ['paymentdate'] )) {
+				if ( !empty($params ['paymentdate']) ) {
 					Payments::addPayment($id, $params ['reference'], $params ['bank_id'], $params ['confirmed'], $params['income'], $params ['paymentdate'], $params ['customer_id'], $params ['payment_description']);
 				}
 				

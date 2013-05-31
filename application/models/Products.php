@@ -425,7 +425,7 @@ class Products extends BaseProducts {
 					}else{
 						$taxincluded = $product ['price_1'];
 					}
-					
+
 					return array ('type' => 'flat', 'value' => $product ['price_1'], 'taxincluded' => $taxincluded, 'taxes' => $tax );
 				} else {
 					// Get the price min & max interval tranches
@@ -508,7 +508,7 @@ class Products extends BaseProducts {
 						}
 						
 						$price = $tranches['price'];
-						
+
 						return array ('type' => 'multiple', 'measurement' => $tranches['measurement'], 'minvalue' => $price, 'maxvalue' => $price, 'taxes' => $tax, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => 0, 'discount' => 0);
 					}
 				}
