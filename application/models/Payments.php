@@ -235,7 +235,7 @@ class Payments extends BasePayments
      */
     public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null) {
 
-        
+        /*
     	$paymentdata = self::findbyorderid ( $orderid, null, true );
     			
     	if (count ( $paymentdata ) == 0) {
@@ -243,7 +243,10 @@ class Payments extends BasePayments
 		} else {
 			$payment = Doctrine::getTable ( 'Payments' )->find ( $paymentdata [0] ['payment_id'] );
 		}
+		*/
 
+		$payment = new Payments ();
+		
 		// We make a double check to properly manage "null" output coming from Shineisp_Commons_Utilities::formatDateIn
 		if ( !empty($paymentdate) ) {
 			$paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $paymentdate );
@@ -269,6 +272,9 @@ class Payments extends BasePayments
 			// Let's check if we have the whole invoice paid.
 			$isPaid = Orders::isPaid($orderid);
 			Shineisp_Commons_Utilities::logs("Payments::addPayment(): verifica pagamento completato.", "tmp_guest.log");
+			
+			// Check to see if order is totally paid.
+			// This will generate invoice or, if an invoice is still present, it will overwrite it (proforma to invoice conversion)
 			if ( $isPaid ) {
 				Shineisp_Commons_Utilities::logs("Payments::addPayment(): isPaid ok, pagamento completato al 100%", "tmp_guest.log");
                 // Set order status as "Paid"
@@ -280,9 +286,21 @@ class Payments extends BasePayments
 				
 				// If automatic invoice creation is set to 1, we have to create the invoice
 				$autoCreateInvoice = intval(Settings::findbyParam('auto_create_invoice_after_payment'));
-				if ( $autoCreateInvoice === 1 && !Orders::isInvoiced($orderid) ) {
-					// invoice not created yet. Let's create now
-					Invoices::Create ( $orderid );
+				$invoiceId = intval(Orders::isInvoiced($orderid));
+				
+				if ( !$invoiceId ) { // order not invoiced?
+					Shineisp_Commons_Utilities::logs("Payments::addPayment(): ordine non fatturato.", "tmp_guest.log");
+				
+					if ( $autoCreateInvoice === 1 ) {
+						Shineisp_Commons_Utilities::logs("Payments::addPayment(): autoCreateInvoice === 1, creo fattura.", "tmp_guest.log");
+						// invoice not created yet. Let's create now
+						Invoices::Create ( $orderid );
+					}
+					
+				} else {
+					Shineisp_Commons_Utilities::logs("Payments::addPayment(): ordine gia fatturato. Sovrascrivo fattura proforma con quella pagata", "tmp_guest.log");
+					// set invoice as paid
+					Invoices::overwrite ( $invoiceId );
 				}
 				
 			} else {

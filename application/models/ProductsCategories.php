@@ -219,38 +219,43 @@ class ProductsCategories extends BaseProductsCategories {
 	 * @return array
 	 */
 	public static function getProductListbyCatUri($uri, $fields = "*", $locale = 1, $rows = 8) {
-		$data = array ();
-		
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Products p' )
-		                               ->leftJoin("p.ProductsData pd WITH pd.language_id = $locale")
-		                               ->leftJoin("p.ProductsAttributesGroups pag")
-		                               ->where('p.enabled = ?', 1)
-		                               ->orderBy('position asc');
-		                               
-		$category = Doctrine::getTable ( 'ProductsCategories' )->findBy ( 'uri', $uri, Doctrine_Core::HYDRATE_ARRAY );
-		
-		if ($category) {
-			$id = $category [0] ['category_id'];
+		$data   = array ();
+		$isp_id = ISP::getCurrentId();
+		$locale = intval($locale);
+		$rows   = intval($rows);
 
-			// Get the category selected in the products table where the categories have been written in this way: \12\224\85\53
-			$reg1 = "categories like '".$id."/%'";
-			$reg2 = "categories like '%/".$id."'";
-			$reg3 = "categories like '%/".$id."/%'";
-			$reg4 = "categories = '$id'";
-			$dq->andWhere ( "($reg1 OR $reg2 OR $reg3 OR $reg4)");
-			
-			$dq = self::pager($dq, $rows);		
+		//$category = Doctrine::getTable ( 'ProductsCategories' )->findBy ( 'uri', $uri, Doctrine_Core::HYDRATE_ARRAY );
+		$category = Doctrine_Query::create ()->select ( 'category_id' )->from ( 'ProductsCategories' )
+											 ->where('isp_id = ?', $isp_id)
+											 ->addWhere('uri = ?', $uri)
+											 ->execute(array(), Doctrine_Core::HYDRATE_ARRAY );
+											 
+		$category    = is_array($category) ? array_shift($category) : null;
+		$category_id = isset($category['category_id']) ? intval($category['category_id']) : 0;
+		
+		if ( $category_id ) {
+			$dq = Doctrine_Query::create ()
+									->select ( $fields )
+									->from ( 'Products p' )
+	                                ->leftJoin("p.ProductsData pd WITH pd.language_id = ".$locale)
+	                                ->leftJoin("p.ProductsAttributesGroups pag")
+	                                ->where('p.enabled = ?', 1)
+								    ->addWhere('p.isp_id = ?', $isp_id)
+								    ->andWhere("(categories LIKE '".$category_id."/%' OR categories LIKE '%/".$category_id."' OR categories LIKE '%/".$category_id."/%' OR categories = '$category_id')")
+									->orderBy('position asc');
+			$dq       = self::pager($dq, $rows);		
 			$products = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+			
 			foreach ( $products as $product ) {
 				$categories = explode ( "/", $product ['categories'] );
-				if (in_array ( $id, $categories )) {
+				if (in_array ( $category_id, $categories )) {
 					$data ['records'][] = ProductsData::checkTranslation($product);  // Check the product data translation text
 				}
 			}
+			
+			$data['pager'] = $dq->display ( null, true );
 		}
-		
-		$data['pager'] = $dq->display ( null, true );
-		
+
 		return $data;
 	}
 	
@@ -458,13 +463,14 @@ class ProductsCategories extends BaseProductsCategories {
 	 * 
 	 */
 	public static function getMenu() {
-		
+		$isp_id     = ISP::getCurrentId();
 		$categories = array();
 		
 		$dq = Doctrine_Query::create ()->select ( 'c.category_id as id, c.name, c.parent, c.uri, c.description, c.keywords' )
 										->from ( 'ProductsCategories c' )
 										->where('c.enabled = ?', 1)
 										->andWhere('c.show_in_menu = ?', 1)
+										->andWhere('c.isp_id = ?', $isp_id)
 										->orderBy('c.parent, c.position, c.name');
 		
 		$records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -477,7 +483,6 @@ class ProductsCategories extends BaseProductsCategories {
 				}
 			}
 		}
-		
 		return $categories;
 	}
 	

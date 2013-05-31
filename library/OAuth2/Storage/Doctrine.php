@@ -79,6 +79,9 @@ class OAuth2_Storage_Doctrine implements OAuth2_Storage_AuthorizationCodeInterfa
         // convert expires to datestring
         $expires = date('Y-m-d H:i:s', $expires);
 		
+		// garbage collector. Remove expired tokens
+		Doctrine_Query::create()->delete($this->config['access_token_table'])->where ("expires < ?", date('Y-m-d H:i:s'))->execute();
+		
         // if it exists, update it.
         if ( $this->getAccessToken($access_token) ) {
         	return Doctrine_Query::create()->update($this->config['access_token_table'])->set('client_id', $client_id)->set('expires', $expires)->set('user_id',$user_id)->set('scope',$scope)->where ("access_token = ?", $access_token)->execute(); 
