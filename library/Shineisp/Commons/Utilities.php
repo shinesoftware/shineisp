@@ -980,6 +980,9 @@ class Shineisp_Commons_Utilities {
 
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
+	 * 
+	 * TODO: GUEST - ALE - 20130531: THIS METHOD MUST BE REFACTORED
+	 * 
 	 */
 	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null, $language_id = null) {
 		
@@ -997,6 +1000,11 @@ class Shineisp_Commons_Utilities {
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
+		
+		// All placeholder prefixed with "isp_" will be replaced with ISP data
+		foreach ( $ISP as $k => $v ) {
+			$replace['isp_'.$k] = $v;
+		}
 		
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);

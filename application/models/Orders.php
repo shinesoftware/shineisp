@@ -2681,6 +2681,7 @@ class Orders extends BaseOrders {
 			
 		foreach ( $orders as $order ) {
 			$customer = Customers::getAllInfo($order ['customer_id']);
+			$ISP      = ISP::getActiveIspById($customer['isp_id']);
 	
 			// Get the fastlink attached
 			$link_exist = Fastlinks::findlinks ( $order ['order_id'], $order ['customer_id'], 'orders' );
@@ -2691,12 +2692,12 @@ class Orders extends BaseOrders {
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
-				
+			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
-				 'orderid'    => $order['order_number']
-				,':shineisp:' => $customer
-				,'url'        => $customer_url
-			), null, null, null, null, $customer['language_id']);
+				 'orderid'        => $order['order_number']
+				,':shineisp:'     => $customer
+				,'url'            => $customer_url
+			), null, null, null, $ISP, $customer['language_id']);
 			
 	
 			// Set the order as deleted
