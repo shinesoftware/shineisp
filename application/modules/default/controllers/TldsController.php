@@ -24,7 +24,7 @@ class TldsController extends Zend_Controller_Action {
 	 * The default action - show the home page
 	 */
 	public function indexAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$uri = $this->getRequest ()->getParam ( 'uri' );
 		
 		if (! empty ( $uri )) {

@@ -18,7 +18,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * create the configuration of the grid
 	 */	
 	public static function grid($rowNum = 10) {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall' );

@@ -8,7 +8,7 @@
 class SearchController extends Zend_Controller_Action {
 	
 	public function indexAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$search = $this->getRequest()->getParam('q');
 		
 		if(!empty($search)){

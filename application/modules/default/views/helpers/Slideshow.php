@@ -5,7 +5,7 @@
 class Zend_View_Helper_Slideshow extends Zend_View_Helper_Abstract {
 	
 	public function slideshow($data = array()) {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
 		$category_id = Settings::findbyParam('slidecategoryid');

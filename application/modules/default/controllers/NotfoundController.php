@@ -9,7 +9,7 @@ class NotfoundController extends Zend_Controller_Action {
 	
 	public function indexAction() {
 		$items = array();
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$locale = $ns->lang;
 		$uri = $this->getRequest ()->getParam('uri');
 		

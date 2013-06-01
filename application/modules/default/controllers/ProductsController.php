@@ -24,7 +24,7 @@ class ProductsController extends Zend_Controller_Action {
 	}
 	
 	public function getAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$product = array ();
 		$uri = $this->getRequest ()->getParam ( 'q' );
 		
@@ -147,7 +147,7 @@ class ProductsController extends Zend_Controller_Action {
 	 * Create the form for the submittion of the review
 	 */
 	public function addreviewAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		$request = $this->getRequest ();
 		$id = $request->getParam ( 'id' );

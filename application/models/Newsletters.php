@@ -183,7 +183,7 @@ class Newsletters extends BaseNewsletters
      * Prepare the newsletter content
      */
     private static function fill_content(){
-    	$ns = new Zend_Session_Namespace ( 'Default' );
+    	$ns = new Zend_Session_Namespace ();
     	$contents = array();
     	
     	// Get all the products

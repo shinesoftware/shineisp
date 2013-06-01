@@ -55,7 +55,7 @@ class Settings extends BaseSettings {
 			$dom = new DOMDocument();
 			$dom->loadXML($xmlstring);
 			$dom->formatOutput = true;
-			$formattedXML = $dom->saveXML();
+			$dom->saveXML();
 			
 			// Save the config xml file
 			if(@$dom->save(APPLICATION_PATH . "/configs/config.xml")){
@@ -202,9 +202,8 @@ class Settings extends BaseSettings {
      * @param $isp
      * @return Doctrine Record
      */
-    public static function findbyParam($parameter, $module = "", $isp = 1) {
-    	$session = new Zend_Session_Namespace ( 'Default' );
-    	
+    public static function findbyParam($parameter, $module = "Default", $isp = 1) {
+    	$session = new Zend_Session_Namespace ( $module );
     	if(!empty($session->parameters[$parameter])){
     		return $session->parameters[$parameter];
     	}

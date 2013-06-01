@@ -220,7 +220,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 */
 	public static function getProductListbyCatUri($uri, $fields = "*", $locale = 1, $rows = 8) {
 		$data   = array ();
-		$isp_id = ISP::getCurrentId();
+		$isp_id = Isp::getCurrentId();
 		$locale = intval($locale);
 		$rows   = intval($rows);
 
@@ -463,7 +463,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 * 
 	 */
 	public static function getMenu() {
-		$isp_id     = ISP::getCurrentId();
+		$isp_id     = Isp::getCurrentId();
 		$categories = array();
 		
 		$dq = Doctrine_Query::create ()->select ( 'c.category_id as id, c.name, c.parent, c.uri, c.description, c.keywords' )

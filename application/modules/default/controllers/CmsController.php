@@ -15,7 +15,7 @@ class CmsController extends Zend_Controller_Action {
 	 */
 	public function pageAction() {
 		$var = $this->getRequest ()->getParam ( 'url' );
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$locale = $ns->lang;
 		
 		if (! empty ( $var )) {

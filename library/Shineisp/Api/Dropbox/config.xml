@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- Dropbox Configuration File -->
-
 <config name="Dropbox" type="generic" var="dropbox" version="1.0">
     <general>
 	    <description><![CDATA[ <a href="https://www.dropbox.com/">Dropbox</a> is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again! Open your account <a href="https://www.dropbox.com/">now</a>!]]></description>

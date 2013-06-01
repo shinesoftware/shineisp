@@ -14,7 +14,7 @@ class CartController extends Zend_Controller_Action {
 	 */
 	
 	public function preDispatch() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$this->customer = $ns->customer;

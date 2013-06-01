@@ -49,7 +49,7 @@ class WikiController extends Zend_Controller_Action {
 	
 	public function helpAction() {
 		$uri = $this->getRequest ()->getParam ( 'uri' );
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (! empty ( $uri )) {
 			$uri = Shineisp_Commons_UrlRewrites::format($uri);

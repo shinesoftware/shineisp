@@ -10,7 +10,7 @@ class Zend_View_Helper_Domainsearchbox extends Zend_View_Helper_Abstract {
 	}
 	
 	public function domainsearchbox() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$this->view->visible = true;

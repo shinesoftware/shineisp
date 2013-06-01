@@ -16,14 +16,34 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 	 * @see Zend_Controller_Plugin_Abstract::preDispatch()
 	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-		
+				
 		$path = PROJECT_PATH . "/library/Shineisp/Api";
 		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+		
+
+		$mainConfigfile = APPLICATION_PATH . "/configs/config.xml";
+		
+		if(file_exists($mainConfigfile)){
+			$mainconfig = simplexml_load_file($mainConfigfile);
+		}else{
+			throw new Exception($mainConfigfile . " has been not found");
+		}
+		
+		if(!count($mainconfig->xpath("/shineisp/modules"))){
+			$modules = $mainconfig->addChild('modules');
+		}else{
+			$modules = $mainconfig->xpath("/shineisp/modules");
+		}
+		
 		foreach($directory_iterator as $filename => $path_object)
 		{
+			
 			$info = pathinfo($filename);
+			
 			if(!empty($info['extension']) && $info['extension'] == "xml"){
+				
 				if (file_exists ($filename)) {
+					
 					$config = simplexml_load_file ( $filename );
 
 					// If the config file has been created for the registrar ignore it 
@@ -33,7 +53,31 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 					}
 					
 					$panelName = ( string ) $config->attributes ()->name;
+					$var = (string)$config['var'];
+					
+					// Save the module setup in the config.xml file
+					// Now we are checking if the module is already set in the config.xml file
+					if(!count($mainconfig->xpath("/shineisp/modules/$var"))){
 
+						// The module is not present, we have to create it
+						$module = $modules[0]->addChild($var);
+						
+						// Now we add the setup date as attribute
+						$module->addAttribute('setup', date('YmdHis'));
+					}else{
+						
+						// The module is present and we get it
+						$module = $mainconfig->xpath("/shineisp/modules/$var");
+						
+						// If the setup date attribute is present skip the module process setup 
+						if(!empty($module[0]) && $module[0]->attributes()->setup){
+							continue;
+						}else{
+							// The setup attribute is not present restart the module setup process
+							$module[0]->addAttribute('setup', date('YmdHis'));
+						}
+					}
+					
 					$help = (string)$config->general->help ? (string)$config->general->help : NULL;
 					$description = (string)$config->general->description ? (string)$config->general->description : NULL;
 					
@@ -70,6 +114,18 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 							}
 						}
 					}
+				}
+				
+				$xmlstring = $mainconfig->asXML();
+				
+				// Prettify and save the xml configuration
+				$dom = new DOMDocument('1.0');
+				$dom->loadXML($xmlstring);
+				$doc->formatOutput = TRUE;
+				$doc->preserveWhiteSpace = TRUE;
+				$dom->saveXML();
+				if(!@$dom->save($mainConfigfile)){
+					throw new Exception("Error on saving the xml file in $mainConfigfile <br/>Please check the folder permissions");
 				}
 			}
 		}

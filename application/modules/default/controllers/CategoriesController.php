@@ -30,7 +30,7 @@ class CategoriesController extends Zend_Controller_Action {
 	 * Set the layout mode of the list of the categories
 	 */
 	public function setlayoutAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$ns->layoutmode = $this->getRequest()->getParam('mode', 'list');
 		return $this->_helper->redirector ( $ns->lastcategory . ".html" );
 	}
@@ -39,7 +39,7 @@ class CategoriesController extends Zend_Controller_Action {
 	 * List all the products of a requested category
 	 */
 	public function listAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$products = array ();
 		
 		// get the category uri

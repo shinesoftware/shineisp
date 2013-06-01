@@ -3,9 +3,9 @@
 class IndexController extends Zend_Controller_Action {
 	
 	public function indexAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$locale = $ns->lang;
-		
+
 		Shineisp_Commons_Utilities::log("ShineISP starts now from " . $_SERVER['SERVER_ADDR']);
 		
 		if (empty($ns->customer)) {
@@ -36,7 +36,7 @@ class IndexController extends Zend_Controller_Action {
 			
 		}
 		
-		$isp = ISP::getCurrentISP();
+		$isp = Isp::getCurrentISP();
 		$this->view->headertitle = $isp['slogan'];
 		
 	}
@@ -248,7 +248,7 @@ class IndexController extends Zend_Controller_Action {
 	 * Log out of the customer
 	 */
 	public function outAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$ns->unsetAll();
         unset($ns->customer);
 		$this->_helper->redirector ( 'index', 'index', 'default' ); // back to login page

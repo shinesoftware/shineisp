@@ -14,7 +14,7 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 	
 	public function shopmenu() {
 		$menuheader = "<ul class='navigation'>\n";
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$this->translator = Zend_Registry::get ( 'Zend_Translate' );
 		#$this->createTldMenu();
 		
@@ -75,7 +75,7 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 	 * 
 	 */
 	private function createTldMenu() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$items = DomainsTlds::getHighlighted($ns->langid);
 		$currency = Zend_Registry::get ( 'Zend_Currency' );
 		

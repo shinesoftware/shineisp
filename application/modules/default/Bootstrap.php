@@ -22,8 +22,9 @@ class Default_Bootstrap extends Zend_Application_Module_Bootstrap {
 	protected function _initLayoutHelper() {
 		$this->bootstrap ( 'frontController' );
 		if(Shineisp_Main::isReady()){
+			$module = $this->getModuleName ();
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_LayoutLoader () );
-			SettingsParameters::loadParams();
+			SettingsParameters::loadParams($module);
 		}
 	}
 }
