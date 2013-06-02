@@ -59,40 +59,9 @@ class IndexController extends Zend_Controller_Action {
 			}
 		}
 	}
-
-	/**
-	 * Call me back custom module
-	 * @see Shineisp_Custom_Callmeback
-	 */
-	public function callmebackAction() {
-		$isp        = ISP::getCurrentISP();
-		$request    = $this->getRequest ();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$form       = new Default_Form_CallmebackForm( array ('action' => '/index/callmeback', 'method' => 'post' ) );
-		
-		// Check if we have a POST request
-		if (! $request->isPost ()) {
-			return $this->_helper->redirector ( 'index' );
-		}
-		
-		if ($form->isValid ( $request->getPost () )) {
-			// Get the values posted
-			$params = $form->getValues ();
-			
-			Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], 'callmeback', array(
-				 'fullname'  => $params['fullname']
-				,'telephone' => $params['telephone']
-			));				
-				
-			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => $translator->translate ( 'Thanks for your interest in our services. Our staff will contact you shortly.' ), "status" => 'information') );
-			
-		}
-		
-		$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => $translator->translate ( 'Check the telephone number and submit your data again.' ), "status" => 'error') );
-	}		
 	
 	/**
-	 * 
+	 * a fast way to signin in the user profile
 	 */
 	public function fastloginAction() {
 		$request = $this->getRequest ();
