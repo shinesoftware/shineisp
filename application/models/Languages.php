@@ -80,8 +80,14 @@ class Languages extends BaseLanguages {
 	 */
 	public static function get_language_id($locale) {
 		
+		$ns = new Zend_Session_Namespace ();
+		
 		if(empty($locale)){
 			return 1; // get the first default language 
+		}
+		
+		if(!empty($ns->lang) && ($locale == $ns->lang) && !empty($ns->langid)){
+			return $ns->langid;
 		}
 		
 		$record = Doctrine_Query::create ()->select ( 'language_id' )->from ( 'Languages l' )->where ( "locale = ?", $locale )->limit ( 1 )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );

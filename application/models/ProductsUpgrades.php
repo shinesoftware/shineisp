@@ -37,7 +37,7 @@ class ProductsUpgrades extends BaseProductsUpgrades {
     	                  ->from ( 'ProductsUpgrades pu' )
                           ->leftJoin ( 'pu.Products p' )
   						  ->where ( 'pu.product_id = ?', $product_id )
-                          ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
+                          ->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
 						  ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if (! empty ( $upgrades )) {
@@ -62,7 +62,7 @@ class ProductsUpgrades extends BaseProductsUpgrades {
 						->leftJoin('pu.Products p')
 						->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 						->where ( 'pu.product_id = ?', $product_id )
-                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() );
+                        ->addWhere( "p.isp_id = ?", Isp::getCurrentId() );
 		$upgrades = $doctrine->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		if (! empty ( $upgrades )) {
 			foreach ( $upgrades as $item ) {
@@ -84,7 +84,7 @@ class ProductsUpgrades extends BaseProductsUpgrades {
 					->leftJoin('pu.Products p')
 					->leftJoin("p.ProductsData pd WITH pd.language_id = $locale")
 					->where ( 'pu.product_id = ?', $product_id )
-                    ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
+                    ->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
 					->orderBy('p.group_id, p.position')
 					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		

@@ -37,7 +37,7 @@ class ProductsRelated extends BaseProductsRelated {
 		              ->from ( 'ProductsRelated pr' )
                       ->leftJoin('pr.Products p')
 		              ->where ( 'pr.product_id = ?', $product_id )
-                      ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
+                      ->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
 		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if (! empty ( $related )) {
@@ -59,7 +59,7 @@ class ProductsRelated extends BaseProductsRelated {
 						->leftJoin('pr.Products p')
 						->leftJoin("p.ProductsData pd WITH pd.language_id = $locale")
 						->where ( 'pr.product_id = ?', $product_id )
-                        ->addWhere( "p.isp_id = ?", ISP::getCurrentId() )
+                        ->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
 						->orderBy('p.group_id, p.position')
 						->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		

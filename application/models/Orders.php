@@ -253,7 +253,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'oi.Products p' )
 										->leftJoin ( 'o.Statuses s' )
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
-										->andWhere('c.isp_id = ?', ISP::getCurrentId())
+										->andWhere('c.isp_id = ?', Isp::getCurrentId())
 										->orderBy ( 'order_date desc' )
 										->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
 				
@@ -2372,7 +2372,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Invoices i' )
 										->leftJoin ( 'o.Statuses s' )
 										->whereIn( "order_id", $ids)
-										->addWhere ( 'c.isp_id = ?', ISP::getCurrentId())
+										->addWhere ( 'c.isp_id = ?', Isp::getCurrentId())
 										->orderBy(!empty($orderby) ? $orderby : "")
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -2396,7 +2396,7 @@ class Orders extends BaseOrders {
 								->leftJoin ( 'o.Customers c' )
 								->leftJoin ( 'o.Invoices i' )
 								->leftJoin ( 'o.Statuses s' )
-								->addWhere ( 'c.isp_id = ?', ISP::getCurrentId());
+								->addWhere ( 'c.isp_id = ?', Isp::getCurrentId());
 
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
@@ -2436,7 +2436,7 @@ class Orders extends BaseOrders {
 													->leftJoin ( 'i.Orders o' )
 													->leftJoin ( 'o.Customers c' )
 													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
-													->andWhere('c.isp_id = ?', ISP::getCurrentId())
+													->andWhere('c.isp_id = ?', Isp::getCurrentId())
 													->groupBy("quarter, year")
 													->orderBy('year, quarter')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2490,7 +2490,7 @@ class Orders extends BaseOrders {
 											->leftJoin ( 'i.Orders o' )
 											->leftJoin ( 'o.Customers c' )
 											->where('o.status_id = ?', Statuses::id('complete', 'orders'))
-											->andWhere('c.isp_id = ?', ISP::getCurrentId())
+											->andWhere('c.isp_id = ?', Isp::getCurrentId())
 											->groupBy("monthly, year")
 											->orderBy('year, monthly')
 											->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2564,7 +2564,7 @@ class Orders extends BaseOrders {
 													->leftJoin ( 'o.Customers c' )
 													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
 													->andWhere('YEAR(i.invoice_date) >= ?', $lastYear)
-													->andWhere('c.isp_id = ?', ISP::getCurrentId())
+													->andWhere('c.isp_id = ?', Isp::getCurrentId())
 													->groupBy("month, year")
 													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2618,7 +2618,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Statuses s' )
 										->leftJoin ( 'o.Customers c' )
 										->where('status_id = ?', Statuses::id('complete', 'orders'))
-										->andWhere('c.isp_id = ?', ISP::getCurrentId())
+										->andWhere('c.isp_id = ?', Isp::getCurrentId())
 										->groupBy('s.status_id')
 										->execute ( null, Doctrine::HYDRATE_ARRAY );
 		Zend_Debug::dump($income_status);

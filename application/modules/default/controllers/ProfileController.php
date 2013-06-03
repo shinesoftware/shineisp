@@ -20,7 +20,7 @@ class ProfileController extends Zend_Controller_Action {
 	
 	public function preDispatch() {
 		$registry = Zend_Registry::getInstance ();
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$this->profile = $ns->customer;

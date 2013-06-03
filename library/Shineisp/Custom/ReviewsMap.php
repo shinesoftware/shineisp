@@ -13,7 +13,7 @@ class Shineisp_Custom_ReviewsMap {
 		$view = new Zend_View();
 		$view->addScriptPath('../library/Shineisp/Custom/views');
 		
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$languageID = Languages::get_language_id($ns->lang);
 		
 		// Generate the xml file in the public path /documents

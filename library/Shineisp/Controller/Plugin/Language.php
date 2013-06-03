@@ -3,6 +3,7 @@
 class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
+		$force = false;
 		
 		$registry = Zend_Registry::getInstance();
 		
@@ -12,13 +13,14 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		$module = $request->getModuleName ();
 		
 		if($module == "default"){   // set the right session namespace per module
-			$ns = new Zend_Session_Namespace ( 'Default' );
+			$module_session = 'Default';
 		}elseif($module == "admin"){
-			$ns = new Zend_Session_Namespace ( 'Admin' );
+			$module_session = 'Admin';
 		}else{
-			$ns = new Zend_Session_Namespace ( 'Default' );
+			$module_session = 'Default';
 		}
-		#$ns->unsetAll();
+		
+		$ns = new Zend_Session_Namespace ( $module_session );
 		
 		try{
 			$locale = new Zend_Locale(Zend_Locale::BROWSER);
@@ -47,6 +49,8 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 			}elseif (strlen($locale) > 4){			// Check if the Browser locale is formed with > 4 chars
 				$lang = substr($locale, 0, 2);		// Get the language code from the browser preference
 			}
+		}else{
+			$force = true;
 		}
 		
 		// Get the translate language or the default language: en
@@ -60,7 +64,9 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		$registry->set('Zend_Locale', $locale);
 		
 		if($isReady){
-			$ns->langid = Languages::get_language_id_by_code($lang);
+			if(empty($ns->langid) || $force){
+				$ns->langid = Languages::get_language_id_by_code($lang);
+			}
 		}else{
 			$ns->langid = 1;
 		}

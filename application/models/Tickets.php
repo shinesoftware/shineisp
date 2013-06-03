@@ -44,7 +44,7 @@ class Tickets extends BaseTickets {
 							->leftJoin ( 't.TicketsCategories tc' )
 							->leftJoin ( 't.Customers c' )
 							->leftJoin ( 't.Statuses s' )
-                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
+                            ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 							->orderBy('ticket_id desc');
 		
 		$dq->addSelect('( SELECT COUNT( * ) FROM TicketsNotes tn WHERE tn.ticket_id = t.ticket_id) as replies' );
@@ -92,7 +92,7 @@ class Tickets extends BaseTickets {
 		          ->leftJoin ( 't.TicketsCategories tc' )
 		          ->leftJoin ( 't.Customers c' )
 		          ->leftJoin ( 't.Statuses s' )
-                  ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
+                  ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
 		
 		$pagerLayout = new Doctrine_Pager_Layout ( new Doctrine_Pager ( $dq, $currentPage, $rowNum ), new Doctrine_Pager_Range_Sliding ( array ('chunk' => 10 ) ), "/$module/$controller/list/page/{%page_number}" . $uri );
 		
@@ -352,7 +352,7 @@ class Tickets extends BaseTickets {
 								->leftJoin ( 't.Customers c' )
 								->leftJoin ( 't.Statuses s' )
 								->leftJoin ( 't.TicketsCategories tc' )
-                                ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
+                                ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
 		
 		if (is_numeric ( $customerid )) {
 			$dq->where ( 't.customer_id = ?', $customerid );
@@ -385,7 +385,7 @@ class Tickets extends BaseTickets {
 		              ->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )
 		              ->from ( 'Tickets t' )
                       ->leftJoin ( 't.Customers c' )
-		              ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
+		              ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
@@ -413,7 +413,7 @@ class Tickets extends BaseTickets {
 											->leftJoin ( 't.Statuses s' )
 											->leftJoin ( 't.Customers c' )
 											->where('t.customer_id = ?', $customer_id)
-                                            ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
+                                            ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 											->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
@@ -634,7 +634,7 @@ class Tickets extends BaseTickets {
 					->leftJoin ( 't.Statuses s' )
                     ->leftJoin ( 't.Customers c' )
 					->where("s.section = 'tickets'")
-                    ->addWhere( "c.isp_id = ?", ISP::getCurrentId() )
+                    ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 					->groupBy('s.status');
         
                     
@@ -656,7 +656,7 @@ class Tickets extends BaseTickets {
 					->select ( "t.ticket_id, count(*) as items" )
 					->from ( 'Tickets t' )
                     ->leftJoin ( 't.Customers c' )
-                    ->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
+                    ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
         		
         $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
@@ -713,7 +713,7 @@ class Tickets extends BaseTickets {
     	->leftJoin ( 't.Statuses s' )
     	->leftJoin ( 't.Tickets t2' )
     	->whereIn( "ticket_id", $ids)
-    	->addWhere( "c.isp_id = ?", ISP::getCurrentId() );
+    	->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
     	if(!empty($fields)){
     		$dq->select($fields);
     	}

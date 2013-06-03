@@ -142,7 +142,7 @@ class AdminUser extends BaseAdminUser
 		$items = array ();
 		$arrTypes = Doctrine::getTable ( 'AdminUser' )->findAll ();
 		foreach ( $arrTypes->getData () as $c ) {
-		    if( $c['isp_id'] != ISP::getCurrentId() ) {
+		    if( $c['isp_id'] != Isp::getCurrentId() ) {
 		        continue;
 		    }
 			$items [$c ['user_id']] = $c ['lastname'] . " " . $c['firstname'];

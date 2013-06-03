@@ -16,7 +16,7 @@ class Shineisp_Custom_Productlist {
 		$view = new Zend_View();
 		$view->addScriptPath('../library/Shineisp/Custom/views');
 		
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$languageID = Languages::get_language_id($ns->lang);
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;

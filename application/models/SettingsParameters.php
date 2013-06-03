@@ -101,16 +101,14 @@ class SettingsParameters extends BaseSettingsParameters {
      * getParameterbyVar
      * Get a parameter by name
      * @param $var
-     * @return Array 
+     * @return Doctrine 
      */
     public static function getParameterbyVar($var) {
         $dq = Doctrine_Query::create ()
                           ->from ( 'SettingsParameters p' )
                           ->where ( "p.var = ?", $var );
                           
-        $records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-        $records = isset($records[0]) ? $records[0] : null; 
-        return $records;
+        return $dq->execute ();
     }	
 	
 	/**
@@ -192,8 +190,13 @@ class SettingsParameters extends BaseSettingsParameters {
      * @param $isp
      * @return Doctrine Record
      */
-    public static function loadParams($isp = 1) {
-		$session = new Zend_Session_Namespace ( 'Default' );
+    public static function loadParams($module="Default", $isp = 1) {
+		$session = new Zend_Session_Namespace ( $module );
+		
+		if(!empty($session->parameters)){
+			return $session->parameters;
+		}
+		
     	$dq = Doctrine_Query::create ()->from ( 'Settings s' )
 								    	->leftJoin ( 's.SettingsParameters p' )
 								    	->where ( "s.isp_id = ?", $isp );
@@ -224,8 +227,9 @@ class SettingsParameters extends BaseSettingsParameters {
     public static function addParam($label, $description, $var, $type, $module, $enabled, $groupID, $config=array()) {
     	
     	$p = self::getParameterbyVar($var);
+    	
     	if(!empty($p)){
-    		return $p['parameter_id'];
+    		return $p->get('parameter_id');
     	}
     	
     	$parameter = new SettingsParameters();

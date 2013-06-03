@@ -46,14 +46,10 @@ class SettingsGroups extends BaseSettingsGroups
     /**
      * find
      * Get a group information
-     * @return array
+     * @return Doctrine
      */
     public static function findbyName($name) {
-        $records = Doctrine_Query::create ()->from ( 'SettingsGroups sg' )->where('name = ?', $name)->limit(1)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-        if(!empty($records[0])){
-        	return $records[0];
-        }
-        return array();
+        return Doctrine_Query::create ()->from ( 'SettingsGroups sg' )->where('name = ?', $name)->limit(1)->execute ();
     }
     
     /**
@@ -65,7 +61,7 @@ class SettingsGroups extends BaseSettingsGroups
     	
     	$g = self::findbyName($name);
     	if(!empty($g)){
-    		return $g['group_id'];
+    		return $g->get('group_id');
     	}
     	
     	$group = new SettingsGroups();

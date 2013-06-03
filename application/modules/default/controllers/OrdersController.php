@@ -285,7 +285,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * Delete the record previously selected
 	 */
 	public function deleteAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$id = $this->getRequest ()->getParam ( 'id' );
 		Orders::DeleteByID ( $id, $this->customer ['customer_id'] );
 		unset ( $ns->idorder );
@@ -297,7 +297,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * Set the order as deleted
 	 */
 	public function setdeleteAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$id = $this->getRequest ()->getParam ( 'id' );
 		if(is_numeric($id)){
 			// set the order as deleted

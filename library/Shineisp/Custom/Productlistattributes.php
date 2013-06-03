@@ -14,7 +14,7 @@ class Shineisp_Custom_Productlistattributes {
 	 */
 	public function Show($parameters){
 		$output = "";
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$languageID = Languages::get_language_id($ns->lang);
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;

@@ -46,7 +46,7 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function DomainsExpiration() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$data = $ns->customer;
@@ -62,7 +62,7 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function ServicesExpiration() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$data = $ns->customer;
@@ -78,7 +78,7 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function Last() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$data = $ns->customer;
