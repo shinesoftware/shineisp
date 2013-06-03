@@ -36,14 +36,12 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 		}
 		
 		foreach($directory_iterator as $filename => $path_object)
-		{
-			
+		{			
 			$info = pathinfo($filename);
 			
 			if(!empty($info['extension']) && $info['extension'] == "xml"){
 				
 				if (file_exists ($filename)) {
-					
 					$config = simplexml_load_file ( $filename );
 
 					// If the config file has been created for the registrar ignore it 
@@ -52,7 +50,7 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 						continue;
 					}
 					
-					$panelName = ( string ) $config->attributes ()->name;
+					$panelName = (string)$config->attributes ()->name;
 					$var = (string)$config['var'];
 					
 					// Save the module setup in the config.xml file
@@ -64,7 +62,7 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 						
 						// Now we add the setup date as attribute
 						$module->addAttribute('setup', date('YmdHis'));
-					}else{
+					} else {
 						
 						// The module is present and we get it
 						$module = $mainconfig->xpath("/shineisp/modules/$var");

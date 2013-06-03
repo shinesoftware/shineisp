@@ -25,16 +25,6 @@ class Default_Bootstrap extends Zend_Application_Module_Bootstrap {
 			$module = $this->getModuleName ();
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_LayoutLoader () );
 			SettingsParameters::loadParams($module);
-			
-			// Inizializzo i plugin di test
-			$plug = new Shineisp_Plugins_DirectAdmin_Main();
-			$plug->onInit();
-			
-			// Provo a chiamare un evento
-			$x = array('ciao' => 'mondo', 'come' => 'va?');
-			Shineisp_MessageBus::getInstance()->publish('products.activate', json_encode($x));
-			
-			
 		}
 	}
 }
