@@ -1158,7 +1158,12 @@ class OrdersItems extends BaseOrdersItems {
 		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
 		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {
-			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un hosting", "orders.log" );		
+			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un hosting", "orders.log" );
+			
+			$message = array_merge(array('action=fullProfile'), $OrderItem);
+			Shineisp_MessageBus::getInstance()->publish('products.activate', json_encode($message));		
+			
+			// TODO: this must be removed when messages through bus goes production
 			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
 			return true;
