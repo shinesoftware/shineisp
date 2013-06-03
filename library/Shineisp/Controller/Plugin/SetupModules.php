@@ -16,7 +16,6 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 	 * @see Zend_Controller_Plugin_Abstract::preDispatch()
 	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-		
 		$path = PROJECT_PATH . "/library/Shineisp/Api";
 		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
 		foreach($directory_iterator as $filename => $path_object)
@@ -46,7 +45,8 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 						$type  = (string) $arr['type'];
 						$description = (string) $arr['description'];
 					
-						if(!empty($var) && !empty($label) && !empty($type)){
+						if (!empty($var) && !empty($label) && !empty($type)) {
+							//TODO: refactor this because it is making TONS of queries
 							SettingsParameters::addParam($label, $description, $var, $type, 'admin', 1, $group_id);
 						}
 					}

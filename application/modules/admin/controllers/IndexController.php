@@ -7,7 +7,7 @@
  * @version 
  */
 
-class Admin_IndexController extends Zend_Controller_Action {
+class Admin_IndexController extends Shineisp_Controller_Admin {
 	
     
     public function preDispatch() {
@@ -18,7 +18,7 @@ class Admin_IndexController extends Zend_Controller_Action {
 	 * The default action - show the home page
 	 */
 	public function indexAction() {
-		
+		echo "ADMIN";
 		$auth = Zend_Auth::getInstance ();
 		
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
