@@ -91,7 +91,6 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 						$description = (string) $arr['description'];
 					
 						if (!empty($var) && !empty($label) && !empty($type)) {
-							//TODO: refactor this because it is making TONS of queries
 							SettingsParameters::addParam($label, $description, $var, $type, 'admin', 1, $group_id);
 						}
 					}

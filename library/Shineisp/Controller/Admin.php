@@ -1,11 +1,10 @@
 <?php
 class Shineisp_Controller_Admin extends Zend_Controller_Action {
+	/*
+	 * Common for the whole admin controllers
+	*/
+	
 	public function init() {
-		/*
-		 * Common for the whole admin controllers
-		 */
-		
-		
 		// Get authenticated user
 		$auth = Zend_Auth::getInstance()->getIdentity();
 
@@ -13,22 +12,9 @@ class Shineisp_Controller_Admin extends Zend_Controller_Action {
 		if ( isset($auth['isp_id']) ) {
 			$isp_id = intval($auth['isp_id']);
 			
-			$ISP = new ISP();
+			$ISP = new Isp();
 			Zend_Registry::set('ISP', $ISP->find($isp_id));
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
     }	
 }
