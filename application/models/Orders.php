@@ -2652,7 +2652,7 @@ class Orders extends BaseOrders {
 							$destinationPath = str_replace("{month}", $month_number_order, $destinationPath);
 							$destinationPath = str_replace("{monthname}", $month_testual_order, $destinationPath);
 							$destinationPath = str_replace("{quarter}", $quarter_number_order, $destinationPath);
-			
+
 							$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
 							$dropbox->upload(PUBLIC_PATH . "/documents/orders/$file", $destinationPath);
 							return true;

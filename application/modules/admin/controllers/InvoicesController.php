@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_InvoicesController extends Zend_Controller_Action {
+class Admin_InvoicesController extends Shineisp_Controller_Admin {
 	
 	protected $invoices;
 	protected $datagrid;

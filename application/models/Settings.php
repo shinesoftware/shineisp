@@ -196,14 +196,20 @@ class Settings extends BaseSettings {
 	
 	/**
      * findbyParam
-     * Get a record by the Parameter
+     * Get a record by the Parameter.
      * @param $parameter
      * @param $module
      * @param $isp
      * @return Doctrine Record
      */
+<<<<<<< HEAD
+    public static function findbyParam($parameter, $module = "", $isp = 1) {
+    	$session = new Zend_Session_Namespace ( 'Default' );
+		    			
+=======
     public static function findbyParam($parameter, $module = "Default", $isp = 1) {
     	$session = new Zend_Session_Namespace ( $module );
+>>>>>>> refs/remotes/shineisp/sandbox
     	if(!empty($session->parameters[$parameter])){
     		return $session->parameters[$parameter];
     	}
@@ -414,7 +420,6 @@ class Settings extends BaseSettings {
      * @return Doctrine Record / Array
      */
     public static function getAllInfo($id, $fields = "*", $retarray = false) {
-        
         try {
             $dq = Doctrine_Query::create ()->select ( $fields )
                     ->from ( 'Settings s' )
