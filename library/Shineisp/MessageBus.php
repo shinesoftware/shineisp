@@ -31,8 +31,19 @@ class Shineisp_MessageBus {
       	return self::$instance;
    	}	
 	
-    public function subscribe($eventName, $object, $callback) {
-    	Shineisp_Commons_Utilities::logs ( "subscribed event '".$eventName."' with callback '".$object."->".$callback."'", "messagebus.log" );
+    public function subscribe($eventName, $object, $callback = null) {
+    	// Detect Closures
+    	if ( $callback == null && ( !is_object($object) || !($object instanceof Closure) ) ) {
+    		Shineisp_Commons_Utilities::logs ('Bad subscription. Not a Closure and not an Object. Skipping it.', "messagebus.log" );
+			return false;	
+    	}
+		
+		if ( $callback != null ) {
+			Shineisp_Commons_Utilities::logs ( $object." has subscribed for event '".$eventName."' with callback '".$callback."'", "messagebus.log" );	
+		} else {
+			Shineisp_Commons_Utilities::logs ( "a Closure has subscribed for event '".$eventName."'", "messagebus.log" );
+		}
+    	
         if (!isset($this->events[$eventName])) {
         	$this->events[$eventName] = array();
         }
@@ -40,22 +51,34 @@ class Shineisp_MessageBus {
     }
 	
     public function publish($eventName, $data = null) {
-    	Shineisp_Commons_Utilities::logs ( "triggered event '".$eventName."' with data '".serialize($data)."'", "messagebus.log" );
+    	Shineisp_Commons_Utilities::logs ( "triggering event '".$eventName."' with data '".serialize($data)."'", "messagebus.log" );
 		foreach ( $this->events as $eventKey => $events ) {
-			$regExp = '#'.$eventKey.'#';
-			Shineisp_Commons_Utilities::logs ( "   trying regexp '".$regExp."' for event '".$eventName."'", "messagebus.log" );
+			$regExp = '#^'.$eventKey.'$#i';
 			
-			if ( preg_match($regExp, $eventName) ) {
-				Shineisp_Commons_Utilities::logs ( "   event '".$eventName."' match regexp '".$eventKey."'", "messagebus.log" );
-
-		        foreach ($events as $callableEvent) {
-		        	list($object, $callback) = $callableEvent;
-		        	Shineisp_Commons_Utilities::logs ( "   found callback '".$object."->".$callback."' for event '".$eventName."'", "messagebus.log" );
-					
-					$callableObject = new $object;
-		        	$callableObject->$callback($eventName, $data);
-		        }
+			if ( !preg_match($regExp, $eventName) ) {
+				Shineisp_Commons_Utilities::logs ( "Unknown event '".$eventName."'. regexp: ".$regExp, "messagebus.log" );
+				continue;
 			}	
+
+	        foreach ($events as $callableEvent) {
+	        	list($object, $callback) = $callableEvent;
+				
+				// Properly manage Closures
+				if ( $callback == null && is_object($object) && ($object instanceof Closure) ) {
+					Shineisp_Commons_Utilities::logs ( "calling Closure for event '".$eventName."'", "messagebus.log" );	
+					
+					// Closures must be called directly
+					$object($eventName, $data);
+					continue;
+				}
+				
+				Shineisp_Commons_Utilities::logs ( "calling callback '".$object."->".$callback."' for event '".$eventName."'", "messagebus.log" );
+				
+				$callableObject = new $object;
+	        	$callableObject->$callback($eventName, $data);
+	        }
+
+
 		}
     }
 }
