@@ -202,14 +202,9 @@ class Settings extends BaseSettings {
      * @param $isp
      * @return Doctrine Record
      */
-<<<<<<< HEAD
-    public static function findbyParam($parameter, $module = "", $isp = 1) {
-    	$session = new Zend_Session_Namespace ( 'Default' );
-		    			
-=======
+
     public static function findbyParam($parameter, $module = "Default", $isp = 1) {
     	$session = new Zend_Session_Namespace ( $module );
->>>>>>> refs/remotes/shineisp/sandbox
     	if(!empty($session->parameters[$parameter])){
     		return $session->parameters[$parameter];
     	}

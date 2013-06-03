@@ -16,10 +16,7 @@ class Shineisp_Controller_Plugin_SetupModules extends Zend_Controller_Plugin_Abs
 	 * @see Zend_Controller_Plugin_Abstract::preDispatch()
 	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-<<<<<<< HEAD
-=======
-				
->>>>>>> refs/remotes/shineisp/sandbox
+
 		$path = PROJECT_PATH . "/library/Shineisp/Api";
 		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
 		
