@@ -9,6 +9,8 @@ class Shineisp_Plugins {
 	 * Initialize all plugins available and register subscriptions
 	 */
 	public function initAll() {
+		$em = Zend_Registry::get('em');
+		
 		$path = PROJECT_PATH . "/library/Shineisp/Plugins";
 		$iterator = new DirectoryIterator($path);
 		foreach ($iterator as $fileinfo) {
@@ -29,7 +31,7 @@ class Shineisp_Plugins {
 
 				// Initialize
 				$plugin = new $pluginName;
-				$plugin->events();				 
+				$plugin->events($em);				 
 				
 				// Check if the Main exists
 				if ( file_exists($pluginMainFile) && is_readable($pluginMainFile) ) {

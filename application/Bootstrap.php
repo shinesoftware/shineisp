@@ -54,6 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Currency());
 		
 		// Init new plugin architecture
+		Zend_Registry::set("em", new Zend_EventManager_EventManager());
 		$Shineisp_Plugins = new Shineisp_Plugins();
 		$Shineisp_Plugins->initAll();
 		

@@ -16,8 +16,9 @@ class Invoices extends BaseInvoices {
 	
 	public function events()
 	{
-		if (!self::$events) {
-			self::$events = new Zend_EventManager_EventManager(__CLASS__);
+		$em = Zend_Registry::get('em');
+		if (!self::$events && is_object($em)) {
+			self::$events = Zend_Registry::get('em');
 		}
 	
 		return self::$events;
@@ -818,7 +819,8 @@ class Invoices extends BaseInvoices {
 				if (isset ( $order [0] )) {
 					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
 					
-					self::events()->trigger(__FUNCTION__ . '.post', "Invoices", array('id' => $path . $filename));
+					// Execute a custom event 
+					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $path . $filename));
 					
 					return $path . $filename;
 				}

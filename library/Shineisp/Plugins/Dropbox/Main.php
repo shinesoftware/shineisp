@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  *
  * @author Jaka Jancar [jaka@kubje.org] [http://jaka.kubje.org/]
- * @version 1.1.8
+ * @version 1.1.8 
  */
 class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	
@@ -41,12 +41,11 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	
 	public function events()
 	{
-		if (!$this->events) {
-			$this->events = new Zend_EventManager_EventManager(__CLASS__);
-			$this->events->attach('PrintPDF.post', array(__CLASS__, 'dropboxit'), 100);
+		$em = Zend_Registry::get('em');
+		if (!$this->events && is_object($em)) {
+			$em->attach('invoices_pdf_created', array(__CLASS__, 'dropboxit'), 100);
 		}
-	
-		return $this->events;
+		return $em;
 	}
 	
 	
@@ -73,8 +72,32 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * Event Listener
 	 */
 	public static function dropboxit($event) {
-		Zend_Debug::dump($event);
-		die('test');
+		$invoice = $event->getParam('invoice');
+		if(is_numeric($invoice['invoice_id'])){
+			if(self::isReady()){
+				Zend_Debug::dump($invoice);
+				die;
+				if($invoice['invoice_date']){
+					$file = $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf";
+					if(file_exists(PUBLIC_PATH . "/documents/invoices/$file")){
+						$yearoftheinvoice = date('Y',strtotime($invoice['invoice_date']));
+						$month_testual_invoice = date('M',strtotime($invoice['invoice_date']));
+						$month_number_invoice = date('m',strtotime($invoice['invoice_date']));
+						$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($invoice['invoice_date'])));
+	
+						$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
+						$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
+						$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
+						$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
+						$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
+	
+						$this->upload(PUBLIC_PATH . "/documents/invoices/$file", $destinationPath);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -83,7 +106,11 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	public static function isReady() {
 		$email = Settings::findbyParam ( 'dropbox_email' );
 		$password = Settings::findbyParam ( 'dropbox_password' );
+		Zend_Debug::dump($email);
+		die;
 		if (! empty ( $email ) && ! empty ( $password )) {
+			$this->email = $email;
+			$this->password = $password;
 			return true;
 		}
 		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credencials");
