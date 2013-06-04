@@ -1,5 +1,5 @@
 <?php
 
 interface Shineisp_Plugins_Interface {
-	public function onInit();
+	public function events();
 }

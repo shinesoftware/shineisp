@@ -818,7 +818,7 @@ class Invoices extends BaseInvoices {
 				if (isset ( $order [0] )) {
 					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
 					
-					self::events()->trigger(__FUNCTION__ . '.post', "Invoices", array('file' => $path . $filename));
+					self::events()->trigger(__FUNCTION__ . '.post', "Invoices", array('id' => $path . $filename));
 					
 					return $path . $filename;
 				}

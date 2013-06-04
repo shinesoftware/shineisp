@@ -25,7 +25,7 @@
  * @author Jaka Jancar [jaka@kubje.org] [http://jaka.kubje.org/]
  * @version 1.1.8
  */
-class Shineisp_Plugins_Dropbox_Main {
+class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	
 	protected $email;
 	protected $password;
@@ -48,6 +48,7 @@ class Shineisp_Plugins_Dropbox_Main {
 	
 		return $this->events;
 	}
+	
 	
 	/**
 	 * Constructor
