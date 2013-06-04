@@ -25,7 +25,7 @@
  * @author Jaka Jancar [jaka@kubje.org] [http://jaka.kubje.org/]
  * @version 1.1.8
  */
-class Shineisp_Api_Dropbox_Uploader {
+class Shineisp_Plugins_Dropbox_Main {
 	
 	protected $email;
 	protected $password;
@@ -44,6 +44,18 @@ class Shineisp_Api_Dropbox_Uploader {
 	const DB_LIMIT_WEBUPLOAD = self::BYTES_OF_300MB;
 	const BYTES_OF_300MB = 314572800;
 	
+	protected $events;
+ 
+    public function events(Zend_EventManager_EventCollection $events = null)
+    {
+        if (null !== $events) {
+            $this->events = $events;
+        } elseif (null === $this->events) {
+            $this->events = new Zend_EventManager_EventManager(__CLASS__);
+        }
+        return $this->events;
+    }
+	
 	/**
 	 * Constructor
 	 *
@@ -51,15 +63,15 @@ class Shineisp_Api_Dropbox_Uploader {
 	 * @param $password string|null       	
 	 * @throws Exception
 	 */
-	public function __construct($email, $password) {
+	public function __construct() {
 		// Check requirements
 		if (! extension_loaded ( 'curl' )){
 			Shineisp_Commons_Utilities::log("Dropbox module: Dropbox requires the cURL extension.");
 			throw new Exception ( 'Dropbox requires the cURL extension.' );
 		}
 		
-		$this->email = $email;
-		$this->password = $password;
+		$this->email = $this->email;
+		$this->password = $this->password;
 	}
 	
 	/**
@@ -91,6 +103,10 @@ class Shineisp_Api_Dropbox_Uploader {
 	}
 	
 	public function upload($source, $remoteDir = '/', $remoteName = null) {
+		
+		$params = compact('source', 'remoteDir', 'remoteName');
+		$this->events()->trigger(__FUNCTION__, $this, $params);
+		
 		if (! is_file ( $source ) or ! is_readable ( $source ))
 			throw new Exception ( "File '$source' does not exist or is not readable." );
 		
@@ -127,11 +143,16 @@ class Shineisp_Api_Dropbox_Uploader {
 		$data = $this->request ( 'https://www.dropbox.com/login' );
 		$token = $this->extractTokenFromLoginForm ( $data );
 		
+		$this->events()->trigger(__FUNCTION__ . '.pre', $this, array('token' => $token));
+		
 		$postData = array ('login_email' => $this->email, 'login_password' => $this->password, 't' => $token );
 		$data = $this->request ( 'https://www.dropbox.com/login', true, $postData );
 		
+		
 		if (stripos ( $data, 'location: /home' ) === false)
 			throw new Exception ( 'Login unsuccessful.' );
+		
+		$this->events()->trigger(__FUNCTION__ . '.post', $this, array('login' => $postData));
 		
 		$this->loggedIn = true;
 	}

@@ -40,10 +40,6 @@
 			<script class="Newsletters" method="send_queue">Check the newsletter queue</script>
 		</execute>
 		
-		<!-- 17:00 every day -->
-		<execute time="0 17 * * *">
-			<script class="Shineisp_Api_Themes_Templatemonster_Main" method="parse">Update the Monster Templates</script>
-		</execute>
 	</cron>
 
 </layout>

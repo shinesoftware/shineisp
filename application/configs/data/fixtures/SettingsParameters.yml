@@ -413,51 +413,6 @@ SettingsParameters:
     description: 'This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Api_Panels_Ispconfig_Main'
     SettingsGroups: SettingsGroups_13
     config: '[]'
-  SettingsParameters_47:
-    name: Login
-    var: templatemonster_login
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Register yourself at http://www.mytemplatestorage.com/'
-    SettingsGroups: SettingsGroups_14
-    config: '[]'
-  SettingsParameters_48:
-    name: 'Web API Password'
-    var: templatemonster_webapipassword
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Write here your password.'
-    SettingsGroups: SettingsGroups_14
-    config: '[]'
-  SettingsParameters_49:
-    name: 'Picture filename prefix'
-    var: templatemonster_imageprefix
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Write here the picture filename prefix.'
-    SettingsGroups: SettingsGroups_14
-    config: '[]'
-  SettingsParameters_50:
-    name: 'Last update date (YYYY-MM-DD hh:mm:ss)'
-    var: templatemonster_lastupdate
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'This is the last update date of execution of the Monster Template script.'
-    SettingsGroups: SettingsGroups_14
-    config: '[]'
-  SettingsParameters_51:
-    name: Description
-    var: templatemonster_description
-    type: textarea
-    module: admin
-    enabled: '1'
-    description: 'This is the description for each template product. You can use all the main node value using {variable}. For the variable list you can see at http://www.templatemonster.com/webapi/doc/html/ch02s04.html#id4410924'
-    SettingsGroups: SettingsGroups_14
-    config: '[]'
   SettingsParameters_52:
     name: 'Automatic invoice creation'
     var: auto_create_invoice_after_payment

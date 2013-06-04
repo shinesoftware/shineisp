@@ -11,12 +11,25 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Invoices extends BaseInvoices {
-
+	
+	public $events;
+	
+	public function events()
+	{
+		if (!$this->events) {
+			$this->events = new EventManager(__CLASS__);
+		}
+	
+		return $this->events;
+	}
+	
 	/**
 	 * grid
 	 * create the configuration of the grid
 	 */	
 	public static function grid($rowNum = 10) {
+		
+		$this->events()->trigger(__FUNCTION__ . '.pre', $this, array('id' => $rowNum));
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		

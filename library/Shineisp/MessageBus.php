@@ -14,6 +14,7 @@
  *
  */
 class Shineisp_MessageBus {
+	
 	private static $instance = null;
 	protected $events        = array();
 	
@@ -33,7 +34,7 @@ class Shineisp_MessageBus {
 	
     public function subscribe($eventName, $object, $callback = null) {
     	// Detect Closures
-    	if ( $callback == null && ( !is_object($object) || !($object instanceof Closure) ) ) {
+    	if ( $callback == null && ( !is_object($object) ) ) {
     		Shineisp_Commons_Utilities::logs ('Bad subscription. Not a Closure and not an Object. Skipping it.', "messagebus.log" );
 			return false;	
     	}
@@ -64,7 +65,7 @@ class Shineisp_MessageBus {
 	        	list($object, $callback) = $callableEvent;
 				
 				// Properly manage Closures
-				if ( $callback == null && is_object($object) && ($object instanceof Closure) ) {
+				if ( $callback == null && is_object($object) ) {
 					Shineisp_Commons_Utilities::logs ( "calling Closure for event '".$eventName."'", "messagebus.log" );	
 					
 					// Closures must be called directly
