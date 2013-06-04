@@ -53,17 +53,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Language());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Currency());
 		
-		// Listen for Panel advertisements
-		Shineisp_MessageBus::getInstance()->subscribe('panels.advertise', function() {
-			list($eventType, $data) = func_get_args();
-			if ( !empty($data) ) {
-				$data = json_decode($data);
-				Shineisp_Commons_Utilities::logs ( "Ricevuto annuncio disponibilità pannello: ".$data, "messagebus.log" );
-					
-			}
-			
-		});
-		
 		// Init new plugin architecture
 		$Shineisp_Plugins = new Shineisp_Plugins();
 		$Shineisp_Plugins->initAll();

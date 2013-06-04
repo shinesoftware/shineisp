@@ -37,24 +37,17 @@ class Shineisp_Plugins_Dropbox_Main {
 	protected $loggedIn = false;
 	protected $cookies = array ();
 	
-	/*
-	 * this uploader has a limit on filesize for uploading files @link
-	 * https://www.dropbox.com/help/5/en
-	 */
-	const DB_LIMIT_WEBUPLOAD = self::BYTES_OF_300MB;
-	const BYTES_OF_300MB = 314572800;
+	public $events;
 	
-	protected $events;
- 
-    public function events(Zend_EventManager_EventCollection $events = null)
-    {
-        if (null !== $events) {
-            $this->events = $events;
-        } elseif (null === $this->events) {
-            $this->events = new Zend_EventManager_EventManager(__CLASS__);
-        }
-        return $this->events;
-    }
+	public function events()
+	{
+		if (!$this->events) {
+			$this->events = new Zend_EventManager_EventManager(__CLASS__);
+			$this->events->attach('PrintPDF.post', array(__CLASS__, 'dropboxit'), 100);
+		}
+	
+		return $this->events;
+	}
 	
 	/**
 	 * Constructor
@@ -64,6 +57,7 @@ class Shineisp_Plugins_Dropbox_Main {
 	 * @throws Exception
 	 */
 	public function __construct() {
+		
 		// Check requirements
 		if (! extension_loaded ( 'curl' )){
 			Shineisp_Commons_Utilities::log("Dropbox module: Dropbox requires the cURL extension.");
@@ -72,6 +66,14 @@ class Shineisp_Plugins_Dropbox_Main {
 		
 		$this->email = $this->email;
 		$this->password = $this->password;
+	}
+	
+	/**
+	 * Event Listener
+	 */
+	public static function dropboxit($event) {
+		Zend_Debug::dump($event);
+		die('test');
 	}
 	
 	/**

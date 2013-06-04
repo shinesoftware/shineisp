@@ -12,15 +12,15 @@
  */
 class Invoices extends BaseInvoices {
 	
-	public $events;
+	public static $events;
 	
 	public function events()
 	{
-		if (!$this->events) {
-			$this->events = new EventManager(__CLASS__);
+		if (!self::$events) {
+			self::$events = new Zend_EventManager_EventManager(__CLASS__);
 		}
 	
-		return $this->events;
+		return self::$events;
 	}
 	
 	/**
@@ -28,8 +28,6 @@ class Invoices extends BaseInvoices {
 	 * create the configuration of the grid
 	 */	
 	public static function grid($rowNum = 10) {
-		
-		$this->events()->trigger(__FUNCTION__ . '.pre', $this, array('id' => $rowNum));
 		
 		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 		
@@ -82,7 +80,7 @@ class Invoices extends BaseInvoices {
 		
 		$config ['datagrid'] ['massactions']['common'] = array ('bulk_pdf_export'=>'Pdf List', 'bulk_csv_export' => 'Csv Export', 'bulk_print_invoices' => 'Download Invoices');
 		
-		if(Shineisp_Api_Dropbox_Uploader::isReady()){
+		if(Shineisp_Plugins_Dropbox_Main::isReady()){
 			$config ['datagrid'] ['massactions']['common'] = array_merge($config ['datagrid'] ['massactions']['common'], array('bulk_dropbox_invoices' => 'Upload Invoices into Dropbox Account' ));
 		}
 		
@@ -819,6 +817,9 @@ class Invoices extends BaseInvoices {
 
 				if (isset ( $order [0] )) {
 					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
+					
+					self::events()->trigger(__FUNCTION__ . '.post', "Invoices", array('file' => $path . $filename));
+					
 					return $path . $filename;
 				}
 			}
@@ -867,7 +868,7 @@ class Invoices extends BaseInvoices {
 		 */
 		public static function DropboxIt($InvoiceID){
 			if(is_numeric($InvoiceID)){
-				if(Shineisp_Api_Dropbox_Uploader::isReady()){
+				if(Shineisp_Plugins_Dropbox_Main::isReady()){
 
 					// Get the invoice information
 					$invoice = self::getAllInfo($InvoiceID, "invoice_date, number", true);
@@ -886,7 +887,7 @@ class Invoices extends BaseInvoices {
 								$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
 								$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
 								
-								$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
+								$dropbox = new Shineisp_Plugins_Dropbox_Main(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
 								$dropbox->upload(PUBLIC_PATH . "/documents/invoices/$file", $destinationPath);
 								return true;
 							}
