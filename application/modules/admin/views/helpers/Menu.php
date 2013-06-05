@@ -12,6 +12,7 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	
 	public $view;
 	private $translator;
+	private $menu = array();
 	
 	/**
 	 * (non-PHPdoc)
@@ -27,10 +28,11 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	 * Create the administrative menu
 	 */
 	public function menu() {
-		
 		$auth = Zend_Auth::getInstance ();
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
 		$identity = $auth->getIdentity();
+		
+		$this->menu = Navigation::buildTree(Navigation::findAll('admin'));
 		
 		$data = $this->createMenu(0);
 
@@ -88,7 +90,21 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	 * @param unknown_type $parent
 	 */
 	private function createMenu($parent) {
-		$children = Navigation::getParent ( $parent );
+		$children = array();
+
+		if ( $parent == 0 ) {
+			$children = array();
+			foreach ( $this->menu as $firstLevel ) {
+				unset($firstLevel['children']); 
+				$children[] = $firstLevel;
+			}
+			//$children = $this->menu;
+		} else {
+			if ( isset($this->menu[$parent]) && isset($this->menu[$parent]['children']) ) {
+				$children = $this->menu[$parent]['children'];	
+			}
+		}
+		
 		$items = array ();
 		
 		/* JAY - 20130328 - GUEST
