@@ -1,6 +1,6 @@
 <?php
 
-class NotfoundController extends Zend_Controller_Action {
+class NotfoundController extends Shineisp_Controller_Default {
 	
 	
 	public function preDispatch() {

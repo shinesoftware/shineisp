@@ -1,5 +1,5 @@
 <?php
-class CmsController extends Zend_Controller_Action {
+class CmsController extends Shineisp_Controller_Default {
 	
 	public function preDispatch() {
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );

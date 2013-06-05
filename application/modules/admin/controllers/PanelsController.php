@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_PanelsController extends Zend_Controller_Action {
+class Admin_PanelsController extends Shineisp_Controller_Admin {
 	
 	protected $panel;
 	protected $datagrid;

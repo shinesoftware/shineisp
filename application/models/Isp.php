@@ -108,6 +108,8 @@ class Isp extends BaseIsp {
 	 * return the isp_id based on logged user IF in admin or current url if else
 	 */ 
 	public static function getCurrentId() {
+		return intval(Zend_Registry::get('ISP')->isp_id);
+		/*
 		$logged_isp_id = self::getLogged();
 		
 		// Use logged_isp_id ONLY IF we are in admin. If someone is browsing through the public website, it should use isp_id associated with that website
@@ -118,6 +120,7 @@ class Isp extends BaseIsp {
 		$isp = self::getByURL($_SERVER['HTTP_HOST']);
 
 		return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1; // TODO: set to 1 for older installation that doesn't have isp_id properly set. It should be 0.
+		*/
 	}
 	
 	/**
@@ -126,11 +129,18 @@ class Isp extends BaseIsp {
 	 * @return array
 	 */
 	public static function getCurrentISP() {
+		// TODO: this should be done better
+		return Zend_Registry::get('ISP')->toArray();
+		
+		
+		
+		/*
 		$isp_id = self::getCurrentId();
 		
 		$q   = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'isp_id = ? AND active = 1', $isp_id );
 		$isp = $q->execute (null, Doctrine::HYDRATE_ARRAY);
 		return isset ( $isp [0] ) ? $isp [0] : array();
+		*/
 	}
 	
 	
@@ -300,5 +310,29 @@ class Isp extends BaseIsp {
 		$q = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'email=? and password=? and active=?', array ($email, md5 ( $password ), true ) );
 		return $q->execute ()->toArray ();
 	}
+	
+	/*
+	 * findByUrl
+	 */
+	public static function findByUrl($url) {
+		return Doctrine_Query::create ()->select ( '*' )
+								->from ( 'Isp i' )
+								->leftJoin ( 'i.IspUrls iu' )
+								->where('iu.url = ?', $url)
+								->fetchOne();
+		
+	}	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

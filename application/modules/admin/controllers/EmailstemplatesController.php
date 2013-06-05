@@ -6,7 +6,7 @@
  * @author  GUEST.it s.r.l. <assistenza@guest.it>
  */
 
-class Admin_EmailstemplatesController extends Zend_Controller_Action {
+class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 	
 	protected $emailstemplates;
 	protected $datagrid;

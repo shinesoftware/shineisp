@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_NotesController extends Zend_Controller_Action {
+class Admin_NotesController extends Shineisp_Controller_Admin {
 	
 	protected $notes;
 	protected $datagrid;

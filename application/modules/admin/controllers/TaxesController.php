@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_TaxesController extends Zend_Controller_Action {
+class Admin_TaxesController extends Shineisp_Controller_Admin {
 	
 	protected $taxes;
 	protected $datagrid;

@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_RegistrarsController extends Zend_Controller_Action {
+class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 	
 	protected $registrars;
 	protected $datagrid;

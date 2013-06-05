@@ -4,7 +4,7 @@
  * ContactsController
  * handle the public contact form
  */
-class ContactsController extends Zend_Controller_Action {
+class ContactsController extends Shineisp_Controller_Default {
 	protected $translations;
 	
 	public function preDispatch() {
@@ -54,7 +54,7 @@ class ContactsController extends Zend_Controller_Action {
 			if ($captchaInput == $captchaWord) {
 				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'contact' );
 				if ($retval) {
-					$isp = ISP::getCurrentISP();
+					$isp = Zend_Registry::get('ISP');
 					$subject = $retval ['subject'];
 					$subject = str_replace ( "[subject]", $this->translations->translate("Message from the website"), $subject );
 					$body = $retval ['template'];
@@ -65,10 +65,10 @@ class ContactsController extends Zend_Controller_Action {
 					$body = str_replace ( "[message]", $params['message'], $body);
 
 					// Send first message to the visitor
-					Shineisp_Commons_Utilities::SendEmail ( $isp['email'], $params['email'], null, $subject, $body);
+					Shineisp_Commons_Utilities::SendEmail ( $isp->email, $params['email'], null, $subject, $body);
 					
 					// Send the message to the administrator
-					Shineisp_Commons_Utilities::SendEmail ( $isp['email'], $isp['email'], null, $subject, $body, false, null, null, $params['email']);
+					Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body, false, null, null, $params['email']);
 					
 					// Redirect the visitor to the contact page
 					return $this->_helper->redirector ( 'index', 'contacts', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );

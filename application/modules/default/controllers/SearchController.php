@@ -5,7 +5,7 @@
  * @author shinesoftware
  *
  */
-class SearchController extends Zend_Controller_Action {
+class SearchController extends Shineisp_Controller_Default {
 	
 	public function indexAction() {
 		$ns = new Zend_Session_Namespace ();

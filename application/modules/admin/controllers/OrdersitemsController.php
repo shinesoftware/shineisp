@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_OrdersitemsController extends Zend_Controller_Action {
+class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 	
 	protected $details;
 	protected $translator;

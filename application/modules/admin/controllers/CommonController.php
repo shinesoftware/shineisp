@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_CommonController extends Zend_Controller_Action {
+class Admin_CommonController extends Shineisp_Controller_Admin {
 	
 	/**
 	 * preDispatch

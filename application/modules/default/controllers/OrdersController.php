@@ -1,6 +1,6 @@
 <?php
 
-class OrdersController extends Zend_Controller_Action {
+class OrdersController extends Shineisp_Controller_Default {
 	protected $customer;
 	protected $orders;
 	protected $translator;
@@ -9,7 +9,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
@@ -36,7 +36,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/orders/list' );
 	}
 	
@@ -213,7 +213,7 @@ class OrdersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function processAction() {
-		$isp = ISP::getCurrentISP();
+		$isp = Zend_Registry::get('ISP');
 		$request = $this->getRequest ();
 		
 		// Check if we have a POST request
@@ -259,11 +259,11 @@ class OrdersController extends Zend_Controller_Action {
 				// Send a message to the customer
 				Messages::sendMessage("order_message", $order [0] ['Customers'] ['email'], $placeholders);
 				
-				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp ['email'] );
+				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp->email );
 				$placeholders['message'] = nl2br($params ['note']);
 				
 				// Send a message to the administrator 
-				Messages::sendMessage("order_message_admin", $isp ['email'], $placeholders);
+				Messages::sendMessage("order_message_admin", $isp->email, $placeholders);
 			}
 		}
 		
@@ -342,7 +342,7 @@ class OrdersController extends Zend_Controller_Action {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;
@@ -473,7 +473,7 @@ class OrdersController extends Zend_Controller_Action {
 		
 		if (! empty ( $response ['custom'] ) && is_numeric ( trim ( $response ['custom'] ) )) {
 			
-			$isp = ISP::getCurrentISP();
+			$isp = Zend_Registry::get('ISP');
 			
 			// Orderid back from the bank
 			$order_id = trim ( $response ['custom'] );
@@ -507,12 +507,12 @@ class OrdersController extends Zend_Controller_Action {
 				if ($result) {
 					$subject = str_replace ( "[orderid]", $OrderID, $result ['subject'] );
 					$template = str_replace ( "[orderid]", $OrderID, $result ['template'] );
-					$template = str_replace ( "[signature]", $isp ['company'], $template );
+					$template = str_replace ( "[signature]", $isp->company, $template );
 					
 					// Sending an email to the customer and the administrator with the order details.
 					$order = Orders::getAllInfo ( $OrderID, null, true );
 					if (! empty ( $order [0] ['Customers'] ['email'] )) {
-						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $order [0] ['Customers'] ['email'], null, $subject, $template );
+						Shineisp_Commons_Utilities::SendEmail ( $isp->email, $order [0] ['Customers'] ['email'], null, $subject, $template );
 					}
 				}
 				

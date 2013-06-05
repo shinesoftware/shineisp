@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_SubscribersController extends Zend_Controller_Action {
+class Admin_SubscribersController extends Shineisp_Controller_Admin {
 	
 	protected $subscribers;
 	protected $datagrid;

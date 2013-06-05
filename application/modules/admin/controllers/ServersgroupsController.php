@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-class Admin_ServersgroupsController extends Zend_Controller_Action {
+class Admin_ServersgroupsController extends Shineisp_Controller_Admin {
 	
 	protected $serversgroups;
 	protected $datagrid;

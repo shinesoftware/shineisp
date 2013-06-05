@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_DomainstasksController extends Zend_Controller_Action {
+class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 	
 	protected $domainstasks;
 	protected $datagrid;

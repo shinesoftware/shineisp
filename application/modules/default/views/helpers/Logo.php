@@ -10,14 +10,14 @@ class Zend_View_Helper_Logo extends Zend_View_Helper_Abstract {
 	}
 	
 	public function logo($data = array()) {
-		$isp = ISP::getCurrentISP();
-		if (! empty ( $isp ['logo'] )) {
-			if (file_exists ( PUBLIC_PATH . "/documents/isp/" . $isp ['logo'] )) {
-				$this->view->file = "/documents/isp/" . $isp ['logo'];
+		$isp = Zend_Registry::get('ISP');
+		if (! empty ( $isp->logo )) {
+			if (file_exists ( PUBLIC_PATH . "/documents/isp/" . $isp->logo )) {
+				$this->view->file = "/documents/isp/" . $isp->logo;
 			}
 		
-			$this->view->title  = $isp ['company'];
-			$this->view->slogan = $isp ['slogan'];
+			$this->view->title  = $isp->company;
+			$this->view->slogan = $isp->slogan;
 		}
 		return $this->view->render ( 'partials/logo.phtml' );
 	}

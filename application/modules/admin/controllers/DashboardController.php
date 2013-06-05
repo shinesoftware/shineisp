@@ -7,7 +7,7 @@
  * @version 
  */
 
-class Admin_DashboardController extends Zend_Controller_Action {
+class Admin_DashboardController extends Shineisp_Controller_Admin {
 	
 	public function preDispatch() {
 	}

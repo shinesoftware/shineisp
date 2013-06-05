@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ProductscategoriesController extends Zend_Controller_Action {
+class Admin_ProductscategoriesController extends Shineisp_Controller_Admin {
 	
 	protected $productscategories;
 	protected $datagrid;

@@ -1,13 +1,13 @@
 <?php
 
-class CompareController extends Zend_Controller_Action {
+class CompareController extends Shineisp_Controller_Default {
 	protected $translator;
 	
 	/**
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {

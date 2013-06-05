@@ -1,6 +1,6 @@
 <?php
 
-class CommonController extends Zend_Controller_Action {
+class CommonController extends Shineisp_Controller_Default {
 
 	/**
 	 * callbackAction

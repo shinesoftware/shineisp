@@ -6,7 +6,7 @@
  * @author  GUEST.it s.r.l. <assistenza@guest.it>
  */
 
-class Admin_ApplicationsController extends Zend_Controller_Action {
+class Admin_ApplicationsController extends Shineisp_Controller_Admin {
 	
 	protected $applications;
 	protected $datagrid;

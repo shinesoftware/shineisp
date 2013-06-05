@@ -18,6 +18,8 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
     public $viesOutput   = array();
     
     private function eu_check() {
+    	$isp = Zend_Registry::get('ISP');
+		
         $VIES = new SoapClient($this->vies_soap_url);
 
         if ($VIES) {
@@ -49,8 +51,7 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
                 
                 $subject    = 'Invalid VAT code';
                 $body       = "Response from VIES: ".$ret;            
-                $isp = Isp::getActiveISP ();
-                Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );                
+                Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body );                
                 return false;
             }
             
@@ -58,8 +59,7 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
         	
             $subject    = 'Connect to VIES';
             $body       = "Impossible to connect with VIES";;            
-            $isp = Isp::getActiveISP ();
-            Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );             
+            Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body );             
             
             // adding a log message
             Shineisp_Commons_Utilities::log("Response from VIES: ".$ret);

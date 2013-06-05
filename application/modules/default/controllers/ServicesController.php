@@ -1,6 +1,6 @@
 <?php
 
-class ServicesController extends Zend_Controller_Action {
+class ServicesController extends Shineisp_Controller_Default {
 	protected $customer;
 	protected $services;
 	protected $translator;
@@ -9,7 +9,7 @@ class ServicesController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
@@ -36,7 +36,7 @@ class ServicesController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/services/list' );
 	}
 	
@@ -199,14 +199,14 @@ class ServicesController extends Zend_Controller_Action {
 		if (! empty ( $params ['message'] )) {
 			
 			Messages::addMessage($params ['message'], $this->customer ['customer_id'], null, null, $id);
-			$isp = ISP::getCurrentISP();
+			$isp = Zend_Registry::get('ISP');
 			
 			$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 			$placeholder['messagetype'] = $this->translator->translate('Order Details');
 			$placeholder['message'] = $params ['message'];
 		
 			Messages::sendMessage ( "message_new", $this->customer ['email'], $placeholder);
-			Messages::sendMessage ( "message_admin", $isp['email'], $placeholder);
+			Messages::sendMessage ( "message_admin", $isp->email, $placeholder);
 			
 		}
 		 
@@ -254,7 +254,7 @@ class ServicesController extends Zend_Controller_Action {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;
