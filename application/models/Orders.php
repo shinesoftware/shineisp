@@ -13,6 +13,22 @@
 class Orders extends BaseOrders {
 	
 	static protected $order = NULL;
+
+	public static $events;
+	
+	/**
+	 * Event Manager Registration
+	 * @return mixed
+	 */
+	public function events()
+	{
+		$em = Zend_Registry::get('em');
+		if (!self::$events && is_object($em)) {
+			self::$events = Zend_Registry::get('em');
+		}
+	
+		return self::$events;
+	}
 	
 	public static function grid($rowNum = 10) {
 		
@@ -75,7 +91,11 @@ class Orders extends BaseOrders {
 	 * @return Boolean
 	 */
 	public static function massdelete($orders) {
-		$retval = Doctrine_Query::create ()->delete ()->from ( 'Orders o' )->whereIn ( 'o.order_id', $orders )->execute ();
+		
+		foreach ($orders as $orderid){
+			self::DeleteByID($orderid);
+		}
+		
 		return $retval;
 	}
 	
@@ -919,6 +939,10 @@ class Orders extends BaseOrders {
 				
 		if(is_numeric($customerId)){
 			$order = new Orders ();
+			
+			// Execute a custom event
+			self::events()->trigger('orders_create_before', "Orders", array('order' => $order, 'customerid' => $customerId));
+			
 			$order['customer_id']   = $customerId;
 			$order['order_date']    = date ( 'Y-m-d H:i:s' );
 			$order['expiring_date'] = date ( 'Y-m-j' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
@@ -940,10 +964,13 @@ class Orders extends BaseOrders {
 			self::$order = $order;
 			
 			// Create the fastlink for the order
-			Fastlinks::CreateFastlink('orders', 'edit', json_encode ( array ('id' => $order['order_id'] ) ), 'orders', $order['order_id'], $customerId);
+			$fastlink = Fastlinks::CreateFastlink('orders', 'edit', json_encode ( array ('id' => $order['order_id'] ) ), 'orders', $order['order_id'], $customerId);
 			
 			// Add a message within the order
 			Messages::addMessage($note, $customerId, null, $order['order_id']);
+			
+			// Execute a custom event
+			self::events()->trigger('orders_create_after', "Orders", array('order' => $order, 'fastlink' => $fastlink));
 			
 			// Return the order object var
 			return self::$order;
@@ -1414,7 +1441,11 @@ class Orders extends BaseOrders {
 	 * set the payment, create the domain tasks, and set the status of the new domains
 	 */
 	public static function Complete($orderid, $sendemail=false) {
+		
 		if(!empty($orderid) && is_numeric($orderid) ){
+			
+			// Execute a custom event
+			self::events()->trigger('orders_complete_before', "Orders", array('orderid' => $orderid));
 			
 			// Activate services if autosetup is set to 3.
 			self::activateItems($orderid, 3);
@@ -1422,7 +1453,10 @@ class Orders extends BaseOrders {
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
 			//OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
-						
+
+			// Execute a custom event
+			self::events()->trigger('orders_complete_after', "Orders", array('orderid' => $orderid));
+			
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
 			
@@ -1585,14 +1619,22 @@ class Orders extends BaseOrders {
 	 * @return boolean
 	 */
 	public static function DeleteByID($id, $customerid=null) {
-		$dq = Doctrine_Query::create ()->delete ()->from ( 'Orders o' )
-					->where ( 'order_id = ?', $id );
+		
+		// Execute a custom event
+		self::events()->trigger('orders_deleted_before', "Orders", array('orderid' => $id, 'customerid' => $customerid));
+		
+		$dq = Doctrine_Query::create ()->delete ()->from ( 'Orders o' )->where ( 'order_id = ?', $id );
 					
 		if(is_numeric($customerid)){
 			$dq->andWhere ( "customer_id = ?", $customerid );
 		}
 			
-		return $dq->execute ();
+		$result = $dq->execute ();
+		
+		// Execute a custom event
+		self::events()->trigger('orders_deleted_after', "Orders", array('orderid' => $id, 'customerid' => $customerid));
+		
+		return $result;
 	}
 	
 	/**
@@ -2221,7 +2263,7 @@ class Orders extends BaseOrders {
     		if(!is_numeric($order_id)){
     			return false;
     		}
-    	
+    		
     		$pdf = new Shineisp_Commons_PdfOrder ( );
     		$translator = Zend_Registry::getInstance ()->Zend_Translate;
 			$payments = Payments::findbyorderid ( $order_id, null, true );
@@ -2352,6 +2394,10 @@ class Orders extends BaseOrders {
 				
 				if (isset ( $order [0] )) {
 					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
+					
+					// Execute a custom event
+					self::events()->trigger('orders_pdf_created', "Orders", array('file' => "$path/$filename"));
+					
 					return $path . $filename;
 				}
 			}
@@ -2625,46 +2671,6 @@ class Orders extends BaseOrders {
 		die;
 		
 	
-	}
-	
-	/**
-	 * Upload to dropbox the Order file
-	 * @param integer $OrderID
-	 * @return boolean or exception
-	 */
-	public static function DropboxIt($OrderID){
-		if(is_numeric($OrderID)){
-			if(Shineisp_Api_Dropbox_Uploader::isReady()){
-	
-				// Get the order information
-				$order = self::getAllInfo($OrderID, "order_date", true);
-				if($order[0]['order_date']){
-					if(Orders::pdf($OrderID, false, true)){
-						$file = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
-						if(file_exists(PUBLIC_PATH . "/documents/orders/$file")){
-							$year_order = date('Y',strtotime($order[0]['order_date']));
-							$month_testual_order = date('M',strtotime($order[0]['order_date']));
-							$month_number_order = date('m',strtotime($order[0]['order_date']));
-							$quarter_number_order =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($order[0]['order_date'])));
-			
-							$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
-							$destinationPath = str_replace("{year}", $year_order, $destinationPath);
-							$destinationPath = str_replace("{month}", $month_number_order, $destinationPath);
-							$destinationPath = str_replace("{monthname}", $month_testual_order, $destinationPath);
-							$destinationPath = str_replace("{quarter}", $quarter_number_order, $destinationPath);
-
-							$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
-							$dropbox->upload(PUBLIC_PATH . "/documents/orders/$file", $destinationPath);
-							return true;
-						}else{
-							Shineisp_Commons_Utilities::log('Dropbox module: the order '.$order[0] ['order_id'].' has been not found and it cannot be sent to the dropbox');
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 	
 	######################################### CRON METHODS ############################################

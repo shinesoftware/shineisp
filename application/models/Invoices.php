@@ -14,6 +14,10 @@ class Invoices extends BaseInvoices {
 	
 	public static $events;
 	
+	/**
+	 * Event Manager Registration
+	 * @return mixed
+	 */
 	public function events()
 	{
 		$em = Zend_Registry::get('em');
@@ -674,11 +678,12 @@ class Invoices extends BaseInvoices {
     		}
 			
 			$invoice = Invoices::find ( $invoice_id );
-			//* GUEST - ALE - 20130225: invoice not found?
 			if ( !$invoice ) {
 				return false;
 			}
+			
 			$invoice    = $invoice->toArray ();
+			
 			// Set the name of the file
 			$filename = $invoice ['invoice_date'] . " - " . $invoice ['number'] . ".pdf";
     		
@@ -863,42 +868,6 @@ class Invoices extends BaseInvoices {
 			}
 		}
 		
-		/**
-		 * Upload to dropbox the Invoice file
-		 * @param integer $InvoiceID
-		 * @return boolean or exception
-		 */
-		public static function DropboxIt($InvoiceID){
-			if(is_numeric($InvoiceID)){
-				if(Shineisp_Plugins_Dropbox_Main::isReady()){
-
-					// Get the invoice information
-					$invoice = self::getAllInfo($InvoiceID, "invoice_date, number", true);
-					if($invoice[0]['invoice_date']){
-						$file = $invoice[0] ['invoice_date'] . " - " . $invoice[0] ['number'] . ".pdf";
-						if(Invoices::PrintPDF($InvoiceID, false, true)){
-							if(file_exists(PUBLIC_PATH . "/documents/invoices/$file")){
-								$yearoftheinvoice = date('Y',strtotime($invoice[0]['invoice_date']));
-								$month_testual_invoice = date('M',strtotime($invoice[0]['invoice_date']));
-								$month_number_invoice = date('m',strtotime($invoice[0]['invoice_date']));
-								$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($invoice[0]['invoice_date'])));
-								
-								$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
-								$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
-								$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
-								$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
-								$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
-								
-								$dropbox = new Shineisp_Plugins_Dropbox_Main(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
-								$dropbox->upload(PUBLIC_PATH . "/documents/invoices/$file", $destinationPath);
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
-		}
 		
 	######################################### BULK ACTIONS ############################################
 		
@@ -918,9 +887,6 @@ class Invoices extends BaseInvoices {
 			
 			foreach ($invoices as $invoice){
 				self::PrintPDF($invoice['invoice_id'], false, true);
-				
-				// Send the invoice in to the Dropbox service
-				Invoices::DropboxIt( $invoice['invoice_id'] );
 			}
 			
 			die(json_encode(array('mex' => $translator->translate('Invoices uploaded to the Dropbox folder'))));

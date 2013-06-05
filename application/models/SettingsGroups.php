@@ -49,7 +49,7 @@ class SettingsGroups extends BaseSettingsGroups
      * @return Doctrine
      */
     public static function findbyName($name) {
-        return Doctrine_Query::create ()->from ( 'SettingsGroups sg' )->where('name = ?', $name)->limit(1)->execute ();
+        return Doctrine_Query::create ()->from ( 'SettingsGroups sg' )->where('name = ?', $name)->limit(1)->fetchOne();
     }
     
     /**
@@ -69,6 +69,7 @@ class SettingsGroups extends BaseSettingsGroups
     	$group['help'] = $help;
     	$group['description'] = $description;
     	$group->save();
+    	
     	return $group['group_id'];
     }
 }

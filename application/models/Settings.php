@@ -334,7 +334,7 @@ class Settings extends BaseSettings {
     	$parameter = SettingsParameters::getParameterbyVar($var);
     	
     	$setting['isp_id'] = $isp_id;
-    	$setting['parameter_id'] = $parameter['parameter_id'];
+    	$setting['parameter_id'] = $parameter->get('parameter_id');
     	$setting['value'] = $value;
     	$setting->save();
     	return $setting['setting_id'];
@@ -360,7 +360,7 @@ class Settings extends BaseSettings {
         if(!empty($setting)){
         	$parameter = SettingsParameters::getParameterbyVar($var);
 	    	$setting[0]['isp_id'] = $isp_id;
-	    	$setting[0]['parameter_id'] = $parameter['parameter_id'];
+	    	$setting[0]['parameter_id'] = $parameter->get('parameter_id');
 	    	$setting[0]['value'] = $value;
 	    	$setting->save();
 	    	
@@ -378,6 +378,7 @@ class Settings extends BaseSettings {
 	 */
 	public static function saveRecord($groupid, $post, $isp = 1) {
 		$i = 0;
+		
 		if (! empty ( $post )) {
 			$records = new Doctrine_Collection ( 'Settings' );
 			foreach ( $post as $field => $value ) {
@@ -388,16 +389,17 @@ class Settings extends BaseSettings {
 					// Delete the old record
 					self::deleteItem ( $setting ['setting_id'] );
 				}
-				
+
 				// Get the parameter record
 				$paramenter = SettingsParameters::getParameterbyVar ( $field );
-				
+
 				// Create the collection of records
 				$records [$i]->isp_id = $isp;
-				$records [$i]->parameter_id = $paramenter ['parameter_id'];
+				$records [$i]->parameter_id = $paramenter->get('parameter_id');
 				$records [$i]->value = $value;
 				$i ++;
 			}
+			
 			
 			// Save the records
 			$records->save ();

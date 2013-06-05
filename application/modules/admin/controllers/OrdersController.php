@@ -284,7 +284,6 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		if($invoice_id){
 			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('button', 'float_right')));
 			$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$invoice_id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('button', 'float_right')));
-			$this->view->buttons[] = array("url" => "/admin/invoices/dropboxit/id/$invoice_id", "label" => $this->translator->translate('Dropbox invoice'), "params" => array('css' => array('button', 'float_right')));
 		} else {
 			// Order not invoiced, show button to create a new invoice
 			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
@@ -611,12 +610,15 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				Orders::pdf ( $request->id, true, true );
+				Orders::pdf ( $request->id, false, true );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been created successfully.' ), 'status' => 'success' ) );
 			}
+			
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );
+			
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
 		}
-		die ();
 	}
 	
 	/**
@@ -627,7 +629,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	public function dropboxitAction() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (is_numeric ( $request->id )) {
-			$sent = Orders::DropboxIt( $request->id );
+			$sent = Orders::pdf( $request->id, false, true );
 			if ($sent) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been uploaded in dropbox.' ), 'status' => 'success' ) );
 			} else {

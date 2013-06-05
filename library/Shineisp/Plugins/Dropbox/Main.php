@@ -3,6 +3,7 @@
  * Dropbox Uploader
  *
  * Copyright (c) 2009 Jaka Jancar
+ * Copyright (c) 2013 Shine Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,34 +24,41 @@
  * THE SOFTWARE.
  *
  * @author Jaka Jancar [jaka@kubje.org] [http://jaka.kubje.org/]
- * @version 1.1.8 
+ * @author Shine Software Italy [http://www.shinesoftware.com]
+ * @version 2.0 
  */
+
 class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
-	
-	protected $email;
-	protected $password;
-	protected $caCertSourceType = self::CACERT_SOURCE_SYSTEM;
+
 	const CACERT_SOURCE_SYSTEM = 0;
 	const CACERT_SOURCE_FILE = 1;
 	const CACERT_SOURCE_DIR = 2;
-	protected $caCertSource;
-	protected $loggedIn = false;
-	protected $cookies = array ();
+	
+	protected static $caCertSourceType = self::CACERT_SOURCE_SYSTEM;
+	protected static $caCertSource;
+	protected static $loggedIn = false;
+	protected static $cookies = array ();
 	
 	public $events;
 	
+	/**
+	 * Events Registration
+	 * 
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
 	public function events()
 	{
 		$em = Zend_Registry::get('em');
 		if (!$this->events && is_object($em)) {
-			$em->attach('invoices_pdf_created', array(__CLASS__, 'dropboxit'), 100);
+			$em->attach('invoices_pdf_created', array(__CLASS__, 'listener_invoice_upload'), 100);
+			$em->attach('orders_pdf_created', array(__CLASS__, 'listener_order_upload'), 100);
 		}
 		return $em;
 	}
 	
-	
 	/**
-	 * Constructor
+	 * Constructor of the class
 	 *
 	 * @param $email string       	
 	 * @param $password string|null       	
@@ -63,41 +71,75 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 			Shineisp_Commons_Utilities::log("Dropbox module: Dropbox requires the cURL extension.");
 			throw new Exception ( 'Dropbox requires the cURL extension.' );
 		}
-		
-		$this->email = $this->email;
-		$this->password = $this->password;
 	}
 	
 	/**
 	 * Event Listener
+	 * This event is triggered when the Invoice PDF is created 
 	 */
-	public static function dropboxit($event) {
+	public static function listener_invoice_upload($event) {
 		$invoice = $event->getParam('invoice');
+		$file = $event->getParam('file');
+		
 		if(is_numeric($invoice['invoice_id'])){
 			if(self::isReady()){
-				Zend_Debug::dump($invoice);
-				die;
-				if($invoice['invoice_date']){
-					$file = $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf";
-					if(file_exists(PUBLIC_PATH . "/documents/invoices/$file")){
-						$yearoftheinvoice = date('Y',strtotime($invoice['invoice_date']));
-						$month_testual_invoice = date('M',strtotime($invoice['invoice_date']));
-						$month_number_invoice = date('m',strtotime($invoice['invoice_date']));
-						$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($invoice['invoice_date'])));
-	
-						$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
-						$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
-						$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
-						$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
-						$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
-	
-						$this->upload(PUBLIC_PATH . "/documents/invoices/$file", $destinationPath);
-						return true;
-					}
-				}
+				
+				// get the destination path
+				$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
+				
+				self::execute($file, $destinationPath, $invoice['invoice_date']);
+				
+				Shineisp_Commons_Utilities::log("Event triggered: invoices_pdf_created");
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Event Listener
+	 * This event is triggered when the Orders PDF is created 
+	 */
+	public static function listener_order_upload($event) {
+		$file = $event->getParam('file');
+
+		if(self::isReady()){
+				
+			// get the destination path
+			$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
+			
+			self::execute($file, $destinationPath);
+			
+			Shineisp_Commons_Utilities::log("Event triggered: orders_pdf_created");
+		}
+		return false;
+	}
+	
+	/**
+	 * Execute the upload of the file to the dropbox service
+	 * 
+	 * @param string $sourcefile
+	 * @return boolean
+	 */
+	public static function execute($sourcefile, $destinationPath, $date=null){
+
+		if(empty($date)){
+			$date = date('d-m-Y');
+		}
+		
+		$yearoftheinvoice = date('Y',strtotime($date));
+		$month_testual_invoice = date('M',strtotime($date));
+		$month_number_invoice = date('m',strtotime($date));
+		$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m', strtotime($date)));
+
+		$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
+		$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
+		$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
+		$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
+		
+		if(file_exists(PUBLIC_PATH . $sourcefile )){
+			self::upload(PUBLIC_PATH . $sourcefile, $destinationPath);
+			return true;
+		}
 	}
 	
 	/**
@@ -106,42 +148,53 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	public static function isReady() {
 		$email = Settings::findbyParam ( 'dropbox_email' );
 		$password = Settings::findbyParam ( 'dropbox_password' );
-		Zend_Debug::dump($email);
-		die;
 		if (! empty ( $email ) && ! empty ( $password )) {
-			$this->email = $email;
-			$this->password = $password;
 			return true;
 		}
 		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credencials");
 		return false;
 	}
 	
+	/**
+	 * Set the certificate
+	 * @param string $file
+	 */
 	public function setCaCertificateFile($file) {
 		
 		if(file_exists(PROJECT_PATH . "/library/Shineisp/Api/Dropbox/certificate.cer")){
 			$file = PROJECT_PATH . "/library/Shineisp/Api/Dropbox/certificate.cer";
 		}
 		
-		$this->caCertSourceType = self::CACERT_SOURCE_FILE;
-		$this->caCertSource = $file;
+		self::$caCertSourceType = self::CACERT_SOURCE_FILE;
+		self::$caCertSource = $file;
 	}
 	
+	/**
+	 * Set the dir name of the certificate
+	 * @param string $dir
+	 */
 	public function setCaCertificateDir($dir) {
-		$this->caCertSourceType = self::CACERT_SOURCE_DIR;
-		$this->caCertSource = $dir;
+		self::$caCertSourceType = self::CACERT_SOURCE_DIR;
+		self::$caCertSource = $dir;
 	}
 	
-	public function upload($source, $remoteDir = '/', $remoteName = null) {
+	/**
+	 * Upload the file in the dropbox service account 
+	 *  
+	 * @param string $source
+	 * @param string $remoteDir
+	 * @param string $remoteName
+	 * @throws Exception
+	 */
+	public static function upload($source, $remoteDir = '/', $remoteName = null) {
 		
 		$params = compact('source', 'remoteDir', 'remoteName');
-		$this->events()->trigger(__FUNCTION__, $this, $params);
 		
 		if (! is_file ( $source ) or ! is_readable ( $source ))
 			throw new Exception ( "File '$source' does not exist or is not readable." );
 		
 		$filesize = filesize ( $source );
-		if ($filesize < 0 or $filesize > self::DB_LIMIT_WEBUPLOAD) {
+		if ($filesize < 0 ) {
 			Shineisp_Commons_Utilities::log("Dropbox module: File '$source' too large ($filesize bytes).");
 			throw new Exception ( "File '$source' too large ($filesize bytes)." );
 		}
@@ -157,47 +210,60 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 			$source .= ';filename=' . $remoteName;
 		}
 		
-		if (! $this->loggedIn)
-			$this->login ();
+		if (! self::$loggedIn)
+			self::login ();
 		
-		$data = $this->request ( 'https://www.dropbox.com/home' );
-		$token = $this->extractToken ( $data, 'https://dl-web.dropbox.com/upload' );
+		$data = self::request ( 'https://www.dropbox.com/home' );
+		$token = self::extractToken ( $data, 'https://dl-web.dropbox.com/upload' );
 		
 		$postData = array ('plain' => 'yes', 'file' => '@' . $source, 'dest' => $remoteDir, 't' => $token );
-		$data = $this->request ( 'https://dl-web.dropbox.com/upload', true, $postData );
+		$data = self::request ( 'https://dl-web.dropbox.com/upload', true, $postData );
 		if (strpos ( $data, 'HTTP/1.1 302 FOUND' ) === false)
 			throw new Exception ( 'Upload failed!' );
 	}
 	
-	protected function login() {
-		$data = $this->request ( 'https://www.dropbox.com/login' );
-		$token = $this->extractTokenFromLoginForm ( $data );
+	/**
+	 * Login in the dropbox account
+	 * 
+	 * @return boolean
+	 * @throws Exception
+	 */
+	protected static function login() {
+		$data = self::request ( 'https://www.dropbox.com/login' );
+		$token = self::extractTokenFromLoginForm ( $data );
 		
-		$this->events()->trigger(__FUNCTION__ . '.pre', $this, array('token' => $token));
+		$email = Settings::findbyParam ( 'dropbox_email' );
+		$password = Settings::findbyParam ( 'dropbox_password' );
 		
-		$postData = array ('login_email' => $this->email, 'login_password' => $this->password, 't' => $token );
-		$data = $this->request ( 'https://www.dropbox.com/login', true, $postData );
-		
+		$postData = array ('login_email' => $email, 'login_password' => $password, 't' => $token );
+		$data = self::request ( 'https://www.dropbox.com/login', true, $postData );
 		
 		if (stripos ( $data, 'location: /home' ) === false)
 			throw new Exception ( 'Login unsuccessful.' );
 		
-		$this->events()->trigger(__FUNCTION__ . '.post', $this, array('login' => $postData));
-		
-		$this->loggedIn = true;
+		self::$loggedIn = true;
 	}
 	
-	protected function request($url, $post = false, $postData = array()) {
+	/**
+	 * Send the request to the Dropbox service
+	 * 
+	 * @param string $url
+	 * @param boolean $post
+	 * @param array $postData
+	 * @throws Exception
+	 * @return mixed
+	 */
+	protected static function request($url, $post = false, $postData = array()) {
 		$ch = curl_init ();
 		curl_setopt ( $ch, CURLOPT_URL, $url );
 		curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, 2 );
 		curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, true );
-		switch ($this->caCertSourceType) {
+		switch (self::$caCertSourceType) {
 			case self::CACERT_SOURCE_FILE :
-				curl_setopt ( $ch, CURLOPT_CAINFO, $this->caCertSource );
+				curl_setopt ( $ch, CURLOPT_CAINFO, self::caCertSource );
 				break;
 			case self::CACERT_SOURCE_DIR :
-				curl_setopt ( $ch, CURLOPT_CAPATH, $this->caCertSource );
+				curl_setopt ( $ch, CURLOPT_CAPATH, self::caCertSource );
 				break;
 		}
 		curl_setopt ( $ch, CURLOPT_HEADER, 1 );
@@ -209,7 +275,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 		
 		// Send cookies
 		$rawCookies = array ();
-		foreach ( $this->cookies as $k => $v )
+		foreach ( self::$cookies as $k => $v )
 			$rawCookies [] = "$k=$v";
 		$rawCookies = implode ( ';', $rawCookies );
 		curl_setopt ( $ch, CURLOPT_COOKIE, $rawCookies );
@@ -223,21 +289,36 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 		// Store received cookies
 		preg_match_all ( '/Set-Cookie: ([^=]+)=(.*?);/i', $data, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match )
-			$this->cookies [$match [1]] = $match [2];
+			self::$cookies [$match [1]] = $match [2];
 		
 		curl_close ( $ch );
 		
 		return $data;
 	}
 	
-	protected function extractTokenFromLoginForm($html) {
+	/**
+	 * Extract the login token from html form
+	 * 
+	 * @param string $html
+	 * @throws Exception
+	 * @return unknown
+	 */
+	protected static function extractTokenFromLoginForm($html) {
 		// <input type="hidden" name="t" value="UJygzfv9DLLCS-is7cLwgG7z" />
 		if (! preg_match ( '#<input type="hidden" name="t" value="([A-Za-z0-9_-]+)" />#', $html, $matches ))
 			throw new Exception ( 'Cannot extract login CSRF token.' );
 		return $matches [1];
 	}
 	
-	protected function extractToken($html, $formAction) {
+	/**
+	 * Extract the token
+	 * 
+	 * @param string $html
+	 * @param string $formAction
+	 * @throws Exception
+	 * @return unknown
+	 */
+	protected static function extractToken($html, $formAction) {
 		if (! preg_match ( '/<form [^>]*' . preg_quote ( $formAction, '/' ) . '[^>]*>.*?(<input [^>]*name="t" [^>]*value="(.*?)"[^>]*>).*?<\/form>/is', $html, $matches ) || ! isset ( $matches [2] ))
 			throw new Exception ( "Cannot extract token! (form action=$formAction)" );
 		return $matches [2];

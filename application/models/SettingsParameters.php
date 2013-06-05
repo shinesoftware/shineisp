@@ -108,7 +108,7 @@ class SettingsParameters extends BaseSettingsParameters {
                           ->from ( 'SettingsParameters p' )
                           ->where ( "p.var = ?", $var );
                           
-        return $dq->execute ();
+        return $dq->fetchOne();
     }	
 	
 	/**
@@ -194,7 +194,7 @@ class SettingsParameters extends BaseSettingsParameters {
 		$session = new Zend_Session_Namespace ( $module );
 		
 		if(!empty($session->parameters)){
-			return $session->parameters;
+			#return $session->parameters;
 		}
 		
     	$dq = Doctrine_Query::create ()->from ( 'Settings s' )

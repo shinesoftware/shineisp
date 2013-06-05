@@ -29,6 +29,22 @@ class Shineisp_Commons_PdfOrder {
 	protected $data;
 	protected $h;
 	
+	public static $events;
+	
+	/**
+	 * Event Manager Registration
+	 * @return mixed
+	 */
+	public function events()
+	{
+		$em = Zend_Registry::get('em');
+		if (!self::$events && is_object($em)) {
+			self::$events = Zend_Registry::get('em');
+		}
+	
+		return self::$events;
+	}
+	
 	public function __construct() {
 		$registry = Zend_Registry::getInstance ();
 		

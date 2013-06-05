@@ -48,22 +48,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	}
 	
 	protected function _initControllerPlugin() {
+		$this->bootstrap ( 'frontController' );
+		
 		$fc = Zend_Controller_Front::getInstance ();
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Starter ());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Language());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Currency());
 		
-		// Init new plugin architecture
-		Zend_Registry::set("em", new Zend_EventManager_EventManager());
-		$Shineisp_Plugins = new Shineisp_Plugins();
-		$Shineisp_Plugins->initAll();
-		
 		if(Shineisp_Main::isReady()){
+			
+			// Init new plugin architecture
+			Zend_Registry::set("em", new Zend_EventManager_EventManager());
+			$Shineisp_Plugins = new Shineisp_Plugins();
+			$Shineisp_Plugins->initAll();
+			
 			$fc->registerPlugin ( new Shineisp_Controller_Plugin_Acl(new Shineisp_Acl()));
 			$fc->registerPlugin ( new Shineisp_Controller_Plugin_Migrate() );
 		}
 	}
-	
 	
 	protected function _initRouter() {
 		$this->bootstrap('FrontController');

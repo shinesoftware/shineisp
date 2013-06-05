@@ -214,7 +214,6 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 				// Create the buttons in the edit form
 				$this->view->buttons = array(
 						array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-						array("url" => "/admin/invoices/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => array('button', 'float_right'))),
 						array("url" => "/admin/invoices/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
 						array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 						array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
@@ -237,23 +236,6 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
-	}
-	
-	/**
-	 * Upload an invoice to the dropbox account
-	 * 
-	 * @return void
-	 */
-	public function dropboxitAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
-		if (is_numeric ( $request->id )) {
-			$sent = Invoices::DropboxIt( $request->id );
-			if ($sent) {
-				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The invoice has been uploaded in dropbox.' ), 'status' => 'success' ) );
-			} else {
-				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'error' ) );
-			}
-		}
 	}
 	
 	/**
