@@ -15,7 +15,7 @@
  * 
  */
 
-class Admin_CmsblocksController extends Zend_Controller_Action {
+class Admin_CmsblocksController extends Shineisp_Controller_Admin {
 	
 	protected $cmsblocks;
 	protected $datagrid;

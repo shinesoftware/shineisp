@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_TicketsController extends Zend_Controller_Action {
+class Admin_TicketsController extends Shineisp_Controller_Admin {
 	
 	protected $tickets;
 	protected $datagrid;

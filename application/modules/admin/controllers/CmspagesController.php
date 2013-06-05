@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_CmspagesController extends Zend_Controller_Action {
+class Admin_CmspagesController extends Shineisp_Controller_Admin {
 	
 	protected $cmspages;
 	protected $datagrid;

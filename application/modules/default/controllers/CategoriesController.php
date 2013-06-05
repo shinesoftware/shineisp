@@ -1,6 +1,6 @@
 <?php
 
-class CategoriesController extends Zend_Controller_Action {
+class CategoriesController extends Shineisp_Controller_Default {
 	protected $categories;
 	protected $mode;
 	protected $translator;
@@ -9,7 +9,7 @@ class CategoriesController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {

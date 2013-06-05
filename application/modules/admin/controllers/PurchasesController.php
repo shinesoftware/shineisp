@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_PurchasesController extends Zend_Controller_Action {
+class Admin_PurchasesController extends Shineisp_Controller_Admin {
 	
 	protected $purchases;
 	protected $datagrid;

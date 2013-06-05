@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_UrlrewriteController extends Zend_Controller_Action {
+class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 	
 	protected $urlrewrite;
 	protected $datagrid;

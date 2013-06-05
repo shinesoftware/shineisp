@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_CustomersgroupsController extends Zend_Controller_Action {
+class Admin_CustomersgroupsController extends Shineisp_Controller_Admin {
 	
 	protected $customersgroups;
 	protected $datagrid;

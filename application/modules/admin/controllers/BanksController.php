@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_BanksController extends Zend_Controller_Action {
+class Admin_BanksController extends Shineisp_Controller_Admin {
 	
 	protected $banks;
 	protected $datagrid;

@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_IspController extends Zend_Controller_Action {
+class Admin_IspController extends Shineisp_Controller_Admin {
 	
 	protected $isp;
 	protected $translator;

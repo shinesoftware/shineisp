@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_WikicategoriesController extends Zend_Controller_Action {
+class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 	
 	protected $wikicategories;
 	protected $datagrid;

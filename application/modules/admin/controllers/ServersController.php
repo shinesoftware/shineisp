@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ServersController extends Zend_Controller_Action {
+class Admin_ServersController extends Shineisp_Controller_Admin {
 	
 	protected $servers;
 	protected $datagrid;

@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_RolesController extends Zend_Controller_Action {
+class Admin_RolesController extends Shineisp_Controller_Admin {
 	
 	protected $roles;
 	protected $datagrid;
