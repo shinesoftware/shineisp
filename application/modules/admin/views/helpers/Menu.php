@@ -116,12 +116,12 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 		
 		if (is_array ( $children )) {
 			foreach ( $children as $row ) {
-				if($row['parent_id']){
-					$link 		= ! empty ( $row ['url'] ) ? $row ['url'] : "/";
+				if($row['parent_id'] > 0){
+					$link = ! empty ( $row ['url'] ) ? $row ['url'] : "/";
 				}else{
 					$link = "#";
 				}
-				
+								
 				/* JAY - 20130328 GUEST
 				 * Add class 'showall' to active item on reload of page.
 				 * *****/
@@ -155,7 +155,7 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 						}
 					}
 				}
-				 
+				
 				$items [] = '
 				<li class="item '.$showall.'">
 					<a href="'.$link.'">

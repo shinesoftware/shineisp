@@ -113,6 +113,7 @@ class Navigation extends BaseNavigation
 	    $nav = array();
 	    foreach( $array as $item ) {
 	        if( $item['parent_id'] == $pid ) {
+	        	$item['url'] = isset($item['uri']) ? $item['uri'] : '';
 	            $nav[$item['id']] = $item;
 	            $children = self::buildTree( $array, $item['id'] );
 	            if( $children ) {
