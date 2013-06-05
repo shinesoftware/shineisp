@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_CreditnotesController extends Zend_Controller_Action {
+class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 	
 	protected $creditnotes;
 	protected $datagrid;

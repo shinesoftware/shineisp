@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_LanguagesController extends Zend_Controller_Action {
+class Admin_LanguagesController extends Shineisp_Controller_Admin {
 	
 	protected $languages;
 	protected $datagrid;

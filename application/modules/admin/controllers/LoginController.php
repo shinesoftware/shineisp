@@ -7,7 +7,7 @@
  * @version 1.0
  */
 
-class Admin_LoginController extends Zend_Controller_Action {
+class Admin_LoginController extends Shineisp_Controller_Admin {
 	
 	private $_adapter = null;
 	

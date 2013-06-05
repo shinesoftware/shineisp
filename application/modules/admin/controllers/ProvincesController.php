@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ProvincesController extends Zend_Controller_Action {
+class Admin_ProvincesController extends Shineisp_Controller_Admin {
 	
 	protected $regions;
 	protected $datagrid;

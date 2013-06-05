@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ReportsController extends Zend_Controller_Action {
+class Admin_ReportsController extends Shineisp_Controller_Admin {
 	
 	protected $session;
 	protected $translator;

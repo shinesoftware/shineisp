@@ -220,7 +220,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 */
 	public static function getProductListbyCatUri($uri, $fields = "*", $locale = 1, $rows = 8) {
 		$data   = array ();
-		$isp_id = Isp::getCurrentId();
+		$isp_id = Zend_Registry::get('ISP')->isp_id;
 		$locale = intval($locale);
 		$rows   = intval($rows);
 

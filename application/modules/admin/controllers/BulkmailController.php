@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_BulkmailController extends Zend_Controller_Action {
+class Admin_BulkmailController extends Shineisp_Controller_Admin {
 	
 	protected $session;
 	protected $translator;

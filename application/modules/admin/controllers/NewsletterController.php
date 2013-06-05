@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_NewsletterController extends Zend_Controller_Action {
+class Admin_NewsletterController extends Shineisp_Controller_Admin {
 	
 	protected $newsletter;
 	protected $datagrid;

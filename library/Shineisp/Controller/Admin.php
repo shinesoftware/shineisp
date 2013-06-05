@@ -15,6 +15,5 @@ class Shineisp_Controller_Admin extends Zend_Controller_Action {
 			$ISP = new Isp();
 			Zend_Registry::set('ISP', $ISP->find($isp_id));
 		}
-
     }	
 }

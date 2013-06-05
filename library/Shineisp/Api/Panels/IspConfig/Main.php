@@ -631,12 +631,13 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 	 * @access     private
 	 */
 	private function connect() {
+		$isp_id = Zend_Registry::get('ISP')->isp_id;
 		
 		// Get parameters saved in the database
-		$endpointlocation = Settings::findbyParam ( "ispconfig_endpointlocation", "admin", Isp::getActiveISPID () );
-		$endpointuri = Settings::findbyParam ( "ispconfig_endpointuri", "admin", Isp::getActiveISPID () );
-		$username = Settings::findbyParam ( "ispconfig_username", "admin", Isp::getActiveISPID () );
-		$password = Settings::findbyParam ( "ispconfig_password", "admin", Isp::getActiveISPID () );
+		$endpointlocation = Settings::findbyParam ( "ispconfig_endpointlocation", "admin", $isp_id );
+		$endpointuri = Settings::findbyParam ( "ispconfig_endpointuri", "admin", $isp_id );
+		$username = Settings::findbyParam ( "ispconfig_username", "admin", $isp_id );
+		$password = Settings::findbyParam ( "ispconfig_password", "admin", $isp_id );
 		
 		try {
 			if (! empty ( $endpointlocation ) && ! empty ( $endpointuri ) && ! empty ( $username ) && ! empty ( $password )) {

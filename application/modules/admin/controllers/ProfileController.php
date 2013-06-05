@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ProfileController extends Zend_Controller_Action {
+class Admin_ProfileController extends Shineisp_Controller_Admin {
 	
 	protected $logged_user;
 	protected $translator;

@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends Zend_Controller_Action {
+class IndexController extends Shineisp_Controller_Default {
 	
 	public function indexAction() {
 		$ns = new Zend_Session_Namespace ();
@@ -35,9 +35,8 @@ class IndexController extends Zend_Controller_Action {
 			$this->view->content = $homepage ['body'];
 			
 		}
-		
-		$isp = Isp::getCurrentISP();
-		$this->view->headertitle = $isp['slogan'];
+				
+		$this->view->headertitle = "S: ".Zend_Registry::get('ISP')->slogan;
 		
 	}
 

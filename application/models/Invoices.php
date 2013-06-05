@@ -670,6 +670,20 @@ class Invoices extends BaseInvoices {
      * @param unknown_type $invoiceid
      */
     public static function PrintPDF($invoice_id, $show = true, $force=false, $path="/documents/invoices/") {
+    	
+			/*
+			$dompdf = new Shineisp_Commons_Dompdf();
+			//$dompdf = $dompdf->dompdf; 
+			$dompdf->set_paper("a4","portrait");  
+			$dompdf->load_html(file_get_contents($_SERVER['DOCUMENT_ROOT'].'/provapdf.html'));  
+			$dompdf->render();  
+			$dompdf->stream("document.pdf");  
+		
+			die();
+			*/		
+		
+		
+		
     		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 			$pdf      = new Shineisp_Commons_PdfOrder ( );
     	

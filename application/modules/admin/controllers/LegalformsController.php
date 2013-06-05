@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_LegalformsController extends Zend_Controller_Action {
+class Admin_LegalformsController extends Shineisp_Controller_Admin {
 	
 	protected $legalforms;
 	protected $datagrid;

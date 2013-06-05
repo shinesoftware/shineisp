@@ -902,7 +902,7 @@ class Shineisp_Commons_Utilities {
 			
 			
 			// TODO: properly manage ISP ID
-			$isp = Isp::getActiveISP();
+			$isp = Zend_Registry::get('ISP')->toArray();
 
 			$body = trim($body);
 			$subject = trim($subject);
