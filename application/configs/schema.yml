@@ -1435,6 +1435,10 @@ Fastlinks:
       unsigned: false
       primary: false
       autoincrement: false
+  indexes:
+    code:
+      fields: [code]
+      type: unique          
   relations:
     Customers:
       local: customer_id
