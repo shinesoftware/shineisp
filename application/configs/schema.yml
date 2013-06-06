@@ -1201,6 +1201,10 @@ DomainsTlds:
       notnull: true
     registrars_id: integer(4)
     tax_id: integer(4)
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
     autosetup: 
       type: integer(4)
       unsigned: true
@@ -1221,6 +1225,10 @@ DomainsTlds:
       local: server_id
       foreign: server_id
       type: one
+    Isps:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
 
 DomainsTldsData:
   connection: doctrine
