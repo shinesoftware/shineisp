@@ -1589,6 +1589,10 @@ InvoicesSettings:
       type: integer(4)
       notnull: true
       default: 1
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
 Isp:
   connection: doctrine
   tableName: isp

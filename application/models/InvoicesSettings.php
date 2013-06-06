@@ -25,6 +25,7 @@ class InvoicesSettings extends BaseInvoicesSettings
 	        $record = Doctrine_Query::create ()
 	                ->from ( 'InvoicesSettings is' )
 	                ->where ( "is.year = ?", $currentYear )
+					->andWhere('is.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
 	                ->limit ( 1 )
 	                ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	        
@@ -49,7 +50,9 @@ class InvoicesSettings extends BaseInvoicesSettings
         $dq = Doctrine_Query::create ()
                 ->select ( $fields )
                 ->from ( 'InvoicesSettings is' )
-                ->where ( "is.year = $year" )->limit ( 1 );
+                ->where ( 'is.year = ?'.$year )
+                ->andWhere('is.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+                ->limit ( 1 );
         
         $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
         $record = $dq->execute ( array (), $retarray );
@@ -71,6 +74,7 @@ class InvoicesSettings extends BaseInvoicesSettings
                 ->select ( 'next_number' )
                 ->from ( 'InvoicesSettings is' )
                 ->where('is.year = ?', date('Y'))
+				->andWhere('is.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
                 ->limit ( 1 );
         
         $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -90,7 +94,8 @@ class InvoicesSettings extends BaseInvoicesSettings
     	$q = Doctrine_Query::create()
 				    ->update('InvoicesSettings')
 				    ->set('next_number', $current_invoice_number + 1)
-				    ->where('year = ' . date('Y'));
+				    ->where('year = ' . date('Y'))
+					->andWhere('isp_id = ?',Zend_Registry::get('ISP')->isp_id);
 
         return $q->execute();
     }   
