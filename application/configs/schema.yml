@@ -1543,6 +1543,9 @@ Invoices:
       primary: false
       notnull: true
       autoincrement: false
+    formatted_number:
+      type: string(100)
+      notnull: false
     customer_id:
       type: integer(4)
       fixed: 0
