@@ -209,7 +209,7 @@
 		</table>
 		<p class="invoice-number">
 			<?=$this->translator->translate( 'Invoice Number' )?> <?=$this->data['invoice_number']?> - <?=$this->translator->translate ( 'dated' )?> <?=$this->data['date']?><br/>
-			<?php if ( $this->data['skip_barcode'] != 0 ): ?>
+			<?php if ( $this->data['skip_barcode'] != 1 ): ?>
 				<barcode type="C39E" value="<?=$this->data['invoice_number']?>" label="label" style="width:60mm; height:6mm; color: black; font-size: 2mm"></barcode>
 			<?php endif; ?>
 		</p>
