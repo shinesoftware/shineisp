@@ -421,7 +421,7 @@ class Settings extends BaseSettings {
             $dq = Doctrine_Query::create ()->select ( $fields )
                     ->from ( 'Settings s' )
                     ->where ( "s.setting_id = $id" )
-					->addWhere ( 's.isp_id = ?', Zend_Registry::get('ISP')->isp_id )
+					->addWhere ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id )
                     ->limit ( 1 );
             
             $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -444,7 +444,7 @@ class Settings extends BaseSettings {
 	        $dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Settings s' )
 	        ->leftJoin ( 's.SettingsParameters sp ' )
 	        ->where ( "s.setting_id = $id" )
-			->addWhere ( 's.isp_id = ?', Zend_Registry::get('ISP')->isp_id )
+			->addWhere ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id )
 	        ->limit ( 1 );
 	        
 	        $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -469,7 +469,7 @@ class Settings extends BaseSettings {
                                      ->select ('s.setting_id, s.value AS value, sp.var AS var' )
                                      ->from ( 'Settings s' )
                                      ->leftJoin ( 's.SettingsParameters sp ' )
-                                     ->where ( 's.isp_id = ?', Zend_Registry::get('ISP')->isp_id)
+                                     ->where ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id)
 									 ->addWhere( 'sp.enabled = 1')
                                      ->execute();
 
