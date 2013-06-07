@@ -882,6 +882,7 @@ Customers:
     ignore_latefee: 
       type: boolean(25)
       default: 0
+    customer_number: string(50)      
   relations:
     Isp:
       local: isp_id
