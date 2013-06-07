@@ -670,20 +670,6 @@ class Invoices extends BaseInvoices {
      * @param unknown_type $invoiceid
      */
     public static function PrintPDF($invoice_id, $show = true, $force=false, $path="/documents/invoices/") {
-    	
-			/*
-			$dompdf = new Shineisp_Commons_Dompdf();
-			//$dompdf = $dompdf->dompdf; 
-			$dompdf->set_paper("a4","portrait");  
-			$dompdf->load_html(file_get_contents($_SERVER['DOCUMENT_ROOT'].'/provapdf.html'));  
-			$dompdf->render();  
-			$dompdf->stream("document.pdf");  
-		
-			die();
-			*/		
-		
-		
-		
     		$currency = Zend_Registry::getInstance ()->Zend_Currency;
 			$pdf      = new Shineisp_Commons_PdfOrder ( );
     	
@@ -702,9 +688,10 @@ class Invoices extends BaseInvoices {
 			$filename = $invoice ['invoice_date'] . " - " . $invoice ['number'] . ".pdf";
     		
 			// Invoice already exists, we return it
-			if ( file_exists(PUBLIC_PATH.$path.'/'.$filename) && !$force ) {
-				$pdf->CreatePDF (  null, $filename, $show, $path, false);
-				return $path.$filename;
+			if ( file_exists(PUBLIC_PATH.$path.'/'.$filename) && $show && !$force ) {
+				header('Content-type: application/pdf');
+				header('Content-Disposition: attachment; filename="'.$filename.'"');
+				die(file_get_contents(PUBLIC_PATH.$path.'/'.$filename));
 			}			
 			
 			
@@ -715,14 +702,14 @@ class Invoices extends BaseInvoices {
 			
 			
 			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . sprintf("%03d", $invoice['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
-			$database ['columns'] [] = array ("value" => "SKU", "size" => 30 );
-			$database ['columns'] [] = array ("value" => "Description" );
-			$database ['columns'] [] = array ("value" => "Qty", "size" => 30, "align" => "center" );
-			$database ['columns'] [] = array ("value" => "Unit", "size" => 30 );
-			$database ['columns'] [] = array ("value" => "Tax Free Price", "size" => 60, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Setup fee", "size" => 70, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Tax %", "size" => 40, "align" => "center" );
-			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
+			$database ['columns'] [] = array ("value" => "SKU",            "size" => 20,    "align" => "left",    "key" => "sku");
+			$database ['columns'] [] = array ("value" => "Description",    "size" => 60,   "align" => "left",    "key" => "description");
+			$database ['columns'] [] = array ("value" => "Qty",            "size" => 2,    "align" => "right",   "key" => "qty");
+			$database ['columns'] [] = array ("value" => "Unit",           "size" => 2,    "align" => "center",  "key" => "unit");
+			$database ['columns'] [] = array ("value" => "Tax Free Price", "size" => 22,   "align" => "right",   "key" => "taxfreeprice");
+			$database ['columns'] [] = array ("value" => "Setup fee",      "size" => 15,   "align" => "right",   "key" => "setup");
+			$database ['columns'] [] = array ("value" => "Tax %",          "size" => 10,    "align" => "right",   "key" => "taxpercent");
+			$database ['columns'] [] = array ("value" => "Total",          "size" => 18,   "align" => "right",   "key" => "total");
 			
 			if (isset ( $order [0] )) {
 				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : Orders::formatOrderId($order[0]['order_id']);
@@ -763,13 +750,17 @@ class Invoices extends BaseInvoices {
 					}
 				}
 				
+				$orderinfo['payments'] = array();
 				if (count ( $payments ) > 0) {
-					$orderinfo['payments'] = array();
 					if ( $payments > 1 ) {
+						$numPayment = 1;
 						foreach ( $payments as $payment ) {
+							if ( $numPayment++ > 10 ) {
+								break;
+							}
 							$payment['paymentdate']  = Shineisp_Commons_Utilities::formatDateOut ( $payment['paymentdate'] );
 							$payment['income']       = $currency->toCurrency($payment['income'], array('currency' => Settings::findbyParam('currency')));
-							$orderinfo['payments'][] = $payment;	
+							$orderinfo['payments'][] = $payment;
 						}
 					}
 					$orderinfo ['payment_date'] = Shineisp_Commons_Utilities::formatDateOut ( $payments [0] ['paymentdate'] );
@@ -832,11 +823,37 @@ class Invoices extends BaseInvoices {
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $tax['percentage'], $rowtotal);
+					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $tax['percentage'], $rowtotal);
 				}
 
+				// Sanitize some fields
+				$database ['records'] ['invoice_number'] = ! empty ( $database ['records'] ['invoice_number'] ) ? $database ['records'] ['invoice_number'] : "";
+				$database ['records'] ['payment_description'] = !empty($database ['records'] ['payment_description']) ? $database ['records']['payment_description'] : "";
+				$database ['records'] ['payment_mode'] = ! empty ( $database ['records'] ['payment_mode'] ) ? $database ['records'] ['payment_mode'] : "";
+				$database ['records'] ['payment_date'] = ! empty ( $database ['records'] ['payment_date'] ) ? $database ['records'] ['payment_date'] : "";
+				
+				$database ['records']['totalPayments'] = count($database['records']['payments']);
+
+				// QRCode Image
+				$code['order']    = $database['records']['order_number'];
+				$code['customer'] = $database['records']['customer']['customer_id'];
+				$jcode            = base64_encode(json_encode($code));
+				
+				$database['records']['qrcode_url']   = $_SERVER['HTTP_HOST']."/index/qrcode/q/".$jcode;
+				$database['records']['skip_barcode'] = 0;
+
 				if (isset ( $order [0] )) {
-					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
+					$Shineisp_InvoiceView = new Shineisp_InvoiceView();
+					$Shineisp_InvoiceView->assign('header',  $database['header']);
+					$Shineisp_InvoiceView->assign('columns', $database['columns']);
+					$Shineisp_InvoiceView->assign('data',    $database['records']);
+					
+					$html = $Shineisp_InvoiceView->render('template1.phtml');
+					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
+	    			$html2pdf->WriteHTML($html);
+	    			$html2pdf->Output(PUBLIC_PATH.$path.'/'.$filename,'F');
+
+					//$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
 					
 					// Execute a custom event 
 					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $path . $filename));
