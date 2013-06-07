@@ -212,7 +212,8 @@ class Payments extends BasePayments
         $dq = Doctrine_Query::create ()
                         ->from ( 'Payments p' )
                         ->leftJoin ( 'p.Banks b' )
-                        ->where ( "p.order_id = ?", $order_id );
+                        ->where ( "p.order_id = ?", $order_id )
+						->orderby('p.paymentdate DESC');
                         //->limit ( 1 );
         
         if($fields != "*"){
