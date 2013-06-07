@@ -1145,7 +1145,7 @@ class Shineisp_Commons_Utilities {
 			$dateformat .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($dateformat);
 		}else{
-			$format .= ($format) ? " HH:mm:ss" : null;
+			$format .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($format);
 		}
 		
