@@ -610,8 +610,9 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				Orders::pdf ( $request->id, false, true );
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been created successfully.' ), 'status' => 'success' ) );
+				$file = Orders::pdf ( $request->id, false, true );
+				header('location: ' . $file);
+				die;
 			}
 			
 			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );

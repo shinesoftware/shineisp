@@ -7,7 +7,7 @@
  *
  */
 
-class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implements Shineisp_Api_Panels_Interface {
+class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Panels_Interface {
 	
 
 	/**
@@ -15,7 +15,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 	 */
 	public function __construct() {
 		$this->setName ( "IspConfig" );
-		$this->setPath ( PUBLIC_PATH . "/../library/Shineisp/Api/Panels/IspConfig" );
+		$this->setPath ( PUBLIC_PATH . "/../library/Shineisp/Plugins/Panels/IspConfig" );
 	}
 
 	/**
@@ -662,7 +662,7 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 	 * 
 	 * Match all the system product attribute from ShineISP  
 	 * and the IspConfig fields set in the configuration file
-	 * located in the /library/Shineisp/Api/Panels/IspConfig/config.xml
+	 * located in the /library/Shineisp/Plugins/Panels/IspConfig/config.xml
 	 * 
 	 * @param array $attributes --> ShineISP System Product Attribute
 	 * @param array $record 	--> IspConfig Client Record 

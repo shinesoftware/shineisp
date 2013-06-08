@@ -4,14 +4,35 @@
  * @author Shine Software
  *
  */
-class Shineisp_Api_Panels_Base {
+class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	
 	protected $isLive;
 	protected $name;
 	protected $path;
 	protected $session;
 	protected $actions = array();
+	
+	public $events;
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	public function events()
+	{
+		$em = Zend_Registry::get('em');
+		if (!$this->events && is_object($em)) {
+			$em->attach('panels_start', array(__CLASS__, 'listener_panels_starts'), 100);
+		}
+		return $em;
+	}
 
+	// Event Callback
+	public function listener_panels_starts($event){
+		
+	}
 						
 	/**
 	 * @return the $session

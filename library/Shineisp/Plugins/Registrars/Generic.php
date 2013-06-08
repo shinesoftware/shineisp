@@ -1,15 +1,12 @@
 <?php
 
-/*
- * Shineisp_Api_Registrars_Interface
-* -------------------------------------------------------------
-* Type:     Interface class
-* Name:     Shineisp_Api_Registrars_Interface
-* Purpose:  Registrars Interface Class
-* -------------------------------------------------------------
-*/
+/**
+ * Shineisp_Plugins_Registrars_Generic
+ * @author Shine Software
+ *
+ */
 
-interface Shineisp_Api_Registrars_Interface {
+class Shineisp_Plugins_Registrars_Generic extends Shineisp_Plugins_Registrars_Base implements Shineisp_Plugins_Registrars_Interface {
 	
 	/**
 	 * Enumerate all the registrar actions 
@@ -17,12 +14,14 @@ interface Shineisp_Api_Registrars_Interface {
 	 * @return     array       An associative array containing the list of the actions allowed by the registrar's class 
 	 * @access     public
 	 */
-	public Function getActions();
+	public Function getActions(){
+		return $this->actions;
+	}	
 	
 	/**
 	 * Register a new domain name
 	 * 
-	 * Executes the '...' command on the service's servers to register a new domain.
+	 * Executes the 'Purchase' command on the service's servers to register a new domain.
 	 * Note in order to not fail this command, it must meet the following requirements:
 	 * - Your account credencials must have enough credits to cover the order amount.
 	 * - The domain name must be valid and available.
@@ -35,13 +34,16 @@ interface Shineisp_Api_Registrars_Interface {
 	 * @access     public
 	 * @see        renewDomain
 	 * @see        transferDomain
+	 * @see Shineisp_Plugins_Registrars_Interface::registerDomain()
 	 */
-	public Function registerDomain($domainID, $nameServers = null, $regLock = true);
+	public function registerDomain($domainID, $nameServers = null, $regLock = true) {
+	
+	}
 	
 	/**
 	 * Transfer a domain name
 	 * 
-	 * Executes the '...' command on the service's servers to transfer the domain.
+	 * Executes the 'Purchase' command on the service's servers to transfer the domain.
 	 * Note in order to not fail this command, it must meet the following requirements:
 	 * - Your account credencials must have enough credits to cover the order amount.
 	 * - To transfer EPP names, the query must include the authorization key from the Registrar.
@@ -55,65 +57,76 @@ interface Shineisp_Api_Registrars_Interface {
 	 * @see        renewDomain
 	 * @see        registerDomain
 	 */
-	public Function transferDomain($domainID, $nameServers = null, $regLock = true);
+	public function transferDomain($domainID, $nameServers = null, $regLock = true) {
+	
+	}
 	
 	/**
 	 * Renew a domain name that belongs to your Registrar account
 	 * 
-	 * Executes the '...' command on Registrar's servers to renew a domain name which was previously registered or transfered to your Registrar account.
+	 * Executes the 'Extend' command on Registrar's servers to renew a domain name which was previously registered or transfered to your Registrar account.
 	 * Note that this command to not fail, it must meet the following requirements:
 	 * - Your registrar account must have enough credits to cover the order amount.
 	 * - The domain name must be valid and active and belongs to your registrar account.
 	 * - The new expiration date cannot be more than 10 years in the future.
 	 * 
-	 * @param      integer      $domainID   Domain code identifier
+	 * @param      string      $domainName     Must be a valid and active domain name.
+	 * @param      int         $numYears       The new expiration date cannot be more than 10 years in the future.
 	 * @return     long        Renewal Order ID, or false if failed.
 	 * @access     public
 	 * @see        registerDomain
 	 * @see        transferDomain
 	 */
-	public Function renewDomain($domainID);
+	public Function renewDomain($domainID) {
+	
+	}
 	
 	/**
 	 * Check domain availability
 	 * 
-	 * Executes the '...' command on Enom's servers to check domain availability.
+	 * Executes the 'Check' command on Enom's servers to check domain availability.
 	 * 
-	 * @param      string     $domain   Domain name
-	 * @return     boolean    An associative array containing the domain name as a key and a bool 
-	 * 						  (true if domain is available, false otherwise) as a value. On error, it returns false
+	 * @param      integer     $domainID   Domain code identifier
+	 * @return     array       An associative array containing the domain name as a key and a bool 
+	 * (true if domain is available, false otherwise) as a value. On error, it returns false
 	 * @access     public
 	 */
-	public Function checkDomain($domain);
+	public Function checkDomain($domainID) {
+	
+	}
 	
 	/**
 	 * Set registrar lock status for a domain name
 	 * 
-	 * Executes the '...' command on Registrar's servers.
+	 * Executes the 'SetRegLock' command on Registrar's servers.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if not locked, false otherwise. You should check for $this->isError if returned false, to make sure it's not an error flag not the registrar lock status.
 	 * @access     public
 	 * @see        unlockDomain
 	 */
-	public Function lockDomain($domainID);
+	public Function lockDomain($domainID) {
+	
+	}
 	
 	/**
 	 * Set registrar unlock status for a domain name
 	 * 
-	 * Executes the '...' command on Registrar's servers.
+	 * Executes the 'SetRegUnlock' command on Registrar's servers.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if not locked, false otherwise. You should check for $this->isError if returned false, to make sure it's not an error flag not the registrar lock status.
 	 * @access     public
 	 * @see        lockDomain
 	 */
-	public Function unlockDomain($domainID);
+	public Function unlockDomain($domainID) {
+	
+	}
 	
 	/**
 	 * Set name servers for a domain name.
 	 * 
-	 * Executes the '...' command on Registrar's servers, to set the name servers
+	 * Executes the 'ModifyNS' command on Registrar's servers, to set the name servers
 	 * for a domain name that is active and belongs to your Registrar account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
@@ -122,46 +135,54 @@ interface Shineisp_Api_Registrars_Interface {
 	 * @access     public
 	 * @see        getNameServers
 	 */
-	function setNameServers($domainID, $nameServers = null);
+	function setNameServers($domainID, $nameServers = null){
+		
+	}
 	
-	  /**
-	  * Set domain hosts (records) for a domain name.
-	  * 
-	  * Executes the '...' command on Enom's servers, to set domain hosts (records)
-	  * for a domain name that is active and belongs to your Enom account.
-	  * 
-	  * @param      string      $domainName         Must be active and belongs to your Enom account.
-	  * @param      array       $domainHosts        Associative array containing all Hosts to set. Array keys are name, type, address and pref.
-	  * @return     bool        True if succeed and False if failed.
-	  * @access     public
-	  * @see        getDomainHosts
-	  */
-	function getNameServers($domainID);
+	/**
+	 * Get name servers for a domain name.
+	 * 
+	 * Executes the 'GetDNS' command on Enom's servers, to retrive the name servers
+	 * for a domain name that is active and belongs to your Registrar account.
+	 * 
+	 * @param      integer     $domainID   Domain code identifier
+	 * @return     array       An array containing name servers. If using Registrar's name servers, the array will be empty.
+	 * @access     public
+	 * @see        setNameServers
+	 */
+	function getNameServers($domainID){
+		
+	}
 	
 	/**
 	 * Set domain hosts (records) for a domain name.
 	 * 
 	 * Executes the '...' command on Registrar's servers, to set domain hosts (records)
-	 * for a domain name that is active and belongs to your Enom account.
+	 * for a domain name that is active and belongs to your OVH account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if succeed and False if failed.
 	 * @access     public
 	 * @see        getDomainHosts
 	 */
-	function setDomainHosts($domainID);	
+	function setDomainHosts($domainID){	
+		
+	}
 	
+		
 	/**
 	 * Get domain hosts (records) for a domain name.
 	 * 
-	 * Executes the '...' command on Registrar's servers, to set domain hosts (records)
-	 * for a domain name that is active and belongs to your Enom account.
+	 * Executes the '...' command on Registrar's servers, to get domain hosts (records)
+	 * for a domain name that is active and belongs to your OVH account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if succeed and False if failed.
 	 * @access     public
 	 * @see        getDomainHosts
 	 */
-	function getDomainHosts($domainID);
+	function getDomainHosts($domainID){
 		
+	}	
+
 }

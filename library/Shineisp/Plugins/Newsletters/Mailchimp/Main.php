@@ -1,10 +1,15 @@
 <?php
 
-class Shineisp_Api_Newsletters_Mailchimp_Main {
+class Shineisp_Plugins_Newsletters_Mailchimp_Main extends Shineisp_Plugins_Newsletters_Base {
 	
 	var $version = "1.3";
 	var $errorMessage;
 	var $errorCode;
+	
+	/**
+	 * APIKey 
+	 */
+	var $apikey;
 	
 	/**
 	 * Cache the information on the API location on the server
@@ -32,16 +37,31 @@ class Shineisp_Api_Newsletters_Mailchimp_Main {
 	var $secure = false;
 	
 	/**
+	 * @return the $apikey
+	 */
+	public function getApikey() {
+		return $this->apikey;
+	}
+
+	/**
+	 * @param field_type $apikey
+	 */
+	public function setApikey($apikey) {
+		$this->apikey = $apikey;
+	}
+
+	/**
 	 * Connect to the MailChimp API for a given list.
 	 *
 	 * @param string $apikey Your MailChimp apikey
 	 * @param string $secure Whether or not this should use a secure connection
 	 */
-	function __construct($apikey, $secure=false) {
-		$this->secure = $secure;
+	function __construct() {
+		$this->secure = $this->secure;
 		$this->apiUrl = parse_url("http://api.mailchimp.com/" . $this->version . "/?output=php");
-		$this->api_key = $apikey;
+		$this->api_key = $this->apikey;
 	}
+	
 	function setTimeout($seconds){
 		if (is_int($seconds)){
 			$this->timeout = $seconds;
