@@ -467,3 +467,21 @@ SettingsParameters:
     description: 'Notify each customers when a status change occurs on their orders'
     SettingsGroups: SettingsGroups_3
     config: null
+  SettingsParameters_58:
+    name: 'Invoices number format'
+    var: invoices_number_format
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'Customize the format of invoice number. Valid placeholders are described <a href="http://www.shineisp.com/invoices-number-format/" target="_blank">here</a>'
+    SettingsGroups: SettingsGroups_1
+    config: null
+  SettingsParameters_59:
+    name: 'Invoices zero prefix'
+    var: invoices_zero_prefix
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'Adding the zero number before the invoice number.'
+    SettingsGroups: SettingsGroups_1
+    config: null

@@ -1,5 +1,5 @@
 <?php
-class Shineisp_Controller_Default extends Zend_Controller_Action {
+class Shineisp_Controller_Default extends Shineisp_Controller_Common {
 	/*
 	 * Common for the whole defaults controllers (frontend)
 	 */
@@ -8,5 +8,7 @@ class Shineisp_Controller_Default extends Zend_Controller_Action {
 		// Store logged ISP. I'm in the public area, se we use only the URL
 		$ISP = Isp::findByUrl($_SERVER['HTTP_HOST']);
 		Zend_Registry::set('ISP', $ISP);
+		
+		parent::init();
     }	
 }

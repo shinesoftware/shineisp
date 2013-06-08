@@ -274,6 +274,44 @@ Bulkmails:
     body:
       type: string()
       notnull: true
+
+CancelRequests:
+  connection: doctrine
+  tableName: cancel_requests
+  columns:
+    request_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    date:
+      type: timestamp(25)
+      notnull: true
+    ip:
+      type: string(45)
+      notnull: true
+    orderitem_id:
+      type: string(250)
+      notnull: true
+      autoincrement: false
+    type:
+      type: enum
+      values: ['immediate', 'eob'] 
+    note:
+      type: string()
+      notnull: false
+    status_id:
+      type: integer(4)
+      notnull: true
+  Relations:       
+    Statuses:
+      local: status_id
+      foreign: status_id
+    OrdersItems:
+      local: orderitem_id
+      foreign: detail_id
+
 CmsBlocks:
   connection: doctrine
   tableName: cms_blocks
@@ -844,6 +882,7 @@ Customers:
     ignore_latefee: 
       type: boolean(25)
       default: 0
+    customer_number: string(50)      
   relations:
     Isp:
       local: isp_id
@@ -1201,6 +1240,10 @@ DomainsTlds:
       notnull: true
     registrars_id: integer(4)
     tax_id: integer(4)
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
     autosetup: 
       type: integer(4)
       unsigned: true
@@ -1221,6 +1264,10 @@ DomainsTlds:
       local: server_id
       foreign: server_id
       type: one
+    Isps:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
 
 DomainsTldsData:
   connection: doctrine
@@ -1427,6 +1474,10 @@ Fastlinks:
       unsigned: false
       primary: false
       autoincrement: false
+  indexes:
+    code:
+      fields: [code]
+      type: unique          
   relations:
     Customers:
       local: customer_id
@@ -1531,6 +1582,9 @@ Invoices:
       primary: false
       notnull: true
       autoincrement: false
+    formatted_number:
+      type: string(100)
+      notnull: false
     customer_id:
       type: integer(4)
       fixed: 0
@@ -1589,6 +1643,10 @@ InvoicesSettings:
       type: integer(4)
       notnull: true
       default: 1
+    isp_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
 Isp:
   connection: doctrine
   tableName: isp
