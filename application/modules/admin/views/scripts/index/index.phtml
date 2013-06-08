@@ -97,7 +97,7 @@
 					$startdate = strtotime ( '-1 day' , strtotime ( $startdate ) ) ;
 					$startdate = date ( 'Y-m-d' , $startdate );
 					
-					echo $this->widget(Shineisp_Api_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (yesterday)"));
+					echo $this->widget(Shineisp_Plugins_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (yesterday)"));
 					
 				?>
 			</div>
@@ -110,7 +110,7 @@
 					$startdate = strtotime ( '-1 month' , strtotime ( $startdate ) ) ;
 					$startdate = date ( 'Y-m-d' , $startdate );
 					
-					echo $this->widget(Shineisp_Api_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (last 30 days)"));
+					echo $this->widget(Shineisp_Plugins_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (last 30 days)"));
 					
 				?>
 			</div>
@@ -123,7 +123,7 @@
 					$startdate = strtotime ( '-1 year' , strtotime ( $startdate ) ) ;
 					$startdate = date ( 'Y-m-d' , $startdate );
 					
-					echo $this->widget(Shineisp_Api_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (last year)"));
+					echo $this->widget(Shineisp_Plugins_Google_Analytics::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (last year)"));
 				?>
 			</div>
 		</div>

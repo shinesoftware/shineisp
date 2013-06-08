@@ -268,7 +268,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 			
 			$list_id = $parameters['list'];
 			
-			$api = new Shineisp_Api_Newsletters_Mailchimp_Main($key);
+			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
 
 			foreach ($items as $id){
 				$email = self::getSubscriberEmail($id);
@@ -305,7 +305,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 			}
 			
 			$list_id = $parameters['list'];
-			$api = new Shineisp_Api_Newsletters_Mailchimp_Main($key);
+			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
 			
 			foreach ($items as $id){
 				$email = self::getSubscriberEmail($id);

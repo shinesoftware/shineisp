@@ -410,7 +410,7 @@ SettingsParameters:
     type: text
     module: admin
     enabled: '1'
-    description: 'This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Api_Panels_Ispconfig_Main'
+    description: 'This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Plugins_Panels_Ispconfig_Main'
     SettingsGroups: SettingsGroups_13
     config: '[]'
   SettingsParameters_52:

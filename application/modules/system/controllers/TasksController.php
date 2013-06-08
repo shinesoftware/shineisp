@@ -73,7 +73,7 @@ class System_TasksController extends Zend_Controller_Action {
 		try {
 			$customer_id = (isset($task['customer_id'])) ? $task['customer_id'] : 0;
 			$ISPpanel    = ISP::getPanel($ISP['isp_id']);
-			$class       = "Shineisp_Api_Panels_".$ISPpanel."_Main";
+			$class       = "Shineisp_Plugins_Panels_".$ISPpanel."_Main";
 			
 			// Create the class registrar object 
 			$ISPclass = new $class ();

@@ -220,7 +220,7 @@ class Newsletters extends BaseNewsletters
     		return false;
     	}
     			
-    	$api = new Shineisp_Api_Newsletters_Mailchimp_Main($key);
+    	$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
     	
     	$lists = $api->lists();
     	$data = array();

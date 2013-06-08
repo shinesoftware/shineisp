@@ -9,7 +9,7 @@
         <field var="endpointlocation" label="Endpoint Location" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/index.php"/>
         <field var="endpointuri" label="Endpoint URI" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/"/>
        -->
-        <field var="class" label="ShineISP Class Handler" type="text" description="This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Api_Panels_Ispconfig_Main"/>
+        <field var="class" label="ShineISP Class Handler" type="text" description="This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Plugins_Panels_Ispconfig_Main"/>
         <!--
         <field var="username" label="Write here the ISPConfig SOAP username" type="text" description="This is the ISPConfig remote username set in the ISPConfig control panel."/>
         <field var="password" label="Write here the SOAP password" type="text" description="This is the ISPConfig user remote password set in the ISPConfig control panel."/>
