@@ -664,7 +664,7 @@ class Shineisp_Commons_PdfOrder {
 			$this->Write ( $records ['invoice_number'], PAGE_BOTH_MARGIN + 400, $toppos - 130 );
 		}
 		
-		$records ['payment_description'] = ! empty ( $records ['payment_description'] ) ? $records ['payment_description'] : "";
+		$records ['payment_description'] = !empty($records ['payment_description']) ? $records['payment_description'] : "";
 		$records ['payment_mode'] = ! empty ( $records ['payment_mode'] ) ? $records ['payment_mode'] : "";
 
 		if ( $totalPayments > 1 ) {

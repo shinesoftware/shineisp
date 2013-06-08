@@ -1,5 +1,5 @@
 <?php
-class Shineisp_Controller_Admin extends Zend_Controller_Action {
+class Shineisp_Controller_Admin extends Shineisp_Controller_Common {
 	/*
 	 * Common for the whole admin controllers
 	*/
@@ -15,5 +15,7 @@ class Shineisp_Controller_Admin extends Zend_Controller_Action {
 			$ISP = new Isp();
 			Zend_Registry::set('ISP', $ISP->find($isp_id));
 		}
+
+		parent::init();
     }	
 }

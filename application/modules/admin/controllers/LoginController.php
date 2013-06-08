@@ -7,7 +7,7 @@
  * @version 1.0
  */
 
-class Admin_LoginController extends Shineisp_Controller_Admin {
+class Admin_LoginController extends Shineisp_Controller_Default {
 	
 	private $_adapter = null;
 	

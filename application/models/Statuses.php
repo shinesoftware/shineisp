@@ -36,20 +36,52 @@ class Statuses extends BaseStatuses {
 	}
 	
 	/**
+	 * Get all statuses
+	 * 
+	 * @return object $statuses
+	 */
+	public static function getAll() {
+		$out     = array();
+		$records = Doctrine_Query::create ()->from ( 'Statuses s' )
+										   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+								
+		// normalize data
+		foreach ( $records as $record ) {
+			$section = strtolower($record['section']);
+			$code    = strtolower($record['code']);
+						
+			// code as key
+			$out[$section][$code] = $record;
+			
+			// status_id as key
+			$out['id:'.$record['status_id']] = $record; // PHP BUG: See Statuses::getById
+		}		
+
+		return Shineisp_Commons_Utilities::array2object($out);
+	}	
+	
+	
+	/**
 	 * Get the Status ID
 	 * 
 	 * @param string $status 
 	 * @param string $section
 	 */
 	public static function id($status, $section) {
-		
-		$record = Doctrine_Query::create ()->from ( 'Statuses s' )
-										   ->where ( 'LOWER(s.code) = ?', strtolower($status) )
-										   ->addWhere('LOWER(s.section) = ?', strtolower($section) )
-										   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		
-		return !empty($record[0]['status_id']) ? $record[0]['status_id'] : null;
+		return intval(Zend_Registry::get('Statuses')->$section->$status->status_id) ? intval(Zend_Registry::get('Statuses')->$section->$status->status_id) : null;
 	}	
+
+	/**
+	 * Get the status by Id
+	 * Fix a PHP bug that doesn't allow to access casted object through ID
+	 * 
+	 * @param string $id 
+	 */
+	public static function getById($id) {
+		$id = intval($id);
+		return Zend_Registry::get('Statuses')->{'id:'.$id};
+	}	
+
 	
 	/**
 	 * get the label name of the status
@@ -58,13 +90,14 @@ class Statuses extends BaseStatuses {
 	 * @param integer $status_id
 	 */
 	public static function getLabel($status_id) {
-		$records = Doctrine::getTable ( 'Statuses' )->findBy ( 'status_id', $status_id )->toArray ();
+		$status = self::getById($status_id)->status;
 		
-		if ($records) {
+		if ($status) {
 			$registry = Zend_Registry::getInstance ();
 			$translation = $registry->Zend_Translate;
-			return $translation->translate ( $records [0] ['status'] );
+			return $translation->translate ( $status );
 		}
+		
 		return false;
 	}
 }

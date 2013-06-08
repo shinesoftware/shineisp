@@ -241,6 +241,17 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	/**
+	 * Convert a multidimensional array to an object
+	 */
+	public static function array2object($input) {
+		if (is_array($input)) {
+			return (object) array_map(__METHOD__, $input);
+		} else {
+			return $input;
+		}
+	}
+	
+	/**
 	 * List all the directories
 	 * @param string $directory
 	 * 
@@ -1134,7 +1145,7 @@ class Shineisp_Commons_Utilities {
 			$dateformat .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($dateformat);
 		}else{
-			$format .= ($format) ? " HH:mm:ss" : null;
+			$format .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($format);
 		}
 		
