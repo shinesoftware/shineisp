@@ -292,7 +292,7 @@ CancelRequests:
       type: string(45)
       notnull: true
     orderitem_id:
-      type: string(250)
+      type: integer(4)
       notnull: true
       autoincrement: false
     type:
@@ -304,7 +304,7 @@ CancelRequests:
     status_id:
       type: integer(4)
       notnull: true
-  Relations:       
+  relations:       
     Statuses:
       local: status_id
       foreign: status_id

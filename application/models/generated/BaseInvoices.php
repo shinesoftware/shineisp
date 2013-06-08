@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('Invoices', 'doctrine');
  * 
  * @property integer $invoice_id
  * @property integer $number
+ * @property string $formatted_number
  * @property integer $customer_id
  * @property integer $order_id
  * @property date $invoice_date
@@ -43,6 +44,11 @@ abstract class BaseInvoices extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              'length' => '4',
+             ));
+        $this->hasColumn('formatted_number', 'string', 100, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => '100',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(
              'type' => 'integer',

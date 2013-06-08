@@ -19,6 +19,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTlds', 'doctrine');
  * @property float $renewal_cost
  * @property integer $registrars_id
  * @property integer $tax_id
+ * @property integer $isp_id
  * @property integer $autosetup
  * @property Registrars $Registrars
  * @property Taxes $Taxes
@@ -101,6 +102,12 @@ abstract class BaseDomainsTlds extends Doctrine_Record
              ));
         $this->hasColumn('tax_id', 'integer', 4, array(
              'type' => 'integer',
+             'length' => '4',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
              'length' => '4',
              ));
         $this->hasColumn('autosetup', 'integer', 4, array(

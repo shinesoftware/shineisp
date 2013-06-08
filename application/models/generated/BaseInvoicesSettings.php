@@ -10,6 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('InvoicesSettings', 'doctrine');
  * @property integer $setting_id
  * @property integer $year
  * @property integer $next_number
+ * @property integer $isp_id
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -38,6 +39,12 @@ abstract class BaseInvoicesSettings extends Doctrine_Record
              'type' => 'integer',
              'notnull' => true,
              'default' => 1,
+             'length' => '4',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
              'length' => '4',
              ));
     }
