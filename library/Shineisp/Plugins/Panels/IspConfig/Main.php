@@ -618,8 +618,6 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			
 	}
 	
-	############################################## ISPCONFIG STANDARD METHODS ##############################################
-	
 
 	/**
 	 * Connect into the remote ISPCONFIG webservice 
@@ -654,117 +652,5 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 		
 		return false;
 	}
-	
-	
-	/**
-	 * Match all the product attribute fields and IspConfig fields
-	 * 
-	 * 
-	 * Match all the system product attribute from ShineISP  
-	 * and the IspConfig fields set in the configuration file
-	 * located in the /library/Shineisp/Plugins/Panels/IspConfig/config.xml
-	 * 
-	 * @param array $attributes --> ShineISP System Product Attribute
-	 * @param array $record 	--> IspConfig Client Record 
-	 * @return ArrayObject
-	 */
-	private function matchFieldsValues(array $attributes, array $record = array()) {
-		$fields = array ();
 
-		// Loop of system product attributes
-		foreach ( $attributes as $attribute => $value ) {
-			// Get the saved system attribute
-			$sysAttribute = ProductsAttributes::getAttributebyCode($attribute);
-			
-			if(!empty($sysAttribute[0]['system_var'])){
-				$sysVariable = $sysAttribute[0]['system_var'];
-				// Get the system product attribute
-				$modAttribute = Panels::getXmlFieldbyAttribute ( "IspConfig", $sysVariable );
-
-				if(!empty($modAttribute ['field'])){
-					// Sum the old resource value with the new ones
-					if(!empty($record[$modAttribute ['field']])){
-						
-						/**
-						 * Now we have to sum the resource previously added
-						 * in the client IspConfig profile with the new one 
-						 */ 
-						if($modAttribute ['type'] == "integer"){
-							if($record[$modAttribute ['field']] == "-1"){
-								$value = "-1";
-							}else{
-								$value += $record[$modAttribute ['field']];
-							}
-						} 
-					}
-								
-					if (! empty ( $value )) {
-						$fields [$modAttribute ['field']] = $value;
-					} else {
-						$fields [$modAttribute ['field']] = $modAttribute ['default'];
-					}
-				}
-			}
-		}
-
-		return $fields;
-	}
-
-	/**
-	 * Check the client and register it
-	 * @param unknown_type $task
-	 */
-	private function get_client_id(array $task) {
-		// Connection to the SOAP system
-		$client = $this->connect ();
-		
-		if(!$client){
-			throw new Exception("There is no way to connect the client with the IspConfig Panel.", "3010");
-		}
-		
-		// Get the client id saved previously in the customer information page
-		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
-		
-		// Get the custom ISPConfig attribute set in the customer control panel 
-		if (is_numeric($customAttribute['value'])) {
-
-			/**
-			 * Client_id (IspConfig Attribute Set in ShineISP database in the setup of the panel)
-			 * @see Shineisp_Controller_Plugin_SetupcPanelsModules
-			 */ 
-			$clientId = $customAttribute['value'];
-			
-			// Check the existence of the clientId in the IspConfig panel
-			$record = $client->client_get ( $this->getSession (), $clientId );
-			
-			if ($record == false) {
-				
-				// If it is not present create the client first
-				return self::create_client($task);
-
-			}else{
-				return $clientId;
-			}
-			
-		}elseif (empty($customAttribute['value'])){
-			
-			// If it is not present create the client first
-			return self::create_client($task);
-			
-		}	
-		
-		// Logout from the IspConfig Remote System
-		$client->logout($this->getSession ());
-		
-		// Get the client id saved previously in the customer information page
-		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
-		
-		if(empty($customAttribute['value'])){
-			throw new Exception("There is no way to add the client in IspConfig Panel.", "3006");
-		}
-		
-		return $customAttribute['value'];
-		
-	}	
-	
 }
