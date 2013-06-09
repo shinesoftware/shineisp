@@ -315,12 +315,14 @@ class Isp extends BaseIsp {
 	 * findByUrl
 	 */
 	public static function findByUrl($url) {
-		return Doctrine_Query::create ()->select ( '*' )
+		
+		$isp = Doctrine_Query::create ()->select ( '*' )
 								->from ( 'Isp i' )
 								->leftJoin ( 'i.IspUrls iu' )
 								->where('iu.url = ?', $url)
 								->fetchOne();
 		
+		return $isp;
 	}	 
 	
 	

@@ -196,7 +196,7 @@ class DomainsTlds extends BaseDomainsTlds
         try {
             $record = Doctrine_Query::create ()
                     ->from ( 'DomainsTlds dt' )
-                    ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = ?".$locale)
+                    ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dtd.name = ?", $tld )
@@ -222,7 +222,7 @@ class DomainsTlds extends BaseDomainsTlds
         try {
             $record = Doctrine_Query::create ()
                     ->from ( 'DomainsTlds dt' )
-                    ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = ?".$locale)
+                    ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.WhoisServers ws')
                     ->leftJoin('dt.Taxes t')
@@ -247,7 +247,7 @@ class DomainsTlds extends BaseDomainsTlds
         
         try {
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
-            								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = ?".$locale)
+            								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
 											->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
@@ -267,7 +267,7 @@ class DomainsTlds extends BaseDomainsTlds
         
         try {
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
-            								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = ?".$locale)
+            								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
             								->where('dt.ishighlighted = ?', true)

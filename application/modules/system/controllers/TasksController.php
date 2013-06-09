@@ -15,6 +15,18 @@
 class System_TasksController extends Zend_Controller_Action {
 	
 	protected $translations;
+	public $events;
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	public function events()
+	{
+		return Zend_Registry::get('em');
+	}
 	
 	public function preDispatch() {
 		$registry = Zend_Registry::getInstance ();
