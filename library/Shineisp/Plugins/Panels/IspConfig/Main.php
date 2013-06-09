@@ -8,7 +8,6 @@
  */
 
 class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Panels_Interface {
-	
 
 	/**
 	 * Class constructor

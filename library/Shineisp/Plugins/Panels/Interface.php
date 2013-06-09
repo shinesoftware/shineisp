@@ -19,11 +19,11 @@ interface Shineisp_Plugins_Panels_Interface {
 	 */
 	public Function getActions();
 	
-	public Function create_client();
-	public Function create_database();
-	public Function create_ftp();
-	public Function create_mail();
-	public Function create_website();
+	public Function create_client(array $task);
+	public Function create_database(array $task);
+	public Function create_ftp(array $task, $websiteID);
+	public Function create_mail(array $task);
+	public Function create_website(array $task);
 	
 		
 }

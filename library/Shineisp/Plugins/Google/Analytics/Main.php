@@ -6,7 +6,7 @@
  * @author shinesoftware
  *
  */
-class Shineisp_Plugins_Google_Main implements Shineisp_Plugins_Interface {
+class Shineisp_Plugins_Google_Analytics_Main implements Shineisp_Plugins_Interface {
 
 	protected static $service;
 	public $events;

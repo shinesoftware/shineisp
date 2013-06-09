@@ -136,7 +136,7 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	 * Check the client and register it
 	 * @param unknown_type $task
 	 */
-	private function get_client_id(array $task) {
+	private function get_client_id($task) {
 		// Connection to the SOAP system
 		$client = $this->connect ();
 	
