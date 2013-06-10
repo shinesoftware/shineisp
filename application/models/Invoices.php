@@ -317,8 +317,8 @@ class Invoices extends BaseInvoices {
 			return false;
 		}
 		
-		$Order   = Doctrine::getTable ( 'Orders' )->findOneBy('invoice_id', $invoice_id);
-		$Invoice = Doctrine::getTable ( 'Invoices' )->find($invoice_id);
+		$Order   = Doctrine::getTable ('Orders')->findOneBy('invoice_id', $invoice_id);
+		$Invoice = Doctrine::getTable ('Invoices')->find($invoice_id);
 		if ( !$Invoice ) {
 			return $invoice_id;
 		}
@@ -327,6 +327,18 @@ class Invoices extends BaseInvoices {
 		$zero_fill = isset($zero_fill) ? intval($zero_fill) : 0;
 		$invoices_zero_prefix = str_pad($invoice_id, $zero_fill, '0', STR_PAD_LEFT);
 		$invoiceNumber        = str_pad($Invoice->number, $zero_fill, '0', STR_PAD_LEFT);
+		
+		// Invoice Count is the number of invoices associated to a customer
+		$invoicesCount = 0;
+		$q = Doctrine_Query::create()
+      		->select('COUNT(invoice_id) AS invoicesCount')
+      		->from('Invoices')
+			->where('customer_id = ?', $Invoice->customer_id)
+			->fetchArray();
+		if ( isset($q[0]) && isset($q[0]['invoicesCount'])) {
+			$invoicesCount = intval($q[0]['invoicesCount']);	
+		}
+		Shineisp_Commons_Utilities::log("Invoices count for customer_id ".$Invoice->customer_id.": ".$invoicesCount, 'invoices.log');
 
 		// Get all placeholders in orders_number_format
 		preg_match_all('/\[([a-zA-Z0-9_]+)\]/', $invoices_number_format, $out);
@@ -361,6 +373,8 @@ class Invoices extends BaseInvoices {
 					$v = substr($Invoice->invoice_date,5,2);	
 				} else if ( $placeholder == 'invoice_day' ) {
 					$v = substr($Invoice->invoice_date,8,2);	
+				} else if ( $placeholder == 'invoices_count' ) {
+					$v = $invoicesCount;	
 					
 				//* MISC
 				} else if ( $placeholder == 'RN' ) {
