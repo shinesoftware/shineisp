@@ -2162,14 +2162,14 @@ class Orders extends BaseOrders {
 	
 	
 	/**
-	 * Format the order id. Old way used as fallback
+	 * zero prefix order_id
 	 */
-	private static function formatOrderId_fallback($orderId) {
+	public static function zeroPrefix($orderId) {
 		// Get the administration preferences
-		$prefix = Settings::findbyParam('orders_zero_prefix', 'admin');
+		$prefix = Settings::findbyParam('orders_zero_prefix');
 
 		if(!empty($orderId) && is_numeric($prefix)){
-			return sprintf("%0" . $prefix . "d", $orderId);
+			return str_pad($orderId, $prefix, '0', STR_PAD_LEFT);
 		}elseif(!empty($orderId) && !is_numeric($prefix)){
 			return $orderId;
 		}
@@ -2201,7 +2201,7 @@ class Orders extends BaseOrders {
 			$orderId = intval($order);
 		}
 		
-		$orders_zero_prefix = self::formatOrderId_fallback($orderId);
+		$orders_zero_prefix = self::zeroPrefix($orderId);
 
 		$rs = Doctrine_Query::create ()->select ( "o.order_id, s.value AS orders_number_format
 													, YEAR(o.order_date) AS order_year
@@ -2226,13 +2226,19 @@ class Orders extends BaseOrders {
 		$orders_number_format = $rs->orders_number_format;
 		
 		// Get all placeholders in orders_number_format
-		preg_match_all('/\[([a-z0-9_]+)\]/', $orders_number_format, $out);
+		preg_match_all('/\[([a-zA-Z0-9_]+)\]/', $orders_number_format, $out);
 		if ( is_array($out) && isset($out[1]) ) {
 			foreach ( $out[1] as $placeholder ) {
 				if ( $placeholder == 'order_id' ) {
 					$v = $orders_zero_prefix;
 				} else if ( $placeholder == 'order_year2' ) {
 					$v = substr($rs->order_year,2,2);	
+				} else if ( $placeholder == 'RN' ) {
+					$v = mt_rand(0,9);
+				} else if ( $placeholder == 'RL' ) {
+					$v = chr(65 + mt_rand(0, 25));
+				} else if ( $placeholder == 'TS' ) {
+					$v = time();
 				} else {
 					$v = '['.$placeholder.']';
 					if ( isset($rs->{$placeholder})) {
@@ -2240,7 +2246,7 @@ class Orders extends BaseOrders {
 					}
 				}
 				
-				$orders_number_format = str_replace('['.$placeholder.']', $v, $orders_number_format);
+				$orders_number_format = preg_replace('/\['.$placeholder.'\]/', $v, $orders_number_format, 1);
 			}
 		}
 		

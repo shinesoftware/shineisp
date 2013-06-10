@@ -70,14 +70,14 @@ class InvoicesSettings extends BaseInvoicesSettings
     	// Check if a year is passed
     	self::checkSettings();
     	
-        $dq = Doctrine_Query::create ()
+        $record = Doctrine_Query::create ()
                 ->select ( 'next_number' )
                 ->from ( 'InvoicesSettings is' )
                 ->where('is.year = ?', date('Y'))
 				->andWhere('is.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
-                ->limit ( 1 );
-        
-        $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+                ->limit ( 1 )
+				->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+
         if (count ( $record ) > 0) {
             return $record[0] ['next_number'];
         } else {
@@ -91,13 +91,35 @@ class InvoicesSettings extends BaseInvoicesSettings
      * @return Doctrine Record
      */
     public static function setLastInvoice($current_invoice_number) {
-    	$q = Doctrine_Query::create()
+    	$isp_id = Shineisp_Registry::get('ISP')->isp_id;
+		$isp_id = intval($isp_id);
+		
+		$increment = 1; // TODO: this should be fetched from a setting
+		
+		// Try to get last invoice number
+        $record = Doctrine_Query::create ()
+                ->select ( 'setting_id' )
+                ->from ( 'InvoicesSettings is' )
+                ->where('is.year = ?', date('Y'))
+				->andWhere('is.isp_id = ?',$isp_id)
+                ->limit ( 1 )
+				->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
+		$record = array_shift($record);
+				
+		if ( $record['setting_id'] > 0 ) {
+			return Doctrine_Query::create()
 				    ->update('InvoicesSettings')
-				    ->set('next_number', $current_invoice_number + 1)
-				    ->where('year = ' . date('Y'))
-					->andWhere('isp_id = ?',Shineisp_Registry::get('ISP')->isp_id);
+					->set('next_number', $current_invoice_number + $increment)
+					->where('year = ?', date('Y'))
+					->andWhere('isp_id = ?',$isp_id)
+					->execute();
+		}
 
-        return $q->execute();
+		$InvoicesSettings = new self();
+		$InvoicesSettings->next_number = $current_invoice_number + $increment;
+		$InvoicesSettings->year        = date('Y');
+		$InvoicesSettings->isp_id      = $isp_id;
+		$InvoicesSettings->save();
     }   
 
     
