@@ -39,7 +39,7 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'i.order_number', 'alias' => 'order_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'i.invoice_date', 'alias' => 'invoice_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Cost' ), 'field' => 'o.cost', 'alias' => 'cost', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );

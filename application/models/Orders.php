@@ -37,7 +37,7 @@ class Orders extends BaseOrders {
 		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.number', 'alias' => 'invoice', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
 		
 		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
@@ -54,7 +54,7 @@ class Orders extends BaseOrders {
                                               DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
                                               o.is_renewal as is_renewal,
                                               o.grandtotal as grandtotal,
-                                              i.formatted_number as invoice,
+                                              i.formatted_number as formatted_number,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
                                               s.status as status";
