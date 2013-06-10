@@ -19,7 +19,7 @@ class Registrars extends BaseRegistrars
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.registrars_id', 'alias' => 'registrars_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'r.registrars_id', 'alias' => 'registrars_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -184,7 +184,7 @@ class Registrars extends BaseRegistrars
 		$items = array ();
 		
 		$records = Doctrine_Query::create ()->from ( 'Registrars r' )->where ( "active = ?", true )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		$translation = Zend_Registry::getInstance ()->Zend_Translate;
+		$translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if ($showempty) {
 			$items[] = $translation->translate ( 'No Registrar' );

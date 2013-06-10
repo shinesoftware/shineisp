@@ -46,7 +46,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 	 */
 	public function widget($records, $label, $controller="", $hiddencols=array(), $type="grid") {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$buttons = array();
 		$basepath = "";
 		if(!empty($records) && is_array($records)){		

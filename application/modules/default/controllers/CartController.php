@@ -20,8 +20,8 @@ class CartController extends Shineisp_Controller_Default {
 			$this->customer = $ns->customer;
 		}
 		
-		$this->currency = Zend_Registry::get ( 'Zend_Currency' );
-		$this->translator = Zend_Registry::get ( 'Zend_Translate' );
+		$this->currency = Shineisp_Registry::get ( 'Zend_Currency' );
+		$this->translator = Shineisp_Registry::get ( 'Zend_Translate' );
 		
 		$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
 	}

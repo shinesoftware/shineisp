@@ -20,7 +20,7 @@ class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	 */
 	public function setView(Zend_View_Interface $view) {
 		$this->view = $view;
-		$this->translation = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	/**

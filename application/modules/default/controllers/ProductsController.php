@@ -11,7 +11,7 @@ class ProductsController extends Shineisp_Controller_Default {
 	 */
 	
 	public function preDispatch() {
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	/**
@@ -197,8 +197,8 @@ class ProductsController extends Shineisp_Controller_Default {
 	 * Get the price of the product
 	 */
 	public function getpriceAction() {
-		$currency = Zend_Registry::get ( 'Zend_Currency' );
-    	$translator = Zend_Registry::get ( 'Zend_Translate' );
+		$currency = Shineisp_Registry::get ( 'Zend_Currency' );
+    	$translator = Shineisp_Registry::get ( 'Zend_Translate' );
 		
 		$id 		= $this->getRequest ()->getParam ( 'id' );
 		$refund 	= $this->getRequest ()->getParam ( 'refund' );

@@ -3,7 +3,7 @@ class Admin_Form_ProfileForm extends Zend_Form
 {   
     public function init()
     {
-    	$registry = Zend_Registry::getInstance ();
+    	$registry = Shineisp_Registry::getInstance ();
     	$auth = Zend_Auth::getInstance ();
     	if ($auth->hasIdentity ()) {
     		$logged_user= $auth->getIdentity ();

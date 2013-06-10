@@ -22,7 +22,7 @@ class BillingCycle extends BaseBillingCycle {
 	
 	public static function getList($empty = false, $onlydomain = false) {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
         
 		$dq = Doctrine_Query::create ()->from ( 'BillingCycle b' );
 		

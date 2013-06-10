@@ -1,7 +1,7 @@
 <?php
 /**
  * ShineISP new Plugin Architecture
- * @author GUEST.it s.r.l. <assistenza@guest.it>
+ * @author Shine Software. <info@shineisp.com>
  *
  */
 class Shineisp_Plugins {
@@ -11,7 +11,7 @@ class Shineisp_Plugins {
 	public function initAll() {
 		
 		// Get the Zend Event Manager
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		
 		$mainConfigfile = APPLICATION_PATH . "/configs/config.xml";
 			
@@ -55,10 +55,8 @@ class Shineisp_Plugins {
 				// Check if plugins looks good
 				$reflectionClass = new ReflectionClass($pluginName);
 				if ( ! ($reflectionClass->isInstantiable() && $reflectionClass->implementsInterface('Shineisp_Plugins_Interface') && is_callable(array($pluginName,'events')) ) ) {
-					Shineisp_Commons_Utilities::logs("Skipping not instantiable plugin '".$pluginName."'", "plugins.log" );
+					Shineisp_Commons_Utilities::logs("Skipping not instantiable plugin '".$pluginName."'" );
 					continue;
-				}else{
-					Shineisp_Commons_Utilities::logs("Open plugin '".$pluginName."'", "plugins.log" );
 				}
 
 				// Initialize

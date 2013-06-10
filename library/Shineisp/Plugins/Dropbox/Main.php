@@ -49,7 +49,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!$this->events && is_object($em)) {
 			$em->attach('invoices_pdf_created', array(__CLASS__, 'listener_invoice_upload'), 100);
 			$em->attach('orders_pdf_created', array(__CLASS__, 'listener_order_upload'), 100);

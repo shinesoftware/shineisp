@@ -22,7 +22,7 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	 */
 	public function events()
 	{
-		return Zend_Registry::get('em');
+		return Shineisp_Registry::get('em');
 	}
 						
 	/**
@@ -132,62 +132,6 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 		return $arrUsernames;
 	}
 	
-	/**
-	 * Check the client and register it
-	 * @param unknown_type $task
-	 */
-	private function get_client_id($task) {
-		// Connection to the SOAP system
-		$client = $this->connect ();
-	
-		if(!$client){
-			throw new Exception("There is no way to connect the client with the IspConfig Panel.", "3010");
-		}
-	
-		// Get the client id saved previously in the customer information page
-		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
-	
-		// Get the custom ISPConfig attribute set in the customer control panel
-		if (is_numeric($customAttribute['value'])) {
-	
-			/**
-			 * Client_id (IspConfig Attribute Set in ShineISP database in the setup of the panel)
-			 * @see Shineisp_Controller_Plugin_SetupcPanelsModules
-			 */
-			$clientId = $customAttribute['value'];
-				
-			// Check the existence of the clientId in the IspConfig panel
-			$record = $client->client_get ( $this->getSession (), $clientId );
-				
-			if ($record == false) {
-	
-				// If it is not present create the client first
-				return self::create_client($task);
-	
-			}else{
-				return $clientId;
-			}
-				
-		}elseif (empty($customAttribute['value'])){
-				
-			// If it is not present create the client first
-			return self::create_client($task);
-				
-		}
-	
-		// Logout from the IspConfig Remote System
-		$client->logout($this->getSession ());
-	
-		// Get the client id saved previously in the customer information page
-		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
-	
-		if(empty($customAttribute['value'])){
-			throw new Exception("There is no way to add the client in IspConfig Panel.", "3006");
-		}
-	
-		return $customAttribute['value'];
-	
-	}
 	
 	/**
 	 * Match all the product attribute fields and IspConfig fields

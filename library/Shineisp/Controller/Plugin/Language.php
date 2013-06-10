@@ -5,7 +5,7 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
 		$force = false;
 		
-		$registry = Zend_Registry::getInstance();
+		$registry = Shineisp_Registry::getInstance();
 		
 		// Check if the config file has been created
 		$isReady = Shineisp_Main::isReady();
@@ -28,15 +28,15 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 				$locale = new Zend_Locale($ns->lang);
 			}
 				
-			Shineisp_Commons_Utilities::log("System: Get the browser locale: " . $locale);
+			Shineisp_Commons_Utilities::log("System: Get the browser locale: " . $locale, "debug.log");
 		}catch (Exception $e){
-			Shineisp_Commons_Utilities::log("System: " . $e->getMessage());
+			Shineisp_Commons_Utilities::log("System: " . $e->getMessage(), "debug.log");
 			if(!empty($ns->lang)){
-				Shineisp_Commons_Utilities::log("System: Get the session var locale");
+				Shineisp_Commons_Utilities::log("System: Get the session var locale", "debug.log");
 				$locale = new Zend_Locale($ns->lang);
 			}else{
 				$locale = new Zend_Locale("en");
-				Shineisp_Commons_Utilities::log("System: There is not any available locale, set the default one: en_GB");
+				Shineisp_Commons_Utilities::log("System: There is not any available locale, set the default one: en_GB", "debug.log");
 			}
 		}
 		
@@ -73,8 +73,8 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		
 		$ns->lang = $lang;
 		
-		Shineisp_Commons_Utilities::log("System: Locale set: " . $locale);
-		Shineisp_Commons_Utilities::log("System: Language selected: " . $ns->lang);
+		Shineisp_Commons_Utilities::log("System: Locale set: " . $locale, "debug.log");
+		Shineisp_Commons_Utilities::log("System: Language selected: " . $ns->lang, "debug.log");
 		
 	}
 }

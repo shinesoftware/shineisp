@@ -20,9 +20,9 @@ class Invoices extends BaseInvoices {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!self::$events && is_object($em)) {
-			self::$events = Zend_Registry::get('em');
+			self::$events = Shineisp_Registry::get('em');
 		}
 	
 		return self::$events;
@@ -34,7 +34,7 @@ class Invoices extends BaseInvoices {
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -98,7 +98,7 @@ class Invoices extends BaseInvoices {
 	 */	
 	public static function getSummaryGrid($helper, $year) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Month nr.' ), 'field' => 'MONTH(o.order_date)', 'alias' => 'month', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Month' ), 'field' => 'date_format(o.order_date, "%M")', 'alias' => 'monthname', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
@@ -226,8 +226,8 @@ class Invoices extends BaseInvoices {
 	 * @return string
 	 */
 	public static function graph(array $years) {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$isp = Isp::getActiveISP();
 		$grosstotal = 0;
 		$total = 0;
@@ -275,7 +275,7 @@ class Invoices extends BaseInvoices {
 	 * @return string
 	 */
 	public static function graph_week($from, $to) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$isp = Isp::getActiveISP();
 		$total = 0;
 		
@@ -602,7 +602,7 @@ class Invoices extends BaseInvoices {
      * @return Ambigous <number, string, mixed>
      */
    	public static function Total($values) {
-   		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+   		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
    		
    		$value = 0;
    		if(count($values)>0){
@@ -670,7 +670,7 @@ class Invoices extends BaseInvoices {
      * @param unknown_type $invoiceid
      */
     public static function PrintPDF($invoice_id, $show = true, $force=false, $path="/documents/invoices/") {
-    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+    		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 			$pdf      = new Shineisp_Commons_PdfOrder ( );
     	
     		if(!is_numeric($invoice_id)){
@@ -695,7 +695,7 @@ class Invoices extends BaseInvoices {
 			}			
 			
 			
-    		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 			
 			$payments   = Payments::findbyorderid ( $invoice ['order_id'], null, true );
 			$order      = Orders::getAllInfo ( $invoice ['order_id'], null, true );
@@ -909,7 +909,7 @@ class Invoices extends BaseInvoices {
 	 */
 	public function bulk_dropbox_invoices($items){
 		try{
-			$translator = Zend_Registry::getInstance ()->Zend_Translate;
+			$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 			$invoices = Doctrine_Query::create ()->select('i.invoice_id, i.invoice_date, i.number')
 												 ->from ( 'Invoices i' )
 												 ->leftJoin('i.Customers c')
@@ -972,7 +972,7 @@ class Invoices extends BaseInvoices {
 	public function bulk_pdf_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
 		$orders = self::get_invoices($items, "invoice_id, number as num, order_id as orderid, DATE_FORMAT(invoice_date, '%d/%m/%Y') as invoicedate, 
@@ -1023,7 +1023,7 @@ class Invoices extends BaseInvoices {
 	 * @param array $items
 	 */
 	public function bulk_csv_export($items) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
 		$orders = self::get_invoices($items, "invoice_id, number as number, order_id as order, DATE_FORMAT(invoice_date, '%d/%m/%Y') as date, 

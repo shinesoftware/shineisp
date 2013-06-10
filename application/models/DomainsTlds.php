@@ -19,7 +19,7 @@ class DomainsTlds extends BaseDomainsTlds
 	 */
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -81,7 +81,7 @@ class DomainsTlds extends BaseDomainsTlds
 		$tld['ishighlighted']      = $params['ishighlighted'];
 		$tld['isrefundable']       = (isset($params['isrefundable'])) ? intval($params['isrefundable']) : 0;
   		$tld['tax_id']             = $params['tax_id']; 
-  		$tld['isp_id']             = Zend_Registry::get('ISP')->isp_id;     
+  		$tld['isp_id']             = Shineisp_Registry::get('ISP')->isp_id;     
 		
 		if($tld->trySave()){
 			if(is_numeric($tld['tld_id'])){
@@ -118,7 +118,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->from ( 'DomainsTldsData dtd' )
                     ->where ( "dtd.tld_id = ?", $id )
                     ->addWhere ( "dtd.language_id = ?", $locale )
-					->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->execute( array (), Doctrine_Core::HYDRATE_ARRAY );
         
         if(!empty($record[0])){
@@ -166,7 +166,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dt.tld_id = ?", $id )
-					->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
@@ -200,7 +200,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dtd.name = ?", $tld )
-					->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
@@ -227,7 +227,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.WhoisServers ws')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "tld_id = ?", $tld_id )
-					->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
@@ -250,7 +250,7 @@ class DomainsTlds extends BaseDomainsTlds
             								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
-											->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -271,7 +271,7 @@ class DomainsTlds extends BaseDomainsTlds
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
             								->where('dt.ishighlighted = ?', true)
-											->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -289,7 +289,7 @@ class DomainsTlds extends BaseDomainsTlds
         try {
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
             								->where('dt.ishighlighted = ?', true)
-            								->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+            								->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -310,7 +310,7 @@ class DomainsTlds extends BaseDomainsTlds
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
             								->where('dt.isrefundable = ?', true)
-											->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -329,7 +329,7 @@ class DomainsTlds extends BaseDomainsTlds
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
             								->where('dt.isrefundable = ?', true)
             								->addWhere('dt.tld_id = ?', $id)
-											->addWhere('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -348,7 +348,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
-					->where('dt.isp_id = ?',Zend_Registry::get('ISP')->isp_id)
+					->where('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		foreach ( $records as $c ) {

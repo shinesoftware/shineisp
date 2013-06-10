@@ -20,13 +20,13 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function GetButtons($module) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;		
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;		
 
 		// get all the buttons from the navigation table
 		$buttons = Navigation::getNavItems($module);
 
 		// get the active isp configuration
-		$isp = Zend_Registry::get('ISP');
+		$isp = Shineisp_Registry::get('ISP');
 		
 		// Get the URL of the Hosting Control Panel set to add it in the dashboard 
 		$panelsettings = SettingsParameters::getParameterbyGroupNameAndVar($isp->isppanel, $isp->isppanel . "_url");

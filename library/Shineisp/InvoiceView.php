@@ -9,7 +9,7 @@ class Shineisp_InvoiceView extends Zend_View {
 		parent::__construct($config);
 
 		$this->setScriptPath(realpath(APPLICATION_PATH . '/../public').'/skins/commons/invoices/');
-		$this->assign('translator', Zend_Registry::getInstance ()->Zend_Translate);
+		$this->assign('translator', Shineisp_Registry::getInstance ()->Zend_Translate);
 		
 		require_once('html2pdf.class.php');
 	}

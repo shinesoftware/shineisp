@@ -76,7 +76,7 @@ class StatusHistory extends BaseStatusHistory
 	 * @return Doctrine Record
 	 */
 	public static function getStatusList($sectionId, $statusSection="orders", $fields=null) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$data = array();
 		$i = 0;

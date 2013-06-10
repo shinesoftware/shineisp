@@ -617,6 +617,63 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			
 	}
 	
+	/**
+	 * Check the client and register it
+	 * @param unknown_type $task
+	 */
+	public function get_client_id($task) {
+		// Connection to the SOAP system
+		$client = $this->connect ();
+	
+		if(!$client){
+			throw new Exception("There is no way to connect the client with the IspConfig Panel.", "3010");
+		}
+	
+		// Get the client id saved previously in the customer information page
+		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
+	
+		// Get the custom ISPConfig attribute set in the customer control panel
+		if (is_numeric($customAttribute['value'])) {
+	
+			/**
+			 * Client_id (IspConfig Attribute Set in ShineISP database in the setup of the panel)
+			 * @see Shineisp_Controller_Plugin_SetupcPanelsModules
+			 */
+			$clientId = $customAttribute['value'];
+	
+			// Check the existence of the clientId in the IspConfig panel
+			$record = $client->client_get ( $this->getSession (), $clientId );
+	
+			if ($record == false) {
+	
+				// If it is not present create the client first
+				return $this->create_client($task);
+	
+			}else{
+				return $clientId;
+			}
+	
+		}elseif (empty($customAttribute['value'])){
+	
+			// If it is not present create the client first
+			return $this->create_client($task);
+	
+		}
+	
+		// Logout from the IspConfig Remote System
+		$client->logout($this->getSession ());
+	
+		// Get the client id saved previously in the customer information page
+		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
+	
+		if(empty($customAttribute['value'])){
+			throw new Exception("There is no way to add the client in IspConfig Panel.", "3006");
+		}
+	
+		return $customAttribute['value'];
+	
+	}
+	
 
 	/**
 	 * Connect into the remote ISPCONFIG webservice 
@@ -627,8 +684,8 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 	 * @return     string       Session variable
 	 * @access     private
 	 */
-	private function connect() {
-		$isp_id = Zend_Registry::get('ISP')->isp_id;
+	public function connect() {
+		$isp_id = Shineisp_Registry::get('ISP')->isp_id;
 		
 		// Get parameters saved in the database
 		$endpointlocation = Settings::findbyParam ( "ispconfig_endpointlocation", "admin", $isp_id );
@@ -640,6 +697,9 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			if (! empty ( $endpointlocation ) && ! empty ( $endpointuri ) && ! empty ( $username ) && ! empty ( $password )) {
 				$client = new SoapClient ( null, array ('location' => $endpointlocation, 'uri' => $endpointuri, 'trace' => 1, 'exceptions' => 1 ) );
 				$this->setSession ( $client->login ( $username, $password ) );
+				
+				// Execute a custom event
+				$this->events()->trigger('panels_connection', __CLASS__, array('soapclient' => $client));
 				
 				return $client;
 			} else {

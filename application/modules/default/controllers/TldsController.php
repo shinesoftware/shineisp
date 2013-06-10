@@ -17,7 +17,7 @@ class TldsController extends Shineisp_Controller_Default {
 	 */
 	
 	public function preDispatch() {
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}	
 	
 	/**

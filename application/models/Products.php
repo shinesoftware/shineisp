@@ -17,14 +17,14 @@ class Products extends BaseProducts {
 	 * create the configuration of the grid
 	 */
 	public static function grid($rowNum = 10, $locale = null) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if ( $locale === null ) {
 			$Session = new Zend_Session_Namespace ( 'Admin' );
 			$locale = $Session->langid;
 		}
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.product_id', 'alias' => 'product_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.product_id', 'alias' => 'product_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'SKU' ), 'field' => 'p.sku', 'alias' => 'sku', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -353,7 +353,7 @@ class Products extends BaseProducts {
 	 * @param boolean $taxincluded
 	 */
 	public static function getPriceSuggested($productid, $taxincluded=false) {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$price = 0;
 		
 		if (is_numeric ( $productid )) {
@@ -1014,7 +1014,7 @@ class Products extends BaseProducts {
 	 */
 	public static function getList($empty = false, $locale = 1) {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()

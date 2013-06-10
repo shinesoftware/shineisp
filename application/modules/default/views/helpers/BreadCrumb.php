@@ -8,7 +8,7 @@
 class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 	
 	public function breadCrumb() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translation = $registry->Zend_Translate;
 		$module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$l_m = strtolower ( $module );

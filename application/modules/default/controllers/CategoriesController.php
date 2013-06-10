@@ -14,7 +14,7 @@ class CategoriesController extends Shineisp_Controller_Default {
 	
 	public function preDispatch() {
 		$auth = Zend_Auth::getInstance ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->categories = new ProductsCategories ( );
 		$this->translator = $registry->Zend_Translate;
 	}

@@ -85,7 +85,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				// Get the main DNS servers set in the configuration
 				$dns = $this->getDnsServers();
 				
-				$locale = Zend_Registry::get('Zend_Locale');
+				$locale = Shineisp_Registry::get('Zend_Locale');
 				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
 				
 				// OVH handle two kind of registration for the domains it and the others
@@ -257,7 +257,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				// Get the main DNS servers set in the configuration
 				$dns = $this->getDnsServers();
 				
-				$locale = Zend_Registry::get('Zend_Locale');
+				$locale = Shineisp_Registry::get('Zend_Locale');
 				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
 				
 				// OVH handle two kind of registration for the domains it and the others

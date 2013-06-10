@@ -12,7 +12,7 @@
 	* @version 1.5
 */
 
-class System_TasksController extends Zend_Controller_Action {
+class System_TasksController extends Shineisp_Controller_Default {
 	
 	protected $translations;
 	public $events;
@@ -25,11 +25,13 @@ class System_TasksController extends Zend_Controller_Action {
 	 */
 	public function events()
 	{
-		return Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
+		return $em;
 	}
 	
+	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translations = $registry->Zend_Translate;
 		
         $this->_helper->layout()->disableLayout();
@@ -92,7 +94,7 @@ class System_TasksController extends Zend_Controller_Action {
 			
 			// Execute a custom event
 			self::events()->trigger('panels_task_before', $class, array('action' => $task ['action'], 'task' => $task));
-				
+
 			// Create the class registrar object 
 			$ISPclass = new $class ();
 			$action   = $task ['action'];

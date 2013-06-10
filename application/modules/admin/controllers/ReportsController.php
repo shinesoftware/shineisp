@@ -20,7 +20,7 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 	
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	/**

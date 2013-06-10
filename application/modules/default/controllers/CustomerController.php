@@ -30,7 +30,7 @@ class CustomerController extends Shineisp_Controller_Default {
 	public function signinAction() {
 		$request = $this->getRequest ();
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$customerparams = array ();
 		
 		// Check the request of redirection of the user

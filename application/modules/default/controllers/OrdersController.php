@@ -19,7 +19,7 @@ class OrdersController extends Shineisp_Controller_Default {
 			$this->_helper->redirector ( 'index', 'index', 'default' );
 		}
 		$this->customer = $NS->customer;
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->orders = new Orders ();
 		$this->translator = $registry->Zend_Translate;
 		
@@ -96,7 +96,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		$form     = $this->getForm ( '/orders/process' );
 		$id       = $this->getRequest ()->getParam ( 'id' );
 		$NS       = new Zend_Session_Namespace ( 'Default' );
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		try {
 			if (! empty ( $id ) && is_numeric ( $id )) {
@@ -213,7 +213,7 @@ class OrdersController extends Shineisp_Controller_Default {
 	 * @return unknown_type
 	 */
 	public function processAction() {
-		$isp = Zend_Registry::get('ISP');
+		$isp = Shineisp_Registry::get('ISP');
 		$request = $this->getRequest ();
 		
 		// Check if we have a POST request
@@ -473,7 +473,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		
 		if (! empty ( $response ['custom'] ) && is_numeric ( trim ( $response ['custom'] ) )) {
 			
-			$isp = Zend_Registry::get('ISP');
+			$isp = Shineisp_Registry::get('ISP');
 			
 			// Orderid back from the bank
 			$order_id = trim ( $response ['custom'] );

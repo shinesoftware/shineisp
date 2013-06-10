@@ -32,7 +32,7 @@ class Shineisp_Plugins_Registrars_Base implements Shineisp_Plugins_Interface  {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!$this->events && is_object($em)) {
 			$em->attach('registrars_start', array(__CLASS__, 'listener_registrars_starts'), 100);
 		}
@@ -50,7 +50,7 @@ class Shineisp_Plugins_Registrars_Base implements Shineisp_Plugins_Interface  {
 	 * @return ArrayObject
 	 */
 	public function getList($emptyitem = false) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$registrars = array();
 		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Registrars/";
 		

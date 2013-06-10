@@ -18,7 +18,7 @@ class Domains extends BaseDomains {
 	 */
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.domain_id', 'alias' => 'domain_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.domain_id', 'alias' => 'domain_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -166,7 +166,7 @@ class Domains extends BaseDomains {
 	 * @return void
 	 */
 	public static function updateDomains($items) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$mex = "";
 		
 		if (is_array ( $items )) {
@@ -1255,7 +1255,7 @@ class Domains extends BaseDomains {
 	 */
 	public static function getList($empty = false, $customer_id="") {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
         
 		$dq = Doctrine_Query::create ()->from ( 'Domains d' )
 										->leftJoin('d.DomainsTlds dt')
@@ -1392,7 +1392,7 @@ class Domains extends BaseDomains {
 	 * Full list of tld expiring month by month
 	 */
 	public static function tldSummaryPerMonth() {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$str = "";
 		$summary = self::getSummaryPerMonth ();
 		
@@ -1431,8 +1431,8 @@ class Domains extends BaseDomains {
 	public static function earningsSummary() {
 		$max = 0;
 		$total = 0;
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$str = "";
 		$summary = Domains::getSummary ();
 		if (isset ( $summary [0] )) {
@@ -1525,7 +1525,7 @@ class Domains extends BaseDomains {
 	 * @return boolean
 	 */
 	public static function check_availability($name, $tldid) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dchecker = new Shineisp_Commons_DomainChecker();
 		
 		if(!empty($name)){
@@ -1562,7 +1562,7 @@ class Domains extends BaseDomains {
 	 * @return Boolean
 	 */
 	public function bulk_delete($items) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		if (is_array ( $items )) {
 			try {
 				$retval = Doctrine_Query::create ()->delete ()->from ( 'Domains d' )->whereIn ( 'd.domain_id', $items )->execute ();
@@ -1585,7 +1585,7 @@ class Domains extends BaseDomains {
 	public function bulk_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the domains table
 		$domains = self::get_domains($items, "d.domain_id, 

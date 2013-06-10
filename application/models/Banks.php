@@ -19,7 +19,7 @@ class Banks extends BaseBanks
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'b.bank_id', 'alias' => 'bank_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'b.bank_id', 'alias' => 'bank_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

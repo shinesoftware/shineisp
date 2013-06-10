@@ -23,7 +23,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->orders = new Orders ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translator = $registry->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "orders" )->setModel ( $this->orders );
@@ -197,7 +197,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		
 		$form = $this->getForm ( '/admin/orders/process' );
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
@@ -341,7 +341,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * @return multitype:boolean multitype:string
 	 */
 	private function paymentsGrid() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$myrec = array ();
 		$requestId = $this->getParam('id');
 				

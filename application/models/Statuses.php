@@ -68,7 +68,7 @@ class Statuses extends BaseStatuses {
 	 * @param string $section
 	 */
 	public static function id($status, $section) {
-		return intval(Zend_Registry::get('Statuses')->$section->$status->status_id) ? intval(Zend_Registry::get('Statuses')->$section->$status->status_id) : null;
+		return intval(Shineisp_Registry::get('Statuses')->$section->$status->status_id) ? intval(Shineisp_Registry::get('Statuses')->$section->$status->status_id) : null;
 	}	
 
 	/**
@@ -79,7 +79,7 @@ class Statuses extends BaseStatuses {
 	 */
 	public static function getById($id) {
 		$id = intval($id);
-		return Zend_Registry::get('Statuses')->{'id:'.$id};
+		return Shineisp_Registry::get('Statuses')->{'id:'.$id};
 	}	
 
 	
@@ -93,7 +93,7 @@ class Statuses extends BaseStatuses {
 		$status = self::getById($status_id)->status;
 		
 		if ($status) {
-			$registry = Zend_Registry::getInstance ();
+			$registry = Shineisp_Registry::getInstance ();
 			$translation = $registry->Zend_Translate;
 			return $translation->translate ( $status );
 		}

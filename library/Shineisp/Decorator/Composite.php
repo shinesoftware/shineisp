@@ -43,7 +43,7 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 		$element = $this->getElement ();
 		$helper = $element->helper;
 		$attrs = $element->getAttribs ();
-		$translate = Zend_Registry::get ( 'Zend_Translate' );
+		$translate = Shineisp_Registry::get ( 'Zend_Translate' );
 		
 		if (! isset ( $attrs ['class'] )) {
 			$attrs ['class'] = "";

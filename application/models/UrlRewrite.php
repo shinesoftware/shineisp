@@ -19,7 +19,7 @@ class UrlRewrite extends BaseUrlRewrite
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'u.url_rewrite_id', 'alias' => 'url_rewrite_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'u.url_rewrite_id', 'alias' => 'url_rewrite_id', 'searchable' => true, 'type' => 'string' );

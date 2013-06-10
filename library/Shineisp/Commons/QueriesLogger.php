@@ -15,7 +15,7 @@ class Shineisp_Commons_QueriesLogger extends Doctrine_EventListener {
         	$breadcrumps[] = $class . "->" . $caller['function'] ;
         }
         
-        $strBreadcrump = implode(" / ", $breadcrumps);
+        $strBreadcrump = "System: " . implode(" / ", $breadcrumps);
         
         //the below makes some naive assumptions about the queries being logged
         while (sizeof($params) > 0) {
@@ -32,10 +32,10 @@ class Shineisp_Commons_QueriesLogger extends Doctrine_EventListener {
         Shineisp_Commons_Utilities::log ( $strBreadcrump, "debug.log", Zend_Log::DEBUG);
 		
 		// Increase query counter
-		$queryCount = Zend_Registry::isRegistered('querycount') ? Zend_Registry::get('querycount') : 0;
+		$queryCount = Shineisp_Registry::isRegistered('querycount') ? Shineisp_Registry::get('querycount') : 0;
 		$queryCount = $queryCount +1;
 		
-		Zend_Registry::set('querycount', $queryCount);
+		Shineisp_Registry::set('querycount', $queryCount);
 		
     }
 

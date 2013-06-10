@@ -22,9 +22,9 @@ class Orders extends BaseOrders {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!self::$events && is_object($em)) {
-			self::$events = Zend_Registry::get('em');
+			self::$events = Shineisp_Registry::get('em');
 		}
 	
 		return self::$events;
@@ -32,7 +32,7 @@ class Orders extends BaseOrders {
 	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
@@ -365,7 +365,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function saveAll($params, $id="") {
 		$orders     = new Orders();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		try{
 			// Set the new values
@@ -1055,7 +1055,7 @@ class Orders extends BaseOrders {
 	public static function applyLateFee($orderid) {
 		$oderid = (int)$orderid;
 		if ( $oderid > 0 ) {
-			$translations = Zend_Registry::getInstance ()->Zend_Translate;
+			$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 			
 			$order = self::find ( $orderid );
 			if ( !isset($order->order_id) || !is_numeric($order->order_id) ) {
@@ -1753,7 +1753,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getList($empty = false) {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, s.status as status, CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname" )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->leftJoin ( 'o.Statuses s' );
@@ -1840,7 +1840,7 @@ class Orders extends BaseOrders {
 	 * @return Doctrine Record / Array
 	 */
 	public static function getStatus($id, $retarray = false) {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		$dq = Doctrine_Query::create ()->select ( 'o.order_id, s.status' )->from ( 'Orders o' )->leftJoin ( 'o.Statuses s' )->where ( "order_id = $id" );
 		
@@ -2259,13 +2259,13 @@ class Orders extends BaseOrders {
      */
     public static function pdf($order_id, $show = true, $force=false, $path="/documents/orders/") {
     		$taxpercent = "";
-    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+    		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
     		if(!is_numeric($order_id)){
     			return false;
     		}
     		
     		$pdf = new Shineisp_Commons_PdfOrder ( );
-    		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 			$payments = Payments::findbyorderid ( $order_id, null, true );
 			$order = self::getAllInfo ( $order_id, null, true );
 			
@@ -2429,8 +2429,8 @@ class Orders extends BaseOrders {
 	 * @return array
 	 */
 	public static function Last(array $statuses, $limit=10) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$currency   = Zend_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$currency   = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
@@ -2935,7 +2935,7 @@ class Orders extends BaseOrders {
 	public function bulk_export($items) {
 		$isp = Isp::getCurrentId();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
 		$orders = self::get_orders($items, "order_id, i.number as invoicenum, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, total as total, vat as vat, grandtotal as grandtotal, s.status as status", 'order_date');

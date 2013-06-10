@@ -9,7 +9,7 @@ class Shineisp_Controller_Default extends Shineisp_Controller_Common {
 		// Store logged ISP. I'm in the public area, se we use only the URL
 		$ISP = Isp::findByUrl($_SERVER['HTTP_HOST']);
 		
-		Zend_Registry::set('ISP', $ISP);
+		Shineisp_Registry::set('ISP', $ISP);
 		
 		parent::init();
     }	

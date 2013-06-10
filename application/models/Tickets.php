@@ -14,7 +14,7 @@ class Tickets extends BaseTickets {
 	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string' );
@@ -379,7 +379,7 @@ class Tickets extends BaseTickets {
 	 */
 	public static function getList($empty = false) {
 		$items = array ();
-		$translations = Zend_Registry::getInstance ()->Zend_Translate;
+		$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$records = Doctrine_Query::create ()
 		              ->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )
@@ -406,7 +406,7 @@ class Tickets extends BaseTickets {
 	 */
 	public static function getListbyCustomerId($customer_id, $empty = false, $abbreviation=false) {
 		$items = array ();
-		$translations = Zend_Registry::getInstance ()->Zend_Translate;
+		$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject, s.status as status" )
 											->from ( 'Tickets t' )
@@ -437,7 +437,7 @@ class Tickets extends BaseTickets {
 	 * Save the data
 	 */
 	public static function saveNew($params, $customerid) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$tickets = new Tickets ();
 		
 		$operatorId = Settings::findbyParam('tickets_operator', 'admin', Isp::getActiveISPID());
@@ -775,7 +775,7 @@ class Tickets extends BaseTickets {
     public function bulkexport($items) {
     	$isp = Isp::getActiveISP();
     	$pdf = new Shineisp_Commons_PdfList();
-    	$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    	$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
     
     	$fields = " t.ticket_id,
 					t.subject as subject, 

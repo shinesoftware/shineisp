@@ -107,7 +107,7 @@ class CommonController extends Shineisp_Controller_Default {
 	 * @return string 
 	 */
 	public function searchAction() {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
 		
 		$q = $request->getParam ( 'q' );
@@ -135,7 +135,7 @@ class CommonController extends Shineisp_Controller_Default {
 	 * @return string
 	 */
 	public function searchdomainAction() {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
 		
 		$NS = new Zend_Session_Namespace ( 'Default' );
@@ -165,8 +165,8 @@ class CommonController extends Shineisp_Controller_Default {
      *  Check the domain availability
      */
 	public function checkdomainAction() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
 		try{
 			if ($request->getPost ()) {

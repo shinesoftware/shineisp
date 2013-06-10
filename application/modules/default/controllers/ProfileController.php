@@ -19,7 +19,7 @@ class ProfileController extends Shineisp_Controller_Default {
 	 */
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
@@ -235,7 +235,7 @@ class ProfileController extends Shineisp_Controller_Default {
 						$body = str_replace ( "[user]", $params ['firstname'] . " " . $params ['lastname'], $body );
 						$body = str_replace ( "[old]", print_r($oldCustomer, true), $body );
 						$body = str_replace ( "[new]", print_r($customer->toArray(), true), $body );
-						$isp = Zend_Registry::get('ISP');
+						$isp = Shineisp_Registry::get('ISP');
 						Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body );
 					}
 				}

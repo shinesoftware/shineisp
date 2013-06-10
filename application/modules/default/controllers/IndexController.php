@@ -36,7 +36,7 @@ class IndexController extends Shineisp_Controller_Default {
 			
 		}
 				
-		$this->view->headertitle = "S: ".Zend_Registry::get('ISP')->slogan;
+		$this->view->headertitle = "S: ".Shineisp_Registry::get('ISP')->slogan;
 		
 	}
 
@@ -66,7 +66,7 @@ class IndexController extends Shineisp_Controller_Default {
 		$request = $this->getRequest ();
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
 						
 		$secretKey = $request->getParam ( 'id' );
@@ -105,7 +105,7 @@ class IndexController extends Shineisp_Controller_Default {
 	
 	public function passwordAction() {
 		$request    = $this->getRequest ();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if ($request->isPost ()) {
 			$email    = $request->getParam ( 'account' );
@@ -135,7 +135,7 @@ class IndexController extends Shineisp_Controller_Default {
 	public function resetpwdAction() {
 		$request    = $this->getRequest ();
 		$resetKey   = $request->getParam ( 'id' );
-		$registry   = Zend_Registry::getInstance ();
+		$registry   = Shineisp_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
 		$customer   = Customers::getCustomerByResetKey ( $resetKey );
 

@@ -34,7 +34,7 @@ class Shineisp_Plugins_Google_Analytics_Main implements Shineisp_Plugins_Interfa
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		return $em;
 	}	
 	

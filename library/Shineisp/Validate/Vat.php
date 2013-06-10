@@ -18,7 +18,7 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
     public $viesOutput   = array();
     
     private function eu_check() {
-    	$isp = Zend_Registry::get('ISP');
+    	$isp = Shineisp_Registry::get('ISP');
 		
         $VIES = new SoapClient($this->vies_soap_url);
 

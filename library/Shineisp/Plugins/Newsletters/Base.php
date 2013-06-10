@@ -16,7 +16,7 @@ class Shineisp_Plugins_Newsletters_Base implements Shineisp_Plugins_Interface {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!$this->events && is_object($em)) {
 			$em->attach('newsletters_start', array(__CLASS__, 'listener_newsletters_start'), 100);
 		}

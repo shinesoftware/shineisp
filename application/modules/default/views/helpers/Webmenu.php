@@ -18,7 +18,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		if (!empty($NS->customer)) {
 			$this->view->user = $NS->customer;
 		}
-		$translation = Zend_Registry::getInstance ()->Zend_Translate;
+		$translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$locale = $translation->getAdapter ()->getLocale ();
 		if(strlen($locale)==2){
 			$locale = $locale . "_" . strtoupper($locale);
