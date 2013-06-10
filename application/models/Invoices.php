@@ -975,12 +975,18 @@ class Invoices extends BaseInvoices {
 						mkdir(PUBLIC_PATH.$invoicePath, 0700, true);
 					}
 					
+					// Template name
+					$templateName = Settings::findByParam('invoice_template');
+					if ( empty($templateName) ) {
+						$templateName = Shineisp_Commons_Utilities::getFirstFile(PUBLIC_PATH.'/skins/commons/invoices', '/\.phtml$/');	
+					}
+										
 					$Shineisp_InvoiceView = new Shineisp_InvoiceView();
 					$Shineisp_InvoiceView->assign('header',  $database['header']);
 					$Shineisp_InvoiceView->assign('columns', $database['columns']);
 					$Shineisp_InvoiceView->assign('data',    $database['records']);
 					
-					$html = $Shineisp_InvoiceView->render('template1.phtml');
+					$html = $Shineisp_InvoiceView->render($templateName);
 					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
 	    			$html2pdf->WriteHTML($html);
 	    			$html2pdf->Output(PUBLIC_PATH.$filename,'F');

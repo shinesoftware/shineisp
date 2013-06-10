@@ -36,6 +36,16 @@ class Shineisp_Commons_Utilities {
 		}
 	}
 	
+	public static function getFirstFile( $dirpath, $regexp ) {
+		foreach (new DirectoryIterator($dirpath) as $fileInfo) {
+    		if ( $fileInfo->isDot() ) continue;
+			
+			if ( $fileInfo->isFile() && preg_match($regexp, $fileInfo->getFilename()) )
+				return $fileInfo->getFilename();
+		}
+		
+	}
+	
 	/**
 	 * Get the quarter number by month number
 	 * @param unknown_type $monthNumber

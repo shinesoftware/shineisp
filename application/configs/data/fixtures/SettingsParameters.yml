@@ -494,3 +494,12 @@ SettingsParameters:
     description: 'Invoice sequential number increment.'
     SettingsGroups: SettingsGroups_1
     config: null
+  SettingsParameters_61:
+    name: 'Invoices template'
+    var: invoice_template
+    type: select
+    module: admin
+    enabled: '1'
+    description: 'Invoice template to be used when creating the invoice.'
+    SettingsGroups: SettingsGroups_1
+    config: '{"class":"Settings","method":"getInvoiceTemplateList"}'    

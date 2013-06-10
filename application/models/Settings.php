@@ -193,7 +193,27 @@ class Settings extends BaseSettings {
 	public static function getAutoInvoiceGenerationValues() {
 		return array('0'=>"Don't automatically create an invoice as soon the whole order is paid", '1'=>'Automatically create an invoice as soon the whole order is paid');
 	}
-	
+
+	/**
+	 * Get invoice template list
+	 */
+	public static function getInvoiceTemplateList() {
+		$arrTemplates = array();
+		
+		foreach (new DirectoryIterator(PUBLIC_PATH.'/skins/commons/invoices') as $fileInfo) {
+    		if ( $fileInfo->isDot() ) continue;
+			
+			$fileName = $fileInfo->getFilename();
+			
+			if ( !preg_match('/\.phtml$/', $fileName) ) continue;
+			
+			$arrTemplates[$fileName] = $fileName;
+		}
+
+		return $arrTemplates;
+	}
+
+
 	/**
      * findbyParam
      * Get a record by the Parameter.
