@@ -17,7 +17,7 @@ class ProductsAttributes extends BaseProductsAttributes {
 	 * create the configuration of the grid
 	 */
 	public static function grid($rowNum = 10, $locale = null) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if ( $locale === null ) {
 			$Session = new Zend_Session_Namespace ( 'Admin' );

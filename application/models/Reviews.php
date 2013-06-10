@@ -19,7 +19,7 @@ class Reviews extends BaseReviews
 	 */	
 	public static function grid() {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'string' );
@@ -141,7 +141,7 @@ class Reviews extends BaseReviews
     public static function getXMLDataMap($locale=1){
     	$data = array();
     	$j=0;
-    	$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    	$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
     	
     	$records = Doctrine_Query::create ()
     					->from ( 'Reviews r' )
@@ -317,7 +317,7 @@ class Reviews extends BaseReviews
 	public function bulk_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the reviews table
 		$reviews = self::get_reviews($items, "review_id, nick, subject, review");

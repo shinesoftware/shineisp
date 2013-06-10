@@ -8,7 +8,7 @@ class ContactsController extends Shineisp_Controller_Default {
 	protected $translations;
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
         $this->translations = $registry->Zend_Translate;
 	}
 	
@@ -54,7 +54,7 @@ class ContactsController extends Shineisp_Controller_Default {
 			if ($captchaInput == $captchaWord) {
 				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'contact' );
 				if ($retval) {
-					$isp = Zend_Registry::get('ISP');
+					$isp = Shineisp_Registry::get('ISP');
 					$subject = $retval ['subject'];
 					$subject = str_replace ( "[subject]", $this->translations->translate("Message from the website"), $subject );
 					$body = $retval ['template'];

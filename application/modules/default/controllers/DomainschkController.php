@@ -126,9 +126,9 @@ class DomainschkController extends Shineisp_Controller_Default {
      *  Check the domain availability
      */
 	public function checkAction() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$form = new Default_Form_DomainsinglecheckerForm ( array ('action' => '/domainschk/check', 'method' => 'post' ) );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
 		try{
 			if ($request->getPost ()) {
@@ -177,8 +177,8 @@ class DomainschkController extends Shineisp_Controller_Default {
 	 */
 	private function chktlds($name, $exluded=""){
 		$result = array();
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$tlds = DomainsTlds::getAll();
 		
 		foreach ($tlds as $tld) {

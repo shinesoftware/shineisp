@@ -7,15 +7,14 @@
  *
  */
 
-class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implements Shineisp_Api_Panels_Interface {
-	
+class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Panels_Interface {
 
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
 		$this->setName ( "IspConfig" );
-		$this->setPath ( PUBLIC_PATH . "/../library/Shineisp/Api/Panels/IspConfig" );
+		$this->setPath ( PUBLIC_PATH . "/../library/Shineisp/Plugins/Panels/IspConfig" );
 	}
 
 	/**
@@ -618,7 +617,62 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 			
 	}
 	
-	############################################## ISPCONFIG STANDARD METHODS ##############################################
+	/**
+	 * Check the client and register it
+	 * @param unknown_type $task
+	 */
+	public function get_client_id($task) {
+		// Connection to the SOAP system
+		$client = $this->connect ();
+	
+		if(!$client){
+			throw new Exception("There is no way to connect the client with the IspConfig Panel.", "3010");
+		}
+	
+		// Get the client id saved previously in the customer information page
+		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
+	
+		// Get the custom ISPConfig attribute set in the customer control panel
+		if (is_numeric($customAttribute['value'])) {
+	
+			/**
+			 * Client_id (IspConfig Attribute Set in ShineISP database in the setup of the panel)
+			 * @see Shineisp_Controller_Plugin_SetupcPanelsModules
+			 */
+			$clientId = $customAttribute['value'];
+	
+			// Check the existence of the clientId in the IspConfig panel
+			$record = $client->client_get ( $this->getSession (), $clientId );
+	
+			if ($record == false) {
+	
+				// If it is not present create the client first
+				return $this->create_client($task);
+	
+			}else{
+				return $clientId;
+			}
+	
+		}elseif (empty($customAttribute['value'])){
+	
+			// If it is not present create the client first
+			return $this->create_client($task);
+	
+		}
+	
+		// Logout from the IspConfig Remote System
+		$client->logout($this->getSession ());
+	
+		// Get the client id saved previously in the customer information page
+		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
+	
+		if(empty($customAttribute['value'])){
+			throw new Exception("There is no way to add the client in IspConfig Panel.", "3006");
+		}
+	
+		return $customAttribute['value'];
+	
+	}
 	
 
 	/**
@@ -630,8 +684,8 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 	 * @return     string       Session variable
 	 * @access     private
 	 */
-	private function connect() {
-		$isp_id = Zend_Registry::get('ISP')->isp_id;
+	public function connect() {
+		$isp_id = Shineisp_Registry::get('ISP')->isp_id;
 		
 		// Get parameters saved in the database
 		$endpointlocation = Settings::findbyParam ( "ispconfig_endpointlocation", "admin", $isp_id );
@@ -644,6 +698,9 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 				$client = new SoapClient ( null, array ('location' => $endpointlocation, 'uri' => $endpointuri, 'trace' => 1, 'exceptions' => 1 ) );
 				$this->setSession ( $client->login ( $username, $password ) );
 				
+				// Execute a custom event
+				$this->events()->trigger('panels_connection', __CLASS__, array('soapclient' => $client));
+				
 				return $client;
 			} else {
 				throw new Exception ( "ISPConfig: " . __FUNCTION__ . " - Connection error. Check the credentials" );
@@ -654,117 +711,5 @@ class Shineisp_Api_Panels_Ispconfig_Main extends Shineisp_Api_Panels_Base implem
 		
 		return false;
 	}
-	
-	
-	/**
-	 * Match all the product attribute fields and IspConfig fields
-	 * 
-	 * 
-	 * Match all the system product attribute from ShineISP  
-	 * and the IspConfig fields set in the configuration file
-	 * located in the /library/Shineisp/Api/Panels/IspConfig/config.xml
-	 * 
-	 * @param array $attributes --> ShineISP System Product Attribute
-	 * @param array $record 	--> IspConfig Client Record 
-	 * @return ArrayObject
-	 */
-	private function matchFieldsValues(array $attributes, array $record = array()) {
-		$fields = array ();
 
-		// Loop of system product attributes
-		foreach ( $attributes as $attribute => $value ) {
-			// Get the saved system attribute
-			$sysAttribute = ProductsAttributes::getAttributebyCode($attribute);
-			
-			if(!empty($sysAttribute[0]['system_var'])){
-				$sysVariable = $sysAttribute[0]['system_var'];
-				// Get the system product attribute
-				$modAttribute = Panels::getXmlFieldbyAttribute ( "IspConfig", $sysVariable );
-
-				if(!empty($modAttribute ['field'])){
-					// Sum the old resource value with the new ones
-					if(!empty($record[$modAttribute ['field']])){
-						
-						/**
-						 * Now we have to sum the resource previously added
-						 * in the client IspConfig profile with the new one 
-						 */ 
-						if($modAttribute ['type'] == "integer"){
-							if($record[$modAttribute ['field']] == "-1"){
-								$value = "-1";
-							}else{
-								$value += $record[$modAttribute ['field']];
-							}
-						} 
-					}
-								
-					if (! empty ( $value )) {
-						$fields [$modAttribute ['field']] = $value;
-					} else {
-						$fields [$modAttribute ['field']] = $modAttribute ['default'];
-					}
-				}
-			}
-		}
-
-		return $fields;
-	}
-
-	/**
-	 * Check the client and register it
-	 * @param unknown_type $task
-	 */
-	private function get_client_id(array $task) {
-		// Connection to the SOAP system
-		$client = $this->connect ();
-		
-		if(!$client){
-			throw new Exception("There is no way to connect the client with the IspConfig Panel.", "3010");
-		}
-		
-		// Get the client id saved previously in the customer information page
-		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
-		
-		// Get the custom ISPConfig attribute set in the customer control panel 
-		if (is_numeric($customAttribute['value'])) {
-
-			/**
-			 * Client_id (IspConfig Attribute Set in ShineISP database in the setup of the panel)
-			 * @see Shineisp_Controller_Plugin_SetupcPanelsModules
-			 */ 
-			$clientId = $customAttribute['value'];
-			
-			// Check the existence of the clientId in the IspConfig panel
-			$record = $client->client_get ( $this->getSession (), $clientId );
-			
-			if ($record == false) {
-				
-				// If it is not present create the client first
-				return self::create_client($task);
-
-			}else{
-				return $clientId;
-			}
-			
-		}elseif (empty($customAttribute['value'])){
-			
-			// If it is not present create the client first
-			return self::create_client($task);
-			
-		}	
-		
-		// Logout from the IspConfig Remote System
-		$client->logout($this->getSession ());
-		
-		// Get the client id saved previously in the customer information page
-		$customAttribute = CustomAttributes::getAttribute($task['customer_id'], 'client_id');
-		
-		if(empty($customAttribute['value'])){
-			throw new Exception("There is no way to add the client in IspConfig Panel.", "3006");
-		}
-		
-		return $customAttribute['value'];
-		
-	}	
-	
 }

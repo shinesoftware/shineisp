@@ -20,7 +20,7 @@ class DomainsController extends Shineisp_Controller_Default {
 		}
 		$this->customer = $NS->customer;
 		$this->domains = new Domains ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Set the navigation menu for the client control panel page on the left sidebar
 		#$this->view->placeholder ( "left" )->append ( $string);	
@@ -106,7 +106,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			try {
 				$Orderid = Orders::createOrderWithMultiProducts ( $items, $this->customer ['customer_id'] );
 				
-				$isp   = Zend_Registry::get('ISP');
+				$isp   = Shineisp_Registry::get('ISP');
 				$order = Orders::getAllInfo ( $Orderid, null, true );
 				$link  = Fastlinks::findlinks ( $Orderid, $this->customer ['customer_id'], 'orders' );
 				
@@ -296,7 +296,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			// Save the message note
 			if (! empty ( $params ['note'] )) {
 				Messages::addMessage($params ['note'], $this->customer ['customer_id'], $id);
-				$isp = Zend_Registry::get('ISP');
+				$isp = Shineisp_Registry::get('ISP');
 				
 				$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 				$placeholder['message'] = $params ['note'];

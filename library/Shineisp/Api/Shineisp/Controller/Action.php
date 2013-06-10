@@ -16,7 +16,7 @@ abstract class Shineisp_Api_Shineisp_Controller_Action extends Shineisp_Controll
 			$isp_id = intval($auth['isp_id']);
 			
 			$ISP = new Isp();
-			Zend_Registry::set('ISP', $ISP->find($isp_id));
+			Shineisp_Registry::set('ISP', $ISP->find($isp_id));
 		}
 		 */		
 		

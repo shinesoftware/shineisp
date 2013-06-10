@@ -37,16 +37,16 @@ class Shineisp_Commons_PdfOrder {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!self::$events && is_object($em)) {
-			self::$events = Zend_Registry::get('em');
+			self::$events = Shineisp_Registry::get('em');
 		}
 	
 		return self::$events;
 	}
 	
 	public function __construct() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		
 		$this->h = PAGE_HEIGHT;
 		
@@ -571,7 +571,7 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function FooterDetails() {
-		$locale = Zend_Registry::get ( 'Zend_Locale' );
+		$locale = Shineisp_Registry::get ( 'Zend_Locale' );
 		
 		if ($this->h < 190) {
 			$this->CreatePage ();

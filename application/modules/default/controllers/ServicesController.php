@@ -20,7 +20,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		}
 		
 		$this->customer = $NS->customer;
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->services = new OrdersItems ( );
 		$this->translator = $registry->Zend_Translate;
 		
@@ -111,7 +111,7 @@ class ServicesController extends Shineisp_Controller_Default {
 	 * @return unknown_type
 	 */
 	public function editAction() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -199,7 +199,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		if (! empty ( $params ['message'] )) {
 			
 			Messages::addMessage($params ['message'], $this->customer ['customer_id'], null, null, $id);
-			$isp = Zend_Registry::get('ISP');
+			$isp = Shineisp_Registry::get('ISP');
 			
 			$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 			$placeholder['messagetype'] = $this->translator->translate('Order Details');

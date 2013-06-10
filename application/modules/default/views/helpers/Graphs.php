@@ -15,7 +15,7 @@ class Zend_View_Helper_Graphs extends Zend_View_Helper_Abstract {
 	
 	public function tldSummary() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translation = $registry->Zend_Translate;
 		
 		if (!empty($NS->customer)) {
@@ -41,7 +41,7 @@ class Zend_View_Helper_Graphs extends Zend_View_Helper_Abstract {
      */
 	public function tldSummaryPerMonth() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translation = $registry->Zend_Translate;
 		$domains = array ();
 		

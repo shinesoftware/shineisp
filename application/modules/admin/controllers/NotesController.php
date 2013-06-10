@@ -23,7 +23,7 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->notes = new Notes();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "notes" )->setModel ( $this->notes );				
 	}

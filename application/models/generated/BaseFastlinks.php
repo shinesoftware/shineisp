@@ -106,6 +106,15 @@ abstract class BaseFastlinks extends Doctrine_Record
              'autoincrement' => false,
              'length' => '4',
              ));
+
+
+        $this->index('code', array(
+             'fields' => 
+             array(
+              0 => 'code',
+             ),
+             'type' => 'unique',
+             ));
     }
 
     public function setUp()

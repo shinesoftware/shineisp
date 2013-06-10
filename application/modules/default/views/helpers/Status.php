@@ -12,7 +12,7 @@
 class Zend_View_Helper_Status extends Zend_View_Helper_Abstract {
 
 	public function Status($items) {
-		$translation = Zend_Registry::getInstance ()->Zend_Translate;
+		$translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$this->view->data = $items;
 		

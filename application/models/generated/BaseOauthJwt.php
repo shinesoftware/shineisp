@@ -42,10 +42,10 @@ abstract class BaseOauthJwt extends Doctrine_Record
              'notnull' => true,
              'length' => '4',
              ));
-        $this->hasColumn('subject', 'string', 250, array(
+        $this->hasColumn('subject', 'string', 2048, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '250',
+             'length' => '2048',
              ));
         $this->hasColumn('public_key', 'string', null, array(
              'type' => 'string',

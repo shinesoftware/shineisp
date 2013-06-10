@@ -13,7 +13,7 @@ class Shineisp_Controller_Admin extends Shineisp_Controller_Common {
 			$isp_id = intval($auth['isp_id']);
 			
 			$ISP = new Isp();
-			Zend_Registry::set('ISP', $ISP->find($isp_id));
+			Shineisp_Registry::set('ISP', $ISP->find($isp_id));
 		}
 
 		parent::init();

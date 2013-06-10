@@ -871,7 +871,7 @@ class Shineisp_Commons_Utilities {
 	public static function getEmailTemplate($template, $language_id = null) {
 		$fallbackLocale = "en_US";
 		$subject = "";
-		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
+		$locale  = Shineisp_Registry::get ( 'Zend_Locale' )->toString();
 		
 		if(empty($language_id)){
 			$language_id = Languages::get_language_id($locale);
@@ -913,7 +913,7 @@ class Shineisp_Commons_Utilities {
 			
 			
 			// TODO: properly manage ISP ID
-			$isp = Zend_Registry::get('ISP')->toArray();
+			$isp = Shineisp_Registry::get('ISP')->toArray();
 
 			$body = trim($body);
 			$subject = trim($subject);
@@ -1135,7 +1135,7 @@ class Shineisp_Commons_Utilities {
 		if (empty ( $dbindata ))
 			return false;
 		
-		$locale = Zend_Registry::get('Zend_Locale');
+		$locale = Shineisp_Registry::get('Zend_Locale');
 		$date = new Zend_Date($dbindata, "yyyy-MM-dd HH:mm:ss", $locale);
 
 		// override the preferences

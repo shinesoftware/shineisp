@@ -6,9 +6,10 @@
  * @author shinesoftware
  *
  */
-class Shineisp_Api_Google_Analytics {
+class Shineisp_Plugins_Google_Analytics_Main implements Shineisp_Plugins_Interface {
 
 	protected static $service;
+	public $events;
 	
 	/**
 	 * Do the login
@@ -24,6 +25,18 @@ class Shineisp_Api_Google_Analytics {
 			Shineisp_Commons_Utilities::logs ($e->getMessage(), "shineisp.log" );
 		}
 	}
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	public function events()
+	{
+		$em = Shineisp_Registry::get('em');
+		return $em;
+	}	
 	
 	/**
 	 * get the New and Return Visitors

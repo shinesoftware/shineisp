@@ -39,7 +39,7 @@ class Shineisp_Commons_Ajaxgrid {
 		$this->hiddencols = array();
 		$this->massactions = array ();
 		$this->statuses = array ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->currentaction = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		$this->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$this->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();

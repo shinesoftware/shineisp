@@ -34,6 +34,7 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property BillingCycle $BillingCycle
  * @property Statuses $Statuses
  * @property Reviews $Reviews
+ * @property Doctrine_Collection $CancelRequests
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $Messages
  * @property Doctrine_Collection $OrdersItemsDomains
@@ -193,6 +194,10 @@ abstract class BaseOrdersItems extends Doctrine_Record
         $this->hasOne('Reviews', array(
              'local' => 'review_id',
              'foreign' => 'review_id'));
+
+        $this->hasMany('CancelRequests', array(
+             'local' => 'detail_id',
+             'foreign' => 'orderitem_id'));
 
         $this->hasMany('Domains', array(
              'local' => 'detail_id',

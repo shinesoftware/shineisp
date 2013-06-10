@@ -40,6 +40,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property boolean $taxfree
  * @property boolean $isreseller
  * @property boolean $ignore_latefee
+ * @property string $customer_number
  * @property Isp $Isp
  * @property CustomersGroups $CustomersGroups
  * @property CompanyTypes $CompanyTypes
@@ -238,6 +239,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'type' => 'boolean',
              'default' => 0,
              'length' => '25',
+             ));
+        $this->hasColumn('customer_number', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
              ));
     }
 

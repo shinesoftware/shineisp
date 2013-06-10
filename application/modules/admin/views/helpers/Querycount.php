@@ -10,6 +10,6 @@ class Admin_View_Helper_Querycount extends Zend_View_Helper_Abstract {
 	}
 	
 	public function querycount() {
-		return "Queries: ".Zend_Registry::get('querycount');
+		return "Queries: ".Shineisp_Registry::get('querycount');
 	}
 }

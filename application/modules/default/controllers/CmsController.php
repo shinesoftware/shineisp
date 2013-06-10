@@ -63,7 +63,7 @@ class CmsController extends Shineisp_Controller_Default {
 	 */
 	private function CreateSubHeader($page) {
 		$data = array ();
-		$translation = Zend_Registry::getInstance ()->Zend_Translate;
+		$translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$locale = $translation->getAdapter ()->getLocale ();
 		if (strlen ( $locale ) == 2) {
 			$locale = $locale . "_" . strtoupper ( $locale );

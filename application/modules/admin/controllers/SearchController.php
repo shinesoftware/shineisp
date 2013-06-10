@@ -18,7 +18,7 @@ class Admin_SearchController extends Shineisp_Controller_Admin {
 	 */
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translator = $registry->Zend_Translate;
 	}
 	

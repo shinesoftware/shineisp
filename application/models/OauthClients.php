@@ -18,7 +18,7 @@ class OauthClients extends BaseOauthClients
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string', 'attributes' => array ('width' => 20 ) );

@@ -18,7 +18,7 @@ class Wiki extends BaseWiki {
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -181,7 +181,7 @@ class Wiki extends BaseWiki {
 		$items = array ();
 		$Session = new Zend_Session_Namespace ( 'Default' );
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject" )
 									   ->from ( 'Wiki w' )

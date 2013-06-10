@@ -23,7 +23,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->orders = new Orders ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translator = $registry->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "orders" )->setModel ( $this->orders );
@@ -197,7 +197,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		
 		$form = $this->getForm ( '/admin/orders/process' );
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
@@ -341,7 +341,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * @return multitype:boolean multitype:string
 	 */
 	private function paymentsGrid() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$myrec = array ();
 		$requestId = $this->getParam('id');
 				
@@ -610,8 +610,9 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				Orders::pdf ( $request->id, false, true );
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been created successfully.' ), 'status' => 'success' ) );
+				$file = Orders::pdf ( $request->id, false, true );
+				header('location: ' . $file);
+				die;
 			}
 			
 			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );

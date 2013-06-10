@@ -20,7 +20,7 @@ class RssController extends Shineisp_Controller_Default {
 	public function indexAction() {
 		$out = "";
 		try {
-			$ISP = Zend_Registry::get('ISP');
+			$ISP = Shineisp_Registry::get('ISP');
 			$ns = new Zend_Session_Namespace ();
 			$localeID = $ns->idlang;
 			$locale = $ns->lang;

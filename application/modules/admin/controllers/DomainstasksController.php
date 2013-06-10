@@ -23,7 +23,7 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->domainstasks = new DomainsTasks();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "domainstasks" )->setModel ( $this->domainstasks );				
 	}

@@ -93,7 +93,7 @@ class Shineisp_Main {
 			$config = Shineisp_Commons_Utilities::readfile($confFile);
 			if(!empty($config)){
 				$config = new Zend_Config_Xml($confFile);
-				Zend_Registry::set('config', $config);
+				Shineisp_Registry::set('config', $config);
 				return simplexml_load_file ( $confFile );
 			}
 		} catch (Exception $e) {

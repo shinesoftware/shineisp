@@ -18,7 +18,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pc.category_id', 'alias' => 'category_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pc.category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -220,7 +220,7 @@ class ProductsCategories extends BaseProductsCategories {
 	 */
 	public static function getProductListbyCatUri($uri, $fields = "*", $locale = 1, $rows = 8) {
 		$data   = array ();
-		$isp_id = Zend_Registry::get('ISP')->isp_id;
+		$isp_id = Shineisp_Registry::get('ISP')->isp_id;
 		$locale = intval($locale);
 		$rows   = intval($rows);
 
@@ -378,7 +378,7 @@ class ProductsCategories extends BaseProductsCategories {
 		$items = array ();
 		$arrTypes = Doctrine::getTable ( 'ProductsCategories' )->findAll ();
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if ($empty) {
 			$items [] = $translator->translate ( 'Select ...' );
@@ -401,7 +401,7 @@ class ProductsCategories extends BaseProductsCategories {
 		$items = array ();
 		$arrTypes = Doctrine::getTable ( 'ProductsCategories' )->findAll ();
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		//$items [] = $translator->translate ( 'Select ...' );
 		

@@ -12,12 +12,26 @@
 	* @version 1.5
 */
 
-class System_TasksController extends Zend_Controller_Action {
+class System_TasksController extends Shineisp_Controller_Default {
 	
 	protected $translations;
+	public $events;
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	public function events()
+	{
+		$em = Shineisp_Registry::get('em');
+		return $em;
+	}
+	
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translations = $registry->Zend_Translate;
 		
         $this->_helper->layout()->disableLayout();
@@ -53,7 +67,9 @@ class System_TasksController extends Zend_Controller_Action {
 	            }
 			}
 		}catch (SoapFault $e){
-			
+			$ISP = Isp::getActiveISP();
+			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage() );
+			return false;
 		}
 	}
 	
@@ -61,20 +77,24 @@ class System_TasksController extends Zend_Controller_Action {
 	/**
 	 * Execute the panel tasks
 	 */
-	private function doPanelsTask($task) {
-		$ISP = ISP::getByCustomerId($task['customer_id']);
+	private function doPanelsTask(array $task) {
+		$ISP = Isp::getByCustomerId($task['customer_id']);
 		
 		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {		
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'isp_id not found' ) );
-			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage () );
+			$ISP = empty($ISP) ? Isp::getActiveISP() : $ISP;
+			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", 'Customer ISP ID has been not set yet.' );
 			return false;
 		}
 		
 		try {
 			$customer_id = (isset($task['customer_id'])) ? $task['customer_id'] : 0;
-			$ISPpanel    = ISP::getPanel($ISP['isp_id']);
-			$class       = "Shineisp_Api_Panels_".$ISPpanel."_Main";
+			$ISPpanel    = Isp::getPanel($ISP['isp_id']);
+			$class       = "Shineisp_Plugins_Panels_".$ISPpanel."_Main";
 			
+			// Execute a custom event
+			self::events()->trigger('panels_task_before', $class, array('action' => $task ['action'], 'task' => $task));
+
 			// Create the class registrar object 
 			$ISPclass = new $class ();
 			$action   = $task ['action'];
@@ -127,6 +147,11 @@ class System_TasksController extends Zend_Controller_Action {
 			// Update the status of the task
 			PanelsActions::UpdateTaskStatus ( $task ['action_id'], Statuses::id('complete', 'domains_tasks') ); // Set the task as "Complete"
 			
+			$setup = OrdersItems::getSetup($task ['orderitem_id']);
+			
+			// Execute a custom event
+			self::events()->trigger('panels_task_after', $class, array('action' => $task ['action'], 'task' => $task, 'setup' => $setup));
+			
 		} catch (Exception $e) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( $e->getMessage () ) );
 			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage () );
@@ -172,7 +197,7 @@ class System_TasksController extends Zend_Controller_Action {
 			continue;
 		}
 		$customer_id = intval($task['Domains']['Customers']['customer_id']);
-		$ISP         = ISP::getByCustomerId($customer_id);
+		$ISP         = Isp::getByCustomerId($customer_id);
 		
 		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {		
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'isp_id not found' ) );

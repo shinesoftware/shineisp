@@ -19,7 +19,7 @@ class OrdersItems extends BaseOrdersItems {
 	 */	
 	public static function grid($rowNum = 10) {
 		$ns = new Zend_Session_Namespace ();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.detail_id', 'alias' => 'id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -266,7 +266,7 @@ class OrdersItems extends BaseOrdersItems {
 	public static function getItemsListbyDescription($description) {
 		$items = array ();
 		if (! empty ( $description )) {
-			$registry = Zend_Registry::getInstance ();
+			$registry = Shineisp_Registry::getInstance ();
 			$translations = $registry->Zend_Translate;
 			
 			$dq = Doctrine_Query::create ()->select ( "oi.detail_id, o.order_id as order_id, s.status as status, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, oi.description as description" )->from ( 'OrdersItems oi' )->leftJoin ( 'oi.Orders o' )->leftJoin ( 'o.Statuses s' )->where ( 'oi.description like ?', "%" . $description . "%" );
@@ -586,7 +586,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @param unknown_type $services
 	 */
 	private function RecurringService_datagraph($data, $year){
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$datagraph = array();
 		$total = 0;
 		
@@ -617,7 +617,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @param unknown_type $services
 	 */
 	private function RecurringServiceslist($services){
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$recurringservices = array();
 		
 		// Loop for each services found in the database

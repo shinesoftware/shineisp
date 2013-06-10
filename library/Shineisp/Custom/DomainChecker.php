@@ -15,7 +15,7 @@ class Shineisp_Custom_DomainChecker {
 	public function Show($parameters){
 		$view 		= new Zend_View();
 		$form 		= new Default_Form_DomainsinglecheckerForm ( array ('action' => '/domainschk/check', 'method' => 'post' ) );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$title = !empty($parameters['title']) ? $parameters['title'] : "Choose your new domain name!";
 		$form->getElement('name')->setAttrib('title', $translator->translate($title));

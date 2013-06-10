@@ -19,7 +19,7 @@ class Newsletters extends BaseNewsletters
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'n.news_id', 'alias' => 'news_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'n.news_id', 'alias' => 'news_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -220,7 +220,7 @@ class Newsletters extends BaseNewsletters
     		return false;
     	}
     			
-    	$api = new Shineisp_Api_Newsletters_Mailchimp_Main($key);
+    	$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
     	
     	$lists = $api->lists();
     	$data = array();

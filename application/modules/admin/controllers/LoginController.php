@@ -59,7 +59,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 	public function dologinAction() {
 		$user = new AdminUser();
 		$request = $this->getRequest ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translation = $registry->Zend_Translate;
 
 		// Get our form and validate it
@@ -119,7 +119,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 	public function dooauthAction() {
 		$user        = new AdminUser();
 		$request     = $this->getRequest ();
-		$registry    = Zend_Registry::getInstance ();
+		$registry    = Shineisp_Registry::getInstance ();
 		$translation = $registry->Zend_Translate;
 		$session     = new Zend_Session_Namespace ( 'OAuth' );
 
@@ -182,7 +182,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 	 */
 	public function passwordAction(){
 		$request = $this->getRequest ();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$form = new Admin_Form_PasswordForm ( array ('action' => '/admin/login/password', 'method' => 'post' ) );
 		
@@ -226,7 +226,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 	public function dopasswordAction() {
 		$code = $this->getRequest ()->getParam('id');
 		$user = AdminUser::checkMD5CredencialsByIspEmail($code);
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$form = new Admin_Form_PasswordForm ( array ('action' => '/admin/login/password', 'method' => 'post' ) );
 		
 		if(!empty($user)){

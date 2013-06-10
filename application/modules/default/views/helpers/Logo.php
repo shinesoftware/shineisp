@@ -10,7 +10,7 @@ class Zend_View_Helper_Logo extends Zend_View_Helper_Abstract {
 	}
 	
 	public function logo($data = array()) {
-		$isp = Zend_Registry::get('ISP');
+		$isp = Shineisp_Registry::get('ISP');
 		if (! empty ( $isp->logo )) {
 			if (file_exists ( PUBLIC_PATH . "/documents/isp/" . $isp->logo )) {
 				$this->view->file = "/documents/isp/" . $isp->logo;

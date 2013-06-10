@@ -19,7 +19,7 @@ class Admin_IspController extends Shineisp_Controller_Admin {
 	 */
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$auth = Zend_Auth::getInstance ();
 		if ($auth->hasIdentity ()) {
 			$this->isp = $auth->getIdentity ();

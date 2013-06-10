@@ -4,7 +4,7 @@
  * @author Shine Software
  *
  */
-class Shineisp_Api_Registrars_Base {
+class Shineisp_Plugins_Registrars_Base implements Shineisp_Plugins_Interface  {
 	
 	protected $isLive;
 	protected $session;
@@ -21,15 +21,38 @@ class Shineisp_Api_Registrars_Base {
 							'getNameServers' 		=>  'Get Name Server'
 						);
 
+	
+	public $events;
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	public function events()
+	{
+		$em = Shineisp_Registry::get('em');
+		if (!$this->events && is_object($em)) {
+			$em->attach('registrars_start', array(__CLASS__, 'listener_registrars_starts'), 100);
+		}
+		return $em;
+	}
+	
+	// Event Callback
+	public function listener_registrars_starts($event){
+		
+	}
+	
 	/**
 	 * Get the registrars list
 	 * 
 	 * @return ArrayObject
 	 */
 	public function getList($emptyitem = false) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$registrars = array();
-		$path = PROJECT_PATH . "/library/Shineisp/Api/Registrars/";
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Registrars/";
 		
 		if($emptyitem){
 			$registrars[] = $translator->translate("Select ...");
@@ -37,7 +60,7 @@ class Shineisp_Api_Registrars_Base {
 		
 		foreach(glob("$path/*", GLOB_ONLYDIR) as $dir) {
 		    $dir = str_replace("$path/", '', $dir);
-		    $class = "Shineisp_Api_Registrars_" . $dir . "_Main";
+		    $class = "Shineisp_Plugins_Registrars_" . $dir . "_Main";
 		    if (class_exists($class)) {
 		    	$registrars[$dir] = $dir;
 		    }

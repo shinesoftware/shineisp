@@ -15,7 +15,7 @@ class Payments extends BasePayments
 
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$columns [] = array ('label' => null, 'field' => 'p.payment_id', 'alias' => 'payment_id', 'type' => 'selectall' );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.payment_id', 'alias' => 'payment_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
@@ -426,7 +426,7 @@ class Payments extends BasePayments
 	public function bulk_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		// Get the records from the payment table
 		$orders = self::get_payments($items, "p.payment_id,

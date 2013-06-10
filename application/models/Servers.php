@@ -37,7 +37,7 @@ class Servers extends BaseServers {
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 
 		// Return usage/max_services or usage/infinity if max_services is 0 or null 
 		$sqlIF = "

@@ -38,7 +38,7 @@ class Customers extends BaseCustomers {
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'c.customer_id', 'alias' => 'customer_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'c.customer_id', 'alias' => 'customer_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -97,7 +97,7 @@ class Customers extends BaseCustomers {
 	 * Create a new customer
 	 */
 	public static function Create($data) {
-		$locale = Zend_Registry::getInstance ()->Zend_Locale;
+		$locale = Shineisp_Registry::getInstance ()->Zend_Locale;
 		$customer = new Customers ( );
 
 		$isDisabled  = false;
@@ -937,7 +937,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function getList($empty = false, array $criterias = array()) {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
 		if ($empty === true) {
@@ -980,7 +980,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function getEmailList($empty = false) {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
 		if ($empty) {
@@ -1056,7 +1056,7 @@ class Customers extends BaseCustomers {
 	 * @return ArrayObject
 	 */
 	public static function Hitparade() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$dq   = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
 					->from ( 'Invoices i' )
@@ -1162,7 +1162,7 @@ class Customers extends BaseCustomers {
 	public function bulk_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the customer table
 		$customers = self::get_customers($items);
@@ -1365,7 +1365,7 @@ class Customers extends BaseCustomers {
 	
 		$objPHPExcel = new PHPExcel();
 		$company = Isp::getActiveISP();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$objPHPExcel->getProperties()->setCreator($company['company']);
 		$objPHPExcel->getProperties()->setLastModifiedBy($company['manager']);

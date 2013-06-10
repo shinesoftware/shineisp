@@ -108,7 +108,7 @@ class Isp extends BaseIsp {
 	 * return the isp_id based on logged user IF in admin or current url if else
 	 */ 
 	public static function getCurrentId() {
-		return intval(Zend_Registry::get('ISP')->isp_id);
+		return intval(Shineisp_Registry::get('ISP')->isp_id);
 		/*
 		$logged_isp_id = self::getLogged();
 		
@@ -130,7 +130,7 @@ class Isp extends BaseIsp {
 	 */
 	public static function getCurrentISP() {
 		// TODO: this should be done better
-		return Zend_Registry::get('ISP')->toArray();
+		return Shineisp_Registry::get('ISP')->toArray();
 		
 		
 		
@@ -315,12 +315,14 @@ class Isp extends BaseIsp {
 	 * findByUrl
 	 */
 	public static function findByUrl($url) {
-		return Doctrine_Query::create ()->select ( '*' )
+		
+		$isp = Doctrine_Query::create ()->select ( '*' )
 								->from ( 'Isp i' )
 								->leftJoin ( 'i.IspUrls iu' )
 								->where('iu.url = ?', $url)
 								->fetchOne();
 		
+		return $isp;
 	}	 
 	
 	

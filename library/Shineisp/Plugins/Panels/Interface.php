@@ -1,15 +1,15 @@
 <?php
 
 /*
- * Shineisp_Api_Panels_Interface
+ * Shineisp_Plugins_Panels_Interface
 * -------------------------------------------------------------
 * Type:     Interface class
-* Name:     Shineisp_Api_Panels_Interface
+* Name:     Shineisp_Plugins_Panels_Interface
 * Purpose:  Control Panel Interface Class
 * -------------------------------------------------------------
 */
 
-interface Shineisp_Api_Panels_Interface {
+interface Shineisp_Plugins_Panels_Interface {
 	
 	/**
 	 * Enumerate all the control panel actions 
@@ -18,5 +18,12 @@ interface Shineisp_Api_Panels_Interface {
 	 * @access     public
 	 */
 	public Function getActions();
+	
+	public Function create_client(array $task);
+	public Function create_database(array $task);
+	public Function create_ftp(array $task, $websiteID);
+	public Function create_mail(array $task);
+	public Function create_website(array $task);
+	
 		
 }

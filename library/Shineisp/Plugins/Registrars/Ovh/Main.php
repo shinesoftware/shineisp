@@ -1,16 +1,17 @@
 <?php
 
 /**
- * Shineisp_Api_Registrars_Main_Ovh
+ * Shineisp_Plugins_Registrars_Main_Ovh
  * 
- * @version 1.2
+ * @version 1.4
  * @author Shine Software
  */
 
-class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base implements Shineisp_Api_Registrars_Interface {
+class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_Base implements Shineisp_Plugins_Registrars_Interface {
+
 	
 	/**
-	 * Enumerate all the registrar actions 
+	 * Enumerate all the registrar actions  
 	 * 
 	 * @return     array       An associative array containing the list of the actions allowed by the OVH's class 
 	 * @access     public
@@ -37,7 +38,7 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 	 * @access     public
 	 * @see        renewDomain
 	 * @see        transferDomain
-	 * @see Shineisp_Api_Registrars_Interface::registerDomain()
+	 * @see Shineisp_Plugins_Registrars_Interface::registerDomain()
 	 */
 	public function registerDomain($domainID, $nameServers = null, $regLock = true) {
 		
@@ -84,7 +85,7 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 				// Get the main DNS servers set in the configuration
 				$dns = $this->getDnsServers();
 				
-				$locale = Zend_Registry::get('Zend_Locale');
+				$locale = Shineisp_Registry::get('Zend_Locale');
 				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
 				
 				// OVH handle two kind of registration for the domains it and the others
@@ -256,7 +257,7 @@ class Shineisp_Api_Registrars_Ovh_Main extends Shineisp_Api_Registrars_Base impl
 				// Get the main DNS servers set in the configuration
 				$dns = $this->getDnsServers();
 				
-				$locale = Zend_Registry::get('Zend_Locale');
+				$locale = Shineisp_Registry::get('Zend_Locale');
 				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
 				
 				// OVH handle two kind of registration for the domains it and the others

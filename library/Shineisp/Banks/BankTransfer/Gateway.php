@@ -16,7 +16,7 @@ class Shineisp_Banks_BankTransfer_Gateway extends Shineisp_Banks_Abstract implem
 	 * @return string
 	 */
 	public function CreateForm() {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$bank = Banks::findbyClassname ( __CLASS__ );
 		
 		try {

@@ -1,7 +1,7 @@
 <?php
 /**
  * ShineISP new Plugin Architecture
- * @author GUEST.it s.r.l. <assistenza@guest.it>
+ * @author Shine Software. <info@shineisp.com>
  *
  */
 class Shineisp_Plugins {
@@ -11,7 +11,7 @@ class Shineisp_Plugins {
 	public function initAll() {
 		
 		// Get the Zend Event Manager
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		
 		$mainConfigfile = APPLICATION_PATH . "/configs/config.xml";
 			
@@ -27,22 +27,35 @@ class Shineisp_Plugins {
 			$modules = $mainconfig->xpath("/shineisp/modules");
 		}
 		
-		$path = PROJECT_PATH . "/library/Shineisp/Plugins";
-		$iterator = new DirectoryIterator($path);
-		foreach ($iterator as $fileinfo) {
-    		if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-    			
-        		$pluginDir      = $fileinfo->getFilename();
-				$pluginMainFile = $path.'/'.$pluginDir.'/Main.php';
-				$pluginConfigFile = $path.'/'.$pluginDir.'/config.xml';
-				$pluginName     = 'Shineisp_Plugins_'.$pluginDir.'_Main';
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/";  // << The last slash is very important in the plugin path
+		
+		// Read all the directory recursivelly and get all the files and folders
+		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
 				
-				Shineisp_Commons_Utilities::logs("Open plugin '".$pluginName."'", "plugins.log" );
+		foreach($iterator as $filename => $path_object){
+						
+			$pluginConfigFile = $filename;
+			$info = pathinfo($filename);
+			
+			// Select only the plugins that have a xml configuration file
+			if(!empty($info['extension']) && $info['extension'] == "xml"){
+    			
+				// Get the directory of the plugin
+				$PluginPath = $info['dirname'];
+				
+				// Delete the main plugin path
+				$PluginBasePath = str_replace($path, "", $info['dirname']);
+				
+				// Convert the result as array
+				$PluginBasePathArray = explode("/", $PluginBasePath);
+        		
+        		// Create the name of the Plugin class
+				$pluginName     = 'Shineisp_Plugins_'.implode("_", $PluginBasePathArray).'_Main';
 				
 				// Check if plugins looks good
 				$reflectionClass = new ReflectionClass($pluginName);
 				if ( ! ($reflectionClass->isInstantiable() && $reflectionClass->implementsInterface('Shineisp_Plugins_Interface') && is_callable(array($pluginName,'events')) ) ) {
-					Shineisp_Commons_Utilities::logs("Skipping not instantiable plugin '".$pluginName."'", "plugins.log" );
+					Shineisp_Commons_Utilities::logs("Skipping not instantiable plugin '".$pluginName."'" );
 					continue;
 				}
 

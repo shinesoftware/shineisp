@@ -16,7 +16,7 @@ class Shineisp_Plugins_DirectAdmin_Main implements Shineisp_Plugins_Interface {
 	 */
 	public function events()
 	{
-		$em = Zend_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
 		if (!$this->events && is_object($em)) {
 			$em->attach('products_activate', array(__CLASS__, 'activate'), 100);
 		}

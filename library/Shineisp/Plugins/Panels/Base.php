@@ -4,14 +4,26 @@
  * @author Shine Software
  *
  */
-class Shineisp_Api_Panels_Base {
+class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	
 	protected $isLive;
 	protected $name;
 	protected $path;
 	protected $session;
 	protected $actions = array();
-
+	
+	public $events;
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	public function events()
+	{
+		return Shineisp_Registry::get('em');
+	}
 						
 	/**
 	 * @return the $session
@@ -118,6 +130,61 @@ class Shineisp_Api_Panels_Base {
 		}
 	
 		return $arrUsernames;
+	}
+	
+	
+	/**
+	 * Match all the product attribute fields and IspConfig fields
+	 *
+	 *
+	 * Match all the system product attribute from ShineISP
+	 * and the IspConfig fields set in the configuration file
+	 * located in the /library/Shineisp/Plugins/Panels/IspConfig/config.xml
+	 *
+	 * @param array $attributes --> ShineISP System Product Attribute
+	 * @param array $record 	--> IspConfig Client Record
+	 * @return ArrayObject
+	 */
+	private function matchFieldsValues(array $attributes, array $record = array()) {
+		$fields = array ();
+	
+		// Loop of system product attributes
+		foreach ( $attributes as $attribute => $value ) {
+			// Get the saved system attribute
+			$sysAttribute = ProductsAttributes::getAttributebyCode($attribute);
+				
+			if(!empty($sysAttribute[0]['system_var'])){
+				$sysVariable = $sysAttribute[0]['system_var'];
+				// Get the system product attribute
+				$modAttribute = Panels::getXmlFieldbyAttribute ( "IspConfig", $sysVariable );
+	
+				if(!empty($modAttribute ['field'])){
+					// Sum the old resource value with the new ones
+					if(!empty($record[$modAttribute ['field']])){
+	
+						/**
+						 * Now we have to sum the resource previously added
+						 * in the client IspConfig profile with the new one
+						 */
+						if($modAttribute ['type'] == "integer"){
+							if($record[$modAttribute ['field']] == "-1"){
+								$value = "-1";
+							}else{
+								$value += $record[$modAttribute ['field']];
+							}
+						}
+					}
+	
+					if (! empty ( $value )) {
+						$fields [$modAttribute ['field']] = $value;
+					} else {
+						$fields [$modAttribute ['field']] = $modAttribute ['default'];
+					}
+				}
+			}
+		}
+	
+		return $fields;
 	}
 	
 	/**
