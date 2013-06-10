@@ -50,7 +50,7 @@ class Invoices extends BaseInvoices {
 		#$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice dest.' ), 'field' => "CONCAT(r.firstname,' ', r.lastname)", 'alias' => 'invoice_dest', 'sortable' => true, 'type' => 'string', 'searchable' => true);
 		$config ['datagrid'] ['fields'] =  "invoice_id, 
 											DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
-											i.number as number, 
+											i.formatted_number as number, 
 											i.order_id as order, 
 											o.cost as cost, 
 											o.total as total, 
@@ -327,7 +327,7 @@ class Invoices extends BaseInvoices {
 		$invoices_number_format = Settings::findbyParam('invoices_number_format');
 		if ( empty($invoices_number_format) ) {
 			// Empty setting, there is no need to try replacement
-			return false;
+			return $invoice_id;
 		}
 		
 		$Order   = Doctrine::getTable ('Orders')->findOneBy('invoice_id', $invoice_id);
