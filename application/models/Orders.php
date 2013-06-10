@@ -54,7 +54,7 @@ class Orders extends BaseOrders {
                                               DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
                                               o.is_renewal as is_renewal,
                                               o.grandtotal as grandtotal,
-                                              i.number as invoice,
+                                              i.formatted_number as invoice,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
                                               s.status as status";

@@ -51,7 +51,7 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['fields'] =  "invoice_id, 
 											DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
 											i.formatted_number as number, 
-											i.order_id as order, 
+											o.order_number as order, 
 											o.cost as cost, 
 											o.total as total, 
 											o.vat as vat, 
@@ -565,7 +565,7 @@ class Invoices extends BaseInvoices {
             $items[] = "";
         }
         foreach ( $arrTypes->getData () as $c ) {
-            $items [$c ['invoice_id']] = $z = sprintf("%03d", $c ['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut($c ['invoice_date']);
+            $items [$c ['invoice_id']] = $z = $c['formatted_number']." - ".Shineisp_Commons_Utilities::formatDateOut($c ['invoice_date']);
         }
         return $items;
     }
