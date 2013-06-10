@@ -827,10 +827,10 @@ class Invoices extends BaseInvoices {
 				}
 
 				// Sanitize some fields
-				$database ['records'] ['invoice_number'] = ! empty ( $database ['records'] ['invoice_number'] ) ? $database ['records'] ['invoice_number'] : "";
+				$database ['records'] ['invoice_number']      = ! empty ( $database ['records'] ['invoice_number'] ) ? $database ['records'] ['invoice_number'] : "";
 				$database ['records'] ['payment_description'] = !empty($database ['records'] ['payment_description']) ? $database ['records']['payment_description'] : "";
-				$database ['records'] ['payment_mode'] = ! empty ( $database ['records'] ['payment_mode'] ) ? $database ['records'] ['payment_mode'] : "";
-				$database ['records'] ['payment_date'] = ! empty ( $database ['records'] ['payment_date'] ) ? $database ['records'] ['payment_date'] : "";
+				$database ['records'] ['payment_mode']        = ! empty ( $database ['records'] ['payment_mode'] ) ? $database ['records'] ['payment_mode'] : "";
+				$database ['records'] ['payment_date']        = ! empty ( $database ['records'] ['payment_date'] ) ? $database ['records'] ['payment_date'] : "";
 				
 				$database ['records']['totalPayments'] = count($database['records']['payments']);
 
@@ -840,6 +840,7 @@ class Invoices extends BaseInvoices {
 				$jcode            = base64_encode(json_encode($code));
 				
 				$database['records']['qrcode_url']   = $_SERVER['HTTP_HOST']."/index/qrcode/q/".$jcode;
+				$database['records']['barcode']      = str_pad($database ['records']['invoice_number'],12,'0',STR_PAD_LEFT).'/'.date('Y', $invoice['invoice_date']);
 				$database['records']['skip_barcode'] = 0;
 
 				if (isset ( $order [0] )) {

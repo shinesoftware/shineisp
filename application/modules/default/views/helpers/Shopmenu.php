@@ -13,8 +13,9 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 	protected $menu = array();
 	
 	public function shopmenu() {
+		$html       = '';
 		$menuheader = "<ul class='navigation'>\n";
-		$ns = new Zend_Session_Namespace ();
+		$ns         = new Zend_Session_Namespace ();
 		$this->translator = Zend_Registry::get ( 'Zend_Translate' );
 		#$this->createTldMenu();
 		
@@ -24,18 +25,22 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 		);
 		
 		$result = ProductsCategories::getMenu ();
-		foreach($result as $menuItem)
-		{
-			$menu['items'][$menuItem['category_id']] = $menuItem;
-			$menu['parents'][$menuItem['parent']][]  = $menuItem['category_id'];
+
+		
+		if ( !empty($result) ) {
+			foreach ($result as $menuItem) {
+				$menu['items'][$menuItem['category_id']] = $menuItem;
+				$menu['parents'][$menuItem['parent']][]  = $menuItem['category_id'];
+			}
+			
+			$html = $this->buildMenu(0, $menu);
 		}
 		
-		$html = $this->buildMenu(0, $menu);
-		$html .= $this->createTldMenu();
-		
+		//$html .= $this->createTldMenu();
+				
 		// Replace the header of the menu list
-		$html = substr_replace($html, $menuheader, 0, strlen("<ul class=''>\n"));
-		
+		//$html = substr_replace($html, $menuheader, 0, strlen("<ul class=''>\n"));
+
 		return $html;
 	}
 	
@@ -75,21 +80,25 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 	 * 
 	 */
 	private function createTldMenu() {
-		$ns = new Zend_Session_Namespace ();
-		$items = DomainsTlds::getHighlighted($ns->langid);
+		$ns       = new Zend_Session_Namespace ();
+		$items    = DomainsTlds::getHighlighted($ns->langid);
 		$currency = Zend_Registry::get ( 'Zend_Currency' );
 		
-		$html = "<ul class=\"navigation\">";
-		$html .= "<li>";
-		$html .= '<a href="/domainschk/index/" class="dropdown">'.$this->translator->translate('Domains').'</a>';
-		$html .= "<ul class=\"dropdown\">";
-		foreach ( $items as $item ) {
-			if(!empty($item ['DomainsTldsData'][0]['name'])){
-				$item ['registration_price'] = $currency->toCurrency($item ['registration_price'], array('currency' => Settings::findbyParam('currency')));
-				$html .= '<li><a title="' . Shineisp_Commons_Utilities::truncate(strip_tags($item ['DomainsTldsData'][0]['description']), 150, "...", false, true) . '" href="/tlds/' . $item ['DomainsTldsData'][0]['name'] . '.html">.<b>' . strtoupper($item ['DomainsTldsData'][0]['name']) . "</b> - " . $item ['registration_price'] . " (" . $this->translator->translate('VAT not included') . ")</a></li>";
-			}
+		if ( empty($items) ) {
+			return '';
 		}
-		$html .= "</ul>";
+		
+		$html = "<ul class=\"navigation\">";
+		  $html .= "<li>";
+		     $html .= '<a href="/domainschk/index/" class="dropdown">'.$this->translator->translate('Domains').'</a>';
+		     $html .= "<ul class=\"dropdown\">";
+ 			foreach ( $items as $item ) {
+				if(!empty($item ['DomainsTldsData'][0]['name'])){
+					$item ['registration_price'] = $currency->toCurrency($item ['registration_price'], array('currency' => Settings::findbyParam('currency')));
+					$html .= '<li><a title="' . Shineisp_Commons_Utilities::truncate(strip_tags($item ['DomainsTldsData'][0]['description']), 150, "...", false, true) . '" href="/tlds/' . $item ['DomainsTldsData'][0]['name'] . '.html">.<b>' . strtoupper($item ['DomainsTldsData'][0]['name']) . "</b> - " . $item ['registration_price'] . " (" . $this->translator->translate('VAT not included') . ")</a></li>";
+				}
+			}
+   		     $html .= "</ul>";
 		$html .= "</ul>";
 		
 		return $html;
