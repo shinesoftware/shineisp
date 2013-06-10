@@ -406,7 +406,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	private function ordersGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
+			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.formatted_number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
 			if (isset ( $rs )) {
 				return array ('name' => 'orders', 'records' => $rs, 'edit' => array ('controller' => 'orders', 'action' => 'edit' ) );
 			}
@@ -426,8 +426,8 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$fields = "invoice_id, 
 				DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
-				i.number as invoice, 
-				i.order_id as order, 
+				i.formatted_number as invoice, 
+				o.order_number as order, 
 				o.total as total, 
 				o.vat as vat,
 				o.grandtotal as grandtotal";

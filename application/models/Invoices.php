@@ -38,8 +38,8 @@ class Invoices extends BaseInvoices {
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.number', 'alias' => 'number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'i.order_id', 'alias' => 'order', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'i.order_number', 'alias' => 'order_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'i.invoice_date', 'alias' => 'invoice_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Cost' ), 'field' => 'o.cost', 'alias' => 'cost', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
@@ -50,8 +50,8 @@ class Invoices extends BaseInvoices {
 		#$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice dest.' ), 'field' => "CONCAT(r.firstname,' ', r.lastname)", 'alias' => 'invoice_dest', 'sortable' => true, 'type' => 'string', 'searchable' => true);
 		$config ['datagrid'] ['fields'] =  "invoice_id, 
 											DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
-											i.formatted_number as number, 
-											o.order_number as order, 
+											i.formatted_number as formatted_number, 
+											o.order_number as order_number, 
 											o.cost as cost, 
 											o.total as total, 
 											o.vat as vat, 
