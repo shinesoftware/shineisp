@@ -302,6 +302,19 @@ class Invoices extends BaseInvoices {
 	}	
 	
 	/**
+	 * get invoice sequential increment number from settings.
+	 * Returns 1 if not set
+	 */
+	public static function sequentialIncrement() {
+		$increment = intval(Settings::findbyParam('invoices_increment'));
+		if ( !$increment ) {
+			return 1;
+		}
+		
+		return $increment;
+	}
+	
+	/**
 	 * Generate the invoice number
 	 * @param int $invoice_id
 	 */

@@ -94,7 +94,7 @@ class InvoicesSettings extends BaseInvoicesSettings
     	$isp_id = Shineisp_Registry::get('ISP')->isp_id;
 		$isp_id = intval($isp_id);
 		
-		$increment = 1; // TODO: this should be fetched from a setting
+		$increment = Invoices::sequentialIncrement();
 		
 		// Try to get last invoice number
         $record = Doctrine_Query::create ()

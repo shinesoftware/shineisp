@@ -485,3 +485,12 @@ SettingsParameters:
     description: 'Adding the zero number before the invoice number.'
     SettingsGroups: SettingsGroups_1
     config: null
+  SettingsParameters_60:
+    name: 'Sequential invoice number increment'
+    var: invoices_increment
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'Invoice sequential number increment.'
+    SettingsGroups: SettingsGroups_1
+    config: null
