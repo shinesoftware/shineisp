@@ -226,6 +226,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 			try {
 				
 				$this->ticketscategories->category = $params ['category'];
+				$this->ticketscategories->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 				
 				// Save the data
 				$this->ticketscategories->save ();

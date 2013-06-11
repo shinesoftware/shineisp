@@ -208,6 +208,7 @@ class Admin_TaxesController extends Shineisp_Controller_Admin {
 				$this->taxes = Doctrine::getTable ( 'Taxes' )->find ( $id );
 				$this->taxes->name = $params ['name'];
 				$this->taxes->percentage = $params ['percentage'];
+				$this->taxes->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 				$this->taxes->save ();
 				$this->_helper->redirector ( 'list', 'taxes', 'admin', array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
 			} else {

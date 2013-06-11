@@ -228,7 +228,7 @@ class Products extends BaseProducts {
 				$products->downgradable    = !empty($params['downgradable']) ? 1: 0;
 				$products->server_group_id = !empty($params['server_group_id']) ? intval($params['server_group_id']) : null;
 				$products->autosetup       = !empty($params['autosetup']) ? intval($params['autosetup']) : 0;
-                $products->isp_id          = Isp::getCurrentId();
+                $products->isp_id          = Shineisp_Registry::get('ISP')->isp_id;
 				
 				// If 0 or NULL, se to NULL. Avoid constraint errors
 				$products->welcome_mail_id = ( !empty($params['welcome_mail_id']) && intval($params['welcome_mail_id']) > 0 ) ? intval($params['welcome_mail_id']) : null;
