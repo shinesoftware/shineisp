@@ -3,12 +3,12 @@ AdminUser:
     firstname: John
     lastname: Doe
     email: info@shineisp.com
-    password: $1$TqF8JTWp$NHgjfbEbp13waOvsYENYF/
+    password: $1$4EdEWfLi$bxwNBHiFL4peX34qnnuml0
     last_password_change: null
     force_password_change: '0'
     created: '2012-08-14 16:54:00'
-    changed: '2013-05-29 19:01:21'
-    lognum: '9'
+    changed: '2013-06-10 15:23:39'
+    lognum: '11'
     AdminRoles: AdminRoles_1
     config: null
     Isp: Isp_1

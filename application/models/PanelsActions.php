@@ -12,24 +12,10 @@
  */
 class PanelsActions extends BasePanelsActions
 {
-	public static $events;
-	
-	/**
-	 * Event Manager Registration
-	 * @return mixed
-	 */
-	public function events()
-	{
-		$em = Shineisp_Registry::get('em');
-		if (!$this->events && is_object($em)) {
-			$em->attach('panels_connection', array(__CLASS__, 'listener_panels_connection'), 100);
-		}
-		return $em;
-	}
-	
-	public function listener_panels_connection($event) {
-		Shineisp_Commons_Utilities::log($event);
-	}
+
+	public function listener_panels_connection($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
+	public function listener_panels_create_client_before($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
+	public function listener_panels_create_client_after($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
 	
 	/**
 	 * create the configuration of the grid

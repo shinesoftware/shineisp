@@ -256,6 +256,7 @@ class Registrars extends BaseRegistrars
 	    	$registrar->class = "Shineisp_Api_Registrars_" . $record ['name'] . "_Main";
 	    	$registrar->config = !empty($config) ? $config : null;
 	    	$registrar->lastupdate = date('Y-m-d H:i:s');
+	    	$registrar->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 	    	$registrar->active = !empty($record ['active']) ? $record ['active'] : false;
 	    	 
 	    	if($registrar->trySave()){

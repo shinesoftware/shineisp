@@ -161,8 +161,8 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 */
 	public function setCaCertificateFile($file) {
 		
-		if(file_exists(PROJECT_PATH . "/library/Shineisp/Api/Dropbox/certificate.cer")){
-			$file = PROJECT_PATH . "/library/Shineisp/Api/Dropbox/certificate.cer";
+		if(file_exists(PROJECT_PATH . "/library/Shineisp/Plugins/Dropbox/certificate.cer")){
+			$file = PROJECT_PATH . "/library/Shineisp/Plugins/Dropbox/certificate.cer";
 		}
 		
 		self::$caCertSourceType = self::CACERT_SOURCE_FILE;

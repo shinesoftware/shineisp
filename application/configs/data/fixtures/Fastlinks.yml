@@ -350,3 +350,30 @@ Fastlinks:
     id: '4'
     Customers: Customers_5
     visits: '1'
+  Fastlinks_40:
+    controller: orders
+    action: edit
+    params: '{"id":"8"}'
+    code: mixoyeve
+    sqltable: orders
+    id: '8'
+    Customers: Customers_1
+    visits: '0'
+  Fastlinks_41:
+    controller: orders
+    action: edit
+    params: '{"id":"7"}'
+    code: wekefera
+    sqltable: orders
+    id: '7'
+    Customers: Customers_3
+    visits: '0'
+  Fastlinks_42:
+    controller: orders
+    action: edit
+    params: '{"id":"7"}'
+    code: xekojusi
+    sqltable: orders
+    id: '7'
+    Customers: Customers_3
+    visits: '0'

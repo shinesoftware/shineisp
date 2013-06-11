@@ -226,6 +226,7 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
 				$this->productsattributesgroups->code = Shineisp_Commons_UrlRewrites::format($params ['name']);
 				$this->productsattributesgroups->isrecurring = $params ['isrecurring'] ? 1 : 0;
 				$this->productsattributesgroups->iscomparable = $params ['iscomparable'] ? 1 : 0;
+				$this->productsattributesgroups->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 				$this->productsattributesgroups->save ();
 
 				$id = is_numeric ( $id ) ? $id : $this->productsattributesgroups->getIncremented ();

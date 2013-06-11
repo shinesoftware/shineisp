@@ -27,10 +27,6 @@ StatusHistory:
     datetime: '2013-05-29 16:13:42'
     Statuses: Statuses_33
     section_id: '7'
-  StatusHistory_8:
-    datetime: '2013-05-29 16:13:43'
-    Statuses: Statuses_33
-    section_id: '7'
   StatusHistory_9:
     datetime: '2013-05-29 16:19:20'
     Statuses: Statuses_20

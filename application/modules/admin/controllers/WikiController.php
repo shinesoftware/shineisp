@@ -220,6 +220,7 @@ class Admin_WikiController extends Shineisp_Controller_Admin {
 			$this->wiki->language_id = $params ['language_id'];
 			$this->wiki->content = $params ['content'];
 			$this->wiki->active = $params ['active'] ? 1 : 0;
+			$this->wiki->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 			$this->wiki->save ();
 			
 			$redirector->gotoUrl ( "/admin/wiki/edit/id/$id" );

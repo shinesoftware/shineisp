@@ -304,7 +304,7 @@ msgstr "Lingua"
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:383
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:409
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:192
-#: /Library/WebServer/Documents/shineisp/library/Shineisp/Api/Registrars/Base.php:35
+#: /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Registrars/Base.php:35
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Ajaxgrid.php:791
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:801
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:29

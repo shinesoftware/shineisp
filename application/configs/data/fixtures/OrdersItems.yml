@@ -2,8 +2,8 @@ OrdersItems:
   OrdersItems_1:
     Orders: Orders_7
     BillingCycle: BillingCycle_3
-    date_start: '2013-05-22 21:54:46'
-    date_end: '2014-05-22 21:54:46'
+    date_start: '2013-05-22 00:00:00'
+    date_end: '2014-05-22 00:00:00'
     autorenew: true
     quantity: '1'
     cost: '0.00'
@@ -104,7 +104,7 @@ OrdersItems:
     cost: '50.00'
     price: '0.00'
     setupfee: '0.00'
-    Statuses: Statuses_33
+    Statuses: Statuses_9
     parameters: null
     setup: {  }
     note: null

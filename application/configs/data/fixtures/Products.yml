@@ -25,6 +25,7 @@ Products:
     blocks: null
     ServersGroups: ServersGroups_1
     autosetup: '4'
+    Isp: Isp_1
   Products_2:
     uuid: a59f3a42-ee45-452a-8ef2-ed04e3acea40
     sku: hst-silver
@@ -51,6 +52,7 @@ Products:
     blocks: null
     ServersGroups: ServersGroups_1
     autosetup: '0'
+    Isp: Isp_1
   Products_3:
     uuid: 4dc886de-90be-4271-8000-b745ab15ebc2
     sku: hst-gold
@@ -77,6 +79,7 @@ Products:
     blocks: null
     ServersGroups: ServersGroups_1
     autosetup: '4'
+    Isp: Isp_1
   Products_4:
     uuid: f9c93265-f4ea-44be-9387-12fd94180ef6
     sku: hst-plat
@@ -103,6 +106,7 @@ Products:
     blocks: null
     ServersGroups: ServersGroups_1
     autosetup: '4'
+    Isp: Isp_1
   Products_5:
     uuid: 71221dda-3859-4271-9ad3-1dd3caa881ba
     sku: help
@@ -128,3 +132,4 @@ Products:
     ProductsAttributesGroups: ProductsAttributesGroups_1
     blocks: null
     autosetup: '0'
+    Isp: Isp_1

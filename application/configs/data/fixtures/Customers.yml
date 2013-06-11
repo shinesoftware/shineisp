@@ -31,6 +31,7 @@ Customers:
     taxfree: false
     isreseller: null
     ignore_latefee: false
+    customer_number: null
   Customers_2:
     uuid: null
     company: 'WebDesign Software & Co.'
@@ -63,6 +64,7 @@ Customers:
     taxfree: false
     isreseller: null
     ignore_latefee: false
+    customer_number: null
   Customers_3:
     uuid: d6986e96-411e-42ae-950e-02c82afeb18d
     company: 'Shop Design & Co.'
@@ -94,6 +96,7 @@ Customers:
     taxfree: null
     isreseller: null
     ignore_latefee: false
+    customer_number: null
   Customers_4:
     uuid: 17630338-ad49-4fe7-9193-29001b79a1a2
     company: 'Parker & sons'
@@ -125,6 +128,7 @@ Customers:
     taxfree: false
     isreseller: null
     ignore_latefee: false
+    customer_number: null
   Customers_5:
     uuid: 45d35c95-804c-4e7e-82be-35b9bbc71413
     company: 'Web Russian Designers'
@@ -156,6 +160,7 @@ Customers:
     taxfree: null
     isreseller: null
     ignore_latefee: false
+    customer_number: null
   Customers_6:
     uuid: 42290876-845a-40ad-acaf-4eec3715693f
     company: null
@@ -187,6 +192,7 @@ Customers:
     taxfree: null
     isreseller: null
     ignore_latefee: false
+    customer_number: null
   Customers_7:
     uuid: 283bbbb5-ce4c-4307-8cc1-62fc20e2dc87
     company: 'Consectetuer Web Associates'
@@ -219,3 +225,4 @@ Customers:
     taxfree: null
     isreseller: null
     ignore_latefee: false
+    customer_number: null

@@ -108,7 +108,15 @@ class Isp extends BaseIsp {
 	 * return the isp_id based on logged user IF in admin or current url if else
 	 */ 
 	public static function getCurrentId() {
-		return intval(Shineisp_Registry::get('ISP')->isp_id);
+		$registry = Shineisp_Registry::get('ISP');
+		
+		if(!empty($registry) && is_object($registry)){
+			return intval(Shineisp_Registry::get('ISP')->isp_id);
+		}else{
+			$isp = self::getByURL($_SERVER['HTTP_HOST']);
+			return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1;
+		}
+		
 		/*
 		$logged_isp_id = self::getLogged();
 		
@@ -132,8 +140,6 @@ class Isp extends BaseIsp {
 		// TODO: this should be done better
 		return Shineisp_Registry::get('ISP')->toArray();
 		
-		
-		
 		/*
 		$isp_id = self::getCurrentId();
 		
@@ -142,9 +148,6 @@ class Isp extends BaseIsp {
 		return isset ( $isp [0] ) ? $isp [0] : array();
 		*/
 	}
-	
-	
-	
 	
 	/**
 	 * get the active ISP Control Panel module var
@@ -158,7 +161,7 @@ class Isp extends BaseIsp {
 			$panel_data = $Panel->getData();
 		}
 
-		return (isset($panel_data['name']) && !empty($panel_data['name']) ) ? $panel_data['name'] : null;
+		return !empty($panel_data['name']) ? $panel_data['name'] : null;
 		
 		/*
 		$isp = Doctrine_Query::create ()->select('isppanel')

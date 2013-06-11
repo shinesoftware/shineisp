@@ -1,37 +1,50 @@
 Invoices:
   Invoices_1:
     number: '1'
+    formatted_number: null
     Customers: Customers_1
     Orders: Orders_1
     invoice_date: '2013-05-25'
     note: null
   Invoices_2:
     number: '2'
+    formatted_number: null
     Customers: Customers_2
     Orders: Orders_2
     invoice_date: '2013-05-25'
     note: null
   Invoices_3:
     number: '3'
+    formatted_number: null
     Customers: Customers_4
     Orders: Orders_3
     invoice_date: '2013-05-28'
     note: null
   Invoices_4:
     number: '4'
+    formatted_number: null
     Customers: Customers_5
     Orders: Orders_4
     invoice_date: '2013-05-29'
     note: null
   Invoices_5:
     number: '5'
+    formatted_number: null
     Customers: Customers_6
     Orders: Orders_5
     invoice_date: '2013-05-29'
     note: null
   Invoices_6:
     number: '6'
+    formatted_number: null
     Customers: Customers_7
     Orders: Orders_6
     invoice_date: '2013-05-29'
+    note: null
+  Invoices_7:
+    number: '1'
+    formatted_number: null
+    Customers: Customers_3
+    Orders: Orders_7
+    invoice_date: '2013-06-10'
     note: null

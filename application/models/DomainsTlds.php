@@ -116,6 +116,7 @@ class DomainsTlds extends BaseDomainsTlds
 		
 		$record = Doctrine_Query::create ()
                     ->from ( 'DomainsTldsData dtd' )
+                    ->leftJoin( 'dtd.DomainsTlds dt' )
                     ->where ( "dtd.tld_id = ?", $id )
                     ->addWhere ( "dtd.language_id = ?", $locale )
 					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
@@ -166,11 +167,10 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dt.tld_id = ?", $id )
-					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
+					->addWhere('dt.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
-           
             if(!empty($record[0]['DomainsTldsData'][0])){
 				$record[0]['name'] = $record[0]['DomainsTldsData'][0]['name'];
 				$record[0]['description'] = $record[0]['DomainsTldsData'][0]['description'];

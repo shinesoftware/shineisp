@@ -413,7 +413,7 @@ SettingsParameters:
     description: 'This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Plugins_Panels_Ispconfig_Main'
     SettingsGroups: SettingsGroups_13
     config: '[]'
-  SettingsParameters_52:
+  SettingsParameters_47:
     name: 'Automatic invoice creation'
     var: auto_create_invoice_after_payment
     type: select
@@ -422,7 +422,7 @@ SettingsParameters:
     description: 'Automatically creates an invoice when the order is paid'
     SettingsGroups: SettingsGroups_1
     config: '{"class":"Settings","method":"getAutoInvoiceGenerationValues"}'
-  SettingsParameters_53:
+  SettingsParameters_48:
     name: 'E-Mail invoice automatically'
     var: auto_send_invoice
     type: checkbox
@@ -431,7 +431,7 @@ SettingsParameters:
     description: 'Automatically e-mail the invoice when created'
     SettingsGroups: SettingsGroups_1
     config: null
-  SettingsParameters_54:
+  SettingsParameters_49:
     name: 'Automatic invoice creation'
     var: auto_create_invoice_after_payment
     type: select
@@ -440,7 +440,7 @@ SettingsParameters:
     description: 'Automatically creates an invoice when the order is paid'
     SettingsGroups: SettingsGroups_1
     config: '{"class":"Settings","method":"getAutoInvoiceGenerationValues"}'
-  SettingsParameters_55:
+  SettingsParameters_50:
     name: 'E-Mail invoice automatically'
     var: auto_send_invoice
     type: checkbox
@@ -449,7 +449,7 @@ SettingsParameters:
     description: 'Automatically e-mail the invoice when created'
     SettingsGroups: SettingsGroups_1
     config: null
-  SettingsParameters_56:
+  SettingsParameters_51:
     name: 'Send a copy of all emails sent by the system to these addresses?'
     var: always_send_to
     type: text
@@ -458,7 +458,7 @@ SettingsParameters:
     description: 'If you want copies of all emails sent by the system sent to addresses of yours choise, enter the addresses here. You may enter multiple addresses seperated by a comma (,)'
     SettingsGroups: SettingsGroups_3
     config: null
-  SettingsParameters_57:
+  SettingsParameters_52:
     name: 'Notify status change to customers'
     var: notify_status_change
     type: checkbox
@@ -467,7 +467,7 @@ SettingsParameters:
     description: 'Notify each customers when a status change occurs on their orders'
     SettingsGroups: SettingsGroups_3
     config: null
-  SettingsParameters_58:
+  SettingsParameters_53:
     name: 'Invoices number format'
     var: invoices_number_format
     type: text
@@ -476,7 +476,7 @@ SettingsParameters:
     description: 'Customize the format of invoice number. Valid placeholders are described <a href="http://www.shineisp.com/invoices-number-format/" target="_blank">here</a>'
     SettingsGroups: SettingsGroups_1
     config: null
-  SettingsParameters_59:
+  SettingsParameters_54:
     name: 'Invoices zero prefix'
     var: invoices_zero_prefix
     type: text
@@ -485,21 +485,48 @@ SettingsParameters:
     description: 'Adding the zero number before the invoice number.'
     SettingsGroups: SettingsGroups_1
     config: null
-  SettingsParameters_60:
-    name: 'Sequential invoice number increment'
-    var: invoices_increment
+  SettingsParameters_55:
+    name: 'Endpoint Location'
+    var: ispconfig_endpointlocation
     type: text
     module: admin
     enabled: '1'
-    description: 'Invoice sequential number increment.'
-    SettingsGroups: SettingsGroups_1
-    config: null
-  SettingsParameters_61:
-    name: 'Invoices template'
-    var: invoice_template
-    type: select
+    description: 'Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/index.php'
+    SettingsGroups: SettingsGroups_13
+    config: '[]'
+  SettingsParameters_56:
+    name: 'Endpoint URI'
+    var: ispconfig_endpointuri
+    type: text
     module: admin
     enabled: '1'
-    description: 'Invoice template to be used when creating the invoice.'
-    SettingsGroups: SettingsGroups_1
-    config: '{"class":"Settings","method":"getInvoiceTemplateList"}'    
+    description: 'Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/'
+    SettingsGroups: SettingsGroups_13
+    config: '[]'
+  SettingsParameters_57:
+    name: 'Write here the ISPConfig SOAP username'
+    var: ispconfig_username
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'This is the ISPConfig remote username set in the ISPConfig control panel.'
+    SettingsGroups: SettingsGroups_13
+    config: '[]'
+  SettingsParameters_58:
+    name: 'Write here the SOAP password'
+    var: ispconfig_password
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'This is the ISPConfig user remote password set in the ISPConfig control panel.'
+    SettingsGroups: SettingsGroups_13
+    config: '[]'
+  SettingsParameters_59:
+    name: 'Write here the public URL'
+    var: ispconfig_url
+    type: text
+    module: admin
+    enabled: '1'
+    description: 'This is the ISPConfig public url. eg. http://www.mywebsite.com:8080/'
+    SettingsGroups: SettingsGroups_13
+    config: '[]'

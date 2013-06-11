@@ -190,12 +190,16 @@ class SettingsParameters extends BaseSettingsParameters {
      * @param $isp
      * @return Doctrine Record
      */
-    public static function loadParams($module="Default", $isp = 1) {
+    public static function loadParams($module="Default") {
 		$session = new Zend_Session_Namespace ( $module );
 		
 		if(!empty($session->parameters)){
-			#return $session->parameters;
+			return $session->parameters;
 		}
+		
+		$registry = Shineisp_Registry::get('ISP');
+		
+		$isp = !empty($registry) && is_object($registry) ? $registry->isp_id : 1;
 		
     	$dq = Doctrine_Query::create ()->from ( 'Settings s' )
 								    	->leftJoin ( 's.SettingsParameters p' )
