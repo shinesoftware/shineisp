@@ -616,7 +616,7 @@ class Invoices extends BaseInvoices {
 	                // Create the pdf invoice document (dropbox event is triggered by this)
 	                self::PrintPDF($invoice_id, false, true);
 					
-					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $id > 0) {
+					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $invoice_id > 0) {
 						Invoices::sendInvoice ( $invoice_id );
 					}	
 	                
