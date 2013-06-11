@@ -62,10 +62,11 @@ class OrdersItemsServers extends BaseOrdersItemsServers
 		    	}
 			}
 			
-			
-			
 			// Always update server stats		
 			$Server = Servers::find($serverID);
+			Zend_Debug::dump($serverID);
+			Zend_Debug::dump($Server);
+			die;
 			$Server->services = OrdersItemsServers::countByServerId($serverID);
 			$Server->save();
 			

@@ -15,21 +15,7 @@
 class System_TasksController extends Shineisp_Controller_Default {
 	
 	protected $translations;
-	public $events;
-	
-	/**
-	 * Events Registration
-	 *
-	 * (non-PHPdoc)
-	 * @see Shineisp_Plugins_Interface::events()
-	 */
-	public function events()
-	{
-		$em = Shineisp_Registry::get('em');
-		return $em;
-	}
-	
-	
+		
 	public function preDispatch() {
 		$registry = Shineisp_Registry::getInstance ();
 		$this->translations = $registry->Zend_Translate;
@@ -88,13 +74,11 @@ class System_TasksController extends Shineisp_Controller_Default {
 		}
 		
 		try {
+			die('test');
 			$customer_id = (isset($task['customer_id'])) ? $task['customer_id'] : 0;
 			$ISPpanel    = Isp::getPanel($ISP['isp_id']);
 			$class       = "Shineisp_Plugins_Panels_".$ISPpanel."_Main";
 			
-			// Execute a custom event
-			self::events()->trigger('panels_task_before', $class, array('action' => $task ['action'], 'task' => $task));
-
 			// Create the class registrar object 
 			$ISPclass = new $class ();
 			$action   = $task ['action'];
@@ -148,9 +132,6 @@ class System_TasksController extends Shineisp_Controller_Default {
 			PanelsActions::UpdateTaskStatus ( $task ['action_id'], Statuses::id('complete', 'domains_tasks') ); // Set the task as "Complete"
 			
 			$setup = OrdersItems::getSetup($task ['orderitem_id']);
-			
-			// Execute a custom event
-			self::events()->trigger('panels_task_after', $class, array('action' => $task ['action'], 'task' => $task, 'setup' => $setup));
 			
 		} catch (Exception $e) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( $e->getMessage () ) );

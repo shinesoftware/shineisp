@@ -1,0 +1,10 @@
+DomainsBulk:
+  DomainsBulk_1:
+    startingdate: '2013-06-11 11:59:55'
+    domain: shineisp
+    DomainsTlds: DomainsTlds_2
+    sessionid: 73bog73hd20g4ltvgaet8mtub2
+    isavailable: true
+    price: '8.00'
+    cost: '7.00'
+    authinfo: null

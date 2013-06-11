@@ -9,22 +9,57 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	protected $isLive;
 	protected $name;
 	protected $path;
+	protected $clientId;
 	protected $session;
+	protected $soapclient;
 	protected $actions = array();
 	
 	public $events;
 	
 	/**
-	 * Events Registration
-	 *
-	 * (non-PHPdoc)
-	 * @see Shineisp_Plugins_Interface::events()
+	 * Event Manager Registration
+	 * @return mixed
 	 */
 	public function events()
 	{
-		return Shineisp_Registry::get('em');
+		$em = Shineisp_Registry::get('em');
+		if (!$this->events && is_object($em)) {
+			$em->attach('panels_connection', array('PanelsActions', 'listener_panels_connection'), 100);
+			$em->attach('panels_create_client_before', array('PanelsActions', 'listener_panels_create_client_before'), 100);
+			$em->attach('panels_create_client_after', array('PanelsActions', 'listener_panels_create_client_after'), 100);
+		}
+		return $em;
 	}
+	
 						
+	/**
+	 * @return the $clientId
+	 */
+	public function getClientId() {
+		return $this->clientId;
+	}
+
+	/**
+	 * @param field_type $clientId
+	 */
+	public function setClientId($clientId) {
+		$this->clientId = $clientId;
+	}
+
+	/**
+	 * @return the $soapclient
+	 */
+	public function getSoapclient() {
+		return $this->soapclient;
+	}
+
+	/**
+	 * @param field_type $soapclient
+	 */
+	public function setSoapclient($soapclient) {
+		$this->soapclient = $soapclient;
+	}
+
 	/**
 	 * @return the $session
 	 */
@@ -145,7 +180,7 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	 * @param array $record 	--> IspConfig Client Record
 	 * @return ArrayObject
 	 */
-	private function matchFieldsValues(array $attributes, array $record = array()) {
+	public function matchFieldsValues(array $attributes, array $record = array()) {
 		$fields = array ();
 	
 		// Loop of system product attributes
@@ -186,6 +221,34 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	
 		return $fields;
 	}
+	
+	/**
+	 * Get the server configuration from the order detail id
+	 *
+	 * @param integer $orderitemId
+	 * @throws Exception
+	 */
+	public function getServer($orderitemId){
+	
+		// Get the service details
+		$service = OrdersItems::getAllInfo($orderitemId);
+		if ( !$service ) {
+			return false;
+		}
+	
+		// Get the server assigned to the hosting service/product
+		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
+	
+		// Get the server configuration
+		$server = Servers::getServerFromGroup($server_group_id, 'web');
+	
+		if(empty($server)){
+			throw new Exception("No server has been set to the hosting service id: " . $service['detail_id'], "3500");
+		}
+	
+		return $server;
+	}
+	
 	
 	/**
 	 * 

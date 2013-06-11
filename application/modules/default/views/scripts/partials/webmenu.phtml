@@ -1,20 +1,20 @@
-	<ul class="navigation">
-		 
-	     <?php if(!empty($this->cmslinks)): ?>
-	     <li>
-	     	<a class="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/"><?=$this->translate('Blog') ?></a>
-	    	<?php echo $this->cmslinks ?>
-	     </li>
-	     <?php endif;?>
-	     
-	     <?php if(!empty($this->cartitems)): ?>
-	     <li> 
-		 	<?=$this->cart();?>
-		 </li>
-		 <?php endif; ?>
-	     <li>   
-	     	<a class="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/"><?=$this->translate('Profile') ?></a>
-		 	<?php echo $this->profile ();?>
-		 </li>
-		 
-	</ul>
+<ul class="navigation">
+	 
+     <?php if(!empty($this->cmslinks)): ?>
+     <li>
+     	<a class="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/"><?=$this->translate('Blog') ?></a>
+    	<?php echo $this->cmslinks ?>
+     </li>
+     <?php endif;?>
+     
+     <?php if(!empty($this->cartitems)): ?>
+     <li> 
+	 	<?=$this->cart();?>
+	 </li>
+	 <?php endif; ?>
+     <li>   
+     	<a class="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/"><?=$this->translate('Profile') ?></a>
+	 	<?php echo $this->profile ();?>
+	 </li>
+	 
+</ul>

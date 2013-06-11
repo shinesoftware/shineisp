@@ -47,7 +47,6 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grandtotal' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Customer' ), 'field' => "CONCAT(c.firstname,' ', c.lastname)", 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		#$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice dest.' ), 'field' => "CONCAT(r.firstname,' ', r.lastname)", 'alias' => 'invoice_dest', 'sortable' => true, 'type' => 'string', 'searchable' => true);
 		$config ['datagrid'] ['fields'] =  "invoice_id, 
 											DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
 											i.number as number, 
@@ -498,9 +497,6 @@ class Invoices extends BaseInvoices {
 	                // Create the pdf invoice document
 	                self::PrintPDF($invoice->invoice_id, false, true);
 	                
-	                // Send the invoice in to the Dropbox service
-	                Invoices::DropboxIt( $invoice->invoice_id );
-					
 					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $id > 0) {
 						Invoices::sendInvoice ( $id );
 					}	

@@ -203,8 +203,12 @@ class Settings extends BaseSettings {
      * @return Doctrine Record
      */
 
-    public static function findbyParam($parameter, $module = "Default", $isp = 1) {
+    public static function findbyParam($parameter, $module = "Default") {
+    	
+    	$parameter = trim($parameter);
+    	$module = is_null($module) ? "Default" : $module;
     	$session = new Zend_Session_Namespace ( $module );
+    	
     	if(!empty($session->parameters[$parameter])){
     		return $session->parameters[$parameter];
     	}

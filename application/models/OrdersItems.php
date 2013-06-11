@@ -1125,7 +1125,6 @@ class OrdersItems extends BaseOrdersItems {
 		if ( !empty($OrderItem['callback_url']) ) {
 			
 			// Set item to complete			
-            Shineisp_Commons_Utilities::log("Status ".print_r($statusComplete,true),"api.log");
             OrdersItems::set_status($orderItemId, Statuses::id("complete", "orders"));
             $ordersItem = self::find($orderItemId);
             $ordersItem = $ordersItem->toArray();
@@ -1160,10 +1159,6 @@ class OrdersItems extends BaseOrdersItems {
 		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {
 			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un hosting", "orders.log" );
 			
-			$message = array_merge(array('action=fullProfile'), $OrderItem);
-			Shineisp_MessageBus::getInstance()->publish('products.activate', json_encode($message));		
-			
-			// TODO: this must be removed when messages through bus goes production
 			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
 			return true;
@@ -1188,14 +1183,5 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 	}
-
-
-
-
-
-
-
-
-
 
 }

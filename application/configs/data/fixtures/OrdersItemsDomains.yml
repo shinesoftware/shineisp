@@ -3,3 +3,7 @@ OrdersItemsDomains:
     Domains: Domains_1
     Orders: Orders_1
     OrdersItems: OrdersItems_4
+  OrdersItemsDomains_2:
+    Domains: Domains_1
+    Orders: Orders_7
+    OrdersItems: OrdersItems_1

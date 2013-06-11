@@ -16,15 +16,14 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 		$menuheader = "<ul class='navigation'>\n";
 		$ns = new Zend_Session_Namespace ();
 		$this->translator = Shineisp_Registry::get ( 'Zend_Translate' );
-		#$this->createTldMenu();
 		
 		$menu = array(
 				'items' => array(),
 				'parents' => array()
 		);
 		
-		$result = ProductsCategories::getMenu ();
-		foreach($result as $menuItem)
+		$categories = ProductsCategories::getMenu ();
+		foreach($categories as $menuItem)
 		{
 			$menu['items'][$menuItem['category_id']] = $menuItem;
 			$menu['parents'][$menuItem['parent']][]  = $menuItem['category_id'];
@@ -33,8 +32,10 @@ class Zend_View_Helper_Shopmenu extends Zend_View_Helper_Abstract {
 		$html = $this->buildMenu(0, $menu);
 		$html .= $this->createTldMenu();
 		
-		// Replace the header of the menu list
-		$html = substr_replace($html, $menuheader, 0, strlen("<ul class=''>\n"));
+		if(!empty($categories)){
+			// Replace the header of the menu list
+			$html = substr_replace($html, $menuheader, 0, strlen("<ul class=''>\n"));
+		}
 		
 		return $html;
 	}

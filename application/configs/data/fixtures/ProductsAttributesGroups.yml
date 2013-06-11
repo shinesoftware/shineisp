@@ -4,13 +4,16 @@ ProductsAttributesGroups:
     iscomparable: false
     name: Default
     code: default
+    isp_id: '1'
   ProductsAttributesGroups_2:
     isrecurring: true
     iscomparable: false
     name: Domains
     code: domains
+    isp_id: '1'
   ProductsAttributesGroups_3:
     isrecurring: true
     iscomparable: true
     name: Hostings
     code: hostings
+    isp_id: '1'

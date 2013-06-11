@@ -149,6 +149,8 @@ class Shineisp_Commons_Utilities {
 					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
 					if(is_array($message)){
 						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "]\n" .  var_export($message, true));
+					}elseif(is_object($message)){
+						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "]\n" .  var_export($message, true));
 					}else{
 						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "] $message\n" );
 					}

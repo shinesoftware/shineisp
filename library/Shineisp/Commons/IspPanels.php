@@ -12,7 +12,7 @@ class Shineisp_Commons_IspPanels {
 	 * get the panel configuration
 	 */
 	public static function get_fields_list($panel, $method) {
-		$path = PUBLIC_PATH . "/../library/Shineisp/Api/Panels/$panel";
+		$path = PUBLIC_PATH . "/../library/Shineisp/Plugins/Panels/$panel";
 		if (file_exists ( $path . "/config.xml" )) {
 			$config = simplexml_load_file ( $path . "/config.xml" );
 			$fields = $config->xpath ( "methods/$method/fieldslist" );
