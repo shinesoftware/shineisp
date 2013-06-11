@@ -292,13 +292,19 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 			try {
 				
 				$this->invoices->invoice_date = Shineisp_Commons_Utilities::formatDateIn ( $params ['invoice_date'] );
-				$this->invoices->number = $params ['number'];
-				$this->invoices->order_id = $params ['order_id'];
-				$this->invoices->note = $params ['note'];
+				$this->invoices->number       = $params ['number'];
+				$this->invoices->order_id     = $params ['order_id'];
+				$this->invoices->note         = $params ['note'];
 				
 				// Save the data
 				$this->invoices->save ();
 				$id = is_numeric ( $id ) ? $id : $this->invoices->getIncremented ();
+
+				// Update formatted_number
+				if ( $this->invoices->formatted_number != $params ['formatted_number'] || empty($this->invoices->formatted_number) ) {
+					$this->invoices->formatted_number = !empty($params ['formatted_number']) ? $params ['formatted_number'] : Invoices::generateNumber($id);	
+					$this->invoices->save();
+				}
 			
 			} catch ( Exception $e ) {
 				$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice cannot be created. Please check all the data written.' ), 'status' => 'error' ) );

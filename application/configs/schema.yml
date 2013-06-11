@@ -1626,6 +1626,10 @@ Invoices:
       local: invoice_id
       foreign: invoice_id
       type: many
+  indexes:
+    formatted_number:
+      fields: [formatted_number]
+      
 InvoicesSettings:
   connection: doctrine
   tableName: invoices_settings

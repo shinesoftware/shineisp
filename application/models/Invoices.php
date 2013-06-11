@@ -18,7 +18,7 @@ class Invoices extends BaseInvoices {
 	 * Event Manager Registration
 	 * @return mixed
 	 */
-	public function events()
+	public static function events()
 	{
 		$em = Shineisp_Registry::get('em');
 		if (!self::$events && is_object($em)) {
@@ -38,8 +38,8 @@ class Invoices extends BaseInvoices {
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'i.invoice_id', 'alias' => 'invoice_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.number', 'alias' => 'number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'i.order_id', 'alias' => 'order', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'i.invoice_date', 'alias' => 'invoice_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Cost' ), 'field' => 'o.cost', 'alias' => 'cost', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
@@ -47,10 +47,11 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grandtotal' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'actions'=>array('Invoices'=>'Total') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Customer' ), 'field' => "CONCAT(c.firstname,' ', c.lastname)", 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		#$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice dest.' ), 'field' => "CONCAT(r.firstname,' ', r.lastname)", 'alias' => 'invoice_dest', 'sortable' => true, 'type' => 'string', 'searchable' => true);
 		$config ['datagrid'] ['fields'] =  "invoice_id, 
 											DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
-											i.number as number, 
-											i.order_id as order, 
+											i.formatted_number as formatted_number, 
+											o.order_number as order_number, 
 											o.cost as cost, 
 											o.total as total, 
 											o.vat as vat, 
@@ -300,6 +301,117 @@ class Invoices extends BaseInvoices {
 		return $dataset;
 	}	
 	
+	/**
+	 * get invoice sequential increment number from settings.
+	 * Returns 1 if not set
+	 */
+	public static function sequentialIncrement() {
+		$increment = intval(Settings::findbyParam('invoices_increment'));
+		if ( !$increment ) {
+			return 1;
+		}
+		
+		return $increment;
+	}
+	
+	/**
+	 * Generate the invoice number
+	 * @param int $invoice_id
+	 */
+	public static function generateNumber($invoice_id = 0) {
+		$invoice_id = isset($invoice_id) ? intval($invoice_id) : 0;
+		if ( !$invoice_id ) {
+			return false;
+		}
+		
+		$invoices_number_format = Settings::findbyParam('invoices_number_format');
+		if ( empty($invoices_number_format) ) {
+			// Empty setting, there is no need to try replacement
+			return $invoice_id;
+		}
+		
+		$Order   = Doctrine::getTable ('Orders')->findOneBy('invoice_id', $invoice_id);
+		$Invoice = Doctrine::getTable ('Invoices')->find($invoice_id);
+		if ( !$Invoice ) {
+			return $invoice_id;
+		}
+
+		$zero_fill = Settings::findbyParam('invoices_zero_prefix');
+		$zero_fill = isset($zero_fill) ? intval($zero_fill) : 0;
+		$invoices_zero_prefix = str_pad($invoice_id, $zero_fill, '0', STR_PAD_LEFT);
+		$invoiceNumber        = str_pad($Invoice->number, $zero_fill, '0', STR_PAD_LEFT);
+		
+		// Invoice Count is the number of invoices associated to a customer
+		$invoicesCount = 0;
+		$q = Doctrine_Query::create()
+      		->select('COUNT(invoice_id) AS invoicesCount')
+      		->from('Invoices')
+			->where('customer_id = ?', $Invoice->customer_id)
+			->fetchArray();
+		if ( isset($q[0]) && isset($q[0]['invoicesCount'])) {
+			$invoicesCount = intval($q[0]['invoicesCount']);	
+		}
+		Shineisp_Commons_Utilities::log("Invoices count for customer_id ".$Invoice->customer_id.": ".$invoicesCount, 'invoices.log');
+
+		// Get all placeholders in orders_number_format
+		preg_match_all('/\[([a-zA-Z0-9_]+)\]/', $invoices_number_format, $out);
+		if ( is_array($out) && isset($out[1]) ) {
+			foreach ( $out[1] as $placeholder ) {
+				//* ORDER
+				if ( $placeholder == 'order_id' ) {
+					$v = Orders::zeroPrefix($Invoice->order_id);
+				} else if ( $placeholder == 'order_date' ) {
+					$v = $Order->order_date;						
+				} else if ( $placeholder == 'order_year' ) {
+					$v = substr($Order->order_date,0,4);						
+				} else if ( $placeholder == 'order_year2' ) {
+					$v = substr($Order->order_date,2,2);	
+				} else if ( $placeholder == 'order_month' ) {
+					$v = substr($Order->order_date,5,2);	
+				} else if ( $placeholder == 'order_day' ) {
+					$v = substr($Order->order_date,8,2);	
+				} else if ( $placeholder == 'isp_id' ) {
+					$v = $Order->isp_id;	
+				
+				//* INVOICE
+				} else if ( $placeholder == 'invoice_id' ) {
+					$v = $invoices_zero_prefix;						
+				} else if ( $placeholder == 'invoice_number' ) {
+					$v = $invoiceNumber;						
+				} else if ( $placeholder == 'invoice_year' ) {
+					$v = substr($Invoice->invoice_date,0,4);						
+				} else if ( $placeholder == 'invoice_year2' ) {
+					$v = substr($Invoice->invoice_date,2,2);	
+				} else if ( $placeholder == 'invoice_month' ) {
+					$v = substr($Invoice->invoice_date,5,2);	
+				} else if ( $placeholder == 'invoice_day' ) {
+					$v = substr($Invoice->invoice_date,8,2);	
+				} else if ( $placeholder == 'invoices_count' ) {
+					$v = $invoicesCount;	
+					
+				//* MISC
+				} else if ( $placeholder == 'RN' ) {
+					$v = mt_rand(0,9);
+				} else if ( $placeholder == 'RL' ) {
+					$v = chr(65 + mt_rand(0, 25));
+				} else if ( $placeholder == 'TS' ) {
+					$v = time();
+					
+				//* FALLBACK TO INVOICE TABLE
+				} else {
+					$v = '['.$placeholder.']';
+					if ( isset($Invoice->{$placeholder}) && $placeholder != 'order_id' ) { // order_id is managed differently from the first condition
+						$v = $Invoice->{$placeholder};
+					}
+				}
+				$invoices_number_format = preg_replace('/\['.$placeholder.'\]/', $v, $invoices_number_format,1);
+			}
+		}
+		
+		return $invoices_number_format;
+	}
+	
+	
     /**
      * Set a record with a status
      * 
@@ -415,7 +527,7 @@ class Invoices extends BaseInvoices {
      * @return Doctrine Record
      */
     public static function getOrderbyInvoiceId($invoiceid) {
-        return Doctrine::getTable ( 'Invoices' )->findBy('invoice_id', $invoiceid, Doctrine::HYDRATE_ARRAY );
+        return Doctrine::getTable ( 'Orders' )->findBy('invoice_id', $invoiceid, Doctrine::HYDRATE_ARRAY );
     }      
     
     /**
@@ -453,7 +565,7 @@ class Invoices extends BaseInvoices {
             $items[] = "";
         }
         foreach ( $arrTypes->getData () as $c ) {
-            $items [$c ['invoice_id']] = $z = sprintf("%03d", $c ['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut($c ['invoice_date']);
+            $items [$c ['invoice_id']] = $z = $c['formatted_number']." - ".Shineisp_Commons_Utilities::formatDateOut($c ['invoice_date']);
         }
         return $items;
     }
@@ -466,39 +578,46 @@ class Invoices extends BaseInvoices {
      * @return Doctrine Record
      */
     public static function Create($orderid) {
-        
-    	$invoice = new Invoices();
-        $InvoicesSettings = new InvoicesSettings();
-        
         if(is_numeric($orderid)){
-	        $invoice_number = InvoicesSettings::getLastInvoice ( );
-	        $customer = Orders::getAllInfo($orderid, "customer_id", true );
+	        $invoice_number = InvoicesSettings::getLastInvoice();
+	        $customer_id    = Doctrine::getTable ( 'Orders' )->find($orderid)->customer_id;
 	        
 	        // Check if there is an invoice ID set for this order.
-	        $rs_invoice = Invoices::findByOrderID($orderid)->toArray();
-	        if(isset($rs_invoice[0]['number']) && is_numeric($rs_invoice[0]['number'])){
+	        $Invoice = Doctrine::getTable ( 'Invoices' )->findOneByOrderId($orderid);
+	        if(isset($Invoice->number) && is_numeric($Invoice->number)){
 	            // Set the invoice number to the order
-	            Orders::setInvoice ( $orderid, $rs_invoice[0]['invoice_id']);
-	            return $rs_invoice[0]['number'];
+	            Orders::setInvoice ( $orderid, $Invoice->invoice_id);
+	            return $Invoice->number;
 	        }
 	        
 	        try {
-	            if(is_numeric($customer[0]['customer_id'])){
-	                $invoice->number = $invoice_number;
-	                $invoice->order_id = $orderid;
-	                $invoice->customer_id = $customer[0]['customer_id'];
-	                $invoice->invoice_date = date('Y-m-d');
-	                $invoice->save();
-	                
-	                $id = $invoice->getIncremented();
+	            if ( is_numeric($customer_id) ) {
+	            	$Invoice = new Invoices();
+	                $Invoice->number       = $invoice_number;
+	                $Invoice->order_id     = $orderid;
+	                $Invoice->customer_id  = $customer_id;
+	                $Invoice->invoice_date = date('Y-m-d');
+	                $Invoice->save();
+	                $invoice_id = $Invoice->getIncremented();
+					
+					Shineisp_Commons_Utilities::log("Created new invoice with id #".$invoice_id, 'invoices.log');
+					
 	                InvoicesSettings::setLastInvoice($invoice_number);
-	                Orders::setInvoice ($orderid, $id);
+	                Orders::setInvoice ($orderid, $invoice_id);
+					
+					// Generate an Invoice Number
+					$invoice_number = self::generateNumber($invoice_id);
+					if ( isset($invoice_number) ) {
+						Shineisp_Commons_Utilities::log("Generated invoice number ".$invoice_number." for invoice with id #".$invoice_id, 'invoices.log');
+						$Invoice->formatted_number = $invoice_number;
+						$Invoice->save();	
+					}
 
-	                // Create the pdf invoice document
-	                self::PrintPDF($invoice->invoice_id, false, true);
-	                
-					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $id > 0) {
-						Invoices::sendInvoice ( $id );
+	                // Create the pdf invoice document (dropbox event is triggered by this)
+	                self::PrintPDF($invoice_id, false, true);
+					
+					if ( intval(Settings::findbyParam('auto_send_invoice')) === 1 && $invoice_id > 0) {
+						Invoices::sendInvoice ( $invoice_id );
 					}	
 	                
 	                return $id;
@@ -678,18 +797,25 @@ class Invoices extends BaseInvoices {
 				return false;
 			}
 			
-			$invoice    = $invoice->toArray ();
+			$invoice = $invoice->toArray ();
+
+			// Set the basepath for the file
+			$Order = Doctrine::getTable ( 'Orders' )->findOneBy('invoice_id', $invoice_id);
+			$invoicePath = $path.$Order->isp_id.'/'.str_replace('-','/',$invoice ['invoice_id']);
 			
 			// Set the name of the file
-			$filename = $invoice ['invoice_date'] . " - " . $invoice ['number'] . ".pdf";
-    		
-			// Invoice already exists, we return it
-			if ( file_exists(PUBLIC_PATH.$path.'/'.$filename) && $show && !$force ) {
-				header('Content-type: application/pdf');
-				header('Content-Disposition: attachment; filename="'.$filename.'"');
-				die(file_get_contents(PUBLIC_PATH.$path.'/'.$filename));
-			}			
+			$filename    = $invoicePath.'/'.$invoice['invoice_id'].".pdf";
+			$filenameOld = $path.$invoice ['invoice_date']." - ".$invoice ['number'].".pdf";
 			
+			// Invoice already exists, we return it
+			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
+				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+				header('Content-type: application/pdf');
+				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
+				
+				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
+				die($invoice);
+			}			
 			
     		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 			
@@ -823,10 +949,10 @@ class Invoices extends BaseInvoices {
 				}
 
 				// Sanitize some fields
-				$database ['records'] ['invoice_number'] = ! empty ( $database ['records'] ['invoice_number'] ) ? $database ['records'] ['invoice_number'] : "";
+				$database ['records'] ['invoice_number']      = ! empty ( $database ['records'] ['invoice_number'] )  ? $database ['records'] ['invoice_number']     : "";
 				$database ['records'] ['payment_description'] = !empty($database ['records'] ['payment_description']) ? $database ['records']['payment_description'] : "";
-				$database ['records'] ['payment_mode'] = ! empty ( $database ['records'] ['payment_mode'] ) ? $database ['records'] ['payment_mode'] : "";
-				$database ['records'] ['payment_date'] = ! empty ( $database ['records'] ['payment_date'] ) ? $database ['records'] ['payment_date'] : "";
+				$database ['records'] ['payment_mode']        = ! empty ( $database ['records'] ['payment_mode'] )    ? $database ['records'] ['payment_mode']       : "";
+				$database ['records'] ['payment_date']        = ! empty ( $database ['records'] ['payment_date'] )    ? $database ['records'] ['payment_date']       : "";
 				
 				$database ['records']['totalPayments'] = count($database['records']['payments']);
 
@@ -835,19 +961,35 @@ class Invoices extends BaseInvoices {
 				$code['customer'] = $database['records']['customer']['customer_id'];
 				$jcode            = base64_encode(json_encode($code));
 				
-				$database['records']['qrcode_url']   = $_SERVER['HTTP_HOST']."/index/qrcode/q/".$jcode;
-				$database['records']['skip_barcode'] = 0;
+				$database['records']['qrcode_url'] = $_SERVER['HTTP_HOST']."/index/qrcode/q/".$jcode;
+				
+				$database['records']['skip_barcode'] = 1;
+				if ( !empty($database ['records']['invoice_number']) ) {
+					$database['records']['barcode']      = $database ['records']['invoice_number'];
+					$database['records']['skip_barcode'] = 0;
+				}
 
 				if (isset ( $order [0] )) {
+					// Create the path structure
+					if ( !is_dir(PUBLIC_PATH.$invoicePath) ) {
+						mkdir(PUBLIC_PATH.$invoicePath, 0700, true);
+					}
+					
+					// Template name
+					$templateName = Settings::findByParam('invoice_template');
+					if ( empty($templateName) ) {
+						$templateName = Shineisp_Commons_Utilities::getFirstFile(PUBLIC_PATH.'/skins/commons/invoices', '/\.phtml$/');	
+					}
+										
 					$Shineisp_InvoiceView = new Shineisp_InvoiceView();
 					$Shineisp_InvoiceView->assign('header',  $database['header']);
 					$Shineisp_InvoiceView->assign('columns', $database['columns']);
 					$Shineisp_InvoiceView->assign('data',    $database['records']);
 					
-					$html = $Shineisp_InvoiceView->render('template1.phtml');
+					$html = $Shineisp_InvoiceView->render($templateName);
 					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
 	    			$html2pdf->WriteHTML($html);
-	    			$html2pdf->Output(PUBLIC_PATH.$path.'/'.$filename,'F');
+	    			$html2pdf->Output(PUBLIC_PATH.$filename,'F');
 
 					//$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
 					
