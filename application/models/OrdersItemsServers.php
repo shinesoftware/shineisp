@@ -28,29 +28,19 @@ class OrdersItemsServers extends BaseOrdersItemsServers
 			$itemID   = intval($orderItemID);
 
 			if ( $action == 'remove' ) {
-				/*
-				 * REMOVE
-				 */
-				
 				$record = self::findByServerAndItem($serverID, $itemID);
 				$record->delete();
 				$ret = true;	
 			} else {
-				/*
-				 * ADD
-				 */
-	
 		    	$order = OrdersItems::find($orderItemID, 'order_id', true);
-	
 		    	if ( !empty($order) && is_array($order) && count($order) > 0 ) {
+		    		
 		    		$order   = $order[0];
-					
 					if ( !isset($order['order_id']) || intval($order['order_id']) == 0 ) {
 						$ret = false;
 					}
 					
 					$orderID  = intval($order['order_id']);
-						
 	    			$OrdersItemsServers = new self;
 					$OrdersItemsServers->server_id    = $serverID;
 					$OrdersItemsServers->order_id     = $orderID;
@@ -64,9 +54,6 @@ class OrdersItemsServers extends BaseOrdersItemsServers
 			
 			// Always update server stats		
 			$Server = Servers::find($serverID);
-			Zend_Debug::dump($serverID);
-			Zend_Debug::dump($Server);
-			die;
 			$Server->services = OrdersItemsServers::countByServerId($serverID);
 			$Server->save();
 			

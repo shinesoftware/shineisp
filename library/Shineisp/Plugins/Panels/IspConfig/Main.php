@@ -33,18 +33,12 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 	public function create_mail(array $task) {
 		$emailUserID = false;
 		
-		$clientId = self::get_client_id($task);
+		$server = self::getServer($task['orderitem_id'], 'mail');
 		
-		$server = self::getServer($task['orderitem_id']);
-		
-		// Connection to the SOAP system
-		$client = $this->connect ($server['server_id']);
-				
 		// Get the service details
 		$service = OrdersItems::getAllInfo($task['orderitem_id']);
 		
 		if(!empty($service)){
-			$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
 			
 			// Get the Json encoded parameters in the task
 			$parameters = json_decode ( $task ['parameters'], true );
@@ -53,12 +47,14 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 				throw new Exception("No parameters found in the service", 3501);
 			}
 			
-			// Get the mail server setup
-			$server = Servers::getServerFromGroup($server_group_id, 'mail');
-
 			// Get the server id
 			if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
+				$clientId = self::get_client_id($task, $server['server_id']);
+				
+				// Connection to the SOAP system
+				$client = $this->connect ($server['server_id']);
+				
 				// Get the remote server ID set in the servers profile in ShineISP
 				$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
 
@@ -97,6 +93,8 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 							throw new Exception("There was a problem with the Mail Domain creation: " . $e->getMessage() . " - " . __METHOD__ . " - Paramenters: " . json_encode($params) , "3506");
 						}
 						
+						$defaultQuota = Shineisp_Commons_Utilities::MB2Bytes(100); // 100MB default value
+						
 						$params = array(
 								'server_id' => $ServerId,
 								'email' => $email,
@@ -105,7 +103,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 								'uid' => 5000,
 								'gid' => 5000,
 								'maildir' => '/var/vmail/' . $domain['domain'] . "/info",
-								'quota' => !empty($parameters['mailquota']) && is_numeric($parameters['mailquota']) && ($parameters['mailquota'] > 0) ? $parameters['mailquota'] : "-1",
+								'quota' => !empty($parameters['mailquota']) && is_numeric($parameters['mailquota']) && ($parameters['mailquota'] > 0) ? Shineisp_Commons_Utilities::MB2Bytes($parameters['mailquota']) : $defaultQuota,
 								'cc' => '',
 								'homedir' => '',
 								'autoresponder' => 'n',
@@ -120,7 +118,6 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 								'disablepop3' => 'n',
 								'disabledeliver' => 'n',
 								'disablesmtp' => 'n');
-
 						
 						try{
 							// Create the mailbox
@@ -170,12 +167,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 	 */
 	public function create_database(array $task) {
 		
-		$clientId = self::get_client_id($task);
-		
-		$server = self::getServer($task['orderitem_id']);
-		
-		// Connection to the SOAP system
-		$client = $this->connect ($server['server_id']);
+		$server = self::getServer($task['orderitem_id'], 'database');
 		
 		// Get the Json encoded parameters in the task
 		$parameters = json_decode ( $task ['parameters'], true );
@@ -183,18 +175,14 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			throw new Exception("No parameters found in the service", 3501);
 		}
 
-		// Get the service details
-		$service = OrdersItems::getAllInfo($task['orderitem_id']);
-		if ( !$service ) {
-			return false;
-		}
-		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
-		$server = Servers::getServerFromGroup($server_group_id, 'database');		
-				
-
 		// Get the server id
 		if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
+			$clientId = self::get_client_id($task, $server['server_id']);
+			
+			// Connection to the SOAP system
+			$client = $this->connect ($server['server_id']);
+			
 			// Get the remote server ID set in the servers profile in ShineISP
 			$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
 
@@ -222,6 +210,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 				);
 				
 				$dbUserId = $client->sites_database_user_add($this->getSession(), $clientId, $params);
+				
 				if($dbUserId){
 					// Create the database
 					$params = array(
@@ -280,24 +269,21 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 	 * @access     public
 	 */
 	public function create_ftp(array $task, $websiteID) {
-		$clientId = self::get_client_id($task);
 		
-		$server = self::getServer($task['orderitem_id']);
-		
-		// Connection to the SOAP system
-		$client = $this->connect ($server['server_id']);
-
-		// Get the service details
-		$service = OrdersItems::getAllInfo($task['orderitem_id']);
-		if ( !$service ) {
-			return false;
+		if(!is_numeric($websiteID)){
+			throw new Exception(__METHOD__ . ": No website ID found.", "3550");
 		}
-		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
-		$server = Servers::getServerFromGroup($server_group_id, 'web');		
-
+		
+		$server = self::getServer($task['orderitem_id'], 'web');
+		
 		// Get the server id
 		if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 
+			// Connection to the SOAP system
+			$client = $this->connect ($server['server_id']);
+				
+			$clientId = self::get_client_id($task, $server['server_id']);
+			
 			// Get the remote server ID set in the servers profile in ShineISP
 			$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
 
@@ -382,107 +368,112 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 	 */
 	public function create_website(array $task) {
 		$params = array();
-		
-		$server = self::getServer($task['orderitem_id']);
-		
-		// Get the server id
-		if(!empty($server['server_id']) && is_numeric($server['server_id'])){
+		try{
+			$server = self::getServer($task['orderitem_id'], 'web');
 			
-			$clientId = self::get_client_id($task, $server['server_id']);
-			
-			// Connection to the SOAP system
-			$client = $this->connect ($server['server_id']);
-			
-			// Get the remote server ID set in the servers profile in ShineISP
-			$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
-
-			// Get the remote server id set in ShineISP
-			if(is_numeric($customAttribute['value'])){
-				$ServerId = $customAttribute['value'];
-			
-				// Get the Json encoded parameters in the task
-				$parameters = json_decode ( $task ['parameters'], true );
-	
-				// Get the domain
-				$domains = OrdersItemsDomains::get_domains($task['orderitem_id']);
+			// Get the server id
+			if(!empty($server['server_id']) && is_numeric($server['server_id'])){
 				
-				if(!empty($domains[0]['domain'])){
+				$clientId = self::get_client_id($task, $server['server_id']);
+				
+				// Connection to the SOAP system
+				$client = $this->connect ($server['server_id']);
+				
+				// Get the remote server ID set in the servers profile in ShineISP
+				$customAttribute = CustomAttributes::getAttribute($server['server_id'], "remote_server_id");
 	
-					$params = array(
-							'server_id' => $ServerId,
-							'ip_address' => '*',
-							'domain' => $domains[0]['domain'],
-							'type' => 'vhost',
-							'parent_domain_id' => 0,
-							'vhost_type' => 'name',
-							'hd_quota' => $parameters['webspace'],
-							'traffic_quota' => $parameters['trafficdata'],
-							'cgi' => 'n',
-							'ssi' => 'n',
-							'suexec' => 'y',
-							'errordocs' => 1,
-							'is_subdomainwww' => 1,
-							'subdomain' => 'www',
-							'php' => 'fast-cgi',
-							'ruby' => 'n',
-							'redirect_type' => '',
-							'redirect_path' => '',
-							'ssl' => 'n',
-							'ssl_state' => '',
-							'ssl_locality' => '',
-							'ssl_organisation' => '',
-							'ssl_organisation_unit' => '',
-							'ssl_country' => '',
-							'ssl_domain' => '',
-							'ssl_request' => '',
-							'ssl_cert' => '',
-							'ssl_bundle' => '',
-							'ssl_action' => '',
-							'stats_password' => '',
-							'stats_type' => 'webalizer',
-							'allow_override' =>'All',
-							'apache_directives' => '',
-							'php_open_basedir' => '/',
-					 		'custom_php_ini' =>'',
-							'backup_interval' => '',
-							'backup_copies' => 1,
-							'active' => 'y',
-							'traffic_quota_lock' => 'n',
-							'pm_process_idle_timeout' => '10',
-							'pm_max_requests' => '0',
-						);
+				// Get the remote server id set in ShineISP
+				if(is_numeric($customAttribute['value'])){
+					$ServerId = $customAttribute['value'];
+				
+					// Get the Json encoded parameters in the task
+					$parameters = json_decode ( $task ['parameters'], true );
+		
+					// Get the domain
+					$domains = OrdersItemsDomains::get_domains($task['orderitem_id']);
 					
-					try{
+					if(!empty($domains[0]['domain'])){
+		
+						$params = array(
+								'server_id' => $ServerId,
+								'ip_address' => '*',
+								'domain' => $domains[0]['domain'],
+								'type' => 'vhost',
+								'parent_domain_id' => 0,
+								'vhost_type' => 'name',
+								'hd_quota' => $parameters['webspace'],
+								'traffic_quota' => $parameters['trafficdata'],
+								'cgi' => 'n',
+								'ssi' => 'n',
+								'suexec' => 'y',
+								'errordocs' => 1,
+								'is_subdomainwww' => 1,
+								'subdomain' => 'www',
+								'php' => 'fast-cgi',
+								'ruby' => 'n',
+								'redirect_type' => '',
+								'redirect_path' => '',
+								'ssl' => 'n',
+								'ssl_state' => '',
+								'ssl_locality' => '',
+								'ssl_organisation' => '',
+								'ssl_organisation_unit' => '',
+								'ssl_country' => '',
+								'ssl_domain' => '',
+								'ssl_request' => '',
+								'ssl_cert' => '',
+								'ssl_bundle' => '',
+								'ssl_action' => '',
+								'stats_password' => '',
+								'stats_type' => 'webalizer',
+								'allow_override' =>'All',
+								'apache_directives' => '',
+								'php_open_basedir' => '/',
+						 		'custom_php_ini' =>'',
+								'backup_interval' => '',
+								'backup_copies' => 1,
+								'active' => 'y',
+								'traffic_quota_lock' => 'n',
+								'pm_process_idle_timeout' => '10',
+								'pm_max_requests' => '0',
+							);
 						
-						$websiteId = $client->sites_web_domain_add($this->getSession(), $clientId, $params, $readonly = false);
-						
-						if(!is_numeric($websiteId)){
-							throw new Exception("There was a problem with website creation: sites_web_domain_add doesn't return the websiteID identifier", "3505");
+						try{
+							
+							$websiteId = $client->sites_web_domain_add($this->getSession(), $clientId, $params, $readonly = false);
+							
+							if(!is_numeric($websiteId)){
+								throw new Exception("There was a problem with website creation: sites_web_domain_add doesn't return the websiteID identifier", "3505");
+							}
+							
+						} catch ( SoapFault $e ) {
+							throw new Exception("There was a problem with " . $domains[0]['domain'] . " website creation: " . $e->getMessage() . " - Paramenters: " . json_encode($params) , "3504");
 						}
 						
-					} catch ( SoapFault $e ) {
-						throw new Exception("There was a problem with " . $domains[0]['domain'] . " website creation: " . $e->getMessage() . " - Paramenters: " . json_encode($params) , "3504");
+						// Add relation between order_item and server
+						OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
+						
+						// Create the log message
+						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
+						
+					}else{
+						throw new Exception("No domain set for the selected service in the ShineISP service order detail ID #: " . $task ['orderitem_id'], "3503");
 					}
-					
-					// Add relation between order_item and server
-					OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
-					
-					// Create the log message
-					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
 				}else{
-					throw new Exception("No domain set for the selected service in the ShineISP service order detail ID #: " . $task ['orderitem_id'], "3503");
+					throw new Exception("No remote web server id set in the ShineISP server profile.", "3502");
 				}
 			}else{
-				throw new Exception("No remote web server id set in the ShineISP server profile.", "3502");
+				throw new Exception("Web Server has not been found in IspConfig server settings.", "3501");
 			}
-		}else{
-			throw new Exception("Web Server has not been found in IspConfig server settings.", "3501");
+			
+			// Logout from the IspConfig Remote System
+			$client->logout($this->getSession ());
+			
+			return $websiteId;
+			
+		}catch(Exception $e){
+			Shineisp_Commons_Utilities::logs (__METHOD__ . ": " . $e->getMessage ());
 		}
-		
-		// Logout from the IspConfig Remote System
-		$client->logout($this->getSession ());
-		
-		return $websiteId;
 		
 	}
 	
@@ -509,12 +500,11 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 		// Execute a custom event
 		$this->events()->trigger('panels_create_client_before', __CLASS__, array('task' => $task));
 			
-		$server = self::getServer($task['orderitem_id']);
+		$server = self::getServer($task['orderitem_id'], 'web');
 		
 		// Connection to the SOAP system
 		$client = $this->connect ($server['server_id']);
-		Zend_Debug::dump($client);
-		die;
+		
 		if(!$client){
 			throw new Exception("There is no way to connect the client with the IspConfig Panel.", "3010");
 		}
@@ -558,11 +548,14 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			
 			// System Configuration
 			$languagecode = Languages::get_code($customer ['language_id']);
+			
 			$record ['language']            = $languagecode;
 			$record ['usertheme']           = "default";
 			$record ['template_master']     = 0;
 			$record ['template_additional'] = "";
-			$record ['created_at']          = 0;
+			$record ['created_at']          = date('');
+			$record ['web_php_options']     = "no,fast-cgi,cgi,mod,suphp,php-fpm";
+			$record ['ssh_chroot']     		= 'jailkit';
 			
 			// Get the Json encoded parameters in the task
 			$parameters = json_decode ( $task ['parameters'], true );
@@ -572,20 +565,14 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 	
 			if (is_array ( $retval )) {
 				$record = array_merge ( $record, $retval );
+			}else{
+				Shineisp_Commons_Utilities::logs ("No hosting attribute parameters have been set in ShineISP. Check the hosting product attributes section.", "ispconfig.log" );
 			}
 			
 			// Execute the SOAP action
 			if (! empty ( $clientId ) && is_numeric($clientId)) {
 				$client->client_update ( $this->getSession (), $clientId, 1, $record );
 			} else {
-				
-				// Get the service details
-				$service = OrdersItems::getAllInfo($task['orderitem_id']);
-				if ( !$service ) {
-					return false;
-				}
-				$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
-				$server = Servers::getServerFromGroup($server_group_id, 'web');		
 				
 				$arrUsernames = array();
 				$arrUsernames = self::generateUsernames($customer);
@@ -627,6 +614,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			
 		}catch(Exception $e){
 			Shineisp_Commons_Utilities::logs ( __METHOD__ . ": " . $e->getMessage());
+			echo $e->getMessage();
 		}
 	}
 	
@@ -716,17 +704,10 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 		$username = CustomAttributes::getAttributeValue($serverId, "username");
 		$password = CustomAttributes::getAttributeValue($serverId, "password");
 		
-		if(!empty($Soapclient)){
-			return $Soapclient;
-		}
-		
 		if (! empty ( $endpointlocation ) && ! empty ( $endpointuri ) && ! empty ( $username ) && ! empty ( $password )) {
 			
 			$client = new SoapClient ( null, array ('location' => $endpointlocation, 'uri' => $endpointuri, 'trace' => 1, 'exceptions' => 1 ) );
 			$this->setSession ( $client->login ( $username, $password ) );
-			
-			// Execute a custom event
-			$this->events()->trigger('panels_connection', __CLASS__, array('soapclient' => $client));
 			
 			$this->setSoapclient($client);
 			

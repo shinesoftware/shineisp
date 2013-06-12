@@ -24,7 +24,6 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	{
 		$em = Shineisp_Registry::get('em');
 		if (!$this->events && is_object($em)) {
-			$em->attach('panels_connection', array('PanelsActions', 'listener_panels_connection'), 100);
 			$em->attach('panels_create_client_before', array('PanelsActions', 'listener_panels_create_client_before'), 100);
 			$em->attach('panels_create_client_after', array('PanelsActions', 'listener_panels_create_client_after'), 100);
 		}
@@ -228,7 +227,7 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	 * @param integer $orderitemId
 	 * @throws Exception
 	 */
-	public function getServer($orderitemId){
+	public function getServer($orderitemId, $servername){
 	
 		// Get the service details
 		$service = OrdersItems::getAllInfo($orderitemId);
@@ -240,10 +239,10 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 		$server_group_id = (isset($service['Products']) && isset($service['Products']['server_group_id'])) ? intval($service['Products']['server_group_id']) : 0;
 	
 		// Get the server configuration
-		$server = Servers::getServerFromGroup($server_group_id, 'web');
-	
+		$server = Servers::getServerFromGroup($server_group_id, $servername);
+
 		if(empty($server)){
-			throw new Exception("No server has been set to the hosting service id: " . $service['detail_id'], "3500");
+			throw new Exception("No $servername server has been set for the hosting service id: " . $service['detail_id'], "3500");
 		}
 	
 		return $server;

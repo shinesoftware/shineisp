@@ -184,8 +184,6 @@ class Servers extends BaseServers {
 	 * 
 	 */
 	public static function extractServersFromGroup($group_id, $server_type = null) {
-		Shineisp_Commons_Utilities::logs ('in Servers::extractServersFromGroup('.$group_id.', '.$server_type.')', 'servers.log');
-		
 		$arrOutput   = array();
 		$group_id    = isset($group_id)    ? intval($group_id)    : null;
 		$server_type = isset($server_type) ? intval($server_type) : null;
@@ -201,7 +199,6 @@ class Servers extends BaseServers {
 		}
 		$fill_type = (int)$ServersGroups->fill_type;
 	
-		//echo "fill_type: ".$fill_type."\n";
 		/*
         	'1' => 'Create services on the least full server',
         	'2' => 'Fill default server until full then switch to next least used', 
@@ -212,13 +209,9 @@ class Servers extends BaseServers {
         	'7' => 'Fill servers starting from the cheaper to the expensive.',
         	'8' => 'Fill servers starting from the expensive to the cheaper.',
 		*/
-
-
-
+		
 		// Get all servers inside this group
 		$serverIds = ServersGroups::getServers($group_id, 's.*');
-		
-		//echo "Ci sono questi server nel gruppo: ".implode(',', $serverIds)."\n";
 		
 		// Get servers details
 		$ORM = Doctrine_Query::create ()
@@ -236,19 +229,19 @@ class Servers extends BaseServers {
 
 		$ORM = $ORM->execute();
 							 
-				
 		// Create an array with type_id as index
 		$arrServers = array();
 		foreach ( $ORM as $y ) {
 			$type_id       = $y->type_id;
 			$server_id     = $y->server_id;
 			$services      = isset($y->services) ? intval($y->services) : 0;
-			$max_services  = (isset($y->max_services) && $y->max_services > 0) ? intval($y->max_services) : PHP_INT_SIZE;
+			$max_services  = (isset($y->max_services) && $y->max_services > 0) ? intval($y->max_services) : 10000;
 			$buy_timestamp = isset($y->buy_date) ? strtotime($y->buy_date) : 0;
 			$is_default    = isset($y->is_default) ? intval($y->is_default) : 0;
 
 			// Skip full servers
 			if ( $services >= $max_services ) {
+				Shineisp_Commons_Utilities::logs (__METHOD__ . " " . $server_type." is full!", 'servers.log');
 				continue;
 			}
 
@@ -263,8 +256,6 @@ class Servers extends BaseServers {
 		// Cycle servers by type
 		foreach ( $arrServers as $type_id => $serverType ) {
 			$tmp = array(); // temporary array
-			
-			//echo "Faccio elaborazione di fill_type ".$fill_type."\n";
 			
 			// Extract server
 			switch ( $fill_type ) {
@@ -298,13 +289,8 @@ class Servers extends BaseServers {
 			reset($tmp);
 			$selectedServer = key($tmp);
 		
-			//echo "Selezionato il server ".$selectedServer."\n";
 			$arrOutput[$type_id][$selectedServer] = $arrServers[$type_id][$selectedServer];					
 		}
-		
-
-		//echo "SPARO FUORI: \n";
-		//print_r($arrOutput);
 		
 		if (isset($server_type) && isset($arrOutput[$server_type])) {
 			// return just the server array
@@ -312,7 +298,7 @@ class Servers extends BaseServers {
 			$arrOutput = $arrOutput[$server_type][$key];
 		}
 		
-		Shineisp_Commons_Utilities::logs ('out from Servers::extractServersFromGroup('.$group_id.', '.$server_type.'): '.serialize($arrOutput), 'servers.log');
+		Shineisp_Commons_Utilities::logs (__METHOD__ . '('.$group_id.', '.$server_type.'): '.serialize($arrOutput), 'servers.log');
 		
 		// Return
 		return $arrOutput;

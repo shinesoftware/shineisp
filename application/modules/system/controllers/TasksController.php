@@ -74,14 +74,17 @@ class System_TasksController extends Shineisp_Controller_Default {
 		}
 		
 		try {
-			die('test');
 			$customer_id = (isset($task['customer_id'])) ? $task['customer_id'] : 0;
 			$ISPpanel    = Isp::getPanel($ISP['isp_id']);
 			$class       = "Shineisp_Plugins_Panels_".$ISPpanel."_Main";
 			
+			Shineisp_Commons_Utilities::logs (__METHOD__ . ": Loading $class panel plugin");
+			
 			// Create the class registrar object 
 			$ISPclass = new $class ();
 			$action   = $task ['action'];
+			
+			Shineisp_Commons_Utilities::logs (__METHOD__ . ": Start $action action");
 			
 			if($action == "createClient"){
 				
@@ -131,11 +134,12 @@ class System_TasksController extends Shineisp_Controller_Default {
 			// Update the status of the task
 			PanelsActions::UpdateTaskStatus ( $task ['action_id'], Statuses::id('complete', 'domains_tasks') ); // Set the task as "Complete"
 			
-			$setup = OrdersItems::getSetup($task ['orderitem_id']);
+			Shineisp_Commons_Utilities::logs (__METHOD__ . ": End $class process");
 			
 		} catch (Exception $e) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( $e->getMessage () ) );
 			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage () );
+			Shineisp_Commons_Utilities::logs (__METHOD__ . ": " . $e->getMessage ());
 		}
 	}
 	

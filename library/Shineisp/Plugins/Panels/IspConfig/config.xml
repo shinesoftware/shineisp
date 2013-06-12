@@ -4,6 +4,9 @@
 
 <config name="IspConfig" type="panels" var="IspConfig" version="3.0.3.3">
 
+	<!-- 
+		DISABLED FOR THE NEW VERSION 
+		
     <settings>
         <field var="endpointlocation" label="Endpoint Location" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/index.php"/>
         <field var="endpointuri" label="Endpoint URI" type="text" description="Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/"/>
@@ -12,7 +15,8 @@
         <field var="password" label="Write here the SOAP password" type="text" description="This is the ISPConfig user remote password set in the ISPConfig control panel."/>
         <field var="url" label="Write here the public URL" type="text" description="This is the ISPConfig public url. eg. http://www.mywebsite.com:8080/"/>
     </settings>    
-
+	-->
+	
     <!-- IspConfig Custom fields -->
     <customfields>
         <field label="ISPConfig Client ID"  type="text" section="customers">client_id</field>

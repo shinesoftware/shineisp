@@ -13,7 +13,6 @@
 class PanelsActions extends BasePanelsActions
 {
 
-	public function listener_panels_connection($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
 	public function listener_panels_create_client_before($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
 	public function listener_panels_create_client_after($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
 	
