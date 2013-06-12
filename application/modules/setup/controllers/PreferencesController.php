@@ -1,6 +1,6 @@
 <?php
 
-class Setup_PreferencesController extends Zend_Controller_Action {
+class Setup_PreferencesController extends Shineisp_Controller_Default {
 	
 	/**
 	 * Load all the resources
@@ -80,19 +80,19 @@ class Setup_PreferencesController extends Zend_Controller_Action {
 				if(Settings::createDb($params['sampledata'])){
 
 					// Get the default ISP company
-					$ispId = Isp::getActiveISPID();
+					$isp_id = Shineisp_Registry::get('ISP')->isp_id;
 					
 					// Save the company information
-					Isp::saveAll($params, $ispId);
+					Isp::saveAll($params, $isp_id);
 					
 					// TODO: Bind ISP to the current URL
 					$IspUrls = new IspUrls();
-					$IspUrls->isp_id = $ispId;
+					$IspUrls->isp_id = $isp_id;
 					$IspUrls->url    = $_SERVER['HTTP_HOST'];
 					$IspUrls->save();
 					
 					// Adding the user as administrator 
-					AdminUser::addUser($params['firstname'], $params['lastname'], $params['email'], $params['password'], $ispId);
+					AdminUser::addUser($params['firstname'], $params['lastname'], $params['email'], $params['password'], $isp_id);
 					
 					// Redirect the user to the homepage
 					$this->_helper->redirector ( 'index', 'summary', 'setup');
