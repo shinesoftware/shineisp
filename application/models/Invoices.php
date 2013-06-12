@@ -584,10 +584,10 @@ class Invoices extends BaseInvoices {
 	        
 	        // Check if there is an invoice ID set for this order.
 	        $Invoice = Doctrine::getTable ( 'Invoices' )->findOneByOrderId($orderid);
-	        if(isset($Invoice->number) && is_numeric($Invoice->number)){
+	        if(isset($Invoice->invoice_id) && is_numeric($Invoice->invoice_id) && $Invoice->invoice_id > 0){
 	            // Set the invoice number to the order
 	            Orders::setInvoice ( $orderid, $Invoice->invoice_id);
-	            return $Invoice->number;
+	            return $Invoice->invoice_id;
 	        }
 	        
 	        try {
@@ -620,7 +620,7 @@ class Invoices extends BaseInvoices {
 						Invoices::sendInvoice ( $invoice_id );
 					}	
 	                
-	                return $id;
+	                return $invoice_id;
 	            }
 	        }catch (Exception $e){
 	            return $e->getMessage();
