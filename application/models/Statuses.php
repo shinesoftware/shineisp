@@ -67,8 +67,13 @@ class Statuses extends BaseStatuses {
 	 * @param string $status 
 	 * @param string $section
 	 */
-	public static function id($status, $section) {
-		return intval(Shineisp_Registry::get('Statuses')->$section->$status->status_id) ? intval(Shineisp_Registry::get('Statuses')->$section->$status->status_id) : null;
+	public static function id($status, $section="generic") {
+		if(!empty($status))
+			$status = strtolower($status);
+			$section = strtolower($section);
+			return intval(Shineisp_Registry::get('Status')->$section->$status->status_id) ? intval(Shineisp_Registry::get('Status')->$section->$status->status_id) : null;
+		
+		return null;
 	}	
 
 	/**
@@ -79,7 +84,7 @@ class Statuses extends BaseStatuses {
 	 */
 	public static function getById($id) {
 		$id = intval($id);
-		return Shineisp_Registry::get('Statuses')->{'id:'.$id};
+		return Shineisp_Registry::get('Status')->{'id:'.$id};
 	}	
 
 	

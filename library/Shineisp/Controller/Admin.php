@@ -15,6 +15,14 @@ class Shineisp_Controller_Admin extends Shineisp_Controller_Common {
 			$ISP = new Isp();
 			Shineisp_Registry::set('ISP', $ISP->find($isp_id));
 		}
+		
+		// Load all the status in the registry
+		$statusreg = Shineisp_Registry::get('Status');
+		if(empty($statusreg)){
+			$status = Statuses::getAll();
+			Shineisp_Registry::set('Status', $status);
+		}
+		
 
 		parent::init();
     }	

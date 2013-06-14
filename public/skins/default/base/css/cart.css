@@ -1,6 +1,10 @@
 /**
  * ############# GENERAL ##############
  */
+.queries{
+	color: #666666;
+}
+
 .languageswitcher {
 	float: left !important;
 }

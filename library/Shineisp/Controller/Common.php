@@ -9,6 +9,6 @@ class Shineisp_Controller_Common extends Zend_Controller_Action {
 		Shineisp_Registry::set('Settings', Settings::getAll());
 		
 		// Statuses are used everywhere in system, so we need to make just one query
-		Shineisp_Registry::set('Statuses', Statuses::getAll());
+		Shineisp_Registry::set('Status', Statuses::getAll());
     }	
 }

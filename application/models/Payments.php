@@ -193,6 +193,12 @@ class Payments extends BasePayments
     	$payment->outcome = $record['outcome'];
     	
     	if($payment->trySave()){
+    		
+    		// Confirm payment, if needed. Invoices::confirm() will activate order.
+    		if ( $record['confirmed'] ) {
+    			self::confirm($record['order_id'], $record['confirmed']);
+    		}
+    		
     		return $payment->payment_id;
     	}
     	
@@ -259,7 +265,7 @@ class Payments extends BasePayments
 		$save = $payment->trySave ();
         
 		if ( $save ) {
-			Shineisp_Commons_Utilities::logs("Payments::addPayment(): save ok", "tmp_guest.log");
+			Shineisp_Commons_Utilities::logs("Payments::addPayment(): save ok");
 			
 			// Confirm payment, if needed. Invoices::confirm() will activate order.
 			if ( $status ) {
@@ -297,7 +303,7 @@ class Payments extends BasePayments
 	 * run activation procedure if payment is confirmed and order is fully paid
 	 */
 	public static function runActivate($orderid) {
-		Shineisp_Commons_Utilities::logs("Payments::runActivate(): pagamento confermato.", "tmp_guest.log");
+		Shineisp_Commons_Utilities::logs(__METHOD__ . ": payment confirmed.");
 
 		// Let's check if we have the whole invoice paid.
 		$isPaid = Orders::isPaid($orderid);
@@ -305,11 +311,11 @@ class Payments extends BasePayments
 		// Check to see if order is totally paid.
 		// This will generate invoice or, if an invoice is still present, it will overwrite it (proforma to invoice conversion)
 		if ( $isPaid ) {
-			Shineisp_Commons_Utilities::logs("Payments::runActivate(): isPaid ok, pagamento completato al 100%", "tmp_guest.log");
+			Shineisp_Commons_Utilities::logs(__METHOD__ . ": isPaid ok, payment has been completed 100%");
             // Set order status as "Paid"
             Orders::set_status($orderid, Statuses::id('paid', 'orders'));
             
-			Shineisp_Commons_Utilities::logs("Payments::runActivate(): faccio Orders::activateItems(".$orderid.", 4)", "tmp_guest.log");
+			Shineisp_Commons_Utilities::logs(__METHOD__ . ": subscribed services activation starts ");
 			// If we have to autosetup as soon as first payment is received, let's do here.
 			Orders::activateItems($orderid, 4);
 			
@@ -318,23 +324,23 @@ class Payments extends BasePayments
 			$invoiceId = intval(Orders::isInvoiced($orderid));
 			
 			if ( !$invoiceId ) { // order not invoiced?
-				Shineisp_Commons_Utilities::logs("Payments::runActivate(): ordine non fatturato.", "tmp_guest.log");
+				Shineisp_Commons_Utilities::logs(__METHOD__ . ": order not invoiced.");
 			
 				if ( $autoCreateInvoice === 1 ) {
-					Shineisp_Commons_Utilities::logs("Payments::runActivate(): autoCreateInvoice === 1, creo fattura.", "tmp_guest.log");
+					Shineisp_Commons_Utilities::logs(__METHOD__ . ": start order invoicing process.");
 					// invoice not created yet. Let's create now
 					Invoices::Create ( $orderid );
 				}
 				
 			} else {
-				Shineisp_Commons_Utilities::logs("Payments::runActivate(): ordine gia fatturato. Sovrascrivo fattura proforma con quella pagata", "tmp_guest.log");
+				Shineisp_Commons_Utilities::logs(__METHOD__ . ": invoice already created overwrite of the old invoice");
 				// set invoice as paid
 				Invoices::overwrite ( $invoiceId );
 			}
 			
 		} else {
-			Shineisp_Commons_Utilities::logs("Payments::runActivate(): isPaid KO, pagamento non completato", "tmp_guest.log");
-			Shineisp_Commons_Utilities::logs("Payments::runActivate(): faccio Orders::activateItems(".$orderid.", 3)", "tmp_guest.log");
+			Shineisp_Commons_Utilities::logs(__METHOD__ . ": isPaid KO, payment not completed");
+			Shineisp_Commons_Utilities::logs(__METHOD__ . ": check if one or more services have been activated when a first payment is received");
 			// If we have to autosetup as soon as first payment is received, let's do here.
 			Orders::activateItems($orderid, 3);
 		}

@@ -1,7 +1,7 @@
 <?php
 /**
- * Hostingplans
- * Manage the hostingplans table
+ * Emailstemplates
+ * Manage the email template
  * @version 1.0
  * @author  GUEST.it s.r.l. <assistenza@guest.it>
  */

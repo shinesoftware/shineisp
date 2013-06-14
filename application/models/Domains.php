@@ -404,28 +404,23 @@ class Domains extends BaseDomains {
 		$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y' ), null, 12 ); 
 		$tldInfo = DomainsTlds::getbyID($tld_id);
 		
-		try{
-			if(count($retval) == 0){
-				$thedomain->domain = $domain;
-				$thedomain->tld = $tldInfo['WhoisServers']['tld'];
-				$thedomain->tld_id = $tldInfo['tld_id'];
-				$thedomain->customer_id = $customerid;
-				$thedomain->orderitem_id = $orderitemid;
-				$thedomain->status_id = $statusid;
-				$thedomain->registrars_id = Isp::getActiveISPID();
-				$thedomain->creation_date = date('Y-m-d');
-				$thedomain->expiring_date = Shineisp_Commons_Utilities::formatDateIn($date_end);  
-				$thedomain->modification_date = date('Y-m-d');
-				$thedomain->authinfocode = $authcode;
-				$thedomain->autorenew = true;
-				$thedomain->save();
-				return $thedomain->getIncremented();	
-			}else{
-				return $retval[0]['domain_id'];
-			}
-		}catch(Doctrine_Exception $e){
-			echo $e->getMessage();
-			die;
+		if(count($retval) == 0){
+			$thedomain->domain = $domain;
+			$thedomain->tld = $tldInfo['WhoisServers']['tld'];
+			$thedomain->tld_id = $tldInfo['tld_id'];
+			$thedomain->customer_id = $customerid;
+			$thedomain->orderitem_id = $orderitemid;
+			$thedomain->status_id = $statusid;
+			$thedomain->registrars_id = Isp::getActiveISPID();
+			$thedomain->creation_date = date('Y-m-d');
+			$thedomain->expiring_date = Shineisp_Commons_Utilities::formatDateIn($date_end);  
+			$thedomain->modification_date = date('Y-m-d');
+			$thedomain->authinfocode = $authcode;
+			$thedomain->autorenew = true;
+			$thedomain->save();
+			return $thedomain->getIncremented();	
+		}else{
+			return $retval[0]['domain_id'];
 		}
 	}	
 	
@@ -451,9 +446,11 @@ class Domains extends BaseDomains {
 		 if(empty($tld)){
 		 	return false;
 		 }
+		 
 		 $record = Doctrine_Query::create ()
 		 					->select ( "domain_id")
-		 					->from('Domains')
+		 					->from('Domains d')
+		 					->leftJoin ( 'd.Customers c' )
 		 					->where('domain = ?', $domain)
 		 					->andWhere('tld_id = ?', $tld['tld_id'])
                             ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
@@ -485,7 +482,8 @@ class Domains extends BaseDomains {
 		 
 		$record = Doctrine_Query::create ()
 		 					->select ( "domain_id, registrars_id")
-		 					->from('Domains')
+		 					->from('Domains d')
+		 					->leftJoin ( 'd.Customers c' )
 		 					->where('domain = ?', $domain)
 		 					->andWhere('tld = ?', $tld)
                             ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
@@ -1214,14 +1212,16 @@ class Domains extends BaseDomains {
 	 */
 	public static function findByDomainName($domain_name, $tld, $fields = "*", $retarray = false) {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Domains d' )
-		->leftJoin ( 'd.Customers c' )
-		->leftJoin ( 'd.DomainsTlds dt' )
-		->leftJoin ( 'd.CustomersDomainsRegistrars cdr' )
-		->leftJoin ( 'dt.WhoisServers ws' )
-		->where ( "domain = ? and ws.tld = ?", array ($domain_name, $tld ) )
-        ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
+										->leftJoin ( 'd.Customers c' )
+										->leftJoin ( 'd.DomainsTlds dt' )
+										->leftJoin ( 'd.CustomersDomainsRegistrars cdr' )
+										->leftJoin ( 'dt.WhoisServers ws' )
+										->where ( "d.domain = ? and ws.tld = ?", array ($domain_name, $tld ) )
+								        ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
+		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$domain = $dq->execute ( array (), $retarray );
+		
 		return $domain;
 	}
 	
@@ -1261,7 +1261,7 @@ class Domains extends BaseDomains {
 										->leftJoin('d.DomainsTlds dt')
 										->leftJoin('dt.WhoisServers ws')
                                         ->leftJoin ( 'd.Customers c' )
-                                        ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
+                                        ->where( "c.isp_id = ?", Isp::getCurrentId() );
 
         if (is_numeric ( $customer_id )) {
         	$dq->where ( 'customer_id = ?', $customer_id );

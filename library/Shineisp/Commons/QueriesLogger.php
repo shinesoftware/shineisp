@@ -30,8 +30,8 @@ class Shineisp_Commons_QueriesLogger extends Doctrine_EventListener {
 
         Shineisp_Commons_Utilities::log ( $query, "queries.log" );
         Shineisp_Commons_Utilities::log ( $strBreadcrump, "debug.log", Zend_Log::DEBUG);
-		
-		// Increase query counter
+
+        // Increase query counter
 		$queryCount = Shineisp_Registry::isRegistered('querycount') ? Shineisp_Registry::get('querycount') : 0;
 		$queryCount = $queryCount +1;
 		

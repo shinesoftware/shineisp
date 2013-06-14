@@ -278,13 +278,6 @@ class Languages extends BaseLanguages {
 			
 			Shineisp_Registry::set ( 'Zend_Locale', $zl );
 	
-			$translations_file = $path . "/languages/" . $locale . '.csv';
-			
-			if(file_exists($translations_file)){
-				$translate = new Zend_Translate ( 'Shineisp_Translate_Adapter_Csv', $translations_file, $locale );
-				$translate->setLocale ( $locale );
-				Shineisp_Registry::set ( 'Zend_Translate', $translate );
-			}
 		}
 	}
 }

@@ -24,6 +24,7 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
 
         if ($VIES) {
             try {
+            	
                 $r = $VIES->checkVat(array('countryCode' => $this->countryCode, 'vatNumber' => $this->vat));
 
                 foreach ($r as $chiave => $valore) {
@@ -70,12 +71,23 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
     }    
 	
 	public function isValid($value , $context = null) {
+		
 		if (! empty ( $value )) {
+			
+			$this->vat = $value;
 			
             $countryid  = intval($context['country_id']);
             if( $countryid == 0 ) {
                 $this->_error( self::ISNOTCOUNTRYID );
                 return false;
+            }
+            
+            $country = Countries::find($context['country_id']);
+            
+            if(!empty($country->code)){
+            	$this->countryCode = $country->code;
+            }else{
+            	return false;
             }
             
             if( Countries::isITbyId($countryid) ) {

@@ -178,6 +178,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 					$rs ['customer_id'] = $rs ['Orders']['customer_id'];
 					$form->populate ( $rs );
 					$this->view->buttons[] = array("url" => "/admin/services/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+					$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" .  $rs ['Orders']['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('button', 'float_right')));
 						
 				}
 				

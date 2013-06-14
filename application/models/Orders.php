@@ -91,12 +91,15 @@ class Orders extends BaseOrders {
 	 * @return Boolean
 	 */
 	public static function massdelete($orders) {
-		
-		foreach ($orders as $orderid){
-			self::DeleteByID($orderid);
+		try{
+			foreach ($orders as $orderid){
+				self::DeleteByID($orderid);
+			}
+			
+			return true;
+		}catch (Exception $e){
+			return false;
 		}
-		
-		return $retval;
 	}
 	
 	/**
@@ -521,7 +524,7 @@ class Orders extends BaseOrders {
 				}
 				
 				// Handle the payment transaction
-				if ( !empty($params ['paymentdate']) ) {
+				if ( !empty($params ['paymentdate'])) {
 					Payments::addPayment($id, $params ['reference'], $params ['bank_id'], $params ['confirmed'], $params['income'], $params ['paymentdate'], $params ['customer_id'], $params ['payment_description']);
 				}
 				
@@ -1372,8 +1375,8 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * isInvoiced
 	 * Check if the order has been invoiced
+	 * 
 	 * @param boolean
 	 */
 	public static function isInvoiced($orderid) {
@@ -1385,6 +1388,11 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
+	/**
+	 * Check if the order become from an upgrade
+	 * 
+	 * @param integer $orderid
+	 */
 	public static function isUpgrade( $orderid ) {
 		$orderDetails	= Orders::getDetails($orderid);
 		foreach( $orderDetails as $orderDetail ) {
@@ -1406,19 +1414,19 @@ class Orders extends BaseOrders {
 		if (empty($orderid) || !is_numeric($orderid) ) {
 			return false;
 		}
-		
-		//* GUEST - ALE - 20130415: Should I use this?
+
+		// Create the domain requested by the order from the client as domain records
+		// and create a task to register or transfer the domain
 		self::CreateDomainTasks($orderid);
 		
 		//* Hosting creation actions
 		self::CreateHostingTasks($orderid);
 	}	
 
-
-
-
-
-	
+	/**
+	 * Create the tasks for hosting plans
+	 * @param integer $orderid
+	 */
 	private static function CreateHostingTasks($orderid) {
 		if (empty($orderid) || !is_numeric($orderid) ) {
 			return false;
@@ -1430,10 +1438,7 @@ class Orders extends BaseOrders {
 				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
 			}
 		}
-		
 	}
-	
-	
 	
 	/*
 	 * Complete 
@@ -1452,7 +1457,6 @@ class Orders extends BaseOrders {
 
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			//OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
 
 			// Execute a custom event
 			self::events()->trigger('orders_complete_after', "Orders", array('orderid' => $orderid));
@@ -1474,7 +1478,7 @@ class Orders extends BaseOrders {
 	 * @return true|false 
 	 */
 	public static function activateItems($orderId, $autosetup = 0) {
-		Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup.")", "tmp_guest.log" );
+		Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup.")" );
 	    $autosetup = intval($autosetup);
 		if ( $autosetup === 0 ) {
 			return true;
@@ -1482,13 +1486,13 @@ class Orders extends BaseOrders {
 	   
 		$activableItems = OrdersItems::getAllActivableItems($orderId);
 		if ( empty($activableItems) ) {
-			Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): nessun prodotto attivabile. esco", "tmp_guest.log" );
+			Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup."): no activable product" );
 			return true;
 		}
         
 		foreach ( $activableItems as $item ) {
 			if ( empty($item->parameters) && empty( $item->callback_url) ) {
-				Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): prodotto ".serialize($item)." senza parameters. esco.", "tmp_guest.log" );
+				Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup."): product ".serialize($item)." with no parameter set" );
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
@@ -1496,17 +1500,17 @@ class Orders extends BaseOrders {
             // echo $item->Products->autosetup;
             // var_dump( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup );
             if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === intval($autosetup) ) {
-            	Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): prodotto ".$item->detail_id." attivabile. attivo.", "tmp_guest.log" );
+            	Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup."): Hosting Detail Id #".$item->detail_id." start activation");
                 OrdersItems::activate($item->detail_id);               
             }
             
             if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
-            	Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): dominio ".$item->detail_id." attivabile. attivo.", "tmp_guest.log" );
+            	Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): Domain Detail Id ".$item->detail_id." start activation" );
                 OrdersItems::activate($item->detail_id);    
             }
 		}		
 
-		Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."). Fine.", "tmp_guest.log" );
+		Shineisp_Commons_Utilities::logs (__METHOD__ . "(".$orderId.", ".$autosetup."). End activations");
 	}
 
 	

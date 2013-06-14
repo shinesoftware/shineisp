@@ -221,7 +221,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	 */
 	static public function AddTasks($domains) {
 		try {
-
+			
 			for($i = 0; $i < count ( $domains ); $i ++) {
 				// Check if exist a domain name previously added in the task but not yet completed.
 				// If the domain exists, it is excluded 
@@ -233,7 +233,7 @@ class DomainsTasks extends BaseDomainsTasks {
 			}
 			
 		} catch ( Doctrine_Exception $e ) {
-			echo $e->getMessage ();
+			echo $e->getTraceAsString();
 			die ();
 		}
 		return true;

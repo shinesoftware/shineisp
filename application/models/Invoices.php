@@ -83,7 +83,7 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/invoices/delete/id/%d";
 		
-		$config ['datagrid'] ['massactions']['common'] = array ('bulk_pdf_export'=>'Pdf List', 'bulk_csv_export' => 'Csv Export', 'bulk_print_invoices' => 'Download Invoices');
+		$config ['datagrid'] ['massactions']['common'] = array ('bulk_pdf_export'=>'Pdf List', 'bulk_csv_export' => 'Csv Export', 'bulk_print_invoices' => 'Download Invoices', 'bulk_delete_invoices' => 'Delete Invoices');
 		
 		if(Shineisp_Plugins_Dropbox_Main::isReady()){
 			$config ['datagrid'] ['massactions']['common'] = array_merge($config ['datagrid'] ['massactions']['common'], array('bulk_dropbox_invoices' => 'Upload Invoices into Dropbox Account' ));
@@ -493,8 +493,12 @@ class Invoices extends BaseInvoices {
      * @param $id, $customerid
      * @return boolean
      */
-    public static function DeleteByID($id, $customerid) {
-        $dq = Doctrine_Query::create ()->delete ()->from ( 'Invoices i' )->where ( 'invoice_id = ?', $id )->andWhere ( "customer_id = ?", $customerid );
+    public static function DeleteByID($id, $customerid=null) {
+        $dq = Doctrine_Query::create ()->delete ()->from ( 'Invoices i' )->where ( 'invoice_id = ?', $id );
+        
+        if($customerid){
+        	$dq->andWhere ( "customer_id = ?", $customerid );
+        }
         
         return $dq->execute ();
     }
@@ -1048,7 +1052,7 @@ class Invoices extends BaseInvoices {
 	public function bulk_dropbox_invoices($items){
 		try{
 			$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-			$invoices = Doctrine_Query::create ()->select('i.invoice_id, i.invoice_date, i.number')
+			$invoices = Doctrine_Query::create ()->select('i.invoice_id')
 												 ->from ( 'Invoices i' )
 												 ->leftJoin('i.Customers c')
 												 ->whereIn( 'invoice_id', $items)
@@ -1059,6 +1063,31 @@ class Invoices extends BaseInvoices {
 			}
 			
 			die(json_encode(array('mex' => $translator->translate('Invoices uploaded to the Dropbox folder'))));
+					
+		}catch(Exception $e){
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * Delete all the selected invoices 
+	 * @param array $items
+	 */
+	public function bulk_delete_invoices($items){
+		try{
+			$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+			$invoices = Doctrine_Query::create ()->select('i.invoice_id')
+												 ->from ( 'Invoices i' )
+												 ->leftJoin('i.Customers c')
+												 ->whereIn( 'invoice_id', $items)
+												 ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+			
+			foreach ($invoices as $invoice){
+				self::DeleteByID($invoice['invoice_id']);
+			}
+			
+			die(json_encode(array('mex' => $translator->translate('Selected invoices have been deleted'))));
 					
 		}catch(Exception $e){
 			return false;

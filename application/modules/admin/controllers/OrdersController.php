@@ -331,7 +331,11 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 					$myrec [] = $record;
 				}
 				
-				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+				return array (	'records' => $myrec, 
+								'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 
+								'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 
+								'actions' => array('/admin/services/edit/id/' => $this->translator->translate('Service')), 
+								'pager' => true );
 			}
 		}
 	}
@@ -373,7 +377,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				return array (
 					'records' => $myrec, 
 					'pager'  => true,
-					//'edit' => array ('controller' => 'payments', 'action' => 'edit' ),
+					'edit' => array ('controller' => 'payments', 'action' => 'edit' ),
 					'delete' => array ('controller' => 'orders', 'action' => 'deletepayment' ),
 				);
 			}

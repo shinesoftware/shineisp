@@ -289,7 +289,7 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 				
 				Shineisp_Commons_Utilities::sendEmailTemplate($ISP ['email'], $welcome_mail, array(
 					'setup'        => $strSetup
-				   ,'fullname'     => $customer ['fullname']
+				   ,'fullname'     => $customer ['firstname'] . " " . $customer ['lastname']
                    ,'hostingplan'  => $productname
 				   ,'controlpanel' => $ISP ['website'].":8080"
 				   ,'signature'    => $ISP ['company']

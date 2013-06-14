@@ -495,8 +495,8 @@ class OrdersItems extends BaseOrdersItems {
 	}
 	
 	/**
-	 * getAllActivableItems
-	 * Get all activable items starting from the orderID 
+	 * Get all activable items starting from the orderID
+	 *  
 	 * @param $id
 	 * @return Doctrine Record / Array
 	 */
@@ -504,7 +504,7 @@ class OrdersItems extends BaseOrdersItems {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
 		->leftJoin ( 'oi.Products p' )
 		->where ( "order_id = ?", $id )
-		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' OR oi.tld_id > 0 ")
+		->andWhere ( "p.type = 'hosting' OR p.type = 'domain' OR oi.callback_url != '' OR oi.tld_id > 0 ")
 		->andWhere ( "oi.status_id != ?", Statuses::id('complete','orders')); // !Complete
 
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -1059,7 +1059,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return true|false
 	 */
 	public static function activate($orderItemId) {
-        Shineisp_Commons_Utilities::log("Attivo item ".$orderItemId);
+        Shineisp_Commons_Utilities::log(__METHOD__ . " - Activate Detail ID #".$orderItemId);
         
 		$orderItemId = intval($orderItemId);
 		if ( $orderItemId < 1 ) {
@@ -1071,7 +1071,6 @@ class OrdersItems extends BaseOrdersItems {
 		$ordersItem = self::find($orderItemId);
 		$ordersItem = $ordersItem->toArray();
         $OrderItem  = array_shift($ordersItem);
-        Shineisp_Commons_Utilities::log("Vedo dati ".print_r($OrderItem,true));
 		if ( !$OrderItem ) {
 			// order item not found
 			return false;
@@ -1080,23 +1079,6 @@ class OrdersItems extends BaseOrdersItems {
 		// Get customerId related to this order
 		$customerId = Orders::getCustomer($OrderItem['order_id']);
         
-		// Get Order related to this orderItem
-		/*
-		$Order = Orders::find(intval($OrderItem['order_id']));
-		if ( !$Order ) {
-			// order not found
-			return false;
-		}*/
-        
-		// Get product related to this item
-		/*
-		$Product = Products::find(intval($OrderItem['product_id']));
-		if ( !$Product ) {
-			// product not found
-			return false;
-		}
-		*/		
-		
 		/*
 		 * START ACTIVATIONS CODE
 		 */
@@ -1105,7 +1087,7 @@ class OrdersItems extends BaseOrdersItems {
         $upgrade_uuid   = false; 
         if( $upgrade !== false ) {
             $orderItem  = OrdersItems::getDetail($upgrade);
-            Shineisp_Commons_Utilities::logs ( "OITEM::".print_r($orderItem,true), "orders.log" );
+            Shineisp_Commons_Utilities::logs ( __METHOD__ . " - OITEM::".print_r($orderItem,true) );
             $oldOrderId = $orderItem['order_id'];
 
             Orders::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
@@ -1113,7 +1095,7 @@ class OrdersItems extends BaseOrdersItems {
             
             $upgrade_uuid   = $orderItem['uuid'];
             // log
-            Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$OrderItem['order_id'], "orders.log" );
+            Shineisp_Commons_Utilities::logs ( __METHOD__ .  " - Order changed from #".$oldOrderId." to #".$OrderItem['order_id'] );
         } 		 
 		
 		// callback_url is set, skip server activation and let's do the call to the remote API
@@ -1132,8 +1114,8 @@ class OrdersItems extends BaseOrdersItems {
             unset( $paramsOrderItem['callback_url'] );
 			
 			// Do the callback 
-			Shineisp_Commons_Utilities::log("URL Notifica server :: {$OrderItem['callback_url']} ","api.log");
-            Shineisp_Commons_Utilities::log("Parametri ".print_r($paramsOrderItem,true),"api.log");
+			Shineisp_Commons_Utilities::log( __METHOD__ . " - Server URL Callback :: {$OrderItem['callback_url']} ","api.log");
+            Shineisp_Commons_Utilities::log( __METHOD__ . " - Parameters ".print_r($paramsOrderItem,true),"api.log");
 			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
             
             //Check if all orderitem of order is complete and if is ok set order to complete
@@ -1145,14 +1127,14 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 		if ( empty($OrderItem['parameters']) ) {
-			Shineisp_Commons_Utilities::logs ( "OrderItems->parameters vuoto, esco", "orders.log" );
+			Shineisp_Commons_Utilities::logs (__METHOD__ . " - Order items setup parameters empty" );
 			return false;
 		}
 		
 		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
 		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {
-			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un hosting", "orders.log" );
+			Shineisp_Commons_Utilities::logs ( __METHOD__ . " Hosting task queued");
 			
 			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
@@ -1161,20 +1143,25 @@ class OrdersItems extends BaseOrdersItems {
 		
 		// Is this a domain? execute domain task
 		if ( isset($OrderItem['tld_id']) && intval($OrderItem['tld_id']) > 0 ) {
-			Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): devo attivare un dominio", "orders.log" );	
+			
 			$parameters = json_decode($OrderItem['parameters']);	
-
+				
 			if ( empty($parameters->domain) ) {
-				Shineisp_Commons_Utilities::logs ( "OrdersItems::activate(): il dominio e' vuoto, esco.", "orders.log" );	
+				Shineisp_Commons_Utilities::logs (  __METHOD__ . " Domain has been not set in the order detail #$orderItemId" );	
 				return false;
 			}			
 			
-			return DomainsTasks::AddTasks ( array(
-												 'domain'       => $parameters->domain
-												,'tld_id'       => intval($OrderItem['tld_id'])
-												,'customer_id'  => intval($customerId)
-												,'orderitem_id' => $orderItemId) 
-										);
+			// Create the domain record
+			$domain = Domains::Create($parameters->domain, intval($OrderItem['tld_id']), intval($customerId), $orderItemId);
+			
+			// Create the domain task
+			if(!empty($parameters->domain) && !empty($parameters->action)){
+				$domains[] = array('domain' => $parameters->domain, 'action' => $parameters->action);
+				$retval = DomainsTasks::AddTasks ($domains);
+				Shineisp_Commons_Utilities::logs (  __METHOD__ . " Domain task queued" );
+			}
+			 
+			return $retval;
 		}
 
 	}
