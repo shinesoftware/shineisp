@@ -1,6 +1,6 @@
 <?php
 
-class DashboardController extends Zend_Controller_Action {
+class DashboardController extends Shineisp_Controller_Default {
     
     public function preDispatch() {
         $this->getHelper ( 'layout' )->setLayout ( '1column' );

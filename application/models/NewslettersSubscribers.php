@@ -19,7 +19,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.subscriber_id', 'alias' => 'subscriber_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 's.subscriber_id', 'alias' => 'subscriber_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -268,7 +268,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 			
 			$list_id = $parameters['list'];
 			
-			$api = new Shineisp_Api_Newsletters_Mailchimp_Main($key);
+			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
 
 			foreach ($items as $id){
 				$email = self::getSubscriberEmail($id);
@@ -305,7 +305,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 			}
 			
 			$list_id = $parameters['list'];
-			$api = new Shineisp_Api_Newsletters_Mailchimp_Main($key);
+			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
 			
 			foreach ($items as $id){
 				$email = self::getSubscriberEmail($id);

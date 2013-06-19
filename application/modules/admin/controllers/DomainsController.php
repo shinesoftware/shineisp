@@ -7,7 +7,7 @@
  * @version 1.0
  */
 
-class Admin_DomainsController extends Zend_Controller_Action {
+class Admin_DomainsController extends Shineisp_Controller_Admin {
 	
 	protected $domains;
 	protected $datagrid;
@@ -24,7 +24,7 @@ class Admin_DomainsController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->domains = new Domains ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "domains" )->setModel ( $this->domains );
 	}
@@ -295,7 +295,9 @@ class Admin_DomainsController extends Zend_Controller_Action {
 
 			// Set the new values
 			$this->domains->domain = $params ['domain'];
-			$this->domains->tld = $tldInfo['WhoisServer']['tld'];
+            if( isset($tldInfo['WhoisServer']) ) {
+			     $this->domains->tld = $tldInfo['WhoisServer']['tld'];
+            }
 			$this->domains->tld_id = $params ['tld_id'];
 			$this->domains->authinfocode = $params ['authinfocode'];
 			$this->domains->creation_date = $params ['creation_date'];

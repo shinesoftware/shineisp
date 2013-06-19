@@ -55,10 +55,11 @@ class Settings extends BaseSettings {
 			$dom = new DOMDocument();
 			$dom->loadXML($xmlstring);
 			$dom->formatOutput = true;
-			$formattedXML = $dom->saveXML();
+			$dom->saveXML();
 			
 			// Save the config xml file
 			if(@$dom->save(APPLICATION_PATH . "/configs/config.xml")){
+				Shineisp_Commons_Utilities::log("Update ShineISP config xml file");
 				return true;
 			}else{
 				throw new Exception("Error on saving the xml file in " . APPLICATION_PATH . "/configs/config.xml <br/>Please check the folder permissions");
@@ -193,17 +194,41 @@ class Settings extends BaseSettings {
 	public static function getAutoInvoiceGenerationValues() {
 		return array('0'=>"Don't automatically create an invoice as soon the whole order is paid", '1'=>'Automatically create an invoice as soon the whole order is paid');
 	}
-	
+
+	/**
+	 * Get invoice template list
+	 */
+	public static function getInvoiceTemplateList() {
+		$arrTemplates = array();
+		
+		foreach (new DirectoryIterator(PUBLIC_PATH.'/skins/commons/invoices') as $fileInfo) {
+    		if ( $fileInfo->isDot() ) continue;
+			
+			$fileName = $fileInfo->getFilename();
+			
+			if ( !preg_match('/\.phtml$/', $fileName) ) continue;
+			
+			$arrTemplates[$fileName] = $fileName;
+		}
+
+		return $arrTemplates;
+	}
+
+
 	/**
      * findbyParam
-     * Get a record by the Parameter
+     * Get a record by the Parameter.
      * @param $parameter
      * @param $module
      * @param $isp
      * @return Doctrine Record
      */
-    public static function findbyParam($parameter, $module = "", $isp = 1) {
-    	$session = new Zend_Session_Namespace ( 'Default' );
+
+    public static function findbyParam($parameter, $module = "Default") {
+    	
+    	$parameter = trim($parameter);
+    	$module = is_null($module) ? "Default" : $module;
+    	$session = new Zend_Session_Namespace ( $module );
     	
     	if(!empty($session->parameters[$parameter])){
     		return $session->parameters[$parameter];
@@ -334,7 +359,7 @@ class Settings extends BaseSettings {
     	$parameter = SettingsParameters::getParameterbyVar($var);
     	
     	$setting['isp_id'] = $isp_id;
-    	$setting['parameter_id'] = $parameter['parameter_id'];
+    	$setting['parameter_id'] = $parameter->get('parameter_id');
     	$setting['value'] = $value;
     	$setting->save();
     	return $setting['setting_id'];
@@ -360,7 +385,7 @@ class Settings extends BaseSettings {
         if(!empty($setting)){
         	$parameter = SettingsParameters::getParameterbyVar($var);
 	    	$setting[0]['isp_id'] = $isp_id;
-	    	$setting[0]['parameter_id'] = $parameter['parameter_id'];
+	    	$setting[0]['parameter_id'] = $parameter->get('parameter_id');
 	    	$setting[0]['value'] = $value;
 	    	$setting->save();
 	    	
@@ -378,6 +403,7 @@ class Settings extends BaseSettings {
 	 */
 	public static function saveRecord($groupid, $post, $isp = 1) {
 		$i = 0;
+		
 		if (! empty ( $post )) {
 			$records = new Doctrine_Collection ( 'Settings' );
 			foreach ( $post as $field => $value ) {
@@ -388,16 +414,17 @@ class Settings extends BaseSettings {
 					// Delete the old record
 					self::deleteItem ( $setting ['setting_id'] );
 				}
-				
+
 				// Get the parameter record
 				$paramenter = SettingsParameters::getParameterbyVar ( $field );
-				
+
 				// Create the collection of records
 				$records [$i]->isp_id = $isp;
-				$records [$i]->parameter_id = $paramenter ['parameter_id'];
+				$records [$i]->parameter_id = $paramenter->get('parameter_id');
 				$records [$i]->value = $value;
 				$i ++;
 			}
+			
 			
 			// Save the records
 			$records->save ();
@@ -415,11 +442,11 @@ class Settings extends BaseSettings {
      * @return Doctrine Record / Array
      */
     public static function getAllInfo($id, $fields = "*", $retarray = false) {
-        
         try {
             $dq = Doctrine_Query::create ()->select ( $fields )
                     ->from ( 'Settings s' )
                     ->where ( "s.setting_id = $id" )
+					->addWhere ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id )
                     ->limit ( 1 );
             
             $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -442,6 +469,7 @@ class Settings extends BaseSettings {
 	        $dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Settings s' )
 	        ->leftJoin ( 's.SettingsParameters sp ' )
 	        ->where ( "s.setting_id = $id" )
+			->addWhere ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id )
 	        ->limit ( 1 );
 	        
 	        $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -451,4 +479,37 @@ class Settings extends BaseSettings {
             die ( $e->getMessage () );
         }
     }    
+	
+	
+	
+    /**
+     * getAll
+     * Get all settings with a single query. Used to be saved in Registry
+     * @param $id
+     * @return Doctrine Record
+     */
+    public static function getAll() {
+    	$out = array();
+    	$isp = Shineisp_Registry::get('ISP');
+
+        $records = Doctrine_Query::create ()
+                                     ->select ('s.setting_id, s.value AS value, sp.var AS var' )
+                                     ->from ( 'Settings s' )
+                                     ->leftJoin ( 's.SettingsParameters sp ' )
+                                     ->where ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id)
+									 ->addWhere( 'sp.enabled = 1')
+                                     ->execute();
+
+     	// normalize records
+		foreach ( $records as $record ) {
+			$out[$record->var] = $record->value;
+		}
+
+        return (object)$out;
+    }    
+	
+	
+	
+	
+	
 }

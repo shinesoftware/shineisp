@@ -81,13 +81,31 @@ class CustomAttributes extends BaseCustomAttributes
 	 */
 	public static function getAttribute($external_id, $var){
 		$record = Doctrine_Query::create ()
-			->from ( 'CustomAttributesValues cav' )
-			->leftJoin ( 'cav.CustomAttributes ca' )
-			->where ( "ca.var = ?", $var )
-			->andWhere ( "cav.external_id = ?", $external_id )
-			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+									->from ( 'CustomAttributesValues cav' )
+									->leftJoin ( 'cav.CustomAttributes ca' )
+									->where ( "ca.var = ?", $var )
+									->andWhere ( "cav.external_id = ?", $external_id )
+									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			
 		return !empty($record[0]) ? $record[0] : false; 
+	}
+	
+	
+	/**
+	 * Get the attribute value
+	 * @param $external_id
+	 * @param $var
+	 * @return ArrayObject
+	 */
+	public static function getAttributeValue($external_id, $var){
+		$record = Doctrine_Query::create ()->select('value')
+									->from ( 'CustomAttributesValues cav' )
+									->leftJoin ( 'cav.CustomAttributes ca' )
+									->where ( "ca.var = ?", $var )
+									->andWhere ( "cav.external_id = ?", $external_id )
+									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+			
+		return !empty($record[0]['value']) ? $record[0]['value'] : false; 
 	}
 	
 	/**
@@ -138,7 +156,7 @@ class CustomAttributes extends BaseCustomAttributes
 				->andWhere ( "ca.section = ?", $section )
 				->andWhere('ca.panel_id = ? OR ca.panel_id IS ?', array(intval($panel_id), null))
 				->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-				
+
 		// Set the decorator
 		$attributeForm->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
 		

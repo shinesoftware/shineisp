@@ -54,6 +54,11 @@ input[type='text'],input[type='email'],input[type='search'],input[type='password
 	text-align: center;
 }
 
+.txtlogo {
+	margin-top: 30px;
+ 	font-size: 18px;
+}
+
 .separatorShadow {
 	background: url("/skins/default/base/images/shadow.png") no-repeat
 		scroll center bottom transparent;

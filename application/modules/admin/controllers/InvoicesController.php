@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_InvoicesController extends Zend_Controller_Action {
+class Admin_InvoicesController extends Shineisp_Controller_Admin {
 	
 	protected $invoices;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->invoices = new Invoices ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "invoices" )->setModel ( $this->invoices );		
 	}
@@ -214,7 +214,6 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 				// Create the buttons in the edit form
 				$this->view->buttons = array(
 						array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-						array("url" => "/admin/invoices/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => array('button', 'float_right'))),
 						array("url" => "/admin/invoices/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
 						array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 						array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
@@ -237,23 +236,6 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
-	}
-	
-	/**
-	 * Upload an invoice to the dropbox account
-	 * 
-	 * @return void
-	 */
-	public function dropboxitAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
-		if (is_numeric ( $request->id )) {
-			$sent = Invoices::DropboxIt( $request->id );
-			if ($sent) {
-				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The invoice has been uploaded in dropbox.' ), 'status' => 'success' ) );
-			} else {
-				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'error' ) );
-			}
-		}
 	}
 	
 	/**
@@ -310,13 +292,19 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 			try {
 				
 				$this->invoices->invoice_date = Shineisp_Commons_Utilities::formatDateIn ( $params ['invoice_date'] );
-				$this->invoices->number = $params ['number'];
-				$this->invoices->order_id = $params ['order_id'];
-				$this->invoices->note = $params ['note'];
+				$this->invoices->number       = $params ['number'];
+				$this->invoices->order_id     = $params ['order_id'];
+				$this->invoices->note         = $params ['note'];
 				
 				// Save the data
 				$this->invoices->save ();
 				$id = is_numeric ( $id ) ? $id : $this->invoices->getIncremented ();
+
+				// Update formatted_number
+				if ( $this->invoices->formatted_number != $params ['formatted_number'] || empty($this->invoices->formatted_number) ) {
+					$this->invoices->formatted_number = !empty($params ['formatted_number']) ? $params ['formatted_number'] : Invoices::generateNumber($id);	
+					$this->invoices->save();
+				}
 			
 			} catch ( Exception $e ) {
 				$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice cannot be created. Please check all the data written.' ), 'status' => 'error' ) );
@@ -376,7 +364,7 @@ class Admin_InvoicesController extends Zend_Controller_Action {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				Invoices::PrintPDF($request->id, false, true);
+				Invoices::overwrite($request->id);
 				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			}
 		} catch ( Exception $e ) {

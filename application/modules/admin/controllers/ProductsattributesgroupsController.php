@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
+class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin {
 	
 	protected $productsattributesgroups;
 	protected $datagrid;
@@ -15,7 +15,7 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 	public function preDispatch() {	
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->productsattributesgroups = new ProductsAttributesGroups();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "productsattributesgroups" )->setModel ( $this->productsattributesgroups );		
 	}
@@ -226,6 +226,7 @@ class Admin_ProductsattributesgroupsController extends Zend_Controller_Action {
 				$this->productsattributesgroups->code = Shineisp_Commons_UrlRewrites::format($params ['name']);
 				$this->productsattributesgroups->isrecurring = $params ['isrecurring'] ? 1 : 0;
 				$this->productsattributesgroups->iscomparable = $params ['iscomparable'] ? 1 : 0;
+				$this->productsattributesgroups->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 				$this->productsattributesgroups->save ();
 
 				$id = is_numeric ( $id ) ? $id : $this->productsattributesgroups->getIncremented ();

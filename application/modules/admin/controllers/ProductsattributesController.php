@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-class Admin_ProductsattributesController extends Zend_Controller_Action {
+class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 	
 	protected $productsattributes;
 	protected $datagrid;
@@ -15,7 +15,7 @@ class Admin_ProductsattributesController extends Zend_Controller_Action {
 	public function preDispatch() {	
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->productsattributes = new ProductsAttributes();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "productsattributes" )->setModel ( $this->productsattributes );		
 	}

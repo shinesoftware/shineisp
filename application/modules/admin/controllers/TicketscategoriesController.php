@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_TicketsCategoriesController extends Zend_Controller_Action {
+class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 	
 	protected $ticketscategories;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_TicketsCategoriesController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->ticketscategories = new TicketsCategories ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "ticketscategories" )->setModel ( $this->ticketscategories );		
 	}
@@ -226,6 +226,7 @@ class Admin_TicketsCategoriesController extends Zend_Controller_Action {
 			try {
 				
 				$this->ticketscategories->category = $params ['category'];
+				$this->ticketscategories->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 				
 				// Save the data
 				$this->ticketscategories->save ();

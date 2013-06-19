@@ -19,7 +19,7 @@ class Panels extends BasePanels
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'p.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'p.active', 'alias' => 'active', 'type' => 'index');
@@ -223,7 +223,7 @@ class Panels extends BasePanels
 			// ISP Panel module has not been created yet
 			if(empty($isppanel)){
 				$panel = new Panels();
-				$path = PROJECT_PATH . "/library/Shineisp/Api/Panels/$panelvar";
+				$path = PROJECT_PATH . "/library/Shineisp/Plugins/Panels/$panelvar";
 				if(!empty($panelvar)){
 					$config = simplexml_load_file ( $path . "/config.xml" );
 					
@@ -259,7 +259,7 @@ class Panels extends BasePanels
 	 */
 	public static function getPanelInstalled() {
 		$panels[] = "";
-		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels";
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Panels";
 		
 		$folderPanels = glob ( "$path/*", GLOB_ONLYDIR );
 		
@@ -304,7 +304,7 @@ class Panels extends BasePanels
 	 * @return multitype:string unknown
 	 */
 	public static function getListInstalled($emptyitem=false) {
-		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels";
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Panels";
 		$folderPanels = glob ( "$path/*", GLOB_ONLYDIR );
 		$items = array ();
 
@@ -343,7 +343,7 @@ class Panels extends BasePanels
 	 * @return string
 	 */
 	public static function getXmlFieldbyAttribute($panel, $attribute) {
-		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels/$panel";
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Panels/$panel";
 		if (file_exists ( $path . "/config.xml" )) {
 			
 			// Load the xml configuration file
@@ -397,7 +397,7 @@ class Panels extends BasePanels
 	 */
 	public static function getXmlFields($panel) {
 		$i = 0;
-		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels/$panel";
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Panels/$panel";
 		
 		$result = array();
 		if (file_exists ( $path . "/config.xml" )) {
@@ -463,7 +463,7 @@ class Panels extends BasePanels
 	 */
 	public static function getXmlCustomFields($panel) {
 		$i = 0;
-		$path = PROJECT_PATH . "/library/Shineisp/Api/Panels/$panel";
+		$path = PROJECT_PATH . "/library/Shineisp/Plugins/Panels/$panel";
 		
 		$result = array();
 		if (file_exists ( $path . "/config.xml" )) {

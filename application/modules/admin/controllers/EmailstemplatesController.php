@@ -1,12 +1,12 @@
 <?php
 /**
- * Hostingplans
- * Manage the hostingplans table
+ * Emailstemplates
+ * Manage the email template
  * @version 1.0
  * @author  GUEST.it s.r.l. <assistenza@guest.it>
  */
 
-class Admin_EmailstemplatesController extends Zend_Controller_Action {
+class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 	
 	protected $emailstemplates;
 	protected $datagrid;
@@ -16,7 +16,7 @@ class Admin_EmailstemplatesController extends Zend_Controller_Action {
 	public function preDispatch() {	
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->emailstemplates = new EmailsTemplates();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "emailstemplates" )->setModel ( $this->emailstemplates );		
 	}

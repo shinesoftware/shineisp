@@ -1,17 +1,17 @@
 <?php
 
-class ProductsController extends Zend_Controller_Action {
+class ProductsController extends Shineisp_Controller_Default {
 	protected $translator;
 	
 	/**
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	/**
@@ -24,7 +24,7 @@ class ProductsController extends Zend_Controller_Action {
 	}
 	
 	public function getAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$product = array ();
 		$uri = $this->getRequest ()->getParam ( 'q' );
 		
@@ -48,7 +48,9 @@ class ProductsController extends Zend_Controller_Action {
 				
 				$this->view->group = Products::GetAttributeGroupByProductID($data ['product_id']);
 				
-				$ns->cart->lastproduct = $uri;
+				if(!empty($ns->cart)){
+					$ns->cart->lastproduct = $uri;
+				}
 				
 				$refund	= false;
 				if( is_array($ns->upgrade) ) {
@@ -145,7 +147,7 @@ class ProductsController extends Zend_Controller_Action {
 	 * Create the form for the submittion of the review
 	 */
 	public function addreviewAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		$request = $this->getRequest ();
 		$id = $request->getParam ( 'id' );
@@ -195,8 +197,8 @@ class ProductsController extends Zend_Controller_Action {
 	 * Get the price of the product
 	 */
 	public function getpriceAction() {
-		$currency = Zend_Registry::get ( 'Zend_Currency' );
-    	$translator = Zend_Registry::get ( 'Zend_Translate' );
+		$currency = Shineisp_Registry::get ( 'Zend_Currency' );
+    	$translator = Shineisp_Registry::get ( 'Zend_Translate' );
 		
 		$id 		= $this->getRequest ()->getParam ( 'id' );
 		$refund 	= $this->getRequest ()->getParam ( 'refund' );

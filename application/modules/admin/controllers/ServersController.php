@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ServersController extends Zend_Controller_Action {
+class Admin_ServersController extends Shineisp_Controller_Admin {
 	
 	protected $servers;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_ServersController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->reviews = new Servers();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "servers" )->setModel ( $this->servers );		
 	}
@@ -118,7 +118,8 @@ class Admin_ServersController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function newAction() {
-		$this->view->form = $this->getForm ( "/admin/servers/process" );
+		$id = $this->getRequest ()->getParam ( 'id' );
+		$this->view->form = $this->getForm ( "/admin/servers/process", $id );
 		$this->view->title = $this->translator->translate("New server");
 		$this->view->description = $this->translator->translate("Insert all the details of the new server.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
@@ -132,11 +133,10 @@ class Admin_ServersController extends Zend_Controller_Action {
 	 * Get the customized application form 
 	 * @return unknown_type
 	 */
-	private function getForm($action) {
+	private function getForm($action, $serverId = NULL) {
 		$form = new Admin_Form_ServersForm ( array ('action' => $action, 'method' => 'post' ) );
 		
-		$id = $this->getRequest ()->getParam ( 'id' );
-		$rs = Servers::getAll($id);
+		$rs = Servers::getAll($serverId);
 		$panel_id = ( isset($rs['panel_id']) ) ? $rs['panel_id']: null;
 		
 		// Add the customer custom attributes
@@ -152,9 +152,9 @@ class Admin_ServersController extends Zend_Controller_Action {
 	 */
 	public function editAction() {
 		
-		$form = $this->getForm ( '/admin/servers/process' );
 		$id   = $this->getRequest ()->getParam ( 'id' );
-		
+		$form = $this->getForm ( '/admin/servers/process', $id );
+
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
@@ -192,6 +192,7 @@ class Admin_ServersController extends Zend_Controller_Action {
 	 */
 	public function processAction() {
 		$request = $this->getRequest ();
+		$id   = $this->getRequest ()->getParam ( 'server_id' );
 		
 		$this->view->title = $this->translator->translate("Edit Server");
 		$this->view->description = $this->translator->translate("Edit the server parameters.");
@@ -209,7 +210,7 @@ class Admin_ServersController extends Zend_Controller_Action {
 		}
 		
 		// Get our form and validate it
-		$form = $this->getForm ( '/admin/servers/process' );
+		$form = $this->getForm ( '/admin/servers/process', $id );
 		
 		if (! $form->isValid ( $request->getPost () )) {
 			$this->view->form = $form;  // Invalid entries
@@ -219,13 +220,13 @@ class Admin_ServersController extends Zend_Controller_Action {
 		// Save the data
 		$serverID = Servers::saveAll($form->getValues ());
 		
-		OrdersItemsServers::removeServer(89,6);
+		#OrdersItemsServers::removeServer(89, $serverID);
 
 		// Save the attributes
 		$attributeValues = $form->getSubForm('attributes')->getValues();
 		CustomAttributes::saveElementsValues($attributeValues, $serverID, "servers");
 		
-		return $this->_helper->redirector ( 'list', 'servers', 'admin' );
+		return $this->_helper->redirector ( 'edit', 'servers', 'admin', array('id' => $id));
 	
 	}
 	

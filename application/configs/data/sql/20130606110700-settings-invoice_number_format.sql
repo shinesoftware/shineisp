@@ -1,0 +1,2 @@
+
+INSERT INTO settings_parameters SET name = 'Invoices number format', var = 'invoices_number_format', type = 'text', module = 'admin', enabled = 1, description = 'Customize the format of invoice number. Valid placeholders are described <a href="http://www.shineisp.com/invoices-number-format/" target="_blank">here</a>', group_id = 1;  

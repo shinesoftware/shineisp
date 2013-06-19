@@ -34,6 +34,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		if(Shineisp_Main::isReady()){
 			$dsn = Shineisp_Main::getDsn();
 			$conn = Doctrine_Manager::connection ( $dsn, 'doctrine' );
+			
+			$queryDbg = new Shineisp_Commons_QueriesLogger();
+			$conn->addListener($queryDbg);
+			
 			$conn->setAttribute ( Doctrine::ATTR_USE_NATIVE_ENUM, true );
 			$conn->setCharset ( 'UTF8' );
 		}
@@ -44,17 +48,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	}
 	
 	protected function _initControllerPlugin() {
+		$this->bootstrap ( 'frontController' );
+		
 		$fc = Zend_Controller_Front::getInstance ();
-		$fc->registerPlugin ( new Shineisp_Controller_Plugin_Starter () );
+		$fc->registerPlugin(new Shineisp_Controller_Plugin_Starter ());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Language());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Currency());
 		
 		if(Shineisp_Main::isReady()){
+			// Init new plugin architecture
+			Zend_Registry::set("em", new Zend_EventManager_EventManager());
+			$Shineisp_Plugins = new Shineisp_Plugins();
+			$Shineisp_Plugins->initAll();
+			
 			$fc->registerPlugin ( new Shineisp_Controller_Plugin_Acl(new Shineisp_Acl()));
 			$fc->registerPlugin ( new Shineisp_Controller_Plugin_Migrate() );
 		}
 	}
-	
 	
 	protected function _initRouter() {
 		$this->bootstrap('FrontController');

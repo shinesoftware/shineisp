@@ -35,22 +35,83 @@ class StatusHistory extends BaseStatusHistory
 	
 	
 	/**
-	 * getAll
 	 * Get all records by sectionId and status section
+	 * 
 	 * @param $sectionId, $statusSection [orders, customers, ...], $fields="*"
 	 * @return Doctrine Record
 	 */
-	public static function getAll($sectionId, $statusSection, $fields="*, s.status AS status") {
+	public static function getAll($sectionId, $statusSection="orders", $fields="*, s.status AS status") {
+
+		if(!is_numeric($sectionId)){
+			return array();
+		}
+		
+		if(empty($statusSection)){
+			$statusSection = "orders";
+		}
+		
 		$sectionId = intval($sectionId);
 		
-		return Doctrine_Query::create ()->select($fields)
+		$records = Doctrine_Query::create ()->select($fields)
 									   	->from( 'StatusHistory sh' )
 									   	->leftJoin('sh.Statuses s')
 									   	->where ( 'sh.section_id = ?', $sectionId )
 									    ->andWhere ( 's.section = ?',  $statusSection )
 										->andWhere ( 's.public = 1')
-										->orderBy ( 'sh.datetime DESC')
+										->orderBy ( 'sh.datetime ASC')
 									    ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		for ($i=0;$i<count($records);$i++){
+			$records[$i]['datetime'] = Shineisp_Commons_Utilities::formatDateOut($records[$i]['datetime'], null, true);
+		}
+		
+		return $records;
+										
+	}
+	
+	/**
+	 * Get status 
+	 * 
+	 * @param $sectionId, $statusSection [orders, customers, ...], $fields="*"
+	 * @return Doctrine Record
+	 */
+	public static function getStatusList($sectionId, $statusSection="orders", $fields=null) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
+		$data = array();
+		$i = 0;
+		
+		if(!is_numeric($sectionId)){
+			return array();
+		}
+		
+		if(empty($statusSection)){
+			$statusSection = "orders";
+		}
+		
+		$sectionId = intval($sectionId);
+		
+		$dq = Doctrine_Query::create ()->from( 'StatusHistory sh' )
+									   	->leftJoin('sh.Statuses s')
+									   	->where ( 'sh.section_id = ?', $sectionId )
+									    ->andWhere ( 's.section = ?',  $statusSection )
+										->andWhere ( 's.public = 1')
+										->orderBy ( 'sh.datetime ASC');
+		if($fields){
+			$dq->select($fields);
+		}else{
+			$dq->select("*, s.status AS status");
+		}
+		
+		$records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		foreach ($records as $record){
+			$data[$i]['datetime'] = Shineisp_Commons_Utilities::formatDateOut($record['datetime'], null, true);
+			$data[$i]['status'] = $translator->translate($record['status']);
+			$i++;
+		}
+		
+		return $data;
 										
 	}
 	

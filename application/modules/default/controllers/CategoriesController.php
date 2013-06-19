@@ -1,6 +1,6 @@
 <?php
 
-class CategoriesController extends Zend_Controller_Action {
+class CategoriesController extends Shineisp_Controller_Default {
 	protected $categories;
 	protected $mode;
 	protected $translator;
@@ -9,12 +9,12 @@ class CategoriesController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
 		$auth = Zend_Auth::getInstance ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->categories = new ProductsCategories ( );
 		$this->translator = $registry->Zend_Translate;
 	}
@@ -30,7 +30,7 @@ class CategoriesController extends Zend_Controller_Action {
 	 * Set the layout mode of the list of the categories
 	 */
 	public function setlayoutAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$ns->layoutmode = $this->getRequest()->getParam('mode', 'list');
 		return $this->_helper->redirector ( $ns->lastcategory . ".html" );
 	}
@@ -39,7 +39,7 @@ class CategoriesController extends Zend_Controller_Action {
 	 * List all the products of a requested category
 	 */
 	public function listAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$products = array ();
 		
 		// get the category uri
@@ -82,14 +82,14 @@ class CategoriesController extends Zend_Controller_Action {
 					
 					// Get the media information for each product
 					foreach ( $data['records'] as $product ) {
-						$product['reviews'] = Reviews::countItems($product['product_id']);
+						$product['reviews']    = Reviews::countItems($product['product_id']);
 						$product['attributes'] = ProductsAttributes::getAttributebyProductID($product['product_id'], $ns->langid, true);
 						$products [] = $product;
 					}
 					$this->view->products = $products;
 					$this->view->pager = $data['pager'];
 				}
-				
+
 				$this->_helper->viewRenderer($ns->layoutmode);
 				
 			}else{

@@ -18,7 +18,7 @@ class WikiCategories extends BaseWikiCategories {
 	 */
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'category_id', 'alias' => 'category_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

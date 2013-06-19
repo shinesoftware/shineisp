@@ -12,7 +12,7 @@
  */
 class FilesCategories extends BaseFilesCategories {
 	public static function getList() {
-		$registry = Zend_Registry::getInstance();
+		$registry = Shineisp_Registry::getInstance();
 		$items = array ();
 		$arrTypes = Doctrine::getTable ( 'FilesCategories' )->findAll ();
 		foreach ( $arrTypes->getData () as $c ) {

@@ -1,6 +1,6 @@
 <?php
 
-class CartController extends Zend_Controller_Action {
+class CartController extends Shineisp_Controller_Default {
 	protected $customer;
 	protected $cart;
 	protected $translator;
@@ -10,18 +10,18 @@ class CartController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$this->customer = $ns->customer;
 		}
 		
-		$this->currency = Zend_Registry::get ( 'Zend_Currency' );
-		$this->translator = Zend_Registry::get ( 'Zend_Translate' );
+		$this->currency = Shineisp_Registry::get ( 'Zend_Currency' );
+		$this->translator = Shineisp_Registry::get ( 'Zend_Translate' );
 		
 		$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
 	}

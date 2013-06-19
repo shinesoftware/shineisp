@@ -14,7 +14,7 @@ class Tickets extends BaseTickets {
 	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string' );
@@ -44,6 +44,7 @@ class Tickets extends BaseTickets {
 							->leftJoin ( 't.TicketsCategories tc' )
 							->leftJoin ( 't.Customers c' )
 							->leftJoin ( 't.Statuses s' )
+                            ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 							->orderBy('ticket_id desc');
 		
 		$dq->addSelect('( SELECT COUNT( * ) FROM TicketsNotes tn WHERE tn.ticket_id = t.ticket_id) as replies' );
@@ -85,7 +86,13 @@ class Tickets extends BaseTickets {
 		
 		// Defining the url sort
 		$uri = isset ( $sort [1] ) ? "/sort/$sort[1]" : "";
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Tickets t' )->leftJoin ( 't.TicketsCategories tc' )->leftJoin ( 't.Customers c' )->leftJoin ( 't.Statuses s' );
+		$dq = Doctrine_Query::create ()
+		          ->select ( $fields )
+		          ->from ( 'Tickets t' )
+		          ->leftJoin ( 't.TicketsCategories tc' )
+		          ->leftJoin ( 't.Customers c' )
+		          ->leftJoin ( 't.Statuses s' )
+                  ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
 		
 		$pagerLayout = new Doctrine_Pager_Layout ( new Doctrine_Pager ( $dq, $currentPage, $rowNum ), new Doctrine_Pager_Range_Sliding ( array ('chunk' => 10 ) ), "/$module/$controller/list/page/{%page_number}" . $uri );
 		
@@ -216,7 +223,9 @@ class Tickets extends BaseTickets {
 	 */
 	public static function setStatus($id, $status) {
 		if(is_numeric($id)){
-			$object = Doctrine::getTable ( 'Tickets' )->find ( $id );
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->leftJoin ( 't.Customers c' )
+			             ->find ( $id );
 			$object->status_id = $status;
 			$object->date_close = date ( 'Y-m-d H:i:s' );
 			return $object->save ();
@@ -342,17 +351,12 @@ class Tickets extends BaseTickets {
 								->orderBy('t.date_updated')
 								->leftJoin ( 't.Customers c' )
 								->leftJoin ( 't.Statuses s' )
-								->leftJoin ( 't.TicketsCategories tc' );
+								->leftJoin ( 't.TicketsCategories tc' )
+                                ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
 		
 		if (is_numeric ( $customerid )) {
 			$dq->where ( 't.customer_id = ?', $customerid );
 		}
-        
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
-        }        
         
 		// Open, Processing and Waiting Reply tickets
 		$statuses = array(Statuses::id("expectingreply", "tickets"), Statuses::id("processing", "tickets"));
@@ -375,9 +379,14 @@ class Tickets extends BaseTickets {
 	 */
 	public static function getList($empty = false) {
 		$items = array ();
-		$translations = Zend_Registry::getInstance ()->Zend_Translate;
+		$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )->from ( 'Tickets t' )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		$records = Doctrine_Query::create ()
+		              ->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )
+		              ->from ( 'Tickets t' )
+                      ->leftJoin ( 't.Customers c' )
+		              ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
+		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
 			$items [] = $translations->translate ( 'Select ...' );
@@ -397,12 +406,14 @@ class Tickets extends BaseTickets {
 	 */
 	public static function getListbyCustomerId($customer_id, $empty = false, $abbreviation=false) {
 		$items = array ();
-		$translations = Zend_Registry::getInstance ()->Zend_Translate;
+		$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject, s.status as status" )
 											->from ( 'Tickets t' )
 											->leftJoin ( 't.Statuses s' )
+											->leftJoin ( 't.Customers c' )
 											->where('t.customer_id = ?', $customer_id)
+                                            ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 											->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
@@ -426,7 +437,7 @@ class Tickets extends BaseTickets {
 	 * Save the data
 	 */
 	public static function saveNew($params, $customerid) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$tickets = new Tickets ();
 		
 		$operatorId = Settings::findbyParam('tickets_operator', 'admin', Isp::getActiveISPID());
@@ -621,15 +632,11 @@ class Tickets extends BaseTickets {
 					->select ( "t.ticket_id, count(*) as items, s.status as status" )
 					->from ( 'Tickets t' )
 					->leftJoin ( 't.Statuses s' )
+                    ->leftJoin ( 't.Customers c' )
 					->where("s.section = 'tickets'")
+                    ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
 					->groupBy('s.status');
         
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 't.Customers c' )
-                ->whereIn( "c.isp_id", $logged_user['isp_id']);
-        }       
                     
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
@@ -647,13 +654,9 @@ class Tickets extends BaseTickets {
 		
 		$dq = Doctrine_Query::create ()
 					->select ( "t.ticket_id, count(*) as items" )
-					->from ( 'Tickets t' );
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 't.Customers c' )
-                ->whereIn( "c.isp_id", $logged_user['isp_id']);
-        }
+					->from ( 'Tickets t' )
+                    ->leftJoin ( 't.Customers c' )
+                    ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
         		
         $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
@@ -709,7 +712,8 @@ class Tickets extends BaseTickets {
     	->leftJoin ( 'dt.WhoisServers ws' )
     	->leftJoin ( 't.Statuses s' )
     	->leftJoin ( 't.Tickets t2' )
-    	->whereIn( "ticket_id", $ids);
+    	->whereIn( "ticket_id", $ids)
+    	->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
     	if(!empty($fields)){
     		$dq->select($fields);
     	}
@@ -771,7 +775,7 @@ class Tickets extends BaseTickets {
     public function bulkexport($items) {
     	$isp = Isp::getActiveISP();
     	$pdf = new Shineisp_Commons_PdfList();
-    	$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    	$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
     
     	$fields = " t.ticket_id,
 					t.subject as subject, 

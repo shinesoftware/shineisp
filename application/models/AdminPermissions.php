@@ -19,7 +19,7 @@ class AdminPermissions extends BaseAdminPermissions
 		 */
 		public static function grid($rowNum = 10) {
 	
-			$translator = Zend_Registry::getInstance ()->Zend_Translate;
+			$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 			$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Module' ), 'field' => 'r.module', 'alias' => 'mymodule', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 			$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Controller' ), 'field' => 'r.controller', 'alias' => 'mycontroller', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

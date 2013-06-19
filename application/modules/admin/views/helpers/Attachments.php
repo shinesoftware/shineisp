@@ -18,7 +18,7 @@ class Zend_View_Helper_Attachments extends Zend_View_Helper_Abstract {
 	 * @return string
 	 */
 	public function Attachments($id, $attachedto) {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
 		$records = Files::findbyExternalId($id, $attachedto);
 		$auth = Zend_Auth::getInstance ();

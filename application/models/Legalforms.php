@@ -17,7 +17,7 @@ class Legalforms extends BaseLegalforms {
 	 */
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.legalform_id', 'alias' => 'legalform_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'l.legalform_id', 'alias' => 'legalform_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

@@ -11,6 +11,7 @@ DomainsTlds:
     renewal_cost: '7.00'
     Registrars: Registrars_1
     Taxes: Taxes_1
+    isp_id: '1'
     autosetup: 0
   DomainsTlds_2:
     WhoisServers: WhoisServers_2
@@ -24,4 +25,19 @@ DomainsTlds:
     renewal_cost: '7.00'
     Registrars: Registrars_1
     Taxes: Taxes_1
+    isp_id: '1'
+    autosetup: 0
+  DomainsTlds_5:
+    WhoisServers: WhoisServers_1
+    ishighlighted: true
+    isrefundable: false
+    registration_price: '8.00'
+    transfer_price: '8.00'
+    renewal_price: '8.00'
+    registration_cost: '7.00'
+    transfer_cost: '7.00'
+    renewal_cost: '7.00'
+    Registrars: Registrars_1
+    Taxes: Taxes_1
+    isp_id: '1'
     autosetup: 0

@@ -19,7 +19,7 @@ class CmsBlocks extends BaseCmsBlocks
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cms.block_id', 'alias' => 'block_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'block_id', 'alias' => 'block_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

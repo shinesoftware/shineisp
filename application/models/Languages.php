@@ -18,7 +18,7 @@ class Languages extends BaseLanguages {
 	 */
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'l.language_id', 'alias' => 'language_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'l.language_id', 'alias' => 'language_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -80,8 +80,14 @@ class Languages extends BaseLanguages {
 	 */
 	public static function get_language_id($locale) {
 		
+		$ns = new Zend_Session_Namespace ();
+		
 		if(empty($locale)){
 			return 1; // get the first default language 
+		}
+		
+		if(!empty($ns->lang) && ($locale == $ns->lang) && !empty($ns->langid)){
+			return $ns->langid;
 		}
 		
 		$record = Doctrine_Query::create ()->select ( 'language_id' )->from ( 'Languages l' )->where ( "locale = ?", $locale )->limit ( 1 )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -270,15 +276,8 @@ class Languages extends BaseLanguages {
 		if (!empty($locale)) {
 			$zl->setLocale ( $locale );
 			
-			Zend_Registry::set ( 'Zend_Locale', $zl );
+			Shineisp_Registry::set ( 'Zend_Locale', $zl );
 	
-			$translations_file = $path . "/languages/" . $locale . '.csv';
-			
-			if(file_exists($translations_file)){
-				$translate = new Zend_Translate ( 'Shineisp_Translate_Adapter_Csv', $translations_file, $locale );
-				$translate->setLocale ( $locale );
-				Zend_Registry::set ( 'Zend_Translate', $translate );
-			}
 		}
 	}
 }

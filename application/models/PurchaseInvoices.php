@@ -18,7 +18,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.purchase_id', 'alias' => 'purchase_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'i.purchase_id', 'alias' => 'purchase_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -319,7 +319,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	 */	
 	public static function getSummaryGrid($helper, $year) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Month nr.' ), 'field' => 'MONTH(ip.creationdate)', 'alias' => 'month', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Month' ), 'field' => 'date_format(ip.creationdate, "%M")', 'alias' => 'monthname', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
@@ -360,7 +360,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	public function bulk_pdf_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the purchase invoices table
 		$invoices = self::get_invoices($items, "purchase_id, 
@@ -418,7 +418,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	 * @param array $items
 	 */
 	public function bulk_csv_export($items) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
 		$orders = self::get_invoices($items, "purchase_id, 

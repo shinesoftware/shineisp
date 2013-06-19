@@ -1,13 +1,13 @@
 <?php
 
-class RssController extends Zend_Controller_Action {
+class RssController extends Shineisp_Controller_Default {
 	protected $translations;
 	
 	/**
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
@@ -20,19 +20,19 @@ class RssController extends Zend_Controller_Action {
 	public function indexAction() {
 		$out = "";
 		try {
-			$ISP = ISP::getCurrentISP();
-			$ns = new Zend_Session_Namespace ( 'Default' );
+			$ISP = Shineisp_Registry::get('ISP');
+			$ns = new Zend_Session_Namespace ();
 			$localeID = $ns->idlang;
 			$locale = $ns->lang;
 		
 			$feed = new Zend_Feed_Writer_Feed ();
-			$feed->setTitle ( $ISP['company'] );
-			$feed->setLink ( $ISP['website'] );
+			$feed->setTitle ( $ISP->company );
+			$feed->setLink ( $ISP->website );
 			$feed->setFeedLink ( 'http://' . $_SERVER ['HTTP_HOST'] . '/rss', 'atom' );
-			$feed->addAuthor ( array ('name' => $ISP['company'], 'email' => $ISP['email'], 'uri' => $ISP['website'] ) );
+			$feed->addAuthor ( array ('name' => $ISP->company, 'email' => $ISP->email, 'uri' => $ISP->website ) );
 			$feed->setEncoding('UTF8');
 			$feed->setDateModified ( time () );
-			$feed->addHub ( $ISP['website'] );
+			$feed->addHub ( $ISP->website );
 			
 			// Get all the cms pages
 			$records = CmsPages::getRssPages($locale);

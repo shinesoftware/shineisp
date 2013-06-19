@@ -32,7 +32,7 @@ abstract class Shineisp_Banks_Abstract {
 		if(!empty($order[0])){
 			$this->order = $order[0];	
 		}
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	/**

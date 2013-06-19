@@ -20,7 +20,7 @@ class AdminRoles extends BaseAdminRoles
 	 */
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.role_id', 'alias' => 'role_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'r.role_id', 'alias' => 'role_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

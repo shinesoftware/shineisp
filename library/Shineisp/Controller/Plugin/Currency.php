@@ -5,7 +5,7 @@ class Shineisp_Controller_Plugin_Currency extends Zend_Controller_Plugin_Abstrac
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
 		$currency = new Zend_Currency('IT');
 
-		$registry = Zend_Registry::getInstance();
+		$registry = Shineisp_Registry::getInstance();
 		
 		// Check if the config file has been created
 		$isReady = Shineisp_Main::isReady();

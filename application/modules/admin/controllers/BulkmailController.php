@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_BulkmailController extends Zend_Controller_Action {
+class Admin_BulkmailController extends Shineisp_Controller_Admin {
 	
 	protected $session;
 	protected $translator;
@@ -20,7 +20,7 @@ class Admin_BulkmailController extends Zend_Controller_Action {
 	
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	/*
@@ -29,8 +29,8 @@ class Admin_BulkmailController extends Zend_Controller_Action {
 	 */
 	public function indexAction() {
 		$auth = Zend_Auth::getInstance ();
-		$registry = Zend_Registry::getInstance ();
-		$translation = Zend_Registry::get ( 'Zend_Translate' );
+		$registry = Shineisp_Registry::getInstance ();
+		$translation = Shineisp_Registry::get ( 'Zend_Translate' );
 		$retval = array ();
 		
 		if ($auth->hasIdentity ()) {

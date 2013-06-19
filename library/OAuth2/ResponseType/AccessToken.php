@@ -96,7 +96,12 @@ class OAuth2_ResponseType_AccessToken implements OAuth2_ResponseType_AccessToken
      */
     protected function generateAccessToken()
     {
-        $tokenLen = 40;
+        $tokenLen = 64;
+		
+		if(function_exists('openssl_random_pseudo_bytes')) {
+			return substr(preg_replace('/[^a-z0-9]+/i', '', base64_encode(openssl_random_pseudo_bytes($tokenLen))),0,$tokenLen);
+		}
+		
         $randomData = mt_rand() . mt_rand() . mt_rand() . mt_rand() . microtime(true) . uniqid(mt_rand(), true);
         return substr(hash('sha512', $randomData), 0, $tokenLen);
     }

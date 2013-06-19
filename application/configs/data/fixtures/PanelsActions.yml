@@ -1,0 +1,11 @@
+PanelsActions:
+  PanelsActions_2:
+    Panels: Panels_1
+    Customers: Customers_3
+    OrdersItems: OrdersItems_1
+    start: '2013-10-06 00:00:00'
+    action: createClient
+    Statuses: Statuses_4
+    end: '2013-10-06 00:00:00'
+    parameters: '{"webspace":"1000","trafficdata":"5000","emails":"5","databases":"1"}'
+    log: 'The request has been executed correctly.'

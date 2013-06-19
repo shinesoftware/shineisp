@@ -1,6 +1,6 @@
 <?php
 
-class WikiController extends Zend_Controller_Action {
+class WikiController extends Shineisp_Controller_Default {
 	protected $wiki;
 	protected $translator;
 	
@@ -8,12 +8,12 @@ class WikiController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
 		$auth = Zend_Auth::getInstance ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->wiki = new Wiki ();
 		$this->translator = $registry->Zend_Translate;
 	}
@@ -49,7 +49,7 @@ class WikiController extends Zend_Controller_Action {
 	
 	public function helpAction() {
 		$uri = $this->getRequest ()->getParam ( 'uri' );
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (! empty ( $uri )) {
 			$uri = Shineisp_Commons_UrlRewrites::format($uri);

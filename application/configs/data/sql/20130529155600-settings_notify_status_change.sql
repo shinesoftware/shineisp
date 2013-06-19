@@ -1,0 +1,1 @@
+INSERT INTO settings_parameters SET name = 'Notify status change to customers', var = 'notify_status_change', type = 'checkbox', module = 'admin', enabled = 1, description = 'Notify each customers when a status change occurs on their orders', group_id = 3;  

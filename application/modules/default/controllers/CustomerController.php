@@ -1,6 +1,6 @@
 <?php
 
-class CustomerController extends Zend_Controller_Action {
+class CustomerController extends Shineisp_Controller_Default {
 
 	public function preDispatch() {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
@@ -10,7 +10,7 @@ class CustomerController extends Zend_Controller_Action {
 	}
 	
 	public function indexAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/customer/login' );
 	}
 	
@@ -30,7 +30,7 @@ class CustomerController extends Zend_Controller_Action {
 	public function signinAction() {
 		$request = $this->getRequest ();
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$customerparams = array ();
 		
 		// Check the request of redirection of the user
@@ -102,7 +102,7 @@ class CustomerController extends Zend_Controller_Action {
 	 */
 	public function dosignupAction() {
 		$request = $this->getRequest ();
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$form = new Default_Form_SignupForm ( array ('action' => '/customer/dosignup', 'method' => 'post' ) );
 		$this->view->form = $form;
 		$post = $request->getPost ();

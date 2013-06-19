@@ -109,7 +109,7 @@ class Shineisp_Commons_Contents {
 	 * @param string $text
 	 * @return string
 	 */
-	public static function chkCmsBlocks($text, $locale="en_US") {
+	public static function chkCmsBlocks($text, $locale="en") {
 		$languageID = Languages::get_language_id($locale);
 		
 		// Get all the blocks in the whole text

@@ -143,7 +143,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             }
             return $rs;
 
-            $currency = Zend_Registry::getInstance ()->Zend_Currency;
+            $currency = Shineisp_Registry::getInstance ()->Zend_Currency;
             
             $result     = array();
             $order      = array_shift($rs);

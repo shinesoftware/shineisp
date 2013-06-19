@@ -19,7 +19,7 @@ class PaymentsMethods extends BasePaymentsMethods
      */
     public static function getList($empty = false, array $criterias = array()) {
         $items = array ();
-        $registry = Zend_Registry::getInstance ();
+        $registry = Shineisp_Registry::getInstance ();
         $translations = $registry->Zend_Translate;
         
         if ($empty) {

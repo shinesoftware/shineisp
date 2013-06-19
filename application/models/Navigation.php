@@ -20,6 +20,7 @@ class Navigation extends BaseNavigation
 	public static function findAll($module="default") {
 		return Doctrine_Query::create ()->from ( 'Navigation' )->where ( 'module = ?', $module )->execute ( null, Doctrine::HYDRATE_ARRAY );
     }
+
     
     /**
      * getNavItems
@@ -103,4 +104,25 @@ class Navigation extends BaseNavigation
 		}
 		return $tmp_array;
 	}    
+	
+	
+	/*
+	 * Build a navigation tree
+	 */
+	public static function  buildTree($array, $pid = 0 ) {
+	    $nav = array();
+	    foreach( $array as $item ) {
+	        if( $item['parent_id'] == $pid ) {
+	        	$item['url'] = isset($item['uri']) ? $item['uri'] : '';
+	            $nav[$item['id']] = $item;
+	            $children = self::buildTree( $array, $item['id'] );
+	            if( $children ) {
+	                $nav[$item['id']]['children'] = $children;
+	            }
+	        }
+	    }
+	    return $nav;
+	}
+	
+	
 }

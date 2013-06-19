@@ -25,8 +25,8 @@ class Shineisp_Controller_Action_Helper_Datagrid extends Zend_Controller_Action_
 	public function preDispatch() {
 		$this->controller = $this->getActionController ();
 		$this->view = $this->controller->view;
-		if(!empty(Zend_Registry::getInstance ()->Zend_Translate)){
-			$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		if(!empty(Shineisp_Registry::getInstance ()->Zend_Translate)){
+			$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		}
 		$this->redirector = $this->_actionController->getHelper ( 'Redirector' );
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );

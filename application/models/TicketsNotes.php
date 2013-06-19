@@ -76,7 +76,7 @@ class TicketsNotes extends BaseTicketsNotes
 	 */
 	public static function getItemsNote($string) {
 		$items = array ();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$dq = Doctrine_Query::create ()->select ( "tn.ticket_id, t.subject as subject, CONCAT(c.firstname, ' ', c.lastname) as fullname" )
 				->from ( 'TicketsNotes tn' )
@@ -108,7 +108,7 @@ class TicketsNotes extends BaseTicketsNotes
 			return false;
 		}
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$ticket = Tickets::find($ticketid);
 		$t = Tickets::getAllInfo ( $ticketid, 'customer_id, subject, date_open, date_close', true );
 		

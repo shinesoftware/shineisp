@@ -25,6 +25,7 @@ class InvoicesSettings extends BaseInvoicesSettings
 	        $record = Doctrine_Query::create ()
 	                ->from ( 'InvoicesSettings is' )
 	                ->where ( "is.year = ?", $currentYear )
+					->andWhere('is.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
 	                ->limit ( 1 )
 	                ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	        
@@ -49,7 +50,9 @@ class InvoicesSettings extends BaseInvoicesSettings
         $dq = Doctrine_Query::create ()
                 ->select ( $fields )
                 ->from ( 'InvoicesSettings is' )
-                ->where ( "is.year = $year" )->limit ( 1 );
+                ->where ( 'is.year = ?'.$year )
+                ->andWhere('is.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
+                ->limit ( 1 );
         
         $retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
         $record = $dq->execute ( array (), $retarray );
@@ -67,13 +70,14 @@ class InvoicesSettings extends BaseInvoicesSettings
     	// Check if a year is passed
     	self::checkSettings();
     	
-        $dq = Doctrine_Query::create ()
+        $record = Doctrine_Query::create ()
                 ->select ( 'next_number' )
                 ->from ( 'InvoicesSettings is' )
                 ->where('is.year = ?', date('Y'))
-                ->limit ( 1 );
-        
-        $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+				->andWhere('is.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
+                ->limit ( 1 )
+				->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+
         if (count ( $record ) > 0) {
             return $record[0] ['next_number'];
         } else {
@@ -87,12 +91,35 @@ class InvoicesSettings extends BaseInvoicesSettings
      * @return Doctrine Record
      */
     public static function setLastInvoice($current_invoice_number) {
-    	$q = Doctrine_Query::create()
+    	$isp_id = Shineisp_Registry::get('ISP')->isp_id;
+		$isp_id = intval($isp_id);
+		
+		$increment = Invoices::sequentialIncrement();
+		
+		// Try to get last invoice number
+        $record = Doctrine_Query::create ()
+                ->select ( 'setting_id' )
+                ->from ( 'InvoicesSettings is' )
+                ->where('is.year = ?', date('Y'))
+				->andWhere('is.isp_id = ?',$isp_id)
+                ->limit ( 1 )
+				->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
+		$record = array_shift($record);
+				
+		if ( $record['setting_id'] > 0 ) {
+			return Doctrine_Query::create()
 				    ->update('InvoicesSettings')
-				    ->set('next_number', $current_invoice_number + 1)
-				    ->where('year = ' . date('Y'));
+					->set('next_number', $current_invoice_number + $increment)
+					->where('year = ?', date('Y'))
+					->andWhere('isp_id = ?',$isp_id)
+					->execute();
+		}
 
-        return $q->execute();
+		$InvoicesSettings = new self();
+		$InvoicesSettings->next_number = $current_invoice_number + $increment;
+		$InvoicesSettings->year        = date('Y');
+		$InvoicesSettings->isp_id      = $isp_id;
+		$InvoicesSettings->save();
     }   
 
     

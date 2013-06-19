@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_TicketsController extends Zend_Controller_Action {
+class Admin_TicketsController extends Shineisp_Controller_Admin {
 	
 	protected $tickets;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_TicketsController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->tickets = new Tickets ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "tickets" )->setModel ( $this->tickets );
 	}

@@ -25,6 +25,7 @@ Products:
     blocks: null
     ServersGroups: ServersGroups_1
     autosetup: '4'
+    Isp: Isp_1
   Products_2:
     uuid: a59f3a42-ee45-452a-8ef2-ed04e3acea40
     sku: hst-silver
@@ -51,12 +52,13 @@ Products:
     blocks: null
     ServersGroups: ServersGroups_1
     autosetup: '0'
+    Isp: Isp_1
   Products_3:
     uuid: 4dc886de-90be-4271-8000-b745ab15ebc2
     sku: hst-gold
     uri: gold-hosting-plan
     inserted_at: '2012-01-11 16:22:00'
-    updated_at: '2013-05-25 16:54:38'
+    updated_at: '2013-05-29 16:50:52'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -76,13 +78,14 @@ Products:
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
     ServersGroups: ServersGroups_1
-    autosetup: '0'
+    autosetup: '4'
+    Isp: Isp_1
   Products_4:
     uuid: f9c93265-f4ea-44be-9387-12fd94180ef6
     sku: hst-plat
     uri: platinum-hosting-plan
     inserted_at: '2012-01-11 16:22:00'
-    updated_at: '2013-05-25 16:55:01'
+    updated_at: '2013-05-29 16:08:30'
     cost: 0
     price_1: '0.00'
     setupfee: '0.00'
@@ -102,7 +105,8 @@ Products:
     ProductsAttributesGroups: ProductsAttributesGroups_3
     blocks: null
     ServersGroups: ServersGroups_1
-    autosetup: '0'
+    autosetup: '4'
+    Isp: Isp_1
   Products_5:
     uuid: 71221dda-3859-4271-9ad3-1dd3caa881ba
     sku: help
@@ -128,3 +132,4 @@ Products:
     ProductsAttributesGroups: ProductsAttributesGroups_1
     blocks: null
     autosetup: '0'
+    Isp: Isp_1
