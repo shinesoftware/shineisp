@@ -36,7 +36,7 @@ class ServicesController extends Shineisp_Controller_Default {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/services/list' );
 	}
 	
@@ -254,7 +254,7 @@ class ServicesController extends Shineisp_Controller_Default {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;

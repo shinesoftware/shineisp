@@ -45,7 +45,7 @@ class ErrorController extends Shineisp_Controller_Default
         }
        
         // Save the error message in the log file errors.log
-        $errormessage = $errors->type . ": " . $errors->exception->getMessage() . "\n" . $errors->exception->getTraceAsString() . "\n" ;
+        $errormessage = $errors->type . ": " . $errors->exception->getMessage();
         Shineisp_Commons_Utilities::log($errormessage);
         
         $this->view->exception = $errors->exception;

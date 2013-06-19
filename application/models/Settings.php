@@ -362,6 +362,10 @@ class Settings extends BaseSettings {
     	$setting['parameter_id'] = $parameter->get('parameter_id');
     	$setting['value'] = $value;
     	$setting->save();
+    	
+    	// Refresh the parameters
+    	SettingsParameters::loadParams(null, true);
+    	
     	return $setting['setting_id'];
     }
     
@@ -388,6 +392,9 @@ class Settings extends BaseSettings {
 	    	$setting[0]['parameter_id'] = $parameter->get('parameter_id');
 	    	$setting[0]['value'] = $value;
 	    	$setting->save();
+	    	
+	    	// Refresh the parameters
+	    	SettingsParameters::loadParams(null, true);
 	    	
 	    	return $setting['setting_id'];
         }
@@ -425,12 +432,11 @@ class Settings extends BaseSettings {
 				$i ++;
 			}
 			
-			
 			// Save the records
 			$records->save ();
 
 			// Refresh the parameters
-			SettingsParameters::loadParams();
+			SettingsParameters::loadParams(null, true);
 		}
 		return true;
 	}

@@ -36,7 +36,7 @@ class OrdersController extends Shineisp_Controller_Default {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/orders/list' );
 	}
 	
@@ -58,8 +58,8 @@ class OrdersController extends Shineisp_Controller_Default {
 		try {
 			$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
 			$data = $this->orders->findAll ( "o.order_id, 
-												o.order_id as OrderID, 
-												i.number as InvoiceId, 
+												o.order_id as Order, 
+												i.formatted_number as Invoice, 
 												CONCAT(c.company, ' ', c.firstname,' ', c.lastname) as company, 
 												o.order_number as order_number,
 												o.order_date as start_date,
@@ -74,7 +74,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		// Get the status of the items
 		if (! empty ( $data ['records'] )) {
 			for($i = 0; $i < count ( $data ['records'] ); $i ++) {
-				$data ['records'] [$i] ['OrderID']    = $data ['records'] [$i] ['order_number'];
+				$data ['records'] [$i] ['Order']    = $data ['records'] [$i] ['order_number'];
 				$data ['records'] [$i] ['Status']     = Orders::getStatus ( $data ['records'] [$i] ['order_id'], true );
 				$data ['records'] [$i] ['start_date'] = Shineisp_Commons_Utilities::formatDateOut ( $data ['records'] [$i] ['start_date'] );
 			}
@@ -105,7 +105,7 @@ class OrdersController extends Shineisp_Controller_Default {
 							DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
 							DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
 							in.invoice_id as invoice_id, 
-							in.number as Invoice, 
+							in.formatted_number as Invoice, 
 							CONCAT(d.domain, '.', w.tld) as Domain, 
 							c.company as company, 
 							o.status_id, 
@@ -150,10 +150,6 @@ class OrdersController extends Shineisp_Controller_Default {
 					
 					// Get Order status history
 					$this->view->statushistory = StatusHistory::getStatusList($id);
-					
-					
-					
-					$this->view->headertitle = $this->translator->translate('Order page');
 					
 					// Show the list of the messages attached to this domain
 					$this->view->messages = Messages::find ( 'order_id', $id, true );
@@ -245,22 +241,28 @@ class OrdersController extends Shineisp_Controller_Default {
 			if(Orders::IsCommentable($id)){
 				$order = Orders::getAllInfo ( $id, null, true );
 				$link = Fastlinks::findlinks ( $id, $this->customer ['customer_id'], 'orders' );
-	
+				
+				if(!empty($link [0] ['code'])){
+					$code = $link [0] ['code'];
+				}else{
+					$code = Fastlinks::CreateFastlink('orders', 'edit', json_encode (array('id' => $id)), 'orders', $id, $this->customer ['customer_id']);
+				}
+				
 				// Save the message
-				Messages::addMessage(nl2br($params ['note']), $this->customer ['customer_id'], null, $id);
+				Messages::addMessage($params ['note'], $this->customer ['customer_id'], null, $id);
 				
 				$placeholder['messagetype'] = $this->translator->translate('Order');
 				$placeholders['subject'] = sprintf ( "%03s", $id ) . " - " . Shineisp_Commons_Utilities::formatDateOut ( $order [0] ['order_date'] );
 				$placeholders['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 				$placeholders['orderid'] = $placeholders['subject'];
 				$placeholders['conditions'] = Settings::findbyParam('conditions');
-				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $link [0] ['code'];
+				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $code;
 				
 				// Send a message to the customer
 				Messages::sendMessage("order_message", $order [0] ['Customers'] ['email'], $placeholders);
 				
-				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp->email );
-				$placeholders['message'] = nl2br($params ['note']);
+				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/$code/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp->email );
+				$placeholders['message'] = $params ['note'];
 				
 				// Send a message to the administrator 
 				Messages::sendMessage("order_message_admin", $isp->email, $placeholders);
@@ -342,7 +344,7 @@ class OrdersController extends Shineisp_Controller_Default {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;

@@ -10,7 +10,7 @@ class CustomerController extends Shineisp_Controller_Default {
 	}
 	
 	public function indexAction() {
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/customer/login' );
 	}
 	
@@ -102,7 +102,7 @@ class CustomerController extends Shineisp_Controller_Default {
 	 */
 	public function dosignupAction() {
 		$request = $this->getRequest ();
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$form = new Default_Form_SignupForm ( array ('action' => '/customer/dosignup', 'method' => 'post' ) );
 		$this->view->form = $form;
 		$post = $request->getPost ();

@@ -2,8 +2,11 @@
 
 <form method="<?php echo $reviewform->getMethod() ?>" id="reviews" action="<?php echo $reviewform->getAction()?>">	
 	<div class="reviews">
-		<h3><?php echo $this->translate('Add your review for') . " " . $this->product['ProductsData'][0]['name']?></h3>
-		<p><?php echo $this->product['ProductsData'][0]['shortdescription'] ?></p>
+		
+		<?php if(!empty($this->product['ProductsData'][0])): ?>
+			<h3><?php echo $this->translate('Add your review for') . " " . $this->product['ProductsData'][0]['name']?></h3>
+			<p><?php echo $this->product['ProductsData'][0]['shortdescription'] ?></p>
+		<?php endif; ?>
 		
 		<? if( $reviewform->isErrors() ): ?>
 		    <div class="messages">    
