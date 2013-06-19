@@ -104,6 +104,7 @@ abstract class BaseAdminUser extends Doctrine_Record
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
              'default' => 1,
+             'notnull' => true,
              'length' => '4',
              ));
     }

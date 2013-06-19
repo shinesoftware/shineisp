@@ -115,6 +115,7 @@ AdminUser:
     isp_id:
       type: integer(4)     
       default: 1 
+      notnull: true
   relations:
     AdminRoles:
       local: role_id
@@ -774,6 +775,7 @@ CustomersGroups:
     isp_id:
       type: integer(4)    
       default: 1  
+      notnull: true
   relations:
     Customers:
       local: group_id
@@ -864,6 +866,7 @@ Customers:
     isp_id:
       type: integer(4)
       default: 1
+      notnull: true
     group_id:
       type: integer(4)
       default: '1'
@@ -1246,6 +1249,7 @@ DomainsTlds:
     isp_id:
       type: integer(4)
       default: 1
+      notnull: true
     autosetup: 
       type: integer(4)
       unsigned: true
@@ -1652,6 +1656,7 @@ InvoicesSettings:
     isp_id:
       type: integer(4)
       default: 1
+      notnull: true
       
 Isp:
   connection: doctrine
@@ -1747,6 +1752,7 @@ IspUrls:
     isp_id:
       type: integer(4)
       default: 1
+      notnull: true
     url:
       type: string(200)
       notnull: true
@@ -1853,6 +1859,7 @@ Messages:
     isp_id:
       type: integer(4)
       default: 1
+      notnull: true
     customer_id:
       type: integer(4)
       fixed: 0
@@ -2753,6 +2760,7 @@ Products:
     isp_id: 
       type: integer(4)
       default: 1
+      notnull: true
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -3396,6 +3404,7 @@ Servers:
     isp_id: 
       type: integer(4)
       default: 1
+      notnull: true
     type_id: integer(4)
     status_id: integer(4)
     panel_id: integer(4)
@@ -3498,6 +3507,7 @@ Settings:
     isp_id:
       type: integer(4)
       default: 1
+      notnull: true
     parameter_id:
       type: integer(4)
       fixed: 0
