@@ -327,13 +327,13 @@ class Invoices extends BaseInvoices {
 		$invoices_number_format = Settings::findbyParam('invoices_number_format');
 		if ( empty($invoices_number_format) ) {
 			// Empty setting, there is no need to try replacement
-			return $invoice_id;
+			return InvoicesSettings::getLastInvoice();
 		}
 		
 		$Order   = Doctrine::getTable ('Orders')->findOneBy('invoice_id', $invoice_id);
 		$Invoice = Doctrine::getTable ('Invoices')->find($invoice_id);
 		if ( !$Invoice ) {
-			return $invoice_id;
+			return InvoicesSettings::getLastInvoice();
 		}
 
 		$zero_fill = Settings::findbyParam('invoices_zero_prefix');
@@ -610,7 +610,7 @@ class Invoices extends BaseInvoices {
 	                Orders::setInvoice ($orderid, $invoice_id);
 					
 					// Generate an Invoice Number
-					$invoice_number = self::generateNumber($invoice_number);
+					$invoice_number = self::generateNumber($invoice_id);
 					if ( isset($invoice_number) ) {
 						Shineisp_Commons_Utilities::log("Generated invoice number ".$invoice_number." for invoice with id #".$invoice_id, 'invoices.log');
 						$Invoice->formatted_number = $invoice_number;

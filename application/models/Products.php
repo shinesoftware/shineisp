@@ -393,8 +393,8 @@ class Products extends BaseProducts {
 	}
 	
 	/**
-	 * getPrices
 	 * Get the price of the product
+	 * 
 	 * If there's a refund subtrack to the price (20130409)
 	 * @param integer $productid
 	 * @param float   $refund
@@ -428,12 +428,12 @@ class Products extends BaseProducts {
 
 					return array ('type' => 'flat', 'value' => $product ['price_1'], 'taxincluded' => $taxincluded, 'taxes' => $tax );
 				} else {
+
 					// Get the price min & max interval tranches
-					
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
-					//JAY 20130409
+					
 					if (!empty($tranches[1])) {
-						//JAY 20130409
+
 						if( $refund !== false ) {
 							$idBillingCircle		= $tranches[0]['BillingCycle']['billing_cycle_id'];
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
@@ -472,7 +472,6 @@ class Products extends BaseProducts {
 							}
 							
 						}
-						/** 20130409 ***/
 						
 						// Taxes calculation
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
@@ -490,16 +489,14 @@ class Products extends BaseProducts {
 						
 						return array ('type' => 'multiple', 'measurement' => $tranches[0]['measurement'], 'tranches' => $tranches, 'minvalue' => $minvalue, 'maxvalue' => $maxvalue, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => $maxvaluewithtaxes, 'discount' => $discount, 'taxes' => $tax );
 					}else{
-						// Taxes calculation
 						
-						//JAY 20130409
+						// Taxes calculation
 						if( $refund !== false ) {
 							$priceToPayWithRefund	= $tranches['price'] - $refund;
 							if( $priceToPayWithRefund < 0 ) {
 								$tranches['price']	= $priceToPayWithRefund;
 							}
 						}
-						/** 20130409 ***/						
 						
 						if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
 							$minvaluewithtaxes = ($tranches['price'] * ($tax['percentage'] + 100) / 100);

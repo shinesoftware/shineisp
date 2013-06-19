@@ -20,7 +20,7 @@ class Orders extends BaseOrders {
 	 * Event Manager Registration
 	 * @return mixed
 	 */
-	public function events()
+	public static function events()
 	{
 		$em = Shineisp_Registry::get('em');
 		if (!self::$events && is_object($em)) {

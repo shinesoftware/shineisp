@@ -703,6 +703,7 @@ class Shineisp_Commons_Utilities {
 		$config    = array ();
 		
 		$host = Settings::findbyParam ( 'smtp_host' );
+		
 		if (! empty ( $host )) {
 			$username = Settings::findbyParam ( 'smtp_user' );
 			$password = Settings::findbyParam ( 'smtp_password' );
@@ -712,6 +713,7 @@ class Shineisp_Commons_Utilities {
 			if (! empty ( $username ) && ! empty ( $password )) {
 				$config = array ('auth' => 'login', 'username' => $username, 'password' => $password, 'port' => $port );
 			}
+			
 			$transport = new Zend_Mail_Transport_Smtp ( $host, $config );
 		}
 		
@@ -759,17 +761,18 @@ class Shineisp_Commons_Utilities {
 		if(!empty($replyto)){
 			$mail->setReplyTo($replyto);
 		}
-				
+
+		// If the body of the message contains the HTML tags
+		// we have to override the $html variable in order to send the html message by email
+		
+		if(self::isHtml($body)){
+			$html = true;
+		}
+		
 		if ($html) {
-			$body = self::makeClickableLinks($body);
 			$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
 		} else {
-			if(self::isHtml($body)){
-				$body = self::makeClickableLinks($body);
-				$mail->setBodyHtml ( $body, null, Zend_Mime::ENCODING_8BIT);
-			}else{
-				$mail->setBodyText ( $body);
-			}
+			$mail->setBodyText ( $body);
 		}
 
 		if ( is_array($from ) ) {
@@ -777,7 +780,6 @@ class Shineisp_Commons_Utilities {
 		} else {
 			$mail->setFrom ( $from );
 		}
-		
 		
 		// If the $to is a group of emails addresses
 		if(is_array($to)){
@@ -810,11 +812,11 @@ class Shineisp_Commons_Utilities {
 		}
 		
 		$mail->setSubject ( $subject );
-		$sent = true;
 		
 		try {
 			
 			$mail->send ( $transport );
+			
 			// All good, log to DB
 			if(is_array($to)){
 				
@@ -870,7 +872,7 @@ class Shineisp_Commons_Utilities {
 			
 			// log the data
 			Shineisp_Commons_Utilities::log($e->getMessage ());
-			
+			die($e->getMessage ());
 			return array ('email' => $to, 'message' => $e->getMessage () );
 		}
 		return false;
