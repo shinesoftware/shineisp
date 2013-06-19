@@ -59,6 +59,7 @@ class Settings extends BaseSettings {
 			
 			// Save the config xml file
 			if(@$dom->save(APPLICATION_PATH . "/configs/config.xml")){
+				Shineisp_Commons_Utilities::log("Update ShineISP config xml file");
 				return true;
 			}else{
 				throw new Exception("Error on saving the xml file in " . APPLICATION_PATH . "/configs/config.xml <br/>Please check the folder permissions");
@@ -489,6 +490,8 @@ class Settings extends BaseSettings {
      */
     public static function getAll() {
     	$out = array();
+    	$isp = Shineisp_Registry::get('ISP');
+
         $records = Doctrine_Query::create ()
                                      ->select ('s.setting_id, s.value AS value, sp.var AS var' )
                                      ->from ( 'Settings s' )

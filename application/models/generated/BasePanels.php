@@ -41,6 +41,7 @@ abstract class BasePanels extends Doctrine_Record
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
+             'default' => 1,
              'length' => '4',
              ));
         $this->hasColumn('active', 'boolean', 25, array(

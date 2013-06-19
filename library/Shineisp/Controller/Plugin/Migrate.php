@@ -54,25 +54,23 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 								$arrName = explode("-", $name);
 									
 								// if the string is a valid date get the days betweeen the sql file name and the day of the setup of shineisp
-								if(!empty($arrName[0]) && Zend_Date::isdate($arrName[0], 'YYYYMMddHis')){
-									$sqldate = new Zend_Date($arrName[0], 'YYYYMMddHis');
-									$mysetupdate = new Zend_Date($setupdate, 'YYYYMMddHis');
+// 								if(!empty($arrName[0]) && Zend_Date::isdate($arrName[0], 'YYYYMMddHis')){
+// 									$sqldate = new Zend_Date($arrName[0], 'YYYYMMddHis');
+// 									$mysetupdate = new Zend_Date($setupdate, 'YYYYMMddHis');
 								
-									// get the difference of the two dates
-									$diff = $sqldate->sub($mysetupdate)->toValue();
-									$dayssincefirstsetup = floor($diff/60/60/24);
+// 									// get the difference of the two dates
+// 									$diff = $sqldate->sub($mysetupdate)->toValue();
+// 									$dayssincefirstsetup = floor($diff/60/60/24);
 									
-									unset($sqldate);
-									unset($mysetupdate);
-								}
+// 									unset($sqldate);
+// 									unset($mysetupdate);
+// 								}
 								
-								if($dayssincefirstsetup > 0){
-									// log file
-									Shineisp_Commons_Utilities::log("Update the database with " . $info['filename'] . ".sql (days: $dayssincefirstsetup)");
+								// read the sql 
+								$sql = Shineisp_Commons_Utilities::readfile($info['dirname'] . "/" . $info['basename'] );
+
+								if(!empty($sql)){
 									
-									// read the sql 
-									$sql = Shineisp_Commons_Utilities::readfile($info['dirname'] . "/" . $info['basename'] );
-	
 									// execute the sql strings
 									$result = $db->execute($sql);
 	
@@ -86,12 +84,6 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 										// rename the sql
 										rename($info['dirname'] . "/" . $info['basename'], $info['dirname'] . "/" . $info['filename'] . ".sql.old");
 									}
-								}else{
-									// rename the sql
-									rename($info['dirname'] . "/" . $info['basename'], $info['dirname'] . "/" . $info['filename'] . ".sql.old");
-									
-									// write a log message 
-									Shineisp_Commons_Utilities::log($info['filename'] . ".sql has been skipped because already set in the doctrine data setup.");
 								}
 							}
 						}
@@ -111,6 +103,7 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 				Settings::saveConfig($dbconfig, $LatestVersion);
 			
 				if($CurrentVersion > 0){
+					Shineisp_Commons_Utilities::log("Migrate ShineISP version from $CurrentVersion to $LatestVersion");
 					$migration->migrate();
 				}
 			}

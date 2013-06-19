@@ -199,6 +199,7 @@ abstract class BaseCustomers extends Doctrine_Record
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
+             'default' => 1,
              'length' => '4',
              ));
         $this->hasColumn('group_id', 'integer', 4, array(

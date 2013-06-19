@@ -113,7 +113,8 @@ AdminUser:
     config:
       type: string()
     isp_id:
-      type: integer(4)      
+      type: integer(4)     
+      default: 1 
   relations:
     AdminRoles:
       local: role_id
@@ -771,7 +772,8 @@ CustomersGroups:
       type: string(250)
       notnull: true
     isp_id:
-      type: integer(4)      
+      type: integer(4)    
+      default: 1  
   relations:
     Customers:
       local: group_id
@@ -861,6 +863,7 @@ Customers:
       notnull: true
     isp_id:
       type: integer(4)
+      default: 1
     group_id:
       type: integer(4)
       default: '1'
@@ -1242,8 +1245,7 @@ DomainsTlds:
     tax_id: integer(4)
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
+      default: 1
     autosetup: 
       type: integer(4)
       unsigned: true
@@ -1649,8 +1651,8 @@ InvoicesSettings:
       default: 1
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
+      default: 1
+      
 Isp:
   connection: doctrine
   tableName: isp
@@ -1744,8 +1746,7 @@ IspUrls:
       autoincrement: true
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
+      default: 1
     url:
       type: string(200)
       notnull: true
@@ -1851,10 +1852,7 @@ Messages:
       autoincrement: false
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
-      primary: false
-      autoincrement: false
+      default: 1
     customer_id:
       type: integer(4)
       fixed: 0
@@ -2220,6 +2218,7 @@ Orders:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
     uuid:
       type: string(50)      
     order_date:
@@ -2445,6 +2444,7 @@ Panels:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
     active: boolean(25)
   relations:
     Isp:
@@ -2734,7 +2734,8 @@ Products:
       default: generic
       notnull: true
     categories: string()
-    tax_id: integer(4)
+    tax_id: 
+      type: integer(4)
     external_id: integer(4)
     group_id: integer(4)
     blocks: string()
@@ -2749,7 +2750,9 @@ Products:
     welcome_mail_id:
       type: integer(5)
       unsigned: true
-    isp_id: integer(4)
+    isp_id: 
+      type: integer(4)
+      default: 1
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2912,6 +2915,7 @@ ProductsAttributesGroups:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
             
 ProductsAttributesGroupsIndexes:
   connection: doctrine
@@ -3007,7 +3011,8 @@ ProductsCategories:
     custom: string()
     isp_id:
       type: integer(4)
-      notnull: true    
+      notnull: true  
+      default: 1  
   relations:
     Wikilinks:
       local: category_id
@@ -3297,6 +3302,7 @@ Registrars:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
       
 Reviews:
   connection: doctrine
@@ -3387,7 +3393,9 @@ Servers:
       notnull: true
     max_services: integer(4)
     buy_date: timestamp(25)
-    isp_id: integer(4)
+    isp_id: 
+      type: integer(4)
+      default: 1
     type_id: integer(4)
     status_id: integer(4)
     panel_id: integer(4)
@@ -3489,10 +3497,7 @@ Settings:
       autoincrement: true
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
-      primary: false
-      autoincrement: false
+      default: 1
     parameter_id:
       type: integer(4)
       fixed: 0
@@ -3702,6 +3707,7 @@ Taxes:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
       
 Tickets:
   connection: doctrine
@@ -3784,7 +3790,8 @@ TicketsCategories:
       autoincrement: false
     isp_id:
       type: integer(4)
-      notnull: true      
+      notnull: true    
+      default: 1  
   relations:
     Tickets:
       local: category_id
@@ -3924,6 +3931,7 @@ Wiki:
     isp_id:
       type: integer(4)
       notnull: true    
+      default: 1
   relations:
     WikiCategories:
       local: category_id

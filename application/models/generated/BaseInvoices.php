@@ -86,6 +86,14 @@ abstract class BaseInvoices extends Doctrine_Record
              'autoincrement' => false,
              'length' => '',
              ));
+
+
+        $this->index('formatted_number', array(
+             'fields' => 
+             array(
+              0 => 'formatted_number',
+             ),
+             ));
     }
 
     public function setUp()

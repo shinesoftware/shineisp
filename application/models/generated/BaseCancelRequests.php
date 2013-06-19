@@ -10,7 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('CancelRequests', 'doctrine');
  * @property integer $request_id
  * @property timestamp $date
  * @property string $ip
- * @property string $orderitem_id
+ * @property integer $orderitem_id
  * @property enum $type
  * @property string $note
  * @property integer $status_id

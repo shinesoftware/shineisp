@@ -43,8 +43,7 @@ abstract class BaseInvoicesSettings extends Doctrine_Record
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
+             'default' => 1,
              'length' => '4',
              ));
     }

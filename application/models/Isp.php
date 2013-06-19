@@ -315,7 +315,8 @@ class Isp extends BaseIsp {
 	}
 	
 	/*
-	 * findByUrl
+	 * get the Isp configured by URL 
+	 * if it is not present get the default one
 	 */
 	public static function findByUrl($url) {
 		
@@ -323,6 +324,22 @@ class Isp extends BaseIsp {
 								->from ( 'Isp i' )
 								->leftJoin ( 'i.IspUrls iu' )
 								->where('iu.url = ?', $url)
+								->fetchOne();
+		
+		if(empty($isp)){
+			$isp = self::getDefault();
+		}
+		
+		return $isp;
+	}	 
+	
+	/*
+	 * get the default ISP
+	 */
+	public static function getDefault() {
+		
+		$isp = Doctrine_Query::create ()->select ( '*' )
+								->from ( 'Isp i' )
 								->fetchOne();
 		
 		return $isp;

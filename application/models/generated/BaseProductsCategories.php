@@ -101,6 +101,7 @@ abstract class BaseProductsCategories extends Doctrine_Record
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
+             'default' => 1,
              'length' => '4',
              ));
     }
