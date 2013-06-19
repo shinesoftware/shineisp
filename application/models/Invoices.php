@@ -610,7 +610,7 @@ class Invoices extends BaseInvoices {
 	                Orders::setInvoice ($orderid, $invoice_id);
 					
 					// Generate an Invoice Number
-					$invoice_number = self::generateNumber($invoice_id);
+					$invoice_number = self::generateNumber($invoice_number);
 					if ( isset($invoice_number) ) {
 						Shineisp_Commons_Utilities::log("Generated invoice number ".$invoice_number." for invoice with id #".$invoice_id, 'invoices.log');
 						$Invoice->formatted_number = $invoice_number;
