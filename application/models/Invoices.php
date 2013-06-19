@@ -813,12 +813,12 @@ class Invoices extends BaseInvoices {
 			
 			// Invoice already exists, we return it
 			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
-// 				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
-// 				header('Content-type: application/pdf');
-// 				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
+				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+				header('Content-type: application/pdf');
+				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
 				
-// 				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
-// 				die($invoice);
+				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
+				die($invoice);
 			}			
 			
     		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
@@ -994,7 +994,7 @@ class Invoices extends BaseInvoices {
 					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
 	    			$html2pdf->WriteHTML($html);
 	    			
-	    			$html2pdf->Output(PUBLIC_PATH.$filename, "I");
+	    			$html2pdf->Output(PUBLIC_PATH.$filename, "F");
 
 					// Execute a custom event 
 					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $path . $filename));
