@@ -177,7 +177,7 @@ class SettingsParameters extends BaseSettingsParameters {
     	Doctrine::getTable ( 'SettingsParameters' )->find ($id)->delete ();
     	 
     	// Refresh all the paramenters
-    	self::loadParams();
+    	self::loadParams(null, true);
     	
     	return true;
     }
@@ -190,10 +190,10 @@ class SettingsParameters extends BaseSettingsParameters {
      * @param $isp
      * @return Doctrine Record
      */
-    public static function loadParams($module="Default") {
+    public static function loadParams($module="Default", $force=false) {
 		$session = new Zend_Session_Namespace ( $module );
 		
-		if(!empty($session->parameters)){
+		if(!empty($session->parameters) && $force === false){
 			return $session->parameters;
 		}
 		
@@ -213,7 +213,7 @@ class SettingsParameters extends BaseSettingsParameters {
     	}
     	
     	$session->parameters = $parameters;
-    	
+    	 
     	return $parameters;
     }
     

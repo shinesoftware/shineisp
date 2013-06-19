@@ -36,7 +36,7 @@ class OrdersController extends Shineisp_Controller_Default {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/orders/list' );
 	}
 	

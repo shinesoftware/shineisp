@@ -703,6 +703,7 @@ class Shineisp_Commons_Utilities {
 		$config    = array ();
 		
 		$host = Settings::findbyParam ( 'smtp_host' );
+		
 		if (! empty ( $host )) {
 			$username = Settings::findbyParam ( 'smtp_user' );
 			$password = Settings::findbyParam ( 'smtp_password' );
@@ -712,6 +713,7 @@ class Shineisp_Commons_Utilities {
 			if (! empty ( $username ) && ! empty ( $password )) {
 				$config = array ('auth' => 'login', 'username' => $username, 'password' => $password, 'port' => $port );
 			}
+			
 			$transport = new Zend_Mail_Transport_Smtp ( $host, $config );
 		}
 		
@@ -870,7 +872,7 @@ class Shineisp_Commons_Utilities {
 			
 			// log the data
 			Shineisp_Commons_Utilities::log($e->getMessage ());
-			
+			die($e->getMessage ());
 			return array ('email' => $to, 'message' => $e->getMessage () );
 		}
 		return false;
