@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_WikiController extends Zend_Controller_Action {
+class Admin_WikiController extends Shineisp_Controller_Admin {
 	
 	protected $wiki;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_WikiController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->wiki = new Wiki ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "wiki" )->setModel ( $this->wiki );
 				
@@ -220,6 +220,7 @@ class Admin_WikiController extends Zend_Controller_Action {
 			$this->wiki->language_id = $params ['language_id'];
 			$this->wiki->content = $params ['content'];
 			$this->wiki->active = $params ['active'] ? 1 : 0;
+			$this->wiki->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 			$this->wiki->save ();
 			
 			$redirector->gotoUrl ( "/admin/wiki/edit/id/$id" );

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dropbox Configuration File -->
+<config name="Dropbox" type="generic" var="dropbox" version="1.0">
+    <general>
+	    <description><![CDATA[ <a href="https://www.dropbox.com/">Dropbox</a> is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again! Open your account <a href="https://www.dropbox.com/">now</a>!]]></description>
+	    <help><![CDATA[<p>This module offers you the way to store your important documents like invoices and orders in a remote dropbox account. <br/>In order to setup the module, you need:</p>
+	        <ul>
+	            <li>Dropbox Account Credencials</li>
+	            <li>Set the Invoices destination path</li>
+	            <li>Set the Order destination path</li>
+	        </ul>
+	        <p>In order to send an invoice or order document, you need to click on the <b>Dropbox button</b> in the order admin detail page or on the invoice admin detail page.</p>
+	    ]]></help>
+    </general>
+    <settings>
+        <field var="email" label="Email" type="text" description="Set your dropbox email user ID"/>
+        <field var="password" label="Password" type="text" description="Write here your dropbox password."/>
+        <field var="invoicesdestinationpath" label="Dropbox: Invoices destination path" type="text" description="Destination path where the invoices files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Invoices/{quarter}/{monthname}/"/>
+        <field var="ordersdestinationpath" label="Dropbox: Orders destination path" type="text" description="Destination path where the orders files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/{monthname}/"/>
+    </settings>
+    
+</config>

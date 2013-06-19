@@ -10,10 +10,10 @@ Doctrine_Manager::getInstance()->bindComponent('OauthRefreshTokens', 'doctrine')
  * @property integer $id
  * @property string $refresh_token
  * @property string $client_id
- * @property integer $customer_id
+ * @property integer $user_id
  * @property timestamp $expires
  * @property string $scope
- * @property Doctrine_Collection $Customers
+ * @property Doctrine_Collection $AdminUser
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -43,7 +43,7 @@ abstract class BaseOauthRefreshTokens extends Doctrine_Record
              'notnull' => true,
              'length' => '250',
              ));
-        $this->hasColumn('customer_id', 'integer', 4, array(
+        $this->hasColumn('user_id', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
              'length' => '4',
@@ -63,8 +63,8 @@ abstract class BaseOauthRefreshTokens extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Customers', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
+        $this->hasMany('AdminUser', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
     }
 }

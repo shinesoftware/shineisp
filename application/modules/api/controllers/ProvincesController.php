@@ -11,7 +11,7 @@ class Api_ProvincesController extends Shineisp_Api_Shineisp_Controller_Action {
 	protected $productscategories;  
     
     public function preDispatch() {
-        $registry = Zend_Registry::getInstance ();
+        $registry = Shineisp_Registry::getInstance ();
         $this->translations = $registry->Zend_Translate;
         
         $application = new Zend_Application( APPLICATION_ENV,  APPLICATION_PATH . '/configs/application.ini' );

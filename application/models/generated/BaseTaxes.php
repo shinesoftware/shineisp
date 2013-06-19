@@ -10,6 +10,7 @@ Doctrine_Manager::getInstance()->bindComponent('Taxes', 'doctrine');
  * @property integer $tax_id
  * @property string $name
  * @property integer $percentage
+ * @property integer $isp_id
  * @property Doctrine_Collection $DomainsTlds
  * @property Doctrine_Collection $Products
  * 
@@ -46,6 +47,12 @@ abstract class BaseTaxes extends Doctrine_Record
              'unsigned' => false,
              'primary' => false,
              'autoincrement' => false,
+             'length' => '4',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 1,
              'length' => '4',
              ));
     }

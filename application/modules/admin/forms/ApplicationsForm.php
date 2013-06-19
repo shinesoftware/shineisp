@@ -21,7 +21,7 @@ class Admin_Form_ApplicationsForm extends Zend_Form
             'decorators'  => array('Composite'),
             'label'       => 'Client ID',
             'class'       => 'text-input large-input',
-            'attribs'     => array('disabled' => 'disabled')
+            'attribs'     => array('readonly' => 'disabled')
         ));
 
         $this->addElement('text', 'client_secret', array(
@@ -30,7 +30,7 @@ class Admin_Form_ApplicationsForm extends Zend_Form
             'decorators'  => array('Composite'),
             'label'       => 'Client Secret',
             'class'       => 'text-input large-input',
-            'attribs'     => array('disabled' => 'disabled')
+            'attribs'     => array('readonly' => 'disabled')
         ));
         
         $this->addElement('text', 'redirect_uri', array(

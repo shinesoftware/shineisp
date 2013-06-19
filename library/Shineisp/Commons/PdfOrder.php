@@ -29,8 +29,24 @@ class Shineisp_Commons_PdfOrder {
 	protected $data;
 	protected $h;
 	
+	public static $events;
+	
+	/**
+	 * Event Manager Registration
+	 * @return mixed
+	 */
+	public function events()
+	{
+		$em = Shineisp_Registry::get('em');
+		if (!self::$events && is_object($em)) {
+			self::$events = Shineisp_Registry::get('em');
+		}
+	
+		return self::$events;
+	}
+	
 	public function __construct() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		
 		$this->h = PAGE_HEIGHT;
 		
@@ -555,7 +571,7 @@ class Shineisp_Commons_PdfOrder {
 	 * @return void
 	 */
 	private function FooterDetails() {
-		$locale = Zend_Registry::get ( 'Zend_Locale' );
+		$locale = Shineisp_Registry::get ( 'Zend_Locale' );
 		
 		if ($this->h < 190) {
 			$this->CreatePage ();
@@ -648,7 +664,7 @@ class Shineisp_Commons_PdfOrder {
 			$this->Write ( $records ['invoice_number'], PAGE_BOTH_MARGIN + 400, $toppos - 130 );
 		}
 		
-		$records ['payment_description'] = ! empty ( $records ['payment_description'] ) ? $records ['payment_description'] : "";
+		$records ['payment_description'] = !empty($records ['payment_description']) ? $records['payment_description'] : "";
 		$records ['payment_mode'] = ! empty ( $records ['payment_mode'] ) ? $records ['payment_mode'] : "";
 
 		if ( $totalPayments > 1 ) {

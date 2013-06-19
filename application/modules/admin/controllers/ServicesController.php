@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_ServicesController extends Zend_Controller_Action {
+class Admin_ServicesController extends Shineisp_Controller_Admin {
 	
 	protected $services;
 	protected $categories;
@@ -24,7 +24,7 @@ class Admin_ServicesController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->services = new OrdersItems ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "services" )->setModel ( $this->services );		
 	}
@@ -178,6 +178,7 @@ class Admin_ServicesController extends Zend_Controller_Action {
 					$rs ['customer_id'] = $rs ['Orders']['customer_id'];
 					$form->populate ( $rs );
 					$this->view->buttons[] = array("url" => "/admin/services/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+					$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" .  $rs ['Orders']['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('button', 'float_right')));
 						
 				}
 				

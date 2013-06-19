@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_RegistrarsController extends Zend_Controller_Action {
+class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 	
 	protected $registrars;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_RegistrarsController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->registrars = new Registrars();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "registrars" )->setModel ( $this->registrars );				
 	}

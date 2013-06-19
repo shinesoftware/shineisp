@@ -6,7 +6,7 @@ class Admin_Form_RegistrarsForm extends Zend_Form
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
 
-    	$registrars = new Shineisp_Api_Registrars_Base();
+    	$registrars = new Shineisp_Plugins_Registrars_Base();
     	$this->addElement('select', 'name', array(
     			'filters'    => array('StringTrim'),
     			'label'      => 'Registrar Module',
@@ -47,7 +47,7 @@ class Admin_Form_RegistrarsForm extends Zend_Form
     	$attributeForm = new Zend_Form_SubForm ();
     	$attributeForm->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
     
-    	$configfile = PROJECT_PATH . "/library/Shineisp/Api/Registrars/". $registrar_name . "/config.xml";
+    	$configfile = PROJECT_PATH . "/library/Shineisp/Plugins/Registrars/". $registrar_name . "/config.xml";
     	if(file_exists($configfile)){
     		$config = simplexml_load_file ( $configfile );
     			

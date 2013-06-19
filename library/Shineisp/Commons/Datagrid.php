@@ -50,7 +50,7 @@ class Shineisp_Commons_Datagrid {
 		$this->recordcount = 0;
 		$this->rownum = 10;
 		$this->currentpage = 1;
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->currentaction = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		$this->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$this->rowlist = array ('10', '50', '100', '1000' );

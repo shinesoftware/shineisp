@@ -15,6 +15,7 @@ Doctrine_Manager::getInstance()->bindComponent('Registrars', 'doctrine');
  * @property string $config
  * @property integer $active
  * @property timestamp $lastupdate
+ * @property integer $isp_id
  * @property Doctrine_Collection $CustomersDomainsRegistrars
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $DomainsTasks
@@ -68,6 +69,12 @@ abstract class BaseRegistrars extends Doctrine_Record
         $this->hasColumn('lastupdate', 'timestamp', 25, array(
              'type' => 'timestamp',
              'length' => '25',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 1,
+             'length' => '4',
              ));
     }
 

@@ -91,7 +91,7 @@ class Admin_Form_TicketsForm extends Zend_Form
 	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => 'Attachment',
-	            'description'      => Zend_Registry::getInstance ()->Zend_Translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
+	            'description'      => Shineisp_Registry::getInstance ()->Zend_Translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'class'      => 'text-input large-input'
 	        ));
 	        

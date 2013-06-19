@@ -17,7 +17,7 @@ class Shineisp_Commons_Utilities {
 	 * @return string or boolean
 	 */
 	public static function makeClickableLinks($originalText) {
-		return preg_replace( '@(?<![.*">])\b(?:(?:https?|ftp|file)://|[a-z]\.)[-A-Z0-9+&#/%=~_|$?!:,.]*[A-Z0-9+&#/%=~_|$]@i', '<a href="\0" target="_blank">\0</a>', $originalText );
+		return preg_replace( "/(http|https|ftp|ftps)\:\/\/[a-z0-9\-\.]+\.[a-z]{2,6}([a-z0-9\-\.\_\/]+)?/i", '<a href="\0" target="_blank">\0</a>', $originalText );
 	}
 	
 	/**
@@ -34,6 +34,16 @@ class Shineisp_Commons_Utilities {
 			unlink ( $dummyfile );
 			return true;
 		}
+	}
+	
+	public static function getFirstFile( $dirpath, $regexp ) {
+		foreach (new DirectoryIterator($dirpath) as $fileInfo) {
+    		if ( $fileInfo->isDot() ) continue;
+			
+			if ( $fileInfo->isFile() && preg_match($regexp, $fileInfo->getFilename()) )
+				return $fileInfo->getFilename();
+		}
+		
 	}
 	
 	/**
@@ -148,9 +158,11 @@ class Shineisp_Commons_Utilities {
 				if(is_writable(PUBLIC_PATH . '/logs/')){
 					$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
 					if(is_array($message)){
-						fputs ( $log, date ( 'd-m-Y H:i:s' ) . "\n" .  var_export($message, true));
+						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "]\n" .  var_export($message, true));
+					}elseif(is_object($message)){
+						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "]\n" .  var_export($message, true));
 					}else{
-						fputs ( $log, date ( 'd-m-Y H:i:s' ) . " $message\n" );
+						fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "] $message\n" );
 					}
 					fclose ( $log );
 				}else{
@@ -238,6 +250,17 @@ class Shineisp_Commons_Utilities {
 		$html .= "</table>\n";
 
 		return $html;
+	}
+	
+	/**
+	 * Convert a multidimensional array to an object
+	 */
+	public static function array2object($input) {
+		if (is_array($input)) {
+			return (object) array_map(__METHOD__, $input);
+		} else {
+			return $input;
+		}
 	}
 	
 	/**
@@ -860,7 +883,7 @@ class Shineisp_Commons_Utilities {
 	public static function getEmailTemplate($template, $language_id = null) {
 		$fallbackLocale = "en_US";
 		$subject = "";
-		$locale  = Zend_Registry::get ( 'Zend_Locale' )->toString();
+		$locale  = Shineisp_Registry::get ( 'Zend_Locale' )->toString();
 		
 		if(empty($language_id)){
 			$language_id = Languages::get_language_id($locale);
@@ -902,7 +925,7 @@ class Shineisp_Commons_Utilities {
 			
 			
 			// TODO: properly manage ISP ID
-			$isp = Isp::getActiveISP();
+			$isp = Shineisp_Registry::get('ISP')->toArray();
 
 			$body = trim($body);
 			$subject = trim($subject);
@@ -980,6 +1003,9 @@ class Shineisp_Commons_Utilities {
 
 	/**
 	 * sendEmailTemplate: send an email template replacing all placeholders
+	 * 
+	 * TODO: GUEST - ALE - 20130531: THIS METHOD MUST BE REFACTORED
+	 * 
 	 */
 	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null, $language_id = null) {
 		
@@ -997,6 +1023,11 @@ class Shineisp_Commons_Utilities {
 		// Add some mixed parameters
 		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
+		
+		// All placeholder prefixed with "isp_" will be replaced with ISP data
+		foreach ( $ISP as $k => $v ) {
+			$replace['isp_'.$k] = $v;
+		}
 		
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
 		$replace = array_merge($ISP, $replace);
@@ -1112,19 +1143,21 @@ class Shineisp_Commons_Utilities {
 	 * @param $format Zend_date format
 	 * @return date formatted by the locale setting
 	 */
-	public static function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM) {
+	public static function formatDateOut($dbindata, $format=Zend_Date::DATE_MEDIUM, $showTime=false) {
 		if (empty ( $dbindata ))
 			return false;
 		
-		$locale = Zend_Registry::get('Zend_Locale');
+		$locale = Shineisp_Registry::get('Zend_Locale');
 		$date = new Zend_Date($dbindata, "yyyy-MM-dd HH:mm:ss", $locale);
 
 		// override the preferences
 		$dateformat = Settings::findbyParam('dateformat');
 		
 		if(!empty($dateformat)){
+			$dateformat .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($dateformat);
 		}else{
+			$format .= ($showTime) ? " HH:mm:ss" : null;
 			return $date->get($format);
 		}
 		
@@ -1248,7 +1281,7 @@ class Shineisp_Commons_Utilities {
 	
 	public static function logs($str, $filename = "errors.log") {
 		$log = fopen ( PUBLIC_PATH . '/logs/' . $filename, 'a+' );
-		fputs ( $log, date ( 'd-m-y h:i:s' ) . " $str\n" );
+		fputs ( $log, '['.date ( 'd-m-Y H:i:s' ) . "] $str\n" );
 		fclose ( $log );
 	}
 	
@@ -1287,7 +1320,7 @@ class Shineisp_Commons_Utilities {
     	$alphaLength = strlen($chars) - 1;
 		
     	for ($i = 0; $i < $length; $i++) {
-        	$n = rand(0, $alphaLength);
+        	$n = mt_rand(0, $alphaLength);
         	$password[] = $chars[$n];
     	}
 		

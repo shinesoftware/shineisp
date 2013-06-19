@@ -1,10 +1,25 @@
 <?php
-abstract class Shineisp_Api_Shineisp_Controller_Action extends Zend_Controller_Action {
+abstract class Shineisp_Api_Shineisp_Controller_Action extends Shineisp_Controller_Common {
     private $config; 
   
     public function init(){
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
+		
+		/*
+		 * TODO: enable the following when OAuth2 will be properly used for authenticating API requests
+		// Get authenticated user
+		$auth = Zend_Auth::getInstance()->getIdentity();
+
+		// Store logged ISP. I'm inside admin, se we use only the logged user
+		if ( isset($auth['isp_id']) ) {
+			$isp_id = intval($auth['isp_id']);
+			
+			$ISP = new Isp();
+			Shineisp_Registry::set('ISP', $ISP->find($isp_id));
+		}
+		 */		
+		
     }
   
     public function soap( $classname ){

@@ -87,12 +87,16 @@ class Countries extends BaseCountries {
 	 * 
 	 * Get the list for the select object
 	 */
-	public static function getList() {
+	public static function getList( $first = false ) {
 		$items = array ();
 		$records = Doctrine_Query::create ()->from ( 'Countries c' )
             		    					->orderBy('c.name')
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
 		
+        if( $first == true ) {
+            $items[0] = '-- Select Country --';
+        }
+        
 		foreach ( $records as $c ) {
 			$items [$c ['country_id']] = $c ['name'];
 		}

@@ -1,0 +1,16 @@
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="content_inner">
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+		</ul>
+	
+	    <div id="tab1"> 
+			<strong><?=$this->translate('Passphrase');?>:</strong>&nbsp;<?php echo $this->passphrase?><br/>
+			<strong><?=$this->translate('Private key');?>:<br/></strong>
+			<pre><?php echo $this->private_key?></pre><br/>
+		</div>
+	</div>
+
+</div>

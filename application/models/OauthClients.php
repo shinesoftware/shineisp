@@ -18,13 +18,13 @@ class OauthClients extends BaseOauthClients
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'id', 'alias' => 'id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'id', 'alias' => 'id', 'sortable' => false, 'searchable' => false, 'type' => 'string', 'attributes' => array ('width' => 20 ) );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Application Name' ), 'field' => 'app_name', 'alias' => 'app_name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client ID' ), 'field' => 'client_id', 'alias' => 'client_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Redirect URI' ), 'field' => 'redirect_uri', 'alias' => 'redirect_uri', 'type' => 'string');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Client ID' ), 'field' => 'client_id', 'alias' => 'client_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('width' => 320 ));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Redirect URI' ), 'field' => 'redirect_uri', 'alias' => 'redirect_uri', 'type' => 'string', 'attributes' => array ('width' => 300 ));
 		
 		
 		$config ['datagrid'] ['fields'] = "client_id, app_name, redirect_uri";
@@ -53,18 +53,20 @@ class OauthClients extends BaseOauthClients
 	 * @param array $params
 	 */
 	public static function saveAll(array $params) {
+		$firstSave = true;
 		
-		if(!empty($params['id']) && is_numeric($params['id'])){
+		if ( !empty($params['id']) && is_numeric($params['id'])) {
 			$OauthClients = Doctrine::getTable ( 'OauthClients' )->find ( $params['id'] );
+			$firstSave    = false;
 		}else{
 			$auth = Zend_Auth::getInstance()->getIdentity();
 			
 			$OauthClients = new OauthClients();
 			
 			// These are generated only on first save
-			$OauthClients->admin_id      = isset($auth['user_id']) ? intval($auth['user_id']) : 0;
-			$OauthClients->client_id     = Shineisp_Commons_Uuid::generate();
-			$OauthClients->client_secret = Shineisp_Commons_Utilities::generateRandomPassword(48);
+			$OauthClients->user_id   = isset($auth['user_id']) ? intval($auth['user_id']) : 0;
+			$OauthClients->client_id = Shineisp_Commons_Uuid::generate();
+			//$OauthClients->client_secret = Shineisp_Commons_Utilities::generateRandomPassword(48);
 		}
 
 		$OauthClients->app_name     = $params['app_name'];

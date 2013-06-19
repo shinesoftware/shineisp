@@ -105,18 +105,30 @@ class Isp extends BaseIsp {
 	}	 
 	
 	/**
-	 * return the isp_id based on logged user or current url if there is no logged user
+	 * return the isp_id based on logged user IF in admin or current url if else
 	 */ 
 	public static function getCurrentId() {
+		$registry = Shineisp_Registry::get('ISP');
+		
+		if(!empty($registry) && is_object($registry)){
+			return intval(Shineisp_Registry::get('ISP')->isp_id);
+		}else{
+			$isp = self::getByURL($_SERVER['HTTP_HOST']);
+			return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1;
+		}
+		
+		/*
 		$logged_isp_id = self::getLogged();
 		
-		if ( $logged_isp_id ) {
+		// Use logged_isp_id ONLY IF we are in admin. If someone is browsing through the public website, it should use isp_id associated with that website
+		if ( $logged_isp_id && Zend_Controller_Front::getInstance()->getRequest()->getModuleName() != 'default' ) {
 			return intval($logged_isp_id);
 		}
-				
+
 		$isp = self::getByURL($_SERVER['HTTP_HOST']);
 
 		return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1; // TODO: set to 1 for older installation that doesn't have isp_id properly set. It should be 0.
+		*/
 	}
 	
 	/**
@@ -125,15 +137,17 @@ class Isp extends BaseIsp {
 	 * @return array
 	 */
 	public static function getCurrentISP() {
+		// TODO: this should be done better
+		return Shineisp_Registry::get('ISP')->toArray();
+		
+		/*
 		$isp_id = self::getCurrentId();
 		
 		$q   = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'isp_id = ? AND active = 1', $isp_id );
 		$isp = $q->execute (null, Doctrine::HYDRATE_ARRAY);
 		return isset ( $isp [0] ) ? $isp [0] : array();
+		*/
 	}
-	
-	
-	
 	
 	/**
 	 * get the active ISP Control Panel module var
@@ -147,7 +161,7 @@ class Isp extends BaseIsp {
 			$panel_data = $Panel->getData();
 		}
 
-		return (isset($panel_data['name']) && !empty($panel_data['name']) ) ? $panel_data['name'] : null;
+		return !empty($panel_data['name']) ? $panel_data['name'] : null;
 		
 		/*
 		$isp = Doctrine_Query::create ()->select('isppanel')
@@ -299,5 +313,48 @@ class Isp extends BaseIsp {
 		$q = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'email=? and password=? and active=?', array ($email, md5 ( $password ), true ) );
 		return $q->execute ()->toArray ();
 	}
+	
+	/*
+	 * get the Isp configured by URL 
+	 * if it is not present get the default one
+	 */
+	public static function findByUrl($url) {
+		
+		$isp = Doctrine_Query::create ()->select ( '*' )
+								->from ( 'Isp i' )
+								->leftJoin ( 'i.IspUrls iu' )
+								->where('iu.url = ?', $url)
+								->fetchOne();
+		
+		if(empty($isp)){
+			$isp = self::getDefault();
+		}
+		
+		return $isp;
+	}	 
+	
+	/*
+	 * get the default ISP
+	 */
+	public static function getDefault() {
+		
+		$isp = Doctrine_Query::create ()->select ( '*' )
+								->from ( 'Isp i' )
+								->fetchOne();
+		
+		return $isp;
+	}	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

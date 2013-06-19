@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('TicketsCategories', 'doctrine');
  * 
  * @property integer $category_id
  * @property string $category
+ * @property integer $isp_id
  * @property Doctrine_Collection $Tickets
  * 
  * @package    ##PACKAGE##
@@ -37,6 +38,12 @@ abstract class BaseTicketsCategories extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              'length' => '50',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 1,
+             'length' => '4',
              ));
     }
 

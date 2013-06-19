@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_TaxesController extends Zend_Controller_Action {
+class Admin_TaxesController extends Shineisp_Controller_Admin {
 	
 	protected $taxes;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_TaxesController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->taxes = new Taxes();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "taxes" )->setModel ( $this->taxes );				
 	}
@@ -208,6 +208,7 @@ class Admin_TaxesController extends Zend_Controller_Action {
 				$this->taxes = Doctrine::getTable ( 'Taxes' )->find ( $id );
 				$this->taxes->name = $params ['name'];
 				$this->taxes->percentage = $params ['percentage'];
+				$this->taxes->isp_id = Shineisp_Registry::get('ISP')->isp_id;
 				$this->taxes->save ();
 				$this->_helper->redirector ( 'list', 'taxes', 'admin', array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
 			} else {

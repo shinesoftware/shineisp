@@ -59,10 +59,8 @@ abstract class BaseMessages extends Doctrine_Record
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'autoincrement' => false,
+             'default' => 1,
+             'notnull' => true,
              'length' => '4',
              ));
         $this->hasColumn('customer_id', 'integer', 4, array(

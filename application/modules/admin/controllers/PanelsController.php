@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_PanelsController extends Zend_Controller_Action {
+class Admin_PanelsController extends Shineisp_Controller_Admin {
 	
 	protected $panel;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_PanelsController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->panel = new Panels ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "panel" )->setModel ( $this->panel );
 				

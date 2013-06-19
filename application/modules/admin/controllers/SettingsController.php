@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_SettingsController extends Zend_Controller_Action {
+class Admin_SettingsController extends Shineisp_Controller_Admin {
 	
 	protected $settings;
 	protected $translator;
@@ -20,7 +20,7 @@ class Admin_SettingsController extends Zend_Controller_Action {
 	
 	public function preDispatch() {
 		$this->settings = new Settings ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translator = $registry->Zend_Translate;;
 	}
 	

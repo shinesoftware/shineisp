@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_IspController extends Zend_Controller_Action {
+class Admin_IspController extends Shineisp_Controller_Admin {
 	
 	protected $isp;
 	protected $translator;
@@ -19,7 +19,7 @@ class Admin_IspController extends Zend_Controller_Action {
 	 */
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$auth = Zend_Auth::getInstance ();
 		if ($auth->hasIdentity ()) {
 			$this->isp = $auth->getIdentity ();

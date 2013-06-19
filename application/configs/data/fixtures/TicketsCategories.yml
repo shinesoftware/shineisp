@@ -1,5 +1,7 @@
 TicketsCategories:
   TicketsCategories_1:
     category: Hosting
+    isp_id: '1'
   TicketsCategories_2:
     category: Domains
+    isp_id: '1'

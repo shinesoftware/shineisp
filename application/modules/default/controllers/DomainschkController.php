@@ -1,6 +1,6 @@
 <?php
 
-class DomainschkController extends Zend_Controller_Action {
+class DomainschkController extends Shineisp_Controller_Default {
 	protected $customer;
 	protected $domains;
 	protected $translator;
@@ -9,7 +9,7 @@ class DomainschkController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
@@ -126,9 +126,9 @@ class DomainschkController extends Zend_Controller_Action {
      *  Check the domain availability
      */
 	public function checkAction() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$form = new Default_Form_DomainsinglecheckerForm ( array ('action' => '/domainschk/check', 'method' => 'post' ) );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$request = $this->getRequest ();
 		try{
 			if ($request->getPost ()) {
@@ -177,8 +177,8 @@ class DomainschkController extends Zend_Controller_Action {
 	 */
 	private function chktlds($name, $exluded=""){
 		$result = array();
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$tlds = DomainsTlds::getAll();
 		
 		foreach ($tlds as $tld) {

@@ -12,6 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('Statuses', 'doctrine');
  * @property string $status
  * @property string $section
  * @property boolean $public
+ * @property Doctrine_Collection $CancelRequests
  * @property Doctrine_Collection $Customers
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $DomainsTasks
@@ -66,6 +67,10 @@ abstract class BaseStatuses extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('CancelRequests', array(
+             'local' => 'status_id',
+             'foreign' => 'status_id'));
+
         $this->hasMany('Customers', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));

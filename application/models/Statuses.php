@@ -36,20 +36,57 @@ class Statuses extends BaseStatuses {
 	}
 	
 	/**
+	 * Get all statuses
+	 * 
+	 * @return object $statuses
+	 */
+	public static function getAll() {
+		$out     = array();
+		$records = Doctrine_Query::create ()->from ( 'Statuses s' )
+										   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+								
+		// normalize data
+		foreach ( $records as $record ) {
+			$section = strtolower($record['section']);
+			$code    = strtolower($record['code']);
+						
+			// code as key
+			$out[$section][$code] = $record;
+			
+			// status_id as key
+			$out['id:'.$record['status_id']] = $record; // PHP BUG: See Statuses::getById
+		}		
+
+		return Shineisp_Commons_Utilities::array2object($out);
+	}	
+	
+	
+	/**
 	 * Get the Status ID
 	 * 
 	 * @param string $status 
 	 * @param string $section
 	 */
-	public static function id($status, $section) {
+	public static function id($status, $section="generic") {
+		if(!empty($status))
+			$status = strtolower($status);
+			$section = strtolower($section);
+			return intval(Shineisp_Registry::get('Status')->$section->$status->status_id) ? intval(Shineisp_Registry::get('Status')->$section->$status->status_id) : null;
 		
-		$record = Doctrine_Query::create ()->from ( 'Statuses s' )
-										   ->where ( 'LOWER(s.code) = ?', strtolower($status) )
-										   ->addWhere('LOWER(s.section) = ?', strtolower($section) )
-										   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		
-		return !empty($record[0]['status_id']) ? $record[0]['status_id'] : null;
+		return null;
 	}	
+
+	/**
+	 * Get the status by Id
+	 * Fix a PHP bug that doesn't allow to access casted object through ID
+	 * 
+	 * @param string $id 
+	 */
+	public static function getById($id) {
+		$id = intval($id);
+		return Shineisp_Registry::get('Status')->{'id:'.$id};
+	}	
+
 	
 	/**
 	 * get the label name of the status
@@ -58,13 +95,14 @@ class Statuses extends BaseStatuses {
 	 * @param integer $status_id
 	 */
 	public static function getLabel($status_id) {
-		$records = Doctrine::getTable ( 'Statuses' )->findBy ( 'status_id', $status_id )->toArray ();
+		$status = self::getById($status_id)->status;
 		
-		if ($records) {
-			$registry = Zend_Registry::getInstance ();
+		if ($status) {
+			$registry = Shineisp_Registry::getInstance ();
 			$translation = $registry->Zend_Translate;
-			return $translation->translate ( $records [0] ['status'] );
+			return $translation->translate ( $status );
 		}
+		
 		return false;
 	}
 }

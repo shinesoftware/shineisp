@@ -17,7 +17,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	 */
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.task_id', 'alias' => 'task_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.task_id', 'alias' => 'task_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -221,7 +221,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	 */
 	static public function AddTasks($domains) {
 		try {
-
+			
 			for($i = 0; $i < count ( $domains ); $i ++) {
 				// Check if exist a domain name previously added in the task but not yet completed.
 				// If the domain exists, it is excluded 
@@ -233,7 +233,7 @@ class DomainsTasks extends BaseDomainsTasks {
 			}
 			
 		} catch ( Doctrine_Exception $e ) {
-			echo $e->getMessage ();
+			echo $e->getTraceAsString();
 			die ();
 		}
 		return true;
@@ -380,7 +380,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	 * @return Boolean
 	 */
 	public function bulk_delete($items) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		if (is_array ( $items )) {
 			try {
 				$retval = Doctrine_Query::create ()->delete ()->from ( 'DomainsTasks dt' )->whereIn ( 'dt.task_id', $items )->execute ();

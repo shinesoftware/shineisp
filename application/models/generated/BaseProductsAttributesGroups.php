@@ -12,6 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsAttributesGroups', 'doct
  * @property boolean $iscomparable
  * @property string $name
  * @property string $code
+ * @property integer $isp_id
  * @property Doctrine_Collection $Products
  * @property Doctrine_Collection $ProductsAttributesGroupsIndexes
  * 
@@ -50,6 +51,12 @@ abstract class BaseProductsAttributesGroups extends Doctrine_Record
         $this->hasColumn('code', 'string', 150, array(
              'type' => 'string',
              'length' => '150',
+             ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 1,
+             'length' => '4',
              ));
     }
 

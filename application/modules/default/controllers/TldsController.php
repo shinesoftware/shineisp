@@ -5,7 +5,7 @@
  * 
  */
 
-class TldsController extends Zend_Controller_Action {
+class TldsController extends Shineisp_Controller_Default {
 	
 	protected $translator;
 	
@@ -13,18 +13,18 @@ class TldsController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}	
 	
 	/**
 	 * The default action - show the home page
 	 */
 	public function indexAction() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$uri = $this->getRequest ()->getParam ( 'uri' );
 		
 		if (! empty ( $uri )) {

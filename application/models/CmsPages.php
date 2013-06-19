@@ -18,7 +18,7 @@ class CmsPages extends BaseCmsPages {
 	 */
 	public static function grid($rowNum = 10) {
 		$Session = new Zend_Session_Namespace ( 'Default' );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cms.page_id', 'alias' => 'page_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'cms.page_id', 'alias' => 'page_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

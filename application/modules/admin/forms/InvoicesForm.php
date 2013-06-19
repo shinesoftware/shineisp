@@ -40,7 +40,15 @@ class Admin_Form_InvoicesForm extends Zend_Form
     	$this->addElement('text', 'number', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Number',
+            'label'      => 'Sequential number',
+            'decorators' => array('Composite'),
+            'class'      => 'text-input little-input'
+        ));
+
+    	$this->addElement('text', 'formatted_number', array(
+            'filters'    => array('StringTrim'),
+            'required'   => false,
+            'label'      => 'Invoice number',
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));

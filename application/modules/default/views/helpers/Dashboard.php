@@ -20,16 +20,16 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function GetButtons($module) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;		
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;		
 
 		// get all the buttons from the navigation table
 		$buttons = Navigation::getNavItems($module);
 
 		// get the active isp configuration
-		$isp = ISP::getCurrentISP();
+		$isp = Shineisp_Registry::get('ISP');
 		
 		// Get the URL of the Hosting Control Panel set to add it in the dashboard 
-		$panelsettings = SettingsParameters::getParameterbyGroupNameAndVar($isp['isppanel'], $isp['isppanel'] . "_url");
+		$panelsettings = SettingsParameters::getParameterbyGroupNameAndVar($isp->isppanel, $isp->isppanel . "_url");
 		if(!empty($panelsettings['Settings'][0]['value'])){
 			$buttons[] = array('label' => $translator->translate('Hosting Panel'), 'desc' => $translator->translate('Click here to login into your hosting control panel'), 'url' => $panelsettings['Settings'][0]['value']);
 		}
@@ -46,7 +46,7 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function DomainsExpiration() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$data = $ns->customer;
@@ -62,7 +62,7 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function ServicesExpiration() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$data = $ns->customer;
@@ -78,7 +78,7 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	 * @return array
 	 */
 	public function Last() {
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$data = $ns->customer;

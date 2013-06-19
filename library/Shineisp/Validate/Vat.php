@@ -18,10 +18,13 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
     public $viesOutput   = array();
     
     private function eu_check() {
+    	$isp = Shineisp_Registry::get('ISP');
+		
         $VIES = new SoapClient($this->vies_soap_url);
 
         if ($VIES) {
             try {
+            	
                 $r = $VIES->checkVat(array('countryCode' => $this->countryCode, 'vatNumber' => $this->vat));
 
                 foreach ($r as $chiave => $valore) {
@@ -49,8 +52,7 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
                 
                 $subject    = 'Invalid VAT code';
                 $body       = "Response from VIES: ".$ret;            
-                $isp = Isp::getActiveISP ();
-                Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );                
+                Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body );                
                 return false;
             }
             
@@ -58,8 +60,7 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
         	
             $subject    = 'Connect to VIES';
             $body       = "Impossible to connect with VIES";;            
-            $isp = Isp::getActiveISP ();
-            Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );             
+            Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body );             
             
             // adding a log message
             Shineisp_Commons_Utilities::log("Response from VIES: ".$ret);
@@ -70,12 +71,23 @@ class Shineisp_Validate_Vat extends Zend_Validate_Abstract {
     }    
 	
 	public function isValid($value , $context = null) {
+		
 		if (! empty ( $value )) {
+			
+			$this->vat = $value;
 			
             $countryid  = intval($context['country_id']);
             if( $countryid == 0 ) {
                 $this->_error( self::ISNOTCOUNTRYID );
                 return false;
+            }
+            
+            $country = Countries::find($context['country_id']);
+            
+            if(!empty($country->code)){
+            	$this->countryCode = $country->code;
+            }else{
+            	return false;
             }
             
             if( Countries::isITbyId($countryid) ) {

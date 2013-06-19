@@ -2,6 +2,11 @@
 abstract class Shineisp_Api_Shineisp_Abstract_Action {
     
     public function authenticate() {
+    	
+		/*
+		 * TODO: refactor this by using OAuth2 token and then logging through ShineISP with standard auth methods
+		 */
+		
         $email      = $_SERVER['PHP_AUTH_USER'];
         $password   = $_SERVER['PHP_AUTH_PW'];
         if( $email == "" && $password == "" ) {

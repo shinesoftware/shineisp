@@ -18,7 +18,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'template_id', 'alias' => 'template_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'template_id', 'alias' => 'template_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -119,7 +119,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 	 * @return array
 	 */
 	public static function getList($type = null) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$items      = array ();
 		$arrFilter  = array('general');
 		$items      = array($translator->translate ( 'Select ...' ));

@@ -13,30 +13,48 @@
 class Orders extends BaseOrders {
 	
 	static protected $order = NULL;
+
+	public static $events;
+	
+	/**
+	 * Event Manager Registration
+	 * @return mixed
+	 */
+	public function events()
+	{
+		$em = Shineisp_Registry::get('em');
+		if (!self::$events && is_object($em)) {
+			self::$events = Shineisp_Registry::get('em');
+		}
+	
+		return self::$events;
+	}
 	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall' );
-		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.number', 'alias' => 'invoice', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
+		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
+		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
 		
 		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
 		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'type' => 'string');
 		
 		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes', ));
-		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
+		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('width' => 30 ));
+		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array ('width' => 70 ));
 		
 		
 		$config ['datagrid'] ['columns'] = $columns;
 		$config ['datagrid'] ['fields'] = "o.order_id,
+											  o.order_number,
                                               DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
                                               o.is_renewal as is_renewal,
                                               o.grandtotal as grandtotal,
-                                              i.number as invoice,
+                                              i.formatted_number as formatted_number,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
                                               s.status as status";
@@ -73,8 +91,15 @@ class Orders extends BaseOrders {
 	 * @return Boolean
 	 */
 	public static function massdelete($orders) {
-		$retval = Doctrine_Query::create ()->delete ()->from ( 'Orders o' )->whereIn ( 'o.order_id', $orders )->execute ();
-		return $retval;
+		try{
+			foreach ($orders as $orderid){
+				self::DeleteByID($orderid);
+			}
+			
+			return true;
+		}catch (Exception $e){
+			return false;
+		}
 	}
 	
 	/**
@@ -104,7 +129,7 @@ class Orders extends BaseOrders {
 	 * logStatusChange
 	 * Log any status change for an order
 	 */
-	public function logStatusChange($orderId, $statusId) {
+	public static function logStatusChange($orderId, $statusId) {
 		$orderId  = intval($orderId);
 		$statusId = intval($statusId);
 		
@@ -112,6 +137,20 @@ class Orders extends BaseOrders {
 			return false;
 		}
 		
+		// If we have to notify customer, let's do here
+		$notify_status_change = (int)Settings::findbyParam('notify_status_change');
+		if ( $notify_status_change == 1 ) {
+			$orderInfo  = self::getAllInfo($orderId,'*', true);
+			$orderInfo  = array_shift($orderInfo);
+			$new_status = Statuses::getLabel($statusId);
+
+			Shineisp_Commons_Utilities::sendEmailTemplate($orderInfo['Customers']['email'], 'order_status_changed', array(
+				 'orderid'    => $orderInfo['order_number']
+				,'new_status' => $new_status
+				,':shineisp:' => array_merge($orderInfo['Customers'],$orderInfo) 
+			), null, null, null, null, $orderInfo['Customers']['language_id']);
+		}
+				
 		// Log to database	
 		StatusHistory::insert($orderId, $statusId);
 	} 
@@ -127,13 +166,17 @@ class Orders extends BaseOrders {
 			return false;
 		}
 		
-		// Log status change
-		self::logStatusChange($id, $status);
-		
-		return Doctrine_Query::create ()->update ( 'Orders o' )
+		$affectedRows = Doctrine_Query::create ()->update ( 'Orders o' )
 									->set ( 'o.status_id', $status )
 									->where('o.order_id = ?', $id)
 									->execute ();
+							
+		if ( $affectedRows > 0 ) {
+			// Log status change
+			self::logStatusChange($id, $status);
+		}		
+		
+		return $affectedRows;
 	}
 	
 	/**
@@ -233,7 +276,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'oi.Products p' )
 										->leftJoin ( 'o.Statuses s' )
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
-										->andWhere('c.isp_id = ?', ISP::getCurrentId())
+										->andWhere('c.isp_id = ?', Isp::getCurrentId())
 										->orderBy ( 'order_date desc' )
 										->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
 				
@@ -325,7 +368,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function saveAll($params, $id="") {
 		$orders     = new Orders();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		try{
 			// Set the new values
@@ -481,7 +524,7 @@ class Orders extends BaseOrders {
 				}
 				
 				// Handle the payment transaction
-				if (! empty ( $params ['paymentdate'] )) {
+				if ( !empty($params ['paymentdate'])) {
 					Payments::addPayment($id, $params ['reference'], $params ['bank_id'], $params ['confirmed'], $params['income'], $params ['paymentdate'], $params ['customer_id'], $params ['payment_description']);
 				}
 				
@@ -899,6 +942,10 @@ class Orders extends BaseOrders {
 				
 		if(is_numeric($customerId)){
 			$order = new Orders ();
+			
+			// Execute a custom event
+			self::events()->trigger('orders_create_before', "Orders", array('order' => $order, 'customerid' => $customerId));
+			
 			$order['customer_id']   = $customerId;
 			$order['order_date']    = date ( 'Y-m-d H:i:s' );
 			$order['expiring_date'] = date ( 'Y-m-j' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
@@ -920,10 +967,13 @@ class Orders extends BaseOrders {
 			self::$order = $order;
 			
 			// Create the fastlink for the order
-			Fastlinks::CreateFastlink('orders', 'edit', json_encode ( array ('id' => $order['order_id'] ) ), 'orders', $order['order_id'], $customerId);
+			$fastlink = Fastlinks::CreateFastlink('orders', 'edit', json_encode ( array ('id' => $order['order_id'] ) ), 'orders', $order['order_id'], $customerId);
 			
 			// Add a message within the order
 			Messages::addMessage($note, $customerId, null, $order['order_id']);
+			
+			// Execute a custom event
+			self::events()->trigger('orders_create_after', "Orders", array('order' => $order, 'fastlink' => $fastlink));
 			
 			// Return the order object var
 			return self::$order;
@@ -1008,7 +1058,7 @@ class Orders extends BaseOrders {
 	public static function applyLateFee($orderid) {
 		$oderid = (int)$orderid;
 		if ( $oderid > 0 ) {
-			$translations = Zend_Registry::getInstance ()->Zend_Translate;
+			$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 			
 			$order = self::find ( $orderid );
 			if ( !isset($order->order_id) || !is_numeric($order->order_id) ) {
@@ -1325,8 +1375,8 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * isInvoiced
 	 * Check if the order has been invoiced
+	 * 
 	 * @param boolean
 	 */
 	public static function isInvoiced($orderid) {
@@ -1338,6 +1388,11 @@ class Orders extends BaseOrders {
 		return !empty($record[0]['invoice_id']) ? $record[0]['invoice_id'] : false;
 	}
 	
+	/**
+	 * Check if the order become from an upgrade
+	 * 
+	 * @param integer $orderid
+	 */
 	public static function isUpgrade( $orderid ) {
 		$orderDetails	= Orders::getDetails($orderid);
 		foreach( $orderDetails as $orderDetail ) {
@@ -1359,19 +1414,19 @@ class Orders extends BaseOrders {
 		if (empty($orderid) || !is_numeric($orderid) ) {
 			return false;
 		}
-		
-		//* GUEST - ALE - 20130415: Should I use this?
+
+		// Create the domain requested by the order from the client as domain records
+		// and create a task to register or transfer the domain
 		self::CreateDomainTasks($orderid);
 		
 		//* Hosting creation actions
 		self::CreateHostingTasks($orderid);
 	}	
 
-
-
-
-
-	
+	/**
+	 * Create the tasks for hosting plans
+	 * @param integer $orderid
+	 */
 	private static function CreateHostingTasks($orderid) {
 		if (empty($orderid) || !is_numeric($orderid) ) {
 			return false;
@@ -1383,10 +1438,7 @@ class Orders extends BaseOrders {
 				PanelsActions::AddTask($data['customer_id'], $data['orderitem_id'], "fullProfile", $data['parameters']);
 			}
 		}
-		
 	}
-	
-	
 	
 	/*
 	 * Complete 
@@ -1394,15 +1446,21 @@ class Orders extends BaseOrders {
 	 * set the payment, create the domain tasks, and set the status of the new domains
 	 */
 	public static function Complete($orderid, $sendemail=false) {
+		
 		if(!empty($orderid) && is_numeric($orderid) ){
+			
+			// Execute a custom event
+			self::events()->trigger('orders_complete_before', "Orders", array('orderid' => $orderid));
 			
 			// Activate services if autosetup is set to 3.
 			self::activateItems($orderid, 3);
 
 			// Set the status of the orders and the status of the items within the order just created
 			self::set_status ( $orderid, Statuses::id("complete", "orders") ); // Complete
-			//OrdersItems::setNewStatus ( $orderid, Statuses::id("complete", "orders") ); // Complete
-						
+
+			// Execute a custom event
+			self::events()->trigger('orders_complete_after', "Orders", array('orderid' => $orderid));
+			
 			// log
 			Shineisp_Commons_Utilities::logs ( "Order completed: $orderid", "orders.log" );
 			
@@ -1420,6 +1478,7 @@ class Orders extends BaseOrders {
 	 * @return true|false 
 	 */
 	public static function activateItems($orderId, $autosetup = 0) {
+		Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup.")" );
 	    $autosetup = intval($autosetup);
 		if ( $autosetup === 0 ) {
 			return true;
@@ -1427,11 +1486,13 @@ class Orders extends BaseOrders {
 	   
 		$activableItems = OrdersItems::getAllActivableItems($orderId);
 		if ( empty($activableItems) ) {
+			Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup."): no activable product" );
 			return true;
 		}
         
 		foreach ( $activableItems as $item ) {
 			if ( empty($item->parameters) && empty( $item->callback_url) ) {
+				Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup."): product ".serialize($item)." with no parameter set" );
 				// parameters are needed for both domains and hosting.
 				continue;
 			}
@@ -1439,14 +1500,17 @@ class Orders extends BaseOrders {
             // echo $item->Products->autosetup;
             // var_dump( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === $autosetup );
             if ( isset($item->Products) && isset($item->Products->autosetup) && intval($item->Products->autosetup) === intval($autosetup) ) {
+            	Shineisp_Commons_Utilities::logs ( __METHOD__ . "(".$orderId.", ".$autosetup."): Hosting Detail Id #".$item->detail_id." start activation");
                 OrdersItems::activate($item->detail_id);               
             }
             
             if ( isset($item->tld_id) && intval($item->tld_id) > 0 && DomainsTlds::getAutosetup($item->tld_id) === $autosetup ) {
+            	Shineisp_Commons_Utilities::logs ( "Orders::activateItems(".$orderId.", ".$autosetup."): Domain Detail Id ".$item->detail_id." start activation" );
                 OrdersItems::activate($item->detail_id);    
             }
-
 		}		
+
+		Shineisp_Commons_Utilities::logs (__METHOD__ . "(".$orderId.", ".$autosetup."). End activations");
 	}
 
 	
@@ -1559,14 +1623,22 @@ class Orders extends BaseOrders {
 	 * @return boolean
 	 */
 	public static function DeleteByID($id, $customerid=null) {
-		$dq = Doctrine_Query::create ()->delete ()->from ( 'Orders o' )
-					->where ( 'order_id = ?', $id );
+		
+		// Execute a custom event
+		self::events()->trigger('orders_deleted_before', "Orders", array('orderid' => $id, 'customerid' => $customerid));
+		
+		$dq = Doctrine_Query::create ()->delete ()->from ( 'Orders o' )->where ( 'order_id = ?', $id );
 					
 		if(is_numeric($customerid)){
 			$dq->andWhere ( "customer_id = ?", $customerid );
 		}
 			
-		return $dq->execute ();
+		$result = $dq->execute ();
+		
+		// Execute a custom event
+		self::events()->trigger('orders_deleted_after', "Orders", array('orderid' => $id, 'customerid' => $customerid));
+		
+		return $result;
 	}
 	
 	/**
@@ -1685,7 +1757,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getList($empty = false) {
 		$items = array ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, s.status as status, CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname" )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->leftJoin ( 'o.Statuses s' );
@@ -1772,7 +1844,7 @@ class Orders extends BaseOrders {
 	 * @return Doctrine Record / Array
 	 */
 	public static function getStatus($id, $retarray = false) {
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		$dq = Doctrine_Query::create ()->select ( 'o.order_id, s.status' )->from ( 'Orders o' )->leftJoin ( 'o.Statuses s' )->where ( "order_id = $id" );
 		
@@ -1871,6 +1943,7 @@ class Orders extends BaseOrders {
 								                     dt.tld_id,
 								                     ws.tld,
 								                     CONCAT(dm.domain, '.',ws.tld) as domain, 
+								                     o.order_number,
 								                     d.quantity, 
 								                     d.description, 
 								                     d.price as price, 
@@ -2093,14 +2166,14 @@ class Orders extends BaseOrders {
 	
 	
 	/**
-	 * Format the order id. Old way used as fallback
+	 * zero prefix order_id
 	 */
-	private static function formatOrderId_fallback($orderId) {
+	public static function zeroPrefix($orderId) {
 		// Get the administration preferences
-		$prefix = Settings::findbyParam('orders_zero_prefix', 'admin');
+		$prefix = Settings::findbyParam('orders_zero_prefix');
 
 		if(!empty($orderId) && is_numeric($prefix)){
-			return sprintf("%0" . $prefix . "d", $orderId);
+			return str_pad($orderId, $prefix, '0', STR_PAD_LEFT);
 		}elseif(!empty($orderId) && !is_numeric($prefix)){
 			return $orderId;
 		}
@@ -2132,7 +2205,7 @@ class Orders extends BaseOrders {
 			$orderId = intval($order);
 		}
 		
-		$orders_zero_prefix = self::formatOrderId_fallback($orderId);
+		$orders_zero_prefix = self::zeroPrefix($orderId);
 
 		$rs = Doctrine_Query::create ()->select ( "o.order_id, s.value AS orders_number_format
 													, YEAR(o.order_date) AS order_year
@@ -2157,13 +2230,19 @@ class Orders extends BaseOrders {
 		$orders_number_format = $rs->orders_number_format;
 		
 		// Get all placeholders in orders_number_format
-		preg_match_all('/\[([a-z0-9_]+)\]/', $orders_number_format, $out);
+		preg_match_all('/\[([a-zA-Z0-9_]+)\]/', $orders_number_format, $out);
 		if ( is_array($out) && isset($out[1]) ) {
 			foreach ( $out[1] as $placeholder ) {
 				if ( $placeholder == 'order_id' ) {
 					$v = $orders_zero_prefix;
 				} else if ( $placeholder == 'order_year2' ) {
 					$v = substr($rs->order_year,2,2);	
+				} else if ( $placeholder == 'RN' ) {
+					$v = mt_rand(0,9);
+				} else if ( $placeholder == 'RL' ) {
+					$v = chr(65 + mt_rand(0, 25));
+				} else if ( $placeholder == 'TS' ) {
+					$v = time();
 				} else {
 					$v = '['.$placeholder.']';
 					if ( isset($rs->{$placeholder})) {
@@ -2171,7 +2250,7 @@ class Orders extends BaseOrders {
 					}
 				}
 				
-				$orders_number_format = str_replace('['.$placeholder.']', $v, $orders_number_format);
+				$orders_number_format = preg_replace('/\['.$placeholder.'\]/', $v, $orders_number_format, 1);
 			}
 		}
 		
@@ -2190,13 +2269,13 @@ class Orders extends BaseOrders {
      */
     public static function pdf($order_id, $show = true, $force=false, $path="/documents/orders/") {
     		$taxpercent = "";
-    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+    		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
     		if(!is_numeric($order_id)){
     			return false;
     		}
-    	
+    		
     		$pdf = new Shineisp_Commons_PdfOrder ( );
-    		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 			$payments = Payments::findbyorderid ( $order_id, null, true );
 			$order = self::getAllInfo ( $order_id, null, true );
 			
@@ -2325,6 +2404,10 @@ class Orders extends BaseOrders {
 				
 				if (isset ( $order [0] )) {
 					$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
+					
+					// Execute a custom event
+					self::events()->trigger('orders_pdf_created', "Orders", array('file' => "$path/$filename"));
+					
 					return $path . $filename;
 				}
 			}
@@ -2345,7 +2428,7 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Invoices i' )
 										->leftJoin ( 'o.Statuses s' )
 										->whereIn( "order_id", $ids)
-										->addWhere ( 'c.isp_id = ?', ISP::getCurrentId())
+										->addWhere ( 'c.isp_id = ?', Isp::getCurrentId())
 										->orderBy(!empty($orderby) ? $orderby : "")
 										->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
@@ -2356,8 +2439,8 @@ class Orders extends BaseOrders {
 	 * @return array
 	 */
 	public static function Last(array $statuses, $limit=10) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
-		$currency   = Zend_Registry::getInstance ()->Zend_Currency;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$currency   = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
@@ -2369,7 +2452,7 @@ class Orders extends BaseOrders {
 								->leftJoin ( 'o.Customers c' )
 								->leftJoin ( 'o.Invoices i' )
 								->leftJoin ( 'o.Statuses s' )
-								->addWhere ( 'c.isp_id = ?', ISP::getCurrentId());
+								->addWhere ( 'c.isp_id = ?', Isp::getCurrentId());
 
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
@@ -2409,7 +2492,7 @@ class Orders extends BaseOrders {
 													->leftJoin ( 'i.Orders o' )
 													->leftJoin ( 'o.Customers c' )
 													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
-													->andWhere('c.isp_id = ?', ISP::getCurrentId())
+													->andWhere('c.isp_id = ?', Isp::getCurrentId())
 													->groupBy("quarter, year")
 													->orderBy('year, quarter')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2463,7 +2546,7 @@ class Orders extends BaseOrders {
 											->leftJoin ( 'i.Orders o' )
 											->leftJoin ( 'o.Customers c' )
 											->where('o.status_id = ?', Statuses::id('complete', 'orders'))
-											->andWhere('c.isp_id = ?', ISP::getCurrentId())
+											->andWhere('c.isp_id = ?', Isp::getCurrentId())
 											->groupBy("monthly, year")
 											->orderBy('year, monthly')
 											->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2537,7 +2620,7 @@ class Orders extends BaseOrders {
 													->leftJoin ( 'o.Customers c' )
 													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
 													->andWhere('YEAR(i.invoice_date) >= ?', $lastYear)
-													->andWhere('c.isp_id = ?', ISP::getCurrentId())
+													->andWhere('c.isp_id = ?', Isp::getCurrentId())
 													->groupBy("month, year")
 													->orderBy('year, month')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2591,53 +2674,13 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Statuses s' )
 										->leftJoin ( 'o.Customers c' )
 										->where('status_id = ?', Statuses::id('complete', 'orders'))
-										->andWhere('c.isp_id = ?', ISP::getCurrentId())
+										->andWhere('c.isp_id = ?', Isp::getCurrentId())
 										->groupBy('s.status_id')
 										->execute ( null, Doctrine::HYDRATE_ARRAY );
 		Zend_Debug::dump($income_status);
 		die;
 		
 	
-	}
-	
-	/**
-	 * Upload to dropbox the Order file
-	 * @param integer $OrderID
-	 * @return boolean or exception
-	 */
-	public static function DropboxIt($OrderID){
-		if(is_numeric($OrderID)){
-			if(Shineisp_Api_Dropbox_Uploader::isReady()){
-	
-				// Get the order information
-				$order = self::getAllInfo($OrderID, "order_date", true);
-				if($order[0]['order_date']){
-					if(Orders::pdf($OrderID, false, true)){
-						$file = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
-						if(file_exists(PUBLIC_PATH . "/documents/orders/$file")){
-							$year_order = date('Y',strtotime($order[0]['order_date']));
-							$month_testual_order = date('M',strtotime($order[0]['order_date']));
-							$month_number_order = date('m',strtotime($order[0]['order_date']));
-							$quarter_number_order =Shineisp_Commons_Utilities::getQuarterByMonth(date('m',strtotime($order[0]['order_date'])));
-			
-							$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
-							$destinationPath = str_replace("{year}", $year_order, $destinationPath);
-							$destinationPath = str_replace("{month}", $month_number_order, $destinationPath);
-							$destinationPath = str_replace("{monthname}", $month_testual_order, $destinationPath);
-							$destinationPath = str_replace("{quarter}", $quarter_number_order, $destinationPath);
-			
-							$dropbox = new Shineisp_Api_Dropbox_Uploader(Settings::findbyParam('dropbox_email'), Settings::findbyParam('dropbox_password'));
-							$dropbox->upload(PUBLIC_PATH . "/documents/orders/$file", $destinationPath);
-							return true;
-						}else{
-							Shineisp_Commons_Utilities::log('Dropbox module: the order '.$order[0] ['order_id'].' has been not found and it cannot be sent to the dropbox');
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 	
 	######################################### CRON METHODS ############################################
@@ -2654,6 +2697,7 @@ class Orders extends BaseOrders {
 			
 		foreach ( $orders as $order ) {
 			$customer = Customers::getAllInfo($order ['customer_id']);
+			$ISP      = ISP::getActiveIspById($customer['isp_id']);
 	
 			// Get the fastlink attached
 			$link_exist = Fastlinks::findlinks ( $order ['order_id'], $order ['customer_id'], 'orders' );
@@ -2664,12 +2708,12 @@ class Orders extends BaseOrders {
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
-				
+			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_expired', array(
-				 'orderid'    => $order['order_number']
-				,':shineisp:' => $customer
-				,'url'        => $customer_url
-			), null, null, null, null, $customer['language_id']);
+				 'orderid'        => $order['order_number']
+				,':shineisp:'     => $customer
+				,'url'            => $customer_url
+			), null, null, null, $ISP, $customer['language_id']);
 			
 	
 			// Set the order as deleted
@@ -2901,7 +2945,7 @@ class Orders extends BaseOrders {
 	public function bulk_export($items) {
 		$isp = Isp::getCurrentId();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
 		$orders = self::get_orders($items, "order_id, i.number as invoicenum, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, total as total, vat as vat, grandtotal as grandtotal, s.status as status", 'order_date');

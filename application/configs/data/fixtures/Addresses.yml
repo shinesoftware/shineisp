@@ -35,3 +35,30 @@ Addresses:
     latitude: null
     longitude: null
     Customers: Customers_4
+  Addresses_5:
+    address: 'Staraya sq.'
+    city: Moscow
+    code: '103132'
+    Countries: Countries_82
+    area: Moscow
+    latitude: null
+    longitude: null
+    Customers: Customers_5
+  Addresses_6:
+    address: 'Rue Biot, 11'
+    city: Paris
+    code: '75017'
+    Countries: Countries_60
+    area: Paris
+    latitude: null
+    longitude: null
+    Customers: Customers_6
+  Addresses_7:
+    address: '760-5116 Et Av.'
+    city: Adams
+    code: '01220'
+    Countries: Countries_184
+    area: Massachusetts
+    latitude: null
+    longitude: null
+    Customers: Customers_7

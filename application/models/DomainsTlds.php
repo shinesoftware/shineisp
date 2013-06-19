@@ -19,7 +19,7 @@ class DomainsTlds extends BaseDomainsTlds
 	 */
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -70,17 +70,18 @@ class DomainsTlds extends BaseDomainsTlds
 			$tld = new DomainsTlds();
 		}
 		
-		$tld['server_id'] = $params['server_id'];
+		$tld['server_id']          = $params['server_id'];
 		$tld['registration_price'] = $params['registration_price'];
-		$tld['renewal_price'] = $params['renewal_price'];
-		$tld['transfer_price'] = $params['transfer_price'];
-		$tld['registration_cost'] = $params['registration_cost'];
-		$tld['renewal_cost'] = $params['renewal_cost'];
-		$tld['transfer_cost'] = $params['transfer_cost'];
-		$tld['registrars_id'] = $params['registrars_id'];
-		$tld['ishighlighted'] = $params['ishighlighted'];
-		$tld['isrefundable']  = (isset($params['isrefundable'])) ? intval($params['isrefundable']) : 0;
-  		$tld['tax_id'] = $params['tax_id'];      
+		$tld['renewal_price']      = $params['renewal_price'];
+		$tld['transfer_price']     = $params['transfer_price'];
+		$tld['registration_cost']  = $params['registration_cost'];
+		$tld['renewal_cost']       = $params['renewal_cost'];
+		$tld['transfer_cost']      = $params['transfer_cost'];
+		$tld['registrars_id']      = $params['registrars_id'];
+		$tld['ishighlighted']      = $params['ishighlighted'];
+		$tld['isrefundable']       = (isset($params['isrefundable'])) ? intval($params['isrefundable']) : 0;
+  		$tld['tax_id']             = $params['tax_id']; 
+  		$tld['isp_id']             = Shineisp_Registry::get('ISP')->isp_id;     
 		
 		if($tld->trySave()){
 			if(is_numeric($tld['tld_id'])){
@@ -90,10 +91,10 @@ class DomainsTlds extends BaseDomainsTlds
 				}
 				
 				// Save the page translation references
-				$record->name = $params['name'];
+				$record->name        = $params['name'];
 				$record->description = $params['description'];
-				$record->tags = $params['tags'];
-				$record->tld_id = $tld['tld_id'];
+				$record->tags        = $params['tags'];
+				$record->tld_id      = $tld['tld_id'];
 				$record->language_id = $locale;
 				$record->save();
 				
@@ -115,8 +116,10 @@ class DomainsTlds extends BaseDomainsTlds
 		
 		$record = Doctrine_Query::create ()
                     ->from ( 'DomainsTldsData dtd' )
+                    ->leftJoin( 'dtd.DomainsTlds dt' )
                     ->where ( "dtd.tld_id = ?", $id )
                     ->addWhere ( "dtd.language_id = ?", $locale )
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->execute( array (), Doctrine_Core::HYDRATE_ARRAY );
         
         if(!empty($record[0])){
@@ -164,10 +167,10 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dt.tld_id = ?", $id )
+					->addWhere('dt.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
-           
             if(!empty($record[0]['DomainsTldsData'][0])){
 				$record[0]['name'] = $record[0]['DomainsTldsData'][0]['name'];
 				$record[0]['description'] = $record[0]['DomainsTldsData'][0]['description'];
@@ -197,6 +200,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dtd.name = ?", $tld )
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
@@ -223,6 +227,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.WhoisServers ws')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "tld_id = ?", $tld_id )
+					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
@@ -245,6 +250,7 @@ class DomainsTlds extends BaseDomainsTlds
             								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -265,6 +271,7 @@ class DomainsTlds extends BaseDomainsTlds
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
             								->where('dt.ishighlighted = ?', true)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -282,7 +289,7 @@ class DomainsTlds extends BaseDomainsTlds
         try {
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
             								->where('dt.ishighlighted = ?', true)
-            								->andWhere('dt.tld_id = ?', $id)
+            								->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -303,6 +310,7 @@ class DomainsTlds extends BaseDomainsTlds
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
             								->where('dt.isrefundable = ?', true)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -320,7 +328,8 @@ class DomainsTlds extends BaseDomainsTlds
         try {
             return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
             								->where('dt.isrefundable = ?', true)
-            								->andWhere('dt.tld_id = ?', $id)
+            								->addWhere('dt.tld_id = ?', $id)
+											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
@@ -339,6 +348,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
+					->where('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		foreach ( $records as $c ) {

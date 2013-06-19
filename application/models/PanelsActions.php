@@ -12,13 +12,16 @@
  */
 class PanelsActions extends BasePanelsActions
 {
+
+	public function listener_panels_create_client_before($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
+	public function listener_panels_create_client_after($event) {Shineisp_Commons_Utilities::log('EVENT STARTS: ' . __METHOD__);}
 	
 	/**
 	 * create the configuration of the grid
 	 */
 	public static function grid($rowNum = 10) {
 	
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.action_id', 'alias' => 'action_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.action_id', 'alias' => 'action_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

@@ -3,7 +3,7 @@ class Shineisp_Commons_TimeSince {
 	
 	/* Works out the time since the entry post, takes a an argument in unix time (seconds) */
 	public static function time_since($original) {
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$original = strtotime($original);
 		
 	    // array of time period chunks

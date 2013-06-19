@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class ProfileController extends Zend_Controller_Action {
+class ProfileController extends Shineisp_Controller_Default {
 	
 	protected $profile;
 	protected $translator;
@@ -15,12 +15,12 @@ class ProfileController extends Zend_Controller_Action {
 	 * preDprofileatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDprofileatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDprofileatch()
 	 */
 	
 	public function preDispatch() {
-		$registry = Zend_Registry::getInstance ();
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$registry = Shineisp_Registry::getInstance ();
+		$ns = new Zend_Session_Namespace ();
 		
 		if (!empty($ns->customer)) {
 			$this->profile = $ns->customer;
@@ -37,7 +37,7 @@ class ProfileController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/profile/account' );
 	}
 	
@@ -155,7 +155,7 @@ class ProfileController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function processAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$form = $this->getForm ( "/profile/process" );
 		$request = $this->getRequest ();
 		
@@ -235,8 +235,8 @@ class ProfileController extends Zend_Controller_Action {
 						$body = str_replace ( "[user]", $params ['firstname'] . " " . $params ['lastname'], $body );
 						$body = str_replace ( "[old]", print_r($oldCustomer, true), $body );
 						$body = str_replace ( "[new]", print_r($customer->toArray(), true), $body );
-						$isp = ISP::getCurrentISP();
-						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $body );
+						$isp = Shineisp_Registry::get('ISP');
+						Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body );
 					}
 				}
 			} catch ( Exception $e ) {

@@ -19,7 +19,7 @@ class AdminUser extends BaseAdminUser
 	 */
 	public static function grid($rowNum = 10) {
 		$Session = new Zend_Session_Namespace ( 'Default' );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'u.user_id', 'alias' => 'user_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'u.user_id', 'alias' => 'user_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -142,6 +142,9 @@ class AdminUser extends BaseAdminUser
 		$items = array ();
 		$arrTypes = Doctrine::getTable ( 'AdminUser' )->findAll ();
 		foreach ( $arrTypes->getData () as $c ) {
+		    if( $c['isp_id'] != Isp::getCurrentId() ) {
+		        continue;
+		    }
 			$items [$c ['user_id']] = $c ['lastname'] . " " . $c['firstname'];
 		}
 		return $items;

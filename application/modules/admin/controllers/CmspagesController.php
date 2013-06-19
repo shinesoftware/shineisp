@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_CmspagesController extends Zend_Controller_Action {
+class Admin_CmspagesController extends Shineisp_Controller_Admin {
 	
 	protected $cmspages;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_CmspagesController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->cmspages = new CmsPages ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "cmspages" )->setModel ( $this->cmspages );		
 	}

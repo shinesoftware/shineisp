@@ -14,8 +14,8 @@ class Zend_View_Helper_Alerts extends Zend_View_Helper_Abstract {
 	 * 
 	 */
 	public function Alerts() {
-		$registry = Zend_Registry::getInstance ();
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$registry = Shineisp_Registry::getInstance ();
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$translation = $registry->Zend_Translate;
 		$alerts = array ();
 		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();

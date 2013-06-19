@@ -9,7 +9,9 @@ Doctrine_Manager::getInstance()->bindComponent('CustomersGroups', 'doctrine');
  * 
  * @property integer $group_id
  * @property string $name
- * @property Doctrine_Collection $Customers
+ * @property integer $isp_id
+ * @property Customers $Customers
+ * @property Isp $Isp
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -34,13 +36,23 @@ abstract class BaseCustomersGroups extends Doctrine_Record
              'notnull' => true,
              'length' => '250',
              ));
+        $this->hasColumn('isp_id', 'integer', 4, array(
+             'type' => 'integer',
+             'default' => 1,
+             'notnull' => true,
+             'length' => '4',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Customers', array(
+        $this->hasOne('Customers', array(
              'local' => 'group_id',
              'foreign' => 'group_id'));
+
+        $this->hasOne('Isp', array(
+             'local' => 'isp_id',
+             'foreign' => 'isp_id'));
     }
 }

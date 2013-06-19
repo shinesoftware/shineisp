@@ -1,5 +1,5 @@
 <?php
-class CmsController extends Zend_Controller_Action {
+class CmsController extends Shineisp_Controller_Default {
 	
 	public function preDispatch() {
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
@@ -15,7 +15,7 @@ class CmsController extends Zend_Controller_Action {
 	 */
 	public function pageAction() {
 		$var = $this->getRequest ()->getParam ( 'url' );
-		$ns = new Zend_Session_Namespace ( 'Default' );
+		$ns = new Zend_Session_Namespace ();
 		$locale = $ns->lang;
 		
 		if (! empty ( $var )) {
@@ -63,7 +63,7 @@ class CmsController extends Zend_Controller_Action {
 	 */
 	private function CreateSubHeader($page) {
 		$data = array ();
-		$translation = Zend_Registry::getInstance ()->Zend_Translate;
+		$translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$locale = $translation->getAdapter ()->getLocale ();
 		if (strlen ( $locale ) == 2) {
 			$locale = $locale . "_" . strtoupper ( $locale );

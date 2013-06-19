@@ -29,10 +29,4 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap {
 		}
 	}
 
-	protected function _initControllerPlugin() {
-		$fc = Zend_Controller_Front::getInstance ();
-		if(Shineisp_Main::isReady()){
-			$fc->registerPlugin ( new Shineisp_Controller_Plugin_SetupModules() );
-		}
-	}	
 }

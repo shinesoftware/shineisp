@@ -1,6 +1,6 @@
 <?php
 
-class TicketsController extends Zend_Controller_Action {
+class TicketsController extends Shineisp_Controller_Default {
 	protected $customer;
 	protected $tickets;
 	protected $translator;
@@ -9,7 +9,7 @@ class TicketsController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
@@ -20,7 +20,7 @@ class TicketsController extends Zend_Controller_Action {
 		}
 		$this->customer = $NS->customer;
 		
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->tickets = new Tickets ();
 		$this->translator = $registry->Zend_Translate;
 		
@@ -36,7 +36,7 @@ class TicketsController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/tickets/list' );
 	}
 	
@@ -97,7 +97,7 @@ class TicketsController extends Zend_Controller_Action {
 		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $id ) && is_numeric ( $id )) {
-			$isp = ISP::getCurrentISP();
+			$isp = Shineisp_Registry::get('ISP');
 			$fields = "DATE_FORMAT(t.date_open, '%d/%m/%Y %H:%i:%s') as creationdate, t.sibling_id,  DATE_FORMAT(t.date_close, '%d/%m/%Y %H:%i:%s') as expiringdate, 
 			t.subject, t.description, t.status_id as status_id, t.vote as vote, s.status as status, c.email as email, CONCAT(c.firstname, ' ', c.lastname) as customer, c.company as company, (DATEDIFF(t.date_close, t.date_open)) as days";
 			
@@ -114,7 +114,7 @@ class TicketsController extends Zend_Controller_Action {
 				$form->populate ( $rs [0] );
 				$this->view->record = $rs [0];
 				$this->view->isp = $isp;
-				$this->view->adminavatar = Shineisp_Commons_Gravatar::get_gravatar ( $isp ['email'] );
+				$this->view->adminavatar = Shineisp_Commons_Gravatar::get_gravatar ( $isp->email );
 				$this->view->customeravatar = Shineisp_Commons_Gravatar::get_gravatar ( $rs [0] ['email'] );
 				$this->view->notes = Tickets::Notes ( $id, "note_id, admin as adminreply, vote as vote, DATE_FORMAT(date_post, '%d/%m/%Y %H:%i:%s') as date_post,CONCAT(c.firstname, ' ', c.lastname) as customer, c.company as company, note", true );
 				$this->view->summary = $rs [0];
@@ -236,7 +236,7 @@ class TicketsController extends Zend_Controller_Action {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;

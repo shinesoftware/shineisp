@@ -1,6 +1,6 @@
 <?php
 
-class DomainsController extends Zend_Controller_Action {
+class DomainsController extends Shineisp_Controller_Default {
 	protected $customer;
 	protected $domains;
 	protected $translator;
@@ -9,7 +9,7 @@ class DomainsController extends Zend_Controller_Action {
 	 * preDispatch
 	 * Starting of the module
 	 * (non-PHPdoc)
-	 * @see library/Zend/Controller/Zend_Controller_Action#preDispatch()
+	 * @see library/Zend/Controller/Shineisp_Controller_Default#preDispatch()
 	 */
 	
 	public function preDispatch() {
@@ -20,7 +20,7 @@ class DomainsController extends Zend_Controller_Action {
 		}
 		$this->customer = $NS->customer;
 		$this->domains = new Domains ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Set the navigation menu for the client control panel page on the left sidebar
 		#$this->view->placeholder ( "left" )->append ( $string);	
@@ -34,7 +34,7 @@ class DomainsController extends Zend_Controller_Action {
 	 * @return unknown_type
 	 */
 	public function indexAction() {
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( '/default/domains/list' );
 	}
 	
@@ -106,7 +106,7 @@ class DomainsController extends Zend_Controller_Action {
 			try {
 				$Orderid = Orders::createOrderWithMultiProducts ( $items, $this->customer ['customer_id'] );
 				
-				$isp   = ISP::getCurrentISP();
+				$isp   = Shineisp_Registry::get('ISP');
 				$order = Orders::getAllInfo ( $Orderid, null, true );
 				$link  = Fastlinks::findlinks ( $Orderid, $this->customer ['customer_id'], 'orders' );
 				
@@ -116,10 +116,10 @@ class DomainsController extends Zend_Controller_Action {
 					$subject = str_replace ( "[orderid]", sprintf ( "%03s", $Orderid ) . " - " . Shineisp_Commons_Utilities::formatDateOut ( $order [0] ['order_date'] ), $subject );
 					$orderbody = $retval ['template'];
 					$orderbody = str_replace ( "[fullname]", $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'], $orderbody );
-					$orderbody = str_replace ( "[bank]", $isp ['bankname'] . "\nc/c:" . $isp ['bankaccount'] . "\nIBAN: " . $isp ['iban'] . "\nBIC: " . $isp ['bic'], $orderbody );
+					$orderbody = str_replace ( "[bank]", $isp->bankname . "\nc/c:" . $isp->bankaccount . "\nIBAN: " . $isp->iban . "\nBIC: " . $isp->bic, $orderbody );
 					$orderbody = str_replace ( "[orderid]", $Orderid . "/" . date ( 'Y' ), $orderbody );
-					$orderbody = str_replace ( "[email]", $isp ['email'], $orderbody );
-					$orderbody = str_replace ( "[signature]", $isp ['company'] . "\n" . $isp ['email'], $orderbody );
+					$orderbody = str_replace ( "[email]", $isp->email, $orderbody );
+					$orderbody = str_replace ( "[signature]", $isp->company . "\n" . $isp->email, $orderbody );
 					
 					if (! empty ( $link [0] )) {
 						$orderbody = str_replace ( "[url]", "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $link [0] ['code'], $orderbody );
@@ -128,7 +128,7 @@ class DomainsController extends Zend_Controller_Action {
 					}
 					
 					if (! empty ( $order [0] ['Customers'] ['email'] )) {
-						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $order [0] ['Customers'] ['email'], $isp ['email'], $subject, $orderbody );
+						Shineisp_Commons_Utilities::SendEmail ( $isp->email, $order [0] ['Customers'] ['email'], $isp->email, $subject, $orderbody );
 					}
 				}
 				die ( json_encode ( array ('reload' => '/orders/edit/id/' . $Orderid ) ) );
@@ -296,14 +296,14 @@ class DomainsController extends Zend_Controller_Action {
 			// Save the message note
 			if (! empty ( $params ['note'] )) {
 				Messages::addMessage($params ['note'], $this->customer ['customer_id'], $id);
-				$isp = ISP::getCurrentISP();
+				$isp = Shineisp_Registry::get('ISP');
 				
 				$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 				$placeholder['message'] = $params ['note'];
 				$placeholder['messagetype'] = $this->translator->translate('Domain');
 			
 				Messages::sendMessage ( "message_new", $this->customer ['email'], $placeholder);
-				Messages::sendMessage ( "message_admin", $isp['email'], $placeholder);
+				Messages::sendMessage ( "message_admin", $isp->email, $placeholder);
 			}
 			
 			Domains::setAuthInfo($id, $params ['authinfocode']);
@@ -322,7 +322,7 @@ class DomainsController extends Zend_Controller_Action {
 	 */
 	public function searchprocessAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$request = $this->getRequest ();
 		$NS->search_domains = array ();
 		$params = array ();
@@ -422,7 +422,7 @@ class DomainsController extends Zend_Controller_Action {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;

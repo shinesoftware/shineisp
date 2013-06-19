@@ -1,6 +1,6 @@
 <?php
 
-class ErrorController extends Zend_Controller_Action
+class ErrorController extends Shineisp_Controller_Default
 {
 	
    public function preDispatch() {

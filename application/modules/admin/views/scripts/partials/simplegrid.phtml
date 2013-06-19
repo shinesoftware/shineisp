@@ -64,16 +64,22 @@ if (isset($this->records[0])):
                             <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('delete'); ?>"><?=$this->translate('Delete'); ?></a>
                         <?php endif;?>
                         
-                        <?php if($this->actions):?>
+                        <?php if($this->actions && count($this->actions) > 1):?>
+	                        <?php foreach ($this->actions as $action): ?>
+		                        <?php foreach ($action as $url=>$name): ?>
+		                            <a target="<?php echo $this->targetlink ?>" href="<? echo $url . $record[$fields[0]]?>" title="<?php echo $name;?>"><?php echo $name; ?></a>
+	                        	<?php endforeach;?>
+	                        <?php endforeach;?>
+                        <?php elseif($this->actions):?>
 	                        <?php foreach ($this->actions as $url=>$name): ?>
-	                            <a target="<?php echo $this->targetlink ?>" href="<? echo $url . $record[$fields[0]]?>" title="<?=$this->translate($name); ?>"><?=$this->translate($name); ?></a>
+	                            <a target="<?php echo $this->targetlink ?>" href="<? echo $url . $record[$fields[0]]?>" title="<?php echo $name;?>"><?php echo $name;?></a>
 	                        <?php endforeach;?>
                         <?php endif;?>
                         
                         <?php if($this->onclick):?>
 	                        <?php foreach ($this->onclick as $onclick=>$name): ?>
 	                            <a href="#" title="<?=$this->translate($name); ?>" onclick="<?=str_replace('[id]', $record[$fields[0]], $onclick);?>" >
-	                            	<?=$this->translate($name); ?>
+	                            	<?php echo $name; ?>
 	                            </a>
 	                        <?php endforeach;?>
                         <?php endif;?>

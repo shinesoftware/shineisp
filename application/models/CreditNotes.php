@@ -17,7 +17,7 @@ class CreditNotes extends BaseCreditNotes
 	 */	
 	public static function grid($rowNum = 10) {
 		
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -247,9 +247,9 @@ class CreditNotes extends BaseCreditNotes
      * @param integer $creditnoteId
      */
     public static function PrintPDF($creditnoteId, $show=true) {
-    		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+    		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
     		$pdf = new Shineisp_Commons_PdfOrder ( );
-    		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+    		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
     		
     		$creditnote = Doctrine_Query::create ()->from ( 'CreditNotes cn' )
 				                           ->leftJoin ( 'cn.CreditNotesItems cni' )
@@ -390,7 +390,7 @@ class CreditNotes extends BaseCreditNotes
 	public function bulk_export($items) {
 		$isp = Isp::getActiveISP();
 		$pdf = new Shineisp_Commons_PdfList();
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
 		$creditnotes = self::get_items($items, "creditnote_id, i.number as invoicenum, DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, cn.total as total, cn.total_vat as vat, cn.total as grandtotal, s.status as status", 'cn.creationdate');

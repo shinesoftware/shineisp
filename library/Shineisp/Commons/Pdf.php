@@ -31,7 +31,7 @@ class Shineisp_Commons_Pdf {
 		$this->pdf = new Zend_Pdf ();
 		$this->font = Zend_Pdf_Font::FONT_HELVETICA;
 		$this->data = array ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	}
 	
 	

@@ -201,8 +201,8 @@ class ProductsTranches extends BaseProductsTranches
      * @return array 
      */
     public static function getList($productid, $refund = false) {
-        $translator = Zend_Registry::getInstance ()->Zend_Translate;
-        $currency = Zend_Registry::getInstance ()->Zend_Currency;
+        $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+        $currency = Shineisp_Registry::getInstance ()->Zend_Currency;
     	try {
             $items = array();
             

@@ -1,6 +1,6 @@
 <?php
 
-class AtomController extends Zend_Controller_Action {
+class AtomController extends Shineisp_Controller_Default {
 	
 	/**
 	 * Export the products by the Google Product Atom Export
@@ -13,17 +13,16 @@ class AtomController extends Zend_Controller_Action {
 		Zend_Feed_Writer::addPrefixPath('Shineisp_Feed_Writer_Extension_', 'Shineisp/Feed/Writer/Extension/');
 		Zend_Feed_Writer::registerExtension('Google');
 		
-		$isp = ISP::getCurrentISP();
+		$isp = Shineisp_Registry::get('ISP');
 		
 		$feed = new Zend_Feed_Writer_Feed ();
-		$feed->setTitle ( $isp['company'] );
-		$feed->setLink ( $isp['website'] );
-		$feed->setFeedLink ( $isp['website'] . '/atom/products', 'atom' );
-		$feed->addAuthor ( array ('name' => $isp['manager'], 'email' => $isp['email'], 'uri' => $isp['website'] ) );
+		$feed->setTitle ( $isp->company );
+		$feed->setLink ( $isp->website );
+		$feed->setFeedLink ( $isp->website . '/atom/products', 'atom' );
+		$feed->addAuthor ( array ('name' => $isp->manager, 'email' => $isp->email, 'uri' => $isp->website ) );
 		$feed->setDateModified ( time () );
 		$feed->setGenerator("ShineISP Atom Extension");
 		
-		$isp = ISP::getCurrentISP();
 		$products = Products::getAllRss();
 // 		print_r($products);
 // 		die;
@@ -37,13 +36,13 @@ class AtomController extends Zend_Controller_Action {
 			$entry = $feed->createEntry();
 			$entry->setTitle($product['ProductsData'][0]['name']);
 			$entry->setProductType(Products::get_text_categories( $product['categories']));
-			$entry->setBrand($isp['company']);
+			$entry->setBrand($isp->company);
 			$entry->setAvailability(true);
-			$entry->setLink($isp['website'] . "/" . $product['uri'] . ".html");
+			$entry->setLink($isp->website . "/" . $product['uri'] . ".html");
 
 			// Custom Attributes Google Product Extension
 			if(!empty($product['ProductsMedia'][0]['path'])){
-				$entry->setImageLink($isp['website'] . str_replace(" ", "%20", $product['ProductsMedia'][0]['path']));
+				$entry->setImageLink($isp->website . str_replace(" ", "%20", $product['ProductsMedia'][0]['path']));
 			}
 			
 			if(!empty($product['uri'])){

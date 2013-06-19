@@ -18,8 +18,8 @@ class OrdersItems extends BaseOrdersItems {
 	 * create the configuration of the grid
 	 */	
 	public static function grid($rowNum = 10) {
-		$ns = new Zend_Session_Namespace ( 'Default' );
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$ns = new Zend_Session_Namespace ();
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.detail_id', 'alias' => 'id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -34,7 +34,7 @@ class OrdersItems extends BaseOrdersItems {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
 		
 		$config ['datagrid'] ['fields'] =  "d.detail_id as id,
-											o.order_id as order_id, 
+											o.order_number as order_id, 
 											c.customer_id as customer_id, 
 											c.company as company, 
 											c.lastname as lastname,
@@ -62,13 +62,8 @@ class OrdersItems extends BaseOrdersItems {
                     ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $ns->idlang" )
                     ->leftJoin ( 'p.Taxes t' )->leftJoin ( 'o.Customers c' )
                     ->leftJoin ( 'd.Statuses s' )
-                    ->where ( 'p.type <> ?', 'domain'); // Show all the records but not the Expired services // Show only the services and not the domains
-        
-        $auth = Zend_Auth::getInstance ();
-        if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->where( "o.isp_id = ?", $logged_user['isp_id']);
-        }        
+                    ->where ( 'p.type <> ?', 'domain') // Show all the records but not the Expired services // Show only the services and not the domains
+        			->andWhere('o.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id);
         
 		$config ['datagrid'] ['dqrecordset'] = $dq;
 			
@@ -266,7 +261,7 @@ class OrdersItems extends BaseOrdersItems {
 	public static function getItemsListbyDescription($description) {
 		$items = array ();
 		if (! empty ( $description )) {
-			$registry = Zend_Registry::getInstance ();
+			$registry = Shineisp_Registry::getInstance ();
 			$translations = $registry->Zend_Translate;
 			
 			$dq = Doctrine_Query::create ()->select ( "oi.detail_id, o.order_id as order_id, s.status as status, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, oi.description as description" )->from ( 'OrdersItems oi' )->leftJoin ( 'oi.Orders o' )->leftJoin ( 'o.Statuses s' )->where ( 'oi.description like ?', "%" . $description . "%" );
@@ -500,8 +495,8 @@ class OrdersItems extends BaseOrdersItems {
 	}
 	
 	/**
-	 * getAllActivableItems
-	 * Get all activable items starting from the orderID 
+	 * Get all activable items starting from the orderID
+	 *  
 	 * @param $id
 	 * @return Doctrine Record / Array
 	 */
@@ -509,7 +504,7 @@ class OrdersItems extends BaseOrdersItems {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
 		->leftJoin ( 'oi.Products p' )
 		->where ( "order_id = ?", $id )
-		->andWhere ( "p.type = 'hosting' OR oi.callback_url != '' OR oi.tld_id > 0 ")
+		->andWhere ( "p.type = 'hosting' OR p.type = 'domain' OR oi.callback_url != '' OR oi.tld_id > 0 ")
 		->andWhere ( "oi.status_id != ?", Statuses::id('complete','orders')); // !Complete
 
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -586,7 +581,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @param unknown_type $services
 	 */
 	private function RecurringService_datagraph($data, $year){
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$datagraph = array();
 		$total = 0;
 		
@@ -617,7 +612,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @param unknown_type $services
 	 */
 	private function RecurringServiceslist($services){
-		$translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$recurringservices = array();
 		
 		// Loop for each services found in the database
@@ -1064,7 +1059,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return true|false
 	 */
 	public static function activate($orderItemId) {
-        Shineisp_Commons_Utilities::log("Attivo item ".$orderItemId);
+        Shineisp_Commons_Utilities::log(__METHOD__ . " - Activate Detail ID #".$orderItemId);
         
 		$orderItemId = intval($orderItemId);
 		if ( $orderItemId < 1 ) {
@@ -1076,26 +1071,14 @@ class OrdersItems extends BaseOrdersItems {
 		$ordersItem = self::find($orderItemId);
 		$ordersItem = $ordersItem->toArray();
         $OrderItem  = array_shift($ordersItem);
-        Shineisp_Commons_Utilities::log("Vedo dati ".print_r($OrderItem,true));
 		if ( !$OrderItem ) {
 			// order item not found
 			return false;
 		}
+
+		// Get customerId related to this order
+		$customerId = Orders::getCustomer($OrderItem['order_id']);
         
-		// Get Order related to this orderItem
-		$Order = Orders::find(intval($OrderItem['order_id']));
-		if ( !$Order ) {
-			// order not found
-			return false;
-		}
-        
-		// Get product related to this item
-		$Product = Products::find(intval($OrderItem['product_id']));
-		if ( !$Product ) {
-			// product not found
-			return false;
-		}		
-		
 		/*
 		 * START ACTIVATIONS CODE
 		 */
@@ -1104,7 +1087,7 @@ class OrdersItems extends BaseOrdersItems {
         $upgrade_uuid   = false; 
         if( $upgrade !== false ) {
             $orderItem  = OrdersItems::getDetail($upgrade);
-            Shineisp_Commons_Utilities::logs ( "OITEM::".print_r($orderItem,true), "orders.log" );
+            Shineisp_Commons_Utilities::logs ( __METHOD__ . " - OITEM::".print_r($orderItem,true) );
             $oldOrderId = $orderItem['order_id'];
 
             Orders::set_status ( $oldOrderId, Statuses::id("changed", "orders") ); // Close the old order ::status changed
@@ -1112,14 +1095,13 @@ class OrdersItems extends BaseOrdersItems {
             
             $upgrade_uuid   = $orderItem['uuid'];
             // log
-            Shineisp_Commons_Utilities::logs ( "Order changed from #".$oldOrderId." to #".$OrderItem['order_id'], "orders.log" );
+            Shineisp_Commons_Utilities::logs ( __METHOD__ .  " - Order changed from #".$oldOrderId." to #".$OrderItem['order_id'] );
         } 		 
 		
 		// callback_url is set, skip server activation and let's do the call to the remote API
 		if ( !empty($OrderItem['callback_url']) ) {
 			
 			// Set item to complete			
-            Shineisp_Commons_Utilities::log("Status ".print_r($statusComplete,true),"api.log");
             OrdersItems::set_status($orderItemId, Statuses::id("complete", "orders"));
             $ordersItem = self::find($orderItemId);
             $ordersItem = $ordersItem->toArray();
@@ -1132,8 +1114,8 @@ class OrdersItems extends BaseOrdersItems {
             unset( $paramsOrderItem['callback_url'] );
 			
 			// Do the callback 
-			Shineisp_Commons_Utilities::log("URL Notifica server :: {$OrderItem['callback_url']} ","api.log");
-            Shineisp_Commons_Utilities::log("Parametri ".print_r($paramsOrderItem,true),"api.log");
+			Shineisp_Commons_Utilities::log( __METHOD__ . " - Server URL Callback :: {$OrderItem['callback_url']} ","api.log");
+            Shineisp_Commons_Utilities::log( __METHOD__ . " - Parameters ".print_r($paramsOrderItem,true),"api.log");
 			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
             
             //Check if all orderitem of order is complete and if is ok set order to complete
@@ -1145,42 +1127,43 @@ class OrdersItems extends BaseOrdersItems {
 		}
 
 		if ( empty($OrderItem['parameters']) ) {
+			Shineisp_Commons_Utilities::logs (__METHOD__ . " - Order items setup parameters empty" );
 			return false;
 		}
 		
 		// Is this an hosting? execute panel task
 		// TODO: this should call an hook or an even bound to the panel
-		if ( $Product->type == 'hosting' ) {		
-			PanelsActions::AddTask($Order->customer_id, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
+		if ( isset($OrderItem['Products']) && isset($OrderItem['Products']['type']) && $OrderItem['Products']['type'] == 'hosting' ) {
+			Shineisp_Commons_Utilities::logs ( __METHOD__ . " Hosting task queued");
+			
+			PanelsActions::AddTask($customerId, $OrderItem['detail_id'], "fullProfile", $OrderItem['parameters']);
 
 			return true;
 		}
 		
 		// Is this a domain? execute domain task
 		if ( isset($OrderItem['tld_id']) && intval($OrderItem['tld_id']) > 0 ) {
+			
 			$parameters = json_decode($OrderItem['parameters']);	
-
+				
 			if ( empty($parameters->domain) ) {
+				Shineisp_Commons_Utilities::logs (  __METHOD__ . " Domain has been not set in the order detail #$orderItemId" );	
 				return false;
 			}			
 			
-			return DomainsTasks::AddTasks ( array(
-												 'domain'       => $parameters->domain
-												,'tld_id'       => intval($OrderItem['tld_id'])
-												,'customer_id'  => intval($Order->customer_id)
-												,'orderitem_id' => $orderItemId) 
-										);
+			// Create the domain record
+			$domain = Domains::Create($parameters->domain, intval($OrderItem['tld_id']), intval($customerId), $orderItemId);
+			
+			// Create the domain task
+			if(!empty($parameters->domain) && !empty($parameters->action)){
+				$domains[] = array('domain' => $parameters->domain, 'action' => $parameters->action);
+				$retval = DomainsTasks::AddTasks ($domains);
+				Shineisp_Commons_Utilities::logs (  __METHOD__ . " Domain task queued" );
+			}
+			 
+			return $retval;
 		}
 
 	}
-
-
-
-
-
-
-
-
-
 
 }

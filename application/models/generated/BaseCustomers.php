@@ -40,6 +40,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property boolean $taxfree
  * @property boolean $isreseller
  * @property boolean $ignore_latefee
+ * @property string $customer_number
  * @property Isp $Isp
  * @property CustomersGroups $CustomersGroups
  * @property CompanyTypes $CompanyTypes
@@ -48,10 +49,6 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property Customers $Customers
  * @property Languages $Languages
  * @property CustomAttributesValues $CustomAttributesValues
- * @property OauthAccessTokens $OauthAccessTokens
- * @property OauthAuthorizationCodes $OauthAuthorizationCodes
- * @property OauthClients $OauthClients
- * @property OauthRefreshTokens $OauthRefreshTokens
  * @property Doctrine_Collection $Addresses
  * @property Doctrine_Collection $Contacts
  * @property Doctrine_Collection $CustomersDomainsRegistrars
@@ -202,6 +199,8 @@ abstract class BaseCustomers extends Doctrine_Record
              ));
         $this->hasColumn('isp_id', 'integer', 4, array(
              'type' => 'integer',
+             'default' => 1,
+             'notnull' => true,
              'length' => '4',
              ));
         $this->hasColumn('group_id', 'integer', 4, array(
@@ -243,6 +242,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'default' => 0,
              'length' => '25',
              ));
+        $this->hasColumn('customer_number', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
+             ));
     }
 
     public function setUp()
@@ -281,22 +284,6 @@ abstract class BaseCustomers extends Doctrine_Record
         $this->hasOne('CustomAttributesValues', array(
              'local' => 'customer_id',
              'foreign' => 'external_id'));
-
-        $this->hasOne('OauthAccessTokens', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasOne('OauthAuthorizationCodes', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasOne('OauthClients', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
-
-        $this->hasOne('OauthRefreshTokens', array(
-             'local' => 'customer_id',
-             'foreign' => 'customer_id'));
 
         $this->hasMany('Addresses', array(
              'local' => 'customer_id',

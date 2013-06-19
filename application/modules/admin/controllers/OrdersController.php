@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_OrdersController extends Zend_Controller_Action {
+class Admin_OrdersController extends Shineisp_Controller_Admin {
 	
 	protected $orders;
 	protected $translator;
@@ -23,7 +23,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->orders = new Orders ();
-		$registry = Zend_Registry::getInstance ();
+		$registry = Shineisp_Registry::getInstance ();
 		$this->translator = $registry->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "orders" )->setModel ( $this->orders );
@@ -197,7 +197,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	public function editAction() {
 		
 		$form = $this->getForm ( '/admin/orders/process' );
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
@@ -284,11 +284,13 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		if($invoice_id){
 			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('button', 'float_right')));
 			$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$invoice_id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('button', 'float_right')));
-			$this->view->buttons[] = array("url" => "/admin/invoices/dropboxit/id/$invoice_id", "label" => $this->translator->translate('Dropbox invoice'), "params" => array('css' => array('button', 'float_right')));
 		} else {
 			// Order not invoiced, show button to create a new invoice
 			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
+		
+		// Get Order status history
+		$this->view->statushistory = StatusHistory::getStatusList($id);
 		
 		$this->view->customer          = array ('records' => $customer, 'editpage' => 'customers' );
 		$this->view->ordersdatagrid    = $this->orderdetailGrid ();
@@ -329,7 +331,11 @@ class Admin_OrdersController extends Zend_Controller_Action {
 					$myrec [] = $record;
 				}
 				
-				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+				return array (	'records' => $myrec, 
+								'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 
+								'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 
+								'actions' => array('/admin/services/edit/id/' => $this->translator->translate('Service')), 
+								'pager' => true );
 			}
 		}
 	}
@@ -339,7 +345,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	 * @return multitype:boolean multitype:string
 	 */
 	private function paymentsGrid() {
-		$currency = Zend_Registry::getInstance ()->Zend_Currency;
+		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$myrec = array ();
 		$requestId = $this->getParam('id');
 				
@@ -608,12 +614,16 @@ class Admin_OrdersController extends Zend_Controller_Action {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
-				Orders::pdf ( $request->id, true, true );
+				$file = Orders::pdf ( $request->id, false, true );
+				header('location: ' . $file);
+				die;
 			}
+			
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );
+			
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
 		}
-		die ();
 	}
 	
 	/**
@@ -624,7 +634,7 @@ class Admin_OrdersController extends Zend_Controller_Action {
 	public function dropboxitAction() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (is_numeric ( $request->id )) {
-			$sent = Orders::DropboxIt( $request->id );
+			$sent = Orders::pdf( $request->id, false, true );
 			if ($sent) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been uploaded in dropbox.' ), 'status' => 'success' ) );
 			} else {

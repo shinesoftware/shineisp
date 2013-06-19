@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Admin_CustomersController extends Zend_Controller_Action {
+class Admin_CustomersController extends Shineisp_Controller_Admin {
 	
 	protected $customers;
 	protected $datagrid;
@@ -23,7 +23,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->customers = new Customers ();
-		$this->translator = Zend_Registry::getInstance ()->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "customers" )->setModel ( $this->customers );
 	}
@@ -406,7 +406,7 @@ class Admin_CustomersController extends Zend_Controller_Action {
 	private function ordersGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
+			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.formatted_number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
 			if (isset ( $rs )) {
 				return array ('name' => 'orders', 'records' => $rs, 'edit' => array ('controller' => 'orders', 'action' => 'edit' ) );
 			}
@@ -426,8 +426,8 @@ class Admin_CustomersController extends Zend_Controller_Action {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$fields = "invoice_id, 
 				DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
-				i.number as invoice, 
-				i.order_id as order, 
+				i.formatted_number as invoice, 
+				o.order_number as order, 
 				o.total as total, 
 				o.vat as vat,
 				o.grandtotal as grandtotal";
@@ -502,8 +502,15 @@ class Admin_CustomersController extends Zend_Controller_Action {
 			}
 			
 			if ($form->isValid ( $request->getPost () )) {
-
-				$id = Customers::saveAll($request->getPost (), $request->getParam ( 'customer_id' ));
+			    $params = $request->getPost();
+                $area   = intval($params['area']);
+                if( $area != 0 ) {
+                    $province   = Provinces::find($area);
+                    $area       = $province->code;
+                    $params['area'] = $area;
+                }
+ 
+				$id = Customers::saveAll($params, $request->getParam ( 'customer_id' ));
 				CustomAttributes::saveElementsValues($form->getSubForm('attributes')->getValues(), $request->getParam ( 'customer_id' ), "customers");
 				
 				$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );

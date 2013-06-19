@@ -113,7 +113,9 @@ AdminUser:
     config:
       type: string()
     isp_id:
-      type: integer(4)      
+      type: integer(4)     
+      default: 1 
+      notnull: true
   relations:
     AdminRoles:
       local: role_id
@@ -121,6 +123,21 @@ AdminUser:
     Isp:
       local: isp_id
       foreign: isp_id
+    OauthAccessTokens:
+      local: user_id
+      foreign: user_id
+    OauthAuthorizationCodes:
+      local: user_id
+      foreign: user_id
+    OauthClients:
+      local: user_id
+      foreign: user_id
+    OauthRefreshTokens:
+      local: user_id
+      foreign: user_id
+    OauthJwt:
+      local: user_id
+      foreign: user_id
 
 Addresses:
   connection: doctrine
@@ -259,6 +276,44 @@ Bulkmails:
     body:
       type: string()
       notnull: true
+
+CancelRequests:
+  connection: doctrine
+  tableName: cancel_requests
+  columns:
+    request_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    date:
+      type: timestamp(25)
+      notnull: true
+    ip:
+      type: string(45)
+      notnull: true
+    orderitem_id:
+      type: integer(4)
+      notnull: true
+      autoincrement: false
+    type:
+      type: enum
+      values: ['immediate', 'eob'] 
+    note:
+      type: string()
+      notnull: false
+    status_id:
+      type: integer(4)
+      notnull: true
+  relations:       
+    Statuses:
+      local: status_id
+      foreign: status_id
+    OrdersItems:
+      local: orderitem_id
+      foreign: detail_id
+
 CmsBlocks:
   connection: doctrine
   tableName: cms_blocks
@@ -717,6 +772,18 @@ CustomersGroups:
     name:
       type: string(250)
       notnull: true
+    isp_id:
+      type: integer(4)    
+      default: 1  
+      notnull: true
+  relations:
+    Customers:
+      local: group_id
+      foreign: group_id
+    Isp:
+      local: isp_id
+      foreign: isp_id
+
             
 Customers:
   connection: doctrine
@@ -798,6 +865,8 @@ Customers:
       notnull: true
     isp_id:
       type: integer(4)
+      default: 1
+      notnull: true
     group_id:
       type: integer(4)
       default: '1'
@@ -819,6 +888,7 @@ Customers:
     ignore_latefee: 
       type: boolean(25)
       default: 0
+    customer_number: string(50)      
   relations:
     Isp:
       local: isp_id
@@ -846,19 +916,6 @@ Customers:
     CustomAttributesValues:
       local: customer_id
       foreign: external_id
-    OauthAccessTokens:
-      local: customer_id
-      foreign: customer_id
-    OauthAuthorizationCodes:
-      local: customer_id
-      foreign: customer_id
-    OauthClients:
-      local: customer_id
-      foreign: customer_id
-    OauthRefreshTokens:
-      local: customer_id
-      foreign: customer_id
-
       
 CustomersDomainsRegistrars:
   connection: doctrine
@@ -1189,6 +1246,10 @@ DomainsTlds:
       notnull: true
     registrars_id: integer(4)
     tax_id: integer(4)
+    isp_id:
+      type: integer(4)
+      default: 1
+      notnull: true
     autosetup: 
       type: integer(4)
       unsigned: true
@@ -1209,6 +1270,10 @@ DomainsTlds:
       local: server_id
       foreign: server_id
       type: one
+    Isps:
+      local: isp_id
+      foreign: isp_id
+      onDelete: CASCADE
 
 DomainsTldsData:
   connection: doctrine
@@ -1415,6 +1480,10 @@ Fastlinks:
       unsigned: false
       primary: false
       autoincrement: false
+  indexes:
+    code:
+      fields: [code]
+      type: unique          
   relations:
     Customers:
       local: customer_id
@@ -1519,6 +1588,9 @@ Invoices:
       primary: false
       notnull: true
       autoincrement: false
+    formatted_number:
+      type: string(100)
+      notnull: false
     customer_id:
       type: integer(4)
       fixed: 0
@@ -1560,6 +1632,10 @@ Invoices:
       local: invoice_id
       foreign: invoice_id
       type: many
+  indexes:
+    formatted_number:
+      fields: [formatted_number]
+      
 InvoicesSettings:
   connection: doctrine
   tableName: invoices_settings
@@ -1577,6 +1653,11 @@ InvoicesSettings:
       type: integer(4)
       notnull: true
       default: 1
+    isp_id:
+      type: integer(4)
+      default: 1
+      notnull: true
+      
 Isp:
   connection: doctrine
   tableName: isp
@@ -1670,8 +1751,8 @@ IspUrls:
       autoincrement: true
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
+      default: 1
+      notnull: true
     url:
       type: string(200)
       notnull: true
@@ -1777,10 +1858,8 @@ Messages:
       autoincrement: false
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
-      primary: false
-      autoincrement: false
+      default: 1
+      notnull: true
     customer_id:
       type: integer(4)
       fixed: 0
@@ -2005,7 +2084,7 @@ OauthClients:
       unsigned: true
       primary: true
       autoincrement: true
-    admin_id:
+    user_id:
       type: integer(4)
       notnull: true
     app_name:
@@ -2040,7 +2119,7 @@ OauthAccessTokens:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     expires:
@@ -2066,7 +2145,7 @@ OauthAuthorizationCodes:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     redirect_uri:
@@ -2095,7 +2174,7 @@ OauthRefreshTokens:
     client_id:
       type: string(250)
       notnull: true    
-    customer_id:
+    user_id:
       type: integer(4)
       notnull: true    
     expires:
@@ -2104,8 +2183,29 @@ OauthRefreshTokens:
     scope:
       type: string(250)
       notnull: true          
-      
 
+OauthJwt:
+  connection: doctrine
+  tableName: oauth_jwt
+  columns:
+    id:
+      type: integer(4)
+      fixed: 0
+      unsigned: true
+      primary: true
+      autoincrement: true
+    client_id:
+      type: string(250)
+      notnull: true
+    user_id:
+      type: integer(4)
+      notnull: true            
+    subject:
+      type: string(2048)
+      notnull: true    
+    public_key:
+      type: string()
+      
 Orders:
   connection: doctrine
   tableName: orders
@@ -2125,6 +2225,7 @@ Orders:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
     uuid:
       type: string(50)      
     order_date:
@@ -2350,6 +2451,7 @@ Panels:
     isp_id:
       type: integer(4)
       notnull: true
+      default: 1
     active: boolean(25)
   relations:
     Isp:
@@ -2639,7 +2741,8 @@ Products:
       default: generic
       notnull: true
     categories: string()
-    tax_id: integer(4)
+    tax_id: 
+      type: integer(4)
     external_id: integer(4)
     group_id: integer(4)
     blocks: string()
@@ -2654,7 +2757,10 @@ Products:
     welcome_mail_id:
       type: integer(5)
       unsigned: true
-    isp_id: integer(4)
+    isp_id: 
+      type: integer(4)
+      default: 1
+      notnull: true
   relations:
     ProductsAttributesGroups:
       local: group_id
@@ -2814,7 +2920,11 @@ ProductsAttributesGroups:
       default: 0
     name: string(150)
     code: string(150)
-      
+    isp_id:
+      type: integer(4)
+      notnull: true
+      default: 1
+            
 ProductsAttributesGroupsIndexes:
   connection: doctrine
   tableName: products_attributes_groups_indexes
@@ -2907,6 +3017,10 @@ ProductsCategories:
     position: integer(4)
     externalid: integer(4)
     custom: string()
+    isp_id:
+      type: integer(4)
+      notnull: true  
+      default: 1  
   relations:
     Wikilinks:
       local: category_id
@@ -3105,11 +3219,13 @@ PurchaseCategories:
     category:
       type: string(150)
       notnull: true
+
   relations:
     PurchaseInvoices:
       local: category_id
       foreign: category_id
       type: many
+            
 PurchaseInvoices:
   connection: doctrine
   tableName: invoices_purchases
@@ -3191,7 +3307,11 @@ Registrars:
       type: integer(1)
     lastupdate: 
       type: timestamp(25)
-
+    isp_id:
+      type: integer(4)
+      notnull: true
+      default: 1
+      
 Reviews:
   connection: doctrine
   tableName: reviews
@@ -3281,7 +3401,10 @@ Servers:
       notnull: true
     max_services: integer(4)
     buy_date: timestamp(25)
-    isp_id: integer(4)
+    isp_id: 
+      type: integer(4)
+      default: 1
+      notnull: true
     type_id: integer(4)
     status_id: integer(4)
     panel_id: integer(4)
@@ -3383,10 +3506,8 @@ Settings:
       autoincrement: true
     isp_id:
       type: integer(4)
-      fixed: 0
-      unsigned: false
-      primary: false
-      autoincrement: false
+      default: 1
+      notnull: true
     parameter_id:
       type: integer(4)
       fixed: 0
@@ -3593,7 +3714,11 @@ Taxes:
       unsigned: false
       primary: false
       autoincrement: false
-
+    isp_id:
+      type: integer(4)
+      notnull: true
+      default: 1
+      
 Tickets:
   connection: doctrine
   tableName: tickets
@@ -3673,6 +3798,10 @@ TicketsCategories:
       primary: false
       notnull: true
       autoincrement: false
+    isp_id:
+      type: integer(4)
+      notnull: true    
+      default: 1  
   relations:
     Tickets:
       local: category_id
@@ -3809,6 +3938,10 @@ Wiki:
       type: string()
       notnull: true
     ishelpful: integer(4)
+    isp_id:
+      type: integer(4)
+      notnull: true    
+      default: 1
   relations:
     WikiCategories:
       local: category_id
