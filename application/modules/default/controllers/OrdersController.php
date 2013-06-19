@@ -241,22 +241,28 @@ class OrdersController extends Shineisp_Controller_Default {
 			if(Orders::IsCommentable($id)){
 				$order = Orders::getAllInfo ( $id, null, true );
 				$link = Fastlinks::findlinks ( $id, $this->customer ['customer_id'], 'orders' );
-	
+				
+				if(!empty($link [0] ['code'])){
+					$code = $link [0] ['code'];
+				}else{
+					$code = Fastlinks::CreateFastlink('orders', 'edit', json_encode (array('id' => $id)), 'orders', $id, $this->customer ['customer_id']);
+				}
+				
 				// Save the message
-				Messages::addMessage(nl2br($params ['note']), $this->customer ['customer_id'], null, $id);
+				Messages::addMessage($params ['note'], $this->customer ['customer_id'], null, $id);
 				
 				$placeholder['messagetype'] = $this->translator->translate('Order');
 				$placeholders['subject'] = sprintf ( "%03s", $id ) . " - " . Shineisp_Commons_Utilities::formatDateOut ( $order [0] ['order_date'] );
 				$placeholders['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
 				$placeholders['orderid'] = $placeholders['subject'];
 				$placeholders['conditions'] = Settings::findbyParam('conditions');
-				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $link [0] ['code'];
+				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $code;
 				
 				// Send a message to the customer
 				Messages::sendMessage("order_message", $order [0] ['Customers'] ['email'], $placeholders);
 				
-				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp->email );
-				$placeholders['message'] = nl2br($params ['note']);
+				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/$code/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp->email );
+				$placeholders['message'] = $params ['note'];
 				
 				// Send a message to the administrator 
 				Messages::sendMessage("order_message_admin", $isp->email, $placeholders);
