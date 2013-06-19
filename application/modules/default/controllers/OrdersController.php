@@ -58,8 +58,8 @@ class OrdersController extends Shineisp_Controller_Default {
 		try {
 			$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
 			$data = $this->orders->findAll ( "o.order_id, 
-												o.order_id as OrderID, 
-												i.number as InvoiceId, 
+												o.order_id as Order, 
+												i.formatted_number as Invoice, 
 												CONCAT(c.company, ' ', c.firstname,' ', c.lastname) as company, 
 												o.order_number as order_number,
 												o.order_date as start_date,
@@ -74,7 +74,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		// Get the status of the items
 		if (! empty ( $data ['records'] )) {
 			for($i = 0; $i < count ( $data ['records'] ); $i ++) {
-				$data ['records'] [$i] ['OrderID']    = $data ['records'] [$i] ['order_number'];
+				$data ['records'] [$i] ['Order']    = $data ['records'] [$i] ['order_number'];
 				$data ['records'] [$i] ['Status']     = Orders::getStatus ( $data ['records'] [$i] ['order_id'], true );
 				$data ['records'] [$i] ['start_date'] = Shineisp_Commons_Utilities::formatDateOut ( $data ['records'] [$i] ['start_date'] );
 			}
@@ -105,7 +105,7 @@ class OrdersController extends Shineisp_Controller_Default {
 							DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
 							DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
 							in.invoice_id as invoice_id, 
-							in.number as Invoice, 
+							in.formatted_number as Invoice, 
 							CONCAT(d.domain, '.', w.tld) as Domain, 
 							c.company as company, 
 							o.status_id, 
@@ -150,10 +150,6 @@ class OrdersController extends Shineisp_Controller_Default {
 					
 					// Get Order status history
 					$this->view->statushistory = StatusHistory::getStatusList($id);
-					
-					
-					
-					$this->view->headertitle = $this->translator->translate('Order page');
 					
 					// Show the list of the messages attached to this domain
 					$this->view->messages = Messages::find ( 'order_id', $id, true );
@@ -342,7 +338,7 @@ class OrdersController extends Shineisp_Controller_Default {
 	 */
 	public function recordsperpageAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
-		$redirector = Shineisp_Controller_Default_HelperBroker::getStaticHelper ( 'redirector' );
+		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$records = $this->getRequest ()->getParam ( 'id' );
 		if (! empty ( $records ) && is_numeric ( $records )) {
 			$NS->recordsperpage = $records;
