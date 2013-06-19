@@ -190,6 +190,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	 * Delete a record previously selected by the product
 	 */
 	public function deleteAction() {
+		$this->view->headTitle()->append($this->translator->translate("Delete product"));
 		$id = $this->getRequest ()->getParam ( 'id' );
 		try {
 			if (is_numeric ( $id )) {
@@ -301,7 +302,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				
 		}
 		
-		$this->view->description = "Here you can edit the product details";
+		$this->view->description = $this->translator->translate("Here you can edit the product details");
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		$this->view->orders = $orders;

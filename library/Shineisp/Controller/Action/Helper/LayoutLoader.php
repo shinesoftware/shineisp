@@ -46,7 +46,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		$view->headMeta ()->setName ( 'author', !empty($copyright) ? $copyright : "Shine Software Company" );
 		$view->headMeta ()->setName ( 'keywords', !empty($keywords) ? $keywords : "shine software, isp software" );
 		$view->headMeta ()->setName ( 'description', !empty($description) ? $description : "This is a Shine Software application" );
-		$view->headTitle ()->setSeparator(' - ');
+		$view->headTitle ()->setSeparator(' / ');
 		
 		// Custom XML file inclusion of the js files 
 		if (! empty ( $js )) {

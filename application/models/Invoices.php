@@ -813,12 +813,12 @@ class Invoices extends BaseInvoices {
 			
 			// Invoice already exists, we return it
 			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
-				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
-				header('Content-type: application/pdf');
-				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
+// 				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+// 				header('Content-type: application/pdf');
+// 				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
 				
-				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
-				die($invoice);
+// 				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
+// 				die($invoice);
 			}			
 			
     		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
@@ -922,15 +922,15 @@ class Invoices extends BaseInvoices {
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
 					$orderinfo ['ribbon']['text'] = $translator->translate("To be Paid");
 					$orderinfo ['ribbon']['color'] = "#D60000";
-					$orderinfo ['ribbon']['border-color'] = "#BD0000";
-				}elseif($order [0] ['status_id'] == Statuses::id("complete", "orders")){  // Complete
+				}elseif($order [0] ['status_id'] == Statuses::id("paid", "orders")){  // Paid
 					$orderinfo ['ribbon']['text'] = $translator->translate("Paid");
 					$orderinfo ['ribbon']['color'] = "#009926";
-					$orderinfo ['ribbon']['border-color'] = "#00661A";
+				}elseif($order [0] ['status_id'] == Statuses::id("complete", "orders")){  // Complete
+					$orderinfo ['ribbon']['text'] = $translator->translate("Complete");
+					$orderinfo ['ribbon']['color'] = "#009926";
 				}else{
 					$orderinfo ['ribbon']['text'] = $translator->translate(Statuses::getLabel($order [0] ['status_id']));
 					$orderinfo ['ribbon']['color'] = "#FFCC33";
-					$orderinfo ['ribbon']['border-color'] = "#E6AC00";
 				}
 				
 				$database ['records'] = $orderinfo;
@@ -985,18 +985,17 @@ class Invoices extends BaseInvoices {
 						$templateName = Shineisp_Commons_Utilities::getFirstFile(PUBLIC_PATH.'/skins/commons/invoices', '/\.phtml$/');	
 					}
 										
-					$Shineisp_InvoiceView = new Shineisp_InvoiceView();
-					$Shineisp_InvoiceView->assign('header',  $database['header']);
-					$Shineisp_InvoiceView->assign('columns', $database['columns']);
-					$Shineisp_InvoiceView->assign('data',    $database['records']);
-					
-					$html = $Shineisp_InvoiceView->render($templateName);
+					$invoiceview = new Shineisp_Invoice();
+					$invoiceview->assign('header',  $database['header']);
+					$invoiceview->assign('columns', $database['columns']);
+					$invoiceview->assign('data',    $database['records']);
+
+					$html = $invoiceview->render($templateName);
 					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
 	    			$html2pdf->WriteHTML($html);
-	    			$html2pdf->Output(PUBLIC_PATH.$filename,'F');
+	    			
+	    			$html2pdf->Output(PUBLIC_PATH.$filename, "I");
 
-					//$pdf->CreatePDF (  $database, $filename, $show, $path, $force);
-					
 					// Execute a custom event 
 					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $path . $filename));
 					

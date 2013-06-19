@@ -229,7 +229,7 @@ class Settings extends BaseSettings {
     	$parameter = trim($parameter);
     	$module = is_null($module) ? "Default" : $module;
     	$session = new Zend_Session_Namespace ( $module );
-    	
+
     	if(!empty($session->parameters[$parameter])){
     		return $session->parameters[$parameter];
     	}
