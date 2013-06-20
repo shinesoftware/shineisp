@@ -193,10 +193,6 @@ class SettingsParameters extends BaseSettingsParameters {
     public static function loadParams($module="Default", $force=false) {
 		$session = new Zend_Session_Namespace ( $module );
 		
-		if(!empty($session->parameters) && $force === false){
-			return $session->parameters;
-		}
-		
 		$registry = Shineisp_Registry::get('ISP');
 		
 		$isp = !empty($registry) && is_object($registry) ? $registry->isp_id : 1;
