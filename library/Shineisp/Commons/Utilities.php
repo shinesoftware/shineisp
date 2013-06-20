@@ -841,7 +841,7 @@ class Shineisp_Commons_Utilities {
 					$EmailsTemplatesSends->save();
 
 					// log the data
-					Shineisp_Commons_Utilities::log("An email has been sent to $to");
+					Shineisp_Commons_Utilities::log("An email has been sent to $to", 'notice.log');
 				}
 			}else{
 				// get customer_id
@@ -864,7 +864,7 @@ class Shineisp_Commons_Utilities {
 				$EmailsTemplatesSends->save();
 				
 				// log the data
-				Shineisp_Commons_Utilities::log("An email has been sent to $to");
+				Shineisp_Commons_Utilities::log("An email has been sent to $to", 'notice.log');
 				
 			}
 			return true;

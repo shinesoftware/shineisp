@@ -23,6 +23,29 @@ class Zend_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 			// All the records 
 			$this->view->records = $data ['records'];
 			
+			// Create the header using the field name if the columns variable is not set
+			if(empty($data ['columns'])){
+			
+				$data ['columns'] = array();
+			
+				if(!empty($data ['records'][0])){
+					// Get all the fields
+					$items = Shineisp_Commons_Utilities::array_flatten($data ['records'][0]);
+					$fields = array_keys($items);
+					foreach ( $fields as $field ){
+						if(strpos($field, "_id")=== false){
+							// When a record is called using the HYDRATE_SCALAR mode the table aliases are attached in the field name
+							// In this way we delete the first part of the field name. For instance: o_name --> name
+							$arrfield = explode("_", $field);
+							$field = count($arrfield) > 0 ? $arrfield[count($arrfield)-1] : $field;
+							$data ['columns'][] = ucfirst(Shineisp_Registry::getInstance ()->Zend_Translate->translate($field));
+						}
+					}
+				}
+			}
+				
+			$this->view->columns = $data ['columns'];
+				
 			// If these options are true a link appear for each row in a table
 			$this->view->edit = ! empty ( $data ['edit'] ) ? $data ['edit'] : false;
 			$this->view->delete = ! empty ( $data ['delete'] ) ? $data ['delete'] : false;
