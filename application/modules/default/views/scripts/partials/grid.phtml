@@ -39,7 +39,10 @@
 if (isset($this->records[0])):
     // Get all the items inside a multidimensional array
     $items = Shineisp_Commons_Utilities::array_flatten($this->records[0]);
-    // Get all the fields
+
+	$columns = $this->columns;
+
+	// Get all the fields
     $fields = array_keys($items);
     
     // Counting the field
@@ -53,17 +56,9 @@ if (isset($this->records[0])):
                 <tr>
                    <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><th><input type="checkbox" class="selectall" value=""></th><?php endif;?>
                     <?php // Creation of the Rows and Columns?>
-                       <?php foreach ( $fields as $field ) : ?>
-                           <?php if(strpos($field, "_id")=== false):?>
-                                <th>
-                                  <?php $label = str_replace("_", " ", $field);?>
-                                  <?=$this->translate(ucwords($label))?>
-                                  <a href="/<?= $this->module ?>/<?= $this->controller ?>/<?= $this->action ?>/page/<?=$this->currentpage;?>/sort/<?=$field;?>,asc"><img alt="asc" src="<?=$this->paths('skin')?>/images/commons/asc.gif"></a>
-                                  <a href="/<?= $this->module ?>/<?= $this->controller ?>/<?= $this->action ?>/page/<?=$this->currentpage;?>/sort/<?=$field;?>,desc"><img alt="desc" src="<?=$this->paths('skin')?>/images/commons/desc.gif"></a>
-                                </th>
-                           <?php endif;?>
-                       <?php endforeach;?>
-                   
+                    <?php foreach ( $columns as $column ) : ?>
+                    	<th><?php echo $column; ?></th>
+                    <?php endforeach;?>   
                     <th><?=$this->translate('Commands');?></th>
                 </tr>
             </thead>

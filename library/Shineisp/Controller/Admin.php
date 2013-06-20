@@ -37,7 +37,7 @@ class Shineisp_Controller_Admin extends Shineisp_Controller_Common {
     	$controller_name = Shineisp_Registry::getInstance ()->Zend_Translate->translate($controller_name);
     	$controller_action = Shineisp_Registry::getInstance ()->Zend_Translate->translate($controller_action);
     	
-		$this->view->headTitle()->append($controller_name);    	
-		$this->view->headTitle()->append($controller_action);    	
+		$this->view->headTitle()->prepend($controller_action);
+		$this->view->headTitle()->prepend($controller_name);
     }
 }

@@ -58,7 +58,6 @@ class OrdersController extends Shineisp_Controller_Default {
 		try {
 			$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
 			$data = $this->orders->findAll ( "o.order_id, 
-												o.order_id as Order, 
 												i.formatted_number as Invoice, 
 												CONCAT(c.company, ' ', c.firstname,' ', c.lastname) as company, 
 												o.order_number as order_number,
@@ -74,11 +73,18 @@ class OrdersController extends Shineisp_Controller_Default {
 		// Get the status of the items
 		if (! empty ( $data ['records'] )) {
 			for($i = 0; $i < count ( $data ['records'] ); $i ++) {
-				$data ['records'] [$i] ['Order']    = $data ['records'] [$i] ['order_number'];
 				$data ['records'] [$i] ['Status']     = Orders::getStatus ( $data ['records'] [$i] ['order_id'], true );
 				$data ['records'] [$i] ['start_date'] = Shineisp_Commons_Utilities::formatDateOut ( $data ['records'] [$i] ['start_date'] );
 			}
 		}
+		
+		$data ['columns'][] = $this->translator->translate('Invoice No.');
+		$data ['columns'][] = $this->translator->translate('Company');
+		$data ['columns'][] = $this->translator->translate('Order No.');
+		$data ['columns'][] = $this->translator->translate('Created at');
+		$data ['columns'][] = $this->translator->translate('Total');
+		$data ['columns'][] = $this->translator->translate('Status');
+		
 		$this->view->headTitle()->prepend ($this->translator->translate('Orders List'));
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

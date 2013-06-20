@@ -276,7 +276,12 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Domains::findbyUserId ( $request->id, "d.domain_id, CONCAT(d.domain,'.', ws.tld) as domain, DATE_FORMAT(d.creation_date, '%d/%m/%Y') as creation_date,  DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiring_date" );
 			if (isset ( $rs [0] )) {
-				return array ('name' => 'domains', 'records' => $rs, 'edit' => array ('controller' => 'domains', 'action' => 'edit' ), 'pager' => true );
+				
+				$columns[] = $this->translator->translate('Domain');
+				$columns[] = $this->translator->translate('Created at');
+				$columns[] = $this->translator->translate('Expiring date');
+				
+				return array ('name' => 'domains', 'columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'domains', 'action' => 'edit' ), 'pager' => true );
 			}
 		}
 	}
@@ -313,8 +318,15 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 						}
 					}
 						
+					$columns[] = $this->translator->translate('Product');
+					$columns[] = $this->translator->translate('Created at');
+					$columns[] = $this->translator->translate('Expiration date');
+					$columns[] = $this->translator->translate('Days left');
+					$columns[] = $this->translator->translate('Price');
+					$columns[] = $this->translator->translate('Automatic renewal');
+					$columns[] = $this->translator->translate('Status');
 					
-					return array ('name' => 'services', 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+					return array ('name' => 'services','columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 				}
 			}
 		} catch ( Exception $e ) {
@@ -322,60 +334,11 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		}
 	}	
 	
-	/*
-	private function servicesGrid() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
-		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Orders::getOrdersDetailsByCustomerID ( $request->id );
-			
-			if (isset ( $rs )) {
-				// In this section I will delete the empty OrdersItemsDomains subarray created by Doctrine because the simplegrid works only with a flat array
-				// where the array keys are the fields. So, if the OrdersItemsDomains is empty means that if the order item doesn't has 
-				// a domain attached it this empty array will be deleted in all the recordset.
-				// TODO: improve this section when doctrine improve the engine. 
-				$myrec = array ();
-				foreach ( $rs as $record ) {
-					$amount = $record ['quantity'] * $record ['price'] + $record ['setupfee'];
-					
-					// Add the taxes if the product need them
-					if ($record ['taxpercentage'] > 0) {
-						$record ['vat']        = number_format ( ($amount * $record ['taxpercentage'] / 100), 2 );
-						$record ['grandtotal'] = number_format ( ($amount * (100 + $record ['taxpercentage']) / 100), 2 );
-					} else {
-						$record ['vat'] = 0;
-						$record ['grandtotal'] = $amount;
-					}
-					
-					$record['username'] = '';
-					if ( isset($record['setup']) ) {
-						$setup = json_decode($record['setup']);
-						unset($record['setup']);
-					
-						if ( isset($setup->webpanel) && isset($setup->webpanel->username) ) {
-							$record['username'] = $setup->webpanel->username;
-						}
-						
-					}
-					
-					if ( isset ( $record ['OrdersItemsDomains'] ) ) {
-						unset ( $record ['OrdersItemsDomains'] );
-					}
-					unset ( $record ['taxpercentage'] );
-					
-					$myrec [] = $record;
-				}
-
-				return array ('records' => $myrec, 'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
-			}
-		}
-
-	}
-	*/
-	
 	private function addressesGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Addresses::find_by_customerid($request->id);
+			
 			if (isset ( $rs )) {
 				return array ('name' => 'contacts', 'records' => $rs, 'delete' => array ('controller' => 'customers', 'action' => 'addressdelete' ) );
 			}
@@ -387,7 +350,11 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Contacts::getContacts ( $request->id );
 			if (isset ( $rs  )) {
-				return array ('name' => 'contacts', 'records' => $rs, 'delete' => array ('controller' => 'customers', 'action' => 'deletecontact' ) );
+				
+				$columns[] = $this->translator->translate('Contacts');
+				$columns[] = $this->translator->translate('Type');
+				
+				return array ('name' => 'contacts', 'columns' => $columns, 'records' => $rs, 'delete' => array ('controller' => 'customers', 'action' => 'deletecontact' ) );
 			}
 		}
 	}
@@ -395,10 +362,14 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	private function filesGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Files::findbyExternalId ( $request->id, "customers", "file_id, fc.name as category, CONCAT(path, file) as file, DATE_FORMAT(date, '%d/%m/%Y %H:%i:%s') as date" );
+			$rs = Files::findbyExternalId ( $request->id, "customers", "file_id, fc.name as category, CONCAT(path, file) as file, date" );
 			
 			if (isset ( $rs  )) {
-				return array ('name' => 'files', 'records' => $rs, 'delete' => array ('controller' => 'customers', 'action' => 'deletefile' ) );
+				$columns[] = $this->translator->translate('Imported at');
+				$columns[] = $this->translator->translate('Category');
+				$columns[] = $this->translator->translate('File');
+				
+				return array ('name' => 'files','columns'=>$columns, 'records' => $rs, 'delete' => array ('controller' => 'customers', 'action' => 'deletefile' ) );
 			}
 		}
 	}
@@ -408,7 +379,14 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.formatted_number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
 			if (isset ( $rs )) {
-				return array ('name' => 'orders', 'records' => $rs, 'edit' => array ('controller' => 'orders', 'action' => 'edit' ) );
+				
+				$columns[] = $this->translator->translate('ID');
+				$columns[] = $this->translator->translate('Number');
+				$columns[] = $this->translator->translate('Invoice No.');
+				$columns[] = $this->translator->translate('Date');
+				$columns[] = $this->translator->translate('Total');
+				
+				return array ('name' => 'orders', 'columns' => $columns, 'records' => $rs, 'edit' => array ('controller' => 'orders', 'action' => 'edit' ) );
 			}
 		}
 	}
@@ -417,7 +395,13 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Tickets::getByCustomerID ( $request->id, "t.subject, s.status, DATE_FORMAT(t.date_open, '%d/%m/%Y') as date_open, c.company");
-			return array ('name' => 'tickets', 'records' => $rs, 'edit' => array ('controller' => 'tickets', 'action' => 'edit' ) );
+			
+			$columns[] = $this->translator->translate('Subject');
+			$columns[] = $this->translator->translate('Created at');
+			$columns[] = $this->translator->translate('Company');
+			$columns[] = $this->translator->translate('Status');
+			
+			return array ('name' => 'tickets', 'columns' => $columns, 'records' => $rs, 'edit' => array ('controller' => 'tickets', 'action' => 'edit' ) );
 		}
 	}
 	
@@ -433,14 +417,14 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 				o.grandtotal as grandtotal";
 			$rs = Invoices::getByCustomerID ($request->id, $fields);
 			
-			$printURL = $this->getHelper('url')->url(
-				array('module'     => Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ()
-					 ,'controller' => 'invoices'
-					 ,'action'     => 'print'
-					 ,'id' => ''
-				 ));
+			$columns[] = $this->translator->translate('Date');
+			$columns[] = $this->translator->translate('Invoice No.');
+			$columns[] = $this->translator->translate('Order No.');
+			$columns[] = $this->translator->translate('Total');
+			$columns[] = $this->translator->translate('VAT');
+			$columns[] = $this->translator->translate('Grand Total');
 				 
-			return array ('name' => 'invoices', 'records' => $rs, 'edit' => array ('controller' => 'invoices', 'action' => 'edit' ), 'actions' => array ($printURL=>'Print') );
+			return array ('name' => 'invoices', 'columns' => $columns, 'records' => $rs, 'edit' => array ('controller' => 'invoices', 'action' => 'edit' ), 'actions' => array ('/admin/invoices/print/id/' => $this->translator->translate('Print')) );
 		}
 	}
 	
@@ -452,7 +436,13 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$fields = "date, subject, recipient";
 			$rs = EmailsTemplatesSends::getByCustomerID ($request->id, $fields);
-			return array ('name' => 'emailstemplatessends', 'records' => $rs, 'targetlink'=>'_blank', 'view' => array ('controller' => 'customers', 'action' => 'emailview' ) );
+			
+			$columns[] = $this->translator->translate('ID');
+			$columns[] = $this->translator->translate('Sent at');
+			$columns[] = $this->translator->translate('Subject');
+			$columns[] = $this->translator->translate('Recipient');
+			
+			return array ('name' => 'emailstemplatessends', 'columns' => $columns, 'records' => $rs, 'targetlink'=>'_blank', 'view' => array ('controller' => 'customers', 'action' => 'emailview' ) );
 		}
 	}
 	
