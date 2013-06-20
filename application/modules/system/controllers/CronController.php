@@ -17,6 +17,44 @@ class System_CronController extends Zend_Controller_Action {
 	}
 	
 	/**
+	  * Execute a manual cron process  
+	 */
+	public function executeAction(){
+	  
+    	$resources = Shineisp_Commons_Layout::getData ("system", null);
+	    $class_called = $this->getRequest()->getParam('class');
+	    $method_called = $this->getRequest()->getParam('method');
+	    $email = $this->getRequest()->getParam('email');
+	    $password = $this->getRequest()->getParam('password');
+	    
+	    $result = AdminUser::fastlogin($email, $password, false);
+	   
+	    if(Zend_Auth_Result::SUCCESS == $result->getCode()){
+	    
+            // Get the cron default configuration
+            $xmlobject = $resources->xpath ( "cron/execute" ) ;
+            if (count ( $xmlobject )) {
+                foreach ( $xmlobject as $cron ) {
+                    foreach ( $cron as $code ) {
+                    
+                        $class  = (string)$code['class'];
+                        $method = (string)$code['method'];
+                        $params = json_decode((string)$code['params']);
+                        $log    = (string)$code;
+                    
+                        if(($class == $class_called) && ($method == $method_called)){
+                       
+                            $this->execScript($class, $method, $params);
+                            Shineisp_Commons_Utilities::log("Manual Start: $log by " . $result['lastname'], 'cron.log');
+                            
+                        }
+                    }
+			    }
+			}
+		}
+	}
+	
+	/**
 	 * Base index action
 	 */
 	public function indexAction() {
@@ -46,28 +84,8 @@ class System_CronController extends Zend_Controller_Action {
 						
 						Shineisp_Commons_Utilities::log($log, 'cron.log');
 
-						// Check if the class exists
-						if(class_exists($class)){
-							
-							// Check if the method exists
-							if(method_exists($class, $method)){
-
-								// Check the class
-								$theclass  = new ReflectionClass($class);
-								$themethod = $theclass->getMethod($method);
-								$isStatic  = $themethod->isStatic();
-								
-								Shineisp_Commons_Utilities::log("$class::$method", 'cron.log');
-								
-								// Check if the method is static
-								if($isStatic){
-									call_user_func("$class::$method", $params);
-								}else{
-									$obj = new $class();
-									call_user_func(array($obj, $method), $params);
-								}
-							}
-						}
+                        $this->execScript($class, $method, $params);
+                        
 					}
 				} else {
 					//Shineisp_Commons_Utilities::log((string)$cron->script . " not executed", 'cron.log');
@@ -76,7 +94,39 @@ class System_CronController extends Zend_Controller_Action {
 		}
 
 		Shineisp_Commons_Utilities::log("ShineISP Cron ended", 'cron.log');
-			
+	}	
+		
+	/**
+	*  Execute the custom cron class
+	*/
+	private function execScript($class, $method, $params){
+	
+	    try{
+            // Check if the class exists
+            if(class_exists($class)){
+            
+                // Check if the method exists
+                if(method_exists($class, $method)){
+
+                    // Check the class
+                    $theclass  = new ReflectionClass($class);
+                    $themethod = $theclass->getMethod($method);
+                    $isStatic  = $themethod->isStatic();
+                
+                    Shineisp_Commons_Utilities::log("$class::$method", 'cron.log');
+                
+                    // Check if the method is static
+                    if($isStatic){
+                        call_user_func("$class::$method", $params);
+                    }else{
+                        $obj = new $class();
+                        call_user_func(array($obj, $method), $params);
+                    }
+                }
+            }
+        }catch(Exception $e){
+            Shineisp_Commons_Utilities::log(__METHOD__ . " " . $e->getMessage(), 'cron.log');
+        }
 	}
 	
 	/**
