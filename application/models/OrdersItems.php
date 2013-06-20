@@ -547,6 +547,7 @@ class OrdersItems extends BaseOrdersItems {
 						->leftJoin ( 'oi.OrdersItemsDomains oid' )
 						->leftJoin ( 'oid.Domains d' )
 						->leftJoin ( 'd.DomainsTlds dt' )
+
 						->leftJoin ( 'dt.WhoisServers ws' )
 						->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 						->where ( "pag.isrecurring = ?", 1)
@@ -1146,6 +1147,7 @@ class OrdersItems extends BaseOrdersItems {
 			
 			$parameters = json_decode($OrderItem['parameters']);	
 				
+
 			if ( empty($parameters->domain) ) {
 				Shineisp_Commons_Utilities::logs (  __METHOD__ . " Domain has been not set in the order detail #$orderItemId" );	
 				return false;

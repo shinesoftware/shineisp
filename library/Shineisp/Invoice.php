@@ -1,10 +1,9 @@
 <?php
 /**
  * ShineISP Invoices
- * @author GUEST.it s.r.l. <assistenza@guest.it>
  *
  */
-class Shineisp_InvoiceView extends Zend_View {
+class Shineisp_Invoice extends Zend_View {
 	public function __construct($config = array()) {
 		parent::__construct($config);
 

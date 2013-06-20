@@ -68,6 +68,11 @@ class Statuses extends BaseStatuses {
 	 * @param string $section
 	 */
 	public static function id($status, $section="generic") {
+	    $statuses = Shineisp_Registry::get('Status');
+	    if(empty($statuses)){
+	        Shineisp_Registry::set('Status', self::getAll());
+	    }
+	     
 		if(!empty($status))
 			$status = strtolower($status);
 			$section = strtolower($section);

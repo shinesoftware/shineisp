@@ -1,0 +1,407 @@
+<style>
+<!--
+	body {
+		margin:20px;
+		padding:0px;
+		font-family:arial;
+		color:#000;
+		background:#fff;
+	}
+	
+	table {
+		width:100%;
+	}
+	
+	.company-name {
+		font-size:22px;
+		width:80%;
+		border-bottom:1px solid #000;
+		padding-bottom:4px;
+	}
+	
+	.company-payoff {
+		font-size:11px;
+		font-style:italic;
+		width:20%;
+		text-align:right;
+		border-bottom:1px solid #000;
+		padding-bottom:4px;
+	}
+	
+	.red {
+		color:#ee4f4f;
+		margin:0px;
+		text-align:right;
+		padding-top:4px;
+		font-size:22px;
+	}
+	
+	.yellow {
+		color:#ffc600;
+		margin:0px;
+		text-align:right;
+		padding-top:4px;
+		font-size:22px;
+	}
+	
+	.green {
+		color:#049900;
+		margin:0px;
+		text-align:right;
+		padding-top:4px;
+		font-size:22px;
+	}
+	
+	.grey {
+		color:#555555;
+		margin:0px;
+		text-align:right;
+		padding-top:4px;
+		font-size:22px;
+	}
+	
+	.status {
+		margin:0px;
+		text-align:right;
+		padding-top:4px;
+		font-size:22px;
+	}
+	
+	.company-data {
+		padding-top:4px;
+		font-size:11px;
+		font-style:italic;
+		text-align:left;
+	}
+	
+	.company-data-footer {
+		padding-top:4px;
+		font-size:7px;
+		font-style:italic;
+		text-align:left;
+		color:#aaaaaa;
+	}
+	
+	.invoice-number {
+		margin:40px 0px 30px;
+		padding:0px;
+		font-size:13px;
+		font-weight:bold;
+		text-align:right;
+	}
+	
+	.receiver, .destination {
+		margin:0px 0px 4px 0px;
+		padding:0px;
+		font-weight:bold;
+		font-size:14px;
+	}
+	
+	.bordered {
+		border:1px solid #ccc;
+	}
+	
+	.bordered p {
+		margin:0px 20px 0px 0px;
+		padding:10px;
+		font-size:11px;
+	}
+	
+	th {
+		font-size:11px;
+		border-bottom:1px solid #000;
+		white-space:nowrap;
+		padding:0px 6px;
+	}
+	
+	.items td {
+		text-align:center;
+		padding:8px 6px;
+		font-size:11px;
+		border-bottom:1px solid #ccc;
+		white-space:nowrap;
+	}
+	
+	.items td.left {
+		text-align:left;
+	}
+	
+	.details {
+		border-collapse:collapse;
+		width:80%;
+	}
+	
+	.details td {
+		font-size:11px;
+		padding:2px 4px;
+		border:1px solid #000;
+		width:20%;
+	}
+	
+	.details td .detail {
+		font-size:9px;
+	}
+	
+	.line {
+		width:100%;
+		height:1px;
+		border-bottom:1px solid #000;
+		margin:5px 0px;
+	}
+	
+	.additionaldata {
+		border-collapse:collapse;
+		width:100%;
+	}
+	
+	.additionaldata td {
+		font-size:10px;
+		padding:2px 4px 14px;
+		border-right:1px solid #000;
+		border-bottom:1px solid #000;
+	}
+
+	.paymentsdata td {
+		font-size:10px;
+		padding:3px 4px;
+		border-right:1px solid #000;
+		border-bottom:n;
+	}
+
+	
+	.additionaldata .half {
+		width:50%;
+	}
+	
+	.additionaldata .quarter {
+		width:25%;
+	}
+	
+	.additionaldata .fifth {
+		width:20%;
+	}
+	
+	.additionaldata td .label {
+		font-size:8px;
+		text-transform:uppercase;
+		font-weight: bold;
+	}
+	
+	.additionaldata .rightcell {
+		border-right:0px;
+	}
+	
+	.invoiceamount {
+		background-color: #f4f4f4;
+		font-size: 5mm;
+		text-align:right;
+	}
+	
+	.rightalign {
+		text-align:right;
+	}
+	
+	.fullname{
+		font-weight: bold;
+		font-size: 3.5mm;
+	}
+
+	<?php foreach ( $this->columns as $column ): ?>
+		.items_col_<?php echo $column['key']?> { width:<?php echo $column['size']?>mm; text-align:<?php echo isset($column['align'])?$column['align']:'left'?>;}	
+	<?php endforeach; ?>	
+
+-->			
+</style>
+<?php $bottomHeight = 90+(($this->data['totalPayments'])-1)*4;?>
+<page backtop="93mm" backbottom="<?php echo $bottomHeight?>mm">
+	<page_header>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td valign="bottom" class="company-name"><?php echo $this->data['company']['name']?></td>
+				<td valign="bottom" class="company-payoff"><?php echo $this->data['company']['slogan']?></td>
+			</tr>
+			<tr>
+				<td valign="top" class="company-data"><?php echo $this->translator->translate('Site Web')?>: <?php echo $this->data['company'] ['website']?> - <?php echo $this->translator->translate('eMail')?>: <?php echo $this->data['company'] ['email']?> - <?php echo $this->translator->translate('Telephone')?>: <?php echo $this->data['company']['telephone']?> - <?php echo $this->translator->translate('fax')?>: <?php echo $this->data['company']['fax']?><br />
+				<?php echo $this->translator->translate('Address')?>: <?php echo $this->data['company']['address']?> - <?php echo $this->data['company']['zip']?> <?php echo $this->data['company']['city']?> - <?php echo $this->data['company']['country']?><br />
+				<?php echo $this->translator->translate('VAT Number')?>: <?php echo $this->data['company']['vat']?></td>
+				<td valign="top"><p class="status" style="color:<?php echo $this->data['ribbon']['color']?>"><?php echo $this->translator->translate($this->data['ribbon']['text'])?></p></td>				
+			</tr>
+		</table>
+		<p class="invoice-number">
+			<?php echo $this->translator->translate('Invoice No.')?> <?php echo $this->data['invoice_number']?> - <?php echo $this->data['date']?><br/><br/>
+			<?php if ( $this->data['skip_barcode'] != 1 ): ?>
+				<barcode type="C39E" value="<?php echo $this->data['barcode']?>" label="label" style="width:30mm; height:4mm; color: grey; font-size: 2mm"></barcode>
+			<?php endif; ?>
+		</p>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Addressee' )?></p></td>
+				<td style="width:2%"></td>
+				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Destination' )?></p></td>
+			</tr>
+			<tr>
+				<td valign="top" class="bordered">
+					<p><span class="fullname"><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></span>
+					<br/>
+					<?php echo $this->data['customer']['address']?><br />
+					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
+					<?php echo $this->data['customer']['country']?><br /><br />
+					<?php echo $this->translator->translate('VAT Number')?> : <?php echo $this->data['customer']['vat']?><br />
+					<?php echo $this->translator->translate('Tax payer number')?>: <?php echo $this->data['customer']['taxpayernumber']?>
+					<br /><br />
+					</p>
+				</td>
+				<td></td>
+				<td valign="top" class="bordered">
+					<p><span class="fullname"><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></span><br />
+					<?php echo $this->data['customer']['address']?><br />
+					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
+					<?php echo $this->data['customer']['country']?><br /><br />
+					</p>
+				</td>
+			</tr>
+		</table>
+		<br/>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<?php foreach ( $this->columns as $column ): ?>
+					<th class='items_col_<?php echo $column['key']?>'><?php echo $column['value']?></th>	
+				<?php endforeach; ?>
+			</tr>
+		</table>
+	</page_header>
+	<page_footer>
+		<table align="center" cellpadding="0" cellspacing="0" class="details">
+			<tr>
+				<td valign="top">
+					<span class="detail"><?php echo $this->translator->translate ( "Order Number" )?></span><br />
+					<?php echo $this->data['order_number']?>
+				</td>
+				<td valign="top">
+					<span class="detail"><?php echo $this->translator->translate ( "Payment Date" )?></span><br />
+					<?php echo $this->data['payment_date']?>
+				</td>
+				<td valign="top" class='rightalign'>
+					<span class="detail">Imponibile</span><br />
+					<?php echo $this->data['subtotal']?>
+				</td>
+				<td valign="top" class='rightalign'>
+					<span class="detail">Totale IVA</span><br />
+					<?php echo $this->data['vat']?>
+				</td>
+				<td valign="top" class='rightalign'>
+					<span class="detail">Totale Complessivo</span><br />
+					<?php echo $this->data['grandtotal']?>
+				</td>
+			</tr>
+		</table>
+		<div class="line"></div>
+		<table cellpadding="0" cellspacing="0" class="additionaldata">
+			<tr>
+				<td class="half" valign="top">
+					<span class="label"><?php echo $this->translator->translate ( "Bank Name" )?></span><br />
+					<?php echo $this->data['company']['bankname']?>
+				</td>
+				<td class="quarter" valign="top">
+					<span class="label"><?php echo $this->translator->translate ( "IBAN" )?></span><br />
+					<?php echo $this->data['company']['iban']?>
+				</td>
+				<td class="rightcell quarter">
+					<span class="label"><?php echo $this->translator->translate ( "BIC" )?></span><br />
+					<?php echo $this->data['company']['bic']?>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<span class="label"><?php echo $this->translator->translate ( "Company Name" )?></span><br />
+					<?php echo $this->data['company']['name']?>
+				</td>
+				<td style="border-right:0px;" valign="top" rowspan="2">
+					<span class="label"><?php echo $this->translator->translate ( "Payment mode" )?></span><br />
+					<?php echo $this->data['payment_mode']?><br /><br />
+					<span class="label"><?php echo $this->translator->translate ( "Payment note" )?></span><br />
+					<?php echo $this->data['payment_description']?>
+				</td>
+				<td class="rightcell" valign="top" rowspan="2">
+					<?php if ( !empty($this->data['qrcode_url']) ): ?>
+						<qrcode value="<?php echo $this->data['qrcode_url']?>" ec="H" style="width: 22mm; background-color: white; color: black; border: none"></qrcode>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" style="border-bottom:0px;">
+					<span class="label"><?php echo $this->translator->translate ( "Customer Information" )?></span>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?>
+					<?php echo $this->data['customer']['address']?><br />
+					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
+					<?php echo $this->data['customer']['country']?>
+				</td>
+				<td valign="top">
+					<span class="label"><?php echo $this->translator->translate ( "Order Number" )?></span><br />
+					<?php echo $this->data['order_number']?>
+				</td>
+				<td valign="top" class="rightcell">
+					<span class="label"><?php echo $this->translator->translate ( "Invoice Number" )?></span><br />
+					<?php echo $this->data['invoice_number']?>
+				</td>
+			</tr>
+		</table>
+		<table cellpadding="0" cellspacing="0" class="additionaldata paymentsdata">
+				<tr>
+					<td valign="top" class="rightcell fifth">
+						<span class="label"><?php echo $this->translator->translate ( "Transaction ID" )?></span><br />
+					</td>
+					<td valign="top" class="rightcell fifth rightalign">
+						<span class="label"><?php echo $this->translator->translate ( "Payment amount" )?></span><br />
+					</td>
+					<td valign="top" class="rightcell fifth">
+						<span class="label"><?php echo $this->translator->translate ( "Payment mode" )?></span><br />
+					</td>
+					<td valign="top" class="fifth">
+						<span class="label"><?php echo $this->translator->translate ( "Payment Date" )?></span><br />
+					</td>
+					<td valign="bottom" class="rightcell fifth invoiceamount" rowspan="<?php echo $this->data['totalPayments']+1?>">
+						<span class="label"><?php echo Settings::findbyParam('currency')?></span><br />
+						<?php echo $this->data['grandtotal']?>
+					</td>
+				</tr>
+				<?php foreach ( $this->data['payments'] as $payment ): ?>
+					<tr style='border:0px'>
+						<td valign="top" class="rightcell fifth">
+							<?php echo $payment ['reference']?>
+						</td>
+						<td valign="top" class="rightcell fifth rightalign">
+							<?php echo $payment ['income']?>
+						</td>
+						<td valign="top" class="rightcell fifth">
+							<?php echo $payment['Banks']['name']?>
+						</td>
+						<td valign="top" class="fifth">
+							<?php echo $payment ['paymentdate']?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			<tr>
+				<td valign="top" class="company-data-footer" style="padding-top:8px;border:0px;" colspan='4'>
+					<?php echo $this->data['company']['name']?> - <?php echo $this->translator->translate('Site Web')?>: <?php echo $this->data['company'] ['website']?> - <?php echo $this->translator->translate('eMail')?>: <?php echo $this->data['company'] ['email']?> - <?php echo $this->translator->translate('Telephone')?>: <?php echo $this->data['company']['telephone']?> - <?php echo $this->translator->translate('fax')?>: <?php echo $this->data['company']['fax']?><br />
+					<?php echo $this->translator->translate('Address')?>: <?php echo $this->data['company']['address']?> - <?php echo $this->data['company']['zip']?> <?php echo $this->data['company']['city']?> - <?php echo $this->data['company']['country']?> - <?php echo $this->translator->translate('VAT Number')?>: <?php echo $this->data['company']['vat']?>
+				</td>
+				<td style="padding-top:8px;border:0px; text-align:right"><?php echo $this->translator->translate('Page')?> [[page_cu]]/[[page_nb]]</td>				
+			</tr>
+		</table>
+	</page_footer>
+</page>
+<table cellpadding="0" cellspacing="0">
+	<?php foreach ( $this->data['items'] as $item ): ?>
+		<tr class="items">
+			<?php foreach ( $item as $col_id => $columnValue ): ?>
+				<?php $colKey = 'items_col_'.$this->columns[$col_id]['key']?>
+				<td class="<?php echo $colKey?>"><?php echo $columnValue?></td>
+			<?php endforeach; ?>
+		</tr>
+	<?php endforeach; ?>
+</table>

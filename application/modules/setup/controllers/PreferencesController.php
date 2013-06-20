@@ -1,6 +1,6 @@
 <?php
 
-class Setup_PreferencesController extends Shineisp_Controller_Default {
+class Setup_PreferencesController extends Zend_Controller_Action {
 	
 	/**
 	 * Load all the resources

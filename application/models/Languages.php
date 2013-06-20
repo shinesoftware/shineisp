@@ -224,6 +224,7 @@ class Languages extends BaseLanguages {
 
 		// Get all the language files
 		$files = Shineisp_Commons_Utilities::getDirectoryList($path);
+		
 		foreach ($files as $file){
 			
 			// Get the name and the extension
@@ -242,8 +243,9 @@ class Languages extends BaseLanguages {
 				// Check if the territories array is full of data
 				if(!empty($territories) && is_array($territories)){
 					// Get the name of the territory using only the two letter, for ex: US in order to get United States 
-					$locales[$name] = $territories[$name];
+					$locales[$name] = ucfirst($territories[$name]);
 				}
+				
 			}
 		}
 		

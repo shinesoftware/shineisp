@@ -26,4 +26,18 @@ class Shineisp_Controller_Admin extends Shineisp_Controller_Common {
 
 		parent::init();
     }	
+    
+    public function postDispatch(){
+    	$controller_name = $this->getRequest()->getControllerName();
+    	$controller_action = $this->getRequest()->getActionName();
+    	
+    	$controller_name = ucwords($controller_name);
+    	$controller_action = ucwords($controller_action);
+    	
+    	$controller_name = Shineisp_Registry::getInstance ()->Zend_Translate->translate($controller_name);
+    	$controller_action = Shineisp_Registry::getInstance ()->Zend_Translate->translate($controller_action);
+    	
+		$this->view->headTitle()->append($controller_name);    	
+		$this->view->headTitle()->append($controller_action);    	
+    }
 }
