@@ -3,6 +3,8 @@ if (isset($this->records[0])):
     // Get all the items inside a multidimensional array
     $items = Shineisp_Commons_Utilities::array_flatten($this->records[0]);
     
+	$columns = $this->columns;
+
     // Get all the fields
     $fields = array_keys($items);
     
@@ -16,25 +18,9 @@ if (isset($this->records[0])):
             <thead>
                 <tr>
                     <?php // Creation of the Rows and Columns?>
-                       <?php foreach ( $fields as $field ) : ?>
-                           
-                           <?php if(strpos($field, "_id")=== false):?>
-                                <th>
-                                  <?php
-                                  // When a record is called using the HYDRATE_SCALAR mode the table aliases are attached in the field name
-                                  // In this way we delete the first part of the field name. For instance: o_name --> name 
-                                  $arrfield = explode("_", $field);
-                                  if(isset($arrfield[1]) && $arrfield[1] == "id"){
-                                    $field = count($arrfield) > 0 ? $arrfield[count($arrfield)-1] : $field;	
-                                  }
-                                  
-                                  echo $this->translate($field)
-                                  ?>
-                                </th>
-                           <?php endif;?>
-                           
-                       <?php endforeach;?>
-                   
+                    <?php foreach ( $columns as $column ) : ?>
+                    	<th><?php echo $column; ?></th>
+                    <?php endforeach;?>
                     <?php if($this->edit || $this->delete || $this->actions ):?><th><?=$this->translate('Commands');?></th><?php endif;?>
                 </tr>
             </thead>
