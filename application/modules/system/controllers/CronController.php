@@ -27,6 +27,10 @@ class System_CronController extends Zend_Controller_Action {
 	    $email = $this->getRequest()->getParam('email');
 	    $password = $this->getRequest()->getParam('password');
 	    
+	    if(empty($email) || empty($password)){
+	        Shineisp_Commons_Utilities::log("Manual Start needs the administrator authentication", 'cron.log');
+	    }
+	    
 	    $result = AdminUser::fastlogin($email, $password, false);
 	   
 	    if(Zend_Auth_Result::SUCCESS == $result->getCode()){
