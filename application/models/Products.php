@@ -487,7 +487,10 @@ class Products extends BaseProducts {
 						$minvalue = $tranches[0]['price'];
 						$maxvalue = $tranches[1]['price'];
 						
-						return array ('type' => 'multiple', 'measurement' => $tranches[0]['measurement'], 'tranches' => $tranches, 'minvalue' => $minvalue, 'maxvalue' => $maxvalue, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => $maxvaluewithtaxes, 'discount' => $discount, 'taxes' => $tax );
+						$data = array ('type' => 'multiple', 'measurement' => $tranches[0]['measurement'], 'tranches' => $tranches, 'minvalue' => $minvalue, 'maxvalue' => $maxvalue, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => $maxvaluewithtaxes, 'discount' => $discount, 'taxes' => $tax );
+						
+						return $data;
+						
 					}else{
 						
 						// Taxes calculation
@@ -506,7 +509,9 @@ class Products extends BaseProducts {
 						
 						$price = $tranches['price'];
 
-						return array ('type' => 'multiple', 'measurement' => $tranches['measurement'], 'minvalue' => $price, 'maxvalue' => $price, 'taxes' => $tax, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => 0, 'discount' => 0);
+						$data = array ('type' => 'multiple', 'measurement' => $tranches['measurement'], 'minvalue' => $price, 'maxvalue' => $price, 'taxes' => $tax, 'minvaluewithtaxes' => $minvaluewithtaxes, 'maxvaluewithtaxes' => 0, 'discount' => 0);
+						
+						return $data;
 					}
 				}
 			}
