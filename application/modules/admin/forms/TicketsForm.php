@@ -85,10 +85,19 @@ class Admin_Form_TicketsForm extends Zend_Form
         // If the browser client is an Apple client hide the file upload html object
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        	 
-	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
-	        $Types = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
-	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
+	        $MBlimit = Settings::findbyParam('adminuploadlimit');
+	        $Types = Settings::findbyParam('adminuploadfiletypes');
 	        
+	        if(empty($MBlimit)){
+	        	$MBlimit = 1;
+	        }
+	        
+	        if(empty($Types)){
+	        	$Types = "zip,jpg";
+	        }
+	        
+	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
+	        	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => 'Attachment',
 	            'description'      => Shineisp_Registry::getInstance ()->Zend_Translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),

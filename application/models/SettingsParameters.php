@@ -190,7 +190,7 @@ class SettingsParameters extends BaseSettingsParameters {
      * @param $isp
      * @return Doctrine Record
      */
-    public static function loadParams($module="Default", $force=false) {
+    public static function loadParams($module="Default") {
 		$session = new Zend_Session_Namespace ( $module );
 		
 		$registry = Shineisp_Registry::get('ISP');
