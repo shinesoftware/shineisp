@@ -11,7 +11,7 @@
 class Admin_View_Helper_Menu extends Zend_View_Helper_Abstract{
 	
 	public $view;
-	private $translator;
+	private $translation;
 	private $menu = array();
 	
 	/**

@@ -224,7 +224,6 @@ class Tickets extends BaseTickets {
 	public static function setStatus($id, $status) {
 		if(is_numeric($id)){
 			$object = Doctrine::getTable ( 'Tickets' )
-			             ->leftJoin ( 't.Customers c' )
 			             ->find ( $id );
 			$object->status_id = $status;
 			$object->date_close = date ( 'Y-m-d H:i:s' );

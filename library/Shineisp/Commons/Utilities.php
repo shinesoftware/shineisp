@@ -872,7 +872,6 @@ class Shineisp_Commons_Utilities {
 			
 			// log the data
 			Shineisp_Commons_Utilities::log($e->getMessage ());
-			die($e->getMessage ());
 			return array ('email' => $to, 'message' => $e->getMessage () );
 		}
 		return false;
