@@ -1,0 +1,1 @@
+INSERT INTO `settings_parameters` (`parameter_id`, `name`, `description`, `var`, `type`, `module`, `enabled`, `group_id`, `config`) VALUES (NULL, 'Log Queries', 'Write a log file with all the queries executed.', 'debug_queries', 'checkbox', 'admin', '1', '10', NULL);

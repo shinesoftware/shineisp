@@ -63,8 +63,17 @@ class Default_Form_TicketsForm extends Zend_Form
                   
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
         	 
-        	$MBlimit = Settings::findbyParam('useruploadlimit', 'admin', Isp::getCurrentId());
-        	$Types = Settings::findbyParam('useruploadfiletypes', 'admin', Isp::getCurrentId());
+        	$MBlimit = Settings::findbyParam('useruploadlimit');
+        	$Types = Settings::findbyParam('useruploadfiletypes');
+        	
+        	if(empty($MBlimit)){
+        		$MBlimit = 1;
+        	}
+        	 
+        	if(empty($Types)){
+        		$Types = "zip,jpg";
+        	}
+        	
         	$Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 
 			$file = $this->createElement('file', 'attachments', array(

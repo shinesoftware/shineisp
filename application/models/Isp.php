@@ -116,19 +116,6 @@ class Isp extends BaseIsp {
 			$isp = self::getByURL($_SERVER['HTTP_HOST']);
 			return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1;
 		}
-		
-		/*
-		$logged_isp_id = self::getLogged();
-		
-		// Use logged_isp_id ONLY IF we are in admin. If someone is browsing through the public website, it should use isp_id associated with that website
-		if ( $logged_isp_id && Zend_Controller_Front::getInstance()->getRequest()->getModuleName() != 'default' ) {
-			return intval($logged_isp_id);
-		}
-
-		$isp = self::getByURL($_SERVER['HTTP_HOST']);
-
-		return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1; // TODO: set to 1 for older installation that doesn't have isp_id properly set. It should be 0.
-		*/
 	}
 	
 	/**
@@ -137,16 +124,18 @@ class Isp extends BaseIsp {
 	 * @return array
 	 */
 	public static function getCurrentISP() {
-		// TODO: this should be done better
-		return Shineisp_Registry::get('ISP')->toArray();
+		$isp = Shineisp_Registry::get('ISP');
+		if(empty($isp)){
+			$isp_id = self::getCurrentId();
+			$q   = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'isp_id = ? AND active = 1', $isp_id );
+			$retval = $q->execute (null, Doctrine::HYDRATE_ARRAY);
+			$isp = isset ( $retval [0] ) ? $retval [0] : array();
+		}else{
+			$isp = Shineisp_Registry::get('ISP')->toArray();
+		}
 		
-		/*
-		$isp_id = self::getCurrentId();
+		return $isp;
 		
-		$q   = Doctrine_Query::create ()->from ( 'Isp u' )->where ( 'isp_id = ? AND active = 1', $isp_id );
-		$isp = $q->execute (null, Doctrine::HYDRATE_ARRAY);
-		return isset ( $isp [0] ) ? $isp [0] : array();
-		*/
 	}
 	
 	/**
@@ -162,16 +151,6 @@ class Isp extends BaseIsp {
 		}
 
 		return !empty($panel_data['name']) ? $panel_data['name'] : null;
-		
-		/*
-		$isp = Doctrine_Query::create ()->select('isppanel')
-									  ->from ( 'Isp' )
-									  ->where ('isp_id = ?', $isp_id)
-									  ->andWhere ( 'active = ?', 1 )
-									  ->execute (null, Doctrine::HYDRATE_ARRAY);
-
-		return isset ( $isp [0]['isppanel'] ) ? $isp [0]['isppanel'] : null;
-		*/
 	}
 	
 	/**

@@ -369,6 +369,7 @@ class Orders extends BaseOrders {
 	public static function saveAll($params, $id="") {
 		$orders     = new Orders();
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$currentStatus = "";
 		
 		try{
 			// Set the new values
