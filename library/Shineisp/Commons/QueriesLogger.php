@@ -5,7 +5,7 @@ class Shineisp_Commons_QueriesLogger extends Doctrine_EventListener {
     public function preStmtExecute(Doctrine_Event $event)
     {   
     	// Check if the administrator has enabled the query logging feature
-    	if (settings::findbyParam('debug_queries')){
+    	if (Settings::findbyParam('debug_queries')){
 	    	$breadcrumps = array();
 	        $query  = $event->getQuery();
 	        $params = $event->getParams();
