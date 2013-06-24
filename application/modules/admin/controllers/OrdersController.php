@@ -151,6 +151,29 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
+	 * Delete a status history
+	 */
+	public function deletestatushistoryAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		try {
+			if (is_numeric ( $id )) {
+				$record = StatusHistory::getAllInfo($id);
+
+				// get the order information before to delete the status history
+				if($record){
+					$statusHistory = $record->toArray();
+					$record->delete();
+					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $statusHistory[0]['section_id'], 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+				}
+			}
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () . " " . $e->getTraceAsString () );
+		}
+		
+		$this->_helper->redirector ( 'index', 'orders' );
+	}
+	
+	/**
 	 * getproducts
 	 * Get products using the categories
 	 * @return Json
@@ -290,7 +313,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		}
 		
 		// Get Order status history
-		$this->view->statushistory = StatusHistory::getStatusList($id);
+		$status = StatusHistory::getStatusList($id);
 		
 		$this->view->customer          = array ('records' => $customer, 'editpage' => 'customers' );
 		$this->view->ordersdatagrid    = $this->orderdetailGrid ();
@@ -444,8 +467,10 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = StatusHistory::getAll($request->id, "orders");
+			$columns[] = $this->translator->translate('Date');
+			$columns[] = $this->translator->translate('Status');
 			if (isset ( $rs [0] )) {
-				return array ('name' => 'orders_statusHistoryGrid', 'records' => $rs);
+				return array ('name' => 'orders_statusHistoryGrid', 'columns'=>$columns, 'records' => $rs, 'delete' => array ('controller' => 'orders', 'action' => 'deletestatushistory' ) ); 
 			}
 		}
 	}
