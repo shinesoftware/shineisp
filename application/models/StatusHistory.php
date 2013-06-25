@@ -32,6 +32,37 @@ class StatusHistory extends BaseStatusHistory
 		
 		return true;
 	}
+
+	/**
+	 * Get all data by Id
+	 * @param $id
+	 * @return Doctrine Record / Array
+	 */
+	public static function getAllInfo($id, $fields = "*", $retarray = false) {
+	
+		try {
+			$dq = Doctrine_Query::create ()->select ( $fields )
+			->from ( 'StatusHistory sh' )
+			->where ( "history_id = ?", $id )
+			->limit ( 1 );
+	
+			$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
+			$item = $dq->execute ( array (), $retarray );
+	
+			return $item;
+		} catch (Exception $e) {
+			die ( $e->getMessage () );
+		}
+	}
+
+	/**
+	 * Get a record by ID
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function find($id) {
+		return Doctrine::getTable ( 'StatusHistory' )->find ( $id );
+	}
 	
 	
 	/**

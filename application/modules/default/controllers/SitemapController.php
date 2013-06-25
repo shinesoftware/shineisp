@@ -7,7 +7,8 @@ class SitemapController extends Shineisp_Controller_Default {
 	 * Create the sitemap for google
 	 */
 	public function indexAction() {
-		$pages = CmsPages::getpages('it_IT');
+		$session = new Zend_Session_Namespace ( 'Default' );
+		$pages = CmsPages::getpages($session->locale);
 
 		// add the homepage
 		$cats [] = array ("loc" => "http://" . $_SERVER ['HTTP_HOST'], "changefreq" => "weekly" );

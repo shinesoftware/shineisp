@@ -181,58 +181,64 @@
 		text-align:right;
 	}
 	
+	.invoiceno {
+		color: #666666;
+		font-size: 12px;
+	}
+	
 	.rightalign {
 		text-align:right;
 	}
 	
 
 	<?php foreach ( $this->columns as $column ): ?>
-		.items_col_<?=$column['key']?> { width:<?=$column['size']?>mm; text-align:<?=isset($column['align'])?$column['align']:'left'?>;}	
+		.items_col_<?php echo $column['key']?> { width:<?php echo $column['size']?>mm; text-align:<?php echo isset($column['align'])?$column['align']:'left'?>;}	
 	<?php endforeach; ?>	
 
 -->			
 </style>
 <?php $bottomHeight = 90+(($this->data['totalPayments'])-1)*4;?>
-<page backtop="93mm" backbottom="<?=$bottomHeight?>mm">
+<page backtop="98mm" backbottom="<?php echo $bottomHeight?>mm">
 	<page_header>
 		<table cellpadding="0" cellspacing="0">
 			<tr>
-				<td valign="bottom" class="company-name"><?=$this->data['company']['name']?></td>
-				<td valign="bottom" class="company-payoff"><?=$this->data['company']['slogan']?></td>
+				<td valign="bottom" class="company-name"><?php echo $this->data['company']['name']?></td>
+				<td valign="bottom" class="company-payoff"><?php echo $this->data['company']['slogan']?></td>
 			</tr>
 			<tr>
-				<td valign="top" class="company-data"><?=$this->translator->translate('Site Web')?>: <?=$this->data['company'] ['website']?> - <?=$this->translator->translate('eMail')?>: <?=$this->data['company'] ['email']?> - <?=$this->translator->translate('Telephone')?>: <?=$this->data['company']['telephone']?> - <?=$this->translator->translate('fax')?>: <?=$this->data['company']['fax']?><br />
-				<?=$this->translator->translate('Address')?>: <?=$this->data['company']['address']?> - <?=$this->data['company']['zip']?> <?=$this->data['company']['city']?> - <?=$this->data['company']['country']?><br />
-				<?=$this->translator->translate('VAT Number')?>: <?=$this->data['company']['vat']?></td>
-				<td valign="top"><p class="grey"><?=$this->translator->translate($this->data['ribbon']['text'])?></p></td>				
+				<td valign="top" class="company-data"><?php echo $this->translator->translate('Site Web')?>: <?php echo $this->data['company'] ['website']?> - <?php echo $this->translator->translate('eMail')?>: <?php echo $this->data['company'] ['email']?> - <?php echo $this->translator->translate('Telephone')?>: <?php echo $this->data['company']['telephone']?> - <?php echo $this->translator->translate('fax')?>: <?php echo $this->data['company']['fax']?><br />
+				<?php echo $this->translator->translate('Address')?>: <?php echo $this->data['company']['address']?> - <?php echo $this->data['company']['zip']?> <?php echo $this->data['company']['city']?> - <?php echo $this->data['company']['country']?><br />
+				<?php echo $this->translator->translate('VAT Number')?>: <?php echo $this->data['company']['vat']?></td>
+				<td valign="top"><p class="grey"><?php echo $this->translator->translate($this->data['ribbon']['text'])?></p></td>				
 			</tr>
 		</table>
 		<p class="invoice-number">
-			<?=$this->translator->translate( 'Invoice Number' )?> <?=$this->data['invoice_number']?> - <?=$this->translator->translate ( 'dated' )?> <?=$this->data['date']?><br/>
+			<span class="invoiceno"><?php echo $this->translator->translate( 'Invoice Number' )?></span> <br/>
+			<?php echo $this->data['formatted_number']?> - <?php echo $this->data['date']?><br/>
 			<?php if ( $this->data['skip_barcode'] != 1 ): ?>
-				<barcode type="C39E" value="<?=$this->data['barcode']?>" label="label" style="width:60mm; height:6mm; color: black; font-size: 2mm"></barcode>
+				<barcode type="C39E" value="<?php echo $this->data['barcode']?>" label="label" style="width:60mm; height:6mm; color: black; font-size: 2mm"></barcode>
 			<?php endif; ?>
 		</p>
 		<table cellpadding="0" cellspacing="0">
 			<tr>
-				<td style="width:49%"><p class="receiver"><?=$this->translator->translate ( 'Destination' )?></p></td>
+				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Destination' )?></p></td>
 				<td style="width:2%"></td>
-				<td style="width:49%"><p class="receiver"><?=$this->translator->translate ( 'Addressee' )?></p></td>
+				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Addressee' )?></p></td>
 			</tr>
 			<tr>
 				<td valign="top" class="bordered">
-					<p><strong><?=!empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></strong><br />
-					<?=$this->data['customer']['address']?><br />
-					<?=$this->data['customer']['code']?> <?=$this->data['customer']['city']?><br />
-					<?=$this->data['customer']['country']?><br /><br /><br /><br /><br />
+					<p><strong><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></strong><br />
+					<?php echo $this->data['customer']['address']?><br />
+					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
+					<?php echo $this->data['customer']['country']?><br /><br /><br /><br /><br />
 					</p>
 				</td>
 				<td></td>
 				<td valign="top" class="bordered">
-					<p><strong><?=!empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></strong><br />
-					<?=$this->data['customer']['address']?><br />
-					<?=$this->data['customer']['code']?> <?=$this->data['customer']['city']?><br />
-					<?=$this->data['customer']['country']?><br /><br />
+					<p><strong><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></strong><br />
+					<?php echo $this->data['customer']['address']?><br />
+					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
+					<?php echo $this->data['customer']['country']?><br /><br />
 					</p>
 				</td>
 			</tr>
@@ -241,7 +247,7 @@
 		<table cellpadding="0" cellspacing="0">
 			<tr>
 				<?php foreach ( $this->columns as $column ): ?>
-					<th class='items_col_<?=$column['key']?>'><?=$column['value']?></th>	
+					<th class='items_col_<?php echo $column['key']?>'><?php echo $column['value']?></th>	
 				<?php endforeach; ?>
 			</tr>
 		</table>
@@ -250,24 +256,24 @@
 		<table align="center" cellpadding="0" cellspacing="0" class="details">
 			<tr>
 				<td valign="top">
-					<span class="detail"><?=$this->translator->translate ( "Order Number" )?></span><br />
-					<?=$this->data['order_number']?>
+					<span class="detail"><?php echo $this->translator->translate ( "Order Number" )?></span><br />
+					<?php echo $this->data['order_number']?>
 				</td>
 				<td valign="top">
-					<span class="detail"><?=$this->translator->translate ( "Payment Date" )?></span><br />
-					<?=$this->data['payment_date']?>
+					<span class="detail"><?php echo $this->translator->translate ( "Payment Date" )?></span><br />
+					<?php echo $this->data['payment_date']?>
 				</td>
 				<td valign="top" class='rightalign'>
 					<span class="detail">Imponibile</span><br />
-					<?=$this->data['subtotal']?>
+					<?php echo $this->data['subtotal']?>
 				</td>
 				<td valign="top" class='rightalign'>
 					<span class="detail">Totale IVA</span><br />
-					<?=$this->data['vat']?>
+					<?php echo $this->data['vat']?>
 				</td>
 				<td valign="top" class='rightalign'>
 					<span class="detail">Totale Complessivo</span><br />
-					<?=$this->data['grandtotal']?>
+					<?php echo $this->data['grandtotal']?>
 				</td>
 			</tr>
 		</table>
@@ -275,98 +281,98 @@
 		<table cellpadding="0" cellspacing="0" class="additionaldata">
 			<tr>
 				<td class="half" valign="top">
-					<span class="label"><?=$this->translator->translate ( "Bank Name" )?></span><br />
-					<?=$this->data['company']['bankname']?>
+					<span class="label"><?php echo $this->translator->translate ( "Bank Name" )?></span><br />
+					<?php echo $this->data['company']['bankname']?>
 				</td>
 				<td class="quarter" valign="top">
-					<span class="label"><?=$this->translator->translate ( "IBAN" )?></span><br />
-					<?=$this->data['company']['iban']?>
+					<span class="label"><?php echo $this->translator->translate ( "IBAN" )?></span><br />
+					<?php echo $this->data['company']['iban']?>
 				</td>
 				<td class="rightcell quarter">
-					<span class="label"><?=$this->translator->translate ( "BIC" )?></span><br />
-					<?=$this->data['company']['bic']?>
+					<span class="label"><?php echo $this->translator->translate ( "BIC" )?></span><br />
+					<?php echo $this->data['company']['bic']?>
 				</td>
 			</tr>
 			<tr>
 				<td valign="top">
-					<span class="label"><?=$this->translator->translate ( "Company Name" )?></span><br />
-					<?=$this->data['company']['name']?>
+					<span class="label"><?php echo $this->translator->translate ( "Company Name" )?></span><br />
+					<?php echo $this->data['company']['name']?>
 				</td>
 				<td style="border-right:0px;" valign="top" rowspan="2">
-					<span class="label"><?=$this->translator->translate ( "Payment mode" )?></span><br />
-					<?=$this->data['payment_mode']?><br /><br />
-					<span class="label"><?=$this->translator->translate ( "Payment note" )?></span><br />
-					<?=$this->data['payment_description']?>
+					<span class="label"><?php echo $this->translator->translate ( "Payment mode" )?></span><br />
+					<?php echo $this->data['payment_mode']?><br /><br />
+					<span class="label"><?php echo $this->translator->translate ( "Payment note" )?></span><br />
+					<?php echo $this->data['payment_description']?>
 				</td>
 				<td class="rightcell" valign="top" rowspan="2">
 					<?php if ( !empty($this->data['qrcode_url']) ): ?>
-						<qrcode value="<?=$this->data['qrcode_url']?>" ec="H" style="width: 22mm; background-color: white; color: black; border: none"></qrcode>
+						<qrcode value="<?php echo $this->data['qrcode_url']?>" ec="H" style="width: 22mm; background-color: white; color: black; border: none"></qrcode>
 					<?php endif; ?>
 				</td>
 			</tr>
 			<tr>
 				<td valign="top" style="border-bottom:0px;">
-					<span class="label"><?=$this->translator->translate ( "Customer Information" )?></span>
+					<span class="label"><?php echo $this->translator->translate ( "Customer Information" )?></span>
 				</td>
 			</tr>
 			<tr>
 				<td valign="top">
-					<?=!empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?>
-					<?=$this->data['customer']['address']?><br />
-					<?=$this->data['customer']['code']?> <?=$this->data['customer']['city']?><br />
-					<?=$this->data['customer']['country']?>
+					<?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?>
+					<?php echo $this->data['customer']['address']?><br />
+					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
+					<?php echo $this->data['customer']['country']?>
 				</td>
 				<td valign="top">
-					<span class="label"><?=$this->translator->translate ( "Order Number" )?></span><br />
-					<?=$this->data['order_number']?>
+					<span class="label"><?php echo $this->translator->translate ( "Order Number" )?></span><br />
+					<?php echo $this->data['order_number']?>
 				</td>
 				<td valign="top" class="rightcell">
-					<span class="label"><?=$this->translator->translate ( "Invoice Number" )?></span><br />
-					<?=$this->data['invoice_number']?>
+					<span class="label"><?php echo $this->translator->translate ( "Invoice Number" )?></span><br />
+					<?php echo $this->data['formatted_number']?>
 				</td>
 			</tr>
 		</table>
 		<table cellpadding="0" cellspacing="0" class="additionaldata paymentsdata">
 				<tr>
 					<td valign="top" class="rightcell fifth">
-						<span class="label"><?=$this->translator->translate ( "Transaction ID" )?></span><br />
+						<span class="label"><?php echo $this->translator->translate ( "Transaction ID" )?></span><br />
 					</td>
 					<td valign="top" class="rightcell fifth rightalign">
-						<span class="label"><?=$this->translator->translate ( "Payment amount" )?></span><br />
+						<span class="label"><?php echo $this->translator->translate ( "Payment amount" )?></span><br />
 					</td>
 					<td valign="top" class="rightcell fifth">
-						<span class="label"><?=$this->translator->translate ( "Payment mode" )?></span><br />
+						<span class="label"><?php echo $this->translator->translate ( "Payment mode" )?></span><br />
 					</td>
 					<td valign="top" class="fifth">
-						<span class="label"><?=$this->translator->translate ( "Payment Date" )?></span><br />
+						<span class="label"><?php echo $this->translator->translate ( "Payment Date" )?></span><br />
 					</td>
-					<td valign="bottom" class="rightcell fifth invoiceamount" rowspan="<?=$this->data['totalPayments']+1?>">
-						<span class="label"><?=Settings::findbyParam('currency')?></span><br />
-						<?=$this->data['grandtotal']?>
+					<td valign="bottom" class="rightcell fifth invoiceamount" rowspan="<?php echo $this->data['totalPayments']+1?>">
+						<span class="label"><?php echo Settings::findbyParam('currency')?></span><br />
+						<?php echo $this->data['grandtotal']?>
 					</td>
 				</tr>
 				<?php foreach ( $this->data['payments'] as $payment ): ?>
 					<tr style='border:0px'>
 						<td valign="top" class="rightcell fifth">
-							<?=$payment ['reference']?>
+							<?php echo $payment ['reference']?>
 						</td>
 						<td valign="top" class="rightcell fifth rightalign">
-							<?=$payment ['income']?>
+							<?php echo $payment ['income']?>
 						</td>
 						<td valign="top" class="rightcell fifth">
-							<?=$payment['Banks']['name']?>
+							<?php echo $payment['Banks']['name']?>
 						</td>
 						<td valign="top" class="fifth">
-							<?=$payment ['paymentdate']?>
+							<?php echo $payment ['paymentdate']?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 			<tr>
 				<td valign="top" class="company-data" style="padding-top:8px;border:0px;" colspan='4'>
-					<?=$this->data['company']['name']?> - <?=$this->translator->translate('Site Web')?>: <?=$this->data['company'] ['website']?> - <?=$this->translator->translate('eMail')?>: <?=$this->data['company'] ['email']?> - <?=$this->translator->translate('Telephone')?>: <?=$this->data['company']['telephone']?> - <?=$this->translator->translate('fax')?>: <?=$this->data['company']['fax']?><br />
-					<?=$this->translator->translate('Address')?>: <?=$this->data['company']['address']?> - <?=$this->data['company']['zip']?> <?=$this->data['company']['city']?> - <?=$this->data['company']['country']?> - <?=$this->translator->translate('VAT Number')?>: <?=$this->data['company']['vat']?>
+					<?php echo $this->data['company']['name']?> - <?php echo $this->translator->translate('Site Web')?>: <?php echo $this->data['company'] ['website']?> - <?php echo $this->translator->translate('eMail')?>: <?php echo $this->data['company'] ['email']?> - <?php echo $this->translator->translate('Telephone')?>: <?php echo $this->data['company']['telephone']?> - <?php echo $this->translator->translate('fax')?>: <?php echo $this->data['company']['fax']?><br />
+					<?php echo $this->translator->translate('Address')?>: <?php echo $this->data['company']['address']?> - <?php echo $this->data['company']['zip']?> <?php echo $this->data['company']['city']?> - <?php echo $this->data['company']['country']?> - <?php echo $this->translator->translate('VAT Number')?>: <?php echo $this->data['company']['vat']?>
 				</td>
-				<td style="padding-top:8px;border:0px; text-align:right"><?=$this->translator->translate('Page')?> [[page_cu]]/[[page_nb]]</td>				
+				<td style="padding-top:8px;border:0px; text-align:right"><?php echo $this->translator->translate('Page')?> [[page_cu]]/[[page_nb]]</td>				
 			</tr>
 		</table>
 	</page_footer>
@@ -376,7 +382,7 @@
 		<tr class="items">
 			<?php foreach ( $item as $col_id => $columnValue ): ?>
 				<?php $colKey = 'items_col_'.$this->columns[$col_id]['key']?>
-				<td class="<?=$colKey?>"><?=$columnValue?></td>
+				<td class="<?php echo $colKey?>"><?php echo $columnValue?></td>
 			<?php endforeach; ?>
 		</tr>
 	<?php endforeach; ?>

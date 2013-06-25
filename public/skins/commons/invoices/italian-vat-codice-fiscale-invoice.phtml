@@ -228,7 +228,7 @@
 			</tr>
 		</table>
 		<p class="invoice-number">
-			<?php echo $this->translator->translate('Invoice No.')?> <?php echo $this->data['invoice_number']?> - <?php echo $this->data['date']?><br/><br/>
+			<?php echo $this->data['formatted_number']?> - <?php echo $this->data['date']?><br/><br/>
 			<?php if ( $this->data['skip_barcode'] != 1 ): ?>
 				<barcode type="C39E" value="<?php echo $this->data['barcode']?>" label="label" style="width:30mm; height:4mm; color: grey; font-size: 2mm"></barcode>
 			<?php endif; ?>
@@ -346,7 +346,7 @@
 				</td>
 				<td valign="top" class="rightcell">
 					<span class="label"><?php echo $this->translator->translate ( "Invoice Number" )?></span><br />
-					<?php echo $this->data['invoice_number']?>
+					<?php echo $this->data['formatted_number']?>
 				</td>
 			</tr>
 		</table>

@@ -813,9 +813,9 @@ class Invoices extends BaseInvoices {
 			
 			// Invoice already exists, we return it
 			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
-				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+				$outputFilename = !empty($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
 				header('Content-type: application/pdf');
-				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
+				header('Content-Disposition: attachment; filename="'.$outputFilename.'.pdf"');
 				
 				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
 				die($invoice);
@@ -841,6 +841,7 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : Orders::formatOrderId($order[0]['order_id']);
 				$orderinfo ['invoice_id'] = $invoice ['number'];
 				$orderinfo ['date'] = Shineisp_Commons_Utilities::formatDateOut ( $invoice ['invoice_date'] );
+				$orderinfo ['formatted_number'] = $invoice ['formatted_number'];
 				
 				//if customer comes from reseller
 				if ($order [0] ['Customers'] ['parent_id']) {
@@ -895,8 +896,6 @@ class Invoices extends BaseInvoices {
 					$orderinfo ['payment_transaction_id'] = $payments [0] ['reference'];
 				}
 
-
-				
 				$orderinfo ['invoice_number'] = $invoice ['number'];
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
@@ -969,7 +968,7 @@ class Invoices extends BaseInvoices {
 				
 				$database['records']['skip_barcode'] = 1;
 				if ( !empty($database ['records']['invoice_number']) ) {
-					$database['records']['barcode']      = $database ['records']['invoice_number'];
+					$database['records']['barcode']      = $database ['records']['formatted_number'];
 					$database['records']['skip_barcode'] = 0;
 				}
 
