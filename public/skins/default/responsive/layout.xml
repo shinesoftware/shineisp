@@ -22,16 +22,16 @@
 			<head>
 							
 			    <!-- files to be include in every frontend pages-->
-			    <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
 			    <js override="1">/resources/js/jquery/jquery.confirm-1.3.js</js>
 			    <js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
 			    <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
 			    <css override="1">/resources/js/css/jquery.autocomplete.css</css>
 			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
 			    
+				<js>/js/custom.modernizr.js</js>
 				<js>/js/commons.js</js>
 				<js>/js/master.js</js>
-	            <css>/css/reset.css</css>
+	            <css>/css/foundation.css</css>
 	            <css>/css/navigation.css</css>
 	            <css>/css/slideshow.css</css>
 	            <css>/css/cart.css</css>
@@ -79,6 +79,7 @@
        	
         <tickets>
             <head>
+            	<js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
                 <js override="1">/resources/js/jquery/jquery.rating.pack.js</js>
                 <css override="1">/resources/js/css/jquery.rating.css</css>
                 <js>/js/cpanels.js</js>

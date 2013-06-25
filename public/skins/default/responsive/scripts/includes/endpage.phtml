@@ -1,0 +1,39 @@
+<div class="copyright">
+    <a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/>
+    <div class="legality">ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a></div>
+    <div class="queries"><?php echo $this->querycount();?> - <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></div>
+</div>
+
+<script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? '/skins/responsive/js/vendor/zepto' : '/skins/responsive/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="/skins/responsive/js/foundation.min.js"></script>
+  <!--
+  
+  <script src="/skins/responsive/js/foundation/foundation.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.alerts.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.clearing.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.cookie.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.dropdown.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.forms.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.joyride.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.magellan.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.orbit.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.reveal.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.section.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.tooltips.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.topbar.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.interchange.js"></script>
+  <script src="/skins/responsive/js/foundation/foundation.placeholder.js"></script>
+  
+  -->
+  
+  <script>
+    $(document).foundation();
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?php echo $this->render('includes/startpage.phtml') ?>
+
+	<?php echo $this->blocks()->showblock('startbody');?>
+    <div id="container">
+
+        <?php echo $this->render('includes/top.phtml') ?>
+        <?php echo $this->render('includes/content-header.phtml') ?>
+		
+        <?php echo $this->blocks()->showblock('beforecontent');?>
+        <div id="content">
+			<div class="center">
+            	<div class="column large">
+	                <?php echo $this->blocks()->showblock('contentstart');?>
+	                <?php echo $this->layout()->content ?>
+	                <?php echo $this->blocks()->showblock('contentend');?>
+                </div>
+                <div class="column small last">
+                    <?php echo $this->blocks()->showblock('right');?>
+                </div> 
+            </div>
+        </div>
+        
+        <?php echo $this->blocks()->showblock('beforefooter');?>
+        <div id="footer">
+        	<div class="center">
+	            <?php echo $this->footer();?>
+	            <?php echo $this->blocks()->showblock('footer');?>
+	        </div>
+        </div><!-- End #footer -->
+        <?php echo $this->blocks()->showblock('endfooter');?>
+    </div>	<!-- End #main-container -->
+        
+    <?php echo $this->blocks()->showblock('endbody');?>
+
+<?php echo $this->render('includes/endpage.phtml') ?>

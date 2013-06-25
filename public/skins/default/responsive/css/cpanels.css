@@ -1,0 +1,576 @@
+#bblist {
+	margin-top: 30px;
+}
+#bblist td{
+	padding: 3px;
+}
+#bblist div.message{
+	 margin-bottom: 30px;
+    margin-top: 10px;
+    text-align: justify;
+}
+#bblist div.signature{
+	color: grey;
+}
+#bblist div.date{
+	color: grey;
+	font-size: 12px;
+}
+
+.headtitle{margin-top:40px;}
+.errors {
+	color: #F44;
+	font-size: 12px;
+}
+
+.fields {
+	font-weight: 700;
+	color: #555;
+	border-bottom: 1px solid #ddd;
+}
+
+.ticketnotes {
+	min-height: 150px;
+	background-color: #efefef;
+	margin-top: 10px;
+	padding: 15px;
+}
+
+.blockOverlay {
+	background: #aaa url(/skins/default/base/images/commons/commons/overlay.png) 50% 50% repeat;
+	opacity: .30;
+	filter: alpha(opacity=30);
+}
+
+#floating-box {
+	background: #AAA;
+	z-index: 1;
+	padding: 5px;
+}
+
+.ticket-summary h1, .ticket-summary h2, .ticket-summary h3, .ticket-summary h4, .ticket-summary h5{
+	margin-top: 0px;	
+}
+
+.ticket-summary {
+	background: #eee;
+	z-index: 1;
+	padding: 5px;
+	height: 75px;
+	margin-bottom: 15px;
+}
+
+.ticket-status {
+	color: #FF3366;
+}
+
+.ticket-summary-left {
+	float: left;
+	padding: 4px;
+}
+
+.ticket-summary-right {
+	text-align: right;
+	padding: 4px;
+}
+
+.ticket-send-button {
+	margin-top: 15px;
+	padding-right: 15px;
+	text-align: right;
+}
+
+.ticket-summary-header {
+	font-size: 13px;
+	margin-bottom: 4px;
+	margin-top: 4px;
+	text-transform: uppercase;
+}
+
+.floatHeader table tbody th {
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.pagination a.current:hover {
+    text-decoration: underline;
+}
+
+.pagination a.active {
+	background: #000;
+	border: 1px solid #444;
+	color: #fff;
+}
+
+.pagination a:hover {
+	color: #fff;
+	background: #666;
+	border: 1px solid #333;
+	width: 65% !important;
+}
+
+/* ***************** BULK DOMAIN PAGE ******************* */
+
+.chkdomain{
+	float:right;
+}
+
+.bulktextarea {
+	font-size: 20px;
+	height: 260px;
+}
+
+.bulktable {
+	margin-top: 25px;
+}
+
+.bulktable tbody td {
+	border-bottom: 1px solid #CCC;
+	padding: 10px;
+}
+
+.bulktable thead td {
+	background-color: #E2E2E2;
+	font-weight: 700;
+	padding: 10px;
+}
+
+.bulktable .transfer {
+	background-color: #F5F5DC;
+}
+
+.tldlist li {
+	display: block;
+	float: left;
+	margin-right: 10px;
+	text-align: left;
+	width: 70px;
+	padding: 5px;
+}
+
+.selectalltldsitems {
+	width: 127px!important
+}
+
+.selectalltldsitems:hover {
+}
+
+/* ***************** DASHBOARD PAGE ******************* */
+
+.even,.dashboard-button:hover {
+    background: #fff;
+}
+
+.big-available{
+	background: url(/skins/default/base/images/commons/available_64.png) no-repeat 10px 15px;
+}
+
+.big-notavailable{
+	background: url(/skins/default/base/images/commons/notavailable_64.png) no-repeat 10px 15px;
+}
+
+#domainbox .domainame{
+    background-image:url('/skins/default/base/images/commons/http.gif');
+    background-repeat:no-repeat;
+    padding: 1px 0 8px 120px;
+    font-size: 18px;
+    width: 58%; 
+    color: #666;
+}
+
+.tld{
+	padding: 4px 8px 4px 4px;
+	font-size: 18px;
+}
+
+ul.dashboard-buttons-set li {
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 0 !important;
+}
+
+.dashboard-buttons-container {
+	overflow: hidden;
+	margin-bottom: 25px;
+}
+
+.dashboard-button {
+	display: block;
+	width: 130px;
+}
+
+.dashboard-button span {
+	background-position: center 15px;
+	background-repeat: no-repeat;
+	display: block;
+	text-align: center;
+	color: #555;
+	font-size: 13px;
+	line-height: 1.3em;
+	padding: 78px 10px 15px;
+}
+
+.dashboard-button span:hover {
+	color: #555;
+}
+
+.dashboard-buttons-container ol,ul {
+    list-style: none outside none;
+}
+
+.bulklink{
+	margin-top: 5px;
+}
+
+
+.Homepage {
+	background-image: url(/skins/default/base/images/commons/dashboard/homepage.png);
+}
+
+.Domains {
+	background-image: url(/skins/default/base/images/commons/dashboard/domains.png);
+}
+
+.Services {
+	background-image: url(/skins/default/base/images/commons/dashboard/services.png);
+}
+
+.Orders {
+	background-image: url(/skins/default/base/images/commons/dashboard/orders.png);
+}
+
+.Tickets {
+	background-image: url(/skins/default/base/images/commons/dashboard/tickets.png);
+}
+
+.Help {
+	background-image: url(/skins/default/base/images/commons/dashboard/help.png);
+}
+
+.Hosting {
+	background-image: url(/skins/default/base/images/commons/dashboard/hosting.png);
+}
+
+#domainlist li {
+	font-size: 16px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	text-transform: uppercase;
+	margin: 5px;
+	padding: 7px 0 7px 38px;
+}
+
+.available {
+	background-color: #D9FFCC;
+	color: #000;
+	background-image: url(/skins/default/base/images/commons/available.png);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+
+.notavailable {
+	background-color: #EFEFEF;
+	color: #B3002D;
+	background-image: url(/skins/default/base/images/commons/notavailable.png);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+
+.add {
+	-moz-border-radius: 4px;
+	background-color: #D6FFCC;
+	margin-right: 10px;
+	padding: 5px;
+}
+
+.segment {
+	-moz-border-radius: 8px;
+	-moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+	background: none repeat scroll 0 0 #FFF;
+	border: 1px solid #CCC;
+	margin-bottom: 1.5em;
+	position: relative;
+}
+
+.segment .head {
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	background: url("/skins/default/base/images/commons/segment-header-bg.png")
+		repeat-x scroll 0 0 #F0F0F0;
+	border-bottom: 1px solid #CCC;
+	color: #444;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+	text-align: left;
+	width: 100%;
+	padding-top: 10px;
+}
+
+.segment .head h4 {
+	color: #222;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	margin: 0 0 5px;
+	padding: 0 0 0 10px;
+}
+
+.segment .content {
+	position: relative;
+	padding: 13px 12px 16px;
+}
+
+.domainsel {
+	background-position: 5px 12px;
+	font-size: 28px;
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 8px 36px;
+}
+
+.price {
+	font-size: 10px;
+	color: #000;
+}
+
+#hostings li {
+	border: 1px solid #DDD;
+	margin: 5px 5px 14px;
+	padding: 5px;
+}
+
+.description {
+	font-size: 14px;
+	margin: 5px;
+	line-height: 1.9em;
+}
+
+.tag {
+	border: 1px solid #ccc;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	background: #efefef;
+	margin: 2px;
+	padding: 3px;
+}
+
+.ticket {
+	background-color: #fff;
+	margin-left: 135px;
+	margin-top: 10px;
+	min-height: 120px;
+	padding: 12px 35px 5px 15px;
+	text-align: justify;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-top: 1px solid #eee;
+	-moz-border-radius: 7px 7px 0 0;
+	-webkit-border-radius: 7px 7px 0 0;
+	border-radius: 7px 7px 0 0;
+	border-right: 1px solid #eee;
+}
+
+.attachments ul li {
+    background: url("/skins/default/base/images/commons/attachment.png") no-repeat scroll 5px 50% #EEEEEE;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+    padding: 10px 35px;
+}
+
+.avatar {
+	margin-top: 10px;
+	float: left;
+}
+
+.ticketrating{
+
+}
+
+.tickets-notes pre{
+	overflow: auto;
+}
+
+.tickets-notes {
+	margin-top: 35px;
+}
+
+.ticket-rating{
+	width: 200px;
+	float: left;
+}
+
+.ticket-note-reply {
+	margin-top: 27px;
+}
+
+.ticket-backtolist {
+	margin: 10px 0;
+	text-align: right;
+}
+
+.ticket-note-time {
+	text-align: right;
+}
+
+.ticket-note-footer {
+	height: 22px;
+	background-color: #eee;
+	margin-left: 135px;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding: 12px 35px 5px 15px;
+	-moz-border-radius: 0 0 7px 7px;
+	-webkit-border-radius: 0 0 7px 7px;
+	border-radius: 0 0 7px 7px;
+}
+
+/* ***************** ORDER PAGE ******************* */
+blockquote.style1 {
+  font: 14px/20px italic Times, serif;
+  padding: 8px;
+  background-color: #faebbc;
+  border-top: 1px solid #e1cc89;
+  border-bottom: 1px solid #e1cc89;
+  background-image: url(/skins/default/base/images/commons/openquote1.gif);
+  background-position: top left;
+  background-repeat: no-repeat;
+  text-indent: 23px;
+	margin-bottom: 25px;
+}
+
+blockquote.style1 span {
+   display: block;
+   background-image: url(/skins/default/base/images/commons/closequote1.gif);
+   background-repeat: no-repeat;
+   background-position: bottom right;
+}
+
+/* ***************** TICKETS PAGE ******************* */
+
+.customerinfo {
+    width: 115px;
+    margin-top: 10px;
+}
+
+.customerinfo h3 {
+    font-size: 10px;
+    border: 0px;
+    margin-bottom: 0px !important;
+}
+
+
+/* ***************** CONTROL PANEL CHECK DOMAINS STYLES ******************* */
+.newdomain {
+	background-color: #fff;
+	padding: 10px;
+}
+
+#result {
+	background-color: #EEEEEE;
+	height: 100px;
+	width: 100%;
+	margin-bottom: 20px;
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+}
+
+#result .domain {
+	padding-top: 10px;
+	padding-left: 90px;
+	color: #333333;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#result .ordernow {
+	float: right;
+	position: relative;
+	margin-top: 60px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+#result .message {
+	padding-left: 90px;
+}
+
+#result .price {
+	color: #333333;
+	padding-left: 90px;
+	font-size: 16px;
+	margin-top: 10px;
+}
+
+/* ***************** DOMAIN PAGE ******************* */
+
+#panel {
+    background: none repeat scroll 0 0 #efefef;
+    display: none;
+    padding: 15px;
+}
+
+.slide {
+    background: url(/skins/default/base/images/commons/button.gif) no-repeat right
+        top;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-slide {
+    background: url(/skins/default/base/images/commons/white-arrows.gif) no-repeat
+        right -52px;
+    text-align: right;
+    height: 31px;
+    display: block;
+    font: bold 120%/100% Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0 auto;
+    padding: 4px 100px 0 0;
+}
+
+.grid-wrapper {
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+
+.messages-wrapper {
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.messages-list {
+    margin-bottom: 35px;
+}
+
+.filters {
+    float: left;
+    margin-right: 50px;
+}
+
+.nextexpiration {
+    color: red;
+}
+
+#wikilist li{
+    margin-bottom: 15px;
+}
+
+#wikilist li h6{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+/* ***************** SERVICE PAGE ******************* */
+#setup li{
+	margin-bottom: 20px;
+}

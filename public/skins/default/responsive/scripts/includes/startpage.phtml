@@ -1,0 +1,30 @@
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <?= $this->headTitle() ?>
+    <?= $this->headMeta() ?>
+    
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <?= $this->headLink() ?>
+    <?= $this->headStyle() ?>
+    <?= $this->headScript() ?>
+    
+    <!-- Scripts --> 
+	<script type="text/javascript">
+		if (typeof jQuery == 'undefined')
+			document.write(unescape("%3Cscript src='/skins/responsive/js/jquery-1.9.js'" + 
+															"type='text/javascript'%3E%3C/script%3E"))
+	</script>
+	<!--[if lt IE 9]>
+		<script src="/skins/responsive/js/html5shiv.js"></script>
+	<![endif]-->
+
+    <?=$this->blocks()->showblock('htmlhead');?>
+</head>
+
+<body>
