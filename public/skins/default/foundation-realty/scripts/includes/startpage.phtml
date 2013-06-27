@@ -1,0 +1,21 @@
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+    <?= $this->headTitle() ?>
+    <?= $this->headMeta() ?>
+    
+    <!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width" />
+    
+    <?= $this->headLink() ?>
+    <?= $this->headStyle() ?>
+    <?= $this->headScript() ?>
+
+    <?=$this->blocks()->showblock('htmlhead');?>
+</head>
+
+<body>

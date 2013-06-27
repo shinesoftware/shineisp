@@ -1,0 +1,22 @@
+<div class="copyright">
+    <a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/>
+    <div class="legality">ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a></div>
+    <div class="queries"><?php echo $this->querycount();?> - <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></div>
+</div>
+
+<!-- Included JS Files (Compressed) -->
+<script src="/skins/default/foundation-realty/javascripts/foundation.min.js"></script>
+  
+<!-- Initialize JS Plugins -->
+<script src="/skins/default/foundation-realty/javascripts/app.js"></script>
+
+  
+<script>
+    $(window).load(function(){
+      $("#featured").orbit();
+    });
+</script> 
+  
+  
+</body>
+</html>

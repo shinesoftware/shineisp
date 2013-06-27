@@ -1,4 +1,4 @@
-<ul class="navigation">
+<ul class="<?php echo !empty($this->menucls) ? $this->menucls : "navigation" ?>">
 	 
      <?php if(!empty($this->menu)): ?>
      	<?php echo $this->menu ?>

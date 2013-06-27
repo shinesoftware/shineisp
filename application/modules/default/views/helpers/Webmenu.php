@@ -10,11 +10,12 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		$this->view = $view;
 	}
 	
-	/*
+	/**
 	 * menu
 	 * Create the menu
+	 * @param string $menucls - main CSS class
 	 */
-	public function webmenu() {
+	public function webmenu($menucls) {
 		$this->translator = Shineisp_Registry::get ( 'Zend_Translate' );
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		if (!empty($NS->customer)) {
@@ -48,7 +49,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		
 		// we will send the body of the bullet list to the partial template
 		$this->view->menu = $storecategories;
-
+		$this->view->menucls = $menucls;
 		return $this->view->render ( 'partials/webmenu.phtml' );
 	}
 	
