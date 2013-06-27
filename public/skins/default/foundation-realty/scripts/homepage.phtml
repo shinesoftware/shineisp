@@ -8,10 +8,8 @@
 	
     <div id="container" class="homepage">
     
-		<div id="slideshow">
-			<div class="center">
-				<?php echo $this->slideshow();?>
-			</div>
+		<div id="orbit-container">
+			<?php echo $this->slideshow();?>
 		</div>
 		<?php echo $this->render('includes/content-header.phtml') ?>
 		<?php echo $this->blocks()->showblock('beforecontent');?>

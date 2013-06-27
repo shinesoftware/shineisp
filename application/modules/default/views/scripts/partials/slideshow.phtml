@@ -1,23 +1,21 @@
 <?php $products = $this->products; ?>
 <?php if(!empty($products)): ?>
+	<ul data-orbit="" class="orbit-slides-container">
 	<?php foreach($products as $product): ?>
-	
-		<?php 
+		<li>
+			<?php list($width, $height, $type, $attr) = getimagesize(PUBLIC_PATH . "/skins/default/base/images/server.png");?>
+			<img src="/skins/default/base/images/server.png" width="<?php echo $width ?>" height="<?php echo $height ?>" alt="Shared" />
+			<div class="orbit-caption">				
+				<?php 
+					$attributes = ProductsAttributesIndexes::getAttributebyProductID($product['product_id']);
+					$price = Products::getPrices($product['product_id']);
+					
+					if(!empty($product['name'])):
+						$result = preg_split('/ /', $product['name'], 2);
+						
+						$firstword = $result[0];
+						$otherwords = $result[1]; ?>
 		
-			$attributes = ProductsAttributesIndexes::getAttributebyProductID($product['product_id']);
-			$price = Products::getPrices($product['product_id']);
-			
-			if(!empty($product['name'])):
-				$result = preg_split('/ /', $product['name'], 2);
-				
-				$firstword = $result[0];
-				$otherwords = $result[1]; ?>
-	
-				<div class="slide clearfix">
-					<div class="slideSwitchLabel">
-						<strong><?php echo $product['nickname'] ?></strong> 
-					</div>
-					<div class="information">
 						<h1><a href="/<?php echo $product['uri']?>.html"><?php echo $firstword ?> <span><?php echo $otherwords ?></span></a></h1>
 						<p><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 70, "...", false, false) ?></p>
 						
@@ -51,10 +49,24 @@
 							<a class="colorButton" href="/compare/products/code/<?php echo $product['groupcode']?>"><span class="pointer"><?php echo $this->translate('View all available plans now') ?></span></a>
 						</div>
 					</div>
-					<?php list($width, $height, $type, $attr) = getimagesize(PUBLIC_PATH . "/skins/default/base/images/server.png");?>
-					
-					<img src="/skins/default/base/images/server.png" width="<?php echo $width ?>" height="<?php echo $height ?>" alt="Shared" />
-				</div>
-		 <?php endif;?>
-	<?php endforeach;?>
+						
+				 <?php endif;?>
+			 </li>
+		<?php endforeach;?>
+	</ul>
+
+	<!-- Prev/Next Arrows -->
+  	<a href="#" class="orbit-prev">Prev <span></span></a>
+  	<a href="#" class="orbit-next">Next <span></span></a>
+
+  	<!-- Slide Numbers -->
+  	<div class="orbit-slide-number">
+    	<span>1</span> of <span>3</span>
+  	</div>
+
+  	<!-- Timer and Play/Pause Button -->
+  	<div class="orbit-timer">
+    	<span></span>
+    	<div class="orbit-progress" style="width: 100%; -webkit-transition: width 10s linear;"></div>
+  	</div>	
 <?php endif;?>
