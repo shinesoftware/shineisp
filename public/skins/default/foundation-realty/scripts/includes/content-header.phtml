@@ -2,12 +2,13 @@
 	$isp = Isp::getActiveISP(); 
 	$ns = new Zend_Session_Namespace ();
 ?>
-<div class="content-header">
-	<div class="center">
-		<ul>
-			<li><a href="/contacts" class="iconSmallEmail"><strong><?php echo $this->translate('Contact us') ?></strong></a></li>
+
+
+<div class="large-12 columns">
+	<div class="row">
+		<div class="large-5 columns">
 			<?php if(!empty($ns->customer)): ?>
-				<li><a href="/dashboard" class="iconSmallClient">
+				<a href="/dashboard" class="iconSmallClient">
 					<strong>
 						<?php if($ns->customer['sex'] == "F"): ?>
 							<?php echo $this->translate('Welcome Mrs. %s', $ns->customer['lastname'])?>
@@ -17,12 +18,19 @@
 							<?php echo $this->translate('Welcome %s', $ns->customer['lastname'])?>
 						<?php endif; ?>
 					</strong>
-					</a></li>
+					</a>
 			<?php else: ?>
-				<li><a href="/customer/login" class="iconSmallClient"><strong><?php echo $this->translate('Login or Create a new Account')?></strong></a></li>
+				<a href="/customer/login" class="iconSmallClient"><strong><?php echo $this->translate('Login or Create a new Account')?></strong></a>
 			<?php endif; ?>
-			<li><?php echo $this->cart()?></li>
-			<li><?php echo $this->searchbar()?></li>
-		</ul>
+		</div>
+		
+		<div class="large-4 columns">
+			<?php echo $this->cart()?>
+		</div>
+		
+		<div class="large-3 columns right">
+			<?php echo $this->searchbar()?>
+		</div>
+
 	</div>
 </div>

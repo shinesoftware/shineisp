@@ -32,6 +32,7 @@
 			    
 			    <css override="1">/resources/js/css/jquery.autocomplete.css</css>
 			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
+			    <css>/css/app.css</css>
 			    
                 
 			</head>

@@ -1,22 +1,19 @@
 <?php echo $this->render('includes/startpage.phtml') ?>
 
-	<?php echo $this->blocks()->showblock('startbody');?>
-    <div id="container">
-    
-		<?php echo $this->render('includes/top.phtml') ?>
-		<?php echo $this->render('includes/content-header.phtml') ?>
+	<?php echo $this->render('includes/top.phtml') ?>
+	<?php echo $this->render('includes/content-header.phtml') ?>
 		
+	<?php echo $this->blocks()->showblock('startbody');?>
+    <div class="row">
+    
 		<?php echo $this->blocks()->showblock('beforecontent');?>
 	
-		<div id="content">
-			<div class="center">
-            	<div class="clearfix"></div>
-				<?php echo $this->Messages(); ?>
-		    	<?php echo $this->cmsheader($this->headerdata);?>
-	            <?php echo $this->blocks()->showblock('contentstart');?>
-	            <?php echo $this->layout()->content ?>
-	            <?php echo $this->blocks()->showblock('contentend');?>
-            </div>
+		<div class="large-12 column">
+			<?php echo $this->Messages(); ?>
+	    	<?php echo $this->cmsheader($this->headerdata);?>
+            <?php echo $this->blocks()->showblock('contentstart');?>
+            <?php echo $this->layout()->content ?>
+            <?php echo $this->blocks()->showblock('contentend');?>
 		</div> 
 		
 		<?php echo $this->blocks()->showblock('beforefooter');?>

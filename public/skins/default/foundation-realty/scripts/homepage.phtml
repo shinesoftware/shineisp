@@ -3,16 +3,16 @@
 	<?php echo $this->blocks()->showblock('startbody');?>
 	
 	<?php echo $this->render('includes/top.phtml') ?>
+	<?php echo $this->render('includes/content-header.phtml') ?>
 	
     <div class="row">
-    	<div class="row">
+    	<div class="large-12 columns">
     		<?php echo $this->slideshow();?>
 		</div>
 		
-		<?php # echo $this->render('includes/content-header.phtml') ?>
 		<?php echo $this->blocks()->showblock('beforecontent');?>
 		
-		<div class="row">
+		<div class="large-12 columns">
 			<?php echo $this->Messages($this->mex)?>
             <?php echo $this->blocks()->showblock('contentstart');?>
             <?php echo $this->layout()->content ?>
@@ -20,10 +20,11 @@
 		</div> 
 				
 		<?php echo $this->blocks()->showblock('beforefooter');?>
-        <div class="row">
+		
+        <footer class="large-12 columns">
             <?php echo $this->footer();?>
             <?php echo $this->blocks()->showblock('footer');?>
-        </div><!-- End #footer -->
+        </footer><!-- End #footer -->
         
         <?php echo $this->blocks()->showblock('endfooter');?>
         
