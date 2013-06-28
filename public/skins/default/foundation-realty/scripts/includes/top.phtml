@@ -1,10 +1,9 @@
-<nav class="top-bar fixed">
-	<ul>
-      <li class="name"><?php echo $this->logo()?></li>
-      <li class="toggle-topbar"><a href="#"></a></li>
-    </ul>
-
-    <section>
+<nav class="top-bar" data-options="is_hover:false">
+    <section class="top-bar-section">
+    	<ul>
+	      <li class="name"><?php echo $this->logo()?></li>
+	      <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo $this->translate('Menu')?></span></a></li>
+	    </ul>
 	    <?php echo $this->languageswitcher('left') ?>
     	<?php echo $this->webmenu('right');?>
 	</section>

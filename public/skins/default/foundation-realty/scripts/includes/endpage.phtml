@@ -1,14 +1,41 @@
-<div class="row">
-    <a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/>
-    ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a>
-    <div class="row queries"><?php echo $this->querycount();?> - <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></div>
+<footer class="row full-width">
+    <div class="large-8 columns">
+    	<p><a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/></p>
+    </div>
+    <div class="large-4 columns">
+    	<p><?php echo $this->querycount();?> - <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></p>
+    </div>
+</footer>
+<div class="row" id="copyright">
+	<div class="large-12 columns">
+		<p>ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a></p>
+	</div>
 </div>
 
-<!-- Included JS Files (Compressed) -->
-<script src="/skins/default/foundation-realty/javascripts/foundation.min.js"></script>
-  
-<!-- Initialize JS Plugins -->
-<script src="/skins/default/foundation-realty/javascripts/app.js"></script>
 
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? '/resources/foundation/js/vendor/zepto' : '/resources/foundation/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  <script src="/resources/foundation/js/foundation/foundation.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.alerts.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.clearing.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.cookie.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.dropdown.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.forms.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.joyride.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.magellan.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.orbit.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.placeholder.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.reveal.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.section.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.tooltips.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.topbar.js"></script>
+  <script src="/resources/foundation/js/foundation/foundation.interchange.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  
 </body>
 </html>

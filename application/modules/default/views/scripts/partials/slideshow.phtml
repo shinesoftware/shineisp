@@ -2,7 +2,7 @@
 
 <?php if(!empty($products)): ?>
 	<div class="orbit-container">
-		<ul id="featured">
+		<ul data-orbit data-options="timer_speed:5500; bullets:false;" id="slideshow">
 		<?php foreach($products as $product): ?>
 			<li>
 				<img src="http://placehold.it/1600x600&text=<?php echo $product['name']?>">
@@ -10,9 +10,4 @@
 			<?php endforeach;?>
 		</ul>
 	</div>
-	<script>
-	    $(window).load(function(){
-	      $("#featured").orbit();
-	    });
-	</script> 
 <?php endif;?>

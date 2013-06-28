@@ -5,10 +5,13 @@
 	<?php echo $this->render('includes/top.phtml') ?>
 	
     <div class="row">
-    	<?php echo $this->slideshow();?>
+    	<div class="row">
+    		<?php echo $this->slideshow();?>
+		</div>
 		
 		<?php # echo $this->render('includes/content-header.phtml') ?>
 		<?php echo $this->blocks()->showblock('beforecontent');?>
+		
 		<div class="row">
 			<?php echo $this->Messages($this->mex)?>
             <?php echo $this->blocks()->showblock('contentstart');?>

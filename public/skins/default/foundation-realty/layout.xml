@@ -33,20 +33,16 @@
 			    <css override="1">/resources/js/css/jquery.autocomplete.css</css>
 			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
 			    
-				<js override="1">/resources/foundation/js/foundation.min.js</js>
-				<js override="1">/resources/foundation/js/foundation/foundation.orbit.js</js>
-				<js override="1">/resources/foundation/js/vendor/custom.modernizr.js</js>
                 
 			</head>
 			
 			<!-- All these blocks will be attached in all the pages 
 			     Adding a static cms block in all the pages of the website
-			-->
-			     
-			<blocks>
-				<block side="endfooter" position="200">end-footer</block>  
-            </blocks>
-            
+			
+				<blocks>
+					<block side="endfooter" position="200">end-footer</block>  
+	            </blocks>
+            -->
 		</commons>
 
 		<!-- Controllers sections -->
