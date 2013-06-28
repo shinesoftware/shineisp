@@ -1,6 +1,12 @@
+<nav class="top-bar fixed">
+	<ul>
+      <li class="name"><?php echo $this->logo()?></li>
+      <li class="toggle-topbar"><a href="#"></a></li>
+    </ul>
 
-<div class="attached">
-	<?php echo $this->logo()?>
-	<?php echo $this->webmenu('right');?>
-</div>
+    <section>
+	    <?php echo $this->languageswitcher('left') ?>
+    	<?php echo $this->webmenu('right');?>
+	</section>
+</nav>
 

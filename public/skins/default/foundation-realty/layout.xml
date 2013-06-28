@@ -21,18 +21,21 @@
 		    <!-- All the head js and css files will be attached in all the header of the pages -->
 			<head>
 							
+				<!-- foundation CSS framework to be include in every frontend pages-->
+				<css override="1">/resources/foundation/css/normalize.css</css>
+				<css override="1">/resources/foundation/css/foundation.css</css>
+				
 			    <!-- files to be include in every frontend pages-->
 			    <js override="1">/resources/js/jquery/jquery.confirm-1.3.js</js>
 			    <js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
 			    <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
+			    
 			    <css override="1">/resources/js/css/jquery.autocomplete.css</css>
 			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
 			    
-				
-				<css>/stylesheets/foundation.min.css</css>
-	            <css>/stylesheets/app.css</css>
-	            
-				<js>/javascripts/modernizr.foundation.js</js>
+				<js override="1">/resources/foundation/js/foundation.min.js</js>
+				<js override="1">/resources/foundation/js/foundation/foundation.orbit.js</js>
+				<js override="1">/resources/foundation/js/vendor/custom.modernizr.js</js>
                 
 			</head>
 			
@@ -41,7 +44,6 @@
 			-->
 			     
 			<blocks>
-				<block side="beforefooter" position="100">twitter</block>  
 				<block side="endfooter" position="200">end-footer</block>  
             </blocks>
             

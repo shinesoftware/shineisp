@@ -1,72 +1,18 @@
 <?php $products = $this->products; ?>
+
 <?php if(!empty($products)): ?>
-	<ul data-orbit="" class="orbit-slides-container">
-	<?php foreach($products as $product): ?>
-		<li>
-			<?php list($width, $height, $type, $attr) = getimagesize(PUBLIC_PATH . "/skins/default/base/images/server.png");?>
-			<img src="/skins/default/base/images/server.png" width="<?php echo $width ?>" height="<?php echo $height ?>" alt="Shared" />
-			<div class="orbit-caption">				
-				<?php 
-					$attributes = ProductsAttributesIndexes::getAttributebyProductID($product['product_id']);
-					$price = Products::getPrices($product['product_id']);
-					
-					if(!empty($product['name'])):
-						$result = preg_split('/ /', $product['name'], 2);
-						
-						$firstword = $result[0];
-						$otherwords = $result[1]; ?>
-		
-						<h1><a href="/<?php echo $product['uri']?>.html"><?php echo $firstword ?> <span><?php echo $otherwords ?></span></a></h1>
-						<p><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 70, "...", false, false) ?></p>
-						
-						<ul class="clearfix">
-							<?php foreach($attributes as $attribute): ?>
-								<?php if($attribute['on_product_listing']):?>
-									<li title="<?php echo $attribute['description'] ?>"><strong><?php echo $attribute['prefix']. " " . $attribute['value']. " " . $attribute['suffix'] ?></strong> <?php echo $attribute['label']?></li>
-								<?php endif; ?>
-							<?php endforeach;?>
-						</ul>
-						
-						<div class="box clearfix">
-							
-							<?php if($price['type'] == "multiple"): ?>
-								<div class="label">
-									<?php echo $this->translate("Starting at")?>
-								</div>
-								<div class="price">
-									<?php echo $this->prices()->getPriceIncludedVat($product['product_id'])?>
-								</div>
-								
-							<?php elseif ($price['type'] == "flat"): ?>
-								<div class="label">
-									<?php echo $this->translate("Starting at")?>
-								</div>
-								<div class="price">
-									<?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency')))?>
-								</div>
-								
-							<?php endif;?>
-							<a class="colorButton" href="/compare/products/code/<?php echo $product['groupcode']?>"><span class="pointer"><?php echo $this->translate('View all available plans now') ?></span></a>
-						</div>
-					</div>
-						
-				 <?php endif;?>
-			 </li>
-		<?php endforeach;?>
-	</ul>
-
-	<!-- Prev/Next Arrows -->
-  	<a href="#" class="orbit-prev">Prev <span></span></a>
-  	<a href="#" class="orbit-next">Next <span></span></a>
-
-  	<!-- Slide Numbers -->
-  	<div class="orbit-slide-number">
-    	<span>1</span> of <span>3</span>
-  	</div>
-
-  	<!-- Timer and Play/Pause Button -->
-  	<div class="orbit-timer">
-    	<span></span>
-    	<div class="orbit-progress" style="width: 100%; -webkit-transition: width 10s linear;"></div>
-  	</div>	
+	<div class="orbit-container">
+		<ul id="featured">
+		<?php foreach($products as $product): ?>
+			<li>
+				<img src="http://placehold.it/1600x600&text=<?php echo $product['name']?>">
+			</li>
+			<?php endforeach;?>
+		</ul>
+	</div>
+	<script>
+	    $(window).load(function(){
+	      $("#featured").orbit();
+	    });
+	</script> 
 <?php endif;?>

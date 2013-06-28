@@ -11,7 +11,7 @@
 
 class Zend_View_Helper_Languageswitcher extends Zend_View_Helper_Abstract {
 	
-	public function languageswitcher() {
+	public function languageswitcher($clslang="") {
 		$t = new Zend_Controller_Request_Http();
 		$url = $t->getRequestUri();
 		$url = explode("?", $url);
@@ -21,6 +21,7 @@ class Zend_View_Helper_Languageswitcher extends Zend_View_Helper_Abstract {
 			$uri = $url;
 		}
 		$this->view->languages = Languages::getActiveLanguageList();
+		$this->view->clslang = $clslang;
 		$this->view->uri = $uri;
 		return $this->view->render ( 'partials/languageswitcher.phtml' );
 	}

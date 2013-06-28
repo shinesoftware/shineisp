@@ -15,7 +15,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 	 * Create the menu
 	 * @param string $menucls - main CSS class
 	 */
-	public function webmenu($menucls) {
+	public function webmenu($menucls="") {
 		$this->translator = Shineisp_Registry::get ( 'Zend_Translate' );
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		if (!empty($NS->customer)) {
@@ -33,13 +33,13 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		}
 		
 		// Create CMS pages menu
-		$cmsmenu = '<li><a href="/">'.$this->translator->translate('Blog').'</a>' . $this->createMenu(0) . "<li>";
+		$cmsmenu = '<li class="has-dropdown"><a href="/">'.$this->translator->translate('Blog').'</a>' . $this->createMenu(0) . "<li>";
 		
 		// Create the tlds list menu
 		$tldmenu = $this->createTldMenu();
 		
 		// Create the store categories menu
-		$storecategories = $this->buildMenu(0, $menu);
+		$storecategories = $this->storeCategoriesMenu(0, $menu);
 
 		// Delete the last </ul> in the list
 		$storecategories = substr_replace($storecategories ,"",-6);
@@ -80,7 +80,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 	}
 	
 
-	private function buildMenu($parentId, $menuData, $deep=0)
+	private function storeCategoriesMenu($parentId, $menuData, $deep=0)
 	{
 		$html = '';
 	
@@ -91,12 +91,13 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 			$html = "<ul class='$class'>\n";
 			foreach ($menuData['parents'][$parentId] as $itemId)
 			{
-				$html .= '<li><a class="'.$class.'" href="/categories/' . $menuData['items'][$itemId] ['uri'] . '.html">' . $menuData['items'][$itemId]['name'] . "</a>";
+				$hasdropdown = $deep==0 ? "class='has-dropdown'" : "";
+				$html .= '<li '.$hasdropdown.'><a href="/categories/' . $menuData['items'][$itemId] ['uri'] . '.html">' . $menuData['items'][$itemId]['name'] ."</a>";
 	
 				$deep++;
 	
 				// find childitems recursively
-				$html .= $this->buildMenu($itemId, $menuData, $deep);
+				$html .= $this->storeCategoriesMenu($itemId, $menuData, $deep);
 	
 				$deep--;
 	
@@ -120,7 +121,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		$items = DomainsTlds::getHighlighted($ns->langid);
 		$currency = Shineisp_Registry::get ( 'Zend_Currency' );
 	
-		$html = "<li>";
+		$html = "<li class=\"has-dropdown\">";
 		$html .= '<a href="/domainschk/index/" class="dropdown">'.$this->translator->translate('Domains').'</a>';
 		$html .= "<ul class=\"dropdown\">";
 		foreach ( $items as $item ) {

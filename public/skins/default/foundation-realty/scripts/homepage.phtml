@@ -2,34 +2,28 @@
 
 	<?php echo $this->blocks()->showblock('startbody');?>
 	
-	<div class="container top-bar home-border">
-		<?php echo $this->render('includes/top.phtml') ?>
-	</div>
+	<?php echo $this->render('includes/top.phtml') ?>
 	
-    <div id="container" class="homepage">
-    
-		<div id="orbit-container">
-			<?php echo $this->slideshow();?>
-		</div>
-		<?php echo $this->render('includes/content-header.phtml') ?>
+    <div class="row">
+    	<?php echo $this->slideshow();?>
+		
+		<?php # echo $this->render('includes/content-header.phtml') ?>
 		<?php echo $this->blocks()->showblock('beforecontent');?>
-		<div id="content">
-            <div class="center">
-				<?php echo $this->Messages($this->mex)?>
-                <?php echo $this->blocks()->showblock('contentstart');?>
-                <?php echo $this->layout()->content ?>
-                <?php echo $this->blocks()->showblock('contentend');?>
-            </div>      
+		<div class="row">
+			<?php echo $this->Messages($this->mex)?>
+            <?php echo $this->blocks()->showblock('contentstart');?>
+            <?php echo $this->layout()->content ?>
+            <?php echo $this->blocks()->showblock('contentend');?>
 		</div> 
 				
 		<?php echo $this->blocks()->showblock('beforefooter');?>
-        <div id="footer">
-        	<div class="center">
-	            <?php echo $this->footer();?>
-	            <?php echo $this->blocks()->showblock('footer');?>
-	        </div>
+        <div class="row">
+            <?php echo $this->footer();?>
+            <?php echo $this->blocks()->showblock('footer');?>
         </div><!-- End #footer -->
+        
         <?php echo $this->blocks()->showblock('endfooter');?>
+        
     </div>	<!-- End #main-container -->
     
     <?php echo $this->blocks()->showblock('endbody');?>
