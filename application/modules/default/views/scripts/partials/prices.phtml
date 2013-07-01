@@ -4,7 +4,7 @@ $showallinfo = $this->showallinfo;
 $vatNotIncludedlabel = $this->translate('VAT not included');
 $measurement = "";
 
-echo "<ul class=\"pricelist\">";
+echo "<ul class=\"no-bullet prices\">";
 
 if ($this->data ['type'] == "multiple") {
 	if (! empty ( $this->data ['minvalue'] )) {
@@ -21,7 +21,7 @@ if ($this->data ['type'] == "multiple") {
 		}
 		
 		// Print the price
-		echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax " . "</strong></li>";
+		echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><h4>$pricetax " . "</h4></li>";
 		echo "<li class=\"pricenotincludedvat\" >$price $measurement $vatNotIncludedlabel</li>";
 	
 		if($showallinfo && !empty($this->data['tranches'][0] ['BillingCycle']['name']) && !empty($this->data['discount'])){
