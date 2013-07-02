@@ -31,7 +31,7 @@ class Shineisp_Plugins {
 		
 		// Read all the directory recursivelly and get all the files and folders
 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-				
+		$doc = new stdClass(); //Warning correction declaration $doc object
 		foreach($iterator as $filename => $path_object){
 						
 			$pluginConfigFile = $filename;
