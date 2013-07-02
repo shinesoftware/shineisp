@@ -7,17 +7,18 @@ p {font-size: 14px;}
 #products #thumbs .mainimage{margin-top: 5px;}
 #products .previewshortdescription{margin-top: 10px;}
 
-#products #thumbs {margin-left:2px; text-align: left; }
+#products #thumbs {margin-left:2px; text-align: center; }
 #products #list {margin: 0px}
 
 #products li.attribute{font-size: 0.8em}
 #products .pricenotincludedvat{font-size: 0.8em}
 #products .subscription{font-size: 0.8em}
 #products .breadcrumbs > *{font-size: 1em}
+#products h4 {white-space: nowrap;}
 
 
 /* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */
 @media only screen and (min-width: 768px) {
-	#products #thumbs ul{margin-left:2px; text-align: left;}
+	#products #thumbs ul{margin-left:2px; text-align: center;}
 	#products #list ul{text-align: right;}
 }

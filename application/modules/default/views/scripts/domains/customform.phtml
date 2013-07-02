@@ -16,7 +16,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -39,7 +39,7 @@
 					if($this->autorenew){
 						echo '<div class="notification infos">' . $this->translate("This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day.") . '</div>';
 					}else{
-						echo '<div class="notification error">' . $this->translate('This domain will be not renewed at the expiring day.') . '</div>';
+						echo '<div class="alert-box alert">' . $this->translate('This domain will be not renewed at the expiring day.') . '</div>';
 					} 
 				?>            
 	            

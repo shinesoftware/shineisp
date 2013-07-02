@@ -3,7 +3,7 @@
 	    <?php if($this->loginform):?>
 	        
 	        <? if( $this->message ): ?>
-	           <?php echo "<br><div class=\"notification error\">" . $this->message . "</div>"; ?>
+	           <?php echo "<br><div data-alert class=\"alert-box alert\">" . $this->message . "</div>"; ?>
 	        <?php endif;?>
 	        
 		    <? $form = $this->loginform; ?>
@@ -15,7 +15,7 @@
 		                        foreach( $field->getErrors() as $error){
 		                            $errors[] = $this->translate($error);
 		                        }
-		                        echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" <br> ", $errors) . "</div>";
+		                        echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" <br> ", $errors) . "</div>";
 		                    }   
 		                } ?>
 		            </div>    

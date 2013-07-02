@@ -10,7 +10,7 @@
                 foreach( $field->getErrors() as $error){
                     $errors[] = $this->translate($error);
                 }
-                echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
             }   
         } ?>
     </div>    

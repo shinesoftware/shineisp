@@ -11,7 +11,7 @@
 		        	foreach( $field->getErrors() as $error){
 		        		$errors[] = $this->translate($error);
 		        	}
-		            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+		            echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 		        }   
 		    } ?>
 		</div>    
@@ -22,7 +22,7 @@
             <p  class="signin"><?php echo $this->translate('Already registered?'); ?> <a href="/customer/login"><?php echo $this->translate('Sign in'); ?></a></p>
             
             <? if( $this->message ): ?>
-               <?php echo "<div class=\"notification error\">" . $this->message . "</div>"; ?>
+               <?php echo "<div data-alert class=\"alert-box alert\">" . $this->message . "</div>"; ?>
             <?php endif;?>
             
             <? $form = $this->form; ?>

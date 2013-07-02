@@ -1,12 +1,13 @@
 <div class="large-12 column">
-    <?php echo $this->category['description']?>
+    <h3><?php echo $this->category['name']?></h3>		
+    <?php echo $this->category['description']?><br/><br/>
     
     <?php echo $this->render('categories/header.phtml') ?>
     
     <?php if(is_array($this->products) && count($this->products)>0): ?>
 	
 	<div id="products" class="row">
-		<div class="large-12 column">
+		<div class="large-12">
 			<ul id="list" class="no-bullet">
 				<?php foreach($this->products as $products): ?>
 				    <li>

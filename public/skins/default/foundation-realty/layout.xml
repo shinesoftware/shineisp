@@ -34,6 +34,10 @@
 			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
 			    <css>/css/app.css</css>
 			    
+			    <js>/js/commons.js</js>
+			    <js>/js/priceloader.js</js>
+			    <js>/js/cpanels.js</js>
+			    
                 
 			</head>
 			

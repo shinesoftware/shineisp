@@ -14,7 +14,7 @@
         <?php if($this->form):?>
             
             <? if( $this->message ): ?>
-               <?php echo "<div class=\"notification error\">" . $this->message . "</div>"; ?>
+               <?php echo "<div data-alert class=\"alert-box alert\">" . $this->message . "</div>"; ?>
             <?php endif;?>
             
             <? $form = $this->form; ?>
