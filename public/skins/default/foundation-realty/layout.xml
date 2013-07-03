@@ -35,6 +35,7 @@
 			    <css>/css/app.css</css>
 			    
 			    <js>/js/commons.js</js>
+			    <js>/js/stickyfooter.js</js>
 			    <js>/js/priceloader.js</js>
 			    <js>/js/cpanels.js</js>
 			    

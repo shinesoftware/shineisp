@@ -8,13 +8,13 @@
 <?php endif; ?>
 
 <div id="checkdomain">
-    <form method="<?php echo $form->getMethod() ?>" id="domainselector" action="<?php echo $form->getAction()?>">
-        <div class="domain-box">
-	        <div class="domain"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
-	        <div class="tld"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
+    <form method="<?php echo $form->getMethod() ?>" id="domainselector" class="dropdown custom" action="<?php echo $form->getAction()?>">
+        <div class="row collapse">
+	        <div class="small-9 columns"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
+	        <div class="small-3 columns"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
 		</div>
 		
-		<ul>
+		<ul class="no-bullet">
              <li>
                  <input type="radio" name="mode" checked value="register"> <b><?php echo $this->translate('I would like to register this domain.')?></b>
                  <p><?php echo $this->translate('Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.')?></p>

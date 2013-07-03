@@ -52,6 +52,7 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 		$required = $element->isRequired () ? "<span title=\"" . $translate->translate ( 'Required' ) . "\" class=\"required-icon tooltip\">" . $translate->translate ( 'Required' ) . "</span>" : "";
 		$attrs ['class'] .= $element->hasErrors () ? " inputerror" : "";
 		$attrs ['title'] = ! empty ( $attrs ['title'] ) ? $translate->translate ( $attrs ['title'] ) : "";
+		$attrs ['placeholder'] = $element->getDescription ();
 		
 		if ($element->getType () == "Zend_Form_Element_Submit" || $element->getType () == "Zend_Form_Element_Button") {
 			$el = $element->getView ()->$helper ( $element->getName (), $translate->translate ( $element->getLabel () ), $attrs, $element->options );
@@ -67,7 +68,6 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 	 * 
 	 * @return string
 	 */
-	
 	public function buildErrors() {
 		$element = $this->getElement ();
 		$messages = $element->getMessages ();
@@ -92,7 +92,7 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 		if (empty ( $desc )) {
 			return '';
 		}
-		return '<br /><small>' . $desc . '</small>';
+		return '<div class="small">' . $desc . '</div>';
 	}
 	
 	/**
@@ -116,13 +116,13 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 		$label = $this->buildLabel ();
 		$input = $this->buildInput ();
 		$errors = $this->buildErrors ();
-		$desc = $this->buildDescription ();
+		#$desc = $this->buildDescription ();
 		$name = $this->getElement ()->getName ();
 		
 		// If not the element is a button or a submit button create a div
 		// container
 		if ($element->getType () != "Zend_Form_Element_Submit" && $element->getType () != "Zend_Form_Element_Button") {
-			$output = "<div class=\"inputitem $name\">" . $label . $input . $desc . $errors . "</div>";
+			$output = "<div class=\"inputitem $name\">" . $label . $input . $errors . "</div>";
 		} else {
 			$output = $input;
 		}

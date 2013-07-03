@@ -15,16 +15,14 @@
     	<aside class="large-3 columns">
     		<?php echo $this->blocks()->showblock('right');?>
     	</aside>
+    	
+    	<?php echo $this->blocks()->showblock('beforefooter');?>
+	    <footer>
+	    	<?php echo $this->footer();?>
+	        <?php echo $this->blocks()->showblock('footer');?>
+	    </footer><!-- End #footer -->
+	    <?php echo $this->blocks()->showblock('endfooter');?>
 	</div>
-        
-    <?php echo $this->blocks()->showblock('beforefooter');?>
-    
-    <footer class="row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </footer><!-- End #footer -->
-    
-    <?php echo $this->blocks()->showblock('endfooter');?>
         
     <?php echo $this->blocks()->showblock('endbody');?>
 

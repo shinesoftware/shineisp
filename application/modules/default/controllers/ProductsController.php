@@ -77,7 +77,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				}
 				
 				if (count ( $items ) > 0) {
-					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'text-input large-input select-billing-cycle' ) );
+					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
 					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
 				} else {
 					$form->addElement ( 'text', 'quantity', array ('label' => $this->translator->translate ( 'Quantity' ), 'required' => true, 'value' => '1', 'decorators' => array ('Composite' ), 'class' => 'text-input small-input' ) );

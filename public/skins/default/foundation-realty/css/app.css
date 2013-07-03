@@ -1,24 +1,45 @@
 p {font-size: 14px;}
 
 /* PRODUCT LIST MOBILE BEHAVIOUR STYLES */
-
 #products .product{margin-bottom: 10px;}
 #products .mainimage{margin-top: 50px;}
 #products #thumbs .mainimage{margin-top: 5px;}
 #products .previewshortdescription{margin-top: 10px;}
-
 #products #thumbs {margin-left:2px; text-align: center; }
 #products #list {margin: 0px}
-
+#product-images ul {margin-top: 10px}
 #products li.attribute{font-size: 0.8em}
 #products .pricenotincludedvat{font-size: 0.8em}
 #products .subscription{font-size: 0.8em}
 #products .breadcrumbs > *{font-size: 1em}
 #products h4 {white-space: nowrap;}
 
-
 /* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */
 @media only screen and (min-width: 768px) {
 	#products #thumbs ul{margin-left:2px; text-align: center;}
 	#products #list ul{text-align: right;}
+}
+
+
+/* PRODUCT DETAIL PAGE MOBILE BEHAVIOUR STYLES */
+#product-images .priceval {font-weight: bold}
+#product-images .pricefreq {font-weight: bold}
+#product-images .pricetaxval {font-size: 0.8em}
+#product-images .setupfeecontainer {font-size: 0.8em}
+#product-images .tranche_includes {font-size: 0.8em}
+#product div.mainimage {text-align: center;}
+#product div.shortdescription {text-align: center;}
+#product div.addtocart {text-align: center;}
+#product ul.sticker li { text-align: center;}
+
+/* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */
+@media only screen and (min-width: 768px) {
+	#product div.mainimage{ text-align: left;}
+	#product div.sticker{ text-align: left;}
+	#products #list ul{text-align: right;}
+	#product div.shortdescription {text-align: left; min-height: 230px;}
+	#product div.quantity label{font-size: 11px;}
+	#product div.addtocart {text-align: left;}
+	#product ul.sticker li { text-align: left;}
+	#relatedproduct div.mainimage { margin-top: 10px;}
 }
