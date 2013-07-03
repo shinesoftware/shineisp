@@ -1,9 +1,16 @@
-<nav class="top-bar" >
+<nav class="top-bar">
     <section class="top-bar-section">
+    	
     	<ul>
 	      <li class="name"><?php echo $this->logo()?></li>
 	      <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo $this->translate('Menu')?></span></a></li>
 	    </ul>
+	    
+	    <ul class="right">
+	      <li><?php echo $this->searchbar()?></li>
+	      <li>&nbsp</li>
+	    </ul>
+	    
 	    <?php echo $this->languageswitcher('left') ?>
     	<?php echo $this->webmenu('right');?>
 	</section>

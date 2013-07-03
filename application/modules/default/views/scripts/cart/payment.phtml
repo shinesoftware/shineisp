@@ -1,121 +1,135 @@
 <?php $cart = $this->cart ?>
 <?php $form = $this->form; ?>
 
-<h2><?php echo $this->translate('Order Summary'); ?></h2>
-<small><?php echo $this->translate('Complete the order choosing your preferite payment method.')?></small>
-<br/><br/>
+<h4><?php echo $this->translate('Order Summary'); ?></h4>
+<p><?php echo $this->translate('Complete the order choosing your preferite payment method.')?></p>
 
-<?php $form = $this->form; ?>
 
-<? if( $form->isErrors() ): ?>
-    <div class="messages">    
-       <? foreach( $form->getElements() as $field){
-             $errors = array();
-             if($field->hasErrors()){
-                foreach( $field->getErrors() as $error){
-                    $errors[] = $this->translate($error);
-                }
-                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-            }   
-        } ?>
-    </div>    
-<? endif; ?>
-
-<?php if(isset($cart->reseller)):?>
-	<?php $reseller = $cart->reseller ?>
-	<div id="reseller" class="left">
-		<table id="contact-table">
-		  <tr>
-		    <th colspan="2"><?php echo $this->translate('Reseller') ?></th>
-		  </tr>
-		  <tr>
-		    <td><?php echo $this->translate('Company') ?></td>
-		    <td><?php echo $reseller['company']?></td>
-		  </tr>
-		  <tr>
-		    <td><?php echo $this->translate('Firstname') ?></td>
-		    <td><?php echo $reseller['firstname']?></td>
-		  </tr>
-		  <tr>
-		    <td><?php echo $this->translate('Lastname') ?></td>
-		    <td><?php echo $reseller['lastname']?></td>
-		  </tr>
-		  <tr>
-		    <td><?php echo $this->translate('Email') ?></td>
-		    <td><?php echo $reseller['email']?></td>
-		  </tr>
-		  <tr>
-		    <td><?php echo $this->translate('VAT') ?></td>
-		    <td><?php echo $reseller['vat']?></td>
-		  </tr>
-		</table>
+<div class="row">
+	<div class="large-12 column">
+		<?php $form = $this->form; ?>
+		<? if( $form->isErrors() ): ?>
+		    <div class="messages">    
+		       <? foreach( $form->getElements() as $field){
+		             $errors = array();
+		             if($field->hasErrors()){
+		                foreach( $field->getErrors() as $error){
+		                    $errors[] = $this->translate($error);
+		                }
+		                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+		            }   
+		        } ?>
+		    </div>    
+		<? endif; ?>
 	</div>
-<?php endif; ?>
+</div>
 
-<?php $contact = $cart->contacts ?>
-<div id="contacts-summary">
-	<table id="contact-table">
-	  <tr>
-	    <th colspan="2"><?php echo $this->translate('Service Recipient') ?></th>
-	  </tr>
-	  <tr>
-	    <td><?php echo $this->translate('Company') ?></td>
-	    <td><?php echo $contact['company']?></td>
-	  </tr>
-	  <tr>
-	    <td><?php echo $this->translate('Firstname') ?></td>
-	    <td><?php echo $contact['firstname']?></td>
-	  </tr>
-	  <tr>
-	    <td><?php echo $this->translate('Lastname') ?></td>
-	    <td><?php echo $contact['lastname']?></td>
-	  </tr>
-	  <tr>
-	    <td><?php echo $this->translate('Email') ?></td>
-	    <td><?php echo $contact['email']?></td>
-	  </tr>
-	  <tr>
-	    <td><?php echo $this->translate('VAT') ?></td>
-	    <td><?php echo $contact['vat']?></td>
-	  </tr>
-	</table>
+<div class="row">
+	<div class="large-6 column">
+		<?php if(isset($cart->reseller)):?>
+			<?php $reseller = $cart->reseller ?>
+			<div id="reseller" class="left">
+				<table width="100%" id="contact-table">
+				  <tr>
+				    <th colspan="2"><?php echo $this->translate('Reseller') ?></th>
+				  </tr>
+				  <tr>
+				    <td><?php echo $this->translate('Company') ?></td>
+				    <td><?php echo $reseller['company']?></td>
+				  </tr>
+				  <tr>
+				    <td><?php echo $this->translate('Firstname') ?></td>
+				    <td><?php echo $reseller['firstname']?></td>
+				  </tr>
+				  <tr>
+				    <td><?php echo $this->translate('Lastname') ?></td>
+				    <td><?php echo $reseller['lastname']?></td>
+				  </tr>
+				  <tr>
+				    <td><?php echo $this->translate('Email') ?></td>
+				    <td><?php echo $reseller['email']?></td>
+				  </tr>
+				  <tr>
+				    <td><?php echo $this->translate('VAT') ?></td>
+				    <td><?php echo $reseller['vat']?></td>
+				  </tr>
+				</table>
+			</div>
+		<?php endif; ?>
+	</div>
+	<div class="large-6 column">
+		<?php $contact = $cart->contacts ?>
+		<div id="contacts-summary">
+			<table width="100%" id="contact-table">
+			  <tr>
+			    <th colspan="2"><?php echo $this->translate('Service Recipient') ?></th>
+			  </tr>
+			  <tr>
+			    <td><?php echo $this->translate('Company') ?></td>
+			    <td><?php echo $contact['company']?></td>
+			  </tr>
+			  <tr>
+			    <td><?php echo $this->translate('Firstname') ?></td>
+			    <td><?php echo $contact['firstname']?></td>
+			  </tr>
+			  <tr>
+			    <td><?php echo $this->translate('Lastname') ?></td>
+			    <td><?php echo $contact['lastname']?></td>
+			  </tr>
+			  <tr>
+			    <td><?php echo $this->translate('Email') ?></td>
+			    <td><?php echo $contact['email']?></td>
+			  </tr>
+			  <tr>
+			    <td><?php echo $this->translate('VAT') ?></td>
+			    <td><?php echo $contact['vat']?></td>
+			  </tr>
+			</table>
+		</div>
+	</div>
 </div>
 
 
-<?php echo $this->placeholder('shoppingcart') ?>
-<div id="totals">
-    <table>
-        <tr>
-	        <td><?php echo $this->translate('Tax')?></td>
-	        <td class="prices"><?php echo $this->totals['taxes']?></td>
-	    </tr>
-        <tr>
-	        <td><?php echo $this->translate('Total')?></td>
-	        <td class="prices"><?php echo $this->totals['total']?></td>
-	    </tr>
-    </table>
+<div class="row">
+	<div class="large-12 column">
+		<?php echo $this->placeholder('shoppingcart') ?>
+		<div id="totals">
+		    <table>
+		        <tr>
+			        <td><?php echo $this->translate('Tax')?></td>
+			        <td class="prices"><?php echo $this->totals['taxes']?></td>
+			    </tr>
+		        <tr>
+			        <td><?php echo $this->translate('Total')?></td>
+			        <td class="prices"><?php echo $this->totals['total']?></td>
+			    </tr>
+		    </table>
+		</div>
+	</div>
 </div>
 
-<form method="<?php echo $form->getMethod() ?>" id="cartsummary" action="<?php echo $form->getAction()?>">
-	<div id="payment_methods" class="">
-	   <h2><?php echo $this->translate('Payment Methods')?></h2>
-	   <ul>
-	    <?php foreach($form->payment->getMultiOptions() as $bankid=>$bank): ?>
-	        <li class="methodpayment">
-		        <input type="radio" name="payment" value="<?php echo $bankid?>"/> <?php echo $bank?>
-		     </li>
-	    <?php endforeach;?>
-	    </ul>
-	</div>
-	
-	<?php echo $form->note->render()?>
-	
-	<?php if(Null !== Settings::findbyParam('Conditions')): ?>
-    	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
-    <?php endif;?>
-    
-	
-	<?php echo $form->submit->render()?>
-</form>
 
-<div class="clear"></div>
+<div class="row">
+	<div class="large-12 column">
+		<form method="<?php echo $form->getMethod() ?>" id="cartsummary" action="<?php echo $form->getAction()?>">
+			<div id="payment_methods" class="">
+			   <h4><?php echo $this->translate('Payment Methods')?></h4>
+			   <ul class="no-bullet">
+			    <?php foreach($form->payment->getMultiOptions() as $bankid=>$bank): ?>
+			        <li class="methodpayment">
+				        <input type="radio" name="payment" value="<?php echo $bankid?>"/> <?php echo $bank?>
+				     </li>
+			    <?php endforeach;?>
+			    </ul>
+			</div>
+			
+			<?php echo $form->note->render()?>
+			
+			<?php if(Null !== Settings::findbyParam('Conditions')): ?>
+		    	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
+		    <?php endif;?>
+			
+			<?php echo $form->submit->render()?>
+		</form>
+	</div>
+</div>
