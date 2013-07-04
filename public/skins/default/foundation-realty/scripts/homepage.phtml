@@ -17,17 +17,17 @@
             <?php echo $this->layout()->content ?>
             <?php echo $this->blocks()->showblock('contentend');?>
 		</div> 
-				
-		<?php echo $this->blocks()->showblock('beforefooter');?>
+        
+    </div>	<!-- End #main-container -->
+    
+    <?php echo $this->blocks()->showblock('beforefooter');?>
 		
-        <footer>
+        <footer class="row">
             <?php echo $this->footer();?>
             <?php echo $this->blocks()->showblock('footer');?>
         </footer><!-- End #footer -->
         
         <?php echo $this->blocks()->showblock('endfooter');?>
-        
-    </div>	<!-- End #main-container -->
     
     <?php echo $this->blocks()->showblock('endbody');?>
     

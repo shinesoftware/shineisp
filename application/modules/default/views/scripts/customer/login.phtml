@@ -1,16 +1,19 @@
-<div class="login-wrapper">   
-	<h1><?php echo $this->translate('Login or Create a new Account')?></h1>
-	<hr>   
-    <div class="column medium">
-        <h2><?=$this->translate('Create a new Account')?></h2>
-        <div class="description">
-            <?php echo $this->translate('By creating an account with our store, you will be able to move through the checkout process faster, view and track your orders in your account and more.')?>
-        </div>
-        
-        <p align="right"><a class="colorButton" href="/customer/signup"><?= $this->translate('Create an Account') ?></a></p>
+<h4><?php echo $this->translate('Login or Create a new Account')?></h4><hr>   
+	
+<div class="row">  
+	
+    <div class="large-6 column">
+    	<fieldset class="login">
+	        <h2><?=$this->translate('Create a new Account')?></h2>
+	        <p>
+	            <?php echo $this->translate('By creating an account with our store, you will be able to move through the checkout process faster, view and track your orders in your account and more.')?>
+	        </p>
+	        
+	        <a class="button" href="/customer/signup"><?= $this->translate('Create an Account') ?></a>
+		</fieldset>
     </div>
     
-    <div class="column medium last">
+    <div class="large-6 column">
         <?php if($this->form):?>
             
             <? if( $this->message ): ?>
@@ -22,7 +25,7 @@
                     <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
                         <fieldset class="login">
                             <h2><?=$this->translate('Login')?></h2>
-                            <?=$this->translate('Sign in to get subscribed services.')?>
+                            <p><?echo $this->translate('Sign in to get subscribed services.')?></p>
                             <?php echo $form->email->render() ?>
                             <?php echo $form->password->render() ?>
                             <p align="right"><a href="/index/password"><?php echo $this->translate('Forgot your password?'); ?></a>

@@ -24,6 +24,7 @@
 				<!-- foundation CSS framework to be include in every frontend pages-->
 				<css override="1">/resources/foundation/css/normalize.css</css>
 				<css override="1">/resources/foundation/css/foundation.css</css>
+				<css override="1">/resources/foundation/css/general_foundicons.css</css>
 				
 			    <!-- files to be include in every frontend pages-->
 			    <js override="1">/resources/js/jquery/jquery.confirm-1.3.js</js>
@@ -37,8 +38,6 @@
 			    <js>/js/commons.js</js>
 			    <js>/js/stickyfooter.js</js>
 			    <js>/js/priceloader.js</js>
-			    <js>/js/cpanels.js</js>
-			    
                 
 			</head>
 			

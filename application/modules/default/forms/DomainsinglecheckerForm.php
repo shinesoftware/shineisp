@@ -10,13 +10,14 @@ class Default_Form_DomainsinglecheckerForm extends Zend_Form
         $this->addElement('text', 'name', array(
             'filters'     => array('StringTrim'),
             'decorators' => array('Composite'),
-            'class'       => 'text-input medium-input domainame',
+            'class'       => 'domainame',
+            'placeholder'       => 'mycompany',
             'required'   => true
         ));
         
        $this->addElement('select', 'tld', array(
         'decorators' => array('Composite'),
-        'class'      => 'text-input little-input tld'
+        'class'      => 'tld'
         ));
         
         $this->getElement('tld')
@@ -25,7 +26,7 @@ class Default_Form_DomainsinglecheckerForm extends Zend_Form
                           
         $this->addElement('submit', 'check', array(
             'label'    => 'Check the domain',
-            'class'    => 'button chkdomain bigbtn'
+            'class'    => 'button small chkdomain'
         ));
 
     }

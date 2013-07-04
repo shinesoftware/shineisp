@@ -4,7 +4,7 @@
 ?>
 
 <?php if(!empty($ns->customer)): ?>
-	<a accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/">
+	<a accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/dashboard">
 		<?php if($ns->customer['sex'] == "F"): ?>
 			<?php echo $this->translate('Welcome Mrs. %s', $ns->customer['lastname'])?>
 		<?php elseif($ns->customer['sex'] == "M"): ?>

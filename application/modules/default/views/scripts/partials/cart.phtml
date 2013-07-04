@@ -1,3 +1,8 @@
 <?php if(!empty($this->cartitems)): ?>
-	<a class="iconSmallCart" id="cart" href="/cart/" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
+	<a class="cart" id="cart" href="/cart/" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
+	<ul class="dropdown">
+		<?php foreach ($this->cartitems as $item): ?>
+		<li><a href="/<?php echo $item['uri']?>.html"><?php echo !empty($item['ProductsData'][0]['name']) ? $item['ProductsData'][0]['name'] : $item['sku']; ?></a></li>
+		<?php endforeach;?>
+	</ul>
 <?php endif;?>
