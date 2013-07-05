@@ -196,7 +196,10 @@ ul.dashboard-buttons-set li {
 
 .dashboard-button {
 	display: block;
-	width: 130px;
+	font-size: 65px;
+    text-align: center;
+	color: #555;
+    width: 130px;
 }
 
 .dashboard-button span {
@@ -207,7 +210,6 @@ ul.dashboard-buttons-set li {
 	color: #555;
 	font-size: 13px;
 	line-height: 1.3em;
-	padding: 78px 10px 15px;
 }
 
 .dashboard-button span:hover {
@@ -223,34 +225,6 @@ ul.dashboard-buttons-set li {
 }
 
 
-.Homepage {
-	background-image: url(/skins/default/base/images/commons/dashboard/homepage.png);
-}
-
-.Domains {
-	background-image: url(/skins/default/base/images/commons/dashboard/domains.png);
-}
-
-.Services {
-	background-image: url(/skins/default/base/images/commons/dashboard/services.png);
-}
-
-.Orders {
-	background-image: url(/skins/default/base/images/commons/dashboard/orders.png);
-}
-
-.Tickets {
-	background-image: url(/skins/default/base/images/commons/dashboard/tickets.png);
-}
-
-.Help {
-	background-image: url(/skins/default/base/images/commons/dashboard/help.png);
-}
-
-.Hosting {
-	background-image: url(/skins/default/base/images/commons/dashboard/hosting.png);
-}
-
 #domainlist li {
 	font-size: 16px;
 	-webkit-border-radius: 6px;
@@ -259,6 +233,7 @@ ul.dashboard-buttons-set li {
 	text-transform: uppercase;
 	margin: 5px;
 	padding: 7px 0 7px 38px;
+font-size: 100px;
 }
 
 .available {

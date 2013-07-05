@@ -2,7 +2,6 @@ p {font-size: 14px;}
 
 /* PRODUCT LIST MOBILE BEHAVIOUR STYLES */
 #products .product{margin-bottom: 10px;}
-#products .mainimage{margin-top: 50px;}
 #products #thumbs .mainimage{margin-top: 5px;}
 #products .previewshortdescription{margin-top: 10px;}
 #products #thumbs {margin-left:2px; text-align: center; }
@@ -13,11 +12,16 @@ p {font-size: 14px;}
 #products .subscription{font-size: 0.8em}
 #products .breadcrumbs > *{font-size: 1em}
 #products h4 {white-space: nowrap;}
+#products #list ul.prices{text-align: left; margin: 0px}
+#products #list ul li.subscription{font-size: 0.7em; padding-bottom:15px; border-bottom: 4px solid #ddd; color: #777777}
+#products #list ul li.pricenotincludedvat{font-size: 0.7em; color: #777777}
 
 /* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */
 @media only screen and (min-width: 768px) {
 	#products #thumbs ul{margin-left:2px; text-align: center;}
-	#products #list ul{text-align: right;}
+	#products #list ul.prices{text-align: right;}
+	#products #list ul li.subscription{border: 0px; color: #777777}
+	#products #list ul li.pricenotincludedvat{border: 0px; color: #777777}
 }
 
 

@@ -1,71 +1,73 @@
-<div class="large-12 column">
-    <h3><?php echo $this->category['name']?></h3>		
-    <?php echo $this->category['description']?><br/><br/>
-    
-    <?php echo $this->render('categories/header.phtml') ?>
-    
-    <?php if(is_array($this->products) && count($this->products)>0): ?>
-	
-	<div id="products" class="row">
-		<div class="large-12">
-			<ul id="list" class="no-bullet">
-				<?php foreach($this->products as $products): ?>
-				    <li>
-				    	<div class="row product">
-					        <div class="large-2 column">
-					          <?php echo $this->media()->ProductImage($products['product_id'], 120, 120);?>
-					        </div>
-					        
-				            <div class="large-7 column">
-				                <h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
-				                <small><?php echo $this->ProductCategories($products['categories']) ?></small>
-				                
-				                <div class="previewshortdescription">
-				                    <?php echo $products['shortdescription']?> 
-				                    <p><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $this->translate('Learn more') ?></a>
-				                    <?php if($products['iscomparable'] && !empty($products['groupcode'])): ?>
-				                    	| <a href="/compare/products/code/<?php echo $products['groupcode'] ?>"><?php echo $this->translate('Compare Products') ?></a>
-				                    <?php endif; ?>
-				                    <?php if($products['reviews']) :?>
-				                		| <a href="/products/<?php echo $products['uri'] ?>.html#reviews"><?php echo $products['reviews'] . " " . $this->translate('Reviews') ?></a>
-				                		<?php else: ?>
-				                		| <a href="/products/addreview/id/<?php echo $products['product_id'] ?>"><?php echo $this->translate('Add your review') ?></a>
-				                	<?php endif;?>
-				                    </p>
-				                </div>
-				                <?php if(!empty($products['attributes'])): ?>
-				                    <ul class="inline-list attributes">
-			                    		<?php foreach ($products['attributes'] as $attribute): ?>
-			                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
-			                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
-			                    					<?php echo $attribute['ProductsAttributesData'][0]['prefix'] ?>
-			                    					<?php echo $attribute['ProductsAttributesData'][0]['label']?>: <?php echo $attribute['ProductsAttributesIndexes'][0]['value']?>
-			                    					<?php echo $attribute['ProductsAttributesData'][0]['suffix'] ?>
-			                    				</li>
-			                    			<?php endif;?>
-			                    		<?php endforeach;?>
-				                     </ul>
-				                <?php endif;?>
-				                
-				                <?php if(!empty($products['metakeywords'])): ?>
-				                    <div class="keywords">
-				                        <?php echo $this->translate('Keywords') ?>: <?php echo $products['metakeywords']?>
-				                     </div>
-				                <?php endif;?>	 
-					        </div>
-					        
-					        <div class="large-3 column">
-				                <?php echo $this->prices()->getAllPricesInfo($products['product_id']); ?>
+<div class="row">
+	<div class="large-12 column">
+	    <h3><?php echo $this->category['name']?></h3>		
+	    <?php echo $this->category['description']?><br/><br/>
+	    
+	    <?php echo $this->render('categories/header.phtml') ?>
+	    
+	    <?php if(is_array($this->products) && count($this->products)>0): ?>
+		
+		<div id="products" class="row">
+			<div class="large-12 column">
+				<ul id="list" class="no-bullet">
+					<?php foreach($this->products as $products): ?>
+					    <li>
+					    	<div class="row product">
+						        <div class="large-2 column">
+						          <?php echo $this->media()->ProductImage($products['product_id'], 120, 120);?>
+						        </div>
+						        
+					            <div class="large-7 column">
+					                <h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
+					                <small><?php echo $this->ProductCategories($products['categories']) ?></small>
+					                
+					                <div class="previewshortdescription">
+					                    <?php echo $products['shortdescription']?> 
+					                    <p><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $this->translate('Learn more') ?></a>
+					                    <?php if($products['iscomparable'] && !empty($products['groupcode'])): ?>
+					                    	| <a href="/compare/products/code/<?php echo $products['groupcode'] ?>"><?php echo $this->translate('Compare Products') ?></a>
+					                    <?php endif; ?>
+					                    <?php if($products['reviews']) :?>
+					                		| <a href="/products/<?php echo $products['uri'] ?>.html#reviews"><?php echo $products['reviews'] . " " . $this->translate('Reviews') ?></a>
+					                		<?php else: ?>
+					                		| <a href="/products/addreview/id/<?php echo $products['product_id'] ?>"><?php echo $this->translate('Add your review') ?></a>
+					                	<?php endif;?>
+					                    </p>
+					                </div>
+					                <?php if(!empty($products['attributes'])): ?>
+					                    <ul class="inline-list attributes">
+				                    		<?php foreach ($products['attributes'] as $attribute): ?>
+				                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
+				                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
+				                    					<?php echo $attribute['ProductsAttributesData'][0]['prefix'] ?>
+				                    					<?php echo $attribute['ProductsAttributesData'][0]['label']?>: <?php echo $attribute['ProductsAttributesIndexes'][0]['value']?>
+				                    					<?php echo $attribute['ProductsAttributesData'][0]['suffix'] ?>
+				                    				</li>
+				                    			<?php endif;?>
+				                    		<?php endforeach;?>
+					                     </ul>
+					                <?php endif;?>
+					                
+					                <?php if(!empty($products['metakeywords'])): ?>
+					                    <div class="keywords">
+					                        <?php echo $this->translate('Keywords') ?>: <?php echo $products['metakeywords']?>
+					                     </div>
+					                <?php endif;?>	 
+						        </div>
+						        
+						        <div class="large-3 column">
+					                <?php echo $this->prices()->getAllPricesInfo($products['product_id']); ?>
+								</div>
 							</div>
-						</div>
-				    </li>
-				<?php endforeach; ?>
-			</ul>
+					    </li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		</div>
+		<div class="row"><div class="large-12 column" id="pager"><?php echo $this->pager ?></div></div>
+		<?php else:?>
+		   <p><?php echo $this->translate('No product has been found.')?></p>
+		   <p><a href="/"><?php echo $this->translate('Homepage')?></a></p>
+		<?php endif;?>
 	</div>
-	<div class="row"><div class="large-12 column" id="pager"><?php echo $this->pager ?></div></div>
-	<?php else:?>
-	   <p><?php echo $this->translate('No product has been found.')?></p>
-	   <p><a href="/"><?php echo $this->translate('Homepage')?></a></p>
-	<?php endif;?>
 </div>
