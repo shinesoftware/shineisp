@@ -34,7 +34,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		$css = Shineisp_Commons_Layout::getResources ( $module, $controller, "css", $skin );
 		$js = Shineisp_Commons_Layout::getResources ( $module, $controller, "js", $skin );
 		$template = Shineisp_Commons_Layout::getTemplate ( $module, $controller, $skin );
-	
+		
 		// Setting up the HEAD Section
 		$view = new Zend_View ();
 		

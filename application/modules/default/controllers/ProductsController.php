@@ -89,18 +89,34 @@ class ProductsController extends Shineisp_Controller_Default {
 					$this->view->placeholder ( "features" )->append ( $this->view->partial ( 'partials/attributes.phtml', array ('attributes' => $attributes ) ) );
 				}
 				
+				$layout = $this->getHelper ( 'layout' )->getLayout();
+				
 				// Adding the related products
 				$related = ProductsRelated::get_products($data ['product_id'], $ns->langid);
 				if(count($related) > 0){
-					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'products/related.phtml', array ('products' => $related ) ) );
-					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					if($layout =="1column"){
+						$placeholder = $this->view->placeholder ( "right" );
+						$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					}else{
+						list($columns, $sidebar) = explode("-", $layout);
+						$placeholder = $this->view->placeholder ( $sidebar );
+					}
+					
+					$placeholder->append ( $this->view->partial ( 'products/related.phtml', array ('products' => $related ) ) );
 				}				
 				
 				// Attaching the WIKI Pages
 				$wikipages = Wikilinks::getWikiPages($data ['product_id'], "products", $ns->langid);
 				if(count($wikipages) > 0){
-					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'products/wikipages.phtml', array ('wikipages' => $wikipages) ) );
-					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					if($layout =="1column"){
+						$placeholder = $this->view->placeholder ( "right" );
+						$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					}else{
+						list($columns, $sidebar) = explode("-", $layout);
+						$placeholder = $this->view->placeholder ( $sidebar );
+					}
+					
+					$placeholder->append ( $this->view->partial ( 'products/wikipages.phtml', array ('wikipages' => $wikipages) ) );
 				}				
 				
 				$this->view->reviewsdata = Reviews::getbyProductId ( $data ['product_id'] );

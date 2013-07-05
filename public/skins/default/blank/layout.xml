@@ -26,13 +26,6 @@
 				<css override="1">/resources/foundation/css/foundation.css</css>
 				<css override="1">/resources/foundation/css/general_foundicons.css</css>
 				
-			    <!-- files to be include in every frontend pages-->
-			    <js override="1">/resources/js/jquery/jquery.confirm-1.3.js</js>
-			    <js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
-			    <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
-			    
-			    <css override="1">/resources/js/css/jquery.autocomplete.css</css>
-			    <css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
 			    <css>/css/app.css</css>
 			    
 			    <js>/js/commons.js</js>
@@ -83,27 +76,33 @@
                 <js override="1">/resources/js/jquery/jquery.rating.pack.js</js>
                 <css override="1">/resources/js/css/jquery.rating.css</css>
                 <js>/js/cpanels.js</js>
-                <css>/css/cpanels.css</css>
+
             </head>
         </tickets> 
         
         <dashboard>
             <head>
-                <css>/css/cpanels.css</css>
                 <js>/js/cpanels.js</js>
             </head>
         </dashboard> 
         
         <domains>
             <head>
-                <css>/css/cpanels.css</css>
+                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
                 <js>/js/cpanels.js</js>
             </head>
         </domains> 
         
+        <orders>
+            <head>
+                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
+                <js>/js/cpanels.js</js>
+            </head>
+        </orders> 
+        
         <services>
             <head>
-                <css>/css/cpanels.css</css>
+                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
                 <js>/js/cpanels.js</js>
             </head>
         </services> 
