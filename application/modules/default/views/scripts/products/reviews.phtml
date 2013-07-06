@@ -1,40 +1,41 @@
 <?php $reviewform = $this->reviewform; ?>
-
-<form method="<?php echo $reviewform->getMethod() ?>" id="reviews" action="<?php echo $reviewform->getAction()?>">	
-	<div class="reviews">
-		
-		<?php if(!empty($this->product['ProductsData'][0])): ?>
-			<h3><?php echo $this->translate('Add your review for') . " " . $this->product['ProductsData'][0]['name']?></h3>
-			<p><?php echo $this->product['ProductsData'][0]['shortdescription'] ?></p>
-		<?php endif; ?>
-		
-		<? if( $reviewform->isErrors() ): ?>
-		    <div class="messages">    
-		       <? foreach( $reviewform->getElements() as $field){
-		             $errors = array();
-		             if($field->hasErrors()){
-		                foreach( $field->getErrors() as $error){
-		                    $errors[] = $this->translate($error);
-		                }
-		                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-		            }   
-		        } ?>
-		    </div>    
-		<? endif; ?>
-		
-		<div class="column medium">
-		<?php echo $reviewform->nick->render()?>
-		<?php echo $reviewform->subject->render()?>
-		<?php echo $reviewform->email->render()?>
-		<?php echo $reviewform->city->render()?>
+<div class="row">
+	<form method="<?php echo $reviewform->getMethod() ?>" class="custom dropdown" id="reviews" action="<?php echo $reviewform->getAction()?>">	
+		<div class="large-12 column">
+			<?php if(!empty($this->product['ProductsData'][0])): ?>
+				<h3><?php echo $this->translate('Add your review for') . " " . $this->product['ProductsData'][0]['name']?></h3>
+				<p><?php echo $this->product['ProductsData'][0]['shortdescription'] ?></p>
+			<?php endif; ?>
+			
+			<? if( $reviewform->isErrors() ): ?>
+			    <div class="messages">    
+			       <? foreach( $reviewform->getElements() as $field){
+			             $errors = array();
+			             if($field->hasErrors()){
+			                foreach( $field->getErrors() as $error){
+			                    $errors[] = $this->translate($error);
+			                }
+			                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+			            }   
+			        } ?>
+			    </div>    
+			<? endif; ?>
 		</div>
-		<div class="column medium last">
-		<?php echo $reviewform->referer->render()?>		
-		<?php echo $reviewform->stars->render()?>
-		<?php echo $reviewform->review->render()?>
-		<p><?php echo $reviewform->captcha->render() ?></p>
-		<?php echo $reviewform->save->render()?>
+		   
+		<div class="large-6 column">
+			<?php echo $reviewform->nick->render()?>
+			<?php echo $reviewform->subject->render()?>
+			<?php echo $reviewform->email->render()?>
+			<?php echo $reviewform->city->render()?>
+			
+		</div>
+		<div class="large-6 column">
+			<?php echo $reviewform->referer->render()?>		
+			<?php echo $reviewform->stars->render()?>
+			<?php echo $reviewform->review->render()?>
+			<?php echo $reviewform->captcha->render() ?>
+			<?php echo $reviewform->save->render()?>
 		</div>
 		<?php echo $reviewform->product_id->render() ?>
-	</div>	
-</form>	
+	</form>	
+</div>

@@ -1,25 +1,5 @@
 $(document).ready(function(){
 	 
-	 /* Search box */
-	 $("#searchbox").autocomplete("/common/search/do/",{
-		 delay:400,
-		 minChars:2,
-		 matchSubset:1,
-		 matchContains:1,
-		 cacheLength:10,
-		 formatItem:formatItem,
-		 autoFill:false
-		 }
-	 );	
-	 
-	 $('#searchbox').result(function(event, data, formatted) {
-	        var uri = data[0];
-	        location.href = "/" + uri + ".html";
-	 });
-	 
-	 function formatItem(row) {
-		 return "<strong>" + row[2] + "</strong> " + row[1];
-	 }	
 	 
 	 /* Youtube Preview */
 	 $("a[rel^='prettyPhoto']").prettyPhoto({

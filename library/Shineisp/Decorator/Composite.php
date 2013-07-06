@@ -16,6 +16,7 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 		$element = $this->getElement ();
 		$label = $element->getLabel ();
 		$translator = $element->getTranslator ();
+		$attrs ['class'] = $element->hasErrors () ? "error" : "";
 		
 		if ($translator) {
 			$label = $translator->translate ( $label );
@@ -31,7 +32,7 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 		
 		if (! in_array ( $element->getType (), $nolabel )) {
 			if (! empty ( $label )) { // If the label is not an empty value
-				return $element->getView ()->formLabel ( $element->getName (), $label );
+				return $element->getView ()->formLabel ( $element->getName (), $label, $attrs );
 			}
 		}
 	}
@@ -49,8 +50,8 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 			$attrs ['class'] = "";
 		}
 		
-		$required = $element->isRequired () ? "<span title=\"" . $translate->translate ( 'Required' ) . "\" class=\"required-icon tooltip\">" . $translate->translate ( 'Required' ) . "</span>" : "";
-		$attrs ['class'] .= $element->hasErrors () ? " inputerror" : "";
+		$attrs ['class'] .= $element->isRequired () ? " required" : "";
+		$attrs ['class'] .= $element->hasErrors () ? " error" : "";
 		$attrs ['title'] = ! empty ( $attrs ['title'] ) ? $translate->translate ( $attrs ['title'] ) : "";
 		$attrs ['placeholder'] = $element->getDescription ();
 		
@@ -60,7 +61,7 @@ class Shineisp_Decorator_Composite extends Zend_Form_Decorator_Abstract {
 			$el = $element->getView ()->$helper ( $element->getName (), $element->getValue (), $attrs, $element->options );
 		}
 		
-		return $el . $required;
+		return $el;
 	}
 	
 	/**

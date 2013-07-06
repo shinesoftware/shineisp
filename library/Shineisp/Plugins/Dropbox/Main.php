@@ -40,6 +40,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	protected static $cookies = array ();
 	
 	public $events;
+
 	
 	/**
 	 * Events Registration
@@ -47,14 +48,22 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * (non-PHPdoc)
 	 * @see Shineisp_Plugins_Interface::events()
 	 */
+
 	public function events()
+
 	{
 		$em = Shineisp_Registry::get('em');
+
 		if (!$this->events && is_object($em)) {
+
 			$em->attach('invoices_pdf_created', array(__CLASS__, 'listener_invoice_upload'), 100);
+
 			$em->attach('orders_pdf_created', array(__CLASS__, 'listener_order_upload'), 100);
+
 		}
+
 		return $em;
+
 	}
 	
 	/**
@@ -80,18 +89,22 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	public static function listener_invoice_upload($event) {
 		$invoice = $event->getParam('invoice');
 		$file = $event->getParam('file');
-		
+		echo $file;
 		if(is_numeric($invoice['invoice_id'])){
+
 			if(self::isReady()){
 				
 				// get the destination path
 				$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
 				
-				self::execute($file, $destinationPath, $invoice['invoice_date']);
+				self::execute($file, $destinationPath, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf", $invoice['invoice_date']);
 				
-				Shineisp_Commons_Utilities::log("Event triggered: invoices_pdf_created");
+				Shineisp_Commons_Utilities::log("Event triggered: invoices_pdf_created", "plugin_dropbox.log");
+             
 			}
+
 		}
+
 		return false;
 	}
 	
@@ -109,8 +122,10 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 			
 			self::execute($file, $destinationPath);
 			
-			Shineisp_Commons_Utilities::log("Event triggered: orders_pdf_created");
+			Shineisp_Commons_Utilities::log("Event triggered: orders_pdf_created", "plugin_dropbox.log");
+
 		}
+
 		return false;
 	}
 	
@@ -120,26 +135,34 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * @param string $sourcefile
 	 * @return boolean
 	 */
-	public static function execute($sourcefile, $destinationPath, $date=null){
+	public static function execute($sourcefile, $destinationPath, $remotename=null, $date=null){
+        
+        try{
+            if(empty($date)){
+                $date = date('Y-m-d');
+            }
+        
+            $yearoftheinvoice = date('Y',strtotime($date));
+            $month_testual_invoice = date('M',strtotime($date));
+            $month_number_invoice = date('m',strtotime($date));
+            $quarter_number_invoice = Shineisp_Commons_Utilities::getQuarterByMonth(date('m', strtotime($date)));
 
-		if(empty($date)){
-			$date = date('d-m-Y');
-		}
-		
-		$yearoftheinvoice = date('Y',strtotime($date));
-		$month_testual_invoice = date('M',strtotime($date));
-		$month_number_invoice = date('m',strtotime($date));
-		$quarter_number_invoice =Shineisp_Commons_Utilities::getQuarterByMonth(date('m', strtotime($date)));
+            $destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
+            $destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
+            $destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
+            $destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
 
-		$destinationPath = str_replace("{year}", $yearoftheinvoice, $destinationPath);
-		$destinationPath = str_replace("{month}", $month_number_invoice, $destinationPath);
-		$destinationPath = str_replace("{monthname}", $month_testual_invoice, $destinationPath);
-		$destinationPath = str_replace("{quarter}", $quarter_number_invoice, $destinationPath);
-		
-		if(file_exists(PUBLIC_PATH . $sourcefile )){
-			self::upload(PUBLIC_PATH . $sourcefile, $destinationPath);
-			return true;
-		}
+            if(file_exists(PUBLIC_PATH . $sourcefile )){
+			    self::upload(PUBLIC_PATH . $sourcefile, $destinationPath, $remotename);
+                return true;
+            }else{
+                Shineisp_Commons_Utilities::log("Source file has been not found in $sourcefile ", "plugin_dropbox.log");
+                return false;
+            }
+            
+        }catch(Exception $e){
+            Shineisp_Commons_Utilities::log($e->getMessage());
+        }
 	}
 	
 	/**
@@ -151,7 +174,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 		if (! empty ( $email ) && ! empty ( $password )) {
 			return true;
 		}
-		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credencials");
+		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credencials", "plugin_dropbox.log");
 		return false;
 	}
 	
@@ -187,39 +210,44 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * @throws Exception
 	 */
 	public static function upload($source, $remoteDir = '/', $remoteName = null) {
-		
-		$params = compact('source', 'remoteDir', 'remoteName');
-		
-		if (! is_file ( $source ) or ! is_readable ( $source ))
-			throw new Exception ( "File '$source' does not exist or is not readable." );
-		
-		$filesize = filesize ( $source );
-		if ($filesize < 0 ) {
-			Shineisp_Commons_Utilities::log("Dropbox module: File '$source' too large ($filesize bytes).");
-			throw new Exception ( "File '$source' too large ($filesize bytes)." );
-		}
-		
-		if (! is_string ( $remoteDir ))
-			throw new Exception ( "Remote directory must be a string, is " . gettype ( $remoteDir ) . " instead." );
-		
-		if (is_null ( $remoteName )) {
-			// intentionally left blank
-		} else if (! is_string ( $remoteName )) {
-			throw new Exception ( "Remote filename must be a string, is " . gettype ( $remoteDir ) . " instead." );
-		} else {
-			$source .= ';filename=' . $remoteName;
-		}
-		
-		if (! self::$loggedIn)
-			self::login ();
-		
-		$data = self::request ( 'https://www.dropbox.com/home' );
-		$token = self::extractToken ( $data, 'https://dl-web.dropbox.com/upload' );
-		
-		$postData = array ('plain' => 'yes', 'file' => '@' . $source, 'dest' => $remoteDir, 't' => $token );
-		$data = self::request ( 'https://dl-web.dropbox.com/upload', true, $postData );
-		if (strpos ( $data, 'HTTP/1.1 302 FOUND' ) === false)
-			throw new Exception ( 'Upload failed!' );
+		try{
+            $params = compact('source', 'remoteDir', 'remoteName');
+        
+            if (! is_file ( $source ) or ! is_readable ( $source ))
+                throw new Exception ( "File '$source' does not exist or is not readable." );
+        
+            $filesize = filesize ( $source );
+            if ($filesize < 0 ) {
+                Shineisp_Commons_Utilities::log("Dropbox module: File '$source' too large ($filesize bytes).");
+                throw new Exception ( "File '$source' too large ($filesize bytes)." );
+            }
+        
+            if (! is_string ( $remoteDir ))
+                throw new Exception ( "Remote directory must be a string, is " . gettype ( $remoteDir ) . " instead." );
+        
+            if (is_null ( $remoteName )) {
+                // intentionally left blank
+            } else if (! is_string ( $remoteName )) {
+                throw new Exception ( "Remote filename must be a string, is " . gettype ( $remoteDir ) . " instead." );
+            } else {
+                $source .= ';filename=' . $remoteName;
+            }
+        
+            if (! self::$loggedIn)
+                self::login ();
+        
+            $data = self::request ( 'https://www.dropbox.com/home' );
+            $token = self::extractToken ( $data, 'https://dl-web.dropbox.com/upload' );
+        
+            $postData = array ('plain' => 'yes', 'file' => '@' . $source, 'dest' => $remoteDir, 't' => $token );
+            $data = self::request ( 'https://dl-web.dropbox.com/upload', true, $postData );
+            if (strpos ( $data, 'HTTP/1.1 302 FOUND' ) === false)
+                throw new Exception ( 'Upload failed!' );
+        
+        }catch(Exception $e){
+            Shineisp_Commons_Utilities::log($e->getMessage(), "plugin_dropbox.log");
+        }
+        
 	}
 	
 	/**
@@ -229,19 +257,24 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * @throws Exception
 	 */
 	protected static function login() {
-		$data = self::request ( 'https://www.dropbox.com/login' );
-		$token = self::extractTokenFromLoginForm ( $data );
-		
-		$email = Settings::findbyParam ( 'dropbox_email' );
-		$password = Settings::findbyParam ( 'dropbox_password' );
-		
-		$postData = array ('login_email' => $email, 'login_password' => $password, 't' => $token );
-		$data = self::request ( 'https://www.dropbox.com/login', true, $postData );
-		
-		if (stripos ( $data, 'location: /home' ) === false)
-			throw new Exception ( 'Login unsuccessful.' );
-		
-		self::$loggedIn = true;
+	    try{
+            $data = self::request ( 'https://www.dropbox.com/login' );
+            $token = self::extractTokenFromLoginForm ( $data );
+        
+            $email = Settings::findbyParam ( 'dropbox_email' );
+            $password = Settings::findbyParam ( 'dropbox_password' );
+        
+            $postData = array ('login_email' => $email, 'login_password' => $password, 't' => $token );
+            $data = self::request ( 'https://www.dropbox.com/login', true, $postData );
+        
+            if (stripos ( $data, 'location: /home' ) === false)
+                throw new Exception ( 'Login unsuccessful.' );
+        
+            self::$loggedIn = true;
+            
+		}catch(Exception $e){
+            Shineisp_Commons_Utilities::log($e->getMessage(), "plugin_dropbox.log");
+        }
 	}
 	
 	/**

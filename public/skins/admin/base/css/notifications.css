@@ -30,7 +30,6 @@
 }
 
 .error {
-	background: #ffcece url(/skins/admin/base/images/cross_circle.png);
 	color: #000;
 	border-color: #df8f8f;
 }

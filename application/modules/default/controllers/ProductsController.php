@@ -83,6 +83,7 @@ class ProductsController extends Shineisp_Controller_Default {
 					$form->addElement ( 'text', 'quantity', array ('label' => $this->translator->translate ( 'Quantity' ), 'required' => true, 'value' => '1', 'decorators' => array ('Composite' ), 'class' => 'text-input small-input' ) );
 					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '0' ) );
 				}
+				
 				// Adding the product attributes
 				$attributes = ProductsAttributesIndexes::getAttributebyProductID($data ['product_id'], $ns->langid);
 				if (count ( $attributes ) > 0) {

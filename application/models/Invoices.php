@@ -149,73 +149,137 @@ class Invoices extends BaseInvoices {
         return $result;
 	}
 	
+
 	/**
+
 	 * get the incoming summary for the selected year
+
 	 *
+
 	 * @param integer $year
+
 	 */
+
 	public static function getSummary($year, $payments=TRUE) {
+
 	
+
 		if(!is_numeric($year)){
+
 			return array();
+
 		}
+
 	
+
 		$records = Doctrine_Query::create ()
+
 		->select ( "o.order_id,
+
 				MONTH(i.invoice_date) as month,
+
 				date_format(i.invoice_date,'%M') as monthname,
+
 				YEAR(i.invoice_date) as yearnum,
+
 				SUM(o.total) as total,
+
 				SUM(o.vat) as vat,
+
 				SUM(o.grandtotal) as grandtotal" )
+
 				->from ( 'Orders o' )
+
 				->leftJoin ( 'o.Invoices i' )
+
 				->where('YEAR(i.invoice_date) = ?', $year)
+
 				->andWhere('o.invoice_id <> ?', '')
+
 				->andWhere('o.status_id = ?', Statuses::id("complete", "orders"))
+
 				->groupBy('YEAR(i.invoice_date)')
+
 				->addGroupBy('MONTH(i.invoice_date)')
+
 				->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+
 		if($payments){
+
 			for ($i=0;$i<count($records);$i++) {
+
 				$records[$i]['subrecords'] = Payments::getAllPaymentsbyMonthYear($records[$i]['month'], $year);
+
 			}
+
 		}
+
 		 
+
 		return $records;
+
 	}
 	
 	
+
 	/**
+
 	 * get the incoming summary for the selected range of dates
+
 	 *
+
 	 * @param date $from
 	 * @param date $to
+
 	 */
+
 	public static function getWeekSummarybyDateRange($from, $to) {
+
 	
+
 		if(empty($from) || empty($to)){
+
 			return array();
+
 		}
+
 	
+
 		$records = Doctrine_Query::create ()
+
 		->select ( "o.order_id,
+
 				MONTH(i.invoice_date) as month,
 				WEEK(i.invoice_date) as weekname,
+
 				date_format(i.invoice_date,'%M') as monthname,
+
 				YEAR(i.invoice_date) as yearnum,
+
 				SUM(o.total) as total,
+
 				SUM(o.vat) as vat,
+
 				SUM(o.grandtotal) as grandtotal" )
+
 				->from ( 'Orders o' )
+
 				->leftJoin ( 'o.Invoices i' )
+
 				->where('i.invoice_date BETWEEN ? AND ?', array($from, $to))
+
 				->andWhere('o.invoice_id <> ?', '')
+
 				->andWhere('o.status_id = ?', Statuses::id("complete", "orders"))
+
 				->groupBy('YEARWEEK(i.invoice_date)')
+
 				->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+
 		 
+
 		return $records;
+
 	}	
 	
 	
@@ -813,9 +877,9 @@ class Invoices extends BaseInvoices {
 			
 			// Invoice already exists, we return it
 			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
-				$outputFilename = !empty($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
 				header('Content-type: application/pdf');
-				header('Content-Disposition: attachment; filename="'.$outputFilename.'.pdf"');
+				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
 				
 				$invoice = file_exists(PUBLIC_PATH.$filename) ? file_get_contents(PUBLIC_PATH.$filename) : file_get_contents(PUBLIC_PATH.$filenameOld);
 				die($invoice);
@@ -841,7 +905,6 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : Orders::formatOrderId($order[0]['order_id']);
 				$orderinfo ['invoice_id'] = $invoice ['number'];
 				$orderinfo ['date'] = Shineisp_Commons_Utilities::formatDateOut ( $invoice ['invoice_date'] );
-				$orderinfo ['formatted_number'] = $invoice ['formatted_number'];
 				
 				//if customer comes from reseller
 				if ($order [0] ['Customers'] ['parent_id']) {
@@ -896,6 +959,8 @@ class Invoices extends BaseInvoices {
 					$orderinfo ['payment_transaction_id'] = $payments [0] ['reference'];
 				}
 
+
+				
 				$orderinfo ['invoice_number'] = $invoice ['number'];
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
@@ -968,7 +1033,7 @@ class Invoices extends BaseInvoices {
 				
 				$database['records']['skip_barcode'] = 1;
 				if ( !empty($database ['records']['invoice_number']) ) {
-					$database['records']['barcode']      = $database ['records']['formatted_number'];
+					$database['records']['barcode']      = $database ['records']['invoice_number'];
 					$database['records']['skip_barcode'] = 0;
 				}
 
@@ -996,7 +1061,7 @@ class Invoices extends BaseInvoices {
 	    			$html2pdf->Output(PUBLIC_PATH.$filename, "F");
 
 					// Execute a custom event 
-					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $path . $filename));
+					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $filename));
 					
 					return $path . $filename;
 				}

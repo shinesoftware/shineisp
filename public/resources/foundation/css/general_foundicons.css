@@ -1,8 +1,8 @@
 /* font-face */
 @font-face {
   font-family: "GeneralFoundicons";
-  src: url("/resources/foundation/fonts/general_foundicons.eot");
-  src: url("/resources/foundation/fonts/general_foundicons.eot?#iefix") format("embedded-opentype"), url("/resources/foundation/fonts/general_foundicons.woff") format("woff"), url("/resources/foundation/fonts/general_foundicons.ttf") format("truetype"), url("/resources/foundation/onts/general_foundicons.svg#GeneralFoundicons") format("svg");
+  src: url("../fonts/general_foundicons.eot");
+  src: url("../fonts/general_foundicons.eot?#iefix") format("embedded-opentype"), url("../fonts/general_foundicons.woff") format("woff"), url("../fonts/general_foundicons.ttf") format("truetype"), url("../onts/general_foundicons.svg#GeneralFoundicons") format("svg");
   font-weight: normal;
   font-style: normal;
 }

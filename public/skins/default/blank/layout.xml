@@ -26,6 +26,9 @@
 				<css override="1">/resources/foundation/css/foundation.css</css>
 				<css override="1">/resources/foundation/css/general_foundicons.css</css>
 				
+				<js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
+				<css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
+				
 			    <css>/css/app.css</css>
 			    
 			    <js>/js/commons.js</js>
@@ -73,10 +76,7 @@
         <tickets>
             <head>
             	<js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js override="1">/resources/js/jquery/jquery.rating.pack.js</js>
-                <css override="1">/resources/js/css/jquery.rating.css</css>
                 <js>/js/cpanels.js</js>
-
             </head>
         </tickets> 
         
