@@ -76,13 +76,8 @@ class ProductsController extends Shineisp_Controller_Default {
 					$data ['quantity'] = 1;
 				}
 				
-				if (count ( $items ) > 0) {
-					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
-					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
-				} else {
-					$form->addElement ( 'text', 'quantity', array ('label' => $this->translator->translate ( 'Quantity' ), 'required' => true, 'value' => '1', 'decorators' => array ('Composite' ), 'class' => 'text-input small-input' ) );
-					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '0' ) );
-				}
+				$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
+				$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
 				
 				// Adding the product attributes
 				$attributes = ProductsAttributesIndexes::getAttributebyProductID($data ['product_id'], $ns->langid);
@@ -275,7 +270,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				$data['pricetax'] = $tranche['price'];
 			}
 			
-			$data['pricelbl']           = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
+			$data['pricelbl']           = $currency->toCurrency($tranche['price'], array('currency' => Settings::findbyParam('currency')));
 			$data['months']             = $tranche['BillingCycle']['months'];
 			$data['pricepermonths']     = $data['pricetax'] * $tranche['BillingCycle']['months'];
 			$data['name']               = $this->translator->translate ($tranche['BillingCycle']['name']);
