@@ -1,14 +1,5 @@
 $(document).ready(function(){
 	 
-	 
-	 /* Youtube Preview */
-	 $("a[rel^='prettyPhoto']").prettyPhoto({
-		 theme: 'light_rounded', 
-		 default_width: 640,
-		 default_height: 344,
-		 social_tools: ''
-	 });
-	
 	// Select all the checkboxes
 	$('.selectall').click(
 		function(){

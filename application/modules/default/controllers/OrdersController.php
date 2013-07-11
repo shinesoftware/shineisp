@@ -111,7 +111,7 @@ class OrdersController extends Shineisp_Controller_Default {
 							DATE_FORMAT(o.order_date, '%d/%m/%Y') as Starting, 
 							DATE_FORMAT(o.expiring_date, '%d/%m/%Y') as Valid_Up, 
 							in.invoice_id as invoice_id, 
-							in.formatted_number as Invoice, 
+							in.formatted_number as invoice_number, 
 							CONCAT(d.domain, '.', w.tld) as Domain, 
 							c.company as company, 
 							o.status_id, 
@@ -146,10 +146,9 @@ class OrdersController extends Shineisp_Controller_Default {
 						$records[$i]['price'] = $currency->toCurrency($records[$i]['price'], array('currency' => Settings::findbyParam('currency')));;
 						$records[$i]['setupfee'] = $currency->toCurrency($records[$i]['setupfee'], array('currency' => Settings::findbyParam('currency')));;
 					}
-					
+
 					$this->view->customer_id = $NS->customer ['customer_id'];
-					$this->view->invoiced = ($rs [0] ['status_id'] == Statuses::id("complete", "orders") && $rs [0] ['Invoice'] > 0) ? true : false;
-					$this->view->invoice_number = $rs [0] ['Invoice'];
+					$this->view->invoiced = ($rs [0] ['status_id'] == Statuses::id("complete", "orders") && $rs [0] ['invoice_number'] > 0) ? true : false;
 					$this->view->invoice_id = $rs [0] ['invoice_id'];
 					$this->view->order = array ('records' => $rs );
 					$this->view->details = array ('records' => $records );
@@ -170,7 +169,7 @@ class OrdersController extends Shineisp_Controller_Default {
 					// Send the data to the form
 					$form->populate ( $rs [0] );
 					
-					#$this->view->formattedid = $formattedID;
+					$this->view->title = $this->translator->_('Order %s', $rs [0] ['order_number']);
 					$this->view->orderid = $id;
 					
 				}else{

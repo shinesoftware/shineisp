@@ -33,7 +33,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		}
 		
 		// Create CMS pages menu
-		$cmsmenu = '<li class="has-dropdown"><a href="/">'.$this->translator->translate('Blog').'</a>' . $this->createMenu(0) . "<li>";
+		$cmsmenu = '<li class="has-dropdown"><a href="/">'.$this->translator->translate('Blog').'</a>' . $this->createMenu(0) . "</li>";
 		
 		// Create the tlds list menu
 		$tldmenu = $this->createTldMenu();
@@ -122,7 +122,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		$currency = Shineisp_Registry::get ( 'Zend_Currency' );
 	
 		$html = "<li class=\"has-dropdown\">";
-		$html .= '<a href="/domainschk/index/" class="dropdown">'.$this->translator->translate('Domains').'</a>';
+		$html .= '<a href="/domainschk/index/">'.$this->translator->translate('Domains').'</a>';
 		$html .= "<ul class=\"dropdown\">";
 		foreach ( $items as $item ) {
 			if(!empty($item ['DomainsTldsData'][0]['name'])){

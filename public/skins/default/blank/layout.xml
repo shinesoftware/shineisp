@@ -6,10 +6,6 @@
 		<head>
 		    <!-- JS files to be include in every pages-->
 			<js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
-			<js override="1">/resources/js/jquery/jquery-ui-1.9.2.custom.min.js</js>
-			
-			<!-- CSS files to be include in every pages-->
-			<css override="1">/resources/js/css/jquery-ui-1.8.16.custom.css</css>
 		</head>
 	</general>
 
@@ -25,6 +21,7 @@
 				<css override="1">/resources/foundation/css/normalize.css</css>
 				<css override="1">/resources/foundation/css/foundation.css</css>
 				<css override="1">/resources/foundation/css/general_foundicons.css</css>
+				<css override="1">/resources/foundation/css/foundation.ie7.grid.css</css>
 				
 				<js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
 				<css override="1">/resources/js/css/jquery.prettyPhoto.css</css>

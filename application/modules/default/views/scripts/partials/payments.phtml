@@ -1,10 +1,9 @@
 <?php $payments = $this->payments ?>
 
-<div class="payments">
+<div class="row">
     <?php foreach($payments as $payment):?>
-		<div class="column">
-	        	<?php echo $payment?>
+		<div class="large-6 column">
+	        <?php echo $payment?>
 	    </div>
     <?php endforeach; ?>
-    <div class="clear"></div>
 </div>

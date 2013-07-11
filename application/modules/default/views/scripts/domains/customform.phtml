@@ -1,28 +1,16 @@
 <?php $form = $this->form; ?>
 
+<?php echo $this->render('partials/header.phtml') ?>
+
 <div class="row">
-	<div class="large-12 column">
-		<? if( $form->isErrors() ): ?>
-			<div class="messages">    
-			   <? foreach( $form->getElements() as $field){
-			         $errors = array();
-			   	     if($field->hasErrors()){
-			        	foreach( $field->getErrors() as $error){
-			        		$errors[] = $this->translate($error);
-			        	}
-			            echo "<div data-alert class=\"alert-box error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-			        }   
-			    } ?>
-			</div>    
-		<? endif; ?>
-		
+	<div class="large-12 column">		
 		<h2><?php echo $this->domainame ?></h2>
 		<form method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
 
-		<div class="section-container tabs" data-section="auto">
+		<div class="section-container" data-section data-options="deep_linking: false; one_up: false">
 		    <div class="section"> 
 		    	<p class="title" data-section-title><a href="#panel1"><?php echo $this->translate('Main') ?></a></p>
-	          	<div class="content" data-section-content>
+	          	<div class="content" data-slug="panel1">
 	            	<?php echo $this->verticalgrid($this->datagrid)?><br/>
 					<?php
 						if($this->autorenew){
@@ -154,9 +142,12 @@
 		    </div>    
 		   
 		</div>
-		<p align="right"><?php echo $form->submit->render()?></p>
-		  <?php echo $form->domain_id->render()?>
-			
+		<div class="row">
+			<div class="large-12 column">
+				<p align="right"><?php echo $form->submit->render()?></p>
+		  		<?php echo $form->domain_id->render()?>
+			</div>
+		</div>
 		</form>
 	</div>
 </div>

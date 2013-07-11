@@ -20,9 +20,8 @@ class ServicesController extends Shineisp_Controller_Default {
 		}
 		
 		$this->customer = $NS->customer;
-		$registry = Shineisp_Registry::getInstance ();
 		$this->services = new OrdersItems ( );
-		$this->translator = $registry->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Set the navigation menu for the client control panel page on the left sidebar
 		#$this->view->placeholder ( "left" )->append ( $string);	

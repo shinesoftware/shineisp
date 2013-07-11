@@ -1,0 +1,29 @@
+<?php $form = $this->form; ?>
+<div class="row">
+	<div class="large-12 column">
+		<? if( $form->isErrors() ): ?>
+			<div class="messages">    
+			   <? foreach( $form->getElements() as $field){
+			         $errors = array();
+			   	     if($field->hasErrors()){
+			        	foreach( $field->getErrors() as $error){
+			        		$errors[] = $this->translate($error);
+			        	}
+			            echo "<div data-alert class=\"alert-box error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+			        }   
+			    } ?>
+			</div>    
+		<? endif; ?>
+		
+		<div class="headtitle">
+		    <h3><?php 
+			    if(!empty($this->name)){
+			       	echo $this->name;
+			    }elseif (!empty($this->title)){
+					echo $this->title;
+				}
+		    ?></h3>
+		    <p><?php echo $this->description;?></p>
+	</div>
+	</div>
+</div>

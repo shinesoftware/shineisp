@@ -1,14 +1,15 @@
 <?php if(!empty($this->files)): ?>
-	<div class="attachments">
-		<h6><?php echo $this->translate('Attachments') ?></h6>
-		<ul>
-		<?php foreach($this->files as $file): ?>
-			<?php if(file_exists(PUBLIC_PATH . $file['path'] . $file['file'])): ?>
-				<li><a href="<?php echo $file['path'] . $file['file']?>"><?php echo basename($file['file'])?></a></li>
-			<?php else:?>
-				<li><?php echo basename($file['file'])?> - <?php echo $this->translate('File not found')?></li>
-			<?php endif;?>
-		<?php endforeach;?>
-		</ul>
+	<div class="row collapse">
+		<div class="large-12 column">
+			<ul class="side-nav">
+			<?php foreach($this->files as $file): ?>
+				<?php if(file_exists(PUBLIC_PATH . $file['path'] . $file['file'])): ?>
+					<li><a href="<?php echo $file['path'] . $file['file']?>"><?php echo basename($file['file'])?></a></li>
+				<?php else:?>
+					<li><?php echo basename($file['file'])?> - <?php echo $this->translate('File not found')?></li>
+				<?php endif;?>
+			<?php endforeach;?>
+			</ul>
+		</div>
 	</div>
 <?php endif; ?>	
