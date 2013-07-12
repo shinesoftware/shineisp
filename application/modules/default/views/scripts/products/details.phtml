@@ -52,8 +52,8 @@
 					                </ul>
 				                <?php else: ?>
 				                 	<ul class="sticker no-bullet hidden">
-				                 		<li class="price"><?php echo $this->translate('just')?><span id="priceval" class="priceval"><?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency'))) ?></span></li>
-					                    <li class="pricetaxval">><span id="pricetaxval"><?php echo $price['taxincluded'] ?></span> <?php echo $this->translate('VAT included')?></li>
+				                 		<li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency'))) ?></span></li>
+					                    <li class="pricetaxval"><span id="pricetaxval"><?php echo $this->currency($price['taxincluded'], array('currency' => Settings::findbyParam('currency'))) ?></span> <?php echo $this->translate('VAT included')?></li>
 					                </ul>
 				                <?php endif;?>
 		                	</div>

@@ -22,11 +22,16 @@ $(document).ready(function(){
 		}
 	}		
 
-	//Update the price in the product detail page
+	// Update the price in the product detail page
 	UpdatePrice();
 	
-	//Updating the price 
+	// Updating the price 
 	$(".select-billing-cycle").change(function () {
 		UpdatePrice();
 	}); 
+
+	// Check the numeric value
+	jQuery('#quantity').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
 });	

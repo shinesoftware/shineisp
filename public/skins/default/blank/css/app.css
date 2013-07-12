@@ -36,7 +36,7 @@ table {width: 100%;}
 #product div.mainimage {text-align: center;}
 #product div.shortdescription {text-align: center;}
 #product div.media {text-align: center;}
-#product div.addtocart {text-align: center;}
+#product div.addtocart {text-align: center; padding-top:10px;}
 #product ul.sticker li { text-align: center;}
 
 /* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */

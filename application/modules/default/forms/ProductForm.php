@@ -10,7 +10,7 @@ class Default_Form_ProductForm extends Zend_Form
             'required' => false,
             'label'    => 'Add to Cart',
             'decorators' => array('Composite'),
-            'class'    => 'button radius success'
+            'class'    => 'button small radius success'
         ));
         
         $this->addElement('hidden', 'product_id', array('decorators' => array('Composite')));

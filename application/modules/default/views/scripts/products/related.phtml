@@ -5,10 +5,10 @@
 		<?php foreach ($products as $product): ?>
 			<?php if(!empty($product['name'])): ?>
 			<div class="row">
-				<div class="large-4 column">
+				<div class="large-3 column">
 			    	<?php echo $this->media()->ProductImage($product['product_id'], 60, 60, false);?>
 				</div>
-				<div class="large-8 column">
+				<div class="large-9 column">
 					<h6><a href="/<?php echo $product['uri'] ?>.html"><?php echo $product['name'] ?></a></h6>
 					<p><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 100, "...", true, true)  ?></p>
 				</div>

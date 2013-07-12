@@ -24,35 +24,40 @@
 					                <div class="previewshortdescription">
 					                    <?php echo $products['shortdescription']?> 
 					                    <p><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $this->translate('Learn more') ?></a>
+					                    
 					                    <?php if($products['iscomparable'] && !empty($products['groupcode'])): ?>
 					                    	| <a href="/compare/products/code/<?php echo $products['groupcode'] ?>"><?php echo $this->translate('Compare Products') ?></a>
 					                    <?php endif; ?>
+					                    
 					                    <?php if($products['reviews']) :?>
 					                		| <a href="/products/<?php echo $products['uri'] ?>.html#reviews"><?php echo $products['reviews'] . " " . $this->translate('Reviews') ?></a>
 					                		<?php else: ?>
 					                		| <a href="/products/addreview/id/<?php echo $products['product_id'] ?>"><?php echo $this->translate('Add your review') ?></a>
 					                	<?php endif;?>
+					                	
 					                    </p>
 					                </div>
+					                
 					                <?php if(!empty($products['attributes'])): ?>
-					                    <ul class="inline-list attributes">
-				                    		<?php foreach ($products['attributes'] as $attribute): ?>
-				                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
-				                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
-				                    					<?php echo $attribute['ProductsAttributesData'][0]['prefix'] ?>
-				                    					<?php echo $attribute['ProductsAttributesData'][0]['label']?>: <?php echo $attribute['ProductsAttributesIndexes'][0]['value']?>
-				                    					<?php echo $attribute['ProductsAttributesData'][0]['suffix'] ?>
-				                    				</li>
-				                    			<?php endif;?>
-				                    		<?php endforeach;?>
-					                     </ul>
+				                    <ul class="inline-list attributes">
+			                    		<?php foreach ($products['attributes'] as $attribute): ?>
+			                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
+			                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
+			                    					<?php echo $attribute['ProductsAttributesData'][0]['prefix'] ?>
+			                    					<?php echo $attribute['ProductsAttributesData'][0]['label']?>: <?php echo $attribute['ProductsAttributesIndexes'][0]['value']?>
+			                    					<?php echo $attribute['ProductsAttributesData'][0]['suffix'] ?>
+			                    				</li>
+			                    			<?php endif;?>
+			                    		<?php endforeach;?>
+				                     </ul>
 					                <?php endif;?>
 					                
 					                <?php if(!empty($products['metakeywords'])): ?>
-					                    <div class="keywords">
-					                        <?php echo $this->translate('Keywords') ?>: <?php echo $products['metakeywords']?>
-					                     </div>
+				                    <div class="keywords">
+				                        <?php echo $this->translate('Keywords') ?>: <?php echo $products['metakeywords']?>
+				                     </div>
 					                <?php endif;?>	 
+					                
 						        </div>
 						        
 						        <div class="large-3 column">

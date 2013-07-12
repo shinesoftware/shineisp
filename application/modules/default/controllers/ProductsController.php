@@ -67,7 +67,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				
 				$form = $this->CreateProductForm ( );
 				$items = ProductsTranches::getList ( $data ['product_id'],$refund );
-				
+				 
 				// Check the default quantity value
 				$qta = ProductsTranches::getDefaultItem ( $data ['product_id'] );
 				if (! empty ( $qta )) {
@@ -76,8 +76,13 @@ class ProductsController extends Shineisp_Controller_Default {
 					$data ['quantity'] = 1;
 				}
 				
-				$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
-				$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
+				if (count ( $items ) > 0) {
+					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
+					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
+				} else {
+					$form->addElement ( 'text', 'quantity', array ('label' => $this->translator->translate ( 'Quantity' ), 'required' => true, 'value' => '1', 'decorators' => array ('Composite' ), 'class' => 'text-input small-input' ) );
+					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '0' ) );
+				}
 				
 				// Adding the product attributes
 				$attributes = ProductsAttributesIndexes::getAttributebyProductID($data ['product_id'], $ns->langid);

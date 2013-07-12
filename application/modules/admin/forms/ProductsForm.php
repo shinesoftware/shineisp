@@ -119,25 +119,21 @@ class Admin_Form_ProductsForm extends Zend_Form
 				  	,'4' => 'Automatically setup the product as soon as the payment is complete'
 				  ));
 
-
-
-
-        
         $this->addElement('multiselect', 'related', array(
-        'label' => 'Related Products',
-        'decorators' => array('Composite'),
-        'size'	 => '20x',
-        'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
-        'class'      => 'text-input large-input'
-        ));
+	        'label' => 'Related Products',
+	        'decorators' => array('Composite'),
+	        'size'	 => '20x',
+	        'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
+	        'class'      => 'text-input large-input'
+	        ));
 		        
         $this->addElement('multiselect', 'upgrade', array(
-        'label' => 'Product Upgrades',
-        'decorators' => array('Composite'),
-        'size'	 => '20x',
-        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
-        'class'      => 'text-input large-input'
-        ));		
+	        'label' => 'Product Upgrades',
+	        'decorators' => array('Composite'),
+	        'size'	 => '20x',
+	        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
+	        'class'      => 'text-input large-input'
+	        ));		
         $this->getElement('related')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false) // Disable the Validator in order to manage a dynamic products list.
@@ -256,7 +252,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 	        ));
 	        
 	        
-	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
+	        $MBlimit = Settings::findbyParam('adminuploadlimit');
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(

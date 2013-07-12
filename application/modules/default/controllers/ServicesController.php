@@ -84,7 +84,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		$priceRefund	= $refundInfo['refund'];
 
 		if( ! property_exists($NS, 'upgrade') ) {
-			$NS->upgrade				= array();	
+			$NS->upgrade = array();	
 		}
 		
 		$NS->upgrade[$id]	= array();
@@ -106,7 +106,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		$this->view->products 		= $products;
 		
 		$this->view->title = $this->translator->translate("Upgrade products List");
-		$this->view->description = $this->translator->translate("List of all your own services subscribed");
+		$this->view->description = $this->translator->translate("Upgrade the selected service with one of the following services.");
 	}
 	
 	/**

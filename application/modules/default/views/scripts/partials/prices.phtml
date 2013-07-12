@@ -3,8 +3,7 @@
 $showallinfo = $this->showallinfo;
 $vatNotIncludedlabel = $this->translate('VAT not included');
 $measurement = "";
-
-echo "<ul class=\"no-bullet prices\">";
+$bulletlist = "";
 
 if ($this->data ['type'] == "multiple") {
 	if (! empty ( $this->data ['minvalue'] )) {
@@ -12,8 +11,12 @@ if ($this->data ['type'] == "multiple") {
 		// Get the minimum value from the group of the prices
 		$price = $this->data ['minvalue'];
 		$pricetax = $this->data ['minvaluewithtaxes'];
+		$discount = $this->data ['discount'];
+		$months = $this->data ['tranches'][0]['BillingCycle']['months'];
 		$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 		$price = $this->currency($price, array('currency' => Settings::findbyParam('currency')));
+		
+		$bulletlist = "<ul class=\"no-bullet prices\">";
 		
 		// Get the recurring period label
 		if(!empty($this->data['tranches'][0] ['measurement'])){
@@ -21,15 +24,20 @@ if ($this->data ['type'] == "multiple") {
 		}
 		
 		// Print the price
-		echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><h4>$pricetax " . "</h4></li>";
-		echo "<li class=\"pricenotincludedvat\" >$price $measurement $vatNotIncludedlabel</li>";
+		$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\">$pricetax " . "</li>";
+		$bulletlist .= "<li class=\"pricenotincludedvat\" >$price $measurement $vatNotIncludedlabel</li>";
+
+		// Simple raw text price 
+		$rawtextprice = $pricetax . "<br><small>$months $measurement</small>";
 	
 		if($showallinfo && !empty($this->data['tranches'][0] ['BillingCycle']['name']) && !empty($this->data['discount'])){
-			echo "<li class='subscription'>" .  $this->translate('Subscribing %s you can save %s', $this->translate($this->data['tranches'][0] ['BillingCycle']['name']), " " .  $this->currency($this->data['discount'], array('currency' => Settings::findbyParam('currency')))) . "</li>";
+			$bulletlist .= "<li class='subscription'>" .  $this->translate('Subscribing %s you can save %s', $this->translate($this->data['tranches'][0] ['BillingCycle']['name']), " " .  $this->currency($this->data['discount'], array('currency' => Settings::findbyParam('currency')))) . "</li>";
 		}
 	
 	}
 } else {
+	
+	$bulletlist = "<ul class=\"no-bullet prices\">";
 	
 	$price = $this->data ['value'];
 	$pricetax = $this->data ['taxincluded'];
@@ -38,7 +46,17 @@ if ($this->data ['type'] == "multiple") {
 	$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 	
 	// Print the price
-	echo "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax</strong></li>";
-	echo "<li class=\"pricenotincludedvat\" >$price $vatNotIncludedlabel</li>";
-}	
-echo "</ul>";
+	$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax</strong></li>";
+	$bulletlist .= "<li class=\"pricenotincludedvat\" >$price $vatNotIncludedlabel</li>";
+
+	// Simple raw text price
+	$rawtextprice = $pricetax;
+}
+	
+$bulletlist .= "</ul>";
+
+if($this->onlymasterprice){
+	echo $rawtextprice;
+}else{
+	echo $bulletlist;
+}
