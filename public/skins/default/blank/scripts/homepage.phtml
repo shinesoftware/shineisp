@@ -6,10 +6,8 @@
 	
     <div class="row">
     	<div class="large-12 columns">
-    		<?php echo $this->slideshow();?>
+    		<?php echo $this->blocks()->showblock('beforecontent');?>
 		</div>
-		
-		<?php echo $this->blocks()->showblock('beforecontent');?>
 		
 		<div class="large-12 columns">
 			<?php echo $this->Messages($this->mex)?>
@@ -22,12 +20,12 @@
     
     <?php echo $this->blocks()->showblock('beforefooter');?>
 		
-        <footer class="row">
-            <?php echo $this->footer();?>
-            <?php echo $this->blocks()->showblock('footer');?>
-        </footer><!-- End #footer -->
+    <footer class="row">
+    	<?php echo $this->footer();?>
+        <?php echo $this->blocks()->showblock('footer');?>
+    </footer><!-- End #footer -->
         
-        <?php echo $this->blocks()->showblock('endfooter');?>
+    <?php echo $this->blocks()->showblock('endfooter');?>
     
     <?php echo $this->blocks()->showblock('endbody');?>
     

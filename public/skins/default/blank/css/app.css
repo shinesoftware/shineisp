@@ -1,7 +1,7 @@
 p {font-size: 14px;}
+small {font-size: 80%; line-height:normal}
 table {width: 100%;}
-
-.cpanel-alert { @include alert-base; }
+ul, ol, dl {list-style-position: inside;}
 
 /* PRODUCT LIST MOBILE BEHAVIOUR STYLES */
 #products .product{margin-bottom: 10px;}
@@ -36,7 +36,7 @@ table {width: 100%;}
 #product div.mainimage {text-align: center;}
 #product div.shortdescription {text-align: center;}
 #product div.media {text-align: center;}
-#product div.addtocart {text-align: center; padding-top:10px;}
+#product div.addtocart {text-align: center; padding-top:15px;}
 #product ul.sticker li { text-align: center;}
 
 /* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */
@@ -44,8 +44,7 @@ table {width: 100%;}
 	#product div.mainimage{ text-align: left;}
 	#product div.sticker{ text-align: left;}
 	#products #list ul{text-align: right;}
-	#product div.shortdescription {text-align: left; min-height: 230px;}
-	#product div.quantity label{font-size: 11px;}
+	#product div.shortdescription {text-align: left; min-height: 224px;}
 	#product div.addtocart {text-align: left;}
 	#product ul.sticker li { text-align: left;}
 #product div.media {text-align: left;}

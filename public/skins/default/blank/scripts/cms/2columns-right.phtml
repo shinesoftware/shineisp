@@ -1,7 +1,7 @@
 
-<div class="cms-content">
+<div class="row">
     
-    <div id="wiki" class="column large">
+    <div id="wiki" class="large-8 columns">
 	    <?php if(!empty($this->data)):?>
 	    	<div id="pageTocHeader"><?php echo $this->translate('Summary')?></div>
 			<div id="pageToc"></div>
@@ -18,7 +18,7 @@
 	    <?php endif;?>
     </div>    
     
-    <div class="column small last">
+    <aside class="large-4 columns">
         <?php $this->blocks()->showblock("right") ?>
-    </div>
+    </aside>
 </div>

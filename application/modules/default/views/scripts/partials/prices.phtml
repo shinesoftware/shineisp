@@ -12,7 +12,13 @@ if ($this->data ['type'] == "multiple") {
 		$price = $this->data ['minvalue'];
 		$pricetax = $this->data ['minvaluewithtaxes'];
 		$discount = $this->data ['discount'];
-		$months = $this->data ['tranches'][0]['BillingCycle']['months'];
+		
+		if(!empty($this->data ['tranches'][0])){
+			$months = $this->data ['tranches'][0]['BillingCycle']['months'];
+		}else{
+			$months = "";
+		}
+		
 		$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 		$price = $this->currency($price, array('currency' => Settings::findbyParam('currency')));
 		

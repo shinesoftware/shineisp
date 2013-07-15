@@ -1,9 +1,9 @@
-<div id="domainchecker">
-    <div class="checkerform">
+<div id="domainchecker" class="row collapse">
+    <div class="large-12 column">
 	    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
-			<?php echo $this->form->name->setDecorators(array('Simple'));?>
-			<?php echo $this->form->tld->setDecorators(array('Simple'));?>
-			<?php echo $this->form->check->setDecorators(array('Simple'));?>
+			<div class="small-8 column"><?php echo $this->form->name->setDecorators(array('ViewHelper'));?></div>
+			<div class="small-2 column"><?php echo $this->form->tld->setDecorators(array('ViewHelper'));?></div>
+			<div class="small-2 column"><?php echo $this->form->check->setDecorators(array('ViewHelper'));?></div>
 	    </form>
     </div>
 </div>

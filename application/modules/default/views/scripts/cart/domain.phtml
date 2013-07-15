@@ -1,34 +1,39 @@
 <?php $form = $this->form; ?>
-
-<h2><?php echo $this->translate('Register your own domain')?></h2>
-<small><?php echo $this->translate('Type the domain name in the input box shown below and follow only 3 steps.')?></small><br><br>
-
-<?php if(!empty($this->mex)):?>
-	<div class="alert-box alert"><?php echo $this->mex ?></div>
-<?php endif; ?>
-
-<div id="checkdomain">
-    <form method="<?php echo $form->getMethod() ?>" id="domainselector" class="dropdown custom" action="<?php echo $form->getAction()?>">
-        <div class="row collapse">
-	        <div class="small-9 columns"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
-	        <div class="small-3 columns"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
-		</div>
+<div class="row">
+	<div class="large-12 column">
+		<h2><?php echo $this->translate('Register your own domain')?></h2>
+		<small><?php echo $this->translate('Type the domain name in the input box shown below and follow only 3 steps.')?></small><br><br>
 		
-		<ul class="no-bullet">
-             <li>
-                 <input type="radio" name="mode" checked value="register"> <b><?php echo $this->translate('I would like to register this domain.')?></b>
-                 <p><?php echo $this->translate('Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.')?></p>
-             </li>
-             <li>
-                 <input type="radio" name="mode" value="link"> <b><?php echo $this->translate('I am this domain\'s owner.')?></b>
-                 <p><?php echo $this->translate('Write your own domain name previosly registered with another company.')?></p>
-             </li>
-             <li>
-                 <input type="radio" name="mode" value=""> <b><?php echo $this->translate('Do not register or transfer domain')?></b>
-                 <p><?php echo $this->translate('Skip domain transfer or registration. Only a blank hosting is bought.')?></p>
-             </li>
-         </ul>
-         <br><br>
-        <input type="submit" class="button" value="<?php echo $this->translate('Continue Order') ?>" id="check" name="check">
-    </form>
+		<?php if(!empty($this->mex)):?>
+			<div data-alert class="alert-box alert"><?php echo $this->mex ?>  <a href="#" class="close">&times;</a></div>
+		<?php endif; ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 column">
+	    <form method="<?php echo $form->getMethod() ?>" id="domainselector" class="dropdown custom" action="<?php echo $form->getAction()?>">
+	        <div class="row collapse">
+		        <div class="small-9 columns"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
+	        	<div class="small-3 columns"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
+			</div>
+			
+			<ul class="no-bullet">
+	             <li>
+	                 <label for="register"><input id="register" type="radio" name="mode" checked value="register"> <?php echo $this->translate('I would like to register this domain.')?></label>
+	                 <p><?php echo $this->translate('Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.')?></p>
+	             </li>
+	             <li>
+	                 <label for="transfer"><input id="transfer" type="radio" name="mode" value="link"> <?php echo $this->translate('I am this domain\'s owner.')?></label>
+	                 <p><?php echo $this->translate('Write your own domain name previosly registered with another company.')?></p>
+	             </li>
+	             <li>
+	                 <label for="notregister"><input id="notregister" type="radio" name="mode" value=""> <?php echo $this->translate('Do not register or transfer domain')?></label>
+	                 <p><?php echo $this->translate('Skip domain transfer or registration. Only a blank hosting is bought.')?></p>
+	             </li>
+	         </ul>
+	         <br><br>
+	        <input type="submit" class="button" value="<?php echo $this->translate('Continue Order') ?>" id="check" name="check">
+	    </form>
+	</div>
 </div>

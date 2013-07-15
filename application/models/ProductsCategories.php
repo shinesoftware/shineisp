@@ -199,6 +199,7 @@ class ProductsCategories extends BaseProductsCategories {
 										->leftJoin("p.ProductsAttributesGroups pag")
 										->where('p.enabled = ?', 1)
 										->orderBy('position');
+		
 		$products = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		foreach ( $products as $product ) {

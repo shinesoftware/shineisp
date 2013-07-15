@@ -1,6 +1,6 @@
 <?php $products = $this->products; ?>
 
-<ul class='productshome'>
+<ul class="productshome no-bullet">
 	<?php foreach ($products as $product): ?>
 	
 	<?php 
@@ -17,7 +17,6 @@
 	
 	<li>
 		<div class="boxprice">
-			<div class="ribbon2"></div>
 			<h2><a href="<?php echo $product['uri'] ?>.html"><?php echo $product['name'] ?></a></h2>
 			<p><?php echo Shineisp_Commons_Utilities::truncate($product['description'], 200, "...", false, true) ?></p>
 			<?php echo $theprice ?>

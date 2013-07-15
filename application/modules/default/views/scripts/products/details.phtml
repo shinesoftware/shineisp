@@ -24,6 +24,10 @@
 				
 		        <div class="row">
 		        	<div class="header large-12 column">
+				        <?php // Hidden form fields ?>
+						<?php echo $form->product_id->setDecorators(array('ViewHelper'))?>
+						<?php echo $form->isrecurring->setDecorators(array('ViewHelper'))?>
+			       	    
 			       	    <h3><?php echo $this->product['name'] ?></h3>
 			       	    
 			       	    <?php echo $this->ProductCategories($this->product['categories']) // Category Breadcrump ?>
@@ -82,10 +86,10 @@
 		                </div>
 		                
 		                <div class="row">
-		                	<div class="keywords large-12 column">
+		                	<div class="large-12 column">
 		                		<?php echo $this->blocks()->showblock('products_before_keywords');?>
 				             	<?php if(!empty($this->product['metakeywords'])): ?>
-				                	<?php echo $this->translate('Keywords') ?>: <?php echo $this->product['metakeywords']?>
+				                	<small><?php echo $this->translate('Keywords') ?>: <?php echo $this->product['metakeywords']?></small>
 			                	<?php endif;?>
 	                			<?php echo $this->blocks()->showblock('products_after_keywords');?>
 	                		</div>
@@ -108,9 +112,7 @@
 			    	</div>
 			    </div>
 			    
-			    <?php // Hidden form fields ?>
-				<?php echo $form->product_id->render()?>
-				<?php echo $form->isrecurring->render()?>
+			   
 		</form>
 		
 		<div class="row">

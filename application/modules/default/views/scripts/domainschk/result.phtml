@@ -6,8 +6,6 @@
 	
 	<div class="row">
 		<div class="large-12 column">
-			
-			
 				<div id="mainresult" class="<?php echo $results['available'] ? "yes" : "no"?>">
 				<h3><?php echo $results['domain']?></h3>
 				<p><b><?php echo $results['price'] ?></b></p>
@@ -22,17 +20,14 @@
 					<?php echo $results['mex'] ?>
 				</p>
 				
-				<input type="checkbox" checked class="tld" value="<?php echo $results['tld'] ?>" name="tlds[]">
 				<?php if($results['available']):?>
-					<b><?php echo strtoupper($this->translate('I would like to register %s', $results['domain']))?></b>
-					<p align="right">
-						<p align="right"><input type="submit" class="button order" value="<?php echo strtoupper($this->translate('Register'))?>"></p>
-					</p>		
+					<label for="chktld"><input type="checkbox" checked class="tld" id="chktld" value="<?php echo $results['tld'] ?>" name="tlds[]"> <?php echo strtoupper($this->translate('I would like to register %s', $results['domain']))?></label>
+					<p align="right"><input type="submit" class="button order" value="<?php echo strtoupper($this->translate('Register'))?>"></p>
 				<?php else: ?>
-					<b><?php echo strtoupper($this->translate('I would like to transfer %s', $results['domain']))?></b>
-					
+					<label for="chktld"><input type="checkbox" checked class="tld" id="chktld" value="<?php echo $results['tld'] ?>" name="tlds[]"> <?php echo strtoupper($this->translate('I would like to transfer %s', $results['domain']))?></label>
+					<br/>
 					<p>
-						<input type="text" class="text-input large-input" value="" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
+						<label for="authinfo"><?php echo $this->translate('AUTHINFO')?></label><input type="text" class="text-input large-input" id="authinfo" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
 						<br/><small><?php echo $this->translate('To transfer your domain name, please unlock it at the old provider control panel website and get the AUTHINFO code of your domain.')?> <a href="/wiki/domains.html" target="_blank"><?php echo $this->translate('Read more')?></a></small>
 					</p>
 					
@@ -65,21 +60,22 @@
 						</tr>
 					<?php endforeach;?>
 				</table>
-				<input type="checkbox" name="selectall" class="selectalltlds" value=""><b><?php echo $this->translate('Select all the domains')?></b>
-				<p align="right"><input type="submit" class="order" value="<?php echo strtoupper($this->translate('Order Selected'))?>"></p>
+				<p align="right"><input type="submit" class="order button" value="<?php echo strtoupper($this->translate('Order Selected'))?>"></p>
 			</div>
 		</div>
 	</div>
 	<input type="hidden" name="domain" value="<?php echo $results['name']?>">
 </form>
 
-<h4><?php echo $this->translate('Search another domain name')?></h4>
-<div id="domainchecker" title="<?php echo $this->translate('Choose your new domain name!')?>">
-    <div class="checkerform">
-	    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
-			<?php echo $this->form->name->setDecorators(array('Simple'));?>
-			<?php echo $this->form->tld->setDecorators(array('Simple'));?>
-			<?php echo $this->form->check->setDecorators(array('Simple'));?>
-	    </form>
-    </div>
+<div class="row">
+	<div class="large-12 column">
+		<h5><?php echo $this->translate('Search another domain name')?></h5>
+	    <div id="domainchecker" class="checkerform">
+		    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" class="custom dropdown" action="<?php echo $this->form->getAction()?>">
+				<div class="small-8 column"><?php echo $this->form->name->setDecorators(array('Simple'));?></div>
+				<div class="small-2 column"><?php echo $this->form->tld->setDecorators(array('Simple'));?></div>
+				<div class="small-2 column"><?php echo $this->form->check->setDecorators(array('Simple'));?></div>
+		    </form>
+		</div>
+	</div>
 </div>
