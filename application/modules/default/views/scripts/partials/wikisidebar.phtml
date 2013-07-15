@@ -6,7 +6,7 @@
 	<a href="/wiki"><?php echo $this->translate('Search on Wiki Help Guide') ?></a>
 </p><br/>
 
-<ul id="wikilist">
+<ul id="wikilist" class="no-bullet">
 	<?php foreach($wiki as $item):?>
 		<li><h6><a href="/wiki/<?php echo $item['uri']?>.html"><?php echo $item['subject'] ?></a></h6>
 		<small><?php echo $this->translate('Category') . ": " . $item['WikiCategories']['category']?></small>

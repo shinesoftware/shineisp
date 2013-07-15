@@ -1,36 +1,33 @@
-<div class="headtitle">
-    <h2>
-    <?php 
-            echo $this->translate($this->title);
-            if(!empty($this->name)){
-                echo ": " . $this->name;
-            } 
-        ?>
-    </h2>
-    <small><?php echo $this->translate($this->description);?></small>
-</div>
+<?php echo $this->render('partials/header.phtml') ?>
 <?php $posts = $this->wiki['records'];?>
 <?php $form = $this->form;?>
 
-<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>">
-	<?php echo $form->topic->render()?>
-	<?php echo $form->wikisearch->render()?>
-</form>
-
-<br/>
-<?php foreach($posts as $post):?>
-    <div id="post-<?php echo $post['wiki_id'];?>" class="wikipost">
-        <div class="entry">
-            <h3 id="post-<?php echo $post['wiki_id'];?>">
-            	<a title="Permanent Link to <?php echo $post['subject'];?>" rel="bookmark" href="/wiki/<?php echo $post['uri'];?>.html"><?php echo $post['subject'];?></a>
-            </h3>
-            <div class="site-wide-meta"> 
-                <?php echo $this->translate('Posted')?>: <?php echo $post['creationdate'];?> in <a title="<?php echo $post['category_id'];?>" href="#"> <?php echo $post['category'];?> </a>
-            </div> 
-            <?php $introduction = Shineisp_Commons_Utilities::truncate($post['content'], 200, "...", false, true)?>
-            <?php echo strip_tags($introduction);?>
-        </div>
-    </div>
-<?php endforeach;?>
-<br><br>
-<h4><a href="/tickets/new"><?php echo $this->translate('Have you found what you need? If not write a question here.') ?></a></h4>
+<div class="row">
+	<div class="large-12 column">
+		<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>">
+			<?php echo $form->topic->render()?>
+			<p align="right"><?php echo $form->wikisearch->setDecorators(array('ViewHelper'))?></p>
+		</form>
+	</div>
+	
+	<div class="large-12 column">
+		<?php foreach($posts as $post):?>
+		    <div id="post-<?php echo $post['wiki_id'];?>" class="wikipost">
+		        <div class="entry">
+		            <h5 id="post-<?php echo $post['wiki_id'];?>">
+		            	<a title="Permanent Link to <?php echo $post['subject'];?>" rel="bookmark" href="/wiki/<?php echo $post['uri'];?>.html"><?php echo $post['subject'];?></a>
+		            </h5>
+		            <small><?php echo $this->translate('Posted')?>: <?php echo $post['creationdate'];?> in <a title="<?php echo $post['category_id'];?>" href="#"> <?php echo $post['category'];?> </a></small> <br/>
+		            <p>
+		            	<?php $introduction = Shineisp_Commons_Utilities::truncate($post['content'], 200, "...", false, true)?>
+		            	<?php echo strip_tags($introduction);?>
+		            </p>
+		        </div>
+		    </div>
+		<?php endforeach;?>
+	</div>
+	
+	<div class="large-12 column">
+		<h4><a href="/tickets/new"><?php echo $this->translate('Have you found what you need? If not write a question here.') ?></a></h4>
+	</div>
+</div>

@@ -34,7 +34,6 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		$css = Shineisp_Commons_Layout::getResources ( $module, $controller, "css", $skin );
 		$js = Shineisp_Commons_Layout::getResources ( $module, $controller, "js", $skin );
 		$template = Shineisp_Commons_Layout::getTemplate ( $module, $controller, $skin );
-		
 		// Setting up the HEAD Section
 		$view = new Zend_View ();
 		
@@ -65,7 +64,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 				$compressor = new Shineisp_Commons_jsCompressor();
 				
 				foreach ($js as $item){
-					$compressor->add(PUBLIC_PATH . $item);
+					$compressor->add(PUBLIC_PATH . $item['resource']);
 				}
 
 				// Compress and minify the javascript files
@@ -84,9 +83,20 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 				
 			}else{
 				foreach ($js as $item){
-					$view->headScript ()->appendFile ($item);
+
+					// check if the css or the js is a conditional item
+					$conditional = !empty($item['conditional']) ? array('conditional' => $item['conditional']) : null;
+
+					// check the position of the item in the page
+					if(!empty($item['position']) && $item['position'] == "endbody"){
+						$view->InlineScript ()->appendFile ($item['resource'], 'screen', $conditional)->toString();
+					}else{
+						$view->headScript ()->appendFile ($item['resource'], 'screen', $conditional);
+					}
 				}
 				
+				// add the scripts with the attribute "position='endbody' to the end of the page"
+				$view->placeholder ( "endbody" )->append ($view->InlineScript ()->toString());
 			}
 		}
 		
@@ -107,7 +117,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 				$compressor = new Shineisp_Commons_cssCompressor();
 				
 				foreach ($css as $item){
-					$compressor->add(PUBLIC_PATH . $item);
+					$compressor->add(PUBLIC_PATH . $item['resource']);
 				}
 				
 				// Compress and minify the stylesheet files
@@ -118,7 +128,8 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 			}else{
 				
 				foreach ( $css as $item ) {
-					$view->headLink ()->appendStylesheet ( $item );
+					$conditional = !empty($item['conditional']) ? $item['conditional'] : null;
+					$view->headLink ()->appendStylesheet ( $item['resource'], 'screen', $conditional );
 				}
 			}
 			
