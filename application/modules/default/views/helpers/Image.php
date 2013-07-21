@@ -15,6 +15,7 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 	protected $height = 100;
 	
 	public function image($name, $imagePath = null, $attribs = array()) {
+		
 		// set name
 		$this->_name = $this->view->escape ( $name );
 		
@@ -212,6 +213,7 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 				Shineisp_Commons_Utilities::log($dir . " cannot be created.");
 			}
 		}
+		
 		// name of the image based on the size of the thumbnail
 		// @todo the sizes can be in config file/database. for not its hard coded
 		$newFileName = $this->width . 'x' . $this->height . '_' . $this->getImageName ();

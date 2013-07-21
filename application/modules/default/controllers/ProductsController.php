@@ -66,7 +66,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				}
 				
 				$form = $this->CreateProductForm ( );
-				$items = ProductsTranches::getList ( $data ['product_id'],$refund );
+				$items = ProductsTranches::getList ( $data ['product_id'], $refund );
 				 
 				// Check the default quantity value
 				$qta = ProductsTranches::getDefaultItem ( $data ['product_id'] );
@@ -136,7 +136,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				// Send the variables to the view
 				$this->view->headertitle = $data ['name'];
 				$this->view->product = $data;
-				$this->view->prices = Products::getPrices($data ['product_id'],$refund);
+				$this->view->prices = Products::getPrices($data ['product_id'], $refund);
 				$this->view->form = $form;
 				
 				$form->populate ( $data );
