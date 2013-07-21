@@ -1,5 +1,7 @@
 documents/
 logs/
 tmp/
-media/
+media/banners/
+media/newsletter/
+media/thumbs/
 imports/
