@@ -58,7 +58,7 @@ class ProductsMedia extends BaseProductsMedia
 	        $records =  $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	        
 	        for ($i=0;$i<count($records);$i++){
-	        	if(!file_exists($records[$i]['path'])){
+	        	if(!file_exists(PUBLIC_PATH . $records[$i]['path'])){
 	        		$records[$i]['path'] = "/" . $records[$i]['url'] . ".html";
 	        	}
 	        }
