@@ -14,6 +14,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 	public function preDispatch() {
 		$module = $this->getRequest ()->getModuleName ();
 		$controller = $this->getRequest ()->getControllerName ();
+		
 		$keywords = Settings::findbyParam ( 'default_html_keywords' );
 		$description = Settings::findbyParam ( 'default_html_description' );
 		$copyright = Settings::findbyParam ( 'default_copyright' );
@@ -34,6 +35,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		$css = Shineisp_Commons_Layout::getResources ( $module, $controller, "css", $skin );
 		$js = Shineisp_Commons_Layout::getResources ( $module, $controller, "js", $skin );
 		$template = Shineisp_Commons_Layout::getTemplate ( $module, $controller, $skin );
+		
 		// Setting up the HEAD Section
 		$view = new Zend_View ();
 		
@@ -89,14 +91,14 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 
 					// check the position of the item in the page
 					if(!empty($item['position']) && $item['position'] == "endbody"){
-						$view->InlineScript ()->appendFile ($item['resource'], 'screen', $conditional)->toString();
+						$view->InlineScript ()->appendFile ($item['resource'], 'text/javascript', $conditional)->toString();
 					}else{
-						$view->headScript ()->appendFile ($item['resource'], 'screen', $conditional);
+						$view->headScript ()->appendFile ($item['resource'], 'text/javascript', $conditional);
 					}
 				}
 				
-				// add the scripts with the attribute "position='endbody' to the end of the page"
-				$view->placeholder ( "endbody" )->append ($view->InlineScript ()->toString());
+				// add the scripts with the attribute "position='endpage' to the end of the page"
+				$view->placeholder ( "endpage" )->append ($view->InlineScript ()->toString());
 			}
 		}
 		
