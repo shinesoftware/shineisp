@@ -1,0 +1,12 @@
+
+<div class="row">
+	<hr/>
+	<div class="large-8 columns">
+		<p>ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a><br/><a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/></p>	</div>
+	<div class="large-4 columns">
+	  	<p class="right"><?php echo $this->querycount();?> - <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></p>
+	</div>
+</div>
+  
+</body>
+</html>

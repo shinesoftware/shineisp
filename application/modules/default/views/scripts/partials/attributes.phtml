@@ -1,10 +1,10 @@
 <?php $attributes = $this->attributes; ?>
-<h5><?php echo $this->translate('Features') ?></h5>
-<div id="features">
-	<table class="zebratable">
+<?php if(!empty($attributes)): ?>
+	<h5><?php echo $this->translate('Features') ?></h5>
+	<table>
 		<?php foreach ($attributes as $attribute): ?>
 			<?php if($attribute['is_visible_on_front']): ?>
-		    <tr class="tooltip" title="<?php echo $attribute['description'] ?>">
+		    <tr title="<?php echo $attribute['description'] ?>">
 		        <td width="20%"><?php echo $attribute['label'] ?></td>
 		        <td>
 		        <?php echo $attribute['prefix'] ?> 
@@ -18,4 +18,4 @@
 		    <?php endif; ?>
 		<?php endforeach;?>
 	</table>
-</div>
+<?php endif;?>

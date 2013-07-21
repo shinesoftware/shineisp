@@ -223,6 +223,10 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 			return false;
 		}
 		
+		if (!file_exists ( $thumbPath )) {
+			$this->setNewImage ( "/media/products/default.png" );
+		}
+		
 		// resize image
 		$image = new Shineisp_Commons_Image ( );
 		// open original image to resize it

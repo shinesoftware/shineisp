@@ -211,8 +211,8 @@ class Products extends BaseProducts {
 				$products->uri             = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
 				$products->sku             = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
 				$products->cost            = $params ['cost'];
-                // $products->price_1         = $params ['price_1'];
-				// $products->setupfee        = $params ['setupfee'];
+                $products->price_1         = $params ['price_1'];
+				$products->setupfee        = $params ['setupfee'];
 				$products->enabled         = $params ['enabled'] == 1 ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
@@ -417,7 +417,6 @@ class Products extends BaseProducts {
 							$product ['price_1']	= $priceToPayWithRefund;
 						}
 					}
-					/** 20130409 ***/
 					
 					// Taxes calculation
 					if(!empty($tax['percentage']) && is_numeric($tax['percentage'])){
@@ -431,9 +430,10 @@ class Products extends BaseProducts {
 
 					// Get the price min & max interval tranches
 					$tranches = ProductsTranches::getMinMaxTranches ( $productid );
-					
+
 					if (!empty($tranches[1])) {
 
+						// Refund calculation price
 						if( $refund !== false ) {
 							$idBillingCircle		= $tranches[0]['BillingCycle']['billing_cycle_id'];
 							$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
@@ -470,7 +470,6 @@ class Products extends BaseProducts {
 									$tranches[1]['price']	= $priceToPayWithRefund;
 								}
 							}
-							
 						}
 						
 						// Taxes calculation
@@ -483,7 +482,6 @@ class Products extends BaseProducts {
 						}
 						$discount = floatval($tranches[1]['price']) - floatval($tranches[0]['price']);
 						
-						$discount = money_format("%.2n", $discount);
 						$minvalue = $tranches[0]['price'];
 						$maxvalue = $tranches[1]['price'];
 						
@@ -570,14 +568,14 @@ class Products extends BaseProducts {
 		$data = array ();
 		
 		$product = Doctrine_Query::create ()
-		->select ( $fields )
-		->from ( 'Products p' )
-		->leftJoin ( 'p.ProductsAttributesGroups pag' )
-		->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-		->leftJoin ( 'p.Taxes t' )
-		->leftJoin ( 'p.ProductsAttributesIndexes pai' )
-		->where ( 'uri = ?', $uri )
-		->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+					->select ( $fields )
+					->from ( 'Products p' )
+					->leftJoin ( 'p.ProductsAttributesGroups pag' )
+					->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+					->leftJoin ( 'p.Taxes t' )
+					->leftJoin ( 'p.ProductsAttributesIndexes pai' )
+					->where ( 'uri = ?', $uri )
+					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if (count ( $product ) > 0) {
 			
@@ -1197,6 +1195,10 @@ class Products extends BaseProducts {
 									->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
 									->orderBy('p.position')
 									->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		for ($i=0;$i<count($items['products']); $i++){
+			$items['products'][$i]['categorieslist'] = ProductsCategories::getCategoriesInfo($items['products'][$i]['categories']);
+		}
 
 		return $items;
 	}

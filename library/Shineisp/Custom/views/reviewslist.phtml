@@ -3,14 +3,10 @@
 <div class="testimonials">
 
 <?php foreach ($items as $item): ?>
-	<div class="testimonialBox stars<?php echo $item['stars'] ?>">
-		<div class="message">
-			<a href="/<?php echo $item['Products']['uri']?>.html"><?php echo $item['Products']['ProductsData'][0]['name']?></a>: “<?php echo Shineisp_Commons_Utilities::truncate($item['review'], 150, "...", false, true); ?>”
-		</div>
-		<div class="author">
-			<strong><?php echo $item['nick'] ?></strong>, <a href="/<?php echo $item['Products']['uri']?>.html#reviews"><?php echo ucfirst($item['subject']) ?></a>
-		</div>
-	</div>
+	<blockquote class="testimonialBox stars<?php echo $item['stars'] ?>">
+		<?php echo Shineisp_Commons_Utilities::truncate($item['review'], 150, "...", false, true); ?>
+		<cite><?php echo $item['nick'] ?>, <a href="/<?php echo $item['Products']['uri']?>.html#reviews"><?php echo ucfirst($item['subject']) ?></a></cite>
+	</blockquote>
 <?php endforeach;?>
 	
 </div>

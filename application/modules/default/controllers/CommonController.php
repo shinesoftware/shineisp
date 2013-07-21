@@ -102,33 +102,6 @@ class CommonController extends Shineisp_Controller_Default {
 	}
 	
 	/**
-	 * Search a product in the archive
-	 * 
-	 * @return string 
-	 */
-	public function searchAction() {
-		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$request = $this->getRequest ();
-		
-		$q = $request->getParam ( 'q' );
-		$q = strtolower ( $q );
-		if (! $q) {
-			return;
-		}
-		
-		$products = Products::search($q, null, true);
-		foreach ( $products as $product ) {
-			if(!empty($product['uri'])){
-				$img = !empty($product['imgpath']) ? $this->view->image($product['name'], $product['imgpath'], array('width'=>100, 'alt' => $product['name'], 'title' => $product['name'])) : "";
-				echo $product['uri'] . "|" . $img . "<span class='ac_layout'><b>". strtoupper($product['name']) . "</b><br/>" . Shineisp_Commons_Utilities::truncate(strip_tags($product['shortdescription']), 200, "...", true, true) . "<br/>" . $product['keywords'] ."</span>|\n";
-			}
-		}
-		
-		die ();
-	}
-	
-	
-	/**
 	 * Search a domain within the customer list
 	 * 
 	 * 

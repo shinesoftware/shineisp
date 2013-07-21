@@ -32,6 +32,8 @@
 				<js>/js/commons.js</js>
 				<js>/js/master.js</js>
 	            <css>/css/reset.css</css>
+	            <css>/css/navigation.css</css>
+	            <css>/css/slideshow.css</css>
 	            <css>/css/cart.css</css>
 	            <css>/css/default.css</css>
                 

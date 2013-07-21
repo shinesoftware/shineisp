@@ -1,5 +1,6 @@
 <?php if(!empty($this->message)): ?>
-<div class="contentInfoBox">
-	<p><?php echo $this->translate($this->message); ?></p>
+<div data-alert class="alert-box">
+	<?php echo $this->translate($this->message); ?>
+	<a href="#" class="close">&times;</a>
 </div>
 <?php endif?>

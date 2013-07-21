@@ -149,8 +149,8 @@ class Shineisp_Plugins {
 						// Prettify and save the xml configuration
 						$dom = new DOMDocument('1.0');
 						$dom->loadXML($xmlstring);
-						$doc->formatOutput = TRUE;
-						$doc->preserveWhiteSpace = TRUE;
+						$dom->formatOutput = TRUE;
+						$dom->preserveWhiteSpace = TRUE;
 						$dom->saveXML();
 						if(!@$dom->save($mainConfigfile)){
 							throw new Exception("Error on saving the xml file in $mainConfigfile <br/>Please check the folder permissions");

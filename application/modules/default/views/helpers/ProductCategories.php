@@ -7,12 +7,15 @@ class Zend_View_Helper_ProductCategories extends Zend_View_Helper_Abstract {
 	public function productcategories($categories) {
 		$cats = array();
 		$categories = explode("/", $categories);
+		
 		foreach($categories as $categoryid){
 		  $category = ProductsCategories::find($categoryid, "name, uri", true);
 		  if(!empty($category[0])){
-		  	$cats[] = '<a href="/categories/'.$category[0]['uri'].'.html">' . $category[0]['name'] . "</a>";
+		  	$cats[] = array('uri' => "/categories/".$category[0]['uri'].".html",  'name' => $category[0]['name']);
 		  }
 		}
-        echo implode(" / ", $cats);		
+		
+		$this->view->categories = $cats;
+        return $this->view->render ( 'partials/productcategories.phtml' );
 	}
 }

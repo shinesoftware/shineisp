@@ -4,72 +4,82 @@
 <div id="cartsummary" class="smartcart siteColumnRight">
     <?php if(isset($products) && is_array($products)):?>
     <h3><?php echo $this->translate('Cart')?></h3>
-    <ul>
-        <?php foreach($products as $product): ?>
-        
-        <?php $total += ($product['price_1'] * $product['quantity']) + $product['setupfee']; ?>
-        
-        <li class="cart-item">
-            <div class="item-picture">
-                <?php if($product['type'] != "domain"): ?>
-	                <a href="/products/<?php echo $product['uri'] ?>.html">
-	                    <?php echo $this->media()->ProductImage($product['product_id'], 50, 50);?>
-	                </a>
-                <?php else:?>
-                	<a href="/tlds/<?php echo $product['name'] ?>.html"><img src="/common/imgtext/q/.<?php echo $product['name'] ?>/w/50/h/50/f/16" /></a>
-                <?php endif; ?>
-            </div>
-            <div class="item-details">
-                <div class="item-title">
-                    <?php if($product['type'] != "domain"): ?>
-                    <a href="/products/<?php echo $product['uri'] ?>.html">
-                        <?php if ( !empty($product['ProductsData'][0]) ): 
-                        		echo $product['ProductsData'][0]['name'];
-							endif; 
-                    	?>
-                    </a>
-                    <?php else:?>
-                        <?php echo $product['name'] ?>
-                    <?php endif; ?>
-                </div>
-                
-                <?php if($product['type'] != "domain"): ?>
-	                <small>
-	                <?php if(!empty($product['cleancategories'])): ?>
-	                    <?php foreach($product['cleancategories'] as $category): ?>        
-	                        <a href="/categories/<?php echo $category['uri'] ?>.html"><?php echo $category['name'] ?></a>
-	                    <?php endforeach;?>
-	                </small>
-	                <?php endif; ?>
-                <?php endif; ?>
-                
-                <?php if(isset($product['domain_selected'])): ?>
-                    <div class="info"><?php echo $product['domain_selected']; ?></div>
-                <?php endif; ?>
-                
-                <div class="price">
-                	<strong><?php echo $this->translate('Price') ?></strong>: <?php echo $this->currency($product['price_1'] * $product['quantity'], array('currency' => Settings::findbyParam('currency'))); ?>
-                	<?php if($product['setupfee'] > 0): ?> 
-                		<br /><strong><?php echo $this->translate('Setup Fee') ?></strong>: <?php echo $this->currency($product['setupfee'], array('currency' => Settings::findbyParam('currency'))); ?>
-                	<?php endif;?>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="actions">
-            	<?php if($product['type'] == "domain"): ?>
-                	<a class="" href="/cart/delete/tld/<?php echo $product['domain_selected'] ?>"><?php echo $this->translate('Delete')?></a>
-                <?php else: ?>
-                	<a class="" href="/cart/delete/product/<?php echo $product['product_id'] ?>"><?php echo $this->translate('Delete')?></a>
-                <?php endif;?>
-            </div>
-        </li>
+    <div class="row">
+	        <?php foreach($products as $product): ?>
+	        
+	        	<?php $total += ($product['price_1'] * $product['quantity']) + $product['setupfee']; ?>
+	        
+		        <div class="large-12 columns">
+		        	<div class="row">
+			            <div class="large-4 columns">
+			                <?php if($product['type'] != "domain"): ?>
+				                <a href="/products/<?php echo $product['uri'] ?>.html">
+				                    <?php echo $this->media()->ProductImage($product['product_id'], 50, 50);?>
+				                </a>
+			                <?php else:?>
+			                	<a href="/tlds/<?php echo $product['name'] ?>.html"><img class="th imageZoom" src="http://placehold.it/50&text=.<?php echo $product['name'] ?>" /></a>
+			                <?php endif; ?>
+			            </div>
+			            
+		            	<div class="large-8 columns">
+			                <div class="item-title">
+			                    <?php if($product['type'] != "domain"): ?>
+			                    <a href="/products/<?php echo $product['uri'] ?>.html">
+			                        <?php if ( !empty($product['ProductsData'][0]) ): 
+			                        		echo $product['ProductsData'][0]['name'];
+										endif; 
+			                    	?>
+			                    </a>
+			                    <?php else:?>
+			                        <?php echo $product['name'] ?>
+			                    <?php endif; ?>
+			                </div>
+	                
+			                <?php if($product['type'] != "domain"): ?>
+				                <small>
+				                <?php if(!empty($product['cleancategories'])): ?>
+				                    <?php foreach($product['cleancategories'] as $category): ?>        
+				                        <a href="/categories/<?php echo $category['uri'] ?>.html"><?php echo $category['name'] ?></a>
+				                    <?php endforeach;?>
+				                </small>
+				                <?php endif; ?>
+			                <?php endif; ?>
+			                
+			                <?php if(isset($product['domain_selected'])): ?>
+			                    <div class="info"><?php echo $product['domain_selected']; ?></div>
+			                <?php endif; ?>
+			                
+			                <p class="price">
+			                	<strong><?php echo $this->translate('Price') ?></strong>: <?php echo $this->currency($product['price_1'] * $product['quantity'], array('currency' => Settings::findbyParam('currency'))); ?>
+			                	<?php if($product['setupfee'] > 0): ?> 
+			                		<br /><strong><?php echo $this->translate('Setup Fee') ?></strong>: <?php echo $this->currency($product['setupfee'], array('currency' => Settings::findbyParam('currency'))); ?>
+			                	<?php endif;?>
+			                </p>
+	            	</div>
+	            	
+	            	<div class="row">
+	            		<div class="large-12 columns">
+	            			<p align="right">
+		            		<?php if($product['type'] == "domain"): ?>
+		                		<a class="" href="/cart/delete/tld/<?php echo $product['domain_selected'] ?>"><?php echo $this->translate('Delete')?></a>
+			               	 <?php else: ?>
+			                	<a class="" href="/cart/delete/product/<?php echo $product['product_id'] ?>"><?php echo $this->translate('Delete')?></a>
+			                <?php endif;?>
+			                </p>
+		            	</div>
+		            </div>
+	    		</div>
+	    		
+	    	</div>
         <?php endforeach;?>
-        <li>
-            <div class="total"><?php echo $this->translate('Total') ?>: <?php echo $this->currency ( $total, array('currency' => Settings::findbyParam('currency'))); ?></div>
-        </li>
-        <li>
-            <p align="right"><a href="/cart/delete/product/all"><?php echo $this->translate('Delete All')?></a></p>
-        </li>
-    </ul>
+        
+        <div class="row">
+            <div class="large-12 column">
+            	<p align="right"><?php echo $this->translate('Total') ?>: <?php echo $this->currency ( $total, array('currency' => Settings::findbyParam('currency'))); ?><br/>
+            	<a href="/cart/delete/product/all"><?php echo $this->translate('Delete All')?></a></p>
+            </div>
+        </div>
+        
+    </div>
     <?php endif;?>
 </div>

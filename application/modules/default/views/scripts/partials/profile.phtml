@@ -1,5 +1,25 @@
+<?php 
+	$isp = Isp::getActiveISP(); 
+	$ns = new Zend_Session_Namespace ();
+?>
+
+<?php if(!empty($ns->customer)): ?>
+	<a accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/dashboard">
+		<?php if($ns->customer['sex'] == "F"): ?>
+			<?php echo $this->translate('Welcome Mrs. %s', $ns->customer['lastname'])?>
+		<?php elseif($ns->customer['sex'] == "M"): ?>
+			<?php echo $this->translate('Welcome Mr. %s', $ns->customer['lastname'])?>
+		<?php else: ?>
+			<?php echo $this->translate('Welcome %s', $ns->customer['lastname'])?>
+		<?php endif; ?>
+	</a>
+<?php else: ?>
+	<a href="/customer/login" class="iconSmallClient"><strong><?php echo $this->translate('Sign In')?></strong></a>
+<?php endif; ?>
+
 <ul class="dropdown">
 <?php if($this->userlogged):?>
+	
      <li>
          <a class="removeqtip" href="/dashboard" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+D')?>" accesskey="D" ><?=$this->translate('Dashboard') ?></a>
          <ul class="subnav">

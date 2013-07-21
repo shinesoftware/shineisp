@@ -67,15 +67,28 @@ class Shineisp_Commons_Layout {
 	 * @param string $skin [base]
 	 */
 	private static function setData($xmlobject, $module, $controller, $skin = "base") {
+		$item = array();
 		
 		// Get the default project resources
 		if (count ( $xmlobject )) {
 			foreach ( $xmlobject as $resource ) {
+				$item = array();
+				
 				if (( string ) $resource ['override'] == 1) {
-					$data [] = ( string ) $resource;
+					$item['resource'] = ( string ) $resource;
 				} else {
-					$data [] = "/skins/$module/$skin" . ( string ) $resource;
+					$item['resource'] = "/skins/$module/$skin" . ( string ) $resource;
 				}
+				
+				if((string) $resource['conditional']){
+					$item['conditional'] = (string) $resource['conditional'];
+				}
+				
+				if((string) $resource['position']){
+					$item['position'] = (string) $resource['position'];
+				}
+				
+				$data [] = $item;
 			}
 		}
 		

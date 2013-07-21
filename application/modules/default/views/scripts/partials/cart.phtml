@@ -1,3 +1,23 @@
 <?php if(!empty($this->cartitems)): ?>
-	<a class="iconSmallCart" id="cart" href="/cart/" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
+	<a class="cart" id="cart" href="/cart/" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
+	<ul class="dropdown">
+		<?php 
+		
+			foreach ($this->cartitems as $item) {
+				
+				if(!empty($item['type']) && $item['type'] == "domain"){
+					$sku = $item['name'];
+					$url = "/tlds/" . $item['name'] . ".html";
+					$name = !empty($item['domain_selected']) ? $item['domain_selected'] : $sku;
+				}else{
+					$sku = $item['ProductsData'][0]['name'];
+					$url = "/" . $item['uri'] . ".html";
+					$name = !empty($item['domain_selected']) ? $item['domain_selected'] : $sku;
+				}
+	
+				echo "<li><a href=\"" . $url . "\">" . $name . "</a></li>";
+			}
+		
+		?>
+	</ul>
 <?php endif;?>

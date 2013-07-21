@@ -1,19 +1,10 @@
-<ul class="navigation">
+<ul class="<?php echo !empty($this->menucls) ? $this->menucls : "navigation" ?>">
 	 
-     <?php if(!empty($this->cmslinks)): ?>
-     <li>
-     	<a class="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/"><?=$this->translate('Blog') ?></a>
-    	<?php echo $this->cmslinks ?>
-     </li>
+     <?php if(!empty($this->menu)): ?>
+     	<?php echo $this->menu ?>
      <?php endif;?>
-     
-     <?php if(!empty($this->cartitems)): ?>
-     <li> 
-	 	<?=$this->cart();?>
-	 </li>
-	 <?php endif; ?>
-     <li>   
-     	<a class="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/"><?=$this->translate('Profile') ?></a>
+	 
+     <li class="has-dropdown" >  
 	 	<?php echo $this->profile ();?>
 	 </li>
 	 

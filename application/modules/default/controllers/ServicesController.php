@@ -20,9 +20,8 @@ class ServicesController extends Shineisp_Controller_Default {
 		}
 		
 		$this->customer = $NS->customer;
-		$registry = Shineisp_Registry::getInstance ();
 		$this->services = new OrdersItems ( );
-		$this->translator = $registry->Zend_Translate;
+		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Set the navigation menu for the client control panel page on the left sidebar
 		#$this->view->placeholder ( "left" )->append ( $string);	
@@ -85,7 +84,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		$priceRefund	= $refundInfo['refund'];
 
 		if( ! property_exists($NS, 'upgrade') ) {
-			$NS->upgrade				= array();	
+			$NS->upgrade = array();	
 		}
 		
 		$NS->upgrade[$id]	= array();
@@ -107,7 +106,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		$this->view->products 		= $products;
 		
 		$this->view->title = $this->translator->translate("Upgrade products List");
-		$this->view->description = $this->translator->translate("List of all your own services subscribed");
+		$this->view->description = $this->translator->translate("Upgrade the selected service with one of the following services.");
 	}
 	
 	/**

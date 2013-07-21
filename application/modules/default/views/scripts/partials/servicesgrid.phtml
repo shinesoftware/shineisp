@@ -77,8 +77,8 @@ if (isset($this->records[0])):
                        <?php endif;?>
                    <?php endforeach;?>
                    <td>
-                       <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/edit/id/<?php echo $record[$this->fields[0]]?>"><img alt="<?php echo $this->translate('Edit') ?>" title="<?php echo $this->translate('Edit') ?>" src="<?php echo $this->paths('skin')?>/images/commons/pencil.png" border="0"></a>
-                       <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/change/id/<?php echo $record[$this->fields[0]]?>"><img alt="<?php echo $this->translate('Upgrade') ?>" title="<?php echo $this->translate('Upgrade') ?>" src="<?php echo $this->paths('skin')?>/images/commons/upgrade.png" border="0"></a>
+                       <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/edit/id/<?php echo $record[$this->fields[0]]?>"><?php echo $this->translate('Edit') ?></a>
+                       <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/change/id/<?php echo $record[$this->fields[0]]?>"><?php echo $this->translate('Upgrade') ?></a>
                    </td>
                    </tr>
                 <?php endforeach;?>
@@ -111,8 +111,13 @@ if (isset($this->records[0])):
                                <?php echo $this->translate('Select the items and then use the bulk action system to set more than one item.');?>
                             <?php endif; ?> 
                        </div>
-                       <div class="pagingtools">
-                           <?php echo $this->translate('Records');?>: <?php echo $this->recordcount?> - 
+                   </td>
+                </tr>
+                <tr>
+                   <td colspan="<?php echo $numcols+1?>">
+                        <div class="large-6 column"><?php echo $this->pagination; ?></div>
+                        <div class="large-6 column">
+                            <p align="right"><?php echo $this->recordcount?> <?php echo $this->translate('Records');?><br/> 
                             <?php echo $this->translate('Records per page');?>: 
                             <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/5">5</a>
                             <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/15">15</a>
@@ -120,12 +125,8 @@ if (isset($this->records[0])):
                             <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/50">50</a>
                             <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/100">100</a>
                             <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/all"><?php echo $this->translate('Show All');?></a>
+                            </p>
                        </div>
-                   </td>
-                </tr>
-                <tr>
-                   <td colspan="<?php echo $numcols+1?>">
-                        <div class="pagination"><?php echo $this->pagination; ?></div>
                    </td>
                 </tr>
             </tfoot>

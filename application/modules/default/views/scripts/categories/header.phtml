@@ -1,0 +1,22 @@
+
+	<div class="row">
+		<div class="large-4 column">
+			<?php if(!empty($this->subcategory)): ?>
+				<form name="catselector" class="custom dropdown">
+				    <select class="medium redirect" id="subcategories">
+				    <option value=""><?php echo $this->translate('%s Subcategories', $this->category['name'])?></option>
+				    <?php foreach ($this->subcategory as $category): ?>
+				    	<option value="/categories/<?php echo $category['uri']?>.html"><?php echo $category['name']?></option>
+				    <?php endforeach;?>
+				    </select>
+				</form>
+			<?php endif;?>
+		</div>
+		<div class="large-8 column">
+			<dl class="sub-nav right">
+				<dt><?php echo $this->translate('List view')?>:</dt>
+				<dd class="<?php echo !empty($this->layoutmode) && $this->layoutmode == "list" ? "active" : "" ?>"><a href="/categories/setlayout/mode/list"><?php echo $this->translate('List') ?></a></dd>
+	    		<dd class="<?php echo !empty($this->layoutmode) && $this->layoutmode == "thumbs" ? "active" : "" ?>"><a href="/categories/setlayout/mode/thumbs"><?php echo $this->translate('Thumb') ?></a></dd>
+	    	</dl>
+		</div>
+	</div>

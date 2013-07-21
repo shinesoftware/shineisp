@@ -1,0 +1,19 @@
+<div id="error_container">
+	<div class="col-content">
+		<? // application/views/scripts/error/error.phtml ?>
+		
+		<? if ('development' == APPLICATION_ENV): ?>
+			<h2>ShineISP Error</h2>
+		    <p>Message: <?= $this->message ?><br/>
+		    Class: <?= get_class($this->exception) ?><br/>
+		    Error: <?= $this->exception->getFile()  . " on line " .$this->exception->getLine()?></p>
+		    
+		    <h4>Stack trace:</h4>
+		    <pre><?php echo $this->exception->getTraceAsString() ?></pre>
+		    
+		    <br><br><hr style="background-color: #000; border:2px solid"/>
+		    <p>We are sorry for this application error.<br/>Please, contact the project developers by <a target="blank" title="Add new Issue on GitHub" href="https://github.com/shinesoftware/shineisp/issues/new">Issue Tracker</a> and reporting this message and your steps.<br/><br/>thanks<br/>Shine Software Staff<br/>http://www.shinesoftware.com</p>
+		    
+		<? endif ?>
+    </div>
+</div>
