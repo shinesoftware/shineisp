@@ -109,7 +109,8 @@ class Shineisp_Plugins {
 							$description = (string)$config->general->description ? (string)$config->general->description : NULL;
 							
 							$group_id = SettingsGroups::addGroup($config['name'], $description, $help);
-							if($config->settings->children()){
+							
+							if(!empty($config->settings) && $config->settings->children()){
 								foreach ($config->settings->children() as $node) {
 									$arr   = $node->attributes();
 									$var   = strtolower($config['var']) . "_" . (string) $arr['var'];

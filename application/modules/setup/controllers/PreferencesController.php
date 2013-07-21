@@ -26,12 +26,13 @@ class Setup_PreferencesController extends Zend_Controller_Action {
 		$this->view->headTitle ()->setSeparator(' - ');
 		
 		foreach ($js as $item){
-			$this->view->headScript ()->appendFile ($item);
+			$this->view->headScript ()->appendFile ($item['resource']);
 		}
 		
 		foreach ( $css as $item ) {
-			$this->view->headLink ()->appendStylesheet ( $item );
+			$this->view->headLink ()->appendStylesheet ( $item['resource'] );
 		}
+		
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		
 		$session = new Zend_Session_Namespace ( 'setup' );

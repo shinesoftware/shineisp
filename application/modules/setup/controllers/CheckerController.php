@@ -24,14 +24,15 @@ class Setup_CheckerController extends Zend_Controller_Action {
 		$this->view->headMeta ()->setName ( 'description', "This is the ShineISP setup configuration" );
 		$this->view->headLink ()->headLink(array('rel' => 'icon', 'type' => 'image/x-icon', 'href' => "/skins/$module/base/images/favicon.ico"));
 		$this->view->headTitle ()->setSeparator(' - ');
-		
+
 		foreach ($js as $item){
-			$this->view->headScript ()->appendFile ($item);
+			$this->view->headScript ()->appendFile ($item['resource']);
 		}
 		
 		foreach ( $css as $item ) {
-			$this->view->headLink ()->appendStylesheet ( $item );
+			$this->view->headLink ()->appendStylesheet ( $item['resource'] );
 		}
+		
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		
 		$session = new Zend_Session_Namespace ( 'setup' );
