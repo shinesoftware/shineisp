@@ -1,0 +1,140 @@
+
+/* ######################### SLIDESHOW ######################### */
+#slideshow {
+	overflow: hidden;
+	background: #222 url(/skins/default/base/images/header-pattern.png)
+		left top repeat
+}
+
+#slideshow {
+	position: relative
+}
+
+#slideshow .center {
+	height: 340px;
+	background: transparent url(/skins/default/base/images/map.png) center
+		top no-repeat
+}
+
+#slideshow,#slideshow .slide {
+	position: relative;
+	overflow: hidden;
+	height: 340px
+}
+
+#slideshow .slide {
+	width: 960px
+}
+
+#slideshow .slideSwitchLabel {
+	display: none
+}
+
+#slideshow .slideSwitch {
+	position: absolute;
+	z-index: 1;
+	margin-top: 320px
+}
+
+#slideshow .slideSwitch div {
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	margin-right: 9px;
+	color: #999;
+	text-align: center;
+	text-shadow: 0 1px 0 #000;
+	cursor: pointer;
+	border: 1px solid #444;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-transition: 200ms;
+	-moz-transition: 200ms
+}
+
+#slideshow .slideSwitch div:hover {
+	color: #fff;
+	border-color: #666
+}
+
+#slideshow .slideSwitch div.active {
+	color: #fed327;
+	background: #1a1a1a url(/skins/default/base/images/slide-gradient.png)
+		left top repeat-x;
+	border-color: #111;
+	-webkit-box-shadow: 0 1px 0 #444;
+	-moz-box-shadow: 0 1px 0 #444;
+	box-shadow: 0 1px 0 #444
+}
+
+#slideshow .information {
+	float: left;
+	width: 480px;
+	margin-top: 100px;
+	text-shadow: 0 1px 0 #000
+}
+
+#slideshow .information h1 {
+	font-size: 26px;
+	padding-bottom: 4px;
+	margin-top: 0
+}
+
+#slideshow .information h1 a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#slideshow .information ul {
+	margin-top: 20px
+}
+
+#slideshow .information ul li {
+	float: left;
+	width: 240px;
+	line-height: 22px;
+	font-size: 14px
+}
+
+#slideshow .information .box {
+	height: 40px;
+	padding: 9px;
+	margin-top: 10px;
+	border: 1px solid #444;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px
+}
+
+#slideshow .information .box .label {
+	float: left;
+	font-size: 11px;
+	line-height: 14px;
+	margin: -3px 0px;
+	position: absolute;
+	color: #999;
+	text-align: right;
+	text-transform: uppercase
+}
+
+#slideshow .information .box .price {
+	float: left;
+	line-height: 40px;
+	font-weight: bold;
+	font-size: 32px;
+	margin-top: 7px;
+	margin-left: 25px;
+}
+
+#slideshow .information .box .colorButton {
+	float: right;
+	-webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5)
+}
+
+#slideshow img {
+	float: right;
+	margin-top: -40px
+}

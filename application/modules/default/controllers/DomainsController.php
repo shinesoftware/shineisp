@@ -188,7 +188,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			}
 			
 			// Some useful values
-			$this->view->domainame = $rs [0] ['domainame'] . "." . $rs [0] ['tld'];
+			$this->view->name = $rs [0] ['domainame'] . "." . $rs [0] ['tld'];
 			$this->view->days = $rs [0] ['Days'];
 			$this->view->domain_id = $id;
 			$this->view->productid = $rs [0] ['product_id'];
@@ -220,7 +220,7 @@ class DomainsController extends Shineisp_Controller_Default {
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		$this->view->title = $this->translator->translate("Domain Edit");
+		$this->view->title = $this->translator->translate("Domain");
 		$this->view->description = $this->translator->translate("Here you can edit your own domain parameters.");
 		$this->view->form = $form;
 		$this->_helper->viewRenderer ( 'customform' );

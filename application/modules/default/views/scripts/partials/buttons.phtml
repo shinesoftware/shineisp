@@ -1,7 +1,10 @@
 <div class="dashboard-buttons-container">
-	<ul class="dashboard-buttons-set">
-	    <?php foreach ($this->buttons as $button) : ?>
-	    <li><a href="<?=$button['url']?>" title="<?= $this->translate($button['desc'])?>" class="dashboard-button"><span class="png_bg <?=$button['label']?>"><?= $this->translate($button['label'])?></span></a></li>
-	    <?php endforeach; ?>
-	</ul>
+	<ul class="inline-list">
+    	<li><a class="dashboard-button foundicon-website" title="<?php echo $this->translate('Here you can see all the options available.') ?>" href="/"><span class="png_bg"><?php echo $this->translate('Homepage')?></span></a></li>
+    	<li><a class="dashboard-button foundicon-globe" title="<?php echo $this->translate('Here you can manage your own domains.') ?>" href="/domains"><span class="png_bg"><?php echo $this->translate('Domains')?></span></a></li>
+    	<li><a class="dashboard-button foundicon-tools" title="<?php echo $this->translate('Here you can manage your own services.') ?>" href="/services"><span class="png_bg"><?php echo $this->translate('Services')?></span></a></li>
+    	<li><a class="dashboard-button foundicon-page" title="<?php echo $this->translate('Here you can manage your own orders.') ?>" href="/orders"><span class="png_bg"><?php echo $this->translate('Orders')?></span></a></li>
+     	<li><a class="dashboard-button foundicon-edit" title="<?php echo $this->translate('Here you can add and reply your help requests.') ?>" href="/tickets"><span class="png_bg"><?php echo $this->translate('Tickets')?></span></a></li>
+   		<li><a class="dashboard-button foundicon-idea" title="<?php echo $this->translate('Do you need help?') ?>" href="/wiki"><span class="png_bg"><?php echo $this->translate('Help')?></span></a></li>
+    </ul>
 </div>

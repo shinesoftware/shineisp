@@ -49,9 +49,9 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-        <div class="notification infos" id="mex" style="display:none"></div>
+        <div data-alert class="alert-box success" id="mex" style="display:none"></div>
         
-        <table border="0" cellpadding="5" class="simplegrid zebratable" id="itemlist">
+        <table id="itemlist">
             <thead>
                 <tr>
                    <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><th><input type="checkbox" class="selectall" value=""></th><?php endif;?>
@@ -79,7 +79,7 @@ if (isset($this->records[0])):
                        <?php endif;?>
                    <?php endforeach;?>
                    <td>
-                       <a href="/<?= $this->module ?>/<?= $this->controller ?>/edit/id/<?=$record[$this->fields[0]]?>"><img alt="<?= $this->translate('Edit') ?>" src="<?=$this->paths('skin')?>/images/commons/pencil.png" border="0"></a>
+                       <a href="/<?= $this->module ?>/<?= $this->controller ?>/edit/id/<?=$record[$this->fields[0]]?>"><?= $this->translate('Edit') ?></a>
                    </td>
                    </tr>
                 <?php endforeach;?>

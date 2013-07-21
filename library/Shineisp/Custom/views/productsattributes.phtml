@@ -1,0 +1,37 @@
+<?php $attributes = $this->attributes ?>
+<?php $products = $this->products ?>
+<?php $values = $this->values ?>
+
+<div class="row">
+    <div class="large-12 column">
+		<?php if(!empty($attributes) && !empty($products)): ?>
+			<?php foreach ($products as $product): ?>
+				<div class="large-6 column">
+					<ul class="pricing-table">
+						<li class="title"><?php echo !empty($product['ProductsData']['0']['name']) ? $product['ProductsData']['0']['name'] : "-"?></li>
+						<li class="price"><?php echo $this->mainviewhelper->prices()->getAllPricesInfo($product['product_id'], false, false, true)?></li>
+					  	<li class="description"><?php echo $product['ProductsAttributesGroups']['name']?></li>
+						<?php foreach ($attributes as $attribute): ?>
+							<?php if($attribute['is_visible_on_front'] && $attribute['on_product_listing']): ?>
+								<?php foreach ($values as $attrvalue): ?>
+									<?php if(($attrvalue['attribute_id'] == $attribute['attribute_id']) && ($attrvalue['product_id'] == $product['product_id'])): ?>
+									
+										 <?php if($attrvalue['value'] =="-1"): ?>
+								         	<li class="bullet-item" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>"><strong><?php echo $this->translate('Unlimited')?></strong> <?php echo $attribute['ProductsAttributesData'][0]['label'] ?></li>
+								         <?php else:?>
+								        	<li class="bullet-item" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>"><strong><?php echo $attrvalue['value'] ?></strong> <?php echo $attribute['ProductsAttributesData'][0]['label'] ?></li>
+								         <?php endif;?>
+											
+										<?php break;?>
+									<?php endif;?>
+								<?php endforeach; ?>
+								
+							<?php endif; ?>
+						<?php endforeach;?>
+						<li class="cta-button"><a class="button" href="/<?php echo $product['uri'] ?>.html"><?php echo $this->translate('Buy Now')?></a></li>
+					</ul>
+				</div>
+			<?php endforeach;?>	
+		<?php endif; ?>
+    </div>
+</div>

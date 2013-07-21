@@ -67,7 +67,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				
 				$form = $this->CreateProductForm ( );
 				$items = ProductsTranches::getList ( $data ['product_id'],$refund );
-				
+				 
 				// Check the default quantity value
 				$qta = ProductsTranches::getDefaultItem ( $data ['product_id'] );
 				if (! empty ( $qta )) {
@@ -77,30 +77,47 @@ class ProductsController extends Shineisp_Controller_Default {
 				}
 				
 				if (count ( $items ) > 0) {
-					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'text-input large-input select-billing-cycle' ) );
+					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
 					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
 				} else {
 					$form->addElement ( 'text', 'quantity', array ('label' => $this->translator->translate ( 'Quantity' ), 'required' => true, 'value' => '1', 'decorators' => array ('Composite' ), 'class' => 'text-input small-input' ) );
 					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '0' ) );
 				}
+				
 				// Adding the product attributes
 				$attributes = ProductsAttributesIndexes::getAttributebyProductID($data ['product_id'], $ns->langid);
 				if (count ( $attributes ) > 0) {
 					$this->view->placeholder ( "features" )->append ( $this->view->partial ( 'partials/attributes.phtml', array ('attributes' => $attributes ) ) );
 				}
 				
+				$layout = $this->getHelper ( 'layout' )->getLayout();
+				
 				// Adding the related products
 				$related = ProductsRelated::get_products($data ['product_id'], $ns->langid);
 				if(count($related) > 0){
-					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'products/related.phtml', array ('products' => $related ) ) );
-					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					if($layout =="1column"){
+						$placeholder = $this->view->placeholder ( "right" );
+						$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					}else{
+						list($columns, $sidebar) = explode("-", $layout);
+						$placeholder = $this->view->placeholder ( $sidebar );
+					}
+					
+					$placeholder->append ( $this->view->partial ( 'products/related.phtml', array ('products' => $related ) ) );
 				}				
 				
 				// Attaching the WIKI Pages
 				$wikipages = Wikilinks::getWikiPages($data ['product_id'], "products", $ns->langid);
 				if(count($wikipages) > 0){
-					$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'products/wikipages.phtml', array ('wikipages' => $wikipages) ) );
-					$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					if($layout =="1column"){
+						$placeholder = $this->view->placeholder ( "right" );
+						$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
+					}else{
+						list($columns, $sidebar) = explode("-", $layout);
+						$placeholder = $this->view->placeholder ( $sidebar );
+					}
+					
+					$placeholder->append ( $this->view->partial ( 'products/wikipages.phtml', array ('wikipages' => $wikipages) ) );
 				}				
 				
 				$this->view->reviewsdata = Reviews::getbyProductId ( $data ['product_id'] );
@@ -258,7 +275,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				$data['pricetax'] = $tranche['price'];
 			}
 			
-			$data['pricelbl']           = $currency->toCurrency($data['pricetax'], array('currency' => Settings::findbyParam('currency')));
+			$data['pricelbl']           = $currency->toCurrency($tranche['price'], array('currency' => Settings::findbyParam('currency')));
 			$data['months']             = $tranche['BillingCycle']['months'];
 			$data['pricepermonths']     = $data['pricetax'] * $tranche['BillingCycle']['months'];
 			$data['name']               = $this->translator->translate ($tranche['BillingCycle']['name']);

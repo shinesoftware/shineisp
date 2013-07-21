@@ -26,10 +26,11 @@ class Zend_View_Helper_Prices extends Zend_View_Helper_Abstract
      * @param boolean $showallinfo
      * @return string
      */
-    public function getAllPricesInfo($productid, $showallinfo = true, $priceRefund = false)
+    public function getAllPricesInfo($productid, $showallinfo = true, $priceRefund = false, $onlyMasterPrice = false)
     {
     	$this->view->data = Products::getPrices($productid, $priceRefund);
     	$this->view->showallinfo = $showallinfo;
+    	$this->view->onlymasterprice = $onlyMasterPrice;
         return $this->view->render ( 'partials/prices.phtml' );
     }
 

@@ -23,6 +23,7 @@ class Zend_View_Helper_Media extends Zend_View_Helper_Abstract {
 		$this->view->height = $maxHeight;
 		$this->view->showall = $showall;
 		$this->view->resources = ProductsMedia::getMediabyProductId ( $productid, "*", $NS->langid );
+		$this->view->productdata = Products::getAllInfo($productid, $NS->langid );
 		return $this->view->render ( 'partials/media.phtml' );
 	}
 	

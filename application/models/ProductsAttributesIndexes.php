@@ -19,13 +19,20 @@ class ProductsAttributesIndexes extends BaseProductsAttributesIndexes
 	 */
 	public static function getAttributebyProductID($productid, $language_id = 1) {
 		$records = Doctrine_Query::create ()
-			->select('pai.index_id, pa.attribute_id as attribute_id, pa.is_visible_on_front as is_visible_on_front, pa.is_comparable as is_comparable, pa.on_product_listing as on_product_listing, pai.value as value, pad.label as label, pad.prefix as prefix, pad.suffix as suffix, pad.description as description')
-			->from ( 'ProductsAttributesIndexes pai' )
-			->leftJoin('pai.ProductsAttributes pa')
-			->leftJoin('pa.ProductsAttributesData pad WITH pad.language_id = ' . $language_id)
-			->where('pai.product_id = ?', $productid)
-			->orderBy('pa.position')
-			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+							->select('pai.index_id, pa.attribute_id as attribute_id, pa.code as code, pa.is_visible_on_front as is_visible_on_front, pa.is_comparable as is_comparable, pa.on_product_listing as on_product_listing, pai.value as value, pad.label as label, pad.prefix as prefix, pad.suffix as suffix, pad.description as description')
+							->from ( 'ProductsAttributesIndexes pai' )
+							->leftJoin('pai.ProductsAttributes pa')
+							->leftJoin('pa.ProductsAttributesData pad WITH pad.language_id = ' . $language_id)
+							->where('pai.product_id = ?', $productid)
+							->orderBy('pa.position')
+							->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		for ($i=0;$i<count($records);$i++){
+			if(empty($records[$i]['label'])){
+				$records[$i]['label'] = $records[$i]['code'];
+			}
+		}
+
 		return $records;
 	}	
 	

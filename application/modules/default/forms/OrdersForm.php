@@ -11,7 +11,6 @@ class Default_Form_OrdersForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Composite'),
-            'label'       => 'Reply',
             'rows'       => '10',
             'description' => 'Write here your reply. An email will be sent to the ISP staff.',
             'class'       => 'textarea wysiwyg'

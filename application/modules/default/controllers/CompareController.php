@@ -24,10 +24,16 @@ class CompareController extends Shineisp_Controller_Default {
 		$code = $this->getRequest()->getParam('code');
 		
 		if ($code)
-			$this->view->headTitle()->prepend ( $this->translator->_("Compare %s", $code) );
 		
 	 		// Get all the data from the database
 			$data = Products::GetProductsByGroupCode($code);
+		
+			if(!empty($data['products'][0]['ProductsAttributesGroups']['name'])){
+				$this->view->headTitle()->prepend ( $this->translator->_("Compare %s", $data['products'][0]['ProductsAttributesGroups']['name']) );
+				$this->view->title = $data['products'][0]['ProductsAttributesGroups']['name'];
+			}else{
+				$this->view->title = $code;
+			}
 			
 			// Check the existence of the mandatories attributes
 			if (!empty($data['attributes'][0]))

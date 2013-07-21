@@ -20,7 +20,7 @@ class Shineisp_Banks_BankTransfer_Gateway extends Shineisp_Banks_Abstract implem
 		$bank = Banks::findbyClassname ( __CLASS__ );
 		
 		try {
-			$form = "<h2>" . $bank ['name'] . "</h2><p>" . $bank ['description'] . "</p>";	
+			$form = "<h4>" . $bank ['name'] . "</h4><p>" . $bank ['description'] . "</p>";	
 			return $form;
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );

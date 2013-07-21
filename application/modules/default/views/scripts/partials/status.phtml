@@ -4,11 +4,10 @@
 ?>
 
 <?php if($status): ?>
-	<ul id="breadcrumb-status">
+	<ul class="breadcrumbs">
 	<?php for($i=0;$i<count($status);$i++): ?>
 		<?php $current = (($status_items - 1) == $i) ? "current" : null; ?>
-		
-		<li><a href="#" class="<?php echo $current ?>"><?php echo $status[$i]['status']?></a></li>
+		<li class="<?php echo $current ?>"><?php echo $status[$i]['status']?></li>
 	<?php endfor;?>
 	</ul>
 <?php endif; ?>

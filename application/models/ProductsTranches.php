@@ -203,6 +203,7 @@ class ProductsTranches extends BaseProductsTranches
     public static function getList($productid, $refund = false) {
         $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
         $currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+        
     	try {
             $items = array();
             
@@ -214,8 +215,8 @@ class ProductsTranches extends BaseProductsTranches
                      
             $records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
+            // Check the refund options
 	        foreach ( $records as $c ) {
-				//JAY 20130409
 				if( $refund !== false ) {
 					$idBillingCircle		= $c['BillingCycle']['billing_cycle_id'];
 					$monthBilling			= BillingCycle::getMonthsNumber($idBillingCircle);
@@ -233,9 +234,16 @@ class ProductsTranches extends BaseProductsTranches
 						}
 					}					
 				}
-				/** 20130409 ***/
 				
-	        	$items [$c ['tranche_id']] = $translator->translate($c['BillingCycle']['name']) .  " - " . $currency->toCurrency($c ['price'], array('currency' => Settings::findbyParam('currency')));
+				$items [$c ['tranche_id']] = "";
+				
+				// If quantity is more than one ShineISP must show the item quantity 
+				if($c ['quantity'] > 1){
+					$items [$c ['tranche_id']] .= "No. " . $c ['quantity'] . " ";
+				}
+				
+	        	$items [$c ['tranche_id']] .= "(" . $translator->translate($c['BillingCycle']['name']) .  ") - " . $currency->toCurrency($c ['price'], array('currency' => Settings::findbyParam('currency')));
+	            
 	            if(!empty($c ['measurement'])){
 	            	 $items [$c ['tranche_id']] .= "/" . $translator->translate($c ['measurement']);
 	            }

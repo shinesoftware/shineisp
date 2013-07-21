@@ -127,7 +127,7 @@ class Default_Form_SignupForm extends Zend_Form
             'required' => false,
             'label'    => 'Create my account',
             'decorators' => array('Composite'),
-            'class'    => 'blue-button'
+            'class'    => 'button'
         ));
         
         $privKey = Settings::findbyParam('recaptcha_private_key');

@@ -1,19 +1,24 @@
-<div class="newdomain highlight">
-    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
-		<?php echo $this->form->name->setDecorators(array('Simple'));?>
-		<?php echo $this->form->tld->setDecorators(array('Simple'));?>
-		<?php echo $this->form->check->setDecorators(array('Simple'));?>
-    </form>
-    <div id="result" style="display: none">
-    	<a href="#" class="button ordernow" ><?php echo $this->translate('Order Now')?></a>
-    	<div class="domain"></div>
-    	<div class="message"></div>
-    	<div class="price"></div>
-    </div>
+<div class="row collapse">
+	<div class="large-12 column">
+	    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" class="dropdown custom" action="<?php echo $this->form->getAction()?>">
+			<div class="small-8 column"><?php echo $this->form->name->setDecorators(array('ViewHelper'));?></div>
+			<div class="small-2 column"><?php echo $this->form->tld->setDecorators(array('ViewHelper'));?></div>
+			<div class="small-2 column"><?php echo $this->form->check->setDecorators(array('ViewHelper'));?></div>
+	    </form>
     
-    <div class="bulklink">
-    	<a href="/domains/bulkdomains">
-    		<?php echo $this->translate('Registering more than one domain name? Click here!')?>
-    	</a>
-    </div>
+	    <div id="result" class="large-12 column" style="display: none">
+	    	<div class="small-8 column">
+		    	<div class="domain"></div>
+		    	<div class="message"></div>
+		    	<div class="price"></div>
+		    </div>
+		    <div class="small-4 column ordernowbtn">
+	    		<a href="#" class="button ordernow" ><?php echo $this->translate('Order Now')?></a>
+	    	</div>
+	    </div>
+	    
+	    <div class="large-12 column">
+	    	<p><a href="/domains/bulkdomains"><?php echo $this->translate('Registering more than one domain name? Click here!')?></a></p>
+	    </div>
+	</div>
 </div>

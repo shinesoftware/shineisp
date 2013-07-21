@@ -126,10 +126,12 @@ class TicketsController extends Shineisp_Controller_Default {
 					$this->view->canreply = true;
 				}
 				
+				$this->view->name = $rs [0]['subject'];
+				
 			}
 			$this->view->id = $id;
 			
-			$this->view->headertitle = $this->translator->translate('Ticket page');
+			$this->view->title = $this->translator->translate('Ticket page');
 			
 			$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
 			$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'partials/wikisidebar.phtml', array ('items' => Wiki::get_items(5) ) ) );

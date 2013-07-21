@@ -297,17 +297,20 @@ class Shineisp_Commons_Utilities {
 		// create an array to hold directory list
 		$results = array();
 	
-		// create a handler for the directory
-		$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
-		foreach($directory_iterator as $filename => $path_object) {
-	
-			// if file isn't this directory or its parent, add it to the results
-			if ($filename != "." && $filename != "..") {
-				$results[] = $filename;
+		if(file_exists($directory)){
+			
+			// create a handler for the directory
+			$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+			foreach($directory_iterator as $filename => $path_object) {
+		
+				// if file isn't this directory or its parent, add it to the results
+				if ($filename != "." && $filename != "..") {
+					$results[] = $filename;
+				}
+		
 			}
-	
 		}
-	
+		
 		// done!
 		return $results;
 	

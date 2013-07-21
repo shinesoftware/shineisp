@@ -1,49 +1,51 @@
 <?php $form = $this->form; ?>
-<div class="headtitle">
-    <h2><?php echo $this->translate('Order %s', $this->formattedid); ?></h2>
-    <small><?php echo $this->translate($this->description);?></small>
-</div>
+<?php echo $this->render('partials/header.phtml') ?>
 
-	<? if( $form->isErrors() ): ?>
-		<div class="messages">    
-		   <? foreach( $form->getElements() as $field){
-		         $errors = array();
-		   	     if($field->hasErrors()){
-		        	foreach( $field->getErrors() as $error){
-		        		$errors[] = $this->translate($error);
-		        	}
-		            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-		        }   
-		    } ?>
-		</div>    
-	<? endif; ?>
-
+<div class="row">
+	<div class="large-12 column">	
 		<p align="right" class="order-buttons">
-			<a href="/orders" class="grey-button"><?php echo $this->translate('Order list')?></a> 
-			<a href="/orders/print/id/<?php echo $this->orderid?>" class="grey-button"><?php echo $this->translate('Print Order')?></a> 
+			<a href="/orders" class="button"><?php echo $this->translate('Order list')?></a> 
+			<a href="/orders/print/id/<?php echo $this->orderid?>" class="button"><?php echo $this->translate('Print Order')?></a> 
             <?php if($this->invoiced): ?>
-                <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="blue-button"><?php echo $this->translate('Print Invoice')?></a> 
+                <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="button"><?php echo $this->translate('Print Invoice')?></a> 
             <?php else: ?>
             	<?php if(Orders::IsEraseable($this->orderid, $this->customer_id)): ?> 
-            		<a href="/orders/setdelete/id/<?php echo $this->orderid?>" class="red-button confirm"><?php echo $this->translate('Delete')?></a>
+            		<a href="/orders/setdelete/id/<?php echo $this->orderid?>" class="button confirm"><?php echo $this->translate('Delete')?></a>
             	<?php endif; ?> 
             <?php endif; ?>
         </p> 
-        
-        <?php // Status History ?>  <br/><br/>    
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 column">	
 		<?php echo $this->status($this->statushistory);?>  
-	
-        <?php echo $this->verticalgrid($this->order)?>
-        <br/><br/>
-        
-        <?php echo $this->simplegrid($this->details)?>
-        <br/><br/>
-        
-        <?php if(Null !== Settings::findbyParam('Conditions')): ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 column">	
+		<?php echo $this->verticalgrid($this->order)?> 
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 column">	
+		<?php echo $this->simplegrid($this->details)?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 column">	
+		<?php if(Null !== Settings::findbyParam('Conditions')): ?>
         	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
         <?php endif;?>
-        
-        <?php // Files attached ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 column">	
+		<?php // Files attached ?>
         <?php if($this->files[0]): ?>
     	<ul>
     		<?php foreach($this->files as $files): ?>
@@ -51,27 +53,31 @@
     		<?php endforeach; ?>
     	</ul>
     	<?php endif; ?>
-        
-        
-        <?php 
-	 // Create a payment form  
-	 if($this->tobepaid): ?>
-	    <div class="payment-form"><?= $this->payments()->getPaymentsForm('order', $this->orderid);?></div>
-	 <?php endif;?>
-		 
-    <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-    	<h2><?php echo $this->translate('Messages')?></h2>
-    	<small><?= $this->translate('Here you can read all your questions and the admin replies about this order.') ?></small>
-    	
-    	<?php echo $this->bbslist($this->messages); ?>
-    	
-    	<?php if(Orders::IsCommentable($this->orderid)): ?>
-            <p><?php echo $form->note->render()?></p>
-            <p align="right"><?php echo $form->save->render();?></p>
-        <?php endif; ?>
-            
-            <?php if(!Orders::IsCommentable($this->orderid)): ?>
-        	<br/><br/><a class="red-button" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
-        <?php endif; ?>
-            <?php echo $form->order_id->render()?>
+	</div>
+</div>        
+
+<?php // Methods of payment ?>
+ <?php if($this->tobepaid): ?>
+    <?php echo $this->payments()->getPaymentsForm('order', $this->orderid);?>
+ <?php endif;?>
+
+<div class="row">
+	<div class="large-12 column">	
+	    <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	    	<h5><?php echo $this->translate('Messages')?></h5>
+	    	<p><?= $this->translate('Here you can read all your questions and the admin replies about this order.') ?></p>
+	    	
+	    	<?php echo $this->bbslist($this->messages); ?>
+	    	
+	    	<?php if(Orders::IsCommentable($this->orderid)): ?>
+	            <p><?php echo $form->note->render()?></p>
+	            <p align="right"><?php echo $form->save->render();?></p>
+	        <?php endif; ?>
+	            
+	            <?php if(!Orders::IsCommentable($this->orderid)): ?>
+	        	<br/><br/><a class="red-button" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
+	        <?php endif; ?>
+	            <?php echo $form->order_id->render()?>
 	</form>        
+</div>
+</div>

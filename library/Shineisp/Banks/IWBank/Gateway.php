@@ -53,7 +53,7 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 			$form .= '<input type="hidden" name="cmd" value="cart" />';
 			
 			if (! self::isHidden ()) {
-				$form .= '<input class="blue-button" type="submit" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
+				$form .= '<input class="button small" type="submit" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
 			}
 			
 			$form .= '<input type="hidden" name="PAYER_FIRSTNAME" value="' . $order ['Customers'] ['firstname'] . '">';

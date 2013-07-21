@@ -1,20 +1,9 @@
 <?php if (isset($this->records)):?>
 	<a name="reviews"></a>
 	<div class="reviews">
-		<h3><?= $this->translate('Customer Reviews') ?></h3>
+		<h5><?= $this->translate('Customer Reviews') ?></h5>
 		<?php foreach ( $this->records as $record ) : ?>
-		  <div class="review">
-			    <p class="reviewheader">
-			    	<a href="#"><?= $record['nick']; ?></a> 
-			    	<?php echo Shineisp_Commons_Utilities::formatDateOut($record['publishedat']) ?>
-			    </p>
-			    <p class="reviewbody"><?= $record['review']; ?></p>
-			    <!-- 
-			    <div class="review_subject boxrounded"><img src="<?=$this->paths('skin')?>/images/stars/<?= $record['stars']; ?>.gif"/>&nbsp;&nbsp;&nbsp;<?= $record['subject']; ?> - <?php echo $this->translate('Review by')?> <?= $record['nick']; ?></div>
-			    <div class="review_body"><?= $record['review']; ?></div>
-				<div class="review_date"><?= Shineisp_Commons_TimeSince::time_since($record['publishedat']); ?></div> -->
-				<div class="clear"></div>
-		  </div>
+			<blockquote><?= $record['review']; ?> <?php echo str_pad("*", $record['stars'], "*"); ?> <cite><a href="#"><?= $record['nick']; ?></a> - <?php echo Shineisp_Commons_TimeSince::time_since($record['publishedat']); ?></cite></blockquote>
 		<?php endforeach;?>
 	</div>
 <?php endif; ?>

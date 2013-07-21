@@ -1,29 +1,25 @@
-<h2><?= $this->translate('Domains Bulk Registration'); ?></h2>
-<p><?= $this->translate("It's easy to register your new domain names in bulk."); ?></p><br/><br/>
-<small><?= $this->translate("Just enter your names in the field below. One domain name for each row."); ?></small><br/><br/>
 <?php $form = $this->form;?>
 
-
-<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-	<p><?php echo $form->domains->render()?></p>
-	
-	<div class="tlds">
-		
-		<ul class="tldlist">
-		<?php $tlds = DomainsTlds::getList(); ?>
-		
-		<li class="boxrounded selectalltldsitems"><input type="checkbox" name="selectall" class="selectalltlds" value=""> <span>
-		<?php echo $this->translate('Select All')?></span></li>
-		
-		<?php foreach ($tlds as $id=>$tld): ?>
-			<li class="boxrounded"><input type="checkbox" name="tlds[]" value="<?= $id?>"> <span><?= strtoupper($tld)?></span></li>
-		<?php endforeach; ?>
-		</ul>
+<div class="row">
+	<div class="large-12 column">
+		<h2><?= $this->translate('Domains Bulk Registration'); ?></h2>
+		<p><?= $this->translate("It's easy to register your new domain names in bulk."); ?></p>
+		<small><?= $this->translate("Just enter your names in the field below. One domain name for each row."); ?></small>
 	</div>
-	<div class="clear"></div>
 	
-	<br><br>
-	<p><?= $this->translate("When the 'Search' button is clicked, please be patient while we check domain availability."); ?></p>
-	<br><br>
-	<p align="right"><?php echo $form->bulksearch->render()?></p>
-</form>
+	<div class="large-12 column">
+		<form method="<?php echo $form->getMethod() ?>" class="custom" action="<?php echo $form->getAction()?>">
+			<p><?php echo $form->domains->render()?></p>
+				
+			<?php $tlds = DomainsTlds::getList(); ?>
+			<ul class="inline-list">
+			<?php foreach ($tlds as $id=>$tld): ?>
+				<li><label for="<?php echo $id?>"><input type="checkbox" name="tlds[]" value="<?php echo $id?>" id="<?php echo $id?>"> .<?php echo strtoupper($tld)?></label></li>
+			<?php endforeach; ?>
+			</ul>
+			
+			<p><?= $this->translate("When the 'Search' button is clicked, please be patient while we check domain availability."); ?></p>
+			<p align="right"><?php echo $form->bulksearch->render()?></p>
+		</form>
+	</div>
+</div>

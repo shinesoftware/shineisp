@@ -49,14 +49,21 @@ class ProductsMedia extends BaseProductsMedia
         if(is_numeric($productid)){
         	
 	    	$dq = Doctrine_Query::create ()
-	    	->select($fields)
-	        ->from ( 'ProductsMedia pm' )
-	        ->leftJoin('pm.Products p')
-	        ->leftJoin('p.ProductsData pd')
-	        ->where ( "pm.product_id = ?", $productid )
-	        ->orderBy('is_default asc');
+						    	->select($fields)
+						        ->from ( 'ProductsMedia pm' )
+						        ->leftJoin('pm.Products p')
+						        ->leftJoin('p.ProductsData pd')
+						        ->where ( "pm.product_id = ?", $productid )
+						        ->orderBy('is_default asc');
 	        $records =  $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	        
+	        for ($i=0;$i<count($records);$i++){
+	        	if(!file_exists($records[$i]['path'])){
+	        		$records[$i]['path'] = "/" . $records[$i]['url'] . ".html";
+	        	}
+	        }
         }
+        
         return $records;
     }   
     

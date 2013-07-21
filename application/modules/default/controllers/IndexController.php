@@ -122,10 +122,10 @@ class IndexController extends Shineisp_Controller_Default {
 					,':shineisp:' => $customer
 				), null, null, null, null, $customer[0]['language_id']);		
 				
-				$this->view->mextype = "information";
+				$this->view->mextype = "success";
 				$this->view->mex = $translator->translate ( 'Password sent to your email box. You have to click in the link written in the email.' );
 			} else {
-				$this->view->mextype = "error";
+				$this->view->mextype = "alert";
 				$this->view->mex = $translator->translate ( 'User not found. Check your credentials.' );
 			}
 		}
@@ -163,10 +163,10 @@ class IndexController extends Shineisp_Controller_Default {
 				 ,'password'   => $newPwd
 			), null, null, null, null, $customer[0]['language_id']);		
 			
-			$this->view->mextype = "information";
+			$this->view->mextype = "success";
 			$this->view->mex = $translator->translate ( 'Email sent' );
 		} else {
-			$this->view->mextype = "error";
+			$this->view->mextype = "alert";
 			$this->view->mex = $translator->translate ( 'Error occurred during setting of the password.' );
 		}
 		

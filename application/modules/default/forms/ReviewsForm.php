@@ -69,7 +69,6 @@ class Default_Form_ReviewsForm extends Zend_Form
         	'required'    => true,
         	'description' => 'Write down your review with details and you will earn points and discounts',
             'label'       => 'Review',
-        	'rows' 		  => 5,
             'class'       => 'textarea'
         ));
         
@@ -119,7 +118,7 @@ class Default_Form_ReviewsForm extends Zend_Form
             'required' => false,
             'label'    => 'Publish your Review',
             'decorators' => array('Composite'),
-            'class'    => 'blue-button'
+            'class'    => 'button'
         ));
         
         $this->addElement('hidden', 'product_id');

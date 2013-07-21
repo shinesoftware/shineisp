@@ -1,24 +1,19 @@
-<?php 
-$products = $this->products;
-?>
-<div class="relatedproducts">
-	<h3><?php echo $this->translate('Related Products')?></h3>
-	<ul id="productrelated">
-	<?php foreach ($products as $product): ?>
-		<?php if(!empty($product['name'])): ?>
-		<li>
-			<div class="item-picture">
-				<a href="/products/basic-assistance.html">
-		    		<div class="mainimage"><?php echo $this->media()->ProductImage($product['product_id'], 60, 60, false);?></div>
-				</a>
+<?php $products = $this->products; ?>
+<div id="relatedproduct" class="row">
+	<div class="large-12 column">
+		<h5><?php echo $this->translate('Related Products')?></h5>
+		<?php foreach ($products as $product): ?>
+			<?php if(!empty($product['name'])): ?>
+			<div class="row">
+				<div class="large-3 column">
+			    	<?php echo $this->media()->ProductImage($product['product_id'], 60, 60, false);?>
+				</div>
+				<div class="large-9 column">
+					<h6><a href="/<?php echo $product['uri'] ?>.html"><?php echo $product['name'] ?></a></h6>
+					<p><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 100, "...", true, true)  ?></p>
+				</div>
 			</div>
-			<div class="item-details">
-				<h6><a href="/<?php echo $product['uri'] ?>.html"><?php echo $product['name'] ?></a></h6>
-				<p><?php echo Shineisp_Commons_Utilities::truncate($product['description'], 100, "...", true, true)  ?></p>
-			</div>
-			<div class="clear"></div>
-		</li>
-		<?php endif; ?>
-	<?php endforeach;?>
-	</ul>
+			<?php endif; ?>
+		<?php endforeach;?>
+	</div>
 </div>
