@@ -89,7 +89,8 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 	public function setNewImage($path, $width = null, $height = null) {
 		// set image new path
 		$this->_setImagepath ( $path );
-		
+
+
 		if ($width !== null) {
 			$this->_width = $width;
 		}
@@ -204,10 +205,12 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 		
 		// dir to where you want to save the thumbnail image
 		$relativePath = dirname ( $this->getImagePath () ) . '/thumbs/';
+	
 		$dir = PUBLIC_PATH . '/' . $relativePath;
 		// create the directory if it does not exist
 		
 		clearstatcache ();
+			
 		if (! is_dir ( $dir )) {
 			if(@mkdir ( $dir ) === false){
 				Shineisp_Commons_Utilities::log($dir . " cannot be created.");
@@ -226,11 +229,13 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 		}
 		
 		if (!file_exists ( $thumbPath )) {
-			$this->setNewImage ( "/media/products/default.png" );
+			#$this->setNewImage ( "/media/products/default.png" );
 		}
+
 		
 		// resize image
 		$image = new Shineisp_Commons_Image ( );
+		
 		// open original image to resize it
 		// set the thumnail sizes
 		// set new image path and quality
