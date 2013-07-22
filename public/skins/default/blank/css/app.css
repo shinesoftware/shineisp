@@ -6,7 +6,8 @@ ul, ol, dl {list-style-position: inside;}
 /* PRODUCT LIST MOBILE BEHAVIOUR STYLES */
 #products .product{margin-bottom: 10px;}
 #products .previewshortdescription{margin-top: 10px;}
-#products #thumbs {margin-left:2px; text-align: center; }
+#products #thumbs {margin-left:2px; text-align: center; margin-right:0px; float:none }
+#products .clearing-thumbs {text-align: center; }
 #products #list {margin: 0px}
 #product-images ul {margin-top: 10px}
 #products li.attribute{font-size: 0.8em}
@@ -20,7 +21,8 @@ ul, ol, dl {list-style-position: inside;}
 
 /* PRODUCT LIST BROWSERS BEHAVIOUR STYLES */
 @media only screen and (min-width: 768px) {
-	#products #thumbs ul{margin-left:2px; text-align: center;}
+	#products .clearing-thumbs {text-align: center; }
+	#products #thumbs ul li{margin-left:2px; text-align: center; float:none; margin-right:0px;}
 	#products #list ul.prices{text-align: right;}
 	#products #list ul li.subscription{border: 0px; color: #777777}
 	#products #list ul li.pricenotincludedvat{border: 0px; color: #777777}
