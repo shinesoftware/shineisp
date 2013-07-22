@@ -2,21 +2,21 @@
 <?php $productdata = $this->productdata; ?>
 <?php $index = 0; ?>
 
-<?php if(count($resources)==0): ?>
-    <a class="th imageZoom" href="/<?php echo $productdata['uri']?>.html">
-    	<img width="<?php echo $this->width?>" src="http://placehold.it/<?php echo $this->width?>&text=ShineISP"/>
-    </a>
-<?php endif; ?>
+<ul class="clearing-thumbs" data-clearing>
 
-<div id="gallery">
-	<?php foreach($resources as $resource):?>
-	    <?php if($index == 0): ?>
-	        <div class="clearing-thumbs" data-clearing><a class="th imageZoom" href="/<?php echo $productdata['uri']?>.html"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>$this->width, 'height'=>$this->height, 'alt' => $resource['name'], 'title' => $resource['name'])); ?></a></div>
-	    <?php else: ?>
-	        <?php if($this->showall):?>
-	            <a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a>
-	        <?php endif ?>
-	    <?php endif ?>
-	    <?php $index++;?>
-	<?php endforeach;?>
-</div>
+	<?php if(count($resources)==0): ?>
+	    <li><a href="/<?php echo $productdata['uri']?>.html"><img width="<?php echo $this->width?>" src="http://placehold.it/<?php echo $this->width?>&text=ShineISP"/></a></li>
+	<?php endif; ?>
+	
+	<?php if(!empty($resources[0])): ?>
+		<li><a href="<?php echo $resources[0]['path']?>"><?php echo $this->image($resources[0]['name'], $resources[0]['path'], array('width'=>$this->width, 'height'=>$this->height, 'alt' => $resources[0]['name'], 'title' => $resources[0]['name'])); ?></a></li>
+		<?php unset($resources[0]);?>
+		
+	<?php endif; ?>
+	
+	<?php if($this->showall):?>
+		<?php foreach($resources as $resource):?>
+            <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
+		<?php endforeach;?>
+	<?php endif ?>
+</ul>

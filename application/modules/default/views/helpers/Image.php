@@ -207,10 +207,11 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 		$relativePath = dirname ( $this->getImagePath () ) . '/thumbs/';
 	
 		$dir = PUBLIC_PATH . '/' . $relativePath;
-		// create the directory if it does not exist
+		
 		
 		clearstatcache ();
-			
+		
+		// create the directory if it does not exist
 		if (! is_dir ( $dir )) {
 			if(@mkdir ( $dir ) === false){
 				Shineisp_Commons_Utilities::log($dir . " cannot be created.");
@@ -222,16 +223,16 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 		$newFileName = $this->width . 'x' . $this->height . '_' . $this->getImageName ();
 		$thumbPath = $dir . $newFileName;
 		
-		// if thumbnail exists then set new image and return false
+		// if thumbnail exists then set cache image and return false
 		if (file_exists ( $thumbPath )) {
 			$this->setNewImage ( $relativePath . $newFileName );
 			return false;
 		}
-		
-		if (!file_exists ( $thumbPath )) {
-			#$this->setNewImage ( "/media/products/default.png" );
-		}
 
+		// if image product not exists set the default image
+		if (!file_exists ( PUBLIC_PATH . $this->getImagePath () )) {
+			$this->setNewImage ( "/media/products/default.png" );
+		}
 		
 		// resize image
 		$image = new Shineisp_Commons_Image ( );
