@@ -71,6 +71,7 @@ class Shineisp_Commons_Layout {
 		
 		// Get the default project resources
 		if (count ( $xmlobject )) {
+			
 			foreach ( $xmlobject as $resource ) {
 				$item = array();
 				
