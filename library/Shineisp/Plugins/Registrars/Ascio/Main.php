@@ -13,7 +13,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Enumerate all the registrar actions  
 	 * 
-	 * @return     array       An associative array containing the list of the actions allowed by the OVH's class 
+	 * @return     array       An associative array containing the list of the actions allowed by the Ascio's class 
 	 * @access     public
 	 */
 	public Function getActions() {
@@ -69,7 +69,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				throw new Exception("Customer has been not found.");
 			}
 			
-			// Create the OVH nic-Handle
+			// Create the Ascio nic-Handle
 			$nicHandle = $this->createNicHandle($customerID);	
 			
 			// Check if the nichandle has been created
@@ -88,7 +88,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				$locale = Shineisp_Registry::get('Zend_Locale');
 				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
 				
-				// OVH handle two kind of registration for the domains it and the others
+				// Ascio handle two kind of registration for the domains it and the others
 							
 				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
 
@@ -104,7 +104,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 					$params[] = $registrar ['ascio_username'];				// the admin nichandle
 					$params[] = $registrar ['ascio_username'];				// the tech nichandle
 					$params[] = $registrar ['ascio_username'];				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default Ascio dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
 					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
@@ -138,7 +138,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 					$params[] = $registrar ['ascio_username'];				// the admin nichandle
 					$params[] = $registrar ['ascio_username'];				// the tech nichandle
 					$params[] = $registrar ['ascio_username'];				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default Ascio dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
 					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
@@ -170,7 +170,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 					$params[] = $registrar ['ascio_username'];				// the admin nichandle
 					$params[] = $registrar ['ascio_username'];				// the tech nichandle
 					$params[] = $registrar ['ascio_username'];				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default Ascio dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
 					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
@@ -241,7 +241,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				throw new Exception("Customer has been not found.");
 			}
 						
-			// Create the OVH nic-Handle
+			// Create the Ascio nic-Handle
 			$nicHandle = $this->createNicHandle($customerID);	
 			
 			// Check if the nichandle has been created
@@ -260,7 +260,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				$locale = Shineisp_Registry::get('Zend_Locale');
 				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
 				
-				// OVH handle two kind of registration for the domains it and the others
+				// Ascio handle two kind of registration for the domains it and the others
 				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
 
 					$params[] = $this->session['id'];  						// the session id
@@ -274,7 +274,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 					$params[] = $registrar ['ascio_username'];				// the admin nichandle
 					$params[] = $registrar ['ascio_username'];				// the tech nichandle
 					$params[] = $registrar ['ascio_username'];				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default Ascio dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
 					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
@@ -306,7 +306,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 					$params[] = $registrar ['ascio_username'];				// the admin nichandle
 					$params[] = $registrar ['ascio_username'];				// the tech nichandle
 					$params[] = $registrar ['ascio_username'];				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default Ascio dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
 					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
@@ -336,7 +336,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Renew a domain name that belongs to your Registrar account
 	 * 
-	 * Executes the 'Extend' command on OVH's servers to renew a domain name which was previously registered or transfered to your Registrar account.
+	 * Executes the 'Extend' command on Ascio's servers to renew a domain name which was previously registered or transfered to your Registrar account.
 	 * Note that this command to not fail, it must meet the following requirements:
 	 * - Your registrar account must have enough credits to cover the order amount.
 	 * - The domain name must be valid and active and belongs to your registrar account.
@@ -377,7 +377,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Check domain availability
 	 * 
-	 * Executes the 'Check' command on OVH's servers to check domain availability.
+	 * Executes the 'Check' command on Ascio's servers to check domain availability.
 	 * 
 	 * @param      string     $domain   Domain name
 	 * @return     boolean    An associative array containing the domain name as a key and a bool 
@@ -404,7 +404,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Set registrar lock status for a domain name
 	 * 
-	 * Executes the 'SetRegLock' command on OVH's servers.
+	 * Executes the 'SetRegLock' command on Ascio's servers.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if not locked, false otherwise. You should check for $this->isError if returned false, to make sure it's not an error flag not the registrar lock status.
@@ -434,7 +434,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Set registrar unlock status for a domain name
 	 * 
-	 * Executes the 'SetRegUnlock' command on OVH's servers.
+	 * Executes the 'SetRegUnlock' command on Ascio's servers.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if not locked, false otherwise. You should check for $this->isError if returned false, to make sure it's not an error flag not the registrar lock status.
@@ -464,7 +464,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Set name servers for a domain name.
 	 * 
-	 * Executes the 'ModifyNS' command on OVH's servers, to set the name servers
+	 * Executes the 'ModifyNS' command on Ascio's servers, to set the name servers
 	 * for a domain name that is active and belongs to your Registrar account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
@@ -480,11 +480,11 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Get name servers for a domain name.
 	 * 
-	 * Executes the 'GetDNS' command on OVH's servers, to retrive the name servers
+	 * Executes the 'GetDNS' command on Ascio's servers, to retrive the name servers
 	 * for a domain name that is active and belongs to your Registrar account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
-	 * @return     array       An array containing name servers. If using OVH's name servers, the array will be empty.
+	 * @return     array       An array containing name servers. If using Ascio's name servers, the array will be empty.
 	 * @access     public
 	 * @see        setNameServers
 	 */
@@ -497,7 +497,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	 * Set domain hosts (records) for a domain name.
 	 * 
 	 * Executes the '...' command on Registrar's servers, to set domain hosts (records)
-	 * for a domain name that is active and belongs to your OVH account.
+	 * for a domain name that is active and belongs to your Ascio account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if succeed and False if failed.
@@ -537,7 +537,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				$nameservers[] = $ns['target'];
 			}  
 		}else{
-		    // Get the domain nameservers set in OVH
+		    // Get the domain nameservers set in Ascio
 			if(!empty($NSDefault->dns[0]) && !empty($NSDefault->dns[1])){
 			    $nameservers[] = $NSDefault->dns[0]->name . ".";
 			    $nameservers[] = $NSDefault->dns[1]->name . ".";
@@ -620,7 +620,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	 * Get domain hosts (records) for a domain name.
 	 * 
 	 * Executes the '...' command on Registrar's servers, to get domain hosts (records)
-	 * for a domain name that is active and belongs to your OVH account.
+	 * for a domain name that is active and belongs to your Ascio account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if succeed and False if failed.
@@ -664,13 +664,13 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 		}
 	}		
 
-	############################################## OVH Custom Functions ##############################################
+	############################################## Ascio Custom Functions ##############################################
 
 	
 	/**
-	 * Connect into the remote OVH webservice 
+	 * Connect into the remote Ascio webservice 
 	 * 
-	 * Executes the 'login' command on OVH's servers, to retrive the session variable
+	 * Executes the 'login' command on Ascio's servers, to retrive the session variable
 	 * for execute the commands.
 	 * 
 	 * @return     string       Session variable
@@ -684,15 +684,15 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 			if(!empty($registrar['config'])){
 				
 				if(empty($registrar['ascio_soapuri'])){
-					throw new Exception('Warning: OVH Soap URI has been not set');
+					throw new Exception('Warning: Ascio Soap URI has been not set');
 				}
 				
 				if(empty($registrar['ascio_username'])){
-					throw new Exception('Warning: OVH Username has been not set');
+					throw new Exception('Warning: Ascio Username has been not set');
 				}
 				
 				if(empty($registrar['ascio_password'])){
-					throw new Exception('Warning: OVH Password has been not set');
+					throw new Exception('Warning: Ascio Password has been not set');
 				}
 				
 				if(!empty($registrar)){
@@ -753,7 +753,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	/**
 	 * Create a Nic-Handle for the client 
 	 * 
-	 * Executes the 'login' command on OVH's servers, to retrive the session variable
+	 * Executes the 'login' command on Ascio's servers, to retrive the session variable
 	 * for execute the commands.
 	 * 
 	 *   Parameters
