@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Ascio Configuration File -->
+
+<config name="Ascio" type="registrars" var="ascio" version="1.0">
+    <general>
+	    <description><![CDATA[Ascio was founded in 1999, manages a total of more than two million domains and employs 350 people in offices in Copenhagen, New York, Santa Monica, London, Stockholm, Paris, Zurich, Oslo and Munich.]]></description>
+	    <help><![CDATA[<p>This module offers you the way to register your domains by Ascio company. <br/>In order to setup the module, you need:</p>
+	        <ul>
+	            <li>Get the soap URI from http://aws.ascio.info/documentation look at the changelog.</li>
+	            <li>Ascio Account Credencials</li>
+	            <li>Set the server information</li>
+	            <li>Set the TLD prices and costs</li>
+	        </ul>
+	        <p>The Soap URI is the endpoint to connect ShineISP to Ascio: eg: https://aws.ascio.com/2012/01/01/AscioService.wsdl</p>
+	        <p>In order to check the connection with the Ascio Servers is high suggested to use the "test mode" before to start. https://awstest.ascio.com/2012/01/01/AscioService.wsdl</p>
+	    ]]></help>
+    </general>
+    <settings>
+        <field var="soapuri" label="SOAP URL" type="text" description="Get the soap URI from http://aws.ascio.info/documentation look at the changelog" required="1" default="https://aws.ascio.com/2012/01/01/AscioService.wsdl"/>
+        <field var="username" label="Username" type="text" description="Set your Ascio username" required="1" />
+        <field var="password" label="Password" type="text" description="Write here your Ascio password." required="1" />
+        <field var="testmode" label="Test Mode" type="select" description="Set the test mode in order to check the connection with the Ascio Servers">
+        	<![CDATA[
+        		["No","Yes"]
+        	]]>
+        </field>
+    </settings>
+    
+</config>
