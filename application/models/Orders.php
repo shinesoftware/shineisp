@@ -2498,6 +2498,7 @@ class Orders extends BaseOrders {
 													->orderBy('year, quarter')
 													->execute ( null, Doctrine::HYDRATE_ARRAY );
 
+		
 		for ($i=0; $i<count($income); $i++){
 			
 			// Yield Percentage
@@ -2523,7 +2524,64 @@ class Orders extends BaseOrders {
 					$income[$i]['old'] = $item;
 					
 					// Assign the yield percentage value
-					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');;
+					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');
+					$income[$i]['incdec'] = $diff; // Increase / Decrease
+					continue;
+				}
+			}
+		}
+		
+		return !empty($income[0]) ? $income: array();
+	}
+	
+	/**
+	 * Yield total percentage between Year 
+	 * 
+	 * @return ArrayObject
+	 */
+	public static function incomeYearly($year = null ) {
+		$present_year = !empty($year) ? $year : date("Y");
+		$last_year = $present_year - 1;
+		
+		// Get the quarter total 
+		$income = Doctrine_Query::create ()->select ( "invoice_id, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
+													->from ( 'Invoices i' )
+													->leftJoin ( 'i.Orders o' )
+													->leftJoin ( 'o.Customers c' )
+													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+													->andWhere('c.isp_id = ?', Isp::getCurrentId())
+													->groupBy("year")
+													->orderBy('year')
+													->execute ( null, Doctrine::HYDRATE_ARRAY );
+
+		
+		for ($i=0; $i<count($income); $i++){
+			
+			// Yield Percentage
+			$income[$i]['yieldrate'] = 0;
+			
+			// Before the last year
+			$income[$i]['old'] = array();
+			
+			// For each Quarter do
+			foreach ($income as $item){
+				
+				// If the selected year is before last year 
+				if($item['year'] == ($income[$i]['year'] - 1) ){
+					
+					// Calculate the Yield percentage on diff
+					if($income[$i]['total'] > 0){
+						$diff = $income[$i]['total'] - $item['total'];
+						$percent = $diff / $item['total'] * 100;
+					}else{
+						$percent = 0;
+					}
+					
+					$income[$i]['old'] = $item;
+					
+					// Assign the yield percentage value
+					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');
+					$income[$i]['incdec'] = $diff; // Increase / Decrease
 					continue;
 				}
 			}
@@ -2584,7 +2642,8 @@ class Orders extends BaseOrders {
 					$income[$i]['old'] = $item;
 	
 					// Assign the yield percentage value
-					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');;
+					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');
+					$income[$i]['incdec'] = $diff; // Increase / Decrease
 					continue;
 				}
 			}
