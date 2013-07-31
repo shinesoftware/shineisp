@@ -19,13 +19,13 @@
 				<ul class="stats">
 					<?php foreach($income_yearly as $inc):?>
 						<li>
+							<h1><?php echo $inc['year']?></h1>
 							<span style="cursor:help" title="<? echo $this->translate('%s - Grand Total: %s - Total: %s - VAT: %s', $inc['year'], $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>">
 								<strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong>
 							</span>
 							 
 							<?php if(!empty($inc['old']['total'])): ?>
 								<span style="cursor:help" title="<? echo $this->translate('%s - Grand Total: %s - Total: %s - VAT: %s', $inc['old']['year'], $this->currency($inc['old']['grandtotal'], array('currency' => $currency)), $this->currency($inc['old']['total'], array('currency' => $currency)), $this->currency($inc['old']['vat'], array('currency' => $currency))) ?>">
-									<small><?php echo $this->translate('%s / %s', $inc['old']['year'], $inc['year']) ?></small>
 								</span>
 							<?php endif;?> 
 							<?php if($inc['yieldrate'] != 0): ?><span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $this->currency($inc['incdec'], array('currency' => $currency)) ?> (<?php echo $inc['yieldrate'] ?>%)</span> <?php endif;?>
