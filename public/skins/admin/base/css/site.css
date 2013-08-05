@@ -433,6 +433,11 @@ html .is_portrait #sidebar>#nav_arrow {
 	color: #555;
 }
 
+ul.stats ul li{
+	display: table-row;
+	display: block;
+}
+
 ul.stats li {
 	text-align: center
 }

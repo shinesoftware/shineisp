@@ -1,4 +1,5 @@
 <?php
+
 	$currency       		= Settings::findbyParam('currency'); 
 	$income_yearly 			= $this->income_yearly; 
 	$income_quarter 		= $this->income_quarter; 
@@ -19,16 +20,28 @@
 				<ul class="stats">
 					<?php foreach($income_yearly as $inc):?>
 						<li>
+							<?php 
+								
+								$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
+								$costs 	= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0; 
+								$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
+								$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
+								$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
+								$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
+								$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
+								
+								$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
+								$old_costs 		= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
+								$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
+								$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
+							
+							?>
 							<h1><?php echo $inc['year']?></h1>
-							<span style="cursor:help" title="<? echo $this->translate('%s - Grand Total: %s - Total: %s - VAT: %s', $inc['year'], $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>">
-								<strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong>
+							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
+								<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
 							</span>
-							 
-							<?php if(!empty($inc['old']['total'])): ?>
-								<span style="cursor:help" title="<? echo $this->translate('%s - Grand Total: %s - Total: %s - VAT: %s', $inc['old']['year'], $this->currency($inc['old']['grandtotal'], array('currency' => $currency)), $this->currency($inc['old']['total'], array('currency' => $currency)), $this->currency($inc['old']['vat'], array('currency' => $currency))) ?>">
-								</span>
-							<?php endif;?> 
-							<?php if($inc['yieldrate'] != 0): ?><span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $this->currency($inc['incdec'], array('currency' => $currency)) ?> (<?php echo $inc['yieldrate'] ?>%)</span> <?php endif;?>
+							<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
+							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $this->currency($inc['incdec'], array('currency' => $currency)) ?> (<?php echo $inc['yieldrate'] ?>%)</span> 
 						</li>
 					<?php endforeach;?>
 				</ul>
@@ -45,14 +58,33 @@
 				<ul class="stats">
 					<?php foreach($income_quarter as $inc):?>
 						<?php if($inc['year'] == date('Y')): ?>
-						<li><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
-							<span style="cursor:help" title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><small><?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?></small></span> 
-							<?php if(!empty($inc['old']['total'])): ?>
-								<span style="cursor:help" title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['old']['grandtotal'], array('currency' => $currency)), $this->currency($inc['old']['total'], array('currency' => $currency)), $this->currency($inc['old']['vat'], array('currency' => $currency))) ?>">
-									<small><?php echo $this->translate('%s° quarter %s: %s', $inc['old']['quarter'], $inc['old']['year'], $this->currency($inc['old']['total'], array('currency' => $currency))) ?></small>
-								</span>
-							<?php endif;?> 
-							<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $this->currency($inc['incdec'], array('currency' => $currency)) ?> (<?php echo $inc['yieldrate'] ?>%)</span>
+						
+						<?php 
+						
+							$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
+							$costs 	= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0;
+							$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
+							$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
+							$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
+							$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
+							$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
+							$yieldrate 	= !empty($inc['yieldrate']) ? $inc['yieldrate'] : 0;
+							$earnings 	= !empty($inc['incdec']) ? $this->currency((float)$inc['incdec'], array('currency' => $currency)) : 0;
+							
+							$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
+							$old_costs 		= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
+							$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
+							$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
+// 							Zend_Debug::dump($inc);
+						?>
+						
+						<li>
+							<?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?>
+							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
+								<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
+							</span>
+							<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
+							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($yieldrate > 0) ? "green" : "red" ?>"><?php echo $earnings ?> (<?php echo $yieldrate ?>%)</span>
 						</li>
 						<?php endif; ?>
 					<?php endforeach;?>
@@ -70,14 +102,35 @@
 			<ul class="stats">
 				<?php foreach($income_text_monthly as $inc):?>
 					<?php if($inc['year'] == date('Y')): ?>
-					<li><strong><?php echo $this->currency($inc['total'], array('currency' => $currency)) ?></strong> 
-						<span style="cursor:help" title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['grandtotal'], array('currency' => $currency)), $this->currency($inc['total'], array('currency' => $currency)), $this->currency($inc['vat'], array('currency' => $currency))) ?>"><small><?php echo $this->translate('%s° month of %s', $inc['monthly'], $inc['year'])?></small></span> 
-						<?php if(!empty($inc['old']['total'])): ?>
-							<span style="cursor:help" title="<? echo $this->translate('Grand Total: %s - Total: %s - VAT: %s', $this->currency($inc['old']['grandtotal'], array('currency' => $currency)), $this->currency($inc['old']['total'], array('currency' => $currency)), $this->currency($inc['old']['vat'], array('currency' => $currency))) ?>">
-								<small><?php echo $this->translate('%s° month %s: %s', $inc['old']['monthly'], $inc['old']['year'], $this->currency($inc['old']['total'], array('currency' => $currency))) ?></small>
-							</span>
-						<?php endif;?> 
-						<span class="<?php echo ($inc['yieldrate'] > 0) ? "green" : "red" ?>"><?php echo $this->currency($inc['incdec'], array('currency' => $currency)) ?> (<?php echo $inc['yieldrate'] ?>%)</span>
+					
+						<?php 
+							$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
+							$costs 		= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0;
+							$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
+							$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
+							$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
+							$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
+							$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
+							$yieldrate 	= !empty($inc['yieldrate']) ? $inc['yieldrate'] : 0;
+							$earnings 	= !empty($inc['incdec']) ? $this->currency((float)$inc['incdec'], array('currency' => $currency)) : 0;
+// 							Zend_Debug::dump($inc);
+// 							die;
+							$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
+							$old_costs 			= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
+							$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
+							$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
+							
+						?>
+					<li>
+					
+					
+						<?php echo $this->translate('%s %s', $inc['monthname'], $inc['year'])?>
+						<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
+							<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
+						</span>
+						<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
+						<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($yieldrate > 0) ? "green" : "red" ?>"><?php echo $earnings ?> (<?php echo $yieldrate ?>%)</span>
+						
 					</li>
 					<?php endif; ?>
 				<?php endforeach; ?>
@@ -109,6 +162,7 @@
 	       
 	       rows: [
 	          <?php
+	          
 	          	foreach($income_graph_monthly[$currentYear] as $yearIncome):
 					$month    = $yearIncome['month'];
 					
@@ -117,17 +171,17 @@
 					$currentMonthTitle = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear);
 					$lastMonthTitle    = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
 					
-					$total    = (isset($yearIncome['total'])) ? $yearIncome['total'] : 0;
-					$oldTotal = (isset($income_graph_monthly[$lastYear][$month]['total'])) ? $income_graph_monthly[$lastYear][$month]['total'] : 0;
-					$growDiff = (isset($yearIncome['growDiff'])) ? $yearIncome['growDiff'] : 0;
-					$growPercent = (isset($yearIncome['growPercent'])) ? $yearIncome['growPercent'] : 0;
+					$net_total    = (isset($yearIncome['net_total'])) ? $yearIncome['net_total'] : 0;
+					$oldTotal = (isset($income_graph_monthly[$lastYear][$month]['net_total'])) ? $income_graph_monthly[$lastYear][$month]['net_total'] : 0;
+					$incdec = (isset($yearIncome['incdec'])) ? $yearIncome['incdec'] : 0;
+					$yieldrate = (isset($yearIncome['yieldrate'])) ? $yearIncome['yieldrate'] : 0;
 					
-					$spanColor = ( $growPercent > 0 ) ? 'green' : 'red';
+					$spanColor = ( $yieldrate > 0 ) ? 'green' : 'red';
 
 					$arrColonne   = array();
 					$arrColonne[] = "{v: '".$yearIncome['month']."'}";				
-					$arrColonne[] = "{v:".$total."}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$currentMonthTitle."</strong></span><br/>".$this->translate('Income').": &euro; ".$total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$growDiff." (".$growPercent."%)</span></div>'}"; // tooltip for current year
+					$arrColonne[] = "{v:".$net_total."}";
+					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$currentMonthTitle."</strong></span><br/>".$this->translate('Income').": &euro; ".$net_total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$incdec." (".$yieldrate."%)</span></div>'}"; // tooltip for current year
 					$arrColonne[] = "{v:".$oldTotal."}";
 					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$lastMonthTitle."</strong></span><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
 
