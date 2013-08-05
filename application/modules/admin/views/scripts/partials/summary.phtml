@@ -162,32 +162,48 @@
 	       
 	       rows: [
 	          <?php
+	          	$year = date('Y');
+				$currentYear = !empty($year) ? $year : date("Y");
+				$lastYear    = $currentYear -1;
 	          
-	          	foreach($income_graph_monthly[$currentYear] as $yearIncome):
-					$month    = $yearIncome['month'];
+				// Cycle months
+				for ( $i = 1; $i <= 12; $i++ ) {
 					
-					$currentTS = new Zend_Date(mktime(0,0,0,$month,1,$currentYear));
-					$lastTS    = new Zend_Date(mktime(0,0,0,$month,1,$lastYear));
-					$currentMonthTitle = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear);
-					$lastMonthTitle    = ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
+					$month = str_pad($i, 2, '0', STR_PAD_LEFT);
+					$currentTS 			= new Zend_Date(mktime(0,0,0,$month,1,$currentYear));
+					$lastTS    			= new Zend_Date(mktime(0,0,0,$month,1,$lastYear));
+					$currentMonthTitle 	= ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear);
+					$lastMonthTitle    	= ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
 					
-					$net_total    = (isset($yearIncome['net_total'])) ? $yearIncome['net_total'] : 0;
-					$oldTotal = (isset($income_graph_monthly[$lastYear][$month]['net_total'])) ? $income_graph_monthly[$lastYear][$month]['net_total'] : 0;
-					$incdec = (isset($yearIncome['incdec'])) ? $yearIncome['incdec'] : 0;
-					$yieldrate = (isset($yearIncome['yieldrate'])) ? $yearIncome['yieldrate'] : 0;
+					foreach($income_graph_monthly as $income){
+						
+						if($income['month'] == $i && $income['year'] == $currentYear){
+								
+							$net_total    	= (isset($income['net_total'])) ? $income['net_total'] : 0;
+							$oldTotal 		= (isset($income['old']['net_total'])) ? $income['old']['net_total'] : 0;
+							$incdec 		= (isset($income['incdec'])) ? $income['incdec'] : 0;
+							$yieldrate 		= (isset($income['yieldrate'])) ? $income['yieldrate'] : 0;
+							break;	
+						}elseif ($income['month'] == $i && $income['year'] == $lastYear){
+							$net_total    	= 0;
+							$oldTotal 		= (isset($income['net_total'])) ? $income['net_total'] : 0;
+							$incdec 		= (isset($income['incdec'])) ? $income['incdec'] : 0;
+							$yieldrate 		= (isset($income['yieldrate'])) ? $income['yieldrate'] : 0;
+						}
+						
+						
+					}
 					
-					$spanColor = ( $yieldrate > 0 ) ? 'green' : 'red';
-
+					$spanColor 		= ( $yieldrate > 0 ) ? 'green' : 'red';
 					$arrColonne   = array();
-					$arrColonne[] = "{v: '".$yearIncome['month']."'}";				
-					$arrColonne[] = "{v:".$net_total."}";
+					$arrColonne[] = "{v: '" . $month . "'}";
+					$arrColonne[] = "{v:" . $net_total . "}";
 					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$currentMonthTitle."</strong></span><br/>".$this->translate('Income').": &euro; ".$net_total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$incdec." (".$yieldrate."%)</span></div>'}"; // tooltip for current year
-					$arrColonne[] = "{v:".$oldTotal."}";
+					$arrColonne[] = "{v:" . $oldTotal . "}";
 					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$lastMonthTitle."</strong></span><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
-
+					
 					$arrgraph[] = "{c:[".implode(',',$arrColonne)."]}\n";
-	          	endforeach;
-				
+				}
 				echo implode(',', $arrgraph);
 				
 	      		?>
