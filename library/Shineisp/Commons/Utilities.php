@@ -929,7 +929,8 @@ class Shineisp_Commons_Utilities {
 			
 			
 			// TODO: properly manage ISP ID
-			$isp = Shineisp_Registry::get('ISP')->toArray();
+// 			$isp = Shineisp_Registry::get('ISP')->toArray();
+			$isp = Isp::getActiveISP();
 
 			$body = trim($body);
 			$subject = trim($subject);
