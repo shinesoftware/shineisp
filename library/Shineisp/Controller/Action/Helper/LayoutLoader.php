@@ -22,7 +22,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		// Get the skin paramenter set in the Settings Table in the database		
 		if($module == "default"){
 			$customskin = Settings::findbyParam ( 'skin' );
-			$skin = !empty ( $customskin ) ? $customskin : "base";
+			$skin = !empty ( $customskin ) ? $customskin : "blank";
 		}elseif($module == "admin"){
 			$customskin = Settings::findbyParam ( 'adminskin' );
 			$skin = !empty ( $customskin ) ? $customskin : "base";        
@@ -150,7 +150,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		if (file_exists ( APPLICATION_PATH . "/modules/$module/views/$skin/" )) {
 			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/$skin/" );
 		}else{
-			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/base/" );
+			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/blank/" );
 		}
         
 		// Set the additional path for the layout templates
