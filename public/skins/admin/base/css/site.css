@@ -1,17 +1,14 @@
 /* `Basic HTML
 ----------------------------------------------------------------------------------------------------*/
-
 * {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-html,
-body {
+html,body {
 	overflow: hidden;
 }
 
-body {
-	/*
+body { /*
 		Pre-load #nav_arrow image.
 	*/
 	color: #000;
@@ -23,39 +20,25 @@ a {
 }
 
 p {
-	line-height: 25px; 
+	line-height: 25px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1,h2,h3,h4,h5,h6 {
 	font-weight: normal;
 	line-height: 1;
 	margin-bottom: 3px;
 }
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a{
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a {
 	text-decoration: none;
 }
 
-ol ol,
-ul ul,
-ol ul,
-ul ol {
+ol ol,ul ul,ol ul,ul ol {
 	margin-bottom: 0;
 }
 
 /* `Misc
 ----------------------------------------------------------------------------------------------------*/
-
 .abs {
 	position: absolute;
 	top: auto;
@@ -76,11 +59,11 @@ ul ol {
 	float: left;
 }
 
-.clear{
+.clear {
 	clear: both;
 }
 
-.hidden{
+.hidden {
 	display: none;
 }
 
@@ -102,32 +85,30 @@ ul ol {
 
 /* `Data Table
 ----------------------------------------------------------------------------------------------------*/
-
 table.data {
 	border: 1px solid #ddd;
 	width: 100%;
 }
 
-table.data th,
-table.data td {
+table.data th,table.data td {
 	padding: 5px 10px;
 }
 
 table.data thead th {
 	background: #eee url(/skins/admin/base/images/ui/data_th.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #eee));
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff),
+		color-stop(1, #eee) );
 	background: -moz-linear-gradient(top center, #fff 0%, #eee 100%);
 	border-bottom: 1px solid #ddd;
 	text-shadow: #fff 0 1px 0;
 }
 
-table.data tbody > tr:nth-child(even) {
+table.data tbody>tr:nth-child(even) {
 	background: #edf3fe;
 }
 
 /* `Horizontal Table
 ----------------------------------------------------------------------------------------------------*/
-
 table.horiz td {
 	padding: 20px 0 0 20px;
 }
@@ -142,10 +123,11 @@ table.horiz tr td:first-child {
 
 /* `Buttons
 ----------------------------------------------------------------------------------------------------*/
-
 .button {
-	background: #666 url(/skins/admin/base/images/ui/button_light.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ccc), color-stop(1, #666));
+	background: #666 url(/skins/admin/base/images/ui/button_light.png)
+		repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ccc),
+		color-stop(1, #666) );
 	background: -moz-linear-gradient(top center, #ccc 0%, #666 100%);
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -164,10 +146,11 @@ table.horiz tr td:first-child {
 	height: 28px;
 }
 
-.button:active,
-.button_active {
-	background: #333 url(/skins/admin/base/images/ui/button_light_active.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999), color-stop(1, #333));
+.button:active,.button_active {
+	background: #333
+		url(/skins/admin/base/images/ui/button_light_active.png) repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999),
+		color-stop(1, #333) );
 	background: -moz-linear-gradient(top center, #999 0%, #333 100%);
 }
 
@@ -175,18 +158,21 @@ table.horiz tr td:first-child {
 	-moz-box-shadow: inset 0px 1px 0px 0px #f29c93;
 	-webkit-box-shadow: inset 0px 1px 0px 0px #f29c93;
 	box-shadow: inset 0px 1px 0px 0px #f29c93;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00
+		), color-stop(1, #ce0100) );
 	background: -moz-linear-gradient(center top, #fe1a00 5%, #ce0100 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100' );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00',
+		endColorstr='#ce0100' );
 	background-color: #fe1a00;
 	border: 1px solid #d83526;
 	color: #fff !important;
 }
 
-.button:active,
-.button_active {
-	background: #333 url(/skins/admin/base/images/ui/button_light_active.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999), color-stop(1, #333));
+.button:active,.button_active {
+	background: #333
+		url(/skins/admin/base/images/ui/button_light_active.png) repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999),
+		color-stop(1, #333) );
 	background: -moz-linear-gradient(top center, #999 0%, #333 100%);
 }
 
@@ -200,44 +186,48 @@ table.horiz tr td:first-child {
 
 /* `Chrome
 ----------------------------------------------------------------------------------------------------*/
-
 .chrome_light {
-	background: #bbb url(/skins/admin/base/images/ui/chrome_light.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #bbb));
+	background: #bbb url(/skins/admin/base/images/ui/chrome_light.png)
+		repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff),
+		color-stop(1, #bbb) );
 	background: -moz-linear-gradient(top center, #fff 0%, #bbb 100%);
 	color: #777;
 	text-shadow: #fff 0 1px 0;
 }
 
 .chrome_dark {
-	background: #333 url(/skins/admin/base/images/ui/chrome_dark.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #333));
+	background: #333 url(/skins/admin/base/images/ui/chrome_dark.png)
+		repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666),
+		color-stop(1, #333) );
 	background: -moz-linear-gradient(top center, #666 0%, #333 100%);
 }
 
 .chrome_dark .button {
-	background: #222 url(/skins/admin/base/images/ui/button_dark.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999), color-stop(1, #222));
+	background: #222 url(/skins/admin/base/images/ui/button_dark.png)
+		repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999),
+		color-stop(1, #222) );
 	background: -moz-linear-gradient(top center, #999 0%, #222 100%);
 	border-color: #000 #333 #666;
 }
 
-.chrome_dark .button:active,
-.chrome_dark .button_active {
-	background: #000 url(/skins/admin/base/images/ui/button_dark_active.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #000));
+.chrome_dark .button:active,.chrome_dark .button_active {
+	background: #000 url(/skins/admin/base/images/ui/button_dark_active.png)
+		repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666),
+		color-stop(1, #000) );
 	background: -moz-linear-gradient(top center, #666 0%, #000 100%);
 }
 
-.chrome_dark,
-.chrome_dark a {
+.chrome_dark,.chrome_dark a {
 	color: #fff;
 	text-shadow: #000 0 -1px 0;
 }
 
 /* `Search
 ----------------------------------------------------------------------------------------------------*/
-
 #q {
 	vertical-align: baseline;
 	width: 220px;
@@ -245,11 +235,7 @@ table.horiz tr td:first-child {
 
 /* `Headers + Footers
 ----------------------------------------------------------------------------------------------------*/
-
-.header_upper,
-.header_lower,
-.footer_upper,
-.footer_lower {
+.header_upper,.header_lower,.footer_upper,.footer_lower {
 	line-height: 45px;
 	overflow: hidden;
 	text-align: center;
@@ -258,13 +244,11 @@ table.horiz tr td:first-child {
 	height: 45px;
 }
 
-.header_upper,
-.header_lower {
+.header_upper,.header_lower {
 	border-bottom: 1px solid #000;
 }
 
-.footer_upper,
-.footer_lower {
+.footer_upper,.footer_lower {
 	border-top: 1px solid #000;
 }
 
@@ -287,7 +271,6 @@ table.horiz tr td:first-child {
 
 /* `Main
 ----------------------------------------------------------------------------------------------------*/
-
 #main {
 	top: 0;
 	left: 251px;
@@ -302,9 +285,7 @@ table.horiz tr td:first-child {
 	right: 0;
 }
 
-
-.content_inner {
-	/*
+.content_inner { /*
 		1px bottom padding = fixes Opera bug.
 	*/
 	padding: 70px 10px 1px;
@@ -312,7 +293,6 @@ table.horiz tr td:first-child {
 
 /* `Sidebar
 ----------------------------------------------------------------------------------------------------*/
-
 #sidebar {
 	top: 0;
 	left: 0;
@@ -326,8 +306,7 @@ table.horiz tr td:first-child {
 	right: 0;
 }
 
-#sidebar_menu,
-#sidebar_menu li {
+#sidebar_menu,#sidebar_menu li {
 	font-weight: bold;
 	list-style: none;
 	margin: 0;
@@ -348,9 +327,11 @@ table.horiz tr td:first-child {
 	cursor: pointer;
 }
 
-#sidebar_menu .active > a {
-	background: #035de7 url(/skins/admin/base/images/ui/menu_active_a.png) repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #058cf7), color-stop(1, #035de7));
+#sidebar_menu .active>a {
+	background: #035de7 url(/skins/admin/base/images/ui/menu_active_a.png)
+		repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #058cf7),
+		color-stop(1, #035de7) );
 	background: -moz-linear-gradient(top center, #058cf7 0%, #035de7 100%);
 	color: #fff;
 }
@@ -359,16 +340,17 @@ table.horiz tr td:first-child {
 	display: none;
 }
 
-#sidebar_menu .expanded > a {
-	background: #eee url(/skins/admin/base/images/ui/menu_expanded.png) repeat-x left bottom;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), color-stop(1, #fff));
+#sidebar_menu .expanded>a {
+	background: #eee url(/skins/admin/base/images/ui/menu_expanded.png)
+		repeat-x left bottom;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee),
+		color-stop(1, #fff) );
 	background: -moz-linear-gradient(top center, #eee 0%, #fff 100%);
 	color: #000;
 	text-shadow: #fff 0 1px 0;
 }
 
-#sidebar_menu_home .abs,
-#sidebar_menu .toggle_arrow {
+#sidebar_menu_home .abs,#sidebar_menu .toggle_arrow {
 	font-size: 0;
 	overflow: hidden;
 	left: 10px;
@@ -386,14 +368,12 @@ table.horiz tr td:first-child {
 	top: 13px;
 }
 
-#sidebar_menu_home.active .abs,
-#sidebar_menu .expanded > a .toggle_arrow {
+#sidebar_menu_home.active .abs,#sidebar_menu .expanded>a .toggle_arrow {
 	background-position: 0 -14px;
 }
 
 /* `Hide Sidebar
 ----------------------------------------------------------------------------------------------------*/
-
 .is_portrait #main {
 	left: 0;
 }
@@ -406,9 +386,7 @@ table.horiz tr td:first-child {
 	display: block;
 }
 
-#nav_arrow,
-.is_portrait #sidebar,
-.is_portrait #sidebar .header_upper {
+#nav_arrow,.is_portrait #sidebar,.is_portrait #sidebar .header_upper {
 	display: none;
 }
 
@@ -427,11 +405,11 @@ table.horiz tr td:first-child {
 	margin: 0 0 1px;
 }
 
-.is_portrait #sidebar > * {
+.is_portrait #sidebar>* {
 	position: static !important;
 }
 
-html .is_portrait #sidebar > #nav_arrow {
+html .is_portrait #sidebar>#nav_arrow {
 	position: absolute !important;
 	background: url(/skins/admin/base/images/ui/nav_arrow.png) no-repeat;
 	display: block;
@@ -443,57 +421,74 @@ html .is_portrait #sidebar > #nav_arrow {
 	height: 6px;
 }
 
-.searchbox{
-	margin-top:10px;
+.searchbox {
+	margin-top: 10px;
 }
 
-.breadcrumbs{
+.breadcrumbs {
 	margin-left: 20px;
 }
 
-.breadcrumbs a{
+.breadcrumbs a {
 	color: #555;
 }
 
-
-ul.stats li strong {
-    color: #000;
-    font-size: 16px;
-    font-weight: bold;
-}
-ul.stats li small {
-    color: #7A828D;
-    font-size: 12px;
-}
-ul.stats li span {
-    color: #A8A8A8;
-    font-size: 15px;
-    font-weight: bold;
-}
-ul.stats li span.green {
-    color: #00A708;
-}
-ul.stats li span.red {
-    color: #BF2E1A;
-}
-
-ul.stats {
-    -moz-box-sizing: border-box;
-    display: table;
-    margin: -15px 0 0;
-    padding: 22px 15px 24px;
-    table-layout: fixed;
-    width: 100%;
+ul.stats ul li{
+	display: table-row;
+	display: block;
 }
 
 ul.stats li {
-    display: table-cell;
+	text-align: center
 }
-ul.stats li strong, ul.stats li small, ul.stats li span {
-    display: block;
-    text-align: center;
+
+ul.stats li h1 {
+	color: #999999;
+	font-weight: bold;
 }
- 
-#sidebar_menu .showall{
-	background-color:#e0f0ff;
+
+ul.stats li strong {
+	color: #000;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+ul.stats li small {
+	color: #7A828D;
+	font-size: 12px;
+}
+
+ul.stats li span {
+	color: #A8A8A8;
+	font-size: 15px;
+}
+
+ul.stats li span.green {
+	color: #00A708;
+}
+
+ul.stats li span.red {
+	color: #BF2E1A;
+}
+
+ul.stats {
+	-moz-box-sizing: border-box;
+	display: table;
+	margin: -15px 0 0;
+	padding: 22px 15px 24px;
+	table-layout: fixed;
+	width: 100%;
+}
+
+ul.stats li {
+	display: table-cell;
+}
+
+ul.stats li strong,ul.stats li small,ul.stats li span {
+	display: block;
+	text-align: center;
+}
+
+#sidebar_menu .showall {
+	background-color: #e0f0ff;
 }

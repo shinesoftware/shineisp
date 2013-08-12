@@ -299,7 +299,7 @@ class Invoices extends BaseInvoices {
 		// Get the summary of the incoming and of the expenses of the year
 		foreach ($years as $year) {
 			$data[$year]['incoming'] = self::getSummary ( $year, false );
-			$data[$year]['expenses'] = PurchaseInvoices::getSummary($year, false);
+			$data[$year]['expenses'] = PurchaseInvoices::getSummary($year, false, false, false, true);
 		}
 		
 		$dataset['axis']['x'] = $translator->_( 'Months' );
