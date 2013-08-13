@@ -711,12 +711,12 @@ class Orders extends BaseOrders {
 	 */
 	public static function renewOrder($customer_id, $products) {
 		$order = new Orders ();
-		//$isp   = Isp::getCurrentId ();
 		$i     = 0;
 		$total = 0;
 		$vat   = 0;
 		$tldid = null;
 		
+		// Check if there are auto-renewal services/products
 		if (! self::checkAutorenewProducts ( $products )) {
 			return false;
 		}
@@ -759,15 +759,15 @@ class Orders extends BaseOrders {
 					$link->save ();
 				}
 				
-				
 				if (count ( $products ) > 0) {
 					foreach ( $products as $product ) {
 						$orderitem = new OrdersItems ();
 						
-						if (is_numeric ( $product ['oldorderitemid'] )) {
+						if (!empty($product ['oldorderitemid']) && is_numeric ( $product ['oldorderitemid'] )) {
+							
 							// Find the details of the old order item details
 							$oldOrderDetails = OrdersItems::find ( $product ['oldorderitemid'], null, true );
-							
+	
 							// Check if the last order is present in the db and check if the product must be renewed
 							if (!empty ( $oldOrderDetails [0] ) && $product['renew']) {
 								
@@ -815,7 +815,7 @@ class Orders extends BaseOrders {
 								$orderitem->cost = $oldOrderDetails [0] ['cost'];
 								
 								$orderitem->save ();
-								$orderitemid = $orderitem->getIncremented ();
+								$newOrderItemId = $orderitem->getIncremented ();
 								
 								// sum of all the products prices 
 								$total = $total + ($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']);
@@ -825,18 +825,15 @@ class Orders extends BaseOrders {
 								if ( isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id) ) {
 									$vat = $vat + (($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']) * $tax ['percentage']) / 100;
 								}
-								
-								// If the product type is a service we have to add a record in the Orders_items_domains table
-								// in order to join the service with the reference domain 
-								if ($product ['type'] == "service") {
-									$oldOID = OrdersItemsDomains::findIDsByOrderItemID ( $product ['oldorderitemid'], null, true );
-									if (isset ( $oldOID [0] )) { // Some services are not linked to a domain
-										$ordersitemsdomains = new OrdersItemsDomains ();
-										$ordersitemsdomains->domain_id = $oldOID [0] ['domain_id'];
-										$ordersitemsdomains->order_id = $orderid;
-										$ordersitemsdomains->orderitem_id = $orderitemid;
-										$ordersitemsdomains->save ();
-									}
+
+								// Attach all the services, products, and domains with the order
+								$oldOID = OrdersItemsDomains::findIDsByOrderItemID ( $product ['oldorderitemid'], null, true );
+								if (isset ( $oldOID [0] )) { // Some services are not linked to a domain
+									$ordersitemsdomains = new OrdersItemsDomains ();
+									$ordersitemsdomains->domain_id = $oldOID [0] ['domain_id'];
+									$ordersitemsdomains->order_id = $orderid;
+									$ordersitemsdomains->orderitem_id = $newOrderItemId;
+									$ordersitemsdomains->save ();
 								}
 								$i ++;
 							}
@@ -848,7 +845,6 @@ class Orders extends BaseOrders {
 						// Update Order
 						self::updateTotalsOrder($orderid);
 					}
-					
 					return $orderid;
 				
 				}
@@ -1607,7 +1603,7 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Get all the expired orders 
+	 * Get all the expired orders without renewal
 	 * 
 	 * @param Date $date 
 	 * @return ArrayObject 
@@ -2155,7 +2151,7 @@ class Orders extends BaseOrders {
 			$date = explode ( "-", $order [0] ['order_date'] );
 			
 			
-			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'order_new', array(
 				 'orderid'    => $order[0]['order_number']
 				,'email'      => $email
 				,'bank'       => $bank
@@ -2705,11 +2701,11 @@ class Orders extends BaseOrders {
 	 *
 	 * Only the orders where renewal option has been set as
 	 * false send an email to the client to inform him
-	 * about the expiring of the order.
+	 * that his order has been set as deleted.
 	 */
 	public static function checkExpiringOrders() {
 		$orders = Orders::find_all_expired_orders(date('Y-m-d'));
-			
+		
 		foreach ( $orders as $order ) {
 			$customer = Customers::getAllInfo($order ['customer_id']);
 			$ISP      = ISP::getActiveIspById($customer['isp_id']);
@@ -2719,7 +2715,7 @@ class Orders extends BaseOrders {
 			if (count ( $link_exist ) > 0) {
 				$fastlink = $link_exist [0] ['code'];
 			} else {
-				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'tickets', $order ['order_id'], $customer ['customer_id'] );
+				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
@@ -2730,7 +2726,6 @@ class Orders extends BaseOrders {
 				,'url'            => $customer_url
 			), null, null, null, $ISP, $customer['language_id']);
 			
-	
 			// Set the order as deleted
 			Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
 		}
@@ -2765,7 +2760,7 @@ class Orders extends BaseOrders {
 			if (count ( $link_exist ) > 0) {
 				$fastlink = $link_exist [0] ['code'];
 			} else {
-				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'tickets', $order ['order_id'], $customer ['customer_id'] );
+				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
@@ -2775,9 +2770,6 @@ class Orders extends BaseOrders {
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			), null, null, null, null, $customer['language_id']);
-			
-			
-			
 		}
 		return true;
 	}
@@ -2805,7 +2797,7 @@ class Orders extends BaseOrders {
 					if (count ( $link_exist ) > 0) {
 						$fastlink = $link_exist [0] ['code'];
 					} else {
-						$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'tickets', $order ['order_id'], $customer ['customer_id'] );
+						$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 					}
 						
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
@@ -2833,7 +2825,8 @@ class Orders extends BaseOrders {
 	public static function remindersEmail() {
 		$i = 0;
 		$customers = array ();
-	
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
 		/* We have to start to get all the domains that them expiring date is today
 		 then we have to create a custom array sorted by customerID in order to
 		group services and domains of a particular customer.
@@ -2841,7 +2834,7 @@ class Orders extends BaseOrders {
 	
 		// Get all the active domains that expire in 1 day
 		$domains = Domains::getExpiringDomainsByRange ( 0, 30, 4 );
-	
+		
 		if ($domains) {
 			// Create the customer group list for the email summary
 			foreach ( $domains as $domain ) {
@@ -2864,7 +2857,7 @@ class Orders extends BaseOrders {
 				$i ++;
 			}
 		}
-	
+
 		/*
 		 * Now we have to get the services expired and we have to sum the previous $customers array with these
 		* new information.
@@ -2889,7 +2882,6 @@ class Orders extends BaseOrders {
 					$customers [$service ['customer_id']] ['password'] = $service ['password'];
 					$customers [$service ['customer_id']] ['language_id'] = $service ['language_id'];
 				}
-				
 				$customers [$service ['customer_id']] ['products'] [$i] ['name'] = $service ['product'];
 				$customers [$service ['customer_id']] ['products'] [$i] ['type'] = "service";
 				$customers [$service ['customer_id']] ['products'] [$i] ['renew'] = $service ['renew'];
@@ -2899,35 +2891,37 @@ class Orders extends BaseOrders {
 				$i ++;
 			}
 		}
-	
+		
 		// EMAIL SUMMARY FOR ALL THE EXPIRED AND NOT AUTORENEWABLE DOMAINS/SERVICES
 		// =========================================================================
 		// Create the emailS for the customers
 		if (count ( $customers ) > 0) {		
 			// For each client do ...
 			foreach ( $customers as $customer ) {
-				$items = "";
+				$items = array();
 	
 				// Check if there are some product to be expired
 				if (count ( $customer ['products'] ) > 0) {
-	
-					// Create the label of the text table
-					$items .= str_pad ( "Data", 12 ) . str_pad ( "Giorni", 14 ) . str_pad ( "Autorinnovo", 16 ) . str_pad ( "Descrizione", 16 ) . "\n";
-						
+					$i = 0;
 					// For each product do ...
 					foreach ( $customer ['products'] as $product ) {
+						
+						$items[$i][$translator->translate("Expiring Date")] = $product ['expiring_date'];
+						$items[$i][$translator->translate("Days")] = $product ['days'];
+						$items[$i][$translator->translate("Description")] = $product ['name'];
 						if ($product ['renew']) {
-							$items .= str_pad ( $product ['expiring_date'], 12 ) . str_pad ( "-" . $product ['days'] . " giorno(i)", 14 ) . str_pad ( "[attivo]", 16 ) . $product ['name'] . "\n";
+							$items[$i][$translator->translate("Auto Renewal")] = $translator->translate("Active");
 						} else {
-							$items .= str_pad ( $product ['expiring_date'], 12 ) . str_pad ( "-" . $product ['days'] . " giorno(i)", 14 ) . str_pad ( "[disabilitato]", 16 ) . $product ['name'] . "\n";
+							$items[$i][$translator->translate("Auto Renewal")] = $translator->translate("Not Active");
 						}
+						$i++;
 					}
 				}
-	
+				$items = Shineisp_Commons_Utilities::array2table($items);
+				
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
-						 'url'        => $customer_url
-						,'items'      => $items
+						'items'      => $items
 						,':shineisp:' => $customer
 					), null, null, null, null, $customer['language_id']);
 				}

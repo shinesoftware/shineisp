@@ -85,7 +85,6 @@ class System_CronController extends Zend_Controller_Action {
 						$method = (string)$code['method'];
 						$params = json_decode((string)$code['params']);
 						$log    = (string)$code;
-						
 						Shineisp_Commons_Utilities::log($log, 'cron.log');
 
                         $this->execScript($class, $method, $params);

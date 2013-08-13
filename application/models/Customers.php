@@ -1440,7 +1440,6 @@ class Customers extends BaseCustomers {
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['note']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['Statuses']['status']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['CustomersGroups']['name']);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['language']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['issubscriber']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['created_at']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['updated_at']);

@@ -28,5 +28,40 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap {
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_Datagrid ( ) );
 		}
 	}
-
+	
+	/**
+	 * Initializate the Administration Menu
+	 */
+	protected function _initViewHelpers() {
+		$this->bootstrap('layout');
+		$layout = $this->getResource('layout');
+		$view = $layout->getView();
+		$pages = array();
+		
+		// Load the xml navigation menu 
+		$navContainerConfig = new Zend_Config_Xml(APPLICATION_PATH . '/modules/admin/navigation.xml', 'nav');
+		$navContainer = new Zend_Navigation($navContainerConfig);
+		
+		// Adding the configuration menu items
+		$configuration = SettingsGroups::getlist ();
+		$submenu = $navContainer->findOneByLabel('Configuration');
+		foreach ($configuration as $id => $item){
+			$pages[] = array('label' => $item, 'uri' => '/admin/settings/index/groupid/' . $id, 'resource' => 'admin:settings');
+		}
+		$submenu->addPages($pages);
+		Zend_Registry::set('navigation', $navContainer);
+		
+		// Create the menu
+		$view->navigation($navContainer);
+		
+		// Attach the Zend ACL to the Navigation menu
+		$auth = Zend_Auth::getInstance();
+		if($auth){
+			$acl = $auth->getStorage()->read();
+			if(is_object($acl)){
+				Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
+				Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole("guest");
+			}
+		}
+	}
 }

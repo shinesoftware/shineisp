@@ -5,19 +5,23 @@
 	<default template="1column"> <!-- Template set for all the frontend pages -->
 	</default>
 	
-	
 	<!-- Set a cronjob in your hosting control panel that executes the http://www.yourdomain.com/system/cron/ 
 		 and you have to set the start of the cron each 5 minutes
 	-->
 	<cron>
 		<!-- 8:30 every day -->
 		<execute time="30 8 * * *">
-			<script class="Orders" method="checkExpiringOrders">Check the expired orders</script>
+			<script class="Orders" method="checkExpiringOrders">Check the expired orders, send the email to the client and set the orders as deleted</script>
+		</execute>
+		
+		<!-- 8:30 on monday -->
+		<execute time="30 8 * * 1">
+			<script class="Orders" method="checkOrders">Check orders/quotes that the customers have to paid and notice him by email</script>
 		</execute>
 		
 		<!-- 0:30 every day -->
 		<execute time="30 0 * * *">
-			<script class="OrdersItems" method="checkServices">Check subscribed services</script>
+			<script class="OrdersItems" method="checkServices">Check all the services domains/products and create the orders for each customer only if the service has been set as renewable</script>
 		</execute>
 		
 		<!-- 2:00 every 1st of the month -->
@@ -28,11 +32,6 @@
 		<!-- 23:30 on monday -->
 		<execute time="30 23 * * 1">
 			<script class="Orders" method="remindersEmail">Send a reminder to all the customers</script>
-		</execute>
-		
-		<!-- 8:30 on monday -->
-		<execute time="30 8 * * 1">
-			<script class="Orders" method="checkOrders">Check orders that the customers have to paid and notice him by email</script>
 		</execute>
 		
 		<!--  all the day each 30 minutes -->

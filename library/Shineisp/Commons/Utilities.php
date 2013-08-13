@@ -220,38 +220,55 @@ class Shineisp_Commons_Utilities {
 	 * Create a little table using a multidimensional array
 	 * @param array $data
 	 */
-	public static function array2table(array $data){
-		$cell_address = "[A1,A2,D3,H3]";
-
-		$ar_columns = array_keys($data[0]);
-		$ar_rows = $data[0];
-		
-		$ar_addresses = explode(",", substr($cell_address, 1, -1));
-		
-		$html = "<table>
-		  <tr>
-		    <th></th>
-		    <th>".implode("</td><td>", $ar_columns)."</th>
-		  </tr>\n";
-		
-		foreach($ar_rows as $row)
-		{
-		  $html .= "<tr><th>".$row."</th>\n";
-		
-		  foreach($ar_columns as $col)
-		  {
-		    $cell_str = (in_array($col.$row, $ar_addresses) ? "match" : "&nbsp;");
-		    $html .= "<td>".$cell_str."</td>\n";
-		  }
-		
-		  $html .= "</tr>\n";
-		}
-		
-		$html .= "</table>\n";
-
-		return $html;
+	public static function array2table($array, $recursive = false, $id = "htmltable", $null = '&nbsp;'){
+	    // Sanity check
+	    if (empty($array) || !is_array($array)) {
+	        return false;
+	    }
+	 
+	    if (!isset($array[0]) || !is_array($array[0])) {
+	        $array = array($array);
+	    }
+	 
+	    // Start the table
+	    $table = "<table id='$id'>\n";
+	 
+	    // The header
+	    $table .= "\t<tr>";
+	    // Take the keys from the first row as the headings
+	    foreach (array_keys($array[0]) as $heading) {
+	        $table .= '<th>' . $heading . '</th>';
+	    }
+	    $table .= "</tr>\n";
+	 
+	    // The body
+	    foreach ($array as $row) {
+	        $table .= "\t<tr>" ;
+	        foreach ($row as $cell) {
+	            $table .= '<td>';
+	 
+	            // Cast objects
+	            if (is_object($cell)) { $cell = (array) $cell; }
+	             
+	            if ($recursive === true && is_array($cell) && !empty($cell)) {
+	                // Recursive mode
+	                $table .= "\n" . self::array2table($cell, true, true) . "\n";
+	            } else {
+	                $table .= (strlen($cell) > 0) ?
+	                    htmlspecialchars((string) $cell) :
+	                    $null;
+	            }
+	 
+	            $table .= '</td>';
+	        }
+	 
+	        $table .= "</tr>\n";
+	    }
+	 
+	    $table .= '</table>';
+	    return $table;
 	}
-	
+		
 	/**
 	 * Convert a multidimensional array to an object
 	 */
@@ -894,9 +911,9 @@ class Shineisp_Commons_Utilities {
 		}else{
 			$locale = Languages::get_locale($language_id);
 		}
-		
-		$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
 
+		$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+		
 		// Template missing from DB. Let's add it.
 		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
@@ -905,6 +922,7 @@ class Shineisp_Commons_Utilities {
 			if (! file_exists ( $filename )) {
 				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
 				Shineisp_Commons_Utilities::log("This email template has not been found: $filename");
+				$language_id = 1; // set the right default language id
 				
 				// Also the fallback template is missing. Something strange is going on.....
 				if (! file_exists ( $filename )) {
@@ -926,7 +944,6 @@ class Shineisp_Commons_Utilities {
 				// Delete all the comments
 				$body .= preg_replace ( '#\{\*.*\*\}#suU', '', $line );
 			}
-			
 			
 			// TODO: properly manage ISP ID
 // 			$isp = Shineisp_Registry::get('ISP')->toArray();

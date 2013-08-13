@@ -306,70 +306,10 @@ table.horiz tr td:first-child {
 	right: 0;
 }
 
-#sidebar_menu,#sidebar_menu li {
+.navigation,.navigation li {
 	font-weight: bold;
 	list-style: none;
 	margin: 0;
-}
-
-#sidebar_menu a {
-	border-bottom: 1px solid #ddd;
-	color: #333;
-	display: block;
-	padding: 10px 20px 10px 30px;
-	position: relative;
-	text-decoration: none;
-	/*
-		Work around for iScroll.js
-		Forces <a> without href="#"
-		to retain the hover state.
-	*/
-	cursor: pointer;
-}
-
-#sidebar_menu .active>a {
-	background: #035de7 url(/skins/admin/base/images/ui/menu_active_a.png)
-		repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #058cf7),
-		color-stop(1, #035de7) );
-	background: -moz-linear-gradient(top center, #058cf7 0%, #035de7 100%);
-	color: #fff;
-}
-
-#sidebar_menu ul {
-	display: none;
-}
-
-#sidebar_menu .expanded>a {
-	background: #eee url(/skins/admin/base/images/ui/menu_expanded.png)
-		repeat-x left bottom;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee),
-		color-stop(1, #fff) );
-	background: -moz-linear-gradient(top center, #eee 0%, #fff 100%);
-	color: #000;
-	text-shadow: #fff 0 1px 0;
-}
-
-#sidebar_menu_home .abs,#sidebar_menu .toggle_arrow {
-	font-size: 0;
-	overflow: hidden;
-	left: 10px;
-	width: 13px;
-	height: 14px;
-}
-
-#sidebar_menu_home .abs {
-	background: url(/skins/admin/base/images/ui/menu_home.png) no-repeat;
-	top: 12px;
-}
-
-#sidebar_menu .toggle_arrow {
-	background: url(/skins/admin/base/images/ui/toggle_arrow.png) no-repeat;
-	top: 13px;
-}
-
-#sidebar_menu_home.active .abs,#sidebar_menu .expanded>a .toggle_arrow {
-	background-position: 0 -14px;
 }
 
 /* `Hide Sidebar
@@ -489,6 +429,3 @@ ul.stats li strong,ul.stats li small,ul.stats li span {
 	text-align: center;
 }
 
-#sidebar_menu .showall {
-	background-color: #e0f0ff;
-}

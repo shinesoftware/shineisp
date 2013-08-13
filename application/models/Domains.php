@@ -512,14 +512,16 @@ class Domains extends BaseDomains {
 		    	
         $dq = Doctrine_Query::create ()->select ( "domain_id, 
 											        CONCAT(domain, '.', ws.tld) as domain, 
-											        d.orderitem_id as detail_id, 
 											        d.autorenew as renew, 
+											        oi.parameters as parameters, 
 											        d.expiring_date as expiringdate, 
 											        d.customer_id as customer_id, 
 											        Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
 											        c.email as email, 
+											        c.language_id as language_id, 
 											        c.parent_id as reseller,
-											        DATEDIFF(d.expiring_date, CURRENT_DATE) as days" )
+											        DATEDIFF(d.expiring_date, CURRENT_DATE) as days
+        									" )
                                            ->from ( 'Domains d' )
                                            ->leftJoin ( 'd.Customers c' )
                                            ->leftJoin ( 'd.OrdersItems oi' )
@@ -547,6 +549,10 @@ class Domains extends BaseDomains {
                                            
         $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 
+        for ($i=0; $i< count($records); $i++){
+        	$records[$i]['oldorders'] = OrdersItemsDomains::findOrdersByDomainID($records[$i]['domain_id']);
+        }
+       
         return $records;
     }
 	

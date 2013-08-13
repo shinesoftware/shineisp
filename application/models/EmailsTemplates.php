@@ -78,7 +78,11 @@ class EmailsTemplates extends BaseEmailsTemplates
 									->where ( "et.code = ?", $code )
 									->limit ( 1 );
 		
-		return $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
+		$record = $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
+// 		Zend_Debug::dump($code);
+// 		Zend_Debug::dump($language_id);
+//  		Zend_Debug::dump($record->toArray());
+		return $record;
 	}
 
 
@@ -207,7 +211,6 @@ class EmailsTemplates extends BaseEmailsTemplates
 										
 					$email_template_date_id = $EmailsTemplatesData->id;
 				}
-			
 				return $template_id;
 			}else{
 				throw new Exception('Parameters data are not correct.');

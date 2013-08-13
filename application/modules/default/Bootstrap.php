@@ -30,4 +30,31 @@ class Default_Bootstrap extends Zend_Application_Module_Bootstrap {
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_LayoutLoader () );
 		}
 	}
+	
+	
+	/**
+	 * Initializate the Administration Menu
+	 */
+	protected function _initViewHelpers() {
+		$view = new Zend_View();
+		$pages = array();
+	
+		// Load the xml navigation menu
+		$navContainerConfig = new Zend_Config_Xml(APPLICATION_PATH . '/modules/default/navigation.xml', 'nav');
+		$navContainer = new Zend_Navigation($navContainerConfig);
+		Zend_Registry::set('defaultnavigation', $navContainer);
+	
+		// Create the menu
+		$view->navigation($navContainer);
+	
+		// Attach the Zend ACL to the Navigation menu
+		$auth = Zend_Auth::getInstance();
+		if($auth){
+			$acl = $auth->getStorage()->read();
+			if(is_object($acl)){
+				Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
+				Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole("guest");
+			}
+		}
+	}
 }
