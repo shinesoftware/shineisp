@@ -250,7 +250,7 @@ class Languages extends BaseLanguages {
 			$name = pathinfo($file, PATHINFO_FILENAME);
 			$ext = pathinfo($file, PATHINFO_EXTENSION);
 			
-			// If the extension is csv ...
+			// If the extension is .mo then
 			if($ext == "mo"){
 				
 				// Get the locale of the translation file, for ex: en

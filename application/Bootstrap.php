@@ -54,7 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Starter ());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Language());
 		$fc->registerPlugin(new Shineisp_Controller_Plugin_Currency());
-		$fc->registerPlugin(new Shineisp_Controller_Plugin_PrepareNavigation());
+		$fc->registerPlugin(new Shineisp_Controller_Plugin_Navigation());
 		
 		if(Shineisp_Main::isReady()){
 			// Init new plugin architecture
