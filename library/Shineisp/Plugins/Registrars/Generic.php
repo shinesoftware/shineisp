@@ -158,7 +158,7 @@ class Shineisp_Plugins_Registrars_Generic extends Shineisp_Plugins_Registrars_Ba
 	 * Set domain hosts (records) for a domain name.
 	 * 
 	 * Executes the '...' command on Registrar's servers, to set domain hosts (records)
-	 * for a domain name that is active and belongs to your OVH account.
+	 * for a domain name that is active and belongs to your Ascio / OVH account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if succeed and False if failed.
@@ -174,7 +174,7 @@ class Shineisp_Plugins_Registrars_Generic extends Shineisp_Plugins_Registrars_Ba
 	 * Get domain hosts (records) for a domain name.
 	 * 
 	 * Executes the '...' command on Registrar's servers, to get domain hosts (records)
-	 * for a domain name that is active and belongs to your OVH account.
+	 * for a domain name that is active and belongs to your Ascio / OVH account.
 	 * 
 	 * @param      integer     $domainID   Domain code identifier
 	 * @return     bool        True if succeed and False if failed.

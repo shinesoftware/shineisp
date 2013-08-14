@@ -4,7 +4,7 @@ Servers:
     ip: 109.168.213.221
     netmask: 255.255.255.248
     host: www
-    domain: shineisp.com
+    domain: isphamburg.com
     description: 'Web Server'
     datacenter: ''
     cost: '0.00'
@@ -21,7 +21,7 @@ Servers:
     ip: 109.168.213.223
     netmask: 255.255.255.248
     host: mailserver
-    domain: shineisp.com
+    domain: isphamburg.com
     description: 'eMail server'
     datacenter: ''
     cost: '0.00'
@@ -34,7 +34,120 @@ Servers:
     Statuses: Statuses_14
     Panels: Panels_1
   Servers_3:
+    name: dbserver
+    ip: 109.168.213.222
+    netmask: 255.255.255.0
+    host: dbserver
+    domain: isphamburg.com
+    description: 'database server'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: '0'
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_3
+    Statuses: Statuses_14
+    Panels: Panels_1    
+  Servers_4:
+    name: 'Internal DNS 1'
+    ip: -
+    netmask: -
+    host: dns001
+    domain: isphamburg.com
+    description: 'The ISPHamburg DNS 1 Server.'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: null
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_4
+    Statuses: Statuses_13
+  Servers_5:
+    name: 'Internal DNS 2'
+    ip: -
+    netmask: -
+    host: dns002
+    domain: isphamburg.com
+    description: 'The ISPHamburg DNS 2 Server.'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: null
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_4
+    Statuses: Statuses_13
+  Servers_6:
     name: 'External DNS 1'
+    ip: -
+    netmask: -
+    host: dns1
+    domain: ascio.com
+    description: 'Has been used the Ascio external dns parameters service and not an internal dns server.'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: null
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_4
+    Statuses: Statuses_13
+  Servers_7:
+    name: 'External DNS 2'
+    ip: -
+    netmask: -
+    host: dns2
+    domain: ascio.com
+    description: 'Has been used the Ascio external dns parameters service and not an internal dns server.'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: null
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_4
+    Statuses: Statuses_13
+  Servers_8:
+    name: 'External DNS 3'
+    ip: -
+    netmask: -
+    host: dns3
+    domain: ascio.com
+    description: 'Has been used the Ascio external dns parameters service and not an internal dns server.'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: null
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_4
+    Statuses: Statuses_13
+  Servers_9:
+    name: 'External DNS 4'
+    ip: -
+    netmask: -
+    host: dns4
+    domain: ascio.com
+    description: 'Has been used the Ascio external dns parameters service and not an internal dns server.'
+    datacenter: ''
+    cost: '0.00'
+    is_default: false
+    services: '0'
+    max_services: null
+    buy_date: null
+    Isp: Isp_1
+    Servers_Types: Servers_Types_4
+    Statuses: Statuses_13   
+  Servers_10:
+    name: 'External DNS 5'
     ip: -
     netmask: -
     host: dns100
@@ -49,8 +162,8 @@ Servers:
     Isp: Isp_1
     Servers_Types: Servers_Types_4
     Statuses: Statuses_13
-  Servers_4:
-    name: 'External DNS 2'
+  Servers_11:
+    name: 'External DNS 6'
     ip: -
     netmask: -
     host: ns100
@@ -64,21 +177,4 @@ Servers:
     buy_date: null
     Isp: Isp_1
     Servers_Types: Servers_Types_4
-    Statuses: Statuses_13
-  Servers_5:
-    name: dbserver
-    ip: 109.168.213.222
-    netmask: 255.255.255.0
-    host: dbserver
-    domain: shineisp.com
-    description: 'database server'
-    datacenter: ''
-    cost: '0.00'
-    is_default: false
-    services: '0'
-    max_services: '0'
-    buy_date: null
-    Isp: Isp_1
-    Servers_Types: Servers_Types_3
-    Statuses: Statuses_14
-    Panels: Panels_1
+    Statuses: Statuses_13            

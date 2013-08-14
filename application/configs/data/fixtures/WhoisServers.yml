@@ -1311,3 +1311,7 @@ WhoisServers:
     tld: mobi
     server: whois.dotmobiregistry.net
     response: 'NOT FOUND'
+  WhoisServers_329:
+    tld: asia
+    server: www.whois.asia
+    response: 'NOT FOUND'
