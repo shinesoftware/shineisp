@@ -116,46 +116,35 @@ var SLAB = (function($, window, undefined) {
 				});
 			},
 			expand_menu: function() {
-				if (!$('#sidebar_menu').length) {
+				if (!$('.navigation').length) {
 					return;
 				}
 
-				$('#sidebar_menu li').each(function() {
+				$('.navigation li').each(function() {
 					if ($(this).find('ul:first').length) {
 						$(this).find('a:first').prepend('<span class="abs toggle_arrow"></span>');
 					}
 				});
 				
 				/* Show active item on reload page */
-				$('#sidebar_menu LI.showall').each(function(){
+				$('.navigation li.showall').each(function(){
 					$(this).parent().show();
 					$(this).parent().parent().addClass('expanded');
 				})
 
-				$('#sidebar_menu a').live('click', function() {
+				$('.navigation a').live('click', function() {
 					var el = $(this);
 					var li = $(this).parent('li');
 					var ul = li.find('ul:first');
 
 					if (ul.length) {
 						if (ul.is(':hidden')) {
-							/* JAY - 20130328 - GUEST
-							 * Close all submenu opened */
-							$('#sidebar_menu LI.item UL').hide();
-							$('#sidebar_menu LI.item').each(function(){
+							$('.navigation li.item ul').hide();
+							$('.navigation li.item').each(function(){
 								$(this).removeClass('expanded')
 							});
-							//END
 							
 							li.addClass('expanded');
-							/* JAY - 20130328 - GUEST
-							 * Show always other items not selected
-							li.siblings('li').each(function() {
-								if ($(this).attr('id') !== 'sidebar_menu_home') {
-									$(this).hide();
-								}
-							});*/
-
 							ul.show();
 						}
 						else {

@@ -489,7 +489,7 @@ class Products extends BaseProducts {
 						
 						return $data;
 						
-					}else{
+					}elseif(!empty($tranches['price'])){
 						
 						// Taxes calculation
 						if( $refund !== false ) {
@@ -514,7 +514,8 @@ class Products extends BaseProducts {
 				}
 			}
 		}
-		return 0;
+		
+		return array ('type' => 'flat', 'value' => 0, 'taxincluded' => 0, 'taxes' => 0 );
 	}
 	
 	/*

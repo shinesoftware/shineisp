@@ -54,6 +54,7 @@
 				<css>/css/widget.css</css>  
 				<css>/css/site.css</css>  
 				<css>/css/notifications.css</css>  
+				<css>/css/navigation.css</css>  
 				<css>/css/index.css</css>
 								
 				<!-- files to be include in every ADMIN pages-->

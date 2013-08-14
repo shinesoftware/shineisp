@@ -16,8 +16,8 @@
 			<ul id="thumbs" class="no-bullet">
 				<?php foreach($this->products as $products): ?>
 				    <li>
-				    	<div class="large-4 column">
-				    		<h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
+				    	<div class="large-4 text-center column">
+				    		<h5><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h5>
 				    		<?php echo $this->media()->ProductImage($products['product_id'], 250, 250);?>
 					        <?php echo $this->prices()->getAllPricesInfo($products['product_id']); ?><br/>
 					        <a class="small button" href="/products/<?php echo $products['uri'] ?>.html"><?php echo $this->translate('Learn more') ?></a>

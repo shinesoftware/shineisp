@@ -232,28 +232,48 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	 * 
 	 * @param integer $year
 	 */
-	public static function getSummary($year, $payments=true) {
+	public static function getSummary($year, $payments=true, $groupbyyear=false, $groupbyquarter=false, $groupbymonth=false) {
 		if(!is_numeric($year)){
 			return array();
 		}
 		
-		$records = Doctrine_Query::create ()
-                            ->select ( "MONTH(ip.creationdate) as month,
-                            			date_format(ip.creationdate,'%M') as monthname, 
-                            			YEAR(ip.creationdate) as yearnum, 
-                            			SUM(ip.total_net) as total,
+		$dq = Doctrine_Query::create ()
+                            ->select ( "SUM(ip.total_net) as total,
                             			SUM(ip.total_vat) as vat,
                             			SUM(ip.total) as grandtotal" )
                             ->from ( 'PurchaseInvoices ip' )
                             ->where('YEAR(ip.creationdate) = ?', $year)
-                            ->andWhere('ip.status_id = ?', Statuses::id("complete", "orders"))
-                            ->addGroupBy('MONTH(ip.creationdate)')
-                            ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-        if($payments){                    
+                            ->andWhere('ip.status_id = ?', Statuses::id("complete", "orders"));
+                           
+		if($groupbymonth){
+			$dq->addGroupBy('MONTH(ip.creationdate)');
+			$dq->addSelect("YEAR(ip.creationdate) as year");
+			$dq->addSelect("MONTH(ip.creationdate) as month");
+			$dq->addSelect("date_format(ip.creationdate,'%M') as monthname");
+		}
+		
+		if($groupbyyear){
+			$dq->addSelect("YEAR(ip.creationdate) as year");
+			$dq->addGroupBy('YEAR(ip.creationdate)');
+		}
+		
+		if($groupbyquarter){
+			$dq->addSelect('YEAR(ip.creationdate) as year');
+			$dq->addSelect('QUARTER(ip.creationdate) as quarter');
+			$dq->groupBy("quarter, year")->orderBy('year, quarter');
+		}
+		
+		$records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+// 		if($groupbymonth)
+// 			Zend_Debug::dump($records);
+        
+        if($groupbymonth && $payments){                    
 			for ($i=0;$i<count($records);$i++) {
 	        	$records[$i]['subrecords'] = self::getAllPaymentsbyMonthYear($records[$i]['month'], $year);
 	        }
-        }                            
+        }           
+
         return $records;
 		
 	}    
@@ -338,7 +358,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	                            			ip.total_vat as vat,
 	                            			ip.total as grandtotal";
 		
-		$config ['datagrid'] ['recordset'] = self::getSummary($year);
+		$config ['datagrid'] ['recordset'] = self::getSummary($year,false, false, false, true);
 		$config ['datagrid'] ['placeholder'] = "expenses";
 		$config ['datagrid'] ['id'] = "expenses";
 		$config ['datagrid'] ['rownum'] = 12;

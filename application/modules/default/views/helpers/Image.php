@@ -15,6 +15,7 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 	protected $height = 100;
 	
 	public function image($name, $imagePath = null, $attribs = array()) {
+		
 		// set name
 		$this->_name = $this->view->escape ( $name );
 		
@@ -88,7 +89,8 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 	public function setNewImage($path, $width = null, $height = null) {
 		// set image new path
 		$this->_setImagepath ( $path );
-		
+
+
 		if ($width !== null) {
 			$this->_width = $width;
 		}
@@ -203,32 +205,38 @@ class Zend_View_Helper_Image extends Zend_View_Helper_Abstract {
 		
 		// dir to where you want to save the thumbnail image
 		$relativePath = dirname ( $this->getImagePath () ) . '/thumbs/';
+	
 		$dir = PUBLIC_PATH . '/' . $relativePath;
-		// create the directory if it does not exist
+		
 		
 		clearstatcache ();
+		
+		// create the directory if it does not exist
 		if (! is_dir ( $dir )) {
 			if(@mkdir ( $dir ) === false){
 				Shineisp_Commons_Utilities::log($dir . " cannot be created.");
 			}
 		}
+		
 		// name of the image based on the size of the thumbnail
 		// @todo the sizes can be in config file/database. for not its hard coded
 		$newFileName = $this->width . 'x' . $this->height . '_' . $this->getImageName ();
 		$thumbPath = $dir . $newFileName;
 		
-		// if thumbnail exists then set new image and return false
+		// if thumbnail exists then set cache image and return false
 		if (file_exists ( $thumbPath )) {
 			$this->setNewImage ( $relativePath . $newFileName );
 			return false;
 		}
-		
-		if (!file_exists ( $thumbPath )) {
+
+		// if image product not exists set the default image
+		if (!file_exists ( PUBLIC_PATH . $this->getImagePath () )) {
 			$this->setNewImage ( "/media/products/default.png" );
 		}
 		
 		// resize image
 		$image = new Shineisp_Commons_Image ( );
+		
 		// open original image to resize it
 		// set the thumnail sizes
 		// set new image path and quality

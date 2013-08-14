@@ -299,7 +299,7 @@ class Invoices extends BaseInvoices {
 		// Get the summary of the incoming and of the expenses of the year
 		foreach ($years as $year) {
 			$data[$year]['incoming'] = self::getSummary ( $year, false );
-			$data[$year]['expenses'] = PurchaseInvoices::getSummary($year, false);
+			$data[$year]['expenses'] = PurchaseInvoices::getSummary($year, false, false, false, true);
 		}
 		
 		$dataset['axis']['x'] = $translator->_( 'Months' );
@@ -877,7 +877,7 @@ class Invoices extends BaseInvoices {
 			
 			// Invoice already exists, we return it
 			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
-				$outputFilename = isset($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+				$outputFilename = !empty($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
 				header('Content-type: application/pdf');
 				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
 				
@@ -1018,7 +1018,8 @@ class Invoices extends BaseInvoices {
 
 				// Sanitize some fields
 				$database ['records'] ['invoice_number']      = ! empty ( $database ['records'] ['invoice_number'] )  ? $database ['records'] ['invoice_number']     : "";
-				$database ['records'] ['payment_description'] = !empty($database ['records'] ['payment_description']) ? $database ['records']['payment_description'] : "";
+				$database ['records'] ['formatted_number']    = ! empty ( $invoice['formatted_number'] )  ? $invoice['formatted_number'] : $database ['records'] ['invoice_number'];
+				$database ['records'] ['payment_description'] = ! empty ( $database ['records'] ['payment_description']) ? $database ['records']['payment_description'] : "";
 				$database ['records'] ['payment_mode']        = ! empty ( $database ['records'] ['payment_mode'] )    ? $database ['records'] ['payment_mode']       : "";
 				$database ['records'] ['payment_date']        = ! empty ( $database ['records'] ['payment_date'] )    ? $database ['records'] ['payment_date']       : "";
 				

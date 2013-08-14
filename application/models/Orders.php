@@ -43,6 +43,8 @@ class Orders extends BaseOrders {
 		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
 		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'type' => 'string');
 		
+		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float' );
+		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float' );
 		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float' );
 		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('width' => 30 ));
 		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array ('width' => 70 ));
@@ -53,6 +55,8 @@ class Orders extends BaseOrders {
 											  o.order_number,
                                               DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
                                               o.is_renewal as is_renewal,
+                                              o.total as total,
+                                              o.vat as vat,
                                               o.grandtotal as grandtotal,
                                               i.formatted_number as formatted_number,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
@@ -707,12 +711,12 @@ class Orders extends BaseOrders {
 	 */
 	public static function renewOrder($customer_id, $products) {
 		$order = new Orders ();
-		//$isp   = Isp::getCurrentId ();
 		$i     = 0;
 		$total = 0;
 		$vat   = 0;
 		$tldid = null;
 		
+		// Check if there are auto-renewal services/products
 		if (! self::checkAutorenewProducts ( $products )) {
 			return false;
 		}
@@ -755,15 +759,15 @@ class Orders extends BaseOrders {
 					$link->save ();
 				}
 				
-				
 				if (count ( $products ) > 0) {
 					foreach ( $products as $product ) {
 						$orderitem = new OrdersItems ();
 						
-						if (is_numeric ( $product ['oldorderitemid'] )) {
+						if (!empty($product ['oldorderitemid']) && is_numeric ( $product ['oldorderitemid'] )) {
+							
 							// Find the details of the old order item details
 							$oldOrderDetails = OrdersItems::find ( $product ['oldorderitemid'], null, true );
-							
+	
 							// Check if the last order is present in the db and check if the product must be renewed
 							if (!empty ( $oldOrderDetails [0] ) && $product['renew']) {
 								
@@ -811,7 +815,7 @@ class Orders extends BaseOrders {
 								$orderitem->cost = $oldOrderDetails [0] ['cost'];
 								
 								$orderitem->save ();
-								$orderitemid = $orderitem->getIncremented ();
+								$newOrderItemId = $orderitem->getIncremented ();
 								
 								// sum of all the products prices 
 								$total = $total + ($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']);
@@ -821,18 +825,15 @@ class Orders extends BaseOrders {
 								if ( isset ( $tax ['percentage'] ) && $tax ['percentage'] > 0 && !Customers::isVATFree($order->customer_id) ) {
 									$vat = $vat + (($oldOrderDetails [0] ['price'] * $oldOrderDetails [0] ['quantity']) * $tax ['percentage']) / 100;
 								}
-								
-								// If the product type is a service we have to add a record in the Orders_items_domains table
-								// in order to join the service with the reference domain 
-								if ($product ['type'] == "service") {
-									$oldOID = OrdersItemsDomains::findIDsByOrderItemID ( $product ['oldorderitemid'], null, true );
-									if (isset ( $oldOID [0] )) { // Some services are not linked to a domain
-										$ordersitemsdomains = new OrdersItemsDomains ();
-										$ordersitemsdomains->domain_id = $oldOID [0] ['domain_id'];
-										$ordersitemsdomains->order_id = $orderid;
-										$ordersitemsdomains->orderitem_id = $orderitemid;
-										$ordersitemsdomains->save ();
-									}
+
+								// Attach all the services, products, and domains with the order
+								$oldOID = OrdersItemsDomains::findIDsByOrderItemID ( $product ['oldorderitemid'], null, true );
+								if (isset ( $oldOID [0] )) { // Some services are not linked to a domain
+									$ordersitemsdomains = new OrdersItemsDomains ();
+									$ordersitemsdomains->domain_id = $oldOID [0] ['domain_id'];
+									$ordersitemsdomains->order_id = $orderid;
+									$ordersitemsdomains->orderitem_id = $newOrderItemId;
+									$ordersitemsdomains->save ();
 								}
 								$i ++;
 							}
@@ -844,7 +845,6 @@ class Orders extends BaseOrders {
 						// Update Order
 						self::updateTotalsOrder($orderid);
 					}
-					
 					return $orderid;
 				
 				}
@@ -1603,7 +1603,7 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Get all the expired orders 
+	 * Get all the expired orders without renewal
 	 * 
 	 * @param Date $date 
 	 * @return ArrayObject 
@@ -2151,7 +2151,7 @@ class Orders extends BaseOrders {
 			$date = explode ( "-", $order [0] ['order_date'] );
 			
 			
-			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'new_order', array(
+			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'order_new', array(
 				 'orderid'    => $order[0]['order_number']
 				,'email'      => $email
 				,'bank'       => $bank
@@ -2479,209 +2479,219 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Yield total percentage between Quarter 
+	 * Yield total percentage between periods 
 	 * 
+	 * This is a sample of the array result of this method:
+	 * 
+	 * [0] => array(21) {
+		    ["invoice_id"] => string(3) "532"
+		    ["year"] => string(4) "2012"
+		    ["gross_grandtotal"] => string(8) "10802.53"
+		    ["gross_total"] => string(7) "9102.29"
+		    ["gross_vat"] => string(7) "1700.23"
+		    ["creditmemo_grandtotal"] => NULL
+		    ["creditmemo_total"] => NULL
+		    ["creditmemo_vat"] => NULL
+		    ["net_grandtotal"] => float(8470.35)
+		    ["net_total"] => float(7143.5)
+		    ["net_vat"] => float(1326.84)
+		    ["month"] => string(1) "4"
+		    ["monthname"] => string(5) "April"
+		    ["yieldrate"] => string(6) "602,60"
+		    ["incdec"] => float(6126.77)
+		    ["old"] => array(21) {
+		      ["invoice_id"] => string(2) "61"
+		      ["year"] => string(4) "2011"
+		      ["gross_grandtotal"] => string(7) "2465.52"
+		      ["gross_total"] => string(7) "2054.60"
+		      ["gross_vat"] => string(6) "410.92"
+		      ["creditmemo_grandtotal"] => NULL
+		      ["creditmemo_total"] => NULL
+		      ["creditmemo_vat"] => NULL
+		      ["net_grandtotal"] => float(1242.45)
+		      ["net_total"] => float(1016.73)
+		      ["net_vat"] => float(225.72)
+		      ["month"] => string(1) "4"
+		      ["monthname"] => string(5) "April"
+		      ["yieldrate"] => int(0)
+		      ["incdec"] => int(0)
+		      ["old"] => array(0) {
+		      }
+		      ["costs_total"] => string(7) "1037.87"
+		      ["costs_vat"] => string(6) "185.20"
+		      ["costs_grandtotal"] => string(7) "1223.07"
+		      ["output_vat"] => string(6) "410.92"
+		      ["input_vat"] => string(6) "185.20"
+		    }
+		    ["costs_total"] => string(7) "1958.79"
+		    ["costs_vat"] => string(6) "373.39"
+		    ["costs_grandtotal"] => string(7) "2332.18"
+		    ["output_vat"] => string(7) "1700.23"
+		    ["input_vat"] => string(6) "373.39"
+		  }
 	 * @return ArrayObject
 	 */
-	public static function incomeQuarter($year = null ) {
-		$present_year = !empty($year) ? $year : date("Y");
-		$last_year = $present_year - 1;
+	public static function incomes($year = null, $groupby="year") {
 		
-		// Get the quarter total 
-		$income = Doctrine_Query::create ()->select ( "invoice_id, QUARTER(i.invoice_date) as quarter, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
+		$present_year 	= !empty($year) ? $year : date("Y");
+		$last_year 		= $present_year - 1;
+		$diff			= 0;
+		
+		// Get the year incomes total and subtract the credit memo
+		$dq = Doctrine_Query::create ()->select ( "invoice_id, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as gross_grandtotal, SUM(o.total) as gross_total, SUM(o.vat) as gross_vat,
+															   SUM(cm.total) as creditmemo_grandtotal, SUM(cm.total_net) as creditmemo_total, SUM(cm.total_vat) as creditmemo_vat,
+															   (SUM(o.grandtotal) - ifnull(SUM(cm.total), 0)) as net_grandtotal,
+															   (SUM(o.total) - ifnull(SUM(cm.total_net), 0)) as net_total,
+															   (SUM(o.vat) - ifnull(SUM(cm.total_vat), 0)) as net_vat" )
 													->from ( 'Invoices i' )
 													->leftJoin ( 'i.Orders o' )
 													->leftJoin ( 'o.Customers c' )
+													->leftJoin ( 'i.CreditNotes cm' )
 													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
-													->andWhere('c.isp_id = ?', Isp::getCurrentId())
-													->groupBy("quarter, year")
-													->orderBy('year, quarter')
-													->execute ( null, Doctrine::HYDRATE_ARRAY );
-
+													->andWhere('c.isp_id = ?', Isp::getCurrentId());
+													
+													
+		// Group by the prefered fields
+		if($groupby == "month"){
+			$dq->addSelect('MONTH(i.invoice_date) as month');
+			$dq->addSelect('MONTHNAME(i.invoice_date) as monthname');
+			$dq->groupBy("month, year")->orderBy('year, month');
+		}elseif($groupby == "quarter"){
+			$dq->addSelect('QUARTER(i.invoice_date) as quarter');
+			$dq->groupBy("quarter, year")->orderBy('year, quarter');
+		}else{
+			$dq->groupBy("year")->orderBy('year');
+		}
+		
+		$income = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		
 		for ($i=0; $i<count($income); $i++){
 			
 			// Yield Percentage
 			$income[$i]['yieldrate'] = 0;
 			
+			// Increment / Decrement
+			$income[$i]['incdec'] = 0;
+				
 			// Before the last year
 			$income[$i]['old'] = array();
 			
-			// For each Quarter do
+			$income[$i]['costs_total'] = 0;
+			$income[$i]['costs_vat'] = 0;
+			$income[$i]['costs_grandtotal'] = 0;
+			
+			if($groupby == "month"){
+				// Load all the purchase invoices per month
+				$costs = PurchaseInvoices::getSummary($income[$i]['year'], false, false, false, true);
+				foreach ($costs as $out){
+					if($out['month'] == $income[$i]['month']){
+						$income[$i]['costs_total'] = $out['total'];
+						$income[$i]['costs_vat'] = $out['vat'];
+						$income[$i]['costs_grandtotal'] = $out['grandtotal'];
+						
+						$income[$i]['output_vat'] = $income[$i]['net_vat'];
+						$income[$i]['input_vat'] = $income[$i]['costs_vat'];
+						
+						$income[$i]['net_total'] = $income[$i]['net_total'] - $income[$i]['costs_total'];
+						$income[$i]['net_vat'] = $income[$i]['net_vat'] - $income[$i]['costs_vat'];
+						$income[$i]['net_grandtotal'] = $income[$i]['net_grandtotal'] - $income[$i]['costs_grandtotal'];
+						break;
+					}
+				}
+			}elseif($groupby == "quarter"){
+				// Load all the purchase invoices per quarter
+				$costs = PurchaseInvoices::getSummary($income[$i]['year'], false, false, true);
+				foreach ($costs as $out){
+					if($out['quarter'] == $income[$i]['quarter']){
+						$income[$i]['costs_total'] = $out['total'];
+						$income[$i]['costs_vat'] = $out['vat'];
+						$income[$i]['costs_grandtotal'] = $out['grandtotal'];
+						
+						$income[$i]['output_vat'] = $income[$i]['net_vat'];
+						$income[$i]['input_vat'] = $income[$i]['costs_vat'];
+				
+						$income[$i]['net_total'] = $income[$i]['net_total'] - $income[$i]['costs_total'];
+						$income[$i]['net_vat'] = $income[$i]['net_vat'] - $income[$i]['costs_vat'];
+						$income[$i]['net_grandtotal'] = $income[$i]['net_grandtotal'] - $income[$i]['costs_grandtotal'];
+						break;
+					}
+				}
+			}else{
+				$costs = PurchaseInvoices::getSummary($income[$i]['year'], false, true);
+				// Load all the purchase invoices per year
+				foreach ($costs as $out){
+					if($out['year'] == $income[$i]['year']){
+						$income[$i]['costs_total'] = $out['total'];
+						$income[$i]['costs_vat'] = $out['vat'];
+						$income[$i]['costs_grandtotal'] = $out['grandtotal'];
+				
+						$income[$i]['output_vat'] = $income[$i]['net_vat'];
+						$income[$i]['input_vat'] = $income[$i]['costs_vat'];
+						
+						$income[$i]['net_total'] = $income[$i]['net_total'] - $income[$i]['costs_total'];
+						$income[$i]['net_vat'] = $income[$i]['net_vat'] - $income[$i]['costs_vat'];
+						$income[$i]['net_grandtotal'] = $income[$i]['net_grandtotal'] - $income[$i]['costs_grandtotal'];
+						break;
+					}
+				}
+			}
+			
+			// For each Income read the old years values
 			foreach ($income as $item){
 				
-				// If the selected year is before last year and the quarter is the same do
-				if($item['year'] == ($income[$i]['year'] - 1) && $item['quarter'] == $income[$i]['quarter']){
+				// If the selected year is before last year 
+				if($item['year'] == ($income[$i]['year'] - 1) ){
 					
-					// Calculate the Yield percentage on diff
-					if($income[$i]['total'] > 0){
-						$diff = $income[$i]['total'] - $item['total'];
-						$percent = $diff / $item['total'] * 100;
+					if($groupby == "month"){
+						if($income[$i]['month'] == $item['month']){
+							if($income[$i]['net_total'] > 0){
+								$diff = $income[$i]['net_total'] - $item['net_total'];
+								$percent = $diff / $item['net_total'] * 100;
+							}else{
+								$percent = 0;
+							}
+							
+							$income[$i]['old'] = $item;
+							
+							// Assign the yield percentage value
+							$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');
+							$income[$i]['incdec'] = $diff; // Increase / Decrease
+						}
+					}elseif($groupby == "quarter"){
+						if($income[$i]['quarter'] == $item['quarter']){
+							if($income[$i]['net_total'] > 0){
+								$diff = $income[$i]['net_total'] - $item['net_total'];
+								$percent = $diff / $item['net_total'] * 100;
+							}else{
+								$percent = 0;
+							}
+								
+							$income[$i]['old'] = $item;
+								
+							// Assign the yield percentage value
+							$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');
+							$income[$i]['incdec'] = $diff; // Increase / Decrease
+						}
 					}else{
-						$percent = 0;
-					}
-					
-					$income[$i]['old'] = $item;
-					
-					// Assign the yield percentage value
-					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');;
-					continue;
-				}
-			}
-		}
-		
-		return !empty($income[0]) ? $income: array();
-	}
-	
-	/**
-	 * Yield total percentage between months
-	 *
-	 * @return ArrayObject
-	 */
-	public static function incomeMonthlyText($year = null ) {
-		$present_year = !empty($year) ? $year : date("Y");
-		$last_year = $present_year - 1;
-	
-		// Get the invoices montly total
-		$income = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as monthly, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
-											->from ( 'Invoices i' )
-											->leftJoin ( 'i.Orders o' )
-											->leftJoin ( 'o.Customers c' )
-											->where('o.status_id = ?', Statuses::id('complete', 'orders'))
-											->andWhere('c.isp_id = ?', Isp::getCurrentId())
-											->groupBy("monthly, year")
-											->orderBy('year, monthly')
-											->execute ( null, Doctrine::HYDRATE_ARRAY );
-										
-		// Get the credit notes montly total
-		$creditnotes = Doctrine_Query::create ()->select ( "creditnote_id, MONTH(c.creationdate) as monthly, YEAR(c.creationdate) as year, SUM(c.total) as grandtotal, SUM(c.total_net) as total, SUM(c.total_vat) as vat" )
-											->from ( 'CreditNotes c' )
-											->groupBy("monthly, year")
-											->orderBy('year, monthly')
-											->execute ( null, Doctrine::HYDRATE_ARRAY );
-		
-		for ($i=0; $i<count($income); $i++){
-	
-			// Yield Percentage
-			$income[$i]['yieldrate'] = 0;
-	
-			// Before the last year
-			$income[$i]['old'] = array();
-	
-			// For each Quarter do
-			foreach ($income as $item){
-	
-				// If the selected year is before last year and the quarter is the same do
-				if($item['year'] == ($income[$i]['year'] - 1) && $item['monthly'] == $income[$i]['monthly']){
-	
-					// Calculate the Yield percentage on diff
-					if($income[$i]['total'] > 0){
-						$diff = $income[$i]['total'] - $item['total'];
-						$percent = $diff / $item['total'] * 100;
-					}else{
-						$percent = 0;
-					}
-	
-					$income[$i]['old'] = $item;
-	
-					// Assign the yield percentage value
-					$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');;
-					continue;
-				}
-			}
-		}
-	
-		// Zend_Debug::dump($income);
-		// Zend_Debug::dump($creditnotes);
-	
-		foreach ($creditnotes as $item){
-			// If the selected year is before last year and the quarter is the same do
-	
-	
-		}
-	
-		return !empty($income[0]) ? $income: array();
-	}
-	
-	/**
-	 * Yield total percentage between months 
-	 * 
-	 * @return ArrayObject
-	 */
-	public static function incomeMonthly($year = null ) {
-		$baseArray  = array('grandtotal' => 0, 'total' => 0, 'vat' => 0, 'growPercent' => 0, 'growDiff' => 0);
-		$yearIncome = array();
-		
-		$currentYear = !empty($year) ? $year : date("Y");
-		$lastYear    = $currentYear -1;
-
-		// Get the invoices montly total 
-		$incomes = Doctrine_Query::create ()->select ( "invoice_id, MONTH(i.invoice_date) as month, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as grandtotal, SUM(o.total) as total, SUM(o.vat) as vat" )
-													->from ( 'Invoices i' )
-													->leftJoin ( 'i.Orders o' )
-													->leftJoin ( 'o.Customers c' )
-													->where('o.status_id = ? OR o.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
-													->andWhere('YEAR(i.invoice_date) >= ?', $lastYear)
-													->andWhere('c.isp_id = ?', Isp::getCurrentId())
-													->groupBy("month, year")
-													->orderBy('year, month')
-													->execute ( null, Doctrine::HYDRATE_ARRAY );
-		
-		// Get the credit notes montly total 
-		$creditnotes = Doctrine_Query::create ()->select ( "creditnote_id, MONTH(c.creationdate) as month, YEAR(c.creationdate) as year, SUM(c.total) as grandtotal, SUM(c.total_net) as total, SUM(c.total_vat) as vat" )
-													->from ( 'CreditNotes c' )
-													->groupBy("month, year")
-													->orderBy('year, month')
-													->execute ( null, Doctrine::HYDRATE_ARRAY );
-
-		//print_r($incomes);
-
-		// Cycle months
-		for ( $i = 01; $i <= 12; $i++ ) {
-			$month       = str_pad($i,2,'0',STR_PAD_LEFT);
-			
-			$yearIncome[$lastYear][$month]    = array_merge(array('month'=>$month,'year'=>$lastYear), $baseArray);
-			$yearIncome[$currentYear][$month] = array_merge(array('month'=>$month,'year'=>$currentYear), $baseArray);	
-		}
-
-		// Merge income to year array
-		foreach ( $incomes as $income ) {
-			unset($income['invoice_id']);
-			$income['month'] = str_pad($income['month'],2,'0',STR_PAD_LEFT);
-			$month = $income['month'];
-			$year  = $income['year'];
-			
-			// Calculate the Yield percentage on diff between years
-			if ( $year == $currentYear ) {
-				$diff    = $income['total'] - $yearIncome[$lastYear][$month]['total'];
-				$percent = round($diff / $income['total'] * 100);		
-				$income['growPercent'] = $percent;
-				$income['growDiff']    = $diff;
-			}
+						// Calculate the Yield percentage on diff
+						if($income[$i]['net_total'] > 0){
+							$diff = $income[$i]['net_total'] - $item['net_total'];
+							$percent = $diff / $item['net_total'] * 100;
+						}else{
+							$percent = 0;
+						}
 						
-			
-			$yearIncome[$year][$month] = array_merge($yearIncome[$year][$month], $income);
+						$income[$i]['old'] = $item;
+						
+						// Assign the yield percentage value
+						$income[$i]['yieldrate'] = number_format($percent, 2, ',', '');
+						$income[$i]['incdec'] = $diff; // Increase / Decrease
+					}
+				}
+			}
 		}
-
-		return $yearIncome;
-
-	}
-	
-	/**
-	 * 
-	 */
-	public static function Summary() {
-		$income_status = Doctrine_Query::create ()->select ( "o.grandtotal as grandtotal, s.status as status" )
-										->from ( 'Orders o' )
-										->leftJoin ( 'o.Statuses s' )
-										->leftJoin ( 'o.Customers c' )
-										->where('status_id = ?', Statuses::id('complete', 'orders'))
-										->andWhere('c.isp_id = ?', Isp::getCurrentId())
-										->groupBy('s.status_id')
-										->execute ( null, Doctrine::HYDRATE_ARRAY );
-		Zend_Debug::dump($income_status);
-		die;
 		
-	
+		return !empty($income[0]) ? $income: array();
 	}
 	
 	######################################### CRON METHODS ############################################
@@ -2691,11 +2701,11 @@ class Orders extends BaseOrders {
 	 *
 	 * Only the orders where renewal option has been set as
 	 * false send an email to the client to inform him
-	 * about the expiring of the order.
+	 * that his order has been set as deleted.
 	 */
 	public static function checkExpiringOrders() {
 		$orders = Orders::find_all_expired_orders(date('Y-m-d'));
-			
+		
 		foreach ( $orders as $order ) {
 			$customer = Customers::getAllInfo($order ['customer_id']);
 			$ISP      = ISP::getActiveIspById($customer['isp_id']);
@@ -2705,7 +2715,7 @@ class Orders extends BaseOrders {
 			if (count ( $link_exist ) > 0) {
 				$fastlink = $link_exist [0] ['code'];
 			} else {
-				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'tickets', $order ['order_id'], $customer ['customer_id'] );
+				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
@@ -2716,7 +2726,6 @@ class Orders extends BaseOrders {
 				,'url'            => $customer_url
 			), null, null, null, $ISP, $customer['language_id']);
 			
-	
 			// Set the order as deleted
 			Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
 		}
@@ -2751,7 +2760,7 @@ class Orders extends BaseOrders {
 			if (count ( $link_exist ) > 0) {
 				$fastlink = $link_exist [0] ['code'];
 			} else {
-				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'tickets', $order ['order_id'], $customer ['customer_id'] );
+				$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
@@ -2761,9 +2770,6 @@ class Orders extends BaseOrders {
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			), null, null, null, null, $customer['language_id']);
-			
-			
-			
 		}
 		return true;
 	}
@@ -2791,7 +2797,7 @@ class Orders extends BaseOrders {
 					if (count ( $link_exist ) > 0) {
 						$fastlink = $link_exist [0] ['code'];
 					} else {
-						$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'tickets', $order ['order_id'], $customer ['customer_id'] );
+						$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 					}
 						
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
@@ -2819,7 +2825,8 @@ class Orders extends BaseOrders {
 	public static function remindersEmail() {
 		$i = 0;
 		$customers = array ();
-	
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
 		/* We have to start to get all the domains that them expiring date is today
 		 then we have to create a custom array sorted by customerID in order to
 		group services and domains of a particular customer.
@@ -2827,7 +2834,7 @@ class Orders extends BaseOrders {
 	
 		// Get all the active domains that expire in 1 day
 		$domains = Domains::getExpiringDomainsByRange ( 0, 30, 4 );
-	
+		
 		if ($domains) {
 			// Create the customer group list for the email summary
 			foreach ( $domains as $domain ) {
@@ -2850,7 +2857,7 @@ class Orders extends BaseOrders {
 				$i ++;
 			}
 		}
-	
+
 		/*
 		 * Now we have to get the services expired and we have to sum the previous $customers array with these
 		* new information.
@@ -2875,7 +2882,6 @@ class Orders extends BaseOrders {
 					$customers [$service ['customer_id']] ['password'] = $service ['password'];
 					$customers [$service ['customer_id']] ['language_id'] = $service ['language_id'];
 				}
-				
 				$customers [$service ['customer_id']] ['products'] [$i] ['name'] = $service ['product'];
 				$customers [$service ['customer_id']] ['products'] [$i] ['type'] = "service";
 				$customers [$service ['customer_id']] ['products'] [$i] ['renew'] = $service ['renew'];
@@ -2885,35 +2891,37 @@ class Orders extends BaseOrders {
 				$i ++;
 			}
 		}
-	
+		
 		// EMAIL SUMMARY FOR ALL THE EXPIRED AND NOT AUTORENEWABLE DOMAINS/SERVICES
 		// =========================================================================
 		// Create the emailS for the customers
 		if (count ( $customers ) > 0) {		
 			// For each client do ...
 			foreach ( $customers as $customer ) {
-				$items = "";
+				$items = array();
 	
 				// Check if there are some product to be expired
 				if (count ( $customer ['products'] ) > 0) {
-	
-					// Create the label of the text table
-					$items .= str_pad ( "Data", 12 ) . str_pad ( "Giorni", 14 ) . str_pad ( "Autorinnovo", 16 ) . str_pad ( "Descrizione", 16 ) . "\n";
-						
+					$i = 0;
 					// For each product do ...
 					foreach ( $customer ['products'] as $product ) {
+						
+						$items[$i][$translator->translate("Expiring Date")] = $product ['expiring_date'];
+						$items[$i][$translator->translate("Days")] = $product ['days'];
+						$items[$i][$translator->translate("Description")] = $product ['name'];
 						if ($product ['renew']) {
-							$items .= str_pad ( $product ['expiring_date'], 12 ) . str_pad ( "-" . $product ['days'] . " giorno(i)", 14 ) . str_pad ( "[attivo]", 16 ) . $product ['name'] . "\n";
+							$items[$i][$translator->translate("Auto Renewal")] = $translator->translate("Active");
 						} else {
-							$items .= str_pad ( $product ['expiring_date'], 12 ) . str_pad ( "-" . $product ['days'] . " giorno(i)", 14 ) . str_pad ( "[disabilitato]", 16 ) . $product ['name'] . "\n";
+							$items[$i][$translator->translate("Auto Renewal")] = $translator->translate("Not Active");
 						}
+						$i++;
 					}
 				}
-	
+				$items = Shineisp_Commons_Utilities::array2table($items);
+				
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
-						 'url'        => $customer_url
-						,'items'      => $items
+						'items'      => $items
 						,':shineisp:' => $customer
 					), null, null, null, null, $customer['language_id']);
 				}

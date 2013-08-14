@@ -200,7 +200,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
                     ->where ( "dtd.name = ?", $tld )
-					->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
+					->addWhere('dt.isp_id = ?', Isp::getActiveISPID())
                     ->limit ( 1 )
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             

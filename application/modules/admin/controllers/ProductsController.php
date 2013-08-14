@@ -268,7 +268,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				$this->view->title = ! empty ( $rs ['name'] ) ? $rs ['name'] : "";
 				$this->view->url = ! empty ( $rs ['uri'] ) ? $rs ['uri'] . ".html" : "";
 				
-				$media = ProductsMedia::getMediabyProductId ( $id, "pm.media_id, pm.filename" );
+				$media = ProductsMedia::getMediabyProductId ( $id, "pm.media_id, pm.filename, pm.path" );
 				if (isset ( $media [0] )) {
 					$this->view->media = array ('records' => $media, 'delete' => array ('controller' => 'products', 'action' => 'delmedia' ) );
 				}
