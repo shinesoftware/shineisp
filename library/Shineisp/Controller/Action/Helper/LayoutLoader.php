@@ -22,7 +22,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		// Get the skin paramenter set in the Settings Table in the database		
 		if($module == "default"){
 			$customskin = Settings::findbyParam ( 'skin' );
-			$skin = !empty ( $customskin ) ? $customskin : "base";
+			$skin = !empty ( $customskin ) ? $customskin : "blank";
 		}elseif($module == "admin"){
 			$customskin = Settings::findbyParam ( 'adminskin' );
 			$skin = !empty ( $customskin ) ? $customskin : "base";        
@@ -48,13 +48,13 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		$view->headMeta ()->setName ( 'keywords', !empty($keywords) ? $keywords : "shine software, isp software" );
 		$view->headMeta ()->setName ( 'description', !empty($description) ? $description : "This is a Shine Software application" );
 		$view->headTitle ()->setSeparator(' / ');
-		
+
 		// Custom XML file inclusion of the js files 
 		if (! empty ( $js )) {
 			
 			// Fast including of the js file for the controller
 			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$controller.js")){
-				$js[] = "/skins/$module/$skin/js/$controller.js";
+				$js[]['resource'] = "/skins/$module/$skin/js/$controller.js";
 			}
 			
 			// Check the caches administrator preferences
@@ -84,6 +84,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 				}
 				
 			}else{
+				
 				foreach ($js as $item){
 
 					// check if the css or the js is a conditional item
@@ -107,7 +108,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 
 			// Fast including of the css file for the controller
 			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/css/$controller.css")){
-				$css[] = "/skins/$module/$skin/css/$controller.css";
+				$css[]['resource'] = "/skins/$module/$skin/css/$controller.css";
 			}
 			
 			// Check the caches administrator preferences
@@ -149,7 +150,7 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		if (file_exists ( APPLICATION_PATH . "/modules/$module/views/$skin/" )) {
 			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/$skin/" );
 		}else{
-			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/base/" );
+			$this->getActionController ()->view->addBasePath ( APPLICATION_PATH . "/modules/$module/views/blank/" );
 		}
         
 		// Set the additional path for the layout templates

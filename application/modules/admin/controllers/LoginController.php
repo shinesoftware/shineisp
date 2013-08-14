@@ -59,8 +59,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 	public function dologinAction() {
 		$user = new AdminUser();
 		$request = $this->getRequest ();
-		$registry = Shineisp_Registry::getInstance ();
-		$translation = $registry->Zend_Translate;
+		$translation = Shineisp_Registry::getInstance ()->Zend_Translate;
 
 		// Get our form and validate it
 		$form = new Admin_Form_LoginForm ( array ('action' => '/admin/login/dologin', 'method' => 'post' ) );

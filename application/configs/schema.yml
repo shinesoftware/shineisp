@@ -1967,35 +1967,6 @@ Modules:
       default: '0'
       notnull: true
       autoincrement: false
-Navigation:
-  connection: doctrine
-  tableName: navigation
-  columns:
-    id:
-      type: integer(4)
-      fixed: 0
-      unsigned: false
-      primary: true
-      autoincrement: true
-    label:
-      type: string(200)
-      notnull: true
-    description:
-      type: string(200)
-      notnull: true
-    uri:
-      type: string(200)
-      notnull: true
-    parent_id:
-      type: integer(4)
-      default: '0'
-      notnull: true
-    module:
-      type: string(20)
-      notnull: true
-    controller:
-      type: string(20)
-      notnull: true
       
 Newsletters:
   connection: doctrine

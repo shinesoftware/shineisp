@@ -27,8 +27,6 @@ class Zend_View_Helper_Profile extends Zend_View_Helper_Abstract
         	$this->view->userlogged = false;
         }
         
-		$this->view->menu = Navigation::CreateMenu ( Navigation::findAll () );
-		
         return $this->view->render ( 'partials/profile.phtml' );
     }
 }

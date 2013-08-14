@@ -26,12 +26,16 @@ class CreditNotes extends BaseCreditNotes
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'o.order_id', 'alias' => 'o_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'cn.creationdate', 'alias' => 'creationdate', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Customer' ), 'field' => "CONCAT(c.firstname,' ', c.lastname, ' ', IFNULL('', c.company))", 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => "cn.total", 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Total' ), 'field' => "cn.total_net", 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => "cn.total_vat", 'alias' => 'vat', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => "cn.total", 'alias' => 'grandtotal', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		
 		$config ['datagrid'] ['fields'] =  "creditnote_id, i.invoice_id,
 											DATE_FORMAT(cn.creationdate, '%d/%m/%Y') as creationdate, 
 											cn.number as cn_number, 
-											cn.total as total, 
+											cn.total_net as total, 
+											cn.total_vat as vat, 
+											cn.total as grandtotal, 
 											i.number as i_number, 
 											o.order_id as o_number, 
 											CONCAT(c.firstname,' ', c.lastname, ' ', IFNULL('', c.company) ) as fullname";

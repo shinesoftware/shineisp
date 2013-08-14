@@ -1,17 +1,20 @@
 <?php $products = $this->products; ?>
-<div class="productsref_wrapper">
-	<h3><?php echo $this->translate('Products Reference')?></h3>
-	<ul id="products">
-	<?php foreach ($products as $product): ?>
-		<?php if(!empty($product['Products']['ProductsData'][0]['name'])): ?>
-			<li>
-				<?php echo $this->media()->ProductImage($product['Products']['product_id'], 50, 50, true);?>
-				<a href="/<?php echo $product['Products']['uri']?>.html">
-					<?php echo $product['Products']['ProductsData'][0]['name']?>
-				</a>
-				<small><?php echo Shineisp_Commons_Utilities::truncate($product['Products']['ProductsData'][0]['shortdescription'], 100, "...", false, true) ?></small>
-			</li>
-		<?php endif; ?>
-	<?php endforeach;?>
-	</ul>
+<div class="row">
+	<div class="large-12 column">
+		<h5><?php echo $this->translate('Products Reference')?></h5>
+		<?php foreach ($products as $product): ?>
+			<?php if(!empty($product['Products']['ProductsData'][0]['name'])): ?>
+				
+				<div class="row">
+					<div class="large-3 column">
+				    	<?php echo $this->media()->ProductImage($product['product_id'], 60, 60, false);?>
+					</div>
+					<div class="large-9 column">
+						<h6><a href="/<?php echo $product['Products']['uri']?>.html"><?php echo $product['Products']['ProductsData'][0]['name']?></a></h6>
+						<p><?php echo Shineisp_Commons_Utilities::truncate($product['Products']['ProductsData'][0]['shortdescription'], 100, "...", false, true) ?></p>
+					</div>
+				</div>
+			<?php endif; ?>
+		<?php endforeach;?>
+	</div>
 </div>

@@ -1,36 +1,36 @@
-<?= $this->render('includes/header.phtml') ?>
+<?php echo $this->render('includes/header.phtml') ?>
 
 <body>
 	<div id="loading" style="z-index: 10500; display: none;"><?php echo $this->translate('Please wait a moment...')?></div>
 	
-	<?=$this->blocks()->showblock('admin_startbody');?> 	
+	<?php echo $this->blocks()->showblock('admin_startbody');?> 	
 	
 	<div id="main" class="abs">
 		<div class="abs header_upper chrome_light">
 			<span class="float_left button" id="button_navigation">
 				Navigation
 			</span>
-			<?= $this->profile();?>	
+			<?php echo  $this->profile();?>	
 		</div>
 		<div class="abs header_lower chrome_light">
-			<div class="breadcrumbs float_left"><?= $this->breadCrumb();?></div>
+			<div class="breadcrumbs float_left"><?php echo  $this->breadCrumb();?></div>
 			<div class="fastcontainer float_right"><?php echo $this->customers(); ?></div>
 		</div>
 		
 		<div id="main_content" class="abs">
 			<div id="main_content_inner">
-				<?=$this->blocks()->showblock('admin_beforecontent');?> 	
+				<?php echo $this->blocks()->showblock('admin_beforecontent');?> 	
 				
-				<?= $this->layout()->content ?> 
+				<?php echo $this->layout()->content ?> 
 				
-				<?=$this->blocks()->showblock('admin_endcontent');?> 	
+				<?php echo $this->blocks()->showblock('admin_endcontent');?> 	
 			</div>
 		</div>
 		<div class="abs footer_lower chrome_light">
 			<a href="https://twitter.com/#!/shine_software/" class="icon icon_bird float_right"></a>
 			<a href="http://www.shineisp.com">ShineISP</a>
-			<?=$this->querycount();?>
-			<?='Mem: '.(memory_get_peak_usage(true)/1024)."KB"?>
+			<?php echo $this->querycount();?>
+			<?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?>
 		</div>
 	</div>
 	
@@ -41,23 +41,23 @@
 		</div>
 		
 		<div class="abs header_lower chrome_light">
-			<?=$this->searchbox();?>
+			<?php echo $this->searchbox();?>
 		</div>
 			
 		<div id="sidebar_content" class="abs">
 			<div id="sidebar_content_inner">
-				<?=$this->blocks()->showblock('admin_startsidebar');?> 	
-				<?=$this->menu();?>
-				<?=$this->blocks()->showblock('admin_endsidebar');?> 
+				<?php echo $this->blocks()->showblock('admin_startsidebar');?> 	
+				<?php echo $this->navigation(); ?>
+				<?php echo $this->blocks()->showblock('admin_endsidebar');?> 
 			</div>
 		</div>
 		<div class="abs footer_lower chrome_light">
 			<a href="/admin/settings" class="icon icon_gear2 float_left"></a>
-			<span class="float_right gutter_right"><?= $this->languageswitcher();?></span>
+			<span class="float_right gutter_right"><?php echo $this->languageswitcher();?></span>
 		</div>
 	</div>
 	
-	<?=$this->blocks()->showblock('admin_endbody');?> 	
+	<?php echo $this->blocks()->showblock('admin_endbody');?> 	
 </body>
 
-<?= $this->render('includes/footer.phtml') ?>
+<?php echo $this->render('includes/footer.phtml') ?>

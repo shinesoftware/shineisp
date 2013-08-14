@@ -403,8 +403,6 @@ class CartController extends Shineisp_Controller_Default {
 		
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		
-		#Zend_Debug::dump($NS->cart->products);
-		
 		// Check if there is a domain service within the cart.
 		// If a domain is present we have to create a nic-handle in order to register the 
 		// customer in the remote registrant database

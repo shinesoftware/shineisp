@@ -56,12 +56,7 @@ class ProductsMedia extends BaseProductsMedia
 						        ->where ( "pm.product_id = ?", $productid )
 						        ->orderBy('is_default asc');
 	        $records =  $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-	        
-	        for ($i=0;$i<count($records);$i++){
-	        	if(!file_exists($records[$i]['path'])){
-	        		$records[$i]['path'] = "/" . $records[$i]['url'] . ".html";
-	        	}
-	        }
+	       
         }
         
         return $records;

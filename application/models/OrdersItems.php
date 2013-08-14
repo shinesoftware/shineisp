@@ -156,13 +156,13 @@ class OrdersItems extends BaseOrdersItems {
 		
 
 	/**
-	 * getExpiringSerivcesByDays
+	 * getExpiringServicesByDays
 	 * Get all the services from the order details bought by the customers
 	 * @param integer $days
 	 * @param integer $status
 	 * @param integer $autorenew [0, 1]
 	 */
-    public static function getExpiringSerivcesByDays($days=0, $status=null, $autorenew=null) {
+    public static function getExpiringServicesByDays($days=0, $status=null, $autorenew=null) {
         $dq = Doctrine_Query::create ()->select ( "oi.detail_id, 
         										   pd.name as product,
         										   c.customer_id as id, 
@@ -173,6 +173,7 @@ class OrdersItems extends BaseOrdersItems {
         										   o.customer_id as customer_id,
         										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
         										   c.email as email, 
+        										   c.language_id as language_id, 
         										   c.password as password,
         										   c.parent_id as reseller, 
         										   oi.autorenew as renew,
@@ -218,37 +219,44 @@ class OrdersItems extends BaseOrdersItems {
      * @param integer $autorenew [0, 1]
      */
     public static function getExpiringSerivcesByRange($from, $to, $status="", $autorenew=null) {
-        $dq = Doctrine_Query::create ()->select ( "oi.detail_id, 
-        										   pd.name as product,
-        										   c.customer_id as id, 
-        										   DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiringdate,
-        										   o.customer_id as customer_id,
-        										   o.language_id as language_id,
-        										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
-        										   c.email as email, 
-        										   c.password as password,
-        										   c.parent_id as reseller, 
-        										   oi.autorenew as renew,
-        										   DATEDIFF(oi.date_end, CURRENT_DATE) as days" )
-                                           ->from ( 'OrdersItems oi' )
-                                           ->leftJoin ( 'oi.Orders o' )
-                                           ->leftJoin ( 'oi.Products p' )
-                                           ->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
-                                           ->leftJoin ( 'o.Customers c' )
-                                           ->where ( 'p.type <> ?', 'domain')
-                                           ->andWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) >= ? and DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', array($from, $to) );
-        
-        if(is_numeric($status)){
-        	$dq->andWhere ( 'oi.status_id = ?', $status );  
-        }else{
-        	$dq->andWhere ( 'oi.status_id = ?', Statuses::id("complete", "orders") );
-        }
-        
-        if(is_numeric($autorenew)){
-        	$dq->andWhere ( 'oi.autorenew = ?', $autorenew );  
-        }
-        
-        return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+
+    	try{
+	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, 
+	        										   pd.name as product,
+	        										   c.customer_id as id, 
+	        										   DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiringdate,
+	        										   o.customer_id as customer_id,
+	        										   c.language_id as language_id,
+	        										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
+	        										   c.email as email, 
+	        										   c.password as password,
+	        										   c.parent_id as reseller, 
+	        										   oi.autorenew as renew,
+	        										   DATEDIFF(oi.date_end, CURRENT_DATE) as days" )
+	                                           ->from ( 'OrdersItems oi' )
+	                                           ->leftJoin ( 'oi.Orders o' )
+	                                           ->leftJoin ( 'oi.Products p' )
+	                                           ->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
+	                                           ->leftJoin ( 'o.Customers c' )
+	                                           ->where ( 'p.type <> ?', 'domain')
+	                                           ->andWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) >= ? and DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', array($from, $to) );
+	        
+	        if(is_numeric($status)){
+	        	$dq->andWhere ( 'oi.status_id = ?', $status );  
+	        }else{
+	        	$dq->andWhere ( 'oi.status_id = ?', Statuses::id("complete", "orders") );
+	        }
+	        
+	        if(is_numeric($autorenew)){
+	        	$dq->andWhere ( 'oi.autorenew = ?', $autorenew );  
+	        }
+	        
+	        return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+	        
+    	}catch (Exception $e){
+    		die($e->getMessage());
+    		
+    	}
             
     }
 	
@@ -366,7 +374,6 @@ class OrdersItems extends BaseOrdersItems {
 
 			// Remove all domains
 			OrdersItemsDomains::removeAllDomains($id);
-
 			if ($params ['domains_selected']) {
 				foreach ( $params ['domains_selected'] as $domain ) {
 					OrdersItemsDomains::addDomain($details ['order_id'], $domain);
@@ -463,8 +470,16 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Doctrine Record
 	 */
 	public static function find($id, $fields = "*", $retarray = false) {
-		$id = intval($id);
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )->where ( "detail_id = $id" )->limit ( 1 );
+		
+		if(!is_numeric($id)){
+			return null;
+		}
+		
+		$dq = Doctrine_Query::create ()->select ( $fields )
+										->from ( 'OrdersItems oi' )
+										->where ( "detail_id = ?", $id )
+										->limit ( 1 );
+		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$item = $dq->execute ( array (), $retarray );
 		return $item;
@@ -477,16 +492,17 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Doctrine Record / Array
 	 */
 	public static function getAllDetails($id, $fields = "*", $retarray = false) {
+		
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
-		->leftJoin ( 'oi.Orders o' )
-		->leftJoin ( 'oi.DomainsTlds dt' )
-	    ->leftJoin ( 'dt.DomainsTldsData dtd' )
-	    ->leftJoin ( 'dt.Taxes tax' )
-		->leftJoin ( 'o.Customers c' )
-		->leftJoin ( 'oi.Statuses s' )
-		->leftJoin ( 'oi.Products p' )
-		->leftJoin ( 'oi.BillingCycle bc' )
-		->where ( "order_id = ?", $id );
+										->leftJoin ( 'oi.Orders o' )
+										->leftJoin ( 'oi.DomainsTlds dt' )
+									    ->leftJoin ( 'dt.DomainsTldsData dtd' )
+									    ->leftJoin ( 'dt.Taxes tax' )
+										->leftJoin ( 'o.Customers c' )
+										->leftJoin ( 'oi.Statuses s' )
+										->leftJoin ( 'oi.Products p' )
+										->leftJoin ( 'oi.BillingCycle bc' )
+										->where ( "order_id = ?", $id );
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$items = $dq->execute ( array (), $retarray );
@@ -882,7 +898,7 @@ class OrdersItems extends BaseOrdersItems {
 				
 			// Get all the active domains that expire in 1 day
 			$domains = Domains::getExpiringDomainsByDays ( 1, Statuses::id("active", "domains") );
-				
+			
 			if ($domains) {
 				Shineisp_Commons_Utilities::log("There are (".count($domains).") new domains to renew");
 				
@@ -893,30 +909,52 @@ class OrdersItems extends BaseOrdersItems {
 						$customers [$domain ['customer_id']] ['id'] = $invoice_dest ['customer_id'];
 						$customers [$domain ['customer_id']] ['fullname'] = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'] . " " . $invoice_dest ['company'];
 						$customers [$domain ['customer_id']] ['email'] = $invoice_dest ['email'];
+						$customers [$domain ['customer_id']] ['language_id'] = $invoice_dest ['language_id'];
 					} else {
 						$customers [$domain ['customer_id']] ['id'] = $domain ['customer_id'];
 						$customers [$domain ['customer_id']] ['fullname'] = $domain ['fullname'];
 						$customers [$domain ['customer_id']] ['email'] = $domain ['email'];
+						$customers [$domain ['customer_id']] ['language_id'] = $domain ['language_id'];
 					}
 					$customers [$domain ['customer_id']] ['products'] [$i] ['name'] = $domain ['domain'];
 					$customers [$domain ['customer_id']] ['products'] [$i] ['type'] = "domain";
 					$customers [$domain ['customer_id']] ['products'] [$i] ['renew'] = $domain ['renew'];
 					$customers [$domain ['customer_id']] ['products'] [$i] ['expiring_date'] = $domain ['expiringdate'];
 					$customers [$domain ['customer_id']] ['products'] [$i] ['days'] = $domain ['days'];
-					$customers [$domain ['customer_id']] ['products'] [$i] ['oldorderitemid'] = $domain ['detail_id'];
-					
+
+					// Get the last old order item id 
+					if(!empty($domain['oldorders'])){
+						// find the domain 
+						foreach ($domain['oldorders'] as $olditemorder){
+							
+							// Get all the information from the old order
+							$olditem = OrdersItems::getAllInfo($olditemorder['orderitem_id']);
+							
+							// Check if the old order item refers to the domain selected   
+							if(!empty($olditem['parameters']) && !empty($olditem['tld_id'])){
+								
+								// Get the old configuration parameters
+								$params = json_decode($olditem['parameters'], true);
+								
+								// Extract the domain name and match it with the domain selected
+								if(!empty($params['domain']) && $params['domain'] == $domain['domain']){
+									$customers [$domain ['customer_id']] ['products'] [$i] ['oldorderitemid'] = $olditemorder['orderitem_id'];
+								}
+							}
+						}
+					}
 					Shineisp_Commons_Utilities::log("- " . $domain ['domain']);
 					$i ++;
 				}
 			}
-				
+// 			Zend_Debug::dump($customers);
 			/*
 			 * Now we have to get the services expired and we have to sum the previous $customers array with these
 			* new information.
 			*/
 				
 			// Get all the services active that expire the day after
-			$services = OrdersItems::getExpiringSerivcesByDays ( 1, Statuses::id("complete", "orders") );
+			$services = OrdersItems::getExpiringServicesByDays ( 1, Statuses::id("complete", "orders") );
 			
 			if ($services) {
 				
@@ -967,7 +1005,7 @@ class OrdersItems extends BaseOrdersItems {
 						} else {
 							$url = "http://" . $_SERVER ['HTTP_HOST'];
 						}
-	
+					
 						Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_renew', array(
 							':shineisp:' => $customer
 							,'url'       => $url

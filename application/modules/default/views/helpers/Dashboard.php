@@ -15,32 +15,6 @@ class Zend_View_Helper_Dashboard extends Zend_View_Helper_Abstract {
 	}
 	
 	/**
-	 * GetButtons
-	 * List of all buttons
-	 * @return array
-	 */
-	public function GetButtons($module) {
-		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;		
-
-		// get all the buttons from the navigation table
-		$buttons = Navigation::getNavItems($module);
-
-		// get the active isp configuration
-		$isp = Shineisp_Registry::get('ISP');
-		
-		// Get the URL of the Hosting Control Panel set to add it in the dashboard 
-		$panelsettings = SettingsParameters::getParameterbyGroupNameAndVar($isp->isppanel, $isp->isppanel . "_url");
-		if(!empty($panelsettings['Settings'][0]['value'])){
-			$buttons[] = array('label' => $translator->translate('Hosting Panel'), 'desc' => $translator->translate('Click here to login into your hosting control panel'), 'url' => $panelsettings['Settings'][0]['value']);
-		}
-		
-		// attach the buttons to the view
-		$this->view->buttons = $buttons;
-		
-		return $this->view->render ( 'partials/buttons.phtml' );
-	}
-	
-	/**
 	 * DomainsExpiration
 	 * List of all the domains near the expiring date
 	 * @return array

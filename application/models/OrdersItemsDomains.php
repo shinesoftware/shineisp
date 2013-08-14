@@ -184,7 +184,7 @@ class OrdersItemsDomains extends BaseOrdersItemsDomains {
 	    	$order = Orders::find($orderID);
 	    	if(!empty($order)){
 		    	foreach ( $order->OrdersItems as $detail ) {
-	    			if ($detail->Products['type'] == "hosting") {
+// 	    			if ($detail->Products['type'] == "hosting") {
 	    				#if(FALSE === self::check_domains_in_order($orderID, $domainID)){
 			    			$domain = new OrdersItemsDomains();
 							$domain ['domain_id']    = $domainID;
@@ -192,7 +192,7 @@ class OrdersItemsDomains extends BaseOrdersItemsDomains {
 							$domain ['orderitem_id'] = $detail['detail_id'];
 							$domain->save ();
 	    				#}
-	    			}
+// 	    			}
 				}
 				
 				return true;
