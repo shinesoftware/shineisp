@@ -3,8 +3,9 @@
 /**
  * Shineisp_Plugins_Registrars_Main_Ascio
  * 
- * @version 1.4
- * @author Shine Software
+ * @version 1.0
+ * @author HHMichaelLo
+ * @link https://github.com/ISPHamburg
  */
 
 class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars_Base implements Shineisp_Plugins_Registrars_Interface {
