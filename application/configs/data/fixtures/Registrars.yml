@@ -1,5 +1,14 @@
 Registrars:
   Registrars_1:
+    name: Ascio
+    description: ''
+    help: null
+    class: Shineisp_Plugins_Registrars_Ascio_Main
+    config: '{"ascio_soapuri":"https:\/\/aws.ascio.com\/2012\/01\/01\/AscioService.wsdl","ascio_username":"MY-ASCIO-ACCOUNT","ascio_password":"test","ascio_testmode":"0"}'
+    active: '1'
+    lastupdate: '2013-07-28 17:30:00'
+    isp_id: '1'
+  Registrars_2:
     name: Ovh
     description: ''
     help: null
@@ -7,4 +16,4 @@ Registrars:
     config: '{"ovh_soapuri":"http:\/\/www.ovh.com\/soapi\/soapi-re-1.58.wsdl","ovh_username":"MY-OVH-ACCOUNT","ovh_password":"test","ovh_testmode":"0"}'
     active: '1'
     lastupdate: '2013-05-22 14:15:06'
-    isp_id: '1'
+    isp_id: '2'    
