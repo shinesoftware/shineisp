@@ -1,1 +1,0 @@
-INSERT INTO settings_parameters SET name = 'Automatic domains setup', var = 'domains_autosetup', type = 'select', module = 'admin', enabled = 1, description = 'Automatically transfer or register a domain? This can be overridden for each TLD', group_id = 1, config = '{"class":"DomainsTlds","method":"getAutoSetupValues"}';  

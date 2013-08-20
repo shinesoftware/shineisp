@@ -1,1 +1,0 @@
-INSERT INTO settings_parameters SET name = 'Invoices template', var = 'invoice_template', type = 'select', module = 'admin', enabled = 1, description = 'Invoice template to be used when creating the invoice.', group_id = 1, config = '{"class":"Settings","method":"getInvoiceTemplateList"}';

@@ -1,1 +1,0 @@
-INSERT INTO settings_parameters SET name = 'Sequential invoice number increment', var = 'invoices_increment', type = 'text', module = 'admin', enabled = 1, description = 'Invoice sequential number increment.', group_id = 1;  
