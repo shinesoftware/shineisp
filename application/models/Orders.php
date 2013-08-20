@@ -70,8 +70,7 @@ class Orders extends BaseOrders {
 																		->leftJoin ( 'o.Invoices i' )
 																		->leftJoin ( 'o.OrdersItems oi' )
 																		->leftJoin ( 'oi.Products p' )
-																		->leftJoin ( 'o.Statuses s' )
-																		->orderBy ( 'order_date desc' );
+																		->leftJoin ( 'o.Statuses s' );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		$config ['datagrid'] ['basepath'] = "/admin/orders/";
