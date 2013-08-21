@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BanksController
+ * File Category Controller
  * Manage the product category table
  * @version 1.0
  */
@@ -55,7 +55,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return string Json records
 	 */
 	public function loadrecordsAction() {
-		$this->_helper->ajaxgrid->setConfig ( Banks::grid() )->loadRecords ($this->getRequest ()->getParams());
+		$this->_helper->ajaxgrid->setConfig ( FileCategories::grid() )->loadRecords ($this->getRequest ()->getParams());
 	}
 	
 	
@@ -65,7 +65,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function searchprocessAction() {
-		$this->_helper->ajaxgrid->setConfig ( Banks::grid() )->search ();
+		$this->_helper->ajaxgrid->setConfig ( FileCategories::grid() )->search ();
 	}
 	
 	/*
@@ -93,11 +93,11 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function newAction() {
-		$this->view->form = $this->getForm ( "/admin/banks/process" );
-		$this->view->title = $this->translator->translate("Bank Details");
-		$this->view->description = $this->translator->translate("Here you can handle the bank parameters");
+		$this->view->form = $this->getForm ( "/admin/filecategories/process" );
+		$this->view->title = $this->translator->translate("File category Details");
+		$this->view->description = $this->translator->translate("Here you can handle the file catgeories parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+									 array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -107,8 +107,8 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 */
 	public function resetAction() {
 		$NS = new Zend_Session_Namespace ( 'Admin' );
-		unset ( $NS->search_banks );
-		$this->_helper->redirector ( 'index', 'banks' );
+		unset ( $NS->search_category );
+		$this->_helper->redirector ( 'index', 'filecategories' );
 	}
 	
 	
@@ -127,7 +127,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
 				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters the customers cannot pay you anymore with this method of payment' );
 				
-				$record = $this->banks->find ( $id );
+				$record = $this->categories->find ( $id );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
@@ -145,11 +145,11 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	public function deleteAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
 		try {
-			$this->banks->find ( $id )->delete ();
+			$this->categories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'banks', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'filecategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
-		return $this->_helper->redirector ( 'list', 'banks', 'admin' );
+		return $this->_helper->redirector ( 'list', 'filecategories', 'admin' );
 	}
 	
 	/**
@@ -158,24 +158,24 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function editAction() {
-		$form = $this->getForm ( '/admin/banks/process' );
+		$form = $this->getForm ( '/admin/filecategories/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
+				array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
-			$rs = $this->banks->getAllInfo ( $id, null, true );
+			$rs = $this->categories->getAllInfo ( $id, null, true );
 			
 			if (! empty ( $rs [0] )) {
 				$form->populate ( $rs [0] );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/banks/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/filecategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 				
 		}
 		
@@ -197,59 +197,51 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	public function processAction() {
 		$i = 0;
 		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
-		$form = $this->getForm ( "/admin/banks/process" );
+		$form = $this->getForm ( "/admin/filecategories/process" );
 		$request = $this->getRequest ();
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
+				array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
 		// Check if we have a POST request
 		if (! $request->isPost ()) {
-			return $this->_helper->redirector ( 'list', 'banks', 'admin' );
+			return $this->_helper->redirector ( 'list', 'filecategories', 'admin' );
 		}
 		
 		if ($form->isValid ( $request->getPost () )) {
 			// Get the id 
-			$id = $this->getRequest ()->getParam ( 'bank_id' );
+			$id = $this->getRequest ()->getParam ( 'category_id' );
 			
 			// Set the new values
 			if (is_numeric ( $id )) {
-				$this->banks = Doctrine::getTable ( 'Banks' )->find ( $id );
+				$this->categories = Doctrine::getTable ( 'file_categories' )->find ( $id );
 			}
 			
 			// Get the values posted
 			$params = $form->getValues ();
 			try {
 				
-				$this->banks->name = $params ['name'];
-				$this->banks->account = $params ['account'];
-				$this->banks->method_id = $params ['method_id'];
-				$this->banks->url_test = $params ['url_test'];
-				$this->banks->url_official = $params ['url_official'];
-				$this->banks->enabled = $params ['enabled'];
-				$this->banks->classname = $params ['classname'];
-				$this->banks->test_mode = $params ['test_mode'];
-				$this->banks->description = $params ['description'];
+				$this->categories->name = $params ['name'];
 				
 				// Save the data
-				$this->banks->save ();
-				$id = is_numeric ( $id ) ? $id : $this->banks->getIncremented ();
+				$this->categories->save ();
+				$id = is_numeric ( $id ) ? $id : $this->categories->getIncremented ();
 				
-				$this->_helper->redirector ( 'edit', 'banks', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+				$this->_helper->redirector ( 'edit', 'filecategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'banks', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'filecategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 			
-			$redirector->gotoUrl ( "/admin/banks/edit/id/$id" );
+			$redirector->gotoUrl ( "/admin/categories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("Bank Edit");
-			$this->view->description = $this->translator->translate("Edit the bank information");
+			$this->view->title = $this->translator->translate("File category Edit");
+			$this->view->description = $this->translator->translate("Edit the file category information");
 			return $this->render ( 'applicantform' );
 		}
 	}
@@ -260,7 +252,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	private function getForm($action) {
-		$form = new Admin_Form_BanksForm ( array ('action' => $action, 'method' => 'post' ) );
+		$form = new Admin_Form_FilecategoriesForm ( array ('action' => $action, 'method' => 'post' ) );
 		return $form;
 	}
 	
@@ -279,7 +271,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 		if (is_array ( $items ) && is_numeric ( $status )) {
 			foreach ( $items as $categoryid ) {
 				if (is_numeric ( $categoryid )) {
-					$this->banks->set_status ( $categoryid, $status );
+					$this->categories->set_status ( $categoryid, $status );
 				}
 			}
 			return true;
