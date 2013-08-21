@@ -41,7 +41,7 @@ class FilesCategories extends BaseFilesCategories {
 		$config ['datagrid'] ['fields'] = "category_id, name";
 		$config ['datagrid'] ['rownum'] = $rowNum;
 	
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'FileCategories c' );
+		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'FilesCategories c' );
 	
 		$config ['datagrid'] ['basepath'] = "/admin/filecategories/";
 		$config ['datagrid'] ['index'] = "category_id";
@@ -60,7 +60,7 @@ class FilesCategories extends BaseFilesCategories {
 	
 		try {
 			$dq = Doctrine_Query::create ()->select ( $fields )
-			->from ( 'FileCategories c' )
+			->from ( 'FilesCategories c' )
 			->where ( "category_id = $id" )
 			->limit ( 1 );
 	
@@ -80,7 +80,7 @@ class FilesCategories extends BaseFilesCategories {
 	 * @return unknown_type
 	 */
 	public static function findbyName($name) {
-		return Doctrine::getTable ( 'FileCategories' )->findOneBy ( 'name', $name )->toArray();
+		return Doctrine::getTable ( 'FilesCategories' )->findOneBy ( 'name', $name )->toArray();
 	}
 	
 	/**
@@ -90,7 +90,7 @@ class FilesCategories extends BaseFilesCategories {
 	 * @return Doctrine Record
 	 */
 	public static function find($id, $fields = "*", $retarray = false) {
-		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'FileCategories b' )
+		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'FilesCategories c' )
 		->where ( "category_id = $id" )->limit ( 1 );
 	
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -106,7 +106,7 @@ class FilesCategories extends BaseFilesCategories {
 	 */
 	public static function findbyMD5($md5) {
 		return Doctrine_Query::create ()
-		->from ( 'FileCategories b' )
+		->from ( 'FilesCategories c' )
 		->where ( "MD5(name) = ?", $md5 )
 		->limit ( 1 )
 		->execute(array (), Doctrine_Core::HYDRATE_ARRAY);

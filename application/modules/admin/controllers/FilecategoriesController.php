@@ -23,6 +23,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$this->categories = new FilesCategories();
 		$this->datagrid = $this->_helper->ajaxgrid;
 		$this->datagrid->setModule ( "categories" )->setModel ( $this->categories );		
 	}
@@ -55,7 +56,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return string Json records
 	 */
 	public function loadrecordsAction() {
-		$this->_helper->ajaxgrid->setConfig ( FileCategories::grid() )->loadRecords ($this->getRequest ()->getParams());
+		$this->_helper->ajaxgrid->setConfig ( FilesCategories::grid() )->loadRecords ($this->getRequest ()->getParams());
 	}
 	
 	
@@ -65,7 +66,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function searchprocessAction() {
-		$this->_helper->ajaxgrid->setConfig ( FileCategories::grid() )->search ();
+		$this->_helper->ajaxgrid->setConfig ( FilesCategories::grid() )->search ();
 	}
 	
 	/*
