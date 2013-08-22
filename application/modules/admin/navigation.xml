@@ -188,6 +188,11 @@
 							<uri>/admin/emailstemplates/list</uri>
 							<resource>admin:emailstemplates</resource>
 						</emailstemplates>
+						<filecategories>
+							<label>File categories</label>
+							<uri>/admin/filecategories/list</uri>
+							<resource>admin:filecategories</resource>
+						</filecategories>
 					</pages>
 				</settings>
 				<sales>
