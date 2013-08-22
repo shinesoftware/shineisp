@@ -191,7 +191,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	
 	/**
 	 * processAction
-	 * Update the record previously selected
+	 * Update the record previously selected or save new record
 	 * @return unknown_type
 	 */
 	public function processAction() {
@@ -249,34 +249,11 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	/**
 	 * getForm
 	 * Get the customized application form 
-	 * @return unknown_type
+	 * @return Admin_Form_FilecategoriesForm form
 	 */
 	private function getForm($action) {
 		$form = new Admin_Form_FilecategoriesForm ( array ('action' => $action, 'method' => 'post' ) );
 		return $form;
-	}
-	
-	/**
-	 * set_status
-	 * Set the status of all items passed
-	 * @param $items
-	 * @return void
-	 */
-	private function set_status($items) {
-		$request = $this->getRequest ();
-		$status = $request->getParams ( 'params' );
-		$params = parse_str ( $status ['params'], $output );
-		$status = $output ['status'];
-		
-		if (is_array ( $items ) && is_numeric ( $status )) {
-			foreach ( $items as $categoryid ) {
-				if (is_numeric ( $categoryid )) {
-					$this->categories->set_status ( $categoryid, $status );
-				}
-			}
-			return true;
-		}
-		return false;
 	}
 	
 }
