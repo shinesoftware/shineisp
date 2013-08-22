@@ -126,7 +126,6 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters the customers cannot pay you anymore with this method of payment' );
 				
 				$record = $this->categories->find ( $id );
 				$this->view->recordselected = $record [0] ['name'];
@@ -180,8 +179,8 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 				
 		}
 		
-		$this->view->title = $this->translator->translate("Bank Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main bank information paramenters. Be careful, if you change something the module could be damaged.");
+		$this->view->title = $this->translator->translate("File category Details");
+        $this->view->description = $this->translator->translate("Here you can edit the main file category information paramenters. Be careful, if you change something the module could be damaged.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -219,7 +218,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 			
 			// Set the new values
 			if (is_numeric ( $id )) {
-				$this->categories = Doctrine::getTable ( 'file_categories' )->find ( $id );
+				$this->categories = Doctrine::getTable ( 'FilesCategories' )->find ( $id );
 			}
 			
 			// Get the values posted

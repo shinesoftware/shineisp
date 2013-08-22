@@ -52,7 +52,7 @@ class FilesCategories extends BaseFilesCategories {
 	 
 	/**
 	 * getAllInfo
-	 * Get all data with the bank ID
+	 * Get all data with the File category ID
 	 * @param $id
 	 * @return Doctrine Record / Array
 	 */
@@ -74,9 +74,9 @@ class FilesCategories extends BaseFilesCategories {
 	}
 	 
 	/**
-	 * findbyClassname
+	 * findbyName
 	 * Get a filecategory record using its name.
-	 * @param $classname
+	 * @param $name
 	 * @return unknown_type
 	 */
 	public static function findbyName($name) {
@@ -96,19 +96,5 @@ class FilesCategories extends BaseFilesCategories {
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$records = $dq->execute ( array (), $retarray );
 		return $records;
-	}
-	
-	/**
-	 * findbyMD5
-	 * Get a record by name converted with the MD5 code
-	 * @param $md5
-	 * @return Array
-	 */
-	public static function findbyMD5($md5) {
-		return Doctrine_Query::create ()
-		->from ( 'FilesCategories c' )
-		->where ( "MD5(name) = ?", $md5 )
-		->limit ( 1 )
-		->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 	}
 }
