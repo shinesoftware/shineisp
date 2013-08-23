@@ -12,7 +12,7 @@
  */
 class PurchaseCategories extends BasePurchaseCategories
 {
-/**
+   /**
      * getList
      * Get a list ready for the html select object
      * @return array
@@ -26,5 +26,28 @@ class PurchaseCategories extends BasePurchaseCategories
         }
         
         return $items;
+    }
+    
+    /**
+     * grid
+     * create the configuration of the grid
+     */
+    public static function grid($rowNum = 10) {
+    
+    	$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+    
+    	$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'c.category_id', 'alias' => 'category_id', 'type' => 'selectall' );
+    	$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'c.category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+    	$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+    
+    	$config ['datagrid'] ['fields'] = "category_id, category";
+    	$config ['datagrid'] ['rownum'] = $rowNum;
+    
+    	$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'PurchaseCategories c' );
+    
+    	$config ['datagrid'] ['basepath'] = "/admin/filecategories/";
+    	$config ['datagrid'] ['index'] = "category_id";
+    
+    	return $config;
     }
 }
