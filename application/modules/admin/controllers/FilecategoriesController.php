@@ -2,7 +2,7 @@
 
 /**
  * File Category Controller
- * Manage the product category table
+ * Manage the files category table
  * @version 1.0
  */
 
@@ -30,7 +30,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	
 	/**
 	 * indexAction
-	 * Create the User object and get all the records.
+	 * Show files categories list (Call listAction method)
 	 * @return unknown_type
 	 */
 	public function indexAction() {
@@ -40,7 +40,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	
 	/**
 	 * indexAction
-	 * Create the User object and get all the records.
+	 * Show files categories list
 	 * @return datagrid
 	 */
 	public function listAction() {
