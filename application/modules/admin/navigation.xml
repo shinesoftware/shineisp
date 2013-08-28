@@ -113,8 +113,8 @@
 						</attributes>
 						<tlds>
 							<label>TLDs</label>
-							<uri>/admin/tlds/list</uri>
-							<resource>admin:tlds</resource>
+							<uri>/admin/domainstlds/list</uri>
+							<resource>admin:domainstlds</resource>
 						</tlds>
 					</pages>
 				</products>
