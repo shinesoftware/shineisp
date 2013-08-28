@@ -836,3 +836,12 @@ AdminResources:
     module: admin
     controller: applications
     parent_id: '0'
+  AdminResources_94:
+    name: File categories
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: filecategories
+    parent_id: '60''

@@ -3,7 +3,7 @@
 class Shineisp_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
-		
+		$navContainer = null;
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getExistingHelper ( 'ViewRenderer' );
 		$viewRenderer->initView ();
 		$view = $viewRenderer->view;
@@ -33,7 +33,7 @@ class Shineisp_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstr
 					Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole("administrator");
 				}
 			}
-		}else{
+		}elseif($module == "default"){
 			$navContainerConfig = new Zend_Config_Xml(APPLICATION_PATH . '/modules/default/navigation.xml', 'nav');
 			$navContainer = new Zend_Navigation($navContainerConfig);  // Load the xml navigation menu
 				
@@ -48,16 +48,18 @@ class Shineisp_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstr
 			}
 		}
 		
-		foreach ( $navContainer->getPages () as $page ) {
-			foreach ( $page->getPages () as $subpage ) {
-				foreach ( $subpage->getPages () as $subsubpage ) {
-					$uri = $subsubpage->getHref ();
-					if ($uri === $request->getRequestUri ()) {
-						$subsubpage->setActive(true);
+		if($navContainer){
+			foreach ( $navContainer->getPages () as $page ) {
+				foreach ( $page->getPages () as $subpage ) {
+					foreach ( $subpage->getPages () as $subsubpage ) {
+						$uri = $subsubpage->getHref ();
+						if ($uri === $request->getRequestUri ()) {
+							$subsubpage->setActive(true);
+						}
 					}
 				}
 			}
+			$view->navigation ( $navContainer );
 		}
-		$view->navigation ( $navContainer );
 	}
 }

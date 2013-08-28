@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <projectProfile>
   <projectDirectory>
-    <projectProfileFile/>
-    <applicationDirectory>
+    <projectProfileFile filesystemName=".zfproject.xml"/>
+    <applicationDirectory classNamePrefix="Application_">
       <apisDirectory enabled="false"/>
       <configsDirectory>
         <applicationConfigFile type="ini"/>
@@ -16,6 +16,9 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="Domains">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
@@ -36,11 +39,14 @@
           <viewControllerScriptsDirectory forControllerName="Domains">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
       </viewsDirectory>
-      <bootstrapFile/>
+      <bootstrapFile filesystemName="Bootstrap.php"/>
     </applicationDirectory>
     <dataDirectory enabled="false">
       <cacheDirectory enabled="false"/>
@@ -57,22 +63,22 @@
       <publicStylesheetsDirectory enabled="false"/>
       <publicScriptsDirectory enabled="false"/>
       <publicImagesDirectory enabled="false"/>
-      <publicIndexFile/>
-      <htaccessFile/>
+      <publicIndexFile filesystemName="index.php"/>
+      <htaccessFile filesystemName=".htaccess"/>
     </publicDirectory>
     <projectProvidersDirectory enabled="false"/>
     <temporaryDirectory enabled="false"/>
     <testsDirectory>
-      <testPHPUnitConfigFile/>
+      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
       <testApplicationDirectory>
-        <testApplicationBootstrapFile/>
+        <testApplicationBootstrapFile filesystemName="bootstrap.php"/>
         <testApplicationControllerDirectory>
           <testApplicationControllerFile/>
           <testApplicationControllerFile/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>
-        <testLibraryBootstrapFile/>
+        <testLibraryBootstrapFile filesystemName="bootstrap.php"/>
       </testLibraryDirectory>
     </testsDirectory>
   </projectDirectory>

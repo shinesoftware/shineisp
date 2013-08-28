@@ -113,8 +113,8 @@
 						</attributes>
 						<tlds>
 							<label>TLDs</label>
-							<uri>/admin/tlds/list</uri>
-							<resource>admin:tlds</resource>
+							<uri>/admin/domainstlds/list</uri>
+							<resource>admin:domainstlds</resource>
 						</tlds>
 					</pages>
 				</products>
@@ -188,6 +188,11 @@
 							<uri>/admin/emailstemplates/list</uri>
 							<resource>admin:emailstemplates</resource>
 						</emailstemplates>
+						<filecategories>
+							<label>File categories</label>
+							<uri>/admin/filecategories/list</uri>
+							<resource>admin:filecategories</resource>
+						</filecategories>
 					</pages>
 				</settings>
 				<sales>

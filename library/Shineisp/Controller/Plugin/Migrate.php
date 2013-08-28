@@ -70,7 +70,6 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 									
 									// read the sql 
 									$sql = Shineisp_Commons_Utilities::readfile($info['dirname'] . "/" . $info['basename'] );
-									
 									if(!empty($sql)){
 										
 										// execute the sql strings
