@@ -150,8 +150,8 @@
 						</banks>
 						<urlrewrites>
 							<label>Url Rewrites</label>
-							<uri>/admin/urlrewrites/list</uri>
-							<resource>admin:urlrewrites</resource>
+							<uri>/admin/urlrewrite/list</uri>
+							<resource>admin:urlrewrite</resource>
 						</urlrewrites>
 						<taxes>
 							<label>Taxes</label>
