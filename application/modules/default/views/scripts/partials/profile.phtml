@@ -20,7 +20,10 @@
 <ul class="dropdown">
 <?php if($this->userlogged):?>
      <li>
-         <a class="removeqtip" href="/dashboard" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+D')?>" accesskey="D" ><?=$this->translate('Dashboard') ?></a>
+         <a href="/dashboard" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+D')?>" accesskey="D" ><?=$this->translate('Dashboard') ?></a>
+     </li>
+     <li>
+         <a href="/profile" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+P')?>" accesskey="P" ><?=$this->translate('Profile') ?></a>
      </li>
      <li>
          <a class="removeqtip" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+O')?>" accesskey="O" class="tooltip" href="/index/out">
@@ -29,7 +32,7 @@
      </li>        
 <?php else: ?>
         <li>
-             <a class="removeqtip" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+I')?>" accesskey="I" href="/customer/login">
+             <a title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+I')?>" accesskey="I" href="/customer/login">
                 <?=$this->translate('Sign in') ?>
              </a>
          </li>
