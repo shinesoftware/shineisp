@@ -1,114 +1,89 @@
-<?php 
-$form = $this->form;
-?>
+<?php $form = $this->form; ?>
+<?php echo $this->render('partials/header.phtml') ?>
 
-<div class="headtitle">
-    <h1><?php echo $this->translate($this->title);?></h1>
-    <small><?php echo $this->translate($this->description);?></small>
-</div>
-
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div data-alert class=\"alert-box alert\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
-
-<div id="tabs" class="tabWrapper">
-
-	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-	    <div id="tab1" class="tabContent"> 
-		   	<div class="label"><?php echo $this->translate('Generic data') ?></div>
-          	<div class="column">
-			    <div class="column medium"> 
-			        <?php echo $form->firstname->render() ?>
-			        <?php echo $form->lastname->render()?>
-			        <?php echo $form->email->render()?>
-			        <?php echo $form->password->render()?>
-			    </div>
-			    
-			    <div class="column medium last">
-			    	<?php echo $form->legalform->render()?>
-			    	<?php echo $form->company->render()?>
-		            <?php echo $form->company_type_id->render()?>
-		            <?php echo $form->vat->render()?>
-			    </div>
-			    <div class="clear"></div>
-			 </div>
-			 <p align="right"><?php echo $form->submit->render()?></p> 
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+    <fieldset>
+    	<legend><?php echo $this->translate('Generic data') ?></legend>
+        <div class="row">
+			<div class="large-6 columns"> 
+				<?php echo $form->firstname->render() ?>
+	        	<?php echo $form->lastname->render()?>
+	        	<?php echo $form->email->render()?>
+	        	<?php echo $form->password->render()?>
+	        </div>
+	        
+		    <div class="large-6 columns">
+		    	<?php echo $form->legalform->render()?>
+		    	<?php echo $form->company->render()?>
+	            <?php echo $form->company_type_id->render()?>
+	            <?php echo $form->vat->render()?>
+		    </div>
 	    </div>
-	    
-	    
-	    <div class="tabContent" id="tab2"> 
-	    	<div class="label"><?php echo $this->translate('Personal data') ?></div>
-          	<div class="column">
-				<div class="column medium"> 
-		            <?php echo $form->birthdate->render()?>
-		            <?php echo $form->birthplace->render()?>
-		            <?php echo $form->birthdistrict->render()?>
-		            <?php echo $form->birthcountry->render()?>
-		            <?php echo $form->birthnationality->render()?>
-		        </div>
-		        <div class="column medium last"> 
-		            <?php echo $form->sex->render()?>
-		            <?php echo $form->taxpayernumber->render()?> 
-				</div>
-				<div class="clear"></div>
+    </fieldset>
+    
+    <fieldset>
+    	<legend><?php echo $this->translate('Personal data') ?></legend>
+        <div class="row">
+			<div class="large-6 columns"> 
+		        <?php echo $form->birthdate->render()?>
+	            <?php echo $form->birthplace->render()?>
+	            <?php echo $form->birthdistrict->render()?>
+	            <?php echo $form->birthcountry->render()?>
+	            <?php echo $form->birthnationality->render()?>
+	        </div>
+	        <div class="large-6 columns"> 
+	            <?php echo $form->sex->render()?>
+	            <?php echo $form->taxpayernumber->render()?> 
 			</div>
-	    </div>
-	    
-	    <div class="tabContent" id="tab3"> 
-	    	<div class="label"><?php echo $this->translate('Address') ?></div>
-          	<div class="column">
+		</div>
+    </fieldset>
+    
+    <fieldset>
+    	<legend><?php echo $this->translate('Address') ?></legend>
+        <div class="row">
+			<div class="large-12 columns"> 
 	            <?php echo $form->address->render()?>
 	            <?php echo $form->code->render()?>
 	            <?php echo $form->city->render()?>
 	            <?php echo $form->area->render()?>
 	            <?php echo $form->country_id->render()?>
-				<div class="clear"></div>
 			</div>
-	    </div>
+    	</div>
+	</fieldset>
 	
-	   <div class="tabContent" id="tab4">
-	   		<div class="label"><?php echo $this->translate('Contacts') ?></div>
-          	<div class="column">
-          		<h3><?php echo $this->translate('Contacts')?></h3>
+   <fieldset>
+    	<legend><?php echo $this->translate('Contacts') ?></legend>
+        <div class="row">
+			<div class="large-12 columns">
 	             <?php echo $this->simplegrid($this->contactsdatagrid);?>
 	             <?php echo $form->contacttypes->render()?>
 	             <?php echo $form->contact->render()?>
-		         <div class="clear"></div>
-		   </div>
+	   		</div>
 	   </div>
-	
-	   <?php if($this->isReseller):?>
-		   <div class="tabContent" id="tab5">
-		   		<div class="label"><?php echo $this->translate('My Customers') ?></div>
-          		<div class="column">
-          			<h3><?php echo $this->translate('My Customers')?></h3><br/><br/>
-			        <?= $this->simplegrid($this->clients);?>
-			       <div class="clear"></div>
+   </fieldset>
+
+   <?php if($this->isReseller):?>
+	   <fieldset>
+	    	<legend><?php echo $this->translate('My Customers') ?></legend>
+	        <div class="row">
+				<div class="large-12 columns">
+		        	<?php echo  $this->simplegrid($this->clients);?>
 			    </div>
-		   </div>
-	   <?php endif;?>
-	   
-	   
-	   <div class="tabContent" id="tab6">
-	   		<div class="label"><?php echo $this->translate('Newsletter') ?></div>
-          	<div class="column">
-          		<h3><?php echo $this->translate('Newsletter')?></h3>
-		       <?php echo $form->newsletter->render()?>
-		       <div class="clear"></div>
+			</div>
+	   </fieldset>
+   <?php endif;?>
+   
+   
+   <fieldset>
+    	<legend><?php echo $this->translate('Newsletter') ?></legend>
+        <div class="row">
+			<div class="large-12 columns">
+	       		<?php echo $form->newsletter->render()?>
 		    </div>
 	   </div>
-   	
-	    <?php echo $form->customer_id->render()?>
-	</form>
-</div>
+   </fieldset>
+	<p align="right"><?php echo $form->submit->render()?></p>
+   <?php echo $form->customer_id->render()?>
+</form>
 
