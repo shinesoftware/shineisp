@@ -233,6 +233,54 @@ class Tickets extends BaseTickets {
 	}
 	
 	/**
+	 * setSibling
+	 * Set a sibling to a ticket
+	 * @param $id, $siblingId
+	 * @return Void
+	 */
+	public static function setSibling($id, $siblingId) {
+		if(is_numeric($id)){
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->find ( $id );
+			$object->sibling_id = $siblingId;
+			return $object->save ();
+		}
+		return false;
+	}
+	
+	/**
+	 * setOperator
+	 * Set the operator to a ticket
+	 * @param $id, $userId
+	 * @return Void
+	 */
+	public static function setOperator($id, $userId) {
+		if(is_numeric($id)){
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->find ( $id );
+			$object->user_id = $userId;
+			return $object->save ();
+		}
+		return false;
+	}
+	
+	/**
+	 * setOrder
+	 * Set the order reference
+	 * @param $id, $orderId
+	 * @return Void
+	 */
+	public static function setOrder($id, $orderId) {
+		if(is_numeric($id)){
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->find ( $id );
+			$object->order_id = $orderId;
+			return $object->save ();
+		}
+		return false;
+	}
+	
+	/**
 	 * getByCustomerID
 	 * Get all data  
 	 * @param $customerID
@@ -432,47 +480,67 @@ class Tickets extends BaseTickets {
 	}
 	
 	/**
-	 * saveNew
-	 * Save the data
+	 * Save the ticket
+	 * 
+	 * @param integer $id
+	 * @param integer $customer
+	 * @param string $subject
+	 * @param string $description
+	 * @param integer $category
+	 * @param integer $status
+	 * @param integer $domain
+	 * @return Boolean or integer
 	 */
-	public static function saveNew($params, $customerid) {
+	public static function saveIt($id=null, $customer, $subject, $description, $category, $status=null, $domain=null) {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$tickets = new Tickets ();
+		
+		$isUpdate = false;
+		
+		if(is_numeric($id)){
+			$ticket = self::find($id);
+			$isUpdate = true;
+		}else{
+			$ticket = new Tickets ();
+		}
 		
 		$operatorId = Settings::findbyParam('tickets_operator', 'admin', Isp::getActiveISPID());
 		if(!is_numeric($operatorId)){
 			$operator = AdminUser::getFirstAdminUser();
-			$operatorId = $operator['user_id'];
 		}else{
 			$operator = AdminUser::getAllInfo($operatorId);
 		}
 
-		if (is_numeric ( $customerid )) {
-			$subject = ! empty ( $params ['subject'] ) ? $params ['subject'] : $translator->translate ( 'nosubject' );
+		if (is_numeric ( $customer )) {
 			
-			$tickets->subject = ! empty ( $params ['subject'] ) ? $params ['subject'] : $translator->translate ( 'Generic Issue' );
-			$tickets->description = nl2br($params ['note']);
-			$tickets->category_id = $params ['category_id'];
-			$tickets->customer_id = $customerid;
-			$tickets->user_id = $operatorId;
-			$tickets->date_open = date ( 'Y-m-d H:i:s' );
-			$tickets->domain_id = is_numeric($params ['domain_id']) && $params ['domain_id'] > 0 ? $params ['domain_id'] : NULL;
-			$tickets->status_id = Statuses::id("expectingreply", "tickets"); // Expecting a reply
-			$tickets->save ();
+			$ticket->subject = ! empty ( $subject ) ? $subject : $translator->translate ( 'Generic Issue' );
+			$ticket->description = !empty($description) ? $description : null;
+			$ticket->category_id = !empty($category) ? $category : null;
+			$ticket->customer_id = $customer;
+			$ticket->user_id = $operator['user_id'];
+			$ticket->date_open = date ( 'Y-m-d H:i:s' );
+			$ticket->date_updated = date ( 'Y-m-d H:i:s' );
+			$ticket->domain_id = is_numeric($domain) && $domain > 0 ? $domain : NULL;
+			$ticket->status_id = !empty($status) ? $status : Statuses::id("expectingreply", "tickets"); // Expecting a reply as default
+			$ticket->save ();
 			
-			$id = $tickets->getIncremented ();
+			$id = $ticket->getIncremented ();
 			
 			// Save the upload file
-			self::UploadDocument($id, $customerid);
+			self::UploadDocument($id, $customer);
 			
-			// Create the fast link
-			Fastlinks::CreateFastlink ( 'tickets', 'edit', json_encode ( array ('id' => $id ) ), 'tickets', $id, $customerid );
-			
-			// Send message
-			self::sendMessage ( $id );
+			// Check if the request is an update
+			if($isUpdate == false){
+				// Create the fast link
+				Fastlinks::CreateFastlink ( 'tickets', 'edit', json_encode ( array ('id' => $id ) ), 'tickets', $id, $customer );
+				
+				// Send message
+				self::sendMessage ( $id );
+			}
 			
 			return $id;
 		}
+		
+		return false;
 	}
 	
 	/**
@@ -540,6 +608,7 @@ class Tickets extends BaseTickets {
 		}
 		return false;
 	}
+	
 	/**
 	 * sendMessageNotes
 	 * Send the email for the confirmation

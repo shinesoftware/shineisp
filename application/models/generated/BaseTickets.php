@@ -12,6 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('Tickets', 'doctrine');
  * @property int $category_id
  * @property int $status_id
  * @property int $sibling_id
+ * @property int $order_id
  * @property timestamp $date_open
  * @property timestamp $date_updated
  * @property timestamp $date_close
@@ -24,6 +25,7 @@ Doctrine_Manager::getInstance()->bindComponent('Tickets', 'doctrine');
  * @property Customers $Customers
  * @property Domains $Domains
  * @property Statuses $Statuses
+ * @property Orders $Orders
  * @property Tickets $Tickets
  * @property AdminUser $AdminUser
  * @property Doctrine_Collection $TicketsNotes
@@ -64,6 +66,10 @@ abstract class BaseTickets extends Doctrine_Record
         $this->hasColumn('sibling_id', 'int', 4, array(
              'type' => 'int',
              'notnull' => false,
+             'length' => '4',
+             ));
+        $this->hasColumn('order_id', 'int', 4, array(
+             'type' => 'int',
              'length' => '4',
              ));
         $this->hasColumn('date_open', 'timestamp', 25, array(
@@ -122,6 +128,11 @@ abstract class BaseTickets extends Doctrine_Record
         $this->hasOne('Statuses', array(
              'local' => 'status_id',
              'foreign' => 'status_id'));
+
+        $this->hasOne('Orders', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id',
+             'onDelete' => 'Set Null'));
 
         $this->hasOne('Tickets', array(
              'local' => 'sibling_id',

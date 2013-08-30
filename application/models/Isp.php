@@ -113,9 +113,12 @@ class Isp extends BaseIsp {
 		if(!empty($registry) && is_object($registry)){
 			return intval(Shineisp_Registry::get('ISP')->isp_id);
 		}else{
-			$isp = self::getByURL($_SERVER['HTTP_HOST']);
-			return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1;
+			if(!empty($_SERVER['HTTP_HOST'])){
+				$isp = self::getByURL($_SERVER['HTTP_HOST']);
+				return ( is_array($isp) && isset($isp['isp_id']) ) ? intval($isp['isp_id']) : 1;
+			}
 		}
+		return false;
 	}
 	
 	/**
