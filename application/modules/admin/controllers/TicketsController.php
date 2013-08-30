@@ -316,125 +316,37 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 		}
 		
 		if ($form->isValid ( $request->getPost () )) {
+			
+			// Get the values posted
+			$params = $request->getPost ();
+				
 			// Get the id 
 			$id = $this->getRequest ()->getParam ( 'ticket_id' );
-			$isp = Isp::getActiveISP ();
-			if ($isp) {
-				
-				$operatorId = Settings::findbyParam('tickets_operator', 'admin', Isp::getActiveISPID());
-				if(!is_numeric($operatorId)){
-					$operator = AdminUser::getFirstAdminUser();
-					$operatorId = $operator['user_id'];
-				}else{
-					$operator = AdminUser::getAllInfo($operatorId);
-				}
-				
-				// Set the new values
-				if (is_numeric ( $id )) {
-					
-					$ispmail = explode("@", $isp ['email']);
-	                $ispmail = "noreply@" . $ispmail[1];
-					
-					// Get the values posted
-					$params = $request->getPost ();
-					
-					$tickets = Doctrine::getTable ( 'Tickets' )->find ( $id );
-					$t = $tickets->toArray ();
-					
-					if (isset ( $t ['customer_id'] ) && is_numeric ( $t ['customer_id'] )) {
-						
-						// Retrieve the customer data
-						$c = Customers::find ( $t ['customer_id'], "CONCAT(firstname,' ', lastname, ' ', company) as fullname, email, language_id", true );
-						$cc = Contacts::getAllEmails($t['customer_id']);
-							
-						if (! empty ( $params ['status_id'] )) {
-							$tickets->status_id = $params ['status_id'];
-						}
-						
-						if ($params ['status_id'] == Statuses::id('closed', 'statuses') || $params ['status_id'] == Statuses::id('solved', 'statuses')) { // If the status is closed or solved we have to set the date_close field
-							$tickets->date_close = date ( 'Y-m-d H:i:s' );
-						}
-						
-						if(!empty($params ['sibling_id']) && $params ['sibling_id'] != $id){
-							$tickets->sibling_id = $params ['sibling_id'];
-						}
-						
-						$tickets->date_updated = date ( 'Y-m-d H:i:s' );
-						$tickets->user_id = $params['user_id'];
-						
-						$tickets->save ();
-						
-						if(!empty($params ['note'])){
-							$ticketnotes = new TicketsNotes ( );
-							$ticketnotes->date_post = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime']) : date ( 'Y-m-d H:i:s' );
-							$ticketnotes->note = $params ['note'];
-							$ticketnotes->ticket_id = $id;
-							$ticketnotes->admin = true;
-							$ticketnotes->trySave ();
-						}
-						
-						// Save the upload file
-						TicketsNotes::UploadDocument($id, $t ['customer_id']);
-						
-						$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message', $c ['language_id'] );
-						
-						if ($retval && $params['sendemail'] && !empty($params['note'])) {
-							
-							$link = Fastlinks::findbyId ( $id, 'tickets', $t ['customer_id'] );
-							$in_reply_to = md5($id)  . "@" . $_SERVER['HTTP_HOST'];
-							
-							if (! empty ( $link [0] ['code'] )) {
-								$link = $link [0] ['code'];
-							}else{
-								$link = Fastlinks::CreateFastlink('tickets', 'edit', json_encode ( array ('id' => $id ) ), 'tickets', $id, $t['customer_id']);
-							}
-							
-							$subject = $retval ['subject'];
-							$subject = str_replace ( "[subject]", $t ['subject'], $subject );
-							$subject = str_replace ( "[company]", $isp ['company'], $subject );
-							$subject = str_replace ( "[issue_number]", $t ['ticket_id'], $subject );
-							
-							$body = $retval ['template'];
-							$body = str_replace ( "[operator]", $operator['lastname'] . " " . $operator['firstname'] . ".", $body );
-							$body = str_replace ( "[subject]", $t ['subject'], $body );
-							$body = str_replace ( "[customer]", $c ['fullname'], $body );
-							$body = str_replace ( "[issue_number]", $t ['ticket_id'], $body );
-							$body = str_replace ( "[status]", Statuses::getLabel ( $params ['status_id'] ), $body );
-							$body = str_replace ( "[link]", "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $link, $body );
-							$body = str_replace ( "[date_open]", Shineisp_Commons_Utilities::formatDateOut ( $t ['date_open'] ), $body );
-							
-							$attachment = Tickets::hasAttachments($id);
-							if(!empty($attachment)){
-								$body = str_replace ( "[attachment]", "http://" . $_SERVER['HTTP_HOST'] . $attachment[0]['path'] . $attachment[0]['file'], $body );
-								$body = str_replace ( "[attachment_name]", $attachment[0]['file'], $body );
-							}else{
-								$body = str_replace ( "[attachment]", "", $body );
-								$body = str_replace ( "[attachment_name]", "", $body );
-							}
-							
-							if ($params ['status_id'] == Statuses::id("closed", "tickets") || $params ['status_id'] == Statuses::id("solved", "tickets")) {
-								$body = str_replace ( "[date_close]", date ( 'd/m/Y H:i:s' ), $body );
-							} else {
-								$body = str_replace ( "[date_close]", "-", $body );
-							}
-							
-							$body = str_replace ( "[description]", $params ['note'], $body );
-							$body = str_replace ( "[company]", $isp ['company'], $body );
-							
-							// All the customer email contacts will be receive a message
-							foreach ($cc as $address){
-								$bcc[] = $address['email'];
-							}
-							$bcc = implode(",", $bcc);
-								
-							Shineisp_Commons_Utilities::SendEmail ( $ispmail, Contacts::getEmails($t ['customer_id']), $bcc, $subject, $body, true, $in_reply_to );
-						}
-					}
-					$redirector->gotoUrl ( "/admin/tickets/edit/id/$id#last" );
-				}
+			
+			$date = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime']) : null;
+			$note = !empty($params['note']) ? $params['note'] : null;
+			$status = !empty($params['status_id']) && is_numeric($params['status_id']) ? $params['status_id'] : null;
+			
+			// Save the Ticket Note and send the email to the customer
+			$ticketNote = TicketsNotes::saveIt($id, $date, $note, $status, true);
+
+			// Update the sibling
+			if(!empty($params['sibling_id']) && is_numeric($params['sibling_id'])){
+				Tickets::setSibling($id, $params['sibling_id']);
+			}
+
+			// Update the operator for the selected ticket
+			if(!empty($params['user_id']) && is_numeric($params['user_id'])){
+				Tickets::setOperator($id, $params['user_id']);
 			}
 			
-			$redirector->gotoUrl ( "/admin/tickets/list" );
+			// Update the ticket attaching the order
+			if(!empty($params['order_id']) && is_numeric($params['order_id'])){
+				Tickets::setOrder($id, $params['order_id']);
+			}
+			
+			$redirector->gotoUrl ( "/admin/tickets/edit/id/$id#last" );
+			
 		
 		} else {
 			$this->view->form = $form;

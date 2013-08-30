@@ -47,27 +47,4 @@ $(document).ready(function(){
         convert_urls : false
     });
     
-    // Stars Reviews
-    $('.stars').each(function() {
-	    var codeid = $(this).attr('alt');
-	    var hovertip = "hovertip_" + $(this).attr('alt');
-	    
-	    $(this).rating({
-	          required: true, 
-		  	  callback: function(value, link){
-				  $.post("/tickets/vote/", { stars: value, id: codeid } );
-			  },
-		  
-			  focus: function(value, link){
-				var tip = $('#' + hovertip);
-				tip[0].data = tip[0].data || tip.html();
-				tip.html(link.title || 'value: '+value);
-			  },
-			  
-			  blur: function(value, link){
-				var tip = $('#' + hovertip);
-				$('#' + hovertip).html(tip[0].data || '');
-			  }
-	    });
-	});
 }); 

@@ -3712,6 +3712,8 @@ Tickets:
     sibling_id:
       type: int(4)
       notnull: false
+    order_id:
+      type: int(4)
     date_open:
       type: timestamp(25)
       notnull: true;
@@ -3743,6 +3745,10 @@ Tickets:
     Statuses:
       local: status_id
       foreign: status_id
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: Set Null
     Tickets:
       local: sibling_id
       foreign: ticket_id
