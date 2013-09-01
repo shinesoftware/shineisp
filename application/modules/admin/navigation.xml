@@ -124,8 +124,8 @@
 					<resource>admin:settings</resource>
 					<pages>
 						<settings>
-							<label>Settings</label>
-							<uri>/admin/settings/list</uri>
+							<label>General</label>
+							<uri>/admin/settings/</uri>
 							<resource>admin:settings</resource>
 						</settings>
 						<registrars>

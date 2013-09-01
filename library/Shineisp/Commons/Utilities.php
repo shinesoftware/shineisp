@@ -743,6 +743,7 @@ class Shineisp_Commons_Utilities {
 		if(!empty($attachments)){
 			if(is_array($attachments)){
 				foreach($attachments as $attachment){
+					
 					if(file_exists($attachment)){
 						$filename = basename($attachment);
 						
@@ -847,21 +848,10 @@ class Shineisp_Commons_Utilities {
 						$customerId = $Customers->{0}->customer_id;
 					}
 					
-					$EmailsTemplatesSends = new EmailsTemplatesSends();
-					$EmailsTemplatesSends->customer_id = $customerId;         
-					$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';    
-					$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
-					$EmailsTemplatesSends->subject     = $subject;
-					$EmailsTemplatesSends->recipient   = $recipient;
-					$EmailsTemplatesSends->cc          = (is_array($cc))  ? implode(',', $cc)  : $cc;
-					$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? implode(',', $bcc) : $bcc;
-					$EmailsTemplatesSends->html        = $html;
-					$EmailsTemplatesSends->text        = $body;
-					$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
-					$EmailsTemplatesSends->save();
-
-					// log the data
-					Shineisp_Commons_Utilities::log("An email has been sent to $recipient", 'notice.log');
+					if(EmailsTemplatesSends::saveIt($customerId, $from, $recipient, $subject, $cc, $bcc, $html, $body)){
+						Shineisp_Commons_Utilities::log("An email has been sent to $recipient", 'notice.log'); // log the data
+					}
+					
 				}
 			}else{
 				// get customer_id
@@ -870,21 +860,10 @@ class Shineisp_Commons_Utilities {
 					$customerId = $Customers->{0}->customer_id;
 				}
 				
-				$EmailsTemplatesSends = new EmailsTemplatesSends();
-				$EmailsTemplatesSends->customer_id = $customerId;         
-				$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';    
-				$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
-				$EmailsTemplatesSends->subject     = $subject;
-				$EmailsTemplatesSends->recipient   = $to;
-				$EmailsTemplatesSends->cc          = (is_array($cc))  ? trim(implode(',', $cc),',')  : $cc;
-				$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? trim(implode(',', $bcc),',') : $bcc;
-				$EmailsTemplatesSends->html        = $html;
-				$EmailsTemplatesSends->text        = $body;
-				$EmailsTemplatesSends->date        = date('Y-m-d H:i:s');
-				$EmailsTemplatesSends->save();
 				
-				// log the data
-				Shineisp_Commons_Utilities::log("An email has been sent to $to", 'notice.log');
+				if(EmailsTemplatesSends::saveIt($customerId, $from, $to, $subject, $cc, $bcc, $html, $body)){
+					Shineisp_Commons_Utilities::log("An email has been sent to $recipient", 'notice.log'); // log the data
+				}
 				
 			}
 			return true;
@@ -1023,13 +1002,20 @@ class Shineisp_Commons_Utilities {
 	      }
 	}
 
+
 	/**
-	 * sendEmailTemplate: send an email template replacing all placeholders
+	 * Send an email template replacing all placeholders
 	 * 
-	 * TODO: GUEST - ALE - 20130531: THIS METHOD MUST BE REFACTORED
-	 * 
+	 * @param array|string $recipient
+	 * @param string $template
+	 * @param array $placeholders
+	 * @param array|string $inreplyto
+	 * @param array|string $attachments
+	 * @param array|string $replyto
+	 * @param array $ISP
+	 * @param integer $language_id
 	 */
-	public static function sendEmailTemplate($recipient = null, $template = '', $replace = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null, $language_id = null) {
+	public static function sendEmailTemplate($recipient = null, $template = '', $placeholders = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null, $language_id = null) {
 		
 		// Get email template
 		$arrTemplate = self::getEmailTemplate($template, $language_id);
@@ -1048,35 +1034,35 @@ class Shineisp_Commons_Utilities {
 		
 		// All placeholder prefixed with "isp_" will be replaced with ISP data
 		foreach ( $ISP as $k => $v ) {
-			$replace['isp_'.$k] = $v;
+			$placeholders['isp_'.$k] = $v;
 		}
 		
 		// Merge original placeholder with ISP value. This is done to override standard ISP values
-		$replace = array_merge($ISP, $replace);
+		$placeholders = array_merge($ISP, $placeholders);
 
 		// Check if special placeholder :shineisp: is set. If is set and is an array, it will use it as a source of key/value
-		if ( isset($replace[':shineisp:']) && is_array($replace[':shineisp:']) ) {
-			if ( isset($replace[':shineisp:'][0]) ) {
-				$replace[':shineisp:'] = array_merge($replace[':shineisp:'], $replace[':shineisp:'][0]);
-				unset($replace[':shineisp:'][0]);
+		if ( isset($placeholders[':shineisp:']) && is_array($placeholders[':shineisp:']) ) {
+			if ( isset($placeholders[':shineisp:'][0]) ) {
+				$placeholders[':shineisp:'] = array_merge($placeholders[':shineisp:'], $placeholders[':shineisp:'][0]);
+				unset($placeholders[':shineisp:'][0]);
 			}
-			foreach ( $replace[':shineisp:'] as $k => $v ) {
-				$replace[$k] = $v;
+			foreach ( $placeholders[':shineisp:'] as $k => $v ) {
+				$placeholders[$k] = $v;
 			}
 			
-			unset($replace[':shineisp:']);	
+			unset($placeholders[':shineisp:']);	
 		}
 
 		// Remove unneeded parameters
-		unset($replace['active']);
-		unset($replace['isppanel']);
+		unset($placeholders['active']);
+		unset($placeholders['isppanel']);
 
 		// Replace all placeholders in everything
 		
-		foreach ( $replace as $placeholder => $emailcontent ) {
+		foreach ( $placeholders as $placeholder => $emailcontent ) {
 			foreach ( $arrTemplate as $k => $v ) {
 				
-				// $replace contains the order header information
+				// $placeholders contains the order header information
 				if(is_string($emailcontent)){
 					$arrTemplate[$k] = str_replace('['.$placeholder.']', $emailcontent, $v);
 				}
@@ -1095,7 +1081,8 @@ class Shineisp_Commons_Utilities {
 				$arrBCC[] = $arrTemplate['bcc'];
 			}
 		}
-		// Get always-bcc from Settings
+		
+		// Get always-bcc from custom settings
 		$always_send_to = Settings::findbyParam('always_send_to');
 		$always_send_to = trim($always_send_to);
 		if ( !empty($always_send_to) ) {
@@ -1108,6 +1095,7 @@ class Shineisp_Commons_Utilities {
 				$arrBCC[] = $always_send_to;		
 			}	
 		}
+		
 		//$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
 		$arrBCC = array_unique($arrBCC); // Remove duplicate bcc addresses
 		
