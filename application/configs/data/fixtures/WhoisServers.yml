@@ -162,7 +162,7 @@ WhoisServers:
   WhoisServers_41:
     tld: be
     server: whois.dns.be
-    response: 'No such domain'
+    response: 'AVAILABLE'
   WhoisServers_42:
     tld: ac.be
     server: whois.dns.be
@@ -790,7 +790,7 @@ WhoisServers:
   WhoisServers_198:
     tld: nl
     server: whois.domain-registry.nl
-    response: 'not a registered domain'
+    response: 'is free'
   WhoisServers_199:
     tld: no
     server: whois.norid.no

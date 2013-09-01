@@ -78,8 +78,6 @@ class TicketsNotes extends BaseTicketsNotes
 		return false;
 	}
 	
-
-	
 	/**
 	 * getNote
 	 * Find a note
@@ -131,6 +129,7 @@ class TicketsNotes extends BaseTicketsNotes
 			$ticketnote->note = $note;
 			$ticketnote->admin = $isAdmin;
 			$ticketnote->ticket_id = $tid;
+			$ticketnote->parent_id = 0;
 			
 			// Save the note
 			if($ticketnote->trySave()){
@@ -146,9 +145,9 @@ class TicketsNotes extends BaseTicketsNotes
 			$noteid = is_numeric($noteid) ? $noteid : $ticketnote->getIncremented ();
 			
 			// Save the upload file
-			self::UploadDocument($tid, $ticket->get('customer_id'));
+			$attachment = self::UploadDocument($tid, $ticket->get('customer_id'));
 				
-			Tickets::sendMessageNotes($noteid);
+			Tickets::send($noteid, false, $attachment);
 			
 			return $ticketnote;
 		}

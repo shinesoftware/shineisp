@@ -239,8 +239,6 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$rs ['missing_income']  = $rs['grandtotal'];
 				$rs ['order_number']    = !empty($rs['order_number']) ? $rs['order_number'] : Orders::formatOrderId($rs['order_id']);
 				
-				
-				//* GUEST - ALE - 20130325: Calculate missing income and received income based on total payments for this order
 				$payments = Payments::findbyorderid ( $id, 'income', true );
 				if (isset ( $payments )) {
 					foreach ( $payments as $payment ) {
