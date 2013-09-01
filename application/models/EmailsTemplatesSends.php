@@ -68,6 +68,43 @@ class EmailsTemplatesSends extends BaseEmailsTemplatesSends
 		return false;
 		
 	}
+	
+	/**
+	 * Save the email log history
+	 * 
+	 * @param integer $customerId
+	 * @param array|string $fromname
+	 * @param string $recipient
+	 * @param string $subject
+	 * @param array|string $cc
+	 * @param array|string $bcc
+	 * @param string $htmlbody
+	 * @param string $textbody
+	 * @param string $date
+	 */
+	public static function saveIt($customerId, $from, $recipient, $subject, $cc, $bcc, $htmlbody, $textbody, $date=null) {
+		
+		$EmailsTemplatesSends = new EmailsTemplatesSends();
+		
+		if(is_numeric($customerId)){
+			$EmailsTemplatesSends->customer_id = $customerId;
+			$EmailsTemplatesSends->fromname    = (is_array($from) && isset($from['name']))  ? $from['name']  : '';
+			$EmailsTemplatesSends->fromemail   = (is_array($from) && isset($from['email'])) ? $from['email'] : $from;
+			$EmailsTemplatesSends->subject     = $subject;
+			$EmailsTemplatesSends->recipient   = $recipient;
+			$EmailsTemplatesSends->cc          = (is_array($cc))  ? trim(implode(',', $cc),',')  : $cc;
+			$EmailsTemplatesSends->bcc         = (is_array($bcc)) ? trim(implode(',', $bcc),',') : $bcc;
+			$EmailsTemplatesSends->html        = $htmlbody;
+			$EmailsTemplatesSends->text        = $textbody;
+			$EmailsTemplatesSends->date        = !empty($date) ? $date : date('Y-m-d H:i:s');
+			
+			if($EmailsTemplatesSends->trySave()){
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 
 }

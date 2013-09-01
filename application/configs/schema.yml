@@ -3803,6 +3803,9 @@ TicketsNotes:
     ticket_id:
       type: int(4)
       notnull: true
+    parent_id:
+      type: int(4)
+      default: 0
     date_post: timestamp(25)
     vote: integer(4)
   relations:
