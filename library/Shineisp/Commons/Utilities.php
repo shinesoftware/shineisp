@@ -924,8 +924,6 @@ class Shineisp_Commons_Utilities {
 				$body .= preg_replace ( '#\{\*.*\*\}#suU', '', $line );
 			}
 			
-			// TODO: properly manage ISP ID
-// 			$isp = Shineisp_Registry::get('ISP')->toArray();
 			$isp = Isp::getActiveISP();
 
 			$body = trim($body);
