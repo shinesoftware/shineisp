@@ -1,8 +1,8 @@
 <?php
 
 /**
- * File Category Controller
- * Manage the files category table
+ * Invoice Purchase Category Controller
+ * Manage the invoice purchase category table
  * @version 1.0
  */
 
