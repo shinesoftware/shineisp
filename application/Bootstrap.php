@@ -77,21 +77,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		// Default route
 		$router->removeDefaultRoutes();
 		
-		# http://www.shineisp.com/default/it/cmspages/list
-		$defaultRoute = new Zend_Controller_Router_Route(
-				':module/:lang/:controller/:action/*',
+		# http://www.shineisp.com/cmspages/list
+		$defaultRoute_1 = new Zend_Controller_Router_Route(
+				':controller/:action/*',
 				array(
 						'module' => 'default',
 						'controller' => 'index',
 						'lang' => 'en',
 						'action' => 'index',
-				)
-		);
-		$router->addRoute('default', $defaultRoute);
+						)
+					);
+		$router->addRoute('default_1', $defaultRoute_1);
 		
-		# http://www.shineisp.com/cmspages/list
+		# http://www.shineisp.com/default/it/cmspages/list
 		$defaultRoute_2 = new Zend_Controller_Router_Route(
-				':module/:controller/:action/*',
+				':module/:lang/:controller/:action/*',
 				array(
 						'module' => 'default',
 						'controller' => 'index',
@@ -103,7 +103,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		
 		# http://www.shineisp.com/cmspages/list
 		$defaultRoute_3 = new Zend_Controller_Router_Route(
-				':controller/:action/*',
+				':module/:controller/:action/*',
 				array(
 						'module' => 'default',
 						'controller' => 'index',
@@ -112,6 +112,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 				)
 		);
 		$router->addRoute('default_3', $defaultRoute_3);
+		
 		
 		# http://www.shineisp.com/productname.html
 		$router->addRoute ( 'fastproduct', new Zend_Controller_Router_Route_Regex ( '(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), '%s.html' ) );
