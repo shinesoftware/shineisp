@@ -11,6 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('TicketsNotes', 'doctrine');
  * @property string $note
  * @property boolean $admin
  * @property int $ticket_id
+ * @property int $parent_id
  * @property timestamp $date_post
  * @property integer $vote
  * @property Tickets $Tickets
@@ -46,6 +47,11 @@ abstract class BaseTicketsNotes extends Doctrine_Record
         $this->hasColumn('ticket_id', 'int', 4, array(
              'type' => 'int',
              'notnull' => true,
+             'length' => '4',
+             ));
+        $this->hasColumn('parent_id', 'int', 4, array(
+             'type' => 'int',
+             'default' => 0,
              'length' => '4',
              ));
         $this->hasColumn('date_post', 'timestamp', 25, array(

@@ -69,16 +69,71 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	
 	protected function _initRouter() {
 		$this->bootstrap('FrontController');
+		$translator = Shineisp_Registry::get('Zend_Translate');
 		
 		$front = Zend_Controller_Front::getInstance ();
 		$router = $front->getRouter ();
-		 
-		$router->addRoute ( 'fastproduct', new Zend_Controller_Router_Route_Regex ( '(.+)\.html', array ('module' => 'default', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), '%s.html' ) );
-		$router->addRoute ( 'products', new Zend_Controller_Router_Route_Regex ( 'products/(.+)\.html', array ('module' => 'default', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), 'products/%s.html' ) );
-		$router->addRoute ( 'categories', new Zend_Controller_Router_Route_Regex ( 'categories/(.+)\.html', array ('module' => 'default', 'controller' => 'categories', 'action' => 'list' ), array (1 => 'q' ), 'categories/%s.html' ) );
-		$router->addRoute ( 'cms', new Zend_Controller_Router_Route_Regex ( 'cms/(.+)\.html', array ('module' => 'default', 'controller' => 'cms', 'action' => 'page' ), array (1 => 'url' ), 'cms/%s.html' ) );
-		$router->addRoute ( 'wiki', new Zend_Controller_Router_Route_Regex ( 'wiki/(.+)\.html', array ('module' => 'default', 'controller' => 'wiki', 'action' => 'help' ), array (1 => 'uri' ), 'wiki/%s.html' ) );
-		$router->addRoute ( 'tlds', new Zend_Controller_Router_Route_Regex ( 'tlds/(.+)\.html', array ('module' => 'default', 'controller' => 'tlds', 'action' => 'index' ), array (1 => 'uri' ), 'tlds/%s.html' ) );
+		
+		// Default route
+		$router->removeDefaultRoutes();
+		
+		# http://www.shineisp.com/default/it/cmspages/list
+		$defaultRoute = new Zend_Controller_Router_Route(
+				':module/:lang/:controller/:action/*',
+				array(
+						'module' => 'default',
+						'controller' => 'index',
+						'lang' => 'en',
+						'action' => 'index',
+				)
+		);
+		$router->addRoute('default', $defaultRoute);
+		
+		# http://www.shineisp.com/cmspages/list
+		$defaultRoute_2 = new Zend_Controller_Router_Route(
+				':module/:controller/:action/*',
+				array(
+						'module' => 'default',
+						'controller' => 'index',
+						'lang' => 'en',
+						'action' => 'index',
+				)
+		);
+		$router->addRoute('default_2', $defaultRoute_2);
+		
+		# http://www.shineisp.com/cmspages/list
+		$defaultRoute_3 = new Zend_Controller_Router_Route(
+				':controller/:action/*',
+				array(
+						'module' => 'default',
+						'controller' => 'index',
+						'lang' => 'en',
+						'action' => 'index',
+				)
+		);
+		$router->addRoute('default_3', $defaultRoute_3);
+		
+		# http://www.shineisp.com/productname.html
+		$router->addRoute ( 'fastproduct', new Zend_Controller_Router_Route_Regex ( '(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), '%s.html' ) );
+		
+		# http://www.shineisp.com/products/productname.html
+		$router->addRoute ( 'products', new Zend_Controller_Router_Route_Regex ( 'products/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), 'products/%s.html' ) );
+		
+		# http://www.shineisp.com/categories/hosting.html
+		$router->addRoute ( 'categories', new Zend_Controller_Router_Route_Regex ( 'categories/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'categories', 'action' => 'list' ), array (1 => 'q' ), 'categories/%s.html' ) );
+		
+		# http://www.shineisp.com/cms/mypage.html
+		$router->addRoute ( 'cms', new Zend_Controller_Router_Route_Regex ( 'cms/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'cms', 'action' => 'page' ), array (1 => 'url' ), 'cms/%s.html' ) );
+		
+		# http://www.shineisp.com/wiki/myhelp.html
+		$router->addRoute ( 'wiki', new Zend_Controller_Router_Route_Regex ( 'wiki/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'wiki', 'action' => 'help' ), array (1 => 'uri' ), 'wiki/%s.html' ) );
+		
+		# http://www.shineisp.com/tlds/com.html
+		$router->addRoute ( 'tlds', new Zend_Controller_Router_Route_Regex ( 'tlds/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'tlds', 'action' => 'index' ), array (1 => 'uri' ), 'tlds/%s.html' ) );
+
+		# http://www.shineisp.com/it/
+		$routeLang = new Zend_Controller_Router_Route_Regex('([a-z]{2})', array('module' => 'default', 'lang' => 'en', 'controller' => 'index', 'action' => 'index'), array (1 => 'lang' ), '%s' );
+		$router->addRoute('route_1', $routeLang);
 		
 		return $router;
 	}

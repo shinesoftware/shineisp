@@ -49,6 +49,17 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(TicketsCategories::getList());
         
+        $this->addElement('select', 'order_id', array(
+            'decorators'  => array('Composite'),
+            'label'       => 'Order reference',
+            'class'       => 'text-input little-input'
+        ));
+        
+        $this->getElement('order_id')
+                  ->setAllowEmpty(false)
+                  ->setRegisterInArrayValidator(false)
+                  ->setMultiOptions(Orders::getList(true));
+        
         $this->addElement('select', 'sibling_id', array(
             'decorators'  => array('Composite'),
             'label'       => 'Relationships',

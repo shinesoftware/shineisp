@@ -27,7 +27,6 @@ class ProductsController extends Shineisp_Controller_Default {
 		$ns = new Zend_Session_Namespace ();
 		$product = array ();
 		$uri = $this->getRequest ()->getParam ( 'q' );
-		
 		if (! empty ( $uri )) {
 			
 			$fields = "p.*,pd.productdata_id as productdata_id, 

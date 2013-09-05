@@ -12,6 +12,17 @@
  */
 class TicketsNotes extends BaseTicketsNotes
 {
+	
+	/**
+	 * find
+	 * Get a record by ID
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function find($id) {
+		return Doctrine::getTable ( 'TicketsNotes' )->findOneBy ( 'note_id', $id );
+	}
+	
 	/**
 	 * getAllInfo
 	 * @param integer $noteid
@@ -67,8 +78,6 @@ class TicketsNotes extends BaseTicketsNotes
 		return false;
 	}
 	
-
-	
 	/**
 	 * getNote
 	 * Find a note
@@ -92,57 +101,60 @@ class TicketsNotes extends BaseTicketsNotes
 		return $items;
 	}	
 	
-	
-	
-	
 	/**
-	 * Save the ticket 
+	 * Save the ticket note 
 	 * 
 	 * @param integer $ticketid
 	 * @param array $params
 	 */
-	public static function saveNew($ticketid, array $params){
+	public static function saveIt($tid, $date, $note, $status = null, $isAdmin = false, $noteid = null){
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$note = new TicketsNotes ();
-		if(!is_numeric($ticketid)){
+		if(!is_numeric($tid)){
 			return false;
 		}
 		
-		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$ticket = Tickets::find($ticketid);
-		$t = Tickets::getAllInfo ( $ticketid, 'customer_id, subject, date_open, date_close', true );
-		
-		// Get the fastlink attached
-		$link_exist = Fastlinks::findlinks ( $ticketid, $t [0]['customer_id'], 'tickets' );
-		if (count ( $link_exist ) > 0) {
-			$fastlink = $link_exist [0] ['code'];
+		if(is_numeric($noteid)){
+			$ticketnote = self::find($noteid);
+		}else{
+			$ticketnote = new TicketsNotes ();
 		}
 		
-		$subject = ! empty ( $t [0] ['subject'] ) ? $t [0] ['subject'] : $translator->translate ( 'Generic Issue' );
+		// Get and Check the ticket note
+		$ticket = Tickets::find($tid);
 		
-		$date_open = $t [0] ['date_open'];
-		$date_close = $t [0] ['date_close'];
-		$note->date_post = date ( 'Y-m-d H:i:s' );
-		$note->note = nl2br($params ['note']);
-		$note->ticket_id = $ticketid;
-		
-		if (! empty ( $params ['status'] )) {
-			Tickets::setStatus ( $ticketid, $params ['status'] );
-		}
-		
-		if($note->trySave()){
-			$ticket->date_updated = date ( 'Y-m-d H:i:s' );
-			$ticket->save();
-		}
-		
-		$id = $note->getIncremented ();
-		
-		// Save the upload file
-		self::UploadDocument($ticketid, $t [0]['customer_id']);
+		if($ticket && !empty($note)){
 			
-		Tickets::sendMessageNotes($id);
+			$ticketnote->date_post = !empty($date) ? $date : $date ( 'Y-m-d H:i:s' );
+			$ticketnote->note = $note;
+			$ticketnote->admin = $isAdmin;
+			$ticketnote->ticket_id = $tid;
+			$ticketnote->parent_id = 0;
+			
+			// Save the note
+			if($ticketnote->trySave()){
+				
+				// update the ticket
+				if(!empty($status) && is_numeric($status)){
+					$ticket->status_id = $status;
+				}
+				$ticket->date_updated = date ( 'Y-m-d H:i:s' );
+				$ticket->save();
+			}
+			
+			$noteid = is_numeric($noteid) ? $noteid : $ticketnote->getIncremented ();
+			
+			// Save the upload file
+			$attachment = self::UploadDocument($tid, $ticket->get('customer_id'));
+				
+			Tickets::send($noteid, false, $attachment);
+			
+			return $ticketnote;
+		}
 		
+		return false;
 	}
+	
 	
  	/**
      * UploadDocument

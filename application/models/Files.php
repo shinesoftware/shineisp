@@ -28,7 +28,12 @@ class Files extends BaseFiles {
 		$file->date = date('Y-m-d H:i:s');
 		$file->ip = $_SERVER['REMOTE_ADDR'];
 		$file->category_id = $categoryID;
-		return $file->trySave();
+		
+		if($file->trySave()){
+			return $path . $filename;
+		}
+		
+		return false;
 	}
 	
 	/**

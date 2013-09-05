@@ -3,7 +3,7 @@
 class Shineisp_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract {
 	
 	public function routeShutdown(Zend_Controller_Request_Abstract $request) {
-		
+		$navContainer = null;
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getExistingHelper ( 'ViewRenderer' );
 		$viewRenderer->initView ();
 		$view = $viewRenderer->view;

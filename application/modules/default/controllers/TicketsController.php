@@ -162,7 +162,7 @@ class TicketsController extends Shineisp_Controller_Default {
 	public function processAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		$request = $this->getRequest ();
-		$customerid = $NS->customer ['customer_id'];
+		$customer = $NS->customer ['customer_id'];
 		
 		$this->view->title = $this->translator->translate("Ticket process");
 		$this->view->description = $this->translator->translate("Check the information before save again.");
@@ -188,10 +188,12 @@ class TicketsController extends Shineisp_Controller_Default {
 		$data = $request->getPost ();
 		$data['note'] = htmlspecialchars($data['note']);
 		
+		$categoryId = !empty($data['category_id']) && is_numeric($data['category_id']) ? $data['category_id'] : null;
+		
 		if (is_numeric ( $id )) {
-			TicketsNotes::saveNew($id, $data);
+			TicketsNotes::saveIt($id, date('Y-m-d H:i:s'), $data['note'], $data['status']);
 		} else {
-			Tickets::saveNew ($data, $customerid );
+			Tickets::saveIt(null, $customer, $data['subject'], $data['note'], $categoryId);
 		}
 		
 		return $this->_helper->redirector ( 'index', 'tickets', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );

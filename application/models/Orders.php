@@ -1589,14 +1589,14 @@ class Orders extends BaseOrders {
 	
 	/**
 	 * Get all the not paid orders 
-	 * 
+	 * Renewal orders will be not selected
 	 * 
 	 * @return ArrayObject 
 	 */
 	public static function find_all_not_paid_orders() {
 		$dq = Doctrine_Query::create ()->from ( 'Orders o' )
 										->leftJoin ( 'o.Statuses s' )
-										->where ( "s.status_id = ?", Statuses::id("tobepaid", "orders") );
+										->andWhere("o.is_renewal = ?", false);
 										
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -2779,7 +2779,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function cleanNotPaidOrders() {
 		$orders = Orders::find_all_not_paid_orders();
-	
+		
 		foreach ( $orders as $order ) {
 			if(empty($order['expiring_date'])){
 				$date1 = new DateTime($order['order_date']);
@@ -2806,7 +2806,7 @@ class Orders extends BaseOrders {
 						,':shineisp:' => $customer
 						,'url'        => $customer_url
 					), null, null, null, null, $customer['language_id']);
-
+					
 	
 					// Set the order as deleted
 					Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));

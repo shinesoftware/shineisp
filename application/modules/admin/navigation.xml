@@ -113,8 +113,8 @@
 						</attributes>
 						<tlds>
 							<label>TLDs</label>
-							<uri>/admin/tlds/list</uri>
-							<resource>admin:tlds</resource>
+							<uri>/admin/domainstlds/list</uri>
+							<resource>admin:domainstlds</resource>
 						</tlds>
 					</pages>
 				</products>
@@ -124,8 +124,8 @@
 					<resource>admin:settings</resource>
 					<pages>
 						<settings>
-							<label>Settings</label>
-							<uri>/admin/settings/list</uri>
+							<label>General</label>
+							<uri>/admin/settings/</uri>
 							<resource>admin:settings</resource>
 						</settings>
 						<registrars>
@@ -150,8 +150,8 @@
 						</banks>
 						<urlrewrites>
 							<label>Url Rewrites</label>
-							<uri>/admin/urlrewrites/list</uri>
-							<resource>admin:urlrewrites</resource>
+							<uri>/admin/urlrewrite/list</uri>
+							<resource>admin:urlrewrite</resource>
 						</urlrewrites>
 						<taxes>
 							<label>Taxes</label>

@@ -238,12 +238,15 @@ class Languages extends BaseLanguages {
 	 *  
 	 * @param string path
 	 */
-	public static function getLanguageFiles($path) {
+	public static function getLanguageFiles($path=null) {
 		$locales = array();
 
+		if(empty($path)){
+			$path = PUBLIC_PATH . "/languages";
+		}
+		
 		// Get all the language files
 		$files = Shineisp_Commons_Utilities::getDirectoryList($path);
-		
 		foreach ($files as $file){
 			
 			// Get the name and the extension

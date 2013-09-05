@@ -233,6 +233,54 @@ class Tickets extends BaseTickets {
 	}
 	
 	/**
+	 * setSibling
+	 * Set a sibling to a ticket
+	 * @param $id, $siblingId
+	 * @return Void
+	 */
+	public static function setSibling($id, $siblingId) {
+		if(is_numeric($id)){
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->find ( $id );
+			$object->sibling_id = $siblingId;
+			return $object->save ();
+		}
+		return false;
+	}
+	
+	/**
+	 * setOperator
+	 * Set the operator to a ticket
+	 * @param $id, $userId
+	 * @return Void
+	 */
+	public static function setOperator($id, $userId) {
+		if(is_numeric($id)){
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->find ( $id );
+			$object->user_id = $userId;
+			return $object->save ();
+		}
+		return false;
+	}
+	
+	/**
+	 * setOrder
+	 * Set the order reference
+	 * @param $id, $orderId
+	 * @return Void
+	 */
+	public static function setOrder($id, $orderId) {
+		if(is_numeric($id)){
+			$object = Doctrine::getTable ( 'Tickets' )
+			             ->find ( $id );
+			$object->order_id = $orderId;
+			return $object->save ();
+		}
+		return false;
+	}
+	
+	/**
 	 * getByCustomerID
 	 * Get all data  
 	 * @param $customerID
@@ -432,175 +480,143 @@ class Tickets extends BaseTickets {
 	}
 	
 	/**
-	 * saveNew
-	 * Save the data
+	 * Save the ticket
+	 * 
+	 * @param integer $id
+	 * @param integer $customer
+	 * @param string $subject
+	 * @param string $description
+	 * @param integer $category
+	 * @param integer $status
+	 * @param integer $domain
+	 * @return Boolean or integer
 	 */
-	public static function saveNew($params, $customerid) {
+	public static function saveIt($id=null, $customer, $subject, $description, $category, $status=null, $domain=null) {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$tickets = new Tickets ();
+		
+		$isUpdate = false;
+		
+		if(is_numeric($id)){
+			$ticket = self::find($id);
+			$isUpdate = true;
+		}else{
+			$ticket = new Tickets ();
+		}
 		
 		$operatorId = Settings::findbyParam('tickets_operator', 'admin', Isp::getActiveISPID());
 		if(!is_numeric($operatorId)){
 			$operator = AdminUser::getFirstAdminUser();
-			$operatorId = $operator['user_id'];
 		}else{
 			$operator = AdminUser::getAllInfo($operatorId);
 		}
 
-		if (is_numeric ( $customerid )) {
-			$subject = ! empty ( $params ['subject'] ) ? $params ['subject'] : $translator->translate ( 'nosubject' );
+		if (is_numeric ( $customer )) {
 			
-			$tickets->subject = ! empty ( $params ['subject'] ) ? $params ['subject'] : $translator->translate ( 'Generic Issue' );
-			$tickets->description = nl2br($params ['note']);
-			$tickets->category_id = $params ['category_id'];
-			$tickets->customer_id = $customerid;
-			$tickets->user_id = $operatorId;
-			$tickets->date_open = date ( 'Y-m-d H:i:s' );
-			$tickets->domain_id = is_numeric($params ['domain_id']) && $params ['domain_id'] > 0 ? $params ['domain_id'] : NULL;
-			$tickets->status_id = Statuses::id("expectingreply", "tickets"); // Expecting a reply
-			$tickets->save ();
+			$ticket->subject = ! empty ( $subject ) ? $subject : $translator->translate ( 'Generic Issue' );
+			$ticket->description = !empty($description) ? $description : null;
+			$ticket->category_id = !empty($category) ? $category : null;
+			$ticket->customer_id = $customer;
+			$ticket->user_id = $operator['user_id'];
+			$ticket->date_open = date ( 'Y-m-d H:i:s' );
+			$ticket->date_updated = date ( 'Y-m-d H:i:s' );
+			$ticket->domain_id = is_numeric($domain) && $domain > 0 ? $domain : NULL;
+			$ticket->status_id = !empty($status) ? $status : Statuses::id("expectingreply", "tickets"); // Expecting a reply as default
+			$ticket->save ();
 			
-			$id = $tickets->getIncremented ();
+			$id = $ticket->getIncremented ();
 			
 			// Save the upload file
-			self::UploadDocument($id, $customerid);
+			$attachment = self::UploadDocument($id, $customer);
 			
-			// Create the fast link
-			Fastlinks::CreateFastlink ( 'tickets', 'edit', json_encode ( array ('id' => $id ) ), 'tickets', $id, $customerid );
-			
-			// Send message
-			self::sendMessage ( $id );
+			// Check if the request is an update
+			if($isUpdate == false){
+
+				// Create for the first time the fast link
+				Fastlinks::CreateFastlink ( 'tickets', 'edit', json_encode ( array ('id' => $id ) ), 'tickets', $id, $customer );
+				
+				// Send ticket by email
+				self::send ( $id, true, $attachment );
+			}
 			
 			return $id;
 		}
+		
+		return false;
 	}
 	
 	/**
-	 * sendMessage
-	 * Send the email for the confirmation
-	 * @param integer $customerid
+	 * Send ticket by email
+	 * 
+	 * @param integer $id
+	 * @param boolean $isTicket
+	 * @param string $attachment
 	 */
-	public static function sendMessage($ticketid) {
-		$ticket = self::getAllInfo ( $ticketid, null, true );
+	public static function send($id, $isTicket = true, $attachment = null) {
+		$isp = Isp::getActiveISP ();
+		$placeholders = array();
+		$customer_url = "";
+		$admin_url = "";
+		
+		if($isTicket){
+			$ticket = self::getAllInfo ( $id, null, true );
+			$customer = $ticket [0] ['Customers'];
+			$operator = AdminUser::getAllInfo($ticket [0] ['user_id']);
+		}else{
+			$ticket = TicketsNotes::getAllInfo ( $id );
+			$customer = $ticket [0] ['Tickets']['Customers'];
+			$operator = AdminUser::getAllInfo($ticket [0] ['Tickets']['user_id']);
+		}
 		
 		if (! empty ( $ticket [0] )) {
-			$operator = AdminUser::getAllInfo($ticket [0] ['user_id']);
-			$attachment = self::hasAttachments($ticketid);
 			
-			$isp = Isp::getActiveISP ();
-			if ($isp) {
-								
-				$customer = $ticket [0] ['Customers'];
-				$ispmail = explode ( "@", $isp ['email'] );
-				$ispmail = "noreply@" . $ispmail [1];
-				
-				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message', $customer['language_id'] );
-				
-				if ($retval) {
-					$s = $retval ['subject'];
-					$rec = Fastlinks::findlinks ( $ticketid, $customer ['customer_id'], 'tickets' );
-					if (! empty ( $rec[0]['code'] )) {
-						$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $rec[0]['code'];
-						$admin_url = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $rec[0]['code'];
-					}
-					$subject = str_replace ( "[subject]", $ticket [0] ['subject'], $s );
-					$subject = str_replace ( "[company]", $isp ['company'], $subject );
-					$subject = str_replace ( "[issue_number]", $ticketid, $subject );
-					
-					$in_reply_to = md5($ticketid)  . "@" . $_SERVER['HTTP_HOST'];
-					
-					$body =  $retval ['template'];
-					$body = str_replace ( "[subject]", $subject, $body );
-					$body = str_replace ( "[customer]", $customer ['firstname'] . " " . $customer ['lastname'] . " " . $customer ['company'], $body );
-					$body = str_replace ( "[issue_number]", $ticketid, $body );
-					
-					if(!empty($attachment)){
-						$body = str_replace ( "[attachment]", "http://" . $_SERVER['HTTP_HOST'] . $attachment[0]['path'] . $attachment[0]['file'], $body );
-						$body = str_replace ( "[attachment_name]", $attachment[0]['file'], $body );
-					}else{
-						$body = str_replace ( "[attachment]", "", $body );
-						$body = str_replace ( "[attachment_name]", "", $body );
-					}
-					
-					$body = str_replace ( "[operator]", $operator['lastname'] . " " . $operator['firstname'] . ".", $body );
-					$body = str_replace ( "[status]", Statuses::getLabel ( $ticket [0] ['status_id'] ), $body );
-					$body = str_replace ( "[link]", $customer_url, $body );
-					$body = str_replace ( "[date_open]", Shineisp_Commons_Utilities::formatDateOut ( $ticket[0]['date_open'] ), $body );
-					$body = str_replace ( "[date_close]", Shineisp_Commons_Utilities::formatDateOut ( $ticket[0]['date_close'] ), $body );
-					$body = str_replace ( "[description]", $ticket[0] ['description'], $body );
-					$body = str_replace ( "[company]", $isp ['company'], $body );
-					
-					Shineisp_Commons_Utilities::SendEmail ( $ispmail, Contacts::getEmails($customer ['customer_id']), null, $subject, $body, true, $in_reply_to);
-					
-					$body = str_replace ( $customer_url, $admin_url . "/keypass/" . Shineisp_Commons_Hasher::hash_string($operator['email']), $body );
-					Shineisp_Commons_Utilities::SendEmail ( $ispmail, $isp ['email'], null, $subject, $body, true, $in_reply_to);
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	/**
-	 * sendMessageNotes
-	 * Send the email for the confirmation
-	 * @param integer $customerid
-	 */
-	public static function sendMessageNotes($noteid) {
-		$ticket = TicketsNotes::getAllInfo ( $noteid );
-		$isp = Isp::getActiveISP ();
-		if (! empty ( $ticket [0] )) {
-			$operator = AdminUser::getAllInfo($ticket [0] ['Tickets']['user_id']);
-						
-			$customer = $ticket [0] ['Tickets']['Customers'];
 			if ($isp) {
 				$ispmail = explode ( "@", $isp ['email'] );
-				$ispmail = "noreply@" . $ispmail [1];
 				
 				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'ticket_message' );
 				
 				if ($retval) {
 					$s = $retval ['subject'];
 					$ticketid =  $ticket [0] ['ticket_id'];
-					$attachment = self::hasAttachments($ticketid);
 					
-					$in_reply_to = md5($ticketid)  . "@" . $_SERVER['HTTP_HOST'];
+					$in_reply_to = md5($ticketid)  . "@" . $ispmail [1];
+					$ispmail = "noreply@" . $ispmail [1];
 					
 					$rec = Fastlinks::findlinks ( $ticketid, $customer ['customer_id'], 'tickets' );
 					
 					if (! empty ( $rec[0]['code'] )) {
-						$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $rec[0]['code'] . "#last";
+						$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $rec[0]['code'];
 						$admin_url = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $rec[0]['code'];
 					}
 					
-					$subject = str_replace ( "[subject]", $ticket [0] ['Tickets']['subject'], $s );
-					$subject = str_replace ( "[company]", $isp ['company'], $subject );
-					$subject = str_replace ( "[issue_number]", $ticketid, $subject );
-					
-					$body = $retval ['template'];
-					$body = str_replace ( "[subject]", $subject, $body );
-					$body = str_replace ( "[customer]", $customer ['firstname'] . " " . $customer ['lastname'] . " " . $customer ['company'], $body );
-					$body = str_replace ( "[issue_number]", $ticketid, $body );
-					
-					if(!empty($attachment)){
-						$body = str_replace ( "[attachment]", "http://" . $_SERVER['HTTP_HOST'] . $attachment[0]['path'] . $attachment[0]['file'], $body );
-						$body = str_replace ( "[attachment_name]", $attachment[0]['file'], $body );
-					}else{
-						$body = str_replace ( "[attachment]", "", $body );
-						$body = str_replace ( "[attachment_name]", "", $body );
+					// Check the attachments
+					if(!empty($attachment) && file_exists(PUBLIC_PATH . $attachment)){
+						$attachment = PUBLIC_PATH . $attachment;
 					}
+					
+					if($isTicket){
+						$placeholders['subject'] = $ticket [0] ['subject'];
+						$placeholders['description'] = $ticket[0] ['description'];
+						$placeholders['date_open'] = Shineisp_Commons_Utilities::formatDateOut ( $ticket[0]['date_open'] );
+						$placeholders['status'] = $ticket [0] ['Statuses'] ['status'];
+					}else{
+						$placeholders['subject'] = $ticket [0] ['Tickets']['subject'];
+						$placeholders['description'] = $ticket[0] ['note'];
+						$placeholders['date_open'] = Shineisp_Commons_Utilities::formatDateOut ( $ticket[0]['Tickets']['date_open'] );
+						$placeholders['status'] = $ticket [0] ['Tickets']['Statuses'] ['status'];
+					}
+					
+					$placeholders['customer'] = $customer ['firstname'] . " " . $customer ['lastname'] . " " . $customer ['company'];
+					$placeholders['link'] = $customer_url;
+					$placeholders['company'] = $isp ['company'];
+					$placeholders['issue_number'] = $ticketid;
+					$placeholders['operator'] = $operator['lastname'] . " " . $operator['firstname'];
 						
-					$body = str_replace ( "[operator]", $operator['lastname'] . " " . $operator['firstname'] . ".", $body );
+					// Send a message to the customer
+					Shineisp_Commons_Utilities::sendEmailTemplate(Contacts::getEmails($customer ['customer_id']), 'ticket_message', $placeholders, $in_reply_to, $attachment, null, $isp, $customer['language_id']);
 					
-					$body = str_replace ( "[status]", $ticket [0] ['Tickets']['Statuses'] ['status'] , $body );
-					$body = str_replace ( "[link]", $customer_url, $body );
-					$body = str_replace ( "[date_open]", Shineisp_Commons_Utilities::formatDateOut ( $ticket[0]['Tickets']['date_open'] ), $body );
-					$body = str_replace ( "[date_close]", Shineisp_Commons_Utilities::formatDateOut ( $ticket[0]['Tickets']['date_close'] ), $body );
-					$body = str_replace ( "[description]", $ticket[0] ['note'], $body );
-					$body = str_replace ( "[company]", $isp ['company'], $body );
-					Shineisp_Commons_Utilities::SendEmail ( $ispmail, Contacts::getEmails($customer ['customer_id']), null, $subject, $body, true, $in_reply_to );
-					
-					$body = str_replace ( $customer_url, $admin_url . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $operator['email'] ), $body );
-					Shineisp_Commons_Utilities::SendEmail ( $ispmail, $isp ['email'], null, $subject, $body, true, $in_reply_to );
+					// Update the link for the administrator email 
+					$placeholders['link'] = $admin_url . "/keypass/" . Shineisp_Commons_Hasher::hash_string ( $operator['email'] );
+					Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], 'ticket_message', $placeholders, $in_reply_to, $attachment, null, $isp);
 					
 					return true;
 				}

@@ -12,7 +12,7 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-    <div class="notification infos" id="mex" style="display:none"></div>
+    <div data-alert class="alert-box error" id="mex" style="display:none"><a href="#" class="close">&times;</a></div>
     
     <table class="tablesorter" width="100%" id="sublist_<?=$this->name?>">
             <thead>
@@ -63,5 +63,5 @@ if (isset($this->records[0])):
         </table>
  
     <?php else: ?>
-    <?=$this->translate('No Records')?>
+	    <div data-alert class="alert-box error" id="mex" ><?php echo $this->translate('No Records')?><a href="#" class=\"close\">&times;</a></div>
 <?php endif; ?>

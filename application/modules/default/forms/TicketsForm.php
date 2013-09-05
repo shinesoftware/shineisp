@@ -46,7 +46,7 @@ class Default_Form_TicketsForm extends Zend_Form
             'label'       => 'Set the issue status',
         	'decorators'  => array('Composite'),
             'class'       => 'text-input large-input',
-        	'multioptions' => array(''=> '', '24' => 'Solved', '25' => 'Closed')
+        	'multioptions' => array(''=> '', Statuses::id("solved", "tickets") => 'Solved', Statuses::id("closed", "tickets") => 'Closed')
         ));
         
         $this->addElement('select', 'category_id', array(
