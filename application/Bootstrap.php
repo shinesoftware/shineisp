@@ -113,7 +113,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		);
 		$router->addRoute('default_3', $defaultRoute_3);
 		
-		
 		# http://www.shineisp.com/productname.html
 		$router->addRoute ( 'fastproduct', new Zend_Controller_Router_Route_Regex ( '(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), '%s.html' ) );
 		
