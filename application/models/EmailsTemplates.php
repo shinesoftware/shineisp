@@ -79,12 +79,9 @@ class EmailsTemplates extends BaseEmailsTemplates
 									->limit ( 1 );
 		
 		$record = $retarray ? $dq->fetchOne (array(), Doctrine_Core::HYDRATE_ARRAY) : $dq->fetchOne ();
-// 		Zend_Debug::dump($code);
-// 		Zend_Debug::dump($language_id);
-//  		Zend_Debug::dump($record->toArray());
+
 		return $record;
 	}
-
 
 	/**
 	 * Get a record by code ignoring language

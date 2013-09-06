@@ -193,6 +193,11 @@
 							<uri>/admin/filecategories/list</uri>
 							<resource>admin:filecategories</resource>
 						</filecategories>
+						<purchasescategories>
+							<label>Invoice purchases categories</label>
+							<uri>/admin/purchasescategories/list</uri>
+							<resource>admin:purchasescategories</resource>
+						</purchasescategories>
 					</pages>
 				</settings>
 				<sales>

@@ -844,4 +844,13 @@ AdminResources:
     admin: true
     module: admin
     controller: filecategories
-    parent_id: '60''
+    parent_id: '60'
+  AdminResources_95:
+    name: Invoice purchases categories
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: true
+    module: admin
+    controller: purchasescategories
+    parent_id: '60'
