@@ -23,7 +23,7 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		
 		// if the current user role is not allowed to do something
 		$resource = $this->_module . ":" . $this->_controller;
-		
+
 		// Exclude the system index controller and the default error controller for a formal ACL check
 		if($resource == "default:error" || $resource == "system:index"){
 			return true;
