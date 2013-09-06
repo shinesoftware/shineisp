@@ -28,5 +28,4 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap {
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_Datagrid ( ) );
 		}
 	}
-	
 }
