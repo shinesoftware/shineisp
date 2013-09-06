@@ -1,5 +1,5 @@
 <?php
-abstract class Shineisp_Api_Shineisp_Controller_Action extends Shineisp_Controller_Common {
+abstract class Shineisp_Api_Controller_Action extends Shineisp_Controller_Common {
     private $config; 
   
     public function init(){
@@ -31,7 +31,7 @@ abstract class Shineisp_Api_Shineisp_Controller_Action extends Shineisp_Controll
         // set SOAP service class
         $server->setClass ( $classname );
         // register exceptions for generating SOAP faults
-        $server->registerFaultException ( array ('Shineisp_Api_Shineisp_Exceptions' ) );
+        $server->registerFaultException ( array ('Shineisp_Api_Exceptions' ) );
         // handle request
         $server->handle ();
     }

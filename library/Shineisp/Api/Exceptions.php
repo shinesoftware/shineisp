@@ -1,5 +1,5 @@
 <?
-class Shineisp_Api_Shineisp_Exceptions extends SoapFault {
+class Shineisp_Api_Exceptions extends SoapFault {
     
     private $errorguest = array(
         //ERROR 400 - Bad request

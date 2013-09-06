@@ -1,5 +1,5 @@
 <?
-class Shineisp_Api_Shineisp_Ordersitems extends Shineisp_Api_Shineisp_Abstract_Action  {
+class Shineisp_Api_Ordersitems extends Shineisp_Api_Abstract_Action  {
     
     public function checkIfComplete( $uuid ) {
         $this->authenticate();
@@ -10,7 +10,7 @@ class Shineisp_Api_Shineisp_Ordersitems extends Shineisp_Api_Shineisp_Abstract_A
     public function getAll( $uuid ) {
         $customers  = Customers::findWithUuid($uuid);
         if( empty($customers) ) {
-            throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
+            throw new Shineisp_Api_Exceptions( 400006, ":: 'uuid' not valid" );
             exit();
         }
         $id         = $customers['customer_id'];

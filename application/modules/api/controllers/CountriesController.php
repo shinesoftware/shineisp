@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Api_CountriesController extends Shineisp_Api_Shineisp_Controller_Action {
+class Api_CountriesController extends Shineisp_Api_Controller_Action {
 	
 	protected $productscategories;  
     
@@ -19,12 +19,12 @@ class Api_CountriesController extends Shineisp_Api_Shineisp_Controller_Action {
     }
     
     public function soapAction(  ) {
-        self::soap( 'Shineisp_Api_Shineisp_Countries' );
+        self::soap( 'Shineisp_Api_Countries' );
         exit();
     }
     
     public function wsdlAction(  ) {
-        self::wsdl( 'Shineisp_Api_Shineisp_Countries' );
+        self::wsdl( 'Shineisp_Api_Countries' );
         exit();
     }
         

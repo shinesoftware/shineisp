@@ -1,5 +1,5 @@
 <?
-class Shineisp_Api_Shineisp_Legalforms extends Shineisp_Api_Shineisp_Abstract_Action  {
+class Shineisp_Api_Legalforms extends Shineisp_Api_Abstract_Action  {
     
     public function getAll() {
         $this->authenticate();

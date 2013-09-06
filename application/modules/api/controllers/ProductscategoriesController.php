@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-class Api_ProductscategoriesController extends Shineisp_Api_Shineisp_Controller_Action {
+class Api_ProductscategoriesController extends Shineisp_Api_Controller_Action {
 	
 	protected $productscategories;  
     
@@ -19,12 +19,12 @@ class Api_ProductscategoriesController extends Shineisp_Api_Shineisp_Controller_
     }
     
     public function soapAction(  ) {
-        self::soap( 'Shineisp_Api_Shineisp_Productscategories' );
+        self::soap( 'Shineisp_Api_Productscategories' );
         exit();
     }
     
     public function wsdlAction(  ) {
-        self::wsdl( 'Shineisp_Api_Shineisp_Productscategories' );
+        self::wsdl( 'Shineisp_Api_Productscategories' );
         exit();
     }
         

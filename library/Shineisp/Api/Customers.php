@@ -1,5 +1,5 @@
 <?
-class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Action  {
+class Shineisp_Api_Customers extends Shineisp_Api_Abstract_Action  {
     
     public function insert( $params ) {
         $this->authenticate();
@@ -25,7 +25,7 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
         if( array_key_exists('countrycode', $params) ) {
             $country_id     = Countries::getIDbyCode($params['countrycode']);
             if( $country_id == null ) {
-                throw new Shineisp_Api_Shineisp_Exceptions( 400005, ":: 'countrycode' not valid" );
+                throw new Shineisp_Api_Exceptions( 400005, ":: 'countrycode' not valid" );
                 exit();
             }
             
@@ -57,7 +57,7 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
                 }
             }
             
-            throw new Shineisp_Api_Shineisp_Exceptions( 400004, ":\n{$message}" );
+            throw new Shineisp_Api_Exceptions( 400004, ":\n{$message}" );
             exit();
         }
     }
@@ -88,7 +88,7 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
         if( array_key_exists('countrycode', $params) ) {
             $country_id     = Countries::getIDbyCode($params['countrycode']);
             if( $country_id == null ) {
-                throw new Shineisp_Api_Shineisp_Exceptions( 400005, ":: 'countrycode' not valid" );
+                throw new Shineisp_Api_Exceptions( 400005, ":: 'countrycode' not valid" );
                 exit();
             }
             
@@ -171,7 +171,7 @@ class Shineisp_Api_Shineisp_Customers extends Shineisp_Api_Shineisp_Abstract_Act
                 }
             }
             
-            throw new Shineisp_Api_Shineisp_Exceptions( 400004, ":\n{$message}" );
+            throw new Shineisp_Api_Exceptions( 400004, ":\n{$message}" );
             exit();
         }
         
