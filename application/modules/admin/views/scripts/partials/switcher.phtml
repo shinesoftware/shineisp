@@ -1,3 +1,9 @@
+<?php 
+	$baseurl = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
+	$lang = Zend_Controller_Front::getInstance()->getRequest()->getParam('lang');
+ 	$baseurl = str_replace("/lang/$lang", "", $baseurl);
+?>
+
 <span class="languageswitcher">
 	<?php if(count($this->languages) > 1): ?>
 		<select id="languageswitcher">
@@ -9,7 +15,7 @@
 					$selected = "";
 				}
 			?>
-			<option <?php echo $selected?> value="<?php echo "/admin/index/index/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></option>
+			<option <?php echo $selected?> value="<?php echo $baseurl . "/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></option>
 			
 	    <?php endforeach;?>
 	    </select>

@@ -18,6 +18,9 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 
 		$this->_init($request);
 		
+// 		echo Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName();
+// 		Zend_Debug::dump(Zend_Controller_Front::getInstance()->getRequest()->getParams());
+		
 		// if the current user role is not allowed to do something
 		$resource = $this->_module . ":" . $this->_controller;
 		

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * File Category Controller
- * Manage the files category table
+ * Invoice Purchase Category Controller
+ * Manage the invoice purchase category table
  * @version 1.0
  */
 
-class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
+class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 	
 	protected $categories;
 	protected $datagrid;
@@ -23,9 +23,9 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	public function preDispatch() {
 		$this->session = new Zend_Session_Namespace ( 'Admin' );
 		$this->translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$this->categories = new FilesCategories();
+		$this->categories = new PurchaseCategories();
 		$this->datagrid = $this->_helper->ajaxgrid;
-		$this->datagrid->setModule ( "categories" )->setModel ( $this->categories );		
+		$this->datagrid->setModule ( "admin" )->setModel ( $this->categories );		
 	}
 	
 	/**
@@ -35,7 +35,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 */
 	public function indexAction() {
 		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
-		$redirector->gotoUrl ( '/admin/filecategories/list' );
+		$redirector->gotoUrl ( '/admin/purchasescategories/list' );
 	}
 	
 	/**
@@ -44,10 +44,10 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("File categories list");
-		$this->view->description = $this->translator->translate("Here you can see all the file categories.");
-		$this->view->buttons = array(array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
-		$this->datagrid->setConfig ( FilesCategories::grid() )->datagrid ();
+		$this->view->title = $this->translator->translate("Invoice purchasese categories list");
+		$this->view->description = $this->translator->translate("Here you can see all the invoice purchases categories.");
+		$this->view->buttons = array(array("url" => "/admin/purchasescategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->datagrid->setConfig ( PurchaseCategories::grid() )->datagrid ();
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return string Json records
 	 */
 	public function loadrecordsAction() {
-		$this->_helper->ajaxgrid->setConfig ( FilesCategories::grid() )->loadRecords ($this->getRequest ()->getParams());
+		$this->_helper->ajaxgrid->setConfig ( PurchaseCategories::grid() )->loadRecords ($this->getRequest ()->getParams());
 	}
 	
 	
@@ -66,7 +66,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function searchprocessAction() {
-		$this->_helper->ajaxgrid->setConfig ( FilesCategories::grid() )->search ();
+		$this->_helper->ajaxgrid->setConfig ( PurchaseCategories::grid() )->search ();
 	}
 	
 	/*
@@ -94,11 +94,11 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function newAction() {
-		$this->view->form = $this->getForm ( "/admin/filecategories/process" );
-		$this->view->title = $this->translator->translate("File category Details");
-		$this->view->description = $this->translator->translate("Here you can handle the file catgeories parameters");
+		$this->view->form = $this->getForm ( "/admin/purchasescategories/process" );
+		$this->view->title = $this->translator->translate("Invoice purchase category Details");
+		$this->view->description = $this->translator->translate("Here you can handle the invoice purchase catgeories parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+									 array("url" => "/admin/purchasescategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -109,7 +109,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	public function resetAction() {
 		$NS = new Zend_Session_Namespace ( 'Admin' );
 		unset ( $NS->search_category );
-		$this->_helper->redirector ( 'index', 'filecategories' );
+		$this->_helper->redirector ( 'index', 'purchasescategories' );
 	}
 	
 	
@@ -147,9 +147,9 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 		try {
 			$this->categories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'filecategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'purchasescategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
-		return $this->_helper->redirector ( 'list', 'filecategories', 'admin' );
+		return $this->_helper->redirector ( 'list', 'purchasescategories', 'admin' );
 	}
 	
 	/**
@@ -158,14 +158,14 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function editAction() {
-		$form = $this->getForm ( '/admin/filecategories/process' );
+		$form = $this->getForm ( '/admin/purchasescategories/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "/admin/purchasescategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
+				array("url" => "/admin/purchasescategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -175,11 +175,11 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs [0] );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/filecategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/purchasescategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 				
 		}
 		
-		$this->view->title = $this->translator->translate("File category Details");
+		$this->view->title = $this->translator->translate("Invoice purchase category Details");
         $this->view->description = $this->translator->translate("Here you can edit the main file category information paramenters. Be careful, if you change something the module could be damaged.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
@@ -197,19 +197,19 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	public function processAction() {
 		$i = 0;
 		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
-		$form = $this->getForm ( "/admin/filecategories/process" );
+		$form = $this->getForm ( "/admin/purchasescategories/process" );
 		$request = $this->getRequest ();
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "/admin/purchasescategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
+				array("url" => "/admin/purchasescategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
 		);
 		
 		// Check if we have a POST request
 		if (! $request->isPost ()) {
-			return $this->_helper->redirector ( 'list', 'filecategories', 'admin' );
+			return $this->_helper->redirector ( 'list', 'purchasescategories', 'admin' );
 		}
 		
 		if ($form->isValid ( $request->getPost () )) {
@@ -218,30 +218,30 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 			
 			// Set the new values
 			if (is_numeric ( $id )) {
-				$this->categories = Doctrine::getTable ( 'FilesCategories' )->find ( $id );
+				$this->categories = Doctrine::getTable ( 'PurchaseCategories' )->find ( $id );
 			}
 			
 			// Get the values posted
 			$params = $form->getValues ();
 			try {
 				
-				$this->categories->name = $params ['name'];
+				$this->categories->category = $params ['category'];
 				
 				// Save the data
 				$this->categories->save ();
 				$id = is_numeric ( $id ) ? $id : $this->categories->getIncremented ();
 				
-				$this->_helper->redirector ( 'edit', 'filecategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+				$this->_helper->redirector ( 'edit', 'purchasescategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'filecategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'purchasescategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 			
-			$redirector->gotoUrl ( "/admin/categories/edit/id/$id" );
+			$redirector->gotoUrl ( "/admin/purchasescategories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("File category Edit");
-			$this->view->description = $this->translator->translate("Edit the file category information");
+			$this->view->title = $this->translator->translate("Invoice purchase category Edit");
+			$this->view->description = $this->translator->translate("Edit the invoice purchase category information");
 			return $this->render ( 'applicantform' );
 		}
 	}
@@ -252,7 +252,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return Admin_Form_FilecategoriesForm form
 	 */
 	private function getForm($action) {
-		$form = new Admin_Form_FilecategoriesForm ( array ('action' => $action, 'method' => 'post' ) );
+		$form = new Admin_Form_PurchasescategoriesForm ( array ('action' => $action, 'method' => 'post' ) );
 		return $form;
 	}
 	

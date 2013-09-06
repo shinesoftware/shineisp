@@ -42,4 +42,6 @@ class SitemapController extends Shineisp_Controller_Default {
 		
 		die ($site_map_container->build ());
 	}
+	
+	
 }

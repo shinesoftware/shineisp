@@ -72,13 +72,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		
 		$front = Zend_Controller_Front::getInstance ();
 		$router = $front->getRouter ();
-		 
+		
 		$router->addRoute ( 'fastproduct', new Zend_Controller_Router_Route_Regex ( '(.+)\.html', array ('module' => 'default', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), '%s.html' ) );
 		$router->addRoute ( 'products', new Zend_Controller_Router_Route_Regex ( 'products/(.+)\.html', array ('module' => 'default', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), 'products/%s.html' ) );
 		$router->addRoute ( 'categories', new Zend_Controller_Router_Route_Regex ( 'categories/(.+)\.html', array ('module' => 'default', 'controller' => 'categories', 'action' => 'list' ), array (1 => 'q' ), 'categories/%s.html' ) );
 		$router->addRoute ( 'cms', new Zend_Controller_Router_Route_Regex ( 'cms/(.+)\.html', array ('module' => 'default', 'controller' => 'cms', 'action' => 'page' ), array (1 => 'url' ), 'cms/%s.html' ) );
 		$router->addRoute ( 'wiki', new Zend_Controller_Router_Route_Regex ( 'wiki/(.+)\.html', array ('module' => 'default', 'controller' => 'wiki', 'action' => 'help' ), array (1 => 'uri' ), 'wiki/%s.html' ) );
 		$router->addRoute ( 'tlds', new Zend_Controller_Router_Route_Regex ( 'tlds/(.+)\.html', array ('module' => 'default', 'controller' => 'tlds', 'action' => 'index' ), array (1 => 'uri' ), 'tlds/%s.html' ) );
+		
+		$routeLang = new Zend_Controller_Router_Route_Regex('([a-z]{2})', array('module' => 'default', 'lang' => 'en', 'controller' => 'index', 'action' => 'index'), array (1 => 'lang' ), '%s' );
+		$router->addRoute('route_1', $routeLang);
 		
 		return $router;
 	}

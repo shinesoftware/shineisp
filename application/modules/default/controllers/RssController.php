@@ -15,7 +15,7 @@ class RssController extends Shineisp_Controller_Default {
 	}
 	
 	/**
-	 * indexAction
+	 * Create a RSS file with the CMS pages and Products
 	 */
 	public function indexAction() {
 		$out = "";
@@ -24,7 +24,7 @@ class RssController extends Shineisp_Controller_Default {
 			$ns = new Zend_Session_Namespace ();
 			$localeID = $ns->idlang;
 			$locale = $ns->lang;
-		
+			
 			$feed = new Zend_Feed_Writer_Feed ();
 			$feed->setTitle ( $ISP->company );
 			$feed->setLink ( $ISP->website );
@@ -48,8 +48,10 @@ class RssController extends Shineisp_Controller_Default {
 			foreach ( $records as $record ) {
 				$title = $record ['ProductsData'][0]['name'];
 				$descritption = strip_tags($record ['ProductsData'][0]['shortdescription']);
+				$inserted_at = !empty($record ['inserted_at']) ? strtotime($record ['inserted_at']) : null;
+				$updated_at = !empty($record ['updated_at']) ? strtotime($record ['updated_at']) : null;
 				$link = 'http://' . $_SERVER ['HTTP_HOST'] . '/' . $record ['uri'] . '.html';
-				self::createEntry($feed, $title, $descritption, $link);
+				self::createEntry($feed, $title, $descritption, $link, $inserted_at, $updated_at);
 			}
 			
 			/**
@@ -57,19 +59,18 @@ class RssController extends Shineisp_Controller_Default {
 			 * You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
 			 */
 			$out = $feed->export ( 'atom' );
+			
 		} catch ( Zend_Feed_Exception $e ) {
 			die ( $e->getMessage () );
 		}
 		die ( $out );
 	}
 	
-	
 	/**
-	 * createEntry
 	 * Add one or more entries. Note that entries must
 	 * be manually added once created.
 	 */	
-	private function createEntry($feed, $title, $descritption, $link){
+	private function createEntry($feed, $title, $descritption, $link, $dateCreated=null, $dateModified=null){
 	
 		if (! empty ( $title )) {
 			$entry = $feed->createEntry ();
@@ -79,8 +80,8 @@ class RssController extends Shineisp_Controller_Default {
 				$entry->setDescription (Shineisp_Commons_Utilities::CropSentence($descritption, 300, "..."));
 			}
 			$entry->setLink ( $link );
-			$entry->setDateModified ( time () );
-			$entry->setDateCreated ( time () );
+			$entry->setDateModified ( !empty($dateModified) ? $dateModified : time () );
+			$entry->setDateCreated ( !empty($dateCreated) ? $dateCreated : time ()  );
 			$feed->addEntry ( $entry );
 		}	
 		return $feed;
