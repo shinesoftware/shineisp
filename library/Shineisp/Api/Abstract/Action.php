@@ -2,7 +2,7 @@
 abstract class Shineisp_Api_Abstract_Action {
     
     public function authenticate() {
-    	
+    	return true;
 		/*
 		 * TODO: refactor this by using OAuth2 token and then logging through ShineISP with standard auth methods
 		 */
