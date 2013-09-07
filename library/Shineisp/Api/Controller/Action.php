@@ -24,7 +24,7 @@ abstract class Shineisp_Api_Controller_Action extends Shineisp_Controller_Common
   
     public function soap( $classname ){
         // initialize server and set URI
-        $optionsoap =  array(   'location' => $this->config['soap']['url'].'api/request/wsdl',
+        $optionsoap =  array(   'location' => "http://" . $_SERVER['HTTP_HOST'] . '/api/request/wsdl',
                                 'uri'      => 'urn:'.$classname);
         
         $server = new Zend_Soap_Server(null, $optionsoap);
@@ -45,7 +45,8 @@ abstract class Shineisp_Api_Controller_Action extends Shineisp_Controller_Common
         // register SOAP service class
         $wsdl->setClass ( $classname );
         // set a SOAP action URI. here, SOAP action is 'soap' as defined above.
-        $wsdl->setUri ( $this->config['soap']['url'].'api/request/soap' );
+        $wsdl->setUri ( "http://" . $_SERVER['HTTP_HOST'] . '/api/request/soap' );
+        
         // handle request
         $wsdl->handle ();        
     }
