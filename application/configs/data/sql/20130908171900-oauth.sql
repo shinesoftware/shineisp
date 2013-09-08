@@ -1,1 +1,0 @@
-DROP TABLE `oauth_access_tokens`, `oauth_authorization_codes`, `oauth_clients`, `oauth_jwt`, `oauth_refresh_tokens`;
