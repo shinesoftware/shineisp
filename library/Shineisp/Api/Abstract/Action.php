@@ -13,7 +13,7 @@ abstract class Shineisp_Api_Abstract_Action {
         
         //Check if username or password aren't empty
         if( $email == "" || $password == "" ) {
-            throw new Shineisp_Api_Exceptions( json_encode($_SERVER) );
+            throw new Shineisp_Api_Exceptions( 403001 );
             exit();
         }        
         
