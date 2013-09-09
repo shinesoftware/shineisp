@@ -94,8 +94,12 @@ class Shineisp_Main {
 				$config = Shineisp_Commons_Utilities::readfile($confFile);
 				if(!empty($config)){
 					$config = new Zend_Config_Xml($confFile);
-					Shineisp_Registry::set('config', $config);
-					return simplexml_load_file ( $confFile );
+					if(simplexml_load_file ( $confFile )){
+						Shineisp_Registry::set('config', $config);
+						return simplexml_load_file ( $confFile );
+					}else{
+						throw new Exception("XML Config file is not readable or not well-formed");
+					}
 				}
 			}
 		} catch (Exception $e) {
