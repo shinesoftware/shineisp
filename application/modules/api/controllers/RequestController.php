@@ -20,9 +20,15 @@ class Api_RequestController extends Shineisp_Api_Controller_Action {
      * @throws Shineisp_Api_Exceptions
      */
     public function soapAction() {
+    	$isreseller = $this->getRequest()->getParam('isreseller');
     	$class = $this->getRequest()->getParam('class');
+    	
     	if(!empty($class)){
-    		$class = "Shineisp_Api_" . ucfirst($class);
+    		if($isreseller){
+    			$class = "Shineisp_Api_Resellers_" . ucfirst($class);
+    		}else{
+    			$class = "Shineisp_Api_" . ucfirst($class);
+    		}
     		if(class_exists($class)){
     			self::soap( $class );
     		}else{
@@ -39,9 +45,14 @@ class Api_RequestController extends Shineisp_Api_Controller_Action {
      * @throws Shineisp_Api_Exceptions
      */
     public function wsdlAction() {
+    	$isreseller = $this->getRequest()->getParam('isreseller');
     	$class = $this->getRequest()->getParam('class');
     	if(!empty($class)){
-    		$class = "Shineisp_Api_" . ucfirst($class);
+    		if($isreseller){
+    			$class = "Shineisp_Api_Resellers_" . ucfirst($class);
+    		}else{
+    			$class = "Shineisp_Api_" . ucfirst($class);
+    		}
     		if(class_exists($class)){
     			self::wsdl( $class );
     		}else{

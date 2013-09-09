@@ -706,7 +706,6 @@ class Products extends BaseProducts {
 	/**
 	 * Get a record by ID
 	 * 
-	 * 
 	 * @param $id
 	 * @return ARRAY Record
 	 */
