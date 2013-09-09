@@ -67,9 +67,11 @@ AdminPermissions:
     AdminResources:
       local: resource_id
       foreign: resource_id
+      onDelete: CASCADE
     AdminRoles:
       local: role_id
       foreign: role_id
+      onDelete: CASCADE
                   
 AdminUser:
   connection: doctrine
