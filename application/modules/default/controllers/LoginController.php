@@ -14,4 +14,8 @@ class LoginController extends Shineisp_Controller_Default {
 		}
 		$this->_helper->viewRenderer ( 'login' );
 	}
+	
+	public function noauthAction() {
+		$this->_helper->viewRenderer ( 'noauth' );
+	}
 }

@@ -1,13 +1,10 @@
-<?
+<?php
+
 abstract class Shineisp_Api_Abstract_Action {
     
     public function authenticate() {
-    	return true;
-		/*
-		 * TODO: refactor this by using OAuth2 token and then logging through ShineISP with standard auth methods
-		 */
-		
-        $email      = $_SERVER['PHP_AUTH_USER'];
+
+    	$email      = $_SERVER['PHP_AUTH_USER'];
         $password   = $_SERVER['PHP_AUTH_PW'];
         if( $email == "" && $password == "" ) {
             list($email, $password) = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
@@ -19,7 +16,9 @@ abstract class Shineisp_Api_Abstract_Action {
             exit();
         }        
         
+        // login the user by ACL
         $result = AdminUser::fastlogin($email, $password, 0);
+        
         switch ($result->getCode()) {
             case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
                 throw new Shineisp_Api_Exceptions( 401001 );

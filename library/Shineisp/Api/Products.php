@@ -1,12 +1,11 @@
-<?
+<?php
+
 class Shineisp_Api_Products extends Shineisp_Api_Abstract_Action  {
     
     public function get( $productid ){
-    	echo "test";
-    	die;
         $this->authenticate();
-        
-        if( empty( $productid ) ) {
+    	
+    	if( empty( $productid ) ) {
             throw new Shineisp_Api_Exceptions( 400002, ":: 'productid' field" );
             exit();
         }
