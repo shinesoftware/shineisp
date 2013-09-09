@@ -107,6 +107,7 @@ class Shineisp_Main {
 			echo "<xmp>";
 			echo $e->getTraceAsString();
 			echo "</xmp>";
+			exit();
 		}
 	}
 	

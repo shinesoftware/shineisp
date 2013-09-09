@@ -854,3 +854,12 @@ AdminResources:
     module: admin
     controller: purchasescategories
     parent_id: '60'
+  AdminResources_96:
+    name: 'Default Login'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: login
+    parent_id: '1'

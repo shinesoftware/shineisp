@@ -519,3 +519,7 @@ AdminPermissions:
     AdminResources: AdminResources_95
     AdminRoles: AdminRoles_1
     permission: allow
+  AdminPermissions_130:
+    AdminResources: AdminResources_96
+    AdminRoles: AdminRoles_4
+    permission: allow
