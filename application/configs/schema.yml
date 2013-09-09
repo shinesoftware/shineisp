@@ -67,9 +67,11 @@ AdminPermissions:
     AdminResources:
       local: resource_id
       foreign: resource_id
+      onDelete: CASCADE
     AdminRoles:
       local: role_id
       foreign: role_id
+      onDelete: CASCADE
                   
 AdminUser:
   connection: doctrine
@@ -123,21 +125,6 @@ AdminUser:
     Isp:
       local: isp_id
       foreign: isp_id
-    OauthAccessTokens:
-      local: user_id
-      foreign: user_id
-    OauthAuthorizationCodes:
-      local: user_id
-      foreign: user_id
-    OauthClients:
-      local: user_id
-      foreign: user_id
-    OauthRefreshTokens:
-      local: user_id
-      foreign: user_id
-    OauthJwt:
-      local: user_id
-      foreign: user_id
 
 Addresses:
   connection: doctrine
@@ -2044,138 +2031,6 @@ NewslettersSubscribers:
       local: subscriber_id
       foreign: subscriber_id
       type: many
-
-OauthClients:
-  connection: doctrine
-  tableName: oauth_clients
-  columns:
-    id:
-      type: integer(4)
-      fixed: 0
-      unsigned: true
-      primary: true
-      autoincrement: true
-    user_id:
-      type: integer(4)
-      notnull: true
-    app_name:
-      type: string(250)
-      notnull: true    
-    client_id:
-      type: string(250)
-      notnull: true    
-    client_secret:
-      type: string(250)
-      notnull: true    
-    redirect_uri:
-      type: string(500)
-      notnull: false    
-    active:
-      type: boolean(25)
-      default: 1   
-
-OauthAccessTokens:
-  connection: doctrine
-  tableName: oauth_access_tokens
-  columns:
-    id:
-      type: integer(4)
-      fixed: 0
-      unsigned: true
-      primary: true
-      autoincrement: true
-    access_token:
-      type: string(250)
-      notnull: true    
-    client_id:
-      type: string(250)
-      notnull: true    
-    user_id:
-      type: integer(4)
-      notnull: true    
-    expires:
-      type: timestamp(25)
-      notnull: true    
-    scope:
-      type: string(250)
-      notnull: true    
-
-OauthAuthorizationCodes:
-  connection: doctrine
-  tableName: oauth_authorization_codes
-  columns:
-    id:
-      type: integer(4)
-      fixed: 0
-      unsigned: true
-      primary: true
-      autoincrement: true
-    authorization_code:
-      type: string(250)
-      notnull: true    
-    client_id:
-      type: string(250)
-      notnull: true    
-    user_id:
-      type: integer(4)
-      notnull: true    
-    redirect_uri:
-      type: string(500)
-      notnull: false    
-    expires:
-      type: timestamp(25)
-      notnull: true    
-    scope:
-      type: string(250)
-      notnull: true    
-      
-OauthRefreshTokens:
-  connection: doctrine
-  tableName: oauth_refresh_tokens
-  columns:
-    id:
-      type: integer(4)
-      fixed: 0
-      unsigned: true
-      primary: true
-      autoincrement: true
-    refresh_token:
-      type: string(250)
-      notnull: true    
-    client_id:
-      type: string(250)
-      notnull: true    
-    user_id:
-      type: integer(4)
-      notnull: true    
-    expires:
-      type: timestamp(25)
-      notnull: true    
-    scope:
-      type: string(250)
-      notnull: true          
-
-OauthJwt:
-  connection: doctrine
-  tableName: oauth_jwt
-  columns:
-    id:
-      type: integer(4)
-      fixed: 0
-      unsigned: true
-      primary: true
-      autoincrement: true
-    client_id:
-      type: string(250)
-      notnull: true
-    user_id:
-      type: integer(4)
-      notnull: true            
-    subject:
-      type: string(2048)
-      notnull: true    
-    public_key:
-      type: string()
       
 Orders:
   connection: doctrine

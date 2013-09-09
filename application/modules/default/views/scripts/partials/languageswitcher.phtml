@@ -7,7 +7,7 @@
 			<ul class="dropdown">
 				<?php foreach ($this->languages as $language): ?>
 					<?php if($language['language'] != $selectlang): ?>
-						<li><a class="<?php echo strtolower($language['language'])?>" href="/index/index/lang/<?php echo $language['code']?>"><?php echo $this->translate($language['language']) ?></a></li>
+						<li><a class="<?php echo strtolower($language['language'])?>" href="/<?php echo $language['code']?>"><?php echo $this->translate($language['language']) ?></a></li>
 					<?php endif; ?>
     			<?php endforeach;?>
     		</ul>

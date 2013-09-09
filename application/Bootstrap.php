@@ -69,49 +69,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	
 	protected function _initRouter() {
 		$this->bootstrap('FrontController');
-		$translator = Shineisp_Registry::get('Zend_Translate');
 		
 		$front = Zend_Controller_Front::getInstance ();
 		$router = $front->getRouter ();
-		
-		// Default route
-		$router->removeDefaultRoutes();
-		
-		# http://www.shineisp.com/default/it/cmspages/list
-		$defaultRoute = new Zend_Controller_Router_Route(
-				':module/:lang/:controller/:action/*',
-				array(
-						'module' => 'default',
-						'controller' => 'index',
-						'lang' => 'en',
-						'action' => 'index',
-				)
-		);
-		$router->addRoute('default', $defaultRoute);
-		
-		# http://www.shineisp.com/cmspages/list
-		$defaultRoute_2 = new Zend_Controller_Router_Route(
-				':module/:controller/:action/*',
-				array(
-						'module' => 'default',
-						'controller' => 'index',
-						'lang' => 'en',
-						'action' => 'index',
-				)
-		);
-		$router->addRoute('default_2', $defaultRoute_2);
-		
-		# http://www.shineisp.com/cmspages/list
-		$defaultRoute_3 = new Zend_Controller_Router_Route(
-				':controller/:action/*',
-				array(
-						'module' => 'default',
-						'controller' => 'index',
-						'lang' => 'en',
-						'action' => 'index',
-				)
-		);
-		$router->addRoute('default_3', $defaultRoute_3);
 		
 		# http://www.shineisp.com/productname.html
 		$router->addRoute ( 'fastproduct', new Zend_Controller_Router_Route_Regex ( '(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'products', 'action' => 'get' ), array (1 => 'q' ), '%s.html' ) );
@@ -130,8 +90,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		
 		# http://www.shineisp.com/tlds/com.html
 		$router->addRoute ( 'tlds', new Zend_Controller_Router_Route_Regex ( 'tlds/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'tlds', 'action' => 'index' ), array (1 => 'uri' ), 'tlds/%s.html' ) );
-
-		# http://www.shineisp.com/it/
+			
+		# http://www.shineisp.com/seo/products.html
+		$router->addRoute ( 'seo', new Zend_Controller_Router_Route_Regex ( 'seo/(.+)\.html', array ('module' => 'default', 'lang' => 'en', 'controller' => 'seo', 'action' => 'products' ), array (1 => 'action' ), 'seo/%s.html' ) );
+			
 		$routeLang = new Zend_Controller_Router_Route_Regex('([a-z]{2})', array('module' => 'default', 'lang' => 'en', 'controller' => 'index', 'action' => 'index'), array (1 => 'lang' ), '%s' );
 		$router->addRoute('route_1', $routeLang);
 		

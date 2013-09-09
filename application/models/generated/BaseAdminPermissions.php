@@ -54,10 +54,12 @@ abstract class BaseAdminPermissions extends Doctrine_Record
         parent::setUp();
         $this->hasOne('AdminResources', array(
              'local' => 'resource_id',
-             'foreign' => 'resource_id'));
+             'foreign' => 'resource_id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('AdminRoles', array(
              'local' => 'role_id',
-             'foreign' => 'role_id'));
+             'foreign' => 'role_id',
+             'onDelete' => 'CASCADE'));
     }
 }

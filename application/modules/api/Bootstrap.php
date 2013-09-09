@@ -18,14 +18,4 @@
  */
 
 class Api_Bootstrap extends Zend_Application_Module_Bootstrap {
-	
-    protected function _initLayoutHelper() {
-        $this->bootstrap ( 'frontController' );
-        if(Shineisp_Main::isReady()){
-            // Zend_Controller_Action_HelperBroker::addHelper( new Shineisp_Api_Shineisp_Helper_Taxpayernumber() );
-            // Zend_Controller_Action_HelperBroker::addHelper( new Shineisp_Api_Shineisp_Helper_Taxpayernumber() );
-        }
-        
-        
-    }
 }
