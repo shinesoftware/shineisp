@@ -6,13 +6,14 @@ abstract class Shineisp_Api_Abstract_Action {
 
     	$email      = $_SERVER['PHP_AUTH_USER'];
         $password   = $_SERVER['PHP_AUTH_PW'];
+        
         if( $email == "" && $password == "" ) {
             list($email, $password) = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
         }
         
         //Check if username or password aren't empty
         if( $email == "" || $password == "" ) {
-            throw new Shineisp_Api_Exceptions( 403001 );
+            throw new Shineisp_Api_Exceptions( json_encode($_SERVER) );
             exit();
         }        
         
