@@ -50,10 +50,10 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 	}
 
 	protected function _getCurrentUserRole() {
-		$this->_auth->setStorage(new Zend_Auth_Storage_Session('admin'));
+		$this->_auth->setStorage(new Zend_Auth_Storage_Session($this->_module));
 		if ($this->_auth->hasIdentity()) {
 			$authData = $this->_auth->getIdentity();
-			$role = isset($authData['AdminRoles']['name']) ? strtolower($authData['AdminRoles']['name']) : 'guest';
+			$role = !empty($authData['AdminRoles']['name']) ? strtolower($authData['AdminRoles']['name']) : 'guest';
 		} else {
 			$role = 'guest';
 		}
