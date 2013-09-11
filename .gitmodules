@@ -1,3 +1,6 @@
 [submodule "library/zend"]
 	path = library/zend
 	url = ../../zf/ZendFramework-Library.git
+[submodule "library/Zend"]
+	path = library/Zend
+	url = ../../zf/ZendFramework-Library.git
