@@ -24,6 +24,10 @@ class SeoController extends Shineisp_Controller_Default {
 	/**
 	 * Create the sitemap for customers
 	 */
+	public function indexAction() {
+		
+	}
+	
 	public function productsAction() {
 		
 		$ns 	= new Zend_Session_Namespace ();
@@ -32,28 +36,53 @@ class SeoController extends Shineisp_Controller_Default {
 		$localeID 	= $ns->idlang;
 		$products 	= $xml->addChild('products');
 		
-		// Get all the products
-		$records = Products::getAll($localeID);
-		foreach ($records as $item){
-			$product = $products->addChild('product');
-			$product->addAttribute('uuid', $item['uuid']);
-			$product->addAttribute('id', $item['product_id']);
-			$product->addChild('sku', htmlentities($item['sku']));
-			$product->addChild('name', !empty($item['ProductsData'][0]['name']) ? htmlentities($item['ProductsData'][0]['name']) : null);
-			$product->addChild('shortdescription', !empty($item['ProductsData'][0]['shortdescription']) ? "<![CDATA[" . htmlentities($item['ProductsData'][0]['shortdescription']) . "]]>" : null);
-			$product->addChild('description', !empty($item['ProductsData'][0]['description']) ? "<![CDATA[" . htmlentities($item['ProductsData'][0]['description'])."]]>" : null);
-			$product->addChild('metadescription', !empty($item['ProductsData'][0]['metadescription']) ? "<![CDATA[" . htmlentities($item['ProductsData'][0]['metadescription']) ."]]>" : null);
-			$product->addChild('metakeywords', !empty($item['ProductsData'][0]['metakeywords']) ? "<![CDATA[" . htmlentities($item['ProductsData'][0]['metakeywords']) ."]]>" : null);
-			$product->addChild('categories', products::get_text_categories($item['categories']));
-			$price = $product->addChild('price', Products::getPrice($item['product_id']));
-			$price->addAttribute('taxincluded', 0);
+		try{
+			// Get all the products
+			$records = Products::getAll($localeID);
+			
+			if(!empty($records)){
+				foreach ($records as $item){
+					
+					$item['ProductsData'][0]['shortdescription'] = strip_tags($item['ProductsData'][0]['shortdescription']);
+					$item['ProductsData'][0]['description'] = strip_tags($item['ProductsData'][0]['description']);
+					
+					$item['ProductsData'][0]['shortdescription'] = html_entity_decode($item['ProductsData'][0]['shortdescription'], ENT_NOQUOTES, "UTF-8");
+					$item['ProductsData'][0]['description'] = html_entity_decode($item['ProductsData'][0]['description'], ENT_NOQUOTES, "UTF-8");
+					
+					$item['ProductsData'][0]['shortdescription'] = str_replace("&", "", $item['ProductsData'][0]['shortdescription']);
+					$item['ProductsData'][0]['description'] = str_replace("&", "", $item['ProductsData'][0]['description']);
+					
+					$categories = products::get_text_categories($item['categories']);
+					$categories = htmlspecialchars($categories);
+					
+					$product = $products->addChild('product');
+					$product->addAttribute('uuid', $item['uuid']);
+					$product->addAttribute('id', $item['product_id']);
+					$product->addAttribute('inserted_at', !empty($item ['inserted_at']) ? strtotime($item ['inserted_at']) : null);
+					$product->addAttribute('updated_at', !empty($item ['updated_at']) ? strtotime($item ['updated_at']) : null);
+					$product->addChild('sku', htmlentities($item['sku']));
+					
+					if(!empty($item['ProductsMedia'][0]['path']) && file_exists(PUBLIC_PATH . $item['ProductsMedia'][0]['path'])){
+						$product->addChild('image', "http://" . $_SERVER['HTTP_HOST'] . $item['ProductsMedia'][0]['path']);
+					}
+					
+					$product->addChild('name', !empty($item['ProductsData'][0]['name']) ? $item['ProductsData'][0]['name'] : null);
+					$product->addChild('shortdescription', !empty($item['ProductsData'][0]['shortdescription']) ? "<![CDATA[" . $item['ProductsData'][0]['shortdescription'] . "]]>" : null);
+					$product->addChild('description', !empty($item['ProductsData'][0]['description']) ? "<![CDATA[" . $item['ProductsData'][0]['description'] . "]]>" : null);
+					$product->addChild('categories', $categories);
+					$price = $product->addChild('price', Products::getPrice($item['product_id']));
+					$price->addAttribute('taxincluded', 0);
+					$price->addAttribute('isrecurrent', products::isRecurring($item['product_id']));
+					$price->addAttribute('currency', Settings::findbyParam('currency'));
+				}
+			}
+
+			header('Content-Type: text/xml; charset=utf-8');
+			die( $xml->asXML());
+			
+		}catch(Exception $e){
+			Shineisp_Commons_Utilities::log(__CLASS__ . " " . $e->getMessage());
+			die;
 		}
-		
-		header('Content-type: text/xml');
-		echo $xml->asXML();
-// 		$xml->saveXML(PUBLIC_PATH . "/tmp/seoproducts.xml");
-#Zend_Debug::dump($records);
-		die;
-		
 	}
 }
