@@ -810,22 +810,22 @@ AdminResources:
     controller: emailstemplates
     parent_id: '1'
   AdminResources_91:
-    name: 'API Products Category'
+    name: 'API Login'
     hidden: true
     is_container: false
     is_allowed: false
     admin: true
     module: api
-    controller: productscategories
+    controller: login
     parent_id: '1'
   AdminResources_92:
-    name: 'API Regions'
+    name: 'API Request'
     hidden: true
     is_container: false
     is_allowed: false
     admin: true
     module: api
-    controller: regions
+    controller: request
     parent_id: '0'
   AdminResources_93:
     name: Applications
@@ -854,3 +854,12 @@ AdminResources:
     module: admin
     controller: purchasescategories
     parent_id: '60'
+  AdminResources_96:
+    name: 'Default Login'
+    hidden: false
+    is_container: false
+    is_allowed: false
+    admin: false
+    module: default
+    controller: login
+    parent_id: '1'

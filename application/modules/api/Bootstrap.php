@@ -18,4 +18,24 @@
  */
 
 class Api_Bootstrap extends Zend_Application_Module_Bootstrap {
+	protected function _initRouter() {
+		$this->bootstrap('FrontController');
+	
+		$front = Zend_Controller_Front::getInstance ();
+		$router = $front->getRouter ();
+	
+		# http://www.shineisp.com/api/products.wsdl
+		$router->addRoute ( 'wsdl', new Zend_Controller_Router_Route_Regex ( 'api/(.+)\.wsdl', array ('module' => 'api', 'lang' => 'en', 'controller' => 'request', 'action' => 'wsdl' ), array (1 => 'class' ), 'api/%s.wsdl' ) );
+	
+		# http://www.shineisp.com/api/products.soap
+		$router->addRoute ( 'soap', new Zend_Controller_Router_Route_Regex ( 'api/(.+)\.soap', array ('module' => 'api', 'lang' => 'en', 'controller' => 'request', 'action' => 'soap' ), array (1 => 'class' ), 'api/%s.soap' ) );
+	
+		# http://www.shineisp.com/api/resellers/products.soap
+		$router->addRoute ( 'soap2', new Zend_Controller_Router_Route_Regex ( 'api/(.+)/(.+)\.soap', array ('module' => 'api', 'lang' => 'en', 'controller' => 'request', 'action' => 'soap' ), array (1 => 'isreseller', 2 => 'class'), 'api/%s/%s.soap' ) );
+	
+		# http://www.shineisp.com/api/resellers/products.soap
+		$router->addRoute ( 'wsdl2', new Zend_Controller_Router_Route_Regex ( 'api/(.+)/(.+)\.wsdl', array ('module' => 'api', 'lang' => 'en', 'controller' => 'request', 'action' => 'wsdl' ), array (1 => 'isreseller', 2 => 'class'), 'api/%s/%s.wsdl' ) );
+	
+		return $router;
+	}
 }

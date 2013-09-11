@@ -90,17 +90,24 @@ class Shineisp_Main {
 	static public function loadConfig(){
 		$confFile = APPLICATION_PATH . "/configs/config.xml";
 		try{
-			$config = Shineisp_Commons_Utilities::readfile($confFile);
-			if(!empty($config)){
-				$config = new Zend_Config_Xml($confFile);
-				Shineisp_Registry::set('config', $config);
-				return simplexml_load_file ( $confFile );
+			if(file_exists($confFile) && is_readable($confFile)){
+				$config = Shineisp_Commons_Utilities::readfile($confFile);
+				if(!empty($config)){
+					$config = new Zend_Config_Xml($confFile);
+					if(simplexml_load_file ( $confFile )){
+						Shineisp_Registry::set('config', $config);
+						return simplexml_load_file ( $confFile );
+					}else{
+						throw new Exception("XML Config file is not readable or not well-formed");
+					}
+				}
 			}
 		} catch (Exception $e) {
 			echo $e->getMessage();
 			echo "<xmp>";
 			echo $e->getTraceAsString();
 			echo "</xmp>";
+			exit();
 		}
 	}
 	

@@ -6,6 +6,7 @@ abstract class Shineisp_Api_Abstract_Action {
 
     	$email      = $_SERVER['PHP_AUTH_USER'];
         $password   = $_SERVER['PHP_AUTH_PW'];
+        
         if( $email == "" && $password == "" ) {
             list($email, $password) = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
         }
