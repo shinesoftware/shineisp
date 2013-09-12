@@ -229,6 +229,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 	public static function DeleteByID($id) {
 	
 		if(is_numeric($id)){
+			$dq = Doctrine_Query::create ()->delete ()->from ( 'EmailsTemplatesData etd' )->where ( 'template_id = ?', $id )->execute ();
 			$dq = Doctrine_Query::create ()->delete ()->from ( 'EmailsTemplates et' )->where ( 'template_id = ?', $id );
 			return $dq->execute ();
 		}

@@ -1321,12 +1321,6 @@ EmailsTemplates:
     active:
       type: boolean(25)      
       default: '1'
-  relations:
-    EmailsTemplatesData:
-      local: template_id
-      foreign: template_id
-      type: many
-      onDelete: CASCADE
       
 EmailsTemplatesData:
   connection: doctrine

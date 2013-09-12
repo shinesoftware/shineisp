@@ -107,7 +107,7 @@ class TicketsNotes extends BaseTicketsNotes
 	 * @param integer $ticketid
 	 * @param array $params
 	 */
-	public static function saveIt($tid, $date, $note, $status = null, $isAdmin = false, $noteid = null){
+	public static function saveIt($tid, $date, $note, $status = null, $isAdmin = false, $noteid = null, $sendemail = true){
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if(!is_numeric($tid)){
@@ -147,7 +147,9 @@ class TicketsNotes extends BaseTicketsNotes
 			// Save the upload file
 			$attachment = self::UploadDocument($tid, $ticket->get('customer_id'));
 				
-			Tickets::send($noteid, false, $attachment);
+			if($sendemail){
+				Tickets::send($noteid, false, $attachment);
+			}
 			
 			return $ticketnote;
 		}

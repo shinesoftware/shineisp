@@ -326,9 +326,10 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			$date = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime']) : null;
 			$note = !empty($params['note']) ? $params['note'] : null;
 			$status = !empty($params['status_id']) && is_numeric($params['status_id']) ? $params['status_id'] : null;
+			$sendemail = !empty($params['sendemail']) && is_numeric($params['sendemail']) ? true : false;
 			
 			// Save the Ticket Note and send the email to the customer
-			$ticketNote = TicketsNotes::saveIt($id, $date, $note, $status, true);
+			$ticketNote = TicketsNotes::saveIt($id, $date, $note, $status, true, null, $sendemail );
 
 			// Update the sibling
 			if(!empty($params['sibling_id']) && is_numeric($params['sibling_id'])){
