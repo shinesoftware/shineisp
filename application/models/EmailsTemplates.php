@@ -31,8 +31,8 @@ class EmailsTemplates extends BaseEmailsTemplates
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
-		$config ['datagrid'] ['basepath'] = "/admin/serversgroups/";
-		$config ['datagrid'] ['index'] = "group_id";
+		$config ['datagrid'] ['basepath'] = "/admin/emailtemplates/";
+		$config ['datagrid'] ['index'] = "template_id";
 		$config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
 		
 		$config ['datagrid'] ['buttons'] ['edit'] ['label'] = $translator->translate ( 'Edit' );
@@ -42,6 +42,8 @@ class EmailsTemplates extends BaseEmailsTemplates
 		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/emailstemplates/delete/id/%d";
+		
+		$config ['datagrid'] ['massactions']['commons'] = array ('bulk_delete'=>'Mass Delete');
 		return $config;
 	}
 
@@ -218,8 +220,51 @@ class EmailsTemplates extends BaseEmailsTemplates
 			return false;
 		}
 	}
-
-
-
-
+	
+	/**
+	 * Delete a record using its ID.
+	 * @param $id
+	 * @return boolean
+	 */
+	public static function DeleteByID($id) {
+	
+		if(is_numeric($id)){
+			$dq = Doctrine_Query::create ()->delete ()->from ( 'EmailsTemplatesData etd' )->where ( 'template_id = ?', $id )->execute ();
+			$dq = Doctrine_Query::create ()->delete ()->from ( 'EmailsTemplates et' )->where ( 'template_id = ?', $id );
+			return $dq->execute ();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * delete the records selected
+	 * @param array
+	 * @return Boolean
+	 */
+	public static function massdelete($data) {
+		try{
+			foreach ($data as $item){
+				self::DeleteByID($item);
+			}
+				
+			return true;
+		}catch (Exception $e){
+			return false;
+		}
+	}
+	
+	######################################### BULK ACTIONS ############################################
+	
+	/**
+	 * delete the records selected
+	 * @param array
+	 * @return Boolean
+	 */
+	public static function bulk_delete($items) {
+		if(!empty($items)){
+			return self::massdelete($items);
+		}
+		return false;
+	}
 }
