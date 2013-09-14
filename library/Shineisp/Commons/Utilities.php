@@ -906,7 +906,7 @@ class Shineisp_Commons_Utilities {
 				// Also the fallback template is missing. Something strange is going on.....
 				if (! file_exists ( $filename )) {
 					Shineisp_Commons_Utilities::log("The default email template has not been found: $filename");
-					return array('template' => "Template: ".$template." non trovato", 'subject' => $template);
+					return array('template' => "Template: ".$template." not found", 'subject' => $template);
 				}
 			}
 
