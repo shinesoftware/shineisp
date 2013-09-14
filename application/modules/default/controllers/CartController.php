@@ -556,6 +556,7 @@ class CartController extends Shineisp_Controller_Default {
      */
 	public function simplecontactsAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
+		
 		unset ( $NS->cart->reseller );
 		
 		if (! isset ( $NS->cart->products ) || count ( $NS->cart->products ) == 0) {
@@ -622,6 +623,11 @@ class CartController extends Shineisp_Controller_Default {
 	public function paymentAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		$request = $this->getRequest ();
+		
+		if(empty($NS->cart)){
+			$this->_helper->redirector ( 'index', 'index', 'default' );
+		}
+		
 		$cart = $NS->cart;
 		$contact = $cart->contacts;
 		

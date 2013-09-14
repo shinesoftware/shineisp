@@ -909,7 +909,7 @@ class Shineisp_Commons_Utilities {
 					return array('template' => "Template: ".$template." not found", 'subject' => $template);
 				}
 			}
-
+			
 			// Get the content of the file
 			$body = '';
 			foreach ( file ($filename) as $line ) {
@@ -1107,7 +1107,13 @@ class Shineisp_Commons_Utilities {
 		
 		// null recipient, send only to ISP
 		$recipient = ($recipient == null) ? $ISP['email'] : $recipient;
-		
+// 		Zend_Debug::dump($language_id);
+// 		Zend_Debug::dump($recipient);
+// 		Zend_Debug::dump($replyto);
+// 		Zend_Debug::dump($arrFrom);
+// 		Zend_Debug::dump($arrBCC);
+// 		Zend_Debug::dump($arrTemplate['template']);
+// 		die;
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );
 	}
