@@ -293,7 +293,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 									array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('id'=>'submit', 'css' => array('button', 'float_right', 'submit'))),
 									array("url" => "/admin/orders/print/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => array('button', 'float_right'))),
-									array("url" => "/admin/orders/renew/id/$id", "label" => $this->translator->translate('Renew'), "params" => array('css' => array('button', 'float_right'))),
+									array("url" => "/admin/orders/clone/id/$id", "label" => $this->translator->translate('Clone'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/sendorder/id/$id", "label" => $this->translator->translate('Email'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
@@ -405,19 +405,17 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		}
 	}
 	
-	
 	/*
-	 * Renew Action
-	 * Renew a order 
+	 * Clone the order 
 	 */
-	public function renewAction() {
+	public function cloneAction() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$newOrderId = Orders::cloneOrder ( $request->id );
 			if (is_numeric ( $newOrderId )) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $newOrderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'renew_failed' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Order has been not cloned' ), 'status' => 'error' ) );
 			}
 		}
 		$this->_helper->redirector ( 'list', 'orders', 'admin' );
