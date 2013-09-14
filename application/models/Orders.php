@@ -970,25 +970,30 @@ class Orders extends BaseOrders {
 			
 			// Save order number
 			$order->order_number = self::formatOrderId($order->order_id);
-			$order->save();
 			
-			// Log status change
-			self::logStatusChange($order->order_id, $order->status_id);
-						
-			// Assign the order var to the static var
-			self::$order = $order;
+			// Save the order
+			if($order->trySave()){
 			
-			// Create the fastlink for the order
-			$fastlink = Fastlinks::CreateFastlink('orders', 'edit', json_encode ( array ('id' => $order['order_id'] ) ), 'orders', $order['order_id'], $customerId);
-			
-			// Add a message within the order
-			Messages::addMessage($note, $customerId, null, $order['order_id']);
-			
-			// Execute a custom event
-			self::events()->trigger('orders_create_after', "Orders", array('order' => $order, 'fastlink' => $fastlink));
-			
-			// Return the order object var
-			return self::$order;
+				// Log status change
+				self::logStatusChange($order->order_id, $order->status_id);
+							
+				// Assign the order var to the static var
+				self::$order = $order;
+				
+				// Create the fastlink for the order
+				$fastlink = Fastlinks::CreateFastlink('orders', 'edit', json_encode ( array ('id' => $order['order_id'] ) ), 'orders', $order['order_id'], $customerId);
+				
+				// Add a message within the order
+				Messages::addMessage($note, $customerId, null, $order['order_id']);
+				
+				// Execute a custom event
+				self::events()->trigger('orders_create_after', "Orders", array('order' => $order, 'fastlink' => $fastlink));
+				
+				// Return the order object var
+				return self::$order;
+			}else{
+				throw new Exception('There was a problem when I try to create the order', 1003);
+			}
 			
 		}else{
 			throw new Exception('Customer ID has been not found', 1001);
@@ -2162,10 +2167,10 @@ class Orders extends BaseOrders {
 			
 			$date = explode ( "-", $order [0] ['order_date'] );
 			
-			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'order_new', array(
 				 'orderid'    => $order[0]['order_number']
 				,'email'      => $email
+				,'bcc'        => $email
 				,'bank'       => $bank
 				,'url'        => $url
 				,':shineisp:' => $order [0] ['Customers']
