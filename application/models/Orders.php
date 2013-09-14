@@ -2170,7 +2170,6 @@ class Orders extends BaseOrders {
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'order_new', array(
 				 'orderid'    => $order[0]['order_number']
 				,'email'      => $email
-				,'bcc'        => $email
 				,'bank'       => $bank
 				,'url'        => $url
 				,':shineisp:' => $order [0] ['Customers']
