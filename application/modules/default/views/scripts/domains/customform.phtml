@@ -2,19 +2,19 @@
 
 <?php echo $this->render('partials/header.phtml') ?>
 
-<div class="row">
+<div class="row">			
 	<div class="large-12 column">		
 		<h2><?php echo $this->domainame ?></h2>
 		<form method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
 
-		<div class="section-container" data-section data-options="deep_linking: false; one_up: false">
+		<div class="section-container tabs" data-section data-options="deep_linking: false; one_up: false">
 		    <div class="section"> 
 		    	<p class="title" data-section-title><a href="#panel1"><?php echo $this->translate('Main') ?></a></p>
 	          	<div class="content" data-slug="panel1">
 	            	<?php echo $this->verticalgrid($this->datagrid)?><br/>
 					<?php
 						if($this->autorenew){
-							echo '<div class="notification infos">' . $this->translate("This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day.") . '</div>';
+							echo '<div class="alert-box success">' . $this->translate("This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day.") . '</div>';
 						}else{
 							echo '<div class="alert-box alert">' . $this->translate('This domain will be not renewed at the expiring day.') . '</div>';
 						} 
@@ -37,10 +37,9 @@
 			    	<p><?= $this->translate('Here you can set your DNS Zones. All the edits have need one hour at least.') ?></p>
 		            <table width="100%">
 		            	<tr>
-		            		<td width="250"><?php echo $form->dnsform->subdomain->setDecorators(array('Simple'))?>.<?php echo $this->domainame ?></td>
+		            		<td width="250"><?php echo $form->dnsform->subdomain->setDecorators(array('Simple'))?></td>
 		            		<td><?php echo $form->dnsform->zones->setDecorators(array('Simple'))?></td>
 		            		<td><?php echo $form->dnsform->target->setDecorators(array('Simple'))?></td>
-		            		<td><?php echo $form->submit->setDecorators(array('Simple'))?></td>
 		            	</tr>
 		            </table>
 		            <br/><br/>
@@ -62,7 +61,6 @@
 		            <div class="messages-text">
 		            	<?php echo $form->note->render()?>
 		            </div>
-		            <p align="right"><?php echo $form->submit->render()?></p>
 	            </div>
 		    </div>
 		    
@@ -116,23 +114,23 @@
 			            </tr>
 			            <?php else: ?>
 			            <tr>
-			            	<td valign="top" width="200"><strong><?php echo strtoupper($this->translate('Protect your domain')) ?></strong></td>
+			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Protect your domain')) ?></strong></td>
 			            	<td><p><?php echo $this->translate('To protect against theft the domain, the domain is placed in a state that does not allow the transfer. If another registrar requires the transfer of the domain, the operation will be automatically rejected. If you wish to transfer the domain to a new registrar, remove the protection. In this state, the domain will not be protected and another registrar may request the transfer.') ?></p></td>
-			            	<td valign="top" width="245"><a class="red-button confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/lockDomain"><?php echo strtoupper($this->translate('Protect your domain')) ?></a></td>
+			            	<td valign="top" width="245"><a class="small button alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/lockDomain"><?php echo strtoupper($this->translate('Protect your domain')) ?></a></td>
 			            </tr>
 			            <tr>
-			            	<td valign="top" width="200"><strong><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></strong></td>
+			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></strong></td>
 			            	<td>
 			            		<p><?php echo $this->translate('The authinfocode is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrant of this code, necessary to perform all operations. Without this code you cannot transfer this domain.') ?></p>
 			            		<?php if(!empty($this->authinfocode)): ?>
 			            			<div class="authinfocode"><h5><?php echo $this->translate('Authinfo')?></h5><pre><?php echo $this->authinfocode; ?></pre></div>
 			            		<?php endif;?>
 			            	</td>
-			            	<td valign="top" width="245">
+			            	<td valign="top" width="300">
 			            		<?php if(empty($this->authinfocode)): ?>
-			            			<a class="red-button confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></a>
+			            			<a class="small button alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></a>
 			            		<?php else: ?>	
-			            			<a class="red-button confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request a NEW AUTHINFO')) ?></a>
+			            			<a class="small button alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request a NEW AUTHINFO')) ?></a>
 			            		<?php endif; ?>
 			            	</td>
 			            </tr>

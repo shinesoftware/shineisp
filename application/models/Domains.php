@@ -580,6 +580,7 @@ class Domains extends BaseDomains {
 											        d.customer_id as customer_id, 
 											        Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
 											        c.email as email, 
+											        c.language_id as language_id, 
 											        c.parent_id as reseller,
 											        DATEDIFF(d.expiring_date, CURRENT_DATE) as days" )
                                            ->from ( 'Domains d' )

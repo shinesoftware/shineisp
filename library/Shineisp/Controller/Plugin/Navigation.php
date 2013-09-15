@@ -33,10 +33,11 @@ class Shineisp_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstr
 					Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole("administrator");
 				}
 			}
+			
 		}elseif($module == "default"){
 			$navContainerConfig = new Zend_Config_Xml(APPLICATION_PATH . '/modules/default/navigation.xml', 'nav');
 			$navContainer = new Zend_Navigation($navContainerConfig);  // Load the xml navigation menu
-				
+			
 			// Attach the Zend ACL to the Navigation menu
 			$auth = Zend_Auth::getInstance();
 			if($auth){

@@ -4,13 +4,13 @@
 <div class="row">
 	<div class="large-12 column">	
 		<p align="right" class="order-buttons">
-			<a href="/orders" class="button"><?php echo $this->translate('Order list')?></a> 
-			<a href="/orders/print/id/<?php echo $this->orderid?>" class="button"><?php echo $this->translate('Print Order')?></a> 
+			<a href="/orders" class="small button"><?php echo $this->translate('Order list')?></a> 
+			<a href="/orders/print/id/<?php echo $this->orderid?>" class="small button"><?php echo $this->translate('Print Order')?></a> 
             <?php if($this->invoiced): ?>
-                <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="button"><?php echo $this->translate('Print Invoice')?></a> 
+                <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="small button"><?php echo $this->translate('Print Invoice')?></a> 
             <?php else: ?>
             	<?php if(Orders::IsEraseable($this->orderid, $this->customer_id)): ?> 
-            		<a href="/orders/setdelete/id/<?php echo $this->orderid?>" class="button confirm"><?php echo $this->translate('Delete')?></a>
+            		<a href="/orders/setdelete/id/<?php echo $this->orderid?>" class="small button confirm"><?php echo $this->translate('Delete')?></a>
             	<?php endif; ?> 
             <?php endif; ?>
         </p> 
@@ -75,7 +75,7 @@
 	        <?php endif; ?>
 	            
 	            <?php if(!Orders::IsCommentable($this->orderid)): ?>
-	        	<br/><br/><a class="red-button" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
+	        	<br/><a class="small button alert" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
 	        <?php endif; ?>
 	            <?php echo $form->order_id->render()?>
 	</form>        
