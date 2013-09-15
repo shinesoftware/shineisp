@@ -92,9 +92,9 @@ class Default_Form_TicketsForm extends Zend_Form
         }
         
         $this->addElement('submit', 'submit', array(
-            'label'    => 'Send Request',
+            'label'    => 'Send help request',
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'small button'
         ));
         
         
