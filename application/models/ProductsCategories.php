@@ -474,6 +474,7 @@ class ProductsCategories extends BaseProductsCategories {
 										->andWhere('c.isp_id = ?', $isp_id)
 										->orderBy('c.parent, c.position, c.name');
 		
+		$dq->addSelect('( SELECT COUNT( * ) FROM ProductsCategories pc WHERE pc.parent = c.category_id) as children' );
 		$records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if(!empty($records)){
