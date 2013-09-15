@@ -22,15 +22,9 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 			$this->view->user = $NS->customer;
 		}
 		
-		$menu = array('items' => array(), 'parents' => array());
-
 		// Get the store categories product
 		$categories = ProductsCategories::getMenu ();
-		foreach($categories as $menuItem)
-		{
-			$menu['items'][$menuItem['category_id']] = $menuItem;
-			$menu['parents'][$menuItem['parent']][]  = $menuItem['category_id'];
-		}
+		$storecategories = $this->storeCategoriesMenu($categories, 0 );
 		
 		// Create CMS pages menu
 		$cmsmenu = '<li class="has-dropdown"><a href="/">'.$this->translator->translate('Blog').'</a>' . $this->createMenu(0) . "</li>";
@@ -38,19 +32,45 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		// Create the tlds list menu
 		$tldmenu = $this->createTldMenu();
 		
-		// Create the store categories menu
-		$storecategories = $this->storeCategoriesMenu(0, $menu);
-
 		// Delete the last </ul> in the list
-		$storecategories = substr_replace($storecategories ,"",-6);
+		$storecategories = substr_replace($storecategories ,"",-5);
 		
 		// Replace the header of the menu list
-		$storecategories = substr_replace($storecategories, $tldmenu . $cmsmenu, 0, strlen("<ul class=''>\n"));
+		$storecategories = substr_replace($storecategories, $tldmenu . $cmsmenu, 0, strlen("<ul class=''>"));
 		
 		// we will send the body of the bullet list to the partial template
 		$this->view->menu = $storecategories;
 		$this->view->menucls = $menucls;
 		return $this->view->render ( 'partials/webmenu.phtml' );
+	}
+	
+	/**
+	 * Build a recursive store categories menu
+	 * @param array $categories
+	 * @param integer $parent
+	 * @param integer $level
+	 * @return string
+	 */
+	function storeCategoriesMenu($categories, $parent = null, $level = 0)
+	{
+		$class = ($level) ? "dropdown" : "";
+		
+	    $ret = "<ul class='$class'>";
+	    foreach($categories as $index => $category)
+	    {
+	        if($category['parent'] == $parent)
+	        {
+	            if($category['children'] > 0){
+	            	$ret .= "<li class=\"has-dropdown\"><a href=\"/categories/" . $category['uri'] . ".html\">" . $category['name'] . "</a>";
+	                $ret .= $this->storeCategoriesMenu($categories, $category['id'], $level+1);
+	            }else{
+	            	$hasdropdown = $level==0 ? "has-dropdown" : "item";
+	            	$ret .= "<li class=\"$hasdropdown\"><a href=\"/categories/" . $category['uri'] . ".html\">" . $category['name'] . "</a>";
+	            }
+	            $ret .= '</li>';
+	        }
+	    }
+	    return $ret . '</ul>';
 	}
 	
 	/** 
@@ -78,38 +98,6 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 			return '';
 		}
 	}
-	
-
-	private function storeCategoriesMenu($parentId, $menuData, $deep=0)
-	{
-		$html = '';
-	
-		if (isset($menuData['parents'][$parentId]))
-		{
-			$class = ($deep) ? "dropdown" : "";
-				
-			$html = "<ul class='$class'>\n";
-			foreach ($menuData['parents'][$parentId] as $itemId)
-			{
-				$hasdropdown = $deep==0 ? "class='has-dropdown'" : "";
-				$html .= '<li '.$hasdropdown.'><a href="/categories/' . $menuData['items'][$itemId] ['uri'] . '.html">' . $menuData['items'][$itemId]['name'] ."</a>";
-	
-				$deep++;
-	
-				// find childitems recursively
-				$html .= $this->storeCategoriesMenu($itemId, $menuData, $deep);
-	
-				$deep--;
-	
-				$html .= "</li>\n";
-			}
-				
-			$html .= "</ul>\n";
-		}
-	
-		return $html;
-	}
-	
 	
 	/**
 	 *
