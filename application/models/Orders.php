@@ -2859,10 +2859,12 @@ class Orders extends BaseOrders {
 					$customers [$domain ['customer_id']] ['id'] = $invoice_dest ['customer_id'];
 					$customers [$domain ['customer_id']] ['fullname'] = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'] . " " . $invoice_dest ['company'];
 					$customers [$domain ['customer_id']] ['email'] = $invoice_dest ['email'];
+					$customers [$domain ['customer_id']] ['language_id'] = $invoice_dest ['language_id'];
 				} else {
 					$customers [$domain ['customer_id']] ['id'] = $domain ['customer_id'];
 					$customers [$domain ['customer_id']] ['fullname'] = $domain ['fullname'];
 					$customers [$domain ['customer_id']] ['email'] = $domain ['email'];
+					$customers [$domain ['customer_id']] ['language_id'] = $domain ['language_id'];
 				}
 				$customers [$domain ['customer_id']] ['products'] [$i] ['name'] = $domain ['domain'];
 				$customers [$domain ['customer_id']] ['products'] [$i] ['type'] = "domain";
@@ -2934,7 +2936,6 @@ class Orders extends BaseOrders {
 					}
 				}
 				$items = Shineisp_Commons_Utilities::array2table($items);
-				
 				if (! empty ( $items )) {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
 						'items'      => $items

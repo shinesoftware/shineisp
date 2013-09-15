@@ -862,7 +862,7 @@ class Shineisp_Commons_Utilities {
 				
 				
 				if(EmailsTemplatesSends::saveIt($customerId, $from, $to, $subject, $cc, $bcc, $html, $body)){
-					Shineisp_Commons_Utilities::log("An email has been sent to $recipient", 'notice.log'); // log the data
+					Shineisp_Commons_Utilities::log("An email has been sent to $to", 'notice.log'); // log the data
 				}
 				
 			}
