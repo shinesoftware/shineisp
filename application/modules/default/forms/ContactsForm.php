@@ -39,7 +39,6 @@ class Default_Form_ContactsForm extends Zend_Form
         
         $this->addElement($email);
         
-        
         $status = $this->addElement('select', 'subject', array(
         'label' => 'Subject',
         'decorators' => array('Composite'),

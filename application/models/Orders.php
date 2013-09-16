@@ -1613,6 +1613,7 @@ class Orders extends BaseOrders {
 	public static function find_all_not_paid_orders() {
 		$dq = Doctrine_Query::create ()->from ( 'Orders o' )
 										->leftJoin ( 'o.Statuses s' )
+										->where ( "s.status_id = ?", Statuses::id("tobepaid", "orders") )
 										->andWhere("o.is_renewal = ?", false);
 										
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -2780,9 +2781,9 @@ class Orders extends BaseOrders {
 			}
 				
 			$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
-				
+			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
-				 'orderid'    => $order['order_number']
+				 'orderid'    => !empty($order['order_number']) ? $order['order_number'] : $order['order_id']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			), null, null, null, null, $customer['language_id']);
