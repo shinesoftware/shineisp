@@ -170,7 +170,6 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/tickets/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Reply' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		$this->view->title = $this->translator->translate("Edit Ticket");
