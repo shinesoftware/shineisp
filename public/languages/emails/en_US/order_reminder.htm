@@ -1,23 +1,117 @@
 <!--@subject Reminder Order no. [orderid] @-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">    <!-- So that mobile webkit will display zoomed in -->
+    <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
 
-Dear [fullname],
+    <title>Reminder Order no. [orderid]</title>
+    <style type="text/css">
 
-we inform you that the order no. [orderid] not yet has been confirmed.
-We invite you to pay the amount due to proceed with the activation of the service.
+        .ExternalClass {width: 100%; background-color: #ebebeb;}
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+        body {margin:0; padding:0;}
+        table {border-spacing:0;}
+        table td {border-collapse:collapse;}
 
-Please make your payment now in three easy steps:
+        /* Constrain email width for small screens */
+        @media screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 95% !important;
+            }
+        }
 
-- Click this link: [url]
-- Select the payment method
-- Make the payment
+        /* Give content more room on mobile */
+        @media screen and (max-width: 480px) {
+            td[class="container-padding"] {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
 
-If you have already made the payment:
+        /* Styles for forcing columns to rows */
+        @media only screen and (max-width : 600px) {
 
-- Please open a ticket with our helpdesk or send us an email with the details of your payment.
+            /* force container columns to (horizontal) blocks */
+            td[class="force-col"] {
+                display: block;
+                padding-right: 0 !important;
+            }
+            
+            /* align images right and shrink them a bit */
+            img[class="logo"] {
+                margin-top: 6px;
+            	margin-left: 6px;
+            	margin-bottom: 6px;
+                max-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<br>
+<!-- 100% wrapper (grey background) -->
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#ebebeb">
+  <tr>
+    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb;">
 
-If you need support please open a ticket. Our staff will be happy to assist you. 
- 
-Thank you for choosing our services.
+      <!-- 600px container (white background) -->
+      <table border="0" width="600" cellpadding="0" cellspacing="0" class="container" bgcolor="#ffffff">
+        <tr>
+          <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <a href="[url]"><img src="[isp_website]/documents/isp/[isp_logo_email]" alt="[isp_company]" border="0" hspace="0" vspace="0" style="vertical-align:top; padding-bottom:12px;padding-top:12px;" width="150" class="logo"></a>
+            <br>
+            <div style="font-weight: bold; font-size: 18px; line-height: 18px; color: #D03C0F;">
+                Reminder Order no. [orderid]
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <br><div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #D03C0F; border-top: 1px solid #ddd;"></div><br>
+            
+				Dear [fullname],<br><br>
+				
+				we inform you that the order no. <b>[orderid]</b> not yet has been confirmed.<br>
+				We invite you to pay the amount due to proceed with the activation of the service.<br><br>
+				
+				Please make your payment now in three easy steps:<br>
+				
+				<ul>
+					<li>Click this link: <a href="[url]">[url]</a></li>
+					<li>Select the payment method</li>
+					<li>Make the payment</li>
+				</ul>
+				
+				If you have already made the payment:<br>
+				
+				<ul>
+				    <li>Please open a ticket with our helpdesk or send us an email with the details of your payment.</li>
+				</ul>
+				
+				If you need support please open a ticket. Our staff will be happy to assist you. <br><br>
+				 
+				Thank you for choosing our services.<br><br>
+				
+				Sincerely,<br>
+				<b>[isp_company]</b>
+				            
+            <!-- ### END CONTENT ### -->
+            <br><br>
 
-Sincerely,
-[isp_company]
+          </td>
+        </tr>
+      </table>
+      <!--/600px container -->
+
+    </td>
+  </tr>
+</table>
+<!--/100% wrapper-->
+<br>
+<br>
+</body>
+</html>

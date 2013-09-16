@@ -1700,6 +1700,9 @@ Isp:
     logo:
       type: string()
       notnull: false
+    logo_email:
+      type: string()
+      notnull: false
     slogan:
       type: string()
       notnull: false

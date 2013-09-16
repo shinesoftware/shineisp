@@ -36,6 +36,10 @@
 		        <?php echo $form->company->render() ?>
 		        <?php echo $form->vatnumber->render() ?>
 		        <?php echo $form->slogan->render() ?>
+		        <?php echo $form->logo_email->render()?>
+		        <?php if(!empty($this->srclogoemail)): ?>
+		        	<img width="200" src="<?php echo $this->srclogoemail ?>" alt="logo_email"/>
+		        <?php endif;?>
 		    </fieldset>
 		    <fieldset class="column-right"> 
 		        <?php echo $form->manager->render()?>
@@ -43,7 +47,7 @@
 		        <?php echo $form->password->render()?>
 		        <?php echo $form->logo->render()?>
 		        <?php if(!empty($this->srclogo)): ?>
-		        	<img src="<?php echo $this->srclogo ?>" alt="logo"/>
+		        	<img width="200" src="<?php echo $this->srclogo ?>" alt="logo"/>
 		        <?php endif;?>
 		    </fieldset>
     	</div>

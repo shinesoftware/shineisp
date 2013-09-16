@@ -1376,8 +1376,9 @@ class Domains extends BaseDomains {
 	}
 
 	/**
-	 * sendCreateDomainConfirm
 	 * Send the email as renew confirm. 
+	 * 
+	 * 
 	 * @param $domain_id
 	 * @return void
 	 */	
@@ -1388,7 +1389,7 @@ class Domains extends BaseDomains {
 			if(!empty($domain[0])){
 				Shineisp_Commons_Utilities::sendEmailTemplate($domain[0] ['email'], 'domain_created', array(
 					':shineisp:' => $domain
-				), null, null, null, null, $customer['language_id']);
+				), null, null, null, null, $domain['language_id']);
 			}
 		}
 	}

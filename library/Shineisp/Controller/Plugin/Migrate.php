@@ -120,6 +120,20 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 				
 			}
 			
+			// Execute the migration 
+			if($CurrentVersion < $LatestVersion){
+			
+				$dbconfig = Shineisp_Main::databaseConfig();
+			
+				// Update the version in the config.xml file previously created
+				Settings::saveConfig($dbconfig, $LatestVersion);
+			
+				if($CurrentVersion > 0){
+					$migration->migrate();
+				}
+			}
+				
+			
 		}catch (Exception $e){
 			Zend_Debug::dump($e->getMessage());
 			die;
