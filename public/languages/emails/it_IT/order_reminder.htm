@@ -1,27 +1,111 @@
 <!--@subject Promemoria Ordine nr. [orderid] @-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">    <!-- So that mobile webkit will display zoomed in -->
+    <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
 
-Gentile [fullname],
+    <title>Promemoria Ordine nr. [orderid]</title>
+    <style type="text/css">
 
-la informiamo che l'ordine n° [orderid] presente nei nostri archivi non è stato ancora sottoscritto. 
-Vi invitiamo ad effettuare il saldo per procedere all'attivazione del servizio. 
+        .ExternalClass {width: 100%; background-color: #ebebeb;}
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+        body {margin:0; padding:0;}
+        table {border-spacing:0;}
+        table td {border-collapse:collapse;}
 
-Ecco come potete procedere per effettuare il pagamento:
+        /* Constrain email width for small screens */
+        @media screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 95% !important;
+            }
+        }
 
-- Fate click nel seguente link: [url]
-- Selezionate il metodo di pagamento
-- Effettuate il pagamento
+        /* Give content more room on mobile */
+        @media screen and (max-width: 480px) {
+            td[class="container-padding"] {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
 
-Se avete già effettuato il pagamento:
+        /* Styles for forcing columns to rows */
+        @media only screen and (max-width : 600px) {
 
-- aprite una segnalazione o inviate una email con i dettagli dell'avvenuto pagamento.
+            /* force container columns to (horizontal) blocks */
+            td[class="force-col"] {
+                display: block;
+                padding-right: 0 !important;
+            }
+            
+            /* align images right and shrink them a bit */
+            img[class="logo"] {
+                margin-top: 6px;
+            	margin-left: 6px;
+            	margin-bottom: 6px;
+                max-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<br>
+<!-- 100% wrapper (grey background) -->
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#ebebeb">
+  <tr>
+    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb;">
 
-Se l'ordine è stato un test e/o non siete interessati all'ordine indicato nella presente email fate click nel link [url] ed all'apertura della pagina premete il bottone cancella ordine.
-L'ordine verrà cancellato ed il promemoria non verrà più inviato.
+      <!-- 600px container (white background) -->
+      <table border="0" width="600" cellpadding="0" cellspacing="0" class="container" bgcolor="#ffffff">
+        <tr>
+          <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <a href="[url]"><img src="[isp_website]/documents/isp/[isp_logo_email]" alt="[isp_company]" border="0" hspace="0" vspace="0" style="vertical-align:top; padding-bottom:12px;padding-top:12px;" width="150" class="logo"></a>
+            <br>
+            <div style="font-weight: bold; font-size: 18px; line-height: 18px; color: #D03C0F;">
+                Promemoria Ordine nr. [orderid]
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <br><div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #D03C0F; border-top: 1px solid #ddd;"></div><br>
+            
+				Gentile [fullname],<br><br>
+				
+				la informiamo che l'ordine nr. <b>[orderid]</b> non è stato ancora confermato.<br>
+				La invitiamo ad effettuare la sottoscrizione per avviare l'attivazione del serivizio.<br><br>
+				
+				Effettui la sottoscrizione adesso in tre semplici passi:<br>
+				
+				<ul>
+					<li>Click nel seguente link: <a href="[url]">[url]</a></li>
+					<li>Selezionare il metodo di pagamento</li>
+					<li>Effettuare il pagamento</li>
+				</ul>
+				
+				Se avete già provveduto alla sottoscrizione, aprite un ticket di assistenza attraverso il pannello helpdesk o via email:<br>
+				
+				Grazie per aver scelto un nostro servizio.<br><br>
+				
+				Cordialmente,<br>
+				<b>[isp_company]</b>
+				            
+            <!-- ### END CONTENT ### -->
+            <br><br>
 
-Non rispondete a questa email, non ricevereste alcuna risposta. 
-Se necessitate di supporto tecnico aprite una segnalazione un nostro addetto vi risponderà quanto prima possibile. 
- 
-Grazie per aver scelto i nostri servizi. 
+          </td>
+        </tr>
+      </table>
+      <!--/600px container -->
 
-Cordialmente,
-[isp_company]
+    </td>
+  </tr>
+</table>
+<!--/100% wrapper-->
+<br>
+<br>
+</body>
+</html>
