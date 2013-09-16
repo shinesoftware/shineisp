@@ -892,6 +892,7 @@ class Shineisp_Commons_Utilities {
 		}
 
 		$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
+		$EmailTemplate = null;
 		
 		// Template missing from DB. Let's add it.
 		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
@@ -1027,7 +1028,6 @@ class Shineisp_Commons_Utilities {
 		$ISP = ( isset($ISP) && is_array($ISP) ) ? $ISP : ISP::getCurrentISP();
 				
 		// Add some mixed parameters
-		$ISP['signature'] = $ISP['company']."\n".$ISP['website'];
 		$ISP['storename'] = $ISP['company'];
 		
 		// All placeholder prefixed with "isp_" will be replaced with ISP data
@@ -1113,6 +1113,7 @@ class Shineisp_Commons_Utilities {
 // 		Zend_Debug::dump($arrFrom);
 // 		Zend_Debug::dump($arrBCC);
 // 		Zend_Debug::dump($arrTemplate['template']);
+// 		echo $arrTemplate['template'];
 // 		die;
 	    // SendEmail    (    $from,        $to,    $bcc,                $subject,                    $body,                      $html, $inreplyto, $attachments, $replyto,    $cc ) 
 		self::SendEmail ( $arrFrom, $recipient, $arrBCC, $arrTemplate['subject'], $arrTemplate['template'], !$arrTemplate['plaintext'], $inreplyto, $attachments, $replyto, $arrCC );

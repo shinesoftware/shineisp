@@ -73,6 +73,7 @@ class Admin_IspController extends Shineisp_Controller_Admin {
 		$isp ['password'] = "";
 		$form->populate ( $isp );
 		$this->view->srclogo = "/documents/isp/" . $isp['logo'];
+		$this->view->srclogoemail = "/documents/isp/" . $isp['logo_email'];
 		$this->render ( 'applicantform' );
 	
 	}
@@ -99,7 +100,6 @@ class Admin_IspController extends Shineisp_Controller_Admin {
 		
 		// Get our form and validate it
 		$form = $this->getForm ( '/admin/isp/process' );
-		$form->getElement ( 'save' )->setName ( 'save' );
 		
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries

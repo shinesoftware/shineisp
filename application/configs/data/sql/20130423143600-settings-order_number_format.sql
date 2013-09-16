@@ -1,2 +1,0 @@
-
-INSERT INTO settings_parameters SET name = 'Orders number format', var = 'orders_number_format', type = 'text', module = 'admin', enabled = 1, description = 'Customize the format of order number. Valid placeholders are described <a href="http://www.shineisp.com/orders-number-format/" target="_blank">here</a>', group_id = 1;  

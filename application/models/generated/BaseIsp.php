@@ -25,6 +25,7 @@ Doctrine_Manager::getInstance()->bindComponent('Isp', 'doctrine');
  * @property string $password
  * @property string $isppanel
  * @property string $logo
+ * @property string $logo_email
  * @property string $slogan
  * @property boolean $active
  * @property Servers $Servers
@@ -137,6 +138,11 @@ abstract class BaseIsp extends Doctrine_Record
              'length' => '100',
              ));
         $this->hasColumn('logo', 'string', null, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => '',
+             ));
+        $this->hasColumn('logo_email', 'string', null, array(
              'type' => 'string',
              'notnull' => false,
              'length' => '',

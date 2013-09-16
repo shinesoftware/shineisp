@@ -190,20 +190,21 @@ class Isp extends BaseIsp {
 			$isp->password = md5($data ['password']);
 		}
 
-		$isp->save ();
-		$id = $isp['isp_id'];
-		
-		// Upload the logo
-		self::UploadLogo($id);
-
-		// Set the ISP panel
-		if(!empty($data ['isppanel'])){
-			Panels::setAsActive($data ['isppanel'], $isp ['isp_id']);
+		if($isp->trySave ()){
+			$id = $isp['isp_id'];
+			
+			// Upload the logo
+			self::UploadLogo($id);
+			
+			// Set the ISP panel
+			if(!empty($data ['isppanel'])){
+				Panels::setAsActive($data ['isppanel'], $isp ['isp_id']);
+			}
+			return $isp;
 		}
-		
-		return $isp;
+				
+		return false;
 	}
-	
 	
 	/**
      * UploadLogo
@@ -211,22 +212,67 @@ class Isp extends BaseIsp {
      */
     public static function UploadLogo($id){
     	try{
+    		// Create the directory
+    		@mkdir ( PUBLIC_PATH . "/documents/" );
+    		@mkdir ( PUBLIC_PATH . "/documents/isp/");
+    		
+    		if(is_numeric($id)){
+		    	$attachment = new Zend_File_Transfer_Adapter_Http();
+		    	
+				$files = $attachment->getFileInfo();
+				foreach ($files as $name => $info){
+					
+					if(!empty($info['name'])){ 
+						
+						$ext = pathinfo($info['name'], PATHINFO_EXTENSION);
+						
+						// Set the destination directory
+						$attachment->addFilter('Rename', array('target' => PUBLIC_PATH . "/documents/isp/$name.$ext", 'overwrite' => true));
+						
+						if ($attachment->receive($info['name'])) {
+							$isp = self::find($id);
+							if($name == "logo_email"){
+								$isp->logo_email = "$name.$ext";
+							}else{
+								$isp->logo = "$name.$ext";
+							}
+							$isp->save();
+						}
+					}
+				}
+    		}
+    		
+    		return false;
+    	}catch (Exception $e){
+			throw new Exception($e->getMessage() . ": " . PUBLIC_PATH . "/documents/isp/");
+    	}
+    }	   
+	
+	/**
+     * UploadLogoEmail
+     * the extensions allowed are JPG, GIF, PNG
+     */
+    public static function UploadLogoEmail($id){
+    	try{
     		if(is_numeric($id)){
 		    	$attachment = new Zend_File_Transfer_Adapter_Http();
 		    	
 				$files = $attachment->getFileInfo();
 				
-				if(!empty($files['logo']['name'])){
+				if(!empty($files['logo_email']['name'])){
 					// Create the directory
 					@mkdir ( PUBLIC_PATH . "/documents/" );
 					@mkdir ( PUBLIC_PATH . "/documents/isp/");
 					
+					$ext = pathinfo($files['logo_email']['name'], PATHINFO_EXTENSION);
+					
 					// Set the destination directory
 					$attachment->setDestination ( PUBLIC_PATH . "/documents/isp/" );
+					$attachment->addFilter('Rename', array('target' => PUBLIC_PATH . "/documents/isp/logo_email.$ext"));
 					
 					if ($attachment->receive()) {
 						$isp = self::find($id);
-						$isp->logo =  $files['logo']['name'];
+						$isp->logo_email = "logo_email.$ext";
 						$isp->save();
 						return true;
 					}	

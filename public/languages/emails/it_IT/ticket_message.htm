@@ -1,51 +1,108 @@
 <!--@subject [company]: #[issue_number] - [subject] @-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<title>[subject]</title>
-	<style type="text/css">
-		a:hover { text-decoration: none !important; }
-		.content h2 {color:#646464 !important; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif;  }
-		.content {color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif;}
-		.content a {color: #0eb6ce; text-decoration: none;}
-		.footer {font-size: 11px; color:#7d7a7a; margin: 0; padding: 5px; font-family: Helvetica, Arial, sans-serif;}
-		.footer a {color: #0eb6ce; text-decoration: none;}
-		.border{background-color:#edf9ff}
-	</style>
-	
-</head>
-<body>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">    <!-- So that mobile webkit will display zoomed in -->
+    <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
 
-	<table width="80%" border="0" cellspacing="2" cellpadding="2" align="center">
-		
-		<tr>
-			<td colspan="6" class="content" style="min-height: 500px" align="left" valign="top">
-				<h2>[subject]</h2>
-				<small><a href="[link]">[customer]</a></small>
-				<p>[description]</p>
-			</td>
-		</tr>
-		<tr>
-			<td style="height: 200px"></td>
-		</tr>
-		<tr class="border">
-			<td class="footer" width="10%" align="left" valign="top"><b>Segnalazione</b><br/><a href="[link]">[issue_number] del [date_open]</a></td>
-			<td class="footer" width="10%" align="left" valign="top"><b>Data Apertura</b><br/>[date_open]</td>
-			<td class="footer" width="10%" align="left" valign="top"><b>Data Chiusura</b><br/>[date_close]</td>
-			<td class="footer" width="20%" align="left" valign="top"><b>Cliente</b><br/>[customer]</td>
-			<td class="footer" width="20%" align="left" valign="top"><b>Operatore</b><br/>[operator]</td>
-			<td class="footer" width="30%" align="left" valign="top"><b>Allegati</b><br/><a href="[attachment]">[attachment_name]</a></td>
-		</tr>
-		<tr>
-			<td style="height: 50px"></td>
-		</tr>
-		<tr>
-			<td colspan="6" class="footer" align="left" valign="top">
-				Per ulteriori dettagli relativi alla segnalazione e per rispondere vi consigliamo di accedere al vostro pannello di controllo facendo click nel seguente link: <a href="[link]">Visualizza Segnalazione</a>
-				<br/><br/>Non rispondete a questa email con il vostro client di posta elettronica ma usate il seguente <a href="[link]">link</a> che vi porterà direttamente alla vostra segnalazione.
-			</td>
-		</tr>
-	</table>
-	</body>
+    <title>[company]: #[issue_number] - [subject]</title>
+    <style type="text/css">
+
+        .ExternalClass {width: 100%; background-color: #ebebeb;}
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+        body {margin:0; padding:0;}
+        table {border-spacing:0;}
+        table td {border-collapse:collapse; font-size: 13px}
+        .container-contacts thead{font-weight: bold}
+        .container-contacts td{padding: 5px}
+        
+        /* Constrain email width for small screens */
+        @media screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 95% !important;
+            }
+        }
+
+        /* Give content more room on mobile */
+        @media screen and (max-width: 480px) {
+            td[class="container-padding"] {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
+
+        /* Styles for forcing columns to rows */
+        @media only screen and (max-width : 600px) {
+
+            /* force container columns to (horizontal) blocks */
+            td[class="force-col"] {
+                display: block;
+                padding-right: 0 !important;
+            }
+            
+            /* align images right and shrink them a bit */
+            img[class="logo"] {
+                margin-top: 6px;
+                margin-left: 6px;
+                margin-bottom: 6px;
+                max-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<br>
+<!-- 100% wrapper (grey background) -->
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#ebebeb">
+  <tr>
+    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb;">
+
+      <!-- 600px container (white background) -->
+      <table border="0" width="600" cellpadding="0" cellspacing="0" class="container" bgcolor="#ffffff">
+        <tr>
+          <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <a href="[isp_website]"><img src="[isp_website]/documents/isp/[isp_logo_email]" alt="[isp_company]" border="0" hspace="0" vspace="0" style="vertical-align:top; padding-bottom:12px;padding-top:12px;" width="150" class="logo"></a>
+            <br>
+            <div style="font-weight: bold; font-size: 18px; line-height: 18px; color: #D03C0F;">
+                [company]: #[issue_number] - [subject]<br>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <br><div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #D03C0F; border-top: 1px solid #ddd;"></div><br>
+                
+                [description]<br>
+                
+                <br><div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #D03C0F; border-top: 1px solid #ddd;"></div><br>
+                <table border="0" width="100%" cellpadding="0" cellspacing="0" class="container-contacts" >
+					<tr>
+						<td valign="top"><b>Segnalazione</b><br/><a href="[link]">[issue_number] - [date_open]</a></td>
+						<td valign="top"><b>Iniziata il</b><br/>[date_open]</td>
+						<td valign="top"><b>Cliente</b><br/>[customer]</td>
+						<td valign="top"><b>Operatore</b><br/><a href="[link]">[operator]</a></td>
+					</tr>
+				</table><br>
+                
+                Per ulteriori informazioni sulla segnalazione fate click nel seguente link: <a href="[link]">Visualizza Ticket</a><br/><br/>
+                Non rispondete all'email, non riceverete alcuna risposta. Fate click sul seguente <a href="[link]">link</a> per inserire la vostra risposta.
+                            
+            <!-- ### END CONTENT ### -->
+            <br><br>
+
+          </td>
+        </tr>
+      </table>
+      <!--/600px container -->
+
+    </td>
+  </tr>
+</table>
+<!--/100% wrapper-->
+<br>
+<br>
+</body>
 </html>
