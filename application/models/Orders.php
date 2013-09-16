@@ -2819,7 +2819,7 @@ class Orders extends BaseOrders {
 						
 					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
 						
-					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_cleaned', array(
+					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
 						 'orderid'    => $order['order_number']
 						,':shineisp:' => $customer
 						,'url'        => $customer_url
