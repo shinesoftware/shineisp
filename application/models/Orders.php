@@ -437,8 +437,6 @@ class Orders extends BaseOrders {
 					$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_message' );
 					
 					if ($retval) {
-						$subject = $retval ['subject'];
-						$body    = $retval ['template'];
 						
 						// Save the message
 						Messages::addMessage($params ['message'], $order [0] ['Customers'] ['customer_id'], null, $id, null, $isp_id);
@@ -450,9 +448,8 @@ class Orders extends BaseOrders {
 						$placeholders['messagetype'] = $translator->translate('Order Details');
 						$placeholders['message'] = $params ['message'];
 					
-						// Send a message to the customer
-						Messages::sendMessage ( "order_message", Contacts::getEmails($order [0] ['Customers'] ['customer_id']), $placeholders, $order [0] ['Customers'] ['language_id']);
-
+						Shineisp_Commons_Utilities::sendEmailTemplate(Contacts::getEmails($order [0] ['Customers'] ['customer_id']), 'order_message', $placeholders, null, null, null, null, $order [0] ['Customers'] ['language_id']);
+						
 						// Change the URL for the administrator
 						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp->email);
 						
