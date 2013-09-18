@@ -113,7 +113,6 @@ class CustomerController extends Shineisp_Controller_Default {
 			Customers::Create($params);
 			
 			// Send the user to the auto login page
-			//$redirector->gotoUrl ( '/default/index/fastlogin/id/' . md5 ( $params ['email'] ) . "-" . md5 ( $params ['password'] ) );
 			$url = '/default/index/fastlogin/id/' . Shineisp_Commons_Hasher::hash_string($params ['email']);
 			$redirector->gotoUrl ( $url );
 		
