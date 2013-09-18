@@ -125,10 +125,14 @@ class Admin_Form_IspForm extends Zend_Form
             'label'      => 'Email',
             'class'      => 'text-input large-input'
         ));
-        
                 
         $this->addElement('file', 'logo', array(
             'label'      => 'Logo',
+            'class'      => 'text-input large-input'
+        ));
+                
+        $this->addElement('file', 'logo_email', array(
+            'label'      => 'Logo Email',
             'class'      => 'text-input large-input'
         ));
         

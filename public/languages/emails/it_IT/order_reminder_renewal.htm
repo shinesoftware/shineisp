@@ -1,28 +1,112 @@
-<!--@subject Rinnovo Ordine n° [orderid] @-->
+<!--@subject Promemoria Ordine nr. [orderid] @-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">    <!-- So that mobile webkit will display zoomed in -->
+    <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
 
-Gentile [fullname],
+    <title>Promemoria Ordine nr. [orderid]</title>
+    <style type="text/css">
 
-come da lei richiesto, l'ordine sottoscritto è stato rinnovato alla sua naturale data di scadenza.
-L'ordine di rinnovo nr. [orderid] non risulta ancora saldato. 
+        .ExternalClass {width: 100%; background-color: #ebebeb;}
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+        body {margin:0; padding:0;}
+        table {border-spacing:0;}
+        table td {border-collapse:collapse; font-size: 13px}
+        .container-contacts thead{font-weight: bold}
+        .container-contacts td{padding: 3px}
+        
+        /* Constrain email width for small screens */
+        @media screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 95% !important;
+            }
+        }
 
-A tal proposito la invitiamo ad effettuare il saldo. 
+        /* Give content more room on mobile */
+        @media screen and (max-width: 480px) {
+            td[class="container-padding"] {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
 
-Ecco come potete procedere per effettuare il pagamento:
+        /* Styles for forcing columns to rows */
+        @media only screen and (max-width : 600px) {
 
-- Fate click nel seguente link: [url]
-- Selezionate il metodo di pagamento
-- Effettuate il pagamento
+            /* force container columns to (horizontal) blocks */
+            td[class="force-col"] {
+                display: block;
+                padding-right: 0 !important;
+            }
+            
+            /* align images right and shrink them a bit */
+            img[class="logo"] {
+                margin-top: 6px;
+                margin-left: 6px;
+                margin-bottom: 6px;
+                max-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<br>
+<!-- 100% wrapper (grey background) -->
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#ebebeb">
+  <tr>
+    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb;">
 
-Se avete già effettuato il pagamento:
+      <!-- 600px container (white background) -->
+      <table border="0" width="600" cellpadding="0" cellspacing="0" class="container" bgcolor="#ffffff">
+        <tr>
+          <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <a href="[isp_website]"><img src="[isp_website]/documents/isp/[isp_logo_email]" alt="[isp_company]" border="0" hspace="0" vspace="0" style="vertical-align:top; padding-bottom:12px;padding-top:12px;" width="150" class="logo"></a>
+            <br>
+            <div style="font-weight: bold; font-size: 18px; line-height: 18px; color: #D03C0F;">
+                Promemoria Ordine nr. [orderid]
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <br><div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #D03C0F; border-top: 1px solid #ddd;"></div><br>
+                
+					Gentile [fullname],<br><br>
 
-- aprite una segnalazione o inviate una email con i dettagli dell'avvenuto pagamento.
+					a seguito della sua richiesta di autorinnovo abbiamo rinnovato l'ordine [orderid] ma quest'ultimo è giunto a scadenza. <br><br>
+					 
+					E' possibile saldare l'ordine facendo click sul seguente link:<br><br>
+					
+					<a href="[url]">[url]</a><br><br>
+					
+					e dopo è possibile scegliere il metodo di pagamento desiderato.<br><br>
+					
+					Se il pagamento è stato già effettuato, ci contatti gentilmente e ci indichi la data ed il metodo di pagamento.<br><br>
+					
+					Per cancellare l'ordine, fare click sul seguente link <a href="[url]">[url]</a> e fare click sul bottone cancella<br>
+					L'ordine verrà cancellato e non vi saranno più altri email di promemoria.<br><br>
+					
+                <br><br>
+                Cordialmente,<br>
+                <b>[isp_company]</b>
+                            
+            <!-- ### END CONTENT ### -->
+            <br><br>
 
-Tutti gli ordini realizzati dal sistema a seguito dell'attivazione dell'opzione di rinnovo automatico dovranno essere saldati come da Condizioni Contrattuali presenti nel nostro sito, e sottoscritte all'acquisto del servizio.
+          </td>
+        </tr>
+      </table>
+      <!--/600px container -->
 
-Non rispondete a questa email, non riceverete alcuna risposta. La presente email vi verrà reinviata automaticamente fino al dovuto saldo.
-Se necessitate di supporto tecnico aprite una segnalazione un nostro addetto vi risponderà quanto prima possibile. 
- 
-Attendendo una vostra risposta alla presente, cogliamo l'occasione per porgerle i nostri distinti saluti.
-
-Cordialmente,
-[signature]
+    </td>
+  </tr>
+</table>
+<!--/100% wrapper-->
+<br>
+<br>
+</body>
+</html>

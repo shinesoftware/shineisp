@@ -1,19 +1,114 @@
-<!--@subject Ordine nr. [orderid] scaduto @-->
+<!--@subject Ordine nr. [orderid] è scaduto @-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">    <!-- So that mobile webkit will display zoomed in -->
+    <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
 
-Gentile [fullname],
+    <title>Ordine nr. [orderid] è scaduto</title>
+    <style type="text/css">
 
-la informiamo che l'ordine nr. [orderid] presente nei nostri archivi è stato cancellato poichè scaduto. 
-La invitiamo ad effettuare un nuovo ordine se è interessato al servizio. 
+        .ExternalClass {width: 100%; background-color: #ebebeb;}
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+        body {margin:0; padding:0;}
+        table {border-spacing:0;}
+        table td {border-collapse:collapse; font-size: 13px}
+        .container-contacts thead{font-weight: bold}
+        .container-contacts td{padding: 3px}
+        
+        /* Constrain email width for small screens */
+        @media screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 95% !important;
+            }
+        }
 
-Se desiderate visualizzare il vecchio ordine potete fare click nel seguente link: [url]
+        /* Give content more room on mobile */
+        @media screen and (max-width: 480px) {
+            td[class="container-padding"] {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
 
-Se necessitate di supporto amministrativo potete contattarci:
+        /* Styles for forcing columns to rows */
+        @media only screen and (max-width : 600px) {
 
-- Via Chat nel nostro sito
-- Via email a [email] 
-- Via Ticket System all'interno del pannello di controllo
+            /* force container columns to (horizontal) blocks */
+            td[class="force-col"] {
+                display: block;
+                padding-right: 0 !important;
+            }
+            
+            /* align images right and shrink them a bit */
+            img[class="logo"] {
+                margin-top: 6px;
+                margin-left: 6px;
+                margin-bottom: 6px;
+                max-width: 130px;
+            }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<br>
+<!-- 100% wrapper (grey background) -->
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#ebebeb">
+  <tr>
+    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb;">
 
-il nostro staff sarà lieto di offrirvi il supporto richiesto quanto prima possibile. 
- 
-Cordialmente,
-[signature]
+      <!-- 600px container (white background) -->
+      <table border="0" width="600" cellpadding="0" cellspacing="0" class="container" bgcolor="#ffffff">
+        <tr>
+          <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <a href="[isp_website]"><img src="[isp_website]/documents/isp/[isp_logo_email]" alt="[isp_company]" border="0" hspace="0" vspace="0" style="vertical-align:top; padding-bottom:12px;padding-top:12px;" width="150" class="logo"></a>
+            <br>
+            <div style="font-weight: bold; font-size: 18px; line-height: 18px; color: #D03C0F;">
+                Ordine nr. [orderid] è scaduto
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="container-padding" bgcolor="#ffffff" style="background-color: #ffffff; padding-left: 30px; padding-right: 30px; font-size: 13px; line-height: 20px; font-family: Helvetica, sans-serif; color: #333;" align="left">
+            <br><div style="font-weight: bold; font-size: 18px; line-height: 24px; color: #D03C0F; border-top: 1px solid #ddd;"></div><br>
+										
+					Gentile [fullname],<br><br>
+					
+					la informiamo che l'ordine nr. [orderid] è stato cancellato poichè scaduto.<br>
+					
+					Se interessato ancora al servizio la invitiamo a richiedere un nuovo ordine.<br><br>
+					 
+					Se desidera visualizzare il vecchio ordine può far click sul seguente link: <a href="[url]">[url]</a><br><br>
+					
+					Se desidera assistenza può contattarci via:<br><br>
+					
+					<ul>
+						<li>E-mail <a href="mailto:[isp_email]">[isp_email]</a></li>
+						<li>Helpdesk (Via pannello di controllo)</li>
+					</ul>
+					
+					Il nostro staff sarà felice di aiutarla.
+
+                <br><br>
+                Cordialmente,<br>
+                <b>[isp_company]</b>
+                            
+            <!-- ### END CONTENT ### -->
+            <br><br>
+
+          </td>
+        </tr>
+      </table>
+      <!--/600px container -->
+
+    </td>
+  </tr>
+</table>
+<!--/100% wrapper-->
+<br>
+<br>
+</body>
+</html>

@@ -169,6 +169,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		 * Cycle all template and all languages
 		 */
 		$arrLanguages = Languages::getActiveLanguageList();
+
 		if ( is_array($arrLanguages) && !empty($arrLanguages) ) {
 			foreach ( $arrLanguages as $lang ) {
 				if ( empty($lang['locale']) ) {
@@ -176,7 +177,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 				}
 				
 				$dir = PUBLIC_PATH . "/languages/emails/".$lang['locale'];
-								
+
 				foreach ( scandir($dir) as $file ) {
 					if ( !preg_match('/^([a-z0-9A-Z\-\_]+)\.htm$/', $file, $out) ) {
 						continue;
@@ -185,9 +186,9 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 					if ( empty($out[1]) ) {
 						continue;
 					}
-					
+
 					// Import
-					$outArray = Shineisp_Commons_Utilities::getEmailTemplate($out[1], $lang['locale']);
+					$outArray = Shineisp_Commons_Utilities::getEmailTemplate($out[1], $lang['language_id']);
 					
 					if ( !empty($outArray) ) {
 						$importOK++;
@@ -196,7 +197,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 				
 			}
 		}
-								
+						
 		if ( $importOK > 0 ) {
 			$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Template imported successfully' ), 'status' => 'success' ) );
 		}

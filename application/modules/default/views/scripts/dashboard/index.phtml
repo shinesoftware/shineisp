@@ -2,10 +2,10 @@
 
 	<?php if($this->dashboard): ?>
 	    <div class="large-12 colummn">
-	        <h3><?php echo $this->translate('Welcome')?> <?php echo $this->customer['lastname'] . " " . $this->customer['firstname'] ?></h3>
+	        <h3><?php echo $this->translate('Welcome', $this->customer['firstname'] . " " . $this->customer['lastname'])?></h3>
 	        <p><?php echo $this->translate('Welcome to the administration of your own services and domain panel.')?></p>
 	        
-        	<?php echo $this->navigation(); ?>
+        	<?php echo $this->navigation()->menu()->setUlClass('button-group round even-1'); ?><br/>
 	        
 	        <?php if(!empty($this->mex)) :?>
 	        <div data-alert class="alert-box <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>

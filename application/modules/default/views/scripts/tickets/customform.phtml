@@ -2,9 +2,9 @@
 	$i = 0;
 	$form = $this->form; 
 ?>
+<?php echo $this->render('partials/header.phtml') ?>
 
-
-	<?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () && "process" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+<?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () && "process" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
 	    <div class="row"> 
 		    
 	    	<div class="large-9 column">
@@ -25,9 +25,6 @@
 	    	<div class="large-12 column">
 		    	<?php echo $this->Attachments($this->summary['ticket_id'], 'tickets'); ?>
 	    	</div>
-		    
-		    
-		    
 		</div>
     <?php endif;?>
 
@@ -70,7 +67,6 @@
 			<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
 			
 	            <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () || "process" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
-	            	<h4><?php echo $this->translate('Message')?></h4>
 		            <?php echo $form->category_id->render()?>
 		            <?php echo $form->subject->render()?>
 		            <?php echo $form->domain_id->render()?>

@@ -124,13 +124,6 @@ class Admin_Form_TicketsForm extends Zend_Form
         	$this->addElement('hidden', 'attachments');
         }
         
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
         $this->addElement('hidden', 'ticket_id');
 
     }

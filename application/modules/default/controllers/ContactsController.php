@@ -21,6 +21,7 @@ class ContactsController extends Shineisp_Controller_Default {
 	}
 	
 	public function processAction() {
+		$ns = new Zend_Session_Namespace ( "default" );
 		$request = $this->getRequest ();
 		$form = new Default_Form_ContactsForm ( array ('action' => '/contacts/process', 'method' => 'post' ) );
 		$this->view->form = $form;
@@ -49,30 +50,21 @@ class ContactsController extends Shineisp_Controller_Default {
 			$captchaIterator = $captchaSession->getIterator ();
 			// And here's the correct word which is on the image...
 			$captchaWord = $captchaIterator ['word'];
-
+			
 			// Now just compare them...
 			if ($captchaInput == $captchaWord) {
-				$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'contact' );
-				if ($retval) {
-					$isp = Shineisp_Registry::get('ISP');
-					$subject = $retval ['subject'];
-					$subject = str_replace ( "[subject]", $this->translations->translate("Message from the website"), $subject );
-					$body = $retval ['template'];
-					$body = str_replace ( "[fullname]", $params['fullname'], $body);
-					$body = str_replace ( "[company]", $params['company'], $body);
-					$body = str_replace ( "[email]", $params['email'], $body);
-					$body = str_replace ( "[subject]", $params['subject'], $body);
-					$body = str_replace ( "[message]", $params['message'], $body);
-
-					// Send first message to the visitor
-					Shineisp_Commons_Utilities::SendEmail ( $isp->email, $params['email'], null, $subject, $body);
-					
-					// Send the message to the administrator
-					Shineisp_Commons_Utilities::SendEmail ( $isp->email, $isp->email, null, $subject, $body, false, null, null, $params['email']);
-					
-					// Redirect the visitor to the contact page
-					return $this->_helper->redirector ( 'index', 'contacts', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
-				}
+				$isp = Shineisp_Registry::get('ISP');
+				
+				Shineisp_Commons_Utilities::sendEmailTemplate($isp->email, 'contact', array(
+						'fullname'      => $params['fullname'],
+						'company'      => $params['company'],
+						'email'      => $params['email'],
+						'subject'      => $params['subject'],
+						'message'      => $params['message']
+				), null, null, null, null, $ns->langid);
+				
+				// Redirect the visitor to the contact page
+				return $this->_helper->redirector ( 'index', 'contacts', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			}
 		}
 		
