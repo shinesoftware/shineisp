@@ -461,7 +461,6 @@ class CartController extends Shineisp_Controller_Default {
 		if ($hasdomain === false){
 			$form->getElement ( 'sex' )->setRequired ( false );
 			$form->getElement ( 'sex' )->setRegisterInArrayValidator ( false );
-			$form->getElement ( 'sex' )->setRequired ( false );
 			$form->getElement ( 'birthdate' )->setRequired ( false );
 			$form->getElement ( 'birthplace' )->setRequired ( false );
 			$form->getElement ( 'birthdistrict' )->setRequired ( false );
