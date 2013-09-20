@@ -89,7 +89,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	public static function listener_invoice_upload($event) {
 		$invoice = $event->getParam('invoice');
 		$file = $event->getParam('file');
-		echo $file;
+		
 		if(is_numeric($invoice['invoice_id'])){
 
 			if(self::isReady()){
