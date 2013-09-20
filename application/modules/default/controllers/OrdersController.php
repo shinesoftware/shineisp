@@ -508,20 +508,13 @@ class OrdersController extends Shineisp_Controller_Default {
 			// means that the order has been executed correctly
 			if (is_numeric ( $OrderID )) {
 				
-				// Getting the email template
-				$result = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_confirm' );
+				// Sending an email to the customer and the administrator with the order details.
+				$order = Orders::getAllInfo ( $OrderID, null, true );
 				
-				if ($result) {
-					$subject = str_replace ( "[orderid]", $OrderID, $result ['subject'] );
-					$template = str_replace ( "[orderid]", $OrderID, $result ['template'] );
-					$template = str_replace ( "[signature]", $isp->company, $template );
-					
-					// Sending an email to the customer and the administrator with the order details.
-					$order = Orders::getAllInfo ( $OrderID, null, true );
-					if (! empty ( $order [0] ['Customers'] ['email'] )) {
-						Shineisp_Commons_Utilities::SendEmail ( $isp->email, $order [0] ['Customers'] ['email'], null, $subject, $template );
-					}
-				}
+				Shineisp_Commons_Utilities::sendEmailTemplate($order [0] ['Customers'] ['email'], 'order_confirm', array(
+											'orderid'      => $OrderID,
+											'order'      => $order,
+				), null, null, null, null, $order [0] ['Customers'] ['language_id']);
 				
 				// Redirect the user in the The task requested has been executed successfully. page
 				$this->_helper->redirector ( 'list', 'orders', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
