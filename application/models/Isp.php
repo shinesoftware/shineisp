@@ -185,6 +185,9 @@ class Isp extends BaseIsp {
 		$isp->bankname = !empty($data ['bankname']) ? $data ['bankname'] : NULL;
 		$isp->iban = !empty($data ['iban']) ? $data ['iban'] : NULL;
 		$isp->bic = !empty($data ['bic']) ? $data ['bic'] : NULL;
+		$isp->custom1 = !empty($data ['custom1']) ? $data ['custom1'] : NULL;
+		$isp->custom2 = !empty($data ['custom2']) ? $data ['custom2'] : NULL;
+		$isp->custom3 = !empty($data ['custom3']) ? $data ['custom3'] : NULL;
 		
 		if (! empty ( $data ['password'] )) {
 			$isp->password = md5($data ['password']);

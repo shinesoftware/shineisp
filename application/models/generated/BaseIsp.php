@@ -11,6 +11,9 @@ Doctrine_Manager::getInstance()->bindComponent('Isp', 'doctrine');
  * @property string $company
  * @property string $vatnumber
  * @property string $manager
+ * @property string $custom1
+ * @property string $custom2
+ * @property string $custom3
  * @property string $address
  * @property string $zip
  * @property string $city
@@ -69,7 +72,22 @@ abstract class BaseIsp extends Doctrine_Record
              ));
         $this->hasColumn('manager', 'string', 200, array(
              'type' => 'string',
-             'notnull' => true,
+             'notnull' => false,
+             'length' => '200',
+             ));
+        $this->hasColumn('custom1', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => '200',
+             ));
+        $this->hasColumn('custom2', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => '200',
+             ));
+        $this->hasColumn('custom3', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => false,
              'length' => '200',
              ));
         $this->hasColumn('address', 'string', 200, array(
