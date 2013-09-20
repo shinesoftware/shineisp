@@ -2361,6 +2361,7 @@ class Orders extends BaseOrders {
 				$orderinfo ['invoice_id'] = "";
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
+				$orderinfo ['company'] ['manager'] = $order [0] ['Isp'] ['manager'];
 				$orderinfo ['company'] ['vat'] = $order [0] ['Isp'] ['vatnumber'];
 				$orderinfo ['company'] ['bankname'] = $order [0] ['Isp'] ['bankname'];
 				$orderinfo ['company'] ['iban'] = $order [0] ['Isp'] ['iban'];

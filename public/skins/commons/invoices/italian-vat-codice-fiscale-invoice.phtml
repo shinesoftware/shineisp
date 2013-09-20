@@ -387,7 +387,7 @@
 				<?php endforeach; ?>
 			<tr>
 				<td valign="top" class="company-data-footer" style="padding-top:8px;border:0px;" colspan='4'>
-					<?php echo $this->data['company']['name']?> - <?php echo $this->translator->translate('Site Web')?>: <?php echo $this->data['company'] ['website']?> - <?php echo $this->translator->translate('eMail')?>: <?php echo $this->data['company'] ['email']?> - <?php echo $this->translator->translate('Telephone')?>: <?php echo $this->data['company']['telephone']?> - <?php echo $this->translator->translate('fax')?>: <?php echo $this->data['company']['fax']?><br />
+					<?php echo $this->data['company']['name']?> <?php echo $this->data['company']['manager']?> - <?php echo $this->translator->translate('Site Web')?>: <?php echo $this->data['company'] ['website']?> - <?php echo $this->translator->translate('eMail')?>: <?php echo $this->data['company'] ['email']?> - <?php echo $this->translator->translate('Telephone')?>: <?php echo $this->data['company']['telephone']?> - <?php echo $this->translator->translate('fax')?>: <?php echo $this->data['company']['fax']?><br />
 					<?php echo $this->translator->translate('Address')?>: <?php echo $this->data['company']['address']?> - <?php echo $this->data['company']['zip']?> <?php echo $this->data['company']['city']?> - <?php echo $this->data['company']['country']?> - <?php echo $this->translator->translate('VAT Number')?>: <?php echo $this->data['company']['vat']?>
 				</td>
 				<td style="padding-top:8px;border:0px; text-align:right"><?php echo $this->translator->translate('Page')?> [[page_cu]]/[[page_nb]]</td>				

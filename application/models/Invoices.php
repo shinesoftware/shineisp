@@ -868,9 +868,9 @@ class Invoices extends BaseInvoices {
 			$invoice = $invoice->toArray ();
 
 			// Set the basepath for the file
-			$Order = Doctrine::getTable ( 'Orders' )->findOneBy('invoice_id', $invoice_id);
+			$Order = Doctrine::getTable ( 'Orders' )->findOneBy('order_id', $invoice['order_id']);
 			$invoicePath = $path.$Order->isp_id.'/'.str_replace('-','/',$invoice ['invoice_id']);
-			
+
 			// Set the name of the file
 			$filename    = $invoicePath.'/'.$invoice['invoice_id'].".pdf";
 			$filenameOld = $path.$invoice ['invoice_date']." - ".$invoice ['number'].".pdf";
@@ -964,6 +964,7 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['invoice_number'] = $invoice ['number'];
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
+				$orderinfo ['company'] ['manager'] = $order [0] ['Isp'] ['manager'];
 				$orderinfo ['company'] ['vat'] = $order [0] ['Isp'] ['vatnumber'];
 				$orderinfo ['company'] ['bankname'] = $order [0] ['Isp'] ['bankname'];
 				$orderinfo ['company'] ['iban'] = $order [0] ['Isp'] ['iban'];
