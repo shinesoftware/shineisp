@@ -470,8 +470,8 @@ class OrdersController extends Shineisp_Controller_Default {
 	}
 	
 	/**
-	 * response
 	 * Process the response of the banks gateways
+	 * 
 	 * @return void
 	 */
 	public function responseAction() {
@@ -504,6 +504,7 @@ class OrdersController extends Shineisp_Controller_Default {
 					}
 				}
 			}
+			
 			// Check if the OrderID is a number because it 
 			// means that the order has been executed correctly
 			if (is_numeric ( $OrderID )) {
@@ -512,6 +513,7 @@ class OrdersController extends Shineisp_Controller_Default {
 				$order = Orders::getAllInfo ( $OrderID, null, true );
 				
 				Shineisp_Commons_Utilities::sendEmailTemplate($order [0] ['Customers'] ['email'], 'order_confirm', array(
+											'fullname'      => $order [0] ['Customers']['fullname'],
 											'orderid'      => $OrderID,
 											'order'      => $order,
 				), null, null, null, null, $order [0] ['Customers'] ['language_id']);
