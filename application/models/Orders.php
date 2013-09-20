@@ -2278,8 +2278,8 @@ class Orders extends BaseOrders {
 	}
 	
     /**
-     * 
      * print the order
+     * 
      * @param unknown_type $invoiceid
      */
     public static function pdf($order_id, $show = true, $force=false, $path="/documents/orders/") {
@@ -2361,6 +2361,7 @@ class Orders extends BaseOrders {
 				$orderinfo ['invoice_id'] = "";
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
+				$orderinfo ['company'] ['manager'] = $order [0] ['Isp'] ['manager'];
 				$orderinfo ['company'] ['vat'] = $order [0] ['Isp'] ['vatnumber'];
 				$orderinfo ['company'] ['bankname'] = $order [0] ['Isp'] ['bankname'];
 				$orderinfo ['company'] ['iban'] = $order [0] ['Isp'] ['iban'];
@@ -2374,6 +2375,9 @@ class Orders extends BaseOrders {
 				$orderinfo ['company'] ['website'] = $order [0] ['Isp'] ['website'];
 				$orderinfo ['company'] ['email'] = $order [0] ['Isp'] ['email'];
 				$orderinfo ['company'] ['slogan'] = $order [0] ['Isp'] ['slogan'];
+				$orderinfo ['company'] ['custom1'] = $order [0] ['Isp'] ['custom1'];
+				$orderinfo ['company'] ['custom2'] = $order [0] ['Isp'] ['custom2'];
+				$orderinfo ['company'] ['custom3'] = $order [0] ['Isp'] ['custom3'];
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
 					$orderinfo ['ribbon']['text'] = $translator->translate("To be Paid");
@@ -2392,7 +2396,6 @@ class Orders extends BaseOrders {
 				$orderinfo ['subtotal'] = $order[0] ['total'];
 				$orderinfo ['grandtotal'] = $order[0] ['grandtotal'];
 				$orderinfo ['vat'] = $order[0] ['vat'];
-				
 				$orderinfo ['delivery'] = 0;
 				
 				$database ['records'] = $orderinfo;

@@ -1657,7 +1657,16 @@ Isp:
       notnull: false
     manager:
       type: string(200)
-      notnull: true
+      notnull: false
+    custom1:
+      type: string(200)
+      notnull: false
+    custom2:
+      type: string(200)
+      notnull: false      
+    custom3:
+      type: string(200)
+      notnull: false      
     address:
       type: string(200)
       notnull: false
