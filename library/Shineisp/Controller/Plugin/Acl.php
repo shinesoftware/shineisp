@@ -34,8 +34,8 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 			return true;
 		}
 		
-		Zend_Debug::dump($resource);
-		Zend_Debug::dump($this->_currentRole);
+// 		Zend_Debug::dump($resource);
+// 		Zend_Debug::dump($this->_currentRole);
 
 		// Check if the user is an Administrator and let him free to access to all the resources
 		if($this->_currentRole == "administrator"){
