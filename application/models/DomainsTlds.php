@@ -264,15 +264,22 @@ class DomainsTlds extends BaseDomainsTlds
      * @return Array
      */
     public static function getHighlighted($locale=1) {
+        $isp = Shineisp_Registry::get('ISP');
         
         try {
-            return Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
+             $dq = Doctrine_Query::create ()->from ( 'DomainsTlds dt' )
             								->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
             								->leftJoin('dt.Registrars r')
             								->leftJoin('dt.Taxes t')
-            								->where('dt.ishighlighted = ?', true)
-											->addWhere('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
-            								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+            								->where('dt.ishighlighted = ?', true);
+			
+			if(!empty($isp)){
+            	$dq->addWhere('dt.isp_id = ?', $isp->isp_id);
+			}else{
+				$dq->addWhere('dt.isp_id = ?', Isp::getActiveISPID());
+			}
+           	
+			return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         } catch (Exception $e) {
             die ( $e->getMessage () );
         }

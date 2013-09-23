@@ -1,7 +1,6 @@
 <?php
 /**
  * ShineISP new Plugin Architecture
- * @author GUEST.it s.r.l. <assistenza@guest.it>
  *
  */
 class Shineisp_Registry extends Zend_Registry {

@@ -80,7 +80,7 @@ class AdminPermissions extends BaseAdminPermissions
 	
 			foreach ($records as $record){
 				if($record['permission'] == "allow"){
-					$resource[] = $record['resource_id'];
+					$resource[] = $record['AdminResources']['module'] . ":" . $record['AdminResources']['controller'];
 				} 
 			}
 			return $resource;
@@ -131,31 +131,23 @@ class AdminPermissions extends BaseAdminPermissions
 		 * @param integer $roleID
 		 * @param integer $resourceID
 		 */
-		public static function addPermission($roleID, $resourceID, $permission="allow") {
-			$p = new AdminPermissions();
-			$p['role_id'] = $roleID;
-			$p['resource_id'] = $resourceID;
-			$p['permission'] = $permission;
-			return $p->trySave();
-		}
-		
-	
-		/**
-		 * Add the default resources to a specific role
-		 * @param integer $roleID
-		 */
-		public static function addDefaultPermissions($roleID) {
-			$p = new Doctrine_Collection('AdminPermissions');
-			$defaultRes = AdminResources::getDefaultModuleList();
-			$i = 0;
+		public static function addPermission($roleID, $module, $controller, $permission="allow") {
 			
-			foreach ($defaultRes as $id => $resource){
-				$p[$i]['role_id'] = $roleID;
-				$p[$i]['resource_id'] = $id;
-				$p[$i]['permission'] = 'allow';
-				$i++;
+			$resource = AdminResources::createResource($module, $controller);
+			
+			if(!empty($resource)){
+				$adminpermission = new AdminPermissions();
+				
+				$adminpermission['role_id'] = $roleID;
+				$adminpermission['resource_id'] = (string)$resource->resource_id;
+				$adminpermission['permission'] = $permission;
+				
+				if($adminpermission->trySave()){
+					return $adminpermission;
+				}
 			}
-			return $p->save();
+			
+			return false;
 		}
 		
 		/**

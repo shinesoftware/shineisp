@@ -35,19 +35,16 @@ class Shineisp_Acl extends Zend_Acl {
 	 */
 	protected function initResources() {
 		self::initRoles();
-		
 		$resources = AdminResources::getResources();
-		if(!empty($resources[0])){
-			foreach ($resources as $resource){
-				$theresource = $resource['module'] . ":" . $resource['controller'];
-				if(!empty($resource['action'])){
-					$theresource .= ":" . $resource['action'];
-				}
-	            if (!$this->has($theresource)) {
-// 	            	echo "> Adding the resource: $theresource<br/>";
-	                $this->add(new Zend_Acl_Resource($theresource));
-	            }
-	        }
+		if(!empty($resources)){
+			foreach ($resources as $module){
+				foreach ($module as $keyresource => $resource){
+		            if (!$this->has($keyresource)) {
+	// 	            	echo "> Adding the resource: $theresource<br/>";
+		                $this->add(new Zend_Acl_Resource($keyresource));
+		            }
+		        }
+		    }
 		}
 	}
 
@@ -58,11 +55,10 @@ class Shineisp_Acl extends Zend_Acl {
 	{
 		self::initResources();
 		$acl = AdminRoles::getAll();
-		
 		foreach ($acl as $data) {
 			foreach ($data['AdminPermissions'] as $permission){
 				$theresource = $permission['AdminResources']['module'] . ":" . $permission['AdminResources']['controller'];
-// 				echo "> " . $permission['permission'] . " " . $data['name'] . " for the $theresource resource <br/>";
+// 				echo "> " . $permission['permission'] . " " . $data['name'] . " access for the $theresource resource <br/>";
 				$this->allow($data['name'], $theresource, $permission['permission']);
 			}
 		}

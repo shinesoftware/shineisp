@@ -16,8 +16,7 @@ class Admin_View_Helper_Profile extends Zend_View_Helper_Abstract
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $data = $auth->getIdentity();
-            
-            $this->view->data = Shineisp_Registry::get('ISP')->toArray();
+            $this->view->data = $data;
         }
         return $this->view->render ( 'partials/profile.phtml' );
     }

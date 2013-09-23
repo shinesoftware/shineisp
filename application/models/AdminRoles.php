@@ -96,16 +96,14 @@ class AdminRoles extends BaseAdminRoles
 				// Clear old permissions
 				AdminPermissions::clearPermissionByRoleID($id);
 				
-				// Allow the default resources permissions
-				#AdminPermissions::addDefaultPermissions($id);
-				
 				// Add the new permissions
 				foreach ($resources as $resource ){
-					AdminPermissions::addPermission($id, $resource);
+					list($module, $controller) = explode(':', $resource);
+					AdminPermissions::addPermission($id, $module, $controller);
 				}
 			}
 			
-			return true;
+			return $role;
 		}
 		return false;
 	}

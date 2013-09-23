@@ -24,8 +24,25 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		// if the current user role is not allowed to do something
 		$resource = $this->_module . ":" . $this->_controller;
 
+		$allowed_resources[] = "default:error";
+		$allowed_resources[] = "admin:index";
+		$allowed_resources[] = "admin:login";
+		$allowed_resources[] = "system:index";
+		
 		// Exclude the system index controller and the default error controller for a formal ACL check
-		if($resource == "default:error" || $resource == "system:index"){
+		if(in_array($resource, $allowed_resources)){
+			return true;
+		}
+		
+		Zend_Debug::dump($resource);
+		Zend_Debug::dump($this->_currentRole);
+
+		// Check if the user is an Administrator and let him free to access to all the resources
+		if($this->_currentRole == "administrator"){
+			return true;
+		}
+		
+		if($this->_currentRole == "guest" && $this->_module == "default"){
 			return true;
 		}
 		
@@ -51,6 +68,7 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 
 	protected function _getCurrentUserRole() {
 		$this->_auth->setStorage(new Zend_Auth_Storage_Session($this->_module));
+		
 		if ($this->_auth->hasIdentity()) {
 			$authData = $this->_auth->getIdentity();
 			$role = !empty($authData['AdminRoles']['name']) ? strtolower($authData['AdminRoles']['name']) : 'guest';
