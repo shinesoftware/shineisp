@@ -24,25 +24,11 @@ AdminResources:
       autoincrement: true
     name:
       type: string(250)
-    hidden:
-      type: boolean(25)
-      default: 0
-    is_container:
-      type: boolean(25)
-      default: 0
-    is_allowed:
-      type: boolean(25)
-      default: 0
-    admin:
-      type: boolean(25)
-      default: 0
     module:
       type: string(250)
       notnull: true
     controller:
       type: string(250)
-    parent_id:
-      type: integer(4)
                   
 AdminPermissions:
   connection: doctrine

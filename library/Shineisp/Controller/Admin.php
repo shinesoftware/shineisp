@@ -28,6 +28,7 @@ class Shineisp_Controller_Admin extends Shineisp_Controller_Common {
     }	
     
     public function postDispatch(){
+    	
     	$controller_name = $this->getRequest()->getControllerName();
     	$controller_action = $this->getRequest()->getActionName();
     	

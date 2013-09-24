@@ -489,8 +489,8 @@ class Settings extends BaseSettings {
 	
 	
     /**
-     * getAll
      * Get all settings with a single query. Used to be saved in Registry
+     * 
      * @param $id
      * @return Doctrine Record
      */
@@ -498,20 +498,24 @@ class Settings extends BaseSettings {
     	$out = array();
     	$isp = Shineisp_Registry::get('ISP');
 
-        $records = Doctrine_Query::create ()
-                                     ->select ('s.setting_id, s.value AS value, sp.var AS var' )
-                                     ->from ( 'Settings s' )
-                                     ->leftJoin ( 's.SettingsParameters sp ' )
-                                     ->where ( 's.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id)
-									 ->addWhere( 'sp.enabled = 1')
-                                     ->execute();
-
-     	// normalize records
-		foreach ( $records as $record ) {
-			$out[$record->var] = $record->value;
-		}
-
-        return (object)$out;
+    	if(!empty($isp->isp_id)){
+	        $records = Doctrine_Query::create ()
+	                                     ->select ('s.setting_id, s.value AS value, sp.var AS var' )
+	                                     ->from ( 'Settings s' )
+	                                     ->leftJoin ( 's.SettingsParameters sp ' )
+	                                     ->where ( 's.isp_id = ?', $isp->isp_id)
+										 ->addWhere( 'sp.enabled = 1')
+	                                     ->execute();
+	
+	     	// normalize records
+			foreach ( $records as $record ) {
+				$out[$record->var] = $record->value;
+			}
+		
+        	return (object)$out;
+    	}
+    	
+    	return $out;
     }    
 	
 	
