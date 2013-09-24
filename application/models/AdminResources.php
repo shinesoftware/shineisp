@@ -16,23 +16,84 @@ class AdminResources extends BaseAdminResources
 	 * Get all the resources
 	 */
 	public static function getResources(){
-		return Doctrine_Query::create ()->from ( 'AdminResources r' )->execute(array(), Doctrine::HYDRATE_ARRAY);
+		$aclresources 		= array();
+		
+		// Get the common resources of ShineISP from the ACL file
+		$aclConfig 			= new Zend_Config_Xml(APPLICATION_PATH . '/configs/acl.xml', 'acl');
+		
+		// Get the custom ACL resources from the database 
+		$acldbresources 	= Doctrine_Query::create ()->from ( 'AdminResources r' )->execute(array(), Doctrine::HYDRATE_ARRAY);
+		
+		foreach ($aclConfig->admin as $controller=>$resources){
+			$key = "admin:$controller";
+			$aclresources['admin'][$key]['module'] = "admin";
+			$aclresources['admin'][$key]['title'] = (string)$resources->title;
+			$aclresources['admin'][$key]['controller'] = $controller;
+		}
+		
+		foreach ($acldbresources as $resource){
+			$module = $resource['module'];
+			$key = $resource['module'] . ":" . $resource['controller'];
+			$aclresources[$module][$key]['module'] = $module;
+			$aclresources[$module][$key]['title'] = $resource['name'];
+			$aclresources[$module][$key]['controller'] = $resource['controller'];
+		}
+		
+		return $aclresources;
 	}
 	
 	/**
-	 * Get all default module resources within an array list
+	 * Create a new ACL Resource
+	 * 
+	 * @param string $module
+	 * @param string $controller
+	 * @param string $name
 	 */
-	public static function getDefaultModuleList(){
-		$data = array();
-		$resources = Doctrine_Query::create ()->from ( 'AdminResources r' )
-												->where('r.module = ?', 'default')
-											  ->execute(array(), Doctrine::HYDRATE_ARRAY);
-		foreach ($resources as $resource){
-			$data[$resource['resource_id']] = $resource['module'] . ":" . $resource['controller'] . " - " . $resource['name'];
+	public static function createResource($module, $controller, $name = null){
+		
+		if (!empty($module) && !empty($controller)){
+			$resource = self::getResource($module, $controller);
+			
+			if(empty($resource)){
+				$resource = new AdminResources();
+				
+				$resource->name = !empty($name) ? $name : $controller;
+				$resource->module = $module;
+				$resource->controller = $controller;
+				if($resource->trySave()){
+					return $resource;
+				}
+			}else{
+				return $resource{0};
+			}
+		}
+	}
+	
+	
+	/**
+	 * Get the resource record using the module and the controller name
+	 * 
+	 * @param string $module
+	 * @param string $controller
+	 * @return Ambigous <Doctrine_Collection, mixed, PDOStatement, Doctrine_Adapter_Statement, Doctrine_Connection_Statement, unknown, number>|NULL
+	 */
+	public static function getResource($module, $controller){
+		
+		if (!empty($module) && !empty($controller)){
+			$resource = Doctrine_Query::create ()->from ( 'AdminResources r' )
+												  ->where('module = ?', $module)
+												  ->addWhere('controller = ?', $controller)
+												  ->limit(1)
+												  ->execute();
+			
+			return $resource;
 		}
 		
-		return $data;
+		return null;
 	}
+	
+	
+	
 	
 	/**
 	 * Get all the resources within an array list
@@ -68,27 +129,27 @@ class AdminResources extends BaseAdminResources
 	}
 	
 	/**
-	 * This method creates the resource tree
-	 * @param integer $id [0 for the root]
-	 * @param array $selecteditem 
-	*/
-	public static function createTree($id, $selecteditem = array()) {
+	 * Recursive resource grabber
+	 * Create the tree resources menu in the administration page
+	 *  
+	 * @param unknown_type $aclConfig
+	 * @param array $selecteditems
+	 * @return multitype:boolean NULL multitype:string boolean NULL
+	 */
+	public static function createResourcesTree($aclConfig, $selecteditems = array()) {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$res = array ();
-		$isfolder = false;
-		$items = self::getbyParentId ( $id, 0 );
-		foreach ( $items as $resource ) {
-			$subres = self::createTree ( $resource ['resource_id'], $selecteditem );
-			$isfolder = ($subres) ? true : false;
-			$selected = in_array ( $resource ['resource_id'], $selecteditem ) ? true : false;
-			if ($subres) {
-				$expanded = in_array ( $resource ['resource_id'], $selecteditem ) ? true : false;
-				$res [] = array ('key' => $resource ['resource_id'], 'title' => $translator->translate($resource ['name']), 'expand' => $expanded, 'select' => $selected, 'isFolder' => $isfolder, 'children' => $subres, 'hideCheckbox' => true );
-			} else {
-				$res [] = array ('key' => $resource ['resource_id'], 'title' => $translator->translate($resource ['name']), 'select' => $selected );
+		foreach ($aclConfig as $key => $item){
+			$key = "admin:$key";
+			$selected = in_array ( $key, $selecteditems ) ? true : false;
+			
+			if(!empty($item->children)){
+				$res [] = array ('key' => $key, 'title' => $translator->translate($item->title), 'expand' => true, 'select' => false, 'isFolder' => true, 'children' => self::createResourcesTree($item->children, $selecteditems), 'hideCheckbox' => true );
+			}else{
+				$res [] = array ('key' => $key, 'title' => $translator->translate($item->title), 'select' => $selected );
 			}
 		}
 		return $res;
 	}
+	
 }

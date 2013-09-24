@@ -213,7 +213,7 @@ class Products extends BaseProducts {
 				$products->cost            = $params ['cost'];
                 $products->price_1         = $params ['price_1'];
 				$products->setupfee        = $params ['setupfee'];
-				$products->enabled         = $params ['enabled'] == 1 ? 1 : 0;
+				$products->enabled         = !empty($params ['enabled']) ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
 				$products->type            = !empty($params ['type']) ? $params ['type'] : "generic";

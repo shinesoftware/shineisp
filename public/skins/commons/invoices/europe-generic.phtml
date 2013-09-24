@@ -221,24 +221,27 @@
 		</p>
 		<table cellpadding="0" cellspacing="0">
 			<tr>
-				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Destination' )?></p></td>
-				<td style="width:2%"></td>
 				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Addressee' )?></p></td>
+				<td style="width:2%"></td>
+				<td style="width:49%"><p class="receiver"><?php echo $this->translator->translate ( 'Destination' )?></p></td>
 			</tr>
 			<tr>
 				<td valign="top" class="bordered">
-					<p><strong><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></strong><br />
-					<?php echo $this->data['customer']['address']?><br />
-					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
-					<?php echo $this->data['customer']['country']?><br /><br /><br /><br /><br />
+					<p><span class="fullname"><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></span>
+					<br/>
+					<?php echo !empty($this->data['customer']['address']) ? $this->data['customer']['address'] : ""; ?><br />
+					<?php echo !empty($this->data['customer']['code']) ? $this->data['customer']['code'] : "";?> <?php echo !empty($this->data['customer']['city']) ? $this->data['customer']['city'] : ""?><br />
+					<?php echo !empty($this->data['customer']['country']) ? $this->data['customer']['country'] : "";?><br /><br />
+					<?php echo $this->translator->translate('VAT Number')?> : <?php echo !empty($this->data['customer']['vat']) ? $this->data['customer']['vat'] : "";?><br />
+					<br /><br />
 					</p>
 				</td>
 				<td></td>
 				<td valign="top" class="bordered">
-					<p><strong><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></strong><br />
-					<?php echo $this->data['customer']['address']?><br />
-					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
-					<?php echo $this->data['customer']['country']?><br /><br />
+					<p><span class="fullname"><?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?></span><br />
+					<?php echo !empty($this->data['customer']['address']) ? $this->data['customer']['address'] : ""?><br />
+					<?php echo !empty($this->data['customer']['code']) ? $this->data['customer']['code'] : ""?> <?php echo !empty($this->data['customer']['city']) ? $this->data['customer']['country'] : ""?><br />
+					<?php echo !empty($this->data['customer']['country']) ? $this->data['customer']['country'] : ""?><br /><br />
 					</p>
 				</td>
 			</tr>
@@ -318,9 +321,9 @@
 			<tr>
 				<td valign="top">
 					<?php echo !empty($this->data['customer']['company']) ? $this->data['customer']['company'] : $this->data['customer']['firstname']." ".$this->data['customer']['lastname']?>
-					<?php echo $this->data['customer']['address']?><br />
-					<?php echo $this->data['customer']['code']?> <?php echo $this->data['customer']['city']?><br />
-					<?php echo $this->data['customer']['country']?>
+					<?php echo !empty($this->data['customer']['address']) ? $this->data['customer']['address'] : ""?><br />
+					<?php echo !empty($this->data['customer']['code']) ? $this->data['customer']['code'] : ""?> <?php echo !empty($this->data['customer']['city']) ? $this->data['customer']['country'] : ""?><br />
+					<?php echo !empty($this->data['customer']['country']) ? $this->data['customer']['country'] : ""?>
 				</td>
 				<td valign="top">
 					<span class="label"><?php echo $this->translator->translate ( "Order Number" )?></span><br />

@@ -189,7 +189,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'label'      => 'Enabled',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
-            'multioptions' => array('1'=>'Active', '0' => 'Disabled')
+            'multioptions' => array('0' => 'Disabled', '1'=>'Active')
         ));
 
         $this->addElement('select', 'ishighlighted', array(

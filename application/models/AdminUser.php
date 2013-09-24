@@ -323,6 +323,7 @@ class AdminUser extends BaseAdminUser
 		
 		// Get the user
 		$dbUser = Doctrine_Query::create ()->from ( 'AdminUser u' )
+											->leftJoin ( 'u.Isp i' )
 											->leftJoin ( 'u.AdminRoles r' )
 											->leftJoin ( 'r.AdminPermissions p' )
 											->leftJoin ( 'p.AdminResources s' )
