@@ -355,7 +355,7 @@ class DomainsTlds extends BaseDomainsTlds
                     ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
                     ->leftJoin('dt.Registrars r')
                     ->leftJoin('dt.Taxes t')
-					->where('dt.isp_id = ?',Shineisp_Registry::get('ISP')->isp_id)
+					->where('dt.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id)
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		foreach ( $records as $c ) {
