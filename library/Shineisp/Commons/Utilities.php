@@ -1107,6 +1107,7 @@ class Shineisp_Commons_Utilities {
 		
 		// null recipient, send only to ISP
 		$recipient = ($recipient == null) ? $ISP['email'] : $recipient;
+		
 // 		Zend_Debug::dump($language_id);
 // 		Zend_Debug::dump($recipient);
 // 		Zend_Debug::dump($replyto);
