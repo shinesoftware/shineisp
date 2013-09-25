@@ -166,14 +166,13 @@ class ProductsController extends Shineisp_Controller_Default {
 		$ns = new Zend_Session_Namespace ();
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		$request = $this->getRequest ();
-		$id = $request->getParam ( 'id' );
-		
-		if (is_numeric ( $id )) {
-			$product = Products::getAllInfo ( $id, $ns->langid );
+		$uri = $request->getParam ( 'uri' );
+		if (! empty ( $uri )) {
+			$product = Products::getProductbyUriID ( $uri, null, $ns->langid );
+			
 			if (is_array ( $product )) {
 				$this->view->product = $product;
-				
-				$form = $this->ReviewForm ( $id );
+				$form = $this->ReviewForm ( $uri );
 				
 				// Check if we have a POST request
 				if ($request->isPost ()) {
@@ -184,7 +183,7 @@ class ProductsController extends Shineisp_Controller_Default {
 					}
 				}
 				
-				$form->populate ( array ('product_id' => $id ) );
+				$form->populate ( array ('product_id' => $product['product_id'] ) );
 				$this->view->reviewform = $form;
 			
 			}
@@ -205,8 +204,8 @@ class ProductsController extends Shineisp_Controller_Default {
 	/*
 	 * ReviewForm
 	 */
-	private function ReviewForm($product_id) {
-		return new Default_Form_ReviewsForm ( array ('action' => "/products/addreview/id/$product_id", 'method' => 'post' ) );
+	private function ReviewForm($uri) {
+		return new Default_Form_ReviewsForm ( array ('action' => "/review/$uri.html", 'method' => 'post' ) );
 	}
 	
 	/*

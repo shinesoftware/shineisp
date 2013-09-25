@@ -578,7 +578,7 @@ class Tickets extends BaseTickets {
 					$s = $retval ['subject'];
 					$ticketid =  $ticket [0] ['ticket_id'];
 					
-					$in_reply_to = md5($ticketid)  . "@" . $ispmail [1];
+					$in_reply_to = md5($ticketid);
 					$ispmail = "noreply@" . $ispmail [1];
 					
 					$rec = Fastlinks::findlinks ( $ticketid, $customer ['customer_id'], 'tickets' );
