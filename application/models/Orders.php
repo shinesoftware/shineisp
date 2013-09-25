@@ -707,7 +707,7 @@ class Orders extends BaseOrders {
 	 * Check if within the list of products exist at least one service/domain set as Autorenewable.
 	 * @return boolean
 	 */
-	private function checkAutorenewProducts($products) {
+	private static function checkAutorenewProducts($products) {
 		foreach ( $products as $product ) {
 			if($product['renew']){
 				return true;
