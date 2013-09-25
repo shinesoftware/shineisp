@@ -28,6 +28,14 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		$allowed_resources[] = "admin:index";
 		$allowed_resources[] = "admin:login";
 		$allowed_resources[] = "system:index";
+		$allowed_resources[] = "system:cron";
+		$allowed_resources[] = "system:tasks";
+		$allowed_resources[] = "setup:index";
+		$allowed_resources[] = "setup:checker";
+		$allowed_resources[] = "setup:database";
+		$allowed_resources[] = "setup:localization";
+		$allowed_resources[] = "setup:preferences";
+		$allowed_resources[] = "setup:summary";
 		
 		// Exclude the system index controller and the default error controller for a formal ACL check
 		if(in_array($resource, $allowed_resources)){
