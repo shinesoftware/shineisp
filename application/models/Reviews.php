@@ -194,7 +194,7 @@ class Reviews extends BaseReviews
     public static function saveData($record, $sendemail=false) {
     	
     	// Set the new values
-    	if (is_numeric ( $record['review_id'] )) {
+    	if (!empty($record['review_id']) && is_numeric ( $record['review_id'] )) {
     		$review = self::getbyId( $record['review_id'] );
     	}else{
     		$review = new Reviews();
@@ -221,15 +221,18 @@ class Reviews extends BaseReviews
 
     		if($sendemail){
 	    		// Send the email to confirm the subscription
-		    	$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'new_review' );
-				if ($retval) {
-					$subject = $retval ['subject'];
-					$template = $retval ['template'];
-					$isp = Isp::getActiveISP ();
-					$template = str_replace ( "[review]", $record['review'], $template );
-					$template = str_replace ( "[signature]", $isp ['company'], $template );
-					Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, $subject, $template );
-				}
+				$isp = Isp::getActiveISP ();
+				$placeholders['review'] = $record['review'];
+				$placeholders['nick'] = $record['nick'];
+				$placeholders['referer'] = $record['referer'];
+				$placeholders['subject'] = $record['subject'];
+				$placeholders['email'] = $record['email'];
+				$placeholders['stars'] = $record['stars'];
+				$placeholders['product'] = products::getAllInfo($record['product_id']);
+				
+				// Send a message to the administrator
+				Shineisp_Commons_Utilities::sendEmailTemplate($isp ['email'], 'review_new', $placeholders);
+				
     		}
     		return $review->review_id;	
     	}

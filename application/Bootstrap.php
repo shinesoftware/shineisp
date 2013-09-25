@@ -91,6 +91,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		# http://www.shineisp.com/tlds/com.html
 		$router->addRoute ( 'tlds', new Zend_Controller_Router_Route_Regex ( 'tlds/(.+)\.html', array ('module' => 'default', 'controller' => 'tlds', 'action' => 'index' ), array (1 => 'uri' ), 'tlds/%s.html' ) );
 			
+		# http://www.shineisp.com/tlds/com.html
+		$router->addRoute ( 'review', new Zend_Controller_Router_Route_Regex ( 'review/(.+)\.html', array ('module' => 'default', 'controller' => 'products', 'action' => 'addreview' ), array (1 => 'uri' ), 'review/%s.html' ) );
+			
 		# http://www.shineisp.com/seo/products.html
 		$router->addRoute ( 'seo', new Zend_Controller_Router_Route_Regex ( 'seo/(.+)\.html', array ('module' => 'default', 'controller' => 'seo', 'action' => 'products' ), array (1 => 'action' ), 'seo/%s.html' ) );
 			
