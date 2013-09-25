@@ -32,7 +32,7 @@
 					                    <?php if($products['reviews']) :?>
 					                		| <a href="/products/<?php echo $products['uri'] ?>.html#reviews"><?php echo $products['reviews'] . " " . $this->translate('Reviews') ?></a>
 					                		<?php else: ?>
-					                		| <a href="/products/addreview/id/<?php echo $products['product_id'] ?>"><?php echo $this->translate('Add your review') ?></a>
+					                		| <a href="/review/<?php echo $products['uri'] ?>.html"><?php echo $this->translate('Add your review') ?></a>
 					                	<?php endif;?>
 					                	
 					                    </p>
