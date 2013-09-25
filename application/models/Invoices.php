@@ -750,7 +750,7 @@ class Invoices extends BaseInvoices {
             } else {
                 $customer        = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
                 $customer       .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
-                $customer_email  = $order [0] ['Customers'] ['email'];
+                $customer_email  = Contacts::getEmails($customerid);
                 $language_id  = $order [0] ['Customers'] ['language_id'];
             }
             

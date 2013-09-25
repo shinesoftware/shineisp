@@ -614,15 +614,14 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$invoiceid = $request->getParam ( 'id' );
 		$order = Invoices::getOrderbyInvoiceId ( $invoiceid );
 		if ($order) {
-			$orderid = $order [0] ['order_id'];
 			if (is_numeric ( $invoiceid )) {
 				if (Invoices::sendInvoice ( $invoiceid )) {
-					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $order [0] ['order_id'], 'mex' => $this->translator->translate ( 'The invoice has been sent successfully.' ), 'status' => 'success' ) );
+					$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has been sent successfully.' ), 'status' => 'success' ) );
 				}
 			}
-			$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $order [0] ['order_id'], 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
 		}
-		$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
 	}
 	
 	
