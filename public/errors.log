@@ -1,4 +1,0 @@
-[07-Sep-2013 14:04:55 UTC] PHP Fatal error:  Class 'http://www.shineisp.it/api/request/wsdl' not found in /Library/WebServer/Documents/shineisp/library/Zend/Soap/AutoDiscover.php on line 317
-[07-Sep-2013 14:05:00 UTC] PHP Fatal error:  Class 'http://www.shineisp.it/api/request/wsdl' not found in /Library/WebServer/Documents/shineisp/library/Zend/Soap/AutoDiscover.php on line 317
-[07-Sep-2013 14:05:19 UTC] PHP Fatal error:  Call to undefined method Shineisp_Api_Products::addSchemaTypeSection() in /Library/WebServer/Documents/shineisp/library/Zend/Soap/AutoDiscover.php on line 320
-[07-Sep-2013 14:05:31 UTC] PHP Fatal error:  Call to a member function dump() on a non-object in /Library/WebServer/Documents/shineisp/library/Zend/Soap/AutoDiscover.php on line 518
