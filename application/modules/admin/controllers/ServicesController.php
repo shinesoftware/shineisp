@@ -46,7 +46,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 	 */
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Services list");
-		$this->view->description = $this->translator->translate("Here you can see all the subscribed services list from the customers.");
+		$this->view->description = $this->translator->translate("Here you can see all the subscribed services list by the customers.");
 		$this->view->buttons = array(array("url" => "/admin/services/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( OrdersItems::grid() )->datagrid ();
 	}

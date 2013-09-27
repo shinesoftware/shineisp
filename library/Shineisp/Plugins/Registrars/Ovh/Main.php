@@ -27,7 +27,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 	 * 
 	 * Executes the 'Purchase' command on the service's servers to register a new domain.
 	 * Note in order to not fail this command, it must meet the following requirements:
-	 * - Your account credencials must have enough credits to cover the order amount.
+	 * - Your account credentials must have enough credits to cover the order amount.
 	 * - The domain name must be valid and available.
 	 * - Name Servers must be valid and registered.
 	 * 
@@ -201,7 +201,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 	 * 
 	 * Executes the 'Purchase' command on the service's servers to transfer the domain.
 	 * Note in order to not fail this command, it must meet the following requirements:
-	 * - Your account credencials must have enough credits to cover the order amount.
+	 * - Your account credentials must have enough credits to cover the order amount.
 	 * - To transfer EPP names, the query must include the authorization key from the Registrar.
 	 * - Name Servers must be valid and registered.
 	 * 

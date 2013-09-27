@@ -257,8 +257,8 @@ class ProductsTranches extends BaseProductsTranches
     }
     
     /**
-     * getDefaultItem
      * Get the default item 
+     * 
      * @param $productid
      * @return integer 
      */

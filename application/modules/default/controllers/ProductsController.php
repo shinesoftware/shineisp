@@ -68,19 +68,18 @@ class ProductsController extends Shineisp_Controller_Default {
 				$items = ProductsTranches::getList ( $data ['product_id'], $refund );
 				 
 				// Check the default quantity value
-				$qta = ProductsTranches::getDefaultItem ( $data ['product_id'] );
-				if (! empty ( $qta )) {
-					$data ['quantity'] = $qta;
-				} else {
-					$data ['quantity'] = 1;
+				$term = ProductsTranches::getDefaultItem ( $data ['product_id'] );
+				if (! empty ( $term )) {
+					$data ['term'] = $term;
 				}
 				
+				// Check if there are custom terms / billing cycles options
 				if (count ( $items ) > 0) {
-					$form->addElement ( 'select', 'quantity', array ('label' => $this->translator->translate ( 'Billing Cycle' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
-					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '1' ) );
+					$form->addElement ( 'select', 'term', array ('label' => $this->translator->translate ( 'Term' ), 'required' => true, 'multiOptions' => $items, 'decorators' => array ('Composite' ), 'class' => 'select-billing-cycle' ) );
+					$form->addElement ( 'hidden', 'quantity', array ('value' => '1', 'decorators' => array('ViewHelper') ) );
 				} else {
 					$form->addElement ( 'text', 'quantity', array ('label' => $this->translator->translate ( 'Quantity' ), 'required' => true, 'value' => '1', 'decorators' => array ('Composite' ), 'class' => 'text-input small-input' ) );
-					$form->addElement ( 'hidden', 'isrecurring', array ('value' => '0' ) );
+					$form->addElement ( 'hidden', 'term', array ( 'decorators' => array('ViewHelper') ) );
 				}
 				
 				// Adding the product attributes

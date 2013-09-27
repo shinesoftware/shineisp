@@ -1636,7 +1636,7 @@ class Domains extends BaseDomains {
 	/**
 	 * Set the status of the records
 	 * @param array $items Items selected
-	 * @param array $parameters Custom paramenters
+	 * @param array $parameters Custom parameters
 	 */
 	public function bulk_set_status($items, $parameters) {
 		if(!empty($parameters['status'])){
@@ -1650,7 +1650,7 @@ class Domains extends BaseDomains {
 	/**
 	 * Set the autorenew of the domains
 	 * @param array $items Items selected
-	 * @param array $parameters Custom paramenters
+	 * @param array $parameters Custom parameters
 	 */
 	public function bulk_set_autorenew($items, $parameters) {
 		if(is_numeric($parameters['status'])){
@@ -1664,7 +1664,7 @@ class Domains extends BaseDomains {
 	/**
 	 * Bulk registrar task request
 	 * @param array $items Items selected
-	 * @param array $parameters Custom paramenters
+	 * @param array $parameters Custom parameters
 	 */
 	public function bulk_registrar_tasks($items, $parameters) {
 		$errors = array();

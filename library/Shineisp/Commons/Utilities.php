@@ -91,7 +91,7 @@ class Shineisp_Commons_Utilities {
 				return true;
 		
 			}else{
-				return "There is a database connection problem, please check the credencials ($dsn)";
+				return "There is a database connection problem, please check the credentials ($dsn)";
 			}
 		}catch (Exception $e){
 			return $e->getMessage();
@@ -706,7 +706,7 @@ class Shineisp_Commons_Utilities {
 	 * SendEmail
      * Smtp Configuration.
      * If you would like to use the smtp authentication, you have to add 
-     * the paramenters in the Setting Module of the Control Panel
+     * the parameters in the Setting Module of the Control Panel
      * 
 	 * @param string $from
 	 * @param string or array $to
@@ -892,12 +892,11 @@ class Shineisp_Commons_Utilities {
 		}
 
 		$EmailTemplate = EmailsTemplates::findByCode($template, null, false, $language_id);
-		$EmailTemplate = null;
 		
 		// Template missing from DB. Let's add it.
 		if ( !is_object($EmailTemplate) || !isset($EmailTemplate->EmailsTemplatesData) || !isset($EmailTemplate->EmailsTemplatesData->{0}) || !isset($EmailTemplate->EmailsTemplatesData->{0}->subject) ) {
 			$filename = PUBLIC_PATH . "/languages/emails/".$locale."/".$template.".htm";
-			
+
 			// Check if the file exists
 			if (! file_exists ( $filename )) {
 				$filename = PUBLIC_PATH . "/languages/emails/".$fallbackLocale."/".$template.".htm";
@@ -1040,8 +1039,7 @@ class Shineisp_Commons_Utilities {
 		
 		// Creates a flat array
 		$placeholders = self::flatplaceholders($placeholders);
-// 		Zend_Debug::dump($placeholders);
-// 		die;
+
 		// Remove unneeded parameters
 		unset($placeholders['active']);
 		unset($placeholders['isppanel']);
@@ -1050,7 +1048,6 @@ class Shineisp_Commons_Utilities {
 		
 		foreach ( $placeholders as $placeholder => $emailcontent ) {
 			foreach ( $arrTemplate as $k => $v ) {
-				
 				// $placeholders contains the order header information
 				if(is_string($emailcontent)){
 					$arrTemplate[$k] = str_replace('['.$placeholder.']', $emailcontent, $v);
@@ -1085,7 +1082,6 @@ class Shineisp_Commons_Utilities {
 			}	
 		}
 		
-		//$arrBCC[] = $arrTemplate['fromemail']; // always BCC for sender
 		$arrBCC = array_unique($arrBCC); // Remove duplicate bcc addresses
 		
 		if ( isset($arrTemplate['cc']) && !empty($arrTemplate['cc']) ) {
@@ -1099,10 +1095,10 @@ class Shineisp_Commons_Utilities {
 		// null recipient, send only to ISP
 		$recipient = ($recipient == null) ? $ISP['email'] : $recipient;
 		
-// 		Zend_Debug::dump($language_id);
 // 		Zend_Debug::dump($recipient);
 // 		Zend_Debug::dump($replyto);
 // 		Zend_Debug::dump($arrFrom);
+// 		Zend_Debug::dump($arrTemplate);
 // 		Zend_Debug::dump($arrBCC);
 // 		Zend_Debug::dump($arrTemplate['template']);
 // 		echo $arrTemplate['template'];

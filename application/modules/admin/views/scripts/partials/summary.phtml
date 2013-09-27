@@ -124,7 +124,7 @@
 					<li>
 					
 					
-						<?php echo $this->translate('%s %s', $inc['monthname'], $inc['year'])?>
+						<?php echo $inc['monthname'] . "/" . $inc['year']; ?>
 						<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
 							<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
 						</span>

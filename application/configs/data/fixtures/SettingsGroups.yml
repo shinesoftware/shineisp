@@ -38,7 +38,7 @@ SettingsGroups:
   SettingsGroups_10:
     name: Dropbox
     description: ' <a href="https://www.dropbox.com/">Dropbox</a> is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again! Open your account <a href="https://www.dropbox.com/">now</a>!'
-    help: "<p>This module offers you the way to store your important documents like invoices and orders in a remote dropbox account. <br/>In order to setup the module, you need:</p>\n	        <ul>\n	            <li>Dropbox Account Credencials</li>\n	            <li>Set the Invoices destination path</li>\n	            <li>Set the Order destination path</li>\n	        </ul>\n	        <p>In order to send an invoice or order document, you need to click on the <b>Dropbox button</b> in the order admin detail page or on the invoice admin detail page.</p>\n	    "
+    help: "<p>This module offers you the way to store your important documents like invoices and orders in a remote dropbox account. <br/>In order to setup the module, you need:</p>\n	        <ul>\n	            <li>Dropbox Account Credentials</li>\n	            <li>Set the Invoices destination path</li>\n	            <li>Set the Order destination path</li>\n	        </ul>\n	        <p>In order to send an invoice or order document, you need to click on the <b>Dropbox button</b> in the order admin detail page or on the invoice admin detail page.</p>\n	    "
   SettingsGroups_11:
     name: 'Google Analytics'
     description: null

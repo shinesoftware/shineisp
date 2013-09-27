@@ -180,7 +180,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 		}
 		
 		$this->view->title = $this->translator->translate("File category Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main file category information paramenters. Be careful, if you change something the module could be damaged.");
+        $this->view->description = $this->translator->translate("Here you can edit the main file category information parameters. Be careful, if you change something the module could be damaged.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

@@ -58,7 +58,7 @@
 							<resource>admin:services</resource>
 						</services>
 						<customersgroups>
-							<label>Customers Groups</label>
+							<label>Customer Groups</label>
 							<uri>/admin/customersgroups/list</uri>
 							<resource>admin:customersgroups</resource>
 						</customersgroups>
@@ -92,7 +92,7 @@
 							<resource>admin:productscategories</resource>
 						</productscategories>
 						<attributesgroups>
-							<label>Attributes Groups</label>
+							<label>Attribute Groups</label>
 							<uri>/admin/attributesgroups/list</uri>
 							<resource>admin:attributesgroups</resource>
 						</attributesgroups>

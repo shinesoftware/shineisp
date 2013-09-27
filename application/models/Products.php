@@ -326,6 +326,7 @@ class Products extends BaseProducts {
 	
 	/**
 	 * Get the price
+	 * 
 	 * @param integer $productid
 	 * @param boolean $taxincluded
 	 */
@@ -399,7 +400,7 @@ class Products extends BaseProducts {
 	 * @param integer $productid
 	 * @param float   $refund
 	 */
-	public static function getPrices($productid,$refund = false) {
+	public static function getPrices($productid, $refund = false) {
 		$prices = array ();
 		
 		if (is_numeric ( $productid )) {
@@ -813,12 +814,21 @@ class Products extends BaseProducts {
 	 * @return Doctrine Record
 	 */
 	public static function find($id, $fields = "*", $retarray = false, $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( $fields )
+		$dq = Doctrine_Query::create ()
 									->from ( 'Products p' )
+									->leftJoin ( 'p.ProductsAttributesGroups pag' )
 									->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+									->leftJoin ( 'p.Taxes t' )
+									->leftJoin ( 'p.ProductsAttributesIndexes pai' )
+									->leftJoin ( 'p.ProductsTranches pt' )
+									->leftJoin(  'pt.BillingCycle bc')
 									->where ( "p.product_id = $id" )
                                     ->addWhere ( "p.isp_id = ?", Isp::getCurrentId() )
 									->limit ( 1 );
+		
+		if($fields != "*"){
+			$dq->select ( $fields );
+		}
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$record = $dq->execute ( array (), $retarray );

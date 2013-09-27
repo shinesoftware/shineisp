@@ -17,7 +17,7 @@ Messages:
     Orders: Orders_2
   Messages_4:
     dateposted: '2013-05-25 16:26:35'
-    message: "<p>Hi Ron,</p>\r\n<p>we have received your payment by bank transfer right now. We are set your new hosting plan.</p>\r\n<p>You will receive an email with the credencials.</p>\r\n<p>Regards</p>"
+    message: "<p>Hi Ron,</p>\r\n<p>we have received your payment by bank transfer right now. We are set your new hosting plan.</p>\r\n<p>You will receive an email with the credentials.</p>\r\n<p>Regards</p>"
     Isp: Isp_1
     Customers: Customers_2
     Orders: Orders_2

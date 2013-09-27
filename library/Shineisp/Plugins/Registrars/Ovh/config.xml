@@ -8,7 +8,7 @@
 	    <help><![CDATA[<p>This module offers you the way to register your domains by OVH company. <br/>In order to setup the module, you need:</p>
 	        <ul>
 	            <li>Get the soap URI from http://www.ovh.com/soapi/en/ look at the changelog.</li>
-	            <li>OVH Account Credencials</li>
+	            <li>OVH Account Credentials</li>
 	            <li>Set the server information</li>
 	            <li>Set the TLD prices and costs</li>
 	        </ul>
