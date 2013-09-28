@@ -45,7 +45,10 @@ class CartController extends Shineisp_Controller_Default {
 		try{
 			
 			$session 	= new Zend_Session_Namespace ( 'Default' );
-			$session->cart = new Cart();
+		
+			if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+				$session->cart = new Cart();
+			}
 			
 			// Check if the product is present in the cart
 			if ($session->cart->checkIfHostingProductIsPresentWithinCart ()) {
@@ -67,7 +70,10 @@ class CartController extends Shineisp_Controller_Default {
 		try{
 
 			$session 	= new Zend_Session_Namespace ( 'Default' );
-			$session->cart = new Cart();
+		
+			if (empty ( $session->cart )) {
+				$session->cart = new Cart();
+			}
 			
 			// Get the sent parameters
 			$request = $this->getRequest ()->getParams ();
@@ -227,6 +233,7 @@ class CartController extends Shineisp_Controller_Default {
 		try{
 			$request = $this->getRequest ();
 			$session = new Zend_Session_Namespace ( 'Default' );
+			Zend_Debug::dump($session->cart);
 			
 			if (empty ( $session->cart ) || $session->cart->isEmpty()) {
 				$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
@@ -241,19 +248,19 @@ class CartController extends Shineisp_Controller_Default {
 			if (!empty($this->customer)) {
 				$customer = $this->customer;
 				
+				// Set the customer for the active cart
+				$session->cart->setCustomer($customer['customer_id']);
+				
 				// Check if the customer is a reseller
 				if (! empty ( $customer ['isreseller'] ) && $customer ['isreseller']) {
-					$session->cart->addReseller($customer['customer_id']);
+					$session->cart->setReseller($customer['customer_id']);
 					$this->_helper->redirector ( 'reseller', 'cart', 'default' );
 				} else {
 					$session->cart->removeReseller();
 				}
 				
-				if (! empty ( $customer )) {
-					$session->cart->addCustomer($customer['customer_id']);
-					$this->view->contact = $customer;
-					$this->_helper->viewRenderer ( 'contactlogged' );
-				}
+				$this->view->contact = $customer;
+				$this->_helper->viewRenderer ( 'contactlogged' );
 			
 			} else {
 				// Clean the session vars
@@ -269,13 +276,11 @@ class CartController extends Shineisp_Controller_Default {
 
 			// Create the form
 			$form = new Default_Form_CustomerForm ( array ('action' => "/cart/contacts", 'method' => 'post' ) );
-			
 			$form->getElement ( 'submit' )->setLabel ( 'Continue Order' );
-			
 			$form->populate ( array('country_id' => 82, 'contacttypes' => 1) ); // Set Italy as default and the first contact type id 1 as telephone
 			
-			if (!empty ( $cart->contacts )) {
-				$form->populate ( $cart->contacts );
+			if ($session->cart->getCustomer()) {
+				$form->populate ( $session->cart->getCustomer() );
 			}
 			
 			// If the product/service include a domain we need more information
@@ -304,9 +309,11 @@ class CartController extends Shineisp_Controller_Default {
 					$result = Customers::Create( $params );
 					
 					if (is_numeric ( $result )) {
+						
 						// Do the login
-						$cart->contacts = $this->doLogin ( $result );
-						$this->_helper->redirector ( 'payment', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
+						if($this->doLogin ( $result )){
+							$this->_helper->redirector ( 'payment', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
+						}
 					} else {
 						$this->view->mex = $result;
 						$this->view->mexstatus = "error";
@@ -353,7 +360,7 @@ class CartController extends Shineisp_Controller_Default {
 		$form = new Default_Form_ResellerForm ( array ('action' => "/cart/reseller", 'method' => 'post' ) );
 		
 		// Get the reseller information 
-		$reseller = array ($cart->reseller ['customer_id'] => $cart->reseller ['firstname'] . " " . $cart->reseller ['lastname'] . " - " . $cart->reseller ['company'] );
+// 		$reseller = array ($cart->reseller ['customer_id'] => $cart->reseller ['firstname'] . " " . $cart->reseller ['lastname'] . " - " . $cart->reseller ['company'] );
 		
 		// Get the customers connected to the reseller
 		$customers = Customers::getList ( false, $criteria );
@@ -361,7 +368,7 @@ class CartController extends Shineisp_Controller_Default {
 		$form->getElement ( 'submit' )->setLabel ( 'Continue Order' );
 		
 		// Assign the customers to the select object
-		$form->getElement ( 'customers' )->setMultiOptions ( $reseller + $customers );
+// 		$form->getElement ( 'customers' )->setMultiOptions ( $reseller + $customers );
 		$this->view->form = $form;
 		
 		// Check if we have a POST request
@@ -439,38 +446,39 @@ class CartController extends Shineisp_Controller_Default {
      * Request the payment of the order
      */
 	public function paymentAction() {
-		$this->session = new Zend_Session_Namespace ( 'Default' );
+		$session = new Zend_Session_Namespace ( 'Default' );
+			
 		$request = $this->getRequest ();
 		
-		if(empty($cart)){
-			$this->_helper->redirector ( 'index', 'index', 'default' );
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+			#$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
 		
-		$cart = $cart;
-		$contact = $cart->contacts;
+		// Get the heading of the cart 
+		$cart_heading = $session->cart->getHeading();
 		
-		$isVATFree = Customers::isVATFree($cart->contacts['customer_id']);
+// 		Zend_Debug::dump($cart_heading);
+// 		die;
 		
+		// Check if the user is VAT free
+		$isVATFree = Customers::isVATFree($cart_heading['customer']['id']);
+		
+		// Set the template
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
+
+		// Get the form
 		$form = new Default_Form_CartsummaryForm ( array ('action' => '/cart/payment', 'method' => 'post' ) );
 		
-		if (! isset ( $cart->products ) || count ( $cart->products ) == 0) {
-			$this->_helper->redirector ( 'index', 'index', 'default' );
-		} else {
-			//$items = $cart->products;
-			foreach ( $cart->products as &$products ) {
-				$products['tax_id'] = ($isVATFree) ? null : $products['tax_id'];
-				$items[] = $products;
-			}
-			$this->view->placeholder ( "shoppingcart" )->append ( $this->view->partial ( 'partials/shoppingcart.phtml', array ('items' => $items ) ) );
-		}
+// 		foreach ( $session->cart->products as &$products ) {
+// 			$products['tax_id'] = ($isVATFree) ? null : $products['tax_id'];
+// 		}
 		
-		if ($this->checkIfHostingProductIsPresentWithinCart ()) {
-			$this->view->containhosting = 1;
-		} else {
-			$this->view->containhosting = 0;
-		}
+		// Add the sidebar with the list of the product in the cart
+		$this->view->placeholder ( "shoppingcart" )->append ( $this->view->partial ( 'partials/shoppingcart.phtml', array ('items' => $session->cart->getItems() ) ) );
 		
+		$this->view->containhosting = ($session->cart->checkIfHostingProductIsPresentWithinCart ()) ? 1 : 0;
+		Zend_Debug::dump($request);
+		die;
 		// Check if we have a POST request
 		if ($request->isPost ()) {
 			$params = $request->getPost ();
@@ -489,9 +497,14 @@ class CartController extends Shineisp_Controller_Default {
 				 * 
 				 */
 				 
-				$theOrder = Orders::create ( $cart->contacts ['customer_id'], Statuses::id('tobepaid', 'orders'), $params ['note'] );
+				$theOrder = Orders::create ( $cart_heading['customer']['id'], Statuses::id('tobepaid', 'orders'), $params ['note'] );
 				
-				foreach ( $cart->products as $product ) {
+				$items = $session->cart->getItems();
+				Zend_Debug::dump($items);
+				die;
+				
+				foreach ( $items as $item ) {
+					
 					
 					// Check the Tranche selected by the user
 					if (! empty ( $product ['trancheid'] )) {
@@ -696,18 +709,31 @@ class CartController extends Shineisp_Controller_Default {
 		}
 	}
 	
+	/**
+	 * Do the login action
+	 * 
+	 * @param integer $customerid
+	 */
 	private function doLogin($customerid) {
-		$this->session = new Zend_Session_Namespace ( 'Default' );
-		$auth = Zend_Auth::getInstance ();
-		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'default' ) );
 		
-		$result = new Zend_Auth_Result ( Zend_Auth_Result::SUCCESS, null );
-		$customer = Customers::getAllInfo ( $customerid, "c.customer_id, a.address_id, cts.type_id, l.legalform_id, ct.country_id, cn.contact_id, s.status_id, c.*, a.*, l.*, cn.*, cts.*, s.*" );
-		$this->session->customer = $customer;
+		if(is_numeric($customerid)){
+			$session = new Zend_Session_Namespace ( 'Default' );
+			$auth = Zend_Auth::getInstance ();
+			$auth->setStorage ( new Zend_Auth_Storage_Session ( 'default' ) );
+			
+			$result = new Zend_Auth_Result ( Zend_Auth_Result::SUCCESS, null );
+			$customer = Customers::getAllInfo ( $customerid, "c.customer_id, a.address_id, cts.type_id, l.legalform_id, ct.country_id, cn.contact_id, s.status_id, c.*, a.*, l.*, cn.*, cts.*, s.*" );
+			
+			// We're authenticated!
+			$auth->getStorage ()->write ( $customer );
+			
+			// Set the owner of the cart
+			$session->cart->setCustomer($customerid);
+			
+			return $customer;
+		}
 		
-		// We're authenticated! 
-		$auth->getStorage ()->write ( $customer );
-		return $customer;
+		return false;
 	}
 	
 	/*

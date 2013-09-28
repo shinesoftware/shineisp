@@ -84,7 +84,7 @@ class Cart implements Iterator, Countable {
 	} // Add a domain in the cart.
 	
 	// Add the customer in the cart:
-	public function addCustomer($customerId) {
+	public function setCustomer($customerId) {
 	
 		if (!empty($customerId)) {
 			$this->heading['customer']['id'] = $customerId;
@@ -93,7 +93,7 @@ class Cart implements Iterator, Countable {
 	} // Add the customer in the cart.
 	
 	// Add the reseller in the cart:
-	public function addReseller($resellerId) {
+	public function setReseller($resellerId) {
 	
 		if (!empty($resellerId)) {
 			$this->heading['reseller']['id'] = $resellerId;
@@ -176,6 +176,21 @@ class Cart implements Iterator, Countable {
 	// Get cart items
 	public function getItems() {
 		return $this->items;
+	}
+	
+	// Get cart heading
+	public function getHeading() {
+		return $this->heading;
+	}
+	
+	// Get customer information
+	public function getCustomer() {
+		return $this->heading['customer'];
+	}
+	
+	// Get reseller information
+	public function getReseller() {
+		return $this->heading['reseller'];
 	}
 
 	

@@ -229,7 +229,7 @@ class Customers extends BaseCustomers {
 			self::reset_password($customerid, $passwd);
 		}
 		
-		Shineisp_Commons_Utilities::sendEmailTemplate($data ['email'], 'new_account', array(
+		Shineisp_Commons_Utilities::sendEmailTemplate($data ['email'], 'account_new', array(
 			 'storename' => $isp['company']
 			,'website'   => $isp['website']
 			,'email'     => $data['email']
