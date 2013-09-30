@@ -179,8 +179,8 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 			);
 		}
 		
-		$this->view->title = $this->translator->translate("Domain Tlds Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main Domain Tlds information paramenters.");
+		$this->view->title = $this->translator->translate("Tlds Details");
+        $this->view->description = $this->translator->translate("Here you can edit the main Domain Tlds information parameters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

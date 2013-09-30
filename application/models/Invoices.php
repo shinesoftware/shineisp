@@ -750,7 +750,7 @@ class Invoices extends BaseInvoices {
             } else {
                 $customer        = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
                 $customer       .= ! empty ( $order [0] ['Customers'] ['company'] ) ? " - " . $order [0] ['Customers'] ['company'] : "";
-                $customer_email  = $order [0] ['Customers'] ['email'];
+                $customer_email  = Contacts::getEmails($customerid);
                 $language_id  = $order [0] ['Customers'] ['language_id'];
             }
             
@@ -827,7 +827,6 @@ class Invoices extends BaseInvoices {
 		try {
 			$invoices = self::getAll();
 			foreach ($invoices as $invoice){
-				echo $invoice['invoice_id'] . "<br/>";
 				self::PrintPDF($invoice['invoice_id'], false);
 			}
 		} catch ( Exception $e ) {
@@ -868,9 +867,9 @@ class Invoices extends BaseInvoices {
 			$invoice = $invoice->toArray ();
 
 			// Set the basepath for the file
-			$Order = Doctrine::getTable ( 'Orders' )->findOneBy('invoice_id', $invoice_id);
+			$Order = Doctrine::getTable ( 'Orders' )->findOneBy('order_id', $invoice['order_id']);
 			$invoicePath = $path.$Order->isp_id.'/'.str_replace('-','/',$invoice ['invoice_id']);
-			
+
 			// Set the name of the file
 			$filename    = $invoicePath.'/'.$invoice['invoice_id'].".pdf";
 			$filenameOld = $path.$invoice ['invoice_date']." - ".$invoice ['number'].".pdf";
@@ -889,7 +888,6 @@ class Invoices extends BaseInvoices {
 			
 			$payments   = Payments::findbyorderid ( $invoice ['order_id'], null, true );
 			$order      = Orders::getAllInfo ( $invoice ['order_id'], null, true );
-			
 			
 			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . sprintf("%03d", $invoice['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
 			$database ['columns'] [] = array ("value" => "SKU",            "size" => 20,    "align" => "left",    "key" => "sku");
@@ -959,11 +957,10 @@ class Invoices extends BaseInvoices {
 					$orderinfo ['payment_transaction_id'] = $payments [0] ['reference'];
 				}
 
-
-				
 				$orderinfo ['invoice_number'] = $invoice ['number'];
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
+				$orderinfo ['company'] ['manager'] = $order [0] ['Isp'] ['manager'];
 				$orderinfo ['company'] ['vat'] = $order [0] ['Isp'] ['vatnumber'];
 				$orderinfo ['company'] ['bankname'] = $order [0] ['Isp'] ['bankname'];
 				$orderinfo ['company'] ['iban'] = $order [0] ['Isp'] ['iban'];
@@ -977,6 +974,9 @@ class Invoices extends BaseInvoices {
 				$orderinfo ['company'] ['website'] = $order [0] ['Isp'] ['website'];
 				$orderinfo ['company'] ['email'] = $order [0] ['Isp'] ['email'];
 				$orderinfo ['company'] ['slogan'] = $order [0] ['Isp'] ['slogan'];
+				$orderinfo ['company'] ['custom1'] = $order [0] ['Isp'] ['custom1'];
+				$orderinfo ['company'] ['custom2'] = $order [0] ['Isp'] ['custom2'];
+				$orderinfo ['company'] ['custom3'] = $order [0] ['Isp'] ['custom3'];
 				
 				$orderinfo ['subtotal'] = $currency->toCurrency($order[0] ['total'], array('currency' => Settings::findbyParam('currency')));
 				$orderinfo ['grandtotal'] = $currency->toCurrency($order[0] ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
@@ -1059,7 +1059,7 @@ class Invoices extends BaseInvoices {
 					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
 	    			$html2pdf->WriteHTML($html);
 	    			
-	    			$html2pdf->Output(PUBLIC_PATH.$filename, "F");
+	    			$html2pdf->Output(PUBLIC_PATH . $filename, "F");
 
 					// Execute a custom event 
 					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $filename));

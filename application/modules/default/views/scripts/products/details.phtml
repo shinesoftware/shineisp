@@ -26,14 +26,13 @@
 		        	<div class="header large-12 column">
 				        <?php // Hidden form fields ?>
 						<?php echo $form->product_id->setDecorators(array('ViewHelper'))?>
-						<?php echo $form->isrecurring->setDecorators(array('ViewHelper'))?>
 			       	    
 			       	    <h3><?php echo $this->product['name'] ?></h3>
 			       	    
 			       	    <?php echo $this->ProductCategories($this->product['categories']) // Category Breadcrump ?>
 			       	    
 			       	    <ul class="no-bullet inline-list">
-			       	    	<li><a href="/products/addreview/id/<?php echo $this->product['product_id'] ?>"><?php echo $this->translate('Add your review') ?></a></li>
+			       	    	<li><a href="/review/<?php echo $this->product['uri'] ?>.html"><?php echo $this->translate('Add your review') ?></a></li>
 			       	    	<li><?php if($this->product['iscomparable'] && !empty($this->group['code'])): ?><a href="/compare/products/code/<?php echo $this->group['code'] ?>"><?php echo $this->translate('Compare') ?> <?php echo $this->group['name']?></a><?php endif; ?></li>
 			       	    </ul>
 			    	</div>
@@ -78,6 +77,7 @@
 		                <div class="row">
 		                	<div class="quantity large-8 column">
 		                		<?php echo $form->quantity->render()?>
+		                		<?php echo $form->term->render()?>
 		                	</div>
 		                	<div class="addtocart large-4 column">
 			                    <?php $button = ($this->product['type'] == "hosting") ? $this->translate('Subscribe') : $this->translate('Add to cart') ?>

@@ -88,7 +88,7 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 				break;
 			
 			case 'tldsummaryowner' :
-				$this->view->title = $this->translator->translate("Summary by Client");
+				$this->view->title = $this->translator->translate("Summary per Client");
 				$this->view->description = $this->translator->translate("By this list you can see the summary of the domains bought per client.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => Domains::domains_per_customers (), 'pager' => true);

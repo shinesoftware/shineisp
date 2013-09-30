@@ -167,7 +167,7 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 		}
 		
 		$this->view->title = $this->translator->translate("Url Rewrite Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main Url Rewrite information paramenters.");
+        $this->view->description = $this->translator->translate("Here you can edit the main Url Rewrite information parameters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -227,7 +227,7 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 		} else {
 			$this->view->form = $form;
 			$this->view->title = $this->translator->translate("Url Rewrite Processing form");
-			$this->view->description = $this->translator->translate("There was an error during the insert of data");
+			$this->view->description = $this->translator->translate("An error occurred in entering data ");
 			return $this->render ( 'applicantform' );
 		}
 	}

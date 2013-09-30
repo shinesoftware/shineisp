@@ -437,6 +437,7 @@ class Orders extends BaseOrders {
 					$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_message' );
 					
 					if ($retval) {
+						$in_reply_to = md5($id);
 						
 						// Save the message
 						Messages::addMessage($params ['message'], $order [0] ['Customers'] ['customer_id'], null, $id, null, $isp_id);
@@ -448,14 +449,13 @@ class Orders extends BaseOrders {
 						$placeholders['messagetype'] = $translator->translate('Order Details');
 						$placeholders['message'] = $params ['message'];
 					
-						Shineisp_Commons_Utilities::sendEmailTemplate(Contacts::getEmails($order [0] ['Customers'] ['customer_id']), 'order_message', $placeholders, null, null, null, null, $order [0] ['Customers'] ['language_id']);
+						Shineisp_Commons_Utilities::sendEmailTemplate(Contacts::getEmails($order [0] ['Customers'] ['customer_id']), 'order_message', $placeholders, $in_reply_to, null, null, null, $order [0] ['Customers'] ['language_id']);
 						
 						// Change the URL for the administrator
 						$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/" . $link [0] ['code'] . "/keypass/" . Shineisp_Commons_Hasher::hash_string($isp->email);
 						
 						// Send a message to the administrator
-						Messages::sendMessage ( "order_message_admin", $isp->email, $placeholders);
-						
+						Shineisp_Commons_Utilities::sendEmailTemplate($isp->email, 'order_message_admin', $placeholders, $in_reply_to);
 					}
 				
 				}
@@ -539,7 +539,7 @@ class Orders extends BaseOrders {
 			}
 		
 		} catch ( Exception $e ) {
-			return false;
+			die($e->getMessage());
 		}
 		
 		return false;
@@ -707,7 +707,7 @@ class Orders extends BaseOrders {
 	 * Check if within the list of products exist at least one service/domain set as Autorenewable.
 	 * @return boolean
 	 */
-	private function checkAutorenewProducts($products) {
+	private static function checkAutorenewProducts($products) {
 		foreach ( $products as $product ) {
 			if($product['renew']){
 				return true;
@@ -2278,8 +2278,8 @@ class Orders extends BaseOrders {
 	}
 	
     /**
-     * 
      * print the order
+     * 
      * @param unknown_type $invoiceid
      */
     public static function pdf($order_id, $show = true, $force=false, $path="/documents/orders/") {
@@ -2361,6 +2361,7 @@ class Orders extends BaseOrders {
 				$orderinfo ['invoice_id'] = "";
 				
 				$orderinfo ['company'] ['name'] = $order [0] ['Isp'] ['company'];
+				$orderinfo ['company'] ['manager'] = $order [0] ['Isp'] ['manager'];
 				$orderinfo ['company'] ['vat'] = $order [0] ['Isp'] ['vatnumber'];
 				$orderinfo ['company'] ['bankname'] = $order [0] ['Isp'] ['bankname'];
 				$orderinfo ['company'] ['iban'] = $order [0] ['Isp'] ['iban'];
@@ -2374,6 +2375,9 @@ class Orders extends BaseOrders {
 				$orderinfo ['company'] ['website'] = $order [0] ['Isp'] ['website'];
 				$orderinfo ['company'] ['email'] = $order [0] ['Isp'] ['email'];
 				$orderinfo ['company'] ['slogan'] = $order [0] ['Isp'] ['slogan'];
+				$orderinfo ['company'] ['custom1'] = $order [0] ['Isp'] ['custom1'];
+				$orderinfo ['company'] ['custom2'] = $order [0] ['Isp'] ['custom2'];
+				$orderinfo ['company'] ['custom3'] = $order [0] ['Isp'] ['custom3'];
 				
 				if($order [0] ['status_id'] == Statuses::id("tobepaid", "orders")){ // To be payed
 					$orderinfo ['ribbon']['text'] = $translator->translate("To be Paid");
@@ -2392,7 +2396,6 @@ class Orders extends BaseOrders {
 				$orderinfo ['subtotal'] = $order[0] ['total'];
 				$orderinfo ['grandtotal'] = $order[0] ['grandtotal'];
 				$orderinfo ['vat'] = $order[0] ['vat'];
-				
 				$orderinfo ['delivery'] = 0;
 				
 				$database ['records'] = $orderinfo;

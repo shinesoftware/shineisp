@@ -27,24 +27,6 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 		$this->view->loginform = new Admin_Form_LoginForm ( array ('action' => '/admin/login/dologin', 'method' => 'post' ) );
 			
 	}
-
-	/**
-	 * Call the OAuth login page form
-	 */
-	public function oauthAction() {
-		$this->getHelper ( 'layout' )->setLayout ( 'blank' );
-		$this->view->show_dashboard = false;
-
-		$session = new Zend_Session_Namespace ( 'OAuth' );		
-		
-		$this->view->appName         = $session->appName;
-		$this->view->requestedScopes = !empty($session->requestedScopes) ? explode(' ', $session->requestedScopes) : '';
-		
-		// Call the login box helper
-		$this->view->loginform = new Admin_Form_OauthloginForm ( array ('action' => '/admin/login/dooauth', 'method' => 'post' ) );
-			
-	}
-
 	
 	/**
 	 * NoAuth action
@@ -110,70 +92,6 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 		
 		return $this->render ( 'index' ); // re-render the login form
 	}
-
-
-	/**
-	 * Login action for OAuth
-	 */
-	public function dooauthAction() {
-		$user        = new AdminUser();
-		$request     = $this->getRequest ();
-		$registry    = Shineisp_Registry::getInstance ();
-		$translation = $registry->Zend_Translate;
-		$session     = new Zend_Session_Namespace ( 'OAuth' );
-
-		// Get our form and validate it
-		$form = new Admin_Form_LoginForm ( array ('action' => '/admin/login/dooauth', 'method' => 'post' ) );
-		
-		// Invalid entries
-		if ($form->isValid ( $request->getPost () )) {
-			
-			if ($this->getRequest()->isPost()) {
-				
-				$result = AdminUser::fastlogin($this->getRequest()->getParam("email"), $this->getRequest()->getParam("password"), 0);
-				
-				switch ($result->getCode()) {
-					case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
-						/** do stuff for nonexistent identity **/
-						Shineisp_Commons_Utilities::log("Login: User has been not found.", "oauth_login.log");
-						$this->view->message = $translation->translate ( 'User has been not found.' );
-						break;
-				
-					case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
-						/** do stuff for invalid credential **/
-						Shineisp_Commons_Utilities::log("Login: The email address or password is incorrect. please try again.", "oauth_login.log");
-						$this->view->message = $translation->translate ( 'The email address or password is incorrect. please try again.' );
-						break;
-				
-					case Zend_Auth_Result::SUCCESS:
-						/** do stuff for successful authentication **/
-						Shineisp_Commons_Utilities::log("Login: The User has been authenticated successfully.", "oauth_login.log");
-						AdminUser::updateLog($this->getRequest()->getParam("email"));
-						$this->_helper->redirector->gotoUrl ( $session->redirect );
-						break;
-				
-					case Zend_Auth_Result::FAILURE:
-						/** do stuff for other failure **/
-						Shineisp_Commons_Utilities::log("Login: There was a problem during the login.", "oauth_login.log");
-						$this->view->message = $translation->translate ( 'There was a problem during the login.' );
-						break;
-				}
-					
-			} else {
-				Shineisp_Commons_Utilities::log("Login: Post request is not valid", "oauth_login.log");
-				$this->view->message = $translation->translate ( 'Post request is not valid' );			
-			}
-		}
-
-		//Show the login form
-		$this->view->loginform = $form;
-		
-		return $this->render ( 'index' ); // re-render the login form
-	
-	}
-
-
-
 
 	
 	/**
@@ -250,7 +168,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 					
 				Shineisp_Commons_Utilities::SendEmail ( $user ['email'], $user ['email'], null, $subject, $template);
 				
-				$this->view->message = $translator->translate ( 'An email has been sent with the new login credencials' );
+				$this->view->message = $translator->translate ( 'An email has been sent with the new login credentials' );
 			}	
 		}
 		
@@ -281,14 +199,14 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 				$auth->setStorage(new Zend_Auth_Storage_Session('admin'));
 				$auth->authenticate($adapter);
 				
-				// Check if the credencials are set in the Operator profile or the credencials are set in the ISP profile
+				// Check if the credentials are set in the Operator profile or the credentials are set in the ISP profile
 				if ($auth->hasIdentity()) {
 					Fastlinks::updateVisits ( $link [0] ['fastlink_id'] );
 					Shineisp_Commons_Utilities::log("Login: The user has been logged in correctly from " . $_SERVER['REMOTE_ADDR'], "login.log");
 					$this->_helper->redirector ( $link [0] ['action'], $link [0] ['controller'], 'admin', json_decode ( $link [0] ['params'], true ) );
 				} else {
 					
-					// Check if the credencials are set in the Isp profile
+					// Check if the credentials are set in the Isp profile
 					$adapter->setType('isp');
 					
 					$auth->setStorage(new Zend_Auth_Storage_Session('admin'));
@@ -323,7 +241,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
 		$auth->clearIdentity ();
 		Shineisp_Commons_Utilities::log("Login: The user has been logged out correctly", "login.log");
-		$this->_helper->redirector ( 'index', 'index', 'admin' ); // back to login page
+		$this->_helper->redirector ( 'index', 'login', 'admin' ); // back to login page
 	}
 	
 }

@@ -9,13 +9,8 @@ Doctrine_Manager::getInstance()->bindComponent('AdminResources', 'doctrine');
  * 
  * @property integer $resource_id
  * @property string $name
- * @property boolean $hidden
- * @property boolean $is_container
- * @property boolean $is_allowed
- * @property boolean $admin
  * @property string $module
  * @property string $controller
- * @property integer $parent_id
  * @property Doctrine_Collection $AdminPermissions
  * 
  * @package    ##PACKAGE##
@@ -40,26 +35,6 @@ abstract class BaseAdminResources extends Doctrine_Record
              'type' => 'string',
              'length' => '250',
              ));
-        $this->hasColumn('hidden', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
-             ));
-        $this->hasColumn('is_container', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
-             ));
-        $this->hasColumn('is_allowed', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
-             ));
-        $this->hasColumn('admin', 'boolean', 25, array(
-             'type' => 'boolean',
-             'default' => 0,
-             'length' => '25',
-             ));
         $this->hasColumn('module', 'string', 250, array(
              'type' => 'string',
              'notnull' => true,
@@ -68,10 +43,6 @@ abstract class BaseAdminResources extends Doctrine_Record
         $this->hasColumn('controller', 'string', 250, array(
              'type' => 'string',
              'length' => '250',
-             ));
-        $this->hasColumn('parent_id', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => '4',
              ));
     }
 

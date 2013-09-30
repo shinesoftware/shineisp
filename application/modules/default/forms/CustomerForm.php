@@ -187,7 +187,7 @@ class Default_Form_CustomerForm extends Zend_Form
                   ->setMultiOptions(array('M'=>'M', 'F'=>'F'))
                   ->setRequired(true);                  
                   
-        $this->addElement('text', 'telephone', array(
+        $this->addElement('text', 'contact', array(
             'filters'    => array('StringTrim'),
             'label'      => 'Telephone',
             'required'   => true,
@@ -195,6 +195,8 @@ class Default_Form_CustomerForm extends Zend_Form
             'description'      => 'Write here the contact (eg. +39.98368276)',
             'class'      => 'text-input medium-input'
         ));
+                  
+        $this->addElement('hidden', 'contacttypes', array('decorators' => array('Composite')));
         
         
         $this->addElement('text', 'email', array(

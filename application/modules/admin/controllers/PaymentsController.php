@@ -186,7 +186,7 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 		}
 		
 		$this->view->title = $this->translator->translate("Payment Transaction Details");
-        $this->view->description = $this->translator->translate("Here you can edit the Payment Transaction information paramenters.");
+        $this->view->description = $this->translator->translate("Here you can edit the Payment Transaction information parameters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

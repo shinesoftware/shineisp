@@ -968,11 +968,13 @@ class OrdersItems extends BaseOrdersItems {
 						$customers [$service ['customer_id']] ['fullname'] = $invoice_dest ['firstname'] . " " . $invoice_dest ['lastname'] . " " . $invoice_dest ['company'];
 						$customers [$service ['customer_id']] ['email'] = $invoice_dest ['email'];
 						$customers [$service ['customer_id']] ['password'] = $invoice_dest ['password'];
+						$customers [$service ['customer_id']] ['language_id'] = $invoice_dest ['language_id'];
 					} else {
 						$customers [$service ['customer_id']] ['id'] = $service ['id'];
 						$customers [$service ['customer_id']] ['fullname'] = $service ['fullname'];
 						$customers [$service ['customer_id']] ['email'] = $service ['email'];
 						$customers [$service ['customer_id']] ['password'] = $service ['password'];
+						$customers [$service ['customer_id']] ['language_id'] = $service ['language_id'];
 					}
 					$customers [$service ['customer_id']] ['products'] [$i] ['name'] = $service ['product'];
 					$customers [$service ['customer_id']] ['products'] [$i] ['type'] = "service";

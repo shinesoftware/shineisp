@@ -97,7 +97,7 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/roles/process" );
 		$this->view->title = $this->translator->translate("New Role");
-		$this->view->description = $this->translator->translate("Here you can create a new roles.");
+		$this->view->description = $this->translator->translate("Here you can create new roles.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/roles/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -151,6 +151,9 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		$auth = Zend_Auth::getInstance ();
 		
+		// Get the common resources of ShineISP from the ACL file
+		$aclConfig 	= new Zend_Config_Xml(APPLICATION_PATH . '/configs/acl.xml', 'acl');
+		
 		$form = $this->getForm ( '/admin/roles/process' );
 		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
@@ -173,7 +176,7 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 				$roles = AdminPermissions::getPermissionByRoleID($id);
 				
 				// Load the resources
-				$this->view->resources = json_encode ( AdminResources::createTree ( 0, $roles ) );
+				$this->view->resources = json_encode ( AdminResources::createResourcesTree ( $aclConfig->admin, $roles ) );
 				
 				// Join the roles and the users
 				$rs[0]['users'] = $users;
@@ -217,9 +220,10 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 		if ($form->isValid ( $request->getPost () )) {
 			
 			$params = $request->getPost ();
+			$role = AdminRoles::SaveAll($params, $params ['role_id']);
 			
-			if(AdminRoles::SaveAll($params, $params ['role_id'])){
-				$this->_helper->redirector ( 'list', 'roles', 'admin', array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
+			if($role){
+				$this->_helper->redirector ( 'edit', 'roles', 'admin', array ('id' => (string) $role->role_id, 'mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
 			}else{
 				$this->_helper->redirector ( 'list', 'roles', 'admin', array ('mex' => $this->translator->translate ( "There was an error on save the data." ), 'status' => 'error' ) );
 			}

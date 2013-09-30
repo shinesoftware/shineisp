@@ -29,6 +29,7 @@
 			<li><a href="#tab4"><?=$this->translate('Bank');?></a></li>
 			<li><a href="#tab5"><?=$this->translate('Servers');?></a></li>
 			<li><a href="#tab6"><?=$this->translate('ISP Control Panel');?></a></li>
+			<li><a href="#tab7"><?=$this->translate('Other');?></a></li>
 		</ul>
     
 	    <div id="tab1"> 
@@ -78,6 +79,13 @@
 	    <div class="ui-tabs-hide" id="tab6"> 
 	        <?php echo $form->isppanel->render()?> 
 	    </div>        
+	    
+	    <div class="ui-tabs-hide" id="tab7"> 
+	        <?php echo $form->custom1->render()?> 
+	        <?php echo $form->custom2->render()?> 
+	        <?php echo $form->custom3->render()?> 
+	    </div>       
+	     
    		<div class="clear"></div>
    		<?php echo $form->isp_id->render()?>
    	</div>

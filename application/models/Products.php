@@ -213,7 +213,7 @@ class Products extends BaseProducts {
 				$products->cost            = $params ['cost'];
                 $products->price_1         = $params ['price_1'];
 				$products->setupfee        = $params ['setupfee'];
-				$products->enabled         = $params ['enabled'] == 1 ? 1 : 0;
+				$products->enabled         = !empty($params ['enabled']) ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
 				$products->type            = !empty($params ['type']) ? $params ['type'] : "generic";
@@ -326,12 +326,16 @@ class Products extends BaseProducts {
 	
 	/**
 	 * Get the price
+	 * 
 	 * @param integer $productid
 	 * @param boolean $taxincluded
 	 */
 	public static function getPrice($productid, $taxincluded=false) {
 		
+		// Get all the price information
 		$prices = self::getPrices($productid);
+		
+		// Check the type
 		if($prices['type'] == "multiple"){
 			if($taxincluded){
 				return $prices['minvaluewithtaxes'];
@@ -399,7 +403,7 @@ class Products extends BaseProducts {
 	 * @param integer $productid
 	 * @param float   $refund
 	 */
-	public static function getPrices($productid,$refund = false) {
+	public static function getPrices($productid, $refund = false) {
 		$prices = array ();
 		
 		if (is_numeric ( $productid )) {
@@ -789,7 +793,7 @@ class Products extends BaseProducts {
 		$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $items;
 	}
-	
+
 	/**
 	 * getServicesandHostings
 	 * Get all hosting products. The group doesn't include the domains.
@@ -813,12 +817,21 @@ class Products extends BaseProducts {
 	 * @return Doctrine Record
 	 */
 	public static function find($id, $fields = "*", $retarray = false, $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( $fields )
+		$dq = Doctrine_Query::create ()
 									->from ( 'Products p' )
+									->leftJoin ( 'p.ProductsAttributesGroups pag' )
 									->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+									->leftJoin ( 'p.Taxes t' )
+									->leftJoin ( 'p.ProductsAttributesIndexes pai' )
+									->leftJoin ( 'p.ProductsTranches pt' )
+									->leftJoin(  'pt.BillingCycle bc')
 									->where ( "p.product_id = $id" )
                                     ->addWhere ( "p.isp_id = ?", Isp::getCurrentId() )
 									->limit ( 1 );
+		
+		if($fields != "*"){
+			$dq->select ( $fields );
+		}
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$record = $dq->execute ( array (), $retarray );
@@ -841,6 +854,32 @@ class Products extends BaseProducts {
 		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return ! empty ( $record [0] ['cost'] ) ? $record [0] ['cost'] : 0;
+	}
+	
+	/**
+	 * Get the price of a specific product
+	 * 
+	 * @param integer $id
+	 * @param integer $trancheId
+	 * @param boolean $isvatfree
+	 * @return ArrayObject
+	 */
+	public static function getPriceSelected($id, $trancheId=null, $isvatfree=false){
+		
+		$product = self::getAllInfo($id, $isvatfree);
+		
+		// Check the type of the product and get the price information
+		if($trancheId){
+			// Get the billyng cycle / term / recurring period price
+			$priceInfo = ProductsTranches::getTranchebyId($trancheId);
+			$price['unitprice'] = $priceInfo['price'];
+			$price['setupfee'] = $priceInfo['setupfee'];
+		}else{
+			$price['unitprice'] = $product['price_1'];
+			$price['setupfee'] = $product['setupfee'];
+		}
+		
+		return $price;
 	}
 	
 	/**

@@ -253,8 +253,10 @@ class OrdersController extends Shineisp_Controller_Default {
 					$code = Fastlinks::CreateFastlink('orders', 'edit', json_encode (array('id' => $id)), 'orders', $id, $this->customer ['customer_id']);
 				}
 				
-				// Save the message
+				// Save the message in the database
 				Messages::addMessage($params ['note'], $this->customer ['customer_id'], null, $id);
+				
+				$in_reply_to = md5($id);
 				
 				$placeholder['messagetype'] = $this->translator->translate('Order');
 				$placeholders['subject'] = sprintf ( "%03s", $id ) . " - " . Shineisp_Commons_Utilities::formatDateOut ( $order [0] ['order_date'] );
@@ -264,13 +266,13 @@ class OrdersController extends Shineisp_Controller_Default {
 				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/" . $code;
 				
 				// Send a message to the customer
-				Messages::sendMessage("order_message", $order [0] ['Customers'] ['email'], $placeholders);
-				
+				Shineisp_Commons_Utilities::sendEmailTemplate($order [0] ['Customers'] ['email'], 'order_message', $placeholders, $in_reply_to, null, null, $isp, $order [0] ['Customers'] ['language_id']);
+					
 				$placeholders['url'] = "http://" . $_SERVER ['HTTP_HOST'] . "/admin/login/link/id/$code/keypass/" . Shineisp_Commons_Hasher::hash_string ( $isp->email );
 				$placeholders['message'] = $params ['note'];
 				
 				// Send a message to the administrator 
-				Messages::sendMessage("order_message_admin", $isp->email, $placeholders);
+				Shineisp_Commons_Utilities::sendEmailTemplate($isp->email, 'order_message_admin', $placeholders, $in_reply_to);
 			}
 		}
 		
@@ -372,7 +374,7 @@ class OrdersController extends Shineisp_Controller_Default {
 			$cvs = Shineisp_Commons_Utilities::cvsExport ( $service );
 			die ( json_encode ( array ('mex' => '<a href="/public/documents/export.csv">' . $registry->Zend_Translate->translate ( "download" ) . '</a>' ) ) );
 		}
-		die ( json_encode ( array ('mex' => $this->translator->translate ( "exporterror" ) ) ) );
+		die ( json_encode ( array ('mex' => $this->translator->translate ( "There was a problem during the export process" ) ) ) );
 	}
 	
 	/*
@@ -470,8 +472,8 @@ class OrdersController extends Shineisp_Controller_Default {
 	}
 	
 	/**
-	 * response
 	 * Process the response of the banks gateways
+	 * 
 	 * @return void
 	 */
 	public function responseAction() {
@@ -504,24 +506,19 @@ class OrdersController extends Shineisp_Controller_Default {
 					}
 				}
 			}
+			
 			// Check if the OrderID is a number because it 
 			// means that the order has been executed correctly
 			if (is_numeric ( $OrderID )) {
 				
-				// Getting the email template
-				$result = Shineisp_Commons_Utilities::getEmailTemplate ( 'order_confirm' );
+				// Sending an email to the customer and the administrator with the order details.
+				$order = Orders::getAllInfo ( $OrderID, null, true );
 				
-				if ($result) {
-					$subject = str_replace ( "[orderid]", $OrderID, $result ['subject'] );
-					$template = str_replace ( "[orderid]", $OrderID, $result ['template'] );
-					$template = str_replace ( "[signature]", $isp->company, $template );
-					
-					// Sending an email to the customer and the administrator with the order details.
-					$order = Orders::getAllInfo ( $OrderID, null, true );
-					if (! empty ( $order [0] ['Customers'] ['email'] )) {
-						Shineisp_Commons_Utilities::SendEmail ( $isp->email, $order [0] ['Customers'] ['email'], null, $subject, $template );
-					}
-				}
+				Shineisp_Commons_Utilities::sendEmailTemplate($order [0] ['Customers'] ['email'], 'order_confirm', array(
+											'fullname'      => $order [0] ['Customers']['fullname'],
+											'orderid'      => $OrderID,
+											'order'      => $order,
+				), null, null, null, null, $order [0] ['Customers'] ['language_id']);
 				
 				// Redirect the user in the The task requested has been executed successfully. page
 				$this->_helper->redirector ( 'list', 'orders', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );

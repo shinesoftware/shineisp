@@ -91,10 +91,38 @@ class Customers extends BaseCustomers {
 		
 		return $config;
 	}
+
 	
-	/*
-	 * Create
-	 * Create a new customer
+	/**
+	 * Create a new customer 
+	 * 
+	 * List of all the array parameters
+	 * 
+	 * @param array_item firstname
+	 * @param array_item lastname
+	 * @param array_item email
+	 * @param array_item password
+	 * @param array_item company
+	 * @param array_item statusId
+	 * @param array_item sex
+	 * @param array_item birthplace
+	 * @param array_item birthdate
+	 * @param array_item birthcountry
+	 * @param array_item birthnationality
+	 * @param array_item vat
+	 * @param array_item taxpayernumber
+	 * @param array_item contact
+	 * @param array_item contacttype
+	 * @param array_item address
+	 * @param array_item city
+	 * @param array_item code
+	 * @param array_item country
+	 * @param array_item area
+	 * @param array_item legalform
+	 * @param array_item company_type_id
+	 * @param array_item welcome_mail
+	 * @param array_item parent_id
+	 * @param array_item isreseller
 	 */
 	public static function Create($data) {
 		$locale = Shineisp_Registry::getInstance ()->Zend_Locale;
@@ -172,13 +200,13 @@ class Customers extends BaseCustomers {
 		
 		$customerID = $customer->getIncremented ();
 		
+		// Add the customer email in the newsletter list
 		if ( !$isDisabled ) {
-			// Add the customer email in the newsletter list
 			NewslettersSubscribers::customer_optIn($customer['customer_id']);
 		}
-		
-		if ( $data['welcome_mail'] == true && $isDisabled = false ) {
-			// Send the welcome email
+
+		// Send the welcome email
+		if ( $data['welcome_mail'] == true && !$isDisabled) {
 			self::welcome_mail($customerID, $data ['password']);
 		}
 		
@@ -201,7 +229,7 @@ class Customers extends BaseCustomers {
 			self::reset_password($customerid, $passwd);
 		}
 		
-		Shineisp_Commons_Utilities::sendEmailTemplate($data ['email'], 'new_account', array(
+		Shineisp_Commons_Utilities::sendEmailTemplate($data ['email'], 'account_new', array(
 			 'storename' => $isp['company']
 			,'website'   => $isp['website']
 			,'email'     => $data['email']
@@ -716,12 +744,14 @@ class Customers extends BaseCustomers {
 				$customer[0]['isp_id'] = (!isset($customer[0]['isp_id']) || intval($customer[0]['isp_id']) < 1) ? 1 : intval($customer[0]['isp_id']);
 				
 				// Add "fullname" value, needed almost everywhere
-				if ( isset($customer[0]['company']) && !empty($customer[0]['company']) ) {
-					$customer[0]['fullname']        = $customer[0]['company'];
-					$customer[0]['full_personname'] = $customer[0]['lastname'].' '.$customer [0]['firstname'];
+				if ( !empty($customer[0]['company']) ) {
+					$customer[0]['fullname'] = $customer[0]['company'];
 				} else {
-					$customer[0]['fullname'] = $customer[0]['lastname'].' '.$customer [0]['firstname'];	
+					$customer[0]['fullname'] = !empty($customer[0]['lastname']).' '.!empty($customer [0]['firstname']);	
 				}
+				
+				$customer[0]['full_personname'] = !empty($customer[0]['lastname']) ? $customer[0]['lastname'] : null;
+				$customer[0]['full_personname'] .= !empty($customer[0]['firstname']) ? $customer[0]['firstname'] : null;
 				
 				return $customer [0];
 			} else {
@@ -1008,6 +1038,8 @@ class Customers extends BaseCustomers {
 	 */
 	public static function login($email, $password) {
 		try {
+			$isMD5 = false;
+			
 			$dbUser = Doctrine_Query::create ()
 								->from ( 'Customers u' )
 								->where ( 'email = ? AND status_id = ?', array ($email, Statuses::id('active', 'customers') ) )
@@ -1222,7 +1254,7 @@ class Customers extends BaseCustomers {
 	/**
 	 * Set the status of the records
 	 * @param array $items Items selected
-	 * @param array $parameters Custom paramenters
+	 * @param array $parameters Custom parameters
 	 */
 	public function bulk_set_status($items, $parameters) {
 		if(!empty($parameters['status'])){

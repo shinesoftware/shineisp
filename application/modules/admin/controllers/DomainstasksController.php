@@ -44,8 +44,8 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Domains Tasks forms");
-		$this->view->description = $this->translator->translate("Here you can see all the domains tasks forms.");
+		$this->view->title = $this->translator->translate("Domains Tasks list");
+		$this->view->description = $this->translator->translate("Here you can see all the domains tasks list.");
 		$this->view->buttons = array(array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
 		$this->datagrid->setConfig ( DomainsTasks::grid() )->datagrid ();
