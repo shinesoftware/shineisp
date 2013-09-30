@@ -191,7 +191,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 		}
 		
 		$this->view->title = $this->translator->translate("Service Details");
-		$this->view->description = $this->translator->translate("Here you can see the datails of the service subscribed by the customer.");
+		$this->view->description = $this->translator->translate("Here you can see the details of the service subscribed by the customer.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -309,7 +309,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 		} else {
 			$this->view->form = $form;
 			$this->view->title = $this->translator->translate("Service Details");
-            $this->view->description = $this->translator->translate("Here you can see the datails of the service subscribed by the customer.");
+            $this->view->description = $this->translator->translate("Here you can see the details of the service subscribed by the customer.");
 			return $this->render ( 'applicantform' );
 		}
 	}

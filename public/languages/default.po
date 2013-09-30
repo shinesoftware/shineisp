@@ -3451,7 +3451,7 @@ msgid "New Role"
 msgstr "Nuovo Ordine"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:100
-msgid "Here you can create a new roles."
+msgid "Here you can create new roles."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:133

@@ -68,7 +68,7 @@ class CartController extends Shineisp_Controller_Default {
 	public function addAction() {
 		
 		try{
-
+			$isVATFree = false;
 			$session 	= new Zend_Session_Namespace ( 'Default' );
 		
 			if (empty ( $session->cart )) {
@@ -84,16 +84,30 @@ class CartController extends Shineisp_Controller_Default {
 				if (! empty ( $request ['quantity'] ) && is_numeric ( $request ['quantity'] )) {
 					
 					// Get all the info about the product selected
-					$product = Products::find ( $request ['product_id'] );
+					$product = Products::getAllInfo( $request ['product_id'] );
 	
-					$w1 = new CartItem($request ['product_id'], Products::getProductType($request ['product_id']), $request ['term']);
+					// Check if the user has been logged in
+					if (!empty($this->customer)) {
+						
+						// Set the customer for the active cart
+						$session->cart->setCustomer($this->customer['customer_id']);
+						
+						// Check if the user is VAT free
+						$isVATFree = Customers::isVATFree($session->cart->getCustomerId());
+					}
+					
+					$item = new CartItem();
+					$item->setId($request ['product_id'])
+						->setSku($product['sku'])
+						->setName($product['ProductsData'][0]['name'])
+						->setTerm($request ['term'])
+						->setQty($request ['quantity'])
+						->setUnitprice(Products::getPriceSelected($request ['product_id'], $request['term'], $isVATFree))
+						->setType(Products::getProductType($request ['product_id']));
 					
 					// Add the items to the cart:
-					$session->cart->addItem($w1);
+					$session->cart->addItem($item);
 	
-					// Update some quantities:
-					$session->cart->updateItem($w1, $request ['quantity']);
-					
 					// Check if a hosting product is present in the cart
 					if ($session->cart->checkIfHostingProductIsPresentWithinCart ()) {
 						$this->_helper->redirector ( 'domain', 'cart', 'default' );
@@ -247,7 +261,7 @@ class CartController extends Shineisp_Controller_Default {
 			// Check if the user has been logged in
 			if (!empty($this->customer)) {
 				$customer = $this->customer;
-				
+
 				// Set the customer for the active cart
 				$session->cart->setCustomer($customer['customer_id']);
 				
@@ -312,7 +326,7 @@ class CartController extends Shineisp_Controller_Default {
 						
 						// Do the login
 						if($this->doLogin ( $result )){
-							$this->_helper->redirector ( 'payment', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
+							$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
 						}
 					} else {
 						$this->view->mex = $result;
@@ -377,7 +391,7 @@ class CartController extends Shineisp_Controller_Default {
 			
 			if ($form->isValid ( $params )) {
 				$cart->contacts = Customers::getAllInfo ( $params ['customers'], "c.customer_id, a.address_id, cts.type_id, l.legalform_id, ct.country_id, cn.contact_id, s.status_id, c.*, a.*, l.*, cn.*, cts.*, s.*" );
-				$this->_helper->redirector ( 'payment', 'cart', 'default' );
+				$this->_helper->redirector ( 'summary', 'cart', 'default' );
 			}
 		}
 		
@@ -435,7 +449,7 @@ class CartController extends Shineisp_Controller_Default {
 				// Do the login
 				$this->doLogin ( $customerid );
 				
-				$this->_helper->redirector ( 'payment', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
 			}
 		}
 		
@@ -443,9 +457,41 @@ class CartController extends Shineisp_Controller_Default {
 
 	
 	/*
-     * Request the payment of the order
+     * Review the cart before the payment action
      */
-	public function paymentAction() {
+	public function summaryAction() {
+		$session = new Zend_Session_Namespace ( 'Default' );
+		$request = $this->getRequest ();
+		$this->getHelper ( 'layout' )->setLayout ( '1column' );
+		
+		// Get the form
+		$form = new Default_Form_CartsummaryForm ( array ('action' => '/cart/checkout', 'method' => 'post' ) );
+		
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+		}
+		
+		// Get the heading of the cart
+		$cart_heading = $session->cart->getHeading();
+		
+		// Check if the user is VAT free
+		$isVATFree = Customers::isVATFree($cart_heading['customer']['id']);
+		
+		$this->view->isVATFree	= $isVATFree;
+		
+		// Update the cart totals
+		$session->cart->update();
+		
+		// Send the cart information to the view
+		$this->view->lastproduct = $session->lastproduct;
+		$this->view->cart = $session->cart;
+		$this->view->form = $form;
+	}
+
+	/*
+	 * Review the cart before the payment action
+	*/
+	public function checkoutAction() {
 		$session = new Zend_Session_Namespace ( 'Default' );
 			
 		$request = $this->getRequest ();
@@ -454,115 +500,29 @@ class CartController extends Shineisp_Controller_Default {
 			#$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
 		
-		// Get the heading of the cart 
-		$cart_heading = $session->cart->getHeading();
-		
-// 		Zend_Debug::dump($cart_heading);
-// 		die;
-		
-		// Check if the user is VAT free
-		$isVATFree = Customers::isVATFree($cart_heading['customer']['id']);
-		
-		// Set the template
-		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 
-		// Get the form
-		$form = new Default_Form_CartsummaryForm ( array ('action' => '/cart/payment', 'method' => 'post' ) );
+		$theOrder = Orders::create ( $session->cart->getCustomerId(), Statuses::id('tobepaid', 'orders'), null );
 		
-// 		foreach ( $session->cart->products as &$products ) {
-// 			$products['tax_id'] = ($isVATFree) ? null : $products['tax_id'];
-// 		}
-		
-		// Add the sidebar with the list of the product in the cart
-		$this->view->placeholder ( "shoppingcart" )->append ( $this->view->partial ( 'partials/shoppingcart.phtml', array ('items' => $session->cart->getItems() ) ) );
-		
-		$this->view->containhosting = ($session->cart->checkIfHostingProductIsPresentWithinCart ()) ? 1 : 0;
-		Zend_Debug::dump($request);
-		die;
-		// Check if we have a POST request
-		if ($request->isPost ()) {
-			$params = $request->getPost ();
+		foreach ($session->cart->getItems() as $item){
 			
-			if(empty($params ['payment'])){
-				$this->_helper->redirector ( 'payment', 'cart', 'default', array ('mex' => 'Please select the payment method.', 'status' => 'error' ) );
-				die;
+			if(!empty($item->domain)){
+				
+				$isDomainFree = ProductsTranchesIncludes::isDomainIncludedinTrancheId($item->getTerm(), $item['domain']['tld']);
+				
+				// Check if domain included in a hosting
+				$price = ( $isDomainFree ) ? 0 : $price;
+				
+				// Create the order item for the domain
+				Orders::addOrderItem ( $theOrder ['order_id'], $item['domain']['domain'], 1, 3, $price, $cost, 0, array ('domain' => $item['domain']['domain'], 'action' => $item['domain']['mode'], 'authcode' => '', 'tldid' => $item['domain']['tld']) );
+					
 			}
-			
-			if ($form->isValid ( $params )) {
-				
-				/**
-				 * Create the order
-				 * create($customerId, $statusId = 9, $note = "")
-				 * $statusId = 9 --> To be pay 
-				 * 
-				 */
-				 
-				$theOrder = Orders::create ( $cart_heading['customer']['id'], Statuses::id('tobepaid', 'orders'), $params ['note'] );
-				
-				$items = $session->cart->getItems();
-				Zend_Debug::dump($items);
-				die;
-				
-				foreach ( $items as $item ) {
-					
-					
-					// Check the Tranche selected by the user
-					if (! empty ( $product ['trancheid'] )) {
-						$trancheID = $product ['trancheid'];
-					} else {
-						$trancheID = null;
-					}
-					
-					if ($product ['type'] == "domain") {
-						$domain = DomainsTlds::getAllInfo ( $product ['tld_id'] );
-						
-						$action = $product ['isavailable'] ? "registerDomain" : "transferDomain";
-						$price  = $product ['isavailable'] ? $domain ['registration_price'] : $domain ['transfer_price'];
-						$cost   = $product ['isavailable'] ? $domain ['registration_cost']  : $domain ['transfer_cost'];
-                        
-                        // Check if domain included in a hosting
-						$price = ( $this->checkIfDomainIncluse( $product['domain_selected']) == false ) ? 0 : $price;
-
-						// Create the order item for the domain
-						Orders::addOrderItem ( $theOrder ['order_id'], $product ['domain_selected'], 1, 3, $price, $cost, 0, array ('domain' => $product ['domain_selected'], 'action' => $action, 'authcode' => '', 'tldid' => $domain ['tld_id']) );
-					
-					} else {
-						// Create the order item for other products
-
-						Orders::addItem ( $product ['product_id'], $product ['quantity'], $product ['billingid'], $trancheID, $product['ProductsData'][0]['name'], array() );
-					}
-				}
-				
-				$orderID = $theOrder ['order_id'];
-				Orders::sendOrder ( $orderID );
-				
-				// Set the order ID
-				$cart->orderid = $orderID;
-				
-				// Get the totals
-				$cart->totals = $this->Totals ();
-				$cart->payment->notes = ! empty ( $params ['note'] ) ? $params ['note'] : "";
-				
-				// Calculate the Grand Total
-				$amount = $cart->totals ['total'];
-				
-				if (is_numeric ( $params ['payment'] )) {
-					$cart->payment->id = $params ['payment'];
-					$this->_helper->redirector ( 'gateway', 'cart', 'default' );
-				} else {
-					$this->_helper->redirector ( 'index', 'index', 'default' );
-					unset ( $cart );
-				}
-			
-			}
-		} else {
-			
-			$this->view->isVATFree	= $isVATFree;
-			$this->view->cart = $cart;
-			$this->view->totals = $this->Totals ();
-			$this->view->form = $form;
+			Zend_Debug::dump($item);
+			die;
 			
 		}
+				
+		
+		$this->view->cart = $session->cart;
 	}
 	
 	/**
@@ -675,38 +635,41 @@ class CartController extends Shineisp_Controller_Default {
 	private function Totals() {
 		$this->session = new Zend_Session_Namespace ( 'Default' );
 		
-		$isVATFree = Customers::isVATFree($cart->contacts['customer_id']);
-		
-		if (! empty ( $cart->products ) && is_array ( $cart->products )) {
-			$products = $cart->products;
-			$total = 0;
-			$tax   = 0;
-			$taxes = 0;
-			
-			// Read all the product added in the cart
-			foreach ( $products as $product ) {
-				$price = ($product ['price_1'] * $product ['quantity']) + $product ['setupfee'];
-				$vat = 0;
-				$tax = 0;
-				
-				// check the taxes for each product
-				if (! empty ( $product ['tax_id'] ) && !$isVATFree) {
-					$tax = Taxes::find ( $product ['tax_id'], null, true );
-					if (! empty ( $tax [0] ['percentage'] ) && is_numeric ( $tax [0] ['percentage'] ) ) {
-						$percentage = $tax [0] ['percentage'];
-						$vat = ($price * $percentage) / 100;
-						$price = ($price * (100 + $percentage)) / 100;
-					}
-				}
-				$total += $price;
-				$taxes += $vat;
-			}
-			$total = $this->currency->toCurrency($total, array('currency' => Settings::findbyParam('currency')));
-			$taxes = $this->currency->toCurrency($taxes, array('currency' => Settings::findbyParam('currency')));
-			return array ('total' => $total, 'taxes' => $taxes );
-		} else {
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
 			return array ('total' => '0', 'taxes' => '0' );
 		}
+		
+		$isVATFree = Customers::isVATFree($session->cart->getCustomer());
+		
+		$products = $session->cart->getItems();
+		$total = 0;
+		$tax   = 0;
+		$taxes = 0;
+		
+		// Read all the product added in the cart
+		foreach ( $products as $product ) {
+			$price = products::getPrice($product['id']);
+			Zend_Debug::dump($price);
+			die;
+			$price = ($product ['price_1'] * $product ['quantity']) + $product ['setupfee'];
+			$vat = 0;
+			$tax = 0;
+			
+			// check the taxes for each product
+			if (! empty ( $product ['tax_id'] ) && !$isVATFree) {
+				$tax = Taxes::find ( $product ['tax_id'], null, true );
+				if (! empty ( $tax [0] ['percentage'] ) && is_numeric ( $tax [0] ['percentage'] ) ) {
+					$percentage = $tax [0] ['percentage'];
+					$vat = ($price * $percentage) / 100;
+					$price = ($price * (100 + $percentage)) / 100;
+				}
+			}
+			$total += $price;
+			$taxes += $vat;
+		}
+		$total = $this->currency->toCurrency($total, array('currency' => Settings::findbyParam('currency')));
+		$taxes = $this->currency->toCurrency($taxes, array('currency' => Settings::findbyParam('currency')));
+		return array ('total' => $total, 'taxes' => $taxes );
 	}
 	
 	/**

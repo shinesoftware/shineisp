@@ -1,0 +1,36 @@
+<ul class="">
+<?php
+
+$html = array();
+
+foreach ($this->container as $page) 
+{
+    $html[] = "<li class=\"has-dropdown\">";
+    $html[] = $this->menu()->htmlify($page) . PHP_EOL;
+
+    if (!empty($page->pages))
+    {
+        $html[] = "<ul class=\"dropdown\">";
+        foreach ($page->pages as $subpage) 
+        {
+            $html[] = "<li class=\"has-dropdown\">";
+            if ($href = $subpage->getHref()) 
+            	$html[] = "<a href=\"{$href}\">";
+            else 
+            	$html[] = "<span>";
+            	$html[] = $subpage->getLabel();
+            	
+            if ($href) 
+            	$html[] = "</a>";
+            else 
+            	$html[] = "</span>";     
+                   
+            $html[] = "</li>";
+        }
+        $html[] = "</ul>";
+    }
+
+    $html[] = "</li>";
+}
+
+echo join(PHP_EOL, $html);

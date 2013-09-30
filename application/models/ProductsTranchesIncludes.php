@@ -31,7 +31,6 @@ class ProductsTranchesIncludes extends BaseProductsTranchesIncludes
     /**
      * Get all include for a tranche id
      * 
-     * 
      * @param integer $trancheid
      */    
     public static function getIncludeForTrancheId( $trancheid ) {
@@ -56,5 +55,25 @@ class ProductsTranchesIncludes extends BaseProductsTranchesIncludes
         }
         
         return $data;
+    }
+    
+    /**
+     * Check if a specific tld is included (free) in a product plan
+     * 
+     */    
+    public static function isDomainIncludedinTrancheId( $trancheid, $tld ) {
+        $includes = Doctrine_Query::create ()
+                        ->select ()
+                        ->from ( 'ProductsTranchesIncludes i' )
+                        ->where ( 'i.tranche_id = ?', $trancheid )
+                        ->addWhere ( 'i.type = "domains"' )
+                        ->addWhere ( 'i.include_id = ?', $tld )
+                        ->execute ();
+        
+        if($includes->count()){
+        	return $includes;
+        }
+        
+        return false;
     }
 }

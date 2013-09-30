@@ -1,0 +1,70 @@
+<?php echo $this->render('includes/header.phtml') ?>
+
+<body>
+	<div id="loading" style="z-index: 10500; display: none;"><?php echo $this->translate('Please wait a moment...')?></div>
+	
+	<?php echo $this->blocks()->showblock('admin_startbody');?> 	
+	
+	<nav class="top-bar">
+   		<section class="top-bar-section">
+			<?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
+   		</section>
+   	</nav>
+	
+	
+	<div id="main" class="abs">
+		<div class="abs header_upper chrome_light">
+			<span class="float_left button" id="button_navigation">
+				Navigation
+			</span>
+			<?php echo  $this->profile();?>	
+		</div>
+		<div class="abs header_lower chrome_light">
+			<div class="breadcrumbs float_left"><?php echo  $this->breadCrumb();?></div>
+			<div class="fastcontainer float_right"><?php echo $this->customers(); ?></div>
+		</div>
+		
+		<div id="main_content" class="abs">
+			<div id="main_content_inner">
+				<?php echo $this->blocks()->showblock('admin_beforecontent');?> 	
+				
+				<?php #echo $this->layout()->content ?> 
+				
+				<?php echo $this->blocks()->showblock('admin_endcontent');?> 	
+			</div>
+		</div>
+		<div class="abs footer_lower chrome_light">
+			<a href="https://twitter.com/#!/shine_software/" class="icon icon_bird float_right"></a>
+			<a href="http://www.shineisp.com">ShineISP</a>
+			<?php echo $this->querycount();?>
+			<?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?>
+		</div>
+	</div>
+	
+	<div id="sidebar" class="abs">
+		<span id="nav_arrow"></span>
+		<div class="abs header_upper chrome_light">
+			ShineISP
+		</div>
+		
+		<div class="abs header_lower chrome_light">
+			<?php echo $this->searchbox();?>
+		</div>
+			
+		<div id="sidebar_content" class="abs">
+			<div id="sidebar_content_inner">
+				<?php echo $this->blocks()->showblock('admin_startsidebar');?> 	
+				
+				<?php echo $this->blocks()->showblock('admin_endsidebar');?> 
+			</div>
+		</div>
+		<div class="abs footer_lower chrome_light">
+			<a href="/admin/settings" class="icon icon_gear2 float_left"></a>
+			<span class="float_right gutter_right"><?php echo $this->languageswitcher();?></span>
+		</div>
+	</div>
+	
+	<?php echo $this->blocks()->showblock('admin_endbody');?> 	
+</body>
+
+<?php echo $this->render('includes/footer.phtml') ?>

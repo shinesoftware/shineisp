@@ -5,6 +5,9 @@
 			<label>Home</label>
 			<uri>#</uri>
 			<resource>admin:index</resource>
+			<customHtmlAttribs>
+				<class>cursor</class>
+			</customHtmlAttribs>
 			<!--  
 			<title>Click here to open/close the menu</title>
 			<accesskey>h</accesskey>

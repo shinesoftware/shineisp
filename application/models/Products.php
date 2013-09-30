@@ -332,7 +332,10 @@ class Products extends BaseProducts {
 	 */
 	public static function getPrice($productid, $taxincluded=false) {
 		
+		// Get all the price information
 		$prices = self::getPrices($productid);
+		
+		// Check the type
 		if($prices['type'] == "multiple"){
 			if($taxincluded){
 				return $prices['minvaluewithtaxes'];
@@ -790,7 +793,7 @@ class Products extends BaseProducts {
 		$items = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $items;
 	}
-	
+
 	/**
 	 * getServicesandHostings
 	 * Get all hosting products. The group doesn't include the domains.
@@ -851,6 +854,32 @@ class Products extends BaseProducts {
 		              ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return ! empty ( $record [0] ['cost'] ) ? $record [0] ['cost'] : 0;
+	}
+	
+	/**
+	 * Get the price of a specific product
+	 * 
+	 * @param integer $id
+	 * @param integer $trancheId
+	 * @param boolean $isvatfree
+	 * @return ArrayObject
+	 */
+	public static function getPriceSelected($id, $trancheId=null, $isvatfree=false){
+		
+		$product = self::getAllInfo($id, $isvatfree);
+		
+		// Check the type of the product and get the price information
+		if($trancheId){
+			// Get the billyng cycle / term / recurring period price
+			$priceInfo = ProductsTranches::getTranchebyId($trancheId);
+			$price['unitprice'] = $priceInfo['price'];
+			$price['setupfee'] = $priceInfo['setupfee'];
+		}else{
+			$price['unitprice'] = $product['price_1'];
+			$price['setupfee'] = $product['setupfee'];
+		}
+		
+		return $price;
 	}
 	
 	/**

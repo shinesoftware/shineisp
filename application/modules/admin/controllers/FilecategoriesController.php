@@ -44,7 +44,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("File categories list");
+		$this->view->title = $this->translator->translate("File categories");
 		$this->view->description = $this->translator->translate("Here you can see all the file categories.");
 		$this->view->buttons = array(array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( FilesCategories::grid() )->datagrid ();

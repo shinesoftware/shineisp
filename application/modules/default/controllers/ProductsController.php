@@ -48,7 +48,7 @@ class ProductsController extends Shineisp_Controller_Default {
 				$this->view->group = Products::GetAttributeGroupByProductID($data ['product_id']);
 				
 				if(!empty($ns->cart)){
-					$ns->cart->lastproduct = $uri;
+					$ns->lastproduct = $uri;
 				}
 				
 				$refund	= false;
