@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ShineISP\n"
-"POT-Creation-Date: 2013-09-27 08:53+0100\n"
+"POT-Creation-Date: 2013-09-30 09:04+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shine Software <info@shineisp.com>\n"
 "Language-Team: Shine Software <info@shineisp.com>\n"
@@ -306,7 +306,7 @@ msgstr "Lingua"
 #: /Library/WebServer/Documents/shineisp/application/models/EmailsTemplates.php:128
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:1782
 #: /Library/WebServer/Documents/shineisp/application/models/PaymentsMethods.php:26
-#: /Library/WebServer/Documents/shineisp/application/models/Products.php:1037
+#: /Library/WebServer/Documents/shineisp/application/models/Products.php:1066
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:385
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:439
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:467
@@ -807,6 +807,7 @@ msgid "Cost"
 msgstr "Costo"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:47
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:98
 msgid "Grandtotal"
 msgstr "Totale Complessivo"
 
@@ -832,6 +833,7 @@ msgstr "Report delle entrate"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:305
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:308
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:44
 msgid "Months"
 msgstr "Mesi"
 
@@ -2318,12 +2320,13 @@ msgid "Here you have to fix the domain parameters set."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:47
-msgid "Domains Tasks forms"
-msgstr ""
+#, fuzzy
+msgid "Domains Tasks list"
+msgstr "Lista Domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:48
 #, fuzzy
-msgid "Here you can see all the domains tasks forms."
+msgid "Here you can see all the domains tasks list."
 msgstr ""
 "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
@@ -2461,7 +2464,7 @@ msgstr "Sei sicuro di voler cancellare il template selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:47
 #, fuzzy
-msgid "File categories list"
+msgid "File categories"
 msgstr "Sottocategorie %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:48
@@ -2710,8 +2713,10 @@ msgid "New Note"
 msgstr "Nuovo Ordine"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:99
-msgid "Here you can create a new notes."
+#, fuzzy
+msgid "Here you can create a new note."
 msgstr ""
+"Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:132
 msgid "If you delete the note will be no longer restored"
@@ -3033,12 +3038,12 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:39
 #, fuzzy
-msgid "Attributes Groups"
+msgid "Attribute Groups"
 msgstr "Attributi"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:40
 #, fuzzy
-msgid "Here you can see all the attributes groups."
+msgid "Here you can see all the attribute groups."
 msgstr ""
 "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
@@ -3341,8 +3346,9 @@ msgid ""
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:91
-msgid "Summary by Client"
-msgstr ""
+#, fuzzy
+msgid "Summary per Client"
+msgstr "Sommario domini per mese"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:92
 msgid "By this list you can see the summary of the domains bought per client."
@@ -3591,7 +3597,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:194
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:312
 #, fuzzy
-msgid "Here you can see the datails of the service subscribed by the customer."
+msgid "Here you can see the details of the service subscribed by the customer."
 msgstr ""
 "Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
 
@@ -4520,6 +4526,7 @@ msgstr "Richiesto"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:15
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:19
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:10
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:18
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:20
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/header.phtml:12
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/loginbox.phtml:18
@@ -5494,6 +5501,7 @@ msgid "Order Summary"
 msgstr "Riepilogo Ordine"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:5
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:5
 msgid "Complete the order choosing your preferite payment method."
 msgstr "Completare l'ordine scegliendo il metodo di pagamento preferito."
 
@@ -5510,6 +5518,54 @@ msgstr "Metodi di Pagamento"
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:4
+msgid "Shopping Cart"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:32
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:10
+msgid "Product Name"
+msgstr "Nome del prodotto"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:34
+#, fuzzy
+msgid "Unit Price"
+msgstr "Prezzo"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:35
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:94
+msgid "Taxes"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:36
+msgid "Qty"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:37
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:84
+#, fuzzy
+msgid "Subtotal"
+msgstr "Totale"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:78
+#, fuzzy
+msgid "Continue Shopping"
+msgstr "Segue"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:79
+msgid "Clear Shopping Cart"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:89
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:59
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:53
+msgid "Setup fee"
+msgstr "Costo Attivazione"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:102
+msgid "Proceed to Checkout"
+msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/header.phtml:7
 #, php-format
@@ -6231,20 +6287,11 @@ msgstr "Inserisci qui il nome del dominio"
 msgid "Upgrade"
 msgstr "Upgrade prodotto"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:10
-msgid "Product Name"
-msgstr "Nome del prodotto"
-
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:55
 msgid "You can add the Authcode after the payment has already been done"
 msgstr ""
 "E' possibile indicare il codice di trasferimento del dominio anche dopo la "
 "realizzazione dell'ordine. "
-
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:59
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:53
-msgid "Setup fee"
-msgstr "Costo Attivazione"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:49
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:46
@@ -6463,6 +6510,7 @@ msgid "Starting at"
 msgstr "A partire da"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/admin/base/scripts/1column.phtml:4
+#: /Library/WebServer/Documents/shineisp/public/skins/admin/blank/scripts/1column.phtml:4
 msgid "Please wait a moment..."
 msgstr "Attendere prego..."
 
