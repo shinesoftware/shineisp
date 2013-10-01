@@ -1801,7 +1801,7 @@ class Orders extends BaseOrders {
 			$order = self::find ( $id );
 			
 			// If the status is COMPLETE the totals will be not changed
-			if($order->status_id == Statuses::id("complete", "orders") ){
+			if($order->status_id == Statuses::id("complete", "orders") || $order->status_id == Statuses::id("paid", "orders") || $order->status_id == Statuses::id("processing", "orders") ){
 				return $order->total + $order->vat;
 			}
 			
@@ -2461,7 +2461,7 @@ class Orders extends BaseOrders {
 		$currency   = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
-								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
+								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, i.formatted_number as invoice, 
 											CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
 											o.total as total, 
 											o.grandtotal as grandtotal, 

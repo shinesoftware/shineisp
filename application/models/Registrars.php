@@ -64,11 +64,11 @@ class Registrars extends BaseRegistrars
     }
     
     /**
-     * getActiveRegistrantId
+     * getActiveRegistrarId
      * Get a record by ID
      * @param $id
      */
-    public static function getRegistrantId($id) {
+    public static function getRegistrarId($id) {
     	$registrar = Doctrine_Query::create ()->from ( 'Registrars r' )
 								    	->where ( "registrars_id = ?", $id )
 								    	->andWhere('active = ?', true)
@@ -78,11 +78,11 @@ class Registrars extends BaseRegistrars
     }	
     
     /**
-     * getActiveRegistrantbyClass
+     * getActiveRegistrarbyClass
      * Get a record by Class name
      * @param $classname
      */
-    public static function getActiveRegistrantbyClass($classname) {
+    public static function getActiveRegistrarbyClass($classname) {
     	$registrar = Doctrine_Query::create ()->from ( 'Registrars r' )
     									->where ( "class = ?", $classname )
     									->andWhere('active = ?', true)
@@ -121,8 +121,8 @@ class Registrars extends BaseRegistrars
 	public static function findbyDomain($domain, $tld, $fields = "*", $retarray = false) {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'Registrars r' )->leftJoin ( 'r.Domains d ON d.registrars_id = r.registrars_id' )->where ( "d.domain = '$domain' and d.tld='$tld'" );
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
-		$registrant = $dq->execute ( array (), $retarray );
-		return $registrant;
+		$registrar = $dq->execute ( array (), $retarray );
+		return $registrar;
 	}
 	
 	/**
@@ -131,12 +131,12 @@ class Registrars extends BaseRegistrars
 	 * @return Doctrine Record
 	 */
 	public static function findbyDomainID($domainId) {
-		$registrant = Doctrine_Query::create ()->from ( 'Registrars r' )
+		$registrar = Doctrine_Query::create ()->from ( 'Registrars r' )
 							->leftJoin ( 'r.Domains d ON d.registrars_id = r.registrars_id' )
 							->where ( "d.domain_id = ?", $domainId)
 							->andWhere('r.active = ?', true)
 							->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-		return $registrant;
+		return $registrar;
 	}
 	
 	/**
@@ -219,7 +219,7 @@ class Registrars extends BaseRegistrars
     }	
 	
     /**
-     * Get the enabled registrant
+     * Get the enabled registrar
      * @return Doctrine Record
      */
     public static function findActiveRegistrars() {
@@ -278,7 +278,7 @@ class Registrars extends BaseRegistrars
     }
     
     /**
-     * Update the credit for a registrant
+     * Update the credit for a registrar
      * @param $regid, $credit
      * @return Void
      */
@@ -291,7 +291,7 @@ class Registrars extends BaseRegistrars
     }
     
     /**
-     * Get the registrant credit
+     * Get the registrar credit
      * @param $regid
      * @return Void
      */

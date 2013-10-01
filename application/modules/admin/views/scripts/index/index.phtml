@@ -27,11 +27,11 @@
 			
 			
 			<div class="portlet" id="last_domain_tasks">
-				<?php echo $this->widget(DomainsTasks::Last(), $this->translate ("Last Domain Tasks"), "domainstasks", array('task_id'))?>
+				<?php echo $this->widget(DomainsTasks::Last(), $this->translate ("Domain Tasks"), "domainstasks", array('task_id'))?>
 			</div>
 			
 			<div class="portlet" id="last_panel_tasks">
-				<?php echo $this->widget(PanelsActions::Last(), $this->translate ("Last Panel Tasks"), "panelsactions", array('action_id'))?>
+				<?php echo $this->widget(PanelsActions::Last(), $this->translate ("Panel Tasks"), "panelsactions", array('action_id'))?>
 			</div>
 			
 			<div class="portlet" id="expiring_services">
@@ -75,15 +75,15 @@
 	
 		<div class="column column-floated column-medium" id="col3">
 			<div class="portlet" id="ticket_summary">
-				<?php echo $this->widget(Tickets::summary(), $this->translate ("Tickets Summary"), "tickets")?>
+				<?php echo $this->widget(Tickets::summary(), $this->translate ("Ticket Summary"), "tickets")?>
 			</div>
 	        
 			<div class="portlet" id="summary_domains">
-				<?php echo $this->widget(Domains::summary(), $this->translate ("Domains Summary"), "domains")?>
+				<?php echo $this->widget(Domains::summary(), $this->translate ("Domain Summary"), "domains")?>
 			</div>
 	        
 			<div class="portlet" id="product_reviews">
-				<?php echo $this->widget(Reviews::summary(), $this->translate ("Product Reviews Summary"), "reviews")?>
+				<?php echo $this->widget(Reviews::summary(), $this->translate ("Product Review Summary"), "reviews")?>
 			</div>
 		</div>
 		

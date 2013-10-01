@@ -62,6 +62,39 @@ class CartController extends Shineisp_Controller_Default {
 		}
 	}
 	
+	/*
+	 * Clear all the items from the cart
+	*/
+	public function clearAction() {
+		$session 	= new Zend_Session_Namespace ( 'Default' );
+		
+		if (!empty ( $session->cart ) && !$session->cart->isEmpty()) {
+			$session->cart->clearAll();
+		}
+		
+		$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => 'Cart items have been deleted.') );
+	}
+	
+	/*
+	 * Remove an item from the cart
+	*/
+	public function removeAction() {
+		$session 	= new Zend_Session_Namespace ( 'Default' );
+		
+		// Get the sent parameters
+		$id = $this->getRequest ()->getParam ('id');
+		
+		if (!empty ( $session->cart ) && !$session->cart->isEmpty()) {
+			if($session->cart->deleteItem($session->cart->getItem($id))){
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array('mex' => 'Cart item has been deleted.') );
+			}else{
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array('mex' => 'Cart item has been not deleted.') );
+			}
+		}
+		
+		$this->_helper->redirector ( 'summary', 'cart', 'default', array('mex' => 'Cart item has been not deleted.') );
+	}
+	
 	/**
 	 * Check the product and redirect the user to the right destination
 	 */
@@ -100,6 +133,7 @@ class CartController extends Shineisp_Controller_Default {
 					$item->setId($request ['product_id'])
 						->setSku($product['sku'])
 						->setName($product['ProductsData'][0]['name'])
+						->setCost($product['cost'])
 						->setTerm($request ['term'])
 						->setQty($request ['quantity'])
 						->setUnitprice(Products::getPriceSelected($request ['product_id'], $request['term'], $isVATFree))
@@ -219,7 +253,7 @@ class CartController extends Shineisp_Controller_Default {
 						
 						// attach the domain name to the hosting plan
 						if($hostingItem){
-							$session->cart->addDomain($hostingItem, $domain, $tldInfo['tld_id'], "register");
+							$session->cart->addDomain($hostingItem, $domain, $tldInfo['tld_id'], "registration");
 						}
 		
 						// Redirect the user to the
@@ -255,7 +289,7 @@ class CartController extends Shineisp_Controller_Default {
 			
 			// Check if there is a domain service within the cart.
 			// If a domain is present we have to create a nic-handle in order to register the 
-			// customer in the remote registrant database
+			// customer in the remote registrar database
 			$hasdomain = $session->cart->hasDomain ();
 			
 			// Check if the user has been logged in
@@ -440,7 +474,7 @@ class CartController extends Shineisp_Controller_Default {
 				
 				// Check if there is a domain service within the cart.
 				// If a domain is present we have to create a nic-handle in order to register the 
-				// customer in the remote registrant database
+				// customer in the remote registrar database
 				$hasdomain = $this->hasDomain ();
 				
 				// Create a customer or get his ID
@@ -497,7 +531,7 @@ class CartController extends Shineisp_Controller_Default {
 		$request = $this->getRequest ();
 		
 		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
-			#$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
 		
 
@@ -509,11 +543,14 @@ class CartController extends Shineisp_Controller_Default {
 				
 				$isDomainFree = ProductsTranchesIncludes::isDomainIncludedinTrancheId($item->getTerm(), $item['domain']['tld']);
 				
-				// Check if domain included in a hosting
-				$price = ( $isDomainFree ) ? 0 : $price;
+				$subtotal = $item->getSubtotal();
 				
 				// Create the order item for the domain
-				Orders::addOrderItem ( $theOrder ['order_id'], $item['domain']['domain'], 1, 3, $price, $cost, 0, array ('domain' => $item['domain']['domain'], 'action' => $item['domain']['mode'], 'authcode' => '', 'tldid' => $item['domain']['tld']) );
+				Orders::addOrderItem ( $theOrder ['order_id'], $item['domain']['domain'], 1, 3, $subtotal['subtotal'], $cost, 0, array ('domain' => $item['domain']['domain'], 'action' => $item['domain']['mode'], 'authcode' => '', 'tldid' => $item['domain']['tld']) );
+					
+			}else{
+				
+				Orders::addItem ( $item->getId(), $item->getQty(), $product ['billingid'], $item->getTerm(), $item->getName(), array() );
 					
 			}
 			Zend_Debug::dump($item);

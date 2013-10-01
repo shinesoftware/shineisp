@@ -9,10 +9,26 @@ class CartItem {
 	protected $term;
 	protected $type;
 	protected $name;
+	protected $cost;
 	protected $domain;
 	protected $unitprice;
 	protected $subtotal;
 	protected $options;
+
+	/**
+	 * @return the $cost
+	 */
+	public function getCost() {
+		return $this->cost;
+	}
+
+	/**
+	 * @param field_type $cost
+	 */
+	public function setCost($cost) {
+		$this->cost = $cost;
+		return $this;
+	}
 
 	/**
 	 * @return the $sku

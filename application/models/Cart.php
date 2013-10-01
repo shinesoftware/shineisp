@@ -117,6 +117,21 @@ class Cart implements Iterator, Countable {
 		}
 	} // End of addItem() method.
 	  
+	/**
+	 * Get the a item from the cart by Id
+	 * 
+	 * @param integer $id
+	 * @return CartItem
+	 */
+	public function getItem($id) {
+		
+		if (isset ( $this->items [$id] )) {
+			return $this->items[$id];
+		}
+		
+		return false;
+	} 
+	  
 	// Changes an item already in the cart:
 	public function updateItem(CartItem $item, $qty) {
 		
@@ -132,7 +147,7 @@ class Cart implements Iterator, Countable {
 	} // End of updateItem() method.
 	  
 	// Add a domain in the cart:
-	public function addDomain(CartItem $item, $domain, $tld_id, $mode = "register") {
+	public function addDomain(CartItem $item, $domain, $tld_id, $mode = "registration") {
 		
 		// Need the unique item id:
 		$id = $item->getId ();
@@ -141,6 +156,7 @@ class Cart implements Iterator, Countable {
 			$this->items [$id]->setDomain ( array (
 					'domain' => $domain,
 					'tld' => $tld_id,
+					'price' => DomainsTlds::getPrice($tld_id, $mode),
 					'mode' => $mode 
 			) );
 		}
@@ -186,7 +202,11 @@ class Cart implements Iterator, Countable {
 			
 			// Recreate that array to prevent holes:
 			$this->ids = array_values ( $this->ids );
+			
+			return true;
 		}
+		
+		return false;
 	} // End of deleteItem() method.
 	  
 	// Required by Iterator; returns the current value:
@@ -364,6 +384,20 @@ class Cart implements Iterator, Countable {
 		}
 		
 		return $this->items;
+	}
+	
+	/**
+	 * Clear all the items from the cart
+	 *
+	 * @return boolean
+	 */
+	public function clearAll() {
+		if (! empty ( $this->items ) && is_array ( $this->items )) {
+			foreach ( $this->items as $item ) {
+				$this->deleteItem($item);
+			}
+		}
+		return false;
 	}
 	
 	/**

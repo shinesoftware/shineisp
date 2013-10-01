@@ -171,7 +171,7 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this page?' );
-				$this->view->description = $this->translator->translate ( 'The page will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'The page will no longer be available.' );
 	
 				$record = $this->profile->find ( $id );
 				$this->view->recordselected = $record ['lastname'] . " " . $record ['firstname'];

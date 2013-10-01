@@ -51,7 +51,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 		}
 		
 		// Get the registrar information
-		$registrar = Registrars::getActiveRegistrantbyClass(__CLASS__);	
+		$registrar = Registrars::getActiveRegistrarbyClass(__CLASS__);	
 			
 		if(empty($registrar)){
 			throw new Exception("Registrar __CLASS__ not found in database.");
@@ -224,7 +224,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 		}
 		
 		// Get the registrar information
-		$registrar = Registrars::getActiveRegistrantbyClass(__CLASS__);		
+		$registrar = Registrars::getActiveRegistrarbyClass(__CLASS__);		
 		if(empty($registrar)){
 			throw new Exception("Registrar __CLASS__ not found in database.");
 		}
@@ -358,7 +358,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 		}
 		
 		// Get the registrar information
-		$registrar = Registrars::getActiveRegistrantbyClass(__CLASS__);		
+		$registrar = Registrars::getActiveRegistrarbyClass(__CLASS__);		
 		if(empty($registrar)){
 			throw new Exception("Registrar __CLASS__ not found in database.");
 		}
@@ -678,7 +678,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 	 * @access     private
 	 */	
 	private function Connect(){
-		$registrar = Registrars::getActiveRegistrantbyClass(__CLASS__);
+		$registrar = Registrars::getActiveRegistrarbyClass(__CLASS__);
 		
 		try {
 			

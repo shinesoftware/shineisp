@@ -777,8 +777,8 @@ class Domains extends BaseDomains {
     		list($name, $tld) = explode(".", $domain);
     		$tldInfo = DomainsTlds::getbyTld($tld);
     		if(!empty($tldInfo['Registrars'])){
-    			$registrant_class = $tldInfo['Registrars']['class'];
-    			$reg = new $registrant_class ( );
+    			$registrar_class = $tldInfo['Registrars']['class'];
+    			$reg = new $registrar_class ( );
 				if($reg->checkDomain($domain)){
 					return true;
 				}else{

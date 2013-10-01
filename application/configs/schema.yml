@@ -2136,6 +2136,10 @@ OrdersItems:
     price:
       type: float(10)
       notnull: true
+    vat:
+      type: float(10)
+    percentage:
+      type: float(10)
     setupfee:
       type: float(10)
       default: 0

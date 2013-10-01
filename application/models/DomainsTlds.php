@@ -105,6 +105,25 @@ class DomainsTlds extends BaseDomainsTlds
 	}
 	
 	/**
+	 * Get the price and cost of a tld
+	 * 
+	 * @param integer $tld
+	 * @param string $mode [registration, transfer]
+	 * @return array or boolean false
+	 */
+	public static function getPrice($tldId, $mode="registration"){
+		
+		if(is_numeric($tldId)){
+			$tld = self::getAllInfo($tldId);
+			if($tld){
+				$totalTaxIncluded =  ($tld[$mode . '_price'] * (100 + Taxes::get_percentage($tld['tax_id']))) / 100; 
+				return array('price' => $tld[$mode . '_price'], 'cost' => $tld[$mode . '_cost'], 'tax_id' => $tld['tax_id'], 'pricetax' => $totalTaxIncluded);
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * get the translations 
 	 * 
 	 * 

@@ -295,8 +295,8 @@ class ProductsController extends Shineisp_Controller_Default {
 			$config = Registrars::findActiveRegistrars ();
 			$domain = $this->getRequest ()->getParam ( 'fulldomain' );
 			if (isset ( $config [0] )) {
-				$registrant_class = $config [0] ['class'];
-				$reg = new $registrant_class ();
+				$registrar_class = $config [0] ['class'];
+				$reg = new $registrar_class ();
 				$reg->setConfig ( $config );
 				$check = $reg->domainCheck ( $domain );
 				echo json_encode ( $check );
