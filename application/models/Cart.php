@@ -159,6 +159,11 @@ class Cart implements Iterator, Countable {
 					'price' => DomainsTlds::getPrice($tld_id, $mode),
 					'mode' => $mode 
 			) );
+			
+			$domainitem = new CartItem();
+			$domainitem->setName($domain)->setId("domain")->setType('domain')->setTerm(1)->setUnitprice(DomainsTlds::getPrice($tld_id, $mode));
+			$this->addItem($domainitem);
+			
 		}
 	} // Add a domain in the cart.
 	  
