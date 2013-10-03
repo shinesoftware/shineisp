@@ -16,6 +16,8 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $quantity
  * @property float $cost
  * @property float $price
+ * @property float $vat
+ * @property float $percentage
  * @property float $setupfee
  * @property integer $status_id
  * @property string $parameters
@@ -97,6 +99,14 @@ abstract class BaseOrdersItems extends Doctrine_Record
         $this->hasColumn('price', 'float', 10, array(
              'type' => 'float',
              'notnull' => true,
+             'length' => '10',
+             ));
+        $this->hasColumn('vat', 'float', 10, array(
+             'type' => 'float',
+             'length' => '10',
+             ));
+        $this->hasColumn('percentage', 'float', 10, array(
+             'type' => 'float',
              'length' => '10',
              ));
         $this->hasColumn('setupfee', 'float', 10, array(

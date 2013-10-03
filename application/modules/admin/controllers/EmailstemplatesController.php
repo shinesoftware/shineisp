@@ -121,7 +121,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you  sure to delete the selected template?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this template, it will be no longer available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this template, it will no longer be available.' );
 				
 				$record = $this->emailstemplates->getAllInfo ( $id );
 				

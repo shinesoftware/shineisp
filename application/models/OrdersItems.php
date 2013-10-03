@@ -357,11 +357,26 @@ class OrdersItems extends BaseOrdersItems {
 			
 		
 		$details = Doctrine::getTable ( 'OrdersItems' )->find ( $id );
+		
+		// Get the taxes applied
+		$tax = Taxes::getTaxbyProductID($params['product_id']);
+		if ($tax['percentage'] > 0) {
+			$rowtotal = $params ['price'] * (100 + $tax['percentage']) / 100;
+			$vat = ($params ['price'] * $tax['percentage']) / 100;
+			$percentage = $tax['percentage'];
+		} else {
+			$rowtotal = $params ['price'];
+			$vat = null;
+			$percentage = null;
+		}
+		
 		$details->quantity         = $params ['quantity'];
 		$details->date_start       = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
 		$details->date_end         = Shineisp_Commons_Utilities::formatDateIn($params ['date_end']);
 		$details->billing_cycle_id = !empty($params['billing_cycle_id']) ? $params ['billing_cycle_id'] : null;
 		$details->price            = $params ['price'];
+		$details->vat              = $vat;
+		$details->percentage       = $percentage;
 		$details->cost             = $params ['cost'];
 		$details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
 		$details->setupfee         = $params ['setupfee'];

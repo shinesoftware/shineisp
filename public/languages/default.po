@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ShineISP\n"
-"POT-Creation-Date: 2013-09-30 09:04+0100\n"
+"POT-Creation-Date: 2013-09-30 20:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shine Software <info@shineisp.com>\n"
 "Language-Team: Shine Software <info@shineisp.com>\n"
@@ -111,7 +111,6 @@ msgstr "Modifica"
 #: /Library/WebServer/Documents/shineisp/application/models/Taxes.php:42
 #: /Library/WebServer/Documents/shineisp/application/models/UrlRewrite.php:42
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:43
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:178
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:179
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmsblocksController.php:176
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmspagesController.php:174
@@ -1032,6 +1031,7 @@ msgstr "ID Ordine"
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:358
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:127
+#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:187
 msgid "Service"
 msgstr "Servizio"
 
@@ -1295,21 +1295,17 @@ msgstr "Visite"
 msgid "Public"
 msgstr "Pubblico"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:40
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:91
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:47
 #, fuzzy
-msgid "Applications"
-msgstr "Azioni"
+msgid "Banks list"
+msgstr "Lista Segnalazioni"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:41
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:48
 #, fuzzy
-msgid "Here you can see all applications allowed access via API"
+msgid "Here you can see all the banks."
 msgstr ""
 "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:42
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:170
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:208
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:49
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:169
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:208
@@ -1434,14 +1430,17 @@ msgstr ""
 msgid "New"
 msgstr "Nuovo"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:92
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:98
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:183
 #, fuzzy
-msgid "Here you can edit the application details."
-msgstr "Seleziona ..."
+msgid "Bank Details"
+msgstr "Dettagli"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:93
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:168
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:206
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:99
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LanguagesController.php:99
+msgid "Here you can handle the bank parameters"
+msgstr ""
+
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:100
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:167
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:206
@@ -1572,10 +1571,6 @@ msgstr "Seleziona ..."
 msgid "Save"
 msgstr "Salva"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:94
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:169
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:207
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:247
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:101
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:168
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:207
@@ -1702,18 +1697,40 @@ msgstr "Salva"
 msgid "List"
 msgstr "Lista"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:122
-#, fuzzy
-msgid "Are you  sure to delete the selected application?"
-msgstr "Sei sicuro di voler cancellare il template selezionato?"
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CompanytypesController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersgroupsController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstldsController.php:127
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LanguagesController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LegalformsController.php:133
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NewsletterController.php:117
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PaymentsController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:114
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:131
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketscategoriesController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:124
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:128
+msgid "Are you sure to delete the record selected?"
+msgstr "Sei sicuro di voler cancellare il record selezionato?"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:123
-#, fuzzy
-msgid "If you delete this application, it will be no longer available."
-msgstr "Se cancelli questo template, non sarà più disponibile."
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:129
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstldsController.php:128
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NewsletterController.php:118
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:115
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:132
+msgid ""
+"If you delete the bank information parameters the customers cannot pay you "
+"anymore with this method of payment"
+msgstr ""
+"Se i parametri del modulo bancario verranno cancellati, i clienti non "
+"potranno più pagare con questo metodo di pagamento"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:125
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:148
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:134
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:151
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:246
@@ -1788,89 +1805,6 @@ msgstr "Se cancelli questo template, non sarà più disponibile."
 msgid "Unable to process request at this time."
 msgstr "Impossibile elaborare la richiesta in questo momento."
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:145
-msgid ""
-"Are you sure to generate a new keypair? All existings application using "
-"these will be unable to access"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:146
-msgid ""
-"If you generate a new keypair, all existings application using these will be "
-"unable to access."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:179
-msgid "Generate Keypairs"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:229
-#, fuzzy
-msgid "Application"
-msgstr "Azione"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ApplicationsController.php:230
-#, fuzzy
-msgid "Here you can edit the applications detail"
-msgstr "Seleziona ..."
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:47
-#, fuzzy
-msgid "Banks list"
-msgstr "Lista Segnalazioni"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:48
-#, fuzzy
-msgid "Here you can see all the banks."
-msgstr ""
-"Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:98
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:183
-#, fuzzy
-msgid "Bank Details"
-msgstr "Dettagli"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:99
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LanguagesController.php:99
-msgid "Here you can handle the bank parameters"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CompanytypesController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersgroupsController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstldsController.php:127
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LanguagesController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LegalformsController.php:133
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NewsletterController.php:117
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PaymentsController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:114
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:131
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketscategoriesController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:124
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:128
-msgid "Are you sure to delete the record selected?"
-msgstr "Sei sicuro di voler cancellare il record selezionato?"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:129
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstldsController.php:128
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NewsletterController.php:118
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:115
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:132
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:125
-msgid ""
-"If you delete the bank information parameters the customers cannot pay you "
-"anymore with this method of payment"
-msgstr ""
-"Se i parametri del modulo bancario verranno cancellati, i clienti non "
-"potranno più pagare con questo metodo di pagamento"
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BanksController.php:184
 #, fuzzy
 msgid ""
@@ -1921,7 +1855,8 @@ msgstr "Sei sicuro di voler cancellare questa pagina?"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmsblocksController.php:128
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmspagesController.php:123
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:174
-msgid "The page will be no more longer available."
+#, fuzzy
+msgid "The page will no longer be available."
 msgstr "La pagina non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmsblocksController.php:170
@@ -2020,8 +1955,9 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CompanytypesController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LegalformsController.php:134
+#, fuzzy
 msgid ""
-"If you delete the customer legal form information the data will be no longer "
+"If you delete the customer legal form information the data will no longer be "
 "restored"
 msgstr ""
 "Se le informazioni verranno cancellate i dati non saranno più recuperabili"
@@ -2164,8 +2100,9 @@ msgstr ""
 "ordini e le segnalazioni collegate?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:117
+#, fuzzy
 msgid ""
-"If you delete this customer whole information will be no longer available "
+"If you delete this customer whole information will no longer be available "
 "anymore."
 msgstr ""
 "Se cancelli il cliente tutte le informazioni associate verranno cancellate e "
@@ -2264,8 +2201,9 @@ msgid "Here you can create a new customer group."
 msgstr "Sei sicuro di cancellare il gruppo selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersgroupsController.php:132
+#, fuzzy
 msgid ""
-"If you delete the customer group information the data will be no longer "
+"If you delete the customer group information the data will no longer be "
 "restored"
 msgstr ""
 "Se cancelli il gruppo di clienti le informazioni non saranno più recuperabili"
@@ -2321,40 +2259,44 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:47
 #, fuzzy
-msgid "Domains Tasks list"
-msgstr "Lista Domini"
+msgid "Tasks for hosted domains"
+msgstr "Trasferisci qui il tuo dominio"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:48
 #, fuzzy
-msgid "Here you can see all the domains tasks list."
+msgid "Here you can see all the tasks for hosted domains."
+msgstr ""
+"Qui puoi visualizzare tutte le domande e le risposte relative ad un servizio "
+"oppure ad un dominio."
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:98
+#, fuzzy
+msgid "New Domain task"
+msgstr "Dominio"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:99
+#, fuzzy
+msgid "Here you can create a new domain task."
 msgstr ""
 "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:98
-msgid "New Domain task forms"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:99
-msgid "Here you can create a new domains tasks."
-msgstr ""
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:132
+#, fuzzy
 msgid ""
-"If you delete the domains tasks form information the data will be no longer "
-"restored"
+"If you delete the domain task information the data will no longer be restored"
 msgstr ""
 "Se cancelli l'operazione pianificata del dominio non sarà più recuperabile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:172
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:214
 #, fuzzy
-msgid "Domain task edit"
+msgid "Domain task"
 msgstr "Lista Domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:173
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainstasksController.php:215
 #, fuzzy
-msgid "Here you can edit the domains tasks form information."
+msgid "Here you can edit the domain task information."
 msgstr ""
 "Se cancelli l'operazione pianificata del dominio non sarà più recuperabile"
 
@@ -2422,7 +2364,8 @@ msgid "Are you  sure to delete the selected template?"
 msgstr "Sei sicuro di voler cancellare il template selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:124
-msgid "If you delete this template, it will be no longer available."
+#, fuzzy
+msgid "If you delete this template, it will no longer be available."
 msgstr "Se cancelli questo template, non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/EmailstemplatesController.php:152
@@ -2719,7 +2662,8 @@ msgstr ""
 "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:132
-msgid "If you delete the note will be no longer restored"
+#, fuzzy
+msgid "If you delete the note will no longer be restored"
 msgstr "Se la nota verrà cancellata non sarà più recuperabile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:170
@@ -2765,7 +2709,8 @@ msgstr "Sei sicuro di cancellare l'ordine?"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:54
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:3
-msgid "If you delete this order all the data will be no more longer available."
+#, fuzzy
+msgid "If you delete this order all the data will no longer be available."
 msgstr "Se l'ordine viene cancellato non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:278
@@ -2883,12 +2828,15 @@ msgid "New Customers' Panel actions"
 msgstr "Informazioni Cliente"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:99
-msgid "Here you can create a new panel actionss."
+#, fuzzy
+msgid "Here you can create a new panel action."
 msgstr ""
+"Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:132
+#, fuzzy
 msgid ""
-"If you delete the panel actions information the data will be no longer "
+"If you delete the panel actions information the data will no longer be "
 "restored"
 msgstr ""
 "Se l'operazione pianificata verrà cancellata non sarà possibile recuperarla"
@@ -2902,8 +2850,9 @@ msgstr "Lista delle transazioni di pagamento"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:175
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:217
 #, fuzzy
-msgid "Here you can edit the panel actions information."
-msgstr "Sei sicuro di cancellare la configurazione?"
+msgid "Here you can edit the panel actions."
+msgstr ""
+"Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsController.php:48
 #, fuzzy
@@ -2931,12 +2880,13 @@ msgid "Are you sure to delete this panel configuration?"
 msgstr "Sei sicuro di cancellare la configurazione?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsController.php:110
-msgid "The configuration will be no more longer available."
+#, fuzzy
+msgid "The configuration will no longer be available."
 msgstr "La configurazione non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsController.php:164
 #, fuzzy
-msgid "ISP Panels Configuration"
+msgid "ISP Panel Configuration"
 msgstr "Configurazione"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsController.php:165
@@ -3052,7 +3002,8 @@ msgid "Are you  sure to delete the feature selected?"
 msgstr "Sei sicuro di cancellare la \"feature\" selezionata?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:120
-msgid "If you delete this feature, it will be no longer available."
+#, fuzzy
+msgid "If you delete this feature, it will no longer be available."
 msgstr "Se cancelli questa \"feature\" non sarà più disponibile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductscategoriesController.php:47
@@ -3327,7 +3278,7 @@ msgstr "Qui in basso il rapporto economico del %s."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:77
 #, fuzzy
-msgid "Month TLD Summary"
+msgid "Domain TLD monthly summary"
 msgstr "Sommario Domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:78
@@ -3336,7 +3287,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:84
 #, fuzzy
-msgid "Domains Stats"
+msgid "Domain stats"
 msgstr "Lista Domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:85
@@ -3347,7 +3298,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:91
 #, fuzzy
-msgid "Summary per Client"
+msgid "Summary per client"
 msgstr "Sommario domini per mese"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:92
@@ -3364,7 +3315,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:125
 #, fuzzy
-msgid "List of the Recurring Services"
+msgid "List of the recurring services"
 msgstr "Lista delle fatture"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:126
@@ -3372,9 +3323,9 @@ msgid "By this list you can see the summary of the services bought per client."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:132
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:78
-msgid "Tickets Summary"
-msgstr ""
+#, fuzzy
+msgid "Ticket summary"
+msgstr "Segnalazioni"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:133
 #, fuzzy
@@ -3383,22 +3334,20 @@ msgstr "Lista delle fatture"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:139
 #, fuzzy
-msgid "Domain Expiration List"
-msgstr "Lista Domini"
+msgid "Expiration list of domains"
+msgstr "Scadenze domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:140
-msgid ""
-"This view helps you to check which are all the domain next to the expiration."
+msgid "This view helps you to check which are the domains next to expiration."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:146
-msgid "Service Expiration List"
-msgstr ""
+#, fuzzy
+msgid "Expiration list of services"
+msgstr "Servizi in Scadenza"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReportsController.php:147
-msgid ""
-"This view helps you to check which are all the services next to the "
-"expiration."
+msgid "This view helps you to check which are the services next to expiration."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:48
@@ -3434,17 +3383,18 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:224
 #, fuzzy
-msgid "Review Details"
-msgstr "Dettaglio ordine"
+msgid "Details of the reviews"
+msgstr "Lista delle recensioni del prodotto"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:225
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SubscribersController.php:200
-msgid "Here you can check all the submit information."
+#, fuzzy
+msgid "Here you can check the submitted information."
 msgstr ""
+"Se cancelli l'operazione pianificata del dominio non sarà più recuperabile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:47
 #, fuzzy
-msgid "Admin Roles list"
+msgid "Admin Roles"
 msgstr "Aggiungi al Carrello"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:48
@@ -3466,8 +3416,8 @@ msgstr "Sei sicuro di cancellare il ruolo selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:134
 msgid ""
-"The permision will be no more longer available and the users attached cannot "
-"use the resource."
+"The permision will no longer be available and the users attached cannot use "
+"the resource."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:191
@@ -3502,8 +3452,8 @@ msgid "Are you sure to delete this server?"
 msgstr "Sei sicuro di cancellare il server?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersController.php:44
-msgid ""
-"If you delete this server all the data will be no more longer available."
+#, fuzzy
+msgid "If you delete this server all the data will no longer be available."
 msgstr ""
 "Se cancelli questo server tutti i dati annessi non saranno puù accessibili."
 
@@ -3548,7 +3498,8 @@ msgid "Are you  sure to delete the selected group?"
 msgstr "Sei sicuro di cancellare il gruppo selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersgroupsController.php:120
-msgid "If you delete this group, it will be no longer available."
+#, fuzzy
+msgid "If you delete this group, it will no longer be available."
 msgstr "Se cancelli questo gruppo non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServersgroupsController.php:180
@@ -3590,7 +3541,6 @@ msgstr "Il servizio non sarà più disponibile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:193
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:311
-#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:162
 msgid "Service Details"
 msgstr ""
 
@@ -3640,6 +3590,10 @@ msgstr ""
 msgid "Subscriber Details"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SubscribersController.php:200
+msgid "Here you can check all the submit information."
+msgstr ""
+
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:47
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:99
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:14
@@ -3657,8 +3611,10 @@ msgid "New Tax"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:99
-msgid "Here you can create a new taxes."
+#, fuzzy
+msgid "Here you can create a new tax."
 msgstr ""
+"Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:131
 #, fuzzy
@@ -3738,7 +3694,8 @@ msgstr ""
 "Sei sicuro di cancellare questa segnalazione ed i suoi messaggi collegati?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:121
-msgid "The ticket will be no more longer available."
+#, fuzzy
+msgid "The ticket will no longer be available."
 msgstr "La segnalazione non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:175
@@ -3770,29 +3727,36 @@ msgid "Closed at %s"
 msgstr "Chiusa il %s"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:47
-msgid "Url rewrite list"
+msgid "URL Rewrite"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:48
 #, fuzzy
-msgid "Here you can see all the url rewrite."
+msgid "Here you can see all the url rewrite items."
 msgstr ""
 "Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:96
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:169
-msgid "Url Rewrite Details"
+msgid "Url Rewrite"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:97
-msgid "Here you can handle the url rewrite parameters"
+#, fuzzy
+msgid "Here you can handle the parameters of the url rewrite"
 msgstr ""
+"Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:125
+#, fuzzy
+msgid "If you delete the url rewrite the record will no longer be available"
+msgstr "Se cancelli la categoria del wiki non sarà più disponibile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:170
 #, fuzzy
-msgid "Here you can edit the main Url Rewrite information parameters."
+msgid "Here you can edit the parameters of the Url Rewrite."
 msgstr ""
-"Se cancelli l'operazione pianificata del dominio non sarà più recuperabile"
+"Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:229
 msgid "Url Rewrite Processing form"
@@ -3800,8 +3764,8 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/UrlrewriteController.php:230
 #, fuzzy
-msgid "There was an error during the insert of data"
-msgstr "C'è un problema durante il salvataggio dei dati."
+msgid "An error occurred in entering data "
+msgstr "Si è verificato un errore durante l'impostazione della password."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:47
 msgid "Wiki Categories list"
@@ -3859,7 +3823,8 @@ msgid "Are you sure to delete this article?"
 msgstr "Sei sicuro di cancellare l'articolo?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:119
-msgid "The article will be no more longer available."
+#, fuzzy
+msgid "The article will no longer be available."
 msgstr "L'articolo non sarà più disponibile."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:172
@@ -4075,14 +4040,16 @@ msgstr ""
 msgid "Upgrade the selected service with one of the following services."
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:162
+#, fuzzy
+msgid "Detail of the service"
+msgstr "Crea un Profilo"
+
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:163
 #, fuzzy
-msgid "List of all the service details."
-msgstr "Lista di tutti i servizi connessi al dominio."
-
-#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:187
-msgid "Service processing"
+msgid "Here you can see the detail of the service."
 msgstr ""
+"Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:188
 msgid "Check all the fields and click on the save button"
@@ -4183,7 +4150,6 @@ msgstr ""
 "click qui per visualizzare ulteriori dettagli."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Graphs.php:32
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:82
 msgid "Domains Summary"
 msgstr "Sommario Domini"
 
@@ -4492,51 +4458,20 @@ msgstr ""
 msgid "required"
 msgstr "Richiesto"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customersgroups/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/emailstemplates/applicantform.phtml:18
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/invoices/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/newsletter/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/notes/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/loginbox.phtml:26
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributesgroups/applicantform.phtml:18
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/profile/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/editform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/reviews/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/roles/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/serversgroups/applicantform.phtml:18
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/subscribers/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/taxes/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:15
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:19
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:10
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:18
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:20
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/header.phtml:12
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/loginbox.phtml:18
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:15
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/reviews.phtml:18
-msgid "This field"
-msgstr "Il campo"
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/filecategories/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/languages/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/payments/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchasescategories/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/servers/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ticketscategories/applicantform.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/urlrewrite/applicantform.phtml:20
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wikicategories/applicantform.phtml:16
+msgid "field"
+msgstr "Questo campo:"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/applicantform.phtml:26
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/keypairs.phtml:6
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:26
@@ -4584,8 +4519,17 @@ msgstr "Il campo"
 msgid "Main"
 msgstr "Principale"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/confirm.phtml:5
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/confirmoverwritekeys.phtml:5
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:27
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:28
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:43
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:27
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:28
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/editform.phtml:28
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/applicantform.phtml:26
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:99
+msgid "Options"
+msgstr "Opzioni"
+
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/confirm.phtml:5
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/confirm.phtml:5
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/confirm.phtml:5
@@ -4632,8 +4576,6 @@ msgstr "Principale"
 msgid "Selected record"
 msgstr "Record selezionato"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/confirm.phtml:8
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/confirmoverwritekeys.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/confirm.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/confirm.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/confirm.phtml:8
@@ -4681,8 +4623,6 @@ msgstr "Record selezionato"
 msgid "No, I don't!"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/confirm.phtml:9
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/confirmoverwritekeys.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/confirm.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/confirm.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/confirm.phtml:9
@@ -4730,40 +4670,6 @@ msgstr ""
 msgid "YES, I want to do it!"
 msgstr "Si, desidero proseguire!"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/keypairs.phtml:10
-msgid "Passphrase"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/applications/keypairs.phtml:11
-#, fuzzy
-msgid "Private key"
-msgstr "Note Private"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/filecategories/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/languages/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/payments/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchasescategories/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/servers/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ticketscategories/applicantform.phtml:18
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/urlrewrite/applicantform.phtml:20
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wikicategories/applicantform.phtml:16
-msgid "field"
-msgstr "Questo campo:"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:28
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:43
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:28
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/editform.phtml:28
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/applicantform.phtml:26
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:99
-msgid "Options"
-msgstr "Opzioni"
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/bulkmail/index.phtml:6
 #, fuzzy
 msgid "Bulk Customers Mail"
@@ -4772,6 +4678,48 @@ msgstr "Email del Cliente"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/bulkmail/index.phtml:7
 msgid "Write here a message to send to all your own customers."
 msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customersgroups/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/emailstemplates/applicantform.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/invoices/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/newsletter/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/notes/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/loginbox.phtml:26
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:27
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributesgroups/applicantform.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/profile/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/editform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/reviews/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/roles/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/serversgroups/applicantform.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/subscribers/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/taxes/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/wiki/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:15
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:19
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:10
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/customer/signup.phtml:20
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/header.phtml:12
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/loginbox.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:15
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/reviews.phtml:18
+msgid "This field"
+msgstr "Il campo"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:34
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:44
@@ -4943,12 +4891,13 @@ msgstr "Ultime Segnalazioni"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:30
 #, fuzzy
-msgid "Last Domain Tasks"
-msgstr "Domini"
+msgid "Domain Tasks"
+msgstr "Lista Domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:34
-msgid "Last Panel Tasks"
-msgstr ""
+#, fuzzy
+msgid "Panel Tasks"
+msgstr "Azioni"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:42
 #, fuzzy
@@ -4981,9 +4930,19 @@ msgstr "Lista Cliente"
 msgid "Customers Summary"
 msgstr "Email del Cliente"
 
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:78
+#, fuzzy
+msgid "Ticket Summary"
+msgstr "Riepilogo Ordine"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:82
+#, fuzzy
+msgid "Domain Summary"
+msgstr "Sommario Domini"
+
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:86
 #, fuzzy
-msgid "Product Reviews Summary"
+msgid "Product Review Summary"
 msgstr "Lista delle recensioni del prodotto"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:100
@@ -5899,9 +5858,9 @@ msgstr "Richiedi l'AUTHINFO"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:124
 msgid ""
 "The authinfocode is a code that is assigned at the time of registration and "
-"that uniquely identifies the domain. The Registrar must notify the "
-"Registrant of this code, necessary to perform all operations. Without this "
-"code you cannot transfer this domain."
+"that uniquely identifies the domain. The Registrar must notify the Registrar "
+"of this code, necessary to perform all operations. Without this code you "
+"cannot transfer this domain."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:126
@@ -6554,6 +6513,85 @@ msgstr "ver. %s"
 #: /Library/WebServer/Documents/shineisp/public/skins/default/blank/scripts/includes/top.phtml:5
 msgid "Menu"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Here you can edit the panel actions information."
+#~ msgstr "Sei sicuro di cancellare la configurazione?"
+
+#, fuzzy
+#~ msgid "Month TLD Summary"
+#~ msgstr "Sommario Domini"
+
+#, fuzzy
+#~ msgid "Domain Expiration List"
+#~ msgstr "Lista Domini"
+
+#, fuzzy
+#~ msgid "Review Details"
+#~ msgstr "Dettaglio ordine"
+
+#, fuzzy
+#~ msgid "Here you can edit the main Url Rewrite information parameters."
+#~ msgstr ""
+#~ "Se cancelli l'operazione pianificata del dominio non sarà più recuperabile"
+
+#, fuzzy
+#~ msgid "List of all the service details."
+#~ msgstr "Lista di tutti i servizi connessi al dominio."
+
+#, fuzzy
+#~ msgid "Last Domain Tasks"
+#~ msgstr "Domini"
+
+#, fuzzy
+#~ msgid "Domain task edit"
+#~ msgstr "Lista Domini"
+
+#, fuzzy
+#~ msgid "Applications"
+#~ msgstr "Azioni"
+
+#, fuzzy
+#~ msgid "Here you can see all applications allowed access via API"
+#~ msgstr ""
+#~ "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
+
+#, fuzzy
+#~ msgid "Here you can edit the application details."
+#~ msgstr "Seleziona ..."
+
+#, fuzzy
+#~ msgid "Are you  sure to delete the selected application?"
+#~ msgstr "Sei sicuro di voler cancellare il template selezionato?"
+
+#, fuzzy
+#~ msgid "If you delete this application, it will be no longer available."
+#~ msgstr "Se cancelli questo template, non sarà più disponibile."
+
+#, fuzzy
+#~ msgid "Application"
+#~ msgstr "Azione"
+
+#, fuzzy
+#~ msgid "Here you can edit the applications detail"
+#~ msgstr "Seleziona ..."
+
+#, fuzzy
+#~ msgid "Domains Tasks list"
+#~ msgstr "Lista Domini"
+
+#, fuzzy
+#~ msgid "Here you can see all the domains tasks list."
+#~ msgstr ""
+#~ "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
+
+#, fuzzy
+#~ msgid "There was an error during the insert of data"
+#~ msgstr "C'è un problema durante il salvataggio dei dati."
+
+#, fuzzy
+#~ msgid "Private key"
+#~ msgstr "Note Private"
 
 #~ msgid "nosubject"
 #~ msgstr "Nessun Oggetto"

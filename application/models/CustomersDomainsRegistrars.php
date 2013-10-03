@@ -115,7 +115,7 @@ class CustomersDomainsRegistrars extends BaseCustomersDomainsRegistrars
     public static function getCustomerNicbyCustomerID($customer_id) {
         $theitems = array ();
         $dq = Doctrine_Query::create ()
-                    ->select('registrars_id, r.name as registrant, value as nichandle')
+                    ->select('registrars_id, r.name as registrar, value as nichandle')
                     ->from ( 'CustomersDomainsRegistrars cr' )
                     ->leftJoin('Registrars r')
                     ->limit(1);

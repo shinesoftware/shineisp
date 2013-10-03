@@ -114,7 +114,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'WARNING: Are you sure to delete this customer, domains, invoices, orders, tickets?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this customer whole information will be no longer available anymore.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this customer whole information will no longer be available anymore.' );
 				
 				$record = $this->customers->find ( $id );
 				$this->view->recordselected = $record ['firstname'] . " " . $record ['lastname'] . " " . $record ['company'];

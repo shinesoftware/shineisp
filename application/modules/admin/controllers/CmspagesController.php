@@ -120,7 +120,7 @@ class Admin_CmspagesController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this page?' );
-				$this->view->description = $this->translator->translate ( 'The page will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'The page will no longer be available.' );
 				
 				$record = $this->cmspages->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['title'] );

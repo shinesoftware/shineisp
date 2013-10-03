@@ -96,7 +96,7 @@ class Admin_TaxesController extends Shineisp_Controller_Admin {
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/taxes/process" );
 		$this->view->title = $this->translator->translate("New Tax");
-		$this->view->description = $this->translator->translate("Here you can create a new taxes.");
+		$this->view->description = $this->translator->translate("Here you can create a new tax.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/taxes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -129,7 +129,7 @@ class Admin_TaxesController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this tax class?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will no longer be available.' );
 				
 				$record = $this->taxes->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];

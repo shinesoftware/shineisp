@@ -44,7 +44,7 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Admin Roles list");
+		$this->view->title = $this->translator->translate("Admin Roles");
 		$this->view->description = $this->translator->translate("Here you can see all the roles.");
 		$this->view->buttons = array(array("url" => "/admin/roles/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -131,7 +131,7 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this role?' );
-				$this->view->description = $this->translator->translate ( 'The permision will be no more longer available and the users attached cannot use the resource.' );
+				$this->view->description = $this->translator->translate ( 'The permision will no longer be available and the users attached cannot use the resource.' );
 				
 				$record = $this->roles->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['AdminResources']['name'] . " (" . $record [0] ['AdminRoles']['name'] . " profile) " . $record [0]['AdminResources']['module'] . ":" . $record [0]['AdminResources']['controller'] . " = " . $record [0]['role'];

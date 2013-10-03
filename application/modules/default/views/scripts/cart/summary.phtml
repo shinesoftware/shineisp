@@ -50,7 +50,7 @@
 							<?php echo $item->getName() ?> 
 							<?php echo $domainame ?>
 						</td>
-						<td width="20"><a class="gen-enclosed foundicon-trash" href="/cart/summary/del/<?php echo $item->getId() ?>">&nbsp;</a></td>
+						<td width="20"><a class="gen-enclosed foundicon-trash" href="/cart/remove/id/<?php echo $item->getId() ?>">&nbsp;</a></td>
 						<td><?php echo $subtotal['unitprice'] ?> <?php echo $months?></td>
 						<td><?php echo $subtotal['taxes'] ?></td>
 						<td><?php echo $item->getQty() ?></td>
