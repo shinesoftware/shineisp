@@ -562,9 +562,9 @@ class CartController extends Shineisp_Controller_Default {
 		$this->view->cart = $session->cart;
 	}
 
-	/*
-	 * payment action
-	*/
+	/**
+	 * Payment gateway page
+	 */
 	public function paymentAction() {
 		$session = new Zend_Session_Namespace ( 'Default' );
 		
@@ -572,10 +572,13 @@ class CartController extends Shineisp_Controller_Default {
 			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
 		
-		$form = new Default_Form_PaymentForm ( array ('action' => '/cart/redirect', 'method' => 'post' ) );
+		// get the bank payment gateway
+		$gateways = Banks::findAllActive ( "name, description, classname", true );
 		
+		$form = new Default_Form_PaymentForm ( array ('action' => '/cart/redirect', 'method' => 'post' ) );
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		
+		$this->view->gateways = $gateways;
 		$this->view->form = $form;
 	}
 	
@@ -607,6 +610,10 @@ class CartController extends Shineisp_Controller_Default {
 				
 				if($order){
 
+					if($this->getRequest()->getParam('note')){
+						Messages::addMessage($this->getRequest()->getParam('note'), $session->cart->getCustomerId(), null, $session->cart->getOrderid());
+					}
+					
 					// clear the cart
 					$session->cart->clearAll();
 					
@@ -798,26 +805,6 @@ class CartController extends Shineisp_Controller_Default {
 		$params ['contact'] = $params ['telephone'];
 		
 		$customerID = Customers::Create ( $params );
-		//		$result = CustomersDomainsRegistrars::chkIfCustomerExist ( $customerID );
-		
-
-		// If there is no nic for the customer ...
-		//		if ($result == 0) {
-		//			
-		//			// Create the nic-handle using the default registrar
-		//			if ($createNicHandle) {
-		//				$retval = Customers::CreateNicHandle ( $customerID );
-		//				
-		//				// If the customer has written wrong information, the record is deleted.
-		//				if ($retval === false || is_string ( $retval )) {
-		//					Customers::del ( $customerID );
-		//					return $retval;
-		//				}
-		//			}
-		
-
-		//		}
-		
 
 		return $customerID;
 	}
