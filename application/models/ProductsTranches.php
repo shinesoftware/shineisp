@@ -118,6 +118,31 @@ class ProductsTranches extends BaseProductsTranches
     }
     
     /**
+     * Get the billing information starting from the product tranche setting
+     * @param integer $trancheId
+     * @return array 
+     */
+    public static function getBillingCycle($trancheId) {
+        try {
+            
+        	if (!is_numeric($trancheId)){
+            	return null;
+            }
+            
+            $dq = Doctrine_Query::create ()
+                     ->from ( 'ProductsTranches pt' )
+                     ->leftJoin('pt.BillingCycle bc')
+                     ->where ( 'pt.tranche_id= ?', $trancheId );
+                     
+            $records = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+            return !empty($records['BillingCycle']) ? $records['BillingCycle'] : null;
+        
+        } catch ( Exception $e ) {
+            die ( $e->getMessage () );
+        }
+    }
+    
+    /**
      * Get the product options by Product ID and billing cycle ID
      * @param $id
      * @return array 

@@ -1,5 +1,5 @@
 <?
-class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action  {
+class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Abstract_Action  {
     
     public function create( $params ) {
         $this->authenticate();
@@ -7,20 +7,20 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         $uuid       = $params['uuid'];
         $customers  = Customers::find($uuid); 
         if( empty($customers) ) {
-            throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'uuid' not valid" );
+            throw new Shineisp_Api_Exceptions( 400006, ":: 'uuid' not valid" );
             exit();
         }
         
         $trancheid  = intval($params['trancheid']);
         $tranche    = ProductsTranches::getTranchebyId($trancheid);
         if( empty($tranche) ) {
-            throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'trancheid' not valid" );
+            throw new Shineisp_Api_Exceptions( 400006, ":: 'trancheid' not valid" );
             exit();
         }
         
         #Check Products
         if( empty( $params['products']) && ! is_array($params['products']) ) {
-            throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: not 'products' choose" );
+            throw new Shineisp_Api_Exceptions( 400006, ":: not 'products' choose" );
             exit();            
         }
         
@@ -29,13 +29,13 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
             $billingid  = intval( $product['billingid']);
             $ttry       = ProductsTranches::getTranchesBy_ProductId_BillingId($productid, $billingid);
             if( empty( $ttry) ) {
-                throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'productid' or 'bilingid' not valid" );
+                throw new Shineisp_Api_Exceptions( 400006, ":: 'productid' or 'bilingid' not valid" );
                 exit();            
             }
             
             $ttry   = array_shift($ttry);
             if( $ttry['tranche_id'] != $trancheid ) {
-                throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: 'bilingid' not valid" );
+                throw new Shineisp_Api_Exceptions( 400006, ":: 'bilingid' not valid" );
                 exit();            
             }
         }
@@ -84,7 +84,7 @@ class Shineisp_Api_Shineisp_Orders extends Shineisp_Api_Shineisp_Abstract_Action
         } 
             
         
-        throw new Shineisp_Api_Shineisp_Exceptions( 400006, ":: bad request" );
+        throw new Shineisp_Api_Exceptions( 400006, ":: bad request" );
         exit();            
         
                 

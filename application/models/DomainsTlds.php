@@ -111,13 +111,22 @@ class DomainsTlds extends BaseDomainsTlds
 	 * @param string $mode [registration, transfer]
 	 * @return array or boolean false
 	 */
-	public static function getPrice($tldId, $mode="registration"){
+	public static function getPrice($tldId, $mode="registerDomain"){
 		
 		if(is_numeric($tldId)){
 			$tld = self::getAllInfo($tldId);
 			if($tld){
-				$totalTaxIncluded =  ($tld[$mode . '_price'] * (100 + Taxes::get_percentage($tld['tax_id']))) / 100; 
-				return array('price' => $tld[$mode . '_price'], 'cost' => $tld[$mode . '_cost'], 'tax_id' => $tld['tax_id'], 'pricetax' => $totalTaxIncluded);
+				
+				if($mode == "registerDomain"){
+					$cost = $tld['registration_cost'];
+					$price = $tld['registration_price'];
+				}else{
+					$cost = $tld['transfer_cost'];
+					$price = $tld['transfer_price'];
+				}
+				
+				$totalTaxIncluded =  ($price * (100 + Taxes::get_percentage($tld['tax_id']))) / 100;
+				return array('price' => $price, 'setupfee' => 0, 'cost' => $cost, 'tax_id' => $tld['tax_id'], 'pricetax' => $totalTaxIncluded);
 			}
 		}
 		return false;
@@ -232,7 +241,6 @@ class DomainsTlds extends BaseDomainsTlds
 	/**
      * Get a tld information starting from the ID
      * 
-     * 
      * @param $tld_id
      * @return  Array
      */
@@ -251,6 +259,28 @@ class DomainsTlds extends BaseDomainsTlds
                     ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
             
             return !empty($record) ? $record[0] : array();   
+        } catch (Exception $e) {
+            die ( $e->getMessage () );
+        }
+    }	
+    
+	/**
+     * Get a tld name starting from the ID
+     * 
+     * @param $tld_id
+     * @return  string
+     */
+    public static function getName($tld_id, $locale=1) {
+        
+        try {
+            $record = Doctrine_Query::create ()->select('tld_id, dtd.name as name')
+                    ->from ( 'DomainsTlds dt' )
+                    ->leftJoin("dt.DomainsTldsData dtd WITH dtd.language_id = $locale")
+                    ->where ( "tld_id = ?", $tld_id )
+                    ->limit ( 1 )
+                    ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+            
+            return !empty($record[0]['name']) ? $record[0]['name'] : array();   
         } catch (Exception $e) {
             die ( $e->getMessage () );
         }

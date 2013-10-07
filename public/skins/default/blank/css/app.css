@@ -2,6 +2,7 @@ p {font-size: 14px;}
 small {font-size: 80%; line-height:normal}
 table {width: 100%;}
 ul, ol, dl {list-style-position: inside;}
+.content_start{margin-top: 30px;}
 
 /* PRODUCT LIST MOBILE BEHAVIOUR STYLES */
 #products .product{margin-bottom: 10px;}

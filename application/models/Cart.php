@@ -1,30 +1,52 @@
 <?php
 
 /**
- * Cart
+ * Cart Management
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
+ * @package    ShineISP
+ * @author     Shine Software <info@shineisp.com>
  */
-class Cart implements Iterator, Countable {
+
+class Cart {
 	
-	// Array stores the heading of the cart:
 	protected $heading = array ();
-	
-	// Array stores the list of items in the cart:
 	protected $items = array ();
-	
-	// For tracking iterations:
 	protected $position = 0;
 	protected $subtotal = 0;
 	protected $grandtotal = 0;
 	protected $taxes = 0;
 	protected $setupfee = 0;
+	protected $orderid = null;
 	
-	// For storing the IDs, as a convenience:
-	protected $ids = array ();
+	function __construct() {
+		$this->heading = array ();
+		$this->items = array ();
+	}
+	
+	/**
+	 * @return the $orderid
+	 */
+	public function getOrderid() {
+		return $this->orderid;
+	}
+
+	/**
+	 * @param NULL $orderid
+	 */
+	public function setOrderid($orderid) {
+		$this->orderid = $orderid;
+		return $this;
+	}
+
+	// Required by Countable:
+	public function count() {
+		return count ( $this->items );
+	}
+	
+	// Get cart items
+	public function getItems() {
+		return $this->items;
+	}
 	
 	/**
 	 * @return the $setupfee
@@ -85,37 +107,40 @@ class Cart implements Iterator, Countable {
 		$this->taxes = $taxes;
 		return $this;
 	}
-
-	// Constructor just sets the object up for usage:
-	function __construct() {
-		$this->heading = array ();
-		$this->items = array ();
-		$this->ids = array ();
-	}
 	
-	// Returns a Boolean indicating if the cart is empty:
+	/**
+	 * Returns a Boolean indicating if the cart is empty:
+	 */
 	public function isEmpty() {
 		return (empty ( $this->items ));
 	}
 	
-	// Adds a new item to the cart:
+	/**
+	 * Adds a new item to the cart
+	 * 
+	 * @param CartItem $item
+	 * @throws Exception
+	 */
 	public function addItem(CartItem $item) {
 		
 		// Need the item id:
-		$id = $item->getId ();
+		$uid = $item->getUid ();
 		
 		// Throw an exception if there's no id:
-		if (! $id)
+		if (! $uid)
 			throw new Exception ( 'The cart requires items with unique ID values.' );
 			
-			// Add or update:
-		if (isset ( $this->items [$id] )) {
-			$this->updateItem ( $item, $this->items [$id]->getQty () + 1 );
+		// Add or update:
+		if (isset ( $this->items [$uid] )) {
+			$this->updateItem ( $item, $this->items [$uid]->getQty () + 1 );
 		} else {
-			$this->items [$id] = $item;
-			$this->ids [] = $id; // Store the id, too!
+			$this->items [$uid] = $item;
 		}
-	} // End of addItem() method.
+		
+		// Update the totals
+		$this->update();
+		
+	} 
 	  
 	/**
 	 * Get the a item from the cart by Id
@@ -125,142 +150,185 @@ class Cart implements Iterator, Countable {
 	 */
 	public function getItem($id) {
 		
-		if (isset ( $this->items [$id] )) {
-			return $this->items[$id];
+		foreach ( $this->items as $item ) {
+			if ($id == $item->getId()) {
+				return $item;
+			}
 		}
 		
 		return false;
 	} 
 	  
-	// Changes an item already in the cart:
-	public function updateItem(CartItem $item, $qty) {
+	/**
+	 * Get the a item from the cart by Uid
+	 * 
+	 * @param integer $Uid
+	 * @return CartItem
+	 */
+	public function getItemByUid($uid) {
 		
-		// Need the unique item id:
-		$id = $item->getId ();
+		foreach ( $this->items as $item ) {
+			if ($uid == $item->getUid()) {
+				return $item;
+			}
+		}
+		
+		return false;
+	} 
+	  
+	/**
+	 * Changes an item already in the cart
+	 * 
+	 * @param CartItem $item
+	 * @param integer $qty
+	 */
+	public function updateItem(CartItem $item, $qty) {
 		
 		// Delete or update accordingly:
 		if ($qty === 0) {
 			$this->deleteItem ( $item );
 		} elseif (($qty > 0) && ($qty != $item->getQty ())) {
-			$this->items [$id]->setQty ( $qty );
+			$item->setQty ( $qty );
 		}
-	} // End of updateItem() method.
+	} 
 	  
-	// Add a domain in the cart:
-	public function addDomain(CartItem $item, $domain, $tld_id, $mode = "registration") {
+	/**
+	 * Add a domain in the cart
+	 * 
+	 * @param string $domain
+	 * @param integer $tld_id
+	 * @param string $action [registerDomain, transferDomain]
+	 * @return CartItem or Null
+	 */
+	public function addDomain($domain, $tld_id, $action = "registerDomain", $authcode=null) {
 		
-		// Need the unique item id:
-		$id = $item->getId ();
-		
-		if (! empty ( $domain )) {
-			$this->items [$id]->setDomain ( array (
-					'domain' => $domain,
-					'tld' => $tld_id,
-					'price' => DomainsTlds::getPrice($tld_id, $mode),
-					'mode' => $mode 
-			) );
+		if ( ! empty ( $domain )) {
 			
+			// Get the price information for the domain product
+			$priceInfo = DomainsTlds::getPrice($tld_id, $action);
+
+			// Add the domain in the cart
 			$domainitem = new CartItem();
-			$domainitem->setName($domain)->setId("domain")->setType('domain')->setTerm(1)->setUnitprice(DomainsTlds::getPrice($tld_id, $mode));
+			$domainitem->setName($domain)
+					   	->setId($tld_id)
+			 		   	->setType('domain')
+						->setTerm(3) // annual
+						->setTaxId($priceInfo['tax_id'])
+						->setCost($priceInfo['cost'])
+						->setUnitprice($priceInfo['price'])
+						->setSetupfee($priceInfo['setupfee'])
+						->addOption('domain', array (
+												'name' => $domain,
+												'tld' => $tld_id,
+												'action' => $action,
+												'authcode' => $authcode
+										));
+			
 			$this->addItem($domainitem);
+
+			return $domainitem;
 			
 		}
-	} // Add a domain in the cart.
+		
+		return NULL;
+	}
 	  
-	// Add the customer in the cart:
+	/**
+	 * Attach a domain to a hosting product and add itself within the cart
+	 * 
+	 * @param CartItem $item
+	 * @param string $domain
+	 * @param integer $tld_id
+	 * @param string $action [registerDomain, transferDomain]
+	 */
+	public function attachDomain(CartItem $item, $domain, $tld_id, $action = "registerDomain", $authcode=null) {
+		
+		if (!empty($item) && ! empty ( $domain )) {
+			
+			// Set the domain attaching it within the hosting plan selected
+			$item->setDomain ($domain);
+			$item->addOption('domain', array (
+							'name' => $domain,
+							'tld' => $tld_id,
+							'action' => $action,
+							'authcode' => $authcode
+					));
+			
+			self::addDomain($domain, $tld_id, $action);
+			
+		}
+	}
+	
+	/**
+	 * Add the customer in the cart
+	 * 
+	 * @param integer $customerId
+	 */
 	public function setCustomer($customerId) {
 		if (! empty ( $customerId )) {
 			$this->heading ['customer'] ['id'] = $customerId;
 		}
-	} // Add the customer in the cart.
+	} 
 	  
-	// Add the reseller in the cart:
+	/**
+	 * Add the reseller in the cart
+	 * 
+	 * @param integer $resellerId
+	 */
 	public function setReseller($resellerId) {
 		if (! empty ( $resellerId )) {
 			$this->heading ['reseller'] ['id'] = $resellerId;
 		}
-	} // Add the reseller in the cart.
+	} 
 	  
-	// Remove the reseller from the cart.
+	/**
+	 * Remove the reseller from the cart.
+	 */
 	public function removeCustomer() {
 		unset ( $this->heading ['customer'] );
-	} // Remove the reseller from the cart.
+	} 
 	  
-	// Remove the reseller from the cart.
+	/**
+	 * Remove the reseller from the cart.
+	 */
 	public function removeReseller() {
 		unset ( $this->heading ['reseller'] );
-	} // Remove the reseller from the cart.
+	} 
 	  
-	// Removes an item from the cart:
+	/**
+	 * Delete an item from the cart
+	 * 
+	 * @param CartItem $item
+	 * @return boolean
+	 */
 	public function deleteItem(CartItem $item) {
 		
-		// Need the unique item id:
-		$id = $item->getId ();
+		$uid = $item->getUid ();
 		
-		// Remove it:
-		if (isset ( $this->items [$id] )) {
-			unset ( $this->items [$id] );
-			
-			// Remove the stored id, too:
-			$index = array_search ( $id, $this->ids );
-			unset ( $this->ids [$index] );
-			
-			// Recreate that array to prevent holes:
-			$this->ids = array_values ( $this->ids );
-			
-			return true;
+		$i=0;
+		foreach ( $this->items as $_item ) {
+			if (($uid == $_item->getUid())) {
+				array_splice($this->items, $i);
+			}
+			$i++;
 		}
-		
-		return false;
-	} // End of deleteItem() method.
+		return true;
+	}
 	  
-	// Required by Iterator; returns the current value:
-	public function current() {
-		
-		// Get the index for the current position:
-		$index = $this->ids [$this->position];
-		
-		// Return the item:
-		return $this->items [$index];
-	} // End of current() method.
-	  
-	// Required by Iterator; returns the current key:
-	public function key() {
-		return $this->position;
-	}
-	
-	// Required by Iterator; increments the position:
-	public function next() {
-		$this->position ++;
-	}
-	
-	// Required by Iterator; returns the position to the first spot:
-	public function rewind() {
-		$this->position = 0;
-	}
-	
-	// Required by Iterator; returns a Boolean indiating if a value is indexed
-	// at this position:
-	public function valid() {
-		return (isset ( $this->ids [$this->position] ));
-	}
-	
-	// Required by Countable:
-	public function count() {
-		return count ( $this->items );
-	}
-	
-	// Get cart items
-	public function getItems() {
-		return $this->items;
-	}
-	
-	// Get cart heading
+	/**
+	 * Get cart heading
+	 * 
+	 * @return multitype:
+	 */
 	public function getHeading() {
 		return $this->heading;
 	}
 	
-	// Get customer information
+	/**
+	 * Get customer information
+	 * 
+	 * @return multitype:|NULL
+	 */
 	public function getCustomer() {
 		if (! empty ( $this->heading ['customer'] )) {
 			return $this->heading ['customer'];
@@ -269,7 +337,11 @@ class Cart implements Iterator, Countable {
 		}
 	}
 	
-	// Get customer information
+	/**
+	 * Get customer id
+	 * 
+	 * @return NULL
+	 */
 	public function getCustomerId() {
 		if (! empty ( $this->heading ['customer'] ['id'] )) {
 			return $this->heading ['customer'] ['id'];
@@ -278,7 +350,11 @@ class Cart implements Iterator, Countable {
 		}
 	}
 	
-	// Get reseller information
+	/**
+	 * Get reseller information
+	 * 
+	 * @return multitype:
+	 */
 	public function getReseller() {
 		return $this->heading ['reseller'];
 	}
@@ -307,7 +383,7 @@ class Cart implements Iterator, Countable {
 				$subtaxes = $this->getTaxes();
 				$setupfee = $this->getSetupfee();
 				
-				$itemsubtot = $item->getSubtotal();
+				$itemsubtot = $item->getSubtotals();
 
 				$this->setSubtotal($subtotals + $itemsubtot['subtotal']);
 				$this->setGrandtotal($grandtotal + $itemsubtot['price']);
@@ -333,32 +409,43 @@ class Cart implements Iterator, Countable {
 			$isrecurring = false;
 			$months = 0;
 			
-			// Get all the product information
-			$product = Products::getAllInfo ( $item->getId () );
-			
-			// Check the type of the product and get the price information
-			if ($product ['ProductsAttributesGroups'] ['isrecurring']) {
-				
+			if("domain" == $item->getType()){
 				$isrecurring = true;
 				
-				// Get the billyng cycle / term / recurring period price
-				$priceInfo = ProductsTranches::getTranchebyId ( $item->getTerm () );
-				
-				// Price multiplier
-				$months = $priceInfo ['BillingCycle'] ['months'];
-				
-				$unitprice = $priceInfo ['price'];
-				$setupfee = $priceInfo ['setupfee'];
-				
-				// Calculate the price per the months per Quantity
-				$subtotal = ($unitprice * $months) * $item->getQty ();
-				
-			} else {
-				$unitprice = $product ['price_1'];
-				$setupfee = $product ['setupfee'];
+				$unitprice = $item->getUnitPrice();
+				$setupfee = 0;
 				
 				// Calculate the price per Quantity
-				$subtotal= $unitprice * $item->getQty ();
+				$subtotal = $unitprice * $item->getQty ();
+				
+			}else{
+				// Get all the product information
+				$product = Products::getAllInfo ( $item->getId () );
+					
+				// Check the type of the product and get the price information
+				if ($product ['ProductsAttributesGroups'] ['isrecurring']) {
+				
+					$isrecurring = true;
+				
+					// Get the billyng cycle / term / recurring period price
+					$priceInfo = ProductsTranches::getTranchebyId ( $item->getTerm () );
+				
+					// Price multiplier
+					$months = $priceInfo ['BillingCycle'] ['months'];
+				
+					$unitprice = $priceInfo ['price'];
+					$setupfee = $priceInfo ['setupfee'];
+				
+					// Calculate the price per the months per Quantity
+					$subtotal = ($unitprice * $months) * $item->getQty ();
+				
+				} else {
+					$unitprice = $product ['price_1'];
+					$setupfee = $product ['setupfee'];
+				
+					// Calculate the price per Quantity
+					$subtotal= $unitprice * $item->getQty ();
+				}
 			}
 			
 			// ... and add the setup fees
@@ -376,8 +463,7 @@ class Cart implements Iterator, Countable {
 				}
 			}
 			
-			$item->setSubtotal ( array (
-					'unitprice' => $unitprice,
+			$item->setSubtotals ( array (
 					'isrecurring' => $isrecurring,
 					'months' => $months,
 					'subtotal' => $subtotal,
@@ -399,8 +485,11 @@ class Cart implements Iterator, Countable {
 	public function clearAll() {
 		if (! empty ( $this->items ) && is_array ( $this->items )) {
 			foreach ( $this->items as $item ) {
-				$this->deleteItem($item);
+				$this->deleteItem($item); // delete all the items
 			}
+			
+			// delete the likely orderid in the cart session
+			$this->setOrderid(null); 
 		}
 		return false;
 	}
@@ -456,273 +545,34 @@ class Cart implements Iterator, Countable {
 	}
 	
 	/**
+	 * Create a new Order
 	 *
-	 * @return multitype:unknown |boolean
-	 */
-	public function findHostingWithoutSite() {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		
-		$lastproduct = "";
-		if (isset ( $NS->cart->lastproduct )) {
-			$lastproduct = $NS->cart->lastproduct;
-		}
-		
-		foreach ( $NS->cart->products as $key => $products ) {
-			if ($products ['type'] == 'hosting') {
-				if ($products ['uri'] == $lastproduct && (! isset ( $products ['domain'] ) || $products ['domain'] != false)) {
-					return array (
-							'key' => $key,
-							'value' => $products 
-					);
-				} elseif (! isset ( $products ['domain'] ) || $products ['domain'] != false) {
-					return array (
-							'key' => $key,
-							'value' => $products 
-					);
-				}
-			}
-		}
-		
-		return false;
-	}
-	
-	/*
-	 *
-	 * ############################################################################
-	 */
-	
-	/**
-	 * Check if within the cart exist already a hosting product selected
-	 *
-	 * @param unknown_type $selproduct        	
 	 * @return boolean
 	 */
-	public function checkIfProductIsHostingAndPresentWithinCart($selproduct) {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
-			$products = $NS->cart->products;
-			if (is_array ( $products ) && count ( $products ) > 0) {
-				foreach ( $products as $product ) {
-					if ($selproduct ['product_id'] == $product ['product_id']) {
-						if ($product ['type'] == "hosting") {
-							return true;
-						}
-					}
-				}
+	public function createOrder() {
+	
+		if(!$this->getOrderid()){
+			
+			$theOrder = Orders::create ( $this->getCustomerId(), Statuses::id('tobepaid', 'orders'), null );
+	
+			// For each item in the cart
+			foreach ($this->getItems() as $item){
+				$item = Orders::addOrderItem ($item);
 			}
+			
+			$this->setOrderid($theOrder['order_id']);
+			
+			// Send the email to confirm the order
+			Orders::sendOrder ( $theOrder['order_id'] );
+			
+			return Orders::getOrder();
+			
+		}else{
+			
+			return Orders::find($this->getOrderid());
 		}
-		return false;
+		
 	}
 	
-	/**
-	 * Add an item in the cart
-	 */
-	public static function addItem2($productId, $qtyId = 1) {
-		
-		// Check the Id of the product
-		if (empty ( $productId ) || ! is_numeric ( $productId )) {
-			return false;
-		}
-		
-		// Get all the info about the product selected
-		$product = Products::getAllInfo ( $productId );
-		
-		// Is a recurring product ?
-		if (Products::isRecurring ( $productId )) {
-			
-			// Get the tranche selected
-			$tranche = ProductsTranches::getTranchebyId ( $qtyId );
-			
-			$product ['quantity'] = $tranche ['quantity'];
-			$product ['trancheid'] = $tranche ['tranche_id'];
-			$product ['billingid'] = $tranche ['billing_cycle_id'];
-			$product ['setupfee'] = $tranche ['setupfee'];
-			
-			$product ['isrecurring'] = true;
-			
-			$BillingCycleMonth = (intval ( $tranche ['BillingCycle'] ['months'] ) > 0) ? $tranche ['BillingCycle'] ['months'] : 1;
-			
-			$product ['price_1'] = $tranche ['price'] * $BillingCycleMonth;
-		} else {
-		}
-		
-		// Get the categories
-		$product ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product ['categories'] );
-		
-		$product ['parent_orderid'] = "";
-		
-		Zend_Debug::dump ( $BillingCycleMonth );
-		Zend_Debug::dump ( $product );
-		
-		return $product;
-	}
 	
-	/*
-	 * Changing hosting product
-	 */
-	private function changeHostingPlan($newproduct) {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
-			
-			$products = $NS->cart->products;
-			$index = 0;
-			
-			if (is_array ( $products ) && count ( $products ) > 0) {
-				
-				// Read all the product added in the cart
-				foreach ( $products as $product ) {
-					// Match the product cycled with the hosting product
-					// previously inserted in the cart
-					if ($product ['type'] == "hosting") {
-						// Delete the old product
-						unset ( $products [$index] );
-						
-						// Reorder the indexes
-						$NS->cart->products = array_values ( $products );
-						
-						// Adding the new hosting product in the cart
-						$NS->cart->products [] = $newproduct;
-					}
-					$index ++;
-				}
-			} else {
-				// No products have been found. Adding the new hosting product
-				// in the cart
-				$NS->cart->products [] = $newproduct;
-			}
-		}
-	}
-	private function checkIfDomainIncluse($nameDomain) {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		foreach ( $NS->cart->products as $product ) {
-			if ($product ['type'] == 'hosting' && isset ( $product ['site'] ) && $product ['site'] == $nameDomain) {
-				return $product;
-			}
-		}
-		
-		return false;
-	}
-	private function getPricesWithRefundIfIsRecurring($orderid, $price, $billing_cicle_id) {
-		$refundInfo = OrdersItems::getRefundInfo ( $orderid );
-		if ($refundInfo != false) {
-			$refund = $refundInfo ['refund'];
-			$idBillingCircle = $billing_cicle_id;
-			$monthBilling = BillingCycle::getMonthsNumber ( $idBillingCircle );
-			$priceToPay = $price * $monthBilling;
-			$priceToPayWithRefund = $priceToPay - $refund;
-			if ($priceToPayWithRefund < 0) {
-				$priceToPayWithRefund = $priceToPay;
-			}
-			
-			return round ( $priceToPayWithRefund / $monthBilling, 2 );
-		}
-		
-		return false;
-	}
-	private function getPriceWithRefund($orderid, $price) {
-		$refundInfo = OrdersItems::getRefundInfo ( $orderid );
-		if ($refundInfo != false) {
-			$refund = $refundInfo ['refund'];
-			$priceToPayWithRefund = $price - $refund;
-			if ($priceToPayWithRefund > 0) {
-				return $priceToPayWithRefund;
-			}
-			
-			return $price;
-		}
-		
-		return false;
-	}
-	private function checkIfIsUpgrade($productid) {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		if (is_array ( $NS->upgrade )) {
-			// Check if the product is OK for upgrade and if OK take refund
-			foreach ( $NS->upgrade as $orderid => $upgradeProduct ) {
-				if (in_array ( $productid, $upgradeProduct )) {
-					return $orderid;
-				}
-			}
-		}
-		return false;
-	}
-	
-	/*
-	 * Check if within the cart exist already the product selected
-	 */
-	public function checkIfProductIsPresentWithinCart() {
-		if (! empty ( $cart->items ) && is_array ( $cart->items )) {
-			foreach ( $cart->items as $product ) {
-				if ($product ['product_id'] == $selproduct ['product_id']) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	/*
-	 * Get the tranche selected for the hosting present into the cart
-	 */
-	private function getTranchefromHosting() {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
-			$products = $NS->cart->products;
-			if (is_array ( $products ) && count ( $products ) > 0) {
-				foreach ( $products as $product ) {
-					if ($product ['type'] == "hosting") {
-						return $product ['trancheid'];
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
-	/*
-	 * Changing of the product
-	 */
-	private function changeProduct($newproduct) {
-		$index = $this->getIndexProduct ( $newproduct );
-		if ($index === false) {
-			$NS->cart->products [] = $newproduct;
-		} else {
-			$products = $NS->cart->products;
-			$product = $products [$index];
-			// Delete the old product
-			unset ( $products [$index] );
-			
-			// Reorder the indexes
-			$NS->cart->products = array_values ( $products );
-			
-			// Adding the new hosting product in the cart
-			$NS->cart->products [] = $newproduct;
-		}
-	}
-	
-	/**
-	 * Get index product in the cart
-	 * **
-	 */
-	private function getIndexProduct($newproduct) {
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		if (! empty ( $NS->cart->products ) && is_array ( $NS->cart->products )) {
-			$products = $NS->cart->products;
-			$index = 0;
-			
-			if (is_array ( $products ) && count ( $products ) > 0) {
-				
-				// Read all the product added in the cart
-				foreach ( $products as $product ) {
-					// Match the product cycled with the hosting product
-					// previously inserted in the cart
-					if ($product ['product_id'] == $newproduct ['product_id']) {
-						return $index;
-					}
-					$index ++;
-				}
-			}
-		}
-		
-		return false;
-	}
 }

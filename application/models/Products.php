@@ -600,6 +600,27 @@ class Products extends BaseProducts {
 	}
 	
 	/**
+	 * Get the Uri of the product
+	 * 
+	 * @return array
+	 */
+	public static function getUri($id) {
+		$data = array ();
+		
+		$product = Doctrine_Query::create ()
+					->select ( 'uri' )
+					->from ( 'Products p' )
+					->where ( 'product_id = ?', $id )
+					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		if (count ( $product ) > 0) {
+			return $product [0]['uri'];
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * getProductsbyText
 	 * Get a list of products by text
 	 * @return array
@@ -693,6 +714,11 @@ class Products extends BaseProducts {
 	 * @return boolean
 	 */
 	public static function isRecurring($id) {
+		
+		if(!is_numeric($id)){
+			return false;
+		}
+		
 		$record = Doctrine_Query::create ()
 								->select('p.product_id, pag.isrecurring as isrecurring')
 								->from ( 'Products p' )

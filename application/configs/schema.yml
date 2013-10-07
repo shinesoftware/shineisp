@@ -2138,6 +2138,8 @@ OrdersItems:
       notnull: true
     vat:
       type: float(10)
+    subtotal:
+      type: float(10)
     percentage:
       type: float(10)
     setupfee:
@@ -2161,9 +2163,6 @@ OrdersItems:
     review_id: integer(4)
     parent_detail_id: integer(4)
     description: string()
-    callback_url:
-      type: string(200)
-      notnull: false
     uuid:
       type: string(50)
       notnull: false    

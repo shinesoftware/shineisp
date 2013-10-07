@@ -439,6 +439,8 @@ class DomainsController extends Shineisp_Controller_Default {
 	 * @param string name (Domain name choosen)
 	 */
 	public function buyAction() {
+		$session = new Zend_Session_Namespace ( 'Default' );
+			
 		$request = $this->getRequest ();
 		try{
 			$params = $request->getParams();
@@ -452,29 +454,16 @@ class DomainsController extends Shineisp_Controller_Default {
 				$domain = $params['name'] . "." . $tldName;
 				$domainaction = !empty($params['action']) && $params['action'] == "register" ? "registerDomain" : "transferDomain";
 				
-				if($params['action'] == "register"){
-					$price = $rs['registration_price'];  // Get the price of the product
-					$cost = $rs['registration_cost'];  // Get the price of the product
-				}else{
-					$price = $rs['transfer_price'];
-					$cost = $rs['transfer_cost'];
+				if (empty ( $session->cart ) ) {
+					$session->cart = new Cart();
+					$session->cart->setCustomer($this->customer ['customer_id']);
 				}
 				
-				if(!empty($rs['Taxes']['percentage']) && is_numeric($rs['Taxes']['percentage'])){
-					$formatPrice = number_format ( ($price * ($rs['Taxes']['percentage'] + 100) / 100), 2 );
-				}else{
-					$formatPrice = number_format ( $price, 2 );
-				}
+				$session->cart->addDomain($domain, $rs['tld_id'], $domainaction);
 				
-				$theOrder = Orders::create($this->customer ['customer_id']);
-				Orders::addOrderItem($theOrder['order_id'],$domain, 1, 3, $price, null, null, array('domain' => $domain, 'action' => $domainaction, 'tldid' => $rs['tld_id']));
-				
-				// Send the email to confirm the order
-				Orders::sendOrder ( $theOrder['order_id'] );
-				
-				$this->_helper->redirector ( 'edit', 'orders', 'default', array ('id'=>$theOrder['order_id'], 'mex' => $this->translator->translate('The domain has been added in your order'), 'status' => 'success' ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ( 'mex' => $this->translator->translate('The domain has been added in your order'), 'status' => 'success' ) );
 			}else{
-				$this->_helper->redirector ( 'index', 'dashboard', 'default', array ('mex' => $this->translator->translate('The domain tld selected has been not found.'), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => $this->translator->translate('The domain tld selected has been not found.'), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
@@ -546,6 +535,8 @@ class DomainsController extends Shineisp_Controller_Default {
 	 * @return void
 	 */
 	public function createbulkorderAction() {
+		$session = new Zend_Session_Namespace ( 'Default' );
+		
 		$mex = "";
 		$items ['authcode'] = $this->getRequest ()->getParam ( 'authcode' );
 		$items ['domains'] = $this->getRequest ()->getParam ( 'item' );
@@ -554,19 +545,21 @@ class DomainsController extends Shineisp_Controller_Default {
 		if (is_array ( $items )) {
 			try {
 				
-				$theOrder = Orders::create($this->customer ['customer_id']);
+				if (empty ( $session->cart ) ) {
+					$session->cart = new Cart();
+					$session->cart->setCustomer($this->customer ['customer_id']);
+				}
 				
 				for($i = 0; $i < count ( $items ['domains'] ); $i ++) {
 					$data = DomainsBulk::find ( $items ['domains'] [$i] );
 					$action = $data['isavailable'] ? "registerDomain" : "transferDomain";
 					$params = array('domain' => $data['domain'], 'action' => $action, 'authcode' => $items['authcode'][$i], 'tldid' => $data['tld_id']);
 					
-					$item = Orders::addOrderItem($theOrder['order_id'], $data['domain'], 1, $items ['billing_id'][$i], $data ['price'], $data['cost'], 0, $params);
+					$session->cart->addDomain($data['domain'], $data['tld_id'], $action);
+					
 				}
 				
-				Orders::sendOrder($theOrder['order_id']);
-				
-				$this->_helper->redirector ( 'edit', 'orders', 'default', array ('id' => $theOrder['order_id'] ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'The domains have been added in the cart' ) );
 			} catch ( Exception $e ) {
 				$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the creation of the order.', 'status' => 'error' ) );
 			}

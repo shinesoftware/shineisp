@@ -77,7 +77,7 @@ class Setup_Form_PreferencesForm extends Zend_Form
         $this->addElement('text', 'firstname', array(
         		'filters'    => array('StringTrim'),
         		'decorators' => array('Composite'),
-        		'label'      => 'Firstname',
+        		'label'      => 'First Name',
         		'required' => true,
         		'class'       => 'text-input large-input'
         ));
@@ -85,7 +85,7 @@ class Setup_Form_PreferencesForm extends Zend_Form
         $this->addElement('text', 'lastname', array(
         		'filters'    => array('StringTrim'),
         		'decorators' => array('Composite'),
-        		'label'      => 'Lastname',
+        		'label'      => 'Last Name',
         		'required' => true,
         		'class'       => 'text-input large-input'
         ));

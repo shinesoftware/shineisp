@@ -1201,7 +1201,7 @@ class Customers extends BaseCustomers {
 		
 		// Create the PDF header
 		$grid['headers']['title'] = $translator->translate('Customers List');
-		$grid['headers']['subtitle'] = $translator->translate('List of all the customers selected');
+		$grid['headers']['subtitle'] = $translator->translate('Selected Customer Listing');
 		$grid['footer']['text'] = $isp['company'] . " - " . $isp['website'];
 		 
 		if(!empty($customers[0]))

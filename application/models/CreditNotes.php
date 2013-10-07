@@ -400,8 +400,8 @@ class CreditNotes extends BaseCreditNotes
 		$creditnotes = self::get_items($items, "creditnote_id, i.number as invoicenum, DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, cn.total as total, cn.total_vat as vat, cn.total as grandtotal, s.status as status", 'cn.creationdate');
 
 		// Create the PDF header
-		$grid['headers']['title'] = $translator->translate('Credit Notes List');
-		$grid['headers']['subtitle'] = $translator->translate('List of the credit notes');
+		$grid['headers']['title'] = $translator->translate('Credit Note List');
+		$grid['headers']['subtitle'] = $translator->translate('List Credit Notes');
 		$grid['footer']['text'] = $isp['company'] . " - " . $isp['website'];
 		 
 		if(!empty($creditnotes[0]))
