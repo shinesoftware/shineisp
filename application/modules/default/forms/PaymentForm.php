@@ -1,4 +1,5 @@
 <?php
+
 class Default_Form_PaymentForm extends Zend_Form{
     
     public function init()
@@ -11,7 +12,7 @@ class Default_Form_PaymentForm extends Zend_Form{
             'decorators'  => array('Composite'),
             'label'       => 'Note',
             'description' => 'Write here a note.',
-            'rows' => '10',
+            'style' => 'height:180px',
             'class'       => 'textarea'
         ));
         

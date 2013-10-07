@@ -15,7 +15,7 @@
 			        <section class="<?php echo $i==0 ? "active": ""; ?>">
 			        	<p class="title" data-section-title><a href="#"><?php echo $gateway['name']?></a></p>
 			        	<div class="content" data-section-content>
-				        	<input type="radio" <?php echo $i==0 ? "checked": ""; ?> name="payment" value="<?php echo $gateway['bank_id'] ?>"/> <label for="<?php echo $gateway['bank_id'] ?>"><?php echo $gateway['name']?></label>
+				        	<input type="radio" <?php echo $i==0 ? "checked": ""; ?> name="payment" value="<?php echo $gateway['bank_id'] ?>"/> <?php echo $gateway['name'] 	?>
 				        	<br/><?php echo $gateway['description']?>
 				        </div>
 				     </section>
@@ -26,6 +26,7 @@
 			
 			<?php echo $form->note->render()?>
 			
+			<hr/>
 			<label for="conditions"><?php echo $this->translate('Legal Conditions'); ?></label>
 			<textarea cols="80" readonly title="" class="textarea" rows="20" id="conditions" name="conditions"><?php echo Settings::findbyParam('conditions') ?></textarea>
 
