@@ -121,7 +121,6 @@ class OrdersController extends Shineisp_Controller_Default {
 							o.grandtotal as Grandtotal";
 				
 				$rs = Orders::getAllInfo ( $id, $fields, true, $NS->customer ['customer_id'] );
-				
 				if (! empty ( $rs )) {
 					
 					// Check the status of the order. 

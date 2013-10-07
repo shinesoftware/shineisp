@@ -58,7 +58,7 @@
 
 <?php // Methods of payment ?>
  <?php if($this->tobepaid): ?>
-    <?php echo $this->payments()->getPaymentsForm('order', $this->orderid);?>
+    <?php echo $this->payments()->getPaymentsForm($this->orderid);?>
  <?php endif;?>
 
 <div class="row">

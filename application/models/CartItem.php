@@ -4,16 +4,64 @@ class CartItem {
 
 	// Item attributes are all protected:
 	protected $id;
+	protected $uid;
 	protected $qty;
 	protected $sku;
 	protected $term;
 	protected $type;
 	protected $name;
+	protected $taxId;
 	protected $cost;
+	protected $setupfee;
 	protected $domain;
 	protected $unitprice;
-	protected $subtotal;
+	protected $subtotals;
 	protected $options;
+
+	/**
+	 * @return the $uid
+	 */
+	public function getUid() {
+		return $this->uid;
+	}
+
+	/**
+	 * @param string $uid
+	 */
+	public function setUid($uid) {
+		$this->uid = $uid;
+		return $this;
+	}
+
+	/**
+	 * @return the $taxId
+	 */
+	public function getTaxId() {
+		return $this->taxId;
+	}
+
+	/**
+	 * @param field_type $taxId
+	 */
+	public function setTaxId($taxId) {
+		$this->taxId = $taxId;
+		return $this;
+	}
+
+	/**
+	 * @return the $setupfee
+	 */
+	public function getSetupfee() {
+		return $this->setupfee;
+	}
+
+	/**
+	 * @param field_type $setupfee
+	 */
+	public function setSetupfee($setupfee) {
+		$this->setupfee = $setupfee;
+		return $this;
+	}
 
 	/**
 	 * @return the $cost
@@ -90,10 +138,10 @@ class CartItem {
 	}
 
 	/**
-	 * @return the $subtotal
+	 * @return the $subtotals
 	 */
-	public function getSubtotal() {
-		return $this->subtotal;
+	public function getSubtotals() {
+		return $this->subtotals;
 	}
 
 	/**
@@ -137,10 +185,10 @@ class CartItem {
 	}
 
 	/**
-	 * @param field_type $subtotal
+	 * @param field_type $subtotals
 	 */
-	public function setSubtotal($subtotal) {
-		$this->subtotal = $subtotal;
+	public function setSubtotals($subtotals) {
+		$this->subtotals = $subtotals;
 		return $this;
 	}
 
@@ -149,6 +197,14 @@ class CartItem {
 	 */
 	public function setOptions($options) {
 		$this->options = $options;
+		return $this;
+	}
+
+	/**
+	 * @param field_type $options
+	 */
+	public function addOption($key, $options) {
+		$this->options[$key] = $options;
 		return $this;
 	}
 
@@ -175,13 +231,14 @@ class CartItem {
 	// Constructor populates the attributes:
 	public function __construct()	{
 		$this->id = null;
+		$this->uid = Shineisp_Commons_Uuid::generate();
 		$this->term = null;
 		$this->qty = 1;
 		$this->name = null;
 		$this->unitprice = null;
-		$this->subtotal = null;
+		$this->subtotals = null;
 		$this->type = null;
 		$this->options = null;
 	}
-
+	
 } // End of Item class.

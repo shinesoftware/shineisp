@@ -150,7 +150,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 			$this->view->back = "/admin/$controller/list/";
 			$this->view->goto = "/admin/$controller/import/";
 			$this->view->title = $this->translator->translate ( 'Are you  sure to reimport all templates?' );
-			$this->view->description = $this->translator->translate ( 'If you force import, all customization made to a template from the admin panel will no longer be available' );
+			$this->view->description = $this->translator->translate ( 'if you force import, all customizations made to a template from the admin panel will no longer be available.' );
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
 		}

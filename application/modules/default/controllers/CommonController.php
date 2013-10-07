@@ -179,23 +179,4 @@ class CommonController extends Shineisp_Controller_Default {
 		}
 	}	
 	
-	/**
-	 * Create a text image
-	 *  
-	 */
-	public function imgtextAction() {
-		$string = $this->getRequest()->getParam('q');
-		$width = is_numeric($this->getRequest()->getParam('w')) ? $this->getRequest()->getParam('w') : 100;
-		$height = is_numeric($this->getRequest()->getParam('h')) ? $this->getRequest()->getParam('h') : 100;
-		$fontname = $this->getRequest()->getParam('fn') ? $this->getRequest()->getParam('fn') : "arial.ttf";
-		$fontsize = is_numeric($this->getRequest()->getParam('f')) ? $this->getRequest()->getParam('f') : 14;
-		if(!empty($string)){
-			Shineisp_Commons_ImgText::create($string, $width, $height, $fontname, $fontsize);
-		}else{
-			Shineisp_Commons_ImgText::create("-");
-		}
-		die;
-	}
-	
-	
 }

@@ -16,7 +16,6 @@ OrdersItems:
     Products: Products_1
     parent_detail_id: '0'
     description: 'Bronze Hosting Plan'
-    callback_url: ''
     uuid: 3cea6b4f-cf4e-4665-bc57-486af50d4299
   OrdersItems_2:
     Orders: Orders_7
@@ -35,7 +34,6 @@ OrdersItems:
     DomainsTlds: DomainsTlds_1
     parent_detail_id: null
     description: shineisp.com
-    callback_url: null
     uuid: 5b3497ae-25b8-4647-bc2d-1a4fe448cbd5
   OrdersItems_3:
     Orders: Orders_2
@@ -54,7 +52,6 @@ OrdersItems:
     Products: Products_3
     parent_detail_id: null
     description: 'Hosting Plan Gold'
-    callback_url: null
     uuid: null
   OrdersItems_4:
     Orders: Orders_1
@@ -73,7 +70,6 @@ OrdersItems:
     Products: Products_4
     parent_detail_id: null
     description: 'Piano Hosting Platino'
-    callback_url: null
     uuid: null
   OrdersItems_5:
     Orders: Orders_1
@@ -92,7 +88,6 @@ OrdersItems:
     DomainsTlds: DomainsTlds_1
     parent_detail_id: null
     description: mydomain.com
-    callback_url: null
     uuid: null
   OrdersItems_6:
     Orders: Orders_8
@@ -111,7 +106,6 @@ OrdersItems:
     Products: Products_5
     parent_detail_id: '0'
     description: Developer
-    callback_url: ''
     uuid: e555b694-8c0b-421c-8146-aba4c7118ab4
   OrdersItems_7:
     Orders: Orders_3
@@ -130,7 +124,6 @@ OrdersItems:
     Products: Products_1
     parent_detail_id: '0'
     description: 'Bronze Hosting Plan'
-    callback_url: ''
     uuid: e68e4f3f-02aa-4c10-a88b-54c68200180f
   OrdersItems_8:
     Orders: Orders_4
@@ -149,7 +142,6 @@ OrdersItems:
     Products: Products_4
     parent_detail_id: '0'
     description: 'Platinum Hosting Plan'
-    callback_url: ''
     uuid: 5f727707-67dc-4758-b6ad-270574ff4d16
   OrdersItems_9:
     Orders: Orders_4
@@ -168,7 +160,6 @@ OrdersItems:
     DomainsTlds: DomainsTlds_1
     parent_detail_id: null
     description: mydomain.com
-    callback_url: null
     uuid: 8f0320c3-fe45-49d0-a493-4d57e8877d81
   OrdersItems_10:
     Orders: Orders_5
@@ -187,7 +178,6 @@ OrdersItems:
     Products: Products_4
     parent_detail_id: '0'
     description: 'Platinum Hosting Plan'
-    callback_url: ''
     uuid: d3051571-799e-4215-95de-1eedaea019ea
   OrdersItems_11:
     Orders: Orders_6
@@ -206,5 +196,4 @@ OrdersItems:
     Products: Products_3
     parent_detail_id: '0'
     description: 'Gold Hosting Plan'
-    callback_url: ''
     uuid: ab91c729-23ac-4583-aed3-0f38d6fff16c

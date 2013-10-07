@@ -11,15 +11,16 @@
 */
 
 abstract class Shineisp_Banks_Abstract {
-	private $orderid;
-	private $order;
-	private $module;
-	private $translator;
-	private $redirect;
-	private $urlok;
-	private $urlko;
-	private $urlcallback;
-	private $hiddenform = false;
+	
+	protected $orderid;
+	protected $order;
+	protected $module;
+	protected $translator;
+	protected $redirect = false;
+	protected $urlok;
+	protected $urlko;
+	protected $urlcallback;
+	protected $hiddenform = false;
 
 	/**
 	 * __construct
@@ -42,6 +43,7 @@ abstract class Shineisp_Banks_Abstract {
 	 */
 	public function setModule($classname){
 		$this->module = Banks::findbyClassname ( $classname );
+		return $this;
 	}
 	
 	/**
@@ -60,6 +62,7 @@ abstract class Shineisp_Banks_Abstract {
 	 */
 	public function setFormHidden($value){
 		$this->hiddenform = $value;
+		return $this;
 	}
 	
 	/**
@@ -69,6 +72,7 @@ abstract class Shineisp_Banks_Abstract {
 	 */
 	public function setRedirect($value){
 		$this->redirect = $value;
+		return $this;
 	}
 	
 	/**
@@ -77,6 +81,7 @@ abstract class Shineisp_Banks_Abstract {
 	 */
 	public function setUrlOK($value){
 		$this->urlok = $value;
+		return $this;
 	}
 	
 	/**
@@ -85,6 +90,7 @@ abstract class Shineisp_Banks_Abstract {
 	 */
 	public function setUrlKo($value){
 		$this->urlko = $value;
+		return $this;
 	}
 	
 	/**
@@ -93,6 +99,7 @@ abstract class Shineisp_Banks_Abstract {
 	 */
 	public function setUrlCallback($value){
 		$this->urlcallback = $value;
+		return $this;
 	}
 	
 	/**

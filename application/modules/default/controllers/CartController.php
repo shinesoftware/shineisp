@@ -82,10 +82,10 @@ class CartController extends Shineisp_Controller_Default {
 		$session 	= new Zend_Session_Namespace ( 'Default' );
 		
 		// Get the sent parameters
-		$id = $this->getRequest ()->getParam ('id');
+		$uid = $this->getRequest ()->getParam ('uid');
 		
 		if (!empty ( $session->cart ) && !$session->cart->isEmpty()) {
-			if($session->cart->deleteItem($session->cart->getItem($id))){
+			if($session->cart->deleteItem($session->cart->getItemByUid($uid))){
 				$this->_helper->redirector ( 'summary', 'cart', 'default', array('mex' => 'Cart item has been deleted.') );
 			}else{
 				$this->_helper->redirector ( 'summary', 'cart', 'default', array('mex' => 'Cart item has been not deleted.') );
@@ -120,7 +120,7 @@ class CartController extends Shineisp_Controller_Default {
 					$product = Products::getAllInfo( $request ['product_id'] );
 	
 					// Check if the user has been logged in
-					if (!empty($this->customer)) {
+					if (!empty($this->customer['customer_id'])) {
 						
 						// Set the customer for the active cart
 						$session->cart->setCustomer($this->customer['customer_id']);
@@ -129,19 +129,29 @@ class CartController extends Shineisp_Controller_Default {
 						$isVATFree = Customers::isVATFree($session->cart->getCustomerId());
 					}
 					
-					$item = new CartItem();
-					$item->setId($request ['product_id'])
-						->setSku($product['sku'])
-						->setName($product['ProductsData'][0]['name'])
-						->setCost($product['cost'])
-						->setTerm($request ['term'])
-						->setQty($request ['quantity'])
-						->setUnitprice(Products::getPriceSelected($request ['product_id'], $request['term'], $isVATFree))
-						->setType(Products::getProductType($request ['product_id']));
+					$priceInfo = Products::getPriceSelected($request ['product_id'], $request['term'], $isVATFree);
 					
-					// Add the items to the cart:
-					$session->cart->addItem($item);
-	
+					$item = new CartItem();
+					
+					if($session->cart->getItem($request ['product_id'])){
+						$item = $session->cart->getItem($request ['product_id']);
+						$session->cart->updateItem($item, $item->getQty() + 1);
+					} else { // Add the items to the cart:
+						
+						$item->setId($request ['product_id'])
+							->setSku($product['sku'])
+							->setName($product['ProductsData'][0]['name'])
+							->setCost($product['cost'])
+							->setTerm($request ['term'])
+							->setQty($request ['quantity'])
+							->setUnitprice($priceInfo['unitprice'])
+							->setTaxId($product['tax_id'])
+							->setSetupfee($priceInfo['setupfee'])
+							->setType(Products::getProductType($request ['product_id']));
+
+						$session->cart->addItem($item);
+					}
+					
 					// Check if a hosting product is present in the cart
 					if ($session->cart->checkIfHostingProductIsPresentWithinCart ()) {
 						$this->_helper->redirector ( 'domain', 'cart', 'default' );
@@ -187,6 +197,27 @@ class CartController extends Shineisp_Controller_Default {
 		}
 		
 	}
+	
+	/**
+	 * Update the cart quantity and totals
+	 */
+	public function updateAction(){
+		$session = new Zend_Session_Namespace ( 'Default' );
+			
+		// Get all the params sent by the customer
+		$cartitems = $this->getRequest ()->getParam ('cart');
+		
+		if(is_array($cartitems)){
+			foreach($cartitems as $cartitem){
+				if(is_numeric($cartitem['value']) && $cartitem['value'] > 0){
+					$item = $session->cart->getItemByUid($cartitem['id']);
+					$session->cart->updateItem($item, $cartitem['value']);
+				}
+			}
+			$session->cart->update();
+		}
+		die(true);
+	}
 
 	/*
 	 * Check the domain availability
@@ -201,7 +232,7 @@ class CartController extends Shineisp_Controller_Default {
 			$params = $this->getRequest ()->getParams ();
 		
 			// redirect the customer to the contact form
-			if ( empty($params ['mode']) ) {
+			if ( (!empty($params ['mode']) && $params ['mode'] == "nothing")) {
 				$this->_helper->redirector ( 'contacts' );
 				return true;
 			}
@@ -229,7 +260,7 @@ class CartController extends Shineisp_Controller_Default {
 						
 						// attach the domain name to the hosting plan
 						if($hostingItem){
-							$session->cart->addDomain($hostingItem, $domain, $tldInfo['tld_id'], "transfer");
+							$session->cart->attachDomain($hostingItem, $domain, $tldInfo['tld_id'], "transferDomain");
 						}
 						
 						// redirect the customer to the contact form
@@ -253,7 +284,7 @@ class CartController extends Shineisp_Controller_Default {
 						
 						// attach the domain name to the hosting plan
 						if($hostingItem){
-							$session->cart->addDomain($hostingItem, $domain, $tldInfo['tld_id'], "registration");
+							$session->cart->attachDomain($hostingItem, $domain, $tldInfo['tld_id'], "registerDomain");
 						}
 		
 						// Redirect the user to the
@@ -281,8 +312,8 @@ class CartController extends Shineisp_Controller_Default {
 		try{
 			$request = $this->getRequest ();
 			$session = new Zend_Session_Namespace ( 'Default' );
-			Zend_Debug::dump($session->cart);
-			
+			$this->getHelper ( 'layout' )->setLayout ( '1column' );
+						
 			if (empty ( $session->cart ) || $session->cart->isEmpty()) {
 				$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 			}
@@ -434,7 +465,20 @@ class CartController extends Shineisp_Controller_Default {
 	}
 	
 
-	
+	/**
+	 * Add a new domain within the cart
+	 */
+	public function newdomainAction(){
+		$session = new Zend_Session_Namespace ( 'Default' );
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+		}
+		
+		$domain = $this->getRequest ()->getParam('domain');
+		$tld = $this->getRequest ()->getParam('tld');
+		
+		
+	}
 	
 	/*
      * Show the contact form
@@ -498,9 +542,6 @@ class CartController extends Shineisp_Controller_Default {
 		$request = $this->getRequest ();
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		
-		// Get the form
-		$form = new Default_Form_CartsummaryForm ( array ('action' => '/cart/checkout', 'method' => 'post' ) );
-		
 		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
 			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
@@ -519,7 +560,75 @@ class CartController extends Shineisp_Controller_Default {
 		// Send the cart information to the view
 		$this->view->lastproduct = $session->lastproduct;
 		$this->view->cart = $session->cart;
+	}
+
+	/*
+	 * payment action
+	*/
+	public function paymentAction() {
+		$session = new Zend_Session_Namespace ( 'Default' );
+		
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+		}
+		
+		$form = new Default_Form_PaymentForm ( array ('action' => '/cart/redirect', 'method' => 'post' ) );
+		
+		$this->getHelper ( 'layout' )->setLayout ( '1column' );
+		
 		$this->view->form = $form;
+	}
+	
+	/**
+	 * Render the method of payment gateway form
+	 */
+	public function redirectAction() {
+		$session = new Zend_Session_Namespace ( 'Default' );
+		
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+		}
+		
+		// get the payment method selected
+		$payment = $this->getRequest()->getParam('payment');
+		
+		// get the payment gateway information
+		if(!empty($payment)){
+			$gateway = Banks::getAllInfo($payment, "*", true);
+			
+			// check if the payment gateway exists
+			if (! empty ( $gateway[0] ['classname'] ) && class_exists ( $gateway [0]['classname'] )) {
+				
+				// update the cart
+				$session->cart->update();
+	
+				// create the order
+				$order = $session->cart->createOrder();
+				
+				if($order){
+
+					// clear the cart
+					$session->cart->clearAll();
+					
+					$class = $gateway[0] ['classname'];
+					$payment = new $class ( $order->order_id );
+					
+					// create the form payment gateway
+					$form = $payment->setUrlOk ( $_SERVER ['HTTP_HOST'] . "/orders/response/gateway/" . md5 ( $gateway [0]['classname'] ) )
+									->setUrlKo ( $_SERVER ['HTTP_HOST'] . "/orders/response/" . md5 ( $gateway[0] ['classname'] ) )
+									->setUrlCallback ( $_SERVER ['HTTP_HOST'] . "/common/callback/gateway/" . md5 ( $gateway[0] ['classname'] )  )
+									->setRedirect(true)
+									->setFormHidden(true)
+									->CreateForm ();
+					
+					// push the payment gateway html form in the view
+					$this->view->name = $form['name'];
+					$this->view->html = $form['html'];
+				}else{
+					$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "The order has been not created, please contact the administrator") );
+				}
+			}
+		}
 	}
 
 	/*
@@ -534,72 +643,15 @@ class CartController extends Shineisp_Controller_Default {
 			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
 		
+		// If the order has not been created yet ... 
+		if(!$session->cart->getOrderid()){
+			$session->cart->createOrder();  // Create the order
+		}
 
-		$theOrder = Orders::create ( $session->cart->getCustomerId(), Statuses::id('tobepaid', 'orders'), null );
+		// Send the cart details to the view
+		$this->view->orderid = $session->cart->getOrderid();
 		
-		foreach ($session->cart->getItems() as $item){
-			
-			if(!empty($item->domain)){
-				
-				$isDomainFree = ProductsTranchesIncludes::isDomainIncludedinTrancheId($item->getTerm(), $item['domain']['tld']);
-				
-				$subtotal = $item->getSubtotal();
-				
-				// Create the order item for the domain
-				Orders::addOrderItem ( $theOrder ['order_id'], $item['domain']['domain'], 1, 3, $subtotal['subtotal'], $cost, 0, array ('domain' => $item['domain']['domain'], 'action' => $item['domain']['mode'], 'authcode' => '', 'tldid' => $item['domain']['tld']) );
-					
-			}else{
-				
-				Orders::addItem ( $item->getId(), $item->getQty(), $product ['billingid'], $item->getTerm(), $item->getName(), array() );
-					
-			}
-			Zend_Debug::dump($item);
-			die;
-			
-		}
-				
-		
-		$this->view->cart = $session->cart;
-	}
-	
-	/**
-	 * Create the payment gateway form
-	 */
-	public function gatewayAction() {
-		$this->session = new Zend_Session_Namespace ( 'Default' );
-		
-		$orderID = $cart->orderid;
-		
-		// Get the payment form object
-		$banks = Banks::find ( $cart->payment->id, "*", true );
-		if (! empty ( $banks [0] ['classname'] )) {
-			
-			$class = $banks [0] ['classname'];
-			
-			if (class_exists ( $class )) {
-				
-				// Get the payment form object
-				$banks = Banks::findbyClassname ( $class );
-				
-				$gateway = new $class ( $orderID );
-				$gateway->setFormHidden ( true );
-				$gateway->setRedirect ( true );
-				
-				$gateway->setUrlOk ( $_SERVER ['HTTP_HOST'] . "/orders/response/gateway/" . md5 ( $banks ['classname'] ) );
-				$gateway->setUrlKo ( $_SERVER ['HTTP_HOST'] . "/orders/response/gateway/" . md5 ( $banks ['classname'] ) );
-				$gateway->setUrlCallback ( $_SERVER ['HTTP_HOST'] . "/common/callback/gateway/" . md5 ( $banks ['classname'] ) );
-				
-				$this->view->gateway = $gateway->CreateForm ();
-				$this->_helper->viewRenderer ( 'gateway' );
-				
-				// Destroy the cart
-				unset ( $cart );
-			
-			} else {
-				$this->_helper->redirector ( 'payment', 'cart', 'default' );
-			}
-		}
-	
+		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 	}
 	
 	/*

@@ -1,18 +1,18 @@
-<?php if(!empty($this->cartitems)): ?>
-	<a class="cart" id="cart" href="/cart/" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
+<?php if(!empty($this->cartobj)): ?>
+	<a class="cart" id="cart" href="/cart/summary" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
 	<ul class="dropdown">
 		<?php 
 		
-			foreach ($this->cartitems as $item) {
+			foreach ($this->cartobj->getItems() as $item) {
 				
-				if(!empty($item['type']) && $item['type'] == "domain"){
-					$sku = $item['name'];
-					$url = "/tlds/" . $item['name'] . ".html";
-					$name = !empty($item['domain_selected']) ? $item['domain_selected'] : $sku;
+				if("domain" == $item->getType()){
+					$tld = DomainsTlds::getAllInfo($item->getId());
+					$url = "/tlds/" . $tld['name'] . ".html";
+					$name = $item->getName();
 				}else{
-					$sku = $item['ProductsData'][0]['name'];
-					$url = "/" . $item['uri'] . ".html";
-					$name = !empty($item['domain_selected']) ? $item['domain_selected'] : $sku;
+					$products = Products::getAllInfo($item->getId());
+					$url = "/" . $products['uri'] . ".html";
+					$name = $item->getName();
 				}
 	
 				echo "<li><a href=\"" . $url . "\">" . $name . "</a></li>";

@@ -36,6 +36,18 @@ $(document).ready(function(){
 		}
 	);
 	
+	$(".updatecart").click( 
+		function () {
+			var data = $("input[name='field[]']").map( function(){ return {"id": this.id, "value": this.value};}).get();
+
+			$.post('/cart/update/', {cart: data}, 
+					function(result){
+						location.reload();
+			}, 'json');
+			return false;
+		}
+	);
+	
 	tinyMCE.baseURL='/resources/js/wysiwyg/tiny_mce'; // your path to tinyMCE
     tinyMCE.init({
         // General options

@@ -42,6 +42,22 @@ class BillingCycle extends BaseBillingCycle {
 	}
 	
 	/**
+	 * Get the billing cycle
+	 * 
+	 * @return integer
+	 */
+	public static function getAllinfo($id) {
+		if(is_numeric($id)){
+			$record = Doctrine_Query::create ()->from ( 'BillingCycle b' )
+											   ->where('billing_cycle_id = ?', $id)
+			   								   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+			return !empty($record[0]) ? $record[0] : null;
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * Get the billing cycle months 
 	 * @return integer
 	 */

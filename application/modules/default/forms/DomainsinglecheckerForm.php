@@ -25,7 +25,7 @@ class Default_Form_DomainsinglecheckerForm extends Zend_Form
                   ->setMultiOptions(DomainsTlds::getList(true));      
                           
         $this->addElement('submit', 'check', array(
-            'label'    => 'Check the domain',
+            'label'    => 'Check',
             'class'    => 'button small chkdomain'
         ));
 

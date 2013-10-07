@@ -69,7 +69,7 @@ class Shineisp_Banks_Blank_Gateway extends Shineisp_Banks_Abstract implements Sh
 				$form .= "<script type=\"text/javascript\">\ndocument.forms[0].submit();\n</script></body></html>";
 			}
 			
-			return $form;
+			return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $form);
 		}
 	
 	}
