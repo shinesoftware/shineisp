@@ -1861,6 +1861,8 @@ class Orders extends BaseOrders {
 							// Calculate the price per Quantity
 							$subtotal = $detail ['price']  * $detail ['quantity'];
 							
+							$setupfee = 0;
+							
 						}elseif($isProduct){
 
 							$isRecurring = Products::isRecurring($detail['product_id']);

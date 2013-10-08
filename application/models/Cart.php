@@ -305,13 +305,12 @@ class Cart {
 		
 		$uid = $item->getUid ();
 		
-		$i=0;
-		foreach ( $this->items as $_item ) {
-			if (($uid == $_item->getUid())) {
-				array_splice($this->items, $i);
+		if($item->getUid()){
+			if(!empty($this->items[$item->getUid()])){
+				unset($this->items[$item->getUid()]);
 			}
-			$i++;
 		}
+		
 		return true;
 	}
 	  
@@ -386,9 +385,9 @@ class Cart {
 				$itemsubtot = $item->getSubtotals();
 
 				$this->setSubtotal($subtotals + $itemsubtot['subtotal']);
-				$this->setGrandtotal($grandtotal + $itemsubtot['price']);
 				$this->setTaxes($subtaxes + $itemsubtot['taxes']);
 				$this->setSetupfee($setupfee + $itemsubtot['setupfee']);
+				$this->setGrandtotal($grandtotal + $itemsubtot['price'] + $itemsubtot['taxes']);
 			}
 			
 		}
@@ -403,20 +402,30 @@ class Cart {
 	 * @param boolean $isvatfree        	
 	 * @return ArrayObject
 	 */
-	private function calcSubtotal(CartItem $item, $isvatfree) {
+	private function calcSubtotal(CartItem $item, $isvatfree=false) {
+		
 		foreach ( $this->items as $item ) {
 			
 			$isrecurring = false;
 			$months = 0;
+			$percentage = 0;
+			$tax = 0;
 			
 			if("domain" == $item->getType()){
 				$isrecurring = true;
-				
+				$months = 12; // 12 months minimum for all domains
 				$unitprice = $item->getUnitPrice();
 				$setupfee = 0;
 				
 				// Calculate the price per Quantity
 				$subtotal = $unitprice * $item->getQty ();
+				
+				// check the taxes
+				if(Taxes::get_percentage($item->getTaxId())){
+					$percentage = Taxes::get_percentage($item->getTaxId());
+					$tax = ($subtotal * $percentage) / 100;
+					$price = ($subtotal * (100 + $percentage)) / 100;
+				}
 				
 			}else{
 				// Get all the product information
@@ -446,22 +455,19 @@ class Cart {
 					// Calculate the price per Quantity
 					$subtotal= $unitprice * $item->getQty ();
 				}
+
+				// check the taxes for each product
+				if (! empty ( $product ['tax_id'] ) && ! $isvatfree) {
+					if (! empty ( $product ['Taxes'] ['percentage'] ) && is_numeric ( $product ['Taxes'] ['percentage'] )) {
+						$percentage = $product ['Taxes'] ['percentage'];
+						$tax = ($subtotal * $percentage) / 100;
+						$price = ($subtotal * (100 + $percentage)) / 100;
+					}
+				}
 			}
 			
 			// ... and add the setup fees
 			$price = $subtotal + $setupfee;
-			
-			$percentage = 0;
-			$tax = 0;
-			
-			// check the taxes for each product
-			if (! empty ( $product ['tax_id'] ) && ! $isvatfree) {
-				if (! empty ( $product ['Taxes'] ['percentage'] ) && is_numeric ( $product ['Taxes'] ['percentage'] )) {
-					$percentage = $product ['Taxes'] ['percentage'];
-					$tax = ($price * $percentage) / 100;
-					$price = ($price * (100 + $percentage)) / 100;
-				}
-			}
 			
 			$item->setSubtotals ( array (
 					'isrecurring' => $isrecurring,
