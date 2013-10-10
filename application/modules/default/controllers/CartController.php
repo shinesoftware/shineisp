@@ -153,8 +153,8 @@ class CartController extends Shineisp_Controller_Default {
 					}
 					
 					// Check if a hosting product is present in the cart
-					if ($session->cart->checkIfHostingProductIsPresentWithinCart ()) {
-						$this->_helper->redirector ( 'domain', 'cart', 'default' );
+					if ($session->cart->getCustomer ()) {
+						$this->_helper->redirector ( 'summary', 'cart', 'default' );
 					} else {
 						$this->_helper->redirector ( 'contacts' );
 					}
@@ -557,14 +557,16 @@ class CartController extends Shineisp_Controller_Default {
 		// Update the cart totals
 		$session->cart->update();
 		
+		Zend_Debug::dump($session->cart);
+		
 		// Send the cart information to the view
 		$this->view->lastproduct = $session->lastproduct;
 		$this->view->cart = $session->cart;
 	}
 
-	/*
-	 * payment action
-	*/
+	/**
+	 * Payment gateway page
+	 */
 	public function paymentAction() {
 		$session = new Zend_Session_Namespace ( 'Default' );
 		
@@ -572,10 +574,13 @@ class CartController extends Shineisp_Controller_Default {
 			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
 		}
 		
-		$form = new Default_Form_PaymentForm ( array ('action' => '/cart/redirect', 'method' => 'post' ) );
+		// get the bank payment gateway
+		$gateways = Banks::findAllActive ( "name, description, classname", true );
 		
+		$form = new Default_Form_PaymentForm ( array ('action' => '/cart/redirect', 'method' => 'post' ) );
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		
+		$this->view->gateways = $gateways;
 		$this->view->form = $form;
 	}
 	
@@ -607,6 +612,10 @@ class CartController extends Shineisp_Controller_Default {
 				
 				if($order){
 
+					if($this->getRequest()->getParam('note')){
+						Messages::addMessage($this->getRequest()->getParam('note'), $session->cart->getCustomerId(), null, $session->cart->getOrderid());
+					}
+					
 					// clear the cart
 					$session->cart->clearAll();
 					
@@ -654,7 +663,7 @@ class CartController extends Shineisp_Controller_Default {
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 	}
 	
-	/*
+	/**
      * Delete a product or domain from the cart list 
      */
 	public function deleteAction() {
@@ -716,51 +725,6 @@ class CartController extends Shineisp_Controller_Default {
 	
 	}
 	
-	
-	/*
-	 * Total
-	 * Create the total of the order
-	 */
-	private function Totals() {
-		$this->session = new Zend_Session_Namespace ( 'Default' );
-		
-		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
-			return array ('total' => '0', 'taxes' => '0' );
-		}
-		
-		$isVATFree = Customers::isVATFree($session->cart->getCustomer());
-		
-		$products = $session->cart->getItems();
-		$total = 0;
-		$tax   = 0;
-		$taxes = 0;
-		
-		// Read all the product added in the cart
-		foreach ( $products as $product ) {
-			$price = products::getPrice($product['id']);
-			Zend_Debug::dump($price);
-			die;
-			$price = ($product ['price_1'] * $product ['quantity']) + $product ['setupfee'];
-			$vat = 0;
-			$tax = 0;
-			
-			// check the taxes for each product
-			if (! empty ( $product ['tax_id'] ) && !$isVATFree) {
-				$tax = Taxes::find ( $product ['tax_id'], null, true );
-				if (! empty ( $tax [0] ['percentage'] ) && is_numeric ( $tax [0] ['percentage'] ) ) {
-					$percentage = $tax [0] ['percentage'];
-					$vat = ($price * $percentage) / 100;
-					$price = ($price * (100 + $percentage)) / 100;
-				}
-			}
-			$total += $price;
-			$taxes += $vat;
-		}
-		$total = $this->currency->toCurrency($total, array('currency' => Settings::findbyParam('currency')));
-		$taxes = $this->currency->toCurrency($taxes, array('currency' => Settings::findbyParam('currency')));
-		return array ('total' => $total, 'taxes' => $taxes );
-	}
-	
 	/**
 	 * Do the login action
 	 * 
@@ -788,7 +752,7 @@ class CartController extends Shineisp_Controller_Default {
 		return false;
 	}
 	
-	/*
+	/**
 	 * Create a customer using the cart information and it creates 
 	 * the Nic Handle in order to communicate with the default registrars 
 	 */
@@ -798,31 +762,11 @@ class CartController extends Shineisp_Controller_Default {
 		$params ['contact'] = $params ['telephone'];
 		
 		$customerID = Customers::Create ( $params );
-		//		$result = CustomersDomainsRegistrars::chkIfCustomerExist ( $customerID );
-		
-
-		// If there is no nic for the customer ...
-		//		if ($result == 0) {
-		//			
-		//			// Create the nic-handle using the default registrar
-		//			if ($createNicHandle) {
-		//				$retval = Customers::CreateNicHandle ( $customerID );
-		//				
-		//				// If the customer has written wrong information, the record is deleted.
-		//				if ($retval === false || is_string ( $retval )) {
-		//					Customers::del ( $customerID );
-		//					return $retval;
-		//				}
-		//			}
-		
-
-		//		}
-		
 
 		return $customerID;
 	}
 	
-	/*
+	/**
      * Delete the cart session
      */
 	public function deletesessionAction() {
@@ -836,8 +780,7 @@ class CartController extends Shineisp_Controller_Default {
 	}
 	
 	/**
-	 * 
-	 * Enter description here ...
+	 * Get the company type for the dropdown select box
 	 */
 	public function getcompanytypesAction() {
 		// Get the parameters

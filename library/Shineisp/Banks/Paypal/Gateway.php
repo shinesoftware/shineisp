@@ -40,7 +40,7 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
 				$form .= "<div class=\"bank_" . $bank ['name'] . "\">" . $bank ['description'] . "</div>";
 			}
 			
-			$form .= '<form name="_xclick" action="' . $url . '" method="post">';
+			$form .= '<form name="_xclick" id="paypal" action="' . $url . '" method="post">';
 			$form .= '<input type="hidden" name="cmd" value="_xclick">';
 			
 			$form .= '<input type="hidden" name="add" value="1" />';
@@ -55,14 +55,15 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
 			$form .= '<input type="hidden" name="notify_url" value="http://' . self::getUrlCallback () . '">';
 			$form .= '<input type="hidden" name="return" value="http://' . self::getUrlOk () . '" />';
 			$form .= '<input type="hidden" name="cancel_return" value="http://' . self::getUrlKo () . '" />';
+			if (!self::doRedirect ()) {
+				$form .= '<input type="submit" class="button small" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
+			}
 			$form .= '</form>';
 			
 			if (self::doRedirect ()) {
 				$form .= "<html><head></head><body>";
 				$form .= $translator->translate ( 'You will be redirected to the bank secure website, please be patience.' );
 				$form .= "<script type=\"text/javascript\">\nsetTimeout(function () {\ndocument.forms[0].submit();\n}, 3000);\n</script></body></html>";
-			}else{
-				$form .= '<input type="image" src="/skins/default/base/images/banks/' . strtolower ( $bank ['name'] ) . '.gif" border="0" name="submit" title="' . $translator->translate ( 'Pay Now' ) . ": " . $bank ['name'] . '">';
 			}
 			
 			return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $form);

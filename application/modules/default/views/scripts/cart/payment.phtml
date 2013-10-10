@@ -11,12 +11,12 @@
 			<div id="payment_methods" class="">
 			   <h5><?php echo $this->translate('Payment Methods')?></h5>
 			   <div class="section-container accordion" data-section="accordion">
-			    <?php foreach($form->payment->getMultiOptions() as $bankid=>$bank): ?>
+			    <?php foreach($this->gateways as $gateway): ?>
 			        <section class="<?php echo $i==0 ? "active": ""; ?>">
-			        	<p class="title" data-section-title><a href="#"><?php echo $bank['name']?></a></p>
+			        	<p class="title" data-section-title><a href="#"><?php echo $gateway['name']?></a></p>
 			        	<div class="content" data-section-content>
-				        	<input type="radio" name="payment" value="<?php echo $bankid?>"/> <?php echo $bank['name']?>
-				        	<br/><?php echo $bank['description']?>
+				        	<input type="radio" <?php echo $i==0 ? "checked": ""; ?> name="payment" value="<?php echo $gateway['bank_id'] ?>"/> <?php echo $gateway['name'] 	?>
+				        	<br/><?php echo $gateway['description']?>
 				        </div>
 				     </section>
 				     <?php $i++?>
@@ -26,11 +26,13 @@
 			
 			<?php echo $form->note->render()?>
 			
-			<?php if(Null !== Settings::findbyParam('Conditions')): ?>
-		    	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
-		    <?php endif;?>
-			
+			<hr/>
+			<label for="conditions"><?php echo $this->translate('Legal Conditions'); ?></label>
+			<textarea cols="80" readonly title="" class="textarea" rows="20" id="conditions" name="conditions"><?php echo Settings::findbyParam('conditions') ?></textarea>
+
+			<br/>
 			<?php echo $form->submit->render()?>
 		</form>
 	</div>
 </div>
+
