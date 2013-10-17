@@ -780,7 +780,7 @@ Customers:
     lastname:
       type: string(100)
       notnull: false
-    sex:
+    gender:
       type: string(1)
       notnull: false
     email:

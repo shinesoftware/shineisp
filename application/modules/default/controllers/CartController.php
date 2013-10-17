@@ -170,6 +170,103 @@ class CartController extends Shineisp_Controller_Default {
 	}
 
 	/*
+	 * Get the customer information
+	*/
+	public function contactsAction() {
+	
+		$request = $this->getRequest ();
+		$session = new Zend_Session_Namespace ( 'Default' );
+		$this->getHelper ( 'layout' )->setLayout ( '1column' );
+
+		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
+			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+		}
+			
+		// Check if there is a domain service within the cart.
+		// If a domain is present we have to create a nic-handle in order to register the
+		// customer in the remote registrar database
+		$hasdomain = $session->cart->hasDomain ();
+			
+		// Check if the user has been logged in
+		if (!empty($this->customer)) {
+			$customer = $this->customer;
+
+			// Set the customer for the active cart
+			$session->cart->setCustomer($customer['customer_id']);
+
+			// Check if the customer is a reseller
+			if (! empty ( $customer ['isreseller'] ) && $customer ['isreseller']) {
+				$session->cart->setReseller($customer['customer_id']);
+				$this->_helper->redirector ( 'reseller', 'cart', 'default' );
+			} else {
+				$session->cart->removeReseller();
+			}
+
+			$this->view->contact = $customer;
+			$this->_helper->viewRenderer ( 'contactlogged' );
+				
+		} else {
+			// Clean the session vars
+			$session->cart->removeCustomer();
+			$session->cart->removeReseller();
+		}
+			
+		// Create the sidebar if the cart has products
+		$items = $session->cart->getItems();
+		$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'partials/cartsidebar.phtml', array ('items' => $items ) ) );
+			
+		$this->view->hasdomain = $hasdomain;
+
+		// Create the form
+		$form = new Default_Form_CustomerForm ( array ('action' => "/cart/contacts", 'method' => 'post' ) );
+		$form->getElement ( 'submit' )->setLabel ( 'Continue Order' );
+		$form->populate ( array('country_id' => 82, 'contacttypes' => 1) ); // Set Italy as default and the first contact type id 1 as telephone
+			
+		if ($session->cart->getCustomer()) {
+			$form->populate ( $session->cart->getCustomer() );
+		}
+			
+		// If the product/service include a domain we need more information
+		if ($hasdomain === false){
+			$form->getElement ( 'gender' )->setRequired ( false );
+			$form->getElement ( 'gender' )->setRegisterInArrayValidator ( false );
+			$form->getElement ( 'birthdate' )->setRequired ( false );
+			$form->getElement ( 'birthplace' )->setRequired ( false );
+			$form->getElement ( 'birthdistrict' )->setRequired ( false );
+			$form->getElement ( 'birthcountry' )->setRequired ( false );
+			$form->getElement ( 'birthnationality' )->setRequired ( false );
+		}
+			
+		$this->view->form = $form;
+			
+		// Check if we have a POST request
+		if ($request->isPost ()) {
+			$params = $request->getPost ();
+
+			if ($form->isValid ( $params )) {
+					
+				// Send the confirmation email to the customer
+				$params['welcome_mail'] = true;
+					
+				// Create a customer or get his ID
+				$result = Customers::Create( $params );
+					
+				if (is_numeric ( $result )) {
+
+					// Do the login
+					if($this->doLogin ( $result )){
+						$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
+					}
+				} else {
+					$this->view->mex = $result;
+					$this->view->mexstatus = "error";
+				}
+			}
+		}
+	}
+	
+
+	/*
 	 * Show the domain checker form
 	 */
 	public function domainAction() {
@@ -298,107 +395,6 @@ class CartController extends Shineisp_Controller_Default {
 			}
 
 			$this->_helper->redirector ( 'domain', 'cart', 'default', array ('mex' => 'The domain is available for registration', 'status' => 'success' ) );
-
-		}catch (Exception $e){
-			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => $e->getMessage()) );
-		}
-	}
-	
-	/*
-     * Get the customer information
-     */
-	public function contactsAction() {
-
-		try{
-			$request = $this->getRequest ();
-			$session = new Zend_Session_Namespace ( 'Default' );
-			$this->getHelper ( 'layout' )->setLayout ( '1column' );
-						
-			if (empty ( $session->cart ) || $session->cart->isEmpty()) {
-				$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
-			}
-			
-			// Check if there is a domain service within the cart.
-			// If a domain is present we have to create a nic-handle in order to register the 
-			// customer in the remote registrar database
-			$hasdomain = $session->cart->hasDomain ();
-			
-			// Check if the user has been logged in
-			if (!empty($this->customer)) {
-				$customer = $this->customer;
-
-				// Set the customer for the active cart
-				$session->cart->setCustomer($customer['customer_id']);
-				
-				// Check if the customer is a reseller
-				if (! empty ( $customer ['isreseller'] ) && $customer ['isreseller']) {
-					$session->cart->setReseller($customer['customer_id']);
-					$this->_helper->redirector ( 'reseller', 'cart', 'default' );
-				} else {
-					$session->cart->removeReseller();
-				}
-				
-				$this->view->contact = $customer;
-				$this->_helper->viewRenderer ( 'contactlogged' );
-			
-			} else {
-				// Clean the session vars
-				$session->cart->removeCustomer();
-				$session->cart->removeReseller();
-			}
-			
-			// Create the sidebar if the cart has products
-			$items = $session->cart->getItems();
-			$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'partials/cartsidebar.phtml', array ('items' => $items ) ) );
-			
-			$this->view->hasdomain = $hasdomain;
-
-			// Create the form
-			$form = new Default_Form_CustomerForm ( array ('action' => "/cart/contacts", 'method' => 'post' ) );
-			$form->getElement ( 'submit' )->setLabel ( 'Continue Order' );
-			$form->populate ( array('country_id' => 82, 'contacttypes' => 1) ); // Set Italy as default and the first contact type id 1 as telephone
-			
-			if ($session->cart->getCustomer()) {
-				$form->populate ( $session->cart->getCustomer() );
-			}
-			
-			// If the product/service include a domain we need more information
-			if ($hasdomain === false){
-				$form->getElement ( 'sex' )->setRequired ( false );
-				$form->getElement ( 'sex' )->setRegisterInArrayValidator ( false );
-				$form->getElement ( 'birthdate' )->setRequired ( false );
-				$form->getElement ( 'birthplace' )->setRequired ( false );
-				$form->getElement ( 'birthdistrict' )->setRequired ( false );
-				$form->getElement ( 'birthcountry' )->setRequired ( false );
-				$form->getElement ( 'birthnationality' )->setRequired ( false );
-			}
-			
-			$this->view->form = $form;
-			
-			// Check if we have a POST request
-			if ($request->isPost ()) {
-				$params = $request->getPost ();
-				
-				if ($form->isValid ( $params )) {
-					
-					// Send the confirmation email to the customer
-					$params['welcome_mail'] = true;
-					
-					// Create a customer or get his ID
-					$result = Customers::Create( $params );
-					
-					if (is_numeric ( $result )) {
-						
-						// Do the login
-						if($this->doLogin ( $result )){
-							$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'Well done! Now you have to choose your preferite payment method.', 'status' => 'success' ) );
-						}
-					} else {
-						$this->view->mex = $result;
-						$this->view->mexstatus = "error";
-					}
-				}
-			}
 
 		}catch (Exception $e){
 			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => $e->getMessage()) );
@@ -544,6 +540,10 @@ class CartController extends Shineisp_Controller_Default {
 		
 		if (empty ( $session->cart ) || $session->cart->isEmpty()) {
 			$this->_helper->redirector ( 'index', 'index', 'default', array('mex' => "Cart is empty") );
+		}
+		
+		if (!$session->cart->getCustomer ()) {
+			$this->_helper->redirector ( 'contacts' );
 		}
 		
 		// Get the heading of the cart

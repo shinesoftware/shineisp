@@ -800,7 +800,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 							$this->session['id'], // Session
 							$customer ['lastname'], // Lastname
 							$customer ['firstname'], // Firstname 
-							$customer ['sex'], // Sex
+							$customer ['sex'], // Gender
 							Shineisp_Commons_Utilities::GenerateRandomString(), // Password
 							$customer ['email'], // Email
 							$customer ['contact'], // Phone
