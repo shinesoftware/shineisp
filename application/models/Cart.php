@@ -440,8 +440,6 @@ class Cart {
 				
 					$isrecurring = true;
 					
-					Zend_Debug::dump($product);
-					
 					// Get the billyng cycle / term / recurring period price
 					$priceInfo = $product['ProductsTranches'];
 					$keys = array_keys($priceInfo);
