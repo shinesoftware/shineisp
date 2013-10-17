@@ -12,6 +12,11 @@ class Shineisp_Validate_Fiscalcode extends Zend_Validate_Abstract {
 	
 	public function isValid($value) {
 		
+		if (preg_match ( "/^[0-9]+$/", $value )) {
+			return true;
+		}
+		
+		
 		if (strlen ( $value ) != 16){
 			$this->_error ( self::LENGHT );
             return false;

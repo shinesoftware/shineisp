@@ -118,7 +118,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this ticket and its messages?' );
-				$this->view->description = $this->translator->translate ( 'The ticket will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'The ticket will no longer be available.' );
 				
 				$record = $this->tickets->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['subject'] );

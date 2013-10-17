@@ -75,7 +75,7 @@ class Taxes extends BaseTaxes
         								->limit ( 1 )
         								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
-        return !empty($record['percentage']) ? $record['percentage'] : null;
+        return !empty($record[0]['percentage']) ? $record[0]['percentage'] : null;
     }	
     	   
     /**

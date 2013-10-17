@@ -114,7 +114,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this order?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will no longer be available.' );
 				
 				$record = $this->orders->find ( $id );
 				$this->view->recordselected = $record ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['order_date'] );
@@ -275,7 +275,10 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 					$this->view->titlelink = "/index/link/id/" . $rs['fastlink'];
 				}
 				
-				$this->view->title = $this->translator->_( "Order nr. %s", $rs['order_number']);
+				if(!empty($rs['order_number'])){
+					$this->view->title = $this->translator->_( "Order nr. %s", $rs['order_number']);
+				}
+				
 				$this->view->messages = Messages::find ( 'order_id', $id, true );
 			} else {
 				$this->_helper->redirector ( 'list', 'orders', 'admin' );

@@ -90,7 +90,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 							}
 							
 						} catch ( SoapFault $e ) {
-							throw new Exception("There was a problem with the Mail Domain creation: " . $e->getMessage() . " - " . __METHOD__ . " - Paramenters: " . json_encode($params) , "3506");
+							throw new Exception("There was a problem with the Mail Domain creation: " . $e->getMessage() . " - " . __METHOD__ . " - Parameters: " . json_encode($params) , "3506");
 						}
 						
 						$defaultQuota = Shineisp_Commons_Utilities::MB2Bytes(100); // 100MB default value
@@ -124,7 +124,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 							$emailUserID = $client->mail_user_add($this->getSession(), $clientId, $params);
 						
 						} catch ( SoapFault $e ) {
-							throw new Exception("There was a problem with Email account creation: " . $e->getMessage() . " - " . __METHOD__ . " - Paramenters: " . json_encode($params) , "3506");
+							throw new Exception("There was a problem with Email account creation: " . $e->getMessage() . " - " . __METHOD__ . " - Parameters: " . json_encode($params) , "3506");
 						}
 						
 						// Save the setup in the service setup field
@@ -134,7 +134,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 						OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
 					
 						// Create the log message
-						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
+						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Parameters: " . json_encode($params), "ispconfig.log" );
 					}
 					
 				}else{
@@ -236,7 +236,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 					OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
 					
 					// Create the log message
-					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
+					Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Parameters: " . json_encode($params), "ispconfig.log" );
 				}else{
 					throw new Exception("Database User ID has not been found.", "3503");
 				}
@@ -337,7 +337,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 				OrdersItems::set_setup($task ['orderitem_id'], array('host'=>$server['ip'], 'username'=>$username, 'password'=>$password), "ftp");
 				
 				// Create the log message
-				Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
+				Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Parameters: " . json_encode($params), "ispconfig.log" );
 				
 			}else{
 				throw new Exception("No remote web server id set in the ShineISP server profile.", "3502");
@@ -447,14 +447,14 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 							}
 							
 						} catch ( SoapFault $e ) {
-							throw new Exception("There was a problem with " . $domains[0]['domain'] . " website creation: " . $e->getMessage() . " - Paramenters: " . json_encode($params) , "3504");
+							throw new Exception("There was a problem with " . $domains[0]['domain'] . " website creation: " . $e->getMessage() . " - Parameters: " . json_encode($params) , "3504");
 						}
 						
 						// Add relation between order_item and server
 						OrdersItemsServers::addServer($task['orderitem_id'], $server['server_id']);
 						
 						// Create the log message
-						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($params), "ispconfig.log" );
+						Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Parameters: " . json_encode($params), "ispconfig.log" );
 						
 					}else{
 						throw new Exception("No domain set for the selected service in the ShineISP service order detail ID #: " . $task ['orderitem_id'], "3503");
@@ -605,7 +605,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 			}
 			
 			// Create the log message
-			Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Paramenters: " . json_encode($record), "ispconfig.log" );
+			Shineisp_Commons_Utilities::logs ("ID: " . $task ['action_id'] .  " - " . __METHOD__ . " - Parameters: " . json_encode($record), "ispconfig.log" );
 			
 			// Logout from the IspConfig Remote System
 			$client->logout($this->getSession ());

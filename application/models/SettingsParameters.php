@@ -176,7 +176,7 @@ class SettingsParameters extends BaseSettingsParameters {
     	
     	Doctrine::getTable ( 'SettingsParameters' )->find ($id)->delete ();
     	 
-    	// Refresh all the paramenters
+    	// Refresh all the parameters
     	self::loadParams(null, true);
     	
     	return true;

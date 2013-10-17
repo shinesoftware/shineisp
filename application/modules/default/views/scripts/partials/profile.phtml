@@ -5,9 +5,9 @@
 
 <?php if(!empty($ns->customer)): ?>
 	<a accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="/dashboard">
-		<?php if($ns->customer['sex'] == "F"): ?>
+		<?php if($ns->customer['gender'] == "F"): ?>
 			<?php echo $this->translate('Welcome Mrs. %s', $ns->customer['lastname'])?>
-		<?php elseif($ns->customer['sex'] == "M"): ?>
+		<?php elseif($ns->customer['gender'] == "M"): ?>
 			<?php echo $this->translate('Welcome Mr. %s', $ns->customer['lastname'])?>
 		<?php else: ?>
 			<?php echo $this->translate('Welcome %s', $ns->customer['lastname'])?>

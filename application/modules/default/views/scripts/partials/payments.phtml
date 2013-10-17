@@ -1,9 +1,18 @@
 <?php $payments = $this->payments ?>
+<?php $i = 0; ?>
 
 <div class="row">
-    <?php foreach($payments as $payment):?>
-		<div class="large-6 column">
-	        <?php echo $payment?>
+	<div class="large-12 column">
+		<div class="section-container accordion" data-section="accordion">
+	    <?php foreach($payments as $payment):?>
+			<section class="<?php echo $i==0 ? "active": ""; ?>">
+				<p class="title" data-section-title><a href="#"><?php echo $payment['name']?></a></p>
+				<div class="content" data-section-content>
+		        	<?php echo $payment['html']?>
+		        </div>
+		    </section>
+		    <?php $i++?>
+	    <?php endforeach; ?>
 	    </div>
-    <?php endforeach; ?>
+	</div>
 </div>

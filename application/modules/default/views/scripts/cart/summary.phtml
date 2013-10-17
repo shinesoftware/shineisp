@@ -1,0 +1,79 @@
+<?php $cart = $this->cart ?>
+
+<h3><?php echo $this->translate('Shopping Cart'); ?></h3> 
+<p><?php echo $this->translate('Complete the order choosing your preferite payment method.')?></p>
+
+<div class="row">
+	<div class="large-12 column">
+		<table>
+			<thead>
+				<tr>
+					<td></td>
+					<td><?php echo $this->translate('Product Name') ?></td>
+					<td></td>
+					<td><?php echo $this->translate('Unit Price') ?></td>
+					<td><?php echo $this->translate('Taxes') ?></td>
+					<td><?php echo $this->translate('Qty') ?></td>
+					<td align="right"><?php echo $this->translate('Subtotal') ?></td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($cart->getItems() as $item): ?>
+					<?php $subtotal = $item->getSubtotals(); ?>
+					<?php $months = !empty($subtotal['isrecurring']) && !empty($subtotal['months']) ? " x " . $subtotal['months'] . " " . $this->translate('Months') : null; ?>
+					<tr>
+						<td width="50"><?php echo $this->media()->ProductImage($item->getId(), 50, 50, true);?></td>
+						<td>
+							<?php if("domain" == $item->getType()): ?>
+								<?php $options = $item->getOptions(); // get the domain options ?>
+								<?php $tld = DomainsTlds::getName($options['domain']['tld']) // get the name of the tld?>
+								<a href="/<?php echo $tld ?>.html"><?php echo $item->getName() ?></a> 
+							<?php else: ?>
+								<a href="/<?php echo Products::getUri($item->getId()) ?>.html"><?php echo $item->getName() ?></a>
+							<?php endif; ?> 
+						</td>
+						<td width="20"><a class="gen-enclosed foundicon-trash" href="/cart/remove/uid/<?php echo $item->getUid() ?>">&nbsp;</a></td>
+						<td><?php echo $this->currency($item->getUnitPrice(), array('currency' => Settings::findbyParam('currency'))) ?> <?php echo $months?></td>
+						<td><?php echo $this->currency($subtotal['taxes'], array('currency' => Settings::findbyParam('currency'))) ?></td>
+						<td width="20"><input name="field[]" id="<?php echo $item->getUid()?>" type="text" value="<?php echo $item->getQty() ?>"></td>
+						<td align="right"><?php echo $this->currency($subtotal['subtotal'], array('currency' => Settings::findbyParam('currency'))) ?></td>
+					</tr>
+				<?php endforeach;?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-8 column">
+		<a class="button small" href="/<?php echo !empty($this->lastproduct) ? $this->lastproduct . ".html" : null ?>"><?php echo $this->translate('Continue Shopping')?></a>
+		<a class="button small alert" href="/cart/clear"><?php echo $this->translate('Clear Shopping Cart')?></a>
+		<a class="button small updatecart" href="#"><?php echo $this->translate('Update Shopping Cart')?></a>
+		<?php echo $this->checkdomains()->showForm(); ?>
+	</div>
+	<div class="large-4 column">
+		<table>
+			<tr>
+				<td><?php echo $this->translate('Subtotal') ?></td>
+				<td align="right"><?php echo $this->currency($cart->getSubtotal(), array('currency' => Settings::findbyParam('currency'))) ?></td>
+			</tr>
+			<?php if($cart->getSetupfee()): ?>
+			<tr>
+				<td><?php echo $this->translate('Setup fee') ?></td>
+				<td align="right"><?php echo $this->currency($cart->getSetupfee(), array('currency' => Settings::findbyParam('currency'))) ?></td>
+			</tr>
+			<?php endif;?>
+			<tr>
+				<td><?php echo $this->translate('Taxes') ?></td>
+				<td align="right"><?php echo $this->currency($cart->getTaxes(), array('currency' => Settings::findbyParam('currency'))) ?></td>
+			</tr>
+			<tr>
+				<td><?php echo $this->translate('Grandtotal') ?></td>
+				<td align="right"><?php echo $this->currency($cart->getGrandtotal(), array('currency' => Settings::findbyParam('currency'))) ?></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2"><a class="button success" href="/cart/payment"><?php echo $this->translate('Proceed to Checkout')?></a></td>
+			</tr>
+		</table>
+	</div>
+</div>

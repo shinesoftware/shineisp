@@ -16,6 +16,9 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $quantity
  * @property float $cost
  * @property float $price
+ * @property float $vat
+ * @property float $subtotal
+ * @property float $percentage
  * @property float $setupfee
  * @property integer $status_id
  * @property string $parameters
@@ -26,7 +29,6 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property integer $review_id
  * @property integer $parent_detail_id
  * @property string $description
- * @property string $callback_url
  * @property string $uuid
  * @property Orders $Orders
  * @property Products $Products
@@ -99,6 +101,18 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'notnull' => true,
              'length' => '10',
              ));
+        $this->hasColumn('vat', 'float', 10, array(
+             'type' => 'float',
+             'length' => '10',
+             ));
+        $this->hasColumn('subtotal', 'float', 10, array(
+             'type' => 'float',
+             'length' => '10',
+             ));
+        $this->hasColumn('percentage', 'float', 10, array(
+             'type' => 'float',
+             'length' => '10',
+             ));
         $this->hasColumn('setupfee', 'float', 10, array(
              'type' => 'float',
              'default' => 0,
@@ -144,11 +158,6 @@ abstract class BaseOrdersItems extends Doctrine_Record
         $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
              'length' => '',
-             ));
-        $this->hasColumn('callback_url', 'string', 200, array(
-             'type' => 'string',
-             'notnull' => false,
-             'length' => '200',
              ));
         $this->hasColumn('uuid', 'string', 50, array(
              'type' => 'string',

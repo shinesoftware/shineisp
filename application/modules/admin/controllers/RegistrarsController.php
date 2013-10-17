@@ -44,8 +44,8 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Registrant Modules");
-		$this->view->description = $this->translator->translate("Here you can see all the registrant module.");
+		$this->view->title = $this->translator->translate("Registrar Modules");
+		$this->view->description = $this->translator->translate("Here you can see all the registrar module.");
 		$this->view->buttons = array(array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( Registrars::grid() )->datagrid ();
 	}
@@ -94,8 +94,8 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/registrars/process" );
-		$this->view->title = $this->translator->translate("New Registrant Modules");
-		$this->view->description = $this->translator->translate("Here you can create a new registrant module.");
+		$this->view->title = $this->translator->translate("New Registrar");
+		$this->view->description = $this->translator->translate("Here you can create a new registrar.");
 		
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 									 array("url" => "/admin/registrars/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));

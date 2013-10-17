@@ -8,7 +8,7 @@
 	    <help><![CDATA[<p>This module offers you the way to register your domains by Ascio company. <br/>In order to setup the module, you need:</p>
 	        <ul>
 	            <li>Get the soap URI from http://aws.ascio.info/documentation look at the changelog.</li>
-	            <li>Ascio Account Credencials</li>
+	            <li>Ascio Account Credentials</li>
 	            <li>Set the server information</li>
 	            <li>Set the TLD prices and costs</li>
 	        </ul>

@@ -22,13 +22,13 @@ class Admin_Form_CustomersForm extends Zend_Form
             'class'      => 'text-input large-input'
         ));
         
-        $this->addElement('select', 'sex', array(
-        'label' => 'Sex',
+        $this->addElement('select', 'gender', array(
+        'label' => 'Gender',
         'decorators' => array('Composite'),
         'class'      => 'text-input large-input'
         ));
         
-        $this->getElement('sex')
+        $this->getElement('gender')
                   ->setAllowEmpty(true)
                   ->setMultiOptions(array('M'=>'Man', 'F'=>'Female'));
         
@@ -162,7 +162,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->addElement('button', 'customerupdate', array(
             'label'    => 'Customer Update',
-            'description' => 'Update the customer information retrieving the data from the registrant database.',
+            'description' => 'Update the customer information retrieving the data from the registrar database.',
             'decorators' => array('Composite'),
             'class'    => 'button red customerupdate'
         ));

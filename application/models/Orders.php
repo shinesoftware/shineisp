@@ -17,6 +17,21 @@ class Orders extends BaseOrders {
 	public static $events;
 	
 	/**
+	 * @return the $order
+	 */
+	public static function getOrder() {
+		return Orders::$order;
+	}
+
+	/**
+	 * @param NULL $order
+	 */
+	public static function setOrder($order) {
+		Orders::$order = $order;
+		return $this;
+	}
+
+	/**
 	 * Event Manager Registration
 	 * @return mixed
 	 */
@@ -948,6 +963,10 @@ class Orders extends BaseOrders {
 	public static function create($customerId, $statusId = "", $note = ""){
 		$customer = Customers::getAllInfo($customerId);
 		$isp_id   = $customer['isp_id'];
+		
+		if(self::$order){
+			return self::$order;
+		}
 				
 		if(is_numeric($customerId)){
 			$order = new Orders ();
@@ -1000,67 +1019,91 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Add a domain into an order
+	 * Add an item within an order 
 	 * 
-	 * 
-	 * @param integer $orderID
-	 * @param integer $domain
-	 * @param integer $tldID
+	 * @param Cart $item
+	 * @throws Exception
+	 * @return unknown
 	 */
-	public static function addOrderItem($orderid, $description="", $qta=1, $billingid=3, $price=0, $cost=0, $setupfee=0, array $params=array()){
-		$item = new OrdersItems();
+	public static function addOrderItem(CartItem $item){
 		
-		if(!empty($orderid)){
-			
-			$item['order_id']   = $orderid;
-			$item['tld_id']     = !empty($params['tldid']) ? $params['tldid'] : null;
-			$item['product_id'] = !empty($params['productid']) ? $params['productid'] : null;
-			$item['status_id']  = Statuses::id("tobepaid", "orders");
-			$item['date_start'] = date ( 'Y-m-d H:i:s' );
-				
-			// Manages all the products that have no recursion payment
-			$item['description']      = $description;
-			$item['billing_cycle_id'] = $billingid; 
-			$item['quantity']         = $qta;
-			$item['price']            = $price;
-			$item['uuid']             = isset($params['uuid']) ? $params['uuid'] : Shineisp_Commons_Uuid::generate();
-			
-			// Count of the day until the expiring
-			$months = BillingCycle::getMonthsNumber ( $billingid );
-			if($months > 0){
-				$totmonths = intval ( $qta * $months );
-				
-				// Calculate the total of the months 
-				$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
-				
-				if($months >= 12){
-					$qty = $months / 12;
-				}else{
-					$qty = 1;
-				}
-				
-				$item['price'] = $price * $qty; 
-				$item['date_end'] = Shineisp_Commons_Utilities::formatDateIn($date_end);
-			}else{
-				$item['date_end'] = null;
-			}
-			
-			$item['parameters'] = json_encode ($params);
-			$item['cost'] = $cost;
-			$item['setupfee'] = $setupfee;
-		
-			$item->save();
-			
-			self::updateTotalsOrder($orderid);
-			
-			//* TODO: Attivare il dominio nel caso l'attivazione automatica fosse contestuale la ricezione ordine
-			//* if $autosetup === 1
-			
-			return $item;
+		if(empty(self::$order)){
+			throw new Exception('The order has not been created yet', 1000);
 		}
 		
-		return null;
+		try{
 		
+			// get the item subtotals
+			$subtotals = $item->getSubtotals();
+			
+			// get the options
+			$options = $item->getOptions();
+			
+			// get the billing cycle setting attached in the product installment/tranche
+			$billing = BillingCycle::getAllinfo($item->getTerm());
+			
+			// Get the order object previously created
+			$order = self::$order;
+			
+			$orderitem = new OrdersItems();
+			
+			$orderitem->order_id = $order['order_id'];
+			
+			if("domain" == $item->getType()){  // Create a new domain order item
+				$orderitem->tld_id = !empty($options['domain']['tld']) ? $options['domain']['tld'] : null;
+				$orderitem->parameters = json_encode ($options);
+			}else{
+				$orderitem->product_id = $item->getId();
+				$orderitem->parameters = json_encode (ProductsAttributes::getSystemAttributes($item->getId()));
+			}
+			
+			$orderitem->status_id = Statuses::id("tobepaid", "orders");
+			$orderitem->date_start = date ( 'Y-m-d H:i:s' );
+			$orderitem->date_end = null;
+			$orderitem->description = $item->getName();
+			$orderitem->quantity = $item->getQty();
+			$orderitem->price = $item->getUnitprice();
+			$orderitem->billing_cycle_id = $billing['billing_cycle_id'];
+			$orderitem->vat = $subtotals['taxes'];
+			$orderitem->percentage = $subtotals['percentage'];
+			$orderitem->uuid = $item->getUid();
+			
+			// Count of the day until the expiring
+			if($subtotals['isrecurring']){
+				
+				// get the months until of the next service expiration
+				$months = $billing['months'];
+				
+				if($months > 0){
+					$totmonths = intval ( $item->getQty() * $months );
+					
+					// Calculate the total of the months 
+					$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );
+					
+					$orderitem->date_end = Shineisp_Commons_Utilities::formatDateIn($date_end);
+				}else{
+					$orderitem->date_end = null;
+				}
+			}
+			
+			$orderitem->cost = $item->getCost();
+			$orderitem->setupfee = $subtotals['setupfee'];
+			$orderitem->subtotal = $subtotals['subtotal'];
+			
+			// Save the order item
+			if($orderitem->trySave()){
+
+				// Update the totals of the order
+				self::updateTotalsOrder($order['order_id']);
+				
+				return $orderitem;
+			}
+			
+		}catch(Exception $e){
+			Shineisp_Commons_Utilities::log('There was a problem during the order creation: ' . $e->getMessage());
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -1138,12 +1181,23 @@ class Orders extends BaseOrders {
 	 * @param integer 	$productId
 	 * @param integer 	$qta
 	 * @param integer 	$billing [default 3 = Annual]
+	 * @param integer 	$trancheID 
 	 * @param string 	$description
 	 * @param array 	$options
 	 * @param integer 	$upgrade
 	 * @return array 	$item
 	 ******/
-	public static function addItem($productId, $qta = 1, $billing = 3, $trancheID = null, $description = null, array $options = array(), $upgrade = false, $tsstart = false ) {
+	public static function addItem($type, $id, $qta = 1, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
+		
+		
+		
+		if($type == "domain"){
+			
+		}elseif($type == "hosting"){
+			
+		}
+		
+		
 		
 		// Check if the variable has been set correctly
 		if(is_numeric($productId)){
@@ -1154,58 +1208,44 @@ class Orders extends BaseOrders {
 			// Get autosetup setting
 			$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;			
 			
-			// echo '<pre>';
-			// print_r($product);
-			// die();
 			if(!empty($product)){
-				if(empty(self::$order)){
-					throw new Exception('The order has not been created yet', 1000);
-				}
 				
+				
+				
+				// Get the order object previously created
 				$order = self::$order;
+				
+				// Create the new order item
 				$item = new OrdersItems();
 				
-				$item['order_id']   = $order['order_id'];
-				$item['status_id']  = Statuses::id("tobepaid", "orders");
-				$item['product_id'] = $productId;
-                if( $tsstart == false ) {
-				    $item['date_start'] = date ( 'Y-m-d H:i:s' );
-                } else {
-                    $item['date_start'] = date ( 'Y-m-d H:i:s', $tsstart );
-                }
-					
-				// Manages all the products that have no recursion payment
-				$name	= "";
-				if( isset( $product['ProductsData']) ) {
-					$textInfo	= array_shift($product['ProductsData']);
-					if( ! empty($textInfo) ) {
-						if( isset( $textInfo['name'] ) ) {
-							$name	= $textInfo['name'];
-						}
-					}
-				}
-				$item['description'] 		= $name;
-				$item['billing_cycle_id'] 	= $billing; 
-				$item['quantity'] 			= $qta;
+				// get the billing cycle setting attached in the product installment/tranche
+				$billing = ProductsTranches::getBillingCycle($trancheID);
+
+				// get the installment/tranches for the selected product
+				$tranche = ProductsTranches::getTranchebyId ( $trancheID );
 				
+				// Prepare the order items
+				$item['order_id']   		= $order['order_id'];
+				$item['status_id']  		= Statuses::id("tobepaid", "orders");
+				$item['product_id'] 		= $productId;
+				$item['date_start'] 		= date ( 'Y-m-d H:i:s' );
+				$item['description'] 		= $product['ProductsData'][0]['name'];;
+				$item['billing_cycle_id'] 	= !empty($billing['billing_cycle_id']) ? $billing['billing_cycle_id'] : null; 
+				$item['quantity'] 			= $qta;
 				$item['price'] 				= $product['price_1'];
 				$item['setupfee'] 			= $product ['setupfee'];
 				
-				$tranches					= $product['ProductsTranches'];
-				if( $trancheID != null && array_key_exists($trancheID,$tranches)) {				
-					// Count of the day until the expiring
-					$months = BillingCycle::getMonthsNumber ( $billing );
-					$tranche	= $tranches[$trancheID];
+				// Get the billing term settings 
+				if( $trancheID != null && is_array($billing)) {				
+
+					// Count how many months until the next expiring date
+					$months = $billing['months'];
+					
 					if($months > 0){
 						$totmonths = intval ( $qta * $months );
 						
 						// Calculate the total of the months
-						if( $tsstart == false ) {
-                            $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
-						} else {
-							$date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s',$tsstart ), null, $totmonths );
-						}
-						
+                        $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
 						
 						if($months >= 12){
 							$qty = $months / 12;
@@ -1229,9 +1269,6 @@ class Orders extends BaseOrders {
 
 				// Check if the product is a recurring product
 				if (!empty($trancheID) && is_numeric($trancheID) && $product ['type'] != "domain") {   
-					
-					// Count of the day until the expiring
-					$tranche = ProductsTranches::getTranchebyId ( $trancheID );
 					
 					// Set the price of the product with the billing tranche value
 					$item['price'] = $tranche ['price'] * $tranche['BillingCycle']['months'];
@@ -1287,7 +1324,6 @@ class Orders extends BaseOrders {
 				
 				// these are set by API
 				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : Shineisp_Commons_Uuid::generate();
-				$item['callback_url'] = isset($options['callback_url']) ? $options['callback_url'] : '';
 				
 				$item->save();
 				
@@ -1298,10 +1334,10 @@ class Orders extends BaseOrders {
 					self::updateTotalsOrder($order['order_id']);
 				}
 				
-                Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type'])." CALLBACK_URL::".$arrayItem['callback_url']);
+                Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type']));
                 
 				//* autosetup is set to 1 for this product, let's activate immediatly
-				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting" || !empty($arrayItem['callback_url']) ) ) {
+				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting") ) {
 					OrdersItems::activate($arrayItem['detail_id']);				
 				}
 				
@@ -1801,7 +1837,7 @@ class Orders extends BaseOrders {
 			$order = self::find ( $id );
 			
 			// If the status is COMPLETE the totals will be not changed
-			if($order->status_id == Statuses::id("complete", "orders") ){
+			if($order->status_id == Statuses::id("complete", "orders") || $order->status_id == Statuses::id("paid", "orders") || $order->status_id == Statuses::id("processing", "orders") ){
 				return $order->total + $order->vat;
 			}
 			
@@ -1809,33 +1845,68 @@ class Orders extends BaseOrders {
 				 
 				// Get all the order details
 				$details = OrdersItems::getAllDetails($id, null, true);
+				
 				if(!empty($details[0])){
 					$isTaxFree = Customers::isTaxFree($details [0] ['Orders'] ['Customers'] ['customer_id']);
 					$isVATFree = Customers::isVATFree($details [0] ['Orders'] ['Customers'] ['customer_id']);
 	
 					foreach ( $details as $detail ) {
 						
-						if (is_numeric ( $detail ['price'] ) && is_numeric ( $detail ['quantity'] )) {
-							$totemp = ($detail ['price'] * $detail ['quantity']) + $detail ['setupfee'];
-							$total += $totemp;
-							$costs +=  $detail ['cost'];
+						$isDomain = !empty($detail['tld_id']) && is_numeric($detail['tld_id']) ? true : false;
+						$isProduct = !empty($detail['product_id']) && is_numeric($detail['product_id']) ? true : false;
+						$product = $detail['Products'];
+						
+						if($isDomain){
+							
+							// Calculate the price per Quantity
+							$subtotal = $detail ['price']  * $detail ['quantity'];
+							
+							$setupfee = 0;
+							
+						}elseif($isProduct){
+
+							$isRecurring = Products::isRecurring($detail['product_id']);
+							
+							if($isRecurring){
+							
+								$setupfee = $detail ['setupfee'];
+								
+								// Price multiplier
+								$months = $detail ['BillingCycle'] ['months'];
+								
+								// Calculate the price per the months per Quantity
+								$subtotal = ($detail ['price'] * $months) * $detail ['quantity'];
+								
+							}else{
+								
+								$setupfee = $detail ['setupfee'];
+								
+								// Calculate the price per Quantity
+								$subtotal = $detail ['price'] * $detail ['quantity'];
+							}
+							
 						}
+						
+						// ... and add the setup fees
+						$price = $subtotal + $setupfee;
+						$total += $price;
+						$costs += $detail ['cost'];
 						
 						if( !$isTaxFree && !$isVATFree ){
 							
 							// If the product is a domain 
-							if(!empty($detail['tld_id'])){
+							if($isDomain){
 								$tax = Taxes::getTaxbyTldID($detail ['tld_id']);	
 							}else{ // If not
 								$tax = Taxes::getTaxbyProductID($detail ['product_id']);
 							}
 						
 							if(!empty($tax['percentage'])){
-								$vat += is_numeric ( $totemp ) ? ($totemp * $tax['percentage']) / 100 : 0;
+								$vat += is_numeric ( $price ) ? ($price * $tax['percentage']) / 100 : 0;
 							}
 						}
 					}
-	
+					
 					$order->vat = $vat;
 					$order->total = $total;
 					$order->cost = $costs;
@@ -2167,6 +2238,7 @@ class Orders extends BaseOrders {
 			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer_email, 'order_new', array(
 				 'orderid'    => $order[0]['order_number']
+				,'fullname'      => $customer
 				,'email'      => $email
 				,'bank'       => $bank
 				,'url'        => $url
@@ -2461,7 +2533,7 @@ class Orders extends BaseOrders {
 		$currency   = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
-								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, 
+								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, i.formatted_number as invoice, 
 											CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
 											o.total as total, 
 											o.grandtotal as grandtotal, 

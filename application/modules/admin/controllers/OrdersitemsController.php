@@ -51,7 +51,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this item?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will no longer be available.' );
 				
 				$record = $this->details->find ( $id, "description", true );
 				$this->view->recordselected = $record [0] ['description'];

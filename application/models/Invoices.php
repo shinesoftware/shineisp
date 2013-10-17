@@ -1001,19 +1001,13 @@ class Invoices extends BaseInvoices {
 				
 				foreach ( $order [0] ['OrdersItems'] as $item ) {
 					$price = ($item['price']  * $item['quantity']) + $item['setupfee'];
-					 
-					$tax = Taxes::getTaxbyProductID($item['product_id']);
-					if ($tax['percentage'] > 0) {
-						$rowtotal = $price * (100 + $tax['percentage']) / 100;
-					} else {
-						$rowtotal = $price;
-					}
+					$rowtotal = $price + $item['vat'];
 					
 					$item ['price'] = $currency->toCurrency($item ['price'], array('currency' => Settings::findbyParam('currency')));
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $tax['percentage'], $rowtotal);
+					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $item['percentage'], $rowtotal);
 				}
 
 				// Sanitize some fields

@@ -850,7 +850,7 @@ class Tickets extends BaseTickets {
 	/**
 	 * Set the status of the records
 	 * @param array $items Items selected
-	 * @param array $parameters Custom paramenters
+	 * @param array $parameters Custom parameters
 	 */
 	public function bulk_set_status($items, $parameters) {
 		if(!empty($parameters['status'])){

@@ -44,8 +44,8 @@ class Admin_SubscribersController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Newsletter Subscribers list");
-		$this->view->description = $this->translator->translate("Here you can see all the emails of the subscribers.");
+		$this->view->title = $this->translator->translate("Newsletter Subscribers");
+		$this->view->description = $this->translator->translate("Here you can see the emails of the subscribers.");
 		$this->view->buttons = array(array("url" => "/admin/subscribers/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( NewslettersSubscribers::grid() )->datagrid ();
 	}

@@ -9,7 +9,7 @@
 	* @version 1.1
 */
 
-class System_CronController extends Zend_Controller_Action {
+class System_CronController extends Shineisp_Controller_Default {
 
 	public function preDispatch() {
         $this->_helper->layout()->disableLayout();

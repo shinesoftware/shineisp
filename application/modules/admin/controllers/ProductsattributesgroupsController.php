@@ -36,8 +36,8 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Attributes Groups");
-		$this->view->description = $this->translator->translate("Here you can see all the attributes groups.");
+		$this->view->title = $this->translator->translate("Attribute Groups");
+		$this->view->description = $this->translator->translate("Here you can see all the attribute groups.");
 		$this->view->buttons = array(array("url" => "/admin/productsattributesgroups/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( ProductsAttributesGroups::grid() )->datagrid ();
 	}
@@ -117,7 +117,7 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you  sure to delete the feature selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this feature, it will be no longer available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this feature, it will no longer be available.' );
 				
 				$record = $this->productsattributesgroups->getAllInfo ( $id );
 				

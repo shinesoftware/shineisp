@@ -1,6 +1,6 @@
 <?php
 
-class System_IndexController extends Zend_Controller_Action {
+class System_IndexController extends Shineisp_Controller_Default {
 		
     public function indexAction() {
         die();

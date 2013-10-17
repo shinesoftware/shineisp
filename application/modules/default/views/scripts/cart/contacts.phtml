@@ -49,7 +49,7 @@
 	                <?php echo $form->birthdistrict->render()?>
 	                <?php echo $form->birthcountry->render()?>
 	                <?php echo $form->birthnationality->render()?>
-	                <?php echo $form->sex->render()?>
+	                <?php echo $form->gender->render()?>
 	            </div> 
 	            <div class="clear"></div>
             </div>
@@ -67,7 +67,8 @@
             
            <div class="panel">
                 <h4><?php echo $this->translate('Contacts')?></h4>
-                 <?php echo $form->telephone->render()?>
+                 <?php echo $form->contact->render()?>
+                 <?php echo $form->contacttypes->render()?>
            </div>
            <br/>
 	      <?php echo $form->submit->render()?> 

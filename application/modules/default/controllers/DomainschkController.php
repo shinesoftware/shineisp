@@ -32,11 +32,11 @@ class DomainschkController extends Shineisp_Controller_Default {
 	 * @return unknown_type
 	 */
 	public function saveAction() {
-		$NS = new Zend_Session_Namespace ( 'Default' );
+		$session = new Zend_Session_Namespace ( 'Default' );
 		$params = $this->getRequest()->getParams();
 		
-		if (empty($NS->customer)) {
-			$profile = $NS->customer;
+		if (empty($session->customer)) {
+			$profile = $session->customer;
 			$customerid = $profile['customer_id'];
 		}else{
 			$customerid = NULL;
@@ -72,13 +72,17 @@ class DomainschkController extends Shineisp_Controller_Default {
 	 * Create a new order on the fly
 	 */
 	public function createorderAction() {
-		$NS = new Zend_Session_Namespace ( 'Default' );
+		$session = new Zend_Session_Namespace ( 'Default' );
 		
-		if (!empty($NS->customer)) {
-			$profile = $NS->customer;
+		if (!empty($session->customer)) {
+			$profile = $session->customer;
 			
 			// Destroy the redirect option
-			unset($NS->goto);
+			unset($session->goto);
+			
+			if (empty ( $session->cart )) {
+				$session->cart = new Cart();
+			}
 			
 			// Get the temporary domains
 			$domains = DomainsBulk::findbySession(Zend_Session::getId());
@@ -97,24 +101,21 @@ class DomainschkController extends Shineisp_Controller_Default {
 					$cost = $domain['cost'];
 					$authcode = !empty($domain['authinfo']) ? $domain['authinfo'] : null;
 					
-					// Create the order item
-					Orders::addOrderItem($theOrder['order_id'], $Thedomain, 1, 3, $price, $cost, 0, array ('domain' => $Thedomain, 'action' => $action, 'authcode' => $authcode, 'tldid' => $domain['tld_id']));
+					$session->cart->addDomain($Thedomain, $domain['tld_id'], $action, $authcode);
+					
 				}
 				
-				// Send the order to the customer 
-				Orders::sendOrder($theOrder['order_id']);
-
 				// Clear the temporary list before adding the new one
 				DomainsBulk::clear(Zend_Session::getId());
 				
 				// Redirect the user to the order detail page
-				$this->_helper->redirector ( 'edit', 'orders', 'default', array ('id' => $theOrder['order_id'], 'mex' => 'Order created successfully', 'status' => 'success' ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'Order created successfully', 'status' => 'success' ) );
 			}
 			
 		}else{
 			
 			// Create the redirection
-			$NS->goto = array('action' => 'createorder', 'controller' => 'domainschk', 'module' => 'default', 'options' => array());
+			$session->goto = array('action' => 'createorder', 'controller' => 'domainschk', 'module' => 'default', 'options' => array());
 			 
 			$this->_helper->redirector ( 'signup', 'customer', 'default', array ('mex' => 'You have to login or create a new account profile to go on.', 'status' => 'success' ) );
 		}

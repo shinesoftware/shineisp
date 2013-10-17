@@ -131,7 +131,7 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the customer legal form information the data will be no longer restored' );
+				$this->view->description = $this->translator->translate ( 'If you delete the customer legal form information the data will no longer be restored' );
 				
 				$record = $this->legalforms->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];

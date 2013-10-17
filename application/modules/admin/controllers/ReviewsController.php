@@ -221,8 +221,8 @@ class Admin_ReviewsController extends Shineisp_Controller_Admin {
 		
 		} else {
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("Review Details");
-			$this->view->description = $this->translator->translate("Here you can check all the submit information.");
+			$this->view->title = $this->translator->translate("Details of the reviews");
+			$this->view->description = $this->translator->translate("Here you can check the submitted information.");
 			return $this->render ( 'applicantform' );
 		}
 	}

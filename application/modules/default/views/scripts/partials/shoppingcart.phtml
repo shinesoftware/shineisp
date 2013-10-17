@@ -25,7 +25,7 @@
 		                    <?php echo $this->media()->ProductImage($product['product_id'], 50, 50);?>
 		                </a>
 	                <?php else:?>
-	                    <a href="/tlds/<?php echo $product['name'] ?>.html"><img src="/common/imgtext/q/.<?php echo $product['name'] ?>/w/50/h/50/f/16" /></a>
+	                    <a href="/tlds/<?php echo $product['name'] ?>.html"><?php echo $product['name'] ?></a>
 	                <?php endif; ?>
 	            </div>
 	        </td>

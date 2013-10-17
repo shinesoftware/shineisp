@@ -46,7 +46,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 	 */
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Services list");
-		$this->view->description = $this->translator->translate("Here you can see all the subscribed services list from the customers.");
+		$this->view->description = $this->translator->translate("Here you can see all the subscribed services list by the customers.");
 		$this->view->buttons = array(array("url" => "/admin/services/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( OrdersItems::grid() )->datagrid ();
 	}
@@ -191,7 +191,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 		}
 		
 		$this->view->title = $this->translator->translate("Service Details");
-		$this->view->description = $this->translator->translate("Here you can see the datails of the service subscribed by the customer.");
+		$this->view->description = $this->translator->translate("Here you can see the details of the service subscribed by the customer.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -309,7 +309,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 		} else {
 			$this->view->form = $form;
 			$this->view->title = $this->translator->translate("Service Details");
-            $this->view->description = $this->translator->translate("Here you can see the datails of the service subscribed by the customer.");
+            $this->view->description = $this->translator->translate("Here you can see the details of the service subscribed by the customer.");
 			return $this->render ( 'applicantform' );
 		}
 	}

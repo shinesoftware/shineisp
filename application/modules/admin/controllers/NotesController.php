@@ -96,7 +96,7 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/notes/process" );
 		$this->view->title = $this->translator->translate("New Note");
-		$this->view->description = $this->translator->translate("Here you can create a new notes.");
+		$this->view->description = $this->translator->translate("Here you can create a new note.");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
 								array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
 		
@@ -129,7 +129,7 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the note will be no longer restored' );
+				$this->view->description = $this->translator->translate ( 'If you delete the note will no longer be restored' );
 				
 				$record = $this->notes->getById( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];
