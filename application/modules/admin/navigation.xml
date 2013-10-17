@@ -96,8 +96,8 @@
 						</productscategories>
 						<attributesgroups>
 							<label>Attribute Groups</label>
-							<uri>/admin/attributesgroups/list</uri>
-							<resource>admin:attributesgroups</resource>
+							<uri>/admin/productsattributesgroups/list</uri>
+							<resource>admin:productsattributesgroups</resource>
 						</attributesgroups>
 						<products>
 							<label>Products</label>

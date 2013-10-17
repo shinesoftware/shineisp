@@ -103,7 +103,7 @@ blockquote.style1 span{display:block;background-image:url(/skins/default/blank/i
 #result{height:100px;}
 #result .domain{padding-top:10px;padding-left:90px;color:#333;font-size:24px;font-weight:700;}
 #result .ordernowbtn{padding-top:15px;text-align:right;}
-#result .message{padding-left:90px;}
+#result .message{ font-size: 13px;margin-top: 8px;padding-left: 90px;}
 #result .price{color:#333;padding-left:90px;font-size:16px;margin-top:10px;}
 #panel{background:none repeat scroll 0 0 #efefef;display:none;padding:15px;}
 .slide{background:url(/skins/default/blank/images/commons/button.gif) no-repeat right top;margin:0;padding:0;}

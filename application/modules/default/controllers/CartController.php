@@ -148,7 +148,7 @@ class CartController extends Shineisp_Controller_Default {
 							->setTaxId($product['tax_id'])
 							->setSetupfee($priceInfo['setupfee'])
 							->setType(Products::getProductType($request ['product_id']));
-
+						
 						$session->cart->addItem($item);
 					}
 					
@@ -556,8 +556,6 @@ class CartController extends Shineisp_Controller_Default {
 		
 		// Update the cart totals
 		$session->cart->update();
-		
-		Zend_Debug::dump($session->cart);
 		
 		// Send the cart information to the view
 		$this->view->lastproduct = $session->lastproduct;

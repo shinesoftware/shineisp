@@ -225,7 +225,7 @@ class Cart {
 										));
 			
 			$this->addItem($domainitem);
-
+			
 			return $domainitem;
 			
 		}
@@ -372,7 +372,11 @@ class Cart {
 			$this->setSubtotal(0);
 			$this->setSetupfee(0);
 			
-			$isVATFree = Customers::isVATFree ( $this->getCustomerId () );
+			if($this->getCustomerId ()){
+				$isVATFree = Customers::isVATFree ( $this->getCustomerId () );
+			}else{
+				$isVATFree = false;
+			}
 			
 			foreach ( $this->items as $item ) {
 				$this->calcSubtotal ( $item, $isVATFree );
@@ -435,10 +439,14 @@ class Cart {
 				if ($product ['ProductsAttributesGroups'] ['isrecurring']) {
 				
 					$isrecurring = true;
-				
+					
+					Zend_Debug::dump($product);
+					
 					// Get the billyng cycle / term / recurring period price
-					$priceInfo = ProductsTranches::getTranchebyId ( $item->getTerm () );
-				
+					$priceInfo = $product['ProductsTranches'];
+					$keys = array_keys($priceInfo);
+					$priceInfo = $priceInfo[$keys[0]];
+					
 					// Price multiplier
 					$months = $priceInfo ['BillingCycle'] ['months'];
 				
@@ -447,7 +455,7 @@ class Cart {
 				
 					// Calculate the price per the months per Quantity
 					$subtotal = ($unitprice * $months) * $item->getQty ();
-				
+					
 				} else {
 					$unitprice = $product ['price_1'];
 					$setupfee = $product ['setupfee'];
