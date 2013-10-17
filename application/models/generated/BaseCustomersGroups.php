@@ -13,9 +13,9 @@ Doctrine_Manager::getInstance()->bindComponent('CustomersGroups', 'doctrine');
  * @property Customers $Customers
  * @property Isp $Isp
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseCustomersGroups extends Doctrine_Record

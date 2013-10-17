@@ -278,7 +278,7 @@ class CommonController extends Shineisp_Controller_Default {
 	
 				$this->_helper->redirector ( 'summary', 'cart', 'default', array ( 'mex' => $translator->translate('The domain has been added in your order'), 'status' => 'success' ) );
 			}else{
-				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => $translator->translate('The domain tld selected has been not found.'), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => $translator->translate('The selected Domain TLD has not been found.'), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
@@ -320,7 +320,7 @@ class CommonController extends Shineisp_Controller_Default {
 				$strprice = $translator->translate('just') . " $formatPrice!";
 
 				// Create the message
-				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is not available for registration but if you are the domain's owner and you can transfer it!") ;
+				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is unavailable for registration, but if you are the domain owner, you can transfer it!") ;
 				
 				// Reply with JSON code
 				die(json_encode(array('available' => $available, 'name' => $params['name'], 'tld' => $params['tld'], 'price' => $strprice, 'domain' => $domain, 'mex'=> $mex)));

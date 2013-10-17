@@ -31,7 +31,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
     	
         $this->addElement('text', 'outcome', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Outcome',
+            'label'      => 'Expense',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));

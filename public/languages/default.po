@@ -2580,7 +2580,7 @@ msgid "Legal form edit"
 msgstr "Forma Legale"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:61
-msgid "User has been not found."
+msgid "User not found."
 msgstr "Utente non trovato."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:67
@@ -2588,11 +2588,11 @@ msgid "The email address or password is incorrect. please try again."
 msgstr "L'indirizzo email non è corretto. Riprovare."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:80
-msgid "There was a problem during the login."
+msgid "There was a problem during the login process."
 msgstr "Si è verificato un problema durante la fase di accesso."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:86
-msgid "Post request is not valid"
+msgid "Invalid Post Request."
 msgstr "La richiesta non è valida"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/LoginController.php:129
@@ -2800,7 +2800,7 @@ msgstr "Sei sicuro di cancellare il servizio selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:218
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:249
-msgid "Service item has been not found."
+msgid "Service item not found."
 msgstr "Il servizio non è stato trovato."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PanelsactionsController.php:47
@@ -2912,7 +2912,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PaymentsController.php:129
 msgid ""
-"If you delete the Payment Transaction the record will no longer available"
+"If you delete the Payment Transaction, the record will no longer be available"
 msgstr ""
 "Se la transazione di pagamento verrà cancellata non sarà più disponibile"
 
@@ -3103,7 +3103,7 @@ msgstr ""
 "amministratore."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:151
-msgid "You can not delete the latest administrator"
+msgid "You cannot delete the latest administrator"
 msgstr "Non puoi cancellare l'ultimo amministratore"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProfileController.php:239
@@ -3425,7 +3425,7 @@ msgid "Here you can edit the role permissions."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RolesController.php:228
-msgid "There was an error on save the data."
+msgid "There was an error saving the data. Please try again."
 msgstr "C'è un problema durante il salvataggio dei dati."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:55
@@ -3531,7 +3531,7 @@ msgid "Are you sure to delete the service selected?"
 msgstr "Sei sicuro di cancellare il servizio selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:119
-msgid "The service will no longer be recoverable"
+msgid "The service will not be recoverable."
 msgstr "Il servizio non sarà più disponibile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ServicesController.php:193
@@ -3782,7 +3782,7 @@ msgid "Here you can handle the wiki category parameters"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:129
-msgid "If you delete the wiki category the record will no longer available"
+msgid "If you delete the wiki category, the record will no longer be available."
 msgstr "Se cancelli la categoria del wiki non sarà più disponibile"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:184
@@ -3884,7 +3884,7 @@ msgstr "Contattaci Adesso"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/CustomerController.php:57
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:129
-msgid "User not found. Check your credentials."
+msgid "User not found. Please check your credentials."
 msgstr ""
 "Si è verificato un problema durante la fase di accesso. Possibili cause "
 "sono: il tuo profilo è sospeso oppure l'email o la password sono errate."
@@ -3915,7 +3915,7 @@ msgid "The domain has been added in your order"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:466
-msgid "The domain tld selected has been not found."
+msgid "The selected Domain TLD has not been found."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:581
@@ -3925,11 +3925,11 @@ msgstr "Scarica fatture"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:583
 #, fuzzy
-msgid "An error has occured during the export task"
+msgid "An error occurred during the export."
 msgstr "Si è verificato un errore durante l'impostazione della password."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:82
-msgid "Email or Password incorrect"
+msgid "Email Address or Password is incorrect."
 msgstr "Email o Password non corrette."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:126
@@ -3944,7 +3944,7 @@ msgid "Email sent"
 msgstr "Email inviata."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/IndexController.php:170
-msgid "Error occurred during setting of the password."
+msgid "An error occurred while setting your password. Please try again."
 msgstr "Si è verificato un errore durante l'impostazione della password."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:92
@@ -3989,7 +3989,7 @@ msgstr "Please, select the items and then the action from the list."
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:308
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TicketsController.php:290
 #, fuzzy
-msgid "An error has occured during the task requested."
+msgid "An error occurred during the task execution."
 msgstr "Si è verificato un errore durante l'impostazione della password."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ProductsController.php:78
@@ -4149,7 +4149,7 @@ msgid "Domains Summary"
 msgstr "Sommario Domini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Graphs.php:84
-msgid "No Autorenew"
+msgid "No Auto Renew"
 msgstr "Rinnovo Disabilitato"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Webmenu.php:30
@@ -4158,7 +4158,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Webmenu.php:118
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/prices.phtml:4
-msgid "VAT not included"
+msgid "Vat Excluded"
 msgstr "IVA esclusa"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php:70
@@ -4169,7 +4169,7 @@ msgstr "Il file non è stato trovato."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php:255
-msgid "The request has been executed correctly."
+msgid "Your request has been executed."
 msgstr "La richiesta è stata effettuata correttamente."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php:181
@@ -4180,7 +4180,7 @@ msgstr "Informazioni Cliente"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Blank/Gateway.php:37
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/IWBank/Gateway.php:45
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Paypal/Gateway.php:36
-msgid "Order no."
+msgid "Order No."
 msgstr "Ordine n."
 
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Blank/Gateway.php:48
@@ -4192,7 +4192,7 @@ msgstr "Paga Adesso"
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Blank/Gateway.php:68
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/IWBank/Gateway.php:72
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Banks/Paypal/Gateway.php:62
-msgid "You will be redirected to the bank secure website, please be patience."
+msgid "You will be redirected to the secure bank website, please be patient."
 msgstr ""
 "Verrai reindirizzato nel sito sicuro della banca, un momento di pazienza."
 

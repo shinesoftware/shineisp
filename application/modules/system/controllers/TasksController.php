@@ -129,7 +129,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 			}
 			
 			// Update the log description of the panel action
-			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( "The request has been executed correctly." ) );
+			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( "Your request has been executed." ) );
 			
 			// Update the status of the task
 			PanelsActions::UpdateTaskStatus ( $task ['action_id'], Statuses::id('complete', 'domains_tasks') ); // Set the task as "Complete"
@@ -252,7 +252,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 					}
 					
 					// Update the log description of the task
-					DomainsTasks::UpdateTaskLog ( $task ['task_id'], $this->translations->translate ( "The request has been executed correctly." ) );
+					DomainsTasks::UpdateTaskLog ( $task ['task_id'], $this->translations->translate ( "Your request has been executed." ) );
 					
 					// Update the status of the task
 					DomainsTasks::UpdateTaskStatus ( $task ['task_id'], Statuses::id('complete', 'domains_tasks') ); // Set the task as "Complete"

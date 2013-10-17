@@ -115,7 +115,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		foreach ( $items as $item ) {
 			if(!empty($item ['DomainsTldsData'][0]['name'])){
 				$item ['registration_price'] = $currency->toCurrency($item ['registration_price'], array('currency' => Settings::findbyParam('currency')));
-				$html .= '<li><a title="' . Shineisp_Commons_Utilities::truncate(strip_tags($item ['DomainsTldsData'][0]['description']), 150, "...", false, true) . '" href="/tlds/' . $item ['DomainsTldsData'][0]['name'] . '.html">.<b>' . strtoupper($item ['DomainsTldsData'][0]['name']) . "</b> - " . $item ['registration_price'] . " (" . $this->translator->translate('VAT not included') . ")</a></li>";
+				$html .= '<li><a title="' . Shineisp_Commons_Utilities::truncate(strip_tags($item ['DomainsTldsData'][0]['description']), 150, "...", false, true) . '" href="/tlds/' . $item ['DomainsTldsData'][0]['name'] . '.html">.<b>' . strtoupper($item ['DomainsTldsData'][0]['name']) . "</b> - " . $item ['registration_price'] . " (" . $this->translator->translate('Vat Excluded') . ")</a></li>";
 			}
 		}
 		$html .= "</ul>";

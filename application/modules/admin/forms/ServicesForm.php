@@ -16,7 +16,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiring date',
+            'label'      => 'Expiry Date',
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));   

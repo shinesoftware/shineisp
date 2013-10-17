@@ -97,7 +97,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                 
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiring Date',
+            'label'      => 'Expiry Date',
             'description'      => 'If this date is set ShineISP will suspend the order at the specified date.',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'

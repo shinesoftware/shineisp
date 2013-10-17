@@ -119,7 +119,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete this product?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete this product?' );
 				$this->view->description = $this->translator->translate ( 'The product will be not longer available.' );
 				
 				$record = $this->products->find ( $id, null, true );
@@ -129,7 +129,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	                $this->view->recordselected = $record [0] ['ProductsData'] [0] ['name'];
                 }
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

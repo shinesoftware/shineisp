@@ -16,9 +16,9 @@ Doctrine_Manager::getInstance()->bindComponent('TicketsNotes', 'doctrine');
  * @property integer $vote
  * @property Tickets $Tickets
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseTicketsNotes extends Doctrine_Record

@@ -57,8 +57,8 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 				
 					case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
 						/** do stuff for nonexistent identity **/
-						Shineisp_Commons_Utilities::log("Login: User has been not found.", "login.log");
-						$this->view->message = $translation->translate ( 'User has been not found.' );
+						Shineisp_Commons_Utilities::log("Login: User not found.", "login.log");
+						$this->view->message = $translation->translate ( 'User not found.' );
 						break;
 				
 					case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
@@ -76,14 +76,14 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 				
 					case Zend_Auth_Result::FAILURE:
 						/** do stuff for other failure **/
-						Shineisp_Commons_Utilities::log("Login: There was a problem during the login.", "login.log");
-						$this->view->message = $translation->translate ( 'There was a problem during the login.' );
+						Shineisp_Commons_Utilities::log("Login: There was a problem during the login process.", "login.log");
+						$this->view->message = $translation->translate ( 'There was a problem during the login process.' );
 						break;
 				}
 					
 			} else {
-				Shineisp_Commons_Utilities::log("Login: Post request is not valid", "login.log");
-				$this->view->message = $translation->translate ( 'Post request is not valid' );			
+				Shineisp_Commons_Utilities::log("Login: Invalid Post Request.", "login.log");
+				$this->view->message = $translation->translate ( 'Invalid Post Request.' );			
 			}
 		}
 
@@ -126,7 +126,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 						
 						Shineisp_Commons_Utilities::SendEmail ( $user ['email'], $user ['email'], null, $subject, $template);
 						
-						$this->view->message = $translator->translate ( 'An email has been sent. Please click at the link included in the body of the email.' );
+						$this->view->message = $translator->translate ( 'An email has been sent. Please check your email and click on the link contained in the email.' );
 					}
 				}
 			}
