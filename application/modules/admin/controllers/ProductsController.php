@@ -308,6 +308,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		$this->view->orders = $orders;
 		$this->view->isSold = (bool)OrdersItems::CheckIfProductExist($id);
+		$this->view->isrecurring = $rs['ProductsAttributesGroups']['isrecurring'];
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );
