@@ -15,9 +15,9 @@ Doctrine_Manager::getInstance()->bindComponent('CustomAttributesValues', 'doctri
  * @property Doctrine_Collection $Customers
  * @property Doctrine_Collection $Servers
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseCustomAttributesValues extends Doctrine_Record

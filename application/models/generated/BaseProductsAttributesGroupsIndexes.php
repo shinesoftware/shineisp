@@ -13,9 +13,9 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsAttributesGroupsIndexes'
  * @property ProductsAttributes $ProductsAttributes
  * @property ProductsAttributesGroups $ProductsAttributesGroups
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseProductsAttributesGroupsIndexes extends Doctrine_Record

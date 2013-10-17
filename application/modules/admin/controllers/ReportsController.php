@@ -52,7 +52,7 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 						$links .= " <a href='/admin/reports/show/type/profitofyear/q/$year'>$year</a>";
 					}
 					
-					$this->view->title = $this->translator->_("Estimate revenues for %s", $param);
+					$this->view->title = $this->translator->_("Estimated Revenue for %s", $param);
 					
 					if(!empty($years)){
 						$this->view->description = $this->translator->_("Here below the economic summary of the %s.", $param) . " " . $links;

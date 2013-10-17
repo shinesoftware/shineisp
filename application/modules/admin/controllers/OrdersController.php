@@ -113,13 +113,13 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete this order?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete this order?' );
 				$this->view->description = $this->translator->translate ( 'If you delete this order all the data will no longer be available.' );
 				
 				$record = $this->orders->find ( $id );
 				$this->view->recordselected = $record ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['order_date'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -289,7 +289,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$this->view->mex = urldecode ( $this->getRequest ()->getParam ( 'mex' ) );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure to create or overwrite invoice for this order? The order is not paid.') : $this->translator->translate('Are you sure to create or overwrite invoice for this order?');
+		$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order? The order status is: not paid.') : $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order?');
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -618,7 +618,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		if ($order) {
 			if (is_numeric ( $invoiceid )) {
 				if (Invoices::sendInvoice ( $invoiceid )) {
-					$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has been sent successfully.' ), 'status' => 'success' ) );
+					$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'Invoice sent successfully.' ), 'status' => 'success' ) );
 				}
 			}
 			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
@@ -658,7 +658,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		if (is_numeric ( $request->id )) {
 			$sent = Orders::pdf( $request->id, false, true );
 			if ($sent) {
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been uploaded in dropbox.' ), 'status' => 'success' ) );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been uploaded to dropbox.' ), 'status' => 'success' ) );
 			} else {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'error' ) );
 			}

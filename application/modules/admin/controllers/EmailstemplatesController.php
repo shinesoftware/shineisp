@@ -131,7 +131,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
                 }
 				
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -149,7 +149,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		try {
 			$this->view->back = "/admin/$controller/list/";
 			$this->view->goto = "/admin/$controller/import/";
-			$this->view->title = $this->translator->translate ( 'Are you  sure to reimport all templates?' );
+			$this->view->title = $this->translator->translate ( 'Are you sure you want to reimport all templates?' );
 			$this->view->description = $this->translator->translate ( 'if you force import, all customizations made to a template from the admin panel will no longer be available.' );
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -219,7 +219,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		
 		if ( is_object( $template ) ) {
 			if ( isset($template->code) && !empty($template->code) ) {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'You can not delete system templates' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete system templates' ), 'status' => 'error' ) );
 				die();	
 			}
 			

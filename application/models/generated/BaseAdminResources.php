@@ -13,9 +13,9 @@ Doctrine_Manager::getInstance()->bindComponent('AdminResources', 'doctrine');
  * @property string $controller
  * @property Doctrine_Collection $AdminPermissions
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseAdminResources extends Doctrine_Record

@@ -112,13 +112,13 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the purchase invoice selected?' );
-				$this->view->description = $this->translator->translate ( 'The purchase will not be longer available ' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected purchase invoice?' );
+				$this->view->description = $this->translator->translate ( 'The purchase will no longer available.' );
 				
 				$record = $this->purchases->find ( $id );
 				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['creationdate'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -238,7 +238,7 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 		if(PurchaseInvoices::DeleteAttachment($id)){
 			$this->_helper->redirector ( 'edit', 'purchases', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );	
 		}else{
-			$this->_helper->redirector ( 'edit', 'purchases', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The file has not been found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'purchases', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The file cannot be found.' ), 'status' => 'error' ) );
 		}
 	}
 }

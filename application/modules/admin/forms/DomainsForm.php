@@ -45,7 +45,7 @@ class Admin_Form_DomainsForm extends Zend_Form
         
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiring Date',
+            'label'      => 'Expiry Date',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
         ));

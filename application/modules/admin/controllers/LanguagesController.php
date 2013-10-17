@@ -125,13 +125,13 @@ class Admin_LanguagesController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected record?' );
 				$this->view->description = $this->translator->translate ( 'If you delete the language information all the translated items will be deleted' );
 				
 				$record = $this->languages->find ( $id );
 				$this->view->recordselected = $record [0] ['language'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_LanguagesController extends Shineisp_Controller_Admin {
 		try {
 			$this->languages->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'languages', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'languages', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'languages', 'admin' );
 	}
@@ -244,7 +244,7 @@ class Admin_LanguagesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'languages', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'languages', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'languages', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/languages/edit/id/$id" );

@@ -113,13 +113,13 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'WARNING: Are you sure to delete this customer, domains, invoices, orders, tickets?' );
+				$this->view->title = $this->translator->translate ( 'WARNING: Are you sure you want to delete this customer, their domains, invoices, orders and tickets?' );
 				$this->view->description = $this->translator->translate ( 'If you delete this customer whole information will no longer be available anymore.' );
 				
 				$record = $this->customers->find ( $id );
 				$this->view->recordselected = $record ['firstname'] . " " . $record ['lastname'] . " " . $record ['company'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -143,7 +143,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 					}
 					
 				} catch ( Exception $e ) {
-					$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $customer['customer_id'], 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+					$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $customer['customer_id'], 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 				}
 			}
 		}
@@ -165,7 +165,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 						$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $customer['customer_id'], 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 					}
 				} catch ( Exception $e ) {
-					$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $customer['customer_id'], 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+					$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $customer['customer_id'], 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 				}
 			}
 		}
@@ -182,7 +182,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 					$this->_helper->redirector ( 'list', 'customers', 'admin', array ('mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 				}
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'list', 'customers', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'customers', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 		}
 	}
@@ -200,7 +200,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 				Customers::del($id);
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
 		
 		$this->_helper->redirector ( 'list', 'customers', 'admin', array ('mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
@@ -279,7 +279,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 				
 				$columns[] = $this->translator->translate('Domain');
 				$columns[] = $this->translator->translate('Created at');
-				$columns[] = $this->translator->translate('Expiring date');
+				$columns[] = $this->translator->translate('Expiry Date');
 				
 				return array ('name' => 'domains', 'columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'domains', 'action' => 'edit' ), 'pager' => true );
 			}
@@ -330,7 +330,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 				}
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'customers', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
 	}	
 	

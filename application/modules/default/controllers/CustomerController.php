@@ -54,7 +54,7 @@ class CustomerController extends Shineisp_Controller_Default {
 			$result = new Zend_Auth_Result ( Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, $params ['email'] );
 			$NS->customer = null;
 			$this->view->form = $form;
-			$this->view->message = $translator->translate ( 'User not found. Check your credentials.' );
+			$this->view->message = $translator->translate ( 'User not found. Please check your credentials.' );
 			return $this->_helper->viewRenderer ( 'login' ); // re-render the login form
 		} else {
 			$result = new Zend_Auth_Result ( Zend_Auth_Result::SUCCESS, null );

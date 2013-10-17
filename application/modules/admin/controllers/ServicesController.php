@@ -115,13 +115,13 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the service selected?' );
-				$this->view->description = $this->translator->translate ( 'The service will no longer be recoverable' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the service selected?' );
+				$this->view->description = $this->translator->translate ( 'The service will not be recoverable.' );
 				
 				$record = $this->services->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['description'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -302,7 +302,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'services', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'services', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'services', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/services/edit/id/$id" );

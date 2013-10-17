@@ -89,7 +89,7 @@ class DomainsController extends Shineisp_Controller_Default {
 
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = $this->translator->translate("Domains List");
+		$this->view->title = $this->translator->translate("Domain Listing");
 		$this->view->description = $this->translator->translate("Here you can see all the list of your domains.");
 		$this->view->domains = $data;
 	}
@@ -445,7 +445,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			$cvs = Shineisp_Commons_Utilities::cvsExport ( $domains );
 			die ( json_encode ( array ('mex' => '<a href="/public/documents/export.csv">' . $registry->Zend_Translate->translate ( "Download" ) . '</a>' ) ) );
 		}
-		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error has occured during the export task" ) ) ) );
+		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error occurred during the export." ) ) ) );
 	}
 	
 	

@@ -131,8 +131,8 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 				switch ($exec) {
 					
 					default :
-						$this->view->title = $this->translator->translate ( 'Are you sure to delete the domain?' );
-						$this->view->description = $this->translator->translate ( 'If a domain has been deleted it is no more restorable.' );
+						$this->view->title = $this->translator->translate ( 'Are you sure you want to delete this domain?' );
+						$this->view->description = $this->translator->translate ( 'If a domain is deleted, you will not be able to restore it.' );
 						$this->view->back = "/admin/$controller/edit/id/$id";
 						$this->view->goto = "/admin/$controller/delete/id/$id";
 						break;
@@ -141,7 +141,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 				$record = $this->domains->find ( $id, "CONCAT(d.domain, '.', d.tld) as domain", true );
 				$this->view->recordselected = $record [0] ['domain'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

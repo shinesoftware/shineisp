@@ -106,13 +106,13 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the credit note selected?' );
-				$this->view->description = $this->translator->translate ( 'The credit note will not be longer available ' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected credit note?' );
+				$this->view->description = $this->translator->translate ( 'The credit note will no longer be available. ' );
 				
 				$record = $this->creditnotes->find ( $id );
 				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['creationdate'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
