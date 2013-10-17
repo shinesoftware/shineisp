@@ -104,7 +104,7 @@ class Customers extends BaseCustomers {
 	 * @param array_item password
 	 * @param array_item company
 	 * @param array_item statusId
-	 * @param array_item sex
+	 * @param array_item gender
 	 * @param array_item birthplace
 	 * @param array_item birthdate
 	 * @param array_item birthcountry
@@ -138,7 +138,7 @@ class Customers extends BaseCustomers {
 		$customer->company          = !empty($data ['company']) ? $data ['company'] : null;
 		$customer->firstname        = !empty($data ['firstname']) ? $data ['firstname'] : null;
 		$customer->lastname         = !empty($data ['lastname']) ? $data ['lastname'] : null;
-		$customer->sex              = !empty($data ['sex']) ? $data ['sex'] : null;
+		$customer->gender           = !empty($data ['gender']) ? $data ['gender'] : null;
 		$customer->email            = $data ['email'] ? $data ['email'] : null;
 		$customer->password         = crypt($data ['password']);
 		$customer->birthplace       = !empty($data ['birthplace']) ? $data ['birthplace'] : null;
@@ -273,7 +273,7 @@ class Customers extends BaseCustomers {
 		$customer = self::getAllInfo($id);
 
 		// tax free also means vat free
-		if ( $customer['taxfree'] == 1 ) {
+		if (!empty($customer['taxfree']) && $customer['taxfree'] ) {
 			return true;
 		}
 
@@ -325,7 +325,7 @@ class Customers extends BaseCustomers {
 			$customer['company'] = $data['company'];
 			$customer['firstname'] = $data['firstname'];
 			$customer['lastname'] = $data['lastname'];
-			$customer['sex'] = $data['sex'];
+			$customer['gender'] = $data['gender'];
 			
 			if (! empty ( $data ['password'] )) {
 				$customer['password'] = crypt($data['password']);
@@ -1287,7 +1287,7 @@ class Customers extends BaseCustomers {
 			$customer->addChild('company', htmlentities($item['company']));
 			$customer->addChild('firstname',$item['firstname']);
 			$customer->addChild('lastname',$item['lastname']);
-			$customer->addChild('sex',$item['sex']);
+			$customer->addChild('gender',$item['gender']);
 			$customer->addChild('email',$item['email']);
 			$customer->addChild('password',$item['password']);
 			$customer->addChild('birthdate',$item['birthdate']);
@@ -1422,7 +1422,7 @@ class Customers extends BaseCustomers {
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Company'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Firstname'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Lastname'));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Sex'));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Gender'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Email'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Password'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Birthdate'));
@@ -1457,7 +1457,7 @@ class Customers extends BaseCustomers {
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['company']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['firstname']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['lastname']);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['sex']);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['gender']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['email']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['password']);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, $row, $item['birthdate']);

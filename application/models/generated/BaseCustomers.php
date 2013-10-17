@@ -12,7 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property string $company
  * @property string $firstname
  * @property string $lastname
- * @property string $sex
+ * @property string $gender
  * @property string $email
  * @property string $password
  * @property string $resetpwd_key
@@ -103,7 +103,7 @@ abstract class BaseCustomers extends Doctrine_Record
              'notnull' => false,
              'length' => '100',
              ));
-        $this->hasColumn('sex', 'string', 1, array(
+        $this->hasColumn('gender', 'string', 1, array(
              'type' => 'string',
              'notnull' => false,
              'length' => '1',

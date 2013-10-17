@@ -4,7 +4,7 @@ Customers:
     company: 'Shine Software'
     firstname: Giuseppe
     lastname: Bucchieri
-    sex: M
+    gender: M
     email: null
     password: $1$dPJ2W5U5$RgLGkbQJVEmJGdzDSQ5AT.
     resetpwd_key: ''
@@ -37,7 +37,7 @@ Customers:
     company: 'WebDesign Software & Co.'
     firstname: Ron
     lastname: Howard
-    sex: M
+    gender: M
     email: null
     password: $1$lJ8L/EfR$lbrrwuuW3VI11k9sRFmQA0
     resetpwd_key: null
@@ -70,7 +70,7 @@ Customers:
     company: 'Shop Design & Co.'
     firstname: John
     lastname: Doe
-    sex: M
+    gender: M
     email: null
     password: $1$wdxR8fSM$gc3Omhq4mQbrlHpySX1QC0
     resetpwd_key: null
@@ -102,7 +102,7 @@ Customers:
     company: 'Parker & sons'
     firstname: Ronald
     lastname: Parker
-    sex: M
+    gender: M
     email: null
     password: $6$4RK6Nbce$p3OVuucm697zFW2is0RtRM4w8ylyPfst2P5i0Sd/qJHYvFjwigJubS6HYJp3EqZsf67agPlAtSh5i8PtinmGx0
     resetpwd_key: null
@@ -134,7 +134,7 @@ Customers:
     company: 'Web Russian Designers'
     firstname: Louise
     lastname: Romanov
-    sex: F
+    gender: F
     email: null
     password: $6$lPb6QzWf$sZabhoUoOnfKXHz9nxGwD9xsk8VvtORpNWFOWt1t384M6HToiG2CIA2507LzfyJdGm8kqHnItNNyKGOxXF.28/
     resetpwd_key: null
@@ -166,7 +166,7 @@ Customers:
     company: null
     firstname: Stew
     lastname: Andrews
-    sex: null
+    gender: null
     email: null
     password: $6$nAX/uUD5$69X1Un7nU8ZH8Z9K5ddaFsbVpj1G3muK2a/GU2MIwukBRmqkapZ2MbpiNq0pTmY0MbMwPFp3vWzq7MhCdPzdR/
     resetpwd_key: null
@@ -198,7 +198,7 @@ Customers:
     company: 'Consectetuer Web Associates'
     firstname: Florence
     lastname: Dudley
-    sex: null
+    gender: null
     email: null
     password: $6$kA/mNRdq$YO8Q.8DSm9UKnaDePCpmXn316/8plZ5c6zq/CO25A9xZPAdQNpc4.dp48ABwse7JHxetcZzR2mwQmIsKb9WdM/
     resetpwd_key: null

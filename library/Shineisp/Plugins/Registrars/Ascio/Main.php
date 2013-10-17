@@ -801,7 +801,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 							$this->session['id'], // Session
 							$customer ['lastname'], // Lastname
 							$customer ['firstname'], // Firstname 
-							$customer ['sex'], // Sex
+							$customer ['sex'], // Gender
 							Shineisp_Commons_Utilities::GenerateRandomString(), // Password
 							$customer ['email'], // Email
 							$customer ['contact'], // Phone

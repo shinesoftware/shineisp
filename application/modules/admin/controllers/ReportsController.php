@@ -135,14 +135,14 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 				$this->view->data = array ('records' => Tickets::Last(), 'actions' => array ('/admin/tickets/edit/id/' => 'show' ), 'pager' => true );
 				break;
 			
-			case 'domainsexpiration' :
+			case 'domaingenderpiration' :
 				$this->view->title = $this->translator->translate("Expiration list of domains");
 				$this->view->description = $this->translator->translate("This view helps you to check which are the domains next to expiration.");
 				$this->view->graph = "";
 				$this->view->data = array ('records' => Domains::getExpiringDomains(), 'actions' => array ('/admin/domains/edit/id/' => 'show' ), 'pager' => true );
 				break;
 			
-			case 'servicesexpiration' :
+			case 'servicegenderpiration' :
 				$this->view->title = $this->translator->translate("Expiration list of services");
 				$this->view->description = $this->translator->translate("This view helps you to check which are the services next to expiration.");
 				$this->view->graph = "";

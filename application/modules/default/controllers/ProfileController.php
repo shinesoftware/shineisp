@@ -66,7 +66,7 @@ class ProfileController extends Shineisp_Controller_Default {
 		$this->view->title = $this->translator->translate("Profile details");
 		$this->view->description = $this->translator->translate("Update here your details filling the applicant form with all the information about you.");
 		
-		$rs = Customers::getAllInfo ( $this->profile ['customer_id'], "c.customer_id as customer_id, c.firstname as firstname, c.lastname as lastname, c.company as company, c.type_id as company_type_id, c.legalform_id as legalform, c.email as email, c.vat as vat, a.address as address, a.city as city, a.code as code, a.country_id as country_id, a.area as area, DATE_FORMAT(c.birthdate,'%d/%m/%Y') as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.sex as sex, c.birthdistrict as birthdistrict, c.birthcountry as birthcountry, c.birthnationality as birthnationality, c.issubscriber as newsletter" );
+		$rs = Customers::getAllInfo ( $this->profile ['customer_id'], "c.customer_id as customer_id, c.firstname as firstname, c.lastname as lastname, c.company as company, c.type_id as company_type_id, c.legalform_id as legalform, c.email as email, c.vat as vat, a.address as address, a.city as city, a.code as code, a.country_id as country_id, a.area as area, DATE_FORMAT(c.birthdate,'%d/%m/%Y') as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.gender as gender, c.birthdistrict as birthdistrict, c.birthcountry as birthcountry, c.birthnationality as birthnationality, c.issubscriber as newsletter" );
 		
 		if (! empty ( $rs )) {
 			$form->populate ( $rs );
@@ -193,7 +193,7 @@ class ProfileController extends Shineisp_Controller_Default {
 					$customer->taxpayernumber = $params ['taxpayernumber'];
 					$customer->type_id = ! empty ( $params ['company_type_id'] ) ? $params ['company_type_id'] : NULL;
 					$customer->legalform_id = $params ['legalform'];
-					$customer->sex = $params ['sex'];
+					$customer->gender = $params ['gender'];
 					
 					// Save the data
 					$customer->save ();
