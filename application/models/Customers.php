@@ -273,7 +273,7 @@ class Customers extends BaseCustomers {
 		$customer = self::getAllInfo($id);
 
 		// tax free also means vat free
-		if ( $customer['taxfree'] == 1 ) {
+		if (!empty($customer['taxfree']) && $customer['taxfree'] ) {
 			return true;
 		}
 

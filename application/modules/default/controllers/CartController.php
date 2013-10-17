@@ -528,7 +528,6 @@ class CartController extends Shineisp_Controller_Default {
 		}
 		
 	}
-
 	
 	/*
      * Review the cart before the payment action
@@ -550,9 +549,7 @@ class CartController extends Shineisp_Controller_Default {
 		$cart_heading = $session->cart->getHeading();
 		
 		// Check if the user is VAT free
-		$isVATFree = Customers::isVATFree($cart_heading['customer']['id']);
-		
-		$this->view->isVATFree	= $isVATFree;
+		$this->view->isVATFree	= Customers::isVATFree($cart_heading['customer']['id']);
 		
 		// Update the cart totals
 		$session->cart->update();

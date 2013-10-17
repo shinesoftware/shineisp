@@ -176,11 +176,11 @@ class Default_Form_ProfileForm extends Zend_Form
                   ->setRequired(true);                  
                   
         $this->addElement('select', 'newsletter', array(
-        'label' => 'Newsletter',
-        'description'   => 'Subscribe to our free content feeds and get all the news for your bought services and products.',
-        'decorators' => array('Composite'),
-        'class'      => 'text-input medium-input'));
-        
+					        'label' => 'Newsletter',
+					        'description'   => 'Subscribe to our free content feeds and get all the news for your bought services and products.',
+					        'decorators' => array('Composite'),
+					        'class'      => 'text-input medium-input'));
+					        
         $this->getElement('newsletter')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(array('0' => 'No, I am not interested', '1' => 'Yes, please send me your updates'))

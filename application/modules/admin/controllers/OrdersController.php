@@ -300,7 +300,6 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 									array("url" => "/admin/orders/sendorder/id/$id", "label" => $this->translator->translate('Email'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
 									array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
-									array("url" => "/admin/customers/edit/id/".$rs ['customer_id'], "label" => $this->translator->translate('Customer'), "params" => array('css' => array('button', 'float_right'))),
 								);
 		
 		// Check if the order has been invoiced
