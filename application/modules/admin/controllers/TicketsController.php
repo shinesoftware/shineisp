@@ -117,13 +117,13 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete this ticket and its messages?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete this ticket and all associated messages?' );
 				$this->view->description = $this->translator->translate ( 'The ticket will no longer be available.' );
 				
 				$record = $this->tickets->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['subject'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -221,7 +221,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 					$userlink .= " [<a href='/admin/customers/edit/id/".$rs[0]['customer_id']."'>".$rs[0]['company']."</a>]";
 				}
 				
-				$description[] = $this->translator->_("Ticket support from %s", $userlink);
+				$description[] = $this->translator->_("Support Ticket from %s", $userlink);
 				$description[] = TicketsCategories::getName($rs[0]['category']);
 				$description[] = $this->translator->_("Opened at %s", $rs[0]['date_open']);
 				

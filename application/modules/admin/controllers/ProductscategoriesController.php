@@ -114,12 +114,12 @@ class Admin_ProductscategoriesController extends Shineisp_Controller_Admin {
                 $this->view->back = "/admin/$controller/edit/id/$id";
                 $this->view->goto = "/admin/$controller/delete/id/$id";
                 $this->view->title = $this->translator->translate ( 'Do you want delete this category?' );
-                $this->view->description = $this->translator->translate ( 'If you delete the record, the category is no longer available.' );
+                $this->view->description = $this->translator->translate ( 'If you delete this record, the category will no longer be available.' );
                 
                 $record = $this->productscategories->find ( $id);
                 $this->view->recordselected = $record [0] ['name'];
             } else {
-                $this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+                $this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
             }
         } catch ( Exception $e ) {
             echo $e->getMessage ();
@@ -136,7 +136,7 @@ class Admin_ProductscategoriesController extends Shineisp_Controller_Admin {
 		try {
 			$this->productscategories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'productscategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'productscategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'productscategories', 'admin' );
 	}
@@ -230,7 +230,7 @@ class Admin_ProductscategoriesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'productscategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'productscategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'productscategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/productscategories/edit/id/$id" );

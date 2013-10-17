@@ -17,7 +17,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
     	
     	$this->addElement('text', 'expiringdate', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiring Date',
+            'label'      => 'Expiry Date',
             'title'      => 'es: 01/11/2011',
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'

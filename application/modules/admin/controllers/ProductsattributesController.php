@@ -111,13 +111,13 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters the customers cannot pay you anymore with this method of payment' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected record?' );
+				$this->view->description = $this->translator->translate ( 'If you delete the selected bank information, your customers will not be able to pay you with this method of payment' );
 	
 				$record = $this->productsattributes->find ( $id )->toArray();
 				$this->view->recordselected = $record ['code'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Attribute deleted' ), 'status' => 'information' ) );	
 			}
 		}
-		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 	}
 	
 	/**

@@ -106,13 +106,13 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete this panel configuration?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete this panel configuration?' );
 				$this->view->description = $this->translator->translate ( 'The configuration will no longer be available.' );
 				
 				$record = $this->panel->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['subject'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

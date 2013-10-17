@@ -125,13 +125,13 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the Payment Transaction the record will no longer available' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected record?' );
+				$this->view->description = $this->translator->translate ( 'If you delete the Payment Transaction, the record will no longer be available' );
 				
 				$record = $this->payments->getbyId( $id );
 				$this->view->recordselected = "# " . $id . " - " . $record->reference;
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 		try {
 			$this->payments->getbyId ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'payments', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'payments', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'payments', 'admin' );
 	}
@@ -235,7 +235,7 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'payments', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'payments', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'payments', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/payments/edit/id/$id" );

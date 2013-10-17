@@ -26,7 +26,7 @@ class Admin_Form_NotesForm extends Zend_Form
         $this->addElement('text', 'expire', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Expiring date',
+            'label'       => 'Expiry Date',
             'class'       => 'text-input large-input date'
         ));
         

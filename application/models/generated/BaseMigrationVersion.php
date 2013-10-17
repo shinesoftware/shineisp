@@ -9,9 +9,9 @@ Doctrine_Manager::getInstance()->bindComponent('MigrationVersion', 'doctrine');
  * 
  * @property integer $version
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseMigrationVersion extends Doctrine_Record

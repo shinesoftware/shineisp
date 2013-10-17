@@ -134,21 +134,21 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 			 
 			//* you can't delete yourself 
 			if ( $id == $identity['user_id'] ) {
-				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You can not delete yourself.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete yourself.' ), 'status' => 'error' ) );
 				die();	
 			}			 
 			
 			//* administrators cannod be deleted by unprivileged users
 			if ( AdminRoles::isAdministrator($id) ) {
 				if ( (int)$identity['role_id'] != 1 ) {
-					$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'The administrator profile can be deleted only by administrator.'), 'status' => 'error' ) );
+					$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'The administrator profile can only be deleted by an administrator.'), 'status' => 'error' ) );
 					die();	
 				}
 			}			 
 			 
 			//* you can't delete the latest administrator
 			if(AdminRoles::isAdministrator($id) && $adminCount <= 1){
-				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You can not delete the latest administrator' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete the latest administrator' ), 'status' => 'error' ) );
 				die();	
 			}
 			
@@ -170,13 +170,13 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete this page?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete this page?' );
 				$this->view->description = $this->translator->translate ( 'The page will no longer be available.' );
 	
 				$record = $this->profile->find ( $id );
 				$this->view->recordselected = $record ['lastname'] . " " . $record ['firstname'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

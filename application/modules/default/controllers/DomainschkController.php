@@ -157,7 +157,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 				$strprice = $translator->translate('just') ." ". $currency->toCurrency($price * ($taxpercent + 100) / 100, array('currency' => Settings::findbyParam('currency')));
 
 				// Create the message
-				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is not available for registration but if you are the domain's owner and you can transfer it!") ;
+				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is unavailable for registration, but if you are the domain owner, you can transfer it!") ;
 				
 				$this->view->form = $form;
 				$this->view->results = array('available' => $available, 'name' => $params['name'], 'tld' => $params['tld'], 'price' => $strprice, 'domain' => $domain, 'mex'=> $mex);
@@ -199,7 +199,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 				$strprice = $translator->translate('just') ." ". $currency->toCurrency($price * ($taxpercent + 100) / 100, array('currency' => Settings::findbyParam('currency')));
 				
 				// Create the message
-				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is not available for registration but if you are the domain's owner and you can transfer it!") ;
+				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is unavailable for registration, but if you are the domain owner, you can transfer it!") ;
 				
 				$result[] = array('available' => $available, 'name' => $name, 'tld' => $tld['tld_id'], 'price' => $strprice, 'domain' => $domain, 'mex'=> $mex);
 			}

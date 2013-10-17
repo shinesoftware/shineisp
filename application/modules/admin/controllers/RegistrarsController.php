@@ -128,13 +128,13 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters the registrar will be no more available.' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected record?' );
+				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters, the registrar will no longer be available.' );
 				
 				$record = $this->registrars->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

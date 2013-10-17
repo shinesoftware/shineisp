@@ -33,7 +33,7 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
 		if ($order) {
 			$form = "";
 			$url = $bank ['test_mode'] ? $bank ['url_test'] : $bank ['url_official'];
-			$item_name = $translator->translate ( "Order no." ) . " " . self::getOrderID () . " - " . date ( 'Y' );
+			$item_name = $translator->translate ( "Order No." ) . " " . self::getOrderID () . " - " . date ( 'Y' );
 			$custom = self::getOrderID ();
 			
 			if (! self::isHidden ()) {
@@ -62,7 +62,7 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
 			
 			if (self::doRedirect ()) {
 				$form .= "<html><head></head><body>";
-				$form .= $translator->translate ( 'You will be redirected to the bank secure website, please be patience.' );
+				$form .= $translator->translate ( 'You will be redirected to the secure bank website, please be patient.' );
 				$form .= "<script type=\"text/javascript\">\nsetTimeout(function () {\ndocument.forms[0].submit();\n}, 3000);\n</script></body></html>";
 			}
 			

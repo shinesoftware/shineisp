@@ -14,9 +14,9 @@ Doctrine_Manager::getInstance()->bindComponent('NewslettersSubscribers', 'doctri
  * @property Customers $Customers
  * @property Doctrine_Collection $NewslettersHistory
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseNewslettersSubscribers extends Doctrine_Record
