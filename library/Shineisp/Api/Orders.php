@@ -57,7 +57,7 @@ class Shineisp_Api_Orders extends Shineisp_Api_Abstract_Action  {
             $quantity   = intval( $product['quantity']);
             $p          = Products::getAllInfo($productid);
             
-            $options    = array( 'callback_url' => $product['urlactive'], 'uuid' => $product['uuid']);
+            $options    = array( 'uuid' => $product['uuid']);
             
             $upgrade    = false;
             if( array_key_exists('upgrade', $product) && $product['upgrade'] != false ) {

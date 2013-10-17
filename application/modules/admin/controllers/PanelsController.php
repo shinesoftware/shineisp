@@ -107,7 +107,7 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this panel configuration?' );
-				$this->view->description = $this->translator->translate ( 'The configuration will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'The configuration will no longer be available.' );
 				
 				$record = $this->panel->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['subject'] );
@@ -161,7 +161,7 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 			$this->view->buttons[] = array("url" => "/admin/panels/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
 		}
 		
-		$this->view->title = $this->translator->translate("ISP Panels Configuration");
+		$this->view->title = $this->translator->translate("ISP Panel Configuration");
 		$this->view->description = $this->translator->translate("Here you can edit the ISP control panel configuration.");
 		
 		$this->view->form = $form;

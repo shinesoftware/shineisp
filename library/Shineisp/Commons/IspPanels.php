@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class read the ISP Panels configuration 
+ * This class read the ISP Panel configuration 
  * @version 1.0
  * @author Shine Software
  */

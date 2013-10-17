@@ -44,8 +44,8 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Url rewrite list");
-		$this->view->description = $this->translator->translate("Here you can see all the url rewrite.");
+		$this->view->title = $this->translator->translate("URL Rewrite");
+		$this->view->description = $this->translator->translate("Here you can see all the url rewrite items.");
 		$this->datagrid->setConfig ( Urlrewrite::grid() )->datagrid ();
 	}
 
@@ -93,8 +93,8 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/urlrewrite/process" );
-		$this->view->title = $this->translator->translate("Url Rewrite Details");
-		$this->view->description = $this->translator->translate("Here you can handle the url rewrite parameters");
+		$this->view->title = $this->translator->translate("Url Rewrite");
+		$this->view->description = $this->translator->translate("Here you can handle the parameters of the url rewrite");
 		$this->render ( 'applicantform' );
 	}
 	
@@ -122,7 +122,7 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete the record selected?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters the customers cannot pay you anymore with this method of payment' );
+				$this->view->description = $this->translator->translate ( 'If you delete the url rewrite the record will no longer be available' );
 				
 				$record = $this->urlrewrite->find ( $id );
 				$this->view->recordselected = $record [0] ['name'];
@@ -166,8 +166,8 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 			}
 		}
 		
-		$this->view->title = $this->translator->translate("Url Rewrite Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main Url Rewrite information paramenters.");
+		$this->view->title = $this->translator->translate("Url Rewrite");
+        $this->view->description = $this->translator->translate("Here you can edit the parameters of the Url Rewrite.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -227,7 +227,7 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 		} else {
 			$this->view->form = $form;
 			$this->view->title = $this->translator->translate("Url Rewrite Processing form");
-			$this->view->description = $this->translator->translate("There was an error during the insert of data");
+			$this->view->description = $this->translator->translate("An error occurred in entering data ");
 			return $this->render ( 'applicantform' );
 		}
 	}

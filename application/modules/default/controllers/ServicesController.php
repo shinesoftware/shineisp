@@ -159,8 +159,8 @@ class ServicesController extends Shineisp_Controller_Default {
 			$this->view->days = $rs ['daysleft'];
 		}
 		
-		$this->view->title = $this->translator->translate("Service Details");
-		$this->view->description = $this->translator->translate("List of all the service details.");
+		$this->view->title = $this->translator->translate("Detail of the service");
+		$this->view->description = $this->translator->translate("Here you can see the detail of the service.");
 		$this->view->dnsdatagrid = $this->dnsGrid ();
 		$this->view->form = $form;
 		$this->_helper->viewRenderer ( 'customform' );
@@ -184,7 +184,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		if (! $form->isValid ( $request->getPost () )) {
 			// Invalid entries
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("Service processing");
+			$this->view->title = $this->translator->translate("Service");
 			$this->view->description = $this->translator->translate("Check all the fields and click on the save button");
 			return $this->_helper->viewRenderer ( 'customform' ); // re-render the login form
 		}
@@ -281,7 +281,7 @@ class ServicesController extends Shineisp_Controller_Default {
 			$cvs = Shineisp_Commons_Utilities::cvsExport ( $service );
 			die ( json_encode ( array ('mex' => '<a href="/public/documents/export.csv">' . $registry->Zend_Translate->translate ( "download" ) . '</a>' ) ) );
 		}
-		die ( json_encode ( array ('mex' => $this->translator->translate ( "exporterror" ) ) ) );
+		die ( json_encode ( array ('mex' => $this->translator->translate ( "There was a problem during the export process" ) ) ) );
 	}
 	
 	/*

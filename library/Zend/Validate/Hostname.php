@@ -173,7 +173,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      * (.NET) International http://www.verisign.com/information-services/naming-services/internationalized-domain-names/index.html
      * (.NO) Norway http://www.norid.no/domeneregistrering/idn/idn_nyetegn.en.html
      * (.NU) Niue http://www.worldnames.net/
-     * (.ORG) International http://www.pir.org/index.php?db=content/FAQs&tbl=FAQs_Registrant&id=2
+     * (.ORG) International http://www.pir.org/index.php?db=content/FAQs&tbl=FAQs_Registrar&id=2
      * (.PE) Peru https://www.nic.pe/nuevas_politicas_faq_2.php
      * (.PL) Poland http://www.dns.pl/IDN/allowed_character_sets.pdf
      * (.PR) Puerto Rico http://www.nic.pr/idn_rules.asp

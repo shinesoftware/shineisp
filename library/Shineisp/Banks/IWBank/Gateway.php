@@ -52,10 +52,6 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 			$form .= '<form id="iwsmile" method="POST" action="' . $url . '">';
 			$form .= '<input type="hidden" name="cmd" value="cart" />';
 			
-			if (! self::isHidden ()) {
-				$form .= '<input class="button small" type="submit" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
-			}
-			
 			$form .= '<input type="hidden" name="PAYER_FIRSTNAME" value="' . $order ['Customers'] ['firstname'] . '">';
 			$form .= '<input type="hidden" name="PAYER_LASTNAME" value="' . $order ['Customers'] ['lastname'] . '">';
 			$form .= '<input type="hidden" name="PAYER_EMAIL" value="' . $order ['Customers'] ['email'] . '">';
@@ -70,18 +66,20 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 			$form .= '<input type="hidden" name="URL_OK" value="' . self::getUrlOk () . '">';
 			$form .= '<input type="hidden" name="URL_BAD" value="' . self::getUrlKo () . '">';
 			$form .= '<input type="hidden" name="FLAG_ONLY_IWS" value="0">';
+			if (!self::doRedirect ()) {
+				$form .= '<input class="button small" type="submit" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
+			}
 			$form .= '</form>';
 			
 			if (self::doRedirect ()) {
-				$form .= "<html><head></head><body>";
 				$form .= $translator->translate ( 'You will be redirected to the bank secure website, please be patience.' );
-				$form .= "<script type=\"text/javascript\">\n$('#iwsmile').submit();\n</script></body></html>";
+				$form .= "<script type=\"text/javascript\">\nsetTimeout(function () {\n$('#iwsmile').submit();\n}, 3000);\n</script>";
 			}
-			
-			return $form;
+
+			return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $form);
 		}
 
-        return "ERRORE";
+        return $translator->translate('There was a problem during the IWBank payment form creation');
 	
 	}
 	

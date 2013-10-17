@@ -44,7 +44,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("File categories list");
+		$this->view->title = $this->translator->translate("File categories");
 		$this->view->description = $this->translator->translate("Here you can see all the file categories.");
 		$this->view->buttons = array(array("url" => "/admin/filecategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
 		$this->datagrid->setConfig ( FilesCategories::grid() )->datagrid ();
@@ -180,7 +180,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 		}
 		
 		$this->view->title = $this->translator->translate("File category Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main file category information paramenters. Be careful, if you change something the module could be damaged.");
+        $this->view->description = $this->translator->translate("Here you can edit the main file category information parameters. Be careful, if you change something the module could be damaged.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

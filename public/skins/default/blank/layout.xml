@@ -117,6 +117,13 @@
             </head>
         </orders> 
         
+        <cart>
+            <head>
+                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
+                <js>/js/cpanels.js</js>
+            </head>
+        </cart> 
+        
         <services>
             <head>
                 <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>

@@ -21,7 +21,9 @@ class Shineisp_Banks_BankTransfer_Gateway extends Shineisp_Banks_Abstract implem
 		
 		try {
 			$form = "<h4>" . $bank ['name'] . "</h4><p>" . $bank ['description'] . "</p>";	
-			return $form;
+
+			return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $form);
+
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
 		}

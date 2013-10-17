@@ -166,7 +166,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	}
 	
 	/**
-	 * Check if the user has set the credencials in the administration panel
+	 * Check if the user has set the credentials in the administration panel
 	 */
 	public static function isReady() {
 		$email = Settings::findbyParam ( 'dropbox_email' );
@@ -174,7 +174,7 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 		if (! empty ( $email ) && ! empty ( $password )) {
 			return true;
 		}
-		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credencials", "plugin_dropbox.log");
+		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credentials", "plugin_dropbox.log");
 		return false;
 	}
 	

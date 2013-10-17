@@ -357,11 +357,26 @@ class OrdersItems extends BaseOrdersItems {
 			
 		
 		$details = Doctrine::getTable ( 'OrdersItems' )->find ( $id );
+		
+		// Get the taxes applied
+		$tax = Taxes::getTaxbyProductID($params['product_id']);
+		if ($tax['percentage'] > 0) {
+			$rowtotal = $params ['price'] * (100 + $tax['percentage']) / 100;
+			$vat = ($params ['price'] * $tax['percentage']) / 100;
+			$percentage = $tax['percentage'];
+		} else {
+			$rowtotal = $params ['price'];
+			$vat = null;
+			$percentage = null;
+		}
+		
 		$details->quantity         = $params ['quantity'];
 		$details->date_start       = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
 		$details->date_end         = Shineisp_Commons_Utilities::formatDateIn($params ['date_end']);
 		$details->billing_cycle_id = !empty($params['billing_cycle_id']) ? $params ['billing_cycle_id'] : null;
 		$details->price            = $params ['price'];
+		$details->vat              = $vat;
+		$details->percentage       = $percentage;
 		$details->cost             = $params ['cost'];
 		$details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
 		$details->setupfee         = $params ['setupfee'];
@@ -520,7 +535,7 @@ class OrdersItems extends BaseOrdersItems {
 		$dq = Doctrine_Query::create ()->select ( $fields )->from ( 'OrdersItems oi' )
 		->leftJoin ( 'oi.Products p' )
 		->where ( "order_id = ?", $id )
-		->andWhere ( "p.type = 'hosting' OR p.type = 'domain' OR oi.callback_url != '' OR oi.tld_id > 0 ")
+		->andWhere ( "p.type = 'hosting' OR p.type = 'domain' OR oi.tld_id > 0 ")
 		->andWhere ( "oi.status_id != ?", Statuses::id('complete','orders')); // !Complete
 
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
@@ -1139,33 +1154,32 @@ class OrdersItems extends BaseOrdersItems {
             Shineisp_Commons_Utilities::logs ( __METHOD__ .  " - Order changed from #".$oldOrderId." to #".$OrderItem['order_id'] );
         } 		 
 		
-		// callback_url is set, skip server activation and let's do the call to the remote API
-		if ( !empty($OrderItem['callback_url']) ) {
+// 		if ( !empty($OrderItem['callback_url']) ) {
 			
-			// Set item to complete			
-            OrdersItems::set_status($orderItemId, Statuses::id("complete", "orders"));
-            $ordersItem = self::find($orderItemId);
-            $ordersItem = $ordersItem->toArray();
-            $OrderItem  = array_shift($ordersItem);
+// 			// Set item to complete			
+//             OrdersItems::set_status($orderItemId, Statuses::id("complete", "orders"));
+//             $ordersItem = self::find($orderItemId);
+//             $ordersItem = $ordersItem->toArray();
+//             $OrderItem  = array_shift($ordersItem);
             
 			
-            $paramsOrderItem                = $OrderItem;
-            $paramsOrderItem['upgrade']     = $upgrade_uuid;
-            unset( $paramsOrderItem['note'] );
-            unset( $paramsOrderItem['callback_url'] );
+//             $paramsOrderItem                = $OrderItem;
+//             $paramsOrderItem['upgrade']     = $upgrade_uuid;
+//             unset( $paramsOrderItem['note'] );
+//             unset( $paramsOrderItem['callback_url'] );
 			
-			// Do the callback 
-			Shineisp_Commons_Utilities::log( __METHOD__ . " - Server URL Callback :: {$OrderItem['callback_url']} ","api.log");
-            Shineisp_Commons_Utilities::log( __METHOD__ . " - Parameters ".print_r($paramsOrderItem,true),"api.log");
-			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
+// 			// Do the callback 
+// 			Shineisp_Commons_Utilities::log( __METHOD__ . " - Server URL Callback :: {$OrderItem['callback_url']} ","api.log");
+//             Shineisp_Commons_Utilities::log( __METHOD__ . " - Parameters ".print_r($paramsOrderItem,true),"api.log");
+// 			Shineisp_Commons_Utilities::doCallbackPOST($OrderItem['callback_url'], $paramsOrderItem);
             
-            //Check if all orderitem of order is complete and if is ok set order to complete
-            if( Orders::checkIfOrderItemsAreCompleted( $OrderItem['order_id'] ) ) {
-                Orders::set_status($OrderItem['order_id'], Statuses::id("complete", "orders"));
-            }
+//             //Check if all orderitem of order is complete and if is ok set order to complete
+//             if( Orders::checkIfOrderItemsAreCompleted( $OrderItem['order_id'] ) ) {
+//                 Orders::set_status($OrderItem['order_id'], Statuses::id("complete", "orders"));
+//             }
 			
-			return true;
-		}
+// 			return true;
+// 		}
 
 		if ( empty($OrderItem['parameters']) ) {
 			Shineisp_Commons_Utilities::logs (__METHOD__ . " - Order items setup parameters empty" );

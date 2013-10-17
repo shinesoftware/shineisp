@@ -111,6 +111,27 @@ class ProductsAttributes extends BaseProductsAttributes {
 		return $records;
 	}
 	
+	/**
+	 * Get the system attributes from the selected product
+	 * 
+	 * @param integer $productId
+	 * @return ArrayObject
+	 */
+	public static function getSystemAttributes($productId){
+		$system_attributes = array();
+		
+		// Get all the product attributes
+		$attrs = self::getAttributebyProductID($productId);
+			
+		foreach ($attrs as $attr) {
+			if($attr['system'] && !empty($attr['ProductsAttributesIndexes'][0]['value'])){
+				$system_attributes[$attr['code']] = $attr['ProductsAttributesIndexes'][0]['value'];
+			}
+		}
+		
+		return $system_attributes;
+	}
+	
 	/*
 	 * DeleteItems
 	 * Delete a group of records

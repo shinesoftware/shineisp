@@ -121,7 +121,7 @@
 			            <tr>
 			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></strong></td>
 			            	<td>
-			            		<p><?php echo $this->translate('The authinfocode is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrant of this code, necessary to perform all operations. Without this code you cannot transfer this domain.') ?></p>
+			            		<p><?php echo $this->translate('The authinfocode is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrar of this code, necessary to perform all operations. Without this code you cannot transfer this domain.') ?></p>
 			            		<?php if(!empty($this->authinfocode)): ?>
 			            			<div class="authinfocode"><h5><?php echo $this->translate('Authinfo')?></h5><pre><?php echo $this->authinfocode; ?></pre></div>
 			            		<?php endif;?>

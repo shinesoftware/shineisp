@@ -41,7 +41,7 @@ class Admin_ServersController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure to delete this server?' );
-				$this->view->description = $this->translator->translate ( 'If you delete this server all the data will be no more longer available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete this server all the data will no longer be available.' );
 				
 				$record = Servers::find ( $id );
 			} else {

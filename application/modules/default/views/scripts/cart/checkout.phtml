@@ -1,0 +1,7 @@
+<?php $orderId = $this->orderid; ?>
+
+<h3><?php echo $this->translate('Checkout Cart'); ?></h3> 
+<p><?php echo $this->translate('Complete the order choosing your preferite payment method.')?></p>
+<hr/>
+
+<?php echo $this->payments()->getPaymentsForm($orderId)?>

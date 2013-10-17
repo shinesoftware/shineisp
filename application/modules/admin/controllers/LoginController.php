@@ -168,7 +168,7 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 					
 				Shineisp_Commons_Utilities::SendEmail ( $user ['email'], $user ['email'], null, $subject, $template);
 				
-				$this->view->message = $translator->translate ( 'An email has been sent with the new login credencials' );
+				$this->view->message = $translator->translate ( 'An email has been sent with the new login credentials' );
 			}	
 		}
 		
@@ -199,14 +199,14 @@ class Admin_LoginController extends Shineisp_Controller_Default {
 				$auth->setStorage(new Zend_Auth_Storage_Session('admin'));
 				$auth->authenticate($adapter);
 				
-				// Check if the credencials are set in the Operator profile or the credencials are set in the ISP profile
+				// Check if the credentials are set in the Operator profile or the credentials are set in the ISP profile
 				if ($auth->hasIdentity()) {
 					Fastlinks::updateVisits ( $link [0] ['fastlink_id'] );
 					Shineisp_Commons_Utilities::log("Login: The user has been logged in correctly from " . $_SERVER['REMOTE_ADDR'], "login.log");
 					$this->_helper->redirector ( $link [0] ['action'], $link [0] ['controller'], 'admin', json_decode ( $link [0] ['params'], true ) );
 				} else {
 					
-					// Check if the credencials are set in the Isp profile
+					// Check if the credentials are set in the Isp profile
 					$adapter->setType('isp');
 					
 					$auth->setStorage(new Zend_Auth_Storage_Session('admin'));
