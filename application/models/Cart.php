@@ -442,17 +442,25 @@ class Cart {
 					
 					// Get the billyng cycle / term / recurring period price
 					$priceInfo = $product['ProductsTranches'];
-					$keys = array_keys($priceInfo);
-					$priceInfo = $priceInfo[$keys[0]];
 					
-					// Price multiplier
-					$months = $priceInfo ['BillingCycle'] ['months'];
-				
-					$unitprice = $priceInfo ['price'];
-					$setupfee = $priceInfo ['setupfee'];
-				
-					// Calculate the price per the months per Quantity
-					$subtotal = ($unitprice * $months) * $item->getQty ();
+					if(!empty($priceInfo)){
+						$keys = array_keys($priceInfo);
+						
+						if(!empty($priceInfo[$keys[0]])){
+							$priceInfo = $priceInfo[$keys[0]];
+							
+							// Price multiplier
+							$months = $priceInfo ['BillingCycle'] ['months'];
+						
+							$unitprice = $priceInfo ['price'];
+							$setupfee = $priceInfo ['setupfee'];
+						
+							// Calculate the price per the months per Quantity
+							$subtotal = ($unitprice * $months) * $item->getQty ();
+						}
+					}else{
+						$subtotal = 0;
+					}
 					
 				} else {
 					$unitprice = $product ['price_1'];
