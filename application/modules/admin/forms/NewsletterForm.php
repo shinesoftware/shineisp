@@ -6,12 +6,13 @@ class Admin_Form_NewsletterForm extends Zend_Form
     {
         // Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
             'decorators'  => array('Composite'),
-            'label'       => 'Subject',
+            'label'       => $translate->_('Subject'),
             'class'       => 'text-input large-input'
         ));
         
@@ -19,14 +20,14 @@ class Admin_Form_NewsletterForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Composite'),
-            'label'       => 'Send At',
+            'label'       => $translate->_('Send At'),
             'class'       => 'text-input little-input date'
         ));
         
         $this->addElement('text', 'sent', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Sent',
+            'label'       => $translate->_('Sent'),
             'class'       => 'text-input little-input date'
         ));
         
@@ -34,26 +35,19 @@ class Admin_Form_NewsletterForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
         	'required'    => true,
-            'label'       => 'Message',
+            'label'       => $translate->_('Message'),
             'class'       => 'textarea wysiwyg'
-        ));
-   
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
         ));
         
         $this->addElement('select', 'sendagain', array(
-	        'label' => 'Send it again',
+	        'label' => $translate->_('Send it again'),
 	        'decorators' => array('Composite'),
 	        'class'      => 'text-input large-input'
         ));
         
         $this->getElement('sendagain')
                   ->setAllowEmpty(true)
-                  ->setMultiOptions(array('0'=>'No, only once', '1'=>'Yes, send again'));        
+                  ->setMultiOptions(array('0'=> $translate->_('No, only once'), '1'=> $translate->_('Yes, send again')));        
         
         $this->addElement('hidden', 'news_id');
 

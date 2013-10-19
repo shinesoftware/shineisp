@@ -5,17 +5,18 @@ class Admin_Form_InvoicesForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('text', 'invoice_date', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Date',
+            'label'      => $translate->_('Date'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));
         
         $this->addElement('select', 'order_id', array(
-            'label'      => 'Order No.',
+            'label'      => $translate->_('Order No.'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -25,9 +26,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
                   ->setMultiOptions(Orders::getList(true));        
 
     	$this->addElement('select', 'customer_parent_id', array(
-            'filters'    => array('StringTrim'),
-            'required'   => false,
-            'label'      => 'Invoice destination',
+            'label'      => $translate->_('Invoice destination'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
             'disable'    => 'true'
@@ -40,7 +39,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
     	$this->addElement('text', 'number', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Sequential number',
+            'label'      => $translate->_('Sequential number'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
@@ -48,30 +47,16 @@ class Admin_Form_InvoicesForm extends Zend_Form
     	$this->addElement('text', 'formatted_number', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
-            'label'      => 'Invoice number',
+            'label'      => $translate->_('Invoice number'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Private Notes',
+            'label'      => $translate->_('Private Notes'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input wysiwyg'
-        ));
-                  
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
-        $this->addElement('reset', 'reset', array(
-            'required' => false,
-            'label'    => 'reset',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
         ));
         
         $this->addElement('hidden', 'invoice_id');

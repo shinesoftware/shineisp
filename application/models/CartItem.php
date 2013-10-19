@@ -16,7 +16,43 @@ class CartItem {
 	protected $domain;
 	protected $unitprice;
 	protected $subtotals;
+	protected $isrecurring;
+	protected $billingid;
 	protected $options;
+
+	/**
+     * @return the $billingid
+     */
+    public function getBillingid ()
+    {
+        return $this->billingid;
+    }
+
+	/**
+     * @param field_type $billingid
+     */
+    public function setBillingid ($billingid)
+    {
+        $this->billingid = $billingid;
+        return $this;
+    }
+
+	/**
+     * @return the $isrecurring
+     */
+    public function getIsrecurring ()
+    {
+        return $this->isrecurring;
+    }
+
+	/**
+     * @param field_type $isrecurring
+     */
+    public function setIsrecurring ($isrecurring)
+    {
+        $this->isrecurring = $isrecurring;
+        return $this;
+    }
 
 	/**
 	 * @return the $uid
@@ -238,6 +274,7 @@ class CartItem {
 		$this->unitprice = null;
 		$this->subtotals = null;
 		$this->type = null;
+		$this->isrecurring = false;
 		$this->options = null;
 	}
 	

@@ -22,7 +22,7 @@
 /**
  * Doctrine_Template_Timestampable
  *
- * Easily add created and updated at timestamps to your doctrine records that are automatically set
+ * Easily add created and Upload Date timestamps to your doctrine records that are automatically set
  * when records are saved
  *
  * @package     Doctrine

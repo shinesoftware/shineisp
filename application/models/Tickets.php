@@ -815,8 +815,8 @@ class Tickets extends BaseTickets {
 	    	$grid ['columns'] [] = array ("value" => $translator->translate('Subject'), 'size' => 100);
 	    	$grid ['columns'] [] = array ("value" => $translator->translate('Category'), 'size' => 80);
 	    	$grid ['columns'] [] = array ("value" => $translator->translate('Status'));
-	    	$grid ['columns'] [] = array ("value" => $translator->translate('Created at'), 'size' => 100);
-	    	$grid ['columns'] [] = array ("value" => $translator->translate('Updated at'), 'size' => 80);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Creation Date'), 'size' => 100);
+	    	$grid ['columns'] [] = array ("value" => $translator->translate('Upload Date'), 'size' => 80);
 	    	$grid ['columns'] [] = array ("value" => $translator->translate('Fullname'), 'size' => 80);
 	    	$grid ['columns'] [] = array ("value" => $translator->translate('Company'), 'size' => 80);
     

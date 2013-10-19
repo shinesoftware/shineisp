@@ -55,9 +55,9 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 					$this->view->title = $this->translator->_("Estimated Revenue for %s", $param);
 					
 					if(!empty($years)){
-						$this->view->description = $this->translator->_("Here below the economic summary of the %s.", $param) . " " . $links;
+						$this->view->description = $this->translator->_("Below is the economic summary of the %s.", $param) . " " . $links;
 					}else{
-						$this->view->description = $this->translator->_("Here below the economic summary of the %s.", $param);
+						$this->view->description = $this->translator->_("Below is the economic summary of the %s.", $param);
 					}
 					$this->view->year = $param;
 					

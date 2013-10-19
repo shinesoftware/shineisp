@@ -24,7 +24,7 @@ class Domains extends BaseDomains {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.domain_id', 'alias' => 'domain_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'd.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Tld' ), 'field' => 'ws.tld', 'alias' => 'tld', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Autorenew' ), 'field' => 'd.autorenew', 'alias' => 'autorenew', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Automatic Renewal' ), 'field' => 'd.autorenew', 'alias' => 'autorenew', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 'creation_date', 'alias' => 'creation_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Expiry Date' ), 'field' => 'expiring_date', 'alias' => 'expiring_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'daysleft', 'alias' => 'daysleft', 'sortable' => true, 'type' => 'string' );
@@ -61,9 +61,9 @@ class Domains extends BaseDomains {
 		
 		$config ['datagrid'] ['index'] = "domain_id";
 		
-		// Autorenew function											
-		$massactions['bulk_set_autorenew&status=1'] = "Enable Autorenew";
-		$massactions['bulk_set_autorenew&status=0'] = "Disable Autorenew";
+		// Automatic Renewal function											
+		$massactions['bulk_set_autorenew&status=1'] = "Enable Automatic Renewal";
+		$massactions['bulk_set_autorenew&status=0'] = "Disable Automatic Renewal";
 		$massactions['bulk_delete'] = 'Mass Delete';
 		$massactions['bulk_export'] = 'Export Domain Listing';
 		$config ['datagrid'] ['massactions']['common'] = $massactions;
@@ -1606,7 +1606,7 @@ class Domains extends BaseDomains {
 		
 		// Create the PDF header
 		$grid['headers']['title'] = $translator->translate('Domain Listing');
-		$grid['headers']['subtitle'] = $translator->_("List of the domains updated at %s and sorted by the expiring date and domain name", date('d/m/Y H:i:s'));
+		$grid['headers']['subtitle'] = $translator->_("List of the domains Upload Date %s and sorted by the expiring date and domain name", date('d/m/Y H:i:s'));
 		$grid['footer']['text'] = $isp['company'] . " - " . $isp['website'];
 		 
 		if(!empty($domains[0]))
@@ -1616,7 +1616,7 @@ class Domains extends BaseDomains {
 			$grid ['columns'] [] = array ("value" => $translator->translate('Creation Date'), 'size' => 80);
 			$grid ['columns'] [] = array ("value" => $translator->translate('Expiry Date'), 'size' => 80);
 			$grid ['columns'] [] = array ("value" => $translator->translate('Days'), 'size' => 80);
-			$grid ['columns'] [] = array ("value" => $translator->translate('Autorenew'), 'size' => 80);
+			$grid ['columns'] [] = array ("value" => $translator->translate('Automatic Renewal'), 'size' => 80);
 			$grid ['columns'] [] = array ("value" => $translator->translate('Status'), 'size' => 80);
 
 			// Getting the records values and delete the first column the customer_id field.

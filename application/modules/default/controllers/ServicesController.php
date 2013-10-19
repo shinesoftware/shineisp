@@ -61,7 +61,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		
 		$data ['columns'][] = $this->translator->translate('Description');
 		$data ['columns'][] = $this->translator->translate('Status');
-		$data ['columns'][] = $this->translator->translate('Created at');
+		$data ['columns'][] = $this->translator->translate('Creation Date');
 		$data ['columns'][] = $this->translator->translate('Expiry Date');
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );

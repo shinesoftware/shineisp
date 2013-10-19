@@ -5,34 +5,35 @@ class Admin_Form_PurchasesForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('text', 'creationdate', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Date',
-            'title'      => 'es: 01/11/2010',
+            'label'      => $translate->_('Date'),
+            'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));
     	
     	$this->addElement('text', 'expiringdate', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiry Date',
-            'title'      => 'es: 01/11/2011',
+            'label'      => $translate->_('Expiry Date'),
+            'title'      => $translate->_('eg: 01/11/2011'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));
     	
     	$this->addElement('text', 'paymentdate', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Payment Date',
-            'title'      => 'es: 01/11/2010',
+            'label'      => $translate->_('Payment Date'),
+            'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));
         
         $this->addElement('select', 'category_id', array(
-            'label'      => 'Category',
+            'label'      => $translate->_('Category'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -42,7 +43,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
                   ->setMultiOptions(PurchaseCategories::getList());        
         
         $this->addElement('select', 'method_id', array(
-            'label'      => 'Payment Method',
+            'label'      => $translate->_('Payment Method'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -54,23 +55,23 @@ class Admin_Form_PurchasesForm extends Zend_Form
     	$this->addElement('text', 'number', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Number',
+            'label'      => $translate->_('Number'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'company', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Company',
+            'label'      => $translate->_('Company'),
             'required'   => true,
-        	'title' => 'es: Google inc.',
+        	'title' => $translate->_('eg: Google inc.'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'total_net', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Total Net',
+            'label'      => $translate->_('Total Net'),
         	'required'   => true,	
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
@@ -78,7 +79,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         
         $this->addElement('text', 'total_vat', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Total VAT',
+            'label'      => $translate->_('Total VAT'),
         	'required'   => true,
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
@@ -86,7 +87,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         
         $this->addElement('text', 'total', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Total',
+            'label'      => $translate->_('Total'),
         	'required'   => true,
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
@@ -94,7 +95,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Note',
+            'label'      => $translate->_('Note'),
             'decorators' => array('Composite'),
             'class'      => 'textarea little-input'
         ));
@@ -103,8 +104,8 @@ class Admin_Form_PurchasesForm extends Zend_Form
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
         	
 			$file = $this->createElement('file', 'document', array(
-	            'label'      => 'Document',
-	            'description'      => 'Select the document to upload. Files allowed are (zip,rtf,doc,pdf)',
+	            'label'      => $translate->_('Document'),
+	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf)'),
 	            'class'      => 'text-input large-input'
 	        ));
 	        
@@ -116,7 +117,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         }
         
         $this->addElement('select', 'status_id', array(
-        'label' => 'Status',
+        'label' => $translate->_('Status'),
         'required' => true,
         'decorators' => array('Composite'),
         'class'      => 'text-input large-input'
@@ -125,20 +126,6 @@ class Admin_Form_PurchasesForm extends Zend_Form
         $this->getElement('status_id')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Statuses::getList('orders'));
-                  		
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
-        $this->addElement('reset', 'reset', array(
-            'required' => false,
-            'label'    => 'reset',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
         
         $this->addElement('hidden', 'purchase_id');
     }

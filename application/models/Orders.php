@@ -1039,12 +1039,10 @@ class Orders extends BaseOrders {
 			// get the options
 			$options = $item->getOptions();
 			
-			// get the billing cycle setting attached in the product installment/tranche
-			$billing = BillingCycle::getAllinfo($item->getTerm());
-			
 			// Get the order object previously created
 			$order = self::$order;
 			
+			// add a new item
 			$orderitem = new OrdersItems();
 			
 			$orderitem->order_id = $order['order_id'];
@@ -1063,16 +1061,16 @@ class Orders extends BaseOrders {
 			$orderitem->description = $item->getName();
 			$orderitem->quantity = $item->getQty();
 			$orderitem->price = $item->getUnitprice();
-			$orderitem->billing_cycle_id = $billing['billing_cycle_id'];
+			$orderitem->billing_cycle_id = $item->getBillingid();
 			$orderitem->vat = $subtotals['taxes'];
 			$orderitem->percentage = $subtotals['percentage'];
 			$orderitem->uuid = $item->getUid();
 			
 			// Count of the day until the expiring
-			if($subtotals['isrecurring']){
+			if($item->getIsrecurring()){
 				
 				// get the months until of the next service expiration
-				$months = $billing['months'];
+				$months = $subtotals['months'];
 				
 				if($months > 0){
 					$totmonths = intval ( $item->getQty() * $months );
@@ -1187,166 +1185,166 @@ class Orders extends BaseOrders {
 	 * @param integer 	$upgrade
 	 * @return array 	$item
 	 ******/
-	public static function addItem($type, $id, $qta = 1, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
+// 	public static function addItem($type, $id, $qta = 1, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
 		
 		
 		
-		if($type == "domain"){
+// 		if($type == "domain"){
 			
-		}elseif($type == "hosting"){
+// 		}elseif($type == "hosting"){
 			
-		}
+// 		}
 		
 		
 		
-		// Check if the variable has been set correctly
-		if(is_numeric($productId)){
+// 		// Check if the variable has been set correctly
+// 		if(is_numeric($productId)){
 		
-			// Get the product information
-			$product = Products::getAllInfo($productId);
+// 			// Get the product information
+// 			$product = Products::getAllInfo($productId);
 			
-			// Get autosetup setting
-			$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;			
+// 			// Get autosetup setting
+// 			$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;			
 			
-			if(!empty($product)){
+// 			if(!empty($product)){
 				
 				
 				
-				// Get the order object previously created
-				$order = self::$order;
+// 				// Get the order object previously created
+// 				$order = self::$order;
 				
-				// Create the new order item
-				$item = new OrdersItems();
+// 				// Create the new order item
+// 				$item = new OrdersItems();
 				
-				// get the billing cycle setting attached in the product installment/tranche
-				$billing = ProductsTranches::getBillingCycle($trancheID);
+// 				// get the billing cycle setting attached in the product installment/tranche
+// 				$billing = ProductsTranches::getBillingCycle($trancheID);
 
-				// get the installment/tranches for the selected product
-				$tranche = ProductsTranches::getTranchebyId ( $trancheID );
+// 				// get the installment/tranches for the selected product
+// 				$tranche = ProductsTranches::getTranchebyId ( $trancheID );
 				
-				// Prepare the order items
-				$item['order_id']   		= $order['order_id'];
-				$item['status_id']  		= Statuses::id("tobepaid", "orders");
-				$item['product_id'] 		= $productId;
-				$item['date_start'] 		= date ( 'Y-m-d H:i:s' );
-				$item['description'] 		= $product['ProductsData'][0]['name'];;
-				$item['billing_cycle_id'] 	= !empty($billing['billing_cycle_id']) ? $billing['billing_cycle_id'] : null; 
-				$item['quantity'] 			= $qta;
-				$item['price'] 				= $product['price_1'];
-				$item['setupfee'] 			= $product ['setupfee'];
+// 				// Prepare the order items
+// 				$item['order_id']   		= $order['order_id'];
+// 				$item['status_id']  		= Statuses::id("tobepaid", "orders");
+// 				$item['product_id'] 		= $productId;
+// 				$item['date_start'] 		= date ( 'Y-m-d H:i:s' );
+// 				$item['description'] 		= $product['ProductsData'][0]['name'];;
+// 				$item['billing_cycle_id'] 	= !empty($billing['billing_cycle_id']) ? $billing['billing_cycle_id'] : null; 
+// 				$item['quantity'] 			= $qta;
+// 				$item['price'] 				= $product['price_1'];
+// 				$item['setupfee'] 			= $product ['setupfee'];
 				
-				// Get the billing term settings 
-				if( $trancheID != null && is_array($billing)) {				
+// 				// Get the billing term settings 
+// 				if( $trancheID != null && is_array($billing)) {				
 
-					// Count how many months until the next expiring date
-					$months = $billing['months'];
+// 					// Count how many months until the next expiring date
+// 					$months = $billing['months'];
 					
-					if($months > 0){
-						$totmonths = intval ( $qta * $months );
+// 					if($months > 0){
+// 						$totmonths = intval ( $qta * $months );
 						
-						// Calculate the total of the months
-                        $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
+// 						// Calculate the total of the months
+//                         $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
 						
-						if($months >= 12){
-							$qty = $months / 12;
-						}else{
-							$qty = 1;
-						}
+// 						if($months >= 12){
+// 							$qty = $months / 12;
+// 						}else{
+// 							$qty = 1;
+// 						}
 						
-						//$item['price'] 		= $product['price_1'] * $qty; 
-						$item['price'] 		= $tranche['price'] * $qty;
-						$item['setupfee'] 	= $tranche['setupfee'];
-						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
-					}else{
-						$item['date_end'] 	= null;
-						$item['price'] 		= $tranche['price'];
-						$item['setupfee'] 	= $tranche ['setupfee'];
-					}
-				}
+// 						//$item['price'] 		= $product['price_1'] * $qty; 
+// 						$item['price'] 		= $tranche['price'] * $qty;
+// 						$item['setupfee'] 	= $tranche['setupfee'];
+// 						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
+// 					}else{
+// 						$item['date_end'] 	= null;
+// 						$item['price'] 		= $tranche['price'];
+// 						$item['setupfee'] 	= $tranche ['setupfee'];
+// 					}
+// 				}
 				
-				// IMPORTANT //
-				// TODO: This condition is temporary: $product ['type'] != "domain" 
+// 				// IMPORTANT //
+// 				// TODO: This condition is temporary: $product ['type'] != "domain" 
 
-				// Check if the product is a recurring product
-				if (!empty($trancheID) && is_numeric($trancheID) && $product ['type'] != "domain") {   
+// 				// Check if the product is a recurring product
+// 				if (!empty($trancheID) && is_numeric($trancheID) && $product ['type'] != "domain") {   
 					
-					// Set the price of the product with the billing tranche value
-					$item['price'] = $tranche ['price'] * $tranche['BillingCycle']['months'];
-				}
+// 					// Set the price of the product with the billing tranche value
+// 					$item['price'] = $tranche ['price'] * $tranche['BillingCycle']['months'];
+// 				}
 				
-				// Check if the product is a domain
-				if ($product ['type'] == "domain") {
-					$item['parameters'] = json_encode ( array ('domain' => $options['domain'], 'action' => $options['action'], 'authcode' => !empty($options['authcode']) ? $options['authcode'] : null) );
+// 				// Check if the product is a domain
+// 				if ($product ['type'] == "domain") {
+// 					$item['parameters'] = json_encode ( array ('domain' => $options['domain'], 'action' => $options['action'], 'authcode' => !empty($options['authcode']) ? $options['authcode'] : null) );
 					
-				}elseif($product ['type'] == "hosting"){
+// 				}elseif($product ['type'] == "hosting"){
 					
-					// Get all the product attributes
-					$attrs = ProductsAttributes::getAttributebyProductID($productId);
+// 					// Get all the product attributes
+// 					$attrs = ProductsAttributes::getAttributebyProductID($productId);
 					
-					foreach ($attrs as $attr) {
-						if($attr['system'] && !empty($attr['ProductsAttributesIndexes'][0]['value'])){
-							$hostingplan[$attr['code']] = $attr['ProductsAttributesIndexes'][0]['value'];
-						}
-					}
-					$item['parameters'] = json_encode ( $hostingplan );
-				}	
+// 					foreach ($attrs as $attr) {
+// 						if($attr['system'] && !empty($attr['ProductsAttributesIndexes'][0]['value'])){
+// 							$hostingplan[$attr['code']] = $attr['ProductsAttributesIndexes'][0]['value'];
+// 						}
+// 					}
+// 					$item['parameters'] = json_encode ( $hostingplan );
+// 				}	
 				
-				//If there is a refund update the price
-				$item['parent_detail_id']	= 0;
-				if( $upgrade !== false ) {
-					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
-					$refund			= $refundInfo['refund'];
-					$priceWithRefund= $item['price'] - $refund;
-					if( $priceWithRefund > 0 ) {
-						$item['price']	= $priceWithRefund;
-					}
-					$item['parent_detail_id']	= $upgrade;
+// 				//If there is a refund update the price
+// 				$item['parent_detail_id']	= 0;
+// 				if( $upgrade !== false ) {
+// 					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
+// 					$refund			= $refundInfo['refund'];
+// 					$priceWithRefund= $item['price'] - $refund;
+// 					if( $priceWithRefund > 0 ) {
+// 						$item['price']	= $priceWithRefund;
+// 					}
+// 					$item['parent_detail_id']	= $upgrade;
 					
-					//Update description
-					$orderItem		= OrdersItems::getDetail($upgrade);
-					$productIdOld	= $orderItem['product_id'];
-					$productOld 	= Products::getAllInfo($productIdOld);
-					$name	= "";
-					if( isset( $productOld['ProductsData']) ) {
-						$textInfo	= array_shift($productOld['ProductsData']);
-						if( ! empty($textInfo) ) {
-							if( isset( $textInfo['name'] ) ) {
-								$name	= $textInfo['name'];
-							}
-						}
-					}					
+// 					//Update description
+// 					$orderItem		= OrdersItems::getDetail($upgrade);
+// 					$productIdOld	= $orderItem['product_id'];
+// 					$productOld 	= Products::getAllInfo($productIdOld);
+// 					$name	= "";
+// 					if( isset( $productOld['ProductsData']) ) {
+// 						$textInfo	= array_shift($productOld['ProductsData']);
+// 						if( ! empty($textInfo) ) {
+// 							if( isset( $textInfo['name'] ) ) {
+// 								$name	= $textInfo['name'];
+// 							}
+// 						}
+// 					}					
 					
-					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
-				}
+// 					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
+// 				}
 				
-				$item['cost'] = $product ['cost'];
-				//$item['description'] = !empty($description) ? $description : $product['name'];
+// 				$item['cost'] = $product ['cost'];
+// 				//$item['description'] = !empty($description) ? $description : $product['name'];
 				
-				// these are set by API
-				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : Shineisp_Commons_Uuid::generate();
+// 				// these are set by API
+// 				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : Shineisp_Commons_Uuid::generate();
 				
-				$item->save();
+// 				$item->save();
 				
-				$arrayItem = $item->toArray();
+// 				$arrayItem = $item->toArray();
 				
-				// Update the totals
-				if(!empty($order['order_id'])) {
-					self::updateTotalsOrder($order['order_id']);
-				}
+// 				// Update the totals
+// 				if(!empty($order['order_id'])) {
+// 					self::updateTotalsOrder($order['order_id']);
+// 				}
 				
-                Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type']));
+//                 Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type']));
                 
-				//* autosetup is set to 1 for this product, let's activate immediatly
-				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting") ) {
-					OrdersItems::activate($arrayItem['detail_id']);				
-				}
+// 				//* autosetup is set to 1 for this product, let's activate immediatly
+// 				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting") ) {
+// 					OrdersItems::activate($arrayItem['detail_id']);				
+// 				}
 				
-				return $item;
-			}
-		}
+// 				return $item;
+// 			}
+// 		}
 		
-		return null;
-	}
+// 		return null;
+// 	}
 	
 	/**
 	 * Create an order with many products

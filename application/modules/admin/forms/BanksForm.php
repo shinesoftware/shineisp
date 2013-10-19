@@ -5,55 +5,56 @@ class Admin_Form_BanksForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
         $this->addElement('text', 'name', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Name',
+            'label'      => $translate->_('Name'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'account', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Account',
+            'label'      => $translate->_('Account'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Account',
+            'label'      => $translate->_('Description'),
             'decorators' => array('Composite'),
             'class'      => 'textarea wysiwyg'
         ));
         
         $this->addElement('text', 'url_test', array(
-            'label'      => 'URL Test',
+            'label'      => $translate->_('URL Test'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'url_official', array(
-            'label'      => 'URL Official',
+            'label'      => $translate->_('URL Official'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));        
         
         $this->addElement('text', 'classname', array(
-            'label'      => 'Classname',
+            'label'      => $translate->_('Classname'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));        
         
         $this->addElement('checkbox', 'enabled', array(
-            'label'      => 'Enabled',
+            'label'      => $translate->_('Enabled'),
             'decorators' => array('Composite'),
             'class'      => 'checkbox'
         ));        
         
         $this->addElement('checkbox', 'test_mode', array(
-            'label'      => 'Test Mode',
+            'label'      => $translate->_('Test Mode'),
             'decorators' => array('Composite'),
             'class'      => 'checkbox'
         ));        
@@ -62,7 +63,7 @@ class Admin_Form_BanksForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'id'         => 'paymentmethods',
-            'label'      => 'Payment methods',
+            'label'      => $translate->_('Payment methods'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -73,7 +74,7 @@ class Admin_Form_BanksForm extends Zend_Form
         
         $this->addElement('submit', 'save', array(
             'required' => false,
-            'label'    => 'Save',
+            'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
             'class'    => 'button'
         ));

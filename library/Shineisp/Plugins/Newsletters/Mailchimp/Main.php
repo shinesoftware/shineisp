@@ -1983,7 +1983,7 @@ class Shineisp_Plugins_Newsletters_Mailchimp_Main extends Shineisp_Plugins_Newsl
 	 * @section Template  Related
 	 *
 	 * @param int $id the id of the user template to update
-	 * @param array  $values the values to updates - while both are optional, at least one should be provided. Both can be updated at the same time.
+	 * @param array  $values the values to updates - while both are optional, at least one should be provided. Both can be Upload Date the same time.
 	 string name optional the name for the template - names must be unique and a max of 50 bytes
 	 string html optional a string specifying the entire template to be created. This is <strong>NOT</strong> campaign content. They are intended to utilize our <a href="http://www.mailchimp.com/resources/email-template-language/" target="_blank">template language</a>.
 	

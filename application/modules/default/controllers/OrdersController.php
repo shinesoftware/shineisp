@@ -81,7 +81,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		$data ['columns'][] = $this->translator->translate('Invoice No.');
 		$data ['columns'][] = $this->translator->translate('Company');
 		$data ['columns'][] = $this->translator->translate('Order No.');
-		$data ['columns'][] = $this->translator->translate('Created at');
+		$data ['columns'][] = $this->translator->translate('Creation Date');
 		$data ['columns'][] = $this->translator->translate('Total');
 		$data ['columns'][] = $this->translator->translate('Status');
 		

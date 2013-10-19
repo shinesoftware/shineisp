@@ -33,7 +33,7 @@ class Products extends BaseProducts {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Server group' ), 'field' => 'sg.name', 'alias' => 'servergroupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Inserted at' ), 'field' => 'p.inserted_at', 'sortable' => true, 'searchable' => false, 'alias' => 'insertedat', 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Updated at' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Upload Date' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'p.enabled', 'sortable' => true, 'searchable' => false, 'alias' => 'enabled', 'type' => 'string' );
 		
 		$config ['datagrid'] ['fields'] = "p.product_id, 

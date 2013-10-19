@@ -5,11 +5,12 @@ class Admin_Form_OrdersForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('select', 'customer_id', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Customer',
+            'label'      => $translate->_('Customer'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -19,8 +20,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(Customers::getList(true));
              
     	$this->addElement('select', 'customer_parent_id', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Invoice destination',
+            'label'      => $translate->_('Invoice destination'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
             'disable'    => 'true'
@@ -31,9 +31,8 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(Customers::getList(true));
 
         $this->addElement('select', 'isp_id', array(
-            'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'ISP',
+            'label'      => $translate->_('ISP'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -43,10 +42,9 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(Isp::getList());
                   
         $this->addElement('select', 'product_id', array(
-            'filters'    => array('StringTrim'),
             'required'   => false,
-            'label'      => 'Products',
-            'description' => 'Select the product.',
+            'label'      => $translate->_('Products'),
+            'description' => $translate->_('Select the product.'),
             'class'      => 'text-input large-input'
         ));
         
@@ -55,9 +53,8 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(Products::getList(true));
                   
         $this->addElement('select', 'billingcycle_id', array(
-            'filters'    => array('StringTrim'),
             'id'      => 'billingid',
-            'label'      => 'Billing Cycle',
+            'label'      => $translate->_('Billing Cycle'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -67,8 +64,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(BillingCycle::getList(true));
                   
         $this->addElement('select', 'is_renewal', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Is a Renewal?',
+            'label'      => $translate->_('Is a Renewal?'),
             'description' => "If this order is a renewal, it will be checked by ShineISP and it cannot be deleted by the customer in the customer order frontend panel.",
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -79,7 +75,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(array('0' => "No, it's not", '1' => "Yes, it is" ));
                   
         $this->addElement('select', 'invoice_id', array(
-            'label'      => 'Invoice No.',
+            'label'      => $translate->_('Invoice No.'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -90,14 +86,14 @@ class Admin_Form_OrdersForm extends Zend_Form
                 
         $this->addElement('text', 'order_date', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Order Date',
+            'label'      => $translate->_('Order Date'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
         ));
                 
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiry Date',
+            'label'      => $translate->_('Expiry Date'),
             'description'      => 'If this date is set ShineISP will suspend the order at the specified date.',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
@@ -105,14 +101,14 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('text', 'date_start', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Date Start',
+            'label'      => $translate->_('Date Start'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));
         
         $this->addElement('text', 'quantity', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Quantity',
+            'label'      => $translate->_('Quantity'),
             'decorators' => array('Composite'),
             'value'         => '1',
             'class'      => 'text-input little-input'
@@ -120,7 +116,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Description',
+            'label'      => $translate->_('Description'),
             'id'         => 'description',
             'rows'         => '3',
             'decorators' => array('Composite'),
@@ -129,7 +125,7 @@ class Admin_Form_OrdersForm extends Zend_Form
 
         $this->addElement('text', 'searchdomains', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Searchdomains',
+            'label'      => $translate->_('Searchdomains'),
             'decorators' => array('Composite'),
             'description'      => 'Write here the name of the domain in order to find it in the database.',
             'class'      => 'text-input large-input searchitems'
@@ -137,7 +133,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('multiselect', 'domains_selected', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Domains Selected',
+            'label'      => $translate->_('Domains Selected'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input selecteditems'
         ));
@@ -147,8 +143,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setRegisterInArrayValidator(false);        
                 
         $this->addElement('multiselect', 'domains', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Domain',
+            'label'      => $translate->_('Domain'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input tmpitems'
         ));
@@ -161,7 +156,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                   
         $this->addElement('select', 'referdomain', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Reference Domain',
+            'label'      => $translate->_('Reference Domain'),
             'description' => 'Assign a domain in order toidentify the service/product',
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -173,8 +168,7 @@ class Admin_Form_OrdersForm extends Zend_Form
                   ->setMultiOptions(Domains::getList(true));                  
                           
         $this->addElement('select', 'products', array(
-            'filters'    => array('StringTrim'),
-            'label'      => 'Products',
+            'label'      => $translate->_('Products'),
             'decorators' => array('Composite'),
             'id'         => 'products',
             'class'      => 'text-input large-input getproducts'
@@ -184,7 +178,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->getElement('products')->setRegisterInArrayValidator(false);
         
         $this->addElement('select', 'categories', array(
-	        'label' => 'Categories',
+	        'label' => $translate->_('Categories'),
 	        'decorators'  => array('Composite'),
             'id'          => 'productcategories',
             'class'       => 'text-input large-input',
@@ -200,14 +194,14 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Cost',
+            'label'      => $translate->_('Cost'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'price', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Price',
+            'label'      => $translate->_('Price'),
             'id'         => 'price',
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
@@ -215,44 +209,44 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('text', 'setupfee', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Setup fee',
+            'label'      => $translate->_('Setup fee'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'VAT',
+            'label'      => $translate->_('VAT'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'total', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Total',
+            'label'      => $translate->_('Total'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'grandtotal', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Grand Total',
+            'label'      => $translate->_('Grand Total'),
             'decorators' => array('Composite'),
-            'description'      => 'Save again in order to update the totals.',
+            'description'      => $translate->_('Save again in order to update the totals.'),
             'class'      => 'text-input little-input bold'
         ));    
             
        $this->addElement('text', 'received_income', array(
        		'readonly'   => 1,
             'filters'    => array('StringTrim'),
-            'label'      => 'Income',
+            'label'      => $translate->_('Income'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));           
        $this->addElement('text', 'missing_income', array(
        		'readonly'   => 1,
             'filters'    => array('StringTrim'),
-            'label'      => 'Missing income',
+            'label'      => $translate->_('Missing income'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));           
@@ -260,17 +254,17 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->addElement('text', 'fastlink', array(
             'filters'    => array('StringTrim'),
             'id'      => 'fastlink',
-            'label'      => 'Fastlink Code',
+            'label'      => $translate->_('Fastlink Code'),
             'decorators' => array('Composite'),
-            'description'      => 'Here you can read a unique code for redirect a user in the order page using the fastlink.',
+            'description'      => $translate->_('Here you can read a unique code for redirect a user in the order page using the fastlink.'),
             'class'      => 'text-input little-input readonly'
         ));        
             
         $this->addElement('text', 'visits', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Visits',
+            'label'      => $translate->_('Visits'),
             'decorators' => array('Composite'),
-            'description'      => 'Here you can read how many times the order has been viewed by the customer.',
+            'description'      => $translate->_('Here you can read how many times the order has been viewed by the customer.'),
             'class'      => 'text-input little-input readonly'
         ));        
         
@@ -280,8 +274,8 @@ class Admin_Form_OrdersForm extends Zend_Form
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(
-	            'label'      => 'Attachment',
-	            'description'      => 'Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max ' . Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit),
+	            'label'      => $translate->_('Attachment'),
+	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s', Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'class'      => 'text-input large-input'
 	        ));
 	        
@@ -292,7 +286,7 @@ class Admin_Form_OrdersForm extends Zend_Form
 	        $this->addElement($file);
 	        
 	        $this->addElement('select', 'filecategory', array(
-	            'label'      => 'Category',
+	            'label'      => $translate->_('Category'),
 	            'decorators' => array('Composite'),
 	            'class'      => 'text-input'
 	        ));
@@ -306,14 +300,14 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Private Notes',
+            'label'      => $translate->_('Private Notes'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input wysiwyg'
         ));
         
         $this->addElement('textarea', 'message', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Post a comment',
+            'label'      => $translate->_('Post a comment'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input postcomment wysiwygsimple'
         ));        
@@ -332,22 +326,21 @@ class Admin_Form_OrdersForm extends Zend_Form
         
        $this->addElement('text', 'paymentdate', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Payment date',
+            'label'      => $translate->_('Payment date'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
         ));           
                   
        $this->addElement('text', 'reference', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Payment Reference',
+            'label'      => $translate->_('Payment Reference'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));           
         
         $this->addElement('select', 'bank_id', array(
-            'filters'    => array('StringTrim'),
             'id'         => 'paymentmethods',
-            'label'      => 'Bank name',
+            'label'      => $translate->_('Bank name'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -359,21 +352,21 @@ class Admin_Form_OrdersForm extends Zend_Form
                   
        $this->addElement('text', 'income', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Income',
+            'label'      => $translate->_('Income'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));           
 
         $this->addElement('text', 'payment_description', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Notes',
+            'label'      => $translate->_('Notes'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('select', 'confirmed', array(
         		'filters'    => array('StringTrim'),
-        		'label'      => 'Has the Transaction been confirmed?',
+        		'label'      => $translate->_('Has the Transaction been confirmed?'),
         		'decorators' => array('Composite'),
         		'class'      => 'text-input large-input'
         ));

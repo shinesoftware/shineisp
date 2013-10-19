@@ -223,10 +223,10 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 				
 				$description[] = $this->translator->_("Support Ticket from %s", $userlink);
 				$description[] = TicketsCategories::getName($rs[0]['category']);
-				$description[] = $this->translator->_("Opened at %s", $rs[0]['date_open']);
+				$description[] = $this->translator->_("Opened on %s", $rs[0]['date_open']);
 				
 				if(!empty($rs[0]['date_close'])){
-					$description[] = $this->translator->_("Closed at %s", $rs[0]['date_close']);
+					$description[] = $this->translator->_("Closed on %s", $rs[0]['date_close']);
 				}
 				
 				if(!empty($rs[0]['domain'])){

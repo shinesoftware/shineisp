@@ -6,26 +6,27 @@ class Admin_Form_WikiForm extends Zend_Form
     {
         // Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
             'decorators'  => array('Composite'),
-            'label'       => 'Subject',
+            'label'       => $translate->_('Subject'),
             'class'       => 'text-input large-input'
         ));
         
         $this->addElement('text', 'uri', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'URI',
+            'label'       => $translate->_('URI'),
             'class'       => 'text-input large-input'
         ));
         
         
         $this->addElement('select', 'language_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Language',
+            'label'       => $translate->_('Language'),
             'class'       => 'text-input large-input'
         ));
                 
@@ -35,7 +36,7 @@ class Admin_Form_WikiForm extends Zend_Form
                   ->setMultiOptions(Languages::getList());           
 
         $this->addElement('select', 'active', array(
-            'label'      => 'Active',
+            'label'      => $translate->_('Active'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
@@ -44,7 +45,7 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('textarea', 'metadescription', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Meta Description',
+            'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
             'class'       => 'textarea'
         ));
@@ -52,7 +53,7 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('textarea', 'metakeywords', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Meta Keywords',
+            'label'       => $translate->_('Meta Keywords'),
             'rows'        => 5,
             'class'       => 'textarea'
         ));
@@ -60,14 +61,14 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('textarea', 'content', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Body',
+            'label'       => $translate->_('Body'),
             'id'          => 'body',
             'class'       => 'wysiwyg'
         ));
         
         $this->addElement('select', 'category_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Category',
+            'label'       => $translate->_('Category'),
             'class'       => 'text-input large-input'
         ));
         
@@ -75,13 +76,6 @@ class Admin_Form_WikiForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(WikiCategories::getList());
-                  
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
         
         $this->addElement('hidden', 'wiki_id');
 

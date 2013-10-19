@@ -1439,8 +1439,8 @@ class Customers extends BaseCustomers {
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Group'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Language'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Newsletter'));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Created at'));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Updated at'));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Creation Date'));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Upload Date'));
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Tax Free'));
 
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column++, 3, $translator->translate('Address'));
