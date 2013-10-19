@@ -6,19 +6,20 @@ class Admin_Form_DomainsForm extends Zend_Form
     {
         // Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'domain', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'decorators' => array('Composite'),
-            'label'      => 'Domain',
-            'description' => 'Write down the name of the domain without any extension, white spaces, or symbols.',
+            'label'      => $translate->_('Domain'),
+            'description' => $translate->_('Write down the name of the domain without any extension, white spaces, or symbols.'),
             'class'      => 'text-input large-input updatechkdomain'
         ));
       
         $this->addElement('select', 'tld_id', array(
-                'label' => 'TLD',
-                'description' => 'Select the TLD from the list',
+                'label' => $translate->_('TLD'),
+                'description' => $translate->_('Select the TLD from the list'),
                 'decorators' => array('Composite'),
                 'class'      => 'text-input large-input updatechkdomain'
         ));
@@ -28,7 +29,7 @@ class Admin_Form_DomainsForm extends Zend_Form
                   ->setRequired(true);
                   
         $this->addElement('select', 'registrars_id', array(
-                'label' => 'Registrar',
+                'label' => $translate->_('Registrar'),
                 'decorators' => array('Composite'),
                 'class'      => 'text-input large-input'
         ));
@@ -38,22 +39,22 @@ class Admin_Form_DomainsForm extends Zend_Form
                   
         $this->addElement('text', 'creation_date', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Creation date',
+            'label'      => $translate->_('Creation date'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
         ));
         
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Expiry Date',
+            'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
         ));
         
         $this->addElement('text', 'authinfocode', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'AUTHINFO CODE',
-            'description'      => 'Write down the Authinfo code in order to transfer the domain to this ISP',
+            'label'      => $translate->_('AUTHINFO CODE'),
+            'description'      => $translate->_('Write down the Authinfo code in order to transfer the domain to this ISP'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -61,7 +62,7 @@ class Admin_Form_DomainsForm extends Zend_Form
         $this->addElement('select', 'autorenew', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Autorenew',
+            'label'       => $translate->_('Auto renewal'),
             'class'       => 'text-input large-input'
         ));
         
@@ -70,7 +71,7 @@ class Admin_Form_DomainsForm extends Zend_Form
                   ->setMultiOptions(array('0'=>'no', '1'=>'yes'));        
         
         $this->addElement('select', 'customer_id', array(
-                            'label' => 'Customer',
+                            'label' => $translate->_('Customer'),
                             'decorators' => array('Composite'),
                             'class'      => 'text-input large-input'
         ));
@@ -82,9 +83,8 @@ class Admin_Form_DomainsForm extends Zend_Form
 //                  
         $note = $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
-            'required'   => false,
             'decorators' => array('Composite'),
-            'label'      => 'Private Notes',
+            'label'      => $translate->_('Private Notes'),
             'class'      => 'textarea'
         ));
         
@@ -92,7 +92,7 @@ class Admin_Form_DomainsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'decorators' => array('Composite'),
-            'label'      => 'Message',
+            'label'      => $translate->_('Message'),
             'class'      => 'textarea'
         ));        
 
@@ -108,19 +108,19 @@ class Admin_Form_DomainsForm extends Zend_Form
          $this->addElement('text', 'subdomain', array(
             'filters'    => array('StringTrim'),
             'decorators' => array('Composite'),
-            'label'      => 'Subdomain',
+            'label'      => $translate->_('Subdomain'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'target', array(
             'filters'    => array('StringTrim'),
             'decorators' => array('Composite'),
-            'label'      => 'Target',
+            'label'      => $translate->_('Target'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('select', 'zone', array(
-                'label' => 'Zone',
+                'label' => $translate->_('Zone'),
                 'decorators' => array('Composite'),
                 'class'      => 'text-input large-input'
         ));
@@ -129,15 +129,13 @@ class Admin_Form_DomainsForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Dns_Zones_Types::getZones());
         
-      
-        
         $status = $this->getElement('status_id')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Statuses::getList('domains'));
                   
         $save = $this->addElement('submit', 'save', array(
             'required' => false,
-            'label'    => 'Save',
+            'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
             'class'    => 'button'
         ));

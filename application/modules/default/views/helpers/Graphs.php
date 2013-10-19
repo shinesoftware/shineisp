@@ -81,7 +81,7 @@ class Zend_View_Helper_Graphs extends Zend_View_Helper_Abstract {
 			$this->view->uri = "http://chart.apis.google.com/chart?cht=bvg
 			&chdlp=t
 			&chtt=" . $translation->translate ( 'Domain Summary per Month' ) . "
-			&chdl=" . $translation->translate ( 'Autorenew' ) . "|" . $translation->translate ( 'No Auto Renew' ) . "
+			&chdl=" . $translation->translate ( 'Automatic Renewal' ) . "|" . $translation->translate ( 'No Auto Renew' ) . "
 			&chts=4d89f9,18
 			&chs=550x300
 			&chd=t:" . $autorenew . "|" . $norenew . "

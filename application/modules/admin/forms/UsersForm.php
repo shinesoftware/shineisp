@@ -5,28 +5,30 @@ class Admin_Form_UsersForm extends Zend_Form
     public function init()
     {
         
+        $translate = Shineisp_Registry::get('Zend_Translate');
+        
         $company = $this->addElement('text', 'company', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Company:',
+            'label'      => $translate->_('Company'),
         ));
         
         $firstname = $this->addElement('text', 'firstname', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Firstname:',
+            'label'      => $translate->_('Firstname'),
         ));
         
         $lastname = $this->addElement('text', 'lastname', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Lastname:',
+            'label'      => $translate->_('Lastname'),
         ));
         
-        $contact = $this->addElement('select', 'type_id', array('label' => 'Contact:'));
+        $contact = $this->addElement('select', 'type_id', array('label' => $translate->_('Contact')));
         $contact = $this->getElement('type_id')
         		  ->setAllowEmpty(false)
-                  ->setMultiOptions(UsersTypes::getList())
+                  ->setMultiOptions(AdminUser::getList())
                   ->setRequired(true);
         
         $email = $this->addElement('text', 'email', array(
@@ -35,7 +37,7 @@ class Admin_Form_UsersForm extends Zend_Form
                 'EmailAddress',
             ),
             'required'   => true,
-            'label'      => 'Your email:',
+            'label'      => $translate->_('Your email'),
         ));
         
         $password = $this->addElement('password', 'password', array(
@@ -44,13 +46,7 @@ class Admin_Form_UsersForm extends Zend_Form
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'required'   => true,
-            'label'      => 'Password:',
-        ));
-
-        $save = $this->addElement('submit', 'save', array(
-            'required' => false,
-            'ignore'   => true,
-            'label'    => 'Save',
+            'label'      => $translate->_('Password'),
         ));
         
         $id = $this->addElement('hidden', 'user_id');

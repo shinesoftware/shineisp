@@ -6,16 +6,17 @@ class Default_Form_BulkdomainsForm extends Zend_Form
     {
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('textarea', 'domains', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'label'       => 'Domains',
+            'label'      => $translate->_('Domains'),
             'class'       => 'bulktextarea'
         ));
                 
         $this->addElement('submit', 'bulksearch', array(
-            'label'    => 'Check Now',
+            'label'      => $translate->_('Check Now'),
             'decorators' => array('Composite'),
             'class'    => 'button bigbtn'
         ));

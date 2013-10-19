@@ -212,7 +212,6 @@ class Cart {
 			$domainitem->setName($domain)
 					   	->setId($tld_id)
 			 		   	->setType('domain')
-						->setTerm(3) // annual
 						->setTaxId($priceInfo['tax_id'])
 						->setCost($priceInfo['cost'])
 						->setUnitprice($priceInfo['price'])
@@ -416,8 +415,20 @@ class Cart {
 			$tax = 0;
 			
 			if("domain" == $item->getType()){
-				$isrecurring = true;
-				$months = 12; // 12 months minimum for all domains
+				
+			    $item->setIsrecurring(true);
+			    
+			    // Get the billyng cycle / term / recurring period price
+			    if($item->getTerm ()){
+			        $priceInfo = ProductsTranches::getTranchebyId ( $item->getTerm () );
+			        $item->setBillingid($priceInfo ['BillingCycle'] ['billing_cycle_id']);
+			        $months = $priceInfo['BillingCycle']['months'];
+			    }else{
+			        $priceInfo = BillingCycle::getDefaultDomainBillingCycle();
+			        $item->setBillingid($priceInfo ['billing_cycle_id']);
+			        $months = $priceInfo['months'];
+			    }
+			    
 				$unitprice = $item->getUnitPrice();
 				$setupfee = 0;
 				
@@ -438,31 +449,25 @@ class Cart {
 				// Check the type of the product and get the price information
 				if ($product ['ProductsAttributesGroups'] ['isrecurring']) {
 				
-					$isrecurring = true;
+					$item->setIsrecurring(true);
 					
 					// Get the billyng cycle / term / recurring period price
-					$priceInfo = $product['ProductsTranches'];
+					$priceInfo = ProductsTranches::getTranchebyId ( $item->getTerm () );
 					
-					if(!empty($priceInfo)){
-						$keys = array_keys($priceInfo);
-						
-						if(!empty($priceInfo[$keys[0]])){
-							$priceInfo = $priceInfo[$keys[0]];
-							
-							// Price multiplier
-							$months = $priceInfo ['BillingCycle'] ['months'];
-						
-							$unitprice = $priceInfo ['price'];
-							$setupfee = $priceInfo ['setupfee'];
-						
-							// Calculate the price per the months per Quantity
-							$subtotal = ($unitprice * $months) * $item->getQty ();
-						}
-					}else{
-						$subtotal = 0;
-					}
+					// Price multiplier
+					$months = $priceInfo ['BillingCycle'] ['months'];
+				
+					$unitprice = $priceInfo ['price'];
+					$setupfee = $priceInfo ['setupfee'];
+				
+					// Calculate the price per the months per Quantity
+					$subtotal = ($unitprice * $months) * $item->getQty ();
+					
+					$item->setBillingid($priceInfo ['BillingCycle'] ['billing_cycle_id']);
 					
 				} else {
+				    $item->setIsrecurring(false);
+				    
 					$unitprice = $product ['price_1'];
 					$setupfee = $product ['setupfee'];
 				
@@ -484,7 +489,6 @@ class Cart {
 			$price = $subtotal + $setupfee;
 			
 			$item->setSubtotals ( array (
-					'isrecurring' => $isrecurring,
 					'months' => $months,
 					'subtotal' => $subtotal,
 					'setupfee' => $setupfee,
@@ -570,8 +574,8 @@ class Cart {
 	 * @return boolean
 	 */
 	public function createOrder() {
-	
-		if(!$this->getOrderid()){
+
+	    if(!$this->getOrderid()){
 			
 			$theOrder = Orders::create ( $this->getCustomerId(), Statuses::id('tobepaid', 'orders'), null );
 	

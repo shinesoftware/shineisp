@@ -489,7 +489,7 @@ EOS;
 
         mkdir($storageDirectory);
 
-        echo 'Storage directory created at ' . $storageDirectory . PHP_EOL;
+        echo 'Storage directory Creation Date ' . $storageDirectory . PHP_EOL;
     }
 
     /**

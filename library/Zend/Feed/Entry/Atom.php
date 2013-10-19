@@ -115,7 +115,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
 
 
     /**
-     * Save a new or updated Atom entry.
+     * Save a new or Upload Dateom entry.
      *
      * Save is used to either create new entries or to save changes to
      * existing ones. If we have a link rel="edit", we are changing

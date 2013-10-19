@@ -71,6 +71,18 @@ class BillingCycle extends BaseBillingCycle {
 	}
 	
 	/**
+	 * Get the default billing cycle for the domain 
+	 * @return array
+	 */
+	public static function getDefaultDomainBillingCycle() {
+		$record = Doctrine_Query::create ()->from ( 'BillingCycle b' )
+										   ->where('domain = ?', 1)
+										   ->limit(1)
+		   								   ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		return !empty($record[0]) ? $record[0] : null;
+	}
+	
+	/**
 	 * Get the minimum billing cycle for the domains products
 	 * @return integer
 	 */

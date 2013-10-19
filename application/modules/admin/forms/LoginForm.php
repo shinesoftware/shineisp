@@ -5,6 +5,7 @@ class Admin_Form_LoginForm extends Zend_Form
     {
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
@@ -14,7 +15,7 @@ class Admin_Form_LoginForm extends Zend_Form
             'decorators' => array('Composite'),
             'required'   => true,
             'description'      => 'Write your own email',
-            'label'      => 'Email',
+            'label'      => $translate->_('Email'),
             'class'      => 'text-input large-input'
         ));
         
@@ -26,17 +27,17 @@ class Admin_Form_LoginForm extends Zend_Form
             'decorators' => array('Composite'),
             'description'      => 'Write your own password',
             'required'   => true,
-            'label'      => 'Password',
+            'label'      => $translate->_('Password'),
             'class'      => 'text-input large-input'
         ));
 
         $this->addElement('checkbox', 'rememberme', array(
-            'label'    => 'Remember Me',
+            'label'    => $translate->_('Remember Me'),
             'decorators' => array('Composite')
         ));
 
         $this->addElement('submit', 'login', array(
-            'label'    => 'Login',
+            'label'    => $translate->_('Login'),
             'decorators' => array('Composite'),
         	'class'      => 'button'
         ));

@@ -278,7 +278,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 			if (isset ( $rs [0] )) {
 				
 				$columns[] = $this->translator->translate('Domain');
-				$columns[] = $this->translator->translate('Created at');
+				$columns[] = $this->translator->translate('Creation Date');
 				$columns[] = $this->translator->translate('Expiry Date');
 				
 				return array ('name' => 'domains', 'columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'domains', 'action' => 'edit' ), 'pager' => true );
@@ -319,7 +319,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 					}
 						
 					$columns[] = $this->translator->translate('Product');
-					$columns[] = $this->translator->translate('Created at');
+					$columns[] = $this->translator->translate('Creation Date');
 					$columns[] = $this->translator->translate('Expiration date');
 					$columns[] = $this->translator->translate('Days left');
 					$columns[] = $this->translator->translate('Price');
@@ -397,7 +397,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 			$rs = Tickets::getByCustomerID ( $request->id, "t.subject, s.status, DATE_FORMAT(t.date_open, '%d/%m/%Y') as date_open, c.company");
 			
 			$columns[] = $this->translator->translate('Subject');
-			$columns[] = $this->translator->translate('Created at');
+			$columns[] = $this->translator->translate('Creation Date');
 			$columns[] = $this->translator->translate('Company');
 			$columns[] = $this->translator->translate('Status');
 			

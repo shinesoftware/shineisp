@@ -5,6 +5,7 @@ class Admin_Form_PasswordForm extends Zend_Form
     {
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
@@ -13,8 +14,8 @@ class Admin_Form_PasswordForm extends Zend_Form
             ),
             'decorators' => array('Composite'),
             'required'   => true,
-            'description'      => 'Write your own email',
-            'label'      => 'Email',
+            'description'      => $translate->_('Write your own email'),
+            'label'      => $translate->_('Email'),
             'class'      => 'text-input large-input'
         ));
         
@@ -27,8 +28,8 @@ class Admin_Form_PasswordForm extends Zend_Form
         	$recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
         	$captcha = new Zend_Form_Element_Captcha('captcha',
         			array(
-        					'label' => 'Captcha Check',
-        					'description' => 'Type the characters you see in the picture below.',
+        					'label' => $translate->_('Captcha Check'),
+        					'description' => $translate->_('Type the characters you see in the picture below.'),
         					'captcha' =>  'ReCaptcha',
         					'captchaOptions'        => array(
         							'captcha'   => 'ReCaptcha',

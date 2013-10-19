@@ -5,18 +5,19 @@ class Admin_Form_CreditNotesForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('text', 'creationdate', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Date',
-            'title'      => 'es: 01/11/2010',
+            'label'      => $translate->_('Date'),
+            'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input date'
         ));
         
         $this->addElement('select', 'invoice_id', array(
-            'label'      => 'Invoice',
+            'label'      => $translate->_('Invoice'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -28,35 +29,35 @@ class Admin_Form_CreditNotesForm extends Zend_Form
     	$this->addElement('text', 'number', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Number',
+            'label'      => $translate->_('Number'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'total_net', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
-            'label'      => 'Total Net',
+            'label'      => $translate->_('Total Net'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'total_vat', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
-            'label'      => 'Total VAT',
+            'label'      => $translate->_('Total VAT'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('text', 'total', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
-            'label'      => 'Total',
+            'label'      => $translate->_('Total'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Note',
+            'label'      => $translate->_('Note'),
             'decorators' => array('Composite'),
             'class'      => 'textarea little-input'
         ));
@@ -66,35 +67,35 @@ class Admin_Form_CreditNotesForm extends Zend_Form
         
         $this->addElement('text', 'quantity', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
-            'label'      => 'Quantity',
+            'label'      => $translate->_('Quantity'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'description', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Description',
+            'label'      => $translate->_('Description'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
-            'label'      => 'VAT',
+            'label'      => $translate->_('VAT'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'price', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
-            'label'      => 'Price',
+            'label'      => $translate->_('Price'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('submit', 'save', array(
             'required' => false,
-            'label'    => 'Save',
+            'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
             'class'    => 'button'
         ));

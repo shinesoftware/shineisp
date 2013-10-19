@@ -5,14 +5,15 @@ class Default_Form_TicketsForm extends Zend_Form
     public function init()
     {
     	$NS = new Zend_Session_Namespace ( 'Default' );
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
        
         $this->addElement('select', 'domain_id', array(
         		'decorators'  => array('Composite'),
-        		'label'       => 'Domain',
-        		'description' => 'Choose the domain name reference',
+        		'label'      => $translate->_('Domain'),
+        		'description' => $translate->_('Choose the domain name reference'),
         		'class'       => 'text-input large-input'
         ));
         
@@ -25,33 +26,33 @@ class Default_Form_TicketsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Composite'),
-            'title'       => 'Write here a subject of the issue.',
-            'label'       => 'Subject',
-            'description' => 'Write here the domain name or a simple description of the problem.',
+            'title'       => $translate->_('Write here a subject of the issue.'),
+            'label'      => $translate->_('Subject'),
+            'description' => $translate->_('Write here the domain name or a simple description of the problem.'),
             'class'       => 'text-input large-input'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'label'       => 'Body Message',
+            'label'      => $translate->_('Body Message'),
         	'decorators'  => array('Composite'),
-            'description' => 'Write here all the information.',
+            'description' => $translate->_('Write here all the information.'),
         	'rows'		  => '8',
             'class'       => 'textarea'
         ));
         
         $this->addElement('select', 'status', array(
             'filters'     => array('StringTrim'),
-            'label'       => 'Set the issue status',
+            'label'      => $translate->_('Set the issue status'),
         	'decorators'  => array('Composite'),
             'class'       => 'text-input large-input',
-        	'multioptions' => array(''=> '', Statuses::id("solved", "tickets") => 'Solved', Statuses::id("closed", "tickets") => 'Closed')
+        	'multioptions' => array(''=> '', Statuses::id("solved", "tickets") => $translate->_('Solved'), Statuses::id("closed", "tickets") => $translate->_('Closed'))
         ));
         
         $this->addElement('select', 'category_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Category',
+            'label'      => $translate->_('Category'),
             'description' => 'Select a category.',
             'class'       => 'text-input large-input'
         ));
@@ -77,9 +78,9 @@ class Default_Form_TicketsForm extends Zend_Form
         	$Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 
 			$file = $this->createElement('file', 'attachments', array(
-	            'label'      => 'Attachment',
-	            'description'      => Shineisp_Registry::getInstance ()->Zend_Translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
-	            'class'      => 'text-input large-input'
+	            'label'          => $translate->_('Attachment'),
+	            'description'    => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
+	            'class'          => 'text-input large-input'
 	        ));
 	        
 	        $file->addValidator ( 'Extension', false, $Types )
@@ -92,7 +93,7 @@ class Default_Form_TicketsForm extends Zend_Form
         }
         
         $this->addElement('submit', 'submit', array(
-            'label'    => 'Send help request',
+            'label'      => $translate->_('Send help request'),
             'decorators' => array('Composite'),
             'class'    => 'small button'
         ));

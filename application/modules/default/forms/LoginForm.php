@@ -5,6 +5,7 @@ class Default_Form_LoginForm extends Zend_Form
     {
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
@@ -13,8 +14,8 @@ class Default_Form_LoginForm extends Zend_Form
             ),
             'decorators' => array('Composite'),
             'required'   => true,
-            'description'      => 'Write your own email',
-            'label'      => 'Email',
+            'description'      => $translate->_('Write your own email'),
+            'label'      => $translate->_('Email'),
             'class'      => 'text-input large-input'
         ));
         
@@ -24,14 +25,14 @@ class Default_Form_LoginForm extends Zend_Form
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'decorators' => array('Composite'),
-            'description'      => 'Write your own password',
+            'description'      => $translate->_('Write your own password'),
             'required'   => true,
-            'label'      => 'Password',
+            'label'      => $translate->_('Password'),
             'class'      => 'text-input large-input'
         ));
 
         $this->addElement('submit', 'login', array(
-            'label'    => 'Login',
+            'label'      => $translate->_('Login'),
             'class'      => 'button'
         ));
         

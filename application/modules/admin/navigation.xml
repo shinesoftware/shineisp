@@ -111,8 +111,8 @@
 						</reviews>
 						<attributes>
 							<label>Attributes</label>
-							<uri>/admin/attributes/list</uri>
-							<resource>admin:attributes</resource>
+							<uri>/admin/productsattributes/list</uri>
+							<resource>admin:productsattributes</resource>
 						</attributes>
 						<tlds>
 							<label>TLDs</label>

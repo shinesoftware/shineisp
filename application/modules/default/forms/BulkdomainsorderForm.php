@@ -6,6 +6,7 @@ class Default_Form_BulkdomainsorderForm extends Zend_Form
     {
     	// Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
          $this->addElement('select', 'billing_id', array(
          'class'      => 'text-input large-input billingId',
@@ -18,7 +19,7 @@ class Default_Form_BulkdomainsorderForm extends Zend_Form
                   ->setMultiOptions(BillingCycle::getList(null, true)); 
                   
         $this->addElement('submit', 'order', array(
-            'label'    => 'Create the Order',
+            'label'      => $translate->_('Create the Order'),
             'decorators' => array('Composite'),
             'class'    => 'button bigbtn'
         ));

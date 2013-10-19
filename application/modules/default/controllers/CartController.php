@@ -621,7 +621,7 @@ class CartController extends Shineisp_Controller_Default {
 					$form = $payment->setUrlOk ( $_SERVER ['HTTP_HOST'] . "/orders/response/gateway/" . md5 ( $gateway [0]['classname'] ) )
 									->setUrlKo ( $_SERVER ['HTTP_HOST'] . "/orders/response/" . md5 ( $gateway[0] ['classname'] ) )
 									->setUrlCallback ( $_SERVER ['HTTP_HOST'] . "/common/callback/gateway/" . md5 ( $gateway[0] ['classname'] )  )
-									->setRedirect(true)
+									#->setRedirect(true)
 									->setFormHidden(true)
 									->CreateForm ();
 					
