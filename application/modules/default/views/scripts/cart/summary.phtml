@@ -13,13 +13,13 @@
 					<td><?php echo $this->translate('Unit Price') ?></td>
 					<td><?php echo $this->translate('Taxes') ?></td>
 					<td><?php echo $this->translate('Qty') ?></td>
-					<td align="right"><?php echo $this->translate('Subtotal') ?></td>
+					<td><?php echo $this->translate('Subtotal') ?></td>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($cart->getItems() as $item): ?>
 					<?php $subtotal = $item->getSubtotals(); ?>
-					<?php $months = !empty($subtotal['isrecurring']) && !empty($subtotal['months']) ? " x " . $subtotal['months'] . " " . $this->translate('Months') : null; ?>
+					<?php $months = $item->getIsrecurring() && !empty($subtotal['months']) ? " x " . $subtotal['months'] . " " . $this->translate('Months') : null; ?>
 					<tr>
 						<td width="50"><?php echo $this->media()->ProductImage($item->getId(), 50, 50, true);?></td>
 						<td>
@@ -32,7 +32,10 @@
 							<?php endif; ?> 
 						</td>
 						<td width="20"><a class="gen-enclosed foundicon-trash" href="/cart/remove/uid/<?php echo $item->getUid() ?>">&nbsp;</a></td>
-						<td><?php echo $this->currency($item->getUnitPrice(), array('currency' => Settings::findbyParam('currency'))) ?> <?php echo $months?></td>
+						<td>
+						    <?php echo $this->currency($item->getUnitPrice(), array('currency' => Settings::findbyParam('currency'))) ?> 
+						    <?php echo ("domain" != $item->getType()) ? $months : null ?>
+						</td>
 						<td><?php echo $this->currency($subtotal['taxes'], array('currency' => Settings::findbyParam('currency'))) ?></td>
 						<td width="20"><input name="field[]" id="<?php echo $item->getUid()?>" type="text" value="<?php echo $item->getQty() ?>"></td>
 						<td align="right"><?php echo $this->currency($subtotal['subtotal'], array('currency' => Settings::findbyParam('currency'))) ?></td>
