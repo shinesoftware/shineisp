@@ -39,6 +39,20 @@ class SettingsParameters extends BaseSettingsParameters {
 	}
 	
 	/**
+	 * Get all settings information
+	 * 
+	 * @return array
+	 */
+	public static function getAllInfo() {
+		$items = array ();
+		$dq = Doctrine_Query::create ()->from ( 'SettingsParameters s' );
+		
+		$parameters = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		return $parameters;
+	}
+	
+	/**
 	 * Create the setting form and populate with the custom setting values
 	 * 
 	 * @param integer $groupid

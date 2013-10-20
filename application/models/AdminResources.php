@@ -24,11 +24,18 @@ class AdminResources extends BaseAdminResources
 		// Get the custom ACL resources from the database 
 		$acldbresources 	= Doctrine_Query::create ()->from ( 'AdminResources r' )->execute(array(), Doctrine::HYDRATE_ARRAY);
 		
-		foreach ($aclConfig->admin as $controller=>$resources){
+		foreach ($aclConfig->modules->admin as $controller=>$resources){
 			$key = "admin:$controller";
 			$aclresources['admin'][$key]['module'] = "admin";
-			$aclresources['admin'][$key]['title'] = (string)$resources->title;
+			$aclresources['admin'][$key]['title'] = !empty($resources->title) ? (string)$resources->title : "";
 			$aclresources['admin'][$key]['controller'] = $controller;
+		}
+		
+		foreach ($aclConfig->modules->api as $controller=>$resources){
+			$key = "api:$controller";
+			$aclresources['api'][$key]['module'] = "admin";
+			$aclresources['api'][$key]['title'] = !empty($resources->title) ? (string)$resources->title : "";
+			$aclresources['api'][$key]['controller'] = $controller;
 		}
 		
 		foreach ($acldbresources as $resource){
@@ -54,7 +61,7 @@ class AdminResources extends BaseAdminResources
 		if (!empty($module) && !empty($controller)){
 			$resource = self::getResource($module, $controller);
 			
-			if(empty($resource)){
+			if(0 ==  $resource->count()){
 				$resource = new AdminResources();
 				
 				$resource->name = !empty($name) ? $name : $controller;
@@ -136,17 +143,19 @@ class AdminResources extends BaseAdminResources
 	 * @param array $selecteditems
 	 * @return multitype:boolean NULL multitype:string boolean NULL
 	 */
-	public static function createResourcesTree($aclConfig, $selecteditems = array()) {
+	public static function createResourcesTree($aclConfig, $selecteditems = array(), $module=null) {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		foreach ($aclConfig as $key => $item){
-			$key = "admin:$key";
-			$selected = in_array ( $key, $selecteditems ) ? true : false;
-			
+		    
 			if(!empty($item->children)){
-				$res [] = array ('key' => $key, 'title' => $translator->translate($item->title), 'expand' => true, 'select' => false, 'isFolder' => true, 'children' => self::createResourcesTree($item->children, $selecteditems), 'hideCheckbox' => true );
+			    if($item->ismodule){
+			        $module = $key;
+			    }
+				$res [] = array ('title' => $translator->translate($item->title), 'expand' => true, 'select' => false, 'isFolder' => true, 'children' => self::createResourcesTree($item->children, $selecteditems, $module), 'hideCheckbox' => true );
 			}else{
-				$res [] = array ('key' => $key, 'title' => $translator->translate($item->title), 'select' => $selected );
+			    $selected = in_array ( "$module:$key", $selecteditems ) ? true : false;
+				$res [] = array ('key' => "$module:$key", 'title' => $translator->translate($item->title), 'select' => $selected );
 			}
 		}
 		return $res;

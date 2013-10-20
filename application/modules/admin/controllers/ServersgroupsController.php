@@ -153,7 +153,7 @@ class Admin_ServersgroupsController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		$Session = new Zend_Session_Namespace ( 'Admin' );
 		$form = $this->getForm ( '/admin/serversgroups/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
+		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form

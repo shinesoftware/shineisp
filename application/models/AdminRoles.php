@@ -88,13 +88,13 @@ class AdminRoles extends BaseAdminRoles
 				}
 			}
 			
+			// Clear old permissions
+			AdminPermissions::clearPermissionByRoleID($id);
+			
 			if(!empty($data['resources'])){
 
 				// Explode the string into an array
 				$resources = explode("/", $data['resources']);
-				
-				// Clear old permissions
-				AdminPermissions::clearPermissionByRoleID($id);
 				
 				// Add the new permissions
 				foreach ($resources as $resource ){

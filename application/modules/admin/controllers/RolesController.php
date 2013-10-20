@@ -155,7 +155,6 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 		$aclConfig 	= new Zend_Config_Xml(APPLICATION_PATH . '/configs/acl.xml', 'acl');
 		
 		$form = $this->getForm ( '/admin/roles/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form
@@ -174,9 +173,9 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 				
 				// Load the roles of each resource
 				$roles = AdminPermissions::getPermissionByRoleID($id);
-				
+
 				// Load the resources
-				$this->view->resources = json_encode ( AdminResources::createResourcesTree ( $aclConfig->admin, $roles ) );
+				$this->view->resources = json_encode ( AdminResources::createResourcesTree ( $aclConfig->modules, $roles ) );
 				
 				// Join the roles and the users
 				$rs[0]['users'] = $users;
