@@ -108,19 +108,22 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 		$ns = new Zend_Session_Namespace ();
 		$items = DomainsTlds::getHighlighted($ns->langid);
 		$currency = Shineisp_Registry::get ( 'Zend_Currency' );
-	
-		$html = "<li class=\"has-dropdown\">";
-		$html .= '<a href="/domainschk/index/">'.$this->translator->translate('Domains').'</a>';
-		$html .= "<ul class=\"dropdown\">";
-		foreach ( $items as $item ) {
-			if(!empty($item ['DomainsTldsData'][0]['name'])){
-				$item ['registration_price'] = $currency->toCurrency($item ['registration_price'], array('currency' => Settings::findbyParam('currency')));
-				$html .= '<li><a title="' . Shineisp_Commons_Utilities::truncate(strip_tags($item ['DomainsTldsData'][0]['description']), 150, "...", false, true) . '" href="/tlds/' . $item ['DomainsTldsData'][0]['name'] . '.html">.<b>' . strtoupper($item ['DomainsTldsData'][0]['name']) . "</b> - " . $item ['registration_price'] . " (" . $this->translator->translate('Vat Excluded') . ")</a></li>";
-			}
+		$html = "";
+		
+		if(!empty($items)){
+    		$html = "<li class=\"has-dropdown\">";
+    		$html .= '<a href="/domainschk/index/">'.$this->translator->translate('Domains').'</a>';
+    		$html .= "<ul class=\"dropdown\">";
+    		foreach ( $items as $item ) {
+    			if(!empty($item ['DomainsTldsData'][0]['name'])){
+    				$item ['registration_price'] = $currency->toCurrency($item ['registration_price'], array('currency' => Settings::findbyParam('currency')));
+    				$html .= '<li><a title="' . Shineisp_Commons_Utilities::truncate(strip_tags($item ['DomainsTldsData'][0]['description']), 150, "...", false, true) . '" href="/tlds/' . $item ['DomainsTldsData'][0]['name'] . '.html">.<b>' . strtoupper($item ['DomainsTldsData'][0]['name']) . "</b> - " . $item ['registration_price'] . " (" . $this->translator->translate('Vat Excluded') . ")</a></li>";
+    			}
+    		}
+    		$html .= "</ul>";
+    		$html .= "</li>";
 		}
-		$html .= "</ul>";
-		$html .= "</li>";
-	
+		
 		return $html;
 	}
 }
