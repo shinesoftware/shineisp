@@ -12,11 +12,11 @@ class Admin_Form_LoginForm extends Zend_Form
             'validators' => array(
                 'EmailAddress',
             ),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'required'   => true,
             'description'      => 'Write your own email',
             'label'      => $translate->_('Email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('password', 'password', array(
@@ -24,22 +24,22 @@ class Admin_Form_LoginForm extends Zend_Form
             'validators' => array(
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => 'Write your own password',
             'required'   => true,
             'label'      => $translate->_('Password'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
         $this->addElement('checkbox', 'rememberme', array(
             'label'    => $translate->_('Remember Me'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
 
         $this->addElement('submit', 'login', array(
             'label'    => $translate->_('Login'),
-            'decorators' => array('Composite'),
-        	'class'      => 'button'
+            'decorators' => array('Bootstrap'),
+        	'class'      => 'btn btn-primary'
         ));
         
     }

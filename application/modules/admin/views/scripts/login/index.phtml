@@ -13,11 +13,30 @@
             <br/><br/>
             <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
                 <fieldset class="login">
-                    <?php echo $form->email->render() ?>
-                    <?php echo $form->password->render() ?>
+                    
+                        <div class="control-group">
+						    <label class="control-label" for="inputIcon"><?php echo $form->email->getLabel()?></label>
+						    <div class="controls">
+							    <div class="input-prepend">
+								    <span class="add-on"><i class="icon-envelope"></i></span>
+								    <?php echo $form->email->setDecorators(array('ViewHelper')) ?>
+							    </div>
+						    </div>
+					    </div>
+                    
+                        <div class="control-group">
+						    <label class="control-label" for="inputIcon"><?php echo $form->password->getLabel()?></label>
+						    <div class="controls">
+							    <div class="input-prepend">
+								    <span class="add-on"><i class="icon-hand-right"></i></span>
+								    <?php echo $form->password->setDecorators(array('ViewHelper')) ?>
+							    </div>
+						    </div>
+					    </div>
                     <?php echo $form->rememberme->render() ?>
-                    <div class="column left"><?php echo $form->login->setDecorators(array('Simple')) ?></div>
-                    <div class="getpassword"><a href="/admin/login/password"><?php echo $this->translate('I forgot my password')?></a></div>
+                    <?php echo $form->login->render() ?>
+                    
+                    <div class="text-right"><a href="/admin/login/password"><?php echo $this->translate('I forgot my password')?></a></div>
                 </fieldset>
             </form>
         </div>

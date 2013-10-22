@@ -13,21 +13,21 @@ class Admin_Form_WikiForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'uri', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
             'label'       => $translate->_('URI'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         
         $this->addElement('select', 'language_id', array(
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Language'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
                 
         $this->getElement('language_id')
@@ -38,7 +38,7 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('select', 'active', array(
             'label'      => $translate->_('Active'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));        
         
@@ -69,7 +69,7 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('select', 'category_id', array(
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Category'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('category_id')

@@ -14,34 +14,9 @@
 		<!-- Common files called at the start of the admin module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-			
-				<!-- foundation 4 CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
-				<css override="1">/resources/foundation4/css/normalize.css</css>
-				<css override="1">/resources/foundation4/css/foundation.min.css</css>
-				<css override="1">/resources/foundation4/css/general_foundicons.css</css>
-				<css conditional="IE" override="1">/resources/foundation4/css/foundation.ie8.grid.css</css>
-				<css>/css/app.css</css>
-				
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.min.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.alerts.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.clearing.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.cookie.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.dropdown.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.forms.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.joyride.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.magellan.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.orbit.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.placeholder.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.reveal.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.section.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.tooltips.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.topbar.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.interchange.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.boot.js</js>
-				
-				<!-- Leave at the end of the CSS list files. This file must override all the foundation class in order to fix IE -->
-				<css conditional="IE">/css/ie.css</css>
-				
+				<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
+				<css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
+				<js position="endbody" override="1">/resources/bootstrap/js/bootstrap.min.js</js>
 			</head>
 		</commons>
 	

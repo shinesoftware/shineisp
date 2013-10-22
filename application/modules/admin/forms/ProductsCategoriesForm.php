@@ -12,7 +12,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input little-input'
+            'class'      => 'little-input'
         ));
 
         $this->addElement('text', 'uri', array(
@@ -20,7 +20,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('URI'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));        
 
         $this->addElement('text', 'googlecategs', array(
@@ -29,14 +29,14 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'label'      => $translate->_('Google Categories'),
             'description'      => $translate->_('See at http://support.google.com/merchants/bin/answer.py?hl=it&answer=1705911 for the list of the tassonomy'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));        
 
         $this->addElement('text', 'position', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Position'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));        
         
         $this->addElement('textarea', 'description', array(
@@ -57,7 +57,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'label'      => $translate->_('Parent Category'),
             'description' => $translate->_('Select here the parent category.'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->getElement('parent')
@@ -69,7 +69,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'description' => $translate->_('Select here the products to add to this category. Use Ctrl button to select more categories.'),
             'decorators'  => array('Composite'),
             'size' 		  => 20,
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('products')
@@ -94,7 +94,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
         $this->addElement('multiselect', 'wikipages', array(
         'label' => 'Wiki Pages',
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input multiselect'
+        'class'      => 'input-large multiselect'
         ));
         
         $this->getElement('wikipages')

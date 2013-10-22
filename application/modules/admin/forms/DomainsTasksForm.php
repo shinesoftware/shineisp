@@ -13,7 +13,7 @@ class Admin_Form_DomainsTasksForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Action'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'startdate', array(
@@ -21,28 +21,28 @@ class Admin_Form_DomainsTasksForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Start'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'enddate', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
             'label'       => $translate->_('End'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('textarea', 'log', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Log'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('select', 'status_id', array(
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Status'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('status_id')
@@ -54,7 +54,7 @@ class Admin_Form_DomainsTasksForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Domain'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('domain_id')
@@ -66,7 +66,7 @@ class Admin_Form_DomainsTasksForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Registrar'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('registrars_id')

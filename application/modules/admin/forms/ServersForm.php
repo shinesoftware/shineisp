@@ -10,7 +10,7 @@ class Admin_Form_ServersForm extends Zend_Form
     	$this->addElement('select', 'isp_id', array(
                 'label' => $translate->_('Isp'),
                 'decorators' => array('Composite'),
-                'class'      => 'text-input large-input'
+                'class'      => 'input-large'
         ));
         
         $this->getElement('isp_id')
@@ -21,7 +21,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('select', 'type_id', array(
                 'label' => $translate->_('Server Type'),
                 'decorators' => array('Composite'),
-                'class'      => 'text-input large-input'
+                'class'      => 'input-large'
         ));
         
         $this->getElement('type_id')
@@ -32,7 +32,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
                 'label' => $translate->_('Status'),
                 'decorators' => array('Composite'),
-                'class'      => 'text-input large-input'
+                'class'      => 'input-large'
         ));
         
         $this->getElement('status_id')
@@ -45,7 +45,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Server Name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'ip', array(
@@ -53,7 +53,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('IP'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'netmask', array(
@@ -61,7 +61,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Netmask'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'host', array(
@@ -69,7 +69,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Host'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'domain', array(
@@ -77,21 +77,21 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Domain'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('textarea', 'description', array(
             'required'   => true,
             'label'      => $translate->_('Description'),
             'decorators' => array('Composite'),
-            'class'      => 'textarea large-input'
+            'class'      => 'textarea input-large'
         ));
         
 		
         $this->addElement('select', 'panel_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Control Panel'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         $this->getElement('panel_id')
                   ->setAllowEmpty(false)
@@ -102,7 +102,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => false,
             'label'      => $translate->_('Datacenter'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 		
         $this->addElement('text', 'cost', array(
@@ -110,7 +110,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Server cost'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 		
         $this->addElement('text', 'max_accounts', array(
@@ -118,7 +118,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => false,
             'label'      => $translate->_('Max accounts'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 		
         $this->addElement('text', 'buy_date', array(
@@ -126,7 +126,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'label'       => $translate->_('Buy Date'),
             'description' => $translate->_('Purchase date of this server'),
             'decorators'  => array('Composite'),
-            'class'       => 'text-input large-input date'
+            'class'       => 'input-large date'
         ));		
 		
         $this->addElement('checkbox', 'is_default', array(
@@ -135,7 +135,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'label'       => $translate->_('Default server'),
             'description' => $translate->_('Default server for the group'),
             'decorators'  => array('Composite'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
 
         $this->addElement('hidden', 'server_id');

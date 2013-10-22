@@ -12,7 +12,7 @@ class Admin_Form_ProductsAttributesGroupsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Feature Name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('multiselect', 'attributes', array(

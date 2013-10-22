@@ -13,7 +13,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Var'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'title', array(
@@ -21,7 +21,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Title'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('textarea', 'body', array(
@@ -34,7 +34,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
         $this->addElement('multiselect', 'language_id', array(
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Language'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
                 
         $this->getElement('language_id')

@@ -13,7 +13,7 @@ class Admin_Form_NewsletterForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'sendat', array(
@@ -21,14 +21,14 @@ class Admin_Form_NewsletterForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Send At'),
-            'class'       => 'text-input little-input date'
+            'class'       => 'little-input date'
         ));
         
         $this->addElement('text', 'sent', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Sent'),
-            'class'       => 'text-input little-input date'
+            'class'       => 'little-input date'
         ));
         
         $this->addElement('textarea', 'message', array(
@@ -42,7 +42,7 @@ class Admin_Form_NewsletterForm extends Zend_Form
         $this->addElement('select', 'sendagain', array(
 	        'label' => $translate->_('Send it again'),
 	        'decorators' => array('Composite'),
-	        'class'      => 'text-input large-input'
+	        'class'      => 'input-large'
         ));
         
         $this->getElement('sendagain')

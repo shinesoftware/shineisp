@@ -12,14 +12,14 @@ class Admin_Form_BanksForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'account', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Account'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('textarea', 'description', array(
@@ -32,19 +32,19 @@ class Admin_Form_BanksForm extends Zend_Form
         $this->addElement('text', 'url_test', array(
             'label'      => $translate->_('URL Test'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'url_official', array(
             'label'      => $translate->_('URL Official'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));        
         
         $this->addElement('text', 'classname', array(
             'label'      => $translate->_('Classname'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));        
         
         $this->addElement('checkbox', 'enabled', array(
@@ -65,7 +65,7 @@ class Admin_Form_BanksForm extends Zend_Form
             'id'         => 'paymentmethods',
             'label'      => $translate->_('Payment methods'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->getElement('method_id')

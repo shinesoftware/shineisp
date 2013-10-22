@@ -12,7 +12,7 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Group name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('select', 'fill_type', array(

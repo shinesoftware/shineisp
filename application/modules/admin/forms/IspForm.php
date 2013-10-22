@@ -12,7 +12,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Company'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'vatnumber', array(
@@ -20,7 +20,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('VAT Number'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'address', array(
@@ -28,7 +28,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Address'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
         $this->addElement('text', 'zip', array(
@@ -36,7 +36,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('ZIP Code'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
         $this->addElement('text', 'city', array(
@@ -44,7 +44,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('City'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
         $this->addElement('text', 'country', array(
@@ -52,7 +52,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Country'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
         $this->addElement('text', 'telephone', array(
@@ -60,7 +60,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Telephone'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
 
         $this->addElement('text', 'fax', array(
@@ -68,28 +68,28 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Fax'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'bankname', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Bank name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'iban', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('IBAN'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'bic', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('BIC'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'slogan', array(
@@ -97,7 +97,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Slogan'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'manager', array(
@@ -105,28 +105,28 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Manager'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));             
 
         $this->addElement('text', 'custom1', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Custom 1'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));             
 
         $this->addElement('text', 'custom2', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Custom 2'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));             
 
         $this->addElement('text', 'custom3', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Custom 3'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));             
         
         $this->addElement('text', 'website', array(
@@ -134,7 +134,7 @@ class Admin_Form_IspForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Website'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'email', array(
@@ -145,17 +145,17 @@ class Admin_Form_IspForm extends Zend_Form
             ),
             'required'   => true,
             'label'      => $translate->_('Email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
                 
         $this->addElement('file', 'logo', array(
             'label'      => $translate->_('Logo'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
                 
         $this->addElement('file', 'logo_email', array(
             'label'      => $translate->_('Logo Email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('password', 'password', array(
@@ -165,13 +165,13 @@ class Admin_Form_IspForm extends Zend_Form
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'label'      => $translate->_('Password'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'isppanel', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('ISP Panel'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->getElement('isppanel')

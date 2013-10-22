@@ -12,7 +12,7 @@ class Admin_Form_CustomersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Firstname'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'lastname', array(
@@ -20,13 +20,13 @@ class Admin_Form_CustomersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Lastname'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'gender', array(
         'label' => $translate->_('Gender'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('gender')
@@ -37,7 +37,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         'label' => $translate->_('Tax free'),
         'description' => $translate->_('If it is set as Yes all the taxes will be not added in the orders'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
 
         $this->getElement('taxfree')
@@ -48,7 +48,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         'label' => $translate->_('Ignore late fee'),
         'description' => $translate->_('If it is set as Yes this customers is not subject to late fee'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
 
         $this->getElement('ignore_latefee')
@@ -61,7 +61,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         'label' => $translate->_('Default Language'),
         'description' => $translate->_('All the messages sent to the customer will be send using the default language selected'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('language_id')
@@ -71,7 +71,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'issubscriber', array(
         'label' => $translate->_('Newsletter Subscription'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('issubscriber')
@@ -82,7 +82,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         'label' => $translate->_('Is Reseller'),
         'description' => 'Set the user as reseller',
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('isreseller')
@@ -93,41 +93,41 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth date'),
             'decorators' => array('Composite'),
-            'class'        => 'text-input large-input date'
+            'class'        => 'input-large date'
         ));
         
         $this->addElement('text', 'birthplace', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth place'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'birthdistrict', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth district'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'birthcountry', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth country'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'birthnationality', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth nationality'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'group_id', array(
         'label' => $translate->_('Group'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('group_id')
@@ -137,7 +137,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'type_id', array(
         'label' => $translate->_('Company Type'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('type_id')
@@ -147,7 +147,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'legalform_id', array(
         'label' => 'Legal form',
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('legalform_id')
@@ -158,7 +158,7 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Company Name'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('button', 'customerupdate', array(
@@ -172,14 +172,14 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('VAT Number'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'class'      => 'input-large',
         ));
         
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Taxpayer Number'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'class'      => 'input-large',
         ));
         
          // If the browser client is an Apple client hide the file upload html object  
@@ -191,7 +191,7 @@ class Admin_Form_CustomersForm extends Zend_Form
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),
 	            'description'  => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s', Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
-	            'class'      => 'text-input large-input'
+	            'class'      => 'input-large'
 	        ));
 			
 			if($adminuploadfiletypes){
@@ -221,34 +221,34 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Address'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'code', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Zip code'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'area', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Area'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));        
         
         $this->addElement('text', 'city', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('City'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'country_id', array(
 				        'label' => $translate->_('Country'),
 				        'decorators' => array('Composite'),
-				        'class'      => 'text-input large-input',
+				        'class'      => 'input-large',
                         'onchange'   => 'onChangeCountry( this );')
         );
         
@@ -261,7 +261,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'region_id', array(
                         'label' => $translate->_('Region'),
                         'decorators' => array('Composite'),
-                        'class'      => 'text-input large-input',
+                        'class'      => 'input-large',
                         'onchange'   => 'onChangeRegions( this );')
         );
         
@@ -273,7 +273,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'contacttypes', array(
         'label' => $translate->_('Contact Types'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'));
+        'class'      => 'input-large'));
         
         $this->getElement('contacttypes')
                   ->setAllowEmpty(false)
@@ -283,7 +283,7 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Contact'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input'
+            'class'      => 'medium-input'
         ));
         
         $this->addElement('text', 'email', array(
@@ -294,14 +294,14 @@ class Admin_Form_CustomersForm extends Zend_Form
             ),
             'required'   => true,
             'label'      => $translate->_('Email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
             'decorators' => array('Composite'),
-            'class'      => 'text-input large-input wysiwyg'
+            'class'      => 'input-large wysiwyg'
         ));
         
         $this->addElement('password', 'password', array(
@@ -314,14 +314,14 @@ class Admin_Form_CustomersForm extends Zend_Form
             ),
             'description'      => 'Write here at least 6 characters.',
             'label'      => $translate->_('Password'),
-            'class'      => 'text-input large-input'
+            'class'      => 'input-large'
         ));
         
         
         $this->addElement('select', 'status_id', array(
         'label' => $translate->_('Status'),
         'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'class'      => 'input-large'
         ));
         
         $this->getElement('status_id')
@@ -333,7 +333,7 @@ class Admin_Form_CustomersForm extends Zend_Form
                             'label' => 'Reseller',
                             'decorators' => array('Composite'),
         					'description' => 'Select the client who you want to join with the selected customer.',
-                            'class'      => 'text-input large-input'
+                            'class'      => 'input-large'
         ));
         $criterias = array(array('where'=>'isreseller = ?', 'params'=>'1'));
         $this->getElement('parent_id')

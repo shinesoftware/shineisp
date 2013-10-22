@@ -13,7 +13,7 @@ class Admin_Form_LegalformsForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Composite'),
             'label'       => $translate->_('Name'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('hidden', 'legalform_id');
