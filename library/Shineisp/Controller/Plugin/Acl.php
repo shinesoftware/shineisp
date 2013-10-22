@@ -25,6 +25,10 @@ class Shineisp_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		$resource = $this->_module . ":" . $this->_controller;
 
 		$allowed_resources[] = "default:error";
+		
+		$allowed_resources[] = "api:index";
+		$allowed_resources[] = "api:request";
+		
 		$allowed_resources[] = "admin:index";
 		$allowed_resources[] = "admin:login";
 		$allowed_resources[] = "system:index";

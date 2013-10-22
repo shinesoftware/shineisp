@@ -91,7 +91,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/ordersitems/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
+		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form

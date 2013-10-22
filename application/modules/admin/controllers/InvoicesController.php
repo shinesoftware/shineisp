@@ -194,7 +194,7 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 	 */
 	public function editAction() {
 		$form = $this->getForm ( '/admin/invoices/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
+		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {

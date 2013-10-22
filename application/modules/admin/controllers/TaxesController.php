@@ -149,7 +149,7 @@ class Admin_TaxesController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		$form = $this->getForm ( '/admin/taxes/process' );
 		//* GUEST - ALE - 20130322: Rimosso setLabel in quanto il campo non e' presente nella form
-		//$form->getElement ( 'save' )->setLabel ( 'Update' );
+		//
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form

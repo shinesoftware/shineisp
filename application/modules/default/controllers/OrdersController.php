@@ -377,9 +377,9 @@ class OrdersController extends Shineisp_Controller_Default {
 	}
 	
 	/*
-     *  bulkAction
      *  Execute a custom function for each item selected in the list
      *  this method will be call from a jQuery script 
+     *  
      *  @return string
      */
 	public function bulkAction() {
@@ -394,7 +394,7 @@ class OrdersController extends Shineisp_Controller_Default {
 					die ( json_encode ( array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ) ) ) );
 				}
 			} else {
-				die ( json_encode ( array ('mex' => $this->translator->translate ( "methodnotset" ) ) ) );
+				die ( json_encode ( array ('mex' => $this->translator->translate ( "This feature has been not released yet" ) ) ) );
 			}
 		}
 		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error occurred during the task execution." ) ) ) );

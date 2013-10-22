@@ -214,7 +214,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		
 		$form = $this->getForm ( '/admin/customers/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
+		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		$this->view->title = $this->translator->translate("Customer edit");

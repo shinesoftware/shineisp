@@ -21,4 +21,5 @@ class Shineisp_Api_Resellers_Products extends Shineisp_Api_Abstract_Action  {
         return $details;
     }
     
+    
 }
