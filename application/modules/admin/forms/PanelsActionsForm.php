@@ -6,12 +6,13 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
     {
         // Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'action', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
             'decorators'  => array('Composite'),
-            'label'       => 'Action',
+            'label'       => $translate->_('Action'),
             'class'       => 'text-input large-input'
         ));
         
@@ -19,29 +20,29 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => true,
             'decorators'  => array('Composite'),
-            'label'       => 'Start Date',
+            'label'       => $translate->_('Start Date'),
             'class'       => 'text-input large-input date'
         ));
         
         $this->addElement('text', 'end', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'End Date',
+            'label'       => $translate->_('End Date'),
             'class'       => 'text-input large-input date'
         ));
         
         $this->addElement('textarea', 'log', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Log',
+            'label'       => $translate->_('Log'),
             'class'       => 'text-input large-input'
         ));
         
         $this->addElement('textarea', 'parameters', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Parameters',
-            'description' => 'Json encoded attribute parameters',
+            'label'       => $translate->_('Parameters'),
+            'description' => $translate->_('Json encoded attribute parameters'),
             'rows'       => '5',
             'class'       => 'text-input large-input'
         ));
@@ -49,7 +50,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
         $this->addElement('select', 'panel_id', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Panel',
+            'label'       => $translate->_('Panel'),
             'class'       => 'text-input large-input'
         ));
         
@@ -61,7 +62,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Composite'),
-            'label'       => 'Status',
+            'label'       => $translate->_('Status'),
             'class'       => 'text-input large-input'
         ));
         

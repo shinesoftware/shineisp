@@ -91,7 +91,7 @@ class Zend_Tool_Project_Provider_Layout extends Zend_Tool_Project_Provider_Abstr
             if (!$layoutScriptFile->exists()) {
                 $layoutScriptFile->create();
                 $this->_registry->getResponse()->appendContent(
-                    'A default layout has been created at '
+                    'A default layout has been Creation Date '
                     . $layoutScriptFile->getPath()
                     );
 

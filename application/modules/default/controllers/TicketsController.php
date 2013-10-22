@@ -284,10 +284,10 @@ class TicketsController extends Shineisp_Controller_Default {
 					die ( json_encode ( array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ) ) ) );
 				}
 			} else {
-				die ( json_encode ( array ('mex' => $this->translator->translate ( "methodnotset" ) ) ) );
+				die ( json_encode ( array ('mex' => $this->translator->translate ( "This feature has been not released yet" ) ) ) );
 			}
 		}
-		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error has occured during the task requested." ) ) ) );
+		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error occurred during the task execution." ) ) ) );
 	}
 	
 	/**

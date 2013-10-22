@@ -5,18 +5,19 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
         $this->addElement('text', 'target_path', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Target Path',
+            'label'      => $translate->_('Target Path'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('text', 'request_path', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Request Path',
+            'label'      => $translate->_('Request Path'),
         	'required'   => true,
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
@@ -24,14 +25,14 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Description',
+            'label'      => $translate->_('Description'),
             'decorators' => array('Composite'),
             'class'      => 'textarea'
         ));   
         
         $this->addElement('select', 'product_id', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Products',
+            'label'      => $translate->_('Products'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -42,7 +43,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         
         $this->addElement('select', 'category_id', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Categories',
+            'label'      => $translate->_('Categories'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -53,16 +54,9 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         
         $this->addElement('checkbox', 'temporary', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Temporary',
+            'label'      => $translate->_('Temporary'),
             'decorators' => array('Composite')
         ));  
-                          
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
         
         $this->addElement('hidden', 'url_rewrite_id');
     }

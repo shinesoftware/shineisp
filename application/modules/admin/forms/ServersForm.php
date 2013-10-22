@@ -5,9 +5,10 @@ class Admin_Form_ServersForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('select', 'isp_id', array(
-                'label' => 'isp',
+                'label' => $translate->_('Isp'),
                 'decorators' => array('Composite'),
                 'class'      => 'text-input large-input'
         ));
@@ -18,7 +19,7 @@ class Admin_Form_ServersForm extends Zend_Form
                   ->setRequired(true);
                   
         $this->addElement('select', 'type_id', array(
-                'label' => 'servertype',
+                'label' => $translate->_('Server Type'),
                 'decorators' => array('Composite'),
                 'class'      => 'text-input large-input'
         ));
@@ -29,7 +30,7 @@ class Admin_Form_ServersForm extends Zend_Form
                   ->setRequired(true);
                   
         $this->addElement('select', 'status_id', array(
-                'label' => 'status',
+                'label' => $translate->_('Status'),
                 'decorators' => array('Composite'),
                 'class'      => 'text-input large-input'
         ));
@@ -42,7 +43,7 @@ class Admin_Form_ServersForm extends Zend_Form
     	$this->addElement('text', 'name', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'servername',
+            'label'      => $translate->_('Server Name'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -50,7 +51,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'ip', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'ip',
+            'label'      => $translate->_('IP'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -58,7 +59,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'netmask', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'netmask',
+            'label'      => $translate->_('Netmask'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -66,7 +67,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'host', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'host',
+            'label'      => $translate->_('Host'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -74,14 +75,14 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'domain', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'domain',
+            'label'      => $translate->_('Domain'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
         
         $this->addElement('textarea', 'description', array(
             'required'   => true,
-            'label'      => 'description',
+            'label'      => $translate->_('Description'),
             'decorators' => array('Composite'),
             'class'      => 'textarea large-input'
         ));
@@ -89,7 +90,7 @@ class Admin_Form_ServersForm extends Zend_Form
 		
         $this->addElement('select', 'panel_id', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Control Panel',
+            'label'      => $translate->_('Control Panel'),
             'class'      => 'text-input large-input'
         ));
         $this->getElement('panel_id')
@@ -99,7 +100,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'datacenter', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
-            'label'      => 'Datacenter',
+            'label'      => $translate->_('Datacenter'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -107,7 +108,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Server cost',
+            'label'      => $translate->_('Server cost'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -115,15 +116,15 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('text', 'max_accounts', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
-            'label'      => 'Max accounts',
+            'label'      => $translate->_('Max accounts'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
 		
         $this->addElement('text', 'buy_date', array(
             'filters'     => array('StringTrim'),
-            'label'       => 'Buy Date',
-            'description' => 'Purchase date of this server',
+            'label'       => $translate->_('Buy Date'),
+            'description' => $translate->_('Purchase date of this server'),
             'decorators'  => array('Composite'),
             'class'       => 'text-input large-input date'
         ));		
@@ -131,8 +132,8 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('checkbox', 'is_default', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'label'       => 'Default server',
-            'description' => 'Default server for the group',
+            'label'       => $translate->_('Default server'),
+            'description' => $translate->_('Default server for the group'),
             'decorators'  => array('Composite'),
             'class'       => 'text-input large-input'
         ));

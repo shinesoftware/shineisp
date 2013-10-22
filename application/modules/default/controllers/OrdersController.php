@@ -81,7 +81,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		$data ['columns'][] = $this->translator->translate('Invoice No.');
 		$data ['columns'][] = $this->translator->translate('Company');
 		$data ['columns'][] = $this->translator->translate('Order No.');
-		$data ['columns'][] = $this->translator->translate('Created at');
+		$data ['columns'][] = $this->translator->translate('Creation Date');
 		$data ['columns'][] = $this->translator->translate('Total');
 		$data ['columns'][] = $this->translator->translate('Status');
 		
@@ -315,7 +315,7 @@ class OrdersController extends Shineisp_Controller_Default {
 			Orders::pdf($id, false, true);
 			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'The requested task has been completed successfully', 'status' => 'success' ) );
 		}else{
-			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'An error has occured during the task requested.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'An error occurred during the task execution.', 'status' => 'error' ) );
 		}
 	}
 	
@@ -377,9 +377,9 @@ class OrdersController extends Shineisp_Controller_Default {
 	}
 	
 	/*
-     *  bulkAction
      *  Execute a custom function for each item selected in the list
      *  this method will be call from a jQuery script 
+     *  
      *  @return string
      */
 	public function bulkAction() {
@@ -394,10 +394,10 @@ class OrdersController extends Shineisp_Controller_Default {
 					die ( json_encode ( array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ) ) ) );
 				}
 			} else {
-				die ( json_encode ( array ('mex' => $this->translator->translate ( "methodnotset" ) ) ) );
+				die ( json_encode ( array ('mex' => $this->translator->translate ( "This feature has been not released yet" ) ) ) );
 			}
 		}
-		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error has occured during the task requested." ) ) ) );
+		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error occurred during the task execution." ) ) ) );
 	}
 	
 	/**

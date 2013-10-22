@@ -2,6 +2,13 @@
 
 class Shineisp_Api_Products extends Shineisp_Api_Abstract_Action  {
     
+    /**
+     * Get a specific product 
+     * 
+     * @param integer $productid
+     * @throws Shineisp_Api_Exceptions
+     * @return multitype:unknown
+     */
     public function get( $productid ){
         $this->authenticate();
     	

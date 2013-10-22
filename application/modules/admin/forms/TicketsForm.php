@@ -6,19 +6,20 @@ class Admin_Form_TicketsForm extends Zend_Form
     {
         // Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Composite'),
-            'label'       => 'Subject',
+            'label'       => $translate->_('Subject'),
             'class'       => 'text-input large-input'
         ));
         
         $this->addElement('text', 'datetime', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'label'       => 'Date',
+            'label'       => $translate->_('Date'),
         	'decorators'  => array('Composite'),
             'class'       => 'text-input large-input'
         ));
@@ -26,21 +27,21 @@ class Admin_Form_TicketsForm extends Zend_Form
         
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
-            'label'       => 'Reply to the client',
+            'label'       => $translate->_('Reply to the client'),
             'class'       => 'wysiwyg'
         ));
         
 		$this->addElement('select', 'sendemail', array(
-            'label'      => 'Send Email',
-            'description'      => 'Send an email to the customer.',
+            'label'      => $translate->_('Send Email'),
+            'description'      => $translate->_('Send an email to the customer.'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input',
-            'multioptions' => array('1' => 'Yes', '0'=>'No')
+            'multioptions' => array('1' => $translate->_('Yes'), '0'=> $translate->_('No'))
         ));
         
         $this->addElement('select', 'category_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Category',
+            'label'       => $translate->_('Category'),
             'class'       => 'text-input large-input'
         ));
         
@@ -51,7 +52,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         
         $this->addElement('select', 'order_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Order reference',
+            'label'       => $translate->_('Order reference'),
             'class'       => 'text-input little-input'
         ));
         
@@ -62,7 +63,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         
         $this->addElement('select', 'sibling_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Relationships',
+            'label'       => $translate->_('Relationships'),
             'class'       => 'text-input little-input'
         ));
         
@@ -72,7 +73,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         
         $this->addElement('select', 'user_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Operator',
+            'label'       => $translate->_('Operator'),
             'class'       => 'text-input little-input'
         ));
         
@@ -84,7 +85,7 @@ class Admin_Form_TicketsForm extends Zend_Form
                   
         $this->addElement('select', 'status_id', array(
             'decorators'  => array('Composite'),
-            'label'       => 'Status',
+            'label'       => $translate->_('Status'),
             'class'       => 'text-input large-input'
         ));
         
@@ -110,8 +111,8 @@ class Admin_Form_TicketsForm extends Zend_Form
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        	        
 			$file = $this->createElement('file', 'attachments', array(
-	            'label'      => 'Attachment',
-	            'description'      => Shineisp_Registry::getInstance ()->Zend_Translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
+	            'label'      => $translate->_('Attachment'),
+	            'description'      => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'class'      => 'text-input large-input'
 	        ));
 	        

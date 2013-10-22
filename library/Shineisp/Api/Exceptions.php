@@ -3,7 +3,7 @@ class Shineisp_Api_Exceptions extends SoapFault {
     
     private $errors = array(
         //ERROR 400 - Bad request
-         '400001' => 'There was a problem during the login.'
+         '400001' => 'There was a problem during the login process.'
         ,'400002' => 'Mandary fields are empty'
         ,'400003' => 'Resource not found'
         ,'400004' => 'Request fields are incorrect'

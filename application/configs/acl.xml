@@ -1,93 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
 	<acl>
-		<admin>
-			<dashboard title="Dashboard">
+		<modules>
+			<api title="API" ismodule="1">
 				<children>
-					<notes title="Notes"></notes>
+					<request title="API Connector"></request>
 				</children>
-			</dashboard>
-			<customers title="Customers">
+			</api>
+			<admin title="Admin" ismodule="1">
 				<children>
-					<customers title="Customers"></customers>
-					<customersgroups title="Groups"></customersgroups>
-					<domains title="Domains"></domains>
-					<services title="Services"></services>
+					<dashboard title="Generic">
+						<children>
+							<notes title="Notes"></notes>
+						</children>
+					</dashboard>
+					<customers title="Customers">
+						<children>
+							<customers title="Customers"></customers>
+							<customersgroups title="Groups"></customersgroups>
+							<domains title="Domains"></domains>
+							<services title="Services"></services>
+						</children>
+					</customers>
+					<support title="Helpdesk">
+						<children>
+							<tickets title="Tickets"></tickets>
+							<wiki title="Wiki"></wiki>
+						</children>
+					</support>
+					
+					<sales title="Sales">
+						<children>
+							<orders title="Orders"></orders>
+							<invoices title="Invoices"></invoices>
+							<purchases title="Purchases"></purchases>
+							<creditsnotes title="Credit Notes"></creditsnotes>
+							<payments title="Payments"></payments>
+						</children>
+					</sales>
+					
+					<products title="Products">
+						<children>
+							<products title="Products"></products>
+							<productscategories title="Categories"></productscategories>
+							<attributesgroups title="Attribute Groups"></attributesgroups>
+							<attributes title="Attributes"></attributes>
+							<reviews title="Reviews"></reviews>
+							<domainstlds title="Domain TLD"></domainstlds>
+						</children>
+					</products>
+					
+					<roles title="Roles">
+						<children>
+							<roles title="Roles"></roles>
+							<users title="Users"></users>
+						</children>
+					</roles>
+					
+					<cms title="CMS">
+						<children>
+							<cmspages title="Pages"></cmspages>
+							<cmsblocks title="Blocks"></cmsblocks>
+						</children>
+					</cms>
+					
+					<newsletter title="Newsletter">
+						<children>
+							<newsletter title="Newsletter"></newsletter>
+							<subscribers title="Subscribers"></subscribers>
+						</children>
+					</newsletter>
+					
+					<reports title="Reports">
+						<children>
+							<reports title="Reports"></reports>
+						</children>
+					</reports>
+					
+					<settings title="General Settings">
+						<children>
+							<settings title="Settings"></settings>
+							<registrars title="Registrars"></registrars>
+							<isp title="Registrars"></isp>
+							<servers title="Servers"></servers>
+							<banks title="Banks"></banks>
+							<urlrewrite title="URL Rewrites"></urlrewrite>
+							<languages title="Languages"></languages>
+							<ticketscategories title="Tickets Categories"></ticketscategories>
+							<wikicategories title="WIKI Categories"></wikicategories>
+							<legalforms title="Legal Company forms"></legalforms>
+							<companytpes title="Company Types"></companytpes>
+							<emailstemplates title="Email Templates"></emailstemplates>
+							<filecategories title="File Categories"></filecategories>
+							<purchasescategories title="Purchase Categories"></purchasescategories>
+						</children>
+					</settings>
 				</children>
-			</customers>
-			<support title="Helpdesk">
-				<children>
-					<tickets title="Tickets"></tickets>
-					<wiki title="Wiki"></wiki>
-				</children>
-			</support>
+			</admin>
 			
-			<sales title="Sales">
-				<children>
-					<orders title="Orders"></orders>
-					<invoices title="Invoices"></invoices>
-					<purchases title="Purchases"></purchases>
-					<creditsnotes title="Credit Notes"></creditsnotes>
-					<payments title="Payments"></payments>
-				</children>
-			</sales>
-			
-			<products title="Products">
-				<children>
-					<products title="Products"></products>
-					<productscategories title="Categories"></productscategories>
-					<attributesgroups title="Attribute Groups"></attributesgroups>
-					<attributes title="Attributes"></attributes>
-					<reviews title="Reviews"></reviews>
-					<domainstlds title="Domain TLD"></domainstlds>
-				</children>
-			</products>
-			
-			<roles title="Roles">
-				<children>
-					<roles title="Roles"></roles>
-					<users title="Users"></users>
-				</children>
-			</roles>
-			
-			<cms title="CMS">
-				<children>
-					<cmspages title="Pages"></cmspages>
-					<cmsblocks title="Blocks"></cmsblocks>
-				</children>
-			</cms>
-			
-			<newsletter title="Newsletter">
-				<children>
-					<newsletter title="Newsletter"></newsletter>
-					<subscribers title="Subscribers"></subscribers>
-				</children>
-			</newsletter>
-			
-			<reports title="Reports">
-				<children>
-					<reports title="Reports"></reports>
-				</children>
-			</reports>
-			
-			<settings title="General Settings">
-				<children>
-					<settings title="Settings"></settings>
-					<registrars title="Registrars"></registrars>
-					<isp title="Registrars"></isp>
-					<servers title="Servers"></servers>
-					<banks title="Banks"></banks>
-					<urlrewrite title="URL Rewrites"></urlrewrite>
-					<languages title="Languages"></languages>
-					<ticketscategories title="Tickets Categories"></ticketscategories>
-					<wikicategories title="WIKI Categories"></wikicategories>
-					<legalforms title="Legal Company forms"></legalforms>
-					<companytpes title="Company Types"></companytpes>
-					<emailstemplates title="Email Templates"></emailstemplates>
-					<filecategories title="File Categories"></filecategories>
-					<purchasescategories title="Purchase Categories"></purchasescategories>
-				</children>
-			</settings>
-		</admin>
+		</modules>
 	</acl>
 </configdata>

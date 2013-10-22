@@ -5,10 +5,11 @@ class Admin_Form_SettingsForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
         $this->addElement('select', 'parameter_id', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'parameter',
+            'label'      => $translate->_('parameter'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -20,7 +21,7 @@ class Admin_Form_SettingsForm extends Zend_Form
         $this->addElement('textarea', 'value', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'value',
+            'label'      => $translate->_('value'),
             'decorators' => array('Composite'),
             'class'      => 'text-input little-input'
         ));        
@@ -28,7 +29,7 @@ class Admin_Form_SettingsForm extends Zend_Form
         $this->addElement('select', 'isp_id', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'isp',
+            'label'      => $translate->_('Isp'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -36,21 +37,7 @@ class Admin_Form_SettingsForm extends Zend_Form
         $this->getElement('isp_id')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Isp::getList());
-                          
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
-        $this->addElement('reset', 'reset', array(
-            'required' => false,
-            'label'    => 'reset',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
+                    
         $this->addElement('hidden', 'setting_id');
     }
 }

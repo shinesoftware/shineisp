@@ -6,6 +6,70 @@ class System_IndexController extends Shineisp_Controller_Default {
         die();
     }
     
+    /**
+     * Update the database item translation using the poedit!
+     * This method creates a temporary file that helps you to parse the 
+     * database table common contents.  
+     */
+    public function updatetranslationAction() {
+        
+        $content = "<?php\n ";
+        $content .= "# WARNING: This file has been created only for the POEDIT software.\n";
+        $content .= "#          You can delete it, if you don't use it! \n\n";
+        
+        // Setting Parameters 
+        $data = SettingsParameters::getAllInfo();
+        foreach ($data as $item){
+            $content .= "echo _('".$item['name']."')\n";
+            $content .= "echo _('".$item['description']."')\n";
+        }
+        
+        // Server Types 
+        $data = Servers_Types::getList();
+        foreach ($data as $id => $item){
+            $content .= "echo _('".$item."')\n";
+        }
+        
+        // Contact types
+        $data = ContactsTypes::getList();
+        foreach ($data as $id => $item){
+            $content .= "echo _('".$item."')\n";
+        }
+        
+        // Legal form
+        $data = Legalforms::getList();
+        foreach ($data as $id => $item){
+            $content .= "echo _('".$item."')\n";
+        }
+        
+        // Get the default navigation items
+        $config = new Zend_Config_Xml(APPLICATION_PATH . '/modules/default/navigation.xml','nav');
+        $navigation = new Zend_Navigation($config);
+        
+        // Iterate recursively using RecursiveIteratorIterator
+        $pages = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
+        foreach ($pages as $page){
+            $label = (string)$page->label;
+            $content .= "echo _('$label')\n";
+        }
+        
+        // Get the administration navigation items
+        $config = new Zend_Config_Xml(APPLICATION_PATH . '/modules/admin/navigation.xml','nav');
+        $navigation = new Zend_Navigation($config);
+        
+        // Iterate recursively using RecursiveIteratorIterator
+        $pages = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
+        foreach ($pages as $page){
+            $label = $page->getLabel();
+            $content .= "echo _('$label')\n";
+        }
+        
+        $content .= "?>";
+        Shineisp_Commons_Utilities::writefile($content, "tmp", "translations.php");
+       
+        die('Ok! Now update the default.po file by the poedit software');
+    }
+    
 	/**
 	 * Export the sample data
 	 */	

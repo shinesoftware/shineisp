@@ -44,7 +44,7 @@ class Zend_View_Helper_Alerts extends Zend_View_Helper_Abstract {
 					if(!empty($order['invoice_id'])){
 						$alerts [] = array ('message' => $translation->_ ( 'The invoice %s of %s (%s) has been not payed yet, click here to show more details.', $order ['Invoices']['number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'alert' );	 	
 					}else{
-						$alerts [] = array ('message' => $translation->_ ( 'The order %s that you have requested the %s with total %s has been not payed yet, click here to show more details.', $order ['order_number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'alert' );
+						$alerts [] = array ('message' => $translation->_ ( 'The order %s that you have requested the %s with total %s has not been paid yet, click here for more information.', $order ['order_number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'alert' );
 					}
 				}
 			}

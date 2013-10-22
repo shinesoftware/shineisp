@@ -13,9 +13,9 @@ Doctrine_Manager::getInstance()->bindComponent('ServersGroups', 'doctrine');
  * @property boolean $active
  * @property Doctrine_Collection $Products
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseServersGroups extends Doctrine_Record

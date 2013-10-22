@@ -6,39 +6,40 @@ class Admin_Form_PaymentsForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
         $this->addElement('text', 'paymentdate', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Payment date',
+            'label'      => $translate->_('Payment date'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input date'
         ));
     	
         $this->addElement('text', 'reference', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Transaction Reference',
+            'label'      => $translate->_('Transaction Reference'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
     	
         $this->addElement('text', 'income', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Income',
+            'label'      => $translate->_('Income'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
     	
         $this->addElement('text', 'outcome', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Outcome',
+            'label'      => $translate->_('Expense'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
 
         $this->addElement('select', 'confirmed', array(
         		'filters'    => array('StringTrim'),
-        		'label'      => 'Does the Transaction has been confirmed?',
+        		'label'      => $translate->_('Does the Transaction has been confirmed?'),
         		'decorators' => array('Composite'),
         		'class'      => 'text-input large-input'
         ));
@@ -82,7 +83,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         
         $this->addElement('textarea', 'description', array(
         		'filters'    => array('StringTrim'),
-        		'label'      => 'Description',
+        		'label'      => $translate->_('Description'),
         		'id'         => 'description',
         		'rows'         => '3',
         		'decorators' => array('Composite'),

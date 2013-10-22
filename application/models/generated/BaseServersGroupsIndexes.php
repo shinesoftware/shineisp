@@ -12,9 +12,9 @@ Doctrine_Manager::getInstance()->bindComponent('ServersGroupsIndexes', 'doctrine
  * @property integer $group_id
  * @property Servers $Servers
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseServersGroupsIndexes extends Doctrine_Record

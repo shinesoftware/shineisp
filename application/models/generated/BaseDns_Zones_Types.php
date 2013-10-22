@@ -11,9 +11,9 @@ Doctrine_Manager::getInstance()->bindComponent('Dns_Zones_Types', 'doctrine');
  * @property string $zone
  * @property Doctrine_Collection $Dns_Zones
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @package    ShineISP
+ * 
+ * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseDns_Zones_Types extends Doctrine_Record

@@ -116,7 +116,7 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
-				$this->view->title = $this->translator->translate ( 'Are you  sure to delete the feature selected?' );
+				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected feature?' );
 				$this->view->description = $this->translator->translate ( 'If you delete this feature, it will no longer be available.' );
 				
 				$record = $this->productsattributesgroups->getAllInfo ( $id );
@@ -127,7 +127,7 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
                 }
 				
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -153,7 +153,6 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
 	public function editAction() {
 		$Session = new Zend_Session_Namespace ( 'Admin' );
 		$form = $this->getForm ( '/admin/productsattributesgroups/process' );
-		$form->getElement ( 'save' )->setLabel ( 'Update' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		// Create the buttons in the edit form

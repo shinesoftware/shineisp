@@ -61,8 +61,8 @@ class ServicesController extends Shineisp_Controller_Default {
 		
 		$data ['columns'][] = $this->translator->translate('Description');
 		$data ['columns'][] = $this->translator->translate('Status');
-		$data ['columns'][] = $this->translator->translate('Created at');
-		$data ['columns'][] = $this->translator->translate('Expiring date');
+		$data ['columns'][] = $this->translator->translate('Creation Date');
+		$data ['columns'][] = $this->translator->translate('Expiry Date');
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -302,10 +302,10 @@ class ServicesController extends Shineisp_Controller_Default {
 					die ( json_encode ( array ('mex' => $this->translator->translate ( "The task requested has been executed successfully." ) ) ) );
 				}
 			} else {
-				die ( json_encode ( array ('mex' => $this->translator->translate ( "methodnotset" ) ) ) );
+				die ( json_encode ( array ('mex' => $this->translator->translate ( "This feature has been not released yet" ) ) ) );
 			}
 		}
-		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error has occured during the task requested." ) ) ) );
+		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error occurred during the task execution." ) ) ) );
 	}
 	
 	/**

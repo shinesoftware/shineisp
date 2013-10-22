@@ -5,11 +5,12 @@ class Admin_Form_RegistrarsForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
-
+    	$translate = Shineisp_Registry::get('Zend_Translate');
+    	
     	$registrars = new Shineisp_Plugins_Registrars_Base();
     	$this->addElement('select', 'name', array(
     			'filters'    => array('StringTrim'),
-    			'label'      => 'Registrar Module',
+    			'label'      => $translate->_('Registrar Module'),
     			'required'      => true,
     			'decorators' => array('Composite'),
     			'class'      => 'text-input large-input'
@@ -23,7 +24,7 @@ class Admin_Form_RegistrarsForm extends Zend_Form
 
         $this->addElement('select', 'active', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'Active',
+            'label'      => $translate->_('Active'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));          

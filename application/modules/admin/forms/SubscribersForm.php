@@ -6,12 +6,13 @@ class Admin_Form_SubscribersForm extends Zend_Form
     {
         // Set the custom decorator
         $this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+        $translate = Shineisp_Registry::get('Zend_Translate');
         
         $this->addElement('text', 'email', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
             'decorators'  => array('Composite'),
-            'label'       => 'Email',
+            'label'       => $translate->_('Email'),
             'class'       => 'text-input large-input'
         ));
         
@@ -19,15 +20,8 @@ class Admin_Form_SubscribersForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Composite'),
-            'label'       => 'Subscribed At',
+            'label'       => $translate->_('Subscribed At'),
             'class'       => 'text-input little-input date'
-        ));
-        
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
         ));
         
         $this->addElement('hidden', 'subscriber_id');

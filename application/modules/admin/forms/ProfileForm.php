@@ -11,11 +11,12 @@ class Admin_Form_ProfileForm extends Zend_Form
     	
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('text', 'firstname', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Firstname',
+            'label'      => $translate->_('Firstname'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -23,7 +24,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     	$this->addElement('text', 'lastname', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'Lastname',
+            'label'      => $translate->_('Lastname'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -32,7 +33,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     	if(AdminRoles::isAdministrator($logged_user['user_id'])){
     		$this->addElement('select', 'role_id', array(
     				'required'   => true,
-    				'label'      => 'Role',
+    				'label'      => $translate->_('Role'),
     				'decorators' => array('Composite'),
     				'class'      => 'text-input large-input'
     		));
@@ -44,7 +45,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     		
     		$this->addElement('select', 'isp_id', array(
     				'required'   => true,
-    				'label'      => 'Isp Company',
+    				'label'      => $translate->_('Isp Company'),
     				'decorators' => array('Composite'),
     				'class'      => 'text-input large-input'
     		));
@@ -65,22 +66,8 @@ class Admin_Form_ProfileForm extends Zend_Form
         						array('validator' => 'EmailAddress'),  
         					),
             'required'   => true,
-            'label'      => 'Email',
+            'label'      => $translate->_('Email'),
             'class'      => 'text-input large-input'
-        ));
-        
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => 'Save',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
-        
-        $this->addElement('reset', 'reset', array(
-            'required' => false,
-            'label'    => 'reset',
-            'decorators' => array('Composite'),
-            'class'    => 'button'
         ));
         
         $this->addElement('password', 'password', array(
@@ -89,7 +76,7 @@ class Admin_Form_ProfileForm extends Zend_Form
         		'validators' => array(
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
-        		'label'      => 'Password',
+        		'label'      => $translate->_('Password'),
         		'class'      => 'text-input large-input'
         ));
         

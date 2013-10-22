@@ -5,17 +5,18 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
+    	$translate = Shineisp_Registry::get('Zend_Translate');
     	
     	$this->addElement('text', 'name', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'E-Mail Name',
+            'label'      => $translate->_('E-Mail Name'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
 		
     	$this->addElement('select', 'type', array(
-            'label'      => 'Section',
+            'label'      => $translate->_('Section'),
             'decorators' => array('Composite'),
     		'class'      => 'text-input large-input'
         ));
@@ -36,7 +37,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
     	$this->addElement('text', 'fromname', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'From name',
+            'label'      => $translate->_('From name'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -44,7 +45,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
     	$this->addElement('text', 'fromemail', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'From E-Mail',
+            'label'      => $translate->_('From E-Mail'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -52,7 +53,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
     	$this->addElement('text', 'cc', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
-            'label'      => 'Always CC',
+            'label'      => $translate->_('Always CC'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
@@ -60,46 +61,40 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
     	$this->addElement('text', 'bcc', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
-            'label'      => 'Always BCC',
+            'label'      => $translate->_('Always BCC'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));
 
     	$this->addElement('checkbox', 'plaintext', array(
-            'label'      => 'Always send in plaintext',
+            'label'      => $translate->_('Always send in plaintext'),
             'decorators' => array('Composite')
         ));
 
     	$this->addElement('checkbox', 'active', array(
-            'label'      => 'Active',
+            'label'      => $translate->_('Active'),
             'decorators' => array('Composite')
         ));
 		
-		
-		/*
-		 * TEXTS
-		 */
 		$this->addElement('text', 'subject', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => 'E-Mail Subject',
+            'label'      => $translate->_('E-Mail Subject'),
             'decorators' => array('Composite'),
             'class'      => 'text-input large-input'
         ));		 
 		$this->addElement('textarea', 'html', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'HTML Content',
+            'label'      => $translate->_('HTML Content'),
             'class'      => 'wysiwyg_fullpage'
         ));		 
 		$this->addElement('textarea', 'text', array(
             'filters'    => array('StringTrim'),
-            'label'      => 'TEXT Content',
+            'label'      => $translate->_('TEXT Content'),
         ));
 		
-		
-        
         $this->addElement('submit', 'save', array(
-            'label'    => 'Save',
+            'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
             'class'    => 'button'
         ));
