@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+body {
+    background: none repeat scroll 0 0 #383E4B;
+    border: 0 none;
+    color: #383E4B;
+    font-family: 'Lato',sans-serif;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    background: none repeat scroll 0 0 #F5F5F5;
+    min-height: 100%;
+    padding: 20px;
+    position: relative;
+}
+
+.nav-tabs.nav-stacked > li > a, .nav-tabs.nav-stacked > li > ul > li > a {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    border-radius: 0 0 0 0;
+    color: #FFFFFF;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+.nav-tabs.nav-stacked > li > ul > li > a {
+    margin-left: -40px;
+    padding: 10px 20px;
+}
+.nav-tabs.nav-stacked > li > a > i, .nav-tabs.nav-stacked > li > ul > li > a > i {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    width: 20px;
+}
+.nav-tabs.nav-stacked > li > a:hover {
+    background: none repeat scroll 0 0 #2D323D;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+}
+.nav-tabs.nav-stacked > li > a:hover, .nav-tabs.nav-stacked > li > ul > li > a:hover {
+    background: none repeat scroll 0 0 #2D323D;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+}
+.nav-tabs.nav-stacked > li.active > a, .nav-tabs.nav-stacked > li > ul > li.active > a {
+    background: none repeat scroll 0 0 #2D323D;
+}
+.nav-tabs.nav-stacked > li.active > a:hover, .nav-tabs.nav-stacked > li > ul > li.active > a:hover {
+    border: 0 none;
+    color: #FFFFFF;
+}
+.nav-tabs.nav-stacked > li.active > ul {
+    background: none repeat scroll 0 0 #2D323D;
+    padding: 5px 0;
+}
+.nav-tabs.nav-stacked > li:first-child > a {
+    border-radius: 0 0 0 0;
+    margin: 0;
+}

@@ -1,31 +1,56 @@
-<ul class="nav nav-list nav-collapse collapse">
+<ul class="nav nav-tabs nav-stacked main-menu">
 <?php
 
 $html = array();
 
 foreach ($this->container as $page) 
 {
-    $html[] = "<li class=\"has-dropdown\">";
+    $html[] = "<li class=\"\">";
     $html[] = $this->menu()->htmlify($page) . PHP_EOL;
 
-    if (!empty($page->pages))
-    {
+    if (!empty($page->pages)){
+    	
         $html[] = "<ul class=\"dropdown\">";
-        foreach ($page->pages as $subpage) 
-        {
-            $html[] = "<li class=\"has-dropdown\">";
-            if ($href = $subpage->getHref()) 
-            	$html[] = "<a href=\"{$href}\">";
-            else 
-            	$html[] = "<span>";
-            	$html[] = $subpage->getLabel();
-            	
-            if ($href) 
-            	$html[] = "</a>";
-            else 
-            	$html[] = "</span>";     
-                   
-            $html[] = "</li>";
+        foreach ($page->pages as $subpage) {
+        	
+        	if (!empty($subpage->pages)){
+        		
+        		$html[] = "<li><ul class=\"dropdown\">";
+        		
+        		foreach ($subpage->pages as $subsubpage) {
+        			$html[] = "<li class=\"\">";
+        			if ($href = $subsubpage->getHref())
+        				$html[] = "<a href=\"{$href}\">";
+        			else
+        				$html[] = "<span>";
+        			$html[] = $subsubpage->getLabel();
+        			 
+        			if ($href)
+        				$html[] = "</a>";
+        			else
+        				$html[] = "</span>";
+        			 
+        			$html[] = "</li>";
+        		}
+        		
+        		$html[] = "</ul></li>";
+        		
+        	}else{
+        		$html[] = "<li class=\"\">";
+        		if ($href = $subpage->getHref())
+        			$html[] = "<a href=\"{$href}\">";
+        		else
+        			$html[] = "<span>";
+        		$html[] = $subpage->getLabel();
+        		 
+        		if ($href)
+        			$html[] = "</a>";
+        		else
+        			$html[] = "</span>";
+        		 
+        		$html[] = "</li>";
+        	}
+            
         }
         $html[] = "</ul>";
     }
@@ -33,4 +58,26 @@ foreach ($this->container as $page)
     $html[] = "</li>";
 }
 
+$html[] = "</ul>";
+
 echo join(PHP_EOL, $html);
+
+function _buildNavigationTree ($container, $tree)
+{
+	foreach ($tree as $node) {
+		$page = new Zend_Navigation_Page_Mvc(array(
+				'label'         => $node->label,
+				'controller'    => $node->controller,
+				'action'        => $node->action,
+				'params'        => unserialize($node->params)
+		));
+
+		if ($node->hasChildren()) {
+			$page = $this->_buildNavigationTree($page, $node->getChildren());
+		}
+
+		$container->addPage($page);
+	}
+
+	return $container;
+}

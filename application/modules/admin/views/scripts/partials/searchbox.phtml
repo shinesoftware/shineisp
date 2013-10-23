@@ -1,3 +1,5 @@
 <?php if($this->visible):?>
-	<input type="text" title="<?php echo $this->translate('Type here what you are looking for')?>" class="searchbox" value="" id="searchbox" size="30" >
+<div class="navbar-search pull-left">
+	<input type="text" title="<?php echo $this->translate('Type here what you are looking for')?>" class="search-query" placeholder="<?php echo $this->translate('Search')?>" id="searchbox" size="30">
+</div>
 <?php endif;?>

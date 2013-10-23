@@ -2,10 +2,14 @@
 <layout>
 
 	<!-- Default configuration of the whole project -->
-	<general template="2columns-left">
+	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js position="endbody" override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
+			<js override="1" position="endbody">/resources/js/jquery/jquery-1.8.3.js</js>  
+			
+			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
+            <css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
+            <js  override="1" position="endbody">/resources/bootstrap/js/bootstrap.min.js</js>
 		</head>
 	</general>
 	
@@ -14,15 +18,12 @@
 		<!-- Common files called at the start of the admin module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-				<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
-				<css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
-				<js position="endbody" override="1">/resources/bootstrap/js/bootstrap.min.js</js>
 			</head>
 		</commons>
 	
 		<index>
 			<head>
-				<js>/js/login.js</js> 
+				<js position="endbody">/js/login.js</js> 
 			</head>
 			<!--
 			<blocks>
