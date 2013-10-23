@@ -4,7 +4,7 @@
 
 <?php $name = (!empty($this->data['Isp']['company'])) ? $this->data['Isp']['company'] : null?>
 
-<a href="#" data-toggle="dropdown" class="dropdown-toggle"><?php echo $name ?></a>
+<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-user"></i> <?php echo $name ?></a>
 <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
 	<?php $identity = $auth->getIdentity(); ?>
 	<li><a title="<?=$this->translate('Profile') ?>" href="/admin/profile/account"><?=$this->translate("%s's %s profile", $identity['lastname'], $identity['AdminRoles']['name']) ?></a></li>

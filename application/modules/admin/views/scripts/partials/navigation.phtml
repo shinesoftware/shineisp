@@ -1,83 +1,32 @@
-<ul class="nav nav-tabs nav-stacked main-menu">
 <?php
 
-$html = array();
-
-foreach ($this->container as $page) 
+function genMenu($container)
 {
-    $html[] = "<li class=\"\">";
-    $html[] = $this->menu()->htmlify($page) . PHP_EOL;
+    foreach ($container as $page)
+    {
+        echo '<li class="dropdown">';
 
-    if (!empty($page->pages)){
-    	
-        $html[] = "<ul class=\"dropdown\">";
-        foreach ($page->pages as $subpage) {
-        	
-        	if (!empty($subpage->pages)){
-        		
-        		$html[] = "<li><ul class=\"dropdown\">";
-        		
-        		foreach ($subpage->pages as $subsubpage) {
-        			$html[] = "<li class=\"\">";
-        			if ($href = $subsubpage->getHref())
-        				$html[] = "<a href=\"{$href}\">";
-        			else
-        				$html[] = "<span>";
-        			$html[] = $subsubpage->getLabel();
-        			 
-        			if ($href)
-        				$html[] = "</a>";
-        			else
-        				$html[] = "</span>";
-        			 
-        			$html[] = "</li>";
-        		}
-        		
-        		$html[] = "</ul></li>";
-        		
-        	}else{
-        		$html[] = "<li class=\"\">";
-        		if ($href = $subpage->getHref())
-        			$html[] = "<a href=\"{$href}\">";
-        		else
-        			$html[] = "<span>";
-        		$html[] = $subpage->getLabel();
-        		 
-        		if ($href)
-        			$html[] = "</a>";
-        		else
-        			$html[] = "</span>";
-        		 
-        		$html[] = "</li>";
-        	}
-            
+        $href = $page->uri;
+        $target = 'dropdown-toggle';
+    
+        echo '<a href="' . $href . '" data-toggle="dropdown" target="' . $target . '">' . $page->label . '</a>';
+        
+        if (!empty($page->pages))
+        {
+            echo '<ul class="dropdown-menu">';
+
+            genMenu($page->pages);
+
+            echo '</ul>';
         }
-        $html[] = "</ul>";
+
+        echo '</li>';
     }
-
-    $html[] = "</li>";
 }
 
-$html[] = "</ul>";
+echo '<ul class="nav">';
 
-echo join(PHP_EOL, $html);
+genMenu($this->container);
 
-function _buildNavigationTree ($container, $tree)
-{
-	foreach ($tree as $node) {
-		$page = new Zend_Navigation_Page_Mvc(array(
-				'label'         => $node->label,
-				'controller'    => $node->controller,
-				'action'        => $node->action,
-				'params'        => unserialize($node->params)
-		));
+echo '</ul>';
 
-		if ($node->hasChildren()) {
-			$page = $this->_buildNavigationTree($page, $node->getChildren());
-		}
-
-		$container->addPage($page);
-	}
-
-	return $container;
-}

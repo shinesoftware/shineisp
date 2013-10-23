@@ -1,10 +1,10 @@
-<div class="widget-wrapper">
+<div class="block">
 	<?php if($this->element): ?>
-		<div class="widget-header">
-			<h3><a href="<?php echo $this->controller?>"><?php echo $this->translate($this->label) ?></a></h3>
+		<div class="navbar navbar-inner block-header">
+			<div class="muted pull-left"><a href="<?php echo $this->controller?>"><?php echo $this->translate($this->label) ?></a></div>
 		</div>
 		
-		<div class="widget-content">
+		<div class="block-content">
 			<?php if($this->chart):?>
 				<div class="widget-chart">
 					<img width="250" src="<?= $this->chart; ?>" alt="chart"/>

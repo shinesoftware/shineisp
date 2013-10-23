@@ -1,327 +1,308 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
 	<nav>
-		<administration>
-			<label>Home</label>
+		<dashboard>
+			<label>General</label>
 			<uri>#</uri>
-			<resource>admin:index</resource>
-			<customHtmlAttribs>
-				<class>cursor</class>
-			</customHtmlAttribs>
-			<!--  
-			<title>Click here to open/close the menu</title>
-			<accesskey>h</accesskey>
-			<order>0</order>
-			<visible>1</visible>
-			<customHtmlAttribs>
-				<style>cursor:help</style>
-			</customHtmlAttribs>
-			-->
+			<resource>admin:dashboard</resource>
+			<class>dropdown-toggle</class>
 			<pages>
 				<dashboard>
-					<label>General</label>
-					<uri>#</uri>
-					<resource>admin:dashboard</resource>
-					<pages>
-						<dashboard>
-							<label>Dashboard</label>
-							<uri>/admin/index</uri>
-							<resource>admin:index</resource>
-						</dashboard>
-						<publicsite>
-							<label>Public Site</label>
-							<uri>/index</uri>
-							<resource>index:index</resource>
-						</publicsite>
-						<notes>
-							<label>Notes</label>
-							<uri>/admin/notes/list</uri>
-							<resource>admin:notes</resource>
-						</notes>
-					</pages>
+					<label>Dashboard</label>
+					<uri>/admin/index</uri>
+					<resource>admin:index</resource>
 				</dashboard>
+				<publicsite>
+					<label>Public Site</label>
+					<uri>/index</uri>
+					<resource>index:index</resource>
+				</publicsite>
+				<notes>
+					<label>Notes</label>
+					<uri>/admin/notes/list</uri>
+					<resource>admin:notes</resource>
+				</notes>
+			</pages>
+		</dashboard>
+		<customers>
+			<label>Customers</label>
+			<uri>#</uri>
+			<resource>admin:customers</resource>
+			<pages>
+				<domains>
+					<label>Domains</label>
+					<uri>/admin/domains/list</uri>
+					<resource>admin:domains</resource>
+				</domains>
 				<customers>
 					<label>Customers</label>
-					<uri>#</uri>
+					<uri>/admin/customers/list</uri>
 					<resource>admin:customers</resource>
-					<pages>
-						<domains>
-							<label>Domains</label>
-							<uri>/admin/domains/list</uri>
-							<resource>admin:domains</resource>
-						</domains>
-						<customers>
-							<label>Customers</label>
-							<uri>/admin/customers/list</uri>
-							<resource>admin:customers</resource>
-						</customers>
-						<services>
-							<label>Services</label>
-							<uri>/admin/services/list</uri>
-							<resource>admin:services</resource>
-						</services>
-						<customersgroups>
-							<label>Customer Groups</label>
-							<uri>/admin/customersgroups/list</uri>
-							<resource>admin:customersgroups</resource>
-						</customersgroups>
-					</pages>
 				</customers>
-				<support>
-					<label>Support</label>
-					<uri>#</uri>
-					<resource>admin:customers</resource>
-					<pages>
-						<tickets>
-							<label>Tickets</label>
-							<uri>/admin/tickets/list</uri>
-							<resource>admin:tickets</resource>
-						</tickets>
-						<wiki>
-							<label>Wiki</label>
-							<uri>/admin/wiki/list</uri>
-							<resource>admin:wiki</resource>
-						</wiki>
-					</pages>
-				</support>
+				<services>
+					<label>Services</label>
+					<uri>/admin/services/list</uri>
+					<resource>admin:services</resource>
+				</services>
+				<customersgroups>
+					<label>Customer Groups</label>
+					<uri>/admin/customersgroups/list</uri>
+					<resource>admin:customersgroups</resource>
+				</customersgroups>
+			</pages>
+		</customers>
+		<support>
+			<label>Support</label>
+			<uri>#</uri>
+			<resource>admin:customers</resource>
+			<pages>
+				<tickets>
+					<label>Tickets</label>
+					<uri>/admin/tickets/list</uri>
+					<resource>admin:tickets</resource>
+				</tickets>
+				<wiki>
+					<label>Wiki</label>
+					<uri>/admin/wiki/list</uri>
+					<resource>admin:wiki</resource>
+				</wiki>
+			</pages>
+		</support>
+		<products>
+			<label>Products</label>
+			<uri>#</uri>
+			<resource>admin:products</resource>
+			<pages>
+				<productscategories>
+					<label>Products Categories</label>
+					<uri>/admin/productscategories/list</uri>
+					<resource>admin:productscategories</resource>
+				</productscategories>
+				<attributesgroups>
+					<label>Attribute Groups</label>
+					<uri>/admin/productsattributesgroups/list</uri>
+					<resource>admin:productsattributesgroups</resource>
+				</attributesgroups>
 				<products>
 					<label>Products</label>
-					<uri>#</uri>
+					<uri>/admin/products/list</uri>
 					<resource>admin:products</resource>
-					<pages>
-						<productscategories>
-							<label>Products Categories</label>
-							<uri>/admin/productscategories/list</uri>
-							<resource>admin:productscategories</resource>
-						</productscategories>
-						<attributesgroups>
-							<label>Attribute Groups</label>
-							<uri>/admin/productsattributesgroups/list</uri>
-							<resource>admin:productsattributesgroups</resource>
-						</attributesgroups>
-						<products>
-							<label>Products</label>
-							<uri>/admin/products/list</uri>
-							<resource>admin:products</resource>
-						</products>
-						<reviews>
-							<label>Reviews</label>
-							<uri>/admin/reviews/list</uri>
-							<resource>admin:reviews</resource>
-						</reviews>
-						<attributes>
-							<label>Attributes</label>
-							<uri>/admin/productsattributes/list</uri>
-							<resource>admin:productsattributes</resource>
-						</attributes>
-						<tlds>
-							<label>TLDs</label>
-							<uri>/admin/domainstlds/list</uri>
-							<resource>admin:domainstlds</resource>
-						</tlds>
-					</pages>
 				</products>
-				<settings>
-					<label>Settings</label>
-					<uri>#</uri>
-					<resource>admin:settings</resource>
-					<pages>
-						<settings>
-							<label>General</label>
-							<uri>/admin/settings/</uri>
-							<resource>admin:settings</resource>
-						</settings>
-						<registrars>
-							<label>Registrars</label>
-							<uri>/admin/registrars/list</uri>
-							<resource>admin:registrars</resource>
-						</registrars>
-						<profile>
-							<label>ISP Account</label>
-							<uri>/admin/isp/account/list</uri>
-							<resource>admin:isp</resource>
-						</profile>
-						<servers>
-							<label>Servers</label>
-							<uri>/admin/servers/list</uri>
-							<resource>admin:servers</resource>
-						</servers>
-						<banks>
-							<label>Banks</label>
-							<uri>/admin/banks/list</uri>
-							<resource>admin:banks</resource>
-						</banks>
-						<urlrewrites>
-							<label>Url Rewrites</label>
-							<uri>/admin/urlrewrite/list</uri>
-							<resource>admin:urlrewrite</resource>
-						</urlrewrites>
-						<taxes>
-							<label>Taxes</label>
-							<uri>/admin/taxes/list</uri>
-							<resource>admin:taxes</resource>
-						</taxes>
-						<languages>
-							<label>Languages</label>
-							<uri>/admin/languages/list</uri>
-							<resource>admin:languages</resource>
-						</languages>
-						<ticketscategories>
-							<label>Tickets Categories</label>
-							<uri>/admin/ticketscategories/list</uri>
-							<resource>admin:ticketscategories</resource>
-						</ticketscategories>
-						<wikicategories>
-							<label>Wiki Categories</label>
-							<uri>/admin/wikicategories/list</uri>
-							<resource>admin:wikicategories</resource>
-						</wikicategories>
-						<legalforms>
-							<label>Legal Forms</label>
-							<uri>/admin/legalforms/list</uri>
-							<resource>admin:legalforms</resource>
-						</legalforms>
-						<companytypes>
-							<label>Company Types</label>
-							<uri>/admin/companytypes/list</uri>
-							<resource>admin:companytypes</resource>
-						</companytypes>
-						<emailstemplates>
-							<label>Emails Templates</label>
-							<uri>/admin/emailstemplates/list</uri>
-							<resource>admin:emailstemplates</resource>
-						</emailstemplates>
-						<filecategories>
-							<label>File categories</label>
-							<uri>/admin/filecategories/list</uri>
-							<resource>admin:filecategories</resource>
-						</filecategories>
-						<purchasescategories>
-							<label>Invoice purchases categories</label>
-							<uri>/admin/purchasescategories/list</uri>
-							<resource>admin:purchasescategories</resource>
-						</purchasescategories>
-					</pages>
-				</settings>
-				<sales>
-					<label>Sales</label>
-					<uri>#</uri>
-					<resource>admin:sales</resource>
-					<pages>
-						<invoices>
-							<label>Invoices</label>
-							<uri>/admin/invoices/list</uri>
-							<resource>admin:invoices</resource>
-						</invoices>
-						<orders>
-							<label>Orders</label>
-							<uri>/admin/orders/list</uri>
-							<resource>admin:orders</resource>
-						</orders>
-						<purchases>
-							<label>Purchases</label>
-							<uri>/admin/purchases/list</uri>
-							<resource>admin:purchases</resource>
-						</purchases>
-						<creditnotes>
-							<label>Credit Notes</label>
-							<uri>/admin/creditnotes/list</uri>
-							<resource>admin:creditnotes</resource>
-						</creditnotes>
-						<payments>
-							<label>Payments</label>
-							<uri>/admin/payments/list</uri>
-							<resource>admin:payments</resource>
-						</payments>
-					</pages>
-				</sales>
-				<cms>
-					<label>CMS</label>
-					<uri>#</uri>
-					<resource>admin:cms</resource>
-					<pages>
-						<cmspages>
-							<label>CMS Pages</label>
-							<uri>/admin/cmspages/list</uri>
-							<resource>admin:cmspages</resource>
-						</cmspages>
-						<cmsblocks>
-							<label>CMS Blocks</label>
-							<uri>/admin/cmsblocks/list</uri>
-							<resource>admin:cmsblocks</resource>
-						</cmsblocks>
-					</pages>
-				</cms>
-				<newsletter>
-					<label>Newsletter</label>
-					<uri>#</uri>
-					<resource>admin:newsletter</resource>
-					<pages>
-						<messages>
-							<label>Messages</label>
-							<uri>/admin/newsletter/list</uri>
-							<resource>admin:newsletter</resource>
-						</messages>
-						<subscribers>
-							<label>Subscribers</label>
-							<uri>/admin/subscribers/list</uri>
-							<resource>admin:subscribers</resource>
-						</subscribers>
-					</pages>
-				</newsletter>
-				<reports>
-					<label>Reports</label>
-					<uri>#</uri>
-					<resource>admin:reports</resource>
-					<pages>
-						<profitofyear>
-							<label>Profit of the Year</label>
-							<uri>/admin/reports/show/type/profitofyear</uri>
-							<resource>admin:reports</resource>
-						</profitofyear>
-						<domainstats>
-							<label>Domain Statistics</label>
-							<uri>/admin/reports/show/type/domainstats</uri>
-							<resource>admin:reports</resource>
-						</domainstats>
-						<domainstasks>
-							<label>Domain Statistics</label>
-							<uri>/admin/reports/show/type/domainstasks</uri>
-							<resource>admin:reports</resource>
-						</domainstasks>
-						<tldssummaryowner>
-							<label>Domains per Client</label>
-							<uri>/admin/reports/show/type/tldssummaryowner</uri>
-							<resource>admin:reports</resource>
-						</tldssummaryowner>
-						<tldssummarypermonth>
-							<label>Domains per Month</label>
-							<uri>/admin/reports/show/type/tldssummarypermonth</uri>
-							<resource>admin:reports</resource>
-						</tldssummarypermonth>
-						<servicesummary>
-							<label>Service Summary</label>
-							<uri>/admin/reports/show/type/servicesummary</uri>
-							<resource>admin:reports</resource>
-						</servicesummary>
-						<panelsactions>
-							<label>Panels Actions</label>
-							<uri>/admin/reports/show/type/panelsactions</uri>
-							<resource>admin:reports</resource>
-						</panelsactions>
-					</pages>
-				</reports>
-				
-				<!-- DO NOT DELETE THIS ITEM -->
-				<configuration>
-					<label>Configuration</label>
-					<uri>#</uri>
-					<resource>admin:settings</resource>
-				</configuration>
-				<!-- DO NOT DELETE THIS ITEM -->
-				
+				<reviews>
+					<label>Reviews</label>
+					<uri>/admin/reviews/list</uri>
+					<resource>admin:reviews</resource>
+				</reviews>
+				<attributes>
+					<label>Attributes</label>
+					<uri>/admin/productsattributes/list</uri>
+					<resource>admin:productsattributes</resource>
+				</attributes>
+				<tlds>
+					<label>TLDs</label>
+					<uri>/admin/domainstlds/list</uri>
+					<resource>admin:domainstlds</resource>
+				</tlds>
 			</pages>
-		</administration>
+		</products>
+		<settings>
+			<label>Settings</label>
+			<uri>#</uri>
+			<resource>admin:settings</resource>
+			<pages>
+				<settings>
+					<label>General</label>
+					<uri>/admin/settings/</uri>
+					<resource>admin:settings</resource>
+				</settings>
+				<registrars>
+					<label>Registrars</label>
+					<uri>/admin/registrars/list</uri>
+					<resource>admin:registrars</resource>
+				</registrars>
+				<profile>
+					<label>ISP Account</label>
+					<uri>/admin/isp/account/list</uri>
+					<resource>admin:isp</resource>
+				</profile>
+				<servers>
+					<label>Servers</label>
+					<uri>/admin/servers/list</uri>
+					<resource>admin:servers</resource>
+				</servers>
+				<banks>
+					<label>Banks</label>
+					<uri>/admin/banks/list</uri>
+					<resource>admin:banks</resource>
+				</banks>
+				<urlrewrites>
+					<label>Url Rewrites</label>
+					<uri>/admin/urlrewrite/list</uri>
+					<resource>admin:urlrewrite</resource>
+				</urlrewrites>
+				<taxes>
+					<label>Taxes</label>
+					<uri>/admin/taxes/list</uri>
+					<resource>admin:taxes</resource>
+				</taxes>
+				<languages>
+					<label>Languages</label>
+					<uri>/admin/languages/list</uri>
+					<resource>admin:languages</resource>
+				</languages>
+				<ticketscategories>
+					<label>Tickets Categories</label>
+					<uri>/admin/ticketscategories/list</uri>
+					<resource>admin:ticketscategories</resource>
+				</ticketscategories>
+				<wikicategories>
+					<label>Wiki Categories</label>
+					<uri>/admin/wikicategories/list</uri>
+					<resource>admin:wikicategories</resource>
+				</wikicategories>
+				<legalforms>
+					<label>Legal Forms</label>
+					<uri>/admin/legalforms/list</uri>
+					<resource>admin:legalforms</resource>
+				</legalforms>
+				<companytypes>
+					<label>Company Types</label>
+					<uri>/admin/companytypes/list</uri>
+					<resource>admin:companytypes</resource>
+				</companytypes>
+				<emailstemplates>
+					<label>Emails Templates</label>
+					<uri>/admin/emailstemplates/list</uri>
+					<resource>admin:emailstemplates</resource>
+				</emailstemplates>
+				<filecategories>
+					<label>File categories</label>
+					<uri>/admin/filecategories/list</uri>
+					<resource>admin:filecategories</resource>
+				</filecategories>
+				<purchasescategories>
+					<label>Invoice purchases categories</label>
+					<uri>/admin/purchasescategories/list</uri>
+					<resource>admin:purchasescategories</resource>
+				</purchasescategories>
+			</pages>
+		</settings>
+		<sales>
+			<label>Sales</label>
+			<uri>#</uri>
+			<resource>admin:sales</resource>
+			<pages>
+				<invoices>
+					<label>Invoices</label>
+					<uri>/admin/invoices/list</uri>
+					<resource>admin:invoices</resource>
+				</invoices>
+				<orders>
+					<label>Orders</label>
+					<uri>/admin/orders/list</uri>
+					<resource>admin:orders</resource>
+				</orders>
+				<purchases>
+					<label>Purchases</label>
+					<uri>/admin/purchases/list</uri>
+					<resource>admin:purchases</resource>
+				</purchases>
+				<creditnotes>
+					<label>Credit Notes</label>
+					<uri>/admin/creditnotes/list</uri>
+					<resource>admin:creditnotes</resource>
+				</creditnotes>
+				<payments>
+					<label>Payments</label>
+					<uri>/admin/payments/list</uri>
+					<resource>admin:payments</resource>
+				</payments>
+			</pages>
+		</sales>
+		<cms>
+			<label>CMS</label>
+			<uri>#</uri>
+			<resource>admin:cms</resource>
+			<pages>
+				<cmspages>
+					<label>CMS Pages</label>
+					<uri>/admin/cmspages/list</uri>
+					<resource>admin:cmspages</resource>
+				</cmspages>
+				<cmsblocks>
+					<label>CMS Blocks</label>
+					<uri>/admin/cmsblocks/list</uri>
+					<resource>admin:cmsblocks</resource>
+				</cmsblocks>
+			</pages>
+		</cms>
+		<newsletter>
+			<label>Newsletter</label>
+			<uri>#</uri>
+			<resource>admin:newsletter</resource>
+			<pages>
+				<messages>
+					<label>Messages</label>
+					<uri>/admin/newsletter/list</uri>
+					<resource>admin:newsletter</resource>
+				</messages>
+				<subscribers>
+					<label>Subscribers</label>
+					<uri>/admin/subscribers/list</uri>
+					<resource>admin:subscribers</resource>
+				</subscribers>
+			</pages>
+		</newsletter>
+		<reports>
+			<label>Reports</label>
+			<uri>#</uri>
+			<resource>admin:reports</resource>
+			<pages>
+				<profitofyear>
+					<label>Profit of the Year</label>
+					<uri>/admin/reports/show/type/profitofyear</uri>
+					<resource>admin:reports</resource>
+				</profitofyear>
+				<domainstats>
+					<label>Domain Statistics</label>
+					<uri>/admin/reports/show/type/domainstats</uri>
+					<resource>admin:reports</resource>
+				</domainstats>
+				<domainstasks>
+					<label>Domain Statistics</label>
+					<uri>/admin/reports/show/type/domainstasks</uri>
+					<resource>admin:reports</resource>
+				</domainstasks>
+				<tldssummaryowner>
+					<label>Domains per Client</label>
+					<uri>/admin/reports/show/type/tldssummaryowner</uri>
+					<resource>admin:reports</resource>
+				</tldssummaryowner>
+				<tldssummarypermonth>
+					<label>Domains per Month</label>
+					<uri>/admin/reports/show/type/tldssummarypermonth</uri>
+					<resource>admin:reports</resource>
+				</tldssummarypermonth>
+				<servicesummary>
+					<label>Service Summary</label>
+					<uri>/admin/reports/show/type/servicesummary</uri>
+					<resource>admin:reports</resource>
+				</servicesummary>
+				<panelsactions>
+					<label>Panels Actions</label>
+					<uri>/admin/reports/show/type/panelsactions</uri>
+					<resource>admin:reports</resource>
+				</panelsactions>
+			</pages>
+		</reports>
+		
+		<!-- DO NOT DELETE THIS ITEM -->
+		<configuration>
+			<label>Configuration</label>
+			<uri>#</uri>
+			<resource>admin:settings</resource>
+		</configuration>
+		<!-- DO NOT DELETE THIS ITEM -->
 		
 	</nav>
 </configdata>
