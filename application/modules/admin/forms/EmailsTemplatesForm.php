@@ -96,7 +96,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
         $this->addElement('submit', 'save', array(
             'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'btn'
         ));
                 
         $this->addElement('hidden', 'template_id');

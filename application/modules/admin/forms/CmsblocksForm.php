@@ -46,7 +46,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'required' => false,
             'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'btn'
         ));
         
         $this->addElement('hidden', 'block_id');

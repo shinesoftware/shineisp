@@ -28,7 +28,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
             'required' => false,
             'label'    => $translate->_('Save and Send Message'),
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'btn'
         ));
                 
         $this->addElement('hidden', 'mail_id');

@@ -3,41 +3,22 @@
 <div id="login-wrapper" class="loginframe">
     <div id="login-content">
        
-       <?php if( $this->message ): ?>
-            <?php echo "<div class=\"notification error\">" . $this->message . "</div>"; ?>
-       <?php endif;?>
-       
        <div id="login-box">             
             <h1><?php echo !empty($isp['company']) ? $isp['company'] : $this->translate('Control Panel')?></h1>
     		<small><?php echo $this->translate('please fill up the form with the administration credentials.')?></small>
             <br/><br/>
+            
+           <?php if( $this->message ): ?>
+                <?php echo $this->Message($this->message); ?>
+           <?php endif;?>
+           
             <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-                <fieldset class="login">
-                    
-                        <div class="control-group">
-						    <label class="control-label" for="inputIcon"><?php echo $form->email->getLabel()?></label>
-						    <div class="controls">
-							    <div class="input-prepend">
-								    <span class="add-on"><i class="icon-envelope"></i></span>
-								    <?php echo $form->email->setDecorators(array('ViewHelper')) ?>
-							    </div>
-						    </div>
-					    </div>
-                    
-                        <div class="control-group">
-						    <label class="control-label" for="inputIcon"><?php echo $form->password->getLabel()?></label>
-						    <div class="controls">
-							    <div class="input-prepend">
-								    <span class="add-on"><i class="icon-hand-right"></i></span>
-								    <?php echo $form->password->setDecorators(array('ViewHelper')) ?>
-							    </div>
-						    </div>
-					    </div>
+                    <?php echo $form->email->render() ?>
+                    <?php echo $form->password->render() ?>
                     <?php echo $form->rememberme->render() ?>
-                    <?php echo $form->login->render() ?>
                     
-                    <div class="text-right"><a href="/admin/login/password"><?php echo $this->translate('I forgot my password')?></a></div>
-                </fieldset>
+                    <?php echo $form->login->render() ?>
+                    <span class="help-inline text-right"><a href="/admin/login/password"><?php echo $this->translate('I forgot my password')?></a></span>
             </form>
         </div>
     </div>

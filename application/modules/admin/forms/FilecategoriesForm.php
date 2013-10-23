@@ -19,7 +19,7 @@ class Admin_Form_FilecategoriesForm extends Zend_Form
             'required' => false,
             'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'btn'
         ));
         
         $this->addElement('hidden', 'category_id');

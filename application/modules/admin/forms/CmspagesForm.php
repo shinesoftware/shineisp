@@ -123,7 +123,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'required' => false,
             'label'    => $translate->_('Save'),
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'btn'
         ));
         
         $this->addElement('hidden', 'page_id');

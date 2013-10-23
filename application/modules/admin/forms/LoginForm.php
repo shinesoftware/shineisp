@@ -39,7 +39,7 @@ class Admin_Form_LoginForm extends Zend_Form
         $this->addElement('submit', 'login', array(
             'label'    => $translate->_('Login'),
             'decorators' => array('Bootstrap'),
-        	'class'      => 'btn btn-primary'
+        	'class'      => 'btn'
         ));
         
     }

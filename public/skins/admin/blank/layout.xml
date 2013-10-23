@@ -5,7 +5,7 @@
 	<general template="2columns-left">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
+			<js position="endbody" override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
 		</head>
 	</general>
 	

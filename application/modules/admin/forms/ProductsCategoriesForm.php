@@ -106,7 +106,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'required' => false,
             'label'    => 'Save',
             'decorators' => array('Composite'),
-            'class'    => 'button'
+            'class'    => 'btn'
         ));
         
         

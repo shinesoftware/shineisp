@@ -78,7 +78,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		if (empty ( $messages )) {
 			return '';
 		}
-		return '<div class="errors">' . $element->getView ()->formErrors ( $messages ) . '</div>';
+		return '<span class="help-inline">' . $element->getView ()->formErrors ( $messages ) . '</span>';
 	}
 	
 	/**
@@ -123,14 +123,15 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		#$desc = $this->buildDescription ();
 		$name = $this->getElement ()->getName ();
 		
+		$iserror = !empty($errors) ? "error" : null;
 		switch ($element->getType ()) {
 			case "Zend_Form_Element_Text":
-				$output = "<div class=\"control-group $name\">" . $label;
+				$output = "<div class=\"control-group $iserror $name\">" . $label;
 				$output .= "<div class=\"controls\">$input $errors</div></div>";
 			break;
 			
 			case "Zend_Form_Element_Password":
-				$output = "<div class=\"control-group $name\">" . $label;
+				$output = "<div class=\"control-group $iserror $name\">" . $label;
 				$output .= "<div class=\"controls\">$input $errors</div></div>";
 			break;
 			
@@ -140,7 +141,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 				$pos = strpos($label, ">");
 				$start_label =  substr($label, 0, $pos+1);
 				
-				$output = "<div class=\"control-group $name\">";
+				$output = "<div class=\"control-group $iserror $name\">";
 				$output .= "<div class=\"controls\">";
 				$output .= $start_label . $input . $this->getElement()->getLabel() . "</label>";
 				$output .= "</div>";
