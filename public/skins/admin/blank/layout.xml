@@ -5,11 +5,11 @@
 	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js override="1" position="endbody">/resources/js/jquery/jquery-1.8.3.js</js>  
+			<js override="1">/resources/js/jquery/jquery-2.0.3.min.js</js>  
 			
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
             <css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
-            <js  override="1" position="endbody">/resources/bootstrap/js/bootstrap.min.js</js>
+            <js  override="1">/resources/bootstrap/js/bootstrap.min.js</js>
 		</head>
 	</general>
 	
@@ -23,7 +23,7 @@
 	
 		<index>
 			<head>
-				<js position="endbody">/js/login.js</js> 
+				<js>/js/login.js</js> 
 			</head>
 			<!--
 			<blocks>

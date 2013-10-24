@@ -4,27 +4,28 @@ function genMenu($container)
 {
     foreach ($container as $page)
     {
-        echo '<li class="dropdown">';
+        echo '<li class="dropdown">' . "\n";
 
         $href = $page->uri;
         $target = 'dropdown-toggle';
-    
-        echo '<a href="' . $href . '" data-toggle="dropdown" target="' . $target . '">' . $page->label . '</a>';
+        $toggle = !empty($page->pages) ? "dropdown" : "";
+        
+        echo '<a href="' . $href . '" data-toggle="'.$toggle.'" target="' . $target . '">' . htmlentities($page->label) . '</a>' . "\n";
         
         if (!empty($page->pages))
         {
-            echo '<ul class="dropdown-menu">';
+            echo '<ul class="dropdown-menu">' . "\n";
 
             genMenu($page->pages);
 
-            echo '</ul>';
+            echo '</ul>' . "\n";
         }
 
-        echo '</li>';
+        echo '</li>' . "\n";
     }
 }
 
-echo '<ul class="nav">';
+echo '<ul class="nav">' . "\n";
 
 genMenu($this->container);
 

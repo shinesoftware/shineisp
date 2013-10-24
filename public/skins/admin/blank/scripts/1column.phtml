@@ -11,8 +11,10 @@
 		   			<ul class="nav">
 		   				<li><a class="brand" href="/admin">ShineISP</a></li>
 		   				<li class="divider-vertical"></li>
-		   				<li><?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?></li>
 	    			</ul>
+	    			
+	    			<?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
+	    			
 		   			<ul class="nav pull-right">
 		   				<li class="dropdown">
 		   					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-envelope"></i></a>
@@ -30,7 +32,7 @@
             
             <div id="sidebar-left" class="span2">
                 <?php echo $this->blocks()->showblock('admin_startsidebar');?> 	
-                
+                <?php echo $this->languageswitcher();?>
 				<?php echo $this->blocks()->showblock('admin_endsidebar');?> 
             </div>
             
@@ -38,18 +40,17 @@
                 
                 <div class="row-fluid">
                      <div class="span4"><?php echo  $this->breadCrumb();?></div>
-                     <div class="span8"><?php echo $this->customers(); ?></div>
+                     <div class="span8 pull-right"><?php echo $this->customers(); ?></div>
                 </div>
                 
                 <div id="loading" class="row-fluid hidden">
                      <div class="span12"><?php echo $this->Message($this->translate('Please wait a moment...'))?></div>
                 </div>
                 
-                
                 <?php echo $this->blocks()->showblock('admin_beforecontent');?> 	
 			    
 				<?php echo $this->layout()->content ?> 
-				<?php echo $this->languageswitcher();?>
+				
 				<?php echo $this->blocks()->showblock('admin_endcontent');?> 	
             </div>
         </div>
