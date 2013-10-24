@@ -2,15 +2,17 @@
 
 function genMenu($container)
 {
+	$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
     foreach ($container as $page)
     {
         echo '<li class="dropdown">' . "\n";
 
         $href = $page->uri;
-        $target = 'dropdown-toggle';
+        $target = !empty($page->pages) ? 'dropdown-toggle' : "_self";
         $toggle = !empty($page->pages) ? "dropdown" : "";
+        $icon = !empty($page->icon) ? "<i class=\"" . $page->icon . "\"></i> " : "";
         
-        echo '<a href="' . $href . '" data-toggle="'.$toggle.'" target="' . $target . '">' . htmlentities($page->label) . '</a>' . "\n";
+        echo '<a href="' . $href . '" data-toggle="'.$toggle.'" target="' . $target . '">' . $icon . $translator->translate($page->label) . '</a>' . "\n";
         
         if (!empty($page->pages))
         {
@@ -25,7 +27,7 @@ function genMenu($container)
     }
 }
 
-echo '<ul class="nav">' . "\n";
+echo '<ul class="nav nav-tabs nav-stacked">' . "\n";
 
 genMenu($this->container);
 

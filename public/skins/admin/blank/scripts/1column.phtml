@@ -7,20 +7,13 @@
     <header class="navbar">
     	<div class="navbar-inner">
     		<div class="container">
+    			<a class="brand" href="/admin">ShineISP</a>
+			    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+		          
     			<div class="nav-collapse collapse">
-		   			<ul class="nav">
-		   				<li><a class="brand" href="/admin">ShineISP</a></li>
-		   				<li class="divider-vertical"></li>
-	    			</ul>
-	    			
-	    			<?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
-	    			
 		   			<ul class="nav pull-right">
-		   				<li class="dropdown">
-		   					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-envelope"></i></a>
-		   				</li>
-                        <li class="dropdown hidden-xs"><?php echo $this->searchbox();?></li>
-		   				<li class="dropdown hidden-xs"><?php echo $this->profile();?></li>
+                        <li class="dropdown"><?php echo $this->profile();?></li>
+                        <li class="dropdown"><?php echo $this->languageswitcher();?></li>
 	    			</ul>
 	    		</div>
 	    	</div>
@@ -29,18 +22,17 @@
     
     <div class="container-fluid">
         <div class="row-fluid">
-            
-            <div id="sidebar-left" class="span2">
+            <div id="sidebar-left" class="span2 hidden-phone hidden-tablet">
+                <?php echo $this->searchbox();?>
                 <?php echo $this->blocks()->showblock('admin_startsidebar');?> 	
-                <?php echo $this->languageswitcher();?>
+                <?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
 				<?php echo $this->blocks()->showblock('admin_endsidebar');?> 
             </div>
             
             <div id="content" class="span10">
                 
                 <div class="row-fluid">
-                     <div class="span4"><?php echo  $this->breadCrumb();?></div>
-                     <div class="span8 pull-right"><?php echo $this->customers(); ?></div>
+                     <div class="span12"><?php echo  $this->breadCrumb();?></div>
                 </div>
                 
                 <div id="loading" class="row-fluid hidden">

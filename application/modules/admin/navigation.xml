@@ -2,24 +2,28 @@
 <configdata>
 	<nav>
 		<dashboard>
-			<label>General</label>
+			<label>Home</label>
 			<uri>#</uri>
+			<icon>icon-home</icon>
 			<resource>admin:dashboard</resource>
 			<class>dropdown-toggle</class>
 			<pages>
 				<dashboard>
 					<label>Dashboard</label>
 					<uri>/admin/index</uri>
+					<icon>icon-th-large</icon>
 					<resource>admin:index</resource>
 				</dashboard>
 				<publicsite>
 					<label>Public Site</label>
 					<uri>/index</uri>
+					<icon>icon-globe</icon>
 					<resource>index:index</resource>
 				</publicsite>
 				<notes>
 					<label>Notes</label>
 					<uri>/admin/notes/list</uri>
+					<icon>icon-pencil</icon>
 					<resource>admin:notes</resource>
 				</notes>
 			</pages>
@@ -27,6 +31,7 @@
 		<customers>
 			<label>Customers</label>
 			<uri>#</uri>
+			<icon>icon-user</icon>
 			<resource>admin:customers</resource>
 			<pages>
 				<domains>
@@ -54,6 +59,7 @@
 		<support>
 			<label>Support</label>
 			<uri>#</uri>
+			<icon>icon-check</icon>
 			<resource>admin:customers</resource>
 			<pages>
 				<tickets>
@@ -71,6 +77,7 @@
 		<products>
 			<label>Products</label>
 			<uri>#</uri>
+			<icon>icon-barcode</icon>
 			<resource>admin:products</resource>
 			<pages>
 				<productscategories>
@@ -105,91 +112,11 @@
 				</tlds>
 			</pages>
 		</products>
-		<settings>
-			<label>Settings</label>
-			<uri>#</uri>
-			<resource>admin:settings</resource>
-			<pages>
-				<settings>
-					<label>General</label>
-					<uri>/admin/settings/</uri>
-					<resource>admin:settings</resource>
-				</settings>
-				<registrars>
-					<label>Registrars</label>
-					<uri>/admin/registrars/list</uri>
-					<resource>admin:registrars</resource>
-				</registrars>
-				<profile>
-					<label>ISP Account</label>
-					<uri>/admin/isp/account/list</uri>
-					<resource>admin:isp</resource>
-				</profile>
-				<servers>
-					<label>Servers</label>
-					<uri>/admin/servers/list</uri>
-					<resource>admin:servers</resource>
-				</servers>
-				<banks>
-					<label>Banks</label>
-					<uri>/admin/banks/list</uri>
-					<resource>admin:banks</resource>
-				</banks>
-				<urlrewrites>
-					<label>Url Rewrites</label>
-					<uri>/admin/urlrewrite/list</uri>
-					<resource>admin:urlrewrite</resource>
-				</urlrewrites>
-				<taxes>
-					<label>Taxes</label>
-					<uri>/admin/taxes/list</uri>
-					<resource>admin:taxes</resource>
-				</taxes>
-				<languages>
-					<label>Languages</label>
-					<uri>/admin/languages/list</uri>
-					<resource>admin:languages</resource>
-				</languages>
-				<ticketscategories>
-					<label>Tickets Categories</label>
-					<uri>/admin/ticketscategories/list</uri>
-					<resource>admin:ticketscategories</resource>
-				</ticketscategories>
-				<wikicategories>
-					<label>Wiki Categories</label>
-					<uri>/admin/wikicategories/list</uri>
-					<resource>admin:wikicategories</resource>
-				</wikicategories>
-				<legalforms>
-					<label>Legal Forms</label>
-					<uri>/admin/legalforms/list</uri>
-					<resource>admin:legalforms</resource>
-				</legalforms>
-				<companytypes>
-					<label>Company Types</label>
-					<uri>/admin/companytypes/list</uri>
-					<resource>admin:companytypes</resource>
-				</companytypes>
-				<emailstemplates>
-					<label>Emails Templates</label>
-					<uri>/admin/emailstemplates/list</uri>
-					<resource>admin:emailstemplates</resource>
-				</emailstemplates>
-				<filecategories>
-					<label>File categories</label>
-					<uri>/admin/filecategories/list</uri>
-					<resource>admin:filecategories</resource>
-				</filecategories>
-				<purchasescategories>
-					<label>Invoice purchases categories</label>
-					<uri>/admin/purchasescategories/list</uri>
-					<resource>admin:purchasescategories</resource>
-				</purchasescategories>
-			</pages>
-		</settings>
+		
 		<sales>
 			<label>Sales</label>
 			<uri>#</uri>
+			<icon>icon-briefcase</icon>
 			<resource>admin:sales</resource>
 			<pages>
 				<invoices>
@@ -222,6 +149,7 @@
 		<cms>
 			<label>CMS</label>
 			<uri>#</uri>
+			<icon>icon-file</icon>
 			<resource>admin:cms</resource>
 			<pages>
 				<cmspages>
@@ -239,6 +167,7 @@
 		<newsletter>
 			<label>Newsletter</label>
 			<uri>#</uri>
+			<icon>icon-envelope</icon>
 			<resource>admin:newsletter</resource>
 			<pages>
 				<messages>
@@ -256,6 +185,7 @@
 		<reports>
 			<label>Reports</label>
 			<uri>#</uri>
+			<icon>icon-signal</icon>
 			<resource>admin:reports</resource>
 			<pages>
 				<profitofyear>
@@ -296,10 +226,95 @@
 			</pages>
 		</reports>
 		
+		<settings>
+            <label>Settings</label>
+            <uri>#</uri>
+            <icon>icon-cog</icon>
+            <resource>admin:settings</resource>
+            <pages>
+                <settings>
+                    <label>General</label>
+                    <uri>/admin/settings/</uri>
+                    <resource>admin:settings</resource>
+                </settings>
+                <registrars>
+                    <label>Registrars</label>
+                    <uri>/admin/registrars/list</uri>
+                    <resource>admin:registrars</resource>
+                </registrars>
+                <profile>
+                    <label>ISP Account</label>
+                    <uri>/admin/isp/account/list</uri>
+                    <resource>admin:isp</resource>
+                </profile>
+                <servers>
+                    <label>Servers</label>
+                    <uri>/admin/servers/list</uri>
+                    <resource>admin:servers</resource>
+                </servers>
+                <banks>
+                    <label>Banks</label>
+                    <uri>/admin/banks/list</uri>
+                    <resource>admin:banks</resource>
+                </banks>
+                <urlrewrites>
+                    <label>Url Rewrites</label>
+                    <uri>/admin/urlrewrite/list</uri>
+                    <resource>admin:urlrewrite</resource>
+                </urlrewrites>
+                <taxes>
+                    <label>Taxes</label>
+                    <uri>/admin/taxes/list</uri>
+                    <resource>admin:taxes</resource>
+                </taxes>
+                <languages>
+                    <label>Languages</label>
+                    <uri>/admin/languages/list</uri>
+                    <resource>admin:languages</resource>
+                </languages>
+                <ticketscategories>
+                    <label>Tickets Categories</label>
+                    <uri>/admin/ticketscategories/list</uri>
+                    <resource>admin:ticketscategories</resource>
+                </ticketscategories>
+                <wikicategories>
+                    <label>Wiki Categories</label>
+                    <uri>/admin/wikicategories/list</uri>
+                    <resource>admin:wikicategories</resource>
+                </wikicategories>
+                <legalforms>
+                    <label>Legal Forms</label>
+                    <uri>/admin/legalforms/list</uri>
+                    <resource>admin:legalforms</resource>
+                </legalforms>
+                <companytypes>
+                    <label>Company Types</label>
+                    <uri>/admin/companytypes/list</uri>
+                    <resource>admin:companytypes</resource>
+                </companytypes>
+                <emailstemplates>
+                    <label>Emails Templates</label>
+                    <uri>/admin/emailstemplates/list</uri>
+                    <resource>admin:emailstemplates</resource>
+                </emailstemplates>
+                <filecategories>
+                    <label>File categories</label>
+                    <uri>/admin/filecategories/list</uri>
+                    <resource>admin:filecategories</resource>
+                </filecategories>
+                <purchasescategories>
+                    <label>Invoice purchases categories</label>
+                    <uri>/admin/purchasescategories/list</uri>
+                    <resource>admin:purchasescategories</resource>
+                </purchasescategories>
+            </pages>
+        </settings>
+		
 		<!-- DO NOT DELETE THIS ITEM -->
 		<configuration>
 			<label>Configuration</label>
 			<uri>#</uri>
+			<icon>icon-wrench</icon>
 			<resource>admin:settings</resource>
 		</configuration>
 		<!-- DO NOT DELETE THIS ITEM -->

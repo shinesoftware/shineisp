@@ -4,20 +4,20 @@
  	$baseurl = str_replace("/lang/$lang", "", $baseurl);
 ?>
 
-<span class="languageswitcher">
-	<?php if(count($this->languages) > 1): ?>
-		<select id="languageswitcher">
+<?php if(count($this->languages) > 1): ?>
+	<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-flag"></i> <?php echo strtoupper($this->langselected) ?> <b class="caret"></b></a>
+	<ul class="dropdown-menu">
+		<li class="nav-header"><?php echo $this->translate('Select language ...')?></li>
 		<?php foreach ($this->languages as $language): ?>
 			<?php 
 				if($language['code'] == $this->langselected){
-					$selected = "selected";
+					$selected = "active";
 				}else{
 					$selected = "";
 				}
 			?>
-			<option <?php echo $selected?> value="<?php echo $baseurl . "/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></option>
+			<li class="<?php echo $selected ?>"><a href="<?php echo $baseurl . "/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></a>
 			
 	    <?php endforeach;?>
-	    </select>
-	<?php endif;?>    
-</span>
+    </ul>
+<?php endif;?>    

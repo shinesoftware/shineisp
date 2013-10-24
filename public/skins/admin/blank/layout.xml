@@ -5,7 +5,12 @@
 	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js override="1">/resources/js/jquery/jquery-2.0.3.min.js</js>  
+            <js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
+            <js override="1">/resources/js/jquery/jquery-ui-1.9.2.custom.min.js</js>
+            <js override="1">/resources/js/jquery/jquery.cookie.js</js>
+            
+            <!-- CSS files to be include in every pages-->
+            <css override="1">/resources/js/css/jquery-ui-1.8.16.custom.css</css> 
 			
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
             <css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
@@ -18,12 +23,39 @@
 		<!-- Common files called at the start of the admin module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
+			    
+                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
+                <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
+                <js override="1">/resources/js/jquery/jquery.tokeninput.js</js>
+                <js override="1">/resources/js/jquery/jquery.reject.min.js</js>
+                <js override="1">/resources/js/jquery/jquery.blockUI.js</js>
+                
+                <js override="1">/resources/js/jquery/jquery.ui.datepicker-it.js</js>
+                <js override="1">/resources/js/jquery/jquery.dynatree.js</js>
+                <js override="1">/resources/js/jquery/jquery.dataTables.js</js>
+                <js override="1">/resources/js/jquery/jquery.dataTables.delay.js</js>
+                <js override="1">/resources/js/jquery/jquery.multiselect.min.js</js>
+                <js override="1">/resources/js/jquery/jquery.multiselect.filter.min.js</js>
+                
+                <js>/js/smartresize.js</js> 
+                <js>/js/admin.js</js> 
+                <js>/js/grid.js</js> 
+                <css>/css/grid.css</css>  
+                
+                <!-- files to be include in every ADMIN pages-->
+                <css override="1">/resources/js/css/ui.dynatree.css</css>
+                <css override="1">/resources/js/css/jquery.dataTables.css</css>
+                <css override="1">/resources/js/css/jquery.multiselect.css</css>
+                <css override="1">/resources/js/css/jquery.multiselect.filter.css</css>
+                <css override="1">/resources/js/css/jquery.autocomplete.css</css>
 			</head>
 		</commons>
 	
 		<index>
 			<head>
 				<js>/js/login.js</js> 
+				<js>/js/widget.js</js> 
+				<css>/css/widget.css</css> 
 			</head>
 			<!--
 			<blocks>

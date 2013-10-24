@@ -73,7 +73,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 					}
 					
 						$mygrid = $grid->addColumns ( $arrColumns )
-										->setCss('widget')
+										->setCss('table table-striped table-hover')
 										->setBasePath($basepath)
 										->setRowlist(array())
 										->setHiddencols ( $hiddencols )
