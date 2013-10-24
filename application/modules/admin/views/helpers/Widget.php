@@ -47,8 +47,10 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 	public function widget($records, $label, $controller="", $hiddencols=array(), $type="grid") {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$arrColumns = array();
 		$buttons = array();
 		$basepath = "";
+		Zend_Debug::dump($records);
 		if(!empty($records) && is_array($records)){		
 			if($type=="grid"){
 				$grid = new Shineisp_Commons_Datagrid ();
@@ -65,25 +67,27 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 					$this->view->controller = "";
 				}
 				
-				if(!empty($data[0])){
-					$columns = array_keys($data[0]);
-					foreach ($columns as $column) {
-						$column_name = str_replace("_", " ", $column);
-						$arrColumns [] = array ('label' => ucwords($column_name), 'field' => $column, 'alias' => $column, 'type' => 'string' );
+				if(!empty($data['fields'])){
+					foreach ($data['fields'] as $field => $column) {
+						$arrColumns [] = array ('label' => $column, 'field' => $field, 'alias' => $field, 'type' => 'string' );
 					}
-					
-						$mygrid = $grid->addColumns ( $arrColumns )
-										->setCss('table table-striped table-hover')
-										->setBasePath($basepath)
-										->setRowlist(array())
-										->setHiddencols ( $hiddencols )
-										->setCurrentPage ( 1 )
-										->adddatagridActions ( $buttons, $columns[0] )
-										->setArrayData ( $data );
-										
-						$this->view->element = $grid->create();
-						$this->view->chart = $chart;
-					}
+				}
+				
+				$keyIndex = !empty($data['fields']) ? array_shift(array_keys($data['fields'])) : null;
+
+			    if(!empty($data[0])){
+					$mygrid = $grid->addColumns ( $arrColumns )
+									->setCss('table table-striped table-hover')
+									->setBasePath($basepath)
+									->setRowlist(array())
+									->setHiddencols ( $hiddencols )
+									->setCurrentPage ( 1 )
+									->adddatagridActions ( $buttons, $keyIndex)
+									->setArrayData ( $data );
+									
+					$this->view->element = $grid->create();
+					$this->view->chart = $chart;
+				}
 				
 				$this->view->label = $label;
 				return $this->view->render('partials/widget.phtml');

@@ -2554,13 +2554,21 @@ class Orders extends BaseOrders {
 		}
 		
 		$dq->orderBy ( 'order_date desc' )->orderBy ( 'order_id desc' )->limit ( $limit );
-		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
-		for($i=0;$i<count($records);$i++){
-			$records[$i]['total'] = $currency->toCurrency($records[$i]['total'], array('currency' => Settings::findbyParam('currency')));
-			$records[$i]['grandtotal'] = $currency->toCurrency($records[$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-			$records[$i]['status'] = $translator->translate($records[$i]['status']);
+		for($i=0;$i<count($records['data']);$i++){
+			$records['data'][$i]['total'] = $currency->toCurrency($records[$i]['total'], array('currency' => Settings::findbyParam('currency')));
+			$records['data'][$i]['grandtotal'] = $currency->toCurrency($records[$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
+			$records['data'][$i]['status'] = $translator->translate($records[$i]['status']);
 		}
+		
+		$records['fields'] = array('order_id' => $translator->translate('ID'), 
+		                           'orderdate' => $translator->translate('Date'), 
+		                           'invoice' => $translator->translate('Invoice'), 
+		                           'fullname' => $translator->translate('Customer'), 
+		                           'total' => $translator->translate('Total'), 
+		                           'grandtotal' => $translator->translate('Grand Total'), 
+		                           'status' => $translator->translate('Status'));
 		
 		return $records;
 		
