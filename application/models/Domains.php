@@ -604,7 +604,6 @@ class Domains extends BaseDomains {
     }
 	
 	/**
-     * getExpiringDomains
      * Get the list of the domain next the expiration date
      * @param $customerID
      * @return Void

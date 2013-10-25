@@ -43,6 +43,7 @@ class Messages extends BaseMessages
 	 * @return ArrayObject
 	 */
 	public static function Last($attachedto = "orders",  $limit=5, $delIspReplies=true) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dq = Doctrine_Query::create ()->from ( 'Messages m' );
 
 		// Adding first the main ID index field
@@ -63,12 +64,16 @@ class Messages extends BaseMessages
 		
 		// Sort the items
 		$dq->orderBy ( 'm.dateposted desc' )->limit ( $limit );
-		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
 		// Strip the html and trucate the message
-		for ($i=0; $i < count($records); $i++) {
-			$records[$i]['message'] = Shineisp_Commons_Utilities::truncate(strip_tags($records[$i]['message']), 50, "...", false, true);
+		for ($i=0; $i < count($records['data']); $i++) {
+			$records['data'][$i]['message'] = Shineisp_Commons_Utilities::truncate(strip_tags($records['data'][$i]['message']), 50, "...", false, true);
 		}
+		
+		// Create the header table columns
+		$records['fields'] = array('date' => array('label' => $translator->translate('Date')),
+								   'message' => array('label' => $translator->translate('Message')));
 		
 		return $records;
 	}

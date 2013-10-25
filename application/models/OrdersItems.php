@@ -568,6 +568,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Doctrine Record / Array
 	 */
 	public static function getAllRecurringServices($fields="*", $productgroups = array(), $locale=1) {
+		
 		$items = Doctrine_Query::create ()
 						->from ( 'OrdersItems oi' )
 						->leftJoin ( 'oi.BillingCycle bc' )

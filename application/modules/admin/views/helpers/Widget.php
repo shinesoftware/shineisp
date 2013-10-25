@@ -50,11 +50,10 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 		$arrColumns = array();
 		$buttons = array();
 		$basepath = "";
-		Zend_Debug::dump($records);
-		if(!empty($records) && is_array($records)){		
+		
+		if(!empty($records['data']) && is_array($records['data'])){		
 			if($type=="grid"){
 				$grid = new Shineisp_Commons_Datagrid ();
-				$data = !empty($records['data']) ? $records['data'] : $records;
 				$chart = !empty($records['chart']) ? $records['chart'] : "";
 				
 				if(!empty($controller)){
@@ -67,15 +66,19 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 					$this->view->controller = "";
 				}
 				
-				if(!empty($data['fields'])){
-					foreach ($data['fields'] as $field => $column) {
-						$arrColumns [] = array ('label' => $column, 'field' => $field, 'alias' => $field, 'type' => 'string' );
+				if(!empty($records['fields'])){
+					foreach ($records['fields'] as $field => $column) {
+						$arrColumns [] = array ('label' => $column['label'], 
+												'attributes' => !empty($column['attributes']) ? $column['attributes'] : null, 
+												'field' => $field, 
+												'alias' => $field, 
+												'type' => 'string' );
 					}
 				}
 				
-				$keyIndex = !empty($data['fields']) ? array_shift(array_keys($data['fields'])) : null;
-
-			    if(!empty($data[0])){
+				$keyIndex = !empty($records['fields']) ? array_shift(array_keys($records['fields'])) : null;
+				
+			    if(!empty($records['data'])){
 					$mygrid = $grid->addColumns ( $arrColumns )
 									->setCss('table table-striped table-hover')
 									->setBasePath($basepath)
@@ -83,7 +86,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 									->setHiddencols ( $hiddencols )
 									->setCurrentPage ( 1 )
 									->adddatagridActions ( $buttons, $keyIndex)
-									->setArrayData ( $data );
+									->setArrayData ( $records['data'] );
 									
 					$this->view->element = $grid->create();
 					$this->view->chart = $chart;

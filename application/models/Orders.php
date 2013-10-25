@@ -2557,18 +2557,19 @@ class Orders extends BaseOrders {
 		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
 		for($i=0;$i<count($records['data']);$i++){
-			$records['data'][$i]['total'] = $currency->toCurrency($records[$i]['total'], array('currency' => Settings::findbyParam('currency')));
-			$records['data'][$i]['grandtotal'] = $currency->toCurrency($records[$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-			$records['data'][$i]['status'] = $translator->translate($records[$i]['status']);
+			$records['data'][$i]['total'] = $currency->toCurrency($records['data'][$i]['total'], array('currency' => Settings::findbyParam('currency')));
+			$records['data'][$i]['grandtotal'] = $currency->toCurrency($records['data'][$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
+			$records['data'][$i]['status'] = $translator->translate($records['data'][$i]['status']);
 		}
-		
-		$records['fields'] = array('order_id' => $translator->translate('ID'), 
-		                           'orderdate' => $translator->translate('Date'), 
-		                           'invoice' => $translator->translate('Invoice'), 
-		                           'fullname' => $translator->translate('Customer'), 
-		                           'total' => $translator->translate('Total'), 
-		                           'grandtotal' => $translator->translate('Grand Total'), 
-		                           'status' => $translator->translate('Status'));
+
+		// Create the header table columns
+		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		                           'fullname' => array('label' => $translator->translate('Customer')), 
+		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		                           'status' => array('label' => $translator->translate('Status')));
 		
 		return $records;
 		

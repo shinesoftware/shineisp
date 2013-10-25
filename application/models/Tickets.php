@@ -386,9 +386,9 @@ class Tickets extends BaseTickets {
 	 * @return array
 	 */
 	public static function Last($customerid = "", $limit=10) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dq = Doctrine_Query::create ()
 								->select ( "t.ticket_id, 
-											t.ticket_id as code, 
 											t.subject as subject, 
 											tc.category as category, 
 											DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated,
@@ -410,11 +410,20 @@ class Tickets extends BaseTickets {
 		$dq->whereIn('t.status_id', $statuses);
 		
 		$dq->orderBy ( 't.date_open desc' )->limit ( $limit );
-		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
-		for ($i=0;$i<count($records); $i++){
-			$records[$i]['subject'] = Shineisp_Commons_Utilities::truncate($records[$i]['subject']);
+		for ($i=0;$i<count($records['data']); $i++){
+			$records['data'][$i]['subject'] = Shineisp_Commons_Utilities::truncate($records['data'][$i]['subject']);
 		}
+		
+		// Create the header table columns
+		$records['fields'] = array('ticket_id' => array('label' => $translator->translate('ID')),
+									'subject' => array('label' => $translator->translate('Subject')),
+									'category' => array('label' => $translator->translate('Category'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'updated' => array('label' => $translator->translate('Updated at'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'status' => array('label' => $translator->translate('Status')));
+		
 		
 		return $records;
 	}

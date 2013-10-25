@@ -199,8 +199,9 @@ class PanelsActions extends BasePanelsActions
 	 * @return Array
 	 */
 	public static function Last($limit=10) {
-		$dq = Doctrine_Query::create ()
-		->select("DATE_FORMAT(start, '%d/%m/%Y %H:%i:%s') as startdate,
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
+		$dq = Doctrine_Query::create ()->select("DATE_FORMAT(start, '%d/%m/%Y %H:%i:%s') as startdate,
 										  DATE_FORMAT(end, '%d/%m/%Y %H:%i:%s') as enddate,
 										  CONCAT(c.lastname, ' ', c.firstname) as fullname,
 										  p.name as name,
@@ -220,7 +221,16 @@ class PanelsActions extends BasePanelsActions
             $dq->whereIn( "p.isp_id", $logged_user['isp_id']);
         }        
         
-        $records    = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        
+        // Create the header table columns
+        $records['fields'] = array('action_id' => array('label' => $translator->translate('ID')),
+        							'startdate' => array('label' => $translator->translate('Start Date')),
+					        		'enddate' => array('label' => $translator->translate('End Date')),
+					        		'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'name' => array('label' => $translator->translate('Product')),
+					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'status' => array('label' => $translator->translate('Status')));
         
 		return $records;
 	}

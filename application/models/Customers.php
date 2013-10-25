@@ -1089,7 +1089,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function Hitparade() {
 		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
-		
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dq   = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
 					->from ( 'Invoices i' )
 					->leftJoin ( 'i.Customers c' )
@@ -1107,15 +1107,21 @@ class Customers extends BaseCustomers {
         	$dq->andWhere( "c.isp_id = ?", Isp::getCurrentId() );
         } 
         
-	    $records   = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+	    $records['data']   = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
         
 		$data = array();
-		foreach ( $records as $record ) {
-			unset($record['invoice_id']);
-			$record['grandtotal']    = $currency->toCurrency($record['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-			$data[]                  = $record;
+		for($i=0;$i<count($records['data']);$i++){
+			$records['data'][$i]['grandtotal']    = $currency->toCurrency($records['data'][$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
 		}
-        
+		
+		// Create the header table columns
+		$records['fields'] = array(
+									'id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'lastname' => array('label' => $translator->translate('Last name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'firstname' => array('label' => $translator->translate('First name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'company' => array('label' => $translator->translate('Company')),
+									'grandtotal' => array('label' => $translator->translate('Total')));
+		
 		return $data;
 	}
 	

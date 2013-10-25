@@ -287,7 +287,7 @@ class Shineisp_Commons_Datagrid {
      */
 	public function adddatagridActions(array $actions, $indexfield) {
 		$links = array ();
-		if (count ( $actions ) > 0) {
+		if (!empty($indexfield) && count ( $actions ) > 0) {
 			foreach ( $actions as $item ) {
 				$links [] = '<a title="' . $item ['label'] . '" class="actions ' . $item ['cssicon'] . '" href="' . $item ['action'] . '"></a>';
 			}
@@ -455,13 +455,14 @@ class Shineisp_Commons_Datagrid {
 		
 		// Add the summarize row
 		$footer .= $this->addRowSummary ();
-		
-		$footer .= "<tr>";
-		$footer .= "<td colspan='" . $colnum . "'>";
-		$footer .= "<div class='pagination'>" . $this->paging . "</div>";
-		$footer .= "</td>";
-		$footer .= "</tr>";
-		$footer .= "</tfoot>";
+		if(!empty($this->paging)){
+			$footer .= "<tr>";
+			$footer .= "<td colspan='" . $colnum . "'>";
+			$footer .= "<div class='pagination'>" . $this->paging . "</div>";
+			$footer .= "</td>";
+			$footer .= "</tr>";
+			$footer .= "</tfoot>";
+		}
 		return $footer;
 	}
 	
@@ -656,43 +657,40 @@ class Shineisp_Commons_Datagrid {
 	}
 	
 	/*
-	 * attachData
-	 * load the data within the grid
+	 * load the data in the grid
 	 */
 	private function attachData() {
-		$class = "even";
 		$data = $this->data;
 		$html = "<tbody>";
 		$index = 0;
 		if (count ( $this->data ) > 0) {
 			foreach ( $this->data as $record ) {
 				
-				$class = ($class == "even") ? "odd" : "even";
-				$html .= "<tr class='datarow pointer nohighlight " . $class . "'>";
+				$html .= "<tr class='datarow'>";
 				$hiddenCols = $this->getHiddencols();
+				$colindex = 0;
 				
 				foreach ( $this->columns as $column ) {
-					$classcell = !empty($column['class']) ? "class='" . $column['class'] . "'" : "";
 					if(!empty($column['alias'])){
-						// Check if the column has been set as hidden
 						if(in_array($column['alias'], $hiddenCols)){
 							if(!empty($column['type'])) {
 								if($column['type'] == "link"){
-									$html .= "<td $classcell>";
+									$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
 									$html .= $this->addObject ( $record, $column );
 									$html .= "</td>";
 								}
 							}
 						}else {
-							$html .= "<td $classcell>";
+							$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
 							$html .= $this->addObject ( $record, $column );
 							$html .= "</td>";
 						}
 					}else{
-						$html .= "<td $classcell>";
+						$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
 						$html .= $this->addObject ( $record, $column );
 						$html .= "</td>";
 					}
+					$colindex++;
 				}
 				
 				if ($this->hassubrecords) {

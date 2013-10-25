@@ -319,6 +319,8 @@ class DomainsTasks extends BaseDomainsTasks {
 	 * @return Array
 	 */
 	public static function Last($limit=10) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
 		$dq = Doctrine_Query::create ()
 								->select("DATE_FORMAT(startdate, '%d/%m/%Y %H:%i:%s') as startdate, 
 										  DATE_FORMAT(enddate, '%d/%m/%Y %H:%i:%s') as enddate,
@@ -339,7 +341,15 @@ class DomainsTasks extends BaseDomainsTasks {
                ->whereIn( "c.isp_id", $logged_user['isp_id']);
         }
 
-        $records    = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        
+        // Create the header table columns
+        $records['fields'] = array('startdate' => array('label' => $translator->translate('Start Date')),
+					        		'enddate' => array('label' => $translator->translate('End Date')),
+					        		'domain' => array('label' => $translator->translate('Domain'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'action' => array('label' => $translator->translate('Action')),
+					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'status' => array('label' => $translator->translate('Status')));
         
 		return $records;
 	}
