@@ -11,7 +11,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('TLD Name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
@@ -19,7 +19,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Description'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'textarea input-large wysiwyg',
             'rows'      => '5'
         ));
@@ -27,20 +27,20 @@ class Admin_Form_DomainstldsForm extends Zend_Form
         $this->addElement('text', 'tags', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tags/Type'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'ishighlighted', array(
             'label'      => $translate->_('Is Highlighted'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
         $this->addElement('select', 'isrefundable', array(
             'label'      => $translate->_('Is Refundable'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
@@ -48,7 +48,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
         $this->addElement('text', 'resultcontrol', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Result String Control'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -56,7 +56,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Registration Price'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));        
 
@@ -64,7 +64,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Renewal Price'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));        
 
@@ -72,12 +72,12 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Transfer Price'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));        
 
         $this->addElement('select', 'server_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('TLD Server'),
             'class'       => 'input-large'
         ));
@@ -89,7 +89,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
                   
        $this->addElement('select', 'tax_id', array(
         'label' => $translate->_('Tax'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -101,7 +101,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Registration Cost'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));        
 
@@ -109,7 +109,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Renewal Cost'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));        
 
@@ -117,13 +117,13 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Transfer Cost'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));        
         
         $this->addElement('select', 'registrars_id', array(
                 'label' => $translate->_('Registrars'),
-                'decorators' => array('Composite'),
+                'decorators' => array('Bootstrap'),
                 'class'      => 'input-large updatechkdomain'
         ));
         
@@ -135,7 +135,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
         $this->addElement('submit', 'save', array(
             'required' => false,
             'label'    => $translate->_('Save'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'    => 'btn'
         ));
         

@@ -46,7 +46,7 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Domains Tlds list");
 		$this->view->description = $this->translator->translate("Here you can see all the domain tlds.");
-		$this->view->buttons = array(array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( DomainsTlds::grid() )->datagrid ();
 	}
 	
@@ -96,8 +96,8 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/domainstlds/process" );
 		$this->view->title = $this->translator->translate("Tld Details");
 		$this->view->description = $this->translator->translate("Here you can handle the tlds details");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+									 array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -172,10 +172,10 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 			
 			// Create the buttons in the edit form
 			$this->view->buttons = array(
-					array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-					array("url" => "/admin/domainstlds/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
-					array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-					array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+					array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+					array("url" => "/admin/domainstlds/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
+					array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+					array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 			);
 		}
 		
@@ -202,9 +202,9 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domainstlds/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domainstlds/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		// Check if we have a POST request

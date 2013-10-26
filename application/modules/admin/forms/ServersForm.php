@@ -9,7 +9,7 @@ class Admin_Form_ServersForm extends Zend_Form
     	
     	$this->addElement('select', 'isp_id', array(
                 'label' => $translate->_('Isp'),
-                'decorators' => array('Composite'),
+                'decorators' => array('Bootstrap'),
                 'class'      => 'input-large'
         ));
         
@@ -20,7 +20,7 @@ class Admin_Form_ServersForm extends Zend_Form
                   
         $this->addElement('select', 'type_id', array(
                 'label' => $translate->_('Server Type'),
-                'decorators' => array('Composite'),
+                'decorators' => array('Bootstrap'),
                 'class'      => 'input-large'
         ));
         
@@ -31,7 +31,7 @@ class Admin_Form_ServersForm extends Zend_Form
                   
         $this->addElement('select', 'status_id', array(
                 'label' => $translate->_('Status'),
-                'decorators' => array('Composite'),
+                'decorators' => array('Bootstrap'),
                 'class'      => 'input-large'
         ));
         
@@ -44,7 +44,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Server Name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -52,7 +52,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('IP'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -60,7 +60,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Netmask'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -68,7 +68,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Host'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -76,14 +76,14 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Domain'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('textarea', 'description', array(
             'required'   => true,
             'label'      => $translate->_('Description'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'textarea input-large'
         ));
         
@@ -101,7 +101,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Datacenter'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 		
@@ -109,7 +109,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Server cost'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 		
@@ -117,7 +117,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Max accounts'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 		
@@ -125,7 +125,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'label'       => $translate->_('Buy Date'),
             'description' => $translate->_('Purchase date of this server'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'class'       => 'input-large date'
         ));		
 		
@@ -134,7 +134,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'    => false,
             'label'       => $translate->_('Default server'),
             'description' => $translate->_('Default server for the group'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'class'       => 'input-large'
         ));
 

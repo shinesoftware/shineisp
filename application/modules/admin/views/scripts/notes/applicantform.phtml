@@ -13,7 +13,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -22,11 +22,11 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div id="tabs">
-		<ul>
+		<ul class="nav nav-tabs">
 			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
 		</ul>
     
-	    <div id="tab1"> 
+	    <div class="tab-pane" id="tab1"> 
 	        <?php echo $form->name->render() ?>
 	        <?php echo $form->note->render() ?>
 	        <?php echo $form->expire->render() ?>

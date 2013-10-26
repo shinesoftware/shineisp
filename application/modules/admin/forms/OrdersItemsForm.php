@@ -11,21 +11,21 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Quantity'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
     	
     	$this->addElement('text', 'setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup fees'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
     	
     	$this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
@@ -44,13 +44,13 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Price'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
         $this->addElement('select', 'billing_cycle_id', array(
         'label' => $translate->_('Billing Cycle'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -62,21 +62,21 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Start Date'),
             'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input date'
         ));
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input date'
         ));   
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
         	'rows'		 => 5,
             'class'      => 'input-large'
         ));
@@ -84,7 +84,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
         $this->addElement('textarea', 'parameters', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Service Panel Configuration'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
         	'rows'		 => 5,
             'description' => $translate->_('Parameters model accepted: {"domain":"mydomain.com","action":"registerDomain"}'),
             'class'      => 'input-large'
@@ -93,7 +93,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
 			        'label' => $translate->_('Status'),
 			        'required' => true,
-			        'decorators' => array('Composite'),
+			        'decorators' => array('Bootstrap'),
 			        'class'      => 'input-large'
 			        ));
 			        
@@ -102,7 +102,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
                   ->setMultiOptions(Statuses::getList('orders'));
         
         $this->addElement('select', 'autorenew', array(
-			            'decorators'  => array('Composite'),
+			            'decorators'  => array('Bootstrap'),
 			            'label'       => $translate->_('Auto Renewal'),
 			            'class'       => 'input-large',
 			        	'multioptions' => array( 0=>'NO', 1=> 'YES')
@@ -111,7 +111,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
 
         $this->addElement('multiselect', 'domains', array(
 			        'label' => $translate->_('Available Domains'),
-			        'decorators' => array('Composite'),
+			        'decorators' => array('Bootstrap'),
 			        'class'      => 'input-large tmpitems'
 			        ));
         
@@ -122,7 +122,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
 
         $this->addElement('multiselect', 'domains_selected', array(
 			        'label' => $translate->_('Selected domains'),
-			        'decorators' => array('Composite'),
+			        'decorators' => array('Bootstrap'),
 			        'class'      => 'input-large items'
 			        ));        
 

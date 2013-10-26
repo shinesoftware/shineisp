@@ -11,7 +11,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Target Path'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -19,21 +19,21 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Request Path'),
         	'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'textarea'
         ));   
         
         $this->addElement('select', 'product_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Products'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -44,7 +44,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         $this->addElement('select', 'category_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Categories'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -55,7 +55,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         $this->addElement('checkbox', 'temporary', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Temporary'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));  
         
         $this->addElement('hidden', 'url_rewrite_id');

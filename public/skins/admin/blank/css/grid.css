@@ -235,10 +235,8 @@ table.grid.headings {
 	padding-left: 10px;
 }
 
-#bulkactions {
-	font-size: 10px;
-	margin-top: 1px;
-	margin-right: 5px;
+#actions {
+	height: 29px;
 }
 
 .highlight {

@@ -11,7 +11,7 @@ class Admin_Form_CustomersGroupsForm extends Zend_Form
         $this->addElement('text', 'name', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
             'class'       => 'input-large'
         ));

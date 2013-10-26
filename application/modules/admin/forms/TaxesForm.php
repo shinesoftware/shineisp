@@ -11,7 +11,7 @@ class Admin_Form_TaxesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tax Name'),
             'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -19,7 +19,7 @@ class Admin_Form_TaxesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Percentage'),
             'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));  
         

@@ -11,7 +11,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
         $this->addElement('text', 'var', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Var'),
             'class'       => 'input-large'
         ));
@@ -19,20 +19,20 @@ class Admin_Form_CmsblocksForm extends Zend_Form
         $this->addElement('text', 'title', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Title'),
             'class'       => 'input-large'
         ));
         
         $this->addElement('textarea', 'body', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
             'class'       => 'textarea'
         ));
 
         $this->addElement('multiselect', 'language_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Language'),
             'class'       => 'input-large'
         ));
@@ -45,7 +45,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
         $this->addElement('submit', 'save', array(
             'required' => false,
             'label'    => $translate->_('Save'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'    => 'btn'
         ));
         

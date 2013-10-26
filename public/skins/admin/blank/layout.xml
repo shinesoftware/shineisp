@@ -27,8 +27,6 @@
                 <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
                 <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
                 <js override="1">/resources/js/jquery/jquery.tokeninput.js</js>
-                <js override="1">/resources/js/jquery/jquery.reject.min.js</js>
-                <js override="1">/resources/js/jquery/jquery.blockUI.js</js>
                 
                 <js override="1">/resources/js/jquery/jquery.ui.datepicker-it.js</js>
                 <js override="1">/resources/js/jquery/jquery.dynatree.js</js>
@@ -41,6 +39,7 @@
                 <js>/js/admin.js</js> 
                 <js>/js/grid.js</js> 
                 <css>/css/grid.css</css>  
+                <js>/js/wysiwyg.js</js>
                 
                 <!-- files to be include in every ADMIN pages-->
                 <css override="1">/resources/js/css/ui.dynatree.css</css>
@@ -50,7 +49,7 @@
                 <css override="1">/resources/js/css/jquery.autocomplete.css</css>
 			</head>
 		</commons>
-	
+		 
 		<index>
 			<head>
 				<js>/js/login.js</js> 

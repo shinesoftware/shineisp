@@ -12,35 +12,35 @@ class Admin_Form_PaymentsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Payment date'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large date'
         ));
     	
         $this->addElement('text', 'reference', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Transaction Reference'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
         $this->addElement('text', 'income', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Income'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
         $this->addElement('text', 'outcome', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expense'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
         $this->addElement('select', 'confirmed', array(
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('Does the Transaction has been confirmed?'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'class'      => 'input-large'
         ));
         
@@ -49,7 +49,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         ->setMultiOptions(array('0' => "No, it has been not", '1' => "Yes, it has been" ));
 
         $this->addElement('select', 'bank_id', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => 'Method of Payments',
         		'class'       => 'input-large',
         ));
@@ -60,7 +60,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
 			        ->setMultiOptions(Banks::getList());
 
         $this->addElement('select', 'order_id', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => 'Order',
         		'class'       => 'input-large',
         ));
@@ -71,7 +71,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
 			        ->setMultiOptions(Orders::getList());
 
         $this->addElement('select', 'customer_id', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => 'Customer',
         		'class'       => 'input-large',
         ));
@@ -86,7 +86,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         		'label'      => $translate->_('Description'),
         		'id'         => 'description',
         		'rows'         => '3',
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'class'      => 'textarea input-large'
         ));
         

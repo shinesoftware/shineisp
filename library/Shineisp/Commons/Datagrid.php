@@ -325,7 +325,7 @@ class Shineisp_Commons_Datagrid {
 	 * html to inject begin the table
 	 */
 	private function Begin() {
-		$this->begin .= '<div id="mex" style="display:none"></div>';
+		$this->begin .= '<div id="alert" style="display:none"></div>';
 		return $this->begin;
 	}
 	

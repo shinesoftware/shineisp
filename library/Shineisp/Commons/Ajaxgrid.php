@@ -33,7 +33,7 @@ class Shineisp_Commons_Ajaxgrid {
 		
 		$this->id = "itemlist";
 		$this->addfooterfilters = false;
-		$this->css = "datatable";
+		$this->css = "table table-striped ";
 		$this->script = "";
 		$this->title = "";
 		$this->hiddencols = array();
@@ -43,6 +43,26 @@ class Shineisp_Commons_Ajaxgrid {
 		$this->currentaction = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		$this->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$this->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
+	}
+	
+	/**
+	 * create
+	 * Create the data grid table
+	 * @return string
+	 */
+	public function create() {
+	
+	    $this->Script ();
+	    $table = $this->Begin ();
+	    $table .= $this->Header ();
+	    $table .= "<thead>";
+	    $table .= $this->addTitle ();
+	    $table .= $this->setHeaderColumns ();
+	    $table .= "</thead>";
+	    $table .= $this->addFooter ();
+	    $table .= $this->End ();
+	
+	    return $table;
 	}
 	
 	/**
@@ -292,33 +312,12 @@ class Shineisp_Commons_Ajaxgrid {
 		return $this;
 	}
 	
-	/**
-	 * create
-	 * Create the data grid table
-	 * @return string
-	 */
-	public function create() {
-		
-		$this->Script ();
-		
-		$table = $this->Begin ();
-		$table .= $this->Header ();
-		$table .= "<thead>";
-		$table .= $this->addTitle ();
-		$table .= $this->setHeaderColumns ();
-		$table .= "</thead>";
-		$table .= $this->addFooter ();
-		$table .= $this->End ();
-		
-		return $table;
-	}
-	
 	/*
 	 * Begin
 	 * html to inject begin the table
 	 */
 	private function Begin() {
-		$this->begin .= '<div id="mex" style="display:none"></div>';
+		$this->begin .= '<div class="alert" id="mex" style="display:none"></div>';
 		return $this->begin;
 	}
 	
@@ -578,7 +577,7 @@ class Shineisp_Commons_Ajaxgrid {
 	
 	/**
 	 * Enable or disable state saving. When enabled a cookie will be used to save table display information such as pagination information, display length, filtering and sorting. 
-	 * As such when the end user reloads the page the display display will match what thy had previously set up.
+	 * As such when the end user reloads the page the display will match what thy had previously set up.
 	 * 
 	 * @param boolean $state
 	 */
@@ -786,9 +785,8 @@ class Shineisp_Commons_Ajaxgrid {
 			return null;
 		}
 		
-		$data .= $this->translator->translate ( 'Actions' );
-		$data .= ' <select name="actions" id="actions">';
-		$data .= '<option value="">' . $this->translator->translate ( 'Select ...' ) . '</option>';
+		$data .= '<div class="input-append"><select name="actions" id="actions">';
+		$data .= '<option value="">' . $this->translator->translate ( 'Select action ...' ) . '</option>';
 	
 		foreach ($this->massactions as $name => $section){
 			if(is_array($section)){
@@ -800,7 +798,7 @@ class Shineisp_Commons_Ajaxgrid {
 			}
 		}
 		
-		$data .= '<input type="button" rel="' . $this->controller . '" id="bulkactions" value="' . $this->translator->translate ( 'Execute' ) . '"><br/>';
+		$data .= '<input type="button" class="btn" rel="' . $this->controller . '" id="bulkactions" value="' . $this->translator->translate ( 'Execute' ) . '"></div>';
 		return $data;
 	}
 	

@@ -11,7 +11,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
             'class'       => 'medium-input'
         ));
@@ -27,7 +27,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
         $this->addElement('submit', 'send', array(
             'required' => false,
             'label'    => $translate->_('Save and Send Message'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'    => 'btn'
         ));
                 

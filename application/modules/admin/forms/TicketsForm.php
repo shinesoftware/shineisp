@@ -11,7 +11,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
             'class'       => 'input-large'
         ));
@@ -20,7 +20,7 @@ class Admin_Form_TicketsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => true,
             'label'       => $translate->_('Date'),
-        	'decorators'  => array('Composite'),
+        	'decorators'  => array('Bootstrap'),
             'class'       => 'input-large'
         ));
         
@@ -34,13 +34,13 @@ class Admin_Form_TicketsForm extends Zend_Form
 		$this->addElement('select', 'sendemail', array(
             'label'      => $translate->_('Send Email'),
             'description'      => $translate->_('Send an email to the customer.'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('1' => $translate->_('Yes'), '0'=> $translate->_('No'))
         ));
         
         $this->addElement('select', 'category_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Category'),
             'class'       => 'input-large'
         ));
@@ -51,7 +51,7 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setMultiOptions(TicketsCategories::getList());
         
         $this->addElement('select', 'order_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Order reference'),
             'class'       => 'little-input'
         ));
@@ -62,7 +62,7 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setMultiOptions(Orders::getList(true));
         
         $this->addElement('select', 'sibling_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Relationships'),
             'class'       => 'little-input'
         ));
@@ -72,7 +72,7 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setRegisterInArrayValidator(false);
         
         $this->addElement('select', 'user_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Operator'),
             'class'       => 'little-input'
         ));
@@ -84,7 +84,7 @@ class Admin_Form_TicketsForm extends Zend_Form
                   #->setMultiOptions(AdminUser::getUserbyRoleID(AdminRoles::getIdRoleByName('operator')));
                   
         $this->addElement('select', 'status_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Status'),
             'class'       => 'input-large'
         ));

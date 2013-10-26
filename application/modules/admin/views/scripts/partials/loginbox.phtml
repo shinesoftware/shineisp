@@ -1,6 +1,6 @@
 <?php if($this->loginform):?>
        <?php if( $this->message ): ?>
-            <?php echo "<div class=\"notification error\">" . $this->message . "</div>"; ?>
+            <?php echo "<div class=\"alert alert-error\">" . $this->message . "</div>"; ?>
        <?php endif;?>
        <? $form = $this->loginform; ?>
             <div id="login-box">             
@@ -23,7 +23,7 @@
                          foreach( $field->getErrors() as $error){
                             $errors[] = $this->translate($error);
                          }
-                         echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+                         echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
                       }   
                   } ?>
                </div>    

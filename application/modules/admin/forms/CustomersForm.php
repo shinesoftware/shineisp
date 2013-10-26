@@ -11,7 +11,7 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Firstname'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -19,13 +19,13 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Lastname'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'gender', array(
         'label' => $translate->_('Gender'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -36,7 +36,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'taxfree', array(
         'label' => $translate->_('Tax free'),
         'description' => $translate->_('If it is set as Yes all the taxes will be not added in the orders'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
 
@@ -47,7 +47,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'ignore_latefee', array(
         'label' => $translate->_('Ignore late fee'),
         'description' => $translate->_('If it is set as Yes this customers is not subject to late fee'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
 
@@ -60,7 +60,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'language_id', array(
         'label' => $translate->_('Default Language'),
         'description' => $translate->_('All the messages sent to the customer will be send using the default language selected'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -70,7 +70,7 @@ class Admin_Form_CustomersForm extends Zend_Form
 
         $this->addElement('select', 'issubscriber', array(
         'label' => $translate->_('Newsletter Subscription'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -81,7 +81,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('select', 'isreseller', array(
         'label' => $translate->_('Is Reseller'),
         'description' => 'Set the user as reseller',
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -92,41 +92,41 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('text', 'birthdate', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth date'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'        => 'input-large date'
         ));
         
         $this->addElement('text', 'birthplace', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth place'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'birthdistrict', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth district'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'birthcountry', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth country'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'birthnationality', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth nationality'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'group_id', array(
         'label' => $translate->_('Group'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -136,7 +136,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->addElement('select', 'type_id', array(
         'label' => $translate->_('Company Type'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -146,7 +146,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->addElement('select', 'legalform_id', array(
         'label' => 'Legal form',
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -157,28 +157,28 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('text', 'company', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Company Name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('button', 'customerupdate', array(
             'label'    => 'Customer Update',
             'description' => 'Update the customer information retrieving the data from the registrar database.',
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'    => 'button red customerupdate'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('VAT Number'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
         ));
         
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Taxpayer Number'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
         ));
         
@@ -208,7 +208,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
 	        $this->addElement('select', 'filecategory', array(
 	            'label'      => $translate->_('File Category'),
-	            'decorators' => array('Composite'),
+	            'decorators' => array('Bootstrap'),
 	            'class'      => 'text-input'
 	        ));
 	        
@@ -220,34 +220,34 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('text', 'address', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Address'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'code', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Zip code'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'area', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Area'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));        
         
         $this->addElement('text', 'city', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('City'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('select', 'country_id', array(
 				        'label' => $translate->_('Country'),
-				        'decorators' => array('Composite'),
+				        'decorators' => array('Bootstrap'),
 				        'class'      => 'input-large',
                         'onchange'   => 'onChangeCountry( this );')
         );
@@ -260,7 +260,7 @@ class Admin_Form_CustomersForm extends Zend_Form
 
         $this->addElement('select', 'region_id', array(
                         'label' => $translate->_('Region'),
-                        'decorators' => array('Composite'),
+                        'decorators' => array('Bootstrap'),
                         'class'      => 'input-large',
                         'onchange'   => 'onChangeRegions( this );')
         );
@@ -272,7 +272,7 @@ class Admin_Form_CustomersForm extends Zend_Form
                   
         $this->addElement('select', 'contacttypes', array(
         'label' => $translate->_('Contact Types'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'));
         
         $this->getElement('contacttypes')
@@ -282,13 +282,13 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('text', 'contact', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Contact'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'medium-input'
         ));
         
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 'EmailAddress'
             ),
@@ -300,13 +300,13 @@ class Admin_Form_CustomersForm extends Zend_Form
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large wysiwyg'
         ));
         
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 //'Alnum',
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
@@ -320,7 +320,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->addElement('select', 'status_id', array(
         'label' => $translate->_('Status'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -331,7 +331,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->addElement('select', 'parent_id', array(
                             'label' => 'Reseller',
-                            'decorators' => array('Composite'),
+                            'decorators' => array('Bootstrap'),
         					'description' => 'Select the client who you want to join with the selected customer.',
                             'class'      => 'input-large'
         ));
@@ -342,7 +342,7 @@ class Admin_Form_CustomersForm extends Zend_Form
                   
         $this->addElement('submit', 'save', array(
             'label'    => $translate->_('Save'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'    => 'btn'
         ));
                 

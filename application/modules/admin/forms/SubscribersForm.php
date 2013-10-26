@@ -11,7 +11,7 @@ class Admin_Form_SubscribersForm extends Zend_Form
         $this->addElement('text', 'email', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Email'),
             'class'       => 'input-large'
         ));
@@ -19,7 +19,7 @@ class Admin_Form_SubscribersForm extends Zend_Form
         $this->addElement('text', 'subscriptiondate', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subscribed At'),
             'class'       => 'little-input date'
         ));

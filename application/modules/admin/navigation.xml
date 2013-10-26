@@ -226,13 +226,15 @@
 			</pages>
 		</reports>
 		
-		<settings>
-            <label>Settings</label>
-            <uri>#</uri>
-            <icon>icon-cog</icon>
-            <resource>admin:settings</resource>
-            <pages>
-                <settings>
+		
+		<!-- DO NOT DELETE THIS ITEM -->
+		<configuration>
+			<label>Configuration</label>
+			<uri>#</uri>
+			<icon>icon-wrench</icon>
+			<resource>admin:settings</resource>
+			<pages>
+				<settings>
                     <label>General</label>
                     <uri>/admin/settings/</uri>
                     <resource>admin:settings</resource>
@@ -307,15 +309,7 @@
                     <uri>/admin/purchasescategories/list</uri>
                     <resource>admin:purchasescategories</resource>
                 </purchasescategories>
-            </pages>
-        </settings>
-		
-		<!-- DO NOT DELETE THIS ITEM -->
-		<configuration>
-			<label>Configuration</label>
-			<uri>#</uri>
-			<icon>icon-wrench</icon>
-			<resource>admin:settings</resource>
+			</pages>
 		</configuration>
 		<!-- DO NOT DELETE THIS ITEM -->
 		

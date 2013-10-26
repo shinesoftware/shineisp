@@ -12,7 +12,7 @@ class Admin_Form_RegistrarsForm extends Zend_Form
     			'filters'    => array('StringTrim'),
     			'label'      => $translate->_('Registrar Module'),
     			'required'      => true,
-    			'decorators' => array('Composite'),
+    			'decorators' => array('Bootstrap'),
     			'class'      => 'input-large'
     	));
     	
@@ -25,7 +25,7 @@ class Admin_Form_RegistrarsForm extends Zend_Form
         $this->addElement('select', 'active', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));          
         
@@ -64,7 +64,7 @@ class Admin_Form_RegistrarsForm extends Zend_Form
     			if(!empty($var) && !empty($label) && !empty($type)){
     					
     				// Create the element
-    				$attributeForm->addElement ( $type, $var, array ('label' => $label, 'class' => 'input-large', 'decorators' => array('Composite'), 'description' => $description) );
+    				$attributeForm->addElement ( $type, $var, array ('label' => $label, 'class' => 'input-large', 'decorators' => array('Bootstrap'), 'description' => $description) );
     
     				if ($required) {
     					$attributeForm->getElement ( $var )->setRequired ( true );

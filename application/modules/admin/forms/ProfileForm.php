@@ -17,7 +17,7 @@ class Admin_Form_ProfileForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Firstname'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
@@ -25,7 +25,7 @@ class Admin_Form_ProfileForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Lastname'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
@@ -34,7 +34,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     		$this->addElement('select', 'role_id', array(
     				'required'   => true,
     				'label'      => $translate->_('Role'),
-    				'decorators' => array('Composite'),
+    				'decorators' => array('Bootstrap'),
     				'class'      => 'input-large'
     		));
     		
@@ -46,7 +46,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     		$this->addElement('select', 'isp_id', array(
     				'required'   => true,
     				'label'      => $translate->_('Isp Company'),
-    				'decorators' => array('Composite'),
+    				'decorators' => array('Bootstrap'),
     				'class'      => 'input-large'
     		));
     		
@@ -61,7 +61,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     	
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
         	'validators' => array(
         						array('validator' => 'EmailAddress'),  
         					),
@@ -72,7 +72,7 @@ class Admin_Form_ProfileForm extends Zend_Form
         
         $this->addElement('password', 'password', array(
         		'filters'    => array('StringTrim'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'validators' => array(
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),

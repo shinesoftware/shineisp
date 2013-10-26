@@ -12,7 +12,7 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Language'),
             'description'=> $translate->_('Set the name of the language'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -20,7 +20,7 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Locale'),
         	'description'=> $translate->_('Write here the name of the locale (eg. en). Then you have to create the en.mo file in the /application/languages/en.mo'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -28,12 +28,12 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Code'),
         	'description'=> $translate->_('Write here the name of the locale (eg. en). '),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
         $this->addElement('select', 'active', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Active'),
         		'class'       => 'input-large',
         		'description' => $translate->_('Set the status of the translation language'),
@@ -41,7 +41,7 @@ class Admin_Form_LanguagesForm extends Zend_Form
         ));
 
         $this->addElement('select', 'base', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Base'),
         		'class'       => 'input-large',
         		'description' => $translate->_('Set the main translation language'),

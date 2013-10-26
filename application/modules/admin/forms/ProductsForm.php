@@ -11,7 +11,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Product name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
@@ -20,21 +20,21 @@ class Admin_Form_ProductsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Product Nickname'),
             'description'      => $translate->_('This is the short name of the product'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
     	$this->addElement('text', 'uri', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('URI'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
     	$this->addElement('text', 'sku', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('SKU'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -46,7 +46,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         
         $this->addElement('textarea', 'metakeywords', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
             'class'       => 'textarea'
@@ -54,7 +54,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         
         $this->addElement('textarea', 'metadescription', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
             'class'       => 'textarea'
@@ -68,7 +68,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         
         $this->addElement('select', 'category_id', array(
         'label' => $translate->_('Category'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -80,7 +80,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 
         $this->addElement('select', 'welcome_mail_id', array(
         'label' => $translate->_('Welcome E-Mail'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -93,7 +93,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 
         $this->addElement('select', 'server_group_id', array(
         'label' => $translate->_('Server group'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -105,7 +105,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 
         $this->addElement('select', 'autosetup', array(
         'label' => $translate->_('Automatic setup'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -122,7 +122,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 
         $this->addElement('multiselect', 'related', array(
 	        'label' => $translate->_('Related Products'),
-	        'decorators' => array('Composite'),
+	        'decorators' => array('Bootstrap'),
 	        'size'	 => '20x',
 	        'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
 	        'class'      => 'input-large'
@@ -130,7 +130,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 		        
         $this->addElement('multiselect', 'upgrade', array(
 	        'label' => $translate->_('Product Upgrades'),
-	        'decorators' => array('Composite'),
+	        'decorators' => array('Bootstrap'),
 	        'size'	 => '20x',
 	        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
 	        'class'      => 'input-large'
@@ -148,7 +148,7 @@ class Admin_Form_ProductsForm extends Zend_Form
                   
        $this->addElement('select', 'tax_id', array(
         'label' => 'Tax',
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -159,7 +159,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         $this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -167,77 +167,77 @@ class Admin_Form_ProductsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Price'),
             
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));  
             
         $this->addElement('text', 'setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup Fee'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));          
             
         $this->addElement('textarea', 'setup', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => $translate->_('XML Setup Configuration. See the manual'),
             'class'      => 'textarea'
         ));          
 
         $this->addElement('select', 'enabled', array(
             'label'      => $translate->_('Enabled'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'Disabled', '1'=>'Active')
         ));
 
         $this->addElement('select', 'ishighlighted', array(
             'label'      => $translate->_('Is Highlighted'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
         $this->addElement('select', 'isrefundable', array(
             'label'      => $translate->_('Is Refundable'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
         
         $this->addElement('select', 'default', array(
             'label'      => $translate->_('Default Image'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
         $this->addElement('select', 'iscomparable', array(
             'label'      => $translate->_('Is Comparable'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
         $this->addElement('select', 'showonrss', array(
             'label'      => $translate->_('Publish on RSS Feed'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
         $this->addElement('select', 'downgradable', array(
             'label'      => $translate->_('Allow downgrades'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
        $this->addElement('select', 'type', array(
         'label' => $translate->_('Product Type'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large',
         'multioptions' => array('generic'=> $translate->_('Generic'), 'domain'=> $translate->_('Domain'), 'hosting'=> $translate->_('Hosting'))
         ));        
@@ -248,7 +248,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 	        $this->addElement('text', 'filedescription', array(
 	            'filters'    => array('StringTrim'),
 	            'label'      => $translate->_('Description'),
-	            'decorators' => array('Composite'),
+	            'decorators' => array('Bootstrap'),
 	            'class'      => 'input-large'
 	        ));
 	        
@@ -271,7 +271,7 @@ class Admin_Form_ProductsForm extends Zend_Form
        
         $this->addElement('multiselect', 'wikipages', array(
         'label' => $translate->_('Wiki Pages'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large multiselect'
         ));
         
@@ -282,7 +282,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 
         $this->addElement('select', 'tranche_billing_cycle_id', array(
         'label' => $translate->_('Billing Cycle'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -294,35 +294,35 @@ class Admin_Form_ProductsForm extends Zend_Form
         $this->addElement('text', 'tranche_qty', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Quantity'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));          
         
         $this->addElement('text', 'tranche_measure', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Measurement label'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));          
 
         $this->addElement('text', 'tranche_setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup fee'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));  
 		
         $this->addElement('text', 'tranche_price', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Unit Price'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         )); 
                 
         $this->addElement('multiselect', 'tranche_includes_domains', array(
         'isArray' => true,
         'label' => $translate->_('Domain included'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         
@@ -333,7 +333,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         
     	
         $this->addElement('select', 'group_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Attribute Group'),
         	'required'    => true,
             'class'       => 'input-large'
@@ -345,7 +345,7 @@ class Admin_Form_ProductsForm extends Zend_Form
                   ->setMultiOptions(ProductsAttributesGroups::getList());
     	
         $this->addElement('text', 'position', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Position'),
             'class'       => 'little-input'
         ));
@@ -353,7 +353,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         $this->addElement('textarea', 'blocks', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Blocks'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'textarea'
         ));        
 

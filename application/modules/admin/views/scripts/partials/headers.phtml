@@ -1,21 +1,21 @@
 <div id="scrollme" class="overtop sectionheader">
     
-    <div class="headsection float_left">
-    	<div class="headtitle">
+    <div class="page-header pull-left">
+    	<h2 class="headtitle">
     		<?php if(!empty($this->titlelink)): ?>
     			<a href="<?php echo $this->titlelink?>"><?php echo $this->title;?></a>
     		<?php else: ?>
     			<?php echo $this->title;?>
     		<?php endif;?>
     		
-    	</div>
+    	</h2>
     	<?php if(!empty($this->description)): ?>
     		<small><?php echo $this->translate($this->description);?></small>
     	<?php endif; ?>
     	
     </div>
     
-    <div class="float_right">
+    <div class="pull-right">
 		<?php 
 			$buttons = $this->buttons;
 			if(!empty($buttons)){
@@ -31,16 +31,4 @@
 	</div>
 	
 </div>
-<div class="clear"></div>
-
-<?php if(!empty($this->mex)) :?>
-
-	<script type="text/javascript"> 
- 
-	    $(document).ready(function() { 
-	    	$.blockUI({ message: '<h3><?php echo $this->translate($this->mex);?></h3>', timeout: 1500 }); 
-	    }); 
-	 
-	</script> 
-
-<?php endif;?>
+<div class="clearfix"></div>

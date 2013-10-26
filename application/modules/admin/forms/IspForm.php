@@ -11,7 +11,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Company'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -19,7 +19,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('VAT Number'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -27,7 +27,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Address'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -35,7 +35,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('ZIP Code'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -43,7 +43,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('City'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -51,7 +51,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Country'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -59,7 +59,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Telephone'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
@@ -67,28 +67,28 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Fax'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'bankname', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Bank name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'iban', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('IBAN'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));     
 
         $this->addElement('text', 'bic', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('BIC'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));     
 
@@ -96,7 +96,7 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Slogan'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));     
 
@@ -104,28 +104,28 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Manager'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));             
 
         $this->addElement('text', 'custom1', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Custom 1'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));             
 
         $this->addElement('text', 'custom2', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Custom 2'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));             
 
         $this->addElement('text', 'custom3', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Custom 3'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));             
         
@@ -133,13 +133,13 @@ class Admin_Form_IspForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Website'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 'EmailAddress',
             ),
@@ -160,7 +160,7 @@ class Admin_Form_IspForm extends Zend_Form
         
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),

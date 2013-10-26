@@ -11,21 +11,21 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
             'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'uri', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('URI'),
             'class'       => 'input-large'
         ));
         
         
         $this->addElement('select', 'language_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Language'),
             'class'       => 'input-large'
         ));
@@ -37,14 +37,14 @@ class Admin_Form_WikiForm extends Zend_Form
 
         $this->addElement('select', 'active', array(
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));        
         
         $this->addElement('textarea', 'metadescription', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
             'class'       => 'textarea'
@@ -52,7 +52,7 @@ class Admin_Form_WikiForm extends Zend_Form
         
         $this->addElement('textarea', 'metakeywords', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Keywords'),
             'rows'        => 5,
             'class'       => 'textarea'
@@ -60,14 +60,14 @@ class Admin_Form_WikiForm extends Zend_Form
         
         $this->addElement('textarea', 'content', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
             'id'          => 'body',
             'class'       => 'wysiwyg'
         ));
         
         $this->addElement('select', 'category_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Category'),
             'class'       => 'input-large'
         ));

@@ -46,7 +46,7 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Note");
 		$this->view->description = $this->translator->translate("Here you can see all the notes.");
-		$this->view->buttons = array(array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		
 		$this->datagrid->setConfig ( Notes::grid() )->datagrid ();
 	}
@@ -97,8 +97,8 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/notes/process" );
 		$this->view->title = $this->translator->translate("New Note");
 		$this->view->description = $this->translator->translate("Here you can create a new note.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-								array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+								array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -152,16 +152,16 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			$rs = Notes::getById ( $id, null, true );
 			if (! empty ( $rs[0] )) {
 				$form->populate ( $rs[0] );
-				$this->view->buttons[] = array("url" => "/admin/notes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/notes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
 			}
 		}
 		
@@ -189,9 +189,9 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/notes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/notes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		// Check if we have a POST request

@@ -46,7 +46,7 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Tasks for hosted domains");
 		$this->view->description = $this->translator->translate("Here you can see all the tasks for hosted domains.");
-		$this->view->buttons = array(array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		
 		$this->datagrid->setConfig ( DomainsTasks::grid() )->datagrid ();
 	}
@@ -97,8 +97,8 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/domainstasks/process" );
 		$this->view->title = $this->translator->translate("New Domain task");
 		$this->view->description = $this->translator->translate("Here you can create a new domain task.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-								array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+								array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -152,9 +152,9 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -163,7 +163,7 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 				$rs[0]['startdate'] = Shineisp_Commons_Utilities::formatDateOut($rs[0]['startdate']);
 				$rs[0]['enddate'] = Shineisp_Commons_Utilities::formatDateOut($rs[0]['enddate']);
 				$form->populate ( $rs[0] );
-				$this->view->buttons[] = array("url" => "/admin/domainstasks/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/domainstasks/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
 			}
 		}
 		
@@ -188,9 +188,9 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domainstasks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domainstasks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		// Check if we have a POST request

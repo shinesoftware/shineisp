@@ -11,7 +11,7 @@ class Admin_Form_NewsletterForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
             'class'       => 'input-large'
         ));
@@ -19,21 +19,21 @@ class Admin_Form_NewsletterForm extends Zend_Form
         $this->addElement('text', 'sendat', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Send At'),
             'class'       => 'little-input date'
         ));
         
         $this->addElement('text', 'sent', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Sent'),
             'class'       => 'little-input date'
         ));
         
         $this->addElement('textarea', 'message', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'required'    => true,
             'label'       => $translate->_('Message'),
             'class'       => 'textarea wysiwyg'
@@ -41,7 +41,7 @@ class Admin_Form_NewsletterForm extends Zend_Form
         
         $this->addElement('select', 'sendagain', array(
 	        'label' => $translate->_('Send it again'),
-	        'decorators' => array('Composite'),
+	        'decorators' => array('Bootstrap'),
 	        'class'      => 'input-large'
         ));
         

@@ -11,12 +11,12 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Attribute Code'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     			
         $this->addElement('select', 'is_visible_on_front', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Visible on Product page'),
             'class'       => 'input-large'
         ));
@@ -27,7 +27,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
                   ->setMultiOptions(array('0'=>'No', '1' =>'Yes'));
                   
         $this->addElement('select', 'is_required', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Is Required'),
             'class'       => 'input-large'
         ));
@@ -38,7 +38,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
                   ->setMultiOptions(array('0'=>'No', '1' =>'Yes'));
                   
         $this->addElement('select', 'is_comparable', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Is Comparable'),
             'class'       => 'input-large'
         ));
@@ -49,7 +49,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
                   ->setMultiOptions(array('0'=>'No', '1' =>'Yes'));
                   
         $this->addElement('select', 'on_product_listing', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Use on Product Listing'),
             'class'       => 'input-large'
         ));
@@ -61,7 +61,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
                   
                   
         $this->addElement('select', 'active', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Active'),
             'class'       => 'input-large'
         ));
@@ -73,7 +73,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
                   
                   
         $this->addElement('select', 'system', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('System'),
             'class'       => 'input-large'
         ));
@@ -87,14 +87,14 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
     	$this->addElement('text', 'position', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Position'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
                   
     	
     	$this->addElement('select', 'system_var', array(
             'label'      => $translate->_('System Variable'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -107,40 +107,40 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Default Value'),
             'description'      => $translate->_('When the type of the object is a selectbox you have to use the Json code. eg: {"1": "True", "0": "False"}'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
     	
         $this->addElement('hidden', 'language_id', array(
-            'decorators'  => array('Composite')
+            'decorators'  => array('Bootstrap')
         ));
     	
     	$this->addElement('text', 'label', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Label'),
     		'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));      
     	
     	$this->addElement('text', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));      
     	
     	$this->addElement('text', 'prefix', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Prefix'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));      
     	
     	$this->addElement('text', 'suffix', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Suffix'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));      
     	
@@ -149,7 +149,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'label'      => $translate->_('Type'),
     		'description' => $translate->_('If the type is a dropdown selector you have to set the options using the Json structure in the default value textbox.'),
     		'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));      
  		

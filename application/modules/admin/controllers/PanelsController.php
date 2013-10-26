@@ -47,7 +47,7 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Panels list");
 		$this->view->description = $this->translator->translate("Here you can see all the panel articles.");
-		$this->view->buttons = array(array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( Panels::grid() )->datagrid ();
 	}
 	
@@ -88,8 +88,8 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/panels/process" );
 		$this->view->title = $this->translator->translate("Panels Details");
 		$this->view->description = $this->translator->translate("Here you can handle the ISP Panels parameters");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-							   array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+							   array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -143,9 +143,9 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -158,7 +158,7 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/panels/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/panels/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
 		}
 		
 		$this->view->title = $this->translator->translate("ISP Panel Configuration");
@@ -181,9 +181,9 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/panels/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		if(!empty($id)){

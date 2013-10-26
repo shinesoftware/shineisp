@@ -11,13 +11,13 @@ class Admin_Form_ProductsAttributesGroupsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Feature Name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
 
     	$this->addElement('multiselect', 'attributes', array(
             'label'      => $translate->_('Attributes'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
     		'size'	     => '10x',
             'class'      => 'multiselect'
         ));
@@ -29,12 +29,12 @@ class Admin_Form_ProductsAttributesGroupsForm extends Zend_Form
                   
     	$this->addElement('checkbox', 'isrecurring', array(
             'label'      => $translate->_('Is Recurring'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
     	
     	$this->addElement('checkbox', 'iscomparable', array(
             'label'      => $translate->_('Is Comparable'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
   
         $this->addElement('hidden', 'group_id');

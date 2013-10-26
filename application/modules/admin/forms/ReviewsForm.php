@@ -12,7 +12,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Product'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -24,7 +24,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
         $this->addElement('text', 'publishedat', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Published At'),
             'class'       => 'little-input date'
         ));
@@ -32,14 +32,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
         $this->addElement('text', 'nick', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Nick'),
             'class'       => 'input-large'
         ));
         
         $this->addElement('select', 'referer', array(
         		'filters'     => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Who is Talking About Us?'),
         		'class'       => 'medium-input',
         		'multiOptions' => array('Google' => 'Google', 'Bing' => 'Bing', 'Yahoo' => 'Yahoo', $translate->_('Other Search Engine') => $translate->_('Other Search Engine'), 'Websites' => $translate->_('Websites/Blogs'), $translate->_('Friend suggestion') => $translate->_('Friend suggestion'))
@@ -47,28 +47,28 @@ class Admin_Form_ReviewsForm extends Zend_Form
         
         $this->addElement('text', 'city', array(
         		'filters'     => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('City'),
         		'class'       => 'medium-input'
         ));        
                   
         $this->addElement('text', 'ip', array(
         		'filters'     => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('IP'),
         		'class'       => 'medium-input'
         ));        
                   
         $this->addElement('text', 'latitude', array(
         		'filters'     => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Latitude'),
         		'class'       => 'small-input'
         ));       
                   
         $this->addElement('text', 'longitude', array(
         		'filters'     => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Longitude'),
         		'class'       => 'small-input'
         ));       
@@ -76,14 +76,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
             'class'       => 'input-large'
         ));
                   
         $this->addElement('text', 'email', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Email'),
             'class'       => 'input-large'
         ));
@@ -92,7 +92,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Stars'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
     		'multiOptions' => array(1 => '1 ' . $translate->_('Star'), 2 => '2 ' . $translate->_('Stars'), 3 => '3 ' . $translate->_('Stars'), 4 => '4 ' . $translate->_('Stars'), 5 => '5 ' . $translate->_('Stars'))
         ));        
@@ -101,14 +101,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
     		'multiOptions' => array(0 => 'Not Published', 1 => 'Published')
         ));        
         
         $this->addElement('textarea', 'review', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'required'    => true,
             'label'       => $translate->_('Review'),
             'class'       => 'textarea'

@@ -38,7 +38,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Product Attributes");
 		$this->view->description = $this->translator->translate("Here you can see all the attributes.");
-		$this->view->buttons = array(array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( ProductsAttributes::grid() )->datagrid ();
 	}
 
@@ -91,8 +91,8 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 		// I have to add the language id into the hidden field in order to save the record with the language selected 
 		$this->view->form->populate ( array('language_id' => $Session->langid) );
 		
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+									 array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		
 		$this->view->title = $this->translator->translate("Attributes");
 		$this->view->description = $this->translator->translate("Here you can edit the attribute details.");
@@ -162,9 +162,9 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		// Set the system field attribute title
@@ -184,7 +184,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/productsattributes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/productsattributes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
 				
 		}
 		$this->view->title = $this->translator->translate("Attribute Group");
@@ -206,9 +206,9 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		try {

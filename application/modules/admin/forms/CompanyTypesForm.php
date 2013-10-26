@@ -11,14 +11,14 @@ class Admin_Form_CompanyTypesForm extends Zend_Form
         $this->addElement('text', 'name', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
             'class'       => 'input-large'
         ));
 
         $this->addElement('select', 'legalform_id', array(
         		'label'      => $translate->_('Legal form'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'class'      => 'input-large'
         ));
         
@@ -27,7 +27,7 @@ class Admin_Form_CompanyTypesForm extends Zend_Form
 					        ->setMultiOptions(Legalforms::getList(true));
 					        
         $this->addElement('select', 'active', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Active'),
         		'class'       => 'input-large',
         		'multioptions' => array( 0=>'NO', 1=> 'YES')

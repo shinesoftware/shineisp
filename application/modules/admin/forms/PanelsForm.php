@@ -11,13 +11,13 @@ class Admin_Form_PanelsForm extends Zend_Form
         $this->addElement('text', 'name', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
             'class'       => 'input-large'
         ));
         
         $this->addElement('select', 'isp_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('ISP Profile'),
             'class'       => 'input-large'
         ));
@@ -29,7 +29,7 @@ class Admin_Form_PanelsForm extends Zend_Form
 
         $this->addElement('select', 'active', array(
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));        

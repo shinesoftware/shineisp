@@ -11,13 +11,13 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Date'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input date'
         ));
         
         $this->addElement('select', 'order_id', array(
             'label'      => $translate->_('Order No.'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -27,7 +27,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
 
     	$this->addElement('select', 'customer_parent_id', array(
             'label'      => $translate->_('Invoice destination'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large',
             'disable'    => 'true'
         ));
@@ -40,7 +40,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Sequential number'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
 
@@ -48,14 +48,14 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Invoice number'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large wysiwyg'
         ));
         

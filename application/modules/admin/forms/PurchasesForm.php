@@ -12,7 +12,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input date'
         ));
     	
@@ -20,7 +20,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'title'      => $translate->_('eg: 01/11/2011'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input date'
         ));
     	
@@ -28,13 +28,13 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Payment Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input date'
         ));
         
         $this->addElement('select', 'category_id', array(
             'label'      => $translate->_('Category'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -44,7 +44,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         
         $this->addElement('select', 'method_id', array(
             'label'      => $translate->_('Payment Method'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -56,7 +56,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Number'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
@@ -65,7 +65,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Company'),
             'required'   => true,
         	'title' => $translate->_('eg: Google inc.'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         
@@ -73,7 +73,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Total Net'),
         	'required'   => true,	
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
@@ -81,7 +81,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Total VAT'),
         	'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
@@ -89,14 +89,14 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Total'),
         	'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'little-input'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'textarea little-input'
         ));
         
@@ -119,7 +119,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
         'label' => $translate->_('Status'),
         'required' => true,
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'input-large'
         ));
         

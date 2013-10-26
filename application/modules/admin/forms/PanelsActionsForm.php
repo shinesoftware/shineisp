@@ -11,7 +11,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
         $this->addElement('text', 'action', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Action'),
             'class'       => 'input-large'
         ));
@@ -19,28 +19,28 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
         $this->addElement('text', 'start', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Start Date'),
             'class'       => 'input-large date'
         ));
         
         $this->addElement('text', 'end', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('End Date'),
             'class'       => 'input-large date'
         ));
         
         $this->addElement('textarea', 'log', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Log'),
             'class'       => 'input-large'
         ));
         
         $this->addElement('textarea', 'parameters', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Parameters'),
             'description' => $translate->_('Json encoded attribute parameters'),
             'rows'       => '5',
@@ -49,7 +49,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
         
         $this->addElement('select', 'panel_id', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Panel'),
             'class'       => 'input-large'
         ));
@@ -61,7 +61,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
         
         $this->addElement('select', 'status_id', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Status'),
             'class'       => 'input-large'
         ));
