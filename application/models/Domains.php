@@ -1487,6 +1487,7 @@ class Domains extends BaseDomains {
 	 */
 	public static function summary() {
 		$chart = "";
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
 				->select ( "domain_id, count(*) as items, s.status as status" )
@@ -1520,9 +1521,11 @@ class Domains extends BaseDomains {
         
         $record_group2  =  $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
-		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		return $records;
 	}	
 	
 	/**

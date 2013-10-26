@@ -8,11 +8,12 @@ function genMenu($container)
         echo '<li class="dropdown">' . "\n";
 
         $href = $page->uri;
-        $target = !empty($page->pages) ? 'dropdown-toggle' : "_self";
+        $target = !empty($page->pages) ? null : "_self";
+        $class = !empty($page->pages) ? 'dropdown-toggle' : "";
         $toggle = !empty($page->pages) ? "dropdown" : "";
         $icon = !empty($page->icon) ? "<i class=\"" . $page->icon . "\"></i> " : "";
         
-        echo '<a href="' . $href . '" data-toggle="'.$toggle.'" target="' . $target . '">' . $icon . $translator->translate($page->label) . '</a>' . "\n";
+        echo '<a href="' . $href . '" class="'.$class.'" data-toggle="'.$toggle.'" target="' . $target . '">' . $icon . $translator->translate($page->label) . '</a>' . "\n";
         
         if (!empty($page->pages))
         {
@@ -27,9 +28,10 @@ function genMenu($container)
     }
 }
 
-echo '<ul class="nav nav-tabs nav-stacked">' . "\n";
+
+echo '<div class="nav-collapse"><ul class="nav nav-pills">' . "\n";
 
 genMenu($this->container);
 
-echo '</ul>';
+echo '</ul></div>';
 

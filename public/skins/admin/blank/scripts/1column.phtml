@@ -16,20 +16,15 @@
                         <li class="dropdown"><?php echo $this->languageswitcher();?></li>
 	    			</ul>
 	    		</div>
+	    		<?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
 	    	</div>
 	    </div>
     </header>
     
     <div class="container-fluid">
         <div class="row-fluid">
-            <div id="sidebar-left" class="span2 hidden-phone hidden-tablet">
-                <?php echo $this->searchbox();?>
-                <?php echo $this->blocks()->showblock('admin_startsidebar');?> 	
-                <?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
-				<?php echo $this->blocks()->showblock('admin_endsidebar');?> 
-            </div>
             
-            <div id="content" class="span10">
+            <div id="content" class="span12">
                 
                 <div class="row-fluid">
                      <div class="span12"><?php echo  $this->breadCrumb();?></div>

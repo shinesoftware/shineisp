@@ -245,6 +245,7 @@ class Reviews extends BaseReviews
 	 * @return array
 	 */
 	public static function summary() {
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$newarray = array();
 		$chart = "";
 
@@ -266,7 +267,11 @@ class Reviews extends BaseReviews
 			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
 		}
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
+		
+		return $records;
 	}      
 	
 	/**
