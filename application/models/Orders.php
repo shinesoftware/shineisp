@@ -2562,6 +2562,9 @@ class Orders extends BaseOrders {
 			$records['data'][$i]['status'] = $translator->translate($records['data'][$i]['status']);
 		}
 
+		// adding the index reference 
+		$records['index'] = "order_id";
+		
 		// Create the header table columns
 		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
 		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 

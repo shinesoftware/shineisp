@@ -14,6 +14,49 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 	 * Create a widget object
 	 * 
 	   $records array with chart
+	   
+	   Array
+            (
+                [data] => Array
+                    (
+                        [0] => Array
+                            (
+                                [order_id] => 2212
+                                [orderdate] => 16/10/2013
+                                [invoice] => 000397-2013
+                                [fullname] => Comany Name
+                                [total] => € 100,20
+                                [grandtotal] => € 122,24
+                                [status] => Pagato
+                            )
+                    )
+            
+                [index] => order_id
+                [fields] => Array
+                    (
+                        [order_id] => Array
+                            (
+                                [label] => ID
+                                [attributes] => Array
+                                    (
+                                        [class] => hidden-phone hidden-tablet
+                                    )
+            
+                            )
+            
+                        [orderdate] => Array
+                            (
+                                [label] => Data
+                                [attributes] => Array
+                                    (
+                                        [class] => hidden-phone hidden-tablet
+                                    )
+            
+                            )
+            
+                    )
+            
+            )
 			   =================
 	 	Check if the array is a simple or multidimensional data array.
 	 	 array(2) {
@@ -50,7 +93,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 		$arrColumns = array();
 		$buttons = array();
 		$basepath = "";
-		
+
 		if(!empty($records['data']) && is_array($records['data'])){		
 			if($type=="grid"){
 				$grid = new Shineisp_Commons_Datagrid ();
@@ -76,7 +119,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 					}
 				}
 				
-				$keyIndex = !empty($records['fields']) ? array_shift(array_keys($records['fields'])) : null;
+				$keyIndex = !empty($records['index']) ? $records['index'] : null;
 				
 			    if(!empty($records['data'])){
 					$mygrid = $grid->addColumns ( $arrColumns )

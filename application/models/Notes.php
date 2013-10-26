@@ -106,6 +106,8 @@ class Notes extends BaseNotes
      * @return Doctrine Record
      */
     public static function summary($userId) {
+        $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+        
         $dq = Doctrine_Query::create ()->select("note_id, name, DATE_FORMAT(expire, '%d/%m/%Y') as creation_date")
         								->from ( 'Notes n' )
         								->where ( "n.user_id = ?", $userId );
@@ -117,7 +119,10 @@ class Notes extends BaseNotes
                 ->whereIn( "au.isp_id", $logged_user['isp_id']);
         }         
         
-        $records    = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        $records['index'] = "note_id";
+        $records['fields'] = array('name' => array('label' => $translator->translate('Name')), 'creation_date' => array('label' => $translator->translate('Date')));
+        
         return $records;
     }	
     	   

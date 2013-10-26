@@ -223,6 +223,9 @@ class PanelsActions extends BasePanelsActions
         
         $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
+        // adding the index reference
+        $records['index'] = "action_id";
+        
         // Create the header table columns
         $records['fields'] = array('action_id' => array('label' => $translator->translate('ID')),
         							'startdate' => array('label' => $translator->translate('Start Date')),

@@ -343,6 +343,9 @@ class DomainsTasks extends BaseDomainsTasks {
 
         $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         
+        // adding the index reference
+        $records['index'] = "task_id";
+        
         // Create the header table columns
         $records['fields'] = array('startdate' => array('label' => $translator->translate('Start Date')),
 					        		'enddate' => array('label' => $translator->translate('End Date')),

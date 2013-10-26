@@ -1114,6 +1114,9 @@ class Customers extends BaseCustomers {
 			$records['data'][$i]['grandtotal']    = $currency->toCurrency($records['data'][$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
 		}
 		
+		// adding the index reference
+		$records['index'] = "id";
+		
 		// Create the header table columns
 		$records['fields'] = array(
 									'id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
@@ -1131,7 +1134,8 @@ class Customers extends BaseCustomers {
 	 */
 	public static function summary() {
 		$chart = "";
-
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
 		// Get the customer summary values
 		$dq   = Doctrine_Query::create ()
 									->select ( "customer_id, count(*) as items, s.status as status" )
@@ -1147,11 +1151,11 @@ class Customers extends BaseCustomers {
             $dq->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
         } 
         
-        $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
+        $datarecords = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 
 		// Strip the customer_id field
-		if(!empty($records)){
-			foreach($records as $key => $value) {
+		if(!empty($datarecords)){
+			foreach($datarecords as $key => $value) {
 			  	array_shift($value);
 			  	$newarray[] = $value;
 			  	$chartLabels[] = $value['status'];
@@ -1167,9 +1171,11 @@ class Customers extends BaseCustomers {
                                     ->andWhere( "c.isp_id = ?", Isp::getCurrentId() )
 									->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
-		$newarray[] = array('items' => $record_group2[0]['total'], 'status' => "Total");
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		return $records;
 	}
 	
 	

@@ -416,6 +416,9 @@ class Tickets extends BaseTickets {
 			$records['data'][$i]['subject'] = Shineisp_Commons_Utilities::truncate($records['data'][$i]['subject']);
 		}
 		
+		// adding the index reference
+		$records['index'] = "ticket_id";
+		
 		// Create the header table columns
 		$records['fields'] = array('ticket_id' => array('label' => $translator->translate('ID')),
 									'subject' => array('label' => $translator->translate('Subject')),
@@ -651,6 +654,7 @@ class Tickets extends BaseTickets {
 	 */
 	public static function summary() {
 		$chart = "";
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
 					->select ( "t.ticket_id, count(*) as items, s.status as status" )
@@ -683,9 +687,12 @@ class Tickets extends BaseTickets {
                     ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
         		
         $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
-		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
+		
+		return $records;
 	}
 	
 	
