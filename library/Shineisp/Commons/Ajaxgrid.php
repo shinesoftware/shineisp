@@ -326,8 +326,7 @@ class Shineisp_Commons_Ajaxgrid {
 	 * start section of the table
 	 */
 	private function Header() {
-		$head = "";
-		$head .= "<table id=\"".$this->id."\" class=\"display ".$this->css."\">";
+		$head = "<table id=\"".$this->id."\" class=\"display ".$this->css."\">";
 		return $head;
 	}
 	
@@ -511,7 +510,16 @@ class Shineisp_Commons_Ajaxgrid {
 	 */
 	private function parseColumns() {
 		// Adding the index in all the rows
-		$this->scriptoptions["fnRowCallback"] = "function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) { var id = aData[0]; $(nRow).attr(\"id\", id); return nRow;}";
+		$this->scriptoptions["fnRowCallback"] = "function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) { ";
+		
+		for($i = 0; $i < count ( $this->columns ); $i ++) {
+			if(!empty($this->columns[$i]['attributes']['class'])){
+				$this->scriptoptions["fnRowCallback"] .= "$('td:eq($i)', nRow).addClass( \"".$this->columns[$i]['attributes']['class']."\" );";
+			}
+		}
+		
+		$this->scriptoptions["fnRowCallback"] .= "var id = aData[0]; $(nRow).attr(\"id\", id);";
+		$this->scriptoptions["fnRowCallback"] .= "return nRow;}";
 		
 		for($i = 0; $i < count ( $this->columns ); $i ++) {
 			
@@ -613,10 +621,13 @@ class Shineisp_Commons_Ajaxgrid {
 	 * 
 	 * @param string $state [full_numbers, twobutton]
 	 */
-	public function setRowsList($rows = array ('10', '50', '100', 'All' ), $default=25) {
+	public function setRowsList($rows = array ('10', '50', '100' ), $default=25) {
 		
 		if($rows){
-			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . "], [" . implode(",", $rows) . "]]";
+			$sInfo = $this->translator->_('Got a total of _TOTAL_ entries to show (_START_ to _END_)');
+			$sProcessing = $this->translator->_('Please wait, it is currently busy');
+			$this->scriptoptions['oLanguage'] = "{\"sLengthMenu\": \"_MENU_\", \"sInfo\": \"$sInfo\", \"sProcessing\": \"$sProcessing\"}";
+			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . ",-1], [" . implode(",", $rows) . ",'" . $this->translator->translate('Show All') . "']]";
 			$this->scriptoptions['iDisplayLength'] = "'$default'";
 		}
 		return $this;
@@ -640,7 +651,7 @@ class Shineisp_Commons_Ajaxgrid {
 	 * @param boolean $state
 	 */
 	public function addFooterFilters() {
-		$this->jsbeforeinject .= 'var asInitVals = new Array();';
+		$this->jsbeforeinject .= 'var asInitVals = new Array();' . "\n";
 		$this->addfooterfilters = true;
 		$this->jsendinject .= '
 				$("tfoot input").keyup( function (e) {
@@ -741,18 +752,20 @@ class Shineisp_Commons_Ajaxgrid {
 	private function createFilters() {
 		$colnum = count ( $this->columns );
 	
-		$footer = "<tr>";
-		$footer .= "<th></th>";
+		$filters = "<tr>";
+		$filters .= "<th></th>";
 		for($i = 1; $i < count ( $this->columns ); $i ++) {
-			$footer .= "<th>";
+			$filters .= "<th ";
+			$filters .= $this->addAttrColumns($i);
+			$filters .= ">";
 			$style = (empty($this->columns[$i]['searchable']) || $this->columns[$i]['searchable'] === false) ? "display:none" : Null;
 			$value = (!empty($this->columns[$i]['searchable']) && $this->columns[$i]['searchable']) ? $this->translator->_('Search %s', $this->columns[$i]['label']) : Null;
 			
-			$footer .= "<input style=\"$style\" id=\"obj_".$this->columns[$i]['alias']."\" name=\"search_".$this->columns[$i]['alias']."\" value=\"". $value ."\" type=\"text\" value=\"\" class=\"search_init\">";
-			$footer .= "</th>";
+			$filters .= "<input style=\"$style\" id=\"obj_".$this->columns[$i]['alias']."\" name=\"search_".$this->columns[$i]['alias']."\" title=\"". $value ."\" type=\"text\" class=\"search_init\">";
+			$filters .= "</th>";
 		}
-		$footer .= "</tr>";
-		return $footer;
+		$filters .= "</tr>";
+		return $filters;
 	}
 	
 	/*
@@ -863,7 +876,6 @@ class Shineisp_Commons_Ajaxgrid {
 	}
 	
 	/*
-     * addAttrColumns
      * add the attributes at the cells header of the table
      */
 	private function addAttrColumns($index) {
@@ -875,7 +887,6 @@ class Shineisp_Commons_Ajaxgrid {
 	}
 	
 	/*
-     * createAttributes
      * create the html attribute
      */
 	private function createAttributes($attributes) {
@@ -890,7 +901,6 @@ class Shineisp_Commons_Ajaxgrid {
 	}
 	
 	/*
-	 * SubHeaderColumns
 	 * create the sub header of the table
 	 */
 	private function SubHeaderColumns($columns) {

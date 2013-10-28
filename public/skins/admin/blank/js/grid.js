@@ -3,7 +3,7 @@ $(document).ready(function(){
 	// Custom Action button inside the list of the records
 	$("#bulkactions").live("click", function(){ 
 			if($('#bulkactions').val()){
-				$.post('/admin/' + $('#bulkactions').attr('rel') + '/bulk/', {params: $.param($('.datatable :checkbox:checked')) + '&do='+$('#actions').val()}, 
+				$.post('/admin/' + $('#bulkactions').attr('rel') + '/bulk/', {params: $.param($('.table :checkbox:checked')) + '&do='+$('#actions').val()}, 
 						function(data){
 							if(data.reload !== undefined){
 								window.location.href = data.reload;
@@ -24,19 +24,14 @@ $(document).ready(function(){
 		}
 	); 
 	
-	$('.datatable').delegate('tbody tr', 'click', function(event) {
+	$('.table').delegate('tbody tr', 'click', function(event) {
         if (event.target.type !== 'checkbox') {
             var checkbox = $(this).find(':checkbox');
             checkbox.trigger('click');
-            if (checkbox.is(':checked')) {
-                $(this).addClass('highlight');
-            } else {
-                $(this).removeClass('highlight');
-            }
         }
     });
 	
-	$('.datatable').delegate('tbody tr', 'dblclick', function(event) {
+	$('.table').delegate('tbody tr', 'dblclick', function(event) {
 		var link = $(this).find('a.editlink');
 		window.location.href = link.attr("href");
 	});

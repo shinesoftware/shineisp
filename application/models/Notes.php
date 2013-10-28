@@ -21,10 +21,10 @@ class Notes extends BaseNotes
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'n.note_id', 'alias' => 'note_id', 'type' => 'selectall' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'n.note_id', 'alias' => 'note_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'n.note_id', 'alias' => 'note_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'n.note_id', 'alias' => 'note_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'n.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Created' ), 'field' => 'n.created', 'alias' => 'created', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Created' ), 'field' => 'n.created', 'alias' => 'created', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "hidden-phone hidden-tablet") );
 		
 		$config ['datagrid'] ['fields'] = "note_id, name, created, changed";
         

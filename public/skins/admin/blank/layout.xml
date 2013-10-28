@@ -15,6 +15,7 @@
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
             <css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
             <js  override="1">/resources/bootstrap/js/bootstrap.min.js</js>
+            <js  override="1">/resources/bootstrap/js/bootstrap-wysiwyg.js</js>
 		</head>
 	</general>
 	
@@ -39,7 +40,6 @@
                 <js>/js/admin.js</js> 
                 <js>/js/grid.js</js> 
                 <css>/css/grid.css</css>  
-                <js>/js/wysiwyg.js</js>
                 
                 <!-- files to be include in every ADMIN pages-->
                 <css override="1">/resources/js/css/ui.dynatree.css</css>

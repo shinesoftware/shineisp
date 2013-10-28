@@ -93,6 +93,14 @@ table.subgrid tr.headings th {
 	padding-top: 1px;
 }
 
+.search_init{
+	width: inherit !important;
+}
+
+.page-header{
+	margin-top: 0px;
+}
+
 
 .ui-widget-header {
 	border: 0px !important;

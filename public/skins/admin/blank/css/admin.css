@@ -210,8 +210,6 @@
 
 
 ul.stats ul li{
-	display: table-row;
-	display: block;
 }
 
 ul.stats li {
@@ -248,16 +246,14 @@ ul.stats li span.red {
 }
 
 ul.stats {
-	-moz-box-sizing: border-box;
-	display: table;
 	margin: -15px 0 0;
 	padding: 22px 15px 24px;
-	table-layout: fixed;
 	width: 100%;
 }
 
 ul.stats li {
-	display: table-cell;
+	padding: 15px;
+    width: 200px;
 }
 
 ul.stats li strong,ul.stats li small,ul.stats li span {
