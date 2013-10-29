@@ -150,6 +150,9 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 		$form = $this->getForm ( '/admin/notes/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
+		$auth = Zend_Auth::getInstance ();
+		$user = $auth->getIdentity();
+		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
@@ -205,6 +208,7 @@ class Admin_NotesController extends Shineisp_Controller_Admin {
 			
 			// Get the id 
 			$id = Notes::saveAll($params, $params ['note_id'], $user['user_id']);
+
 			if (is_numeric ( $id )) {
 				$this->_helper->redirector ( 'edit', 'notes', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
 			} else {

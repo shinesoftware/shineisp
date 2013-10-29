@@ -622,13 +622,19 @@ class Shineisp_Commons_Ajaxgrid {
 	 * @param string $state [full_numbers, twobutton]
 	 */
 	public function setRowsList($rows = array ('10', '50', '100' ), $default=25) {
-		
+	    $lblrows = array();
 		if($rows){
+		    foreach ($rows as $row){
+		        $lblrows[] = "'" . $this->translator->_('%s items', $row) . "'";
+		    }
+		    
 			$sInfo = $this->translator->_('Got a total of _TOTAL_ entries to show (_START_ to _END_)');
 			$sSearch = $this->translator->_('Search _INPUT_');
 			$sProcessing = $this->translator->_('Please wait, it is currently busy');
-			$this->scriptoptions['oLanguage'] = "{\"sLengthMenu\": \"_MENU_\", \"sInfo\": \"$sInfo\", \"sProcessing\": \"$sProcessing\", \"sSearch\": \"$sSearch\"}";
-			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . ",-1], [" . implode(",", $rows) . ",'" . $this->translator->translate('Show All') . "']]";
+			$sLengthMenu = $this->translator->_('Show _MENU_');
+			
+			$this->scriptoptions['oLanguage'] = "{\"sLengthMenu\": \"$sLengthMenu\", \"sInfo\": \"$sInfo\", \"sProcessing\": \"$sProcessing\", \"sSearch\": \"$sSearch\"}";
+			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . ",-1], [" . implode(",", $lblrows) . ",'" . $this->translator->translate('Show All') . "']]";
 			$this->scriptoptions['iDisplayLength'] = "'$default'";
 		}
 		return $this;
@@ -776,15 +782,12 @@ class Shineisp_Commons_Ajaxgrid {
 	private function addTitle() {
 		$data = "";
 		
-		if(!empty($this->title) || $this->hasFilters ()){
-			
+		if(!empty($this->title)){
 			if(!empty($this->title)){
 				$data = "<caption>";
 				$data .= '<div class="title left">' . $this->title . '</div>';
 				$data .= "</caption>";
 			}
-			
-			
 		}
 		return $data;
 	}

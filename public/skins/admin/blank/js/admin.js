@@ -45,16 +45,7 @@ $(document).ready(function(){
 	        location.href = "/admin/search/goto/mod/" + Module + "/id/" + Id;
 	 });
 	 
-	 $('.wysiwyg').wysihtml5({
-			"events": {
-				"load": function() { 
-					console.log("Loaded!");
-				},
-				"blur": function() { 
-					$('.wysiwyg').val($('.wysiwyg').val());
-				}
-			}
-		});
+	 $('.wysiwyg').wysihtml5();
 	 
 });
 

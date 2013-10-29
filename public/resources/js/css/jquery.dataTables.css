@@ -58,6 +58,7 @@
 	datatable: none;
 	line-height: 40px;
 	float: left;
+	padding-top: 7px;
 }
 
 .dataTables_bulk {
@@ -65,10 +66,12 @@
 	line-height: 40px;
 	float: left;
 	margin-right: 10px;
+	padding-top: 7px;
 }
 
 .dataTables_filter {
 	text-align: right;
+	line-height: 40px;
 }
 
 .dataTables_filter input {

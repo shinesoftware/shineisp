@@ -35,8 +35,8 @@ class Notes extends BaseNotes
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'n.AdminUser au' )
-                ->where( "au.isp_id = ?", $logged_user['isp_id']);
+            $dq->leftJoin ( 'n.AdminUser au' )->where( "au.isp_id = ?", $logged_user['isp_id']);
+            $dq->addWhere("n.user_id = ?", $logged_user['user_id']);
         }          
         
 		$config ['datagrid'] ['dqrecordset'] = $dq;
@@ -68,9 +68,9 @@ class Notes extends BaseNotes
         							   ->limit ( 1 );
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
-            $logged_user= $auth->getIdentity ();
-            $dq->leftJoin ( 'n.AdminUser au' )
-                ->whereIn( "au.isp_id", $logged_user['isp_id']);
+            $logged_user = $auth->getIdentity ();
+            $dq->leftJoin ( 'n.AdminUser au' )->whereIn( "au.isp_id", $logged_user['isp_id']);
+            $dq->addWhere("n.user_id = ?", $logged_user['user_id']);
         }           
         
         $record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -132,7 +132,7 @@ class Notes extends BaseNotes
      * @param integer $id
      */
     public static function saveAll(array $data, $id, $userId) {
-    
+
     	if(!empty($data) && is_array($data)){
     		
     		if(is_numeric($id)){
