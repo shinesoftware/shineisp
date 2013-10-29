@@ -44,7 +44,18 @@ $(document).ready(function(){
 	        var Module = data[2];
 	        location.href = "/admin/search/goto/mod/" + Module + "/id/" + Id;
 	 });
-	
+	 
+	 $('.wysiwyg').wysihtml5({
+			"events": {
+				"load": function() { 
+					console.log("Loaded!");
+				},
+				"blur": function() { 
+					$('.wysiwyg').val($('.wysiwyg').val());
+				}
+			}
+		});
+	 
 });
 
 

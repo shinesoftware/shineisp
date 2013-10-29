@@ -625,8 +625,9 @@ class Shineisp_Commons_Ajaxgrid {
 		
 		if($rows){
 			$sInfo = $this->translator->_('Got a total of _TOTAL_ entries to show (_START_ to _END_)');
+			$sSearch = $this->translator->_('Search _INPUT_');
 			$sProcessing = $this->translator->_('Please wait, it is currently busy');
-			$this->scriptoptions['oLanguage'] = "{\"sLengthMenu\": \"_MENU_\", \"sInfo\": \"$sInfo\", \"sProcessing\": \"$sProcessing\"}";
+			$this->scriptoptions['oLanguage'] = "{\"sLengthMenu\": \"_MENU_\", \"sInfo\": \"$sInfo\", \"sProcessing\": \"$sProcessing\", \"sSearch\": \"$sSearch\"}";
 			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . ",-1], [" . implode(",", $rows) . ",'" . $this->translator->translate('Show All') . "']]";
 			$this->scriptoptions['iDisplayLength'] = "'$default'";
 		}

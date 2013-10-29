@@ -24,7 +24,7 @@ class AdminUser extends BaseAdminUser
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'u.user_id', 'alias' => 'user_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'u.user_id', 'alias' => 'user_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Firstname' ), 'field' => 'u.firstname', 'alias' => 'firstname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "hidden-phone hidden-tablet") );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Lastname' ), 'field' => 'u.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Lastname' ), 'field' => 'u.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "hidden-phone hidden-tablet") );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'E-Mail' ), 'field' => 'u.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "hidden-phone") );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Role' ), 'field' => 'r.name', 'alias' => 'role', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['fields'] = "u.user_id, u.firstname, u.lastname, u.email, r.name as role";

@@ -24,7 +24,11 @@
 		<commons template="1column">
 			<head>
 			    
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
+                <js override="1">/resources/js/wysiwyg/wysihtml5/rules.js</js>
+                <js override="1">/resources/js/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
+                <js override="1">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
+                <css override="1">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
+                
                 <js override="1">/resources/js/jquery/jquery.autocomplete.min.js</js>
                 <js override="1">/resources/js/jquery/jquery.tokeninput.js</js>
                 
