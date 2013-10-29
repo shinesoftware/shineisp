@@ -6,7 +6,7 @@
 <div class="content_inner">
 
 <?php if(!empty($this->mex)) :?>
-    <div class="notification <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+    <div class="notification <?php echo  $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 <?php endif;?>
     
 <? if( $form->isErrors() ): ?>
@@ -31,7 +31,7 @@
 	
 	<div id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 		</ul>
     
 	    <div id="tab1"> 

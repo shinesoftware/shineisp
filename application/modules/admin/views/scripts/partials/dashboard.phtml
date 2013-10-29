@@ -1,19 +1,19 @@
 <?php if($this->expdomains) :?>
 <table class="summary">
-    <caption><?=$this->translate('Expiring Domains') ?></caption>
+    <caption><?php echo $this->translate('Expiring Domains') ?></caption>
     <thead>
         <tr class="summary_title">
-            <td><?= $this->translate('Domain') ?></td>
-            <td><?= $this->translate('Date') ?></td>
-            <td><?= $this->translate('Remaining Days') ?></td>
+            <td><?php echo  $this->translate('Domain') ?></td>
+            <td><?php echo  $this->translate('Date') ?></td>
+            <td><?php echo  $this->translate('Remaining Days') ?></td>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($this->expdomains as $domain) : ?>
         <tr>
-            <td><?= $domain['domain'] ?></td>
-            <td><?= $domain['expiring_date'] ?></td>  
-            <td><?= $domain['daysleft'] ?></td>  
+            <td><?php echo  $domain['domain'] ?></td>
+            <td><?php echo  $domain['expiring_date'] ?></td>  
+            <td><?php echo  $domain['daysleft'] ?></td>  
         </tr>
         <?php endforeach; ?>
     </tbody>

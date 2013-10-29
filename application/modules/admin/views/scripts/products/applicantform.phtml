@@ -36,21 +36,21 @@
 
 	<div id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<?php if(!$this->isrecurring): ?><li><a href="#tab2"><?=$this->translate('Prices');?></a></li><?php endif;?> 
-			<?php if($this->isrecurring): ?><li><a href="#tab3"><?=$this->translate('Recurring Prices');?></a></li><?php endif; ?> 
-			<li><a href="#tab4"><?=$this->translate('Categories');?></a></li> 
-			<li><a href="#tab5"><?=$this->translate('Content');?></a></li> 
+			<li><a href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<?php if(!$this->isrecurring): ?><li><a href="#tab2"><?php echo $this->translate('Prices');?></a></li><?php endif;?> 
+			<?php if($this->isrecurring): ?><li><a href="#tab3"><?php echo $this->translate('Recurring Prices');?></a></li><?php endif; ?> 
+			<li><a href="#tab4"><?php echo $this->translate('Categories');?></a></li> 
+			<li><a href="#tab5"><?php echo $this->translate('Content');?></a></li> 
 			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-				<li><a href="#tab6"><?=$this->translate('Media');?></a></li>
+				<li><a href="#tab6"><?php echo $this->translate('Media');?></a></li>
 			<?php endif;?> 
-			<li><a href="#tab7"><?=$this->translate('Related Products');?></a></li>
-			<li><a href="#tab8"><?=$this->translate('Product Upgrades');?></a></li>
-			<li><a href="#tab9"><?=$this->translate('Orders');?></a></li> 
-			<li><a href="#tab10"><?=$this->translate('Attributes');?></a></li> 
-			<li><a href="#tab11"><?=$this->translate('Blocks');?></a></li> 
-			<li><a href="#tab12"><?=$this->translate('Metatags');?></a></li> 
-			<li><a href="#tab13"><?=$this->translate('Setup');?></a></li> 
+			<li><a href="#tab7"><?php echo $this->translate('Related Products');?></a></li>
+			<li><a href="#tab8"><?php echo $this->translate('Product Upgrades');?></a></li>
+			<li><a href="#tab9"><?php echo $this->translate('Orders');?></a></li> 
+			<li><a href="#tab10"><?php echo $this->translate('Attributes');?></a></li> 
+			<li><a href="#tab11"><?php echo $this->translate('Blocks');?></a></li> 
+			<li><a href="#tab12"><?php echo $this->translate('Metatags');?></a></li> 
+			<li><a href="#tab13"><?php echo $this->translate('Setup');?></a></li> 
 		</ul>
     
     
@@ -126,7 +126,7 @@
 	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
 		   <div class="tab-pane" id="tab6">
 		        <fieldset>
-		            <?= $this->simplegrid($this->media);?>
+		            <?php echo  $this->simplegrid($this->media);?>
 		            <?php echo $form->attachments->render() ?>
 		            <?php echo $form->default->render() ?>
 		            <?php echo $form->filedescription->render() ?>

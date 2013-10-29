@@ -91,6 +91,7 @@ class Admin_Form_ServersForm extends Zend_Form
         $this->addElement('select', 'panel_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Control Panel'),
+            'decorators' => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         $this->getElement('panel_id')

@@ -173,6 +173,7 @@ class Admin_Form_IspForm extends Zend_Form
         $this->addElement('select', 'isppanel', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('ISP Panel'),
+            'decorators'  => array('Bootstrap'),
             'class'      => 'input-large'
         ));
         

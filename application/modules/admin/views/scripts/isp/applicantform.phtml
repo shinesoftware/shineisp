@@ -21,13 +21,13 @@
 	
 	<div class="tabbable" id="tabs">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a data-toggle="tab" href="#tab2"><?=$this->translate('Addresses');?></a></li>
-			<li><a data-toggle="tab" href="#tab3"><?=$this->translate('Contacts');?></a></li>
-			<li><a data-toggle="tab" href="#tab4"><?=$this->translate('Bank');?></a></li>
-			<li><a data-toggle="tab" href="#tab5"><?=$this->translate('Servers');?></a></li>
-			<li><a data-toggle="tab" href="#tab6"><?=$this->translate('ISP Control Panel');?></a></li>
-			<li><a data-toggle="tab" href="#tab7"><?=$this->translate('Other');?></a></li>
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Addresses');?></a></li>
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Contacts');?></a></li>
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Bank');?></a></li>
+			<li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Servers');?></a></li>
+			<li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('ISP Control Panel');?></a></li>
+			<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Other');?></a></li>
 		</ul>
         <div class="tab-content">
     	    <div class="tab-pane active" id="tab1"> 
@@ -38,7 +38,7 @@
         		        <?php echo $form->slogan->render() ?>
         		        <?php echo $form->logo_email->render()?>
         		        <?php if(!empty($this->srclogoemail)): ?>
-        		        	<img width="200" src="<?php echo $this->srclogoemail ?>" alt="logo_email"/>
+        		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogoemail ?>" alt="<?php echo $this->translate('Email logo picture')?>"/>
         		        <?php endif;?>
         		    </fieldset>
         		    <fieldset class="span6"> 
@@ -47,7 +47,7 @@
         		        <?php echo $form->password->render()?>
         		        <?php echo $form->logo->render()?>
         		        <?php if(!empty($this->srclogo)): ?>
-        		        	<img width="200" src="<?php echo $this->srclogo ?>" alt="logo"/>
+        		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogo ?>" alt="<?php echo $this->translate('Website logo picture')?>"/>
         		        <?php endif;?>
         		    </fieldset>
     		    </div>
@@ -73,7 +73,7 @@
     	    </div>    
     	    
     	    <div class="tab-pane" id="tab5"> 
-    	         <?= $this->simplegrid($this->serversgrid);?>
+    	         <?php echo  $this->simplegrid($this->serversgrid);?>
     	    </div>        
     	    
     	    <div class="tab-pane" id="tab6"> 

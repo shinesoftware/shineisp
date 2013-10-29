@@ -3,7 +3,6 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
 
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
@@ -20,26 +19,27 @@
 <? endif; ?>
 
 <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-	
-	<div id="tabs">
-		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Resources');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('Users');?></a></li> 
+
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Resources');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Users');?></a></li> 
 		</ul>
-    
-	    <div id="tab1"> 
-	        <?php echo $form->name->render() ?>
-	    </div>
-    
-	    <div id="tab2"> 
-	        <div id="resources" name="resources"></div>
-	    </div>
-    
-	    <div id="tab3"> 
-	        <?php echo $form->users->render() ?>
-	    </div>
-	</div>
+        <div class="tab-content">
+    	    <div class="tab-pane active" id="tab1"> 
+    	        <?php echo $form->name->render() ?>
+    	    </div>
+        
+    	    <div class="tab-pane" id="tab2"> 
+    	        <div id="resources" name="resources"></div>
+    	    </div>
+        
+    	    <div class="tab-pane" id="tab3"> 
+    	        <?php echo $form->users->render() ?>
+    	    </div>
+    	</div>
+    </div>
 	
 	<?php echo $form->role_id->render() ?>
 </form>

@@ -127,12 +127,16 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		switch ($element->getType ()) {
 			case "Zend_Form_Element_Text":
 				$output = "<div class=\"control-group $iserror $name\">" . $label;
-				$output .= "<div class=\"controls\">$input $errors</div></div>";
+				$output .= "<div class=\"controls\">";
+				$output .= $input;
+				$output .= $desc;
+				$output .= $errors;
+				$output .= "</div></div>";
 			break;
 			
 			case "Zend_Form_Element_Password":
 				$output = "<div class=\"control-group $iserror $name\">" . $label;
-				$output .= "<div class=\"controls\">$input $errors</div></div>";
+				$output .= "<div class=\"controls\">$input $desc $errors</div></div>";
 			break;
 			
 			case "Zend_Form_Element_Checkbox":
@@ -143,7 +147,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 				
 				$output = "<div class=\"control-group $iserror $name\">";
 				$output .= "<div class=\"controls\">";
-				$output .= $start_label . $input . $this->getElement()->getLabel() . "</label>";
+				$output .= $start_label . $input . $desc . $this->getElement()->getLabel() . "</label>";
 				$output .= "</div>";
 				$output .= "</div>";
 			break;
@@ -157,8 +161,12 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 			break;
 			
 			default:
-				$output = "<div class=\"control-group $name\">" . $label;
-				$output .= "<div class=\"controls\">$input $errors</div></div>";
+				$output = "<div class=\"control-group $iserror $name\">" . $label;
+				$output .= "<div class=\"controls\">";
+				$output .= $input;
+				$output .= $desc;
+				$output .= $errors;
+				$output .= "</div></div>";
 			break;
 		}
 		

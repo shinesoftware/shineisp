@@ -2,10 +2,10 @@
 <?php echo $this->render('partials/headers.phtml'); ?>
 
 <div class="content_inner">
-	<h2><?=$this->translate('Selected record');?>: <?=$this->recordselected; ?></h2>
-	<p><?=$this->description; ?></p><br/>
+	<h2><?php echo $this->translate('Selected record');?>: <?php echo $this->recordselected; ?></h2>
+	<p><?php echo $this->description; ?></p><br/>
 	<p>
-		<a class="button" href="<?=$this->back;?>"><?=$this->translate('No, I don\'t!'); ?></a>
-		<a class="button button_red" href="<?=$this->goto;?>"><?=$this->translate('YES, I want to do it!'); ?></a>
+		<a class="button" href="<?php echo $this->back;?>"><?php echo $this->translate('No, I don\'t!'); ?></a>
+		<a class="button button_red" href="<?php echo $this->goto;?>"><?php echo $this->translate('YES, I want to do it!'); ?></a>
 	</p>
 </div>

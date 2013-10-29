@@ -7,7 +7,7 @@
 			<? if($record['region'] != ""): echo $record['region']." - "; endif; ?> <?php echo Countries::getNamebyId($record['country_id']) ?><br /><br />
 			<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?php echo $record['latitude'] ?>,<?php echo $record['longitude'] ?>&markers=color:blue%7C<?php echo $record['address'] ?>%20<?php echo $record['code'] ?>%20<?php echo $record['city'] ?>&zoom=8&maptype=roadmap&size=400x200&sensor=false" />
 			<br /><br />
-            <a class="button button_red" href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record['address_id']?>" title="<?=$this->translate('delete'); ?>"><?=$this->translate('Delete'); ?></a>
+            <a class="button button_red" href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record['address_id']?>" title="<?php echo $this->translate('delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
 		</li>
 	<?php endforeach;?>
 </ul>

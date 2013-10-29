@@ -153,10 +153,10 @@
       google.setOnLoadCallback(drawMonthlyIncomeChart);
       function drawMonthlyIncomeChart() {
 		var data = new google.visualization.DataTable({
-	       cols: [{id: 'month',          label: '<?=$this->translate('Month')?>', type: 'string'},
-	              {id: 'grandTotal',     label: '<?=$this->translate('Income')?> <?=$currentYear?>', type: 'number'},
+	       cols: [{id: 'month',          label: '<?php echo $this->translate('Month')?>', type: 'string'},
+	              {id: 'grandTotal',     label: '<?php echo $this->translate('Income')?> <?php echo $currentYear?>', type: 'number'},
 	              {'p': {'role':'tooltip','html':true}}, // tooltip for current year
-	              {id: 'grandTotalLast', label: '<?=$this->translate('Income')?> <?=$lastYear?>', type: 'number'},
+	              {id: 'grandTotalLast', label: '<?php echo $this->translate('Income')?> <?php echo $lastYear?>', type: 'number'},
 	              {'p': {'role':'tooltip','html':true}} // tooltip for previous year
 	       ],
 	       
