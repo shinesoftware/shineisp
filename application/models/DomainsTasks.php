@@ -19,7 +19,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.task_id', 'alias' => 'task_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.task_id', 'alias' => 'task_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.task_id', 'alias' => 'task_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Action' ), 'field' => 'dt.action', 'alias' => 'action', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'd.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

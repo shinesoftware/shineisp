@@ -22,11 +22,11 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div id="tabs">
-		<ul>
+		<ul class="nav nav-tabs">
 			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
 		</ul>
     
-	    <div id="tab1"> 
+	    <div class="tab-pane" id="tab1"> 
 		    <fieldset class="column-left"> 
 		        <?php echo $form->firstname->render() ?>
 		        <?php echo $form->lastname->render() ?>
@@ -39,7 +39,6 @@
 		    </fieldset>
     	</div>
 	    
-   		<div class="clear"></div>
    		<?php echo $form->user_id->render()?>
    	</div>
 </form>

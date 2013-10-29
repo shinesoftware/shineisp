@@ -49,7 +49,7 @@
 				<li><a href="#tab7"><?=$this->translate('Private Notes');?></a></li> 
 			</ul>
 		    
-		    <div class="ui-tabs-hide default-tab" id="tab1"> 
+		    <div class="tab-pane default-tab" id="tab1"> 
 		        <fieldset class="column-left"> 
 		            <?php echo $form->domain->render() ?>
 		            <?php echo $form->tld_id->render()?>
@@ -68,14 +68,14 @@
 		        <div class="clear"></div>
 		    </div>
 		    
-		    <div class="ui-tabs-hide" id="tab2"> 
+		    <div class="tab-pane" id="tab2"> 
 		        <fieldset> 
 		            <?= $this->verticalgrid($this->owner_datagrid);?>
 		        </fieldset>
 		        <div class="clear"></div>
 		    </div> 
 		    
-		    <div class="ui-tabs-hide" id="tab3"> 
+		    <div class="tab-pane" id="tab3"> 
 		        <fieldset> 
 		            <?php echo $form->subdomain->render()?>
 		            <?php echo $form->target->render()?>
@@ -86,19 +86,19 @@
 		    </div> 
 		    
 		    <?php if($this->id):?>
-			    <div class="ui-tabs-hide" id="tab4"> 
+			    <div class="tab-pane" id="tab4"> 
 			         <?= $this->simplegrid($this->services_datagrid);?>
 			    </div>   
-			    <div class="ui-tabs-hide" id="tab5"> 
+			    <div class="tab-pane" id="tab5"> 
 			         <?= $this->simplegrid($this->orders_datagrid);?>
 			    </div>        
-			    <div class="ui-tabs-hide" id="tab6"> 
+			    <div class="tab-pane" id="tab6"> 
 		            <?php echo $this->bbslist($this->messages); ?>
 		            <?php echo $form->message->render() ?>
 			    </div>        
 		    <?php endif; ?>
 		    
-		    <div class="ui-tabs-hide" id="tab7"> 
+		    <div class="tab-pane" id="tab7"> 
 		        <?php echo $form->note->render() ?>
 		    </div>        
 		      

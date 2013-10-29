@@ -33,7 +33,7 @@ class Shineisp_Commons_Ajaxgrid {
 		
 		$this->id = "itemlist";
 		$this->addfooterfilters = false;
-		$this->css = "table table-striped ";
+		$this->css = "table table-striped table-hover";
 		$this->script = "";
 		$this->title = "";
 		$this->hiddencols = array();

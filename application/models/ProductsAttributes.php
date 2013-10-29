@@ -24,7 +24,7 @@ class ProductsAttributes extends BaseProductsAttributes {
 			$locale = $Session->langid;
 		}
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Code' ), 'field' => 'code', 'alias' => 'code', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Label' ), 'field' => 'pad.label', 'alias' => 'label', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

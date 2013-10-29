@@ -27,7 +27,7 @@
 			<li><a href="#tab2"><?=$this->translate('Options');?></a></li> 
 			<li><a href="#tab3"><?=$this->translate('System');?></a></li> 
 		</ul>	
-		<div class="ui-tabs-hide default-tab" id="tab1">  	
+		<div class="tab-pane default-tab" id="tab1">  	
 		    <fieldset class="column-left">  
 				<?php echo $form->code->render() ?>
 				<?php echo $form->type->render() ?>
@@ -43,7 +43,7 @@
 		    <div class="clear"></div>
 	    </div>
 	    
-	    <div class="ui-tabs-hide default-tab" id="tab2">
+	    <div class="tab-pane default-tab" id="tab2">
 	    	<?php echo $form->is_comparable->render() ?>
 	    	<?php echo $form->defaultvalue->render() ?>
 	    	<?php echo $form->prefix->render() ?>
@@ -51,7 +51,7 @@
 			<?php echo $form->on_product_listing->render() ?>
 	    </div>
 	      	
-	    <div class="ui-tabs-hide default-tab" id="tab3">
+	    <div class="tab-pane default-tab" id="tab3">
 	    	<?php echo $form->system->render() ?>
 	    	<?php echo $form->system_var->render() ?>
 	    </div>

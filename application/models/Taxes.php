@@ -21,7 +21,7 @@ class Taxes extends BaseTaxes
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.tax_id', 'alias' => 'tax_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.tax_id', 'alias' => 'tax_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.tax_id', 'alias' => 'tax_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'r.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Percentage' ), 'field' => 'percentage', 'alias' => 'percentage', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

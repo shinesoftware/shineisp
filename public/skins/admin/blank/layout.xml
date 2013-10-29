@@ -15,7 +15,6 @@
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
             <css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
             <js  override="1">/resources/bootstrap/js/bootstrap.min.js</js>
-            <js  override="1">/resources/bootstrap/js/bootstrap-wysiwyg.js</js>
 		</head>
 	</general>
 	
@@ -31,7 +30,7 @@
                 
                 <js override="1">/resources/js/jquery/jquery.ui.datepicker-it.js</js>
                 <js override="1">/resources/js/jquery/jquery.dynatree.js</js>
-                <js override="1">/resources/js/jquery/jquery.dataTables.js</js>
+                <js override="1">/resources/js/jquery/jquery.dataTables.min.js</js>
                 <js override="1">/resources/js/jquery/jquery.dataTables.delay.js</js>
                 <js override="1">/resources/js/jquery/jquery.multiselect.min.js</js>
                 <js override="1">/resources/js/jquery/jquery.multiselect.filter.min.js</js>

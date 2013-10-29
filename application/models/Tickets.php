@@ -16,7 +16,7 @@ class Tickets extends BaseTickets {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Update Date' ), 'field' => 't.date_updated', 'alias' => 'updated_at', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );

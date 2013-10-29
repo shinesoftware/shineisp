@@ -54,7 +54,7 @@
 		</ul>
     
     
-	    <div class="ui-tabs-hide default-tab" id="tab1"> 
+	    <div class="tab-pane default-tab" id="tab1"> 
 		    <fieldset class=column-left> 
 		    	<?php echo $form->sku->render()?>
 		        <?php echo $form->type->render()?>
@@ -81,7 +81,7 @@
 	    </div>
 
 	    <?php if(!$this->isrecurring): ?>
-		    <div class="ui-tabs-hide" id="tab2">
+		    <div class="tab-pane" id="tab2">
 		        <fieldset>
 		            <?php echo $form->price_1->render()?>
 		            <?php echo $form->setupfee->render()?>
@@ -91,7 +91,7 @@
 	   <?php endif; ?>
 	   
 	   <?php if($this->isrecurring): ?>
-	   <div class="ui-tabs-hide" id="tab3">
+	   <div class="tab-pane" id="tab3">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->tranches) ?>
 	            <div id="trancheform">
@@ -108,13 +108,13 @@
 	   <?php endif; ?>
 	   
 	   
-	   <div class="ui-tabs-hide" id="tab4">
+	   <div class="tab-pane" id="tab4">
 	        <fieldset>
 	            <div id="categories" name="categories"></div>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab5">
+	   <div class="tab-pane" id="tab5">
 	        <fieldset>
 	        	<?php echo $form->shortdescription->render() ?>
 	            <?php echo $form->description->render() ?>
@@ -124,7 +124,7 @@
 	   </div> 
 	   
 	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-		   <div class="ui-tabs-hide" id="tab6">
+		   <div class="tab-pane" id="tab6">
 		        <fieldset>
 		            <?= $this->simplegrid($this->media);?>
 		            <?php echo $form->attachments->render() ?>
@@ -134,41 +134,41 @@
 		        <div class="clear"></div>
 		   </div> 
 		<?php endif;?>
-	   <div class="ui-tabs-hide" id="tab7">
+	   <div class="tab-pane" id="tab7">
 	        <fieldset>
 	           	<?php echo $form->related->render() ?>
 	            <div class="clear"></div>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab8">
+	   <div class="tab-pane" id="tab8">
 	        <fieldset>
 	           	<?php echo $form->upgrade->render() ?>
 	            <div class="clear"></div>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div> 	   
-	   <div class="ui-tabs-hide" id="tab9">
+	   <div class="tab-pane" id="tab9">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->orders) ?>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab10">
+	   <div class="tab-pane" id="tab10">
 	        <fieldset>
 	            <?php if (!empty( $form->attributes)) { echo $form->attributes->render(); } ?>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab11">
+	   <div class="tab-pane" id="tab11">
 	        <fieldset>
 	            <?php echo $form->blocks->render() ?>
 	        </fieldset>
 	        <div class="clear"></div>
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab12">
+	   <div class="tab-pane" id="tab12">
 	        <fieldset>
 	            <?php echo $form->metakeywords->render() ?>
 	            <?php echo $form->metadescription->render() ?>
@@ -176,7 +176,7 @@
 	        <div class="clear"></div>
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab13">
+	   <div class="tab-pane" id="tab13">
 	        <fieldset>
 	            <?php echo $form->setup->render() ?>
 	        </fieldset>

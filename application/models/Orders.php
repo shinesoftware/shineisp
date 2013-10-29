@@ -49,7 +49,7 @@ class Orders extends BaseOrders {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
+		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1'), 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );

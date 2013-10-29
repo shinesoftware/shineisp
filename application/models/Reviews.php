@@ -21,7 +21,7 @@ class Reviews extends BaseReviews
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'r.subject', 'alias' => 'subject', 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'City' ), 'field' => 'r.city', 'alias' => 'city', 'type' => 'string' );

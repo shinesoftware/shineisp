@@ -32,7 +32,7 @@
 			<li><a href="#tab6"><?=$this->translate('Configurations');?></a></li> 
 		</ul>
 	
-	    <div class="ui-tabs-hide" id="tab1">  
+	    <div class="tab-pane" id="tab1">  
 	        <fieldset class="column-left"> 
 			    <?php echo $form->order_id->render()?>		
 				<?php echo $form->product_id->render()?>        
@@ -49,30 +49,30 @@
 	        <div class="clear"></div>     
 	    </div>
 	    
-	    <div class="ui-tabs-hide" id="tab2"> 
+	    <div class="tab-pane" id="tab2"> 
 	        <?= $this->verticalgrid($this->owner_datagrid);?>
 	        <div class="clear"></div>
 	    </div>  
 	    
-	    <div class="ui-tabs-hide" id="tab3"> 
+	    <div class="tab-pane" id="tab3"> 
             <?php echo $form->domains->render()?>
             <a id="add_items" class="button"><?= $this->translate('Add')?></a> <a id="remove_items" class="button"><?= $this->translate('Remove')?></a>
             <?php echo $form->domains_selected->render()?>
 	        <div class="clear"></div>
 	    </div>
 	    
-	    <div class="ui-tabs-hide" id="tab4"> 
+	    <div class="tab-pane" id="tab4"> 
             <?php echo $this->bbslist($this->messages); ?>
             <?php echo $form->message->render()?>
 	        <div class="clear"></div>
 	    </div>    
 	    
-	    <div class="ui-tabs-hide" id="tab5"> 
+	    <div class="tab-pane" id="tab5"> 
 	        <?php echo $form->note->render()?>
 	        <div class="clear"></div>
 	    </div>    
 	    
-	    <div class="ui-tabs-hide" id="tab6"> 
+	    <div class="tab-pane" id="tab6"> 
 	        <?php echo $form->setup->render()?>
 	        <div class="clear"></div>
 	    </div>    

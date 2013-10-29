@@ -67,7 +67,7 @@
 		    <div class="clear"></div>
 	    </div>
    
-	   <div class="ui-tabs-hide" id="tab2">
+	   <div class="tab-pane" id="tab2">
             
 	        <?php echo $form->categories->render()?>
             
@@ -97,7 +97,7 @@
             <?php echo $this->simplegrid($this->ordersdatagrid);?>
 	   </div>
 	   
-	   <div class="ui-tabs-hide" id="tab3">
+	   <div class="tab-pane" id="tab3">
 	   		<?php echo $this->simplegrid($this->paymentsdatagrid);?>
 	   		
 	   		<div class="paymentgroup">
@@ -117,28 +117,28 @@
 	   		
 	   </div>
 	   
-	   <div class="ui-tabs-hide" id="tab4">
+	   <div class="tab-pane" id="tab4">
 	        <?php echo $this->verticalgrid($this->customer);?>
 	   </div>
 	   
 	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-		   <div class="ui-tabs-hide" id="tab5">
+		   <div class="tab-pane" id="tab5">
 	            <?php echo $this->simplegrid($this->filesgrid);?>
 	            <?php echo $form->filecategory->render()?>
 	            <?php echo $form->attachments->render()?>
 		   </div>
 		<?php endif;?>
 		
-	    <div class="ui-tabs-hide" id="tab6">
+	    <div class="tab-pane" id="tab6">
             <?php echo $this->bbslist($this->messages); ?>
             <?php echo $form->message->render()?>
 	    </div>
 	   
-		<div class="ui-tabs-hide" id="tab7">
+		<div class="tab-pane" id="tab7">
 	    	<?php echo $form->note->render()?>
 		</div>
 
-		<div class="ui-tabs-hide" id="tab8">
+		<div class="tab-pane" id="tab8">
 	    	<?php echo $this->simplegrid($this->statushistorygrid); ?>
 		</div>
 

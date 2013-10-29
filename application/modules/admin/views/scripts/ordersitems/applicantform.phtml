@@ -47,13 +47,13 @@
 		    <div class="clear"></div>
 	    </div>
 	    
-	    <div class="ui-tabs-hide" id="tab2">
+	    <div class="tab-pane" id="tab2">
 	    	<?php echo $form->domains->render()?>
             <a id="add_items" class="button"><?= $this->translate('Add')?></a> <a id="remove_items" class="button"><?= $this->translate('Remove')?></a>
             <?php echo $form->domains_selected->render()?>
 	    </div>
 	    
-	    <div class="ui-tabs-hide" id="tab3">
+	    <div class="tab-pane" id="tab3">
 	    <?php echo $form->parameters->render() ?>
 			<?php if((Statuses::id("complete", "orders") != $form->status_id->getValue()) && $this->isHosting ): // is not complete?>
 				<a class="button" href="/admin/ordersitems/updateconf/id/<?=$form->detail_id->getValue()?>"><?=$this->translate('Update Configuration') ?></a>

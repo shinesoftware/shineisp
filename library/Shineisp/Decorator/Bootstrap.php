@@ -56,7 +56,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		
 		$attrs ['class'] .= $element->hasErrors () ? " error" : "";
 		$attrs ['title'] = ! empty ( $attrs ['title'] ) ? $translate->translate ( $attrs ['title'] ) : "";
-		$attrs ['placeholder'] = $element->getDescription ();
+// 		$attrs ['placeholder'] = $element->getDescription ();
 		
 		if ($element->getType () == "Zend_Form_Element_Submit" || $element->getType () == "Zend_Form_Element_Button") {
 			$el = $element->getView ()->$helper ( $element->getName (), $translate->translate ( $element->getLabel () ), $attrs, $element->options );
@@ -96,7 +96,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		if (empty ( $desc )) {
 			return '';
 		}
-		return '<div class="small">' . $desc . '</div>';
+		return '<span class="help-block">' . $desc . '</span>';
 	}
 	
 	/**
@@ -120,7 +120,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		$label = $this->buildLabel ();
 		$input = $this->buildInput ();
 		$errors = $this->buildErrors ();
-		#$desc = $this->buildDescription ();
+		$desc = $this->buildDescription ();
 		$name = $this->getElement ()->getName ();
 		
 		$iserror = !empty($errors) ? "error" : null;

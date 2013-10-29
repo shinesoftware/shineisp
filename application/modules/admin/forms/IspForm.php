@@ -150,11 +150,13 @@ class Admin_Form_IspForm extends Zend_Form
                 
         $this->addElement('file', 'logo', array(
             'label'      => $translate->_('Logo'),
+            'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
             'class'      => 'input-large'
         ));
                 
         $this->addElement('file', 'logo_email', array(
             'label'      => $translate->_('Logo Email'),
+            'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
             'class'      => 'input-large'
         ));
         

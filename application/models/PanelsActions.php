@@ -23,7 +23,7 @@ class PanelsActions extends BasePanelsActions
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.action_id', 'alias' => 'action_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.action_id', 'alias' => 'action_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.action_id', 'alias' => 'action_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => 'CONCAT(c.lastname, " ", c.firstname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Action' ), 'field' => 'action', 'alias' => 'action', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

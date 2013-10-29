@@ -10,12 +10,12 @@
 	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 		
 		<div id="tabs">
-			<ul>
+			<ul class="nav nav-tabs">
 				<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
 				<li><a href="#tab2"><?=$this->translate('Options');?></a></li> 
 			</ul>
 	    
-		    <div id="tab1"> 
+		    <div class="tab-pane" id="tab1"> 
 	            <?php echo $form->name->render()?>
 	            <?php echo $form->account->render()?>
 	            <?php echo $form->method_id->render()?>
@@ -26,7 +26,7 @@
 	            <?php echo $form->test_mode->render()?>
 		    </div>
 		    
-		    <div class="ui-tabs-hide" id="tab2">
+		    <div class="tab-pane" class="tab-pane" id="tab2">
 		    	<?php echo $form->description->render()?>
 		    </div>
 	   		<?php echo $form->bank_id->render()?>

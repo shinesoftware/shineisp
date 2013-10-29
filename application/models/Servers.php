@@ -47,7 +47,7 @@ class Servers extends BaseServers {
 			))
 		";
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.server_id', 'alias' => 'server_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.server_id', 'alias' => 'server_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 's.server_id', 'alias' => 'server_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'r.subject', 'alias' => 'servername', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'IP' ), 'field' => 's.ip', 'alias' => 'ip', 'sortable' => true, 'searchable' => true);
