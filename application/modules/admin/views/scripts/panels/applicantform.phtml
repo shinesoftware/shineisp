@@ -21,13 +21,13 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<?php if($form->panel_id->getValue()): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Configuration');?></a></li> <?php endif;?>
 		</ul>
 
-	    <div id="tab1"> 
+	    <div class="tab-pane active" id="tab1"> 
 		    <?php echo $form->name->render()?>
 		    <?php echo $form->isp_id->render()?>
 		    <?php echo $form->active->render()?>

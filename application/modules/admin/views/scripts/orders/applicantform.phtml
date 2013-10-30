@@ -21,7 +21,7 @@
 
 <form id="shineform" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1" class="default-tab current"><?php echo $this->translate('Main');?></a></li> 
 			<li><a data-toggle="tab" href="#tab2" class="default-tab"><?php echo $this->translate('Details');?></a></li>
@@ -35,7 +35,7 @@
 			<li><a data-toggle="tab" href="#tab8" class="default-tab"><?php echo $this->translate('Status History');?></a></li>
 		</ul>
     
-	    <div id="tab1"> 
+	    <div class="tab-pane active" id="tab1"> 
 		    <fieldset class="column-left"> 
 		        <?php echo $form->customer_id->render() ?>
 		        <?php echo $form->customer_parent_id->render() ?>
@@ -64,7 +64,7 @@
 		            <?php echo $form->grandtotal->render()?>
 		        </div>
 		    </fieldset>
-		    <div class="clear"></div>
+		    
 	    </div>
    
 	   <div class="tab-pane" id="tab2">
@@ -113,7 +113,7 @@
 		            <?php echo $form->payment_description->render()?>
 		   		</fieldset>
 		   	</div>
-	   		<div class="clear"></div>
+	   		
 	   		
 	   </div>
 	   

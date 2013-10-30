@@ -28,7 +28,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
 
         $this->addElement('multiselect', 'language_id', array(

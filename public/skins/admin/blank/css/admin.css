@@ -1,4 +1,15 @@
 @CHARSET "UTF-8";
+
+.badge-active{
+	background-color: #468847;
+}
+.badge-deleted{
+	background-color: #B94A48;
+}
+.badge-suspended{
+	background-color: #999999;
+}
+
 .panel {
     background: none repeat scroll 0 0 #FEFEFE;
     border: 1px solid #C9C9C9;

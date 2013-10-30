@@ -21,7 +21,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
             'required'    => true,
             'label'       => $translate->_('Body'),
             'description' => 'Write here the email message to send to all your customers.',
-            'class'       => 'textarea wysiwyg'
+            'class'       => 'span12 wysiwyg'
         ));
         
         $this->addElement('submit', 'send', array(

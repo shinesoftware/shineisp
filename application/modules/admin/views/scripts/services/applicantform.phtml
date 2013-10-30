@@ -22,7 +22,7 @@
 
 <form class="multiple_select_form" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Customer');?></a></li> 
@@ -46,35 +46,35 @@
 	            <?php echo $form->date_end->render()?>
 	            <?php echo $form->autorenew->render()?>
 	        </fieldset>   
-	        <div class="clear"></div>     
+	             
 	    </div>
 	    
 	    <div class="tab-pane" id="tab2"> 
 	        <?php echo  $this->verticalgrid($this->owner_datagrid);?>
-	        <div class="clear"></div>
+	        
 	    </div>  
 	    
 	    <div class="tab-pane" id="tab3"> 
             <?php echo $form->domains->render()?>
             <a id="add_items" class="button"><?php echo  $this->translate('Add')?></a> <a id="remove_items" class="button"><?php echo  $this->translate('Remove')?></a>
             <?php echo $form->domains_selected->render()?>
-	        <div class="clear"></div>
+	        
 	    </div>
 	    
 	    <div class="tab-pane" id="tab4"> 
             <?php echo $this->bbslist($this->messages); ?>
             <?php echo $form->message->render()?>
-	        <div class="clear"></div>
+	        
 	    </div>    
 	    
 	    <div class="tab-pane" id="tab5"> 
 	        <?php echo $form->note->render()?>
-	        <div class="clear"></div>
+	        
 	    </div>    
 	    
 	    <div class="tab-pane" id="tab6"> 
 	        <?php echo $form->setup->render()?>
-	        <div class="clear"></div>
+	        
 	    </div>    
 	   
 	   <?php echo $form->detail_id->render()?>

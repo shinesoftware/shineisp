@@ -29,12 +29,12 @@
 	  	<?php echo $form->save->render()?>
 	</p>	
 	
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 		</ul>
     
-	    <div id="tab1"> 
+	    <div class="tab-pane active" id="tab1"> 
             <?php echo $form->request_path->render()?>
             <?php echo $form->target_path->render()?>
             <?php echo $form->category_id->render()?>

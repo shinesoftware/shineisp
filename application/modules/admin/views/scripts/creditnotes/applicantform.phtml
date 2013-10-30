@@ -21,7 +21,7 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Details');?></a></li> 
@@ -41,7 +41,7 @@
 		        <?php echo $form->total_vat->render() ?>
 		        <?php echo $form->total->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	        
 	        <table>
 				<tr>

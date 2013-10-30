@@ -453,7 +453,21 @@ class Shineisp_Commons_Ajaxgrid {
 			$row['Row'] = "row_$i";
 			foreach ( $columns as $column ) {
 				if(!empty($column['alias'])){
-					$row[] = $record [$column ['alias']];
+					if(!empty($column['type'])){
+						if($column['type'] == "boolean"){
+							$badge = ($record [$column ['alias']] == 1) ? "badge-success" : "badge-important";
+							$label = ($record [$column ['alias']] == 1) ? $this->translator->translate("Yes") : $this->translator->translate("No");
+							$row[] = "<span class=\"badge $badge\">" . $label . "</span>";
+						}elseif($column['type'] == "index"){
+							$badge = "badge-" . strtolower($record [$column ['alias']]);
+							$label = $this->translator->translate($record [$column ['alias']]);
+							$row[] = "<span class=\"badge $badge\">$label</span>";
+						}else{
+							$row[] = $record [$column ['alias']];
+						}
+					}else{
+						$row[] = $record [$column ['alias']];
+					}
 				}
 			}
 			$records[] = $row;

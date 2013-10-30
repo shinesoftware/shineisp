@@ -3,120 +3,116 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } ?>
+	</div>    
+<? endif; ?>
 
-	<? if( $form->isErrors() ): ?>
-		<div class="messages">    
-		   <? foreach( $form->getElements() as $field){
-		         $errors = array();
-		   	     if($field->hasErrors()){
-		        	foreach( $field->getErrors() as $error){
-		        		$errors[] = $this->translate($error);
-		        	}
-		            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-		        }   
-		    } ?>
-		</div>    
-	<? endif; ?>
-	
-	
-	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 		
-		<div class="row-fluid">
-    		<div class="span12">
-    	        <?php if(!empty($this->actions)): ?>
-    	        	<?php echo $this->translate('Registrars Actions') ?>:
-    	        	<div class="input-append">
-        		        <select id="regActions" class="text-input little-input">
-        		        	<option><?php echo $this->translate('Select ...') ?></option>
-        			        <?php foreach($this->actions as $key => $action): ?>
-        			        <option value="<?php echo $key ?>"><?php echo $action?></option>
-        			        <?php endforeach;?>
-        		        </select>
-        		        <div class="btn-group">
-        		            <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                <?php echo $this->translate('Action')?>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-            		            <li><a href="#" class="regactionsbtn"><?php echo $this->translate('Add to Tasks list') ?></a></li>
-        		                <li><a href="/system/tasks" target="_blank" title="<?php echo $this->translate('A new window will be open')?>"><i class="icon-fire"></i> <?php echo $this->translate('Execute the System Tasks') ?></a></li>
-    		                </ul>
-    		            </div>
-    		        </div>
-    	        <?php endif; ?>
-    		</div>
+	<div class="row-fluid">
+		<div class="span12">
+	        <?php if(!empty($this->actions)): ?>
+	        	<?php echo $this->translate('Registrars Actions') ?>:
+	        	<div class="input-append">
+    		        <select id="regActions" class="text-input little-input">
+    		        	<option><?php echo $this->translate('Select ...') ?></option>
+    			        <?php foreach($this->actions as $key => $action): ?>
+    			        <option value="<?php echo $key ?>"><?php echo $action?></option>
+    			        <?php endforeach;?>
+    		        </select>
+    		        <div class="btn-group">
+    		            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            <?php echo $this->translate('Action')?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+        		            <li><a href="#" class="regactionsbtn"><?php echo $this->translate('Add to Tasks list') ?></a></li>
+    		                <li><a href="/system/tasks" target="_blank" title="<?php echo $this->translate('A new window will be open')?>"><i class="icon-fire"></i> <?php echo $this->translate('Execute the System Tasks') ?></a></li>
+		                </ul>
+		            </div>
+		        </div>
+	        <?php endif; ?>
 		</div>
-		
-		<div class="tabbable" id="tabs">
-			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
-				<?php if($this->id):?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Customer');?></a></li> <?php endif?>
-				<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('DNS Zones');?></a></li>
-				<?php if($this->id):?><li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Services');?></a></li> <?php endif?>
-				<?php if($this->id):?><li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Orders');?></a></li> <?php endif?>
-				<?php if($this->id):?><li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Messages');?></a></li> <?php endif?>
-				<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Private Notes');?></a></li> 
-			</ul>
-		    
-		    <div class="tab-content">
-    		    <div class="tab-pane active" id="tab1"> 
-    		        <div class="row-fluid">
-            		    <fieldset class="span6"> 
-        		            <?php echo $form->domain->render() ?>
-        		            <?php echo $form->tld_id->render()?>
-        		            <a href="#" id="chkdomain" style="display:none"><?php echo $this->translate('Check Domain Availability')?></a>
-        		            <?php echo $form->authinfocode->render()?>
-        		            <?php echo $form->creation_date->render()?>
-        		            <?php echo $form->expiring_date->render()?>
-        		        </fieldset>
-        		        
-        		        <fieldset class="span6">
-        		            <?php echo $form->registrars_id->render()?>
-        		            <?php echo $form->customer_id->render()?>
-        		            <?php echo $form->status_id->render()?>
-        		            <?php echo $form->autorenew->render()?>
-        		        </fieldset>
-        		    </div>
-        		</div>
-    		    
-    		    <div class="tab-pane" id="tab2"> 
-    		        <fieldset> 
-    		            <?php echo  $this->verticalgrid($this->owner_datagrid);?>
+	</div>
+	
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<?php if($this->id):?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Customer');?></a></li> <?php endif?>
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('DNS Zones');?></a></li>
+			<?php if($this->id):?><li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Services');?></a></li> <?php endif?>
+			<?php if($this->id):?><li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Orders');?></a></li> <?php endif?>
+			<?php if($this->id):?><li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Messages');?></a></li> <?php endif?>
+			<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Private Notes');?></a></li> 
+		</ul>
+	    
+	    <div class="tab-content">
+		    <div class="tab-pane active" id="tab1"> 
+		        <div class="row-fluid">
+        		    <fieldset class="span6"> 
+    		            <?php echo $form->domain->render() ?>
+    		            <?php echo $form->tld_id->render()?>
+    		            <a href="#" id="chkdomain" style="display:none"><?php echo $this->translate('Check Domain Availability')?></a>
+    		            <?php echo $form->authinfocode->render()?>
+    		            <?php echo $form->creation_date->render()?>
+    		            <?php echo $form->expiring_date->render()?>
     		        </fieldset>
-    		        <div class="clear"></div>
-    		    </div> 
-    		    
-    		    <div class="tab-pane" id="tab3"> 
-    		        <fieldset> 
-    		            <?php echo $form->subdomain->render()?>
-    		            <?php echo $form->target->render()?>
-    		            <?php echo $form->zone->render()?>
-    		            <?php echo  $this->simplegrid($this->dns_datagrid);?>
+    		        
+    		        <fieldset class="span6">
+    		            <?php echo $form->registrars_id->render()?>
+    		            <?php echo $form->customer_id->render()?>
+    		            <?php echo $form->status_id->render()?>
+    		            <?php echo $form->autorenew->render()?>
     		        </fieldset>
-    		        <div class="clear"></div>
-    		    </div> 
-    		    
-    		    <?php if($this->id):?>
-    			    <div class="tab-pane" id="tab4"> 
-    			         <?php echo  $this->simplegrid($this->services_datagrid);?>
-    			    </div>   
-    			    <div class="tab-pane" id="tab5"> 
-    			         <?php echo  $this->simplegrid($this->orders_datagrid);?>
-    			    </div>        
-    			    <div class="tab-pane" id="tab6"> 
-    		            <?php echo $this->bbslist($this->messages); ?>
-    		            <?php echo $form->message->render() ?>
-    			    </div>        
-    		    <?php endif; ?>
-    		    
-    		    <div class="tab-pane" id="tab7"> 
-    		        <?php echo $form->note->render() ?>
-    		    </div>        
-    		      
-    		   <?php echo $form->domain_id->render()?>
-    	
+    		    </div>
     		</div>
-    	</div>
-	</form>
-</div>
+		    
+		    <div class="tab-pane" id="tab2"> 
+		        <fieldset> 
+		            <?php echo  $this->verticalgrid($this->owner_datagrid);?>
+		        </fieldset>
+		        
+		    </div> 
+		    
+		    <div class="tab-pane" id="tab3"> 
+		        <fieldset> 
+		            <?php echo $form->subdomain->render()?>
+		            <?php echo $form->target->render()?>
+		            <?php echo $form->zone->render()?>
+		            <?php echo  $this->simplegrid($this->dns_datagrid);?>
+		        </fieldset>
+		        
+		    </div> 
+		    
+		    <?php if($this->id):?>
+			    <div class="tab-pane" id="tab4"> 
+			         <?php echo  $this->simplegrid($this->services_datagrid);?>
+			    </div>   
+			    <div class="tab-pane" id="tab5"> 
+			         <?php echo  $this->simplegrid($this->orders_datagrid);?>
+			    </div>        
+			    <div class="tab-pane" id="tab6"> 
+		            <?php echo $this->bbslist($this->messages); ?>
+		            <?php echo $form->message->render() ?>
+			    </div>        
+		    <?php endif; ?>
+		    
+		    <div class="tab-pane" id="tab7"> 
+		        <?php echo $form->note->render() ?>
+		    </div>        
+		      
+		   <?php echo $form->domain_id->render()?>
+	
+		</div>
+	</div>
+</form>

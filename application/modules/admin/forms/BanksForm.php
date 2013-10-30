@@ -26,7 +26,7 @@ class Admin_Form_BanksForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea wysiwyg'
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('text', 'url_test', array(

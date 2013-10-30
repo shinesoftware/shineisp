@@ -34,7 +34,7 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<?php if(!$this->isrecurring): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Prices');?></a></li><?php endif;?> 
@@ -77,7 +77,7 @@
 	            <?php echo $form->tax_id->render()?>
 	            <?php echo $form->welcome_mail_id->render()?>
 	        </fieldset>
-		    <div class="clear"></div>
+		    
 	    </div>
 
 	    <?php if(!$this->isrecurring): ?>
@@ -86,7 +86,7 @@
 		            <?php echo $form->price_1->render()?>
 		            <?php echo $form->setupfee->render()?>
 		        </fieldset>
-		        <div class="clear"></div>
+		        
 		   </div>
 	   <?php endif; ?>
 	   
@@ -103,7 +103,7 @@
 	                <?php echo $form->tranche_includes_domains->render()?>
 	            </div>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   <?php endif; ?>
 	   
@@ -112,7 +112,7 @@
 	        <fieldset>
 	            <div id="categories" name="categories"></div>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   <div class="tab-pane" id="tab5">
 	        <fieldset>
@@ -120,7 +120,7 @@
 	            <?php echo $form->description->render() ?>
 	            <?php echo $form->wikipages->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   
 	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
@@ -131,41 +131,41 @@
 		            <?php echo $form->default->render() ?>
 		            <?php echo $form->filedescription->render() ?>
 		        </fieldset>
-		        <div class="clear"></div>
+		        
 		   </div> 
 		<?php endif;?>
 	   <div class="tab-pane" id="tab7">
 	        <fieldset>
 	           	<?php echo $form->related->render() ?>
-	            <div class="clear"></div>
+	            
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   <div class="tab-pane" id="tab8">
 	        <fieldset>
 	           	<?php echo $form->upgrade->render() ?>
-	            <div class="clear"></div>
+	            
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 	   
 	   <div class="tab-pane" id="tab9">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->orders) ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   <div class="tab-pane" id="tab10">
 	        <fieldset>
 	            <?php if (!empty( $form->attributes)) { echo $form->attributes->render(); } ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
 	   
 	   <div class="tab-pane" id="tab11">
 	        <fieldset>
 	            <?php echo $form->blocks->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
 	   
 	   <div class="tab-pane" id="tab12">
@@ -173,14 +173,14 @@
 	            <?php echo $form->metakeywords->render() ?>
 	            <?php echo $form->metadescription->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
 	   
 	   <div class="tab-pane" id="tab13">
 	        <fieldset>
 	            <?php echo $form->setup->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
    	   <?php echo $form->product_id->render()?>
 	</div>

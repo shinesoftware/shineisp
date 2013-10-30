@@ -21,7 +21,7 @@
 
 <form class="multiple_select_form" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Products');?></a></li> 
@@ -29,7 +29,7 @@
 			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Blocks');?></a></li> 
 		</ul>
 
-	    <div id="tab1"> 
+	    <div class="tab-pane active" id="tab1"> 
             <?php echo $form->name->render()?>
             <?php echo $form->parent->render()?>
             <?php echo $form->uri->render()?>
