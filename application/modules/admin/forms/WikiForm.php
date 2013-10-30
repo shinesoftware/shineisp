@@ -47,7 +47,7 @@ class Admin_Form_WikiForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('textarea', 'metakeywords', array(
@@ -55,7 +55,7 @@ class Admin_Form_WikiForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Keywords'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('textarea', 'content', array(

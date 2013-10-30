@@ -41,11 +41,11 @@ class Customers extends BaseCustomers {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'c.customer_id', 'alias' => 'customer_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'c.customer_id', 'alias' => 'customer_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'c.customer_id', 'alias' => 'customer_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(c.firstname, " ", c.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'c.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers')  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(c.firstname, " ", c.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'c.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')  );
 		
 		$config ['datagrid'] ['fields'] = "c.customer_id, 
 										   c.company as company, 

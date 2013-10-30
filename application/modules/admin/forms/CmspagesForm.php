@@ -20,7 +20,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('text', 'var', array(
@@ -37,21 +37,21 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('textarea', 'blocks', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Blocks'),
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('textarea', 'xmllayout', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('XML Layout'),
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('select', 'parent_id', array(

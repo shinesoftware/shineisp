@@ -27,7 +27,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));   
         
         $this->addElement('select', 'product_id', array(

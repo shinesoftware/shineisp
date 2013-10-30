@@ -97,7 +97,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea little-input'
+            'class'      => 'span12 little-input'
         ));
         
         // If the browser client is an Apple client hide the file upload html object
@@ -105,6 +105,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         	
 			$file = $this->createElement('file', 'document', array(
 	            'label'      => $translate->_('Document'),
+				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf)'),
 	            'class'      => 'input-large'
 	        ));

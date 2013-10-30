@@ -84,7 +84,7 @@ class Admin_Form_ServersForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea input-large'
+            'class'      => 'span12 input-large'
         ));
         
 		

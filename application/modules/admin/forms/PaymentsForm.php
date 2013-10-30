@@ -87,7 +87,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         		'id'         => 'description',
         		'rows'         => '3',
         		'decorators' => array('Bootstrap'),
-        		'class'      => 'textarea input-large'
+        		'class'      => 'span12 input-large'
         ));
         
         $this->addElement('hidden', 'payment_id');

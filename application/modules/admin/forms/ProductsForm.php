@@ -49,7 +49,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));     
         
         $this->addElement('textarea', 'metadescription', array(
@@ -57,7 +57,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));     
         
         $this->addElement('textarea', 'description', array(
@@ -183,7 +183,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'label'      => $translate->_('Setup'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('XML Setup Configuration. See the manual'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));          
 
         $this->addElement('select', 'enabled', array(
@@ -258,6 +258,7 @@ class Admin_Form_ProductsForm extends Zend_Form
 	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),
+				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s', Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'class'      => 'input-large'
 	        ));
@@ -354,7 +355,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Blocks'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));        
 
         $this->addElement('hidden', 'product_id');

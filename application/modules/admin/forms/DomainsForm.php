@@ -85,7 +85,7 @@ class Admin_Form_DomainsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Private Notes'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));
         
         $note = $this->addElement('textarea', 'message', array(
@@ -93,7 +93,7 @@ class Admin_Form_DomainsForm extends Zend_Form
             'required'   => false,
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Message'),
-            'class'      => 'textarea'
+            'class'      => 'span12 wysiwyg'
         ));        
 
         $status = $this->addElement('select', 'status_id', array(

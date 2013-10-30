@@ -56,7 +56,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large wysiwyg'
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('hidden', 'invoice_id');

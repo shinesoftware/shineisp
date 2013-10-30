@@ -16,18 +16,23 @@
     </div>
     
     <div class="pull-right">
-		<?php 
-			$buttons = $this->buttons;
-			if(!empty($buttons)){
-				foreach ($buttons as $url => $button){
-					$class   = !empty($button['params']['css']) ? implode(" ", $button['params']['css']) : "";
-					$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
-					$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
-					$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
-					echo '<a class="'.$class.'" '.$id.' href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a> ';
+    	<div class="btn-group">
+    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('Action')?> <span class="caret"></span></a>
+	    	<ul class="dropdown-menu pull-right">
+			<?php 
+				$buttons = $this->buttons;
+				if(!empty($buttons)){
+					foreach ($buttons as $url => $button){
+						$class   = !empty($button['params']['css']) ? implode(" ", $button['params']['css']) : "";
+						$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
+						$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
+						$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
+						echo '<li><a href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a></li>';
+					}
 				}
-			}
-		?>
+			?>
+			</ul>
+		</div>	
 	</div>
 	
 </div>

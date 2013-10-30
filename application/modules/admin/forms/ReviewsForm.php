@@ -111,7 +111,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
         	'required'    => true,
             'label'       => $translate->_('Review'),
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));
         
         $this->addElement('hidden', 'review_id');

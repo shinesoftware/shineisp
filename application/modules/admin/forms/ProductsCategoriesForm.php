@@ -49,7 +49,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'span12'
         ));     
         
         $this->addElement('select', 'parent', array(
@@ -81,7 +81,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Blocks'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));            
        
         

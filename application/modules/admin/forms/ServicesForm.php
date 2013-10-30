@@ -42,7 +42,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'label'      => $translate->_('Note'),
             'description' => $translate->_('Write here a note. An email will be sent to the ISP staff.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));
         
         $this->addElement('textarea', 'setup', array(
@@ -50,7 +50,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'label'      => $translate->_('Setup Configuration'),
             'description' => $translate->_('Here you can read the service configuration written by the ISP modules. These information are read-only.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea'
+            'class'      => 'span12'
         ));
         
         $this->addElement('select', 'order_id', array(

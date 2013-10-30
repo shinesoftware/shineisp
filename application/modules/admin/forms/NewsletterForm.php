@@ -36,7 +36,7 @@ class Admin_Form_NewsletterForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
         	'required'    => true,
             'label'       => $translate->_('Message'),
-            'class'       => 'textarea wysiwyg'
+            'class'       => 'span12 wysiwyg'
         ));
         
         $this->addElement('select', 'sendagain', array(

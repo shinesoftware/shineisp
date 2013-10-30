@@ -190,6 +190,7 @@ class Admin_Form_CustomersForm extends Zend_Form
 	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),
+				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'  => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s', Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'class'      => 'input-large'
 	        ));
@@ -301,7 +302,7 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large wysiwyg'
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('password', 'password', array(

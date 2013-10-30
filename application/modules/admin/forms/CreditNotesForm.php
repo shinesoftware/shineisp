@@ -59,7 +59,7 @@ class Admin_Form_CreditNotesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea little-input'
+            'class'      => 'span12 little-input'
         ));
         
         

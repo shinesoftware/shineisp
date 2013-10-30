@@ -20,7 +20,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'textarea input-large wysiwyg',
+            'class'      => 'span12 input-large wysiwyg',
             'rows'      => '5'
         ));
     	
