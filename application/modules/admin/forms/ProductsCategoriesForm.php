@@ -41,7 +41,9 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Description')
+            'decorators' => array('Bootstrap'),
+            'label'      => $translate->_('Description'),
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('textarea', 'keywords', array(

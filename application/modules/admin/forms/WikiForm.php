@@ -63,7 +63,7 @@ class Admin_Form_WikiForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
             'id'          => 'body',
-            'class'       => 'wysiwyg'
+            'class'       => 'span12 wysiwyg'
         ));
         
         $this->addElement('select', 'category_id', array(
