@@ -22,16 +22,16 @@ class OrdersItems extends BaseOrdersItems {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.detail_id', 'alias' => 'id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('width' => 50) );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.detail_id', 'alias' => 'id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Service' ), 'field' => 'pd.name', 'alias' => 'productname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'dm.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Lastname' ), 'field' => 'c.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'd.date_end', 'alias' => 'daysleft', 'sortable' => true, 'searchable' => false, 'type' => 'integer' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start date' ), 'field' => 'd.date_start', 'alias' => 'date_start', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End date' ), 'field' => 'd.date_end', 'alias' => 'date_end', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'dm.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Last name' ), 'field' => 'c.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'd.date_end', 'alias' => 'daysleft', 'sortable' => true, 'searchable' => false, 'type' => 'integer', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start date' ), 'field' => 'd.date_start', 'alias' => 'date_start', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End date' ), 'field' => 'd.date_end', 'alias' => 'date_end', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'filterdata' => Statuses::getList('services'), 'type'=>'index', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => 'span1 hidden-phone'));
 		
 		$config ['datagrid'] ['fields'] =  "d.detail_id as id,
 											o.order_number as order_id, 

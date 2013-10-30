@@ -1,19 +1,20 @@
 
 <?php if (isset($this->records)):?>
 	<?php $class = "even"?>
-	<table id="bbslist" >
+	<ul class="media-list">
 		<?php foreach ( $this->records as $record ) : ?>
-			<?php $class = ($class == "even") ? "odd" : "even"; ?>
-			  <tr class="<?php echo $class?>">
-			    <td class="message">
-				    <div class="gravatar"><? echo !empty($record['Isp']['ispemail']) ? Shineisp_Commons_Gravatar::get_gravatar ( $record['Isp']['ispemail'], 60 ) : Shineisp_Commons_Gravatar::get_gravatar ( $record['Customers']['customeremail'], 60 ); ?></div>
-				    <div class="author"><? echo !empty($record['Isp']['company']) ? $record['Isp']['company'] : $record['Customers']['fullname']; ?></div> 
-				    <div class="postdate"><?php echo  $record['dateposted']; ?></div>
-				    <div class="message-body"><?php echo  $record['message']; ?></div>
-			    </td>
-			  </tr>
+		<li class="media">
+		    <div class="pull-left">
+		    	<?php echo !empty($record['Isp']['ispemail']) ? Shineisp_Commons_Gravatar::get_gravatar ( $record['Isp']['ispemail'], 60 ) : Shineisp_Commons_Gravatar::get_gravatar ( $record['Customers']['customeremail'], 60 ); ?>
+		    </div>
+		    <div class="media-body">
+		    	<h4 class="media-heading"><?php echo !empty($record['Isp']['company']) ? $record['Isp']['company'] : $record['Customers']['fullname']; ?></h4>
+		    	<small><?php echo  $record['dateposted']; ?></small>
+		    	<div class="message-body"><?php echo  $record['message']; ?></div>		
+		    </div> 
+		</li>
 		<?php endforeach;?>
-	</table>
+	</ul>
 <?php else: ?>
     <div class="alert alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>

@@ -21,7 +21,7 @@ class CustomersGroups extends BaseCustomersGroups {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cg.group_id', 'alias' => 'group_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'cg.group_id', 'alias' => 'group_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'cg.group_id', 'alias' => 'group_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'cg.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		
 		$config ['datagrid'] ['fields'] = "group_id, name";

@@ -49,21 +49,17 @@
 		    <div class="tab-pane active" id="tab1">
 			    <div class="row-fluid">
 				    <fieldset class="span6"> 
-				    	<table class="table">
-				    		<tr>
-				    			<?php if($form->email->getValue()): ?>
-				    			<td>
-				    				<div class="gravatar-canvas">
-					        			<?php echo $this->gravatar($form->email->getValue(), 120) ?>
-					        		</div> 
-				    			</td>
-				    			<?php endif;?>
-				    			<td>
-				    				<?php echo $form->firstname->render() ?>
-				        			<?php echo $form->lastname->render()?>
-				    			</td>
-				    		</tr>
-				    	</table>
+				    
+				    	<div class="media">
+				    		<div class="pull-left hidden-phone hidden-tablet">
+				    			<?php if($form->email->getValue()): ?><?php echo $this->gravatar($form->email->getValue(), 64) ?><?php endif;?>
+				    		</div>
+				    		<div class="media-body">
+					    		<div class="span6"><?php echo $form->firstname->render() ?></div>
+					        	<div class="span6"><?php echo $form->lastname->render() ?></div>
+					        </div>	
+				    	</div>
+				    	
 			        	<?php echo $form->company->render()?>
 				        <?php echo $form->email->render()?>
 				        <?php echo $form->password->render()?>
@@ -158,12 +154,17 @@
 			   </div>   
 			   
 			   <div class="tab-pane" id="tab12">
-			   	   <?php echo $form->language_id->render();?>
-			       <?php echo $form->parent_id->render();?>
-			       <?php echo $form->isreseller->render();?>
-			       <?php echo $form->issubscriber->render();?>
-			       <?php echo $form->taxfree->render();?>
-			       <?php echo $form->ignore_latefee->render();?>
+			   	   <div class="span6">
+				   	   <?php echo $form->language_id->render();?>
+				       <?php echo $form->parent_id->render();?>
+				       <?php echo $form->isreseller->render();?>
+			   	   </div>
+			   	   <div class="span6">
+				   	   <?php echo $form->issubscriber->render();?>
+				       <?php echo $form->taxfree->render();?>
+				       <?php echo $form->ignore_latefee->render();?>
+			   	   </div>
+			       
 			   </div>   
 			   
 			   <div class="tab-pane" id="tab13">

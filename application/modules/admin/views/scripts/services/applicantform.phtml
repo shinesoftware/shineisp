@@ -3,8 +3,6 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
-
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
 	   <? foreach( $form->getElements() as $field){
@@ -23,8 +21,8 @@
 <form class="multiple_select_form" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div class="tabbable" id="tabs">
-		<ul>
-			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Customer');?></a></li> 
 			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Domains');?></a></li> 
 			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Messages');?></a></li> 
@@ -32,52 +30,54 @@
 			<li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Configurations');?></a></li> 
 		</ul>
 	
-	    <div class="tab-pane" id="tab1">  
-	        <fieldset class="column-left"> 
-			    <?php echo $form->order_id->render()?>		
-				<?php echo $form->product_id->render()?>        
-				<?php echo $form->status_id->render()?>
-	            <?php echo $form->quantity->render()?>
-	        </fieldset>
-	        
-	        <fieldset class="column-right"> 
-	            <?php echo $form->billing_cycle_id->render()?>
-	            <?php echo $form->date_start->render()?>
-	            <?php echo $form->date_end->render()?>
-	            <?php echo $form->autorenew->render()?>
-	        </fieldset>   
-	             
-	    </div>
-	    
-	    <div class="tab-pane" id="tab2"> 
-	        <?php echo  $this->verticalgrid($this->owner_datagrid);?>
-	        
-	    </div>  
-	    
-	    <div class="tab-pane" id="tab3"> 
-            <?php echo $form->domains->render()?>
-            <a id="add_items" class="button"><?php echo  $this->translate('Add')?></a> <a id="remove_items" class="button"><?php echo  $this->translate('Remove')?></a>
-            <?php echo $form->domains_selected->render()?>
-	        
-	    </div>
-	    
-	    <div class="tab-pane" id="tab4"> 
-            <?php echo $this->bbslist($this->messages); ?>
-            <?php echo $form->message->render()?>
-	        
-	    </div>    
-	    
-	    <div class="tab-pane" id="tab5"> 
-	        <?php echo $form->note->render()?>
-	        
-	    </div>    
-	    
-	    <div class="tab-pane" id="tab6"> 
-	        <?php echo $form->setup->render()?>
-	        
-	    </div>    
-	   
-	   <?php echo $form->detail_id->render()?>
+		<div class="tab-content">
+		    <div class="tab-pane active" id="tab1">  
+		        <fieldset class="span6"> 
+				    <?php echo $form->order_id->render()?>		
+					<?php echo $form->product_id->render()?>        
+					<?php echo $form->status_id->render()?>
+		            <?php echo $form->quantity->render()?>
+		        </fieldset>
+		        
+		        <fieldset class="span6"> 
+		            <?php echo $form->billing_cycle_id->render()?>
+		            <?php echo $form->date_start->render()?>
+		            <?php echo $form->date_end->render()?>
+		            <?php echo $form->autorenew->render()?>
+		        </fieldset>   
+		             
+		    </div>
+		    
+		    <div class="tab-pane" id="tab2"> 
+		        <?php echo  $this->verticalgrid($this->owner_datagrid);?>
+		        
+		    </div>  
+		    
+		    <div class="tab-pane" id="tab3"> 
+	            <div class="row-fluid">
+	            	<div class="span3"><?php echo $form->domains->render()?></div>
+	            	<div class="span3 text-center"><br/><br/><a id="add_items" class="btn btn-success"><?php echo  $this->translate('Add')?></a> <a id="remove_items" class="btn btn-danger"><?php echo  $this->translate('Remove')?></a><br/><br/></div>
+	            	<div class="span3"><?php echo $form->domains_selected->render()?></div>
+	            </div>
+		    </div>
+		    
+		    <div class="tab-pane" id="tab4"> 
+	            <?php echo $this->bbslist($this->messages); ?>
+	            <?php echo $form->message->render()?>
+		        
+		    </div>    
+		    
+		    <div class="tab-pane" id="tab5"> 
+		        <?php echo $form->note->render()?>
+		        
+		    </div>    
+		    
+		    <div class="tab-pane" id="tab6"> 
+		        <?php echo $form->setup->render()?>
+		        
+		    </div>    
+		   
+		   <?php echo $form->detail_id->render()?>
+		</div>
 	</div>
 </form>
-</div>

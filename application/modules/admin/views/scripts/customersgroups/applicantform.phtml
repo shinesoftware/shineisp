@@ -3,8 +3,6 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
-
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
 	   <? foreach( $form->getElements() as $field){
@@ -22,14 +20,16 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div class="tabbable" id="tabs">
-		<ul>
-			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 		</ul>
-    
-	    <div class="tab-pane active" id="tab1"> 
-	        <?php echo $form->name->render() ?>
-	        <?php echo $form->group_id->render() ?>
+		
+    	<div class="tab-content">
+		    <div class="tab-pane active" id="tab1"> 
+		        <?php echo $form->name->render() ?>
+		        <?php echo $form->group_id->render() ?>
+		    </div>
 	    </div>
 	</div>
 </form>
-</div>
+

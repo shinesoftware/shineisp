@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-.badge-active{
+.badge-active, .badge-complete{
 	background-color: #468847;
 }
 .badge-deleted{

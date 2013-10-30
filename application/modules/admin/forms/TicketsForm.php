@@ -27,8 +27,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
-            'label'       => $translate->_('Reply to the client'),
-            'class'       => 'wysiwyg'
+            'class'       => 'span12 wysiwyg'
         ));
         
 		$this->addElement('select', 'sendemail', array(

@@ -34,7 +34,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Message'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('textarea', 'note', array(
@@ -42,7 +42,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'label'      => $translate->_('Note'),
             'description' => $translate->_('Write here a note. An email will be sent to the ISP staff.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12'
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('textarea', 'setup', array(
@@ -66,7 +66,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('multiselect', 'domains', array(
         'label' => $translate->_('Available domains'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large tmpitems'
+        'class'      => 'input-large span12 tmpitems'
         ));
         
         $this->getElement('domains')
@@ -77,7 +77,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('multiselect', 'domains_selected', array(
         'label' => $translate->_('Selected domains'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large items'
+        'class'      => 'input-large span12 items'
         ));        
 
         $this->getElement('domains_selected')
