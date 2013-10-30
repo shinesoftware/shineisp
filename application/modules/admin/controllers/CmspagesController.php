@@ -46,7 +46,7 @@ class Admin_CmspagesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Pages list");
 		$this->view->description = $this->translator->translate("Here you can see all the published pages.");
-		$this->view->buttons = array(array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( CmsPages::grid() )->datagrid ();
 	}
 	
@@ -99,8 +99,8 @@ class Admin_CmspagesController extends Shineisp_Controller_Admin {
 		
 		// I have to add the language id into the hidden field in order to save the record with the language selected 
 		$this->view->form->populate ( array('language_id' => $Session->langid) );
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-									 array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')));
 		
 		$this->view->title = $this->translator->translate("Create a page");
 		$this->view->description = $this->translator->translate("Here you can create a static page.");
@@ -170,11 +170,11 @@ class Admin_CmspagesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/cmspages/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
-				array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
-				array("url" => "/cms/$url.html", "label" => $this->translator->translate('Visit'), "params" => array('css' => array('btn'), 'target' => '_blank')),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/cmspages/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
+				array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
+				array("url" => "/cms/$url.html", "label" => $this->translator->translate('Visit'), "params" => array('css' => null,'target' => '_blank')),
 		);
 		
 		$this->view->form = $form;
@@ -194,9 +194,9 @@ class Admin_CmspagesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/cmspages/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/cmspages/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

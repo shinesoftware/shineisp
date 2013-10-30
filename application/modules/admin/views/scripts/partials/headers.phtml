@@ -1,4 +1,4 @@
-<div id="scrollme" class="overtop sectionheader">
+<div class="row-fluid">
     
     <div class="page-header pull-left">
     	<h2 class="headtitle">
@@ -27,7 +27,7 @@
 						$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
 						$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
 						$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
-						echo '<li><a href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a></li>';
+						echo '<li><a class="'.$class.'" '.$id.' href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a></li>';
 					}
 				}
 			?>

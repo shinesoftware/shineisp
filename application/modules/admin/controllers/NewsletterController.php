@@ -46,7 +46,7 @@ class Admin_NewsletterController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Newsletter list");
 		$this->view->description = $this->translator->translate("Here you can see all the messages of the newsletter.");
-		$this->view->buttons = array(array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Newsletters::grid() )->datagrid ();
 	}
 	
@@ -96,8 +96,8 @@ class Admin_NewsletterController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/newsletter/process" );
 		$this->view->title = $this->translator->translate("Newsletter");
 		$this->view->description = $this->translator->translate("Here you can create the newsletter.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-									 array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -165,11 +165,11 @@ class Admin_NewsletterController extends Shineisp_Controller_Admin {
 				
 				// Create the buttons in the edit form
 				$this->view->buttons = array(
-						array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-						array("url" => "/admin/newsletter/sendtest//id/$id", "label" => $this->translator->translate('Test'), "params" => array('css' => array('btn'))),
-						array("url" => "/admin/newsletter/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
-						array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-						array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+						array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+						array("url" => "/admin/newsletter/sendtest//id/$id", "label" => $this->translator->translate('Test'), "params" => array('css' => null)),
+						array("url" => "/admin/newsletter/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
+						array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+						array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 				);
 			}
 		}
@@ -193,9 +193,9 @@ class Admin_NewsletterController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/newsletter/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/newsletter/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

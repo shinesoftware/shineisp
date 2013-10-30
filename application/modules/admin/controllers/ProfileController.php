@@ -61,7 +61,7 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 		
 		$this->view->title = $this->translator->translate("Users list");
 		$this->view->description = $this->translator->translate("Here you can see all the users.");
-		$this->view->buttons = array(array("url" => "/admin/profile/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/profile/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( AdminUser::grid() )->datagrid ();
 	}
 	
@@ -104,10 +104,10 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 	
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/profile/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
-				array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/profile/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/profile/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
+				array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/profile/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 	
 		$this->view->form = $form;
@@ -233,8 +233,8 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 	
 		// I have to add the language id into the hidden field in order to save the record with the language selected
 		$this->view->form->populate ( array('language_id' => $Session->langid) );
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')));
 	
 		$this->view->title = $this->translator->translate("Create a new user");
 		$this->view->description = $this->translator->translate("Here you can create a new user.");
@@ -257,9 +257,9 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		if(AdminRoles::isAdministrator($this->logged_user['user_id'])){
-			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')), array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')), array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')));
 		}else{
-			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')));
 		}
 		
 		$user = AdminUser::getAllInfo( $this->logged_user['user_id'] );
@@ -287,9 +287,9 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		if(AdminRoles::isAdministrator($this->logged_user['user_id'])){
-			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')), array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')), array("url" => "/admin/profile/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')));
 		}else{
-			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+			$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')));
 		}
 		
 		// Check if the email already exists only when a new record is created

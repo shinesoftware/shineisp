@@ -56,7 +56,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Products list");
 		$this->view->description = $this->translator->translate("Here you can see all the products.");
-		$this->view->buttons = array(array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Products::grid () )->datagrid ();
 	}
 	
@@ -101,8 +101,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		
 		$this->view->title = $this->translator->translate("Product Details");
 		$this->view->description = $this->translator->translate("Here you can edit the product details");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-							   array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+							   array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 				
 		$this->render ( 'applicantform' );
 	}
@@ -237,9 +237,9 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -299,7 +299,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			}
 			$orders = array ('records' => OrdersItems::ProductsInOrdersItems ( $id ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ) );
 			
-			$this->view->buttons[] = array("url" => "/admin/products/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
+			$this->view->buttons[] = array("url" => "/admin/products/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		
@@ -401,9 +401,9 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 
 		$form = $this->createAttributesElements ( $form, $request->getParam('group_id') );

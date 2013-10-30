@@ -96,9 +96,9 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/ordersitems/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/ordersitems/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ordersitems/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ordersitems/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -123,10 +123,10 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 				$this->view->isHosting = !empty($rs['Products']['type']) && $rs['Products']['type'] == "hosting" ? true : false;
 				
 				// Create the buttons in the edit form
-				$this->view->buttons[] = array("url" => "/admin/ordersitems/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
-				$this->view->buttons[] = array("url" => "/admin/services/edit/id/$id", "label" => $this->translator->translate('Service'), "params" => array('css' => array('btn')));
-				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" . $rs['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('btn')));
-				$this->view->buttons[] = array("url" => "/admin/customers/edit/id/" . $rs['Orders']['customer_id'], "label" => $this->translator->translate('Customers'), "params" => array('css' => array('btn')));
+				$this->view->buttons[] = array("url" => "/admin/ordersitems/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
+				$this->view->buttons[] = array("url" => "/admin/services/edit/id/$id", "label" => $this->translator->translate('Service'), "params" => array('css' => null));
+				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" . $rs['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => null));
+				$this->view->buttons[] = array("url" => "/admin/customers/edit/id/" . $rs['Orders']['customer_id'], "label" => $this->translator->translate('Customers'), "params" => array('css' => null));
 				
 			}else{
 				$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'error' ) );
@@ -156,9 +156,9 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/ordersitems/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/ordersitems/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ordersitems/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ordersitems/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

@@ -48,7 +48,7 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Customer's legal forms");
 		$this->view->description = $this->translator->translate("Here you can see all the customer legal forms.");
-		$this->view->buttons = array(array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		
 		$this->datagrid->setConfig ( Legalforms::grid() )->datagrid ();
 	}
@@ -99,8 +99,8 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/legalforms/process" );
 		$this->view->title = $this->translator->translate("New Customers' legal forms");
 		$this->view->description = $this->translator->translate("Here you can create a new customer legal forms.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-								array("url" => "/admin/legalforms/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+								array("url" => "/admin/legalforms/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -154,9 +154,9 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/legalforms/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/legalforms/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if ( !empty($id) && is_numeric($id) ) {
@@ -165,7 +165,7 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs[0] );
 				
 				if ( !in_array($id, $this->readOnly) ) {
-					$this->view->buttons[] = array("url" => "/admin/legalforms/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
+					$this->view->buttons[] = array("url" => "/admin/legalforms/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				}
 			}
 		}
@@ -191,9 +191,9 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/legalforms/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/legalforms/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/legalforms/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

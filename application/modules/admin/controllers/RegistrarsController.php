@@ -46,7 +46,7 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Registrar Modules");
 		$this->view->description = $this->translator->translate("Here you can see all the registrar module.");
-		$this->view->buttons = array(array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Registrars::grid() )->datagrid ();
 	}
 	
@@ -97,8 +97,8 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 		$this->view->title = $this->translator->translate("New Registrar");
 		$this->view->description = $this->translator->translate("Here you can create a new registrar.");
 		
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-									 array("url" => "/admin/registrars/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/registrars/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -152,9 +152,9 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/registrars/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/registrars/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/registrars/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		$this->view->description = "Here you can edit the registrar data.";
@@ -180,7 +180,7 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs[0] );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/registrars/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
+			$this->view->buttons[] = array("url" => "/admin/registrars/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		
@@ -205,9 +205,9 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

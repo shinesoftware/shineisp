@@ -46,7 +46,7 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Payments list");
 		$this->view->description = $this->translator->translate("Here you can see all the payment transactions.");
-		$this->view->buttons = array(array("url" => "/admin/payments/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/payments/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Payments::grid() )->datagrid ();
 	}
 	
@@ -97,8 +97,8 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/payments/process" );
 		$this->view->title = $this->translator->translate("Payment Transaction Details");
 		$this->view->description = $this->translator->translate("Here you can handle the Payment Transaction parameters");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-									 array("url" => "/admin/payments/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/payments/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -164,9 +164,9 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/payments/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/payments/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/payments/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/payments/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -175,13 +175,13 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 			if (! empty ( $rs [0] )) {
 				$rs[0]['paymentdate'] = Shineisp_Commons_Utilities::formatDateOut($rs[0]['paymentdate']);
 				
-				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" . $rs[0]['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('btn')));
-				$this->view->buttons[] = array("url" => "/admin/customers/edit/id/" . $rs[0]['customer_id'], "label" => $this->translator->translate('Customer'), "params" => array('css' => array('btn')));
+				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/" . $rs[0]['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => null));
+				$this->view->buttons[] = array("url" => "/admin/customers/edit/id/" . $rs[0]['customer_id'], "label" => $this->translator->translate('Customer'), "params" => array('css' => null));
 				
 				$form->populate ( $rs [0] );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/payments/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
+			$this->view->buttons[] = array("url" => "/admin/payments/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		
@@ -208,9 +208,9 @@ class Admin_PaymentsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/payments/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/payments/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/payments/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/payments/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request
