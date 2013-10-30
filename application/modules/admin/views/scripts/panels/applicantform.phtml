@@ -23,8 +23,8 @@
 	
 	<div id="tabs">
 		<ul>
-			<li><a href="#tab1"><?php echo $this->translate('Main');?></a></li> 
-			<?php if($form->panel_id->getValue()): ?><li><a href="#tab2"><?php echo $this->translate('Configuration');?></a></li> <?php endif;?>
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<?php if($form->panel_id->getValue()): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Configuration');?></a></li> <?php endif;?>
 		</ul>
 
 	    <div id="tab1"> 

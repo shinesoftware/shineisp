@@ -11,9 +11,11 @@ if (isset($this->records[0])):
 	
 	// Main index of the record
 	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
+	
+	$res = array();
 	?>
 	
-	<table border="0" cellpadding="5" class="simplegrid data">
+	<table class="table data">
 	    <tbody>
 	        <?php // Creation of the Rows and Columns?>
 	        <?php foreach ( $this->records as $record ) : ?>
@@ -38,8 +40,8 @@ if (isset($this->records[0])):
 	        <tr>
 	           <td><?php echo $this->translate('Commands'); ?></td>
 	           <td>
-	               <a class="button" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?php echo $this->translate('Click here to edit'); ?>"><?php echo $this->translate('Edit'); ?></a>
-	               <a class="button" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?php echo $this->translate('Delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
+	               <a class="btn" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?php echo $this->translate('Click here to edit'); ?>"><?php echo $this->translate('Edit'); ?></a>
+	               <a class="btn" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?php echo $this->translate('Delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
 	           </td>
 	        </tr>
 	        <?php endif;?>
@@ -51,5 +53,5 @@ if (isset($this->records[0])):
 	    </tfoot>
 	</table>
 	<?php else: ?>
-	<div class="notification infos"><?php echo $this->translate('norecords')?></div>
+	<div class="alert alert-info"><?php echo $this->translate('norecords')?></div>
 <?php endif; ?>

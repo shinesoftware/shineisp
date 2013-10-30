@@ -42,7 +42,7 @@ if (isset($this->records[0])):
     
 ?>
 	    
-	    <div class="notification infos" id="mex" style="display:none"></div>
+	    <div class="alert alert-info" id="mex" style="display:none"></div>
 	    
 	    <table border="0" cellpadding="5" class="grid zebratable" id="itemlist">
 	       <caption>
@@ -141,5 +141,5 @@ if (isset($this->records[0])):
 	    </table>
      
     <?php else: ?>
-    <div class="notification infos"><?php echo $this->translate('No Records')?></div>
+    <div class="alert alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>

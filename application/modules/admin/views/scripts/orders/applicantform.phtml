@@ -23,16 +23,16 @@
 	
 	<div id="tabs">
 		<ul>
-			<li><a href="#tab1" class="default-tab current"><?php echo $this->translate('Main');?></a></li> 
-			<li><a href="#tab2" class="default-tab"><?php echo $this->translate('Details');?></a></li>
-			<li><a href="#tab3" class="default-tab"><?php echo $this->translate('Payments');?></a></li>
-			<li><a href="#tab4" class="default-tab"><?php echo $this->translate('Customer');?></a></li>
+			<li><a data-toggle="tab" href="#tab1" class="default-tab current"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2" class="default-tab"><?php echo $this->translate('Details');?></a></li>
+			<li><a data-toggle="tab" href="#tab3" class="default-tab"><?php echo $this->translate('Payments');?></a></li>
+			<li><a data-toggle="tab" href="#tab4" class="default-tab"><?php echo $this->translate('Customer');?></a></li>
 			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-				<li><a href="#tab5" class="default-tab"><?php echo $this->translate('Attachments');?></a></li>
+				<li><a data-toggle="tab" href="#tab5" class="default-tab"><?php echo $this->translate('Attachments');?></a></li>
 			<?php endif;?>
-			<li><a href="#tab6" class="default-tab"><?php echo $this->translate('Messages');?></a></li>
-			<li><a href="#tab7" class="default-tab"><?php echo $this->translate('Private Notes');?></a></li>
-			<li><a href="#tab8" class="default-tab"><?php echo $this->translate('Status History');?></a></li>
+			<li><a data-toggle="tab" href="#tab6" class="default-tab"><?php echo $this->translate('Messages');?></a></li>
+			<li><a data-toggle="tab" href="#tab7" class="default-tab"><?php echo $this->translate('Private Notes');?></a></li>
+			<li><a data-toggle="tab" href="#tab8" class="default-tab"><?php echo $this->translate('Status History');?></a></li>
 		</ul>
     
 	    <div id="tab1"> 

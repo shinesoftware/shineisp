@@ -36,21 +36,21 @@
 
 	<div id="tabs">
 		<ul>
-			<li><a href="#tab1"><?php echo $this->translate('Main');?></a></li> 
-			<?php if(!$this->isrecurring): ?><li><a href="#tab2"><?php echo $this->translate('Prices');?></a></li><?php endif;?> 
-			<?php if($this->isrecurring): ?><li><a href="#tab3"><?php echo $this->translate('Recurring Prices');?></a></li><?php endif; ?> 
-			<li><a href="#tab4"><?php echo $this->translate('Categories');?></a></li> 
-			<li><a href="#tab5"><?php echo $this->translate('Content');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<?php if(!$this->isrecurring): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Prices');?></a></li><?php endif;?> 
+			<?php if($this->isrecurring): ?><li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Recurring Prices');?></a></li><?php endif; ?> 
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Categories');?></a></li> 
+			<li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Content');?></a></li> 
 			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-				<li><a href="#tab6"><?php echo $this->translate('Media');?></a></li>
+				<li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Media');?></a></li>
 			<?php endif;?> 
-			<li><a href="#tab7"><?php echo $this->translate('Related Products');?></a></li>
-			<li><a href="#tab8"><?php echo $this->translate('Product Upgrades');?></a></li>
-			<li><a href="#tab9"><?php echo $this->translate('Orders');?></a></li> 
-			<li><a href="#tab10"><?php echo $this->translate('Attributes');?></a></li> 
-			<li><a href="#tab11"><?php echo $this->translate('Blocks');?></a></li> 
-			<li><a href="#tab12"><?php echo $this->translate('Metatags');?></a></li> 
-			<li><a href="#tab13"><?php echo $this->translate('Setup');?></a></li> 
+			<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Related Products');?></a></li>
+			<li><a data-toggle="tab" href="#tab8"><?php echo $this->translate('Product Upgrades');?></a></li>
+			<li><a data-toggle="tab" href="#tab9"><?php echo $this->translate('Orders');?></a></li> 
+			<li><a data-toggle="tab" href="#tab10"><?php echo $this->translate('Attributes');?></a></li> 
+			<li><a data-toggle="tab" href="#tab11"><?php echo $this->translate('Blocks');?></a></li> 
+			<li><a data-toggle="tab" href="#tab12"><?php echo $this->translate('Metatags');?></a></li> 
+			<li><a data-toggle="tab" href="#tab13"><?php echo $this->translate('Setup');?></a></li> 
 		</ul>
     
     
