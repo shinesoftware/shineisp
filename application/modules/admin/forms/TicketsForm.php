@@ -11,17 +11,17 @@ class Admin_Form_TicketsForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->addElement('text', 'datetime', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
             'label'       => $translate->_('Date'),
-        	'decorators'  => array('Composite'),
-            'class'       => 'text-input large-input'
+        	'decorators'  => array('Bootstrap'),
+            'class'       => 'input-large'
         ));
         
         
@@ -34,15 +34,15 @@ class Admin_Form_TicketsForm extends Zend_Form
 		$this->addElement('select', 'sendemail', array(
             'label'      => $translate->_('Send Email'),
             'description'      => $translate->_('Send an email to the customer.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large',
             'multioptions' => array('1' => $translate->_('Yes'), '0'=> $translate->_('No'))
         ));
         
         $this->addElement('select', 'category_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Category'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('category_id')
@@ -51,9 +51,9 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setMultiOptions(TicketsCategories::getList());
         
         $this->addElement('select', 'order_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Order reference'),
-            'class'       => 'text-input little-input'
+            'class'       => 'little-input'
         ));
         
         $this->getElement('order_id')
@@ -62,9 +62,9 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setMultiOptions(Orders::getList(true));
         
         $this->addElement('select', 'sibling_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Relationships'),
-            'class'       => 'text-input little-input'
+            'class'       => 'little-input'
         ));
         
         $this->getElement('sibling_id')
@@ -72,9 +72,9 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setRegisterInArrayValidator(false);
         
         $this->addElement('select', 'user_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Operator'),
-            'class'       => 'text-input little-input'
+            'class'       => 'little-input'
         ));
         
         $this->getElement('user_id')
@@ -84,9 +84,9 @@ class Admin_Form_TicketsForm extends Zend_Form
                   #->setMultiOptions(AdminUser::getUserbyRoleID(AdminRoles::getIdRoleByName('operator')));
                   
         $this->addElement('select', 'status_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Status'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('status_id')
@@ -112,8 +112,9 @@ class Admin_Form_TicketsForm extends Zend_Form
 	        	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),
+				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'      => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
-	            'class'      => 'text-input large-input'
+	            'class'      => 'input-large'
 	        ));
 	        
 	        $file->addValidator ( 'Extension', false, $Types )

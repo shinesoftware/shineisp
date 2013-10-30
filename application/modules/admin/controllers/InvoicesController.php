@@ -45,7 +45,7 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Invoice list");
 		$this->view->description = $this->translator->translate("Here you can see all the invoices.");
-		$this->view->buttons = array(array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( Invoices::grid() )->datagrid ();
 	}
 	
@@ -96,8 +96,8 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/invoices/process" );
 		$this->view->title = $this->translator->translate("New Invoice");
 		$this->view->description = $this->translator->translate("Create a new invoice using this form.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-							   array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+							   array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -213,17 +213,17 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 				
 				// Create the buttons in the edit form
 				$this->view->buttons = array(
-						array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-						array("url" => "/admin/invoices/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
-						array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-						array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+						array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+						array("url" => "/admin/invoices/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
+						array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+						array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 				);
 				
 				// Check if the order has been invoiced
-				$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('button', 'float_right')));
-				$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('button', 'float_right')));
-				$this->view->buttons[] = array("url" => "/admin/invoices/confirmoverwrite/id/$id", "label" => $this->translator->translate('Overwrite invoice'), "params" => array('css' => array('button', 'float_right')));
-				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/".$rs ['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('btn')));
+				$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('btn')));
+				$this->view->buttons[] = array("url" => "/admin/invoices/confirmoverwrite/id/$id", "label" => $this->translator->translate('Overwrite invoice'), "params" => array('css' => array('btn')));
+				$this->view->buttons[] = array("url" => "/admin/orders/edit/id/".$rs ['order_id'], "label" => $this->translator->translate('Order'), "params" => array('css' => array('btn')));
 				
 				$form->populate ( $rs );
 			}
@@ -273,9 +273,9 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/invoices/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/invoices/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		if ($form->isValid ( $request->getPost () )) {

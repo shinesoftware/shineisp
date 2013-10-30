@@ -13,7 +13,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -21,13 +21,13 @@
 
 <form class="multiple_select_form" enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Queue');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Queue');?></a></li> 
 		</ul>
 
-	    <div id="tab1"> 
+	    <div class="tab-pane active" id="tab1"> 
             <?php echo $form->subject->render()?> 
             <?php echo $form->sendat->render()?>
             <?php echo $form->sent->render()?>
@@ -35,11 +35,11 @@
             <?php echo $form->sendagain->render()?>
     	</div>
     
-	    <div class="ui-tabs-hide" id="tab2">
+	    <div class="tab-pane" id="tab2">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->queue)?> 
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	    </div>
     </div>
    <?php echo $form->news_id->render()?>

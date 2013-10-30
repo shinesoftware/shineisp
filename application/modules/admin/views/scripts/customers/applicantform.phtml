@@ -13,7 +13,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -21,193 +21,162 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<div id="tabs">
-		<ul>
-			<li><a href="#tab1"><?php echo $this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?php echo $this->translate('Personal');?></a></li> 
-			<li><a href="#tab3"><?php echo $this->translate('Addresses');?></a></li>
-			<li><a href="#tab4"><?php echo $this->translate('Contacts');?></a></li>
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Personal');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Addresses');?></a></li>
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Contacts');?></a></li>
 			
 			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-				<li><a href="#tab7"><?php echo $this->translate('Attachments');?></a></li>
+				<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Attachments');?></a></li>
 			<?php endif;?>
 			
 			<?php if($this->editmode): ?>
-				<li><a href="#tab5"><?php echo $this->translate('Domains');?></a></li>
-				<li><a href="#tab6"><?php echo $this->translate('Services');?></a></li>
-				
-				<li><a href="#tab8"><?php echo $this->translate('Orders');?></a></li>
-				<li><a href="#tab9"><?php echo $this->translate('Private Notes');?></a></li>
-				<li><a href="#tab10"><?php echo $this->translate('Tickets');?></a></li>
-				<li><a href="#tab11"><?php echo $this->translate('Atributes');?></a></li>
-				<li><a href="#tab12"><?php echo $this->translate('Options');?></a></li>
-				<li><a href="#tab13"><?php echo $this->translate('Invoices');?></a></li>
-				<li><a href="#tab14"><?php echo $this->translate('E-Mails');?></a></li>
+				<li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Domains');?></a></li>
+				<li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Services');?></a></li>
+				<li><a data-toggle="tab" href="#tab8"><?php echo $this->translate('Orders');?></a></li>
+				<li><a data-toggle="tab" href="#tab9"><?php echo $this->translate('Private Notes');?></a></li>
+				<li><a data-toggle="tab" href="#tab10"><?php echo $this->translate('Tickets');?></a></li>
+				<li><a data-toggle="tab" href="#tab11"><?php echo $this->translate('Atributes');?></a></li>
+				<li><a data-toggle="tab" href="#tab12"><?php echo $this->translate('Options');?></a></li>
+				<li><a data-toggle="tab" href="#tab13"><?php echo $this->translate('Invoices');?></a></li>
+				<li><a data-toggle="tab" href="#tab14"><?php echo $this->translate('E-Mails');?></a></li>
 			<?php endif; ?>
 			
 		</ul>
-	
-	    <div id="tab1"> 
-	    
-		    <fieldset class="column-left"> 
-		    	<table class="pdetails">
-		    		<tr>
-		    			<?php if($form->email->getValue()): ?>
-		    			<td>
-		    				<div class="gravatar-canvas">
-			        			<?php echo $this->gravatar($form->email->getValue(), 120) ?>
-			        		</div> 
-		    			</td>
-		    			<?php endif;?>
-		    			<td>
-		    				<?php echo $form->firstname->render() ?>
-		        			<?php echo $form->lastname->render()?>
-		    			</td>
-		    		</tr>
-		    	</table>
-	        	<?php echo $form->company->render()?>
-		        <?php echo $form->email->render()?>
-		        <?php echo $form->password->render()?>
-		        
-		    </fieldset>
+		<div class="tab-content">
+		    <div class="tab-pane active" id="tab1">
+			    <div class="row-fluid">
+				    <fieldset class="span6"> 
+				    	<table class="table">
+				    		<tr>
+				    			<?php if($form->email->getValue()): ?>
+				    			<td>
+				    				<div class="gravatar-canvas">
+					        			<?php echo $this->gravatar($form->email->getValue(), 120) ?>
+					        		</div> 
+				    			</td>
+				    			<?php endif;?>
+				    			<td>
+				    				<?php echo $form->firstname->render() ?>
+				        			<?php echo $form->lastname->render()?>
+				    			</td>
+				    		</tr>
+				    	</table>
+			        	<?php echo $form->company->render()?>
+				        <?php echo $form->email->render()?>
+				        <?php echo $form->password->render()?>
+				        
+				    </fieldset>
+				    
+				    <fieldset class="span6">
+				    	<?php echo $form->group_id->render()?>
+			            <?php echo $form->legalform_id->render()?>
+			            <?php echo $form->type_id->render()?>
+			            <?php echo $form->taxpayernumber->render()?>
+			            <?php echo $form->vat->render()?>
+			            <?php echo $form->status_id->render()?>
+				    </fieldset>
+				</div>   
+			</div>   
 		    
-		    <fieldset class="column-right">
-		    	<?php echo $form->group_id->render()?>
-	            <?php echo $form->legalform_id->render()?>
-	            <?php echo $form->type_id->render()?>
-	            <?php echo $form->taxpayernumber->render()?>
-	            <?php echo $form->vat->render()?>
-	            <?php echo $form->status_id->render()?>
-		    </fieldset>
-		    <div class="clear"></div>
-	    </div>  
-	    
-	    <div class="ui-tabs-hide" id="tab2"> 
-        	<fieldset class="column-left"> 
-	            <?php echo $form->taxpayernumber->render()?>
-	            <?php echo $form->birthdate->render()?>
-	            <?php echo $form->birthplace->render()?>
-            </fieldset>
-            <fieldset class="column-right">
-	            <?php echo $form->birthdistrict->render()?>
-	            <?php echo $form->birthcountry->render()?>
-	            <?php echo $form->birthnationality->render()?>
-	            <?php echo $form->gender->render()?>
-            </fieldset>
-	        <div class="clear"></div>
-	    </div>    
-	    
-	    <div class="ui-tabs-hide" id="tab3"> 
-			<fieldset class="column-left">
-			    <?php echo $form->country_id->render()?>
-			    <?php echo $form->region_id->render()?>
-			    
-			    <?php echo $form->area->render()?>
-			    <?php echo $form->city->render()?>
-			    
-	            <?php echo $form->address->render()?>
-	            <?php echo $form->code->render()?>
-	            
-            </fieldset>
-            
-            <fieldset class="column-right">
-	            <?php echo $this->mapgrid($this->addressesdatagrid);?>
-            </fieldset>
-            
-            <div class="clear"></div>
-	        
-	    </div>
-	
-	   <div class="ui-tabs-hide" id="tab4">
-	       <fieldset> 
+		    <div class="tab-pane" id="tab2"> 
+		    	<div class="row-fluid">
+		        	<fieldset class="span6"> 
+			            <?php echo $form->taxpayernumber->render()?>
+			            <?php echo $form->birthdate->render()?>
+			            <?php echo $form->birthplace->render()?>
+		            </fieldset>
+		            <fieldset class="span6">
+			            <?php echo $form->birthdistrict->render()?>
+			            <?php echo $form->birthcountry->render()?>
+			            <?php echo $form->birthnationality->render()?>
+			            <?php echo $form->gender->render()?>
+		            </fieldset>
+		        </div>
+		    </div>    
+		    
+		    <div class="tab-pane" id="tab3"> 
+		    	<div class="row-fluid">
+					<fieldset class="span6">
+					    <?php echo $form->country_id->render()?>
+					    <?php echo $form->region_id->render()?>
+					    
+					    <?php echo $form->area->render()?>
+					    <?php echo $form->city->render()?>
+					    
+			            <?php echo $form->address->render()?>
+			            <?php echo $form->code->render()?>
+		            </fieldset>
+		            
+		            <fieldset class="span6">
+			            <?php echo $this->mapgrid($this->addressesdatagrid);?>
+		            </fieldset>
+	            </div>
+		    </div>
+		
+		   <div class="tab-pane" id="tab4">
 	             <?php echo $form->contacttypes->render()?>
 	             <?php echo $form->contact->render()?>
 	             <?php echo $this->simplegrid($this->contactsdatagrid);?>
-	       </fieldset>
-	       <div class="clear"></div>
-	   </div>
-	   
-	   
-		<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-		   <div class="ui-tabs-hide" id="tab7">
-		        <fieldset> 
+		   </div>
+		   
+		   
+			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
+			   <div class="tab-pane" id="tab7">
 		            <?php echo $form->filecategory->render()?>
 		            <?php echo $form->attachments->render()?><br/>
 		            <?php echo $this->simplegrid($this->filesdatagrid);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>
-		<?php endif; ?>
-	    
-	    <?php if($this->editmode): ?>
-	    
-		    <div class="ui-tabs-hide" id="tab5">
-		        <fieldset> 
-		            <?php echo $this->simplegrid($this->domainsdatagrid);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>
+			   </div>
+			<?php endif; ?>
 		    
-		    <div class="ui-tabs-hide" id="tab6">
-		        <fieldset> 
+		    <?php if($this->editmode): ?>
+		    
+			    <div class="tab-pane" id="tab5">
+			    	<?php echo $this->simplegrid($this->domainsdatagrid);?>
+			   </div>
+			    
+			    <div class="tab-pane" id="tab6">
 		            <?php echo $this->simplegrid($this->servicesdatagrid);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>   
-		   
-		    <div class="ui-tabs-hide" id="tab8">
-		        <fieldset> 
+			   </div>   
+			   
+			    <div class="tab-pane" id="tab8">
 		            <?php echo $this->simplegrid($this->ordersdatagrid);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>
+			   </div>
+			   
+			    <div class="tab-pane" id="tab9">
+			            <?php echo $form->note->render()?>
+			   </div>   
+			   
+			   <div class="tab-pane" id="tab10">
+			       <?php echo $this->simplegrid($this->tickets);?>
+			   </div>   
+			   
+			   <div class="tab-pane" id="tab11">
+			       <?php echo $form->attributes->render();?>
+			   </div>   
+			   
+			   <div class="tab-pane" id="tab12">
+			   	   <?php echo $form->language_id->render();?>
+			       <?php echo $form->parent_id->render();?>
+			       <?php echo $form->isreseller->render();?>
+			       <?php echo $form->issubscriber->render();?>
+			       <?php echo $form->taxfree->render();?>
+			       <?php echo $form->ignore_latefee->render();?>
+			   </div>   
+			   
+			   <div class="tab-pane" id="tab13">
+			   		<?php echo $this->simplegrid($this->invoicesdatagrid);?>
+			   </div>   
+			   
+			   <div class="tab-pane" id="tab14">
+			   		<?php echo $this->simplegrid($this->sentmailsdatagrid);?>
+			   </div>   
+		   <?php endif; ?>
 		   
-		    <div class="ui-tabs-hide" id="tab9">
-		        <fieldset> 
-		            <?php echo $form->note->render()?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>   
-		   
-		   <div class="ui-tabs-hide" id="tab10">
-		        <fieldset> 
-		            <?php echo $this->simplegrid($this->tickets);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>   
-		   
-		   <div class="ui-tabs-hide" id="tab11">
-		       <?php echo $form->attributes->render();?>
-		       <div class="clear"></div>
-		   </div>   
-		   
-		   <div class="ui-tabs-hide" id="tab12">
-		   	   <?php echo $form->language_id->render();?>
-		       <?php echo $form->parent_id->render();?>
-		       <?php echo $form->isreseller->render();?>
-		       <?php echo $form->issubscriber->render();?>
-		       <?php echo $form->taxfree->render();?>
-		       <?php echo $form->ignore_latefee->render();?>
-		       <div class="clear"></div>
-		   </div>   
-		   
-		   <div class="ui-tabs-hide" id="tab13">
-		        <fieldset> 
-		            <?php echo $this->simplegrid($this->invoicesdatagrid);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>   
-		   
-		   <div class="ui-tabs-hide" id="tab14">
-		        <fieldset> 
-		            <?php echo $this->simplegrid($this->sentmailsdatagrid);?>
-		       </fieldset>
-		       <div class="clear"></div>
-		   </div>   
-	   <?php endif; ?>
-	   
-	   <?php echo $form->customer_id->render()?>
-	
+		   <?php echo $form->customer_id->render()?>
+		
+		</div>
 	</div>
 </form>
-</div>

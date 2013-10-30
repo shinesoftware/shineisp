@@ -40,12 +40,12 @@ class Customers extends BaseCustomers {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'c.customer_id', 'alias' => 'customer_id', 'type' => 'selectall' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'c.customer_id', 'alias' => 'customer_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'c.customer_id', 'alias' => 'customer_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'c.customer_id', 'alias' => 'customer_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(c.firstname, " ", c.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'c.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers')  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(c.firstname, " ", c.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'c.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')  );
 		
 		$config ['datagrid'] ['fields'] = "c.customer_id, 
 										   c.company as company, 
@@ -1089,7 +1089,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function Hitparade() {
 		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
-		
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dq   = Doctrine_Query::create ()->select ( "i.invoice_id, c.customer_id as id, c.lastname as lastname, c.firstname as firstname, c.company as company, SUM(o.grandtotal) as grandtotal" )
 					->from ( 'Invoices i' )
 					->leftJoin ( 'i.Customers c' )
@@ -1107,15 +1107,24 @@ class Customers extends BaseCustomers {
         	$dq->andWhere( "c.isp_id = ?", Isp::getCurrentId() );
         } 
         
-	    $records   = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+	    $records['data']   = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
         
 		$data = array();
-		foreach ( $records as $record ) {
-			unset($record['invoice_id']);
-			$record['grandtotal']    = $currency->toCurrency($record['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-			$data[]                  = $record;
+		for($i=0;$i<count($records['data']);$i++){
+			$records['data'][$i]['grandtotal']    = $currency->toCurrency($records['data'][$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
 		}
-        
+		
+		// adding the index reference
+		$records['index'] = "id";
+		
+		// Create the header table columns
+		$records['fields'] = array(
+									'id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'lastname' => array('label' => $translator->translate('Last name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'firstname' => array('label' => $translator->translate('First name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+									'company' => array('label' => $translator->translate('Company')),
+									'grandtotal' => array('label' => $translator->translate('Total')));
+		
 		return $data;
 	}
 	
@@ -1125,7 +1134,8 @@ class Customers extends BaseCustomers {
 	 */
 	public static function summary() {
 		$chart = "";
-
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
 		// Get the customer summary values
 		$dq   = Doctrine_Query::create ()
 									->select ( "customer_id, count(*) as items, s.status as status" )
@@ -1141,11 +1151,11 @@ class Customers extends BaseCustomers {
             $dq->andWhere( "c.isp_id = ?", $logged_user['isp_id']);
         } 
         
-        $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
+        $datarecords = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 
 		// Strip the customer_id field
-		if(!empty($records)){
-			foreach($records as $key => $value) {
+		if(!empty($datarecords)){
+			foreach($datarecords as $key => $value) {
 			  	array_shift($value);
 			  	$newarray[] = $value;
 			  	$chartLabels[] = $value['status'];
@@ -1161,9 +1171,11 @@ class Customers extends BaseCustomers {
                                     ->andWhere( "c.isp_id = ?", Isp::getCurrentId() )
 									->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
-		$newarray[] = array('items' => $record_group2[0]['total'], 'status' => "Total");
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		return $records;
 	}
 	
 	

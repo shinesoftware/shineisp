@@ -13,7 +13,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -21,13 +21,13 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 		
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Options');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('System');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Options');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('System');?></a></li> 
 		</ul>	
-		<div class="ui-tabs-hide default-tab" id="tab1">  	
+		<div class="tab-pane default-tab" id="tab1">  	
 		    <fieldset class="column-left">  
 				<?php echo $form->code->render() ?>
 				<?php echo $form->type->render() ?>
@@ -40,10 +40,10 @@
 				<?php echo $form->is_required->render() ?>
 				<?php echo $form->position->render() ?>
 		    </fieldset>
-		    <div class="clear"></div>
+		    
 	    </div>
 	    
-	    <div class="ui-tabs-hide default-tab" id="tab2">
+	    <div class="tab-pane default-tab" id="tab2">
 	    	<?php echo $form->is_comparable->render() ?>
 	    	<?php echo $form->defaultvalue->render() ?>
 	    	<?php echo $form->prefix->render() ?>
@@ -51,7 +51,7 @@
 			<?php echo $form->on_product_listing->render() ?>
 	    </div>
 	      	
-	    <div class="ui-tabs-hide default-tab" id="tab3">
+	    <div class="tab-pane default-tab" id="tab3">
 	    	<?php echo $form->system->render() ?>
 	    	<?php echo $form->system_var->render() ?>
 	    </div>

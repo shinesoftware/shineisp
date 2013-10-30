@@ -3,8 +3,6 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
-
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
 	   <? foreach( $form->getElements() as $field){
@@ -13,51 +11,53 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
 <? endif; ?>
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-	
-	<div id="tabs">
-		<ul>
-			<li><a href="#tab1" class="default-tab current"><?=$this->translate('Main');?></a></li>
-			<li><a href="#tab2"><?=$this->translate('Custom Fields');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('Information');?></a></li> 
+	<div class="tabbable" id="tabs">
+		
+		<ul class="nav nav-tabs"> 
+			<li class="active"><a data-toggle="tab" href="#tab1" class="default-tab current"><?php echo $this->translate('Main');?></a></li>
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Custom Fields');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Information');?></a></li> 
 		</ul>
-    
-	    <div id="tab1"> 
-	        <fieldset class="column-left"> 
-	            <?php echo $form->isp_id->render() ?>
-	            <?php echo $form->type_id->render() ?>
-	            <?php echo $form->name->render() ?>
-	            <?php echo $form->ip->render()?>
-				<?php echo $form->panel_id->render()?> 
-				<?php echo $form->cost->render()?>
-				<?php echo $form->buy_date->render()?>
-	        </fieldset>
-	        <fieldset> 
-	            <?php echo $form->netmask->render()?>
-	            <?php echo $form->host->render()?>
-	            <?php echo $form->domain->render()?>
-	            <?php echo $form->status_id->render()?>
-	            <?php echo $form->datacenter->render()?>
-	            <?php echo $form->max_accounts->render()?>
-	            <?php echo $form->is_default->render()?>
-	        </fieldset>
-	    </div>
-    
-	    <div class="ui-tabs-hide" id="tab2"> 
-	    	<?php echo $form->attributes->render() ?>
-	    </div>
-    
-	    <div class="ui-tabs-hide" id="tab3"> 
-	    	<?php echo $form->description->render() ?>
-	    </div>
-   		<?php echo $form->server_id->render()?>
+		
+        <div class="tab-content">
+    	    <div class="tab-pane active" id="tab1"> 
+    	        <div class="row-fluid">
+        	        <fieldset class="span6"> 
+        	            <?php echo $form->isp_id->render() ?>
+        	            <?php echo $form->type_id->render() ?>
+        	            <?php echo $form->name->render() ?>
+        	            <?php echo $form->ip->render()?>
+        				<?php echo $form->panel_id->render()?> 
+        				<?php echo $form->cost->render()?>
+        				<?php echo $form->buy_date->render()?>
+        	        </fieldset>
+        	        <fieldset class="span6"> 
+        	            <?php echo $form->netmask->render()?>
+        	            <?php echo $form->host->render()?>
+        	            <?php echo $form->domain->render()?>
+        	            <?php echo $form->status_id->render()?>
+        	            <?php echo $form->datacenter->render()?>
+        	            <?php echo $form->max_accounts->render()?>
+        	            <?php echo $form->is_default->render()?>
+        	        </fieldset>
+    	        </div>
+    	    </div>
+        
+    	    <div class="tab-pane" id="tab2"> 
+    	    	<?php echo $form->attributes->render() ?>
+    	    </div>
+        
+    	    <div class="tab-pane" id="tab3"> 
+    	    	<?php echo $form->description->render() ?>
+    	    </div>
+       		<?php echo $form->server_id->render()?>
+       	</div>
 	</div>
 </form>
-
-</div>

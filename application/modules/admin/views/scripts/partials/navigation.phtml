@@ -1,36 +1,37 @@
-<ul class="">
 <?php
 
-$html = array();
-
-foreach ($this->container as $page) 
+function genMenu($container)
 {
-    $html[] = "<li class=\"has-dropdown\">";
-    $html[] = $this->menu()->htmlify($page) . PHP_EOL;
-
-    if (!empty($page->pages))
+	$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+    foreach ($container as $page)
     {
-        $html[] = "<ul class=\"dropdown\">";
-        foreach ($page->pages as $subpage) 
-        {
-            $html[] = "<li class=\"has-dropdown\">";
-            if ($href = $subpage->getHref()) 
-            	$html[] = "<a href=\"{$href}\">";
-            else 
-            	$html[] = "<span>";
-            	$html[] = $subpage->getLabel();
-            	
-            if ($href) 
-            	$html[] = "</a>";
-            else 
-            	$html[] = "</span>";     
-                   
-            $html[] = "</li>";
-        }
-        $html[] = "</ul>";
-    }
+        echo '<li class="dropdown">' . "\n";
 
-    $html[] = "</li>";
+        $href = $page->uri;
+        $target = !empty($page->pages) ? null : "_self";
+        $class = !empty($page->pages) ? 'dropdown-toggle' : "";
+        $toggle = !empty($page->pages) ? "dropdown" : "";
+        $icon = !empty($page->icon) ? "<i class=\"" . $page->icon . "\"></i> " : "";
+        
+        echo '<a href="' . $href . '" class="'.$class.'" data-toggle="'.$toggle.'" target="' . $target . '">' . $icon . $translator->translate($page->label) . '</a>' . "\n";
+        
+        if (!empty($page->pages))
+        {
+            echo '<ul class="dropdown-menu">' . "\n";
+
+            genMenu($page->pages);
+
+            echo '</ul>' . "\n";
+        }
+
+        echo '</li>' . "\n";
+    }
 }
 
-echo join(PHP_EOL, $html);
+
+echo '<div class="nav-collapse"><ul class="nav nav-pills">' . "\n";
+
+genMenu($this->container);
+
+echo '</ul></div>';
+

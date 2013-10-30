@@ -3,8 +3,6 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
-
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
 	   <? foreach( $form->getElements() as $field){
@@ -13,7 +11,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -21,27 +19,30 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<div id="tabs">
-		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 		</ul>
     
-	    <div id="tab1"> 
-		    <fieldset class="column-left"> 
-		        <?php echo $form->firstname->render() ?>
-		        <?php echo $form->lastname->render() ?>
-		        <?php echo $form->email->render() ?>
-		        <?php echo $form->password->render() ?>
-		    </fieldset>
-		    <fieldset class="column-right"> 
-		        <?php echo $form->role_id->render()?>
-		        <?php echo $form->isp_id->render()?>
-		    </fieldset>
-    	</div>
+    	<div class="content_inner">
 	    
-   		<div class="clear"></div>
-   		<?php echo $form->user_id->render()?>
+		    <div class="tab-pane" id="tab1"> 
+		    	<div class="row-fluid">
+				    <fieldset class="span6"> 
+				        <?php echo $form->firstname->render() ?>
+				        <?php echo $form->lastname->render() ?>
+				        <?php echo $form->email->render() ?>
+				        <?php echo $form->password->render() ?>
+				    </fieldset>
+				    <fieldset class="span6"> 
+				        <?php echo $form->role_id->render()?>
+				        <?php echo $form->isp_id->render()?>
+				    </fieldset>
+				</div>
+	    	</div>
+		    
+	   		<?php echo $form->user_id->render()?>
+	   	</div>
    	</div>
 </form>
 
-</div>

@@ -45,7 +45,7 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Purchases list");
 		$this->view->description = $this->translator->translate("Here you can see all the purchases.");
-		$this->view->buttons = array(array("url" => "/admin/purchases/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/purchases/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( PurchaseInvoices::grid() )->datagrid ();
 	}
 
@@ -95,8 +95,8 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/purchases/process" );
 		$this->view->title = $this->translator->translate("New Purchase Invoice");
 		$this->view->description = $this->translator->translate("Create a new purchase invoice using this form.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/purchases/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+									 array("url" => "/admin/purchases/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -155,9 +155,9 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/purchases/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/purchases/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/purchases/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/purchases/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		$this->view->title = $this->translator->translate("Purchases Edit");
@@ -175,7 +175,7 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 				$this->view->attachment = $rs['document'];
 				$form->populate ( $rs );
 				
-				$this->view->buttons[] = array("url" => "/admin/purchases/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/purchases/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
 				
 			}
 		}
@@ -198,9 +198,9 @@ class Admin_PurchasesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/banks/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/banks/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		// Check if we have a POST request

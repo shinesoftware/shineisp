@@ -47,7 +47,7 @@ class Admin_WikiController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Wiki list");
 		$this->view->description = $this->translator->translate("Here you can see all the wiki articles.");
-		$this->view->buttons = array(array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( Wiki::grid() )->datagrid ();
 	}
 
@@ -97,8 +97,8 @@ class Admin_WikiController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/wiki/process" );
 		$this->view->title = $this->translator->translate("Wiki Details");
 		$this->view->description = $this->translator->translate("Here you can reply to all the customers requests");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+									 array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -154,9 +154,9 @@ class Admin_WikiController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -165,7 +165,7 @@ class Admin_WikiController extends Shineisp_Controller_Admin {
 			
 			if (! empty ( $rs [0] )) {
 				$form->populate ( $rs [0] );
-				$this->view->buttons[] = array("url" => "/admin/wiki/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/wiki/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
 			}
 		}
 		
@@ -188,9 +188,9 @@ class Admin_WikiController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/wiki/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/wiki/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		// Check if we have a POST request

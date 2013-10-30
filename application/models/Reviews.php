@@ -21,7 +21,7 @@ class Reviews extends BaseReviews
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'r.subject', 'alias' => 'subject', 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'City' ), 'field' => 'r.city', 'alias' => 'city', 'type' => 'string' );
@@ -245,6 +245,7 @@ class Reviews extends BaseReviews
 	 * @return array
 	 */
 	public static function summary() {
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$newarray = array();
 		$chart = "";
 
@@ -266,7 +267,11 @@ class Reviews extends BaseReviews
 			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
 		}
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
+		
+		return $records;
 	}      
 	
 	/**

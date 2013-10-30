@@ -1,0 +1,17 @@
+<?php $form = $this->form; ?>	
+
+<? if( $form->isErrors() ): ?>
+    <div class="alert alert-block">
+       <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <h4><?php echo $this->translate('Warning!');?></h4>
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<p>".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</p>";
+	        }   
+	   } ?>
+    </div>
+<? endif; ?>

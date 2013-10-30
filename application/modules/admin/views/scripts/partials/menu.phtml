@@ -3,8 +3,8 @@
     foreach ($this->container as $page) :
     /** @var $page Zend_Navigation_Page_Mvc */
     ?>
-        <li class="<?=$page->isActive(true) ? 'active' : ''?>">
-            <a href="<?=$page->getHref()?>"><b><?=$page->label?></b></a>
+        <li class="<?php echo $page->isActive(true) ? 'active' : ''?>">
+            <a href="<?php echo $page->getHref()?>"><b><?php echo $page->label?></b></a>
         </li>
     <? endforeach; ?>
 </ul>

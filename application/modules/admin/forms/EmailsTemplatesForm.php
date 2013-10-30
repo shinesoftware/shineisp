@@ -11,14 +11,14 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('E-Mail Name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 		
     	$this->addElement('select', 'type', array(
             'label'      => $translate->_('Section'),
-            'decorators' => array('Composite'),
-    		'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+    		'class'      => 'input-large'
         ));
         $this->getElement('type')
                   ->setAllowEmpty(false)
@@ -38,50 +38,50 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('From name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('text', 'fromemail', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('From E-Mail'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('text', 'cc', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Always CC'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('text', 'bcc', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Always BCC'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('checkbox', 'plaintext', array(
             'label'      => $translate->_('Always send in plaintext'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
 
     	$this->addElement('checkbox', 'active', array(
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
 		
 		$this->addElement('text', 'subject', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('E-Mail Subject'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));		 
 		$this->addElement('textarea', 'html', array(
             'filters'    => array('StringTrim'),
@@ -95,8 +95,8 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
 		
         $this->addElement('submit', 'save', array(
             'label'    => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn'
         ));
                 
         $this->addElement('hidden', 'template_id');

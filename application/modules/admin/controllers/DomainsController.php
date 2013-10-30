@@ -58,7 +58,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Domains list");
 		$this->view->description = $this->translator->translate("Here you can see all the domains.");
-		$this->view->buttons = array(array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
 		$this->datagrid->setConfig ( Domains::grid () )->datagrid ();
 	}
 	
@@ -108,8 +108,8 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( '/admin/domains/process' );
 		$this->view->title = $this->translator->translate("New Domain");
 		$this->view->description = $this->translator->translate("Here you can create a new domain.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+									 array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		$this->render ( 'applicantform' );
@@ -200,10 +200,10 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 			
 			// Create the buttons in the edit form
 			$this->view->buttons = array(
-					array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-					array("url" => "/admin/domains/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
-					array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))),
-					array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+					array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+					array("url" => "/admin/domains/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
+					array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))),
+					array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 			);
 			
 			try {
@@ -278,9 +278,9 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
+				array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
 		);
 		
 		try {

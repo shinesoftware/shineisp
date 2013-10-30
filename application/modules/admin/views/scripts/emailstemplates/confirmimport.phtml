@@ -2,9 +2,9 @@
 <?php echo $this->render('partials/headers.phtml'); ?>
 
 <div class="content_inner">
-	<p><?=$this->description; ?></p><br/>
+	<p><?php echo $this->description; ?></p><br/>
 	<p>
-		<a class="button" href="<?=$this->back;?>"><?=$this->translate('No, I don\'t!'); ?></a>
-		<a class="button button_red" href="<?=$this->goto;?>"><?=$this->translate('YES, I want to do it!'); ?></a>
+		<a class="button" href="<?php echo $this->back;?>"><?php echo $this->translate('No, I don\'t!'); ?></a>
+		<a class="button button_red" href="<?php echo $this->goto;?>"><?php echo $this->translate('YES, I want to do it!'); ?></a>
 	</p>
 </div>

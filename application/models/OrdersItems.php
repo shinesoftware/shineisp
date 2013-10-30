@@ -21,7 +21,7 @@ class OrdersItems extends BaseOrdersItems {
 		$ns = new Zend_Session_Namespace ();
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.detail_id', 'alias' => 'id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('width' => 50) );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Service' ), 'field' => 'pd.name', 'alias' => 'productname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -568,6 +568,7 @@ class OrdersItems extends BaseOrdersItems {
 	 * @return Doctrine Record / Array
 	 */
 	public static function getAllRecurringServices($fields="*", $productgroups = array(), $locale=1) {
+		
 		$items = Doctrine_Query::create ()
 						->from ( 'OrdersItems oi' )
 						->leftJoin ( 'oi.BillingCycle bc' )

@@ -19,7 +19,7 @@ class CreditNotes extends BaseCreditNotes
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Credit Note' ), 'field' => 'cn_number', 'alias' => 'cn_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.number', 'alias' => 'cn_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

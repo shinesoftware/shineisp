@@ -11,52 +11,52 @@ class Admin_Form_ServicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Creation date'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input date'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'little-input date'
         ));
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input date'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'little-input date'
         ));   
 
         $this->addElement('text', 'quantity', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Quantity'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'little-input'
         ));           
         
         $this->addElement('textarea', 'message', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Message'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'description' => $translate->_('Write here a note. An email will be sent to the ISP staff.'),
-            'decorators' => array('Composite'),
-            'class'      => 'textarea'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'span12'
         ));
         
         $this->addElement('textarea', 'setup', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup Configuration'),
             'description' => $translate->_('Here you can read the service configuration written by the ISP modules. These information are read-only.'),
-            'decorators' => array('Composite'),
-            'class'      => 'textarea'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'span12'
         ));
         
         $this->addElement('select', 'order_id', array(
         'label' => $translate->_('Orders'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'input-large'
         ));
         
         $this->getElement('order_id')
@@ -65,8 +65,8 @@ class Admin_Form_ServicesForm extends Zend_Form
                   
         $this->addElement('multiselect', 'domains', array(
         'label' => $translate->_('Available domains'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input tmpitems'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'input-large tmpitems'
         ));
         
         $this->getElement('domains')
@@ -76,8 +76,8 @@ class Admin_Form_ServicesForm extends Zend_Form
 
         $this->addElement('multiselect', 'domains_selected', array(
         'label' => $translate->_('Selected domains'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input items'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'input-large items'
         ));        
 
         $this->getElement('domains_selected')
@@ -85,8 +85,8 @@ class Admin_Form_ServicesForm extends Zend_Form
 
         $this->addElement('select', 'product_id', array(
         'label' => $translate->_('Products'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'input-large'
         ));
         
         $this->getElement('product_id')
@@ -95,8 +95,8 @@ class Admin_Form_ServicesForm extends Zend_Form
 
         $this->addElement('select', 'billing_cycle_id', array(
         'label' => $translate->_('Billing Cycle'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'input-large'
         ));
         
         $this->getElement('billing_cycle_id')
@@ -105,8 +105,8 @@ class Admin_Form_ServicesForm extends Zend_Form
 
         $this->addElement('select', 'status_id', array(
         'label' => $translate->_('Status'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'input-large'
         ));
         
         $this->getElement('status_id')
@@ -115,10 +115,10 @@ class Admin_Form_ServicesForm extends Zend_Form
         
 		$this->addElement('select', 'autorenew', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Auto Renewal'),
             'description' => $translate->_('Enable or disable the automatic renewal of the service'),
-            'class'       => 'text-input large-input'
+            'class'       => 'input-large'
         ));
         
         $this->getElement('autorenew')

@@ -11,13 +11,13 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Group name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
     	$this->addElement('select', 'fill_type', array(
             'label'      => $translate->_('Fill type'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
         $this->getElement('fill_type')
                   ->setAllowEmpty(false)
@@ -36,7 +36,7 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
 
 		$this->addElement('multiselect', 'servers', array(
             'label'      => $translate->_('Servers'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
     		'size'	     => '10x',
             'class'      => 'multiselect'
         ));
@@ -48,7 +48,7 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
 
     	$this->addElement('checkbox', 'active', array(
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
         
         $this->addElement('hidden', 'group_id');

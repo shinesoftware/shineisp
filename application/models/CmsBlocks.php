@@ -21,7 +21,7 @@ class CmsBlocks extends BaseCmsBlocks
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cms.block_id', 'alias' => 'block_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cms.block_id', 'alias' => 'block_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'block_id', 'alias' => 'block_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Variable' ), 'field' => 'cms.var', 'alias' => 'var', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'cms.publishedat', 'alias' => 'creationdate', 'sortable' => true, 'searchable' => true, 'type' => 'date' );

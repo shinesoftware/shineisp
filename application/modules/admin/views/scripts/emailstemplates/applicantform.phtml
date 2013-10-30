@@ -5,7 +5,7 @@
 
 <div class="content_inner">
 
-<div id="mex" class="notification infos hidden"></div>
+<div id="mex" class="alert alert-info hidden"></div>
 
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
@@ -15,7 +15,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -23,13 +23,13 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Content (HTML)');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('Content (Text)');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Content (HTML)');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Content (Text)');?></a></li> 
 		</ul>
-		<div id="tab1"> 
+		<div class="tab-pane active" id="tab1"> 
 			<fieldset class="column-left"> 
 				<?php echo $form->name->render() ?>
 				<?php echo $form->type->render() ?>
@@ -43,7 +43,7 @@
 				<?php echo $form->plaintext->render() ?>
 				<?php echo $form->active->render()?>
 			</fieldset>
-			<div class="clear"></div>
+			
 		</div>
 		
 		<div id="tab2"> 

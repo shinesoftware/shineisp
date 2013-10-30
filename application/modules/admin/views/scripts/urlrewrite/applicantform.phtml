@@ -6,7 +6,7 @@
 <div class="content_inner">
 
 <?php if(!empty($this->mex)) :?>
-    <div class="notification <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+    <div class="notification <?php echo  $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 <?php endif;?>
     
 <? if( $form->isErrors() ): ?>
@@ -17,7 +17,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -29,12 +29,12 @@
 	  	<?php echo $form->save->render()?>
 	</p>	
 	
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 		</ul>
     
-	    <div id="tab1"> 
+	    <div class="tab-pane active" id="tab1"> 
             <?php echo $form->request_path->render()?>
             <?php echo $form->target_path->render()?>
             <?php echo $form->category_id->render()?>

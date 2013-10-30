@@ -19,7 +19,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.task_id', 'alias' => 'task_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.task_id', 'alias' => 'task_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.task_id', 'alias' => 'task_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Action' ), 'field' => 'dt.action', 'alias' => 'action', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'd.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -319,6 +319,8 @@ class DomainsTasks extends BaseDomainsTasks {
 	 * @return Array
 	 */
 	public static function Last($limit=10) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		
 		$dq = Doctrine_Query::create ()
 								->select("DATE_FORMAT(startdate, '%d/%m/%Y %H:%i:%s') as startdate, 
 										  DATE_FORMAT(enddate, '%d/%m/%Y %H:%i:%s') as enddate,
@@ -339,7 +341,18 @@ class DomainsTasks extends BaseDomainsTasks {
                ->whereIn( "c.isp_id", $logged_user['isp_id']);
         }
 
-        $records    = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        
+        // adding the index reference
+        $records['index'] = "task_id";
+        
+        // Create the header table columns
+        $records['fields'] = array('startdate' => array('label' => $translator->translate('Start Date')),
+					        		'enddate' => array('label' => $translator->translate('End Date')),
+					        		'domain' => array('label' => $translator->translate('Domain'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'action' => array('label' => $translator->translate('Action')),
+					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'status' => array('label' => $translator->translate('Status')));
         
 		return $records;
 	}

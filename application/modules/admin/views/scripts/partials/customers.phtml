@@ -1,6 +1,6 @@
 
 <?php if(!empty($this->customers)): ?>
-	<select id="fastwidget" class="goto">
+	<select id="fastwidget" class="nav-collapse collapse">
 	<?php foreach ($this->customers as $id => $customer): ?>
 		<option value="/admin/customers/edit/id/<?php echo $id ?>"><?php echo $customer ?></option>
 	<?php endforeach;?>

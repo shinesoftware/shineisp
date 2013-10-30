@@ -52,6 +52,11 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		// Custom XML file inclusion of the js files 
 		if (! empty ( $js )) {
 			
+			// Fast including of the js file using the module name
+			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$module.js")){
+				$js[]['resource'] = "/skins/$module/$skin/js/$module.js";
+			}
+			
 			// Fast including of the js file for the controller
 			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$controller.js")){
 				$js[]['resource'] = "/skins/$module/$skin/js/$controller.js";
@@ -105,6 +110,11 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		
 		// Custom XML file inclusion of the css files
 		if (! empty ( $css )) {
+
+			// Fast including of the css file using the module name
+			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/css/$module.css")){
+				$css[]['resource'] = "/skins/$module/$skin/css/$module.css";
+			}
 
 			// Fast including of the css file for the controller
 			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/css/$controller.css")){

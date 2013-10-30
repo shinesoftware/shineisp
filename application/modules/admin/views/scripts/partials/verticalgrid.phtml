@@ -11,9 +11,11 @@ if (isset($this->records[0])):
 	
 	// Main index of the record
 	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
+	
+	$res = array();
 	?>
 	
-	<table border="0" cellpadding="5" class="simplegrid data">
+	<table class="table data">
 	    <tbody>
 	        <?php // Creation of the Rows and Columns?>
 	        <?php foreach ( $this->records as $record ) : ?>
@@ -25,8 +27,8 @@ if (isset($this->records[0])):
 		             $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";?>
 		             <?php if(!empty($value)): ?>
 		                <tr>
-				            <td width="15%" class="fields"><?=$this->translate(ucfirst($field))?></td>
-			                <td class="values"><?=$value?></td>
+				            <td width="15%" class="fields"><?php echo $this->translate(ucfirst($field))?></td>
+			                <td class="values"><?php echo $value?></td>
 				        </tr>
 		              <?php endif;?>
 		           <?php endif;?>
@@ -36,20 +38,20 @@ if (isset($this->records[0])):
 	        <?php // Edit Section available only for the administration functions ?>
 	        <?php if($this->editpage):?>
 	        <tr>
-	           <td><?=$this->translate('Commands'); ?></td>
+	           <td><?php echo $this->translate('Commands'); ?></td>
 	           <td>
-	               <a class="button" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?=$this->translate('Click here to edit'); ?>"><?=$this->translate('Edit'); ?></a>
-	               <a class="button" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?=$this->translate('Delete'); ?>"><?=$this->translate('Delete'); ?></a>
+	               <a class="btn" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?php echo $this->translate('Click here to edit'); ?>"><?php echo $this->translate('Edit'); ?></a>
+	               <a class="btn" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?php echo $this->translate('Delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
 	           </td>
 	        </tr>
 	        <?php endif;?>
 	    </tbody>
 	    <tfoot>
 	       <tr>
-	           <td colspan="<?=$numcols?>"></td>
+	           <td colspan="<?php echo $numcols?>"></td>
 	       </tr>
 	    </tfoot>
 	</table>
 	<?php else: ?>
-	<div class="notification infos"><?=$this->translate('norecords')?></div>
+	<div class="alert alert-info"><?php echo $this->translate('norecords')?></div>
 <?php endif; ?>

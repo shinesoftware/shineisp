@@ -15,15 +15,14 @@ if (isset($this->records[0])):
     $numcols = count($fields);
 ?>
     
-    <div class="notification infos" id="mex" style="display:none"></div>
-        <table border="0" cellpadding="5" class="data sublist" id="sublist_<?=$this->name?>">
+        <table border="0" cellpadding="5" class="table data sublist" id="sublist_<?php echo $this->name?>">
             <thead>
                 <tr>
                     <?php // Creation of the Rows and Columns?>
                     <?php foreach ( $columns as $column ) : ?>
                     	<th><?php echo $column; ?></th>
                     <?php endforeach;?>
-                    <?php if($this->view || $this->edit || $this->delete || $this->actions ):?><th><?=$this->translate('Commands');?></th><?php endif;?>
+                    <?php if($this->view || $this->edit || $this->delete || $this->actions ):?><th><?php echo $this->translate('Commands');?></th><?php endif;?>
                 </tr>
             </thead>
             <tbody>
@@ -37,21 +36,21 @@ if (isset($this->records[0])):
 	                         Shineisp_Commons_Utilities::search(array($field), $record, $res);
 	                         $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";
 	                         ?>
-	                         <td class="values"><?=$value?></td>
+	                         <td class="values"><?php echo $value?></td>
                          <?php endif;?>
                    <?php endforeach;?>
                    <?php if($this->view || $this->edit || $this->delete || $this->actions):?>
                    <td>
 	                    <?php if($this->view):?>
-                           <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->view['controller'] . "/" . $this->view['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('Click here to view'); ?>"><?=$this->translate('View'); ?></a>
+                           <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->view['controller'] . "/" . $this->view['action'] . "/id/" . $record[$fields[0]]?>" title="<?php echo $this->translate('Click here to view'); ?>"><?php echo $this->translate('View'); ?></a>
                         <?php endif;?>
 
 	                    <?php if($this->edit):?>
-                            <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->edit['controller'] . "/" . $this->edit['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('Click here to edit'); ?>"><?=$this->translate('Edit'); ?></a>
+                            <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->edit['controller'] . "/" . $this->edit['action'] . "/id/" . $record[$fields[0]]?>" title="<?php echo $this->translate('Click here to edit'); ?>"><?php echo $this->translate('Edit'); ?></a>
                         <?php endif;?>
                         
                         <?php if($this->delete):?>
-                            <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('delete'); ?>"><?=$this->translate('Delete'); ?></a>
+                            <a target="<?php echo $this->targetlink ?>" href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record[$fields[0]]?>" title="<?php echo $this->translate('delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
                         <?php endif;?>
                         
                         <?php if($this->actions && count($this->actions) > 1):?>
@@ -68,7 +67,7 @@ if (isset($this->records[0])):
                         
                         <?php if($this->onclick):?>
 	                        <?php foreach ($this->onclick as $onclick=>$name): ?>
-	                            <a href="#" title="<?=$this->translate($name); ?>" onclick="<?=str_replace('[id]', $record[$fields[0]], $onclick);?>" >
+	                            <a href="#" title="<?php echo $this->translate($name); ?>" onclick="<?php echo str_replace('[id]', $record[$fields[0]], $onclick);?>" >
 	                            	<?php echo $name; ?>
 	                            </a>
 	                        <?php endforeach;?>
@@ -83,5 +82,5 @@ if (isset($this->records[0])):
         </table>
  
     <?php else: ?>
-    <div class="notification infos"><?=$this->translate('No Records')?></div>
+    <div class="alert alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>

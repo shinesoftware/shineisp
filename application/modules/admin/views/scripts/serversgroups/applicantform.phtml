@@ -5,7 +5,7 @@
 
 <div class="content_inner">
 
-<div id="mex" class="notification infos hidden"></div>
+<div id="mex" class="alert alert-info hidden"></div>
 
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
@@ -15,7 +15,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    

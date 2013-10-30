@@ -33,7 +33,7 @@ class Shineisp_Commons_Ajaxgrid {
 		
 		$this->id = "itemlist";
 		$this->addfooterfilters = false;
-		$this->css = "datatable";
+		$this->css = "table table-striped table-hover";
 		$this->script = "";
 		$this->title = "";
 		$this->hiddencols = array();
@@ -43,6 +43,26 @@ class Shineisp_Commons_Ajaxgrid {
 		$this->currentaction = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		$this->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$this->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
+	}
+	
+	/**
+	 * create
+	 * Create the data grid table
+	 * @return string
+	 */
+	public function create() {
+	
+	    $this->Script ();
+	    $table = $this->Begin ();
+	    $table .= $this->Header ();
+	    $table .= "<thead>";
+	    $table .= $this->addTitle ();
+	    $table .= $this->setHeaderColumns ();
+	    $table .= "</thead>";
+	    $table .= $this->addFooter ();
+	    $table .= $this->End ();
+	
+	    return $table;
 	}
 	
 	/**
@@ -292,33 +312,12 @@ class Shineisp_Commons_Ajaxgrid {
 		return $this;
 	}
 	
-	/**
-	 * create
-	 * Create the data grid table
-	 * @return string
-	 */
-	public function create() {
-		
-		$this->Script ();
-		
-		$table = $this->Begin ();
-		$table .= $this->Header ();
-		$table .= "<thead>";
-		$table .= $this->addTitle ();
-		$table .= $this->setHeaderColumns ();
-		$table .= "</thead>";
-		$table .= $this->addFooter ();
-		$table .= $this->End ();
-		
-		return $table;
-	}
-	
 	/*
 	 * Begin
 	 * html to inject begin the table
 	 */
 	private function Begin() {
-		$this->begin .= '<div id="mex" style="display:none"></div>';
+		$this->begin .= '<div class="alert" id="mex" style="display:none"></div>';
 		return $this->begin;
 	}
 	
@@ -327,8 +326,7 @@ class Shineisp_Commons_Ajaxgrid {
 	 * start section of the table
 	 */
 	private function Header() {
-		$head = "";
-		$head .= "<table id=\"".$this->id."\" class=\"display ".$this->css."\">";
+		$head = "<table id=\"".$this->id."\" class=\"display ".$this->css."\">";
 		return $head;
 	}
 	
@@ -455,7 +453,21 @@ class Shineisp_Commons_Ajaxgrid {
 			$row['Row'] = "row_$i";
 			foreach ( $columns as $column ) {
 				if(!empty($column['alias'])){
-					$row[] = $record [$column ['alias']];
+					if(!empty($column['type'])){
+						if($column['type'] == "boolean"){
+							$badge = ($record [$column ['alias']] == 1) ? "badge-success" : "badge-important";
+							$label = ($record [$column ['alias']] == 1) ? $this->translator->translate("Yes") : $this->translator->translate("No");
+							$row[] = "<span class=\"badge $badge\">" . $label . "</span>";
+						}elseif($column['type'] == "index"){
+							$badge = "badge-" . strtolower($record [$column ['alias']]);
+							$label = $this->translator->translate($record [$column ['alias']]);
+							$row[] = "<span class=\"badge $badge\">$label</span>";
+						}else{
+							$row[] = $record [$column ['alias']];
+						}
+					}else{
+						$row[] = $record [$column ['alias']];
+					}
 				}
 			}
 			$records[] = $row;
@@ -512,7 +524,16 @@ class Shineisp_Commons_Ajaxgrid {
 	 */
 	private function parseColumns() {
 		// Adding the index in all the rows
-		$this->scriptoptions["fnRowCallback"] = "function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) { var id = aData[0]; $(nRow).attr(\"id\", id); return nRow;}";
+		$this->scriptoptions["fnRowCallback"] = "function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) { ";
+		
+		for($i = 0; $i < count ( $this->columns ); $i ++) {
+			if(!empty($this->columns[$i]['attributes']['class'])){
+				$this->scriptoptions["fnRowCallback"] .= "$('td:eq($i)', nRow).addClass( \"".$this->columns[$i]['attributes']['class']."\" );";
+			}
+		}
+		
+		$this->scriptoptions["fnRowCallback"] .= "var id = aData[0]; $(nRow).attr(\"id\", id);";
+		$this->scriptoptions["fnRowCallback"] .= "return nRow;}";
 		
 		for($i = 0; $i < count ( $this->columns ); $i ++) {
 			
@@ -578,7 +599,7 @@ class Shineisp_Commons_Ajaxgrid {
 	
 	/**
 	 * Enable or disable state saving. When enabled a cookie will be used to save table display information such as pagination information, display length, filtering and sorting. 
-	 * As such when the end user reloads the page the display display will match what thy had previously set up.
+	 * As such when the end user reloads the page the display will match what thy had previously set up.
 	 * 
 	 * @param boolean $state
 	 */
@@ -614,10 +635,20 @@ class Shineisp_Commons_Ajaxgrid {
 	 * 
 	 * @param string $state [full_numbers, twobutton]
 	 */
-	public function setRowsList($rows = array ('10', '50', '100', 'All' ), $default=25) {
-		
+	public function setRowsList($rows = array ('10', '50', '100' ), $default=25) {
+	    $lblrows = array();
 		if($rows){
-			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . "], [" . implode(",", $rows) . "]]";
+		    foreach ($rows as $row){
+		        $lblrows[] = "'" . $this->translator->_('%s items', $row) . "'";
+		    }
+		    
+			$sInfo = $this->translator->_('Got a total of _TOTAL_ entries to show (_START_ to _END_)');
+			$sSearch = $this->translator->_('Search _INPUT_');
+			$sProcessing = $this->translator->_('Please wait, it is currently busy');
+			$sLengthMenu = $this->translator->_('Show _MENU_');
+			
+			$this->scriptoptions['oLanguage'] = "{\"sLengthMenu\": \"$sLengthMenu\", \"sInfo\": \"$sInfo\", \"sProcessing\": \"$sProcessing\", \"sSearch\": \"$sSearch\"}";
+			$this->scriptoptions['aLengthMenu'] = "[[" . implode(",", $rows) . ",-1], [" . implode(",", $lblrows) . ",'" . $this->translator->translate('Show All') . "']]";
 			$this->scriptoptions['iDisplayLength'] = "'$default'";
 		}
 		return $this;
@@ -641,7 +672,7 @@ class Shineisp_Commons_Ajaxgrid {
 	 * @param boolean $state
 	 */
 	public function addFooterFilters() {
-		$this->jsbeforeinject .= 'var asInitVals = new Array();';
+		$this->jsbeforeinject .= 'var asInitVals = new Array();' . "\n";
 		$this->addfooterfilters = true;
 		$this->jsendinject .= '
 				$("tfoot input").keyup( function (e) {
@@ -742,18 +773,20 @@ class Shineisp_Commons_Ajaxgrid {
 	private function createFilters() {
 		$colnum = count ( $this->columns );
 	
-		$footer = "<tr>";
-		$footer .= "<th></th>";
+		$filters = "<tr>";
+		$filters .= "<th></th>";
 		for($i = 1; $i < count ( $this->columns ); $i ++) {
-			$footer .= "<th>";
+			$filters .= "<th ";
+			$filters .= $this->addAttrColumns($i);
+			$filters .= ">";
 			$style = (empty($this->columns[$i]['searchable']) || $this->columns[$i]['searchable'] === false) ? "display:none" : Null;
 			$value = (!empty($this->columns[$i]['searchable']) && $this->columns[$i]['searchable']) ? $this->translator->_('Search %s', $this->columns[$i]['label']) : Null;
 			
-			$footer .= "<input style=\"$style\" id=\"obj_".$this->columns[$i]['alias']."\" name=\"search_".$this->columns[$i]['alias']."\" value=\"". $value ."\" type=\"text\" value=\"\" class=\"search_init\">";
-			$footer .= "</th>";
+			$filters .= "<input style=\"$style\" id=\"obj_".$this->columns[$i]['alias']."\" name=\"search_".$this->columns[$i]['alias']."\" title=\"". $value ."\" type=\"text\" class=\"search_init\">";
+			$filters .= "</th>";
 		}
-		$footer .= "</tr>";
-		return $footer;
+		$filters .= "</tr>";
+		return $filters;
 	}
 	
 	/*
@@ -763,15 +796,12 @@ class Shineisp_Commons_Ajaxgrid {
 	private function addTitle() {
 		$data = "";
 		
-		if(!empty($this->title) || $this->hasFilters ()){
-			
+		if(!empty($this->title)){
 			if(!empty($this->title)){
 				$data = "<caption>";
 				$data .= '<div class="title left">' . $this->title . '</div>';
 				$data .= "</caption>";
 			}
-			
-			
 		}
 		return $data;
 	}
@@ -786,9 +816,8 @@ class Shineisp_Commons_Ajaxgrid {
 			return null;
 		}
 		
-		$data .= $this->translator->translate ( 'Actions' );
-		$data .= ' <select name="actions" id="actions">';
-		$data .= '<option value="">' . $this->translator->translate ( 'Select ...' ) . '</option>';
+		$data .= '<div class="input-append"><select name="actions" id="actions">';
+		$data .= '<option value="">' . $this->translator->translate ( 'Select action ...' ) . '</option>';
 	
 		foreach ($this->massactions as $name => $section){
 			if(is_array($section)){
@@ -800,7 +829,7 @@ class Shineisp_Commons_Ajaxgrid {
 			}
 		}
 		
-		$data .= '<input type="button" rel="' . $this->controller . '" id="bulkactions" value="' . $this->translator->translate ( 'Execute' ) . '"><br/>';
+		$data .= '<input type="button" class="btn" rel="' . $this->controller . '" id="bulkactions" value="' . $this->translator->translate ( 'Execute' ) . '"></div>';
 		return $data;
 	}
 	
@@ -865,7 +894,6 @@ class Shineisp_Commons_Ajaxgrid {
 	}
 	
 	/*
-     * addAttrColumns
      * add the attributes at the cells header of the table
      */
 	private function addAttrColumns($index) {
@@ -877,7 +905,6 @@ class Shineisp_Commons_Ajaxgrid {
 	}
 	
 	/*
-     * createAttributes
      * create the html attribute
      */
 	private function createAttributes($attributes) {
@@ -892,7 +919,6 @@ class Shineisp_Commons_Ajaxgrid {
 	}
 	
 	/*
-	 * SubHeaderColumns
 	 * create the sub header of the table
 	 */
 	private function SubHeaderColumns($columns) {

@@ -12,14 +12,14 @@ class Admin_Form_WikiCategoriesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Category'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
         $this->addElement('select', 'public', array(
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Public'),
-        		'class'       => 'text-input large-input',
+        		'class'       => 'input-large',
         		'multioptions' => array( 0 => $translate->_('NO'), 1 => $translate->_('YES'))
         ));
         

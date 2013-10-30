@@ -13,7 +13,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } ?>
 	</div>    
@@ -21,11 +21,11 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Payments');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('Notes');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Payments');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Notes');?></a></li> 
 		</ul>
 	
 	
@@ -55,17 +55,17 @@
 			        <?php endif; ?>
 			    <?php endif;?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 		   	<?php echo $form->purchase_id->render()?>
 		
 		</div>
 		
-		<div class="ui-tabs-hide" id="tab2">
+		<div class="tab-pane" id="tab2">
 			<?php echo $form->paymentdate->render() ?>
 		 	<?php echo $form->method_id->render() ?>
 		</div>
 		
-		<div class="ui-tabs-hide" id="tab3">
+		<div class="tab-pane" id="tab3">
 		 	<?php echo $form->note->render() ?>
 		</div>
 	</div>

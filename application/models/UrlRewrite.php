@@ -21,7 +21,7 @@ class UrlRewrite extends BaseUrlRewrite
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'u.url_rewrite_id', 'alias' => 'url_rewrite_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'u.url_rewrite_id', 'alias' => 'url_rewrite_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'u.url_rewrite_id', 'alias' => 'url_rewrite_id', 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Request' ), 'field' => 'request_path', 'alias' => 'request_path', 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Target' ), 'field' => 'target_path', 'alias' => 'target_path', 'searchable' => true, 'type' => 'string' );

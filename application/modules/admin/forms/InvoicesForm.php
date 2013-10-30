@@ -11,14 +11,14 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Date'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input date'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'little-input date'
         ));
         
         $this->addElement('select', 'order_id', array(
             'label'      => $translate->_('Order No.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
         
         $this->getElement('order_id')
@@ -27,8 +27,8 @@ class Admin_Form_InvoicesForm extends Zend_Form
 
     	$this->addElement('select', 'customer_parent_id', array(
             'label'      => $translate->_('Invoice destination'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large',
             'disable'    => 'true'
         ));
 
@@ -40,23 +40,23 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Sequential number'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'little-input'
         ));
 
     	$this->addElement('text', 'formatted_number', array(
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Invoice number'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'little-input'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input wysiwyg'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('hidden', 'invoice_id');

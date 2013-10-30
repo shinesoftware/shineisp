@@ -13,7 +13,7 @@
 	        	foreach( $field->getErrors() as $error){
 	        		$errors[] = $this->translate($error);
 	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 	        }   
 	    } 
 	    
@@ -24,7 +24,7 @@
 		        	foreach( $field->getErrors() as $error){
 		        		$errors[] = $this->translate($error);
 		        	}
-		            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+		            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 		        }   
 	    	}	
 	    }
@@ -34,27 +34,27 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
+	<div class="tabbable" id="tabs">
 		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<?php if(!$this->isrecurring): ?><li><a href="#tab2"><?=$this->translate('Prices');?></a></li><?php endif;?> 
-			<?php if($this->isrecurring): ?><li><a href="#tab3"><?=$this->translate('Recurring Prices');?></a></li><?php endif; ?> 
-			<li><a href="#tab4"><?=$this->translate('Categories');?></a></li> 
-			<li><a href="#tab5"><?=$this->translate('Content');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<?php if(!$this->isrecurring): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Prices');?></a></li><?php endif;?> 
+			<?php if($this->isrecurring): ?><li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Recurring Prices');?></a></li><?php endif; ?> 
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Categories');?></a></li> 
+			<li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Content');?></a></li> 
 			<?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-				<li><a href="#tab6"><?=$this->translate('Media');?></a></li>
+				<li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Media');?></a></li>
 			<?php endif;?> 
-			<li><a href="#tab7"><?=$this->translate('Related Products');?></a></li>
-			<li><a href="#tab8"><?=$this->translate('Product Upgrades');?></a></li>
-			<li><a href="#tab9"><?=$this->translate('Orders');?></a></li> 
-			<li><a href="#tab10"><?=$this->translate('Attributes');?></a></li> 
-			<li><a href="#tab11"><?=$this->translate('Blocks');?></a></li> 
-			<li><a href="#tab12"><?=$this->translate('Metatags');?></a></li> 
-			<li><a href="#tab13"><?=$this->translate('Setup');?></a></li> 
+			<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Related Products');?></a></li>
+			<li><a data-toggle="tab" href="#tab8"><?php echo $this->translate('Product Upgrades');?></a></li>
+			<li><a data-toggle="tab" href="#tab9"><?php echo $this->translate('Orders');?></a></li> 
+			<li><a data-toggle="tab" href="#tab10"><?php echo $this->translate('Attributes');?></a></li> 
+			<li><a data-toggle="tab" href="#tab11"><?php echo $this->translate('Blocks');?></a></li> 
+			<li><a data-toggle="tab" href="#tab12"><?php echo $this->translate('Metatags');?></a></li> 
+			<li><a data-toggle="tab" href="#tab13"><?php echo $this->translate('Setup');?></a></li> 
 		</ul>
     
     
-	    <div class="ui-tabs-hide default-tab" id="tab1"> 
+	    <div class="tab-pane default-tab" id="tab1"> 
 		    <fieldset class=column-left> 
 		    	<?php echo $form->sku->render()?>
 		        <?php echo $form->type->render()?>
@@ -77,21 +77,21 @@
 	            <?php echo $form->tax_id->render()?>
 	            <?php echo $form->welcome_mail_id->render()?>
 	        </fieldset>
-		    <div class="clear"></div>
+		    
 	    </div>
 
 	    <?php if(!$this->isrecurring): ?>
-		    <div class="ui-tabs-hide" id="tab2">
+		    <div class="tab-pane" id="tab2">
 		        <fieldset>
 		            <?php echo $form->price_1->render()?>
 		            <?php echo $form->setupfee->render()?>
 		        </fieldset>
-		        <div class="clear"></div>
+		        
 		   </div>
 	   <?php endif; ?>
 	   
 	   <?php if($this->isrecurring): ?>
-	   <div class="ui-tabs-hide" id="tab3">
+	   <div class="tab-pane" id="tab3">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->tranches) ?>
 	            <div id="trancheform">
@@ -103,84 +103,84 @@
 	                <?php echo $form->tranche_includes_domains->render()?>
 	            </div>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   <?php endif; ?>
 	   
 	   
-	   <div class="ui-tabs-hide" id="tab4">
+	   <div class="tab-pane" id="tab4">
 	        <fieldset>
 	            <div id="categories" name="categories"></div>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab5">
+	   <div class="tab-pane" id="tab5">
 	        <fieldset>
 	        	<?php echo $form->shortdescription->render() ?>
 	            <?php echo $form->description->render() ?>
 	            <?php echo $form->wikipages->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
 	   
 	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-		   <div class="ui-tabs-hide" id="tab6">
+		   <div class="tab-pane" id="tab6">
 		        <fieldset>
-		            <?= $this->simplegrid($this->media);?>
+		            <?php echo  $this->simplegrid($this->media);?>
 		            <?php echo $form->attachments->render() ?>
 		            <?php echo $form->default->render() ?>
 		            <?php echo $form->filedescription->render() ?>
 		        </fieldset>
-		        <div class="clear"></div>
+		        
 		   </div> 
 		<?php endif;?>
-	   <div class="ui-tabs-hide" id="tab7">
+	   <div class="tab-pane" id="tab7">
 	        <fieldset>
 	           	<?php echo $form->related->render() ?>
-	            <div class="clear"></div>
+	            
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab8">
+	   <div class="tab-pane" id="tab8">
 	        <fieldset>
 	           	<?php echo $form->upgrade->render() ?>
-	            <div class="clear"></div>
+	            
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 	   
-	   <div class="ui-tabs-hide" id="tab9">
+	   <div class="tab-pane" id="tab9">
 	        <fieldset>
 	            <?php echo $this->simplegrid($this->orders) ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div> 
-	   <div class="ui-tabs-hide" id="tab10">
+	   <div class="tab-pane" id="tab10">
 	        <fieldset>
 	            <?php if (!empty( $form->attributes)) { echo $form->attributes->render(); } ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab11">
+	   <div class="tab-pane" id="tab11">
 	        <fieldset>
 	            <?php echo $form->blocks->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab12">
+	   <div class="tab-pane" id="tab12">
 	        <fieldset>
 	            <?php echo $form->metakeywords->render() ?>
 	            <?php echo $form->metadescription->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
 	   
-	   <div class="ui-tabs-hide" id="tab13">
+	   <div class="tab-pane" id="tab13">
 	        <fieldset>
 	            <?php echo $form->setup->render() ?>
 	        </fieldset>
-	        <div class="clear"></div>
+	        
 	   </div>    
    	   <?php echo $form->product_id->render()?>
 	</div>

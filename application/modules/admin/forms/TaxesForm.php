@@ -11,16 +11,16 @@ class Admin_Form_TaxesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tax Name'),
             'required'   => true,
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));
 
         $this->addElement('text', 'percentage', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Percentage'),
             'required'   => true,
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'input-large'
         ));  
         
         $this->addElement('hidden', 'tax_id');

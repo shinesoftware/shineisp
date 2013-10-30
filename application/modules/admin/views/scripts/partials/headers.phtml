@@ -1,46 +1,39 @@
 <div id="scrollme" class="overtop sectionheader">
     
-    <div class="headsection float_left">
-    	<div class="headtitle">
+    <div class="page-header pull-left">
+    	<h2 class="headtitle">
     		<?php if(!empty($this->titlelink)): ?>
     			<a href="<?php echo $this->titlelink?>"><?php echo $this->title;?></a>
     		<?php else: ?>
     			<?php echo $this->title;?>
     		<?php endif;?>
     		
-    	</div>
+    	</h2>
     	<?php if(!empty($this->description)): ?>
     		<small><?php echo $this->translate($this->description);?></small>
     	<?php endif; ?>
     	
     </div>
     
-    <div class="float_right">
-		<?php 
-			$buttons = $this->buttons;
-			if(!empty($buttons)){
-				foreach ($buttons as $url => $button){
-					$class   = !empty($button['params']['css']) ? implode(" ", $button['params']['css']) : "";
-					$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
-					$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
-					$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
-					echo '<a class="'.$class.'" '.$id.' href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a> ';
+    <div class="pull-right">
+    	<div class="btn-group">
+    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('Action')?> <span class="caret"></span></a>
+	    	<ul class="dropdown-menu pull-right">
+			<?php 
+				$buttons = $this->buttons;
+				if(!empty($buttons)){
+					foreach ($buttons as $url => $button){
+						$class   = !empty($button['params']['css']) ? implode(" ", $button['params']['css']) : "";
+						$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
+						$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
+						$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
+						echo '<li><a href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a></li>';
+					}
 				}
-			}
-		?>
+			?>
+			</ul>
+		</div>	
 	</div>
 	
 </div>
-<div class="clear"></div>
-
-<?php if(!empty($this->mex)) :?>
-
-	<script type="text/javascript"> 
- 
-	    $(document).ready(function() { 
-	    	$.blockUI({ message: '<h3><?php echo $this->translate($this->mex);?></h3>', timeout: 1500 }); 
-	    }); 
-	 
-	</script> 
-
-<?php endif;?>
+<div class="clearfix"></div>

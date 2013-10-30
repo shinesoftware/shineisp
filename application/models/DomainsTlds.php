@@ -21,7 +21,7 @@ class DomainsTlds extends BaseDomainsTlds
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'TLD' ), 'field' => 'ws.tld', 'alias' => 'tld', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Registration price' ), 'field' => 'dt.new', 'alias' => 'new', 'sortable' => true, 'searchable' => true, 'type' => 'integer' );
