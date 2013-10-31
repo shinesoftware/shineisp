@@ -37,8 +37,12 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
 		$this->addElement('multiselect', 'servers', array(
             'label'      => $translate->_('Servers'),
             'decorators' => array('Bootstrap'),
-    		'size'	     => '10x',
-            'class'      => 'multiselect'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
         
         $this->getElement('servers')

@@ -34,7 +34,12 @@ class Admin_Form_CmsblocksForm extends Zend_Form
         $this->addElement('multiselect', 'language_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Language'),
-            'class'       => 'input-large'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
                 
         $this->getElement('language_id')

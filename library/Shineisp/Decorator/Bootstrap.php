@@ -140,16 +140,17 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 			break;
 			
 			case "Zend_Form_Element_Checkbox":
-				$this->getElement()->setAttrib("class", "checkbox");
-				$label = $element->getView ()->formLabel($element->getFullyQualifiedName(), trim($label), array('class' => 'checkbox'));
+				/* Implement http://www.bootstrap-switch.org/ */
+				$this->getElement()->setAttrib("class", "label-change-switch");
+				$label = $element->getView ()->formLabel($element->getFullyQualifiedName(), trim($label), array('class' => 'label-change-switch'));
 				$pos = strpos($label, ">");
 				$start_label =  substr($label, 0, $pos+1);
-				
+
 				$output = "<div class=\"control-group $iserror $name\">";
 				$output .= "<div class=\"controls\">";
-				$output .= $start_label . $input . $desc . $this->getElement()->getLabel() . "</label>";
-				$output .= "</div>";
-				$output .= "</div>";
+				$output .= $start_label . $this->getElement()->getLabel() . "</label>";
+				$output .= "<div class=\"make-switch\">" . $input . "</div>";
+				$output .= "</div></div>";
 			break;
 			
 			case "Zend_Form_Element_Submit":

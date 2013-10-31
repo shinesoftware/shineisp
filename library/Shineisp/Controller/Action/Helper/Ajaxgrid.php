@@ -104,7 +104,7 @@ class Shineisp_Controller_Action_Helper_Ajaxgrid extends Zend_Controller_Action_
 			$this->view->$placeholder = $mygrid->create();
 			
 			// Adding the script 
-			$this->view->placeholder ("admin_htmlhead" )->append ($mygrid->getScript());
+			$this->view->placeholder ("admin_endbody" )->append ($mygrid->getScript());
 			
 		} catch ( Exception $e ) {
 			unset($this->session->$controller->filters);

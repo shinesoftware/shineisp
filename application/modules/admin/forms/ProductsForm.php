@@ -125,7 +125,12 @@ class Admin_Form_ProductsForm extends Zend_Form
 	        'decorators' => array('Bootstrap'),
 	        'size'	 => '20x',
 	        'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
-	        'class'      => 'input-large'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
 	        ));
 		        
         $this->addElement('multiselect', 'upgrade', array(
@@ -133,7 +138,12 @@ class Admin_Form_ProductsForm extends Zend_Form
 	        'decorators' => array('Bootstrap'),
 	        'size'	 => '20x',
 	        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
-	        'class'      => 'input-large'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
 	        ));		
         $this->getElement('related')
                   ->setAllowEmpty(false)
@@ -273,7 +283,12 @@ class Admin_Form_ProductsForm extends Zend_Form
         $this->addElement('multiselect', 'wikipages', array(
         'label' => $translate->_('Wiki Pages'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large multiselect'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
         
         $this->getElement('wikipages')
@@ -324,7 +339,12 @@ class Admin_Form_ProductsForm extends Zend_Form
         'isArray' => true,
         'label' => $translate->_('Domain included'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
         
         $this->getElement('tranche_includes_domains')

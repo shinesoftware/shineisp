@@ -3,9 +3,6 @@ $(document).ready(function(){
 	// Common controller for the submition of the forms
 	$('#submit').click(function() { $("form:first").submit(); });
 	 
-	 /* MultiSelect Management */
-	$(".multiselect").multiselect({minWidth:350}).multiselectfilter();
-
 	/* Date picker */
 	$(function() {
 		$.datepicker.setDefaults($.datepicker.regional['']); 
@@ -46,6 +43,10 @@ $(document).ready(function(){
 	 });
 	 
 	 $('.wysiwyg').wysihtml5();
+	 
+	 $('.multiselect').selectpicker();
+	 
+	 $('input.rating').rating();
 	 
 });
 

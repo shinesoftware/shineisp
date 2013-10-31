@@ -135,7 +135,12 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Domains Selected'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large selecteditems'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
         
         $this->getElement('domains_selected')
@@ -145,7 +150,12 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->addElement('multiselect', 'domains', array(
             'label'      => $translate->_('Domain'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large tmpitems'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
         
         $this->getElement('domains')

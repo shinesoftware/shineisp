@@ -191,10 +191,10 @@ class ProductsAttributes extends BaseProductsAttributes {
 		try {
 			$records = array();
 			$items = Doctrine_Query::create ()->select ( 'attribute_id, pad.label as label, code' )
-			->from ( 'ProductsAttributes pa' )
-			->leftJoin( 'pa.ProductsAttributesData pad WITH pad.language_id = ' . $locale )
-			->orderBy('pad.label')
-			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+					->from ( 'ProductsAttributes pa' )
+					->leftJoin( 'pa.ProductsAttributesData pad WITH pad.language_id = ' . $locale )
+					->orderBy('pad.label')
+					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 
 			foreach ( $items as $c ) {
 				$records [$c ['attribute_id']] = $c['label'] . " - (" . $c ['code'] . ")";

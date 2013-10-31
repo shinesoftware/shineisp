@@ -20,7 +20,12 @@ class Admin_Form_RolesForm extends Zend_Form
         $this->addElement('multiselect', 'users', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Users'),
-            'class'       => 'input-large'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick span4'
         ));
         
         $this->getElement('users')

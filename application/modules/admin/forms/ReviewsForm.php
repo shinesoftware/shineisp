@@ -88,30 +88,30 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'class'       => 'input-large'
         ));
         
-    	$this->addElement('select', 'stars', array(
+    	$this->addElement('text', 'stars', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
+            'data-clearable'   => $translate->_('Delete'),
+            'data-min'   => "1",
+            'data-max'   => "5",
             'label'      => $translate->_('Stars'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large',
-    		'multiOptions' => array(1 => '1 ' . $translate->_('Star'), 2 => '2 ' . $translate->_('Stars'), 3 => '3 ' . $translate->_('Stars'), 4 => '4 ' . $translate->_('Stars'), 5 => '5 ' . $translate->_('Stars'))
+            'class'      => 'rating',
         ));        
         
-    	$this->addElement('select', 'active', array(
+    	$this->addElement('checkbox', 'active', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Active'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large',
-    		'multiOptions' => array(0 => 'Not Published', 1 => 'Published')
+            'class'      => 'input-large'
         ));        
         
         $this->addElement('textarea', 'review', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
         	'required'    => true,
-            'label'       => $translate->_('Review'),
-            'class'       => 'span12'
+            'class'       => 'span12 wysiwyg'
         ));
         
         $this->addElement('hidden', 'review_id');
