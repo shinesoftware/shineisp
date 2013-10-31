@@ -17,16 +17,16 @@ class Tickets extends BaseTickets {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Update Date' ), 'field' => 't.date_updated', 'alias' => 'updated_at', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'tc.category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'span1 hidden-phone  hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Update Date' ), 'field' => 't.date_updated', 'alias' => 'updated_at', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'span1 hidden-phone') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'tc.category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone hidden-tablet') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 't.subject', 'alias' => 'subject', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Replies' ), 'field' => '', 'alias' => 'replies', 'type' => 'string', 'searchable' => false);
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Attachments' ), 'field' => '', 'alias' => 'files', 'type' => 'string', 'searchable' => false);
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone hidden-tablet'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-phone'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'type' => 'index', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => 'span1'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Replies' ), 'field' => '', 'alias' => 'replies', 'type' => 'index', 'searchable' => false, 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Attachments' ), 'field' => '', 'alias' => 'files', 'type' => 'index', 'searchable' => false, 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet'));
 		
 		$config ['datagrid'] ['fields'] = "t.ticket_id,
 											t.subject as subject, 
