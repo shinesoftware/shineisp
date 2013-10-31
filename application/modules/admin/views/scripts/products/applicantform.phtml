@@ -3,8 +3,6 @@
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
-
 <? if( $form->isErrors() ): ?>
 	<div class="messages">    
 	   <? foreach( $form->getElements() as $field){
@@ -35,7 +33,7 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
 	<div class="tabbable" id="tabs">
-		<ul>
+		<ul class="nav nav-tabs">
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<?php if(!$this->isrecurring): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Prices');?></a></li><?php endif;?> 
 			<?php if($this->isrecurring): ?><li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Recurring Prices');?></a></li><?php endif; ?> 
@@ -53,147 +51,108 @@
 			<li><a data-toggle="tab" href="#tab13"><?php echo $this->translate('Setup');?></a></li> 
 		</ul>
     
-    
-	    <div class="tab-pane default-tab" id="tab1"> 
-		    <fieldset class=column-left> 
-		    	<?php echo $form->sku->render()?>
-		        <?php echo $form->type->render()?>
-		        <?php echo $form->group_id->render() ?>
-		        <?php echo $form->name->render() ?>
-		        <?php echo $form->nickname->render() ?>
-		        <?php echo $form->ishighlighted->render() ?>
-		        <?php echo $form->isrefundable->render() ?>
-		        <?php echo $form->autosetup->render() ?>
-		        <?php echo $form->cost->render()?>
-		    </fieldset>
-		    <fieldset class=column-right>
-		        <?php echo $form->uri->render()?>
-	            <?php echo $form->position->render()?>
-	            <?php echo $form->enabled->render()?>
-	            <?php echo $form->iscomparable->render()?>
-	            <?php echo $form->showonrss->render()?>
-	            <?php echo $form->downgradable->render()?>
-	            <?php echo $form->server_group_id->render()?>
-	            <?php echo $form->tax_id->render()?>
-	            <?php echo $form->welcome_mail_id->render()?>
-	        </fieldset>
-		    
-	    </div>
-
-	    <?php if(!$this->isrecurring): ?>
-		    <div class="tab-pane" id="tab2">
-		        <fieldset>
-		            <?php echo $form->price_1->render()?>
-		            <?php echo $form->setupfee->render()?>
-		        </fieldset>
-		        
-		   </div>
-	   <?php endif; ?>
-	   
-	   <?php if($this->isrecurring): ?>
-	   <div class="tab-pane" id="tab3">
-	        <fieldset>
-	            <?php echo $this->simplegrid($this->tranches) ?>
-	            <div id="trancheform">
-	                <?php echo $form->tranche_qty->render()?>
-	                <?php echo $form->tranche_billing_cycle_id->render()?>
-	                <?php echo $form->tranche_setupfee->render()?>
-	                <?php echo $form->tranche_price->render()?>
-	                <?php echo $form->tranche_measure->render()?>
-	                <?php echo $form->tranche_includes_domains->render()?>
-	            </div>
-	        </fieldset>
-	        
-	   </div> 
-	   <?php endif; ?>
-	   
-	   
-	   <div class="tab-pane" id="tab4">
-	        <fieldset>
-	            <div id="categories" name="categories"></div>
-	        </fieldset>
-	        
-	   </div> 
-	   <div class="tab-pane" id="tab5">
-	        <fieldset>
+    	<div class="tab-content">	
+		    <div class="tab-pane active" id="tab1"> 
+			    <div class=span6> 
+			    	<?php echo $form->sku->render()?>
+			        <?php echo $form->type->render()?>
+			        <?php echo $form->group_id->render() ?>
+			        <?php echo $form->name->render() ?>
+			        <?php echo $form->nickname->render() ?>
+			        <?php echo $form->ishighlighted->render() ?>
+			        <?php echo $form->isrefundable->render() ?>
+			        <?php echo $form->autosetup->render() ?>
+			        <?php echo $form->cost->render()?>
+			    </div>
+			    <div class=span6>
+			        <?php echo $form->uri->render()?>
+		            <?php echo $form->position->render()?>
+		            <?php echo $form->enabled->render()?>
+		            <?php echo $form->iscomparable->render()?>
+		            <?php echo $form->showonrss->render()?>
+		            <?php echo $form->downgradable->render()?>
+		            <?php echo $form->server_group_id->render()?>
+		            <?php echo $form->tax_id->render()?>
+		            <?php echo $form->welcome_mail_id->render()?>
+		        </div>
+		    </div>
+	
+		    <?php if(!$this->isrecurring): ?>
+			    <div class="tab-pane" id="tab2">
+			        <div>
+			            <?php echo $form->price_1->render()?>
+			            <?php echo $form->setupfee->render()?>
+			        </div>
+			   </div>
+		   <?php endif; ?>
+		   
+		   <?php if($this->isrecurring): ?>
+		   <div class="tab-pane" id="tab3">
+		        <div>
+		            <?php echo $this->simplegrid($this->tranches) ?>
+		            <div id="trancheform">
+		                <?php echo $form->tranche_qty->render()?>
+		                <?php echo $form->tranche_billing_cycle_id->render()?>
+		                <?php echo $form->tranche_setupfee->render()?>
+		                <?php echo $form->tranche_price->render()?>
+		                <?php echo $form->tranche_measure->render()?>
+		                <?php echo $form->tranche_includes_domains->render()?>
+		            </div>
+		        </div>
+		   </div> 
+		   <?php endif; ?>
+		   
+		   <div class="tab-pane" id="tab4">
+		        <div>
+		            <div id="categories" name="categories"></div>
+		        </div>
+		   </div> 
+		   
+		   <div class="tab-pane" id="tab5">
+		   		<?php echo $form->wikipages->render() ?>
 	        	<?php echo $form->shortdescription->render() ?>
 	            <?php echo $form->description->render() ?>
-	            <?php echo $form->wikipages->render() ?>
-	        </fieldset>
-	        
-	   </div> 
-	   
-	   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-		   <div class="tab-pane" id="tab6">
-		        <fieldset>
+		   </div> 
+		   
+		   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
+			   <div class="tab-pane" id="tab6">
 		            <?php echo  $this->simplegrid($this->media);?>
 		            <?php echo $form->attachments->render() ?>
 		            <?php echo $form->default->render() ?>
 		            <?php echo $form->filedescription->render() ?>
-		        </fieldset>
-		        
+			   </div> 
+			<?php endif;?>
+			
+		   <div class="tab-pane" id="tab7">
+		   	    <?php echo $form->related->render() ?>
 		   </div> 
-		<?php endif;?>
-	   <div class="tab-pane" id="tab7">
-	        <fieldset>
-	           	<?php echo $form->related->render() ?>
-	            
-	        </fieldset>
-	        
-	   </div> 
-	   <div class="tab-pane" id="tab8">
-	        <fieldset>
-	           	<?php echo $form->upgrade->render() ?>
-	            
-	        </fieldset>
-	        
-	   </div> 	   
-	   <div class="tab-pane" id="tab9">
-	        <fieldset>
-	            <?php echo $this->simplegrid($this->orders) ?>
-	        </fieldset>
-	        
-	   </div> 
-	   <div class="tab-pane" id="tab10">
-	        <fieldset>
-	            <?php if (!empty( $form->attributes)) { echo $form->attributes->render(); } ?>
-	        </fieldset>
-	        
-	   </div>    
-	   
-	   <div class="tab-pane" id="tab11">
-	        <fieldset>
-	            <?php echo $form->blocks->render() ?>
-	        </fieldset>
-	        
-	   </div>    
-	   
-	   <div class="tab-pane" id="tab12">
-	        <fieldset>
-	            <?php echo $form->metakeywords->render() ?>
-	            <?php echo $form->metadescription->render() ?>
-	        </fieldset>
-	        
-	   </div>    
-	   
-	   <div class="tab-pane" id="tab13">
-	        <fieldset>
-	            <?php echo $form->setup->render() ?>
-	        </fieldset>
-	        
-	   </div>    
-   	   <?php echo $form->product_id->render()?>
+		   
+		   <div class="tab-pane" id="tab8">
+		       <?php echo $form->upgrade->render() ?>
+		   </div>
+		    	   
+		   <div class="tab-pane" id="tab9">
+		        <?php echo $this->simplegrid($this->orders) ?>
+		   </div> 
+		   
+		   <div class="tab-pane" id="tab10">
+		   		<?php if (!empty( $form->attributes)) { echo $form->attributes->render(); } ?>
+		   </div>    
+		   
+		   <div class="tab-pane" id="tab11">
+		        <?php echo $form->blocks->render() ?>
+		   </div>    
+		   
+		   <div class="tab-pane" id="tab12">
+		        <?php echo $form->metakeywords->render() ?>
+		        <?php echo $form->metadescription->render() ?>
+		   </div>    
+		   
+		   <div class="tab-pane" id="tab13">
+		        <?php echo $form->setup->render() ?>
+		   </div>    
+		   
+	   	   <?php echo $form->product_id->render()?>
+		</div>
 	</div>
 </form>
-
-<script type="text/javascript">
-	var data = <?php echo $this->categories ?>;
-	
-	$(document).ready(function() {
-		<?php $name = $form->name->getValue(); ?>
-		<?php if(!empty($name) && $this->isSold): ?>
-			$('#name').attr('readonly', 1);
-		<?php endif;?>
-	});
-</script>
-</div>

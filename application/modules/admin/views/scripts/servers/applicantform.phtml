@@ -29,7 +29,7 @@
         <div class="tab-content">
     	    <div class="tab-pane active" id="tab1"> 
     	        <div class="row-fluid">
-        	        <fieldset class="span6"> 
+        	        <div class="span6"> 
         	            <?php echo $form->isp_id->render() ?>
         	            <?php echo $form->type_id->render() ?>
         	            <?php echo $form->name->render() ?>
@@ -37,8 +37,8 @@
         				<?php echo $form->panel_id->render()?> 
         				<?php echo $form->cost->render()?>
         				<?php echo $form->buy_date->render()?>
-        	        </fieldset>
-        	        <fieldset class="span6"> 
+        	        </div>
+        	        <div class="span6"> 
         	            <?php echo $form->netmask->render()?>
         	            <?php echo $form->host->render()?>
         	            <?php echo $form->domain->render()?>
@@ -46,7 +46,7 @@
         	            <?php echo $form->datacenter->render()?>
         	            <?php echo $form->max_accounts->render()?>
         	            <?php echo $form->is_default->render()?>
-        	        </fieldset>
+        	        </div>
     	        </div>
     	    </div>
         

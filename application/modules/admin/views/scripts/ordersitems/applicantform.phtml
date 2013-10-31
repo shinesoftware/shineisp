@@ -30,7 +30,7 @@
 		<div class="tab-content">
 		    <div class="tab-pane active" id="tab1"> 
 		    	<div class="row-fluid">
-				    <fieldset class="span6"> 
+				    <div class="span6"> 
 				        <?php echo $form->product_id->render() ?>
 				        <?php echo $form->quantity->render() ?>
 				        <?php echo $form->price->render() ?>
@@ -39,12 +39,12 @@
 				        <?php echo $form->billing_cycle_id->render() ?>
 				        <?php echo $form->status_id->render() ?>
 				        <?php echo $form->autorenew->render() ?>
-				    </fieldset>
-				    <fieldset class="span6"> 
+				    </div>
+				    <div class="span6"> 
 				    	<?php echo $form->cost->render() ?>
 				        <?php echo $form->setupfee->render() ?>
 				        <?php echo $form->description->render() ?>
-				    </fieldset>
+				    </div>
 			    </div>
 		    </div>
 		    

@@ -25,13 +25,13 @@ class ProductsAttributes extends BaseProductsAttributes {
 		}
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Code' ), 'field' => 'code', 'alias' => 'code', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pa.attribute_id', 'alias' => 'attribute_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Code' ), 'field' => 'code', 'alias' => 'code', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Label' ), 'field' => 'pad.label', 'alias' => 'label', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => Isp::getPanel() . " " . $translator->translate ( 'System Attributes' ), 'field' => 'pa.system_var', 'alias' => 'system_var', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Default' ), 'field' => 'pa.defaultvalue', 'alias' => 'default', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Position' ), 'field' => 'pa.position', 'alias' => 'position', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visible on Frontend' ), 'field' => 'pa.is_visible_on_front', 'alias' => 'visible', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => Isp::getPanel() . " " . $translator->translate ( 'System Attributes' ), 'field' => 'pa.system_var', 'alias' => 'system_var', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Default' ), 'field' => 'pa.defaultvalue', 'alias' => 'default', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Position' ), 'field' => 'pa.position', 'alias' => 'position', 'sortable' => true, 'searchable' => true, 'type' => 'index', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visible on Frontend' ), 'field' => 'pa.is_visible_on_front', 'alias' => 'visible', 'sortable' => true, 'searchable' => true, 'type' => 'boolean', 'attributes' => array('class' => 'span1') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Groups' ), 'type' => 'arraydata', 'index' => 'attribute_id', 'alias' => 'dummy', 'run' => array('ProductsAttributes'=>'getGroups') );
 		
 		$config ['datagrid'] ['fields'] = "attribute_id, code, pad.label as label, pa.system_var as system_var, pa.is_visible_on_front as visible, pa.position as position, pa.defaultvalue as default";

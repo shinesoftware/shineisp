@@ -41,7 +41,8 @@ class Admin_Form_ProductsForm extends Zend_Form
         $this->addElement('textarea', 'shortdescription', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Short Description'),
-            'class'      => 'wysiwyg'
+            'id'      => 'shortdescription',
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('textarea', 'metakeywords', array(
@@ -62,8 +63,9 @@ class Admin_Form_ProductsForm extends Zend_Form
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Description'),
-            'class'      => 'wysiwyg'
+        	'label'      => $translate->_('Description'),
+        	'id'      => 'description',
+            'class'      => 'span12 wysiwyg'
         ));
         
         $this->addElement('select', 'category_id', array(

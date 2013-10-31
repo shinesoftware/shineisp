@@ -51,6 +51,15 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 
 		// Custom XML file inclusion of the js files 
 		if (! empty ( $js )) {
+			// Fast including of the js file using the module name
+			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$module.js")){
+				$js[] = array('resource' => "/skins/$module/$skin/js/$module.js", 'position' => 'admin_endbody');
+			}
+				
+			// Fast including of the js file for the controller
+			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$controller.js")){
+				$js[] = array('resource' => "/skins/$module/$skin/js/$controller.js", "position" => 'admin_endbody');
+			}
 			
 			// Check the caches administrator preferences
 			if(Settings::findbyParam('jscompression')){
@@ -96,16 +105,6 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 					}
 				}
 			}
-		}
-		
-		// Fast including of the js file using the module name
-		if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$module.js")){
-			$js[0]['resource'] = "/skins/$module/$skin/js/$module.js";
-		}
-			
-		// Fast including of the js file for the controller
-		if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$controller.js")){
-			$js[1]['resource'] = "/skins/$module/$skin/js/$controller.js";
 		}
 		
 		// Custom XML file inclusion of the css files

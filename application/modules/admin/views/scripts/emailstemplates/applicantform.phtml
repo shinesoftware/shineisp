@@ -30,19 +30,19 @@
 			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Content (Text)');?></a></li> 
 		</ul>
 		<div class="tab-pane active" id="tab1"> 
-			<fieldset class="column-left"> 
+			<div class="span6"> 
 				<?php echo $form->name->render() ?>
 				<?php echo $form->type->render() ?>
 				<?php echo $form->subject->render() ?>
 				<?php echo $form->fromname->render() ?>
 				<?php echo $form->fromemail->render() ?>
-			</fieldset>
-			<fieldset class="column-right"> 
+			</div>
+			<div class="span6"> 
 				<?php echo $form->cc->render() ?>
 				<?php echo $form->bcc->render() ?>
 				<?php echo $form->plaintext->render() ?>
 				<?php echo $form->active->render()?>
-			</fieldset>
+			</div>
 			
 		</div>
 		

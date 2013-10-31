@@ -1,14 +1,13 @@
 <div class="row-fluid">
     
     <div class="page-header pull-left">
-    	<h2 class="headtitle">
+    	<h3>
     		<?php if(!empty($this->titlelink)): ?>
     			<a href="<?php echo $this->titlelink?>"><?php echo $this->title;?></a>
     		<?php else: ?>
     			<?php echo $this->title;?>
     		<?php endif;?>
-    		
-    	</h2>
+    	</h3>
     	<?php if(!empty($this->description)): ?>
     		<small><?php echo $this->translate($this->description);?></small>
     	<?php endif; ?>

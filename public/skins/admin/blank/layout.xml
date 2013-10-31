@@ -44,7 +44,6 @@
                 <js override="1" position="admin_endbody">/resources/js/jquery/bootstrap-switch.min.js</js>
                 
                 <js position="admin_endbody">/js/smartresize.js</js> 
-                <js position="admin_endbody">/js/admin.js</js> 
                 <js position="admin_endbody">/js/grid.js</js> 
                 
                 <css>/css/grid.css</css>  

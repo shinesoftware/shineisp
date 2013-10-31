@@ -32,7 +32,7 @@
         <div class="tab-content">
     	    <div class="tab-pane active" id="tab1"> 
     	        <div class="row-fluid">
-        		    <fieldset class="span6"> 
+        		    <div class="span6"> 
         		        <?php echo $form->company->render() ?>
         		        <?php echo $form->vatnumber->render() ?>
         		        <?php echo $form->slogan->render() ?>
@@ -40,8 +40,8 @@
         		        <?php if(!empty($this->srclogoemail)): ?>
         		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogoemail ?>" alt="<?php echo $this->translate('Email logo picture')?>"/>
         		        <?php endif;?>
-        		    </fieldset>
-        		    <fieldset class="span6"> 
+        		    </div>
+        		    <div class="span6"> 
         		        <?php echo $form->manager->render()?>
         		        <?php echo $form->website->render()?>
         		        <?php echo $form->password->render()?>
@@ -49,7 +49,7 @@
         		        <?php if(!empty($this->srclogo)): ?>
         		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogo ?>" alt="<?php echo $this->translate('Website logo picture')?>"/>
         		        <?php endif;?>
-        		    </fieldset>
+        		    </div>
     		    </div>
         	</div>
         

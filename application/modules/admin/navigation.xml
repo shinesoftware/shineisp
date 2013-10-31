@@ -119,16 +119,16 @@
 			<icon>icon-briefcase</icon>
 			<resource>admin:sales</resource>
 			<pages>
+                <orders>
+                    <label>Orders</label>
+                    <uri>/admin/orders/list</uri>
+                    <resource>admin:orders</resource>
+                </orders>
 				<invoices>
 					<label>Invoices</label>
 					<uri>/admin/invoices/list</uri>
 					<resource>admin:invoices</resource>
 				</invoices>
-				<orders>
-					<label>Orders</label>
-					<uri>/admin/orders/list</uri>
-					<resource>admin:orders</resource>
-				</orders>
 				<purchases>
 					<label>Purchases</label>
 					<uri>/admin/purchases/list</uri>

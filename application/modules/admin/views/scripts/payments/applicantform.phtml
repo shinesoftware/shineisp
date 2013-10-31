@@ -27,19 +27,19 @@
 			</ul>
 	    
 		    <div class="tab-pane active" id="tab1"> 
-		    	<fieldset class="column-left"> 
+		    	<div class="span6"> 
 		            <?php echo $form->paymentdate->render()?>
 		            <?php echo $form->order_id->render()?>
 		            <?php echo $form->customer_id->render()?>
 		            <?php echo $form->confirmed->render()?>
-	            </fieldset>
+	            </div>
 	            
-	            <fieldset class="column-right"> 
+	            <div class="span6"> 
 		            <?php echo $form->income->render()?>
 		            <?php echo $form->outcome->render()?>
 		            <?php echo $form->bank_id->render()?>
 		            <?php echo $form->reference->render()?>
-	            </fieldset>
+	            </div>
 	            
 	            
 		    </div>

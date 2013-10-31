@@ -26,15 +26,15 @@ class Products extends BaseProducts {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.product_id', 'alias' => 'product_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.product_id', 'alias' => 'product_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'SKU' ), 'field' => 'p.sku', 'alias' => 'sku', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.product_id', 'alias' => 'product_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'SKU' ), 'field' => 'p.sku', 'alias' => 'sku', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'pd.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'type' => 'string', 'searchable' => true );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Server group' ), 'field' => 'sg.name', 'alias' => 'servergroupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Inserted at' ), 'field' => 'p.inserted_at', 'sortable' => true, 'searchable' => false, 'alias' => 'insertedat', 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Upload Date' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'p.enabled', 'sortable' => true, 'searchable' => false, 'alias' => 'enabled', 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'type' => 'string', 'searchable' => true, 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Server group' ), 'field' => 'sg.name', 'alias' => 'servergroupname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Inserted at' ), 'field' => 'p.inserted_at', 'sortable' => true, 'searchable' => false, 'alias' => 'insertedat', 'type' => 'date', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Upload Date' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date', 'attributes' => array('class' => 'span1 hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'p.enabled', 'sortable' => true, 'searchable' => false, 'alias' => 'enabled', 'type' => 'boolean', 'attributes' => array('class' => 'span1') );
 		
 		$config ['datagrid'] ['fields'] = "p.product_id, 
 											pd.name as name, 
