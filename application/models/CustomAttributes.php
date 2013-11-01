@@ -167,7 +167,7 @@ class CustomAttributes extends BaseCustomAttributes
 	            'filters'    => array('StringTrim'),
 	            'label'      => $field['label'],
 	            'decorators' => array('Composite'),
-	            'class'      => 'text-input large-input'
+	            'class'      => 'form-control'
 	        ));
 		}
 

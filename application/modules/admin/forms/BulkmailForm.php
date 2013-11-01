@@ -13,7 +13,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'medium-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'body', array(

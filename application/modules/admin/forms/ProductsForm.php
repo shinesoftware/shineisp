@@ -50,7 +50,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
-            'class'       => 'col-lg-12'
+            'class'       => 'col-lg-12 form-control'
         ));     
         
         $this->addElement('textarea', 'metadescription', array(
@@ -58,7 +58,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
-            'class'       => 'col-lg-12'
+            'class'       => 'col-lg-12 form-control'
         ));     
         
         $this->addElement('textarea', 'description', array(
@@ -126,26 +126,24 @@ class Admin_Form_ProductsForm extends Zend_Form
 	        'label' => $translate->_('Related Products'),
 	        'decorators' => array('Bootstrap'),
 	        'size'	 => '20x',
-	        'description'	 => 'Select all the items related to the product selected using the CTRL/SHIFT button',
             'title'	     => $translate->_('Select ...'),
     		'data-container' => 'body',
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
 	        ));
 		        
         $this->addElement('multiselect', 'upgrade', array(
 	        'label' => $translate->_('Product Upgrades'),
 	        'decorators' => array('Bootstrap'),
 	        'size'	 => '20x',
-	        'description'	 => 'Select all the items upgrade to the product selected using the CTRL/SHIFT button',
             'title'	     => $translate->_('Select ...'),
     		'data-container' => 'body',
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
 	        ));		
         $this->getElement('related')
                   ->setAllowEmpty(false)
@@ -195,7 +193,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'label'      => $translate->_('Setup'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('XML Setup Configuration. See the manual'),
-            'class'      => 'col-lg-12'
+            'class'      => 'col-lg-12 form-control'
         ));          
 
         $this->addElement('select', 'enabled', array(
@@ -290,7 +288,7 @@ class Admin_Form_ProductsForm extends Zend_Form
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('wikipages')
@@ -346,7 +344,7 @@ class Admin_Form_ProductsForm extends Zend_Form
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('tranche_includes_domains')
@@ -377,7 +375,7 @@ class Admin_Form_ProductsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Blocks'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'col-lg-12'
+            'class'      => 'col-lg-12 form-control'
         ));        
 
         $this->addElement('hidden', 'product_id');

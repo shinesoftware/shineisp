@@ -29,7 +29,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'label'       => $translate->_('URL-Key'),
         	'description' => $translate->_('This is the name of the page. For multilanguages website you can create more page with the same Url-key with different languages.'),
             'rows'        => 5,
-            'class'       => 'medium-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'keywords', array(
@@ -95,7 +95,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
         ));
                 
         $this->getElement('language_id')

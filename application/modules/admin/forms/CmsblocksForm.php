@@ -39,7 +39,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
         ));
                 
         $this->getElement('language_id')

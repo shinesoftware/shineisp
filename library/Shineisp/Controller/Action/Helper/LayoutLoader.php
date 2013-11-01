@@ -23,9 +23,15 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		if($module == "default"){
 			$customskin = Settings::findbyParam ( 'skin' );
 			$skin = !empty ( $customskin ) ? $customskin : "blank";
+			if(!file_exists(PUBLIC_PATH . "/skins/$module/$skin")){
+			    $skin = "blank";
+			}
 		}elseif($module == "admin"){
 			$customskin = Settings::findbyParam ( 'adminskin' );
 			$skin = !empty ( $customskin ) ? $customskin : "base";        
+			if(!file_exists(PUBLIC_PATH . "/skins/$module/$skin")){
+			    $skin = "blank";
+			}
 		}else{
 			$customskin = "";
 			$skin = "";

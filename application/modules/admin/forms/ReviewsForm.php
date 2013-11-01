@@ -41,7 +41,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Who is Talking About Us?'),
-        		'class'       => 'medium-input',
+        		'class'       => 'form-control',
         		'multiOptions' => array('Google' => 'Google', 'Bing' => 'Bing', 'Yahoo' => 'Yahoo', $translate->_('Other Search Engine') => $translate->_('Other Search Engine'), 'Websites' => $translate->_('Websites/Blogs'), $translate->_('Friend suggestion') => $translate->_('Friend suggestion'))
         ));
         
@@ -49,28 +49,28 @@ class Admin_Form_ReviewsForm extends Zend_Form
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('City'),
-        		'class'       => 'medium-input'
+        		'class'       => 'form-control'
         ));        
                   
         $this->addElement('text', 'ip', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('IP'),
-        		'class'       => 'medium-input'
+        		'class'       => 'form-control'
         ));        
                   
         $this->addElement('text', 'latitude', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Latitude'),
-        		'class'       => 'small-input'
+        		'class'       => 'form-control'
         ));       
                   
         $this->addElement('text', 'longitude', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Longitude'),
-        		'class'       => 'small-input'
+        		'class'       => 'form-control'
         ));       
                   
         $this->addElement('text', 'subject', array(

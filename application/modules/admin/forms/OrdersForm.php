@@ -140,7 +140,7 @@ class Admin_Form_OrdersForm extends Zend_Form
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('domains_selected')
@@ -155,7 +155,7 @@ class Admin_Form_OrdersForm extends Zend_Form
     		'data-selected-text-format' => 'count > 2',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick span4'
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('domains')

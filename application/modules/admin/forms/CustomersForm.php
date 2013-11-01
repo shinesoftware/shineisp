@@ -284,7 +284,7 @@ class Admin_Form_CustomersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Contact'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'medium-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'email', array(
