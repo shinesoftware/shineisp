@@ -4,26 +4,26 @@
 		<dashboard>
 			<label>Home</label>
 			<uri>#</uri>
-			<icon>icon-home</icon>
+			<icon>glyphicon glyphicon-home</icon>
 			<resource>admin:dashboard</resource>
 			<class>dropdown-toggle</class>
 			<pages>
 				<dashboard>
 					<label>Dashboard</label>
 					<uri>/admin/index</uri>
-					<icon>icon-th-large</icon>
+					<icon>glyphicon glyphicon-th-large</icon>
 					<resource>admin:index</resource>
 				</dashboard>
 				<publicsite>
 					<label>Public Site</label>
 					<uri>/index</uri>
-					<icon>icon-globe</icon>
+					<icon>glyphicon glyphicon-globe</icon>
 					<resource>index:index</resource>
 				</publicsite>
 				<notes>
 					<label>Notes</label>
 					<uri>/admin/notes/list</uri>
-					<icon>icon-pencil</icon>
+					<icon>glyphicon glyphicon-pencil</icon>
 					<resource>admin:notes</resource>
 				</notes>
 			</pages>
@@ -31,7 +31,7 @@
 		<customers>
 			<label>Customers</label>
 			<uri>#</uri>
-			<icon>icon-user</icon>
+			<icon>glyphicon glyphicon-user</icon>
 			<resource>admin:customers</resource>
 			<pages>
 				<domains>
@@ -59,7 +59,7 @@
 		<support>
 			<label>Support</label>
 			<uri>#</uri>
-			<icon>icon-check</icon>
+			<icon>glyphicon glyphicon-check</icon>
 			<resource>admin:customers</resource>
 			<pages>
 				<tickets>
@@ -77,7 +77,7 @@
 		<products>
 			<label>Products</label>
 			<uri>#</uri>
-			<icon>icon-barcode</icon>
+			<icon>glyphicon glyphicon-barcode</icon>
 			<resource>admin:products</resource>
 			<pages>
 				<productscategories>
@@ -116,7 +116,7 @@
 		<sales>
 			<label>Sales</label>
 			<uri>#</uri>
-			<icon>icon-briefcase</icon>
+			<icon>glyphicon glyphicon-briefcase</icon>
 			<resource>admin:sales</resource>
 			<pages>
                 <orders>
@@ -149,7 +149,7 @@
 		<cms>
 			<label>CMS</label>
 			<uri>#</uri>
-			<icon>icon-file</icon>
+			<icon>glyphicon glyphicon-file</icon>
 			<resource>admin:cms</resource>
 			<pages>
 				<cmspages>
@@ -167,7 +167,7 @@
 		<newsletter>
 			<label>Newsletter</label>
 			<uri>#</uri>
-			<icon>icon-envelope</icon>
+			<icon>glyphicon glyphicon-envelope</icon>
 			<resource>admin:newsletter</resource>
 			<pages>
 				<messages>
@@ -185,7 +185,7 @@
 		<reports>
 			<label>Reports</label>
 			<uri>#</uri>
-			<icon>icon-signal</icon>
+			<icon>glyphicon glyphicon-signal</icon>
 			<resource>admin:reports</resource>
 			<pages>
 				<profitofyear>
@@ -231,7 +231,7 @@
 		<configuration>
 			<label>Configuration</label>
 			<uri>#</uri>
-			<icon>icon-wrench</icon>
+			<icon>glyphicon glyphicon-wrench</icon>
 			<resource>admin:settings</resource>
 			<pages>
 				<settings>

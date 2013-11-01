@@ -11,7 +11,7 @@ class Admin_Form_SettingsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('parameter'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('parameter_id')
@@ -31,7 +31,7 @@ class Admin_Form_SettingsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Isp'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('isp_id')

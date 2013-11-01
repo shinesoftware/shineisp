@@ -31,8 +31,8 @@
 		</ul>
         <div class="tab-content">
     	    <div class="tab-pane active" id="tab1"> 
-    	        <div class="row-fluid">
-        		    <div class="span6"> 
+    	        <div class="row">
+        		    <div class="col-sm-6 col-xs-12"> 
         		        <?php echo $form->company->render() ?>
         		        <?php echo $form->vatnumber->render() ?>
         		        <?php echo $form->slogan->render() ?>
@@ -41,7 +41,7 @@
         		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogoemail ?>" alt="<?php echo $this->translate('Email logo picture')?>"/>
         		        <?php endif;?>
         		    </div>
-        		    <div class="span6"> 
+        		    <div class="col-sm-6 col-xs-12"> 
         		        <?php echo $form->manager->render()?>
         		        <?php echo $form->website->render()?>
         		        <?php echo $form->password->render()?>

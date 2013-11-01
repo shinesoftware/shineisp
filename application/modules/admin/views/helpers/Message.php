@@ -14,7 +14,7 @@ class Admin_View_Helper_Message extends Zend_View_Helper_Abstract{
      * 
      * @return string
      */
-    public function message($message, $type = "error", $title = null)
+    public function message($message, $type = "danger", $title = null)
     {
         $this->view->message = $message;
         $this->view->title = $title;

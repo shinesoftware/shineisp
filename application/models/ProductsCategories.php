@@ -20,8 +20,8 @@ class ProductsCategories extends BaseProductsCategories {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pc.category_id', 'alias' => 'category_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pc.category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'pc.category_id', 'alias' => 'category_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pc.category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'pc.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Position' ), 'field' => 'pc.position', 'alias' => 'position', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'pc.enabled', 'alias' => 'enabled', 'sortable' => true, 'searchable' => true, 'type' => 'boolean' );

@@ -1,5 +1,19 @@
 @CHARSET "UTF-8";
 
+body {
+  padding-top: 70px;
+}
+
+.row{
+	margin: 10px -15px;
+}
+
+.tab-content{
+	padding-top: 15px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 .badge-active, .badge-complete, .badge-solved{
 	background-color: #468847;
 }

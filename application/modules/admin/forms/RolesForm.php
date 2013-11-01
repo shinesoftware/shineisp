@@ -14,7 +14,7 @@ class Admin_Form_RolesForm extends Zend_Form
         		'required'    => true,
 	            'label'       => $translate->_('Role Name'),
 	            'description' => $translate->_('Write here the name of the role in lowercase'),
-	            'class'       => 'input-large'
+	            'class'       => 'form-control'
         ));
         
         $this->addElement('multiselect', 'users', array(

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ShineISP\n"
-"POT-Creation-Date: 2013-10-30 19:02+0100\n"
+"POT-Creation-Date: 2013-10-31 19:50+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shine Software <info@shineisp.com>\n"
 "Language-Team: Shine Software <info@shineisp.com>\n"
@@ -153,6 +153,7 @@ msgstr "Modifica"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TicketsController.php:189
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikicategoriesController.php:179
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:168
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:94
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/attachments.phtml:9
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:90
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/mapgrid.phtml:13
@@ -341,6 +342,17 @@ msgstr "Lingua"
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:451
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:479
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:192
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmsblocksForm.php:37
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:93
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:138
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:153
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:21
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:130
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:143
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:288
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:344
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/RolesForm.php:23
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServersGroupsForm.php:40
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Datagrid.php:799
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Registrars/Base.php:58
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:28
@@ -388,7 +400,7 @@ msgstr "Codice Ordine"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsForm.php:74
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:13
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:51
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:29
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:26
 msgid "Customer"
 msgstr "Cliente"
@@ -408,7 +420,7 @@ msgstr "Cliente"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:387
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:423
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CreditNotesForm.php:53
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:226
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:236
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PurchasesForm.php:90
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/OrdersController.php:85
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:78
@@ -429,7 +441,7 @@ msgstr "Totale"
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:413
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:424
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CreditNotesForm.php:84
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:219
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:229
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CartsimpleprofileForm.php:61
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:107
 msgid "VAT"
@@ -448,7 +460,7 @@ msgstr "IVA"
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:32
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:349
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:425
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:233
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:243
 msgid "Grand Total"
 msgstr "Totale"
 
@@ -820,8 +832,8 @@ msgstr "Nazione"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:73
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsForm.php:15
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsTasksForm.php:56
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:146
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:242
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:151
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:254
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServersForm.php:78
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:223
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php:303
@@ -962,7 +974,7 @@ msgstr "Autorinnovo"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsTasksForm.php:15
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PanelsActionsForm.php:15
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:35
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/headers.phtml:20
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/headers.phtml:19
 msgid "Action"
 msgstr "Azione"
 
@@ -1032,9 +1044,9 @@ msgstr "Sezione"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:44
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:312
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:197
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:207
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersItemsForm.php:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:161
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:173
 msgid "Cost"
 msgstr "Costo"
 
@@ -1182,15 +1194,15 @@ msgstr "Lingua"
 #: /Library/WebServer/Documents/shineisp/application/models/Panels.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/Registrars.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:30
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:117
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:122
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CompanyTypesForm.php:31
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/EmailsTemplatesForm.php:75
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/LanguagesForm.php:37
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PanelsForm.php:31
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesForm.php:65
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/RegistrarsForm.php:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:103
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServersGroupsForm.php:50
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:105
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServersGroupsForm.php:54
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/WikiForm.php:39
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/MailsForm.php:33
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/MailsForm.php:56
@@ -1285,8 +1297,8 @@ msgstr "Ordine Nr."
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PaymentsForm.php:86
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesForm.php:128
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:45
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:65
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:250
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:66
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:262
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServersForm.php:85
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/UrlrewriteForm.php:28
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ServicesController.php:62
@@ -1363,8 +1375,8 @@ msgstr "Data ordine"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:30
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:469
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:242
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:356
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:252
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:366
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PaymentsForm.php:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:157
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/summary.phtml:159
@@ -1412,7 +1424,7 @@ msgid "Type"
 msgstr "Tipologia"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:34
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:95
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:97
 msgid "Server group"
 msgstr "Gruppo Server"
 
@@ -1424,7 +1436,7 @@ msgstr "Creato il"
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/BanksForm.php:51
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:91
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:190
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:202
 msgid "Enabled"
 msgstr "Abilitato"
 
@@ -1445,7 +1457,7 @@ msgstr "Default"
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsCategories.php:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesForm.php:89
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:37
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:350
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:372
 msgid "Position"
 msgstr "Posizione"
 
@@ -1467,8 +1479,8 @@ msgstr "Gruppi"
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/WikiCategories.php:25
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:369
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:290
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:70
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:300
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:72
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PurchasescategoriesForm.php:13
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PurchasesForm.php:36
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/TicketsCategoriesForm.php:13
@@ -1502,8 +1514,8 @@ msgstr "Fornitore"
 
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:192
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:277
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:260
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:287
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:272
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/TicketsForm.php:113
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/TicketsForm.php:81
 msgid "Attachment"
@@ -1541,11 +1553,12 @@ msgid "No Registrar"
 msgstr "Nessun Registrar"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:28
-#: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:341
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:36
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:16
-msgid "Nick"
-msgstr "Soprannome"
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:97
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:61
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:64
+#, fuzzy
+msgid "Stars"
+msgstr "Inizio"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:29
 msgid "Published on"
@@ -1575,6 +1588,12 @@ msgstr "Lista delle recensioni del prodotto"
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:335
 msgid "List of the product reviews."
 msgstr "Lista delle recensioni del prodotto"
+
+#: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:341
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:36
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:16
+msgid "Nick"
+msgstr "Soprannome"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:343
 msgid "review"
@@ -1606,7 +1625,7 @@ msgstr "Risposte"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:32
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:31
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/attachments.phtml:3
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/tickets/applicantform.phtml:12
 msgid "Attachments"
@@ -1641,7 +1660,7 @@ msgid "Target"
 msgstr "Obiettivo"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:28
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:265
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:275
 msgid "Visits"
 msgstr "Visite"
 
@@ -1924,12 +1943,12 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:157
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/WikiController.php:191
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/BanksForm.php:77
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmsblocksForm.php:47
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:124
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmsblocksForm.php:52
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:129
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CreditNotesForm.php:98
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:345
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsForm.php:138
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:137
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:136
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/EmailsTemplatesForm.php:97
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/FilecategoriesForm.php:20
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CartsimpleprofileForm.php:149
@@ -2291,7 +2310,7 @@ msgstr "Email del Cliente"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:125
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:46
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:171
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:181
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersItemsForm.php:35
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:70
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServicesForm.php:87
@@ -2308,7 +2327,7 @@ msgstr "Prodotti"
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:195
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:38
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:54
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:49
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:47
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:70
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:6
 msgid "Orders"
@@ -2537,9 +2556,9 @@ msgstr "Data Scadenza"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php:325
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CreditNotesForm.php:91
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:204
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:214
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersItemsForm.php:46
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:168
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:180
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/common/bulkdomainsorder.phtml:17
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:53
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:13
@@ -3375,7 +3394,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:97
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:19
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:175
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:50
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:48
 msgid "Attributes"
 msgstr "Attributi"
 
@@ -3390,7 +3409,7 @@ msgstr "Attributo cancellato"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:190
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:89
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:179
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:338
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:360
 #, fuzzy
 msgid "Attribute Group"
 msgstr "Attributi"
@@ -4039,7 +4058,7 @@ msgid "Here you can check all the submit information."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/TaxesController.php:47
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:91
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:90
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:14
 msgid "Tax"
 msgstr "Tasse"
@@ -4336,7 +4355,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:38
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:52
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:50
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:51
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:57
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:92
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:46
@@ -4346,8 +4365,8 @@ msgstr "Parole Chiave"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:46
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:84
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:356
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:51
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:378
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:49
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:27
 msgid "Blocks"
 msgstr "Blocchi"
@@ -4370,12 +4389,12 @@ msgstr "Contattaci Adesso"
 msgid "Page layouts"
 msgstr "Lista Segnalazioni"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:103
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:108
 msgid "Show in the navigation menu"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:110
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:225
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:115
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:237
 #, fuzzy
 msgid "Publish on RSS Feed"
 msgstr "Pubblicato su"
@@ -4395,7 +4414,7 @@ msgstr "Totale"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CreditNotesForm.php:70
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:111
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersItemsForm.php:13
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:297
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:314
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServicesForm.php:28
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/ProductsController.php:81
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:12
@@ -4502,8 +4521,8 @@ msgid "Taxpayer Number"
 msgstr "Codice Fiscale"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:194
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:279
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:262
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:289
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:274
 #, fuzzy, php-format
 msgid ""
 "Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s"
@@ -4539,10 +4558,10 @@ msgstr "Contatti"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:303
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsForm.php:87
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/InvoicesForm.php:57
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:304
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:314
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:39
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:56
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:34
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:32
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:29
 msgid "Private Notes"
 msgstr "Note Private"
@@ -4590,61 +4609,61 @@ msgstr "Zone DNS"
 msgid "TLD Name"
 msgstr "Nome"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:29
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:28
 #, fuzzy
 msgid "Tags/Type"
 msgstr "Tipologia"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:35
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:197
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:34
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:209
 msgid "Is Highlighted"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:42
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:204
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:41
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:216
 msgid "Is Refundable"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:50
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:49
 msgid "Result String Control"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:58
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:57
 #, fuzzy
 msgid "Registration Price"
 msgstr "Prezzo per la registrazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:66
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:65
 #, fuzzy
 msgid "Renewal Price"
 msgstr "Prezzo per il rinnovo"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:74
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:73
 #, fuzzy
 msgid "Transfer Price"
 msgstr "Prezzo per il trasferimento"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:81
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:80
 #, fuzzy
 msgid "TLD Server"
 msgstr "Servizi"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:103
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:102
 #, fuzzy
 msgid "Registration Cost"
 msgstr "Prezzo per la registrazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:111
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:110
 #, fuzzy
 msgid "Renewal Cost"
 msgstr "Rinnovo"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:119
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:118
 #, fuzzy
 msgid "Transfer Cost"
 msgstr "Prezzo per il trasferimento"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:125
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:124
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:179
 #, fuzzy
 msgid "Registrars"
@@ -4730,7 +4749,7 @@ msgid "Fax"
 msgstr "Tasse"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/IspForm.php:76
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:344
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:354
 #, fuzzy
 msgid "Bank name"
 msgstr "Denominazione Banca"
@@ -4864,7 +4883,7 @@ msgstr "Prodotti correlati"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:57
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersItemsForm.php:52
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:285
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:302
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServicesForm.php:97
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/common/bulkdomainsorder.phtml:16
 msgid "Billing Cycle"
@@ -4890,67 +4909,67 @@ msgstr "Ricerca %s"
 msgid "Domains Selected"
 msgstr "Lista Domini"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:159
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:169
 #, fuzzy
 msgid "Reference Domain"
 msgstr "Referenza"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:181
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:191
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/UrlrewriteForm.php:46
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:42
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:40
 msgid "Categories"
 msgstr "Categorie"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:212
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:311
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:222
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:328
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:64
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/shoppingcart.phtml:59
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/details.phtml:53
 msgid "Setup fee"
 msgstr "Costo Attivazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:235
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:245
 msgid "Save again in order to update the totals."
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:249
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:259
 msgid "Missing income"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:257
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:267
 msgid "Fastlink Code"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:259
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:269
 msgid ""
 "Here you can read a unique code for redirect a user in the order page using "
 "the fastlink."
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:267
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:277
 #, fuzzy
 msgid ""
 "Here you can read how many times the order has been viewed by the customer."
 msgstr ""
 "Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:311
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:321
 #, fuzzy
 msgid "Post a comment"
 msgstr "Inserisci una nuova segnalazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:330
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:340
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PaymentsForm.php:14
 #, fuzzy
 msgid "Payment date"
 msgstr "Data Pagamento"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:337
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:347
 #, fuzzy
 msgid "Payment Reference"
 msgstr "Referenza"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:363
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:373
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:161
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:58
@@ -4959,7 +4978,7 @@ msgstr "Referenza"
 msgid "Notes"
 msgstr "Note"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:370
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:380
 msgid "Has the Transaction been confirmed?"
 msgstr ""
 
@@ -5047,8 +5066,8 @@ msgid "Is Required"
 msgstr "Richiesto"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesForm.php:42
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:36
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:218
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:41
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:230
 #, fuzzy
 msgid "Is Comparable"
 msgstr "Confronta"
@@ -5059,7 +5078,7 @@ msgid "Use on Product Listing"
 msgstr "Prodotti"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesForm.php:77
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:28
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:26
 msgid "System"
 msgstr ""
 
@@ -5098,7 +5117,12 @@ msgstr ""
 msgid "Feature Name"
 msgstr "Caratteristiche"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:31
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:22
+#, fuzzy
+msgid "Select the product attributes..."
+msgstr "Prodotti correlati"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:36
 #, fuzzy
 msgid "Is Recurring"
 msgstr "Lista delle fatture"
@@ -5155,87 +5179,87 @@ msgstr ""
 msgid "Short Description"
 msgstr "Destinazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:58
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:59
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/WikiForm.php:48
 #, fuzzy
 msgid "Meta Description"
 msgstr "Destinazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:82
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:84
 #, fuzzy
 msgid "Welcome E-Mail"
 msgstr "Benvenuto/a %s"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:107
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:109
 #, fuzzy
 msgid "Automatic setup"
 msgstr "Autorinnovo"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:124
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:47
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:126
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:45
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/related.phtml:4
 msgid "Related Products"
 msgstr "Prodotti correlati"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:132
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:48
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:139
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:46
 msgid "Product Upgrades"
 msgstr "Upgrade prodotto"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:176
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:188
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/cartsidebar.phtml:55
 #, fuzzy
 msgid "Setup Fee"
 msgstr "Costo Attivazione"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:183
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:53
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:195
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:51
 msgid "Setup"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:185
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:197
 msgid "XML Setup Configuration. See the manual"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:211
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:223
 #, fuzzy
 msgid "Default Image"
 msgstr "Default"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:232
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:244
 msgid "Allow downgrades"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:239
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:251
 #, fuzzy
 msgid "Product Type"
 msgstr "Nome del prodotto"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:242
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:254
 #, fuzzy
 msgid "Generic"
 msgstr "Problema generico"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:242
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:254
 msgid "Hosting"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:274
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:286
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/products/wikipages.phtml:3
 msgid "Wiki Pages"
 msgstr "Pagine Wiki"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:304
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:321
 msgid "Measurement label"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:318
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:335
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:13
 #, fuzzy
 msgid "Unit Price"
 msgstr "Prezzo"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:325
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsForm.php:342
 #, fuzzy
 msgid "Domain included"
 msgstr "Domini"
@@ -5309,26 +5333,6 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:72
 msgid "Longitude"
 msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:94
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:97
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:61
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:64
-#, fuzzy
-msgid "Stars"
-msgstr "Inizio"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:97
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:64
-#, fuzzy
-msgid "Star"
-msgstr "Inizio"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ReviewsForm.php:113
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:72
-#, fuzzy
-msgid "Review"
-msgstr "Recensioni"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/RolesForm.php:16
 msgid "Write here the name of the role in lowercase"
@@ -6217,10 +6221,20 @@ msgid ""
 "using Google Maps"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:64
+#, fuzzy
+msgid "Star"
+msgstr "Inizio"
+
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:71
 msgid ""
 "Write down your review with details and you will earn points and discounts"
 msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:72
+#, fuzzy
+msgid "Review"
+msgstr "Recensioni"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:120
 #, fuzzy
@@ -7256,6 +7270,7 @@ msgstr "Azione"
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:150
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:30
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/reviews/applicantform.phtml:27
 msgid "Other"
 msgstr ""
 
@@ -7382,7 +7397,7 @@ msgid "Credit Notes"
 msgstr "Nota di Credito"
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:198
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:28
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:27
 #, fuzzy
 msgid "Payments"
@@ -7404,7 +7419,7 @@ msgstr "Blocchi"
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:203
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:55
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:33
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:31
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:55
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:67
@@ -7469,7 +7484,7 @@ msgstr "Configurazione"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customersgroups/applicantform.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:50
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstasks/applicantform.phtml:11
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:26
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/emailstemplates/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/filecategories/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/invoices/applicantform.phtml:26
@@ -7478,13 +7493,14 @@ msgstr "Configurazione"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/legalforms/applicantform.phtml:11
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/newsletter/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/notes/applicantform.phtml:23
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:26
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:25
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panelsactions/applicantform.phtml:11
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/payments/applicantform.phtml:26
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:39
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:26
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:37
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:24
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributesgroups/applicantform.phtml:23
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/profile/applicantform.phtml:24
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:26
@@ -7511,7 +7527,7 @@ msgstr "Principale"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:15
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:42
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:27
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:25
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/editform.phtml:28
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/tickets/applicantform.phtml:13
@@ -7680,14 +7696,14 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/newsletter/applicantform.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/notes/applicantform.phtml:14
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/loginbox.phtml:26
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributesgroups/applicantform.phtml:18
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:14
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:25
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributes/applicantform.phtml:14
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productsattributesgroups/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/profile/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:16
@@ -7715,8 +7731,8 @@ msgid "Disable/Enable Wysiwyg"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:43
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:25
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:41
 msgid "Content"
 msgstr "Contenuti"
 
@@ -7729,7 +7745,7 @@ msgid "ISP Control Panel Configuration"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:27
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:27
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:25
 msgid "Details"
 msgstr "Dettagli"
 
@@ -7807,7 +7823,7 @@ msgstr "Dominio Disponibile"
 msgid "Logs"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/filecategories/applicantform.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/languages/applicantform.phtml:16
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/exception.phtml:13
@@ -7821,12 +7837,12 @@ msgstr ""
 msgid "field"
 msgstr "Questo campo:"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:28
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:40
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:26
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:38
 msgid "Prices"
 msgstr "Prezzi"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:29
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:27
 msgid "Costs"
 msgstr "Costi"
 
@@ -7969,18 +7985,18 @@ msgstr ""
 msgid "Queue"
 msgstr "In Coda"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:35
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:33
 #, fuzzy
 msgid "Status History"
 msgstr "Stati"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:85
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:83
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:53
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:59
 msgid "Add"
 msgstr "Aggiungi"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:85
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:83
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/ordersitems/applicantform.phtml:53
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:59
 msgid "Remove"
@@ -8213,17 +8229,21 @@ msgstr "Seleziona ..."
 msgid "norecords"
 msgstr "Records"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:41
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:39
 #, fuzzy
 msgid "Recurring Prices"
 msgstr "Lista delle fatture"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:45
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:43
 msgid "Media"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:52
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:50
 msgid "Metatags"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/reviews/applicantform.phtml:60
+msgid "The location shown in the map is approximate."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/roles/applicantform.phtml:26
@@ -9296,7 +9316,7 @@ msgid "Starting at"
 msgstr "A partire da"
 
 #: /Library/WebServer/Documents/shineisp/public/skins/admin/base/scripts/1column.phtml:4
-#: /Library/WebServer/Documents/shineisp/public/skins/admin/blank/scripts/1column.phtml:34
+#: /Library/WebServer/Documents/shineisp/public/skins/admin/blank/scripts/1column.phtml:36
 msgid "Please wait a moment..."
 msgstr "Attendere prego..."
 

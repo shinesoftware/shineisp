@@ -32,14 +32,14 @@
 	
 		<div class="tab-content">
 		    <div class="tab-pane active" id="tab1">  
-		        <div class="span6"> 
+		        <div class="col-sm-6 col-xs-12"> 
 				    <?php echo $form->order_id->render()?>		
 					<?php echo $form->product_id->render()?>        
 					<?php echo $form->status_id->render()?>
 		            <?php echo $form->quantity->render()?>
 		        </div>
 		        
-		        <div class="span6"> 
+		        <div class="col-sm-6 col-xs-12"> 
 		            <?php echo $form->billing_cycle_id->render()?>
 		            <?php echo $form->date_start->render()?>
 		            <?php echo $form->date_end->render()?>
@@ -54,7 +54,7 @@
 		    </div>  
 		    
 		    <div class="tab-pane" id="tab3"> 
-	            <div class="row-fluid">
+	            <div class="row">
 	            	<div class="span3"><?php echo $form->domains->render()?></div>
 	            	<div class="span3 text-center"><br/><br/><a id="add_items" class="btn btn-success"><?php echo  $this->translate('Add')?></a> <a id="remove_items" class="btn btn-danger"><?php echo  $this->translate('Remove')?></a><br/><br/></div>
 	            	<div class="span3"><?php echo $form->domains_selected->render()?></div>

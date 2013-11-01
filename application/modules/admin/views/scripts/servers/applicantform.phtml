@@ -28,8 +28,8 @@
 		
         <div class="tab-content">
     	    <div class="tab-pane active" id="tab1"> 
-    	        <div class="row-fluid">
-        	        <div class="span6"> 
+    	        <div class="row">
+        	        <div class="col-sm-6 col-xs-12"> 
         	            <?php echo $form->isp_id->render() ?>
         	            <?php echo $form->type_id->render() ?>
         	            <?php echo $form->name->render() ?>
@@ -38,7 +38,7 @@
         				<?php echo $form->cost->render()?>
         				<?php echo $form->buy_date->render()?>
         	        </div>
-        	        <div class="span6"> 
+        	        <div class="col-sm-6 col-xs-12"> 
         	            <?php echo $form->netmask->render()?>
         	            <?php echo $form->host->render()?>
         	            <?php echo $form->domain->render()?>

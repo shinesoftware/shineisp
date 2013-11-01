@@ -28,14 +28,14 @@
 		</ul>
 		<div class="tab-content">
 		    <div class="tab-pane active" id="tab1"> 
-		    	<div class="row-fluid">
-			    	<div class="span6">
+		    	<div class="row">
+			    	<div class="col-sm-6 col-xs-12">
 		    		     <?php echo $form->product_id->render()?> 
 	            		<?php echo $form->publishedat->render()?> 
 	            		<?php echo $form->nick->render()?> 
 	            		<?php echo $form->subject->render()?>
 	            	</div>
-	            	<div class="span6">
+	            	<div class="col-sm-6 col-xs-12">
 			            <?php echo $form->referer->render()?>
 			            <?php echo $form->email->render()?>
 			            <?php echo $form->stars->render()?>
@@ -46,14 +46,14 @@
 		    </div>
 		    
 		    <div class="tab-pane" id="tab2">
-		    	<div class="row-fluid">
-			    	<div class="span6">
+		    	<div class="row">
+			    	<div class="col-sm-6 col-xs-12">
 				    	<?php echo $form->city->render()?>
 			            <?php echo $form->ip->render()?>
 			            <?php echo $form->latitude->render()?>
 			            <?php echo $form->longitude->render()?>
 			        </div>
-		            <div class="span6">
+		            <div class="col-sm-6 col-xs-12">
 		            	<?php if(Null != $form->latitude->getValue()): ?>
 		            	<?php $pos = $form->latitude->getValue() . "," . $form->longitude->getValue()?>
 			            	<a target="_blank" href="http://maps.google.com/maps?saddr=<?php echo $pos ?>&markers=<?php echo $pos ?>"><img class="img-polaroid" src="http://maps.googleapis.com/maps/api/staticmap?center=<?php echo $pos ?>&markers=color:blue%7C&zoom=8&maptype=roadmap&size=400x200&sensor=false" /></a>

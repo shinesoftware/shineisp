@@ -49,7 +49,7 @@ class Orders extends BaseOrders {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1'), 'attributes' => array ('width' => 20 ) );
+		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
@@ -2566,12 +2566,12 @@ class Orders extends BaseOrders {
 		$records['index'] = "order_id";
 		
 		// Create the header table columns
-		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
-		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
-		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
+		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
+		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
 		                           'fullname' => array('label' => $translator->translate('Customer')), 
-		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
-		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')), 
+		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
+		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
 		                           'status' => array('label' => $translator->translate('Status')));
 		
 		return $records;

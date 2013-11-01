@@ -19,7 +19,7 @@ class Admin_Form_CreditNotesForm extends Zend_Form
         $this->addElement('select', 'invoice_id', array(
             'label'      => $translate->_('Invoice'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('invoice_id')
@@ -59,7 +59,7 @@ class Admin_Form_CreditNotesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12 little-input'
+            'class'      => 'col-lg-12 little-input'
         ));
         
         
@@ -69,28 +69,28 @@ class Admin_Form_CreditNotesForm extends Zend_Form
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
             'label'      => $translate->_('Quantity'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
             'label'      => $translate->_('VAT'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'price', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
             'label'      => $translate->_('Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('submit', 'save', array(

@@ -19,18 +19,18 @@
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 		
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-lg-2 pull-right">
 	        <?php if(!empty($this->actions)): ?>
 	        	<?php echo $this->translate('Registrars Actions') ?>:
-	        	<div class="input-append">
-    		        <select id="regActions" class="text-input little-input">
+	        	<div class="input-group">
+    		        <select id="regActions" class="form-control">
     		        	<option><?php echo $this->translate('Select ...') ?></option>
     			        <?php foreach($this->actions as $key => $action): ?>
     			        <option value="<?php echo $key ?>"><?php echo $action?></option>
     			        <?php endforeach;?>
     		        </select>
-    		        <div class="btn-group">
+    		        <div class="input-group-btn">
     		            <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <?php echo $this->translate('Action')?>
                             <span class="caret"></span>
@@ -58,8 +58,8 @@
 	    
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="tab1"> 
-		        <div class="row-fluid">
-        		    <div class="span6"> 
+		        <div class="row">
+        		    <div class="col-sm-6 col-xs-12"> 
     		            <?php echo $form->domain->render() ?>
     		            <?php echo $form->tld_id->render()?>
     		            <a href="#" id="chkdomain" style="display:none"><?php echo $this->translate('Check Domain Availability')?></a>
@@ -68,7 +68,7 @@
     		            <?php echo $form->expiring_date->render()?>
     		        </div>
     		        
-    		        <div class="span6">
+    		        <div class="col-sm-6 col-xs-12">
     		            <?php echo $form->registrars_id->render()?>
     		            <?php echo $form->customer_id->render()?>
     		            <?php echo $form->status_id->render()?>

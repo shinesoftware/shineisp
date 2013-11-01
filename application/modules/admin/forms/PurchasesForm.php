@@ -35,7 +35,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         $this->addElement('select', 'category_id', array(
             'label'      => $translate->_('Category'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('category_id')
@@ -45,7 +45,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         $this->addElement('select', 'method_id', array(
             'label'      => $translate->_('Payment Method'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('method_id')
@@ -66,7 +66,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'required'   => true,
         	'title' => $translate->_('eg: Google inc.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'total_net', array(
@@ -97,7 +97,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12 little-input'
+            'class'      => 'col-lg-12 little-input'
         ));
         
         // If the browser client is an Apple client hide the file upload html object
@@ -107,7 +107,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
 	            'label'      => $translate->_('Document'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf)'),
-	            'class'      => 'input-large'
+	            'class'      => 'form-control'
 	        ));
 	        
 	        $file->addValidator ( 'Extension', false, 'zip,rtf,doc,pdf' );
@@ -121,7 +121,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         'label' => $translate->_('Status'),
         'required' => true,
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('status_id')

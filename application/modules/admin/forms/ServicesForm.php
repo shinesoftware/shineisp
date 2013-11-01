@@ -34,7 +34,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Message'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12 wysiwyg'
+            'class'      => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('textarea', 'note', array(
@@ -42,7 +42,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'label'      => $translate->_('Note'),
             'description' => $translate->_('Write here a note. An email will be sent to the ISP staff.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12 wysiwyg'
+            'class'      => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('textarea', 'setup', array(
@@ -50,13 +50,13 @@ class Admin_Form_ServicesForm extends Zend_Form
             'label'      => $translate->_('Setup Configuration'),
             'description' => $translate->_('Here you can read the service configuration written by the ISP modules. These information are read-only.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12'
+            'class'      => 'col-lg-12'
         ));
         
         $this->addElement('select', 'order_id', array(
         'label' => $translate->_('Orders'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('order_id')
@@ -66,7 +66,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('multiselect', 'domains', array(
         'label' => $translate->_('Available domains'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large span12 tmpitems'
+        'class'      => 'form-control col-lg-12 tmpitems'
         ));
         
         $this->getElement('domains')
@@ -77,7 +77,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('multiselect', 'domains_selected', array(
         'label' => $translate->_('Selected domains'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large span12 items'
+        'class'      => 'form-control col-lg-12 items'
         ));        
 
         $this->getElement('domains_selected')
@@ -86,7 +86,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'product_id', array(
         'label' => $translate->_('Products'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('product_id')
@@ -96,7 +96,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'billing_cycle_id', array(
         'label' => $translate->_('Billing Cycle'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('billing_cycle_id')
@@ -106,7 +106,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
         'label' => $translate->_('Status'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('status_id')
@@ -118,7 +118,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Auto Renewal'),
             'description' => $translate->_('Enable or disable the automatic renewal of the service'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('autorenew')

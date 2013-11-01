@@ -13,7 +13,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Product'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('product_id')
@@ -34,7 +34,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Nick'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'referer', array(
@@ -78,14 +78,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
                   
         $this->addElement('text', 'email', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Email'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
     	$this->addElement('text', 'stars', array(
@@ -104,14 +104,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Active'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));        
         
         $this->addElement('textarea', 'review', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
         	'required'    => true,
-            'class'       => 'span12 wysiwyg'
+            'class'       => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('hidden', 'review_id');

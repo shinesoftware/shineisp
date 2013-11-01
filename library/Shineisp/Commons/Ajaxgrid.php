@@ -685,7 +685,7 @@ class Shineisp_Commons_Ajaxgrid {
 				    } );
 				     
 				    $("tfoot input").focus( function () {
-				        if ( this.className == "search_init" )
+				        if ( this.className == "form-group" )
 				        {
 				            this.className = "";
 				            this.value = "";
@@ -695,7 +695,7 @@ class Shineisp_Commons_Ajaxgrid {
 				    $("tfoot input").blur( function (i) {
 				        if ( this.value == "" )
 				        {
-				            this.className = "search_init";
+				            this.className = "form-group";
 				            this.value = asInitVals[$("tfoot input").index(this) + 1];
 				        }
 				   	});';
@@ -782,7 +782,7 @@ class Shineisp_Commons_Ajaxgrid {
 			$style = (empty($this->columns[$i]['searchable']) || $this->columns[$i]['searchable'] === false) ? "display:none" : Null;
 			$value = (!empty($this->columns[$i]['searchable']) && $this->columns[$i]['searchable']) ? $this->translator->_('Search %s', $this->columns[$i]['label']) : Null;
 			
-			$filters .= "<input style=\"$style\" id=\"obj_".$this->columns[$i]['alias']."\" name=\"search_".$this->columns[$i]['alias']."\" title=\"". $value ."\" type=\"text\" class=\"search_init\">";
+			$filters .= "<div class=\"form-group\"><input style=\"$style\" id=\"obj_".$this->columns[$i]['alias']."\" name=\"search_".$this->columns[$i]['alias']."\" title=\"". $value ."\" type=\"text\" class=\"form-control\"></div>";
 			$filters .= "</th>";
 		}
 		$filters .= "</tr>";
@@ -816,7 +816,8 @@ class Shineisp_Commons_Ajaxgrid {
 			return null;
 		}
 		
-		$data .= '<div class="input-append"><select name="actions" id="actions">';
+		$data .= '<div class="input-group">';
+		$data .= '<select name="actions" class="form-control" id="actions">';
 		$data .= '<option value="">' . $this->translator->translate ( 'Select action ...' ) . '</option>';
 	
 		foreach ($this->massactions as $name => $section){
@@ -829,7 +830,7 @@ class Shineisp_Commons_Ajaxgrid {
 			}
 		}
 		
-		$data .= '<input type="button" class="btn" rel="' . $this->controller . '" id="bulkactions" value="' . $this->translator->translate ( 'Execute' ) . '"></div>';
+		$data .= '</select><div class="input-group-btn"><input type="button" class="btn btn-primary" rel="' . $this->controller . '" id="bulkactions" value="' . $this->translator->translate ( 'Execute' ) . '"></div></div>';
 		return $data;
 	}
 	

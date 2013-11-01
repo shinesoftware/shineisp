@@ -13,7 +13,7 @@ class Admin_Form_TicketsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'datetime', array(
@@ -21,27 +21,27 @@ class Admin_Form_TicketsForm extends Zend_Form
             'required'    => true,
             'label'       => $translate->_('Date'),
         	'decorators'  => array('Bootstrap'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
-            'class'       => 'span12 wysiwyg'
+            'class'       => 'col-lg-12 form-control wysiwyg'
         ));
         
 		$this->addElement('select', 'sendemail', array(
             'label'      => $translate->_('Send Email'),
             'description'      => $translate->_('Send an email to the customer.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large',
+            'class'      => 'form-control',
             'multioptions' => array('1' => $translate->_('Yes'), '0'=> $translate->_('No'))
         ));
         
         $this->addElement('select', 'category_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Category'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('category_id')
@@ -85,7 +85,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Status'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('status_id')
@@ -113,7 +113,7 @@ class Admin_Form_TicketsForm extends Zend_Form
 	            'label'      => $translate->_('Attachment'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'      => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
-	            'class'      => 'input-large'
+	            'class'      => 'form-control'
 	        ));
 	        
 	        $file->addValidator ( 'Extension', false, $Types )

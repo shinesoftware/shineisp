@@ -39,7 +39,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
                                 [label] => ID
                                 [attributes] => Array
                                     (
-                                        [class] => hidden-phone hidden-tablet
+                                        [class] => hidden-sm hidden-md
                                     )
             
                             )
@@ -49,7 +49,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
                                 [label] => Data
                                 [attributes] => Array
                                     (
-                                        [class] => hidden-phone hidden-tablet
+                                        [class] => hidden-sm hidden-md
                                     )
             
                             )

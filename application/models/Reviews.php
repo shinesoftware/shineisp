@@ -21,12 +21,12 @@ class Reviews extends BaseReviews
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'r.subject', 'alias' => 'subject', 'type' => 'string');
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'City' ), 'field' => 'r.city', 'alias' => 'city', 'type' => 'string', 'attributes' => array('class' => 'hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'City' ), 'field' => 'r.city', 'alias' => 'city', 'type' => 'string', 'attributes' => array('class' => 'hidden-sm hidden-md') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Stars' ), 'field' => 'r.stars', 'alias' => 'stars', 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Published on' ), 'field' => 'r.publishedat', 'alias' => 'publishedat', 'type' => 'date', 'attributes' => array('class' => 'hidden-phone hidden-tablet') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Published on' ), 'field' => 'r.publishedat', 'alias' => 'publishedat', 'type' => 'date', 'attributes' => array('class' => 'hidden-sm hidden-md') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'r.active', 'alias' => 'active', 'type' => 'boolean' );
 		
 		$config ['datagrid'] ['fields'] = "r.review_id, r.*, DATE_FORMAT(r.publishedat, '%d/%m/%Y %H:%i:%s') as publishedat";

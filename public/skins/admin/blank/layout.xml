@@ -13,7 +13,7 @@
             <css override="1">/resources/js/css/jquery-ui-1.8.16.custom.css</css> 
 			
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
-            <css override="1">/resources/bootstrap/css/bootstrap.min.css</css>
+            <css override="1">/resources/bootstrap/css/bootstrap.css</css>
             <js override="1" position="admin_endbody">/resources/bootstrap/js/bootstrap.min.js</js>
 		</head>
 	</general>

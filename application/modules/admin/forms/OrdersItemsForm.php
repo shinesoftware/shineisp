@@ -33,7 +33,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => false,
             'label'      => $translate->_('Products'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('product_id')
@@ -51,7 +51,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
         $this->addElement('select', 'billing_cycle_id', array(
         'label' => $translate->_('Billing Cycle'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('billing_cycle_id')
@@ -78,7 +78,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
         	'rows'		 => 5,
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('textarea', 'parameters', array(
@@ -87,14 +87,14 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'decorators' => array('Bootstrap'),
         	'rows'		 => 5,
             'description' => $translate->_('Parameters model accepted: {"domain":"mydomain.com","action":"registerDomain"}'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'status_id', array(
 			        'label' => $translate->_('Status'),
 			        'required' => true,
 			        'decorators' => array('Bootstrap'),
-			        'class'      => 'input-large'
+			        'class'      => 'form-control'
 			        ));
 			        
         $this->getElement('status_id')
@@ -104,7 +104,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
         $this->addElement('select', 'autorenew', array(
 			            'decorators'  => array('Bootstrap'),
 			            'label'       => $translate->_('Auto Renewal'),
-			            'class'       => 'input-large',
+			            'class'       => 'form-control',
 			        	'multioptions' => array( 0=>'NO', 1=> 'YES')
 			        )); 
 
@@ -112,7 +112,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
         $this->addElement('multiselect', 'domains', array(
 			        'label' => $translate->_('Available Domains'),
 			        'decorators' => array('Bootstrap'),
-			        'class'      => 'input-large tmpitems'
+			        'class'      => 'form-control tmpitems'
 			        ));
         
         $this->getElement('domains')
@@ -123,7 +123,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
         $this->addElement('multiselect', 'domains_selected', array(
 			        'label' => $translate->_('Selected domains'),
 			        'decorators' => array('Bootstrap'),
-			        'class'      => 'input-large items'
+			        'class'      => 'form-control items'
 			        ));        
 
         $this->getElement('domains_selected')

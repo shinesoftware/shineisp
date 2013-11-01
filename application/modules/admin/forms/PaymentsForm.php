@@ -13,35 +13,35 @@ class Admin_Form_PaymentsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Payment date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large date'
+            'class'      => 'form-control date'
         ));
     	
         $this->addElement('text', 'reference', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Transaction Reference'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
     	
         $this->addElement('text', 'income', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Income'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
     	
         $this->addElement('text', 'outcome', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expense'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
 
         $this->addElement('select', 'confirmed', array(
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('Does the Transaction has been confirmed?'),
         		'decorators' => array('Bootstrap'),
-        		'class'      => 'input-large'
+        		'class'      => 'form-control'
         ));
         
         $this->getElement('confirmed')
@@ -51,7 +51,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         $this->addElement('select', 'bank_id', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => 'Method of Payments',
-        		'class'       => 'input-large',
+        		'class'       => 'form-control',
         ));
         
         $this->getElement('bank_id')
@@ -62,7 +62,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         $this->addElement('select', 'order_id', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => 'Order',
-        		'class'       => 'input-large',
+        		'class'       => 'form-control',
         ));
         
         $this->getElement('order_id')
@@ -73,7 +73,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         $this->addElement('select', 'customer_id', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => 'Customer',
-        		'class'       => 'input-large',
+        		'class'       => 'form-control',
         ));
         
         $this->getElement('customer_id')
@@ -87,7 +87,7 @@ class Admin_Form_PaymentsForm extends Zend_Form
         		'id'         => 'description',
         		'rows'         => '3',
         		'decorators' => array('Bootstrap'),
-        		'class'      => 'span12 input-large'
+        		'class'      => 'col-lg-12 form-control'
         ));
         
         $this->addElement('hidden', 'payment_id');

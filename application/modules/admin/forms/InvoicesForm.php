@@ -18,7 +18,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
         $this->addElement('select', 'order_id', array(
             'label'      => $translate->_('Order No.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('order_id')
@@ -28,7 +28,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
     	$this->addElement('select', 'customer_parent_id', array(
             'label'      => $translate->_('Invoice destination'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large',
+            'class'      => 'form-control',
             'disable'    => 'true'
         ));
 
@@ -56,7 +56,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Private Notes'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12 wysiwyg'
+            'class'      => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('hidden', 'invoice_id');

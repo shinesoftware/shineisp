@@ -20,7 +20,7 @@ class Languages extends BaseLanguages {
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'l.language_id', 'alias' => 'language_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'l.language_id', 'alias' => 'language_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'l.language_id', 'alias' => 'language_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'l.language', 'alias' => 'language', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Locale' ), 'field' => 'l.locale', 'alias' => 'locale', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

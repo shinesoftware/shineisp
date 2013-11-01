@@ -20,7 +20,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.purchase_id', 'alias' => 'purchase_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'i.purchase_id', 'alias' => 'purchase_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'i.purchase_id', 'alias' => 'purchase_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.number', 'alias' => 'number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Supplier' ), 'field' => 'i.company', 'alias' => 'supplier', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

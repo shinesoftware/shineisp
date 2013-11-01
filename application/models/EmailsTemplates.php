@@ -20,7 +20,7 @@ class EmailsTemplates extends BaseEmailsTemplates
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'template_id', 'alias' => 'template_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'template_id', 'alias' => 'template_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'template_id', 'alias' => 'template_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Code' ), 'field' => 'code', 'alias' => 'code', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Section' ), 'field' => 'type', 'alias' => 'type', 'sortable' => true, 'searchable' => true, 'type' => 'string' );

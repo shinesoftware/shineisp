@@ -23,7 +23,7 @@ class PanelsActions extends BasePanelsActions
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.action_id', 'alias' => 'action_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.action_id', 'alias' => 'action_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.action_id', 'alias' => 'action_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => 'CONCAT(c.lastname, " ", c.firstname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Action' ), 'field' => 'action', 'alias' => 'action', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -229,10 +229,10 @@ class PanelsActions extends BasePanelsActions
         // Create the header table columns
         $records['fields'] = array('action_id' => array('label' => $translator->translate('ID')),
         							'startdate' => array('label' => $translator->translate('Start Date')),
-					        		'enddate' => array('label' => $translator->translate('End Date'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
-					        		'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'enddate' => array('label' => $translator->translate('End Date'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
+					        		'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
 					        		'name' => array('label' => $translator->translate('Panel')),
-					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-phone hidden-tablet')),
+					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
 					        		'status' => array('label' => $translator->translate('Status')));
         
 		return $records;

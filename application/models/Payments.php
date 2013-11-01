@@ -17,7 +17,7 @@ class Payments extends BasePayments
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$columns [] = array ('label' => null, 'field' => 'p.payment_id', 'alias' => 'payment_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$columns [] = array ('label' => null, 'field' => 'p.payment_id', 'alias' => 'payment_id', 'type' => 'selectall' );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.payment_id', 'alias' => 'payment_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.number', 'alias' => 'invoice', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Transaction Date' ), 'field' => 'p.paymentdate', 'alias' => 'paymentdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );

@@ -19,7 +19,7 @@ class TicketsCategories extends BaseTicketsCategories {
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'category_id', 'alias' => 'category_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'category_id', 'alias' => 'category_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 	

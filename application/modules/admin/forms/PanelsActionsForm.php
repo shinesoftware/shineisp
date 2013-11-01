@@ -13,7 +13,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Action'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'start', array(
@@ -21,21 +21,21 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Start Date'),
-            'class'       => 'input-large date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('text', 'end', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('End Date'),
-            'class'       => 'input-large date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('textarea', 'log', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Log'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'parameters', array(
@@ -44,14 +44,14 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
             'label'       => $translate->_('Parameters'),
             'description' => $translate->_('Json encoded attribute parameters'),
             'rows'       => '5',
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'panel_id', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Panel'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('panel_id')
@@ -63,7 +63,7 @@ class Admin_Form_PanelsActionsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Status'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('status_id')

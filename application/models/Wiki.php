@@ -20,12 +20,12 @@ class Wiki extends BaseWiki {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'w.subject', 'alias' => 'subject', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation Date' ), 'field' => 'w.creationdate', 'alias' => 'creation_date', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'span2') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'wc.category_id', 'alias' => 'category', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => WikiCategories::getList(), 'attributes' => array('class' => 'span2')  );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visits' ), 'field' => 'w.views', 'alias' => 'visits', 'sortable' => true, 'type' => 'index', 'attributes' => array('class' => 'span1'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visits' ), 'field' => 'w.views', 'alias' => 'visits', 'sortable' => true, 'type' => 'index');
 		
 		$config ['datagrid'] ['fields'] = "w.wiki_id, w.subject as subject, DATE_FORMAT(w.creationdate, '%d/%m/%Y') as creation_date, wc.category as category, w.views as visits";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Wiki w' )->leftJoin ( 'w.WikiCategories wc' );

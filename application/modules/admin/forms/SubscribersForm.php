@@ -13,7 +13,7 @@ class Admin_Form_SubscribersForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Email'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'subscriptiondate', array(
