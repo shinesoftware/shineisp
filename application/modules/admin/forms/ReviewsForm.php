@@ -26,7 +26,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Published At'),
-            'class'       => 'little-input date'
+            'class'       => 'form-control date'
         ));
                   
         $this->addElement('text', 'nick', array(

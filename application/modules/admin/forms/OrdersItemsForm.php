@@ -12,21 +12,21 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Quantity'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
     	
     	$this->addElement('text', 'setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup fees'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
     	
     	$this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'product_id', array(
@@ -45,7 +45,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'billing_cycle_id', array(
@@ -63,14 +63,14 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'label'      => $translate->_('Start Date'),
             'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));   
         
         $this->addElement('textarea', 'description', array(

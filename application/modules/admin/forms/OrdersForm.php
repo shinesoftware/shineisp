@@ -103,7 +103,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Date Start'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('text', 'quantity', array(
@@ -111,7 +111,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'label'      => $translate->_('Quantity'),
             'decorators' => array('Bootstrap'),
             'value'         => '1',
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('textarea', 'description', array(
@@ -206,7 +206,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'price', array(
@@ -214,28 +214,28 @@ class Admin_Form_OrdersForm extends Zend_Form
             'label'      => $translate->_('Price'),
             'id'         => 'price',
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup fee'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('VAT'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'total', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Total'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'grandtotal', array(
@@ -243,7 +243,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'label'      => $translate->_('Grand Total'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Save again in order to update the totals.'),
-            'class'      => 'little-input bold'
+            'class'      => 'form-control bold'
         ));    
             
        $this->addElement('text', 'received_income', array(
@@ -251,14 +251,14 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Income'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));           
        $this->addElement('text', 'missing_income', array(
        		'readonly'   => 1,
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Missing income'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));           
 			
         $this->addElement('text', 'fastlink', array(
@@ -267,7 +267,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'label'      => $translate->_('Fastlink Code'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Here you can read a unique code for redirect a user in the order page using the fastlink.'),
-            'class'      => 'little-input readonly'
+            'class'      => 'form-control readonly'
         ));        
             
         $this->addElement('text', 'visits', array(
@@ -275,7 +275,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'label'      => $translate->_('Visits'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Here you can read how many times the order has been viewed by the customer.'),
-            'class'      => 'little-input readonly'
+            'class'      => 'form-control readonly'
         ));        
         
         // If the browser client is an Apple client hide the file upload html object  

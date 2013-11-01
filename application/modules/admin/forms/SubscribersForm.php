@@ -21,7 +21,7 @@ class Admin_Form_SubscribersForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subscribed At'),
-            'class'       => 'little-input date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('hidden', 'subscriber_id');

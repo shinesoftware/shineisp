@@ -21,14 +21,14 @@ class Admin_Form_NewsletterForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Send At'),
-            'class'       => 'little-input date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('text', 'sent', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Sent'),
-            'class'       => 'little-input date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('textarea', 'message', array(

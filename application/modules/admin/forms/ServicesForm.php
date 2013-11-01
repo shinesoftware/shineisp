@@ -12,14 +12,14 @@ class Admin_Form_ServicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Creation date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));   
 
         $this->addElement('text', 'quantity', array(
@@ -27,7 +27,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Quantity'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));           
         
         $this->addElement('textarea', 'message', array(

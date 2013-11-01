@@ -12,7 +12,7 @@ class Admin_Form_ProductsCategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
 
         $this->addElement('text', 'uri', array(

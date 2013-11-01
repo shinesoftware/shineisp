@@ -13,7 +13,7 @@ class Admin_Form_CreditNotesForm extends Zend_Form
             'label'      => $translate->_('Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('select', 'invoice_id', array(
@@ -31,35 +31,35 @@ class Admin_Form_CreditNotesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Number'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'total_net', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
             'label'      => $translate->_('Total Net'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'total_vat', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
             'label'      => $translate->_('Total VAT'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'total', array(
             'filters'    => array('StringTrim', 'LocalizedToNormalized'),
             'label'      => $translate->_('Total'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'col-lg-12 little-input'
+            'class'      => 'col-lg-12 form-control'
         ));
         
         

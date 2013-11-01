@@ -180,14 +180,14 @@ class Admin_Form_ProductsForm extends Zend_Form
             'label'      => $translate->_('Price'),
             
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));  
             
         $this->addElement('text', 'setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup Fee'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));          
             
         $this->addElement('textarea', 'setup', array(
@@ -313,28 +313,28 @@ class Admin_Form_ProductsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Quantity'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));          
         
         $this->addElement('text', 'tranche_measure', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Measurement label'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));          
 
         $this->addElement('text', 'tranche_setupfee', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Setup fee'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));  
 		
         $this->addElement('text', 'tranche_price', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Unit Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         )); 
                 
         $this->addElement('multiselect', 'tranche_includes_domains', array(
@@ -370,7 +370,7 @@ class Admin_Form_ProductsForm extends Zend_Form
         $this->addElement('text', 'position', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Position'),
-            'class'       => 'little-input'
+            'class'       => 'form-control'
         ));
                           
         $this->addElement('textarea', 'blocks', array(

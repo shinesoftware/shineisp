@@ -23,7 +23,7 @@ class Admin_Form_SettingsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('value'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
         
         $this->addElement('select', 'isp_id', array(

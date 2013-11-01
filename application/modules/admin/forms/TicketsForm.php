@@ -52,7 +52,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         $this->addElement('select', 'order_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Order reference'),
-            'class'       => 'little-input'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('order_id')
@@ -63,7 +63,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         $this->addElement('select', 'sibling_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Relationships'),
-            'class'       => 'little-input'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('sibling_id')
@@ -73,7 +73,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         $this->addElement('select', 'user_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Operator'),
-            'class'       => 'little-input'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('user_id')

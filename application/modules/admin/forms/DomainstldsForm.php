@@ -56,7 +56,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Registration Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'renewal_price', array(
@@ -64,7 +64,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Renewal Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'transfer_price', array(
@@ -72,7 +72,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Transfer Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('select', 'server_id', array(
@@ -101,7 +101,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Registration Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'renewal_cost', array(
@@ -109,7 +109,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Renewal Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'transfer_cost', array(
@@ -117,7 +117,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Transfer Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
         
         $this->addElement('select', 'registrars_id', array(

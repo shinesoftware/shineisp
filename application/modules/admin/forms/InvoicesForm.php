@@ -12,7 +12,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('select', 'order_id', array(
@@ -41,7 +41,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Sequential number'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('text', 'formatted_number', array(
@@ -49,7 +49,7 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'required'   => false,
             'label'      => $translate->_('Invoice number'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('textarea', 'note', array(

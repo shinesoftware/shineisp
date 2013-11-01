@@ -72,9 +72,9 @@
 			        	<?php echo $form->order_id->render()?>
 			        	<?php echo $form->sibling_id->render()?>
 			        	<?php if(!empty($this->siblings)): ?>
-			            	<div class="inputitem">
+			            	<div class="form-group">
 			            	<label for="siblings"><?php echo $this->translate('Go to'); ?>:</label>
-			            	<select id="siblings" class="text-input little-input goto">
+			            	<select id="siblings" class="form-control goto">
 			            		<?php foreach ($this->siblings as $id => $sibling): ?>
 			            			<option value="/admin/tickets/edit/id/<?php echo $id ?>"><?php echo $sibling?></option>
 			            		<?php endforeach;?>
