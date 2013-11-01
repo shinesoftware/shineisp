@@ -22,16 +22,10 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		// Get the skin paramenter set in the Settings Table in the database		
 		if($module == "default"){
 			$customskin = Settings::findbyParam ( 'skin' );
-			$skin = !empty ( $customskin ) ? $customskin : "blank";
-			if(!file_exists(PUBLIC_PATH . "/skins/$module/$skin")){
-			    $skin = "blank";
-			}
+			$skin = !empty ( $customskin ) && (file_exists(PUBLIC_PATH . "/skins/$module/$customskin")) ? $customskin : "blank";
 		}elseif($module == "admin"){
 			$customskin = Settings::findbyParam ( 'adminskin' );
-			$skin = !empty ( $customskin ) ? $customskin : "base";        
-			if(!file_exists(PUBLIC_PATH . "/skins/$module/$skin")){
-			    $skin = "blank";
-			}
+			$skin = !empty ( $customskin ) && (file_exists(PUBLIC_PATH . "/skins/$module/$customskin")) ? $customskin : "blank";        
 		}else{
 			$customskin = "";
 			$skin = "";
