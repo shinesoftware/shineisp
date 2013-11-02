@@ -27,11 +27,6 @@
                 <js override="1" position="admin_endbody">/resources/js/wysiwyg/wysihtml5/rules.js</js>
                 <js override="1" position="admin_endbody">/resources/js/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
                 <js override="1" position="admin_endbody">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
-                <css override="1">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
-                 <!-- 
-                <js override="1" position="admin_endbody">/resources/js/wysiwyg/tiny_mce/tiny_mce.js</js>
-                <js>/js/wysiwyg.js</js> 
-                 -->
                 <js override="1" position="admin_endbody">/resources/js/jquery/jquery.autocomplete.min.js</js>
                 <js override="1" position="admin_endbody">/resources/js/jquery/jquery.tokeninput.js</js>
                 
@@ -50,6 +45,7 @@
                 <css>/css/grid.css</css>  
                 
                 <!-- files to be include in every ADMIN pages-->
+                <css override="1">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
                 <css override="1">/resources/js/css/ui.dynatree.css</css>
                 <css override="1">/resources/js/css/jquery.dataTables.css</css>
                 <css override="1">/resources/js/css/bootstrap-select.min.css</css>
