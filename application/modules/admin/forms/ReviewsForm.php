@@ -13,7 +13,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Product'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('product_id')
@@ -26,7 +26,7 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Published At'),
-            'class'       => 'form-control input-lg date'
+            'class'       => 'form-control date'
         ));
                   
         $this->addElement('text', 'nick', array(
@@ -34,14 +34,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Nick'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'referer', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Who is Talking About Us?'),
-        		'class'       => 'form-control input-lg',
+        		'class'       => 'form-control',
         		'multiOptions' => array('Google' => 'Google', 'Bing' => 'Bing', 'Yahoo' => 'Yahoo', $translate->_('Other Search Engine') => $translate->_('Other Search Engine'), 'Websites' => $translate->_('Websites/Blogs'), $translate->_('Friend suggestion') => $translate->_('Friend suggestion'))
         ));
         
@@ -49,28 +49,28 @@ class Admin_Form_ReviewsForm extends Zend_Form
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('City'),
-        		'class'       => 'form-control input-lg'
+        		'class'       => 'form-control'
         ));        
                   
         $this->addElement('text', 'ip', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('IP'),
-        		'class'       => 'form-control input-lg'
+        		'class'       => 'form-control'
         ));        
                   
         $this->addElement('text', 'latitude', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Latitude'),
-        		'class'       => 'form-control input-lg'
+        		'class'       => 'form-control'
         ));       
                   
         $this->addElement('text', 'longitude', array(
         		'filters'     => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Longitude'),
-        		'class'       => 'form-control input-lg'
+        		'class'       => 'form-control'
         ));       
                   
         $this->addElement('text', 'subject', array(
@@ -78,14 +78,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
                   
         $this->addElement('text', 'email', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Email'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
         
     	$this->addElement('text', 'stars', array(
@@ -104,14 +104,14 @@ class Admin_Form_ReviewsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Active'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));        
         
         $this->addElement('textarea', 'review', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
         	'required'    => true,
-            'class'       => 'col-lg-12 form-control input-lg wysiwyg'
+            'class'       => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('hidden', 'review_id');

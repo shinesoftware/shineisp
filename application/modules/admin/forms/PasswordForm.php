@@ -16,7 +16,7 @@ class Admin_Form_PasswordForm extends Zend_Form
             'required'   => true,
             'description'      => $translate->_('Write your own email'),
             'label'      => $translate->_('Email'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
         
 

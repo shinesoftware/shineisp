@@ -13,13 +13,13 @@ class Admin_Form_PanelsForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'isp_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('ISP Profile'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
                 
         $this->getElement('isp_id')
@@ -30,7 +30,7 @@ class Admin_Form_PanelsForm extends Zend_Form
         $this->addElement('select', 'active', array(
             'label'      => $translate->_('Active'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg',
+            'class'      => 'form-control',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));        
         

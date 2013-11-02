@@ -12,7 +12,7 @@ class Admin_Form_TicketsCategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Category'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('hidden', 'category_id');

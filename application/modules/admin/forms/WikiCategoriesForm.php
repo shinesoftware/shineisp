@@ -13,13 +13,13 @@ class Admin_Form_WikiCategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Category'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
 
         $this->addElement('select', 'public', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Public'),
-        		'class'       => 'form-control input-lg',
+        		'class'       => 'form-control',
         		'multioptions' => array( 0 => $translate->_('NO'), 1 => $translate->_('YES'))
         ));
         

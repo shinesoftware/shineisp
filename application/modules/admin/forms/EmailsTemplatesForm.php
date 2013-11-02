@@ -12,13 +12,13 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('E-Mail Name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
 		
     	$this->addElement('select', 'type', array(
             'label'      => $translate->_('Section'),
             'decorators' => array('Bootstrap'),
-    		'class'      => 'form-control input-lg'
+    		'class'      => 'form-control'
         ));
         $this->getElement('type')
                   ->setAllowEmpty(false)
@@ -39,7 +39,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('From name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('text', 'fromemail', array(
@@ -47,7 +47,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('From E-Mail'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('text', 'cc', array(
@@ -55,7 +55,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'required'   => false,
             'label'      => $translate->_('Always CC'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('text', 'bcc', array(
@@ -63,7 +63,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'required'   => false,
             'label'      => $translate->_('Always BCC'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('checkbox', 'plaintext', array(
@@ -81,7 +81,7 @@ class Admin_Form_EmailsTemplatesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('E-Mail Subject'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control input-lg'
+            'class'      => 'form-control'
         ));		 
 		$this->addElement('textarea', 'html', array(
             'filters'    => array('StringTrim'),

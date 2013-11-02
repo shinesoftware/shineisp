@@ -13,7 +13,7 @@ class Admin_Form_LegalformsForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('hidden', 'legalform_id');

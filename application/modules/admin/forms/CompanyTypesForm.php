@@ -13,13 +13,13 @@ class Admin_Form_CompanyTypesForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
 
         $this->addElement('select', 'legalform_id', array(
         		'label'      => $translate->_('Legal form'),
         		'decorators' => array('Bootstrap'),
-        		'class'      => 'form-control input-lg'
+        		'class'      => 'form-control'
         ));
         
         $this->getElement('legalform_id')
@@ -29,7 +29,7 @@ class Admin_Form_CompanyTypesForm extends Zend_Form
         $this->addElement('select', 'active', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Active'),
-        		'class'       => 'form-control input-lg',
+        		'class'       => 'form-control',
         		'multioptions' => array( 0=>'NO', 1=> 'YES')
         ));
         

@@ -13,7 +13,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Var'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'title', array(
@@ -21,7 +21,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Title'),
-            'class'       => 'form-control input-lg'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'body', array(
