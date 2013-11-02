@@ -778,8 +778,7 @@ class Shineisp_Commons_Ajaxgrid {
              
                     // LENGTH - Inline-Form control
                     var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                    length_sel.addClass('form-control input-small')
-                    length_sel.css('width', '75px')
+                    length_sel.addClass('form-control')
              
                     // LENGTH - Info adjust location
                     var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_info]');
