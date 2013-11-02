@@ -93,7 +93,7 @@ table.subgrid tr.headings th {
 	padding-top: 1px;
 }
 
-.form-group{
+table.grid .form-group{
 	width: inherit !important;
 }
 

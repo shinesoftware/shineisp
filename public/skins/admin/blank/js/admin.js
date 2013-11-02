@@ -48,6 +48,8 @@ $(document).ready(function(){
 	 
 	 $('input.rating').rating();
 	 
+	 $(":file").filestyle();
+	 
 });
 
 // Form tab history 

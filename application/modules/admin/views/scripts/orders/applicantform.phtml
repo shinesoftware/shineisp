@@ -121,9 +121,13 @@
 		   
 		   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
 			   <div class="tab-pane" id="tab5">
-		            <?php echo $this->simplegrid($this->filesgrid);?>
-		            <?php echo $form->filecategory->render()?>
-		            <?php echo $form->attachments->render()?>
+			       <div class="col-sm-6 col-xs-12">
+		                <?php echo $form->filecategory->render()?>
+		                <?php echo $form->attachments->render()?>
+		           </div>
+		           <div class="col-sm-6 col-xs-12">
+		               <?php echo $this->simplegrid($this->filesgrid);?>
+			       </div>
 			   </div>
 			<?php endif;?>
 			

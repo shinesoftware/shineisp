@@ -151,7 +151,9 @@ class Admin_Form_IspForm extends Zend_Form
         $this->addElement('file', 'logo', array(
             'label'      => $translate->_('Logo'),
             'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
-            'class'      => 'form-control input-lg'
+            'data-classButton' => 'btn btn-primary',
+            'data-input'       => 'false',
+            'class'            => 'filestyle'
         ));
                 
         $this->addElement('file', 'logo_email', array(

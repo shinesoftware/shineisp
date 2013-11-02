@@ -51,18 +51,18 @@ class Orders extends BaseOrders {
 		
 		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 100 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 50 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ), 'searchable' => true );
 		
-		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'type' => 'string');
+		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'attributes' => array ('class' => 'visible-lg visible-md'), 'type' => 'string');
+		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs'), 'type' => 'string');
 		
-		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('width' => 30 ));
-		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array ('width' => 70 ));
+		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 30 ));
+		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ));
 		
 		
 		$config ['datagrid'] ['columns'] = $columns;
