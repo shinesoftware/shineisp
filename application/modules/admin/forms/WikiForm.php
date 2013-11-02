@@ -13,21 +13,21 @@ class Admin_Form_WikiForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'uri', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('URI'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         
         $this->addElement('select', 'language_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Language'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
                 
         $this->getElement('language_id')
@@ -38,7 +38,7 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('select', 'active', array(
             'label'      => $translate->_('Active'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control',
+            'class'      => 'form-control input-lg',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));        
         
@@ -63,13 +63,13 @@ class Admin_Form_WikiForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
             'id'          => 'body',
-            'class'       => 'col-lg-12 form-control wysiwyg'
+            'class'       => 'col-lg-12 form-control input-lg wysiwyg'
         ));
         
         $this->addElement('select', 'category_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Category'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('category_id')

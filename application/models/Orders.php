@@ -2566,12 +2566,12 @@ class Orders extends BaseOrders {
 		$records['index'] = "order_id";
 		
 		// Create the header table columns
-		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
-		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
-		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
+		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
 		                           'fullname' => array('label' => $translator->translate('Customer')), 
-		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
-		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'hidden-sm hidden-md')), 
+		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
 		                           'status' => array('label' => $translator->translate('Status')));
 		
 		return $records;

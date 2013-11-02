@@ -229,10 +229,10 @@ class PanelsActions extends BasePanelsActions
         // Create the header table columns
         $records['fields'] = array('action_id' => array('label' => $translator->translate('ID')),
         							'startdate' => array('label' => $translator->translate('Start Date')),
-					        		'enddate' => array('label' => $translator->translate('End Date'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
-					        		'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
+					        		'enddate' => array('label' => $translator->translate('End Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+					        		'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 					        		'name' => array('label' => $translator->translate('Panel')),
-					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
+					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 					        		'status' => array('label' => $translator->translate('Status')));
         
 		return $records;

@@ -89,6 +89,7 @@ class Shineisp_Controller_Action_Helper_Ajaxgrid extends Zend_Controller_Action_
 							->addColumns ( $datagrid ['columns'] )
 							->setScriptOptions( $jsoption )
 							->setJsinject( $jsinject )
+							->setAutoWidth(false)
 							->setMassactions($massactions)
 							->setStatuses($statuses)
 							->addBulkActions()

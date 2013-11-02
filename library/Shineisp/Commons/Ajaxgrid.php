@@ -33,7 +33,7 @@ class Shineisp_Commons_Ajaxgrid {
 		
 		$this->id = "itemlist";
 		$this->addfooterfilters = false;
-		$this->css = "table table-striped table-hover";
+		$this->css = "table table-striped table-hover table-responsive";
 		$this->script = "";
 		$this->title = "";
 		$this->hiddencols = array();
@@ -615,6 +615,16 @@ class Shineisp_Commons_Ajaxgrid {
 	 */
 	public function setMultipleSelection($state=true) {
 		$this->scriptoptions['multipleSelection'] = $state;
+		return $this;
+	}
+	
+	/**
+	 * This option set as enable or disable the auto width table cell
+	 * 
+	 * @param boolean $AutoWidth
+	 */
+	public function setAutoWidth($AutoWidth=true) {
+		$this->scriptoptions['bAutoWidth'] = $AutoWidth ? 1 : 0;
 		return $this;
 	}
 	

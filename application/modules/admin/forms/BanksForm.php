@@ -12,39 +12,39 @@ class Admin_Form_BanksForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'account', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Account'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'col-lg-12 form-control wysiwyg'
+            'class'      => 'col-lg-12 form-control input-lg wysiwyg'
         ));
         
         $this->addElement('text', 'url_test', array(
             'label'      => $translate->_('URL Test'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'url_official', array(
             'label'      => $translate->_('URL Official'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));        
         
         $this->addElement('text', 'classname', array(
             'label'      => $translate->_('Classname'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));        
         
         $this->addElement('checkbox', 'enabled', array(
@@ -65,7 +65,7 @@ class Admin_Form_BanksForm extends Zend_Form
             'id'         => 'paymentmethods',
             'label'      => $translate->_('Payment methods'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('method_id')

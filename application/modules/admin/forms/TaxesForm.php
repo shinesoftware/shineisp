@@ -12,7 +12,7 @@ class Admin_Form_TaxesForm extends Zend_Form
             'label'      => $translate->_('Tax Name'),
             'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
 
         $this->addElement('text', 'percentage', array(
@@ -20,7 +20,7 @@ class Admin_Form_TaxesForm extends Zend_Form
             'label'      => $translate->_('Percentage'),
             'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));  
         
         $this->addElement('hidden', 'tax_id');

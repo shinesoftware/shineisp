@@ -24,7 +24,7 @@ class Notes extends BaseNotes
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'n.note_id', 'alias' => 'note_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'n.note_id', 'alias' => 'note_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'n.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Created' ), 'field' => 'n.created', 'alias' => 'created', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "hidden-sm hidden-md") );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Created' ), 'field' => 'n.created', 'alias' => 'created', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "visible-lg visible-md hidden-xs") );
 		
 		$config ['datagrid'] ['fields'] = "note_id, name, created, changed";
         

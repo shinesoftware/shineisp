@@ -453,7 +453,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 						$description = (!empty($element ['ProductsAttributes']['ProductsAttributesData'] [0] ['description'])) ? $element ['ProductsAttributes']['ProductsAttributesData'] [0] ['description'] : "";
 
 						// Create the element
-						$attributeForm->addElement ( $element ['ProductsAttributes']['type'], $element ['ProductsAttributes']['code'], array ('label' => $label, 'class' => 'form-control', 'decorators' => array('Composite'), 'description' => $description) );
+						$attributeForm->addElement ( $element ['ProductsAttributes']['type'], $element ['ProductsAttributes']['code'], array ('label' => $label, 'class' => 'form-control input-lg', 'decorators' => array('Composite'), 'description' => $description) );
 						
 						if ($element ['ProductsAttributes']['is_required']) {
 							$attributeForm->getElement ( $element['ProductsAttributes'] ['code'] )->setRequired ( true );

@@ -12,13 +12,13 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Attribute Code'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
     			
         $this->addElement('select', 'is_visible_on_front', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Visible on Product page'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('is_visible_on_front')
@@ -29,7 +29,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
         $this->addElement('select', 'is_required', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Is Required'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('is_required')
@@ -40,7 +40,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
         $this->addElement('select', 'is_comparable', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Is Comparable'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('is_comparable')
@@ -51,7 +51,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
         $this->addElement('select', 'on_product_listing', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Use on Product Listing'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('on_product_listing')
@@ -63,7 +63,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
         $this->addElement('select', 'active', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Active'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('active')
@@ -75,7 +75,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
         $this->addElement('select', 'system', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('System'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('system')
@@ -88,14 +88,14 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Position'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
                   
     	
     	$this->addElement('select', 'system_var', array(
             'label'      => $translate->_('System Variable'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('system_var')
@@ -108,7 +108,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'label'      => $translate->_('Default Value'),
             'description'      => $translate->_('When the type of the object is a selectbox you have to use the Json code. eg: {"1": "True", "0": "False"}'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
     	
         $this->addElement('hidden', 'language_id', array(
@@ -120,28 +120,28 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
             'label'      => $translate->_('Label'),
     		'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));      
     	
     	$this->addElement('text', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));      
     	
     	$this->addElement('text', 'prefix', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Prefix'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));      
     	
     	$this->addElement('text', 'suffix', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Suffix'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));      
     	
     	$this->addElement('select', 'type', array(
@@ -150,7 +150,7 @@ class Admin_Form_ProductsAttributesForm extends Zend_Form
     		'description' => $translate->_('If the type is a dropdown selector you have to set the options using the Json structure in the default value textbox.'),
     		'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));      
  		
         $this->getElement('type')

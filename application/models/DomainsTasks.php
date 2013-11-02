@@ -349,9 +349,9 @@ class DomainsTasks extends BaseDomainsTasks {
         // Create the header table columns
         $records['fields'] = array('startdate' => array('label' => $translator->translate('Start Date')),
 					        		'enddate' => array('label' => $translator->translate('End Date')),
-					        		'domain' => array('label' => $translator->translate('Domain'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
+					        		'domain' => array('label' => $translator->translate('Domain'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 					        		'action' => array('label' => $translator->translate('Action')),
-					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
+					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 					        		'status' => array('label' => $translator->translate('Status')));
         
 		return $records;

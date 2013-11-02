@@ -74,7 +74,7 @@
 			        	<?php if(!empty($this->siblings)): ?>
 			            	<div class="form-group">
 			            	<label for="siblings"><?php echo $this->translate('Go to'); ?>:</label>
-			            	<select id="siblings" class="form-control goto">
+			            	<select id="siblings" class="form-control input-lg goto">
 			            		<?php foreach ($this->siblings as $id => $sibling): ?>
 			            			<option value="/admin/tickets/edit/id/<?php echo $id ?>"><?php echo $sibling?></option>
 			            		<?php endforeach;?>

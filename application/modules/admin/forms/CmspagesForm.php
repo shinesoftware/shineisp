@@ -13,7 +13,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Title'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->addElement('textarea', 'body', array(
@@ -29,7 +29,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'label'       => $translate->_('URL-Key'),
         	'description' => $translate->_('This is the name of the page. For multilanguages website you can create more page with the same Url-key with different languages.'),
             'rows'        => 5,
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->addElement('textarea', 'keywords', array(
@@ -57,7 +57,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->addElement('select', 'parent_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Parent'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('parent_id')
@@ -68,7 +68,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->addElement('select', 'layout', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Content layouts'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('layout')
@@ -79,7 +79,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->addElement('select', 'pagelayout', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Page layouts'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('pagelayout')
@@ -106,21 +106,21 @@ class Admin_Form_CmspagesForm extends Zend_Form
         $this->addElement('select', 'showinmenu', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Show in the navigation menu'),
-            'class'       => 'form-control',
+            'class'       => 'form-control input-lg',
         	'multioptions' => array( 0=>'Not Visible', 1=> 'Visible')
         ));
         
         $this->addElement('select', 'showonrss', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Publish on RSS Feed'),
-            'class'       => 'form-control',
+            'class'       => 'form-control input-lg',
         	'multioptions' => array( 0=>'Not Published', 1=> 'Published')
         ));
         
         $this->addElement('select', 'active', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Active'),
-            'class'       => 'form-control',
+            'class'       => 'form-control input-lg',
         	'multioptions' => array( 0=>'NO', 1=> 'YES')
         ));
         

@@ -12,14 +12,14 @@ class Admin_Form_ServicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Creation date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control input-lg date'
         ));
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control input-lg date'
         ));   
 
         $this->addElement('text', 'quantity', array(
@@ -27,14 +27,14 @@ class Admin_Form_ServicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Quantity'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));           
         
         $this->addElement('textarea', 'message', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Message'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'col-lg-12 form-control wysiwyg'
+            'class'      => 'col-lg-12 form-control input-lg wysiwyg'
         ));
         
         $this->addElement('textarea', 'note', array(
@@ -42,7 +42,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'label'      => $translate->_('Note'),
             'description' => $translate->_('Write here a note. An email will be sent to the ISP staff.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'col-lg-12 form-control wysiwyg'
+            'class'      => 'col-lg-12 form-control input-lg wysiwyg'
         ));
         
         $this->addElement('textarea', 'setup', array(
@@ -56,7 +56,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'order_id', array(
         'label' => $translate->_('Orders'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control'
+        'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('order_id')
@@ -66,7 +66,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('multiselect', 'domains', array(
         'label' => $translate->_('Available domains'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control col-lg-12 tmpitems'
+        'class'      => 'form-control input-lg col-lg-12 tmpitems'
         ));
         
         $this->getElement('domains')
@@ -77,7 +77,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('multiselect', 'domains_selected', array(
         'label' => $translate->_('Selected domains'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control col-lg-12 items'
+        'class'      => 'form-control input-lg col-lg-12 items'
         ));        
 
         $this->getElement('domains_selected')
@@ -86,7 +86,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'product_id', array(
         'label' => $translate->_('Products'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control'
+        'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('product_id')
@@ -96,7 +96,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'billing_cycle_id', array(
         'label' => $translate->_('Billing Cycle'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control'
+        'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('billing_cycle_id')
@@ -106,7 +106,7 @@ class Admin_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'status_id', array(
         'label' => $translate->_('Status'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control'
+        'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('status_id')
@@ -118,7 +118,7 @@ class Admin_Form_ServicesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Auto Renewal'),
             'description' => $translate->_('Enable or disable the automatic renewal of the service'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->getElement('autorenew')

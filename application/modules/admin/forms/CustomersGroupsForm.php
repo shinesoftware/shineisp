@@ -13,7 +13,7 @@ class Admin_Form_CustomersGroupsForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->addElement('hidden', 'group_id');

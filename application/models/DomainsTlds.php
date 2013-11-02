@@ -24,10 +24,10 @@ class DomainsTlds extends BaseDomainsTlds
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dt.tld_id', 'alias' => 'tld_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'TLD' ), 'field' => 'ws.tld', 'alias' => 'tld', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Registration price' ), 'field' => 'dt.new', 'alias' => 'new', 'sortable' => true, 'searchable' => true, 'type' => 'integer', 'attributes' => array('class' => 'hidden-sm') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Transfer price' ), 'field' => 'dt.transfer', 'alias' => 'transfer', 'sortable' => true, 'searchable' => true, 'type' => 'integer', 'attributes' => array('class' => 'hidden-sm') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Renewal price' ), 'field' => 'dt.renew', 'alias' => 'renew', 'sortable' => true, 'searchable' => true, 'type' => 'integer', 'attributes' => array('class' => 'hidden-sm') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Whois' ), 'field' => 'ws.server', 'alias' => 'whois', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-sm hidden-md'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Registration price' ), 'field' => 'dt.new', 'alias' => 'new', 'sortable' => true, 'searchable' => true, 'type' => 'integer', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Transfer price' ), 'field' => 'dt.transfer', 'alias' => 'transfer', 'sortable' => true, 'searchable' => true, 'type' => 'integer', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Renewal price' ), 'field' => 'dt.renew', 'alias' => 'renew', 'sortable' => true, 'searchable' => true, 'type' => 'integer', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Whois' ), 'field' => 'ws.server', 'alias' => 'whois', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs'));
 		
 		$config ['datagrid'] ['fields'] =  "dt.tld_id, ws.server as whois, ws.tld as tld, dt.registration_price as new, dt.transfer_price as transfer, dt.renewal_price as renew";
 		

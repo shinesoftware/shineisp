@@ -24,7 +24,7 @@
 	        <?php if(!empty($this->actions)): ?>
 	        	<?php echo $this->translate('Registrars Actions') ?>:
 	        	<div class="input-group">
-    		        <select id="regActions" class="form-control">
+    		        <select id="regActions" class="form-control input-lg">
     		        	<option><?php echo $this->translate('Select ...') ?></option>
     			        <?php foreach($this->actions as $key => $action): ?>
     			        <option value="<?php echo $key ?>"><?php echo $action?></option>

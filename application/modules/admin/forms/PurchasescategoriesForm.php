@@ -12,7 +12,7 @@ class Admin_Form_PurchasescategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Category'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));   
         
         $this->addElement('hidden', 'category_id');

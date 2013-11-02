@@ -18,7 +18,7 @@ class Admin_Form_ProfileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Firstname'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
     	
     	$this->addElement('text', 'lastname', array(
@@ -26,7 +26,7 @@ class Admin_Form_ProfileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Lastname'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
     	
     	// Check if the user is an administrator, if not the select role object will become an hidden field
@@ -35,7 +35,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     				'required'   => true,
     				'label'      => $translate->_('Role'),
     				'decorators' => array('Bootstrap'),
-    				'class'      => 'form-control'
+    				'class'      => 'form-control input-lg'
     		));
     		
     		$this->getElement('role_id')
@@ -47,7 +47,7 @@ class Admin_Form_ProfileForm extends Zend_Form
     				'required'   => true,
     				'label'      => $translate->_('Isp Company'),
     				'decorators' => array('Bootstrap'),
-    				'class'      => 'form-control'
+    				'class'      => 'form-control input-lg'
     		));
     		
     		$this->getElement('isp_id')
@@ -67,7 +67,7 @@ class Admin_Form_ProfileForm extends Zend_Form
         					),
             'required'   => true,
             'label'      => $translate->_('Email'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('password', 'password', array(
@@ -77,7 +77,7 @@ class Admin_Form_ProfileForm extends Zend_Form
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
         		'label'      => $translate->_('Password'),
-        		'class'      => 'form-control'
+        		'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('hidden', 'user_id');

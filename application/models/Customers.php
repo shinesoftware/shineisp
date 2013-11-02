@@ -43,9 +43,9 @@ class Customers extends BaseCustomers {
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'c.customer_id', 'alias' => 'customer_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'c.customer_id', 'alias' => 'customer_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(c.firstname, " ", c.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-sm') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'c.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'hidden-sm hidden-md') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers'), 'attributes' => array('class' => 'hidden-sm hidden-md')  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(c.firstname, " ", c.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'c.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')  );
 		
 		$config ['datagrid'] ['fields'] = "c.customer_id, 
 										   c.company as company, 
@@ -1119,9 +1119,9 @@ class Customers extends BaseCustomers {
 		
 		// Create the header table columns
 		$records['fields'] = array(
-									'id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
-									'lastname' => array('label' => $translator->translate('Last name'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
-									'firstname' => array('label' => $translator->translate('First name'), 'attributes' => array('class' => 'hidden-sm hidden-md')),
+									'id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'lastname' => array('label' => $translator->translate('Last name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'firstname' => array('label' => $translator->translate('First name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'company' => array('label' => $translator->translate('Company')),
 									'grandtotal' => array('label' => $translator->translate('Total')));
 		

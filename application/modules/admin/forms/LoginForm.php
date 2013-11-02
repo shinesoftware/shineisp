@@ -16,7 +16,7 @@ class Admin_Form_LoginForm extends Zend_Form
             'required'   => true,
             'description'      => 'Write your own email',
             'label'      => $translate->_('Email'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('password', 'password', array(
@@ -28,7 +28,7 @@ class Admin_Form_LoginForm extends Zend_Form
             'description'      => 'Write your own password',
             'required'   => true,
             'label'      => $translate->_('Password'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
 
         $this->addElement('checkbox', 'rememberme', array(

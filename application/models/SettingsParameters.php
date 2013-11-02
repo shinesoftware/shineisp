@@ -68,7 +68,7 @@ class SettingsParameters extends BaseSettingsParameters {
 				// Custom style added to the textareas
 				$style = ( $record['type'] == "textarea") ? array('rows'=>4) : array();
 				
-				$form->addElement ( $record['type'], $record ['var'], $style + array ('decorators' => array('Bootstrap'), 'filters' => array ('StringTrim' ), 'label' => $record ['name'], 'description' => $record ['description'], 'class' => 'form-control obj_' . $record ['var'] ) );
+				$form->addElement ( $record['type'], $record ['var'], $style + array ('decorators' => array('Bootstrap'), 'filters' => array ('StringTrim' ), 'label' => $record ['name'], 'description' => $record ['description'], 'class' => 'form-control input-lg obj_' . $record ['var'] ) );
 					
 				if(!empty($record ['config'])){
 					$config = json_decode($record ['config'], true);

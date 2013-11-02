@@ -13,7 +13,7 @@ class Admin_Form_SubscribersForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Email'),
-            'class'       => 'form-control'
+            'class'       => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'subscriptiondate', array(
@@ -21,7 +21,7 @@ class Admin_Form_SubscribersForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subscribed At'),
-            'class'       => 'form-control date'
+            'class'       => 'form-control input-lg date'
         ));
         
         $this->addElement('hidden', 'subscriber_id');

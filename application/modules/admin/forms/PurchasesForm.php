@@ -13,7 +13,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control input-lg date'
         ));
     	
     	$this->addElement('text', 'expiringdate', array(
@@ -21,7 +21,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Expiry Date'),
             'title'      => $translate->_('eg: 01/11/2011'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control input-lg date'
         ));
     	
     	$this->addElement('text', 'paymentdate', array(
@@ -29,13 +29,13 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Payment Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control input-lg date'
         ));
         
         $this->addElement('select', 'category_id', array(
             'label'      => $translate->_('Category'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('category_id')
@@ -45,7 +45,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         $this->addElement('select', 'method_id', array(
             'label'      => $translate->_('Payment Method'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('method_id')
@@ -57,7 +57,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Number'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'company', array(
@@ -66,7 +66,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'required'   => true,
         	'title' => $translate->_('eg: Google inc.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'total_net', array(
@@ -74,7 +74,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Total Net'),
         	'required'   => true,	
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'total_vat', array(
@@ -82,7 +82,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Total VAT'),
         	'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'total', array(
@@ -90,14 +90,14 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Total'),
         	'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('textarea', 'note', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Note'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'col-lg-12 form-control'
+            'class'      => 'col-lg-12 form-control input-lg'
         ));
         
         // If the browser client is an Apple client hide the file upload html object
@@ -107,7 +107,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
 	            'label'      => $translate->_('Document'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
 	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf)'),
-	            'class'      => 'form-control'
+	            'class'      => 'form-control input-lg'
 	        ));
 	        
 	        $file->addValidator ( 'Extension', false, 'zip,rtf,doc,pdf' );
@@ -121,7 +121,7 @@ class Admin_Form_PurchasesForm extends Zend_Form
         'label' => $translate->_('Status'),
         'required' => true,
         'decorators' => array('Bootstrap'),
-        'class'      => 'form-control'
+        'class'      => 'form-control input-lg'
         ));
         
         $this->getElement('status_id')

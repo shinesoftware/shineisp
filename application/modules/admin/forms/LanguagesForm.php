@@ -13,7 +13,7 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'label'      => $translate->_('Language'),
             'description'=> $translate->_('Set the name of the language'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'locale', array(
@@ -21,7 +21,7 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'label'      => $translate->_('Locale'),
         	'description'=> $translate->_('Write here the name of the locale (eg. en). Then you have to create the en.mo file in the /application/languages/en.mo'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
         
         $this->addElement('text', 'code', array(
@@ -29,13 +29,13 @@ class Admin_Form_LanguagesForm extends Zend_Form
             'label'      => $translate->_('Code'),
         	'description'=> $translate->_('Write here the name of the locale (eg. en). '),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control input-lg'
         ));
 
         $this->addElement('select', 'active', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Active'),
-        		'class'       => 'form-control',
+        		'class'       => 'form-control input-lg',
         		'description' => $translate->_('Set the status of the translation language'),
         		'multioptions' => array( 0=>'NO', 1=> 'YES')
         ));
@@ -43,7 +43,7 @@ class Admin_Form_LanguagesForm extends Zend_Form
         $this->addElement('select', 'base', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Base'),
-        		'class'       => 'form-control',
+        		'class'       => 'form-control input-lg',
         		'description' => $translate->_('Set the main translation language'),
         		'multioptions' => array( 0=>'NO', 1=> 'YES, It is the default language')
         ));
