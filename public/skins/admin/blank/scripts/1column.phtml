@@ -11,13 +11,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand">ShineISP</a>
+            <a href="#" class="navbar-brand hidden-md hidden-sm">ShineISP</a>
         </div>
           
 		<div class="collapse navbar-collapse pull-right">
    			<ul class="nav navbar-nav">
                 <li class="dropdown"><?php echo $this->profile();?></li>
-                <li class="dropdown"><?php echo $this->languageswitcher();?></li>
 			</ul>
 		</div>
 		<?php echo $this->navigation()->menu()->setPartial(array('partials/navigation.phtml', 'admin'))->render(); ?>
@@ -42,6 +41,8 @@
 		
 		<?php echo $this->blocks()->showblock('admin_endcontent');?> 	
     </div>
+    
+    <?php echo $this->render('includes/footer-bar.phtml') ?>
 	<?php echo $this->blocks()->showblock('admin_endbody');?> 	
 </body>
 <?php echo $this->render('includes/footer.phtml') ?>
