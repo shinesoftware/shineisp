@@ -763,7 +763,7 @@ class Shineisp_Commons_Ajaxgrid {
 		// http://datatables.net/forums/discussion/16675/twitter-bootstrap-3
 		$this->script .= "
             $(function(){
-                $('#orders').each(function(){
+                $('#".$this->id."').each(function(){
                     var datatable = $(this);
                     // SEARCH - Add the placeholder for Search and Turn this into in-line formcontrol
                     var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
