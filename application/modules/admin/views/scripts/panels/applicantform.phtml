@@ -2,44 +2,28 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
-
-<div class="content_inner">
-
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div class="tabbable" id="tabs">
-		<ul>
+		<ul class="nav nav-tabs">
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<?php if($form->panel_id->getValue()): ?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Configuration');?></a></li> <?php endif;?>
 		</ul>
-
-	    <div class="tab-pane active" id="tab1"> 
-		    <?php echo $form->name->render()?>
-		    <?php echo $form->isp_id->render()?>
-		    <?php echo $form->active->render()?>
-		   	<?php echo $form->panel_id->render()?>
-		</div>  
-		<?php if($form->panel_id->getValue()): ?>
-			<div class="tab-pane" id="tab2"> 
-				<?php echo $form->parameters->render()?>
-			</div>	
-		<?php endif;?>
+		
+        <div class="tab-content">
+    	    <div class="tab-pane active" id="tab1"> 
+    		    <?php echo $form->name->render()?>
+    		    <?php echo $form->isp_id->render()?>
+    		    <?php echo $form->active->render()?>
+    		   	<?php echo $form->panel_id->render()?>
+    		</div>  
+    		<?php if($form->panel_id->getValue()): ?>
+    			<div class="tab-pane" id="tab2"> 
+    				<?php echo $form->parameters->render()?>
+    			</div>	
+    		<?php endif;?>
+		</div>
 	</div>
 </form>
-
-
-</div>

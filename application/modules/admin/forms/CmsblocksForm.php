@@ -28,7 +28,7 @@ class Admin_Form_CmsblocksForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
-            'class'       => 'col-lg-12'
+            'class'       => 'col-lg-12 wysiwyg form-control'
         ));
 
         $this->addElement('multiselect', 'language_id', array(
@@ -46,13 +46,6 @@ class Admin_Form_CmsblocksForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(Languages::getList());   
-                  
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => $translate->_('Save'),
-            'decorators' => array('Bootstrap'),
-            'class'    => 'btn'
-        ));
         
         $this->addElement('hidden', 'block_id');
 

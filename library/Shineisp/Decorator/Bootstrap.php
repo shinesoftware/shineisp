@@ -148,7 +148,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 				$start_label =  substr($label, 0, $pos+1);
 
 				$output = "<div class=\"form-group $iserror style-$name\">";
-				$output .= $start_label . $this->getElement()->getLabel() . "</label>";
+				$output .= "<label>" . $this->getElement()->getLabel() . "</label> <br/>";
 				$output .= "<div class=\"make-switch\">" . $input . "</div>";
 				$output .= "</div>";
 			break;

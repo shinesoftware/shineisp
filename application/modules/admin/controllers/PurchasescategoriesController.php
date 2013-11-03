@@ -130,7 +130,7 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 				$record = $this->categories->find ( $id );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -147,7 +147,7 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 		try {
 			$this->categories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'purchasescategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'purchasescategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'purchasescategories', 'admin' );
 	}
@@ -234,7 +234,7 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'purchasescategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'purchasescategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'purchasescategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/purchasescategories/edit/id/$id" );

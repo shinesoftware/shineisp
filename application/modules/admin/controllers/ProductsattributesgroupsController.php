@@ -127,7 +127,7 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
                 }
 				
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -246,7 +246,7 @@ class Admin_ProductsattributesgroupsController extends Shineisp_Controller_Admin
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'edit', 'productsattributesgroups', 'admin', array ('id' => $id, 'mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'productsattributesgroups', 'admin', array ('id' => $id, 'mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 }

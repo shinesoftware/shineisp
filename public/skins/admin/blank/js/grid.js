@@ -24,14 +24,14 @@ $(document).ready(function(){
 		}
 	); 
 	
-	$('.table').delegate('tbody tr', 'click', function(event) {
+	$('table.dataTable').delegate('tbody tr', 'click', function(event) {
         if (event.target.type !== 'checkbox') {
             var checkbox = $(this).find(':checkbox');
             checkbox.trigger('click');
         }
     });
 	
-	$('.table').delegate('tbody tr', 'dblclick', function(event) {
+	$('table.dataTable').delegate('tbody tr', 'dblclick', function(event) {
 		var link = $(this).find('a.editlink');
 		window.location.href = link.attr("href");
 	});

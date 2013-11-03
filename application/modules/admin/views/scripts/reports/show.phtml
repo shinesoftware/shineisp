@@ -1,32 +1,28 @@
 <?php echo $this->render('partials/headers.phtml'); ?>
 
-<div class="content_inner">
-      <div class="segment">
       
-	        <?php echo $this->form ?>
-	        <?php if(!empty($this->monthsummary)): ?>
-	        	<?php echo $this->googlegraph($this->monthsummary, $this->year) ?>
-	        <?php endif;?>
-	        
-	        <?php if(!empty($this->weeksummary)): ?>
-	        	<?php echo $this->googlegraph($this->weeksummary, $this->year) ?>
-	        <?php endif;?>
-	        
-			<br/><br/>
+<?php echo $this->form ?>
+<?php if(!empty($this->monthsummary)): ?>
+	<?php echo $this->googlegraph($this->monthsummary, $this->year) ?>
+<?php endif;?>
+
+<?php if(!empty($this->weeksummary)): ?>
+	<?php echo $this->googlegraph($this->weeksummary, $this->year) ?>
+<?php endif;?>
+
+<br/><br/>
+
+<?php if($this->data):?>
+	<?php echo $this->simplegrid($this->data)?>
+<?php endif; ?>
+
+<?php // The datagrid will be shown here below ?>			
+<?php if($this->incoming):?>
+	<?php echo $this->incoming;?>
+<?php endif; ?>
+
+<?php // The datagrid will be shown here below ?>			
+<?php if($this->expenses):?>
+	<?php echo $this->expenses;?>
+<?php endif; ?>
 			
-			<?php if($this->data):?>
-				<?php echo $this->simplegrid($this->data)?>
-			<?php endif; ?>
-			
-			<?php // The datagrid will be shown here below ?>			
-			<?php if($this->incoming):?>
-				<?php echo $this->incoming;?>
-			<?php endif; ?>
-			
-			<?php // The datagrid will be shown here below ?>			
-			<?php if($this->expenses):?>
-				<?php echo $this->expenses;?>
-			<?php endif; ?>
-			
-      </div>   
-</div>

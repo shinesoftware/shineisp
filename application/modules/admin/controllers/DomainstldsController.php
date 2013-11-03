@@ -130,7 +130,7 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 				$record = $this->domainstlds->getAllInfo ( $id );
 				$this->view->recordselected = "";
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -147,7 +147,7 @@ class Admin_DomainstldsController extends Shineisp_Controller_Admin {
 		try {
 			$this->domainstlds->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'domainstlds', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'domainstlds', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'domainstlds', 'admin' );
 	}

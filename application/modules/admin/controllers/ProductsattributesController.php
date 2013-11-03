@@ -117,7 +117,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$record = $this->productsattributes->find ( $id )->toArray();
 				$this->view->recordselected = $record ['code'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Attribute deleted' ), 'status' => 'information' ) );	
 			}
 		}
-		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 	}
 	
 	/**
@@ -243,7 +243,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$id = ProductsAttributes::addNew($id, $code, $label, $type, $language_id, $position, $active, $prefix, $suffix, $description, $is_visible_on_front, $is_system_var, $system_var, $defaultvalue, $is_required, $is_comparable, $on_product_listing);
 				
 				if($id === false){
-					$this->_helper->redirector ( 'list', 'productsattributes', 'admin', array ('mex' => "There was an error during the saving process. Check all the parameters.", 'status' => 'error' ) );
+					$this->_helper->redirector ( 'list', 'productsattributes', 'admin', array ('mex' => "There was an error during the saving process. Check all the parameters.", 'status' => 'danger' ) );
 				}				
 				$this->_helper->redirector ( 'edit', 'productsattributes', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			
@@ -254,7 +254,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'edit', 'productsattributes', 'admin', array ('id' => $id, 'mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'productsattributes', 'admin', array ('id' => $id, 'mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 }

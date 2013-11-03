@@ -216,8 +216,8 @@ class Newsletters extends BaseNewsletters
     	$key = Settings::findbyParam ( "MailChimp_key", "admin", Isp::getActiveISPID () );
     			
     	if(empty($key)){
-    		echo('<div class="notification error">MailChimp Api Key has been not set yet. Subscribe a Mailchimp.com account and then go to Configuration > MailChimp to fill up the API key</div>');
-    		return false;
+    		$data = array('MailChimp Api Key has been not set yet. Subscribe a Mailchimp.com account and then go to Configuration > MailChimp to fill up the API key');
+    		return $data;
     	}
     			
     	$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);

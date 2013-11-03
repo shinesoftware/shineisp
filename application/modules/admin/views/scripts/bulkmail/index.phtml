@@ -7,7 +7,7 @@
         <p class="description"><?php echo  $this->translate('Write here a message to send to all your own customers.') ?><a name="bulkmail"></a></p>
         <?php if(!empty($errors)):?>
             <?php foreach($errors as $mex): ?>
-            <p class="alert alert-error"><?php echo $mex['email'] . " - " . $mex['message']; ?></p>
+            <p class="alert alert-danger"><?php echo $mex['email'] . " - " . $mex['message']; ?></p>
             <?php endforeach;?>
         <?php endif; ?>
        

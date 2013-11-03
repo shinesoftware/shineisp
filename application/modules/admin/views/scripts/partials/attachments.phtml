@@ -1,7 +1,7 @@
 <?php if(!empty($this->files)): ?>
 	<div class="attachments">
 		<h6><?php echo $this->translate('Attachments') ?></h6>
-		<ul>
+		<ul class="nav nav-tabs">
 		<?php foreach($this->files as $file): ?>
 			<?php if(file_exists(PUBLIC_PATH . $file['path'] . $file['file'])): ?>
 				<li class="files <?php echo pathinfo($file['file'], PATHINFO_EXTENSION);?>">

@@ -129,7 +129,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	                $this->view->recordselected = $record [0] ['ProductsData'] [0] ['name'];
                 }
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -151,17 +151,17 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 						ProductsMedia::delMediabyId ( $id );
 						$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has been deleted.', 'status' => 'success' ) );
 					} else {
-						$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has been not deleted. Check the file permissions.', 'status' => 'error' ) );
+						$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has been not deleted. Check the file permissions.', 'status' => 'danger' ) );
 					}
 				} else {
 					ProductsMedia::delMediabyId ( $id );
 					$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has not been found but the record has been deleted', 'status' => 'attention' ) );
 				}
 			} else {
-				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'danger' ) );
 			}
 		} else {
-			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'danger' ) );
 		}
 	}
 	
@@ -178,10 +178,10 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				$tranches->delTranchebyId ( $id );
 				$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $tranche ['product_id'], 'mex' => 'The tranche has been deleted.', 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'danger' ) );
 			}
 		} else {
-			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'danger' ) );
 		}
 	}
 	
@@ -197,11 +197,11 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				if(Products::del($id)){
 					$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );		
 				}else{
-					$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The product is locked by a order', 'status' => 'error' ) );
+					$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The product is locked by a order', 'status' => 'danger' ) );
 				}
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 	
@@ -388,7 +388,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			ProductsTranches::setDefault ( $id );
 			$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $trance ['product_id'], 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 		}
-		$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'An error occured during the operation.', 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'An error occured during the operation.', 'status' => 'danger' ) );
 	}
 	
 	/**

@@ -649,7 +649,7 @@ class Shineisp_Commons_Ajaxgrid {
 	    $lblrows = array();
 		if($rows){
 		    foreach ($rows as $row){
-		        $lblrows[] = "'" . $this->translator->_('%s items', $row) . "'";
+		        $lblrows[] = "'" . $this->translator->_('Show %s items', $row) . "'";
 		    }
 		    
 			$sInfo = $this->translator->_('Got a total of _TOTAL_ entries to show (_START_ to _END_)');
@@ -751,7 +751,7 @@ class Shineisp_Commons_Ajaxgrid {
 				// Inject custom script
 				$this->script .= $this->jsinject;
 				
-				$this->script .= "\"sDom\": \"<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-6'i><'col-md-6'p>>\"\n";
+				$this->script .= "\"sDom\": \"<'row'<'col-md-6 col-xs-6'l><'col-md-6 col-xs-6'f>r>t<'row'<'col-md-6 col-xs-6'i><'col-md-6 col-xs-6'p>>\"\n";
 			
 			$this->script .= "}).fnSetFilteringDelay(600);\n";
 			

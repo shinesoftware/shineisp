@@ -136,7 +136,7 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 				$record = $this->roles->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['AdminResources']['name'] . " (" . $record [0] ['AdminRoles']['name'] . " profile) " . $record [0]['AdminResources']['module'] . ":" . $record [0]['AdminResources']['controller'] . " = " . $record [0]['role'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -224,7 +224,7 @@ class Admin_RolesController extends Shineisp_Controller_Admin {
 			if($role){
 				$this->_helper->redirector ( 'edit', 'roles', 'admin', array ('id' => (string) $role->role_id, 'mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success' ) );
 			}else{
-				$this->_helper->redirector ( 'list', 'roles', 'admin', array ('mex' => $this->translator->translate ( "There was an error saving the data. Please try again." ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'roles', 'admin', array ('mex' => $this->translator->translate ( "There was an error saving the data. Please try again." ), 'status' => 'danger' ) );
 			}
 		} else {
 			$this->view->form = $form;

@@ -136,7 +136,7 @@ class Admin_LegalformsController extends Shineisp_Controller_Admin {
 				$record = $this->legalforms->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

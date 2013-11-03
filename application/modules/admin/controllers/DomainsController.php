@@ -141,7 +141,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 				$record = $this->domains->find ( $id, "CONCAT(d.domain, '.', d.tld) as domain", true );
 				$this->view->recordselected = $record [0] ['domain'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -338,7 +338,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 			$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 		
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'domains', 'admin', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'domains', 'admin', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 	
@@ -371,11 +371,11 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 					if ($retval) {
 						$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $domain_id, 'mex' => 'Domain task added to queue.', 'status' => 'success' ) );
 					} else {
-						$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $domain_id, 'mex' => 'Domain task has been not added to the queue.', 'status' => 'error' ) );
+						$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $domain_id, 'mex' => 'Domain task has been not added to the queue.', 'status' => 'danger' ) );
 					}
 				}
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $domain_id, 'mex' => $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $domain_id, 'mex' => $e->getMessage (), 'status' => 'danger' ) );
 			}
 			$this->_helper->redirector ( 'index', 'domains' );
 		}

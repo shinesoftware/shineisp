@@ -112,7 +112,7 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 				$record = $this->creditnotes->find ( $id );
 				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['creationdate'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

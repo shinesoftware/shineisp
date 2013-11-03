@@ -254,6 +254,11 @@
                     <uri>/admin/servers/list</uri>
                     <resource>admin:servers</resource>
                 </servers>
+                <serversgroups>
+                    <label>Server Groups</label>
+                    <uri>/admin/serversgroups/list</uri>
+                    <resource>admin:serversgroups</resource>
+                </serversgroups>
                 <banks>
                     <label>Banks</label>
                     <uri>/admin/banks/list</uri>

@@ -123,7 +123,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 				$record = $this->tickets->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['subject'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -160,7 +160,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'tickets', 'admin', array('id' => $ticketid, 'mex' => 'Note has been deleted', 'status' => 'success') );
 			}
 		}
-		$this->_helper->redirector ( 'edit', 'tickets', 'admin', array('id' => $ticketid, 'mex' => 'Error on deleting the customer note', 'status' => 'error') );
+		$this->_helper->redirector ( 'edit', 'tickets', 'admin', array('id' => $ticketid, 'mex' => 'Error on deleting the customer note', 'status' => 'danger') );
 	}
 	
 	/**
@@ -271,7 +271,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			Files::del($id);
 			$this->_helper->redirector ( 'list', 'tickets', 'admin', array('mex' => 'File deleted', 'status' => 'success') );
 		}
-		$this->_helper->redirector ( 'list', 'tickets', 'admin', array('mex' => 'File not deleted', 'status' => 'error') );
+		$this->_helper->redirector ( 'list', 'tickets', 'admin', array('mex' => 'File not deleted', 'status' => 'danger') );
 	}	
 	
 	
@@ -286,7 +286,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			Tickets::setStatus($id, $statusid);
 			$this->_helper->redirector ( 'edit', 'tickets', 'admin', array('id' => $id, 'mex' => 'The task requested has been done', 'status' => 'success') );
 		}
-		$this->_helper->redirector ( 'list', 'tickets', 'admin', array('mex' => 'There was a problem', 'status' => 'error') );
+		$this->_helper->redirector ( 'list', 'tickets', 'admin', array('mex' => 'There was a problem', 'status' => 'danger') );
 	}
 	
 	/**

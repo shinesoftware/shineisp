@@ -119,7 +119,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$record = $this->orders->find ( $id );
 				$this->view->recordselected = $record ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['order_date'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -417,7 +417,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $newOrderId )) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $newOrderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Order has been not cloned' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Order has been not cloned' ), 'status' => 'danger' ) );
 			}
 		}
 		$this->_helper->redirector ( 'list', 'orders', 'admin' );
@@ -438,7 +438,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				if (Payments::deleteByID($request->id)) {
 					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 				} else {
-					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'error' ) );
+					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'danger' ) );
 				}
 			}
 		}
@@ -603,7 +603,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderid, 'mex' => $this->translator->translate ( 'The order has been sent successfully.' ), 'status' => 'success' ) );
 			}
 		}
-		$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderid, 'mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderid, 'mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'danger' ) );
 	}
 	
 	/**
@@ -621,9 +621,9 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 					$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'Invoice sent successfully.' ), 'status' => 'success' ) );
 				}
 			}
-			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'danger' ) );
 		}
-		$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'danger' ) );
 	}
 	
 	
@@ -641,7 +641,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				die;
 			}
 			
-			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'danger' ) );
 			
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
@@ -660,7 +660,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			if ($sent) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been uploaded to dropbox.' ), 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'danger' ) );
 			}
 		}
 	}

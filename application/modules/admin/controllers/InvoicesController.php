@@ -118,7 +118,7 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 				$record = $this->invoices->find ( $id );
 				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['invoice_date'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -146,7 +146,7 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 				$this->render ( 'confirm' );
 				
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -251,7 +251,7 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 				Invoices::setInvoice ( $request->id, $invoiceID );
 				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'An invoice already exists for this order.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'An invoice already exists for this order.' ), 'status' => 'danger' ) );
 			}
 		}
 	}
@@ -307,7 +307,7 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 				}
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice cannot be created. Please check all your input data and try again.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice cannot be created. Please check all your input data and try again.' ), 'status' => 'danger' ) );
 			}
 			
 			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );

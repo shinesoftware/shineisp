@@ -131,7 +131,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
                 }
 				
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -219,7 +219,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		
 		if ( is_object( $template ) ) {
 			if ( isset($template->code) && !empty($template->code) ) {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete system templates' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete system templates' ), 'status' => 'danger' ) );
 				die();	
 			}
 			

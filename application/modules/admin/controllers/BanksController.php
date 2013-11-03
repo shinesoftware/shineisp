@@ -131,7 +131,7 @@ class Admin_BanksController extends Shineisp_Controller_Admin {
 				$record = $this->banks->find ( $id );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_BanksController extends Shineisp_Controller_Admin {
 		try {
 			$this->banks->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'banks', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'banks', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'banks', 'admin' );
 	}
@@ -243,7 +243,7 @@ class Admin_BanksController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'banks', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'banks', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'banks', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/banks/edit/id/$id" );

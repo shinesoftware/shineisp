@@ -134,7 +134,7 @@ class Admin_PanelsActionsController extends Shineisp_Controller_Admin {
 				$record = $this->panelsactions->getById ( $id, null, true );
 				$this->view->recordselected = $record [0] ['action'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

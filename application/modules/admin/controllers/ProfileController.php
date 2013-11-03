@@ -134,21 +134,21 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 			 
 			//* you can't delete yourself 
 			if ( $id == $identity['user_id'] ) {
-				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete yourself.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete yourself.' ), 'status' => 'danger' ) );
 				die();	
 			}			 
 			
 			//* administrators cannod be deleted by unprivileged users
 			if ( AdminRoles::isAdministrator($id) ) {
 				if ( (int)$identity['role_id'] != 1 ) {
-					$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'The administrator profile can only be deleted by an administrator.'), 'status' => 'error' ) );
+					$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'The administrator profile can only be deleted by an administrator.'), 'status' => 'danger' ) );
 					die();	
 				}
 			}			 
 			 
 			//* you can't delete the latest administrator
 			if(AdminRoles::isAdministrator($id) && $adminCount <= 1){
-				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete the latest administrator' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'profile', 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete the latest administrator' ), 'status' => 'danger' ) );
 				die();	
 			}
 			
@@ -176,7 +176,7 @@ class Admin_ProfileController extends Shineisp_Controller_Admin {
 				$record = $this->profile->find ( $id );
 				$this->view->recordselected = $record ['lastname'] . " " . $record ['firstname'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

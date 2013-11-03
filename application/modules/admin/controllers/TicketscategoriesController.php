@@ -131,7 +131,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 				$record = $this->ticketscategories->find ( $id );
 				$this->view->recordselected = $record [0] ['category'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 		try {
 			$this->ticketscategories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'ticketscategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'ticketscategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'ticketscategories', 'admin' );
 	}
@@ -235,7 +235,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'ticketscategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'ticketscategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'ticketscategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/ticketscategories/edit/id/$id" );

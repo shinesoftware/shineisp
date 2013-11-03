@@ -130,7 +130,7 @@ class Admin_CmsblocksController extends Shineisp_Controller_Admin {
 				$record = $this->cmsblocks->find ( $id );
 				$this->view->recordselected = $this->translator->translate ( $record ['title'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();

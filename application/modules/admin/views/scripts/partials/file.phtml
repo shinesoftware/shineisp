@@ -3,7 +3,7 @@
     <div class="controls"><?php echo $this->content; ?></div>
     
     <?php if ($this->element->hasErrors()): ?>
-        <span class="alert alert-error">
+        <span class="alert alert-danger">
             <?php echo $this->formErrors($this->element->getMessages()); ?>
         </span>
     <?php endif; ?>

@@ -17,7 +17,8 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
 
     	$this->addElement('select', 'fill_type', array(
             'label'      => $translate->_('Fill type'),
-            'decorators' => array('Bootstrap')
+            'decorators' => array('Bootstrap'),
+            'class' => "form-control"
         ));
         $this->getElement('fill_type')
                   ->setAllowEmpty(false)

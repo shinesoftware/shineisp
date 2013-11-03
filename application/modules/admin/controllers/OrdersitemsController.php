@@ -32,7 +32,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 	public function indexAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
 		if(!is_numeric($id)){
-			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'danger' ) );
 		}
 		$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'redirector' );
 		$redirector->gotoUrl ( "/admin/ordersitems/edit/id/$id" );
@@ -56,7 +56,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 				$record = $this->details->find ( $id, "description", true );
 				$this->view->recordselected = $record [0] ['description'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -129,10 +129,10 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 				$this->view->buttons[] = array("url" => "/admin/customers/edit/id/" . $rs['Orders']['customer_id'], "label" => $this->translator->translate('Customers'), "params" => array('css' => null));
 				
 			}else{
-				$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'danger' ) );
 			}
 		}else{
-			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to find the order item selected.' ), 'status' => 'danger' ) );
 		}
 		
 		
@@ -175,7 +175,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 				
 				$this->_helper->redirector ( 'edit', 'ordersitems', 'admin', array ('id' => $params ['detail_id'], 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 		} else {
 			$this->view->form = $form;
@@ -215,7 +215,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 			$this->_helper->redirector ( 'edit', 'ordersitems', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		}
 		
-		$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Service item not found.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Service item not found.' ), 'status' => 'danger' ) );
 	}
 	
 	
@@ -246,7 +246,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 			
 			$this->_helper->redirector ( 'edit', 'ordersitems', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		}else{
-			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Service item not found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Service item not found.' ), 'status' => 'danger' ) );
 		}
 	}
 

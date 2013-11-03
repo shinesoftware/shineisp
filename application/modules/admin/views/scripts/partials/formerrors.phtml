@@ -1,0 +1,28 @@
+<?php $form = $this->form; ?>
+
+<? if( $form->isErrors() ): ?>
+	<div class="messages">    
+	   <? foreach( $form->getElements() as $field){
+	         $errors = array();
+	   	     if($field->hasErrors()){
+	        	foreach( $field->getErrors() as $error){
+	        		$errors[] = $this->translate($error);
+	        	}
+	            echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	        }   
+	    } 
+
+	    foreach ($form->getSubForms() as $subform) {
+	        foreach( $subform->getElements() as $field){
+	            $errors = array();
+	            if($field->hasErrors()){
+	                foreach( $field->getErrors() as $error){
+	                    $errors[] = $this->translate($error);
+	                }
+	                echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+	            }
+	        }
+	    }
+	    ?>
+	</div>    
+<? endif; ?>
