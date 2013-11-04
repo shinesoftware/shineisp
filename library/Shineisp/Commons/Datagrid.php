@@ -491,26 +491,33 @@ class Shineisp_Commons_Datagrid {
 	 * add the header button in order to control the grid
 	 */
 	private function addHeaderControls() {
-		$row = "<tr>";
-		$colnum = count ( $this->columns );
-		if ($this->hassubrecords) {
-			$colnum++;	
-		}
-		
-		$row .= "<th class='topgrid_header' colspan='" . $colnum . "'>";
-		$row .= "<table class='topgrid'><tr>";
-		if(!empty($this->rowlist)){
-			$row .= "<td class=\"paginator_cell\">".$this->addPaginator ()."</td>";
-		}
-		
-		if ($this->hasMassActions ()) {	
-			$row .= "<td class=\"massaction_cell\" style=\"text-align:right\">".$this->addmassActions ()."</td>";
-		}
-						
-		$row .= "</tr></table>";
-		
-		$row .= "</th>";
-		$row .= "</tr>";
+	    $paginator = $this->addPaginator ();
+	    $massactions = $this->addmassActions ();
+	    $row = null;
+	    
+	    if(!empty($this->rowlist) && $this->hasMassActions ()){
+    		$row = "<tr>";
+    		$colnum = count ( $this->columns );
+    		if ($this->hassubrecords) {
+    			$colnum++;	
+    		}
+    		
+    		$row .= "<th class='topgrid_header' colspan='" . $colnum . "'>";
+    		$row .= "<table class='topgrid'><tr>";
+    		
+    		if(!empty($this->rowlist)){
+    			$row .= "<td class=\"paginator_cell\">$paginator</td>";
+    		}
+    		
+    		if ($this->hasMassActions ()) {	
+    			$row .= "<td class=\"massaction_cell\" style=\"text-align:right\">$massactions</td>";
+    		}
+    						
+    		$row .= "</tr></table>";
+    		
+    		$row .= "</th>";
+    		$row .= "</tr>";
+	    }
 		return $row;
 	}
 	

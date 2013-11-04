@@ -56,7 +56,7 @@ class Admin_SettingsController extends Shineisp_Controller_Admin {
 		}
 		
 		
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')));
 		
 		// Create the html form 
 		$this->view->form = $form;

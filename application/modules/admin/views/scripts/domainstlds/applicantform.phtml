@@ -2,33 +2,19 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
-<div class="content_inner">
-    
-	<? if( $form->isErrors() ): ?>
-		<div class="messages">    
-		   <? foreach( $form->getElements() as $field){
-		         $errors = array();
-		   	     if($field->hasErrors()){
-		        	foreach( $field->getErrors() as $error){
-		        		$errors[] = $this->translate($error);
-		        	}
-		            echo "<div class=\"alert alert-error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-		        }   
-		    } ?>
-		</div>    
-	<? endif; ?>
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Content');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Prices');?></a></li> 
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Costs');?></a></li> 
+		</ul>
 		
-		<div class="tabbable" id="tabs">
-			<ul>
-				<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
-				<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Content');?></a></li> 
-				<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Prices');?></a></li> 
-				<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Costs');?></a></li> 
-			</ul>
-	    
+    	<div class="tab-content">
 		    <div class="tab-pane active" id="tab1"> 
 		    	<?php echo $form->registrars_id->render()?>
 	            <?php echo $form->server_id->render()?>
@@ -56,6 +42,5 @@
 		    </div>
 		   <?php echo $form->tld_id->render()?>
 		</div>
-	</form>
-
-</div>
+	</div>
+</form>

@@ -18,7 +18,7 @@ class Shineisp_Commons_Gravatar {
 	    $url .= md5( strtolower( trim( $email ) ) );
 	    $url .= "?s=$s&d=$d&r=$r";
 	    if ( $img ) {
-	        $url = '<a href="http://www.gravatar.com/' . md5( strtolower( trim( $email ) ) ) .'" target="_blank"><img src="' . $url . '"';
+	        $url = '<a href="http://www.gravatar.com/' . md5( strtolower( trim( $email ) ) ) .'" target="_blank"><img class="class="media-object"" src="' . $url . '"';
 	        foreach ( $atts as $key => $val )
 	            $url .= ' ' . $key . '="' . $val . '"';
 	        $url .= ' /></a>';

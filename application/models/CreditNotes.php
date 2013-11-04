@@ -19,16 +19,16 @@ class CreditNotes extends BaseCreditNotes
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'cn.creditnote_id', 'alias' => 'creditnote_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Credit Note' ), 'field' => 'cn_number', 'alias' => 'cn_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice Number' ), 'field' => 'i.number', 'alias' => 'cn_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order Number' ), 'field' => 'o.order_id', 'alias' => 'o_number', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'cn.creationdate', 'alias' => 'creationdate', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'cn.creationdate', 'alias' => 'creationdate', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array ('class' => 'hidden-xs hidden-sm') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Customer' ), 'field' => "CONCAT(c.firstname,' ', c.lastname, ' ', IFNULL('', c.company))", 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Total' ), 'field' => "cn.total_net", 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => "cn.total_vat", 'alias' => 'vat', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => "cn.total", 'alias' => 'grandtotal', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Total' ), 'field' => "cn.total_net", 'alias' => 'total', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('class' => 'hidden-xs hidden-sm') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => "cn.total_vat", 'alias' => 'vat', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('class' => 'hidden-xs hidden-sm') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => "cn.total", 'alias' => 'grandtotal', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('class' => 'hidden-xs hidden-sm') );
 		
 		$config ['datagrid'] ['fields'] =  "creditnote_id, i.invoice_id,
 											DATE_FORMAT(cn.creationdate, '%d/%m/%Y') as creationdate, 

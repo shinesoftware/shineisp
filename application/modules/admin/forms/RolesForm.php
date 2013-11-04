@@ -14,13 +14,18 @@ class Admin_Form_RolesForm extends Zend_Form
         		'required'    => true,
 	            'label'       => $translate->_('Role Name'),
 	            'description' => $translate->_('Write here the name of the role in lowercase'),
-	            'class'       => 'input-large'
+	            'class'       => 'form-control'
         ));
         
         $this->addElement('multiselect', 'users', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Users'),
-            'class'       => 'input-large'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('users')

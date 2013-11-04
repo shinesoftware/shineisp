@@ -2,35 +2,20 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
-<div class="content_inner">
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<? if( $form->isErrors() ): ?>
-		<div class="messages">    
-		   <? foreach( $form->getElements() as $field){
-		         $errors = array();
-		   	     if($field->hasErrors()){
-		        	foreach( $field->getErrors() as $error){
-		        		$errors[] = $this->translate($error);
-		        	}
-		            echo "<div class=\"alert alert-error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-		        }   
-		    } ?>
-		</div>    
-	<? endif; ?>
-	
-	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+		</ul>
 		
-		<div class="tabbable" id="tabs">
-			<ul>
-				<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
-			</ul>
-	    
-		    <div class="tab-pane active" id="tab1"> 
-	            <?php echo $form->render()?>
-		    </div>
-		    
-	   		<?php echo $form->category_id->render()?>
-	   	</div>
-	</form>
-</div>	
+        <div class="tab-content">
+    	    <div class="tab-pane active" id="tab1"> 
+                <?php echo $form->render()?>
+    	    </div>
+	    </div>
+   		<?php echo $form->category_id->render()?>
+   	</div>
+</form>

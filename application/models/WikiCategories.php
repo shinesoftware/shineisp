@@ -20,14 +20,15 @@ class WikiCategories extends BaseWikiCategories {
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'category_id', 'alias' => 'category_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'category_id', 'alias' => 'category_id', 'type' => 'selectall', 'attributes' => array('width' => 50 ) );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('width' => 50 ) );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Public' ), 'field' => 'public', 'alias' => 'public', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Public' ), 'field' => 'public', 'alias' => 'public', 'sortable' => true, 'searchable' => true, 'type' => 'boolean' );
 	
 		$config ['datagrid'] ['fields'] = "category_id, category, public";
 		$config ['datagrid'] ['rownum'] = $rowNum;
-	
+		$config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
+		
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'WikiCategories w' );
 	
 		$config ['datagrid'] ['basepath'] = "/admin/ticketscategories/";

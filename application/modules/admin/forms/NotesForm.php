@@ -13,7 +13,7 @@ class Admin_Form_NotesForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Name'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'note', array(
@@ -21,14 +21,14 @@ class Admin_Form_NotesForm extends Zend_Form
             'required'    => true,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Description'),
-            'class'       => 'input-large span12 wysiwyg'
+            'class'       => 'form-control col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('text', 'expire', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Expiry Date'),
-            'class'       => 'input-large date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('hidden', 'note_id');

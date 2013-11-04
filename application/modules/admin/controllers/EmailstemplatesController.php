@@ -39,8 +39,8 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Email Templates");
 		$this->view->description = $this->translator->translate("Here you can see all groups of servers.");
-		$this->view->buttons = array(array("url" => "/admin/emailstemplates/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn')))
-									,array("url" => "/admin/emailstemplates/confirmimport/", "label" => $this->translator->translate('Import'), "params" => array('css' => array('btn')))
+		$this->view->buttons = array(array("url" => "/admin/emailstemplates/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null))
+									,array("url" => "/admin/emailstemplates/confirmimport/", "label" => $this->translator->translate('Import'), "params" => array('css' => null))
 								);
 		$this->datagrid->setConfig ( EmailsTemplates::grid() )->datagrid ();
 	}
@@ -91,8 +91,8 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/emailstemplates/process" );
 		$this->view->title = $this->translator->translate("Email Templates");
 		$this->view->description = $this->translator->translate("Here you can edit the server group details.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-									 array("url" => "/admin/emailstemplates/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/emailstemplates/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -131,7 +131,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
                 }
 				
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -219,7 +219,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		
 		if ( is_object( $template ) ) {
 			if ( isset($template->code) && !empty($template->code) ) {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete system templates' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'You cannot delete system templates' ), 'status' => 'danger' ) );
 				die();	
 			}
 			
@@ -242,9 +242,9 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/$controller/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/$controller/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/$controller/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/$controller/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if ( !empty($id) && is_numeric($id) ) {
@@ -262,7 +262,7 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 			
 			// Delete button only if no "code" is set. Templates with "code" are system templates and can not be deleted
 			if ( empty($rs['code']) ) { 
-				$this->view->buttons[] = array("url" => "/admin/$controller/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
+				$this->view->buttons[] = array("url" => "/admin/$controller/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 			}
 				
 		}
@@ -289,9 +289,9 @@ class Admin_EmailstemplatesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/$controller/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/$controller/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/$controller/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/$controller/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 
 		// Check if we have a POST request

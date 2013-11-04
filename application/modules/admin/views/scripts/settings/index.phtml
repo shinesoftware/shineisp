@@ -2,10 +2,15 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
 <div class="content_inner">
 	<?php if(!empty($this->help)): ?>
-		<div class="help"><?php echo $this->help ?></div>
+		<div class="panel panel-default">
+		    <div class="panel-body">
+		        <?php echo $this->help ?>
+		    </div>
+		 </div>
 	<?php endif;?>
 	
 	<?php if(!empty($this->form)): ?>

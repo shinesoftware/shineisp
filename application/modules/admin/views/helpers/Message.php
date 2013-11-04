@@ -14,12 +14,16 @@ class Admin_View_Helper_Message extends Zend_View_Helper_Abstract{
      * 
      * @return string
      */
-    public function message($message, $type = "error", $title = null)
+    public function message($message, $type = "danger", $title = null)
     {
-        $this->view->message = $message;
-        $this->view->title = $title;
-        $this->view->type = "alert-$type";
+        if(!empty($message)){
+            $this->view->message = strip_tags($message);
+            $this->view->title = strip_tags($title);
+            $this->view->type = "alert-$type";
+            
+            return $this->view->render ( 'partials/message.phtml' );
+        }
         
-        return $this->view->render ( 'partials/message.phtml' );
+        return null;
     }
 }

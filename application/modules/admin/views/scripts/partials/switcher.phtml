@@ -5,9 +5,8 @@
 ?>
 
 <?php if(count($this->languages) > 1): ?>
-	<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-flag"></i> <?php echo strtoupper($this->langselected) ?> <b class="caret"></b></a>
+	<a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="glyphicon glyphicon-flag"></i> <?php echo strtoupper($this->langselected) ?> <b class="caret"></b></a>
 	<ul class="dropdown-menu">
-		<li class="nav-header"><?php echo $this->translate('Select language ...')?></li>
 		<?php foreach ($this->languages as $language): ?>
 			<?php 
 				if($language['code'] == $this->langselected){

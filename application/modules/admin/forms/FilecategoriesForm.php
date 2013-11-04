@@ -12,7 +12,7 @@ class Admin_Form_FilecategoriesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));                
         
         $this->addElement('submit', 'save', array(

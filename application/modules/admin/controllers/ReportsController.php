@@ -167,6 +167,6 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 			DomainsTasks::DeleteTask($id);
 			$this->_helper->redirector ( 'show', 'reports', 'admin', array ('type' => 'domainstasks', 'mex' => 'Domain task has been deleted.', 'status' => 'success' ) );
 			
-		$this->_helper->redirector ( 'show', 'reports', 'admin', array ('type' => 'domainstasks', 'mex' => 'Domain task has not been deleted.', 'status' => 'error' ) );
+		$this->_helper->redirector ( 'show', 'reports', 'admin', array ('type' => 'domainstasks', 'mex' => 'Domain task has not been deleted.', 'status' => 'danger' ) );
 	}
 }

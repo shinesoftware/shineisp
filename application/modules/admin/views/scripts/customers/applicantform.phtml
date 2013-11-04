@@ -2,22 +2,7 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
-
-<div class="content_inner">
-
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
@@ -43,63 +28,58 @@
 				<li><a data-toggle="tab" href="#tab13"><?php echo $this->translate('Invoices');?></a></li>
 				<li><a data-toggle="tab" href="#tab14"><?php echo $this->translate('E-Mails');?></a></li>
 			<?php endif; ?>
-			
 		</ul>
 		<div class="tab-content">
 		    <div class="tab-pane active" id="tab1">
-			    <div class="row-fluid">
-				    <fieldset class="span6"> 
-				    	<table class="table">
-				    		<tr>
-				    			<?php if($form->email->getValue()): ?>
-				    			<td>
-				    				<div class="gravatar-canvas">
-					        			<?php echo $this->gravatar($form->email->getValue(), 120) ?>
-					        		</div> 
-				    			</td>
-				    			<?php endif;?>
-				    			<td>
-				    				<?php echo $form->firstname->render() ?>
-				        			<?php echo $form->lastname->render()?>
-				    			</td>
-				    		</tr>
-				    	</table>
+			    <div class="row">
+				    <div class="col-sm-6 col-xs-12"> 
+				    
+				    	<div class="media">
+				    		<div class="pull-left visible-lg visible-md hidden-xs">
+				    			<?php if($form->email->getValue()): ?><?php echo $this->gravatar($form->email->getValue(), 64) ?><?php endif;?>
+				    		</div>
+				    		<div class="media-body">
+					    		<div class="col-sm-6 col-xs-12"><?php echo $form->firstname->render() ?></div>
+					        	<div class="col-sm-6 col-xs-12"><?php echo $form->lastname->render() ?></div>
+					        </div>	
+				    	</div>
+				    	
 			        	<?php echo $form->company->render()?>
 				        <?php echo $form->email->render()?>
 				        <?php echo $form->password->render()?>
 				        
-				    </fieldset>
+				    </div>
 				    
-				    <fieldset class="span6">
+				    <div class="col-sm-6 col-xs-12">
 				    	<?php echo $form->group_id->render()?>
 			            <?php echo $form->legalform_id->render()?>
 			            <?php echo $form->type_id->render()?>
 			            <?php echo $form->taxpayernumber->render()?>
 			            <?php echo $form->vat->render()?>
 			            <?php echo $form->status_id->render()?>
-				    </fieldset>
+				    </div>
 				</div>   
 			</div>   
 		    
 		    <div class="tab-pane" id="tab2"> 
-		    	<div class="row-fluid">
-		        	<fieldset class="span6"> 
+		    	<div class="row">
+		        	<div class="col-sm-6 col-xs-12"> 
 			            <?php echo $form->taxpayernumber->render()?>
 			            <?php echo $form->birthdate->render()?>
 			            <?php echo $form->birthplace->render()?>
-		            </fieldset>
-		            <fieldset class="span6">
+		            </div>
+		            <div class="col-sm-6 col-xs-12">
 			            <?php echo $form->birthdistrict->render()?>
 			            <?php echo $form->birthcountry->render()?>
 			            <?php echo $form->birthnationality->render()?>
 			            <?php echo $form->gender->render()?>
-		            </fieldset>
+		            </div>
 		        </div>
 		    </div>    
 		    
 		    <div class="tab-pane" id="tab3"> 
-		    	<div class="row-fluid">
-					<fieldset class="span6">
+		    	<div class="row">
+					<div class="col-sm-6 col-xs-12">
 					    <?php echo $form->country_id->render()?>
 					    <?php echo $form->region_id->render()?>
 					    
@@ -108,11 +88,11 @@
 					    
 			            <?php echo $form->address->render()?>
 			            <?php echo $form->code->render()?>
-		            </fieldset>
+		            </div>
 		            
-		            <fieldset class="span6">
+		            <div class="col-sm-6 col-xs-12">
 			            <?php echo $this->mapgrid($this->addressesdatagrid);?>
-		            </fieldset>
+		            </div>
 	            </div>
 		    </div>
 		
@@ -158,12 +138,17 @@
 			   </div>   
 			   
 			   <div class="tab-pane" id="tab12">
-			   	   <?php echo $form->language_id->render();?>
-			       <?php echo $form->parent_id->render();?>
-			       <?php echo $form->isreseller->render();?>
-			       <?php echo $form->issubscriber->render();?>
-			       <?php echo $form->taxfree->render();?>
-			       <?php echo $form->ignore_latefee->render();?>
+			   	   <div class="col-sm-6 col-xs-12">
+				   	   <?php echo $form->language_id->render();?>
+				       <?php echo $form->parent_id->render();?>
+				       <?php echo $form->isreseller->render();?>
+			   	   </div>
+			   	   <div class="col-sm-6 col-xs-12">
+				   	   <?php echo $form->issubscriber->render();?>
+				       <?php echo $form->taxfree->render();?>
+				       <?php echo $form->ignore_latefee->render();?>
+			   	   </div>
+			       
 			   </div>   
 			   
 			   <div class="tab-pane" id="tab13">

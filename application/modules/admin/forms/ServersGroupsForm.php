@@ -12,12 +12,13 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Group name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('select', 'fill_type', array(
             'label'      => $translate->_('Fill type'),
-            'decorators' => array('Bootstrap')
+            'decorators' => array('Bootstrap'),
+            'class' => "form-control"
         ));
         $this->getElement('fill_type')
                   ->setAllowEmpty(false)
@@ -37,8 +38,12 @@ class Admin_Form_ServersGroupsForm extends Zend_Form
 		$this->addElement('multiselect', 'servers', array(
             'label'      => $translate->_('Servers'),
             'decorators' => array('Bootstrap'),
-    		'size'	     => '10x',
-            'class'      => 'multiselect'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('servers')

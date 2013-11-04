@@ -2,58 +2,42 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
-
-<div class="content_inner">
-
-<div id="mex" class="alert alert-info hidden"></div>
-
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div class=\"alert alert-error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
 	<div class="tabbable" id="tabs">
-		<ul>
+		<ul class="nav nav-tabs">
 			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Content (HTML)');?></a></li> 
 			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Content (Text)');?></a></li> 
 		</ul>
-		<div class="tab-pane active" id="tab1"> 
-			<fieldset class="column-left"> 
-				<?php echo $form->name->render() ?>
-				<?php echo $form->type->render() ?>
-				<?php echo $form->subject->render() ?>
-				<?php echo $form->fromname->render() ?>
-				<?php echo $form->fromemail->render() ?>
-			</fieldset>
-			<fieldset class="column-right"> 
-				<?php echo $form->cc->render() ?>
-				<?php echo $form->bcc->render() ?>
-				<?php echo $form->plaintext->render() ?>
-				<?php echo $form->active->render()?>
-			</fieldset>
-			
-		</div>
 		
-		<div id="tab2"> 
-			<?php echo $form->html->render() ?>
-		</div>
-		
-		<div id="tab3"> 
-			<?php echo $form->text->render() ?>
+		<div class="tab-content">
+        	<div class="tab-pane active" id="tab1"> 
+        		<div class="col-sm-6 col-xs-12"> 
+        			<?php echo $form->name->render() ?>
+        			<?php echo $form->type->render() ?>
+        			<?php echo $form->subject->render() ?>
+        			<?php echo $form->fromname->render() ?>
+        			<?php echo $form->fromemail->render() ?>
+        		</div>
+        		<div class="col-sm-6 col-xs-12"> 
+        			<?php echo $form->cc->render() ?>
+        			<?php echo $form->bcc->render() ?>
+        			<?php echo $form->plaintext->render() ?>
+        			<?php echo $form->active->render()?>
+        		</div>
+        	</div>
+        	
+        	<div id="tab2"> 
+        		<?php echo $form->html->render() ?>
+        	</div>
+        	
+        	<div id="tab3"> 
+        		<?php echo $form->text->render() ?>
+        	</div>
 		</div>
 	</div>
     <?php echo $form->template_id->render()?>
 </form>
-</div>

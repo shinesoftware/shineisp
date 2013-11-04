@@ -14,14 +14,14 @@ class Admin_Form_DomainsForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Domain'),
             'description' => $translate->_('Write down the name of the domain without any extension, white spaces, or symbols.'),
-            'class'      => 'input-large updatechkdomain'
+            'class'      => 'form-control updatechkdomain'
         ));
       
         $this->addElement('select', 'tld_id', array(
                 'label' => $translate->_('TLD'),
                 'description' => $translate->_('Select the TLD from the list'),
                 'decorators' => array('Bootstrap'),
-                'class'      => 'input-large updatechkdomain'
+                'class'      => 'form-control updatechkdomain'
         ));
         $this->getElement('tld_id')
                   ->setAllowEmpty(false)
@@ -31,7 +31,7 @@ class Admin_Form_DomainsForm extends Zend_Form
         $this->addElement('select', 'registrars_id', array(
                 'label' => $translate->_('Registrar'),
                 'decorators' => array('Bootstrap'),
-                'class'      => 'input-large'
+                'class'      => 'form-control'
         ));
         $this->getElement('registrars_id')
                 ->setAllowEmpty(true)
@@ -41,14 +41,14 @@ class Admin_Form_DomainsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Creation date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large date'
+            'class'      => 'form-control date'
         ));
         
         $this->addElement('text', 'authinfocode', array(
@@ -56,14 +56,14 @@ class Admin_Form_DomainsForm extends Zend_Form
             'label'      => $translate->_('AUTHINFO CODE'),
             'description'      => $translate->_('Write down the Authinfo code in order to transfer the domain to this ISP'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
       
         $this->addElement('select', 'autorenew', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Auto renewal'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('autorenew')
@@ -73,7 +73,7 @@ class Admin_Form_DomainsForm extends Zend_Form
         $this->addElement('select', 'customer_id', array(
                             'label' => $translate->_('Customer'),
                             'decorators' => array('Bootstrap'),
-                            'class'      => 'input-large'
+                            'class'      => 'form-control'
         ));
         
         $this->getElement('customer_id')
@@ -85,7 +85,7 @@ class Admin_Form_DomainsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Private Notes'),
-            'class'      => 'span12'
+            'class'      => 'col-lg-12 form-control'
         ));
         
         $note = $this->addElement('textarea', 'message', array(
@@ -93,14 +93,14 @@ class Admin_Form_DomainsForm extends Zend_Form
             'required'   => false,
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Message'),
-            'class'      => 'span12 wysiwyg'
+            'class'      => 'col-lg-12 form-control wysiwyg'
         ));        
 
         $status = $this->addElement('select', 'status_id', array(
         'label' => 'Status',
         'required'    => true,
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         // DNS SECTION
@@ -109,20 +109,20 @@ class Admin_Form_DomainsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Subdomain'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'target', array(
             'filters'    => array('StringTrim'),
             'decorators' => array('Bootstrap'),
             'label'      => $translate->_('Target'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'zone', array(
                 'label' => $translate->_('Zone'),
                 'decorators' => array('Bootstrap'),
-                'class'      => 'input-large'
+                'class'      => 'form-control'
         ));
         
         $this->getElement('zone')

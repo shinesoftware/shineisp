@@ -12,7 +12,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Target Path'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'request_path', array(
@@ -20,21 +20,21 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'label'      => $translate->_('Request Path'),
         	'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12'
+            'class'      => 'col-lg-12'
         ));   
         
         $this->addElement('select', 'product_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Products'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('product_id')
@@ -45,7 +45,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Categories'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->getElement('category_id')

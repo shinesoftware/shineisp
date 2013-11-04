@@ -12,14 +12,19 @@ class Admin_Form_ProductsAttributesGroupsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Feature Name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('multiselect', 'attributes', array(
             'label'      => $translate->_('Attributes'),
             'decorators' => array('Bootstrap'),
-    		'size'	     => '10x',
-            'class'      => 'multiselect'
+    		'title'	     => $translate->_('Select ...'),
+    		'data-header'    => $translate->_('Select the product attributes...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('attributes')

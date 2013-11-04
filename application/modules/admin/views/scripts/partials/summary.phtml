@@ -17,7 +17,7 @@
 		<div class="widget-wrapper">
 			<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Year')?></a></h3></div>
 			<div class="widget-content">
-				<ul class="stats inline">
+				<ul class="stats list-inline">
 					<?php foreach($income_yearly as $inc):?>
 						<li>
 							<?php 
@@ -55,7 +55,7 @@
 		<div class="widget-wrapper">
 			<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Quarter')?></a></h3></div>
 			<div class="widget-content">
-				<ul class="stats inline">
+				<ul class="stats list-inline">
 					<?php foreach($income_quarter as $inc):?>
 						<?php if($inc['year'] == date('Y')): ?>
 						
@@ -99,7 +99,7 @@
 	<div class="widget-wrapper">
 		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month (text)')?></a></h3></div>
 		<div class="widget-content">
-			<ul class="stats inline">
+			<ul class="stats list-inline">
 				<?php foreach($income_text_monthly as $inc):?>
 					<?php if($inc['year'] == date('Y')): ?>
 					

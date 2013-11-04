@@ -47,13 +47,13 @@ class Servers extends BaseServers {
 			))
 		";
 		
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.server_id', 'alias' => 'server_id', 'type' => 'selectall', 'attributes' => array('class' => 'span1') );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 's.server_id', 'alias' => 'server_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'span1')  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 's.server_id', 'alias' => 'server_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 's.server_id', 'alias' => 'server_id', 'sortable' => true, 'searchable' => true, 'type' => 'string'  );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'r.subject', 'alias' => 'servername', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'IP' ), 'field' => 's.ip', 'alias' => 'ip', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => "hidden-phone hidden-tablet") );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 'stat.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => "hidden-phone hidden-tablet")  );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Usage' ), 'field' => 's.usage', 'alias' => 'usage', 'sortable' => false, 'searchable' => false, 'attributes' => array('class' => "hidden-phone hidden-tablet")  );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Panel' ), 'field' => 'panel.name', 'alias' => 'panel_name', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => "hidden-phone hidden-tablet") );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'IP' ), 'field' => 's.ip', 'alias' => 'ip', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => "visible-lg visible-md hidden-xs") );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 'stat.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Usage' ), 'field' => 's.usage', 'alias' => 'usage', 'sortable' => false, 'searchable' => false, 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Panel' ), 'field' => 'panel.name', 'alias' => 'panel_name', 'sortable' => true, 'searchable' => true, 'attributes' => array('class' => "visible-lg visible-md hidden-xs") );
 
 		$config ['datagrid'] ['fields'] = "s.server_id, s.name as servername, ".$sqlIF." AS usage, s.max_services AS max_services, s.ip as ip, stat.status as status, panel.name as panel_name";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )

@@ -13,7 +13,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
             'required'    => false,
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'medium-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'body', array(
@@ -21,7 +21,7 @@ class Admin_Form_BulkmailForm extends Zend_Form
             'required'    => true,
             'label'       => $translate->_('Body'),
             'description' => 'Write here the email message to send to all your customers.',
-            'class'       => 'span12 wysiwyg'
+            'class'       => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('submit', 'send', array(

@@ -56,7 +56,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Products list");
 		$this->view->description = $this->translator->translate("Here you can see all the products.");
-		$this->view->buttons = array(array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Products::grid () )->datagrid ();
 	}
 	
@@ -101,8 +101,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		
 		$this->view->title = $this->translator->translate("Product Details");
 		$this->view->description = $this->translator->translate("Here you can edit the product details");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-							   array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+							   array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 				
 		$this->render ( 'applicantform' );
 	}
@@ -129,7 +129,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	                $this->view->recordselected = $record [0] ['ProductsData'] [0] ['name'];
                 }
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -151,17 +151,17 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 						ProductsMedia::delMediabyId ( $id );
 						$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has been deleted.', 'status' => 'success' ) );
 					} else {
-						$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has been not deleted. Check the file permissions.', 'status' => 'error' ) );
+						$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has been not deleted. Check the file permissions.', 'status' => 'danger' ) );
 					}
 				} else {
 					ProductsMedia::delMediabyId ( $id );
 					$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $file ['product_id'], 'mex' => 'The media file has not been found but the record has been deleted', 'status' => 'attention' ) );
 				}
 			} else {
-				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'danger' ) );
 			}
 		} else {
-			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The media file has been not deleted.', 'status' => 'danger' ) );
 		}
 	}
 	
@@ -178,10 +178,10 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				$tranches->delTranchebyId ( $id );
 				$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $tranche ['product_id'], 'mex' => 'The tranche has been deleted.', 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'danger' ) );
 			}
 		} else {
-			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The tranche has been not deleted.', 'status' => 'danger' ) );
 		}
 	}
 	
@@ -197,11 +197,11 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				if(Products::del($id)){
 					$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );		
 				}else{
-					$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The product is locked by a order', 'status' => 'error' ) );
+					$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'The product is locked by a order', 'status' => 'danger' ) );
 				}
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 	
@@ -237,9 +237,9 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -299,7 +299,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			}
 			$orders = array ('records' => OrdersItems::ProductsInOrdersItems ( $id ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ) );
 			
-			$this->view->buttons[] = array("url" => "/admin/products/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn')));
+			$this->view->buttons[] = array("url" => "/admin/products/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		
@@ -388,7 +388,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			ProductsTranches::setDefault ( $id );
 			$this->_helper->redirector ( 'edit', 'products', 'admin', array ('id' => $trance ['product_id'], 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 		}
-		$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'An error occured during the operation.', 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => 'An error occured during the operation.', 'status' => 'danger' ) );
 	}
 	
 	/**
@@ -401,9 +401,9 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/products/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 
 		$form = $this->createAttributesElements ( $form, $request->getParam('group_id') );
@@ -453,7 +453,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 						$description = (!empty($element ['ProductsAttributes']['ProductsAttributesData'] [0] ['description'])) ? $element ['ProductsAttributes']['ProductsAttributesData'] [0] ['description'] : "";
 
 						// Create the element
-						$attributeForm->addElement ( $element ['ProductsAttributes']['type'], $element ['ProductsAttributes']['code'], array ('label' => $label, 'class' => 'text-input large-input', 'decorators' => array('Composite'), 'description' => $description) );
+						$attributeForm->addElement ( $element ['ProductsAttributes']['type'], $element ['ProductsAttributes']['code'], array ('label' => $label, 'class' => 'form-control', 'decorators' => array('Composite'), 'description' => $description) );
 						
 						if ($element ['ProductsAttributes']['is_required']) {
 							$attributeForm->getElement ( $element['ProductsAttributes'] ['code'] )->setRequired ( true );

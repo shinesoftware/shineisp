@@ -1,14 +1,12 @@
-<div id="scrollme" class="overtop sectionheader">
     
     <div class="page-header pull-left">
-    	<h2 class="headtitle">
+    	<h3>
     		<?php if(!empty($this->titlelink)): ?>
     			<a href="<?php echo $this->titlelink?>"><?php echo $this->title;?></a>
     		<?php else: ?>
     			<?php echo $this->title;?>
     		<?php endif;?>
-    		
-    	</h2>
+    	</h3>
     	<?php if(!empty($this->description)): ?>
     		<small><?php echo $this->translate($this->description);?></small>
     	<?php endif; ?>
@@ -16,8 +14,8 @@
     </div>
     
     <div class="pull-right">
-    	<div class="btn-group">
-    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('Action')?> <span class="caret"></span></a>
+    	<div class="input-group">
+    	    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('Action')?> <span class="caret"></span></a>
 	    	<ul class="dropdown-menu pull-right">
 			<?php 
 				$buttons = $this->buttons;
@@ -27,7 +25,7 @@
 						$target  = !empty($button['params']['target']) ? 'target="'.$button['params']['target'].'"' : "";
 						$id      = !empty($button['params']['id']) ? 'id="'.$button['params']['id'].'""' : "";
 						$onClick = (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"' : '';
-						echo '<li><a href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a></li>';
+						echo '<li><a class="'.$class.'" '.$id.' href="' . $button['url'] . '" '.$onClick.' '.$target.'>' . $button['label'] . '</a></li>';
 					}
 				}
 			?>
@@ -35,5 +33,6 @@
 		</div>	
 	</div>
 	
-</div>
 <div class="clearfix"></div>
+
+<?php echo $this->Message($this->mex, $this->mexstatus) ?>

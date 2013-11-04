@@ -93,7 +93,7 @@ table.subgrid tr.headings th {
 	padding-top: 1px;
 }
 
-.search_init{
+table.grid .form-group{
 	width: inherit !important;
 }
 
@@ -241,10 +241,6 @@ table.grid.headings {
 	width: 50%;
 	font-size: 12px;
 	padding-left: 10px;
-}
-
-#actions {
-	height: 27px;
 }
 
 .highlight {

@@ -12,7 +12,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('TLD Name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
     	
         $this->addElement('textarea', 'description', array(
@@ -20,28 +20,27 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Description'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'span12 input-large wysiwyg',
-            'rows'      => '5'
+            'class'      => 'col-lg-12 form-control wysiwyg',
         ));
     	
         $this->addElement('text', 'tags', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tags/Type'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'ishighlighted', array(
             'label'      => $translate->_('Is Highlighted'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large',
+            'class'      => 'form-control',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
 
         $this->addElement('select', 'isrefundable', array(
             'label'      => $translate->_('Is Refundable'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large',
+            'class'      => 'form-control',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));
         
@@ -49,7 +48,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Result String Control'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'input-large'
+            'class'      => 'form-control'
         ));
 
         $this->addElement('text', 'registration_price', array(
@@ -57,7 +56,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Registration Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'renewal_price', array(
@@ -65,7 +64,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Renewal Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'transfer_price', array(
@@ -73,13 +72,13 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Transfer Price'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('select', 'server_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('TLD Server'),
-            'class'       => 'input-large'
+            'class'       => 'form-control'
         ));
                 
         $this->getElement('server_id')
@@ -90,7 +89,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
        $this->addElement('select', 'tax_id', array(
         'label' => $translate->_('Tax'),
         'decorators' => array('Bootstrap'),
-        'class'      => 'input-large'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('tax_id')
@@ -102,7 +101,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Registration Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'renewal_cost', array(
@@ -110,7 +109,7 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Renewal Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('text', 'transfer_cost', array(
@@ -118,13 +117,13 @@ class Admin_Form_DomainstldsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Transfer Cost'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'little-input'
+            'class'      => 'form-control'
         ));        
         
         $this->addElement('select', 'registrars_id', array(
                 'label' => $translate->_('Registrars'),
                 'decorators' => array('Bootstrap'),
-                'class'      => 'input-large updatechkdomain'
+                'class'      => 'form-control updatechkdomain'
         ));
         
         $this->getElement('registrars_id')

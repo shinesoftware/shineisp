@@ -46,7 +46,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Orders list");
 		$this->view->description = $this->translator->translate("Here you can see all the orders.");
-		$this->view->buttons = array(array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New order'), "params" => array('css' => array('btn'))));
+		$this->view->buttons = array(array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New order'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Orders::grid () )->datagrid ();
 	}
 
@@ -97,7 +97,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/orders/process" );
 		$this->view->title = $this->translator->translate("New Order");
 		$this->view->description = $this->translator->translate("Create a new order using this form.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save order'), "params" => array('css' => array('btn'), 'id' => 'submit')));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save order'), "params" => array('css' => null,'id' => 'submit')));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -119,7 +119,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$record = $this->orders->find ( $id );
 				$this->view->recordselected = $record ['order_id'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['order_date'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -294,22 +294,22 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
 									array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('id'=>'submit', 'css' => array('btn', 'submit'))),
-									array("url" => "/admin/orders/print/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => array('btn'))),
-									array("url" => "/admin/orders/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => array('btn'))),
-									array("url" => "/admin/orders/clone/id/$id", "label" => $this->translator->translate('Clone'), "params" => array('css' => array('btn'))),
-									array("url" => "/admin/orders/sendorder/id/$id", "label" => $this->translator->translate('Email'), "params" => array('css' => array('btn'))),
-									array("url" => "/admin/orders/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn'))),
-									array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+									array("url" => "/admin/orders/print/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => null)),
+									array("url" => "/admin/orders/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => null)),
+									array("url" => "/admin/orders/clone/id/$id", "label" => $this->translator->translate('Clone'), "params" => array('css' => null)),
+									array("url" => "/admin/orders/sendorder/id/$id", "label" => $this->translator->translate('Email'), "params" => array('css' => null)),
+									array("url" => "/admin/orders/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
+									array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 								);
 		
 		// Check if the order has been invoiced
 		$invoice_id = Orders::isInvoiced($id);
 		if($invoice_id){
-			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('btn')));
-			$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$invoice_id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => array('btn')));
+			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => null));
+			$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$invoice_id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => null));
 		} else {
 			// Order not invoiced, show button to create a new invoice
-			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('btn')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
+			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => null), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
 		
 		// Get Order status history
@@ -417,7 +417,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			if (is_numeric ( $newOrderId )) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $newOrderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Order has been not cloned' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'Order has been not cloned' ), 'status' => 'danger' ) );
 			}
 		}
 		$this->_helper->redirector ( 'list', 'orders', 'admin' );
@@ -438,7 +438,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				if (Payments::deleteByID($request->id)) {
 					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 				} else {
-					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'error' ) );
+					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'danger' ) );
 				}
 			}
 		}
@@ -501,9 +501,9 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/orders/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('btn'), 'id' => 'submit')),
-				array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('btn'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/orders/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Get the id 
@@ -603,7 +603,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderid, 'mex' => $this->translator->translate ( 'The order has been sent successfully.' ), 'status' => 'success' ) );
 			}
 		}
-		$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderid, 'mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderid, 'mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'danger' ) );
 	}
 	
 	/**
@@ -621,9 +621,9 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 					$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'Invoice sent successfully.' ), 'status' => 'success' ) );
 				}
 			}
-			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'invoices', 'admin', array ('id' => $invoiceid, 'mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'danger' ) );
 		}
-		$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'invoices', 'admin', array ('mex' => $this->translator->translate ( 'The invoice has not been found.' ), 'status' => 'danger' ) );
 	}
 	
 	
@@ -641,7 +641,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				die;
 			}
 			
-			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'The order has not been found.' ), 'status' => 'danger' ) );
 			
 		} catch ( Exception $e ) {
 			die ( $e->getMessage () );
@@ -660,7 +660,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			if ($sent) {
 				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'The order has been uploaded to dropbox.' ), 'status' => 'success' ) );
 			} else {
-				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $request->id, 'mex' => $this->translator->translate ( 'There was a problem during the process.' ), 'status' => 'danger' ) );
 			}
 		}
 	}

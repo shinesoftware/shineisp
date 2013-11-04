@@ -215,7 +215,7 @@ table.datatable tfoot input {
 	width: 100%;
 }
 
-table.datatable tfoot input.search_init {
+table.datatable tfoot input.form-group {
 	color: #999999;
 }
 

@@ -126,29 +126,30 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		$iserror = !empty($errors) ? "error" : null;
 		switch ($element->getType ()) {
 			case "Zend_Form_Element_Text":
-				$output = "<div class=\"control-group $iserror $name\">" . $label;
-				$output .= "<div class=\"controls\">";
+				$output = "<div class=\"form-group $iserror style-$name\">";
+				$output .= $label;
 				$output .= $input;
 				$output .= $desc;
 				$output .= $errors;
-				$output .= "</div></div>";
+				$output .= "</div>";
 			break;
 			
 			case "Zend_Form_Element_Password":
-				$output = "<div class=\"control-group $iserror $name\">" . $label;
-				$output .= "<div class=\"controls\">$input $desc $errors</div></div>";
+				$output = "<div class=\"form-group $iserror style-$name\">" . $label;
+				$output .= "$input $desc $errors";
+				$output .= "</div>";
 			break;
 			
 			case "Zend_Form_Element_Checkbox":
-				$this->getElement()->setAttrib("class", "checkbox");
-				$label = $element->getView ()->formLabel($element->getFullyQualifiedName(), trim($label), array('class' => 'checkbox'));
+				/* Implement http://www.bootstrap-switch.org/ */
+				$this->getElement()->setAttrib("class", "label-change-switch");
+				$label = $element->getView ()->formLabel($element->getFullyQualifiedName(), trim($label), array('class' => 'label-change-switch'));
 				$pos = strpos($label, ">");
 				$start_label =  substr($label, 0, $pos+1);
-				
-				$output = "<div class=\"control-group $iserror $name\">";
-				$output .= "<div class=\"controls\">";
-				$output .= $start_label . $input . $desc . $this->getElement()->getLabel() . "</label>";
-				$output .= "</div>";
+
+				$output = "<div class=\"form-group $iserror style-$name\">";
+				$output .= "<label>" . $this->getElement()->getLabel() . "</label> <br/>";
+				$output .= "<div class=\"make-switch\">" . $input . "</div>";
 				$output .= "</div>";
 			break;
 			
@@ -161,12 +162,11 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 			break;
 			
 			default:
-				$output = "<div class=\"control-group $iserror $name\">" . $label;
-				$output .= "<div class=\"controls\">";
+				$output = "<div class=\"form-group $iserror style-$name\">" . $label;
 				$output .= $input;
 				$output .= $desc;
 				$output .= $errors;
-				$output .= "</div></div>";
+				$output .= "</div>";
 			break;
 		}
 		
