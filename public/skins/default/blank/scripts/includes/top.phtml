@@ -1,18 +1,21 @@
-<nav class="top-bar">
-   	<section class="top-bar-section">
-    	<ul>
-	      <li class="name"><?php echo $this->logo()?></li>
-	      <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo $this->translate('Menu')?></span></a></li>
-	    </ul>
-	    
-	    <ul class="right">
-	      <li class="has-dropdown"><?php echo $this->cart()?></li>	
-	      <li><?php echo $this->searchbar()?></li>
-	      <li>&nbsp</li>
-	    </ul>
-	    
-	    <?php echo $this->languageswitcher('left') ?>
-    	<?php echo $this->webmenu('right');?>
-	</section>
-</nav>
-
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="navbar-header">
+        <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <?php echo $this->logo()?>
+    </div>
+	<div class="collapse navbar-collapse pull-right">
+		<ul class="nav navbar-nav">
+            <li class="dropdown"><?php echo $this->searchbar()?></li>
+            <li class="dropdown"><?php echo $this->cart()?></li>
+            <li class="dropdown"><?php echo $this->profile();?></li>
+            <li class="dropdown"><?php echo $this->languageswitcher('left') ?></li>
+		</ul>
+	</div>
+	<div class="navbar-collapse collapse">
+	    <?php echo $this->webmenu();?>
+	</div>
+</div>

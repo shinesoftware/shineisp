@@ -58,7 +58,7 @@ class Domains extends BaseDomains {
                       
                              
 		$config ['datagrid'] ['dqrecordset'] = $dq;
-		
+		$config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
 		$config ['datagrid'] ['index'] = "domain_id";
 		
 		// Automatic Renewal function											

@@ -5,13 +5,10 @@
 	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-            <js override="1" position="admin_endbody">/resources/js/jquery/jquery-1.8.3.js</js>  
-            <js override="1" position="admin_endbody">/resources/js/jquery/jquery-ui-1.9.2.custom.min.js</js>
-            <js override="1" position="admin_endbody">/resources/js/jquery/jquery.cookie.js</js>
+            <js override="1" position="admin_endbody">//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js</js>  
+            <js override="1" position="admin_endbody">//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js</js>
+            <js override="1" position="admin_endbody">/resources/jquery/jquery.cookie.js</js>
             
-            <!-- CSS files to be include in every pages-->
-            <css override="1">/resources/js/css/jquery-ui-1.8.16.custom.css</css> 
-			
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
             <css override="1">/resources/bootstrap/css/bootstrap.css</css>
             <js override="1" position="admin_endbody">/resources/bootstrap/js/bootstrap.min.js</js>
@@ -24,20 +21,22 @@
 		<commons template="1column">
 			<head>
 			   
-                <js override="1" position="admin_endbody">/resources/js/wysiwyg/wysihtml5/rules.js</js>
-                <js override="1" position="admin_endbody">/resources/js/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
-                <js override="1" position="admin_endbody">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/jquery.autocomplete.min.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/jquery.tokeninput.js</js>
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/rules.js</js>
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.tokeninput.js</js>
                 
-                <js override="1" position="admin_endbody">/resources/js/jquery/jquery.ui.datepicker-it.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/jquery.dynatree.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/jquery.dataTables.min.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/jquery.dataTables.delay.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/bootstrap-select.min.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/bootstrap-rating-input.min.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/bootstrap-switch.min.js</js>
-                <js override="1" position="admin_endbody">/resources/js/jquery/bootstrap-filestyle.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.ui.datepicker-it.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.dynatree.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.dataTables.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.dataTables.delay.js</js>
+                
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-select.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-rating-input.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-switch.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-filestyle.min.js</js>
                 
                 <js position="admin_endbody">/js/smartresize.js</js> 
                 <js position="admin_endbody">/js/grid.js</js> 
@@ -45,12 +44,12 @@
                 <css>/css/grid.css</css>  
                 
                 <!-- files to be include in every ADMIN pages-->
-                <css override="1">/resources/js/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
-                <css override="1">/resources/js/css/ui.dynatree.css</css>
-                <css override="1">/resources/js/css/jquery.dataTables.css</css>
-                <css override="1">/resources/js/css/bootstrap-select.min.css</css>
-                <css override="1">/resources/js/css/jquery.autocomplete.css</css>
-                <css override="1">/resources/js/css/bootstrap-switch.css</css>
+                <css override="1">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
+                <css override="1">/resources/jquery/css/ui.dynatree.css</css>
+                <css override="1">/resources/jquery/css/jquery.dataTables.css</css>
+                <css override="1">/resources/jquery/css/bootstrap-select.min.css</css>
+                <css override="1">/resources/jquery/css/bootstrap-switch.css</css>
+                <css override="1">/resources/jquery/css/bootstrap-typeahead.css</css>
 			</head>
 		</commons>
 		 

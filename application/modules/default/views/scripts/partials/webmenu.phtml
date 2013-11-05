@@ -1,11 +1,6 @@
-<ul class="<?php echo !empty($this->menucls) ? $this->menucls : "navigation" ?>">
+<ul class="<?php echo !empty($this->menucls) ? $this->menucls : "nav navbar-nav" ?>">
 	 
      <?php if(!empty($this->menu)): ?>
      	<?php echo $this->menu ?>
      <?php endif;?>
-	 
-     <li class="has-dropdown" >  
-	 	<?php echo $this->profile ();?>
-	 </li>
-	 
 </ul>

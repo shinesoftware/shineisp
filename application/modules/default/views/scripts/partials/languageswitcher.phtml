@@ -2,15 +2,12 @@
 <?php $selectlang = Languages::get_language_name_by_code($langcode); ?>
 
 <?php if(count($this->languages) > 1): ?>
-	<ul class="<?php echo $this->clslang ? $this->clslang : "languageswitcher"?>">
-		<li class="has-dropdown"> <a href="#"><?php echo $selectlang; ?></a>
-			<ul class="dropdown">
-				<?php foreach ($this->languages as $language): ?>
-					<?php if($language['language'] != $selectlang): ?>
-						<li><a class="<?php echo strtolower($language['language'])?>" href="/<?php echo $language['code']?>"><?php echo $this->translate($language['language']) ?></a></li>
-					<?php endif; ?>
-    			<?php endforeach;?>
-    		</ul>
-	    </li>
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="glyphicon glyphicon-flag"></i> <?php echo $selectlang; ?> <b class="caret"></b></a>
+	<ul class="dropdown-menu">
+		<?php foreach ($this->languages as $language): ?>
+			<?php if($language['language'] != $selectlang): ?>
+				<li class="dropdown"><a class="<?php echo strtolower($language['language'])?>" href="/<?php echo $language['code']?>"><?php echo $this->translate($language['language']) ?></a></li>
+			<?php endif; ?>
+		<?php endforeach;?>
 	</ul>	    
 <?php endif;?>    
