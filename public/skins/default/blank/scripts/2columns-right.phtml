@@ -15,15 +15,17 @@
     		<?php echo $this->blocks()->showblock('right');?>
     	</aside>
     	
-	</div>
+    </div>	<!-- End #main-container -->
     
-    <?php echo $this->blocks()->showblock('beforefooter');?>
-    <footer class="row">
+    <div class="footer-wrapper row">
     	<?php echo $this->footer();?>
         <?php echo $this->blocks()->showblock('footer');?>
-    </footer><!-- End #footer -->
-    <?php echo $this->blocks()->showblock('endfooter');?>
+    </div>
+ 
+	<?php echo $this->blocks()->showblock('endfooter');?>    
     
     <?php echo $this->blocks()->showblock('endbody');?>
-
+    
 <?php echo $this->render('includes/endpage.phtml') ?>
+
+    	

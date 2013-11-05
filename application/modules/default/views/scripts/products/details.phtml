@@ -31,7 +31,7 @@
 			       	    
 			       	    <?php echo $this->ProductCategories($this->product['categories']) // Category Breadcrump ?>
 			       	    
-			       	    <ul class="no-bullet list-inline">
+			       	    <ul class="list-unstyled list-inline">
 			       	    	<li><a href="/review/<?php echo $this->product['uri'] ?>.html"><?php echo $this->translate('Add your review') ?></a></li>
 			       	    	<li><?php if($this->product['iscomparable'] && !empty($this->group['code'])): ?><a href="/compare/products/code/<?php echo $this->group['code'] ?>"><?php echo $this->translate('Compare') ?> <?php echo $this->group['name']?></a><?php endif; ?></li>
 			       	    </ul>
@@ -47,14 +47,14 @@
 		                	</div>
 		                	<div class="col-lg-12">
 				                <?php if($price['type'] == "multiple"): ?>
-					                <ul class="sticker no-bullet hidden">
+					                <ul class="sticker list-unstyled hidden">
 					                   <li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->product['price_1'] ?></span> <em>x</em> <em id="pricefreq" class="pricefreq"></em></li>
 					                   <li class="pricetaxval"><span id="pricetaxval"></span> <?php echo $this->translate('VAT included')?></li>
 					                   <li class="setupfeecontainer"><span id="setupfeecontainer"><?php echo $this->translate('Setup fee')?>: <span id="setupfee"></span></span></li>
 					                   <li class="setupfeecontainer"><span id="tranche_includes" class="tranche_includes"></span></li> 
 					                </ul>
 				                <?php else: ?>
-				                 	<ul class="sticker no-bullet hidden">
+				                 	<ul class="sticker list-unstyled hidden">
 				                 		<li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency'))) ?></span></li>
 					                    <li class="pricetaxval"><span id="pricetaxval"><?php echo $this->currency($price['taxincluded'], array('currency' => Settings::findbyParam('currency'))) ?></span> <?php echo $this->translate('VAT included')?></li>
 					                </ul>

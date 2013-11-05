@@ -1,6 +1,45 @@
 /* ------ GENERAL -------- */
 body{
-	padding-top: 60px;
+	padding-top: 53px;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+/* ------ CAROUSEL -------- */
+.carousel-wrapper{
+	background-color: #eee;
+}
+.carousel{
+	margin: 0 auto;
+}
+
+/* ------ COMMONS -------- */
+
+.copyright-wrapper{
+	background-color: #eee;
+	padding-top: 10px;
+}
+
+.footer-wrapper {
+	background-color: #000000;
+    margin-top: 40px;
+    padding: 20px 30px 30px;
+}
+
+.footer-wrapper h4{
+	color: #ffffff;
+}
+
+.footer-wrapper p{
+	color: #dddddd;
+}
+
+.footer-wrapper a{
+	color: #dddddd;
+}
+
 
 /* ------ HOMEPAGE -------- */
