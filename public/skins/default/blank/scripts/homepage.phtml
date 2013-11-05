@@ -4,7 +4,7 @@
 	
 	<?php echo $this->render('includes/top.phtml') ?>
 	
-    <div id="content" class="col-lg-12">
+    <div id="content" class="container">
         
     	<div class="row">
     	    <div class="col-lg-12">
@@ -20,16 +20,16 @@
                 <?php echo $this->blocks()->showblock('contentend');?>
     		</div> 
         </div>
-    </div>	<!-- End #main-container -->
     
-    <?php echo $this->blocks()->showblock('beforefooter');?>
-		
-    <footer class="row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </footer><!-- End #footer -->
-        
-    <?php echo $this->blocks()->showblock('endfooter');?>
+	    <?php echo $this->blocks()->showblock('beforefooter');?>
+			
+	    <footer class="row">
+	    	<?php echo $this->footer();?>
+	        <?php echo $this->blocks()->showblock('footer');?>
+	    </footer><!-- End #footer -->
+     
+    	<?php echo $this->blocks()->showblock('endfooter');?>
+    </div>	<!-- End #main-container -->
     
     <?php echo $this->blocks()->showblock('endbody');?>
     

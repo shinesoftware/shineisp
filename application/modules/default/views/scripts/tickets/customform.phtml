@@ -7,7 +7,7 @@
 <?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () && "process" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
 	    <div class="row"> 
 		    
-	    	<div class="large-9 column">
+	    	<div class="col-lg-9">
 	    		<?php echo $this->translate('Request ID')?> #<?php echo $this->summary['ticket_id'] ?> / <?php echo $this->translate('Status')?>: <span class="ticket-status"><?php echo !empty($this->summary['status']) ? $this->translate($this->summary['status']) : ""?></span>
 	    		<h4><?php echo $this->summary['subject'] ?></h4>
 	    		<?php if(!empty($this->summary['sibling_id'])): ?>
@@ -17,12 +17,12 @@
 				<?php endif; ?>
 	    	</div>
 	    	
-	    	<div class="large-3 column">
+	    	<div class="col-lg-3">
 		    	<p align="right"><b><?php echo $this->summary['customer'] ?></b><br/><?php echo $this->summary['email'] ?><br/><?php echo $this->summary['creationdate'] ?></p>
 		    	<p align="right"><a class="button small" href="/tickets"><?php echo $this->translate('Tickets list') ?></a></p>
 	    	</div>
 	    	
-	    	<div class="large-12 column">
+	    	<div class="col-lg-12">
 		    	<?php echo $this->Attachments($this->summary['ticket_id'], 'tickets'); ?>
 	    	</div>
 		</div>
@@ -30,11 +30,11 @@
 
     <div class="row"> 
         <?php if($this->record['description']): ?>
-		<div class="large-2 column">
+		<div class="col-lg-2">
 			<?php echo $this->customeravatar ?><br/>
 			<p><?php echo $this->record['customer']?><br/><?php echo $this->record['company']?></p>
 		</div>
-		<div class="large-10 column">
+		<div class="col-lg-10">
 			<p class="right"><?=$this->record['creationdate']?></p>
 			<p><?php echo $this->record['description'];?></p>
 		</div>
@@ -44,7 +44,7 @@
 	<?php if(!empty($this->notes)):?>
 	    <?php foreach( $this->notes as $note):?>
 	    	<div class="row"> 
-				<div class="large-2 column">
+				<div class="col-lg-2">
 					<?php echo $note['adminreply'] ? $this->adminavatar : $this->customeravatar; ?> 
 					<?php if($note['adminreply']):?>
 						<p><?php echo $this->isp['company']?></p>
@@ -52,7 +52,7 @@
 						<p><?php echo $note['customer']?><br/><?php echo $note['company']?></p>
 					<?php endif; ?>
 				</div>                                
-				<div class="large-10 column <?php if($note['adminreply']):?>admin-note<?php else:?>user-note<?php endif;?>">
+				<div class="col-lg-10 <?php if($note['adminreply']):?>admin-note<?php else:?>user-note<?php endif;?>">
 					<p class="right"><?=$note['date_post']?></p>
 					<?php echo $note['note']?>
 				</div>
@@ -62,7 +62,7 @@
 	<?php endif;?>
 	
 	<div class="row"> 
-	    <div class="large-12 column"> 
+	    <div class="col-lg-12"> 
 	    	
 			<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
 			

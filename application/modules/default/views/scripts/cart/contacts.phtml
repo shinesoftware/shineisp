@@ -21,14 +21,14 @@
     <form method="<?php echo $form->getMethod() ?>" id="contacts" action="<?php echo $form->getAction()?>">
             <div class="panel"> 
                 <h4><?php echo $this->translate('General')?></h4>
-                <div class="column-left">
+                <div class="pull-left">
 	                <?php echo $form->firstname->render() ?>
                 <?php echo $form->lastname->render()?>
                 <?php echo $form->email->render()?>
                 <?php echo $form->password->render()?>
                 </div>
             
-                <div class="column-right">
+                <div class="pull-right">
                 	<?php echo $form->legalform->render()?>
                     <?php echo $form->company_type_id->render()?>
                     
@@ -43,7 +43,7 @@
             <div class="panel">
                 <h4><?php echo $this->translate('Personal data')?></h4>
                 <div><small><?php echo $this->translate('Your personal data are mandatories to register or transfer a domain name.')?></small></div>
-                <div class="column-left">
+                <div class="pull-left">
 	                <?php echo $form->birthdate->render()?>
 	                <?php echo $form->birthplace->render()?>
 	                <?php echo $form->birthdistrict->render()?>

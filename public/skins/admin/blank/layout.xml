@@ -21,7 +21,7 @@
 		<commons template="1column">
 			<head>
 			   
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/rules.js</js>
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml-rules.js</js>
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>

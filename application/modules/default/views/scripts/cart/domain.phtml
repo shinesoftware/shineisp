@@ -1,6 +1,6 @@
 <?php $form = $this->form; ?>
 <div class="row">
-	<div class="large-12 column">
+	<div class="col-lg-12">
 		<h2><?php echo $this->translate('Register your own domain')?></h2>
 		<small><?php echo $this->translate('Type the domain name in the input box shown below and follow only 3 steps.')?></small><br><br>
 		
@@ -11,14 +11,14 @@
 </div>
 
 <div class="row">
-	<div class="large-12 column">
-	    <form method="<?php echo $form->getMethod() ?>" id="domainselector" class="dropdown custom" action="<?php echo $form->getAction()?>">
+	<div class="col-lg-12">
+	    <form method="<?php echo $form->getMethod() ?>" id="domainselector" class="form-group" action="<?php echo $form->getAction()?>">
 	        <div class="row collapse">
-		        <div class="small-9 columns"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
-	        	<div class="small-3 columns"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
+		        <div class="col-lg-9"><?php echo $form->domain->setDecorators(array('ViewHelper'))?> </div>
+	        	<div class="col-lg-3"><?php echo $form->tlds->setDecorators(array('ViewHelper'))?></div>
 			</div>
 			
-			<ul class="no-bullet">
+			<ul class="list-unstyled">
 	             <li>
 	                 <label for="register"><input id="register" type="radio" name="mode" checked value="register"> <?php echo $this->translate('I would like to register this domain.')?></label>
 	                 <p><?php echo $this->translate('Register now your domain name now and every year we will renew it automatically. Anyway you can disable this option by your Control Panel.')?></p>

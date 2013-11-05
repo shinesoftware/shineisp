@@ -22,6 +22,7 @@
 		
 		    <!-- All the head js and css files will be attached in all the header of the pages -->
 			<head>
+				<css>/css/site.css</css>  
 				
 			    <js position="endbody">/js/commons.js</js>
 			    <js position="endbody">/js/stickyfooter.js</js>

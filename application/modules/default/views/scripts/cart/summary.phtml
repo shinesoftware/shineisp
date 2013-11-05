@@ -3,7 +3,7 @@
 <h3><?php echo $this->translate('Shopping Cart'); ?></h3> 
 
 <div class="row">
-	<div class="large-12 column">
+	<div class="col-lg-12">
 		<table>
 			<thead>
 				<tr>
@@ -47,13 +47,13 @@
 </div>
 
 <div class="row">
-	<div class="large-8 column">
+	<div class="col-lg-8">
 		<a class="button small" href="/<?php echo !empty($this->lastproduct) ? $this->lastproduct . ".html" : null ?>"><?php echo $this->translate('Continue Shopping')?></a>
 		<a class="button small alert" href="/cart/clear"><?php echo $this->translate('Clear Shopping Cart')?></a>
 		<a class="button small updatecart" href="#"><?php echo $this->translate('Update Shopping Cart')?></a>
 		<?php echo $this->checkdomains()->showForm(); ?>
 	</div>
-	<div class="large-4 column">
+	<div class="col-lg-4">
 		<table>
 			<tr>
 				<td><?php echo $this->translate('Subtotal') ?></td>

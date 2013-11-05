@@ -115,8 +115,8 @@ if (isset($this->records[0])):
                 </tr>
                 <tr>
                    <td colspan="<?php echo $numcols+1?>">
-                        <div class="large-6 column"><?php echo $this->pagination; ?></div>
-                        <div class="large-6 column">
+                        <div class="col-lg-6"><?php echo $this->pagination; ?></div>
+                        <div class="col-lg-6">
                             <p align="right"><?php echo $this->recordcount?> <?php echo $this->translate('Records');?><br/> 
                             <?php echo $this->translate('Records per page');?>: 
                             <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/5">5</a>

@@ -2,7 +2,7 @@
 <?php echo $this->render('partials/header.phtml') ?>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 		<p align="right" class="order-buttons">
 			<a href="/orders" class="small button"><?php echo $this->translate('Order list')?></a> 
 			<a href="/orders/print/id/<?php echo $this->orderid?>" class="small button"><?php echo $this->translate('Print Order')?></a> 
@@ -18,25 +18,25 @@
 </div>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 		<?php echo $this->status($this->statushistory);?>  
 	</div>
 </div>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 		<?php echo $this->verticalgrid($this->order)?> 
 	</div>
 </div>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 		<?php echo $this->simplegrid($this->details)?>
 	</div>
 </div>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 		<?php if(Null !== Settings::findbyParam('Conditions')): ?>
         	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
         <?php endif;?>
@@ -44,7 +44,7 @@
 </div>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 		<?php // Files attached ?>
         <?php if($this->files[0]): ?>
     	<ul>
@@ -62,7 +62,7 @@
  <?php endif;?>
 
 <div class="row">
-	<div class="large-12 column">	
+	<div class="col-lg-12">	
 	    <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	    	<h5><?php echo $this->translate('Messages')?></h5>
 	    	<p><?= $this->translate('Here you can read all your questions and the admin replies about this order.') ?></p>

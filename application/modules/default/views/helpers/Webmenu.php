@@ -65,7 +65,7 @@ class Zend_View_Helper_Webmenu extends Zend_View_Helper_Abstract {
 	                $ret .= $this->storeCategoriesMenu($categories, $category['id'], $level+1);
 	            }else{
 	            	$hasdropdown = $level==0 ? "dropdown" : "";
-	            	$ret .= "<li class=\"dropdown\"><a href=\"#\">" . $category['name'] . "</a>";
+	            	$ret .= "<li class=\"$hasdropdown\"><a href=\"/categories/" . $category['uri'] . ".html\">" . $category['name'] . "</a>";
 	            }
 	            $ret .= '</li>';
 	        }

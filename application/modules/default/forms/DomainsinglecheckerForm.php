@@ -11,9 +11,8 @@ class Default_Form_DomainsinglecheckerForm extends Zend_Form
         $this->addElement('text', 'name', array(
             'filters'     => array('StringTrim'),
             'decorators' => array('Composite'),
-            'class'       => 'domainame',
+            'class'       => 'domainame form-control',
             'placeholder'       => 'mycompany',
-            'required'   => true
         ));
         
        $this->addElement('select', 'tld', array(
@@ -27,7 +26,7 @@ class Default_Form_DomainsinglecheckerForm extends Zend_Form
                           
         $this->addElement('submit', 'check', array(
             'label'      => $translate->_('Check'),
-            'class'    => 'button small chkdomain'
+            'class'    => 'btn btn-default chkdomain'
         ));
 
     }

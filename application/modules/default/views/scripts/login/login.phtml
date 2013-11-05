@@ -1,7 +1,7 @@
 <h3><?php echo $this->translate('Login or Create a new Account')?></h3><hr>   
 	
 <div class="row">  
-    <div class="large-6 column">
+    <div class="col-lg-6">
     	<fieldset class="login">
 	        <h5><?=$this->translate('Create a new Account')?></h5>
 	        <p>
@@ -11,7 +11,7 @@
 		</fieldset>
     </div>
     
-    <div class="large-6 column">
+    <div class="col-lg-6">
         <?php if($this->form):?>
             <? $form = $this->form; ?>
             <form method="<?php echo $form->getMethod() ?>" class="custom" action="<?php echo $form->getAction()?>">
