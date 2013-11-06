@@ -1,45 +1,77 @@
 /* ------ GENERAL -------- */
-body{
+body {
 	padding-top: 53px;
 }
 
-.col-centered{
-    float: none;
-    margin: 0 auto;
+.col-centered {
+	float: none;
+	margin: 0 auto;
 }
 
 /* ------ CAROUSEL -------- */
-.carousel-wrapper{
+.carousel-wrapper {
 	background-color: #eee;
 }
-.carousel{
+
+.carousel {
 	margin: 0 auto;
 }
 
 /* ------ COMMONS -------- */
-
-.copyright-wrapper{
+.copyright-wrapper {
 	background-color: #eee;
 	padding-top: 10px;
 }
 
 .footer-wrapper {
 	background-color: #000000;
-    margin-top: 40px;
-    padding: 20px 30px 30px;
+	margin-top: 40px;
+	padding: 20px 30px 30px;
 }
 
-.footer-wrapper h4{
+.footer-wrapper h4 {
 	color: #ffffff;
 }
 
-.footer-wrapper p{
+.footer-wrapper p {
 	color: #dddddd;
 }
 
-.footer-wrapper a{
+.footer-wrapper a {
 	color: #dddddd;
 }
 
+/* ------ CATEGORIES -------- */
+.category-item {
+	margin-bottom: 20px;
+}
+
+.badge {
+	background-color: #EEEEEE;
+	color: #888888;
+	font-weight: normal;
+	margin-bottom: 10px;
+	padding: 7px !important;
+}
+
+/* ------ PRODUCTS -------- */
+.prices {
+	margin-top: 50px;
+}
+
+.priceincludedvat {
+	font-size: 20px;
+	text-align: right;
+}
+
+.pricenotincludedvat {
+	font-size: 14px;
+	text-align: right;
+}
+
+.subscription {
+	font-size: 14px;
+	text-align: right;
+}
 
 /* ------ HOMEPAGE -------- */

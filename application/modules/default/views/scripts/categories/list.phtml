@@ -7,18 +7,18 @@
 	    
 	    <?php if(is_array($this->products) && count($this->products)>0): ?>
 		
-		<div id="products" class="row">
+		<div id="products" class="row category-list">
 			<div class="col-lg-12">
-				<ul id="list" class="list-unstyled">
+				<ul id="list" class="categories list-unstyled">
 					<?php foreach($this->products as $products): ?>
-					    <li>
+					    <li class="category-item">
 					    	<div class="row product">
-						        <div class="col-lg-2 hide-for-small">
+						        <div class="col-lg-2 hidden-xs">
 						          <?php echo $this->media()->ProductImage($products['product_id'], 120, 120);?>
 						        </div>
 						        
 					            <div class="col-lg-7">
-					                <h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
+					                <h3><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h3>
 					                <small><?php echo $this->ProductCategories($products['categories']) ?></small>
 					                
 					                <div class="previewshortdescription">
@@ -42,7 +42,8 @@
 				                    <ul class="list-inline attributes">
 			                    		<?php foreach ($products['attributes'] as $attribute): ?>
 			                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
-			                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
+			                    				<li class="badge" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
+			                    				    <i class="glyphicon glyphicon-cog"></i>
 			                    					<?php echo $attribute['ProductsAttributesData'][0]['prefix'] ?>
 			                    					<?php echo $attribute['ProductsAttributesData'][0]['label']?>: <?php echo $attribute['ProductsAttributesIndexes'][0]['value']?>
 			                    					<?php echo $attribute['ProductsAttributesData'][0]['suffix'] ?>

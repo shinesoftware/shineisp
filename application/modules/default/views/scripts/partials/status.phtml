@@ -4,7 +4,7 @@
 ?>
 
 <?php if($status): ?>
-	<ul class="breadcrumbs">
+	<ul class="breadcrumb">
 	<?php for($i=0;$i<count($status);$i++): ?>
 		<?php $current = (($status_items - 1) == $i) ? "current" : null; ?>
 		<li class="<?php echo $current ?>"><?php echo $status[$i]['status']?></li>

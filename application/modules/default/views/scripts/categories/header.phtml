@@ -13,10 +13,9 @@
 			<?php endif;?>
 		</div>
 		<div class="col-lg-8">
-			<dl class="sub-nav right">
-				<dt><?php echo $this->translate('List view')?>:</dt>
-				<dd class="<?php echo !empty($this->layoutmode) && $this->layoutmode == "list" ? "active" : "" ?>"><a href="/categories/setlayout/mode/list"><?php echo $this->translate('List') ?></a></dd>
-	    		<dd class="<?php echo !empty($this->layoutmode) && $this->layoutmode == "thumbs" ? "active" : "" ?>"><a href="/categories/setlayout/mode/thumbs"><?php echo $this->translate('Thumb') ?></a></dd>
-	    	</dl>
+			<ul class="pull-right list-inline">
+				<li class="<?php echo !empty($this->layoutmode) && $this->layoutmode == "list" ? "active" : "" ?>"><i class="glyphicon glyphicon-th-list"></i> <a href="/categories/setlayout/mode/list"><?php echo $this->translate('List') ?></a></li>
+	    		<li class="<?php echo !empty($this->layoutmode) && $this->layoutmode == "thumbs" ? "active" : "" ?>"><i class="glyphicon glyphicon-th"></i> <a href="/categories/setlayout/mode/thumbs"><?php echo $this->translate('Thumb') ?></a></li>
+	    	</ul>
 		</div>
 	</div>
