@@ -9,7 +9,7 @@
 			        	foreach( $field->getErrors() as $error){
 			        		$errors[] = $this->translate($error);
 			        	}
-			            echo "<div data-alert class=\"alert-box error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . " <a href=\"#\" class=\"close\">&times;</a></div>";
+			            echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . " <a href=\"#\" class=\"close\">&times;</a></div>";
 			        }   
 			    } ?>
 			</div>    
@@ -24,8 +24,8 @@
 				}
 		    ?></h3>
 		    
-		    <a class="right small button success" onClick="history.back();return false;" href="#"><?php echo $this->translate('go back')?></a>
-		    <a class="right small button success" href="/dashboard"><?php echo $this->translate('back to dashboard')?></a>
+		    <a class="btn btn-success" onClick="history.back();return false;" href="#"><?php echo $this->translate('go back')?></a>
+		    <a class="btn btn-success" href="/dashboard"><?php echo $this->translate('back to dashboard')?></a>
 		    <p><?php echo $this->description;?></p>
 		    
 		</div>

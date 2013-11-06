@@ -51,7 +51,7 @@
 			    <td>
 			         <?php if(!$domain['isavailable']): ?>
 			             <p><b><?php echo $this->translate('Authentication Code') ?></b></p>
-			             <input name="authcode[]" type="text" title="<?php echo $this->translate('Please write here your AuthCode in order to transfer the domain')?>" name="authcode" class="text-input input-lg" />
+			             <input name="authcode[]" type="text" title="<?php echo $this->translate('Please write here your AuthCode in order to transfer the domain')?>" name="authcode" class="form-control input-lg" />
 			         <?php else:?>
 			             <input type="hidden" name="authcode[]"/>
 			             <p><?php echo $this->translate('Domain Available') ?></p>

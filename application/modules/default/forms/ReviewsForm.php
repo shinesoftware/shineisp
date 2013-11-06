@@ -12,35 +12,35 @@ class Default_Form_ReviewsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => true,
         	'description' => $translate->_('Add your own nickname'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Nick'),
-            'class'       => 'text-input medium-input'
+            'class'       => 'form-control medium-input'
         ));
                   
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'description' => $translate->_('Write down a subject of the review'),
             'label'      => $translate->_('Subject'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control large-input'
         ));
                   
         $this->addElement('select', 'referer', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'description' => $translate->_('Where did you find us?'),
             'label'      => $translate->_('Who is Talking About Us?'),
-            'class'       => 'text-input medium-input',
+            'class'       => 'form-control medium-input',
         	'multiOptions' => array('Google' => 'Google', 'Bing' => 'Bing', 'Yahoo' => 'Yahoo', 'Other Search Engine' => 'Other Search Engine', 'Websites' => 'Websites/Blogs', 'Magento Commerce' => 'Magento Commerce', 'Friend suggestion' => 'Friend suggestion')
         ));
                   
         $this->addElement('text', 'city', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'description' => $translate->_('Which is your own city? If added we will promote your review in our website using Google Maps'),
             'label'      => $translate->_('City'),
-            'class'       => 'text-input medium-input'
+            'class'       => 'form-control medium-input'
         ));
                   
         $this->addElement('text', 'email', array(
@@ -49,24 +49,24 @@ class Default_Form_ReviewsForm extends Zend_Form
         	'validators' => array(
                 'EmailAddress'
             ),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'description' => 'Your email will be not published',
             'label'      => $translate->_('Email'),
-            'class'       => 'text-input medium-input'
+            'class'       => 'form-control medium-input'
         ));
         
     	$this->addElement('select', 'stars', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Stars'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control medium-input',
     		'multiOptions' => array(1 => '1 ' . $translate->_('Star'), 2 => '2 ' . $translate->_('Stars'), 3 => '3 ' . $translate->_('Stars'), 4 => '4 ' . $translate->_('Stars'), 5 => '5 ' . $translate->_('Stars'))
         ));        
         
         $this->addElement('textarea', 'review', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'required'    => true,
         	'description' => $translate->_('Write down your review with details and you will earn points and discounts'),
             'label'      => $translate->_('Review'),
@@ -118,8 +118,8 @@ class Default_Form_ReviewsForm extends Zend_Form
         $this->addElement('submit', 'save', array(
             'required' => false,
             'label'      => $translate->_('Publish your Review'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary'
         ));
         
         $this->addElement('hidden', 'product_id');

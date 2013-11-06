@@ -18,6 +18,17 @@ body {
 }
 
 /* ------ COMMONS -------- */
+
+.navbar-nav-right{
+	float:right;
+}
+
+@media(max-width:767px){
+	.navbar-nav-right {float: none;}
+    .navbar-form {margin-right:5px;margin-left:5px;}
+    
+}
+
 .copyright-wrapper {
 	background-color: #eee;
 	padding-top: 10px;

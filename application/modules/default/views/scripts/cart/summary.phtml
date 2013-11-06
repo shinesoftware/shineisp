@@ -4,10 +4,9 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<td></td>
 					<td><?php echo $this->translate('Product Name') ?></td>
 					<td></td>
 					<td><?php echo $this->translate('Unit Price') ?></td>
@@ -21,7 +20,6 @@
 					<?php $subtotal = $item->getSubtotals(); ?>
 					<?php $months = $item->getIsrecurring() && !empty($subtotal['months']) ? " x " . $subtotal['months'] . " " . $this->translate('Months') : null; ?>
 					<tr>
-						<td width="50"><?php echo $this->media()->ProductImage($item->getId(), 50, 50, true);?></td>
 						<td>
 							<?php if("domain" == $item->getType()): ?>
 								<?php $options = $item->getOptions(); // get the domain options ?>
@@ -37,7 +35,7 @@
 						    <?php echo ("domain" != $item->getType()) ? $months : null ?>
 						</td>
 						<td><?php echo $this->currency($subtotal['taxes'], array('currency' => Settings::findbyParam('currency'))) ?></td>
-						<td width="20"><input name="field[]" id="<?php echo $item->getUid()?>" type="text" value="<?php echo $item->getQty() ?>"></td>
+						<td width="20"><input class="form-control input-sm" name="field[]" id="<?php echo $item->getUid()?>" type="text" value="<?php echo $item->getQty() ?>"></td>
 						<td align="right"><?php echo $this->currency($subtotal['subtotal'], array('currency' => Settings::findbyParam('currency'))) ?></td>
 					</tr>
 				<?php endforeach;?>
@@ -48,13 +46,13 @@
 
 <div class="row">
 	<div class="col-lg-8">
-		<a class="button small" href="/<?php echo !empty($this->lastproduct) ? $this->lastproduct . ".html" : null ?>"><?php echo $this->translate('Continue Shopping')?></a>
-		<a class="button small alert" href="/cart/clear"><?php echo $this->translate('Clear Shopping Cart')?></a>
-		<a class="button small updatecart" href="#"><?php echo $this->translate('Update Shopping Cart')?></a>
-		<?php echo $this->checkdomains()->showForm(); ?>
+		<a class="btn btn-info" href="/<?php echo !empty($this->lastproduct) ? $this->lastproduct . ".html" : null ?>"><?php echo $this->translate('Continue Shopping')?></a>
+		<a class="btn btn-danger" href="/cart/clear"><?php echo $this->translate('Clear Shopping Cart')?></a>
+		<a class="btn btn-info updatecart" href="#"><?php echo $this->translate('Update Shopping Cart')?></a>
+		<br/><br/><?php echo $this->checkdomains()->showForm(); ?>
 	</div>
 	<div class="col-lg-4">
-		<table>
+		<table class="table table-striped">
 			<tr>
 				<td><?php echo $this->translate('Subtotal') ?></td>
 				<td align="right"><?php echo $this->currency($cart->getSubtotal(), array('currency' => Settings::findbyParam('currency'))) ?></td>
@@ -74,7 +72,7 @@
 				<td align="right"><?php echo $this->currency($cart->getGrandtotal(), array('currency' => Settings::findbyParam('currency'))) ?></td>
 			</tr>
 			<tr>
-				<td align="center" colspan="2"><a class="button success" href="/cart/payment"><?php echo $this->translate('Proceed to Checkout')?></a></td>
+				<td align="center" colspan="2"><br/><a class="btn btn-lg btn-success" href="/cart/payment"><?php echo $this->translate('Proceed to Checkout')?></a></td>
 			</tr>
 		</table>
 	</div>

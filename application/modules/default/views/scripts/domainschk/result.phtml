@@ -27,7 +27,7 @@
 					<label for="chktld"><input type="checkbox" checked class="tld" id="chktld" value="<?php echo $results['tld'] ?>" name="tlds[]"> <?php echo strtoupper($this->translate('I would like to transfer %s', $results['domain']))?></label>
 					<br/>
 					<p>
-						<label for="authinfo"><?php echo $this->translate('AUTHINFO')?></label><input type="text" class="text-input input-lg" id="authinfo" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
+						<label for="authinfo"><?php echo $this->translate('AUTHINFO')?></label><input type="text" class="form-control input-lg" id="authinfo" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
 						<br/><small><?php echo $this->translate('To transfer your domain name, please unlock it at the old provider control panel website and get the AUTHINFO code of your domain.')?> <a href="/wiki/domains.html" target="_blank"><?php echo $this->translate('Read more')?></a></small>
 					</p>
 					

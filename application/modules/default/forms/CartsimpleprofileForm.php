@@ -12,8 +12,8 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Firstname'),
             'description' => $translate->_('Write here your firstname.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
          
         $this->addElement('text', 'lastname', array(
@@ -21,15 +21,15 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Lastname'),
             'description'      => $translate->_('Write here your lastname.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('select', 'company_type_id', array(
         'label' => $translate->_('Company Type'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the company type'),
-        'class'      => 'text-input large-input'
+        'class'      => 'form-control large-input'
         ));
         
         $this->getElement('company_type_id')
@@ -39,9 +39,9 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
         $this->addElement('select', 'legalform', array(
         'label' => $translate->_('Legalform'),
         'required'   => true,
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the type of company.'),
-        'class'      => 'text-input large-input'
+        'class'      => 'form-control large-input'
         ));
         
         $this->getElement('legalform')
@@ -51,16 +51,16 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
         $this->addElement('text', 'company', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Company Name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write here your company name.'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('VAT'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input',
             'description'      => $translate->_('Write here the VAT number.')
         ));
         
@@ -68,16 +68,16 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Area'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control medium-input',
             'description'      => $translate->_('Write the area code')
         ));        
         
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tax payer number'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input',
             'description'      => $translate->_('Write the tax payer number.')
         ));
         
@@ -85,9 +85,9 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Address'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write the address'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'code', array(
@@ -95,8 +95,8 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Zip'),
             'description'      => $translate->_('Write the zip code'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control medium-input'
         ));
         
         $this->addElement('text', 'city', array(
@@ -104,16 +104,17 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('City'),
             'description'      => $translate->_('Write here your city name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('select', 'country_id', array(
 		        'label' => $translate->_('Country'),
 		        'required'   => true,
 		        'description'      => $translate->_('Select your own country'),
-		        'decorators' => array('Composite'))
-        );
+		        'decorators' => array('Bootstrap'),
+        		'class'		 => "form-control"
+        ));
         $this->getElement('country_id')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Countries::getList())
@@ -122,33 +123,33 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
             'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 'EmailAddress',
             ),
             'required'   => true,
             'label'      => $translate->_('Email'),
             'description'      => $translate->_('Write here your email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
                 
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'description'      => $translate->_('Write here your password. (min.6 chars - max.20 chars)'),
             'label'      => $translate->_('Password'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('submit', 'save', array(
             'required' => false,
             'label'      => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary'
         ));
         
         $this->addElement('hidden', 'customer_id');

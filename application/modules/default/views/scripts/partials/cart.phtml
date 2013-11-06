@@ -1,23 +1,26 @@
 <?php if(!empty($this->cartobj)): ?>
-	<a class="cart" id="cart" href="/cart/summary" title="<?php echo $this->translate('Cart') ?>"><strong><?php echo $this->translate('Cart') ?></strong></a>
-	<ul class="dropdown">
-		<?php 
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="cart" href="#" title="<?php echo $this->translate('Cart') ?>">
+		<i class="glyphicon glyphicon-shopping-cart"></i> <strong><?php echo $this->translate('Cart') ?></strong></a>
+		<ul class="dropdown-menu">
+			<li class="dropdown"><a href="/cart/summary"><?php echo $this->translate('Go to Cart') ?></a></li>
+			<?php 
+			
+				foreach ($this->cartobj->getItems() as $item) {
+					
+					if("domain" == $item->getType()){
+						$tld = DomainsTlds::getAllInfo($item->getId());
+						$url = "/tlds/" . $tld['name'] . ".html";
+						$name = $item->getName();
+					}else{
+						$products = Products::getAllInfo($item->getId());
+						$url = "/" . $products['uri'] . ".html";
+						$name = $item->getName();
+					}
 		
-			foreach ($this->cartobj->getItems() as $item) {
-				
-				if("domain" == $item->getType()){
-					$tld = DomainsTlds::getAllInfo($item->getId());
-					$url = "/tlds/" . $tld['name'] . ".html";
-					$name = $item->getName();
-				}else{
-					$products = Products::getAllInfo($item->getId());
-					$url = "/" . $products['uri'] . ".html";
-					$name = $item->getName();
+					echo "<li class=\"dropdown\"><a href=\"" . $url . "\">" . $name . "</a></li>";
 				}
-	
-				echo "<li><a href=\"" . $url . "\">" . $name . "</a></li>";
-			}
-		
-		?>
-	</ul>
+			
+			?>
+		</ul>
+	</li>
 <?php endif;?> 

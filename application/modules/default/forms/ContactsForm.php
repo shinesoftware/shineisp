@@ -14,36 +14,36 @@ class Default_Form_ContactsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Fullname'),
             'title' => $translate->_('Write here your firstname and lastname.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'company', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Company'),
             'title'      => $translate->_('Write here your company name.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $email = $this->createElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 'EmailAddress'
             ),
             'required'   => true,
             'label'      => $translate->_('Email'),
             'title'      => $translate->_('Write here your email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement($email);
         
         $status = $this->addElement('select', 'subject', array(
         'label' => $translate->_('Subject'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'
+        'decorators' => array('Bootstrap'),
+        'class'      => 'form-control large-input'
         ));
         
         $status = $this->getElement('subject')
@@ -52,7 +52,7 @@ class Default_Form_ContactsForm extends Zend_Form
         
         $this->addElement('textarea', 'message', array(
             'filters'    => array('StringTrim'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'required'   => true,
             'rows'		=> 5,
             'description'      => $translate->_('Write here your message.'),
@@ -106,8 +106,8 @@ class Default_Form_ContactsForm extends Zend_Form
         $this->addElement('submit', 'submit', array(
             'required' => false,
             'label'      => $translate->_('Submit your request'),
-            'decorators' => array('Composite'),
-            'class'    => 'button bigbtn'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary bigbtn'
         ));
         
         

@@ -10,13 +10,13 @@ class Default_Form_DomainsinglecheckerForm extends Zend_Form
         
         $this->addElement('text', 'name', array(
             'filters'     => array('StringTrim'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'class'       => 'domainame form-control',
             'placeholder'       => 'mycompany',
         ));
         
        $this->addElement('select', 'tld', array(
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'class'      => 'tld'
         ));
         

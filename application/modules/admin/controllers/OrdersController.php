@@ -293,23 +293,23 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-									array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('id'=>'submit', 'css' => array('btn', 'submit'))),
+									array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('id'=>'submit', 'css' => array('btn btn-success'))),
 									array("url" => "/admin/orders/print/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => null)),
 									array("url" => "/admin/orders/dropboxit/id/$id", "label" => $this->translator->translate('Dropbox It'), "params" => array('css' => null)),
 									array("url" => "/admin/orders/clone/id/$id", "label" => $this->translator->translate('Clone'), "params" => array('css' => null)),
-									array("url" => "/admin/orders/sendorder/id/$id", "label" => $this->translator->translate('Email'), "params" => array('css' => null)),
-									array("url" => "/admin/orders/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
+									array("url" => "/admin/orders/sendorder/id/$id", "label" => $this->translator->translate('Email'), "params" => array('css' => array('btn btn-danger'))),
+									array("url" => "/admin/orders/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn btn-danger'))),
 									array("url" => "/admin/orders/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 								);
 		
 		// Check if the order has been invoiced
 		$invoice_id = Orders::isInvoiced($id);
 		if($invoice_id){
-			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => null));
+			$this->view->buttons[] = array("url" => "/admin/orders/sendinvoice/id/$invoice_id", "label" => $this->translator->translate('Email invoice'), "params" => array('css' => array('btn btn-danger')));
 			$this->view->buttons[] = array("url" => "/admin/invoices/print/id/$invoice_id", "label" => $this->translator->translate('Print invoice'), "params" => array('css' => null));
 		} else {
 			// Order not invoiced, show button to create a new invoice
-			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => null), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
+			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('btn btn-danger')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
 		
 		// Get Order status history

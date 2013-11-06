@@ -13,14 +13,14 @@ class Default_Form_DomaincheckerForm extends Zend_Form
             'required'    => true,
             'decorators' => array('Simple'),
             'label'      => 'WWW.',
-            'class'       => 'text-input www-input',
+            'class'       => 'form-control www-input',
             'placeholder'   => 'yourdomain'
         ));
         
         $this->addElement('select', 'tlds', array(
         'label' => $translate->_('Tld'),
         'decorators' => array('Simple'),
-        'class'      => 'text-input little-input www-select'
+        'class'      => 'form-control www-select'
         ));
         
         $this->getElement('tlds')

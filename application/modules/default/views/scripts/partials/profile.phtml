@@ -2,11 +2,10 @@
 	$isp = Isp::getActiveISP(); 
 	$ns = new Zend_Session_Namespace ();
 ?>
-<div class="collapse navbar-collapse pull-right">
-    <ul class="nav navbar-nav">
         <li class="dropdown">
             <?php if(!empty($ns->customer)): ?>
             	<a class="dropdown-toggle" data-toggle="dropdown" accesskey="H" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+H')?>" href="#">
+            		<i class="glyphicon glyphicon-user"></i>  
             		<?php if($ns->customer['gender'] == "F"): ?>
             			<?php echo $this->translate('Welcome Mrs. %s', $ns->customer['lastname'])?>
             		<?php elseif($ns->customer['gender'] == "M"): ?>
@@ -31,17 +30,15 @@
                 <?php else: ?>
                         <li class="dropdown">
                              <a title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+I')?>" accesskey="I" href="/customer/login">
-                                <?=$this->translate('Sign in') ?>
+                                <?php echo $this->translate('Sign in') ?>
                              </a>
                          </li>
                 <?php endif; ?>
             	</ul>
             <?php else: ?>
-            	<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $this->translate('Login')?></a>
+            	<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> <?php echo $this->translate('Login')?> <b class="caret"></b></a>
             	<ul class="dropdown-menu">
             	    <li class="dropdown"><a href="/customer/login"><?php echo $this->translate('Sign In')?></a></li>
             	</ul>
             <?php endif; ?>
         </li>
-    </ul>
-</div>

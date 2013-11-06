@@ -10,8 +10,8 @@
             <js override="1" position="endbody">/resources/jquery/jquery.cookie.js</js>
             
 			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
-            <css override="1">/resources/bootstrap/css/bootstrap.css</css>
-            <js override="1" position="endbody">/resources/bootstrap/js/bootstrap.min.js</js>
+            <css override="1">//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css</css>
+            <js override="1" position="endbody">//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js</js>
 		</head>
 	</general>
 
@@ -68,50 +68,43 @@
        	
         <tickets>
             <head>
-            	<js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </tickets> 
         
         <dashboard>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </dashboard> 
         
         <domains>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </domains> 
         
         <orders>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </orders> 
         
         <cart>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </cart> 
         
         <services>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </services> 
         
         <cms>
             <head>
-                <js override="1">/resources/js/jquery/jquery.toc.js</js>
-                <js>/js/wiki.js</js>
+                <js position="endbody">/js/wiki.js</js>
             </head>
             <blocks>
                 <block side="right">contacts</block>
@@ -120,8 +113,7 @@
         
         <wiki template="2columns-right">
             <head>
-                <js override="1">/resources/js/jquery/jquery.toc.js</js>
-                <js>/js/wiki.js</js>
+                <js position="endbody">/js/wiki.js</js>
             </head>
             <blocks>
                 <block side="right">contacts</block>
@@ -130,7 +122,7 @@
           		
         <products template="2columns-right"> 
 			<head>
-                <js>/js/priceloader.js</js>
+                <js position="endbody">/js/priceloader.js</js>
             </head>
 		</products>
 		

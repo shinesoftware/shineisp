@@ -17,8 +17,8 @@ class Default_Form_BulkdomainsForm extends Zend_Form
                 
         $this->addElement('submit', 'bulksearch', array(
             'label'      => $translate->_('Check Now'),
-            'decorators' => array('Composite'),
-            'class'    => 'button bigbtn'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary bigbtn'
         ));
 
     }

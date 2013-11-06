@@ -11,25 +11,26 @@
 		
 		<div class="tabbable" id="tabs">
 			<ul class="nav nav-tabs">
-				<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+				<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 				<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Options');?></a></li> 
 			</ul>
-	    
-		    <div class="tab-pane" id="tab1"> 
-	            <?php echo $form->name->render()?>
-	            <?php echo $form->account->render()?>
-	            <?php echo $form->method_id->render()?>
-	            <?php echo $form->url_test->render()?>
-	            <?php echo $form->url_official->render()?>
-	            <?php echo $form->enabled->render()?>
-	            <?php echo $form->classname->render()?>
-	            <?php echo $form->test_mode->render()?>
-		    </div>
-		    
-		    <div class="tab-pane" class="tab-pane" id="tab2">
-		    	<?php echo $form->description->render()?>
-		    </div>
-	   		<?php echo $form->bank_id->render()?>
+	    	<div class="tab-content">
+			    <div class="tab-pane active" id="tab1"> 
+		            <?php echo $form->name->render()?>
+		            <?php echo $form->account->render()?>
+		            <?php echo $form->method_id->render()?>
+		            <?php echo $form->url_test->render()?>
+		            <?php echo $form->url_official->render()?>
+		            <?php echo $form->enabled->render()?>
+		            <?php echo $form->classname->render()?>
+		            <?php echo $form->test_mode->render()?>
+			    </div>
+			    
+			    <div class="tab-pane" class="tab-pane" id="tab2">
+			    	<?php echo $form->description->render()?>
+			    </div>
+		   		<?php echo $form->bank_id->render()?>
+		   	</div>
 	   	</div>
 	</form>
 </div>	

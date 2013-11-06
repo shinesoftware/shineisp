@@ -9,7 +9,7 @@ class Default_Form_BulkdomainsorderForm extends Zend_Form
         $translate = Shineisp_Registry::get('Zend_Translate');
         
          $this->addElement('select', 'billing_id', array(
-         'class'      => 'text-input large-input billingId',
+         'class'      => 'form-control large-input billingId',
          'multiple'   => false
         ));
         
@@ -20,8 +20,8 @@ class Default_Form_BulkdomainsorderForm extends Zend_Form
                   
         $this->addElement('submit', 'order', array(
             'label'      => $translate->_('Create the Order'),
-            'decorators' => array('Composite'),
-            'class'    => 'button bigbtn'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary bigbtn'
         ));
 
     }

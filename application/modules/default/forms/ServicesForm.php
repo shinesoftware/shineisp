@@ -12,7 +12,7 @@ class Default_Form_ServicesForm extends Zend_Form
         $this->addElement('textarea', 'message', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Message'),
             'description' => $translate->_('Write here your reply. An email will be sent to the ISP staff.'),
             'class'       => 'textarea'
@@ -21,10 +21,10 @@ class Default_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'autorenew', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Auto renewal'),
             'description' => $translate->_('Enable or disable the automatic renewal of the service'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control large-input'
         ));
         
         $this->getElement('autorenew')
@@ -34,8 +34,8 @@ class Default_Form_ServicesForm extends Zend_Form
         $this->addElement('submit', 'submit', array(
             'required' => false,
             'label'      => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary'
         ));
 		
         $id = $this->addElement('hidden', 'detail_id');
@@ -55,10 +55,10 @@ class Default_Form_ServicesForm extends Zend_Form
         $this->addElement('select', 'upgrade', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'), 
+            'decorators'  => array('Bootstrap'), 
             'label'      => $translate->_('Upgrade'),
             'description' => $translate->_('Upgrade your service'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control large-input'
         ));		
 		
 		$productsForUpgrade	= array();

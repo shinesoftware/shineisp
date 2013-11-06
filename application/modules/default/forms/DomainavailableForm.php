@@ -14,15 +14,15 @@ class Default_Form_DomainavailableForm extends Zend_Form
 		        'donotregister'=> $translate->_('Do not register this domain'),
 		        'newdomain'=> $translate->_('Choose a different domain'),
 		      ),
-		      'decorators'  => array('Composite'),
+		      'decorators'  => array('Bootstrap'),
 		  ));
 		        
         
         $this->addElement('submit', 'continue', array(
             'required' => false,
             'label'      => $translate->_('Continue Order'),
-            'decorators'  => array('Composite'),
-            'class'    => 'button'
+            'decorators'  => array('Bootstrap'),
+            'class'    => 'btn btn-primary'
         ));
 
     }

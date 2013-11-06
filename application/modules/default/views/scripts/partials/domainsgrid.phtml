@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-lg-12">
 		<?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
-		    <div data-alert class="alert-box error"><?=$this->translate('The search view is active.')?> 
+		    <div class="alert-box error"><?=$this->translate('The search view is active.')?> 
 		    <a href="/<?= $this->controller ?>/reset"><?=$this->translate('Click here to reset the results.')?></a> </div>
 		<?php endif; ?>
 		   
 		<?php if(!empty($this->mex)) :?>
-		    <div data-alert class="alert-box <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+		    <div class="alert-box <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 		<?php endif;?>
 		
 		<?php 
@@ -20,7 +20,7 @@
 		    $numcols = count($fields);
 		    
 		?>
-		        <div data-alert class="alert-box success infos" id="mex" style="display:none"></div>
+		        <div class="alert alert-info" id="mex" style="display:none"></div>
 		        
 		        <table width="100%">
 		            <thead>

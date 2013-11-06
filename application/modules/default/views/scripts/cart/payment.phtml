@@ -2,37 +2,57 @@
 <?php $form = $this->form; ?>
 <?php $i = 0; ?>
 
-<h3><?php echo $this->translate('Order Summary'); ?></h3>
+<h3><?php echo $this->translate('Payment Information'); ?></h3>
 <p><?php echo $this->translate('Complete the order choosing your preferite payment method.')?></p>
 
-<div class="row">
-	<div class="col-lg-12">
-		<form method="<?php echo $form->getMethod() ?>" id="cartsummary" action="<?php echo $form->getAction()?>">
-			<div id="payment_methods" class="">
-			   <h5><?php echo $this->translate('Payment Methods')?></h5>
-			   <div class="section-container accordion" data-section="accordion">
-			    <?php foreach($this->gateways as $gateway): ?>
-			        <section class="<?php echo $i==0 ? "active": ""; ?>">
-			        	<p class="title" data-section-title><a href="#"><?php echo $gateway['name']?></a></p>
-			        	<div class="content" data-section-content>
-				        	<input type="radio" <?php echo $i==0 ? "checked": ""; ?> name="payment" value="<?php echo $gateway['bank_id'] ?>"/> <?php echo $gateway['name'] 	?>
-				        	<br/><?php echo $gateway['description']?>
-				        </div>
-				     </section>
-				     <?php $i++?>
-			    <?php endforeach;?>
-			    </div>
-			</div>
-			
-			<?php echo $form->note->render()?>
-			
-			<hr/>
-			<label for="conditions"><?php echo $this->translate('Legal Conditions'); ?></label>
-			<textarea cols="80" readonly title="" class="textarea" rows="20" id="conditions" name="conditions"><?php echo Settings::findbyParam('conditions') ?></textarea>
-
-			<br/>
-			<?php echo $form->submit->render()?>
-		</form>
-	</div>
+<form method="<?php echo $form->getMethod() ?>" id="cartsummary" action="<?php echo $form->getAction()?>">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+					    <?php foreach($this->gateways as $gateway): ?>
+						    <div class="panel-heading">
+							    <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $i ?>">
+							         <?php echo $gateway['name'] ?>
+							        </a>
+							    </h4>
+							</div>
+							<div id="collapse_<?php echo $i ?>" class="panel-collapse collapse <?php echo $i==0 ? "in": ""; ?>">
+						        <div class="panel-body">
+						        	<input type="radio" <?php echo $i==0 ? "checked": ""; ?> name="payment" value="<?php echo $gateway['bank_id'] ?>"/> <?php echo $gateway['name'] ?>
+						        	<br/><?php echo $gateway['description']?>
+							     </div>
+							 </div>
+						     <?php $i++?>
+					    <?php endforeach;?>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-lg-12">
+						<?php echo $form->note->render()?>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<?php $conditions = Settings::findbyParam('conditions'); ?>
+						<?php if(!empty($conditions)): ?>
+							<label for="conditions"><?php echo $this->translate('Legal Conditions'); ?></label>
+							<textarea cols="80" readonly title="" class="form-control" rows="5" id="conditions" name="conditions"><?php echo Settings::findbyParam('conditions') ?></textarea>
+						<?php endif;?>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="text-right">
+							<?php echo $form->submit->render()?>
+						</div>
+					</div>
+				</div>
+		</div>
 </div>
+</form>
 

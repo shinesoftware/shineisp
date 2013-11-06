@@ -1,7 +1,9 @@
 <?php $form = $this->form;?>
 
-<div class="navbar-form navbar-left">
-	<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-		<?php echo $form->q->setDecorators(array('ViewHelper')) ?>
-	</form>
-</div>
+<li class="dropdown">
+	<div class="navbar-form">
+		<form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+			<?php echo $form->q->setDecorators(array('ViewHelper')) ?>
+		</form>
+	</div>
+</li>

@@ -1,14 +1,21 @@
 <div class="row">
 	<div class="col-lg-12">
 	    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" class="form-group" action="<?php echo $this->form->getAction()?>">
-			<div class="col-lg-8"><?php echo $this->form->name->setDecorators(array('ViewHelper'));?></div>
-			<div class="col-lg-2"><?php echo $this->form->tld->setDecorators(array('ViewHelper'));?></div>
-			<div class="col-lg-2"><?php echo $this->form->check->setDecorators(array('ViewHelper'));?></div>
+			<div class="input-group">
+	    		<span class="input-group-addon">www.</span>
+				<?php echo $this->form->name->setDecorators(array('Simple'));?>
+				<span class="input-group-addon">
+					<?php echo $this->form->tld->setDecorators(array('Simple'));?>
+				</span>
+				<div class="input-group-btn">
+					<?php echo $this->form->check->setDecorators(array('Simple'));?>
+				</div>
+			</div>
 	    </form>
     </div>
     <div class="row">
-	    <div class="col-lg-12">
-	    	<p align="center"><a href="/common/bulkdomains"><?php echo $this->translate('Registering more than one domain name? Click here!')?></a></p>
+	    <div class="col-lg-12 text-right">
+	    	<a href="/common/bulkdomains"><?php echo $this->translate('Registering more than one domain name? Click here!')?></a>
 	    </div>
     </div>
     <div class="row">
