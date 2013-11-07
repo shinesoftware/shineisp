@@ -13,7 +13,7 @@ if (isset($this->records[0])):
 	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
 	?>
 	
-	<table border="0" cellpadding="5" class="simplegrid">
+	<table class="table table-striped">
 	    <tbody>
 	        <?php // Creation of the Rows and Columns?>
 	        <?php foreach ( $this->records as $record ) : ?>

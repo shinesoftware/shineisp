@@ -1,0 +1,12 @@
+<div class="row cpheader">
+	<div class="col-lg-12">
+	    <h3><?php 
+	            echo $this->translate($this->title);
+	            if(!empty($this->name)){
+	                echo ": " . $this->name;
+	            } 
+	        ?>
+	    </h3>
+	    <p><?php echo $this->translate($this->description);?></p>
+	</div>
+</div>

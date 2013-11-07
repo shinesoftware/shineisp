@@ -4,16 +4,18 @@
 <div class="row">
 	<div class="col-lg-12">	
 		<p align="right" class="order-buttons">
-			<a href="/orders" class="small button"><?php echo $this->translate('Order list')?></a> 
-			<a href="/orders/print/id/<?php echo $this->orderid?>" class="small button"><?php echo $this->translate('Print Order')?></a> 
+			<a href="/orders" class="btn btn-default"><?php echo $this->translate('Order list')?></a> 
+			<a href="/orders/print/id/<?php echo $this->orderid?>" class="btn btn-default"><?php echo $this->translate('Print Order')?></a> 
             <?php if($this->invoiced): ?>
-                <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="small button"><?php echo $this->translate('Print Invoice')?></a> 
+                <a href="/orders/createinvoice/id/<?php echo $this->invoice_id?>" class="btn btn-default"><?php echo $this->translate('Print Invoice')?></a> 
             <?php else: ?>
             	<?php if(Orders::IsEraseable($this->orderid, $this->customer_id)): ?> 
-            		<a href="/orders/setdelete/id/<?php echo $this->orderid?>" class="small button confirm"><?php echo $this->translate('Delete')?></a>
+            		<a href="/orders/setdelete/id/<?php echo $this->orderid?>" class="btn btn-danger confirm"><?php echo $this->translate('Delete')?></a>
             	<?php endif; ?> 
             <?php endif; ?>
+		    <a class="btn btn-success" href="/dashboard"><?php echo $this->translate('dashboard')?></a>
         </p> 
+       
 	</div>
 </div>
 
@@ -75,7 +77,7 @@
 	        <?php endif; ?>
 	            
 	            <?php if(!Orders::IsCommentable($this->orderid)): ?>
-	        	<br/><a class="small button alert" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
+	        	<br/><a class="btn btn-default alert" href="/tickets/new"><?php echo $this->translate('Open a ticket')?></a>    
 	        <?php endif; ?>
 	            <?php echo $form->order_id->render()?>
 	</form>        

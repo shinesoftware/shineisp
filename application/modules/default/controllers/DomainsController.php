@@ -60,9 +60,9 @@ class DomainsController extends Shineisp_Controller_Default {
 			$this->view->searchactive = 1;
 		} else {
 			$this->view->searchactive = 0;
-			$params ['search'] ['status_id'] ['method'] = "andWhere";
-			$params ['search'] ['status_id'] ['criteria'] = "d.status_id <> ? AND d.status_id <> ?";
-			$params ['search'] ['status_id'] ['value'] = array(5, 28); // Do not show the expired domain as default
+// 			$params ['search'] ['status_id'] ['method'] = "andWhere";
+// 			$params ['search'] ['status_id'] ['criteria'] = "d.status_id <> ? AND d.status_id <> ?";
+// 			$params ['search'] ['status_id'] ['value'] = array(Statuses::id('suspended', 'domains'), Statuses::id('expired', 'domains')); // Do not show the expired domain as default
 		}
 		
 		$params ['search'][] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']) );

@@ -1,8 +1,17 @@
 <?php if (isset($this->records)):?>
 		<div class="row">
 		    <?php foreach ($this->records as $record): ?>
-		    	<div class="col-lg-12s"><blockquote><?php echo $record['message']  ?> <br/><small><?php echo !empty($record['isp']) ? $record['company'] : $record['fullname']; ?> - <?php echo $record['dateposted']; ?></small></blockquote></div>
+		        <div class="col-lg-12">
+    		        <div class="media">
+    		    	    <?php echo !empty($record['Customers']['customeremail']) ? $this->Avatar($record['Customers']['customeremail'], 60, array('class' => 'media-object')) : $this->Avatar($record['Isp']['ispemail'], 60, array('class' => 'media-object')) ?>
+        		        <div class="media-body">
+                            <h4 class="media-heading"><?php echo !empty($record['isp']) ? $record['company'] : $record['fullname']; ?> <small><?php echo $record['dateposted']; ?></small></h4>
+                            <?php echo $record['message']  ?>
+                        </div>
+                    </div>
+                </div>
 		    <?php endforeach; ?>
+		    
 	    </div>
     <?php else: ?>
         <div class="alert alert-success"><?php echo $this->translate('No Records')?></div>

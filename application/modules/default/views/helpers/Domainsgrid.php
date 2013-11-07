@@ -9,6 +9,7 @@
  * @uses viewHelper Zend_View_Helper
  */
 class Zend_View_Helper_Domainsgrid extends Zend_View_Helper_Abstract {
+    
 	public function Domainsgrid($data) {
 		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$this->view->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();

@@ -14,7 +14,7 @@ class Default_Form_OrdersForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'rows'       => '10',
             'description' => $translate->_('Write here your reply. An email will be sent to the ISP staff.'),
-            'class'       => 'textarea wysiwyg'
+            'class'       => 'form-control wysiwyg'
         ));
         
         $this->addElement('submit', 'save', array(

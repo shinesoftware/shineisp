@@ -56,15 +56,5 @@ $(document).ready(function(){
 		}
 	);
 	
-	tinyMCE.baseURL='/resources/js/wysiwyg/tiny_mce'; // your path to tinyMCE
-    tinyMCE.init({
-        // General options
-    	mode : "specific_textareas",
-        editor_selector : "wysiwyg",
-        theme : "simple",
-        width : "900",
-        height : "400",
-        convert_urls : false
-    });
     
 }); 

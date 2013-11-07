@@ -88,6 +88,14 @@ body {
 	text-align: right;
 }
 
+/* ------ CONTROL PANEL -------- */
+.table .pagination{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.media{margin-bottom: 20px}
+
 /* ------ HOMEPAGE -------- */
 
 
