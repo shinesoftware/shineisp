@@ -29,7 +29,7 @@
 								<a href="/<?php echo Products::getUri($item->getId()) ?>.html"><?php echo $item->getName() ?></a>
 							<?php endif; ?> 
 						</td>
-						<td width="20"><a class="gen-enclosed foundicon-trash" href="/cart/remove/uid/<?php echo $item->getUid() ?>">&nbsp;</a></td>
+						<td width="20"><a href="/cart/remove/uid/<?php echo $item->getUid() ?>"><i class="glyphicon glyphicon-remove"></i></a></td>
 						<td>
 						    <?php echo $this->currency($item->getUnitPrice(), array('currency' => Settings::findbyParam('currency'))) ?> 
 						    <?php echo ("domain" != $item->getType()) ? $months : null ?>

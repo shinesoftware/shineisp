@@ -19,14 +19,17 @@ body {
 
 /* ------ COMMONS -------- */
 
+.dropdown-cart{
+	width: 250px;
+}
+
 .navbar-nav-right{
 	float:right;
 }
 
-@media(max-width:767px){
-	.navbar-nav-right {float: none;}
-    .navbar-form {margin-right:5px;margin-left:5px;}
-    
+.dropdown-gotocart{
+	background-color: #eeeeee;
+	padding: 5px;
 }
 
 .copyright-wrapper {
@@ -86,3 +89,16 @@ body {
 }
 
 /* ------ HOMEPAGE -------- */
+
+
+
+
+
+
+
+/* ------ MEDIA -------- */
+
+@media(max-width:767px){
+	.navbar-nav-right {float: none;}
+    .navbar-form {margin-right:5px;margin-left:5px;}
+}

@@ -17,14 +17,14 @@
             	<ul class="dropdown-menu">
             	    <?php if($this->userlogged):?>
                      <li class="dropdown">
-                         <a href="/dashboard" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+D')?>" accesskey="D" ><?=$this->translate('Dashboard') ?></a>
+                         <a href="/dashboard" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+D')?>" accesskey="D" ><?php echo $this->translate('Dashboard') ?></a>
                      </li>
                      <li class="dropdown">
-                         <a href="/profile" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+P')?>" accesskey="P" ><?=$this->translate('Profile') ?></a>
+                         <a href="/profile" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+P')?>" accesskey="P" ><?php echo $this->translate('Profile') ?></a>
                      </li>
                      <li class="dropdown">
                          <a class="removeqtip" title="<?php echo $this->translate('Press %s to open the page', 'Alt+Shift+O')?>" accesskey="O" class="tooltip" href="/index/out">
-                            <?=$this->translate('Logout') ?>
+                            <?php echo $this->translate('Logout') ?>
                          </a>
                      </li>        
                 <?php else: ?>

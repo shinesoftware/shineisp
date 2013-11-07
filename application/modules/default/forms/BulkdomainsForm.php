@@ -12,7 +12,7 @@ class Default_Form_BulkdomainsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => true,
             'label'      => $translate->_('Domains'),
-            'class'       => 'bulktextarea'
+            'class'       => 'form-control'
         ));
                 
         $this->addElement('submit', 'bulksearch', array(

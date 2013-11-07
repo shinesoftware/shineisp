@@ -3,11 +3,11 @@
 <div class="row">  
     <div class="col-lg-6">
     	<fieldset class="login">
-	        <h5><?=$this->translate('Create a new Account')?></h5>
+	        <h5><?php echo $this->translate('Create a new Account')?></h5>
 	        <p>
 	            <?php echo $this->translate('By creating an account with our store, you will be able to move through the checkout process faster, view and track your orders in your account and more.')?>
 	        </p>
-	        <a class="button" href="/customer/signup"><?= $this->translate('Create an Account') ?></a>
+	        <a class="btn btn-default" href="/customer/signup"><?php echo $this->translate('Create an Account') ?></a>
 		</fieldset>
     </div>
     
@@ -16,7 +16,7 @@
             <? $form = $this->form; ?>
             <form method="<?php echo $form->getMethod() ?>" class="custom" action="<?php echo $form->getAction()?>">
                 <fieldset class="login">
-                    <h5><?=$this->translate('Login')?></h5>
+                    <h5><?php echo $this->translate('Login')?></h5>
                     <p><?echo $this->translate('Sign in to get subscribed services.')?></p>
                     <?php echo $form->email->render() ?>
                     <?php echo $form->password->render() ?>

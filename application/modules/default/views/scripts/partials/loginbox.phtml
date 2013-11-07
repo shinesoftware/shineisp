@@ -3,7 +3,7 @@
 	    <?php if($this->loginform):?>
 	        
 	        <? if( $this->message ): ?>
-	           <?php echo "<br><div class=\"alert alert-danger\">" . $this->message . "</div>"; ?>
+	           <?php echo "<br><div class=\"alert alert-warning alert-dismissable\">" . $this->message . "</div>"; ?>
 	        <?php endif;?>
 	        
 		    <? $form = $this->loginform; ?>
@@ -15,15 +15,15 @@
 		                        foreach( $field->getErrors() as $error){
 		                            $errors[] = $this->translate($error);
 		                        }
-		                        echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" <br> ", $errors) . "</div>";
+		                        echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" <br> ", $errors) . "</div>";
 		                    }   
 		                } ?>
 		            </div>    
 		        <? endif; ?>  
 		            <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 		                <fieldset class="login">
-		                    <legend><?=$this->translate('Login')?></legend>
-		                    <p><?=$this->translate('Sign in to get subscribed services.')?></p>
+		                    <legend><?php echo $this->translate('Login')?></legend>
+		                    <p><?php echo $this->translate('Sign in to get subscribed services.')?></p>
 		                    <p><?php echo $form->email->render() ?></p>
 		                    <p><?php echo $form->password->render() ?></p>
 		                    <p><?php echo $form->login->render() ?></p>
@@ -31,7 +31,7 @@
 		                </fieldset>
 		            </form>
 	        <?php else: ?>
-	           <?=$this->profile()?>
+	           <?php echo $this->profile()?>
             <?php endif;?>
     </div>
 </div>

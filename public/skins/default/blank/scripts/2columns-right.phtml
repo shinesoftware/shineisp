@@ -5,13 +5,13 @@
     <?php echo $this->render('includes/top.phtml') ?>
     
     <div id="content" class="container">
-    	<div class="col-lg-8" role="content">
+    	<div class="col-lg-9" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
 	        <?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>
     	</div>
     	
-    	<aside class="col-lg-4 hidden-xs">
+    	<aside class="col-lg-3 hidden-xs">
     		<?php echo $this->blocks()->showblock('right');?>
     	</aside>
     	

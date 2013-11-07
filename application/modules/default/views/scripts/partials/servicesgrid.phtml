@@ -1,10 +1,10 @@
 <?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
-    <div class="notification attention"><?php echo $this->translate('The search view is active.')?> 
+    <div class="alert alert-warning alert-warning"><?php echo $this->translate('The search view is active.')?> 
     <a href="/<?php echo $this->controller ?>/reset"><?php echo $this->translate('Click here to reset the results.')?></a> </div>
 <?php endif; ?>
    
 <?php if(!empty($this->mex)) :?>
-    <div class="notification <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+    <div class="alert alert-warning alert-<?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 <?php endif;?>
 
 <br/>
@@ -47,7 +47,7 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-        <div class="notification infos" id="mex" style="display:none"></div>
+        <div class="alert alert-warning alert-info"></div>
         
         <table border="0" cellpadding="5" class="simplegrid zebratable" id="itemlist">
             <thead>
@@ -132,5 +132,5 @@ if (isset($this->records[0])):
             </tfoot>
         </table>
     <?php else: ?>
-    <div class="notification infos"><?php echo $this->translate('No Records')?></div>
+    <div class="alert alert-warning alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>

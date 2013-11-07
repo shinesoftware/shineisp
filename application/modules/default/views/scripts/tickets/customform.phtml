@@ -35,7 +35,7 @@
 			<p><?php echo $this->record['customer']?><br/><?php echo $this->record['company']?></p>
 		</div>
 		<div class="col-lg-10">
-			<p class="right"><?=$this->record['creationdate']?></p>
+			<p class="right"><?php echo $this->record['creationdate']?></p>
 			<p><?php echo $this->record['description'];?></p>
 		</div>
             <?php endif;?>          
@@ -53,7 +53,7 @@
 					<?php endif; ?>
 				</div>                                
 				<div class="col-lg-10 <?php if($note['adminreply']):?>admin-note<?php else:?>user-note<?php endif;?>">
-					<p class="right"><?=$note['date_post']?></p>
+					<p class="right"><?php echo $note['date_post']?></p>
 					<?php echo $note['note']?>
 				</div>
 			</div>

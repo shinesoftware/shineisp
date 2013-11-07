@@ -1,12 +1,11 @@
 <?php if(!empty($this->cartobj)): ?>
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="cart" href="#" title="<?php echo $this->translate('Cart') ?>">
 		<i class="glyphicon glyphicon-shopping-cart"></i> <strong><?php echo $this->translate('Cart') ?></strong></a>
-		<ul class="dropdown-menu">
-			<li class="dropdown"><a href="/cart/summary"><?php echo $this->translate('Go to Cart') ?></a></li>
+		<ul class="dropdown-menu dropdown-cart">
 			<?php 
 			
 				foreach ($this->cartobj->getItems() as $item) {
-					
+				    
 					if("domain" == $item->getType()){
 						$tld = DomainsTlds::getAllInfo($item->getId());
 						$url = "/tlds/" . $tld['name'] . ".html";
@@ -16,11 +15,19 @@
 						$url = "/" . $products['uri'] . ".html";
 						$name = $item->getName();
 					}
+					
+					$qty = $item->getQty();
 		
-					echo "<li class=\"dropdown\"><a href=\"" . $url . "\">" . $name . "</a></li>";
+					echo "<li class=\"dropdown\">
+			                  <ul class=\"nav nav-pills nav-stacked\">
+                                  <li class=\"\">
+			                          <a href=\"" . $url . "\"><span class=\"badge pull-right\">$qty</span>" . $name . "</a>
+						          </li>
+						     </ul>
+					      </li>";
 				}
-			
 			?>
+			<li class="dropdown dropdown-gotocart"><a href="/cart/summary"><i class="glyphicon glyphicon-shopping-cart"></i> <?php echo $this->translate('Go to Cart') ?></a></li>
 		</ul>
 	</li>
 <?php endif;?> 

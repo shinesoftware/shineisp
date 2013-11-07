@@ -16,7 +16,7 @@
 						if($this->autorenew){
 							echo '<div class="alert alert-info">' . $this->translate("This domain will be renewed at the expiring day. Auto-Renew setting is active. You can edit this option until 3 days before the expiring day.") . '</div>';
 						}else{
-							echo '<div class="alert alert-danger">' . $this->translate('This domain will be not renewed at the expiring day.') . '</div>';
+							echo '<div class="alert alert-warning alert-dismissable">' . $this->translate('This domain will be not renewed at the expiring day.') . '</div>';
 						} 
 					?>            
 		            <?php
@@ -34,7 +34,7 @@
 		    <div class="section">
 		    	<p class="title" data-section-title><a href="#panel2"><?php echo $this->translate('DNS Zones') ?></a></p>
 		    	<div class="content" data-section-content>
-			    	<p><?= $this->translate('Here you can set your DNS Zones. All the edits have need one hour at least.') ?></p>
+			    	<p><?php echo $this->translate('Here you can set your DNS Zones. All the edits have need one hour at least.') ?></p>
 		            <table width="100%">
 		            	<tr>
 		            		<td width="250"><?php echo $form->dnsform->subdomain->setDecorators(array('Simple'))?></td>
@@ -54,7 +54,7 @@
 		    <div class="section">
 		    	<p class="title" data-section-title><a href="#panel3"><?php echo $this->translate('Messages') ?></a></p>
 		     	<div class="content" data-section-content>
-		     		<p><?= $this->translate('Here you can see all the questions and replies about this service/domain') ?></p>
+		     		<p><?php echo $this->translate('Here you can see all the questions and replies about this service/domain') ?></p>
 	            	<div class="messages-list">
 		            	<?php echo $this->bbslist($this->messages); ?>
 		            </div>

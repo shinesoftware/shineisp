@@ -8,7 +8,7 @@
         	<?php echo $this->navigation()->menu()->setUlClass('button-group round even-1'); ?><br/>
 	        
 	        <?php if(!empty($this->mex)) :?>
-	        <div class="alert-box <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+	        <div class="alert-box <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 	        <?php endif;?>
 	        
 	        <div id="dashboard">
@@ -18,8 +18,8 @@
 	              <?php echo $this->Alerts();?>
 	        
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('Here below you can see all the domains near at the expiring date.') ?>">
-	                    <h4><?= $this->translate('Expiring Domains') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('Here below you can see all the domains near at the expiring date.') ?>">
+	                    <h4><?php echo $this->translate('Expiring Domains') ?></h4>
 	                </div>
 	                <div class="content">
 	                    <?php echo $this->simplegrid($this->dashboard()->DomainsExpiration());?>
@@ -27,8 +27,8 @@
 	              </div>  
 	                    
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('Here below you can see all the services near at the expiring date.') ?>">
-	                    <h4><?= $this->translate('Expiring Services') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('Here below you can see all the services near at the expiring date.') ?>">
+	                    <h4><?php echo $this->translate('Expiring Services') ?></h4>
 	                </div>
 	                <div class="content">
 	                    <?php echo $this->simplegrid($this->dashboard()->ServicesExpiration());?>
@@ -36,8 +36,8 @@
 	              </div>
 	              
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('In this section you can see all the requested support issues.') ?>">
-	                    <h4><?= $this->translate('Last Tickets') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('In this section you can see all the requested support issues.') ?>">
+	                    <h4><?php echo $this->translate('Last Tickets') ?></h4>
 	                </div>
 	                <div class="content">
 	                    <?php echo $this->simplegrid($this->dashboard()->Last()); ?>  
@@ -45,8 +45,8 @@
 	              </div>      
 	              
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('Here some statistics about your domains and services.') ?>">
-	                    <h4><?= $this->translate('Statistiche') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('Here some statistics about your domains and services.') ?>">
+	                    <h4><?php echo $this->translate('Statistiche') ?></h4>
 	                </div>
 	                <div class="content">
 	                   <p align="center">

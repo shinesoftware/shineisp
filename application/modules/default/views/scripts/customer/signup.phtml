@@ -6,7 +6,7 @@
 	    <p><?php echo $this->translate('Create your new account today!'); ?> </p>
 	    <p align="right"><?php echo $this->translate('Already registered?'); ?> <a href="/customer/login"><?php echo $this->translate('Sign in'); ?></a></p>
 	    <?php if( $this->message ): ?>
-        	<?php echo "<div class=\"alert alert-danger\">" . $this->message . "</div>"; ?>
+        	<?php echo "<div class=\"alert alert-warning alert-dismissable\">" . $this->message . "</div>"; ?>
         <?php endif;?>
             
 		<? if( $this->form->isErrors() ): ?>
@@ -17,7 +17,7 @@
 			        	foreach( $field->getErrors() as $error){
 			        		$errors[] = $this->translate($error);
 			        	}
-			            echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+			            echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 			        }   
 			    } ?>
 			</div>    

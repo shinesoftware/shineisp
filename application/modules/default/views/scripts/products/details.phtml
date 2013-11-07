@@ -74,15 +74,18 @@
 		                	</div>
 		                </div>
 	
-		                <div class="row">
-		                	<div class="quantity col-lg-8">
-		                		<?php echo $form->quantity->render()?>
-		                		<?php echo $form->term->render()?>
-		                	</div>
-		                	<div class="addtocart col-lg-4">
-			                    <?php echo $form->submit->render()?>
-			                </div>
-		                </div>
+                        <div class="row">
+                            <div class="quantity col-lg-7">
+                                <div class="input-group">
+                                    <?php echo $form->quantity->setDecorators(array('ViewHelper'))?>
+                                    <?php echo $form->term->setDecorators(array('ViewHelper'))?>
+                                    <span class="input-group-btn">
+                                        <?php echo $form->submit->render()?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="quantity col-lg-5"></div>
+                        </div>
 		                
 		                <div class="row">
 		                	<div class="col-lg-12">

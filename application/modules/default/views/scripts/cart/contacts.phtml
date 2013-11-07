@@ -12,7 +12,7 @@
                 foreach( $field->getErrors() as $error){
                     $errors[] = $this->translate($error);
                 }
-                echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+                echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
             }   
         } ?>
     </div>    

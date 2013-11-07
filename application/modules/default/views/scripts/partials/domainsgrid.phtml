@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-lg-12">
 		<?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
-		    <div class="alert-box error"><?=$this->translate('The search view is active.')?> 
-		    <a href="/<?= $this->controller ?>/reset"><?=$this->translate('Click here to reset the results.')?></a> </div>
+		    <div class="alert alert-warning alert-dismissable"><?php echo $this->translate('The search view is active.')?> 
+		    <a href="/<?php echo $this->controller ?>/reset"><?php echo $this->translate('Click here to reset the results.')?></a> </div>
 		<?php endif; ?>
 		   
 		<?php if(!empty($this->mex)) :?>
-		    <div class="alert-box <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+		    <div class="alert-box <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 		<?php endif;?>
 		
 		<?php 
@@ -20,18 +20,18 @@
 		    $numcols = count($fields);
 		    
 		?>
-		        <div class="alert alert-info" id="mex" style="display:none"></div>
+		        <div class="alert alert-info"></div>
 		        
 		        <table width="100%">
 		            <thead>
 		                <tr>
 		                   <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><th><input type="checkbox" class="selectall" value=""></th><?php endif;?>
-		                   <th><?=$this->translate("Domain")?></th>
-		                   <th><?=$this->translate("Expiry Date")?></th>
-		                   <th><?=$this->translate("Days")?></th>
-		                   <th><?=$this->translate("Status")?></th>
-		                   <th><?=$this->translate("Renew")?></th>
-		                    <th><?=$this->translate('Commands');?></th>
+		                   <th><?php echo $this->translate("Domain")?></th>
+		                   <th><?php echo $this->translate("Expiry Date")?></th>
+		                   <th><?php echo $this->translate("Days")?></th>
+		                   <th><?php echo $this->translate("Status")?></th>
+		                   <th><?php echo $this->translate("Renew")?></th>
+		                    <th><?php echo $this->translate('Commands');?></th>
 		                </tr>
 		            </thead>
 		            
@@ -58,54 +58,54 @@
 		                        
 		                        <?php // Show if the domain has been set with the renew or not?>
 		                        <?php if($record['renew'] == "1"):?>
-		                            <td class="values <?php echo $style ?>"><img src="<?=$this->paths('skin')?>/images/commons/yes.png"/ title="<?php echo $this->translate('Yes') ?>"></td>
+		                            <td class="values <?php echo $style ?>"><img src="<?php echo $this->paths('skin')?>/images/commons/yes.png"/ title="<?php echo $this->translate('Yes') ?>"></td>
 		                        <?php else:?>
-		                            <td class="values <?php echo $style ?>"><img src="<?=$this->paths('skin')?>/images/commons/no.png"/ title="<?php echo $this->translate('No') ?>"></td>    
+		                            <td class="values <?php echo $style ?>"><img src="<?php echo $this->paths('skin')?>/images/commons/no.png"/ title="<?php echo $this->translate('No') ?>"></td>    
 		                        <?php endif;?>
 		                        
-			                   <td><a href="/default/domains/edit/id/<?=$record['domain_id']?>"><img alt="<?= $this->translate('Edit') ?>" src="<?=$this->paths('skin')?>/images/commons/pencil.png" border="0"></a> </td>
+			                   <td><a href="/default/domains/edit/id/<?php echo $record['domain_id']?>"><img alt="<?php echo $this->translate('Edit') ?>" src="<?php echo $this->paths('skin')?>/images/commons/pencil.png" border="0"></a> </td>
 		                   </tr>
 		                <?php endforeach;?>
 		            </tbody>
 		            <tfoot>
 		                <tr>
-		                   <td colspan="<?=$numcols+1?>"> 
+		                   <td colspan="<?php echo $numcols+1?>"> 
 		                       <div class="bulktools">
 		                           <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?>
-		                               <b><?=$this->translate('Actions');?>:</b> 
+		                               <b><?php echo $this->translate('Actions');?>:</b> 
 		                               <select name="actions" id="actions">
-		                                   <option value=""><?=$this->translate('Select ...');?></option>
+		                                   <option value=""><?php echo $this->translate('Select ...');?></option>
 		                                   <?php if($this->customactions):?>
-		                                       <optgroup label="<?=$this->translate('Actions');?>">
+		                                       <optgroup label="<?php echo $this->translate('Actions');?>">
 		                                       <?php foreach ( $this->customactions as $name=>$action ) : ?>
-		                                           <option value="<?=$name;?>"><?=$this->translate($action);?></option>
+		                                           <option value="<?php echo $name;?>"><?php echo $this->translate($action);?></option>
 		                                       <?php endforeach;?>
 		                                       </optgroup>
 		                                   <?php endif; ?>
 		                               </select>
-		                               <input type="button" rel="domains" id="bulkactions" value="<?=$this->translate('Execute');?>"><br />
-		                               <?=$this->translate('Select the items and then use the bulk action system to set more than one item.');?>
+		                               <input type="button" rel="domains" id="bulkactions" value="<?php echo $this->translate('Execute');?>"><br />
+		                               <?php echo $this->translate('Select the items and then use the bulk action system to set more than one item.');?>
 		                            <?php endif; ?> 
 		                       </div>
 		                       <div class="pagingtools">
-		                           <?=$this->translate('Records');?>: <?=$this->recordcount?> - 
-		                            <?=$this->translate('Records per page');?>: 
+		                           <?php echo $this->translate('Records');?>: <?php echo $this->recordcount?> - 
+		                            <?php echo $this->translate('Records per page');?>: 
 		                            <a href="/default/domains/recordsperpage/id/5">5</a>
 		                            <a href="/default/domains/recordsperpage/id/15">15</a>
 		                            <a href="/default/domains/recordsperpage/id/30">30</a>
-		                            <a href="/default/domains/recordsperpage/id/all"><?=$this->translate('Show All');?></a>
+		                            <a href="/default/domains/recordsperpage/id/all"><?php echo $this->translate('Show All');?></a>
 		                       </div>
 		                   </td>
 		                </tr>
 		                <tr>
-		                   <td colspan="<?=$numcols+1?>">
-		                        <div class="pagination"><?=$this->pagination; ?></div>
+		                   <td colspan="<?php echo $numcols+1?>">
+		                        <div class="pagination"><?php echo $this->pagination; ?></div>
 		                   </td>
 		                </tr>
 		            </tfoot>
 		        </table>
 		    <?php else: ?>
-		    <div class="alert-box infos"><?=$this->translate('No Records')?></div>
+		    <div class="alert-box infos"><?php echo $this->translate('No Records')?></div>
 		<?php endif; ?>
 	</div>
 </div>

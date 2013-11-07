@@ -39,7 +39,7 @@
 			    <div class="section"> 
 			    	<div class="title" data-section-title><a href="#tab1"><?php echo $this->translate('Messages') ?></a></div>
 			    	<div class="content" data-slug="tab3">
-				    	<p><?= $this->translate('Here you can see all the questions and replies about this service/domain') ?></p>
+				    	<p><?php echo $this->translate('Here you can see all the questions and replies about this service/domain') ?></p>
 			            <?php echo $this->bbslist($this->messages); ?>
 			            <p><?php echo $form->message->render()?></p>
 			            <br/>

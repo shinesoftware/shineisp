@@ -9,7 +9,8 @@ class Default_Form_BulkdomainsorderForm extends Zend_Form
         $translate = Shineisp_Registry::get('Zend_Translate');
         
          $this->addElement('select', 'billing_id', array(
-         'class'      => 'form-control large-input billingId',
+         'decorators'      => array('Bootstrap'),
+         'class'      => 'form-control',
          'multiple'   => false
         ));
         

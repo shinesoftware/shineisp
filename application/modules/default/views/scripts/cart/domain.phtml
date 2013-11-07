@@ -5,7 +5,7 @@
 		<small><?php echo $this->translate('Type the domain name in the input box shown below and follow only 3 steps.')?></small><br><br>
 		
 		<?php if(!empty($this->mex)):?>
-			<div class="alert alert-danger"><?php echo $this->mex ?>  <a href="#" class="close">&times;</a></div>
+			<div class="alert alert-warning alert-dismissable"><?php echo $this->mex ?>  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
 		<?php endif; ?>
 	</div>
 </div>
@@ -33,7 +33,7 @@
 	             </li>
 	         </ul>
 	         <br><br>
-	        <input type="submit" class="button" value="<?php echo $this->translate('Continue Order') ?>" id="check" name="check">
+	        <input type="submit" class="btn btn-default" value="<?php echo $this->translate('Continue Order') ?>" id="check" name="check">
 	    </form>
 	</div>
 </div>

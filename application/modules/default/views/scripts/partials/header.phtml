@@ -9,7 +9,7 @@
 			        	foreach( $field->getErrors() as $error){
 			        		$errors[] = $this->translate($error);
 			        	}
-			            echo "<div class=\"alert alert-danger\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . " <a href=\"#\" class=\"close\">&times;</a></div>";
+			            echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . " <a href=\"#\" class=\"close\">&times;</a></div>";
 			        }   
 			    } ?>
 			</div>    
