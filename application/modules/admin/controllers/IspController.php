@@ -40,6 +40,30 @@ class Admin_IspController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
+	 * Remove the logo
+	 */
+	public function removelogoAction() {
+		$retval = Isp::RemoveLogo($this->isp['isp_id']);
+		if($retval){
+		    $this->_helper->redirector ( 'account', 'isp', 'admin', array('mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success') );
+		}else{
+		    $this->_helper->redirector ( 'account', 'isp', 'admin', array('mex' => $this->translator->translate ( "Unable to process the request at this time." ), 'status' => 'danger') );
+		}
+	}
+	
+	/**
+	 * Remove the logo of the email
+	 */
+	public function removelogoemailAction() {
+		$retval = Isp::RemoveLogoEmail($this->isp['isp_id']);
+		if($retval){
+		    $this->_helper->redirector ( 'account', 'isp', 'admin', array('mex' => $this->translator->translate ( "The task requested has been executed successfully." ), 'status' => 'success') );
+		}else{
+		    $this->_helper->redirector ( 'account', 'isp', 'admin', array('mex' => $this->translator->translate ( "Unable to process the request at this time." ), 'status' => 'danger') );
+		}
+	}
+	
+	/**
 	 * getForm
 	 * Get the customized application form 
 	 * @return unknown_type
@@ -72,8 +96,8 @@ class Admin_IspController extends Shineisp_Controller_Admin {
 		// the password is a MD5 string so we need to empty it, because the software could save the MD5 value again. 
 		$isp ['password'] = "";
 		$form->populate ( $isp );
-		$this->view->srclogo = "/documents/isp/" . $isp['logo'];
-		$this->view->srclogoemail = "/documents/isp/" . $isp['logo_email'];
+		$this->view->srclogo = !empty($isp['logo']) ? "/documents/isp/" . $isp['logo'] : null;
+		$this->view->srclogoemail = !empty($isp['logo_email']) ? "/documents/isp/" . $isp['logo_email'] : null; 
 		$this->render ( 'applicantform' );
 	
 	}

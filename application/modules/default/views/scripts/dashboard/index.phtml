@@ -2,10 +2,19 @@
 
 	<?php if($this->dashboard): ?>
 	    <div class="col-lg-12 colummn">
+	    <div class="row">
+          <div class="col-lg-12">
+            <h1><?php echo $this->translate('Dashboard')?> <small>Services Overview</small></h1>
+            <ol class="breadcrumb">
+              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+            </ol>
+          </div>
+        </div>
+        
 	        <h3><?php echo $this->translate('Welcome', $this->customer['firstname'] . " " . $this->customer['lastname'])?></h3>
 	        <p><?php echo $this->translate('Welcome to the administration of your own services and domain panel.')?></p>
 	        
-        	<?php echo $this->navigation()->menu()->setUlClass('button-group round even-1'); ?><br/>
+        	<?php echo $this->navigation()->menu()->setUlClass('nav nav-pills'); ?><br/>
 	        
 	        <?php if(!empty($this->mex)) :?>
 	        <div class="alert <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>

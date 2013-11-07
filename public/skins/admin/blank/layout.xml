@@ -37,7 +37,6 @@
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-select.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-rating-input.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-switch.min.js</js>
-                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-filestyle.min.js</js>
                 
                 <js position="admin_endbody">/js/smartresize.js</js> 
                 <js position="admin_endbody">/js/grid.js</js> 
