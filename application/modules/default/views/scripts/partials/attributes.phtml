@@ -1,11 +1,11 @@
 <?php $attributes = $this->attributes; ?>
 <?php if(!empty($attributes)): ?>
 	<h5><?php echo $this->translate('Features') ?></h5>
-	<table>
+	<table class="table table-striped table-hover table-condensed">
 		<?php foreach ($attributes as $attribute): ?>
 			<?php if($attribute['is_visible_on_front']): ?>
 		    <tr title="<?php echo $attribute['description'] ?>">
-		        <td width="20%"><?php echo $attribute['label'] ?></td>
+		        <td width=""><?php echo $attribute['label'] ?></td>
 		        <td>
 		        <?php echo $attribute['prefix'] ?> 
 		         <?php if($attribute['value'] =="-1"): ?>

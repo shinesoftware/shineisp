@@ -1,25 +1,32 @@
 <div class="row">
 
 	<?php if($this->dashboard): ?>
-	    <div class="large-12 colummn">
+	    <div class="col-lg-12 colummn">
+	    <div class="row">
+          <div class="col-lg-12">
+            <h1><?php echo $this->translate('Dashboard')?> <small>Services Overview</small></h1>
+            <ol class="breadcrumb">
+              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+            </ol>
+          </div>
+        </div>
+        
 	        <h3><?php echo $this->translate('Welcome', $this->customer['firstname'] . " " . $this->customer['lastname'])?></h3>
 	        <p><?php echo $this->translate('Welcome to the administration of your own services and domain panel.')?></p>
 	        
-        	<?php echo $this->navigation()->menu()->setUlClass('button-group round even-1'); ?><br/>
+        	<?php echo $this->navigation()->menu()->setUlClass('nav nav-pills'); ?><br/>
 	        
 	        <?php if(!empty($this->mex)) :?>
-	        <div data-alert class="alert-box <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+	        <div class="alert <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 	        <?php endif;?>
 	        
 	        <div id="dashboard">
 	        
-	              <?php echo $this->checkdomains()->showForm(); ?><br/>
-	              
 	              <?php echo $this->Alerts();?>
 	        
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('Here below you can see all the domains near at the expiring date.') ?>">
-	                    <h4><?= $this->translate('Expiring Domains') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('Here below you can see all the domains near at the expiring date.') ?>">
+	                    <h4><?php echo $this->translate('Expiring Domains') ?></h4>
 	                </div>
 	                <div class="content">
 	                    <?php echo $this->simplegrid($this->dashboard()->DomainsExpiration());?>
@@ -27,8 +34,8 @@
 	              </div>  
 	                    
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('Here below you can see all the services near at the expiring date.') ?>">
-	                    <h4><?= $this->translate('Expiring Services') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('Here below you can see all the services near at the expiring date.') ?>">
+	                    <h4><?php echo $this->translate('Expiring Services') ?></h4>
 	                </div>
 	                <div class="content">
 	                    <?php echo $this->simplegrid($this->dashboard()->ServicesExpiration());?>
@@ -36,8 +43,8 @@
 	              </div>
 	              
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('In this section you can see all the requested support issues.') ?>">
-	                    <h4><?= $this->translate('Last Tickets') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('In this section you can see all the requested support issues.') ?>">
+	                    <h4><?php echo $this->translate('Last Tickets') ?></h4>
 	                </div>
 	                <div class="content">
 	                    <?php echo $this->simplegrid($this->dashboard()->Last()); ?>  
@@ -45,8 +52,8 @@
 	              </div>      
 	              
 	              <div class="segment">
-	                <div class="head" title="<?= $this->translate('Here some statistics about your domains and services.') ?>">
-	                    <h4><?= $this->translate('Statistiche') ?></h4>
+	                <div class="head" title="<?php echo $this->translate('Here some statistics about your domains and services.') ?>">
+	                    <h4><?php echo $this->translate('Statistiche') ?></h4>
 	                </div>
 	                <div class="content">
 	                   <p align="center">
@@ -56,7 +63,7 @@
 	                </div>
 	              </div>       
 	              
-	              <div class="clear"></div>    
+	                  
 	        </div>
 	    </div>
 	<?php endif;?>  

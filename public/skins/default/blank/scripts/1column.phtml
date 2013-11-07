@@ -4,11 +4,11 @@
 		
 	<?php echo $this->blocks()->showblock('startbody');?>
 
-    <div class="row content_start">
+    <div id="content" class="container">
     
 		<?php echo $this->blocks()->showblock('beforecontent');?>
 	
-		<div class="large-12 column">
+		<div class="col-lg-12">
 			<?php echo $this->Messages(); ?>
 	    	<?php echo $this->cmsheader($this->headerdata);?>
             <?php echo $this->blocks()->showblock('contentstart');?>
@@ -16,15 +16,19 @@
             <?php echo $this->blocks()->showblock('contentend');?>
 		</div> 
 		
+	    <?php echo $this->blocks()->showblock('beforefooter');?>
+
     </div>	<!-- End #main-container -->
     
-    <?php echo $this->blocks()->showblock('beforefooter');?>
-    <footer class="row">
-        <?php echo $this->footer();?>
-    	<?php echo $this->blocks()->showblock('footer');?>
-    </footer><!-- End #footer -->
-	<?php echo $this->blocks()->showblock('endfooter');?>
-	
-<?php echo $this->blocks()->showblock('endbody');?>
-
+    <div class="footer-wrapper row">
+    	<?php echo $this->footer();?>
+        <?php echo $this->blocks()->showblock('footer');?>
+    </div>
+ 
+	<?php echo $this->blocks()->showblock('endfooter');?>    
+    
+    <?php echo $this->blocks()->showblock('endbody');?>
+    
 <?php echo $this->render('includes/endpage.phtml') ?>
+
+	    

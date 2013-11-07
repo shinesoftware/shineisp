@@ -27,7 +27,7 @@ class Admin_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		// Get our url and create a home crumb
 		$fc = Zend_Controller_Front::getInstance();
 		$url = $fc->getBaseUrl();
-		$homeLink = "<ul class='breadcrumb'><li><a href='{$url}/admin/'><i class='icon-home'></i> Home</a></li>";
+		$homeLink = "<ul class='breadcrumb'><li><a href='{$url}/admin/'><i class='glyphicon glyphicon-home'></i> Home</a></li>";
 		
 		// Start crumbs
 		$crumbs = $homeLink . " ";
@@ -36,7 +36,7 @@ class Admin_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		if ($l_m == 'default') {
 			
 			if ($l_a == 'index') {
-				$crumbs .= "<li><a href='/admin'><i class='icon-home'></i> " . ucfirst($controller) . "</a></li>";
+				$crumbs .= "<li><a href='/admin'><i class='glyphicon glyphicon-home'></i> " . ucfirst($controller) . "</a></li>";
 			} else {
 				$crumbs .= "<li><a href='{$url}/{$controller}/'>$controller</a>" . $translation->translate(ucwords($action)) . "</li>";
 			}
@@ -47,7 +47,7 @@ class Admin_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 			} else {
 				$crumbs .= "<li><a href='{$url}/{$module}/'>" . $translation->translate(ucwords($module)) . "</a></li>";
 				if ($l_a == 'index') {
-					$crumbs .= "<li><a href='/admin'><i class='icon-home'></i> " . $translation->translate(ucwords($controller)) . "</a></li>";
+					$crumbs .= "<li><a href='/admin'><i class='glyphicon glyphicon-home'></i> " . $translation->translate(ucwords($controller)) . "</a></li>";
 				} else {
 					$crumbs .= "<li><a href='{$url}/{$module}/{$controller}/'>" . $translation->translate(ucwords($controller)) . "</a></li>";
 				}

@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="large-12 column">
+	<div class="col-lg-12">
 	    <h3><?php echo $this->title?></h3>		
 	    <?php echo $this->description?><br/><br/>
 	    
@@ -8,16 +8,16 @@
 	    <?php if(is_array($this->products) && count($this->products)>0): ?>
 		
 		<div id="products" class="row">
-			<div class="large-12 column">
-				<ul id="list" class="no-bullet">
+			<div class="col-lg-12">
+				<ul id="list" class="list-unstyled">
 				<?php foreach($this->products as $products): ?>
 					<li>
 						<div class="row product">
-					        <div class="large-2 column hide-for-small">
+					        <div class="col-lg-2 hidden-xs">
 					          <?php echo $this->media()->ProductImage($products['product_id'], 120, 120);?>
 					        </div>
 					        
-						    <div class="large-7 column">
+						    <div class="col-lg-7">
 						    	<h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
 					            <small><?php echo $this->ProductCategories($products['categories']) ?></small>
 					            <div class="previewshortdescription">
@@ -38,7 +38,7 @@
 			                	</div>
 			                	
 			                	<?php if(!empty($products['attributes'])): ?>
-			                    <ul class="inline-list attributes">
+			                    <ul class="list-inline attributes">
 		                    		<?php foreach ($products['attributes'] as $attribute): ?>
 		                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
 		                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
@@ -57,7 +57,7 @@
 			                    </div>
 				                <?php endif;?>	 
 		                	</div>
-				            <div class="large-3 column">
+				            <div class="col-lg-3">
 			                	<?php echo $this->prices()->getAllPricesInfo($products['product_id'],true,$this->priceRefund ); ?>
 			                </div>
 			            </div>  

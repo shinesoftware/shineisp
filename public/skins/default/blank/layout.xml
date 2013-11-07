@@ -2,10 +2,17 @@
 <layout>
 
 	<!-- Default configuration of the whole project -->
-	<general template="2columns-left">
+	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
+            <js override="1" position="endbody">//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js</js>  
+            <js override="1" position="endbody">//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js</js>
+            <js override="1" position="endbody">/resources/jquery/jquery.cookie.js</js>
+            
+			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
+            <css override="1">//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css</css>
+            <css override="1">//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css</css>
+            <js override="1" position="endbody">http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js</js>
 		</head>
 	</general>
 
@@ -16,41 +23,12 @@
 		
 		    <!-- All the head js and css files will be attached in all the header of the pages -->
 			<head>
+				<css>/css/site.css</css>  
 				
-				<!-- foundation 4 CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
-				<css override="1">/resources/foundation4/css/normalize.css</css>
-				<css override="1">/resources/foundation4/css/foundation.min.css</css>
-				<css override="1">/resources/foundation4/css/general_foundicons.css</css>
-				<css conditional="IE" override="1">/resources/foundation4/css/foundation.ie8.grid.css</css>
-				<css>/css/app.css</css>
-				
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.min.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.alerts.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.clearing.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.cookie.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.dropdown.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.forms.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.joyride.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.magellan.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.orbit.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.placeholder.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.reveal.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.section.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.tooltips.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.topbar.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.interchange.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.boot.js</js>
-
-				<js override="1">/resources/js/jquery/jquery.prettyPhoto.js</js>
-				<css override="1">/resources/js/css/jquery.prettyPhoto.css</css>
-			    
-			    <js>/js/commons.js</js>
-			    <js>/js/stickyfooter.js</js>
-			    <js>/js/priceloader.js</js>
+			    <js position="endbody">/js/commons.js</js>
+			    <js position="endbody">/js/stickyfooter.js</js>
+			    <js position="endbody">/js/priceloader.js</js>
                 
-                
-                <!-- Leave at the end of the CSS list files. This file must override all the foundation class in order to fix IE -->
-				<css conditional="IE">/css/ie.css</css>
 			</head>
 			
 			<!-- All these blocks will be attached in all the pages 
@@ -91,50 +69,43 @@
        	
         <tickets>
             <head>
-            	<js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </tickets> 
         
         <dashboard>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </dashboard> 
         
         <domains>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </domains> 
         
         <orders>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </orders> 
         
         <cart>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </cart> 
         
         <services>
             <head>
-                <js override="1">/resources/js/wysiwyg/tiny_mce/tiny_mce_src.js</js>
-                <js>/js/cpanels.js</js>
+                <js position="endbody">/js/cpanels.js</js>
             </head>
         </services> 
         
         <cms>
             <head>
-                <js override="1">/resources/js/jquery/jquery.toc.js</js>
-                <js>/js/wiki.js</js>
+                <js position="endbody">/js/wiki.js</js>
             </head>
             <blocks>
                 <block side="right">contacts</block>
@@ -143,8 +114,7 @@
         
         <wiki template="2columns-right">
             <head>
-                <js override="1">/resources/js/jquery/jquery.toc.js</js>
-                <js>/js/wiki.js</js>
+                <js position="endbody">/js/wiki.js</js>
             </head>
             <blocks>
                 <block side="right">contacts</block>
@@ -153,7 +123,7 @@
           		
         <products template="2columns-right"> 
 			<head>
-                <js>/js/priceloader.js</js>
+                <js position="endbody">/js/priceloader.js</js>
             </head>
 		</products>
 		

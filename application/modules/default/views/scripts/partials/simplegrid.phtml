@@ -12,16 +12,14 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-    <div data-alert class="alert-box error" id="mex" style="display:none"><a href="#" class="close">&times;</a></div>
-    
-    <table class="tablesorter" width="100%" id="sublist_<?=$this->name?>">
+    <table class="table" width="100%" id="sublist_<?php echo $this->name?>">
             <thead>
                 <tr>
                     <?php // Creation of the Rows and Columns?>
                     <?php foreach ( $columns as $column ) : ?>
                     	<th><?php echo $column; ?></th>
                     <?php endforeach;?>
-                    <?php if($this->edit || $this->delete || $this->actions ):?><th><?=$this->translate('Commands');?></th><?php endif;?>
+                    <?php if($this->edit || $this->delete || $this->actions ):?><th><?php echo $this->translate('Commands');?></th><?php endif;?>
                 </tr>
             </thead>
             
@@ -36,22 +34,22 @@ if (isset($this->records[0])):
 	                         Shineisp_Commons_Utilities::search(array($field), $record, $res);
 	                         $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";
 	                         ?>
-	                         <td class="values"><?=$value?></td>
+	                         <td class="values"><?php echo $value?></td>
                          <?php endif;?>
                    <?php endforeach;?>
                    <?php if($this->edit || $this->delete || $this->actions):?>
                    <td>
 	                    <?php if($this->edit):?>
-                            <a href="<? echo "/" . $this->module . "/" . $this->edit['controller'] . "/" . $this->edit['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('Click here to edit'); ?>" class="button" ><?=$this->translate('Edit'); ?></a>
+                            <a href="<? echo "/" . $this->module . "/" . $this->edit['controller'] . "/" . $this->edit['action'] . "/id/" . $record[$fields[0]]?>" title="<?php echo $this->translate('Click here to edit'); ?>" class="btn btn-default" ><?php echo $this->translate('Edit'); ?></a>
                         <?php endif;?>
                         
                         <?php if($this->delete):?>
-                            <a href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record[$fields[0]]?>" title="<?=$this->translate('Click here to delete'); ?>" class="button"><?=$this->translate('Delete'); ?></a>
+                            <a href="<? echo "/" . $this->module . "/" . $this->delete['controller'] . "/" . $this->delete['action'] . "/id/" . $record[$fields[0]]?>" title="<?php echo $this->translate('Click here to delete'); ?>" class="btn btn-default"><?php echo $this->translate('Delete'); ?></a>
                         <?php endif;?>
                         
                         <?php if($this->actions):?>
 	                        <?php foreach ($this->actions as $url=>$name): ?>
-	                            <a href="<? echo $url . $record[$fields[0]]?>" title="<?=$this->translate($name); ?>"><?=$this->translate($name); ?></a>
+	                            <a href="<? echo $url . $record[$fields[0]]?>" title="<?php echo $this->translate($name); ?>"><?php echo $this->translate($name); ?></a>
 	                        <?php endforeach;?>
                         <?php endif;?>
                    </td>
@@ -63,5 +61,8 @@ if (isset($this->records[0])):
         </table>
  
     <?php else: ?>
-	    <div data-alert class="alert-box error" id="mex" ><?php echo $this->translate('No Records')?><a href="#" class=\"close\">&times;</a></div>
+	    <div class="alert alert-warning alert-dismissable" id="mex" >
+	      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	      <?php echo $this->translate('No Records')?>
+	    </div>
 <?php endif; ?>

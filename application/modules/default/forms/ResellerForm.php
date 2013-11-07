@@ -9,16 +9,16 @@ class Default_Form_ResellerForm extends Zend_Form
     	
         $this->addElement('select', 'customers', array(
         'label' => $translate->_('Customers'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'description'      => 'Select the company',
-        'class'      => 'text-input large-input'
+        'class'      => 'form-control large-input'
         ));
         
         $this->addElement('submit', 'submit', array(
             'required' => false,
             'label'      => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary'
         ));
         
         $this->addElement('hidden', 'customer_id');

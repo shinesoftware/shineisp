@@ -1,5 +1,5 @@
-<h2><?= $this->translate('Domain Registration Order'); ?></h2>
-<p><b><?= $this->translate("Create your new order with the following domains."); ?></b></p>
+<h2><?php echo $this->translate('Domain Registration Order'); ?></h2>
+<p><b><?php echo $this->translate("Create your new order with the following domains."); ?></b></p>
 
 <?php
 	$form = $this->form;
@@ -7,7 +7,7 @@
 ?>
 
 <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-	<table class="bulktable">
+	<table class="table">
 		<thead>
 			<tr>
 			    <td width="10px"><input type="checkbox" class="selectall" title="<?php echo $this->translate('Select all')?>"></td>
@@ -23,35 +23,34 @@
 			<?php 
 				if(is_null($domain['isavailable'])){
 					$class = "";
-					$mex = "To be check";
+					$mex = $this->translate("To be check");
 				}elseif($domain['isavailable']){
 					$class = "register";
-					$mex = "Domain Registration";
-					$status = "Domain Available";
+					$mex = $this->translate("Domain Registration");
+					$status = $this->translate("Domain Available");
 				}else{
 					$class = "transfer";
-					$mex = "Domain Transfer";
-					$status = "Domain ready to be transferred";
+					$mex = $this->translate("Domain Transfer");
+					$status = $this->translate("Domain is ready to be transferred");
 				}
 			?>
-			<tr class="domain <?=$class?>">
-			    <td><input type="checkbox" checked value="<?= $domain['domain_id']; ?>" id="items" name="item[]"></td>
+			<tr class="domain <?php echo $class?>">
+			    <td><input type="checkbox" checked value="<?php echo $domain['domain_id']; ?>" id="items" name="item[]"></td>
 			    <td>
 			        <?php if($domain['isavailable']): ?>
-			        	<h4><?= $domain['domain']; ?></h4>
+			        	<h4><?php echo $domain['domain']; ?></h4>
 			        <?php else: ?>
-			        	<h4><a target="_blank" href="http://www.<?= $domain['domain']; ?>"><?= $domain['domain']; ?></a></h4>
+			        	<h4><a target="_blank" href="http://www.<?php echo $domain['domain']; ?>"><?php echo $domain['domain']; ?></a></h4>
 			        <?php endif;?>
 			        
-			        <div id="dtemp_<?= $domain['domain_id']; ?>"><?php echo $this->translate($mex) ?></div>
+			        <div id="dtemp_<?php echo $domain['domain_id']; ?>"><?php echo $this->translate($mex) ?></div>
 			        <?php if(!$domain['isavailable']): ?>
-			        	<!-- <div class="whoisinfo"><a target="_blank" href="http://whois.domaintools.com/<?= $domain['domain']; ?>"><?php echo $this->translate("Get more information") ?></a></div> -->
+			        	<!-- <div class="whoisinfo"><a target="_blank" href="http://whois.domaintools.com/<?php echo $domain['domain']; ?>"><?php echo $this->translate("Get more information") ?></a></div> -->
 			        <?php endif;?>
 			    </td>
 			    <td>
 			         <?php if(!$domain['isavailable']): ?>
-			             <p><b><?php echo $this->translate('Authentication Code') ?></b></p>
-			             <input name="authcode[]" type="text" title="<?php echo $this->translate('Please write here your AuthCode in order to transfer the domain')?>" name="authcode" class="text-input large-input" />
+			             <input name="authcode[]" type="text" placeholder="<?php echo $this->translate('Authentication Code') ?>" title="<?php echo $this->translate('Please write here your AuthCode in order to transfer the domain')?>" name="authcode" class="form-control" />
 			         <?php else:?>
 			             <input type="hidden" name="authcode[]"/>
 			             <p><?php echo $this->translate('Domain Available') ?></p>

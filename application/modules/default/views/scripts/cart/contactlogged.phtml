@@ -1,14 +1,13 @@
 <?php $contact = $this->contact?>
-<div id="wizard" class="whitebox boxrounded">
+<div class="row">
     <h3><a href="/dashboard"><?php echo $contact['company']?></a></h3>
- 	<br/>
  	<p><?php echo $this->translate('Dear %s welcome back in to our store!', $contact['firstname'] . " " . $contact['lastname'] )?></p>
-    <small><?php echo $this->translate('Your registered email is %s', $contact['email'])?></small>
-    <p><a href="/dashboard"><?php echo $this->translate('Dashboard')?></a></p>
+    <p><?php echo $this->translate('Your registered email is %s', $contact['email'])?></p>
+    <p><a class="btn btn-info" href="/dashboard"><?php echo $this->translate('Dashboard')?></a></p>
     
     <div class="separatorShadow"></div>
     <br/><br/><br/>
-    <p align="right"><a class="button" href="/cart/summary"><?php echo $this->translate('Complete Order')?></a></p>
+    <p align="right"><a class="btn btn-lg btn-success" href="/cart/summary"><?php echo $this->translate('Complete Order')?></a></p>
     
     <div class="clearfix"></div>
 </div>

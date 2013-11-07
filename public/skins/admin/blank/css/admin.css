@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
-  padding-top: 70px;
+  padding-top: 60px;
 }
 
 #content{padding-bottom:100px;}
@@ -9,6 +9,7 @@ body {
 .row{
 	margin: 10px -15px;
 }
+
 .navbar-nav > li > a{
 	padding-left: 10px;
 	padding-right: 10px;
@@ -29,6 +30,12 @@ body {
 .badge-suspended{
 	background-color: #999999;
 }
+
+
+.loginbtn{
+	padding-top: 22px;
+}
+
 
 .panel {
     background: none repeat scroll 0 0 #FEFEFE;

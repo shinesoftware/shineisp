@@ -22,7 +22,7 @@ if ($this->data ['type'] == "multiple") {
 		$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 		$price = $this->currency($price, array('currency' => Settings::findbyParam('currency')));
 		
-		$bulletlist = "<ul class=\"no-bullet prices\">";
+		$bulletlist = "<ul class=\"list-unstyled prices\">";
 		
 		// Get the recurring period label
 		if(!empty($this->data['tranches'][0] ['measurement'])){
@@ -43,7 +43,7 @@ if ($this->data ['type'] == "multiple") {
 	}
 } else {
 	
-	$bulletlist = "<ul class=\"no-bullet prices\">";
+	$bulletlist = "<ul class=\"list-unstyled prices\">";
 	
 	$price = $this->data ['value'];
 	$pricetax = $this->data ['taxincluded'];

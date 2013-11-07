@@ -1,7 +1,7 @@
 
 <?php if(!empty($this->file) && file_exists(PUBLIC_PATH . $this->file)):?>
 	<?php list($width, $height, $type, $attr) = getimagesize(PUBLIC_PATH . $this->file);?>
-    <a href="/"><img alt="<?php echo $this->title ?> <?php echo $this->slogan ?>" width="<?php echo $width ?>" height="<?php echo $height ?>" title="<?php echo $this->title ?> <?php echo $this->slogan ?>" src="<?php echo $this->file ?>"/></a>
+    <a class="navbar-brand hidden-md hidden-sm" href="/"><img alt="<?php echo $this->title ?> <?php echo $this->slogan ?>" width="<?php echo $width ?>" height="<?php echo $height ?>" title="<?php echo $this->title ?> <?php echo $this->slogan ?>" src="<?php echo $this->file ?>"/></a>
 <?php else:?>
-    <h1 class="txtlogo" title="<?php echo $this->slogan ?>"><a href="/"><?php echo $this->title ?></a></h1>
+    <a class="navbar-brand hidden-md hidden-sm" href="/"><?php echo $this->title ?></a>
 <?php endif;?>

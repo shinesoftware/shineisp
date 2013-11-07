@@ -13,7 +13,6 @@
             </button>
             <a href="#" class="navbar-brand hidden-md hidden-sm">ShineISP</a>
         </div>
-          
 		<div class="collapse navbar-collapse pull-right">
    			<ul class="nav navbar-nav">
                 <li class="dropdown"><?php echo $this->profile();?></li>
@@ -28,8 +27,15 @@
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <b>We need you!</b> So help us to improve the project! <br/><a href="https://github.com/shinesoftware/shineisp" target="_blank">Clone ShineISP GitHub Project</a>
         </div>
-                
-        <?php echo  $this->breadCrumb();?>
+             
+        <div class="row">   
+            <div class="col-lg-9">
+                <?php echo  $this->breadCrumb();?>
+            </div>
+            <div class="col-lg-3">
+                <?php echo $this->searchbox();?>
+            </div>
+        </div>
         
         <div id="loading" class="row hidden">
              <?php echo $this->Message($this->translate('Please wait a moment...'))?>

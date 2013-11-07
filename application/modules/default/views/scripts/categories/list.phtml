@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="large-12 column">
+	<div class="col-lg-12">
 	    <h3><?php echo $this->category['name']?></h3>		
 	    <?php echo $this->category['description']?><br/><br/>
 	    
@@ -7,18 +7,18 @@
 	    
 	    <?php if(is_array($this->products) && count($this->products)>0): ?>
 		
-		<div id="products" class="row">
-			<div class="large-12 column">
-				<ul id="list" class="no-bullet">
+		<div id="products" class="row category-list">
+			<div class="col-lg-12">
+				<ul id="list" class="categories list-unstyled">
 					<?php foreach($this->products as $products): ?>
-					    <li>
+					    <li class="category-item">
 					    	<div class="row product">
-						        <div class="large-2 column hide-for-small">
+						        <div class="col-lg-2 hidden-xs">
 						          <?php echo $this->media()->ProductImage($products['product_id'], 120, 120);?>
 						        </div>
 						        
-					            <div class="large-7 column">
-					                <h4><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h4>
+					            <div class="col-lg-7">
+					                <h3><a href="/products/<?php echo $products['uri'] ?>.html"><?php echo $products['name'] ?></a></h3>
 					                <small><?php echo $this->ProductCategories($products['categories']) ?></small>
 					                
 					                <div class="previewshortdescription">
@@ -39,10 +39,11 @@
 					                </div>
 					                
 					                <?php if(!empty($products['attributes'])): ?>
-				                    <ul class="inline-list attributes">
+				                    <ul class="list-inline attributes">
 			                    		<?php foreach ($products['attributes'] as $attribute): ?>
 			                    			<?php if(!empty($attribute['ProductsAttributesData'][0]['label']) && !empty($attribute['ProductsAttributesIndexes'][0]['value'])): ?>
-			                    				<li class="attribute" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
+			                    				<li class="badge" title="<?php echo $attribute['ProductsAttributesData'][0]['description'] ?>">
+			                    				    <i class="glyphicon glyphicon-cog"></i>
 			                    					<?php echo $attribute['ProductsAttributesData'][0]['prefix'] ?>
 			                    					<?php echo $attribute['ProductsAttributesData'][0]['label']?>: <?php echo $attribute['ProductsAttributesIndexes'][0]['value']?>
 			                    					<?php echo $attribute['ProductsAttributesData'][0]['suffix'] ?>
@@ -60,7 +61,7 @@
 					                
 						        </div>
 						        
-						        <div class="large-3 column">
+						        <div class="col-lg-3">
 					                <?php echo $this->prices()->getAllPricesInfo($products['product_id']); ?>
 								</div>
 							</div>
@@ -69,7 +70,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="row"><div class="large-12 column" id="pager"><?php echo $this->pager ?></div></div>
+		<div class="row"><div class="col-lg-12" id="pager"><?php echo $this->pager ?></div></div>
 		<?php else:?>
 		   <p><?php echo $this->translate('No product has been found.')?></p>
 		   <p><a href="/"><?php echo $this->translate('Homepage')?></a></p>

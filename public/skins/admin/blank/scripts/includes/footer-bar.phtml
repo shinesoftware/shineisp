@@ -6,6 +6,8 @@
     </div>
     <div class="col-lg-11">
 		<ul class="nav navbar-nav pull-right">
+		    <li><a href="#"><span class="badge"><?php echo $this->querycount();?></span></a></li>
+		    <li><a href="#"><span class="badge"><?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></span></a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a>
                 <ul class="dropdown-menu">

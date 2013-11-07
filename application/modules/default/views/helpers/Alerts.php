@@ -33,7 +33,7 @@ class Zend_View_Helper_Alerts extends Zend_View_Helper_Abstract {
 			if (count ( $tasks_errors ) > 0) {
 				foreach ( $tasks_errors as $task ) {
 					if (! empty ( $task ['log'] )) {
-						$alerts [] = array ('message' => $task ['domain'] . " - " . $translation->_ ( $task ['log'] ), $task ['domain_id'], 'link' => '/domains/edit/id/' . $task ['domain_id'], 'icon' => 'success' );
+						$alerts [] = array ('message' => $task ['domain'] . " - " . $translation->_ ( $task ['log'] ), $task ['domain_id'], 'link' => '/domains/edit/id/' . $task ['domain_id'], 'icon' => 'danger' );
 					}
 				}
 			}
@@ -42,9 +42,9 @@ class Zend_View_Helper_Alerts extends Zend_View_Helper_Abstract {
 				foreach ( $orders as $order ) {
 					$order ['grandtotal'] = $currency->toCurrency($order ['grandtotal'], array('currency' => Settings::findbyParam('currency')));
 					if(!empty($order['invoice_id'])){
-						$alerts [] = array ('message' => $translation->_ ( 'The invoice %s of %s (%s) has been not payed yet, click here to show more details.', $order ['Invoices']['number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'alert' );	 	
+						$alerts [] = array ('message' => $translation->_ ( 'The invoice %s of %s (%s) has been not payed yet, click here to show more details.', $order ['Invoices']['number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'danger' );	 	
 					}else{
-						$alerts [] = array ('message' => $translation->_ ( 'The order %s that you have requested the %s with total %s has not been paid yet, click here for more information.', $order ['order_number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'alert' );
+						$alerts [] = array ('message' => $translation->_ ( 'The order %s that you have requested the %s with total %s has not been paid yet, click here for more information.', $order ['order_number'], Shineisp_Commons_Utilities::formatDateOut ( $order ['order_date'] ), $order ['grandtotal'] ), 'link' => '/orders/edit/id/' . $order ['order_id'], 'icon' => 'danger' );
 					}
 				}
 			}

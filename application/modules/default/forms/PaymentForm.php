@@ -10,18 +10,18 @@ class Default_Form_PaymentForm extends Zend_Form{
         
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Note'),
             'description' => $translate->_('Write here a note.'),
             'style' => 'height:180px',
-            'class'       => 'textarea'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('submit', 'submit', array(
             'label'      => $translate->_('Order Now'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'id'    => 'orderit',
-            'class'    => 'button success'
+            'class'    => 'btn btn-success btn-lg'
         ));
         
     }

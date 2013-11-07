@@ -20,7 +20,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
-            'class'       => 'form-control col-lg-12 wysiwyg'
+            'class'       => 'form-control col-lg-12'
         ));
         
         $this->addElement('text', 'var', array(
@@ -122,13 +122,6 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'label'       => $translate->_('Active'),
             'class'       => 'form-control',
         	'multioptions' => array( 0=>'NO', 1=> 'YES')
-        ));
-        
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => $translate->_('Save'),
-            'decorators' => array('Bootstrap'),
-            'class'    => 'btn'
         ));
         
         $this->addElement('hidden', 'page_id');

@@ -12,23 +12,23 @@
                 foreach( $field->getErrors() as $error){
                     $errors[] = $this->translate($error);
                 }
-                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+                echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
             }   
         } ?>
     </div>    
 <? endif; ?>
 
     <form method="<?php echo $form->getMethod() ?>" id="contacts" action="<?php echo $form->getAction()?>">
-            <div class="panel"> 
+            <div class="row"> 
                 <h4><?php echo $this->translate('General')?></h4>
-                <div class="column-left">
+                <div class="col-lg-6">
 	                <?php echo $form->firstname->render() ?>
-                <?php echo $form->lastname->render()?>
-                <?php echo $form->email->render()?>
-                <?php echo $form->password->render()?>
+	                <?php echo $form->lastname->render()?>
+	                <?php echo $form->email->render()?>
+	                <?php echo $form->password->render()?>
                 </div>
             
-                <div class="column-right">
+                <div class="col-lg-6">
                 	<?php echo $form->legalform->render()?>
                     <?php echo $form->company_type_id->render()?>
                     
@@ -36,14 +36,13 @@
                     <?php echo $form->vat->render()?>
                     <?php echo $form->taxpayernumber->render()?>
                 </div>
-                <div class="clear"></div>
             </div>
             
         	<?php if($this->hasdomain): ?>
-            <div class="panel">
+            <div class="row">
                 <h4><?php echo $this->translate('Personal data')?></h4>
-                <div><small><?php echo $this->translate('Your personal data are mandatories to register or transfer a domain name.')?></small></div>
-                <div class="column-left">
+                <small><?php echo $this->translate('Your personal data are mandatories to register or transfer a domain name.')?></small>
+                <div class="col-lg-12">
 	                <?php echo $form->birthdate->render()?>
 	                <?php echo $form->birthplace->render()?>
 	                <?php echo $form->birthdistrict->render()?>
@@ -51,26 +50,27 @@
 	                <?php echo $form->birthnationality->render()?>
 	                <?php echo $form->gender->render()?>
 	            </div> 
-	            <div class="clear"></div>
             </div>
             <?php endif; ?>
             
-            
-            <div class="panel">
-                <h4><?php echo $this->translate('Address')?></h4>
-                <?php echo $form->address->render()?>
-                <?php echo $form->code->render()?>
-                <?php echo $form->city->render()?>
-                <?php echo $form->area->render()?>
-                <?php echo $form->country_id->render()?>
-            </div>
-            
-           <div class="panel">
-                <h4><?php echo $this->translate('Contacts')?></h4>
-                 <?php echo $form->contact->render()?>
-                 <?php echo $form->contacttypes->render()?>
-           </div>
-           <br/>
-	      <?php echo $form->submit->render()?> 
+            <div class="row">
+	            <div class="col-lg-6">
+	                <h4><?php echo $this->translate('Address')?></h4>
+	                <?php echo $form->address->render()?>
+	                <?php echo $form->code->render()?>
+	                <?php echo $form->city->render()?>
+	                <?php echo $form->area->render()?>
+	                <?php echo $form->country_id->render()?>
+	            </div>
+	            
+	           <div class="col-lg-6">
+	                <h4><?php echo $this->translate('Contacts')?></h4>
+	                 <?php echo $form->contact->render()?>
+	                 <?php echo $form->contacttypes->render()?>
+	           </div>
+	       </div>
+	  		
+	  	   <div class="text-right"><?php echo $form->submit->render()?></div> 
+      
       <?php echo $form->customer_id->render()?>
     </form>

@@ -1,6 +1,8 @@
 <?php if(!empty($this->message)): ?>
-<div data-alert class="alert-box">
-	<?php echo $this->translate($this->message); ?>
-	<a href="#" class="close">&times;</a>
-</div>
+	<div class="row"><br/>
+		<div class="alert alert-warning alert-dismissable alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<?php echo $this->translate($this->message); ?>
+		</div>
+	</div>
 <?php endif?>

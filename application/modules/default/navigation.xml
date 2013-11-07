@@ -10,7 +10,7 @@
 		<domains>
 			<label>Domains</label>
 			<uri>/domains/list</uri>
-			<class>small button foundicon-globe</class>
+			<class>glyphicon glyphicon-th</class>
 			<resource>default:domains</resource>
 		</domains>
 		<services>

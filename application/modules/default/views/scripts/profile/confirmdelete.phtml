@@ -2,9 +2,9 @@
     <h3><?php echo $this->translate('Are you sure you want to delete this profile?');;?></h3>
     <small><?php echo $this->translate('If you delete this order all the data will no longer be available.');?></small>
 </div>
-<h3><?=$this->contact[0]['contact']; ?></h3>
-<p><?=$this->translate('areusure'); ?></p>
+<h3><?php echo $this->contact[0]['contact']; ?></h3>
+<p><?php echo $this->translate('areusure'); ?></p>
 <p>
-<a href="/profile"><?=$this->translate('No, I was wrong'); ?></a>
-<a href="/profile/delete/id/<?=$this->contact[0]['contact_id']; ?>"><?=$this->translate('Yes I would like to delete my account!'); ?></a>
+<a href="/profile"><?php echo $this->translate('No, I was wrong'); ?></a>
+<a href="/profile/delete/id/<?php echo $this->contact[0]['contact_id']; ?>"><?php echo $this->translate('Yes I would like to delete my account!'); ?></a>
 </p>

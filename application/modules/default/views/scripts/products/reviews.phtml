@@ -1,7 +1,7 @@
 <?php $reviewform = $this->reviewform; ?>
 <div class="row">
 	<form method="<?php echo $reviewform->getMethod() ?>" class="custom dropdown" id="reviews" action="<?php echo $reviewform->getAction()?>">	
-		<div class="large-12 column">
+		<div class="col-lg-12">
 			<?php if(!empty($this->product['ProductsData'][0])): ?>
 				<h3><?php echo $this->translate('Add your review for') . " " . $this->product['ProductsData'][0]['name']?></h3>
 				<p><?php echo $this->product['ProductsData'][0]['shortdescription'] ?></p>
@@ -15,21 +15,21 @@
 			                foreach( $field->getErrors() as $error){
 			                    $errors[] = $this->translate($error);
 			                }
-			                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+			                echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 			            }   
 			        } ?>
 			    </div>    
 			<? endif; ?>
 		</div>
 		   
-		<div class="large-6 column">
+		<div class="col-lg-6">
 			<?php echo $reviewform->nick->render()?>
 			<?php echo $reviewform->subject->render()?>
 			<?php echo $reviewform->email->render()?>
 			<?php echo $reviewform->city->render()?>
 			
 		</div>
-		<div class="large-6 column">
+		<div class="col-lg-6">
 			<?php echo $reviewform->referer->render()?>		
 			<?php echo $reviewform->stars->render()?>
 			<?php echo $reviewform->review->render()?>

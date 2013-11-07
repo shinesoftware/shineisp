@@ -1,9 +1,9 @@
 <?php if (isset($this->records)):?>
 	<a name="reviews"></a>
 	<div class="reviews">
-		<h5><?= $this->translate('Customer Reviews') ?></h5>
+		<h5><?php echo $this->translate('Customer Reviews') ?></h5>
 		<?php foreach ( $this->records as $record ) : ?>
-			<blockquote><?= $record['review']; ?> <?php echo str_pad("*", $record['stars'], "*"); ?> <cite><a href="#"><?= $record['nick']; ?></a> - <?php echo Shineisp_Commons_TimeSince::time_since($record['publishedat']); ?></cite></blockquote>
+			<blockquote><?php echo $record['review']; ?> <?php echo str_pad("*", $record['stars'], "*"); ?> <cite><a href="#"><?php echo $record['nick']; ?></a> - <?php echo Shineisp_Commons_TimeSince::time_since($record['publishedat']); ?></cite></blockquote>
 		<?php endforeach;?>
 	</div>
 <?php endif; ?>

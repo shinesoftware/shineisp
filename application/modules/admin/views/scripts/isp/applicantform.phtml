@@ -23,18 +23,35 @@
         		        <?php echo $form->company->render() ?>
         		        <?php echo $form->vatnumber->render() ?>
         		        <?php echo $form->slogan->render() ?>
-        		        <?php echo $form->logo_email->render()?>
         		        <?php if(!empty($this->srclogoemail)): ?>
-        		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogoemail ?>" alt="<?php echo $this->translate('Email logo picture')?>"/>
+        		        	<div class="row">
+            		        	<div class="col-lg-2">
+            		        	    <img class="thumbnail img-polaroid" src="<?php echo $this->srclogoemail ?>" alt="<?php echo $this->translate('Website logo picture')?>"/>
+            		        	</div>
+            		        	<div class="col-lg-10">
+            		        	    <a class="btn btn-danger btn-md" href="/admin/isp/removelogoemail"><?php echo $this->translate('remove')?></a>
+                                </div>    		        	    
+        		        	</div>
+        		        <?php else:?>
+        		            <?php echo $form->logo_email->render()?>
         		        <?php endif;?>
         		    </div>
         		    <div class="col-sm-6 col-xs-12"> 
         		        <?php echo $form->manager->render()?>
         		        <?php echo $form->website->render()?>
         		        <?php echo $form->password->render()?>
-        		        <?php echo $form->logo->render()?>
+        		        
         		        <?php if(!empty($this->srclogo)): ?>
-        		        	<img class="thumbnail img-polaroid" style="width:200px;height:200px" src="<?php echo $this->srclogo ?>" alt="<?php echo $this->translate('Website logo picture')?>"/>
+        		        	<div class="row">
+            		        	<div class="col-lg-2">
+            		        	    <img class="thumbnail img-polaroid" src="<?php echo $this->srclogo ?>" alt="<?php echo $this->translate('Website logo picture')?>"/>
+            		        	</div>
+            		        	<div class="col-lg-10">
+            		        	    <a class="btn btn-danger btn-md" href="/admin/isp/removelogo"><?php echo $this->translate('remove')?></a>
+                                </div>    		        	    
+        		        	</div>
+        		        <?php else:?>
+        		            <?php echo $form->logo->render()?>
         		        <?php endif;?>
         		    </div>
     		    </div>

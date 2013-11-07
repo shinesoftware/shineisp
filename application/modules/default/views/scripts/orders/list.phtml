@@ -9,7 +9,8 @@
     </h3>
     <small><?php echo $this->translate($this->description);?></small>
 </div>
- 
-<?= $this->grid($this->orders);?>
-<br/>
-<a class="button" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a>
+
+<div class="row">
+    <div class="col-lg-12 text-right"><a class="btn btn-default" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a></div><br/>
+</div>
+<?php echo $this->grid($this->orders);?>

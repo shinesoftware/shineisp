@@ -7,17 +7,17 @@
                 foreach( $field->getErrors() as $error){
                     $errors[] = $this->translate($error);
                 }
-                echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+                echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
             }   
         } ?>
     </div>    
 <? endif; ?>
 
-<div id="contactinfo" class="whitebox boxrounded">
+<div id="contactinfo" class="row">
     <form method="<?php echo $form->getMethod() ?>" id="contacts" action="<?php echo $form->getAction()?>">
             <fieldset> 
                 <legend><?php echo $this->translate('General')?></legend>
-                <div class="column-left">
+                <div class="pull-left">
 	                <?php echo $form->firstname->render() ?>
 	                <?php echo $form->lastname->render()?>
 	                <?php echo $form->email->render()?>
@@ -25,13 +25,13 @@
 	                <?php echo $form->taxpayernumber->render()?>
                 </div>
             
-                <div class="column-right">
+                <div class="pull-right">
                     <?php echo $form->company->render()?>
                     <?php echo $form->company_type_id->render()?>
                     <?php echo $form->legalform->render()?>
                     <?php echo $form->vat->render()?>
                 </div>
-                <div class="clear"></div>
+                
             </fieldset>
                    
             <fieldset>

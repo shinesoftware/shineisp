@@ -72,13 +72,6 @@ class Admin_Form_BanksForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setMultiOptions(PaymentsMethods::getList(true));                  
         
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => $translate->_('Save'),
-            'decorators' => array('Bootstrap'),
-            'class'    => 'btn'
-        ));
-        
         $this->addElement('hidden', 'bank_id');
     }
 }

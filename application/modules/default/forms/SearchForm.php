@@ -11,7 +11,7 @@ class Default_Form_SearchForm extends Zend_Form
             'title'       => $translate->_('Type here what you are looking for'),
             'placeholder'       => $translate->_('Search'),
             'id'       	  => 'searchbar',
-            'class'       => 'searchbar',
+            'class'       => 'form-control',
             'size'        => '10'
         ));
 

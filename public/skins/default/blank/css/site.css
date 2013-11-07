@@ -1,0 +1,104 @@
+/* ------ GENERAL -------- */
+body {
+	padding-top: 53px;
+}
+
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
+
+/* ------ CAROUSEL -------- */
+.carousel-wrapper {
+	background-color: #eee;
+}
+
+.carousel {
+	margin: 0 auto;
+}
+
+/* ------ COMMONS -------- */
+
+.dropdown-cart{
+	width: 250px;
+}
+
+.navbar-nav-right{
+	float:right;
+}
+
+.dropdown-gotocart{
+	background-color: #eeeeee;
+	padding: 5px;
+}
+
+.copyright-wrapper {
+	background-color: #eee;
+	padding-top: 10px;
+}
+
+.footer-wrapper {
+	background-color: #000000;
+	margin-top: 40px;
+	padding: 20px 30px 30px;
+}
+
+.footer-wrapper h4 {
+	color: #ffffff;
+}
+
+.footer-wrapper p {
+	color: #dddddd;
+}
+
+.footer-wrapper a {
+	color: #dddddd;
+}
+
+/* ------ CATEGORIES -------- */
+.category-item {
+	margin-bottom: 20px;
+}
+
+.badge {
+	background-color: #EEEEEE;
+	color: #888888;
+	font-weight: normal;
+	margin-bottom: 10px;
+	padding: 7px !important;
+}
+
+/* ------ PRODUCTS -------- */
+.prices {
+	margin-top: 50px;
+}
+
+.priceincludedvat {
+	font-size: 20px;
+	text-align: right;
+}
+
+.pricenotincludedvat {
+	font-size: 14px;
+	text-align: right;
+}
+
+.subscription {
+	font-size: 14px;
+	text-align: right;
+}
+
+/* ------ HOMEPAGE -------- */
+
+
+
+
+
+
+
+/* ------ MEDIA -------- */
+
+@media(max-width:767px){
+	.navbar-nav-right {float: none;}
+    .navbar-form {margin-right:5px;margin-left:5px;}
+}

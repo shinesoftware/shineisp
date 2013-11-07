@@ -1,10 +1,10 @@
 <?php if (isset($this->records)):?>
 		<div class="row">
 		    <?php foreach ($this->records as $record): ?>
-		    	<div class="large-12 columns"><blockquote><?php echo $record['message']  ?> <br/><small><?php echo !empty($record['isp']) ? $record['company'] : $record['fullname']; ?> - <?php echo $record['dateposted']; ?></small></blockquote></div>
+		    	<div class="col-lg-12s"><blockquote><?php echo $record['message']  ?> <br/><small><?php echo !empty($record['isp']) ? $record['company'] : $record['fullname']; ?> - <?php echo $record['dateposted']; ?></small></blockquote></div>
 		    <?php endforeach; ?>
 	    </div>
     <?php else: ?>
-        <div data-alert class="alert-box success"><?=$this->translate('No Records')?></div>
+        <div class="alert alert-success"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>
 

@@ -1,5 +1,5 @@
 <?php foreach ( $this->records as $record ) : ?>
-    <span class="tag"><?= $record['tag']; ?>
-    [<a href="/default/common/deletetag/id/<?= $record['TagsConnections'][0]['tagconnection_id']; ?>/back/<?php echo str_replace("/", "_", Zend_Controller_Front::getInstance()->getRequest()->getRequestUri());?>" title="<?= $this->translate('Delete'); ?>">X</a>]
+    <span class="tag"><?php echo $record['tag']; ?>
+    [<a href="/default/common/deletetag/id/<?php echo $record['TagsConnections'][0]['tagconnection_id']; ?>/back/<?php echo str_replace("/", "_", Zend_Controller_Front::getInstance()->getRequest()->getRequestUri());?>" title="<?php echo $this->translate('Delete'); ?>">X</a>]
     </span>  
 <?php endforeach; ?>

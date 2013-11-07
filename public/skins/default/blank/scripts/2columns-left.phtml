@@ -5,25 +5,27 @@
     <?php echo $this->render('includes/top.phtml') ?>
     
     <div class="row content_start">
-    	<aside class="large-4 columns">
+    	<aside class="col-lg-4 columns">
     		<?php echo $this->blocks()->showblock('left');?>
     	</aside>
     	
-    	<div class="large-8 columns" role="content">
+    	<div class="col-lg-8 columns" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
 	        <?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>
     	</div>
-	    
-	</div>
-        
+
+    </div>	<!-- End #main-container -->
     
-    <?php echo $this->blocks()->showblock('beforefooter');?>
-    <footer class="row">
+    <div class="footer-wrapper row">
     	<?php echo $this->footer();?>
         <?php echo $this->blocks()->showblock('footer');?>
-    </footer><!-- End #footer -->
-    <?php echo $this->blocks()->showblock('endfooter');?>
+    </div>
+ 
+	<?php echo $this->blocks()->showblock('endfooter');?>    
+    
     <?php echo $this->blocks()->showblock('endbody');?>
-
+    
 <?php echo $this->render('includes/endpage.phtml') ?>
+
+    	
