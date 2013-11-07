@@ -1,3 +1,5 @@
 <?php foreach($this->alerts as $alert): ?>
-    <div class="alert-box <?php echo $alert['icon']?>"><?php echo $alert['message']?> <a href="<?php echo $alert['link']?>"><?php echo $this->translate('read more')?></a> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+    <div class="alert alert-<?php echo $alert['icon']?> alert-dismissable"><?php echo $alert['message']?>
+    	<a href="<?php echo $alert['link']?>"><?php echo $this->translate('read more')?></a>   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    </div>
 <?php endforeach;?>

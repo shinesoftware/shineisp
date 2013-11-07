@@ -13,7 +13,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'label'      => $translate->_('Company Name'),
         		'decorators' => array('Bootstrap'),
         		'description'      => $translate->_('Write here your company name.'),
-        		'class'      => 'form-control large-input'
+        		'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'firstname', array(
@@ -22,7 +22,7 @@ class Default_Form_SignupForm extends Zend_Form
             'label'      => $translate->_('First name'),
             'description' => $translate->_('Write here your first name.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'lastname', array(
@@ -31,7 +31,7 @@ class Default_Form_SignupForm extends Zend_Form
             'label'      => $translate->_('Last name'),
             'description'      => $translate->_('Write here your lastname.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $email = $this->createElement('text', 'email', array(
@@ -43,7 +43,7 @@ class Default_Form_SignupForm extends Zend_Form
             'required'       => true,
             'label'          => $translate->_('Email'),
             'description'    => $translate->_('Write here your email'),
-            'class'          => 'form-control large-input'
+            'class'          => 'form-control'
         ));
         
         $email->addValidator('UniqueEmail',false, array(new Customers()));
@@ -60,7 +60,7 @@ class Default_Form_SignupForm extends Zend_Form
         				$passwordConfirmation,
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
-        		'class'       => 'form-control large-input',
+        		'class'       => 'form-control',
         		'required' => true,
         		'label' => $translate->_('Password'),
         ));
@@ -73,7 +73,7 @@ class Default_Form_SignupForm extends Zend_Form
         				$passwordConfirmation,
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
-        		'class'       => 'form-control large-input',
+        		'class'       => 'form-control',
         		'required' => true,
         		'label' => 'Confirm Password',
         ));
@@ -83,7 +83,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('VAT Number'),
         		'decorators' => array('Bootstrap'),
-        		'class'      => 'form-control large-input',
+        		'class'      => 'form-control',
         		'description'      => $translate->_('Write here the VAT code. Eg: IT123456789')
         ));
         #$this->getElement('vat')->addValidator($vatValidator);        
@@ -92,7 +92,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'label' => 'Company Type',
         		'decorators' => array('Bootstrap'),
         		'description'      => $translate->_('Select the company type'),
-        		'class'      => 'form-control large-input'
+        		'class'      => 'form-control'
         ));
         
         $this->getElement('company_type_id')
@@ -104,7 +104,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'required'   => true,
         		'decorators' => array('Bootstrap'),
         		'description'      => $translate->_('Select the type of company.'),
-        		'class'      => 'form-control large-input'
+        		'class'      => 'form-control'
         ));
         
         $this->getElement('legalform')
@@ -117,7 +117,7 @@ class Default_Form_SignupForm extends Zend_Form
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('Tax payer number'),
         		'decorators' => array('Bootstrap'),
-        		'class'      => 'form-control large-input',
+        		'class'      => 'form-control',
         		'description'      => $translate->_('Write the tax payer number.')
         ));
         
@@ -127,7 +127,7 @@ class Default_Form_SignupForm extends Zend_Form
         $this->addElement('submit', 'signup', array(
             'label'      => $translate->_('Create my account'),
             'decorators' => array('Bootstrap'),
-            'class'    => 'btn btn-primary'
+            'class'    => 'btn btn-success btn-lg'
         ));
         
         $privKey = Settings::findbyParam('recaptcha_private_key');

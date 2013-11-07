@@ -8,13 +8,11 @@
         	<?php echo $this->navigation()->menu()->setUlClass('button-group round even-1'); ?><br/>
 	        
 	        <?php if(!empty($this->mex)) :?>
-	        <div class="alert-box <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
+	        <div class="alert <?php echo $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
 	        <?php endif;?>
 	        
 	        <div id="dashboard">
 	        
-	              <?php echo $this->checkdomains()->showForm(); ?><br/>
-	              
 	              <?php echo $this->Alerts();?>
 	        
 	              <div class="segment">

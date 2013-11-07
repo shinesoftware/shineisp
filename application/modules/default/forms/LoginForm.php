@@ -16,7 +16,7 @@ class Default_Form_LoginForm extends Zend_Form
             'required'   => true,
             'description'      => $translate->_('Write your own email'),
             'label'      => $translate->_('Email'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('password', 'password', array(
@@ -28,7 +28,7 @@ class Default_Form_LoginForm extends Zend_Form
             'description'      => $translate->_('Write your own password'),
             'required'   => true,
             'label'      => $translate->_('Password'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
 
         $this->addElement('submit', 'login', array(

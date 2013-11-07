@@ -3,29 +3,30 @@
 <div class="row">  
     <div class="col-lg-6">
     	<fieldset class="login">
-	        <h5><?php echo $this->translate('Create a new Account')?></h5>
+	        <h3><?php echo $this->translate('Create a new Account')?></h3>
 	        <p>
 	            <?php echo $this->translate('By creating an account with our store, you will be able to move through the checkout process faster, view and track your orders in your account and more.')?>
-	        </p>
-	        <a class="btn btn-default" href="/customer/signup"><?php echo $this->translate('Create an Account') ?></a>
+	        </p><br/><br/>
+	        <a class="btn btn-success btn-lg" href="/customer/signup"><?php echo $this->translate('Create an Account') ?></a>
 		</fieldset>
     </div>
     
-    <div class="col-lg-6">
+    
         <?php if($this->form):?>
             <? $form = $this->form; ?>
-            <form method="<?php echo $form->getMethod() ?>" class="custom" action="<?php echo $form->getAction()?>">
-                <fieldset class="login">
-                    <h5><?php echo $this->translate('Login')?></h5>
+            <div class="col-lg-6">
+	            <form method="<?php echo $form->getMethod() ?>" class="custom" action="<?php echo $form->getAction()?>">
+                    <h3><?php echo $this->translate('Login')?></h3>
                     <p><?echo $this->translate('Sign in to get subscribed services.')?></p>
                     <?php echo $form->email->render() ?>
                     <?php echo $form->password->render() ?>
-                    <p align="right"><a href="/index/password"><?php echo $this->translate('Forgot your password?'); ?></a></p>
-                    <?php echo $form->login->setDecorators(array('ViewHelper')) ?>
-                </fieldset>
-            </form>
+                    <div class="row">
+                    	<div class="col-lg-6"><a href="/index/password"><?php echo $this->translate('Forgot your password?'); ?></a></div>
+                    	<div class="col-lg-6 text-right"><?php echo $form->login->setDecorators(array('ViewHelper')) ?></div>
+                    </div>
+	            </form>
+	    	</div>
         <?php endif;?>
-    </div>
 </div>
 
 

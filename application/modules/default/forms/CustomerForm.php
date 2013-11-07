@@ -14,7 +14,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'label'      => $translate->_('First name'),
             'description' => $translate->_('Write here your firstname.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'lastname', array(
@@ -23,7 +23,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'label'      => $translate->_('Last name'),
             'description'      => $translate->_('Write here your lastname.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'birthdate', array(
@@ -42,14 +42,14 @@ class Default_Form_CustomerForm extends Zend_Form
             'required'   => true,
             'description'      => $translate->_('Write here the birth place.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'company_type_id', array(
         'label' => $translate->_('Company Type'),
         'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the company type'),
-        'class'      => 'form-control large-input'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('company_type_id')
@@ -61,7 +61,7 @@ class Default_Form_CustomerForm extends Zend_Form
         'required'   => true,
         'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the type of company.'),
-        'class'      => 'form-control large-input'
+        'class'      => 'form-control'
         ));
         
         $this->getElement('legalform')
@@ -74,7 +74,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'label'      => $translate->_('Company Name'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write here your company name.'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'birthplace', array(
@@ -82,7 +82,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Birth place'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'birthdistrict', array(
@@ -99,7 +99,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Country of Birth'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'birthnationality', array(
@@ -107,7 +107,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Birth Nationality'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $vatValidator = new Shineisp_Validate_Vat();
@@ -115,7 +115,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('VAT Number'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input',
+            'class'      => 'form-control',
             'description'      => $translate->_('Write here the VAT code. Eg: IT123456789')
         ));
         $this->getElement('vat')->addValidator($vatValidator);
@@ -134,7 +134,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tax payer number'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input',
+            'class'      => 'form-control',
             'description'      => $translate->_('Write the tax payer number.')
         ));
         $this->getElement('taxpayernumber')->addValidator($fiscalcodeValidator);
@@ -145,7 +145,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'label'      => $translate->_('Address'),
             'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write the address'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'code', array(
@@ -163,7 +163,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'label'      => $translate->_('City'),
             'description'      => $translate->_('Write here your city name'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         $this->addElement('select', 'country_id', array(
@@ -211,7 +211,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Email'),
             'description'      => $translate->_('Write here your email'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         $mailValidator = new Shineisp_Validate_Email();
         $this->getElement('email')->addValidator($mailValidator);
@@ -225,7 +225,7 @@ class Default_Form_CustomerForm extends Zend_Form
             ),
             'description'      => $translate->_('Write here your password. (min.6 chars - max.20 chars)'),
             'label'      => $translate->_('Password'),
-            'class'      => 'form-control large-input'
+            'class'      => 'form-control'
         ));
         
         
@@ -233,7 +233,7 @@ class Default_Form_CustomerForm extends Zend_Form
             'required' => false,
             'label'      => $translate->_('Save'),
             'decorators' => array('Bootstrap'),
-            'class'    => 'btn btn-primary'
+            'class'    => 'btn btn-success btn-lg'
         ));
         
         $this->addElement('hidden', 'customer_id');

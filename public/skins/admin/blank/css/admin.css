@@ -31,6 +31,12 @@ body {
 	background-color: #999999;
 }
 
+
+.loginbtn{
+	padding-top: 22px;
+}
+
+
 .panel {
     background: none repeat scroll 0 0 #FEFEFE;
     border: 1px solid #C9C9C9;

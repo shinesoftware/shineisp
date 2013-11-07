@@ -12,8 +12,6 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-    <div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
-    
     <table class="table" width="100%" id="sublist_<?php echo $this->name?>">
             <thead>
                 <tr>
@@ -63,5 +61,8 @@ if (isset($this->records[0])):
         </table>
  
     <?php else: ?>
-	    <div class="alert alert-warning alert-dismissable" id="mex" ><?php echo $this->translate('No Records')?><a href="#" class=\"close\">&times;</a></div>
+	    <div class="alert alert-warning alert-dismissable" id="mex" >
+	      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	      <?php echo $this->translate('No Records')?>
+	    </div>
 <?php endif; ?>

@@ -42,9 +42,9 @@ class Admin_Form_PasswordForm extends Zend_Form
         }
 
         $this->addElement('submit', 'submit', array(
-            'label'    => 'Submit',
+            'label'    => $translate->_('Reset my password'),
             'decorators' => array('Bootstrap'),
-        	'class'      => 'button'
+        	'class'      => 'btn btn-danger'
         ));
         
     }

@@ -15,8 +15,8 @@ class Admin_Form_LoginForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'required'   => true,
             'description'      => 'Write your own email',
-            'label'      => $translate->_('Email'),
-            'class'      => 'form-control'
+            'placeholder'      => $translate->_('Email'),
+            'class'      => 'form-control input-sm'
         ));
         
         $this->addElement('password', 'password', array(
@@ -27,8 +27,8 @@ class Admin_Form_LoginForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'description'      => 'Write your own password',
             'required'   => true,
-            'label'      => $translate->_('Password'),
-            'class'      => 'form-control'
+            'placeholder'      => $translate->_('Password'),
+            'class'      => 'form-control input-sm'
         ));
 
         $this->addElement('checkbox', 'rememberme', array(
@@ -39,7 +39,7 @@ class Admin_Form_LoginForm extends Zend_Form
         $this->addElement('submit', 'login', array(
             'label'    => $translate->_('Login'),
             'decorators' => array('Bootstrap'),
-        	'class'      => 'btn'
+        	'class'      => 'btn btn-info'
         ));
         
     }
