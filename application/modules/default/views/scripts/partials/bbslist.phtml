@@ -1,19 +1,17 @@
-<?php if (isset($this->records)):?>
-		<div class="row">
-		    <?php foreach ($this->records as $record): ?>
-		        <div class="col-lg-12">
-    		        <div class="media">
-    		    	    <?php echo !empty($record['Customers']['customeremail']) ? $this->Avatar($record['Customers']['customeremail'], 60, array('class' => 'media-object')) : $this->Avatar($record['Isp']['ispemail'], 60, array('class' => 'media-object')) ?>
-        		        <div class="media-body">
-                            <h4 class="media-heading"><?php echo !empty($record['isp']) ? $record['company'] : $record['fullname']; ?> <small><?php echo $record['dateposted']; ?></small></h4>
-                            <?php echo $record['message']  ?>
-                        </div>
-                    </div>
-                </div>
-		    <?php endforeach; ?>
-		    
-	    </div>
-    <?php else: ?>
-        <div class="alert alert-success"><?php echo $this->translate('No Records')?></div>
-<?php endif; ?>
 
+<?php if ($this->records->count()):?>
+	
+	<ul class="media-list">
+		<?php foreach ( $this->records as $record ) : ?>
+		<li class="media">
+		    <?php echo !empty($record->customer_id) ? $this->Avatar( $record->Customers->email, 60 ) : $this->Avatar ( $record->Isp->email, 60 ); ?>
+		    <div class="media-body">
+		    	<h4 class="media-heading"><?php echo !empty($record->customer_id) ?  $record->Customers->lastname . " " . $record->Customers->firstname :  $record->Isp->company; ?> <small><?php echo  $record->dateposted; ?></small></h4>
+		    	<div class="message-body"><?php echo  $record->message; ?></div>		
+		    </div> 
+		</li>
+		<?php endforeach;?>
+	</ul>
+<?php else: ?>
+    <div class="alert alert-info"><?php echo $this->translate('No Records')?></div>
+<?php endif; ?>

@@ -322,7 +322,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Post a comment'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control postcomment wysiwygsimple'
+            'class'      => 'form-control wysiwyg'
         ));        
         
         

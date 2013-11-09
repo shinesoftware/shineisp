@@ -4,12 +4,9 @@
 	<ul class="media-list">
 		<?php foreach ( $this->records as $record ) : ?>
 		<li class="media">
-		    <div class="pull-left">
-		    	<?php echo !empty($record->customer_id) ? Shineisp_Commons_Gravatar::get_gravatar ( $record->Customers->email, 60 ) : Shineisp_Commons_Gravatar::get_gravatar ( $record->Isp->email, 60 ); ?>
-		    </div>
+		    <?php echo !empty($record->customer_id) ? $this->Avatar( $record->Customers->email, 60 ) : $this->Avatar ( $record->Isp->email, 60 ); ?>
 		    <div class="media-body">
-		    	<h4 class="media-heading"><?php echo !empty($record->customer_id) ?  $record->Customers->lastname . " " . $record->Customers->firstname :  $record->Isp->company; ?></h4>
-		    	<small><?php echo  $record->dateposted; ?></small>
+		    	<h4 class="media-heading"><?php echo !empty($record->customer_id) ?  $record->Customers->lastname . " " . $record->Customers->firstname :  $record->Isp->company; ?> <small><?php echo  $record->dateposted; ?></small></h4>
 		    	<div class="message-body"><?php echo  $record->message; ?></div>		
 		    </div> 
 		</li>

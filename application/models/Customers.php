@@ -828,7 +828,7 @@ class Customers extends BaseCustomers {
 	 * @param $id
 	 * @return Doctrine Record
 	 */
-	public static function getEmail($id) {
+	public static function getEmailAddress($id) {
 		$record = Doctrine_Query::create ()->select ( "email" )->from ( 'Customers c' )
 									   ->where ( "customer_id = ?", $id )
                                        ->andWhere( "isp_id = ?", Isp::getCurrentId() )
