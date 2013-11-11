@@ -149,8 +149,8 @@ class Domains extends BaseDomains {
 		}
 
 		
-		$pagerLayout->setTemplate ( '<a href="{%url}">{%page}</a> ' );
-		$pagerLayout->setSelectedTemplate ( '<a class="active" href="{%url}">{%page}</a> ' );
+		$pagerLayout->setTemplate ( '<li><a href="{%url}">{%page}</a></li>' );
+		$pagerLayout->setSelectedTemplate ( '<li class="active"><a href="{%url}">{%page}</a></li>' );
 		
 		$domains = $pagerLayout->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		$pagination = $pagerLayout->display ( null, true );

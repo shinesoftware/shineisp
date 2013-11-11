@@ -156,7 +156,7 @@ class OrdersController extends Shineisp_Controller_Default {
 					$this->view->statushistory = StatusHistory::getStatusList($id);
 					
 					// Show the list of the messages attached to this domain
-					$this->view->messages = Messages::find ( 'order_id', $id, true );
+					$this->view->messages = Messages::getbyOrderId($id);
 					
 					$this->view->headTitle()->prepend ($this->translator->_('Order %s', $rs [0]['order_number']));
 					

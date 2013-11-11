@@ -8,6 +8,21 @@ body {
 	margin: 0 auto;
 }
 
+/* ------ MEDIA -------- */
+
+.media-list div.media-body{
+    margin-left: 80px;
+}
+
+.media-list li.media{
+	border-bottom: 1px solid #EEEEEE;
+    padding: 20px;
+}
+
+.media-list .media-heading{
+    margin-bottom: 8px;
+}
+
 /* ------ CAROUSEL -------- */
 .carousel-wrapper {
 	background-color: #eee;
@@ -87,6 +102,14 @@ body {
 	font-size: 14px;
 	text-align: right;
 }
+
+/* ------ CONTROL PANEL -------- */
+.table .pagination{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.media{margin-bottom: 20px}
 
 /* ------ HOMEPAGE -------- */
 

@@ -104,23 +104,26 @@ if (isset($this->records[0])):
                                <?php echo $this->translate('Select the items and then use the bulk action system to set more than one item.');?>
                             <?php endif; ?> 
                        </div>
-                       <div class="row"></div>
-                           <div class="col-lg-6"><?php echo $this->translate('Records');?>: <?php echo $this->recordcount?></div>
+                       <div class="row">
+                           <div class="col-lg-6">
+                               <ul class="pagination"><?php echo $this->pagination; ?></ul>
+                           </div>
                            <div class="col-lg-6 text-right">
-                                <?php echo $this->translate('Records per page');?>: 
-                                <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/5">5</a>
-                                <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/15">15</a>
-                                <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/30">30</a>
-                                <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/50">50</a>
-                                <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/100">100</a>
-                                <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/all"><?php echo $this->translate('Show All');?></a>
+                                <ul class="pagination"> 
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/5">5</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/15">15</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/30">30</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/50">50</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/100">100</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/all"><?php echo $this->translate('Show All');?></a></li>
+                                </ul>
                            </div>
                        </div>
                    </td>
                 </tr>
             </tfoot>
         </table>
-        <div class="pagination"><?php echo $this->pagination; ?></div>
+        <div class="text-right"><?php echo $this->translate('Records');?>: <span class="label label-default"><?php echo $this->recordcount?></span></div>
     <?php else: ?>
     <div class="alert alert-warning alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>

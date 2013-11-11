@@ -279,7 +279,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 					$this->view->title = $this->translator->_( "Order nr. %s", $rs['order_number']);
 				}
 				
-				$this->view->messages = Messages::find ( 'order_id', $id, true );
+				$this->view->messages = Messages::getbyOrderId ($id);
 			} else {
 				$this->_helper->redirector ( 'list', 'orders', 'admin' );
 			}

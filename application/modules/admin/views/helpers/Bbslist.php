@@ -10,16 +10,21 @@
  * @uses viewHelper Zend_View_Helper
  */
 class Admin_View_Helper_Bbslist extends Zend_View_Helper_Abstract {
-	public function bbslist($data) {
+	
+	/**
+	 * Create a messages list
+	 * 
+	 * @param Messages $messages
+	 */
+	public function bbslist($messages) {
 		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$this->view->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$this->view->action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		
-		if (count ( $data ) > 0) {
-			$data [0] ['message'] = $data [0] ['message'];
+		if ($messages->count()) {
 
 			// All the records 
-			$this->view->records = $data;
+			$this->view->records = $messages;
 			
 			// Path of the template
 			return $this->view->render ( 'partials/bbslist.phtml' );

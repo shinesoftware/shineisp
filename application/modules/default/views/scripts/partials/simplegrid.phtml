@@ -12,14 +12,14 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-    <table class="table" width="100%" id="sublist_<?php echo $this->name?>">
+    <table class="table table table-striped" id="sublist_<?php echo $this->name?>">
             <thead>
                 <tr>
                     <?php // Creation of the Rows and Columns?>
                     <?php foreach ( $columns as $column ) : ?>
                     	<th><?php echo $column; ?></th>
                     <?php endforeach;?>
-                    <?php if($this->edit || $this->delete || $this->actions ):?><th><?php echo $this->translate('Commands');?></th><?php endif;?>
+                    <?php if($this->edit || $this->delete || $this->actions ):?><th><?php echo $this->translate('Actions');?></th><?php endif;?>
                 </tr>
             </thead>
             

@@ -268,8 +268,8 @@ class Orders extends BaseOrders {
 			}
 		}
 		
-		$pagerLayout->setTemplate ( '<a href="{%url}">{%page}</a> ' );
-		$pagerLayout->setSelectedTemplate ( '<a class="active" href="{%url}">{%page}</a> ' );
+		$pagerLayout->setTemplate ( '<li><a href="{%url}">{%page}</a></li>' );
+		$pagerLayout->setSelectedTemplate ( '<li class="active"><a href="{%url}">{%page}</a></li>' );
 		
 		$orders = $pagerLayout->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		$pagination = $pagerLayout->display ( null, true );
@@ -454,8 +454,8 @@ class Orders extends BaseOrders {
 					if ($retval) {
 						$in_reply_to = md5($id);
 						
-						// Save the message
-						Messages::addMessage($params ['message'], $order [0] ['Customers'] ['customer_id'], null, $id, null, $isp_id);
+						// Save the message written by the ISP owner
+						Messages::addMessage($params ['message'], null, null, $id, null, $isp_id);
 
 						// Create the array with all the placeholders 
 						$placeholders['fullname'] = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];

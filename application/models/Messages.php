@@ -32,6 +32,25 @@ class Messages extends BaseMessages
         $items = $dq->execute ( array (), $retarray );
         
         return $items;
+    } 
+       
+    /**
+     * Get all messages attached to a order
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyOrderId($orderid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "order_id = ?" , $orderid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
     }    
     
 	/**
@@ -101,13 +120,7 @@ class Messages extends BaseMessages
     	
     	if(!empty($note)){
     		
-	    	if(!is_numeric($customerID)){
-	    		return false;
-	    	}
-	    	
 	    	$customer = Customers::get_by_customerid($customerID);
-	    	
-	    	$isp = Isp::getActiveISP ();
 	    	
 			$message->dateposted = date ( 'Y-m-d H:i:s' );
 			$message->message = $note;
