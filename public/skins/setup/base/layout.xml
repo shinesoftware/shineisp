@@ -21,7 +21,6 @@
 		<!-- Common files called at the start of the setup module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-				<css>/css/style.css</css>
 				<js>/js/setup.js</js>
 			</head>
 		</commons>
