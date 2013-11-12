@@ -19,25 +19,24 @@ class Admin_Form_LanguagesForm extends Zend_Form
         $this->addElement('text', 'locale', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Locale'),
-        	'description'=> $translate->_('Write here the name of the locale (eg. en). Then you have to create the en.mo file in the /application/languages/en.mo'),
+        	'description'=> $translate->_('Write here the name of the locale (eg. en_US).'),
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control'
         ));
         
-        $this->addElement('text', 'code', array(
+        $this->addElement('select', 'code', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Code'),
         	'description'=> $translate->_('Write here the name of the locale (eg. en). '),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'class'      => 'form-control',
+            'multioptions' => Languages::getLanguageFiles()
         ));
 
-        $this->addElement('select', 'active', array(
+        $this->addElement('checkbox', 'active', array(
         		'decorators'  => array('Bootstrap'),
         		'label'       => $translate->_('Active'),
-        		'class'       => 'form-control',
-        		'description' => $translate->_('Set the status of the translation language'),
-        		'multioptions' => array( 0=>'NO', 1=> 'YES')
+        		'class'       => 'form-control'
         ));
 
         $this->addElement('select', 'base', array(

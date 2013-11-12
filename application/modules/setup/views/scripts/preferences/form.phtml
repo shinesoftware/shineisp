@@ -1,9 +1,9 @@
 <?php $form = $this->form ?>
 
 <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="setup">
-	<div id="page_wrapper">
-		<div id="page">
-			<?= $this->render('partials/header.phtml') ?>		
+	<div class="row" id="page_wrapper">
+		<div class="col-lg-12" id="page">
+			<?php echo  $this->render('partials/header.phtml') ?>		
 			<div id="content">
 				<div class="progress" style="display:none">Please wait a moment...</div>
 				
@@ -11,19 +11,21 @@
 					 <div class="notification error"><?php echo $this->error?></div>
 				<?php endif;?>
 				
-				<fieldset>
-					<legend><?php echo $this->translate('Preferences Settings')?></legend>
-					<?php echo $form->company->render() ?>
-					<?php echo $form->firstname->render() ?>
-					<?php echo $form->lastname->render() ?><br/><br/>
-					<?php echo $form->email->render() ?>
-					<?php echo $form->vatnumber->render() ?><br/><br/>
-					<?php echo $form->password->render() ?>
-					<?php echo $form->password_confirm->render() ?><br/><br/>
-					<?php echo $form->sampledata->render() ?>
-				</fieldset>
+				<div class="panel panel-default">
+                    <div class="panel-heading"><?php echo $this->translate('Preferences Settings')?></div>
+                    <div class="panel-body">
+    					<?php echo $form->company->render() ?>
+    					<?php echo $form->firstname->render() ?>
+    					<?php echo $form->lastname->render() ?><br/><br/>
+    					<?php echo $form->email->render() ?>
+    					<?php echo $form->vatnumber->render() ?><br/><br/>
+    					<?php echo $form->password->render() ?>
+    					<?php echo $form->password_confirm->render() ?><br/><br/>
+    					<?php echo $form->sampledata->render() ?>
+				    </div>
+				</div>
 				<div class="submit"><?php echo $form->submit->render() ?></div>
-				<?= $this->render('partials/footer.phtml') ?>			
+				<?php echo  $this->render('partials/footer.phtml') ?>			
 			</div>		
 		</div>
 	</div>
