@@ -16,6 +16,10 @@ body {
 	padding-right: 10px;
 }
 
+.navbar-nav-right{
+	float:right;
+}
+
 /* ------ MEDIA -------- */
 
 .media-list div.media-body{
@@ -104,4 +108,14 @@ ul.stats li {
 ul.stats li strong,ul.stats li small,ul.stats li span {
 	display: block;
 	text-align: center;
+}
+
+
+/* ------ MEDIA -------- */
+
+@media(max-width:767px){
+	.navbar-nav-right {float: none;}
+    .navbar-form {margin-right:5px;margin-left:5px;}
+	.navbar-nav.pull-right > li > .dropdown-menu, .navbar-nav > li > .dropdown-menu.pull-right{float: left !important}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {padding-left: 10px !important}
 }
