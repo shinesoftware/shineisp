@@ -5,7 +5,7 @@
 <form method="POST" id="domainbox" class="custom dropbox" action="/domainschk/save">
 	
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-12 col-md-12 col-xs-12">
 				<div id="mainresult" class="<?php echo $results['available'] ? "yes" : "no"?>">
 				<h3><?php echo $results['domain']?></h3>
 				<p><b><?php echo $results['price'] ?></b></p>
@@ -42,7 +42,7 @@
 	</div>
 	
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-12 col-md-12 col-xs-12">
 			<div id="suggestions" class="row">
 				<h5><?php echo $this->translate('Domain Suggestions')?></h5>
 				<table>
@@ -68,7 +68,7 @@
 </form>
 
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-12 col-md-12 col-xs-12">
 		<h5><?php echo $this->translate('Search another domain name')?></h5>
 	    <div id="domainchecker" class="checkerform">
 		    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" class="custom dropdown" action="<?php echo $this->form->getAction()?>">

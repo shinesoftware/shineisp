@@ -42,7 +42,7 @@
     <fieldset>
     	<legend><?php echo $this->translate('Address') ?></legend>
         <div class="row">
-			<div class="col-lg-12s"> 
+			<div class="col-lg-12 col-md-12 col-xs-12s"> 
 	            <?php echo $form->address->render()?>
 	            <?php echo $form->code->render()?>
 	            <?php echo $form->city->render()?>
@@ -55,7 +55,7 @@
    <fieldset>
     	<legend><?php echo $this->translate('Contacts') ?></legend>
         <div class="row">
-			<div class="col-lg-12s">
+			<div class="col-lg-12 col-md-12 col-xs-12s">
 	             <?php echo $this->simplegrid($this->contactsdatagrid);?>
 	             <?php echo $form->contacttypes->render()?>
 	             <?php echo $form->contact->render()?>
@@ -67,7 +67,7 @@
 	   <fieldset>
 	    	<legend><?php echo $this->translate('My Customers') ?></legend>
 	        <div class="row">
-				<div class="col-lg-12s">
+				<div class="col-lg-12 col-md-12 col-xs-12s">
 		        	<?php echo  $this->simplegrid($this->clients);?>
 			    </div>
 			</div>
@@ -78,7 +78,7 @@
    <fieldset>
     	<legend><?php echo $this->translate('Newsletter') ?></legend>
         <div class="row">
-			<div class="col-lg-12s">
+			<div class="col-lg-12 col-md-12 col-xs-12s">
 	       		<?php echo $form->newsletter->render()?>
 		    </div>
 	   </div>

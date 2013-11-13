@@ -22,7 +22,7 @@
 		    	<p align="right"><a class="button small" href="/tickets"><?php echo $this->translate('Tickets list') ?></a></p>
 	    	</div>
 	    	
-	    	<div class="col-lg-12">
+	    	<div class="col-lg-12 col-md-12 col-xs-12">
 		    	<?php echo $this->Attachments($this->summary['ticket_id'], 'tickets'); ?>
 	    	</div>
 		</div>
@@ -62,7 +62,7 @@
 	<?php endif;?>
 	
 	<div class="row"> 
-	    <div class="col-lg-12"> 
+	    <div class="col-lg-12 col-md-12 col-xs-12"> 
 	    	
 			<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
 			

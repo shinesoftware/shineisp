@@ -3,7 +3,7 @@
 <?php $price = $this->prices; ?>
 
 <div class="row">   
-	<div class="col-lg-12">   
+	<div class="col-lg-12 col-md-12 col-xs-12">   
 		<? if( $form->isErrors() ): ?>
 		    <div class="messages">    
 		       <? foreach( $form->getElements() as $field){
@@ -23,7 +23,7 @@
 		<form method="<?php echo $form->getMethod() ?>" id="productdetail" class="custom dropdown" action="<?php echo $form->getAction()?>">
 				
 		        <div class="row">
-		        	<div class="header col-lg-12">
+		        	<div class="header col-lg-12 col-md-12 col-xs-12">
 				        <?php // Hidden form fields ?>
 						<?php echo $form->product_id->setDecorators(array('ViewHelper'))?>
 			       	    
@@ -42,10 +42,10 @@
 			    
 		            <div class="col-lg-4" id="product-images">
 		            	<div class="row">
-		        			<div class="media col-lg-12">
+		        			<div class="media col-lg-12 col-md-12 col-xs-12">
 		                		<?php echo $this->media()->ProductImage($this->product['product_id'], 200, 200, true);?>
 		                	</div>
-		                	<div class="col-lg-12">
+		                	<div class="col-lg-12 col-md-12 col-xs-12">
 				                <?php if($price['type'] == "multiple"): ?>
 					                <ul class="sticker list-unstyled hidden">
 					                   <li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->product['price_1'] ?></span> <em>x</em> <em id="pricefreq" class="pricefreq"></em></li>
@@ -67,7 +67,7 @@
 		            <div class="col-lg-8">
 	
 		                <div class="row">
-		                	<div class="shortdescription col-lg-12">
+		                	<div class="shortdescription col-lg-12 col-md-12 col-xs-12">
 		                		<?php echo $this->blocks()->showblock('products_before_shortdescription');?>
 		                		<?php echo $this->product['shortdescription']?>
 		                		<?php echo $this->blocks()->showblock('products_after_shortdescription');?>
@@ -88,7 +88,7 @@
                         </div>
 		                
 		                <div class="row">
-		                	<div class="col-lg-12">
+		                	<div class="col-lg-12 col-md-12 col-xs-12">
 		                		<?php echo $this->blocks()->showblock('products_before_keywords');?>
 				             	<?php if(!empty($this->product['metakeywords'])): ?>
 				                	<small><?php echo $this->translate('Keywords') ?>: <?php echo $this->product['metakeywords']?></small>
@@ -101,7 +101,7 @@
 			    </div>
 			    
 			    <div class="row">
-			    	<div class="description col-lg-12">
+			    	<div class="description col-lg-12 col-md-12 col-xs-12">
 			            <?php echo $this->blocks()->showblock('products_before_description');?>
 			            <?php echo $this->product['description']?>
 			            <?php echo $this->blocks()->showblock('products_after_description');?>
@@ -109,7 +109,7 @@
 			    </div>
 			    
 			    <div class="row">
-			    	<div class="features col-lg-12">
+			    	<div class="features col-lg-12 col-md-12 col-xs-12">
 			            <?php echo $this->blocks()->showblock('features');?>
 			    	</div>
 			    </div>
@@ -118,13 +118,13 @@
 		</form>
 		
 		<div class="row">
-			<div class="reviews col-lg-12">
+			<div class="reviews col-lg-12 col-md-12 col-xs-12">
 				<?php echo $this->reviews($this->reviewsdata)?>
 			</div>
 		</div>
 		
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-xs-12">
 				<?php echo $this->blocks()->showblock('products_end');?>
 			</div>
 		</div>

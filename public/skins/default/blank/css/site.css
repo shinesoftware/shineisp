@@ -86,22 +86,19 @@ body {
 
 /* ------ PRODUCTS -------- */
 .prices {
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 .priceincludedvat {
 	font-size: 20px;
-	text-align: right;
 }
 
 .pricenotincludedvat {
 	font-size: 14px;
-	text-align: right;
 }
 
 .subscription {
 	font-size: 14px;
-	text-align: right;
 }
 
 /* ------ CONTROL PANEL -------- */
@@ -121,6 +118,10 @@ body {
 
 
 /* ------ MEDIA -------- */
+
+@media(max-width:640px){
+	.prices { margin-top: 0px; background-color: #eee; padding: 5px;}
+}
 
 @media(max-width:767px){
 	.navbar-nav-right {float: none;}

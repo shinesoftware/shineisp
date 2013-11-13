@@ -2,7 +2,7 @@
 <?php $taxes = Taxes::getTaxbyTldID($tld['tld_id'])?>
 
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-12 col-md-12 col-xs-12">
 	
 		<h4><?php echo $this->translate('Domain') . " ." . $tld['DomainsTldsData'][0]['name'] ?></h4>	
 		<p><b><?php echo $this->translate('Tags') ?></b>: <?php echo $tld['DomainsTldsData'][0]['tags'] ?></p>	
@@ -45,7 +45,7 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-xs-12">
 				<h5><?php echo $this->translate('Other extensions') ?></h5>
 				<ul class="list-inline">
 				<?php foreach ($this->tldslist as $id=>$tld):?>
