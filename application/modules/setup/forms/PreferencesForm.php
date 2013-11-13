@@ -18,14 +18,6 @@ class Setup_Form_PreferencesForm extends Zend_Form
         		'class'      => 'form-control'
         ));
         
-        
-        $this->addElement('select', 'sampledata', array(
-        		'decorators'  => array('Bootstrap'),
-        		'label'       => 'Install Sample Data',
-        		'class'       => 'form-control',
-        		'multioptions' => array(  1=> 'YES, please install the sample data', 0=>'NO, thanks I don\'t need them')
-        ));
-        
         $this->addElement($email);
         
         // Password manager
@@ -34,10 +26,10 @@ class Setup_Form_PreferencesForm extends Zend_Form
         $password = $this->addElement('password', 'password', array(
         		'filters' => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
-        		'description'       => 'Write here your password. (min.8 chars - max.20 chars)',
+        		'description'       => 'Write here your administrator password. (min.8 chars - max.20 chars)',
         		'validators' => array(
         				$passwordConfirmation,
-        				array('StringLength', false, array(8, 100)),
+        				array('StringLength', false, array(8, 20)),
         		),
         		'class'       => 'form-control',
         		'required' => true,
@@ -47,10 +39,10 @@ class Setup_Form_PreferencesForm extends Zend_Form
         $password_confirm = $this->addElement('password', 'password_confirm', array(
         		'filters' => array('StringTrim'),
         		'decorators'  => array('Bootstrap'),
-        		'description'       => 'Please repeat the password',
+        		'description'       => 'Please repeat the administrator password',
         		'validators' => array(
         				$passwordConfirmation,
-        				array('StringLength', false, array(8, 100)),
+        				array('StringLength', false, array(8, 20)),
         		),
         		'class'       => 'form-control',
         		'required' => true,
@@ -62,14 +54,6 @@ class Setup_Form_PreferencesForm extends Zend_Form
         		'filters'    => array('StringTrim'),
         		'decorators' => array('Bootstrap'),
         		'label'      => 'Company', 
-        		'required' => true,
-        		'class'       => 'form-control'
-        ));
-
-        $this->addElement('text', 'vatnumber', array(
-        		'filters'    => array('StringTrim'),
-        		'decorators' => array('Bootstrap'),
-        		'label'      => 'VAT Number',
         		'required' => true,
         		'class'       => 'form-control'
         ));
@@ -93,7 +77,7 @@ class Setup_Form_PreferencesForm extends Zend_Form
         $this->addElement('submit', 'submit', array(
             'label'    => 'Continue',
             'decorators' => array('Bootstrap'),
-            'class'    => 'btn btn-primary btn-lg'
+            'class'    => 'btn btn-success btn-lg'
         ));
         
         

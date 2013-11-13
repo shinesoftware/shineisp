@@ -8,19 +8,23 @@
                 <div class="panel-heading"><?php echo $this->translate('Summary')?></div>
                 <div class="panel-body">
     				<h2><?php echo $this->translate('Setup has been Completed!')?></h2>
-    				<p><?php echo $this->translate('ShineISP has been configured. Now you can start to customize your ShineISP configuration.')?></p><br/><br/>
+    				<p><?php echo $this->translate('ShineISP has been configured. Now you can start to customize your ShineISP configuration.')?></p><br/>
     				
     				<h4><?php echo $this->translate('Administration Credentials')?></h4>
     				<p>
     					<?php echo $this->translate('Please write down your own credentials to login at the administration control panel.')?><br/>
     					<?php echo $this->translate('Email')?>: <b><?php echo $summary['email'] ?></b><br/>
     					<?php echo $this->translate('Password')?>: <b><?php echo $summary['password'] ?></b>
-    				</p><br/><br/>
-    				
-    				<h4><?php echo $this->translate('ShineISP Disclaimer')?></h4>
-    				<p><?php echo nl2br(Shineisp_Commons_Utilities::readfile(PUBLIC_PATH . "/../LICENSE")) ?></p><br/>
-    				<a class="adminbutton btn btn-primary" target="_blank" href="/admin"><?php echo $this->translate('Administration')?></a>
-    				<a class="publicbutton btn btn-primary" target="_blank" href="/"><?php echo $this->translate('Public Site')?></a>
+    				</p>
+    				<a href="https://twitter.com/intent/tweet?screen_name=shine_software&text=Thanks%20for%20ShineISP!" class="twitter-mention-button" data-size="large" data-related="shine_software">Tweet to @shine_software</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<a href="https://twitter.com/shine_software" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @shine_software</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    				<div class="text-right">
+    					<a class="btn btn-success" target="_blank" href="/admin"><?php echo $this->translate('Administration')?></a>
+    					<a class="btn btn-primary" target="_blank" href="/"><?php echo $this->translate('Public Site')?></a>
+    				</div>
     			</div>
 			</div>
 			<?php echo  $this->render('partials/footer.phtml') ?>			

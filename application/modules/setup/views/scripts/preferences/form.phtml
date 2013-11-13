@@ -15,14 +15,16 @@
 				<div class="panel panel-default">
                     <div class="panel-heading"><?php echo $this->translate('Preferences Settings')?></div>
                     <div class="panel-body">
-    					<?php echo $form->company->render() ?>
-    					<?php echo $form->firstname->render() ?>
-    					<?php echo $form->lastname->render() ?><br/><br/>
-    					<?php echo $form->email->render() ?>
-    					<?php echo $form->vatnumber->render() ?><br/><br/>
-    					<?php echo $form->password->render() ?>
-    					<?php echo $form->password_confirm->render() ?><br/><br/>
-    					<?php echo $form->sampledata->render() ?>
+                    	<div class="col-lg-6 col-md-6 col-xs-12">
+	                    	<?php echo $form->company->render() ?>
+	    					<?php echo $form->firstname->render() ?>
+	    					<?php echo $form->lastname->render() ?>
+	    					<?php echo $form->email->render() ?>
+                    	</div>
+                    	<div class="col-lg-6 col-md-6 col-xs-12">
+                    		<?php echo $form->password->render() ?>
+	    					<?php echo $form->password_confirm->render() ?>
+                    	</div>
 				    </div>
 				</div>
 				<div class="pull-right"><?php echo $form->submit->render() ?></div>

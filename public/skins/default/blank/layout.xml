@@ -23,12 +23,11 @@
 		
 		    <!-- All the head js and css files will be attached in all the header of the pages -->
 			<head>
-				<css>/css/site.css</css>  
-				
+			    
 			    <js position="endbody">/js/commons.js</js>
-			    <js position="endbody">/js/stickyfooter.js</js>
 			    <js position="endbody">/js/priceloader.js</js>
                 
+                <css>/css/site.css</css>
 			</head>
 			
 			<!-- All these blocks will be attached in all the pages 
