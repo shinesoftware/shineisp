@@ -4,12 +4,12 @@
 	
     <?php echo $this->render('includes/top.phtml') ?>
     
-    <div class="row content_start">
-    	<aside class="col-lg-4 columns">
+    <div id="content" class="container">
+    	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
     		<?php echo $this->blocks()->showblock('left');?>
-    	</aside>
+    	</div>
     	
-    	<div class="col-lg-8 columns" role="content">
+    	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
 	        <?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>

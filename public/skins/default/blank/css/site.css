@@ -23,15 +23,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* ------ CAROUSEL -------- */
-.carousel-wrapper {
-	background-color: #eee;
-}
-
-.carousel {
-	margin: 0 auto;
-	width: 1280px;
-}
 
 /* ------ COMMONS -------- */
 
@@ -53,17 +44,10 @@ body {
 	padding-top: 10px;
 }
 
-#content { 
-	margin-bottom: 70px;
-}
-
-#footer{
-	clear: both;
-	position: relative;
-	z-index: 10;
-	height: 170px;
-	padding-top: 20px;
-	margin-top: -20px;
+#footer {
+	margin-bottom: 0px;
+    margin-top: 40px;
+    padding-top: 20px;
 }
 
 /* ------ CATEGORIES -------- */
