@@ -204,28 +204,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
-	
-	/*
-	public function gettrancheAction() {
-		$id = $this->getRequest ()->getParam ( 'id' );
-		$trance	= ProductsTranches::getTranchebyId($id);
 
-		$params	= array();
-		$params['title']	= 'Update billing or <a href="#" onclick="return onCleanTranche()">Insert new</a>';
-		$params['quantity']	= $trance['quantity'];
-		$params['setupfee']	= $trance['setupfee'];
-		$params['price']	= $trance['price'];
-		$params['billing_cycle_id']	= $trance['billing_cycle_id'];
-		$params['measurement']	= $trance['measurement'];	
-		
-		$params['cost']				= array();
-		//$params['cost']['title']	= 			
-		echo json_encode($params);
-		exit();
-	}*/
-	
 	/**
-	 * editAction
 	 * Get a record and populate the application form 
 	 * @return unknown_type
 	 */

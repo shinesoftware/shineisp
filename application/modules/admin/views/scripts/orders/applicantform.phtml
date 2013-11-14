@@ -22,7 +22,7 @@
 		</ul>
     	<div class="tab-content">
 		    <div class="tab-pane active" id="tab1"> 
-			    <div class="col-sm-6 col-xs-12"> 
+			    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
 			        <?php echo $form->customer_id->render() ?>
 			        <?php echo $form->customer_parent_id->render() ?>
 			        <?php echo $form->invoice_id->render() ?>
@@ -32,18 +32,18 @@
 			        <?php echo $form->visits->render() ?>
 			    </div>
 			    
-			    <div class="col-sm-6 col-xs-12">
+			    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		            <?php echo $form->isp_id->render()?>
 		            <?php echo $form->status_id->render()?>
 		            <?php echo $this->status($this->statushistory);?>  <br/>
 		            
 		            <?php echo $form->is_renewal->render()?>
-		            <div class="col-sm-6 col-xs-12">
+		            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			            <?php echo $form->cost->render()?>
 			            <?php echo $form->received_income->render()?>
 			            <?php echo $form->missing_income->render()?>
 			        </div>
-			        <div class="col-sm-6 col-xs-12">
+			        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			        	<?php echo $form->setupfee->render()?>
 			        	<?php echo $form->total->render()?>
 			            <?php echo $form->vat->render()?>
@@ -87,13 +87,13 @@
 		   		<?php echo $this->simplegrid($this->paymentsdatagrid);?>
 		   		
 		   		<div class="paymentgroup">
-			   		<div class="col-sm-6 col-xs-12">
+			   		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			   			<?php echo $form->paymentdate->render()?>
 			            <?php echo $form->income->render()?>
 			            <?php echo $form->confirmed->render()?>
 			   		</div>
 			   		
-			   		<div class="col-sm-6 col-xs-12">
+			   		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 				   		<?php echo $form->bank_id->render()?>
 			            <?php echo $form->reference->render()?>
 			            <?php echo $form->payment_description->render()?>
@@ -107,11 +107,11 @@
 		   
 		   <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
 			   <div class="tab-pane" id="tab5">
-			       <div class="col-sm-6 col-xs-12">
+			       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		                <?php echo $form->filecategory->render()?>
 		                <?php echo $form->attachments->render()?>
 		           </div>
-		           <div class="col-sm-6 col-xs-12">
+		           <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		               <?php echo $this->simplegrid($this->filesgrid);?>
 			       </div>
 			   </div>

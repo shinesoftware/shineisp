@@ -183,16 +183,16 @@ class Wiki extends BaseWiki {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject" )
+		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject, l.language as language" )
 									   ->from ( 'Wiki w' )
-									   ->where('w.language_id = ?', $Session->langid);
+									   ->leftJoin('w.Languages l');
 		$retval = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
 			$items [] = $translator->translate ( 'Select ...' );
 		}
 		foreach ( $retval as $c ) {
-			$items [$c ['wiki_id']] = $c ['subject'];
+			$items [$c ['wiki_id']] = $c ['subject'] . " (" . $c['language'] . ")";
 		}
 		
 		return $items;

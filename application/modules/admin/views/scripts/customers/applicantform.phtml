@@ -32,15 +32,15 @@
 		<div class="tab-content">
 		    <div class="tab-pane active" id="tab1">
 			    <div class="row">
-				    <div class="col-sm-6 col-xs-12"> 
+				    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
 				    
 				    	<div class="media">
 				    		<div class="pull-left visible-lg visible-md hidden-xs">
 				    			<?php if($form->email->getValue()): ?><?php echo $this->gravatar($form->email->getValue(), 64) ?><?php endif;?>
 				    		</div>
 				    		<div class="media-body">
-					    		<div class="col-sm-6 col-xs-12"><?php echo $form->firstname->render() ?></div>
-					        	<div class="col-sm-6 col-xs-12"><?php echo $form->lastname->render() ?></div>
+					    		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"><?php echo $form->firstname->render() ?></div>
+					        	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"><?php echo $form->lastname->render() ?></div>
 					        </div>	
 				    	</div>
 				    	
@@ -50,7 +50,7 @@
 				        
 				    </div>
 				    
-				    <div class="col-sm-6 col-xs-12">
+				    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 				    	<?php echo $form->group_id->render()?>
 			            <?php echo $form->legalform_id->render()?>
 			            <?php echo $form->type_id->render()?>
@@ -63,12 +63,12 @@
 		    
 		    <div class="tab-pane" id="tab2"> 
 		    	<div class="row">
-		        	<div class="col-sm-6 col-xs-12"> 
+		        	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
 			            <?php echo $form->taxpayernumber->render()?>
 			            <?php echo $form->birthdate->render()?>
 			            <?php echo $form->birthplace->render()?>
 		            </div>
-		            <div class="col-sm-6 col-xs-12">
+		            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			            <?php echo $form->birthdistrict->render()?>
 			            <?php echo $form->birthcountry->render()?>
 			            <?php echo $form->birthnationality->render()?>
@@ -79,7 +79,7 @@
 		    
 		    <div class="tab-pane" id="tab3"> 
 		    	<div class="row">
-					<div class="col-sm-6 col-xs-12">
+					<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 					    <?php echo $form->country_id->render()?>
 					    <?php echo $form->region_id->render()?>
 					    
@@ -90,7 +90,7 @@
 			            <?php echo $form->code->render()?>
 		            </div>
 		            
-		            <div class="col-sm-6 col-xs-12">
+		            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			            <?php echo $this->mapgrid($this->addressesdatagrid);?>
 		            </div>
 	            </div>
@@ -138,12 +138,12 @@
 			   </div>   
 			   
 			   <div class="tab-pane" id="tab12">
-			   	   <div class="col-sm-6 col-xs-12">
+			   	   <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 				   	   <?php echo $form->language_id->render();?>
 				       <?php echo $form->parent_id->render();?>
 				       <?php echo $form->isreseller->render();?>
 			   	   </div>
-			   	   <div class="col-sm-6 col-xs-12">
+			   	   <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 				   	   <?php echo $form->issubscriber->render();?>
 				       <?php echo $form->taxfree->render();?>
 				       <?php echo $form->ignore_latefee->render();?>
