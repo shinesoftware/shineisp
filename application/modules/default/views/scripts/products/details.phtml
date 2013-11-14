@@ -44,14 +44,14 @@
 				                <?php if($price['type'] == "multiple"): ?>
 					                <ul class="list-unstyled">
 					                   <li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->product['price_1'] ?></span> <em>x</em> <em id="pricefreq" class="pricefreq"></em></li>
-					                   <li class="pricetaxval"><span id="pricetaxval"></span> <?php echo $this->translate('VAT included')?></li>
+					                   <li class="pricetaxval"><span id="pricetaxval"></span> <?php echo $this->translate('Tax included')?></li>
 					                   <li class="setupfeecontainer"><span id="setupfeecontainer"><?php echo $this->translate('Setup fee')?>: <span id="setupfee"></span></span></li>
 					                   <li class="setupfeecontainer"><span id="tranche_includes" class="tranche_includes"></span></li> 
 					                </ul>
 				                <?php else: ?>
 				                 	<ul class="list-unstyled">
 				                 		<li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency'))) ?></span></li>
-					                    <li class="pricetaxval"><span id="pricetaxval"><?php echo $this->currency($price['taxincluded'], array('currency' => Settings::findbyParam('currency'))) ?></span> <?php echo $this->translate('VAT included')?></li>
+					                    <li class="pricetaxval"><span id="pricetaxval"><?php echo $this->currency($price['taxincluded'], array('currency' => Settings::findbyParam('currency'))) ?></span> <?php echo $this->translate('Tax included')?></li>
 					                </ul>
 				                <?php endif;?>
 		                	</div>

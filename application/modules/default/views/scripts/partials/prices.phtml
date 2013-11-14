@@ -1,7 +1,7 @@
 <?php
 
 $showallinfo = $this->showallinfo;
-$vatNotIncludedlabel = $this->translate('Vat Excluded');
+$vatNotIncludedlabel = $this->translate('Tax excluded');
 $measurement = "";
 $bulletlist = "";
 
@@ -30,7 +30,7 @@ if ($this->data ['type'] == "multiple") {
 		}
 		
 		// Print the price
-		$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\">$pricetax " . "</li>";
+		$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('Tax included')."\">$pricetax " . "</li>";
 		$bulletlist .= "<li class=\"pricenotincludedvat\" >$price $measurement $vatNotIncludedlabel</li>";
 
 		// Simple raw text price 
@@ -52,7 +52,7 @@ if ($this->data ['type'] == "multiple") {
 	$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 	
 	// Print the price
-	$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax</strong></li>";
+	$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('Tax included')."\"><strong>$pricetax</strong></li>";
 	$bulletlist .= "<li class=\"pricenotincludedvat\" >$price $vatNotIncludedlabel</li>";
 
 	// Simple raw text price

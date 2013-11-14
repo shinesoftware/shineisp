@@ -1,7 +1,6 @@
 /* ------ GENERAL -------- */
 body {
 	padding-top: 53px;
-	padding-bottom: 270px;
 }
 
 .col-centered {
@@ -54,22 +53,17 @@ body {
 	padding-top: 10px;
 }
 
-.footer-wrapper {
-	background-color: #000000;
-	margin-top: 40px;
-	padding: 20px 30px 30px;
+#content { 
+	margin-bottom: 70px;
 }
 
-.footer-wrapper h4 {
-	color: #ffffff;
-}
-
-.footer-wrapper p {
-	color: #dddddd;
-}
-
-.footer-wrapper a {
-	color: #dddddd;
+#footer{
+	clear: both;
+	position: relative;
+	z-index: 10;
+	height: 170px;
+	padding-top: 20px;
+	margin-top: -20px;
 }
 
 /* ------ CATEGORIES -------- */
@@ -120,8 +114,14 @@ body {
 
 /* ------ MEDIA -------- */
 
+@media(max-width:1024px){
+    #footer {height: auto}
+}
+
 @media(max-width:640px){
 	.prices { margin-top: 0px; background-color: #eee; padding: 5px;}
+    #footer ul li{display: inline-block; padding-left: 5px; padding-right: 5px;}
+    #footer {height: auto}
 }
 
 @media(max-width:767px){

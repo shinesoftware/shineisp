@@ -12,16 +12,16 @@
 		<table>
 			<tr>
 				<td><?php echo $this->translate('Registration price') ?></td>
-				<td><?php echo $this->currency($tld['registration_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)</td>
+				<td><?php echo $this->currency($tld['registration_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('Tax included') ?>)</td>
 			</tr>
 			<tr>
 				<td><?php echo $this->translate('Transfer price') ?></td>
-				<td><?php echo $this->currency($tld['transfer_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)</td>
+				<td><?php echo $this->currency($tld['transfer_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('Tax included') ?>)</td>
 			</tr>
 			<tr>
 				<td><?php echo $this->translate('Renewal price')?></td>
 				<td>
-					<?php echo $this->currency($tld['renewal_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)
+					<?php echo $this->currency($tld['renewal_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('Tax included') ?>)
 				</td>
 			</tr>
 		</table>
