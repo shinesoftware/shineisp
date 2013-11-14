@@ -44,9 +44,10 @@ body {
 	padding-top: 10px;
 }
 
+#content .row {margin: 15px 0}
+
 #footer {
 	margin-bottom: 0px;
-    margin-top: 40px;
     padding-top: 20px;
 }
 
