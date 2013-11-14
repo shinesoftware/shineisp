@@ -4,6 +4,8 @@
 	
     <?php echo $this->render('includes/top.phtml') ?>
     
+    <?php echo $this->blocks()->showblock('beforecontent');?>
+    
     <div id="content" class="container">
     	<div class="col-sm-9 col-md-9 col-lg-9" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
@@ -17,10 +19,11 @@
     	
     </div>	<!-- End #main-container -->
     
+    <?php echo $this->blocks()->showblock('aftercontent');?>
+    
     <!-- Start #footer -->
     <?php echo $this->render('includes/footer.phtml') ?> 
     <!-- End #footer -->
     
 <?php echo $this->render('includes/endpage.phtml') ?>    
 	    
-    	

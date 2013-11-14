@@ -8,7 +8,7 @@
         		<div class="col-lg-8 col-sm-8 col-md-8 ">
         			<p>ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a><br/><a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/></p>	</div>
         		<div class="col-lg-4 col-sm-4 col-md-4 ">
-        		  	<p class="pull-right"><?php echo $this->querycount();?> <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></p>
+        		  	<p class="pull-right"><?php if($this->querycount()): ?><span class="label label-info"><i class="fa fa-bar-chart-o"></i><?php endif;?> <?php echo $this->querycount();?></span> <span class="label label-info"><i class="fa fa-signal"></i> <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></span></p>
         		</div>
         	</div>
         </div>

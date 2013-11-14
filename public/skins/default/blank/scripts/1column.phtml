@@ -1,8 +1,10 @@
 <?php echo $this->render('includes/startpage.phtml') ?>
 
-	<?php echo $this->render('includes/top.phtml') ?>
-		
 	<?php echo $this->blocks()->showblock('startbody');?>
+	
+	<?php echo $this->render('includes/top.phtml') ?>
+	
+	<?php echo $this->blocks()->showblock('beforecontent');?>
 
     <div id="content" class="container">
     
@@ -18,6 +20,8 @@
 		</div> 
 
     </div>	<!-- End #main-container -->
+    
+    <?php echo $this->blocks()->showblock('aftercontent');?>
     
     <!-- Start #footer -->
     <?php echo $this->render('includes/footer.phtml') ?> 
