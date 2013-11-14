@@ -1,4 +1,5 @@
 <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <?php echo $this->blocks()->showblock('beforefooter');?>
 	<?php echo $this->footer();?>
     <?php echo $this->blocks()->showblock('footer');?>
     <div class="copyright-wrapper hidden-xs">
@@ -12,4 +13,5 @@
         	</div>
         </div>
     </div>
+    <?php echo $this->blocks()->showblock('endfooter');?> 
 </div>

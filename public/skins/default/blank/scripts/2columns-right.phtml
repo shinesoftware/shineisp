@@ -17,15 +17,10 @@
     	
     </div>	<!-- End #main-container -->
     
-    <div class="footer-wrapper row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </div>
- 
-	<?php echo $this->blocks()->showblock('endfooter');?>    
+    <!-- Start #footer -->
+    <?php echo $this->render('includes/footer.phtml') ?> 
+    <!-- End #footer -->
     
-    <?php echo $this->blocks()->showblock('endbody');?>
-    
-<?php echo $this->render('includes/endpage.phtml') ?>
-
+<?php echo $this->render('includes/endpage.phtml') ?>    
+	    
     	
