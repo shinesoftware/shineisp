@@ -6,14 +6,14 @@
     <fieldset>
     	<legend><?php echo $this->translate('Generic data') ?></legend>
         <div class="row">
-			<div class="col-lg-6"> 
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
 				<?php echo $form->firstname->render() ?>
 	        	<?php echo $form->lastname->render()?>
 	        	<?php echo $form->email->render()?>
 	        	<?php echo $form->password->render()?>
 	        </div>
 	        
-		    <div class="col-lg-6">
+		    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		    	<?php echo $form->legalform->render()?>
 		    	<?php echo $form->company->render()?>
 	            <?php echo $form->company_type_id->render()?>
@@ -25,14 +25,14 @@
     <fieldset>
     	<legend><?php echo $this->translate('Personal data') ?></legend>
         <div class="row">
-			<div class="col-lg-6"> 
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
 		        <?php echo $form->birthdate->render()?>
 	            <?php echo $form->birthplace->render()?>
 	            <?php echo $form->birthdistrict->render()?>
 	            <?php echo $form->birthcountry->render()?>
 	            <?php echo $form->birthnationality->render()?>
 	        </div>
-	        <div class="col-lg-6"> 
+	        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
 	            <?php echo $form->gender->render()?>
 	            <?php echo $form->taxpayernumber->render()?> 
 			</div>

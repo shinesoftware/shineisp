@@ -28,7 +28,7 @@ ul.dynatree-container li
 	background-attachment: scroll;
 	background-color: transparent;
 	background-repeat: repeat-y;
-	background-image: url("/resources/js/images/vline.gif");
+	background-image: url("/resources/jquery/images/treeview/vline.gif");
 	background-position: 0 0;
 	/*
 	background-image: url("icons_96x256.gif");
@@ -76,7 +76,7 @@ span.dynatree-drag-helper-img,
 	vertical-align: top;
 	background-repeat: no-repeat;
 	background-position: left;
-	background-image: url("/resources/js/images/icons.gif");
+	background-image: url("/resources/jquery/images/treeview/icons.gif");
 	background-position: 0 0;
 }
 

@@ -1,16 +1,5 @@
+<?php echo $this->blocks()->showblock('endbody');?>
 
-<div class="copyright-wrapper">
-    <div class="container">
-    	<div class="col-lg-12">
-    		<div class="col-lg-8">
-    			<p>ShineISP&trade; is a trademark of Shine Software - Copyright &copy; <?php echo date('Y') ?> <a href="http://www.shinesoftware.com">Shine Software Italy</a><br/><a href="http://www.shineisp.com" id="footer_connect"><?php echo $this->translate('Connect with the ShineISP Community') ?></a> (<?php echo $this->translate('ver. %s', '2.'.$this->Version()) ?>)<br/></p>	</div>
-    		<div class="col-lg-4">
-    		  	<p class="pull-right"><?php echo $this->querycount();?> <?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></p>
-    		</div>
-    	</div>
-    	<?php echo $this->blocks()->showblock('endpage');?>
-    </div>
-</div>
-
+<?php echo $this->blocks()->showblock('endpage');?>
 </body>
 </html>

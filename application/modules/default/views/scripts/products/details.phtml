@@ -23,14 +23,9 @@
 		<form method="<?php echo $form->getMethod() ?>" id="productdetail" class="custom dropdown" action="<?php echo $form->getAction()?>">
 				
 		        <div class="row">
-		        	<div class="header col-lg-12 col-md-12 col-xs-12">
-				        <?php // Hidden form fields ?>
-						<?php echo $form->product_id->setDecorators(array('ViewHelper'))?>
-			       	    
+		        	<div class="col-lg-12 col-md-12 col-xs-12">
 			       	    <h3><?php echo $this->product['name'] ?></h3>
-			       	    
 			       	    <?php echo $this->ProductCategories($this->product['categories']) // Category Breadcrump ?>
-			       	    
 			       	    <ul class="list-unstyled list-inline">
 			       	    	<li><a href="/review/<?php echo $this->product['uri'] ?>.html"><?php echo $this->translate('Add your review') ?></a></li>
 			       	    	<li><?php if($this->product['iscomparable'] && !empty($this->group['code'])): ?><a href="/compare/products/code/<?php echo $this->group['code'] ?>"><?php echo $this->translate('Compare') ?> <?php echo $this->group['name']?></a><?php endif; ?></li>
@@ -40,21 +35,21 @@
 		
 			    <div class="row" id="product">
 			    
-		            <div class="col-lg-4" id="product-images">
+		            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="product-images">
 		            	<div class="row">
 		        			<div class="media col-lg-12 col-md-12 col-xs-12">
-		                		<?php echo $this->media()->ProductImage($this->product['product_id'], 200, 200, true);?>
+		                		<?php echo $this->media()->ProductImage($this->product['product_id'], 240, 200, true);?>
 		                	</div>
 		                	<div class="col-lg-12 col-md-12 col-xs-12">
 				                <?php if($price['type'] == "multiple"): ?>
-					                <ul class="sticker list-unstyled hidden">
+					                <ul class="list-unstyled">
 					                   <li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->product['price_1'] ?></span> <em>x</em> <em id="pricefreq" class="pricefreq"></em></li>
 					                   <li class="pricetaxval"><span id="pricetaxval"></span> <?php echo $this->translate('VAT included')?></li>
 					                   <li class="setupfeecontainer"><span id="setupfeecontainer"><?php echo $this->translate('Setup fee')?>: <span id="setupfee"></span></span></li>
 					                   <li class="setupfeecontainer"><span id="tranche_includes" class="tranche_includes"></span></li> 
 					                </ul>
 				                <?php else: ?>
-				                 	<ul class="sticker list-unstyled hidden">
+				                 	<ul class="list-unstyled">
 				                 		<li class="price"><?php echo $this->translate('just')?> <span id="priceval" class="priceval"><?php echo $this->currency($price['value'], array('currency' => Settings::findbyParam('currency'))) ?></span></li>
 					                    <li class="pricetaxval"><span id="pricetaxval"><?php echo $this->currency($price['taxincluded'], array('currency' => Settings::findbyParam('currency'))) ?></span> <?php echo $this->translate('VAT included')?></li>
 					                </ul>
@@ -64,7 +59,7 @@
 		            	</div>
 		            </div>
 		            
-		            <div class="col-lg-8">
+		            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 	
 		                <div class="row">
 		                	<div class="shortdescription col-lg-12 col-md-12 col-xs-12">
@@ -114,7 +109,7 @@
 			    	</div>
 			    </div>
 			    
-			   
+			   <?php echo $form->product_id->render()?>
 		</form>
 		
 		<div class="row">
