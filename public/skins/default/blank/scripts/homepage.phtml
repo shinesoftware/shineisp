@@ -9,7 +9,7 @@
     <div id="content" class="container">
         
 		<div class="row">
-    		<div class="col-lg-12">
+    		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     			<?php echo $this->Messages($this->mex)?>
                 <?php echo $this->blocks()->showblock('contentstart');?>
                 <?php echo $this->layout()->content ?>
@@ -17,18 +17,13 @@
     		</div> 
         </div>
     
-	    <?php echo $this->blocks()->showblock('beforefooter');?>
-
     </div>	<!-- End #main-container -->
     
-    <div class="footer-wrapper row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </div>
- 
-	<?php echo $this->blocks()->showblock('endfooter');?>    
+    <?php echo $this->blocks()->showblock('aftercontent');?>
     
-    <?php echo $this->blocks()->showblock('endbody');?>
+    <!-- Start #footer -->
+    <?php echo $this->render('includes/footer.phtml') ?> 
+    <!-- End #footer -->
     
-<?php echo $this->render('includes/endpage.phtml') ?>
-
+<?php echo $this->render('includes/endpage.phtml') ?>    
+	    

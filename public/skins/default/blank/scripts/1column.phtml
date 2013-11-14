@@ -1,34 +1,31 @@
 <?php echo $this->render('includes/startpage.phtml') ?>
 
-	<?php echo $this->render('includes/top.phtml') ?>
-		
 	<?php echo $this->blocks()->showblock('startbody');?>
+	
+	<?php echo $this->render('includes/top.phtml') ?>
+	
+	<?php echo $this->blocks()->showblock('beforecontent');?>
 
     <div id="content" class="container">
     
 		<?php echo $this->blocks()->showblock('beforecontent');?>
-	
-		<div class="col-lg-12">
+	    
+	    <!-- Start #main-container -->
+		<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 			<?php echo $this->Messages(); ?>
 	    	<?php echo $this->cmsheader($this->headerdata);?>
             <?php echo $this->blocks()->showblock('contentstart');?>
             <?php echo $this->layout()->content ?>
             <?php echo $this->blocks()->showblock('contentend');?>
 		</div> 
-		
-	    <?php echo $this->blocks()->showblock('beforefooter');?>
 
     </div>	<!-- End #main-container -->
     
-    <div class="footer-wrapper row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </div>
- 
-	<?php echo $this->blocks()->showblock('endfooter');?>    
+    <?php echo $this->blocks()->showblock('aftercontent');?>
     
-    <?php echo $this->blocks()->showblock('endbody');?>
+    <!-- Start #footer -->
+    <?php echo $this->render('includes/footer.phtml') ?> 
+    <!-- End #footer -->
     
-<?php echo $this->render('includes/endpage.phtml') ?>
-
+<?php echo $this->render('includes/endpage.phtml') ?>    
 	    

@@ -15,8 +15,11 @@
 					$selected = "";
 				}
 			?>
-			<li class="<?php echo $selected ?>"><a href="<?php echo $baseurl . "/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></a>
+			<li class="<?php echo $selected ?>"><a href="<?php echo $baseurl . "/lang/" . $language['code'] ?>"><? echo $this->translate($language['language']) ?></a></li>
 			
 	    <?php endforeach;?>
+	    
+	    <li class="divider"></li>
+	    <li><a href="/admin/languages/list"><? echo $this->translate('Language Settings') ?></a></li>
     </ul>
 <?php endif;?>    

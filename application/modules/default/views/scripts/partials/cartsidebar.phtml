@@ -9,7 +9,7 @@
 	        
 	        	<?php $total += ($product['price_1'] * $product['quantity']) + $product['setupfee']; ?>
 	        
-		        <div class="col-lg-12s">
+		        <div class="col-lg-12 col-md-12 col-xs-12s">
 		        	<div class="row">
 			            <div class="col-lg-4">
 			                <?php if($product['type'] != "domain"): ?>
@@ -58,7 +58,7 @@
 	            	</div>
 	            	
 	            	<div class="row">
-	            		<div class="col-lg-12s">
+	            		<div class="col-lg-12 col-md-12 col-xs-12s">
 	            			<p align="right">
 		            		<?php if($product['type'] == "domain"): ?>
 		                		<a class="" href="/cart/delete/tld/<?php echo $product['domain_selected'] ?>"><?php echo $this->translate('Delete')?></a>
@@ -74,7 +74,7 @@
         <?php endforeach;?>
         
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 col-md-12 col-xs-12">
             	<p align="right"><?php echo $this->translate('Total') ?>: <?php echo $this->currency ( $total, array('currency' => Settings::findbyParam('currency'))); ?><br/>
             	<a href="/cart/delete/product/all"><?php echo $this->translate('Delete All')?></a></p>
             </div>

@@ -1,5 +1,5 @@
-<div id="page_wrapper">
-	<div id="page">
+<div class="container" id="page_wrapper">
+	<div class="row" id="page">
 		<?php echo $this->render('partials/header.phtml') ?>
 		<div id="content">
 			<h2><?php echo $this->translate('Requirements')?></h2>
@@ -19,7 +19,7 @@
 				</li>
 			</ul>
 			<input type="button" value="<?php echo $this->translate('Try Again')?>" onclick="location.href='/setup'"><br/><br/>
-			<?= $this->render('partials/footer.phtml') ?>	
+			<?php echo  $this->render('partials/footer.phtml') ?>	
 		</div>
 	</div>
 </div>

@@ -2,14 +2,16 @@
 
 	<?php echo $this->blocks()->showblock('startbody');?>
 	
-    <?php echo $this->render('includes/top.phtml') ?>
+	<?php echo $this->render('includes/top.phtml') ?>
+	
+	<?php echo $this->blocks()->showblock('beforecontent');?>
     
-    <div class="row content_start">
-    	<aside class="col-lg-4 columns">
+    <div id="content" class="container">
+    	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
     		<?php echo $this->blocks()->showblock('left');?>
-    	</aside>
+    	</div>
     	
-    	<div class="col-lg-8 columns" role="content">
+    	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
 	        <?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>
@@ -17,15 +19,11 @@
 
     </div>	<!-- End #main-container -->
     
-    <div class="footer-wrapper row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </div>
- 
-	<?php echo $this->blocks()->showblock('endfooter');?>    
+    <?php echo $this->blocks()->showblock('aftercontent');?>
     
-    <?php echo $this->blocks()->showblock('endbody');?>
+    <!-- Start #footer -->
+    <?php echo $this->render('includes/footer.phtml') ?> 
+    <!-- End #footer -->
     
-<?php echo $this->render('includes/endpage.phtml') ?>
-
-    	
+<?php echo $this->render('includes/endpage.phtml') ?>    
+	    

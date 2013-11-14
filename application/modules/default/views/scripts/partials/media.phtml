@@ -5,18 +5,24 @@
 <ul class="hidden-xs list-unstyled">
 
 	<?php if(count($resources)==0): ?>
-	    <li class=""><a class="" href="/<?php echo $productdata['uri']?>.html"><img width="<?php echo $this->width?>" src="http://placehold.it/<?php echo $this->width?>&text=ShineISP"/></a></li>
+	    <li class="image-empty product-image"><a href="/<?php echo $productdata['uri']?>.html"><img class="img-responsive img-rounded" width="<?php echo $this->width?>" src="http://placehold.it/<?php echo $this->width?>&text=ShineISP"/></a></li>
 	<?php endif; ?>
 	
 	<?php if(!empty($resources[0])): ?>
-		<li class=""><a class="" href="<?php echo $resources[0]['path']?>"><?php echo $this->image($resources[0]['name'], $resources[0]['path'], array('width'=>$this->width, 'height'=>$this->height, 'class' => 'img-responsive img-rounded', 'alt' => $resources[0]['name'], 'title' => $resources[0]['name'])); ?></a></li>
+		<li class="image-standard product-image"><a href="<?php echo $resources[0]['path']?>"><?php echo $this->image($resources[0]['name'], $resources[0]['path'], array('width'=>$this->width, 'height'=>$this->height, 'class' => 'img-responsive img-rounded', 'alt' => $resources[0]['name'], 'title' => $resources[0]['name'])); ?></a></li>
 		<?php unset($resources[0]);?>
 		
 	<?php endif; ?>
 	
 	<?php if($this->showall):?>
-		<?php foreach($resources as $resource):?>
-            <li class=""><a class="" href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40',  'class' => 'img-responsive img-rounded', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
-		<?php endforeach;?>
+		
+        <li class="image-thumbnail">
+            <ul class="list-unstyled">
+                <?php foreach($resources as $resource):?>
+                    <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40',  'class' => 'img-responsive img-rounded', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
+                <?php endforeach;?>
+            </ul>
+        </li>
+		
 	<?php endif ?>
 </ul>

@@ -4,28 +4,26 @@
 	
     <?php echo $this->render('includes/top.phtml') ?>
     
+    <?php echo $this->blocks()->showblock('beforecontent');?>
+    
     <div id="content" class="container">
-    	<div class="col-lg-9" role="content">
+    	<div class="col-sm-9 col-md-9 col-lg-9" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
 	        <?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>
     	</div>
     	
-    	<aside class="col-lg-3 hidden-xs">
+    	<aside class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
     		<?php echo $this->blocks()->showblock('right');?>
     	</aside>
     	
     </div>	<!-- End #main-container -->
     
-    <div class="footer-wrapper row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </div>
- 
-	<?php echo $this->blocks()->showblock('endfooter');?>    
+    <?php echo $this->blocks()->showblock('aftercontent');?>
     
-    <?php echo $this->blocks()->showblock('endbody');?>
+    <!-- Start #footer -->
+    <?php echo $this->render('includes/footer.phtml') ?> 
+    <!-- End #footer -->
     
-<?php echo $this->render('includes/endpage.phtml') ?>
-
-    	
+<?php echo $this->render('includes/endpage.phtml') ?>    
+	    

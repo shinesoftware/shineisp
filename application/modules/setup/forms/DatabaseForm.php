@@ -11,8 +11,8 @@ class Setup_Form_DatabaseForm extends Zend_Form
             'required'   => true,
             'label'      => 'Hostname',
             'description' => 'Write here the hostname eg. localhost. You can specify server port, ex: localhost:3307',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'database', array(
@@ -20,8 +20,8 @@ class Setup_Form_DatabaseForm extends Zend_Form
             'required'   => true,
             'label'      => 'Database',
             'description' => 'Write here the database name.',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'username', array(
@@ -29,8 +29,8 @@ class Setup_Form_DatabaseForm extends Zend_Form
             'required'   => true,
             'label'      => 'Username',
             'description'      => 'Write here the database username.',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
 
         $this->addElement('password', 'password', array(
@@ -38,14 +38,14 @@ class Setup_Form_DatabaseForm extends Zend_Form
             'required'   => true,
             'label'      => 'Password',
             'description'      => 'Write here the database password.',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));        
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Continue',
-            'decorators' => array('Composite'),
-            'class'    => 'blue-button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary btn-lg'
         ));
         
         

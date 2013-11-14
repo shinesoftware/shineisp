@@ -1,7 +1,8 @@
 <?php $items = $this->wiki; ?>
 
-<ul class='list-unstyled'>
+<div class="list-group">
 	<?php foreach ($items as $item): ?>
-		<li><a href="/wiki/<?php echo $item['uri']?>.html"><?php echo $item['subject'] ?></a></li>	
+	  	<a href="/wiki/<?php echo $item['uri']?>.html" class="list-group-item"><?php echo $item['subject'] ?></a>
 	<?php endforeach;?>
-</ul>
+</div>
+

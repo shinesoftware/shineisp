@@ -21,7 +21,7 @@ class Admin_View_Helper_Bbslist extends Zend_View_Helper_Abstract {
 		$this->view->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$this->view->action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		
-		if ($messages->count()) {
+		if ($messages) {
 
 			// All the records 
 			$this->view->records = $messages;

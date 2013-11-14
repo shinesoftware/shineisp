@@ -23,7 +23,7 @@
  *     ensure that you either have "example_alt_pagination" as a body class name, or better yet,
  *     modify that selector.
  *   Note that the path used for Images is relative. All images are by default located in
- *     /resources/js/images//datatables/ - relative to this CSS file.
+ *     /resources/jquery/images//datatables/ - relative to this CSS file.
  */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -75,7 +75,7 @@
 }
 
 .dataTables_filter input {
-	background: url(/resources/js/images/datatables/search.png) 6px 6px
+	background: url(/resources/jquery/images/datatables/search.png) 6px 6px
 		no-repeat #FEFFFE;
 	border: 1px solid #c7c7c7;
 	border-radius: 20px;
@@ -115,23 +115,23 @@
 
 .paginate_disabled_previous {
 	background-image:
-		url('/resources/js/images/datatables/back_disabled.png');
+		url('/resources/jquery/images/datatables/back_disabled.png');
 }
 
 .paginate_enabled_previous {
 	background-image:
-		url('/resources/js/images/datatables/back_enabled.png');
+		url('/resources/jquery/images/datatables/back_enabled.png');
 	cursor: pointer;
 }
 
 .paginate_disabled_next {
 	background-image:
-		url('/resources/js/images/datatables/forward_disabled.png');
+		url('/resources/jquery/images/datatables/forward_disabled.png');
 }
 
 .paginate_enabled_next {
 	background-image:
-		url('/resources/js/images/datatables/forward_enabled.png');
+		url('/resources/jquery/images/datatables/forward_enabled.png');
 	cursor: pointer;
 }
 
@@ -235,34 +235,34 @@ table.datatable td.center {
  * DataTables sorting
  */
 .sorting_asc {
-	background: url('/resources/js/images/datatables/sort_asc.png')
+	background: url('/resources/jquery/images/datatables/sort_asc.png')
 		no-repeat scroll right center #EEEEEE;
 }
 
 .sorting_desc {
-	background: url('/resources/js/images/datatables/sort_desc.png')
+	background: url('/resources/jquery/images/datatables/sort_desc.png')
 		no-repeat scroll right center #DDDDDD;
 }
 
 .sorting {
-	background: url('/resources/js/images/datatables/sort_both.png')
+	background: url('/resources/jquery/images/datatables/sort_both.png')
 		no-repeat scroll right center #EEEEEE;
 }
 
 .sorting_asc_disabled {
-	background: url('/resources/js/images/datatables/sort_asc_disabled.png')
+	background: url('/resources/jquery/images/datatables/sort_asc_disabled.png')
 		no-repeat scroll right center #EEEEEE;
 }
 
 .sorting_desc_disabled {
 	background:
-		url('/resources/js/images/datatables/sort_desc_disabled.png')
+		url('/resources/jquery/images/datatables/sort_desc_disabled.png')
 		no-repeat scroll right center #EEEEEE;
 }
 
 .sorting_disabled {
 	background:
-		url('/resources/js/images/datatables/sort_desc_disabled.png')
+		url('/resources/jquery/images/datatables/sort_desc_disabled.png')
 		no-repeat scroll right center #EEEEEE;
 }
 

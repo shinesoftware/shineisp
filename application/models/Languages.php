@@ -267,7 +267,7 @@ class Languages extends BaseLanguages {
 				if(!empty($territories) && is_array($territories)){
 					
 					// Get the name of the territory using only the two letter, for ex: US in order to get United States 
-					$locales[$name] = ucfirst($territories[$name]);
+					$locales[$name] =  !empty($territories[$name]) ? ucfirst($territories[$name]) . " ($name)" : $name;
 				}
 				
 			}

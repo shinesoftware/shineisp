@@ -7,7 +7,7 @@
 
 <form method="<?php echo $form->getMethod() ?>" id="cartsummary" action="<?php echo $form->getAction()?>">
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-12 col-md-12 col-xs-12">
 			<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 					    <?php foreach($this->gateways as $gateway): ?>
@@ -30,13 +30,13 @@
 				</div>
 				<br/>
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-12 col-md-12 col-xs-12">
 						<?php echo $form->note->render()?>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-12 col-md-12 col-xs-12">
 						<?php $conditions = Settings::findbyParam('conditions'); ?>
 						<?php if(!empty($conditions)): ?>
 							<label for="conditions"><?php echo $this->translate('Legal Conditions'); ?></label>
@@ -46,7 +46,7 @@
 				</div>
 				<br/>
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-12 col-md-12 col-xs-12">
 						<div class="text-right">
 							<?php echo $form->submit->render()?>
 						</div>
