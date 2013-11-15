@@ -11,11 +11,11 @@ class Default_Form_ServicesForm extends Zend_Form
         
         $this->addElement('textarea', 'message', array(
             'filters'     => array('StringTrim'),
-            'required'    => false,
+            'rows'    => 5,
             'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Message'),
             'description' => $translate->_('Write here your reply. An email will be sent to the ISP staff.'),
-            'class'       => 'textarea'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'autorenew', array(
@@ -24,7 +24,7 @@ class Default_Form_ServicesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Auto renewal'),
             'description' => $translate->_('Enable or disable the automatic renewal of the service'),
-            'class'       => 'form-control large-input'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('autorenew')
@@ -41,36 +41,5 @@ class Default_Form_ServicesForm extends Zend_Form
         $id = $this->addElement('hidden', 'detail_id');
 
     }
-
-	/** 
-	 * Add select to form if there is some upgrade for service
-	 */
-	public function addUpgradeService( $productid ){
-	    $translate = Shineisp_Registry::get('Zend_Translate');
-		$productForUpgrade	= ProductsUpgrades::getUpgradesbyProductID($productid);
-		if( empty( $productForUpgrade ) ) {
-			return;
-		}
-
-        $this->addElement('select', 'upgrade', array(
-            'filters'     => array('StringTrim'),
-            'required'    => false,
-            'decorators'  => array('Bootstrap'), 
-            'label'      => $translate->_('Upgrade'),
-            'description' => $translate->_('Upgrade your service'),
-            'class'       => 'form-control large-input'
-        ));		
-		
-		$productsForUpgrade	= array();
-		$productsForUpgrade[0]	= 'Select a service';
-		foreach( $productForUpgrade as $key => $value ) {
-			$productsForUpgrade[$key]	= $value;
-		}
-		
-        $this->getElement('upgrade')
-                  ->setAllowEmpty(true)
-                  ->setMultiOptions($productsForUpgrade);
-		
-	}
     
 }

@@ -102,7 +102,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 				if(!empty($controller)){
 					$basepath = "/admin/$controller/";
 					$buttons ['edit'] ['label'] = $translator->translate ( 'Edit' );
-					$buttons ['edit'] ['cssicon'] = "edit";
+					$buttons ['edit'] ['cssicon'] = "glyphicon glyphicon-pencil";
 					$buttons ['edit'] ['action'] = "/admin/$controller/edit/id/%d";
 					$this->view->controller = $basepath;
 				}else{

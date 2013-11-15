@@ -13,7 +13,9 @@
 	    <!-- Start #main-container -->
 		<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 			<?php echo $this->Messages(); ?>
-	    	<?php echo $this->cmsheader($this->headerdata);?>
+            
+            <?php echo $this->cmsheader($this->headerdata);?>
+            <?php echo  $this->breadCrumb();?>
             <?php echo $this->blocks()->showblock('contentstart');?>
             <?php echo $this->layout()->content ?>
             <?php echo $this->blocks()->showblock('contentend');?>

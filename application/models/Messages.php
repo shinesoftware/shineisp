@@ -54,6 +54,25 @@ class Messages extends BaseMessages
     }    
        
     /**
+     * Get all messages attached to a service
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyServiceId($detailid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "detail_id = ?" , $detailid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
+    }    
+       
+    /**
      * Get all messages attached to a message
      * @param $orderid
      * @return Doctrine Record

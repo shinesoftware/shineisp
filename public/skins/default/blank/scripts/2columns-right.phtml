@@ -9,6 +9,7 @@
     <div id="content" class="container">
     	<div class="col-sm-9 col-md-9 col-lg-9" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
+    		<?php echo  $this->breadCrumb();?>
 	        <?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>
     	</div>

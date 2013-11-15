@@ -588,8 +588,9 @@ class Products extends BaseProducts {
 			$product [0] = ProductsData::checkTranslation ( $product [0] );
 			
 			// Get the categories
-			$product [0] ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product [0] ['categories'] );
-			
+			if(!empty($product [0] ['categories'])){
+			    $product [0] ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product [0] ['categories'] );
+			}
 			// Get the media information
 			$product [0] ['media'] = ProductsMedia::getMediabyProductId ( $product [0] ['product_id'] );
 			
