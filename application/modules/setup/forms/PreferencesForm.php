@@ -8,22 +8,14 @@ class Setup_Form_PreferencesForm extends Zend_Form
         
         $email = $this->createElement('text', 'email', array(
         		'filters'    => array('StringTrim', 'StringToLower'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'validators' => array(
         				'EmailAddress'
         		),
         		'required'   => true,
         		'label'      => 'Email',
         		'description'      => 'Write here your email',
-        		'class'      => 'text-input large-input'
-        ));
-        
-        
-        $this->addElement('select', 'sampledata', array(
-        		'decorators'  => array('Composite'),
-        		'label'       => 'Install Sample Data',
-        		'class'       => 'text-input large-input',
-        		'multioptions' => array(  1=> 'YES, please install the sample data', 0=>'NO, thanks I don\'t need them')
+        		'class'      => 'form-control'
         ));
         
         $this->addElement($email);
@@ -33,26 +25,26 @@ class Setup_Form_PreferencesForm extends Zend_Form
         
         $password = $this->addElement('password', 'password', array(
         		'filters' => array('StringTrim'),
-        		'decorators'  => array('Composite'),
-        		'description'       => 'Write here your password. (min.8 chars - max.20 chars)',
+        		'decorators'  => array('Bootstrap'),
+        		'description'       => 'Write here your administrator password. (min.8 chars - max.20 chars)',
         		'validators' => array(
         				$passwordConfirmation,
-        				array('StringLength', false, array(8, 100)),
+        				array('StringLength', false, array(8, 20)),
         		),
-        		'class'       => 'text-input large-input',
+        		'class'       => 'form-control',
         		'required' => true,
         		'label' => 'Password',
         ));
         
         $password_confirm = $this->addElement('password', 'password_confirm', array(
         		'filters' => array('StringTrim'),
-        		'decorators'  => array('Composite'),
-        		'description'       => 'Please repeat the password',
+        		'decorators'  => array('Bootstrap'),
+        		'description'       => 'Please repeat the administrator password',
         		'validators' => array(
         				$passwordConfirmation,
-        				array('StringLength', false, array(8, 100)),
+        				array('StringLength', false, array(8, 20)),
         		),
-        		'class'       => 'text-input large-input',
+        		'class'       => 'form-control',
         		'required' => true,
         		'label' => 'Confirm Password',
         ));
@@ -60,40 +52,32 @@ class Setup_Form_PreferencesForm extends Zend_Form
 
         $this->addElement('text', 'company', array(
         		'filters'    => array('StringTrim'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'label'      => 'Company', 
         		'required' => true,
-        		'class'       => 'text-input large-input'
-        ));
-
-        $this->addElement('text', 'vatnumber', array(
-        		'filters'    => array('StringTrim'),
-        		'decorators' => array('Composite'),
-        		'label'      => 'VAT Number',
-        		'required' => true,
-        		'class'       => 'text-input large-input'
+        		'class'       => 'form-control'
         ));
 
         $this->addElement('text', 'firstname', array(
         		'filters'    => array('StringTrim'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'label'      => 'First Name',
         		'required' => true,
-        		'class'       => 'text-input large-input'
+        		'class'       => 'form-control'
         ));
 
         $this->addElement('text', 'lastname', array(
         		'filters'    => array('StringTrim'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'label'      => 'Last Name',
         		'required' => true,
-        		'class'       => 'text-input large-input'
+        		'class'       => 'form-control'
         ));
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Continue',
-            'decorators' => array('Composite'),
-            'class'    => 'blue-button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-success btn-lg'
         ));
         
         

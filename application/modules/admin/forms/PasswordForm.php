@@ -12,11 +12,11 @@ class Admin_Form_PasswordForm extends Zend_Form
             'validators' => array(
                 'EmailAddress',
             ),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'required'   => true,
             'description'      => $translate->_('Write your own email'),
             'label'      => $translate->_('Email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control'
         ));
         
 
@@ -42,9 +42,9 @@ class Admin_Form_PasswordForm extends Zend_Form
         }
 
         $this->addElement('submit', 'submit', array(
-            'label'    => 'Submit',
-            'decorators' => array('Composite'),
-        	'class'      => 'button'
+            'label'    => $translate->_('Reset my password'),
+            'decorators' => array('Bootstrap'),
+        	'class'      => 'btn btn-danger'
         ));
         
     }

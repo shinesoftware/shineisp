@@ -3,14 +3,14 @@
 <?php $form = $this->form;?>
 
 <div class="row">
-	<div class="large-12 column">
+	<div class="col-lg-12 col-md-12 col-xs-12">
 		<form method="<?php echo $this->form->getMethod() ?>" action="<?php echo $this->form->getAction()?>">
 			<?php echo $form->topic->render()?>
 			<p align="right"><?php echo $form->wikisearch->setDecorators(array('ViewHelper'))?></p>
 		</form>
 	</div>
 	
-	<div class="large-12 column">
+	<div class="col-lg-12 col-md-12 col-xs-12">
 		<?php foreach($posts as $post):?>
 		    <div id="post-<?php echo $post['wiki_id'];?>" class="wikipost">
 		        <div class="entry">
@@ -27,7 +27,7 @@
 		<?php endforeach;?>
 	</div>
 	
-	<div class="large-12 column">
+	<div class="col-lg-12 col-md-12 col-xs-12">
 		<h4><a href="/tickets/new"><?php echo $this->translate('Have you found what you need? If not write a question here.') ?></a></h4>
 	</div>
 </div>

@@ -1,16 +1,14 @@
 <?php $wiki = $this->items; ?>
-<div class="headtitle"></div>
-<h4><?php echo $this->translate('Wiki Help') ?></h4>
-<p>
-	<?php echo $this->translate('Read our wiki articles before asking.') ?><br/>
-	<a href="/wiki"><?php echo $this->translate('Search on Wiki Help Guide') ?></a>
-</p><br/>
 
-<ul id="wikilist" class="no-bullet">
-	<?php foreach($wiki as $item):?>
-		<li><h6><a href="/wiki/<?php echo $item['uri']?>.html"><?php echo $item['subject'] ?></a></h6>
-		<small><?php echo $this->translate('Category') . ": " . $item['WikiCategories']['category']?></small>
-		<p><?php echo Shineisp_Commons_Utilities::CropSentence(strip_tags($item['content']), 100, "...")?></p>
-		</li>
-	<?php endforeach;?>
-</ul>
+<h4><?php echo $this->translate('Wiki Help') ?></h4>
+<p><?php echo $this->translate('Read our wiki articles before asking.') ?><br/></p>
+
+<div class="list-group">
+    <?php foreach($wiki as $item):?>
+        <a href="/wiki/<?php echo $item['uri']?>.html" class="list-group-item">
+            <h4 class="list-group-item-heading"><?php echo $item['subject'] ?></h4>
+            <p class="list-group-item-text"><?php echo Shineisp_Commons_Utilities::CropSentence(strip_tags($item['content']), 100, "...")?></p>
+        </a>
+	<?php endforeach;?>  
+</div>
+<a class="btn btn-success" href="/wiki"><?php echo $this->translate('Search on Wiki Help Guide') ?></a>

@@ -2,28 +2,29 @@
 
 	<?php echo $this->blocks()->showblock('startbody');?>
 	
-    <?php echo $this->render('includes/top.phtml') ?>
+	<?php echo $this->render('includes/top.phtml') ?>
+	
+	<?php echo $this->blocks()->showblock('beforecontent');?>
     
-    <div class="row content_start">
-    	<aside class="large-4 columns">
+    <div id="content" class="container">
+    	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
     		<?php echo $this->blocks()->showblock('left');?>
-    	</aside>
+    	</div>
     	
-    	<div class="large-8 columns" role="content">
+    	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" role="content">
     		<?php echo $this->blocks()->showblock('contentstart');?>
-	        <?php echo $this->layout()->content ?>
+    		<?php echo  $this->breadCrumb();?>
+    		<?php echo $this->layout()->content ?>
         	<?php echo $this->blocks()->showblock('contentend');?>
     	</div>
-	    
-	</div>
-        
-    
-    <?php echo $this->blocks()->showblock('beforefooter');?>
-    <footer class="row">
-    	<?php echo $this->footer();?>
-        <?php echo $this->blocks()->showblock('footer');?>
-    </footer><!-- End #footer -->
-    <?php echo $this->blocks()->showblock('endfooter');?>
-    <?php echo $this->blocks()->showblock('endbody');?>
 
-<?php echo $this->render('includes/endpage.phtml') ?>
+    </div>	<!-- End #main-container -->
+    
+    <?php echo $this->blocks()->showblock('aftercontent');?>
+    
+    <!-- Start #footer -->
+    <?php echo $this->render('includes/footer.phtml') ?> 
+    <!-- End #footer -->
+    
+<?php echo $this->render('includes/endpage.phtml') ?>    
+	    

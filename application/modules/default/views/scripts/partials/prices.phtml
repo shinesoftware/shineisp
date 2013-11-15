@@ -1,7 +1,7 @@
 <?php
 
 $showallinfo = $this->showallinfo;
-$vatNotIncludedlabel = $this->translate('Vat Excluded');
+$vatNotIncludedlabel = $this->translate('Tax excluded');
 $measurement = "";
 $bulletlist = "";
 
@@ -22,7 +22,7 @@ if ($this->data ['type'] == "multiple") {
 		$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 		$price = $this->currency($price, array('currency' => Settings::findbyParam('currency')));
 		
-		$bulletlist = "<ul class=\"no-bullet prices\">";
+		$bulletlist = "<ul class=\"list-unstyled prices\">";
 		
 		// Get the recurring period label
 		if(!empty($this->data['tranches'][0] ['measurement'])){
@@ -30,7 +30,7 @@ if ($this->data ['type'] == "multiple") {
 		}
 		
 		// Print the price
-		$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\">$pricetax " . "</li>";
+		$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('Tax included')."\">$pricetax " . "</li>";
 		$bulletlist .= "<li class=\"pricenotincludedvat\" >$price $measurement $vatNotIncludedlabel</li>";
 
 		// Simple raw text price 
@@ -43,7 +43,7 @@ if ($this->data ['type'] == "multiple") {
 	}
 } else {
 	
-	$bulletlist = "<ul class=\"no-bullet prices\">";
+	$bulletlist = "<ul class=\"list-unstyled prices\">";
 	
 	$price = $this->data ['value'];
 	$pricetax = $this->data ['taxincluded'];
@@ -52,7 +52,7 @@ if ($this->data ['type'] == "multiple") {
 	$pricetax = $this->currency($pricetax, array('currency' => Settings::findbyParam('currency')));
 	
 	// Print the price
-	$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('VAT included')."\"><strong>$pricetax</strong></li>";
+	$bulletlist .= "<li class=\"priceincludedvat\" title=\"".$this->translate('Tax included')."\"><strong>$pricetax</strong></li>";
 	$bulletlist .= "<li class=\"pricenotincludedvat\" >$price $vatNotIncludedlabel</li>";
 
 	// Simple raw text price

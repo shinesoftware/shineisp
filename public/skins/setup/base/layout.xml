@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
 
+	<!-- Default configuration of the whole project -->
 	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
-			<js override="1">/resources/js/jquery/jquery-ui-1.9.2.custom.min.js</js>
-			
-			<!-- CSS files to be include in every pages-->
-			<css override="1">/resources/js/css/jquery-ui-1.8.16.custom.css</css>
+            <js override="1" position="endbody">//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js</js>  
+            <js override="1" position="endbody">//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js</js>
+            <js override="1" position="endbody">/resources/jquery/jquery.cookie.js</js>
+            
+			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
+            <css override="1">//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css</css>
+            <css override="1">//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css</css>
+            <js override="1" position="endbody">http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js</js>
 		</head>
 	</general>
 
@@ -17,9 +21,6 @@
 		<!-- Common files called at the start of the setup module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-				<css>/css/reset.css</css>
-				<css>/css/base.css</css>
-				<css>/css/style.css</css>
 				<js>/js/setup.js</js>
 			</head>
 		</commons>

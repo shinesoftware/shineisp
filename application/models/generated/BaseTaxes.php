@@ -14,9 +14,9 @@ Doctrine_Manager::getInstance()->bindComponent('Taxes', 'doctrine');
  * @property Doctrine_Collection $DomainsTlds
  * @property Doctrine_Collection $Products
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseTaxes extends Doctrine_Record

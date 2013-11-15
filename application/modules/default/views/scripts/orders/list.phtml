@@ -1,15 +1,6 @@
-<div class="headtitle">
-    <h3>
-    <?php 
-            echo $this->translate($this->title);
-            if(!empty($this->name)){
-                echo ": " . $this->name;
-            } 
-        ?>
-    </h3>
-    <small><?php echo $this->translate($this->description);?></small>
+<?php echo $this->render('partials/headerlist.phtml') ?>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12 text-right"><a class="btn btn-default" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a></div><br/>
 </div>
- 
-<?= $this->grid($this->orders);?>
-<br/>
-<a class="button" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a>
+<?php echo $this->grid($this->orders);?>

@@ -10,6 +10,21 @@ class CmsController extends Shineisp_Controller_Default {
 	}
 	
 	/*
+	 * show the list of the pages
+	 */
+	public function listAction() {
+	    $ns = new Zend_Session_Namespace ();
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+	    
+	    $pages = CmsPages::getblogpages($ns->lang);
+	    $isp = Isp::getActiveISP();
+	    
+	    $this->view->headerdata = array('title' => $translator->_("%s's blog", $isp['company']));
+	    
+	    $this->view->pages = $pages;
+	}
+	
+	/*
 	 * pageAction
 	 * show the page chose by the user 
 	 */

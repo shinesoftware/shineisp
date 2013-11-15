@@ -1,38 +1,32 @@
 <?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
-    <div class="notification attention"><?=$this->translate('The search view is active.')?> 
-    <a href="/<?= $this->controller ?>/reset"><?=$this->translate('Click here to reset the results.')?></a> </div>
+    <div class="alert alert-warning alert-warning"><?php echo $this->translate('The search view is active.')?> 
+    <a href="/<?php echo $this->controller ?>/reset"><?php echo $this->translate('Click here to reset the results.')?></a> </div>
 <?php endif; ?>
    
-<?php if(!empty($this->mex)) :?>
-    <div class="notification <?= $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
-<?php endif;?>
-
-<div class="records align-left">  
-   <?php echo $this->translate('Records') . ": " . $this->recordcount; ?>
-</div>
-
-<div class="filters">
-<?php if($this->filters):?>
-   <b><?=$this->translate('Filters');?>:</b> 
-   <select name="filter" id="filter">
-        <option value=""><?=$this->translate('Show All');?></option>
-            <?php foreach ( $this->filters as $id=>$status ) : ?>
-                <option value="<?=$id?>"><?=$this->translate($status);?></option>
-            <?php endforeach;?>
-    </select>
-    <input type="button" class="littlebutton" rel="<?= $this->controller ?>" id="filterbtn" value="<?=$this->translate('Execute');?>">
-<?php endif;?>
-
-<?php if($this->tags):?>
-   <b><?=$this->translate('Tags');?>:</b> 
-   <select name="tags" id="tags" rel="<?= $this->controller ?>">
-        <option value=""><?=$this->translate('Show All');?></option>
-            <?php foreach ( $this->tags as $id=>$tag ) : ?>
-                <option value="<?=$id?>"><?=$tag;?></option>
-            <?php endforeach;?>
-    </select>
-    <input type="button" class="littlebutton" rel="<?= $this->controller ?>" id="tagsbtn" value="<?=$this->translate('Execute');?>">
-<?php endif;?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <?php if($this->filters):?>
+           <strong><?php echo $this->translate('Filters');?>:</strong> 
+           <select name="filter" id="filter">
+                <option value=""><?php echo $this->translate('Show All');?></option>
+                    <?php foreach ( $this->filters as $id=>$status ) : ?>
+                        <option value="<?php echo $id?>"><?php echo $this->translate($status);?></option>
+                    <?php endforeach;?>
+            </select>
+            <input type="button" class="btn btn-default" rel="<?php echo $this->controller ?>" id="filterbtn" value="<?php echo $this->translate('Execute');?>">
+        <?php endif;?>
+        
+        <?php if($this->tags):?>
+           <strong><?php echo $this->translate('Tags');?>:</strong> 
+           <select name="tags" id="tags" rel="<?php echo $this->controller ?>">
+                <option value=""><?php echo $this->translate('Show All');?></option>
+                    <?php foreach ( $this->tags as $id=>$tag ) : ?>
+                        <option value="<?php echo $id?>"><?php echo $tag;?></option>
+                    <?php endforeach;?>
+            </select>
+            <input type="button" class="btn btn-default" rel="<?php echo $this->controller ?>" id="tagsbtn" value="<?php echo $this->translate('Execute');?>">
+        <?php endif;?>
+    </div>  
 </div>  
 
 <?php 
@@ -49,9 +43,7 @@ if (isset($this->records[0])):
     $numcols = count($fields);
     
 ?>
-        <div data-alert class="alert-box success" id="mex" style="display:none"></div>
-        
-        <table id="itemlist">
+        <table class="table table-striped" id="itemlist">
             <thead>
                 <tr>
                    <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?><th><input type="checkbox" class="selectall" value=""></th><?php endif;?>
@@ -59,7 +51,7 @@ if (isset($this->records[0])):
                     <?php foreach ( $columns as $column ) : ?>
                     	<th><?php echo $column; ?></th>
                     <?php endforeach;?>   
-                    <th><?=$this->translate('Commands');?></th>
+                    <th><?php echo $this->translate('Commands');?></th>
                 </tr>
             </thead>
             
@@ -75,11 +67,11 @@ if (isset($this->records[0])):
                                  $res = "";  
                                  Shineisp_Commons_Utilities::search(array($field), $record, $res);
                                  $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";?>
-                                <td class="values"><a href="/<?= $this->module ?>/<?= $this->controller ?>/edit/id/<?=$record[$this->fields[0]]?>"><?=$value?></a></td>
+                                <td class="values"><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/edit/id/<?php echo $record[$this->fields[0]]?>"><?php echo $value?></a></td>
                        <?php endif;?>
                    <?php endforeach;?>
                    <td>
-                       <a href="/<?= $this->module ?>/<?= $this->controller ?>/edit/id/<?=$record[$this->fields[0]]?>"><?= $this->translate('Edit') ?></a>
+                       <a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/edit/id/<?php echo $record[$this->fields[0]]?>"><?php echo $this->translate('Edit') ?></a>
                    </td>
                    </tr>
                 <?php endforeach;?>
@@ -87,50 +79,51 @@ if (isset($this->records[0])):
             </tbody>
             <tfoot>
                 <tr>
-                   <td colspan="<?=$numcols+1?>"> 
+                   <td colspan="<?php echo $numcols+1?>"> 
                        <div class="bulktools">
                            <?php if($this->show_action_box && ($this->statuses || $this->customactions)):?>
-                               <b><?=$this->translate('Actions');?>:</b> 
+                               <strong><?php echo $this->translate('Actions');?>:</strong> 
                                <select name="actions" id="actions">
-                                   <option value=""><?=$this->translate('Select ...');?></option>
+                                   <option value=""><?php echo $this->translate('Select ...');?></option>
                                    <?php if($this->statuses):?>
-                                       <optgroup label="<?=$this->translate('Statuses');?>">
+                                       <optgroup label="<?php echo $this->translate('Statuses');?>">
                                            <?php foreach ( $this->statuses as $id=>$status ) : ?>
-                                               <option value="set_status&status=<?=$id?>"><?=$this->translate($status);?></option>
+                                               <option value="set_status&status=<?php echo $id?>"><?php echo $this->translate($status);?></option>
                                            <?php endforeach;?>
                                        </optgroup>
                                    <?php endif; ?>
                                    <?php if($this->customactions):?>
-                                       <optgroup label="<?=$this->translate('Actions');?>">
+                                       <optgroup label="<?php echo $this->translate('Actions');?>">
                                        <?php foreach ( $this->customactions as $name=>$action ) : ?>
-                                           <option value="<?=$name;?>"><?=$this->translate($action);?></option>
+                                           <option value="<?php echo $name;?>"><?php echo $this->translate($action);?></option>
                                        <?php endforeach;?>
                                        </optgroup>
                                    <?php endif; ?>
                                </select>
-                               <input type="button" rel="<?= $this->controller ?>" id="bulkactions" value="<?=$this->translate('Execute');?>"><br />
-                               <?=$this->translate('Select the items and then use the bulk action system to set more than one item.');?>
+                               <input type="button" class="btn btn-default" rel="<?php echo $this->controller ?>" id="bulkactions" value="<?php echo $this->translate('Execute');?>"><br />
+                               <?php echo $this->translate('Select the items and then use the bulk action system to set more than one item.');?>
                             <?php endif; ?> 
                        </div>
-                       <div class="pagingtools">
-                           <?=$this->translate('Records');?>: <?=$this->recordcount?> - 
-                            <?=$this->translate('Records per page');?>: 
-                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/5">5</a>
-                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/15">15</a>
-                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/30">30</a>
-                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/50">50</a>
-                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/100">100</a>
-                            <a href="/<?= $this->module ?>/<?= $this->controller ?>/recordsperpage/id/all"><?=$this->translate('Show All');?></a>
+                       <div class="row">
+                           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                               <ul class="pagination"><?php echo $this->pagination; ?></ul>
+                           </div>
+                           <div class="col-lg-6 text-right">
+                                <ul class="pagination"> 
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/5">5</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/15">15</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/30">30</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/50">50</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/100">100</a></li>
+                                    <li><a href="/<?php echo $this->module ?>/<?php echo $this->controller ?>/recordsperpage/id/all"><?php echo $this->translate('Show All');?></a></li>
+                                </ul>
+                           </div>
                        </div>
-                   </td>
-                </tr>
-                <tr>
-                   <td colspan="<?=$numcols+1?>">
-                        <div class="pagination"><?=$this->pagination; ?></div>
                    </td>
                 </tr>
             </tfoot>
         </table>
+        <div class="text-right"><?php echo $this->translate('Records');?>: <span class="label label-default"><?php echo $this->recordcount?></span></div>
     <?php else: ?>
-    <div class="notification infos"><?=$this->translate('No Records')?></div>
+    <div class="alert alert-warning alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>

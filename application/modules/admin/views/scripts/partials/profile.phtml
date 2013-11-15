@@ -1,10 +1,17 @@
 <?php $auth = Zend_Auth::getInstance(); ?>
 
 <?php if($auth->hasIdentity()):?>
-	<?php $identity = $auth->getIdentity(); ?>
-	<a class="float_right button" title="<?=$this->translate('Logout') ?>" href="/admin/login/out"><?=$this->translate('Logout') ?></a>
-	<a class="float_right button" title="<?=$this->translate('Servers') ?>" href="/admin/servers/list"><?=$this->translate('Servers') ?></a>
-	<?php if(!empty($this->data['Isp']['company'])): ?><a class="float_right button" title="<?=$this->translate('Company') ?>" href="/admin/isp/account"><?=$this->translate('%s\'s profile', $this->data['Isp']['company']) ?></a><?php endif;?>
-	<a class="float_right button" title="<?=$this->translate('Profile') ?>" href="/admin/profile/account"><?=$this->translate("%s's %s profile", $identity['lastname'], $identity['AdminRoles']['name']) ?></a>
-	<a class="float_right button" title="<?=$this->translate('Roles') ?>" href="/admin/roles"><?=$this->translate('Roles') ?></a>
+
+<?php $name = (!empty($this->data['Isp']['company'])) ? $this->data['Isp']['company'] : null?>
+<li class="dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="glyphicon glyphicon-user"></i>  <?php echo $name ?> <b class="caret"></b></a>
+    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+    	<?php $identity = $auth->getIdentity(); ?>
+    	<li><a title="<?php echo $this->translate('Profile') ?>" href="/admin/profile/account"><i class="glyphicon glyphicon-user"></i> <?php echo $this->translate("%s's %s profile", $identity['lastname'], $identity['AdminRoles']['name']) ?></a></li>
+    	<li><?php if(!empty($this->data['Isp']['company'])): ?><a title="<?php echo $this->translate('Company') ?>" href="/admin/isp/account"><i class="glyphicon glyphicon-briefcase"></i> <?php echo $this->translate('%s\'s profile', $this->data['Isp']['company']) ?></a><?php endif;?></li>
+    	<li><a title="<?php echo $this->translate('Servers') ?>" href="/admin/servers/list"><i class="glyphicon glyphicon-hdd"></i> <?php echo $this->translate('Servers') ?></a></li>
+    	<li><a title="<?php echo $this->translate('Roles') ?>" href="/admin/roles"><i class="glyphicon glyphicon-random"></i> <?php echo $this->translate('Roles') ?></a></li>
+    	<li><a title="<?php echo $this->translate('Logout') ?>" href="/admin/login/out"><i class="glyphicon glyphicon-off"></i> <?php echo $this->translate('Logout') ?></a></li>
+    </ul>
+</li>
 <?php endif;?>

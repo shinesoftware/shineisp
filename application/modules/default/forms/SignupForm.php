@@ -11,9 +11,9 @@ class Default_Form_SignupForm extends Zend_Form
         $this->addElement('text', 'company', array(
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('Company Name'),
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'description'      => $translate->_('Write here your company name.'),
-        		'class'      => 'text-input large-input'
+        		'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'firstname', array(
@@ -21,8 +21,8 @@ class Default_Form_SignupForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('First name'),
             'description' => $translate->_('Write here your first name.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'lastname', array(
@@ -30,20 +30,20 @@ class Default_Form_SignupForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Last name'),
             'description'      => $translate->_('Write here your lastname.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $email = $this->createElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 'EmailAddress'
             ),
             'required'       => true,
             'label'          => $translate->_('Email'),
             'description'    => $translate->_('Write here your email'),
-            'class'          => 'text-input large-input'
+            'class'          => 'form-control'
         ));
         
         $email->addValidator('UniqueEmail',false, array(new Customers()));
@@ -54,26 +54,26 @@ class Default_Form_SignupForm extends Zend_Form
         
         $password = $this->addElement('password', 'password', array(
         		'filters' => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'description'       => $translate->_('Write here your password. (min.8 chars - max.20 chars)'),
         		'validators' => array(
         				$passwordConfirmation,
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
-        		'class'       => 'text-input large-input',
+        		'class'       => 'form-control',
         		'required' => true,
         		'label' => $translate->_('Password'),
         ));
         
         $password_confirm = $this->addElement('password', 'password_confirm', array(
         		'filters' => array('StringTrim'),
-        		'decorators'  => array('Composite'),
+        		'decorators'  => array('Bootstrap'),
         		'description'       => $translate->_('Please repeat the password'),
         		'validators' => array(
         				$passwordConfirmation,
         				array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
         		),
-        		'class'       => 'text-input large-input',
+        		'class'       => 'form-control',
         		'required' => true,
         		'label' => 'Confirm Password',
         ));
@@ -82,17 +82,17 @@ class Default_Form_SignupForm extends Zend_Form
         $this->addElement('text', 'vat', array(
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('VAT Number'),
-        		'decorators' => array('Composite'),
-        		'class'      => 'text-input large-input',
+        		'decorators' => array('Bootstrap'),
+        		'class'      => 'form-control',
         		'description'      => $translate->_('Write here the VAT code. Eg: IT123456789')
         ));
         #$this->getElement('vat')->addValidator($vatValidator);        
         
         $this->addElement('select', 'company_type_id', array(
         		'label' => 'Company Type',
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'description'      => $translate->_('Select the company type'),
-        		'class'      => 'text-input large-input'
+        		'class'      => 'form-control'
         ));
         
         $this->getElement('company_type_id')
@@ -102,9 +102,9 @@ class Default_Form_SignupForm extends Zend_Form
         $this->addElement('select', 'legalform', array(
         		'label' => 'Legalform',
         		'required'   => true,
-        		'decorators' => array('Composite'),
+        		'decorators' => array('Bootstrap'),
         		'description'      => $translate->_('Select the type of company.'),
-        		'class'      => 'text-input large-input'
+        		'class'      => 'form-control'
         ));
         
         $this->getElement('legalform')
@@ -116,8 +116,8 @@ class Default_Form_SignupForm extends Zend_Form
         $this->addElement('text', 'taxpayernumber', array(
         		'filters'    => array('StringTrim'),
         		'label'      => $translate->_('Tax payer number'),
-        		'decorators' => array('Composite'),
-        		'class'      => 'text-input large-input',
+        		'decorators' => array('Bootstrap'),
+        		'class'      => 'form-control',
         		'description'      => $translate->_('Write the tax payer number.')
         ));
         
@@ -126,8 +126,8 @@ class Default_Form_SignupForm extends Zend_Form
                 
         $this->addElement('submit', 'signup', array(
             'label'      => $translate->_('Create my account'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-success btn-lg'
         ));
         
         $privKey = Settings::findbyParam('recaptcha_private_key');

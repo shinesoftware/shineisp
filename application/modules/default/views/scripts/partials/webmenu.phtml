@@ -1,11 +1,3 @@
-<ul class="<?php echo !empty($this->menucls) ? $this->menucls : "navigation" ?>">
-	 
-     <?php if(!empty($this->menu)): ?>
-     	<?php echo $this->menu ?>
-     <?php endif;?>
-	 
-     <li class="has-dropdown" >  
-	 	<?php echo $this->profile ();?>
-	 </li>
-	 
-</ul>
+ <?php if(!empty($this->menu)): ?>
+ 	<?php echo $this->menu ?>
+ <?php endif;?>

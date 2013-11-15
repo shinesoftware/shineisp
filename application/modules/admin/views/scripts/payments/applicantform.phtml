@@ -2,49 +2,34 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
-
-<div class="content_inner">
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 	
-	<? if( $form->isErrors() ): ?>
-		<div class="messages">    
-		   <? foreach( $form->getElements() as $field){
-		         $errors = array();
-		   	     if($field->hasErrors()){
-		        	foreach( $field->getErrors() as $error){
-		        		$errors[] = $this->translate($error);
-		        	}
-		            echo "<div class=\"notification error\">".$this->translate('field') ." <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-		        }   
-		    } ?>
-		</div>    
-	<? endif; ?>
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
-	<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	<div class="tabbable" id="tabs">
+	
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+		</ul>
 		
-		<div id="tabs">
-			<ul>
-				<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			</ul>
-	    
-		    <div id="tab1"> 
-		    	<fieldset class="column-left"> 
+        <div class="tab-content">
+		    <div class="tab-pane active" id="tab1"> 
+		    	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
 		            <?php echo $form->paymentdate->render()?>
 		            <?php echo $form->order_id->render()?>
 		            <?php echo $form->customer_id->render()?>
 		            <?php echo $form->confirmed->render()?>
-	            </fieldset>
+	            </div>
 	            
-	            <fieldset class="column-right"> 
+	            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
 		            <?php echo $form->income->render()?>
 		            <?php echo $form->outcome->render()?>
 		            <?php echo $form->bank_id->render()?>
 		            <?php echo $form->reference->render()?>
-	            </fieldset>
-	            
-	            <div class="clear"></div>
-		    </div>
-		    
-	   		<?php echo $form->payment_id->render()?>
-	   	</div>
-	</form>
-</div>	
+	            </div>
+            </div>
+	    </div>
+	    
+   		<?php echo $form->payment_id->render()?>
+   	</div>
+</form>

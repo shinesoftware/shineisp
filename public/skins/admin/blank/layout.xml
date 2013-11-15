@@ -2,10 +2,19 @@
 <layout>
 
 	<!-- Default configuration of the whole project -->
-	<general template="2columns-left">
+	<general template="1column">
 		<head>
 		    <!-- JS files to be include in every pages-->
-			<js override="1">/resources/js/jquery/jquery-1.8.3.js</js>  
+            <js override="1" position="admin_endbody">//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js</js>  
+            <js override="1" position="admin_endbody">//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js</js>
+			<css override="1">//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css</css>
+			
+			<js override="1" position="admin_endbody">/resources/jquery/jquery.cookie.js</js>
+			
+			<!--Bootstrap CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
+            <css override="1">//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css</css>
+            <css override="1">//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css</css>
+            <js override="1" position="admin_endbody">//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js</js>
 		</head>
 	</general>
 	
@@ -14,40 +23,43 @@
 		<!-- Common files called at the start of the admin module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-			
-				<!-- foundation 4 CSS framework conditional stylesheet for all the brower to be include in every frontend pages-->
-				<css override="1">/resources/foundation4/css/normalize.css</css>
-				<css override="1">/resources/foundation4/css/foundation.min.css</css>
-				<css override="1">/resources/foundation4/css/general_foundicons.css</css>
-				<css conditional="IE" override="1">/resources/foundation4/css/foundation.ie8.grid.css</css>
-				<css>/css/app.css</css>
-				
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.min.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.alerts.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.clearing.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.cookie.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.dropdown.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.forms.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.joyride.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.magellan.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.orbit.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.placeholder.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.reveal.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.section.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.tooltips.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.topbar.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.interchange.js</js>
-				<js position="endbody" override="1">/resources/foundation4/js/foundation.boot.js</js>
-				
-				<!-- Leave at the end of the CSS list files. This file must override all the foundation class in order to fix IE -->
-				<css conditional="IE">/css/ie.css</css>
-				
+			   
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml-rules.js</js>
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
+                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.tokeninput.js</js>
+                
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.ui.datepicker-it.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.dynatree.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.dataTables.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/jquery.dataTables.delay.js</js>
+                
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-select.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-rating-input.min.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-switch.min.js</js>
+                
+                <js position="admin_endbody">/js/smartresize.js</js> 
+                <js position="admin_endbody">/js/grid.js</js> 
+                
+                <css>/css/grid.css</css>  
+                
+                <!-- files to be include in every ADMIN pages-->
+                <css override="1">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
+                <css override="1">/resources/jquery/css/ui.dynatree.css</css>
+                <css override="1">/resources/jquery/css/jquery.dataTables.css</css>
+                <css override="1">/resources/jquery/css/bootstrap-select.min.css</css>
+                <css override="1">/resources/jquery/css/bootstrap-switch.css</css>
+                <css override="1">/resources/jquery/css/bootstrap-typeahead.css</css>
 			</head>
 		</commons>
-	
+		 
 		<index>
 			<head>
-				<js>/js/login.js</js> 
+				<js position="admin_endbody">/js/login.js</js> 
+				<js position="admin_endbody">/js/widget.js</js> 
+				<css>/css/widget.css</css> 
 			</head>
 			<!--
 			<blocks>

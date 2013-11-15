@@ -10,8 +10,8 @@ class Admin_Form_SettingsForm extends Zend_Form
         $this->addElement('select', 'parameter_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('parameter'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->getElement('parameter_id')
@@ -22,16 +22,16 @@ class Admin_Form_SettingsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('value'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input little-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));        
         
         $this->addElement('select', 'isp_id', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Isp'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->getElement('isp_id')

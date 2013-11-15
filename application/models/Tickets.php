@@ -18,15 +18,15 @@ class Tickets extends BaseTickets {
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 't.ticket_id', 'alias' => 'ticket_id', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Update Date' ), 'field' => 't.date_updated', 'alias' => 'updated_at', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'tc.category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 't.date_open', 'alias' => 'creation_date', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Update Date' ), 'field' => 't.date_updated', 'alias' => 'updated_at', 'sortable' => true, 'direction'=> 'desc', 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'tc.category', 'alias' => 'category', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 't.subject', 'alias' => 'subject', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Replies' ), 'field' => '', 'alias' => 'replies', 'type' => 'string', 'searchable' => false);
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Attachments' ), 'field' => '', 'alias' => 'files', 'type' => 'string', 'searchable' => false);
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'type' => 'index', 'sortable' => true, 'searchable' => true);
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Replies' ), 'field' => '', 'alias' => 'replies', 'type' => 'index', 'searchable' => false, 'attributes' => array('class' => 'visible-lg visible-md hidden-xs'));
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Attachments' ), 'field' => '', 'alias' => 'files', 'type' => 'index', 'searchable' => false, 'attributes' => array('class' => 'visible-lg visible-md hidden-xs'));
 		
 		$config ['datagrid'] ['fields'] = "t.ticket_id,
 											t.subject as subject, 
@@ -386,9 +386,9 @@ class Tickets extends BaseTickets {
 	 * @return array
 	 */
 	public static function Last($customerid = "", $limit=10) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dq = Doctrine_Query::create ()
 								->select ( "t.ticket_id, 
-											t.ticket_id as code, 
 											t.subject as subject, 
 											tc.category as category, 
 											DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated,
@@ -410,11 +410,23 @@ class Tickets extends BaseTickets {
 		$dq->whereIn('t.status_id', $statuses);
 		
 		$dq->orderBy ( 't.date_open desc' )->limit ( $limit );
-		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
-		for ($i=0;$i<count($records); $i++){
-			$records[$i]['subject'] = Shineisp_Commons_Utilities::truncate($records[$i]['subject']);
+		for ($i=0;$i<count($records['data']); $i++){
+			$records['data'][$i]['subject'] = Shineisp_Commons_Utilities::truncate($records['data'][$i]['subject']);
 		}
+		
+		// adding the index reference
+		$records['index'] = "ticket_id";
+		
+		// Create the header table columns
+		$records['fields'] = array('ticket_id' => array('label' => $translator->translate('ID')),
+									'subject' => array('label' => $translator->translate('Subject')),
+									'category' => array('label' => $translator->translate('Category'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'updated' => array('label' => $translator->translate('Updated at'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'status' => array('label' => $translator->translate('Status')));
+		
 		
 		return $records;
 	}
@@ -642,6 +654,7 @@ class Tickets extends BaseTickets {
 	 */
 	public static function summary() {
 		$chart = "";
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
 					->select ( "t.ticket_id, count(*) as items, s.status as status" )
@@ -674,9 +687,12 @@ class Tickets extends BaseTickets {
                     ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
         		
         $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
-		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
+		
+		return $records;
 	}
 	
 	

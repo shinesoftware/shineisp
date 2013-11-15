@@ -11,35 +11,34 @@ class Default_Form_DomainsForm extends Zend_Form
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
-            'label'      => $translate->_('Your message'),
+            'decorators'  => array('Bootstrap'),
             'rows'       => 5,
             'description' => $translate->_('Write here a message for the administrator about this domain.'),
-            'class'       => 'textarea'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'tags', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Tags'),
-            'class'       => 'text-input large-input tags'
+            'class'       => 'form-control large-input tags'
         ));
         
         $this->addElement('text', 'authinfocode', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('AuthInfo'),
-            'class'       => 'text-input medium-input'
+            'class'       => 'form-control medium-input'
         ));
         
         $this->addElement('select', 'autorenew', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Autorenew'),
-            'description' => $translate->_('By default, all domains are set to auto-renew. Choose if the domain must be auto-renew or not at the expiring date.'),
-            'class'       => 'text-input large-input'
+            'description' => $translate->_('By default, every domain is set with auto-renew option enabled. Choose if the domain must be auto-renew or not at the expiring date.'),
+            'class'       => 'form-control large-input'
         ));
         
         $this->getElement('autorenew')
@@ -48,8 +47,8 @@ class Default_Form_DomainsForm extends Zend_Form
 
         $status = $this->addElement('select', 'status_id', array(
                 'label' => $translate->_('Status'),
-                'decorators' => array('Composite'),
-                'class'      => 'text-input large-input'
+                'decorators' => array('Bootstrap'),
+                'class'      => 'form-control large-input'
                 ));
         
         $status = $this->getElement('status_id')
@@ -59,8 +58,8 @@ class Default_Form_DomainsForm extends Zend_Form
                   
         $this->addElement('submit', 'submit', array(
             'label'      => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary btn-lg'
         ));
         
         // Adding a subform
@@ -70,22 +69,22 @@ class Default_Form_DomainsForm extends Zend_Form
         $dnsform->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
         
         $dnsform->addElement('text', 'subdomain', array('filters'     => array('StringTrim'),
-										        		'decorators'  => array('Composite'),
+										        		'decorators'  => array('Bootstrap'),
 										        		'label'      => $translate->_('Subdomain'),
-										        		'class'       => 'text-input medium-input'));
+										        		'class'       => 'form-control medium-input'));
 										        
         $dnsform->addElement('select', 'zones', array(
 								        		'filters'     => array('StringTrim'),
-								        		'decorators'  => array('Composite'),
+								        		'decorators'  => array('Bootstrap'),
 								        		'label'      => $translate->_('DNS Type Zone'),
-								        		'class'       => 'text-input large-input'));
+								        		'class'       => 'form-control large-input'));
         
         $dnsform->getElement('zones')->setAllowEmpty(false)->setMultiOptions(Dns_Zones_Types::getZones());
                 
         $dnsform->addElement('text', 'target', array('filters'     => array('StringTrim'),
-									        		'decorators'  => array('Composite'),
+									        		'decorators'  => array('Bootstrap'),
 									        		'label'      => $translate->_('Target Address'),
-									        		'class'       => 'text-input large-input'));
+									        		'class'       => 'form-control large-input'));
                 
         $this->addSubForm ( $dnsform, 'dnsform' );
         

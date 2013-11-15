@@ -105,7 +105,7 @@ class Panels extends BasePanels
 	            'filters'    => array('StringTrim'),
 	            'label'      => $field,
 	            'decorators' => array('Composite'),
-	            'class'      => 'text-input large-input',
+	            'class'      => 'form-control',
 	            'value'		 => $value
 	        ));
 		}

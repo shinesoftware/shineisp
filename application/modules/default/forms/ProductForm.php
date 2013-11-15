@@ -10,10 +10,10 @@ class Default_Form_ProductForm extends Zend_Form
         $this->addElement('submit', 'submit', array(
             'required' => false,
             'label'      => $translate->_('Add to Cart'),
-            'decorators' => array('Composite'),
-            'class'    => 'button small radius success'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-success'
         ));
         
-        $this->addElement('hidden', 'product_id', array('decorators' => array('Composite')));
+        $this->addElement('hidden', 'product_id', array('decorators' => array('Bootstrap')));
     }
 }

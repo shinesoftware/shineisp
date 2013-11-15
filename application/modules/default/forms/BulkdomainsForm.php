@@ -12,13 +12,13 @@ class Default_Form_BulkdomainsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => true,
             'label'      => $translate->_('Domains'),
-            'class'       => 'bulktextarea'
+            'class'       => 'form-control'
         ));
                 
         $this->addElement('submit', 'bulksearch', array(
             'label'      => $translate->_('Check Now'),
-            'decorators' => array('Composite'),
-            'class'    => 'button bigbtn'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary bigbtn'
         ));
 
     }

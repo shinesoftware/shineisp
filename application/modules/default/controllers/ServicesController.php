@@ -70,44 +70,6 @@ class ServicesController extends Shineisp_Controller_Default {
 		$this->view->description = $this->translator->translate("List of all your own services subscribed");
 		$this->view->service = $data;
 	}
-
-	public function changeAction(){
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		$id = $this->getRequest ()->getParam ( 'id' );
-		$id	= intval($id);
-		if ( $id == 0 ) {
-			return $this->_helper->redirector ( 'services/list' );
-		}
-
-		$refundInfo		= $this->services->getRefundInfo($id);
-		$productid		= $refundInfo['productid'];
-		$priceRefund	= $refundInfo['refund'];
-
-		if( ! property_exists($NS, 'upgrade') ) {
-			$NS->upgrade = array();	
-		}
-		
-		$NS->upgrade[$id]	= array();
-		$productsUpgrades	= ProductsUpgrades::getUpgradesbyProductID($productid);
-		$products	= array();
-		foreach($productsUpgrades as $productUpgradeId => $productUpgradeName ) {
-			$productUpgrade					= Products::getAllInfo($productUpgradeId);	
-			$productUpgrade['name']			= $productUpgrade['ProductsData'][0]['name'];
-			$productUpgrade['shortdescription']= $productUpgrade['ProductsData'][0]['shortdescription'];
-			$productUpgrade['reviews'] 		= Reviews::countItems($productUpgradeId);
-			$productUpgrade['attributes'] 	= ProductsAttributes::getAttributebyProductID($productUpgradeId, $NS->langid, true);
-			
-			$products[]		= $productUpgrade;
-			
-			$NS->upgrade[$id][]	= $productUpgradeId;
-		}
-
-		$this->view->priceRefund 	= $priceRefund;
-		$this->view->products 		= $products;
-		
-		$this->view->title = $this->translator->translate("Upgrade products List");
-		$this->view->description = $this->translator->translate("Upgrade the selected service with one of the following services.");
-	}
 	
 	/**
 	 * editAction
@@ -154,12 +116,14 @@ class ServicesController extends Shineisp_Controller_Default {
 			$this->view->setup = OrdersItems::getSetupConfig($id);
 			
 			// Get all the messages attached to the ordersitems
-			$this->view->messages = Messages::find ( 'detail_id', $id, true );
+			$this->view->messages = Messages::getbyServiceId ($id);
 			
-			$this->view->days = $rs ['daysleft'];
+			$this->view->title = $rs ['product'];
+		}else{
+		    $this->view->title = $this->translator->translate("Detail of the service");
 		}
 		
-		$this->view->title = $this->translator->translate("Detail of the service");
+		
 		$this->view->description = $this->translator->translate("Here you can see the detail of the service.");
 		$this->view->dnsdatagrid = $this->dnsGrid ();
 		$this->view->form = $form;

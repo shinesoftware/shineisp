@@ -46,7 +46,7 @@ class Admin_CompanytypesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Customer's legal forms");
 		$this->view->description = $this->translator->translate("Here you can see all the company type.");
-		$this->view->buttons = array(array("url" => "/admin/companytypes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/companytypes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		
 		$this->datagrid->setConfig ( CompanyTypes::grid() )->datagrid ();
 	}
@@ -97,8 +97,8 @@ class Admin_CompanytypesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/companytypes/process" );
 		$this->view->title = $this->translator->translate("New Customers' legal forms");
 		$this->view->description = $this->translator->translate("Here you can create a new company type.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-								array("url" => "/admin/companytypes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+								array("url" => "/admin/companytypes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		
 		$this->render ( 'applicantform' );
 	}
@@ -134,7 +134,7 @@ class Admin_CompanytypesController extends Shineisp_Controller_Admin {
 				$record = $this->companytypes->getbyId ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -152,9 +152,9 @@ class Admin_CompanytypesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/companytypes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/companytypes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/companytypes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/companytypes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -162,7 +162,7 @@ class Admin_CompanytypesController extends Shineisp_Controller_Admin {
 			
 			if (! empty ( $rs[0] )) {
 				$form->populate ( $rs[0] );
-				$this->view->buttons[] = array("url" => "/admin/companytypes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/companytypes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 			}
 		}
 		
@@ -187,9 +187,9 @@ class Admin_CompanytypesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/companytypes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/companytypes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/companytypes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/companytypes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

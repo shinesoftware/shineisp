@@ -1,24 +1,26 @@
 <?php $form = $this->form ?>
+<?php echo  $this->render('partials/header.phtml') ?>
 
 <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>" id="setup">
-	<div id="page_wrapper">
-		<div id="page">
-			<?= $this->render('partials/header.phtml') ?>		
-			<div id="content">
+	<div class="container" id="page_wrapper">
+		<div class="row" id="page">
+			<div class="col-lg-12 col-md-12" id="content">
 				<div class="progress" style="display:none">Please wait a moment...</div>
 				
 				<?php if($this->error):?>
 					 <div class="notification error"><?php echo $this->error?></div>
 				<?php endif;?>
 				
-				<fieldset>
-					<legend><?php echo $this->translate('Locale Settings')?></legend>
-					<?php echo $form->locale->render() ?>
-					<?php echo $form->chkagreement->render() ?>
-					<?php echo $form->agreement->render() ?>
-				</fieldset>
-				<div class="submit"><?php echo $form->submit->render() ?></div>
-				<?= $this->render('partials/footer.phtml') ?>			
+				<div class="panel panel-default">
+                    <div class="panel-heading"><?php echo $this->translate('Locale Settings')?></div>
+                    <div class="panel-body">
+    					<?php echo $form->locale->render() ?>
+    					<?php echo $form->chkagreement->render() ?>
+    					<?php echo $form->agreement->render() ?>
+    				</div>
+    			</div>
+				<div class="pull-right"><?php echo $form->submit->render() ?></div>
+				<?php echo  $this->render('partials/footer.phtml') ?>			
 			</div>		
 		</div>
 	</div>

@@ -10,5 +10,5 @@
     <small><?php echo $this->translate($this->description);?></small>
 </div>
 
-<p align="right"><a class="button alert" href="/tickets/new"><?php echo $this->translate('Post new ticket')?></a></p><br><br>
-<?= $this->grid($this->tickets);?>
+<p align="right"><a class="btn btn-danger" href="/tickets/new"><?php echo $this->translate('Post new ticket')?></a></p><br><br>
+<?php echo $this->grid($this->tickets);?>

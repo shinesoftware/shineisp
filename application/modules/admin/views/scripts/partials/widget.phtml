@@ -1,19 +1,19 @@
 <div class="widget-wrapper">
-	<?php if($this->element): ?>
-		<div class="widget-header">
-			<h3><a href="<?php echo $this->controller?>"><?php echo $this->translate($this->label) ?></a></h3>
-		</div>
-		
-		<div class="widget-content">
-			<?php if($this->chart):?>
-				<div class="widget-chart">
-					<img width="250" src="<?= $this->chart; ?>" alt="chart"/>
-				</div>
-			<?php endif; ?>
-			
-			<div class="widget-table <?php echo !empty($this->chart) ? "widget-medium" : "widget-large"?>">
-				<?php echo $this->element; ?>
-			</div>
-		</div>
-	<?php endif; ?>
+        <?php if($this->element): ?>
+                <div class="widget-header">
+                    <h3><a href="<?php echo $this->controller?>"><?php echo $this->translate($this->label) ?></a></h3>
+                </div>
+                
+                <div class="widget-content">
+                        <?php if($this->chart):?>
+                                <div class="widget-chart visible-lg visible-md hidden-xs">
+                                        <img class="img-responsive" width="250" src="<?php echo  $this->chart; ?>" alt="chart"/>
+                                </div>
+                        <?php endif; ?>
+                        
+                        <div class="table-responsive <?php echo !empty($this->chart) ? "widget-medium" : "widget-large"?>">
+                                <?php echo $this->element; ?>
+                        </div>
+                </div>
+        <?php endif; ?>
 </div>

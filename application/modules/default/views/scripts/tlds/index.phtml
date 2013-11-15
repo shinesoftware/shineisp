@@ -2,44 +2,55 @@
 <?php $taxes = Taxes::getTaxbyTldID($tld['tld_id'])?>
 
 <div class="row">
-	<div class="large-12 column">
+	<div class="col-lg-12 col-md-12 col-xs-12">
 	
-		<h4><?php echo $this->translate('Domain') . " ." . $tld['DomainsTldsData'][0]['name'] ?></h4>	
-		<p><b><?php echo $this->translate('Tags') ?></b>: <?php echo $tld['DomainsTldsData'][0]['tags'] ?></p>	
+		<h2><?php echo $this->translate('Domain') . " ." . $tld['DomainsTldsData'][0]['name'] ?></h2>	
+		<p><b><?php echo $this->translate('Tags') ?></b>: <span class="badge"><?php echo $tld['DomainsTldsData'][0]['tags'] ?></span></p>	
 		
 		<?php echo $tld['DomainsTldsData'][0]['description'] ?>
 		
-		<table>
+		<table class="table table-striped">
 			<tr>
-				<td><?php echo $this->translate('Registration price') ?></td>
-				<td><?php echo $this->currency($tld['registration_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)</td>
+				<td><i class="fa fa-asterisk"></i> <?php echo $this->translate('Registration price') ?></td>
+				<td><?php echo $this->currency($tld['registration_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('Tax included') ?>)</td>
 			</tr>
 			<tr>
-				<td><?php echo $this->translate('Transfer price') ?></td>
-				<td><?php echo $this->currency($tld['transfer_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)</td>
+				<td><i class="fa fa-truck"></i> <?php echo $this->translate('Transfer price') ?></td>
+				<td><?php echo $this->currency($tld['transfer_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('Tax included') ?>)</td>
 			</tr>
 			<tr>
-				<td><?php echo $this->translate('Renewal price')?></td>
-				<td>
-					<?php echo $this->currency($tld['renewal_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('VAT included') ?>)
-				</td>
+				<td><i class="fa fa-refresh"></i> <?php echo $this->translate('Renewal price')?></td>
+				<td><?php echo $this->currency($tld['renewal_price'] * ($taxes['percentage'] + 100) / 100, array('currency' => Settings::findbyParam('currency'))) ?> (<?php echo $this->translate('Tax included') ?>)</td>
 			</tr>
 		</table>
 		
 		<h5><?php echo $this->translate('Domain Checker') ?></h5>
 		<div class="row">
-		    <form method="<?php echo $this->form->getMethod() ?>" class="dropdown custom" id="domainbox" action="<?php echo $this->form->getAction()?>">
-				<div class="small-8 column"><?php echo $this->form->name->setDecorators(array('Simple'));?></div>
-				<div class="small-2 column"><?php echo $this->form->tld->setDecorators(array('Simple'));?></div>
-				<div class="small-2 column"><?php echo $this->form->check->setDecorators(array('Simple'));?></div>
-		    </form>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" action="<?php echo $this->form->getAction()?>">
+			    	<div class="input-group">
+			    		<span class="input-group-addon">www.</span>
+						<?php echo $this->form->name->setDecorators(array('Simple'));?>
+						<span class="input-group-addon">
+							<?php echo $this->form->tld->setDecorators(array('Simple'));?>
+						</span>
+						<div class="input-group-btn">
+							<?php echo $this->form->check->setDecorators(array('Simple'));?>
+						</div>
+					</div>
+			    </form>
+		    </div>
 		</div>
 		
-		<h5><?php echo $this->translate('Other extensions') ?></h5>
-		<ul class="inline-list">
-		<?php foreach ($this->tldslist as $id=>$tld):?>
-			<li><a title="<?php echo $this->translate('Register your new .%s domain', $tld) ?>" href="/tlds/<?php echo $tld?>.html">.<?php echo $tld; ?></a></li>
-		<?php endforeach;?>
-		</ul>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12">
+				<h5><?php echo $this->translate('Other extensions') ?></h5>
+				<ul class="list-inline">
+				<?php foreach ($this->tldslist as $id=>$tld):?>
+					<li><a class="badge" title="<?php echo $this->translate('Register your new .%s domain', $tld) ?>" href="/tlds/<?php echo $tld?>.html">.<?php echo $tld; ?></a></li>
+				<?php endforeach;?>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>

@@ -11,38 +11,38 @@ class Admin_Form_NewsletterForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'sendat', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Send At'),
-            'class'       => 'text-input little-input date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('text', 'sent', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Sent'),
-            'class'       => 'text-input little-input date'
+            'class'       => 'form-control date'
         ));
         
         $this->addElement('textarea', 'message', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
         	'required'    => true,
             'label'       => $translate->_('Message'),
-            'class'       => 'textarea wysiwyg'
+            'class'       => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('select', 'sendagain', array(
 	        'label' => $translate->_('Send it again'),
-	        'decorators' => array('Composite'),
-	        'class'      => 'text-input large-input'
+	        'decorators' => array('Bootstrap'),
+	        'class'      => 'form-control'
         ));
         
         $this->getElement('sendagain')

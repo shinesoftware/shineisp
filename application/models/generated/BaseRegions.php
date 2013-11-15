@@ -14,9 +14,9 @@ Doctrine_Manager::getInstance()->bindComponent('Regions', 'doctrine');
  * @property Doctrine_Collection $Addresses
  * @property Doctrine_Collection $Provinces
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseRegions extends Doctrine_Record

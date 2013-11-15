@@ -90,7 +90,7 @@ class CategoriesController extends Shineisp_Controller_Default {
 					$this->view->pager = $data['pager'];
 				}
 				
-				$this->view->layoutmode = $ns->layoutmode;
+				$this->view->layoutmode = !empty($ns->layoutmode) ? $ns->layoutmode : "list";
 				
 				$this->_helper->viewRenderer($ns->layoutmode);
 				

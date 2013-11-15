@@ -4,12 +4,12 @@
 <p><?php echo $this->translate('Choose your new domain name!')?></p>
 	
 <div class="row">
-	<div id="domainchecker2" title="<?php echo $this->translate('Choose your new domain name!')?>">
+	<div class="col-lg-12 col-md-12 col-sm-12" id="domainchecker2" title="<?php echo $this->translate('Choose your new domain name!')?>">
 	    <div class="checkerform">
 		    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" class="custom dropdown" action="<?php echo $this->form->getAction()?>">
-				<div class="small-8 column"><?php echo $this->form->name->setDecorators(array('Simple'));?></div>
-				<div class="small-2 column"><?php echo $this->form->tld->setDecorators(array('Simple'));?></div>
-				<div class="small-2 column"><?php echo $this->form->check->setDecorators(array('Simple'));?></div>
+				<div class="col-lg-8"><?php echo $this->form->name->setDecorators(array('Simple'));?></div>
+				<div class="col-lg-2"><?php echo $this->form->tld->setDecorators(array('Simple'));?></div>
+				<div class="col-lg-2"><?php echo $this->form->check->setDecorators(array('Simple'));?></div>
 		    </form>
 	    </div>
 	</div>

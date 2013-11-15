@@ -20,7 +20,7 @@ class Languages extends BaseLanguages {
 	
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	
-		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'l.language_id', 'alias' => 'language_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'l.language_id', 'alias' => 'language_id', 'type' => 'selectall', 'attributes' => array('width' => 50 ) );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'l.language_id', 'alias' => 'language_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'l.language', 'alias' => 'language', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Locale' ), 'field' => 'l.locale', 'alias' => 'locale', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
@@ -28,7 +28,8 @@ class Languages extends BaseLanguages {
 	
 		$config ['datagrid'] ['fields'] = "language_id, language, locale, base, active";
 		$config ['datagrid'] ['rownum'] = $rowNum;
-	
+		$config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
+		
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Languages l' );
 	
 		$config ['datagrid'] ['basepath'] = "/admin/languages/";
@@ -266,7 +267,7 @@ class Languages extends BaseLanguages {
 				if(!empty($territories) && is_array($territories)){
 					
 					// Get the name of the territory using only the two letter, for ex: US in order to get United States 
-					$locales[$name] = ucfirst($territories[$name]);
+					$locales[$name] =  !empty($territories[$name]) ? ucfirst($territories[$name]) . " ($name)" : $name;
 				}
 				
 			}

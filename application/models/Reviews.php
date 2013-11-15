@@ -23,11 +23,11 @@ class Reviews extends BaseReviews
 		
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Id' ), 'field' => 'r.review_id', 'alias' => 'review_id', 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'r.subject', 'alias' => 'subject', 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'City' ), 'field' => 'r.city', 'alias' => 'city', 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Nick' ), 'field' => 'r.nick', 'alias' => 'nick', 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Published on' ), 'field' => 'r.publishedat', 'alias' => 'publishedat', 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'r.active', 'alias' => 'active', 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'r.subject', 'alias' => 'subject', 'type' => 'string');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'City' ), 'field' => 'r.city', 'alias' => 'city', 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Stars' ), 'field' => 'r.stars', 'alias' => 'stars', 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Published on' ), 'field' => 'r.publishedat', 'alias' => 'publishedat', 'type' => 'date', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'r.active', 'alias' => 'active', 'type' => 'boolean' );
 		
 		$config ['datagrid'] ['fields'] = "r.review_id, r.*, DATE_FORMAT(r.publishedat, '%d/%m/%Y %H:%i:%s') as publishedat";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->from ( 'Reviews r' )->orderBy('review_id desc');
@@ -108,7 +108,7 @@ class Reviews extends BaseReviews
      * @param $id
      */
     public static function getbyProductId($id) {
-    	return Doctrine_Query::create ()->from ( 'Reviews r' )->where ( "product_id = ?", $id )->andWhere('active = ?', true)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+    	return Doctrine_Query::create ()->from ( 'Reviews r' )->leftJoin('r.Products p')->where ( "product_id = ?", $id )->andWhere('active = ?', true)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
     }
     
     /**
@@ -245,6 +245,7 @@ class Reviews extends BaseReviews
 	 * @return array
 	 */
 	public static function summary() {
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$newarray = array();
 		$chart = "";
 
@@ -266,7 +267,11 @@ class Reviews extends BaseReviews
 			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
 		}
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
+		
+		return $records;
 	}      
 	
 	/**

@@ -23,8 +23,8 @@ class Wiki extends BaseWiki {
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'w.wiki_id', 'alias' => 'wiki_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subject' ), 'field' => 'w.subject', 'alias' => 'subject', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation Date' ), 'field' => 'w.creationdate', 'alias' => 'creation_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'wc.category_id', 'alias' => 'category', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => WikiCategories::getList()  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation Date' ), 'field' => 'w.creationdate', 'alias' => 'creation_date', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => 'span2') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'wc.category_id', 'alias' => 'category', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => WikiCategories::getList(), 'attributes' => array('class' => 'span2')  );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visits' ), 'field' => 'w.views', 'alias' => 'visits', 'sortable' => true, 'type' => 'index');
 		
 		$config ['datagrid'] ['fields'] = "w.wiki_id, w.subject as subject, DATE_FORMAT(w.creationdate, '%d/%m/%Y') as creation_date, wc.category as category, w.views as visits";
@@ -183,16 +183,16 @@ class Wiki extends BaseWiki {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject" )
+		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject, l.language as language" )
 									   ->from ( 'Wiki w' )
-									   ->where('w.language_id = ?', $Session->langid);
+									   ->leftJoin('w.Languages l');
 		$retval = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
 			$items [] = $translator->translate ( 'Select ...' );
 		}
 		foreach ( $retval as $c ) {
-			$items [$c ['wiki_id']] = $c ['subject'];
+			$items [$c ['wiki_id']] = $c ['subject'] . " (" . $c['language'] . ")";
 		}
 		
 		return $items;

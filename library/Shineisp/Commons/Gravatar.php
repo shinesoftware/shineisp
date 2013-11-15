@@ -18,9 +18,11 @@ class Shineisp_Commons_Gravatar {
 	    $url .= md5( strtolower( trim( $email ) ) );
 	    $url .= "?s=$s&d=$d&r=$r";
 	    if ( $img ) {
-	        $url = '<a href="http://www.gravatar.com/' . md5( strtolower( trim( $email ) ) ) .'" target="_blank"><img src="' . $url . '"';
-	        foreach ( $atts as $key => $val )
-	            $url .= ' ' . $key . '="' . $val . '"';
+	        $url = '<a href="http://www.gravatar.com/' . md5( strtolower( trim( $email ) ) ) .'" target="_blank" class="pull-left"><img class="img-circle img-responsive" src="' . $url . '"';
+	        foreach ( $atts as $key => $val ){
+	            $url .= " $key=\"$val\"";
+	        }
+	            
 	        $url .= ' /></a>';
 	    }
 	    return $url;

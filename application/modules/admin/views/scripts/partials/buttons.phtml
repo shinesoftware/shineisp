@@ -2,8 +2,8 @@
 	<ul class="dashboard-buttons-set">
 	    <?php foreach ($this->buttons as $button) : ?>
 		    <li>
-		    	<a href="<?=$button['url']?>" title="<?= $this->translate($button['desc'])?>" <?=(isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"':''?> class="dashboard-button">
-		    		<span class="png_bg <?=strtolower($button['label'])?>"><?= $this->translate($button['label'])?></span>
+		    	<a href="<?php echo $button['url']?>" title="<?php echo  $this->translate($button['desc'])?>" <?php echo (isset($button['onclick'])) ? 'onClick="'.$button['onclick'].'"':''?> class="dashboard-button">
+		    		<span class="png_bg <?php echo strtolower($button['label'])?>"><?php echo  $this->translate($button['label'])?></span>
 		    	</a>
 	    	</li>
 	    <?php endforeach; ?>

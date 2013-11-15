@@ -50,15 +50,19 @@ class ProductsRelated extends BaseProductsRelated {
 	}
 	
 	/**
-	 * Get all the products related with a specific product id
+	 * Get the related products starting 
+	 * by a specific product_id
+	 * excluding itself
+	 * 
 	 * @param integer $product_id
 	 */
 	public static function get_products($product_id, $locale="1") {
-		$related = Doctrine_Query::create ()->select ("pr.related_id, p.product_id as product_id, p.uri as uri, p.price_1 as price, pd.name as name, pd.shortdescription as description")
+		$related = Doctrine_Query::create ()->select ("pr.related_id, p.product_id as product_id, p.uri as uri, p.price_1 as price, pd.name as name, pd.shortdescription as description, p.ishighlighted as ishighlighted")
 						->from ( 'ProductsRelated pr' )
 						->leftJoin('pr.Products p')
 						->leftJoin("p.ProductsData pd WITH pd.language_id = $locale")
 						->where ( 'pr.product_id = ?', $product_id )
+                        ->addWhere( "p.product_id <> ?", $product_id )
                         ->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
 						->orderBy('p.group_id, p.position')
 						->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );

@@ -1,19 +1,17 @@
 <?php $products = $this->products; ?>
+
 <div id="relatedproduct" class="row">
-	<div class="large-12 column">
-		<h5><?php echo $this->translate('Related Products')?></h5>
-		<?php foreach ($products as $product): ?>
-			<?php if(!empty($product['name'])): ?>
-			<div class="row">
-				<div class="large-3 column">
-			    	<?php echo $this->media()->ProductImage($product['product_id'], 60, 60, false);?>
-				</div>
-				<div class="large-9 column">
-					<h6><a href="/<?php echo $product['uri'] ?>.html"><?php echo $product['name'] ?></a></h6>
-					<p><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 100, "...", true, true)  ?></p>
-				</div>
-			</div>
-			<?php endif; ?>
-		<?php endforeach;?>
+	<div class="col-lg-12 col-md-12 col-xs-12">
+	    <h4 class="text-muted"><?php echo $this->translate('Related Products')?></h4>
+        <div class="list-group">
+            <?php foreach ($products as $product): ?>
+                <?php if(!empty($product['name'])): ?>
+                    <a href="/<?php echo $product['uri'] ?>.html" class="list-group-item <?php echo ($product['ishighlighted']) ? "active" : null?>">
+                        <h4 class="list-group-item-heading"><?php echo $product['name'] ?></h4>
+                        <p class="list-group-item-text"><?php echo Shineisp_Commons_Utilities::truncate(strip_tags($product['description']), 100, "...", true, true)  ?></p>
+                    </a>
+                <?php endif; ?>
+            <?php endforeach;?>
+        </div>
 	</div>
 </div>

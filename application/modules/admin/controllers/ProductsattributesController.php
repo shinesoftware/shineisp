@@ -38,7 +38,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Product Attributes");
 		$this->view->description = $this->translator->translate("Here you can see all the attributes.");
-		$this->view->buttons = array(array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( ProductsAttributes::grid() )->datagrid ();
 	}
 
@@ -91,8 +91,8 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 		// I have to add the language id into the hidden field in order to save the record with the language selected 
 		$this->view->form->populate ( array('language_id' => $Session->langid) );
 		
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		
 		$this->view->title = $this->translator->translate("Attributes");
 		$this->view->description = $this->translator->translate("Here you can edit the attribute details.");
@@ -117,7 +117,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$record = $this->productsattributes->find ( $id )->toArray();
 				$this->view->recordselected = $record ['code'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Attribute deleted' ), 'status' => 'information' ) );	
 			}
 		}
-		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 	}
 	
 	/**
@@ -162,9 +162,9 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Set the system field attribute title
@@ -184,7 +184,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/productsattributes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/productsattributes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		$this->view->title = $this->translator->translate("Attribute Group");
@@ -206,9 +206,9 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/productsattributes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/productsattributes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		try {
@@ -243,7 +243,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				$id = ProductsAttributes::addNew($id, $code, $label, $type, $language_id, $position, $active, $prefix, $suffix, $description, $is_visible_on_front, $is_system_var, $system_var, $defaultvalue, $is_required, $is_comparable, $on_product_listing);
 				
 				if($id === false){
-					$this->_helper->redirector ( 'list', 'productsattributes', 'admin', array ('mex' => "There was an error during the saving process. Check all the parameters.", 'status' => 'error' ) );
+					$this->_helper->redirector ( 'list', 'productsattributes', 'admin', array ('mex' => "There was an error during the saving process. Check all the parameters.", 'status' => 'danger' ) );
 				}				
 				$this->_helper->redirector ( 'edit', 'productsattributes', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 			
@@ -254,7 +254,7 @@ class Admin_ProductsattributesController extends Shineisp_Controller_Admin {
 				return $this->render ( 'applicantform' );
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'edit', 'productsattributes', 'admin', array ('id' => $id, 'mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'productsattributes', 'admin', array ('id' => $id, 'mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 }

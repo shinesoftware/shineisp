@@ -60,9 +60,9 @@ class DomainsController extends Shineisp_Controller_Default {
 			$this->view->searchactive = 1;
 		} else {
 			$this->view->searchactive = 0;
-			$params ['search'] ['status_id'] ['method'] = "andWhere";
-			$params ['search'] ['status_id'] ['criteria'] = "d.status_id <> ? AND d.status_id <> ?";
-			$params ['search'] ['status_id'] ['value'] = array(5, 28); // Do not show the expired domain as default
+// 			$params ['search'] ['status_id'] ['method'] = "andWhere";
+// 			$params ['search'] ['status_id'] ['criteria'] = "d.status_id <> ? AND d.status_id <> ?";
+// 			$params ['search'] ['status_id'] ['value'] = array(Statuses::id('suspended', 'domains'), Statuses::id('expired', 'domains')); // Do not show the expired domain as default
 		}
 		
 		$params ['search'][] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']) );
@@ -194,7 +194,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			$this->view->productid = $rs [0] ['product_id'];
 			
 			// Show the list of the messages attached to this domain
-			$this->view->messages = Messages::find ( 'domain_id', $id, true );
+			$this->view->messages = Messages::getbyDomainId( $id );
 			$this->view->tags = Tags::findConnectionbyDomainID ( $id );
 			$this->view->is_maintained = $rs [0] ['registrars_id'];
 			$this->view->customerid = $customer_id;
@@ -292,18 +292,19 @@ class DomainsController extends Shineisp_Controller_Default {
 				Dns_Zones::addDnsZone($id, $params['dnsform'] ['subdomain'], $params['dnsform']['target'], $params['dnsform'] ['zones']);
 			}
 			
-			
 			// Save the message note
 			if (! empty ( $params ['note'] )) {
 				Messages::addMessage($params ['note'], $this->customer ['customer_id'], $id);
 				$isp = Shineisp_Registry::get('ISP');
 				
 				$placeholder['fullname'] = $this->customer ['firstname'] . " " . $this->customer ['lastname'];
+				$placeholder['domain'] = domains::getDomainName($id);
 				$placeholder['message'] = $params ['note'];
 				$placeholder['messagetype'] = $this->translator->translate('Domain');
 			
 				Messages::sendMessage ( "message_new", $this->customer ['email'], $placeholder);
 				Messages::sendMessage ( "message_admin", $isp->email, $placeholder);
+				
 			}
 			
 			Domains::setAuthInfo($id, $params ['authinfocode']);

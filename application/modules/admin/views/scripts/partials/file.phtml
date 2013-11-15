@@ -1,0 +1,13 @@
+<div class="control-group">
+    <label for="<?php echo $this->element->getName(); ?>" class="element <?php if ($this->element->hasErrors()): ?> error<?php endif; ?>" id="label_<?php echo $this->element->getName(); ?>"><?php echo $this->element->getLabel(); ?></label>
+    <div class="controls"><?php echo $this->content; ?></div>
+    
+    <?php if ($this->element->hasErrors()): ?>
+        <span class="alert alert-danger">
+            <?php echo $this->formErrors($this->element->getMessages()); ?>
+        </span>
+    <?php endif; ?>
+    
+</div>
+
+

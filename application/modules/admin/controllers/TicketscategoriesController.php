@@ -46,7 +46,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Ticket Categories list");
 		$this->view->description = $this->translator->translate("Here you can see all the ticket categories.");
-		$this->view->buttons = array(array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( TicketsCategories::grid() )->datagrid ();
 	}
 	
@@ -97,8 +97,8 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/ticketscategories/process" );
 		$this->view->title = $this->translator->translate("Category Details");
 		$this->view->description = $this->translator->translate("Here you can handle the category parameters");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -131,7 +131,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 				$record = $this->ticketscategories->find ( $id );
 				$this->view->recordselected = $record [0] ['category'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 		try {
 			$this->ticketscategories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'ticketscategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'ticketscategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'ticketscategories', 'admin' );
 	}
@@ -164,9 +164,9 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -176,7 +176,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs [0] );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/ticketscategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/ticketscategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		
@@ -202,9 +202,9 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ticketscategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/ticketscategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request
@@ -235,7 +235,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'ticketscategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'ticketscategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'ticketscategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/ticketscategories/edit/id/$id" );

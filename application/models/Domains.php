@@ -23,17 +23,17 @@ class Domains extends BaseDomains {
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.domain_id', 'alias' => 'domain_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.domain_id', 'alias' => 'domain_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'd.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Tld' ), 'field' => 'ws.tld', 'alias' => 'tld', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Automatic Renewal' ), 'field' => 'd.autorenew', 'alias' => 'autorenew', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 'creation_date', 'alias' => 'creation_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Expiry Date' ), 'field' => 'expiring_date', 'alias' => 'expiring_date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'daysleft', 'alias' => 'daysleft', 'sortable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Lastname' ), 'field' => 'c.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Registrar' ), 'field' => 'r.name', 'alias' => 'registrar', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'TLD' ), 'field' => 'ws.tld', 'alias' => 'tld', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'd.autorenew', 'alias' => 'autorenew', 'sortable' => true, 'searchable' => true, 'type' => 'boolean', 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Creation date' ), 'field' => 'creation_date', 'alias' => 'creation_date', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Expiry Date' ), 'field' => 'expiring_date', 'alias' => 'expiring_date', 'sortable' => true, 'searchable' => true, 'type' => 'date', 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Days left' ), 'field' => 'daysleft', 'alias' => 'daysleft', 'sortable' => true, 'type' => 'string', 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Last Name' ), 'field' => 'c.lastname', 'alias' => 'lastname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "visible-lg visible-md hidden-xs span1")  );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Registrar' ), 'field' => 'r.name', 'alias' => 'registrar', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => "visible-lg visible-md hidden-xs")  );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('domains') );
 		
 		$config ['datagrid'] ['fields'] =  "d.domain_id, 
-											d.domain as domain, 
+											CONCAT(d.domain, '.', ws.tld) as domain, 
 											d.autorenew as autorenew, 
 											DATE_FORMAT(creation_date, '%d/%m/%Y') as creation_date, 
 											DATE_FORMAT(expiring_date, '%d/%m/%Y') as expiring_date, 
@@ -58,7 +58,7 @@ class Domains extends BaseDomains {
                       
                              
 		$config ['datagrid'] ['dqrecordset'] = $dq;
-		
+		$config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
 		$config ['datagrid'] ['index'] = "domain_id";
 		
 		// Automatic Renewal function											
@@ -149,8 +149,8 @@ class Domains extends BaseDomains {
 		}
 
 		
-		$pagerLayout->setTemplate ( '<a href="{%url}">{%page}</a> ' );
-		$pagerLayout->setSelectedTemplate ( '<a class="active" href="{%url}">{%page}</a> ' );
+		$pagerLayout->setTemplate ( '<li><a href="{%url}">{%page}</a></li>' );
+		$pagerLayout->setSelectedTemplate ( '<li class="active"><a href="{%url}">{%page}</a></li>' );
 		
 		$domains = $pagerLayout->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		$pagination = $pagerLayout->display ( null, true );
@@ -604,7 +604,6 @@ class Domains extends BaseDomains {
     }
 	
 	/**
-     * getExpiringDomains
      * Get the list of the domain next the expiration date
      * @param $customerID
      * @return Void
@@ -1488,6 +1487,7 @@ class Domains extends BaseDomains {
 	 */
 	public static function summary() {
 		$chart = "";
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
 				->select ( "domain_id, count(*) as items, s.status as status" )
@@ -1521,9 +1521,11 @@ class Domains extends BaseDomains {
         
         $record_group2  =  $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
-		$newarray[] = array('items' => $record_group2[0]['items'], 'status' => "Total");
+		$records['data'] = $newarray;
+		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
+		$records['chart'] = $chart;
 		
-		return array('data' => $newarray, 'chart' => $chart);
+		return $records;
 	}	
 	
 	/**

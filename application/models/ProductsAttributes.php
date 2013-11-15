@@ -30,8 +30,8 @@ class ProductsAttributes extends BaseProductsAttributes {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Label' ), 'field' => 'pad.label', 'alias' => 'label', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => Isp::getPanel() . " " . $translator->translate ( 'System Attributes' ), 'field' => 'pa.system_var', 'alias' => 'system_var', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Default' ), 'field' => 'pa.defaultvalue', 'alias' => 'default', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Position' ), 'field' => 'pa.position', 'alias' => 'position', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visible on Frontend' ), 'field' => 'pa.is_visible_on_front', 'alias' => 'visible', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Position' ), 'field' => 'pa.position', 'alias' => 'position', 'sortable' => true, 'searchable' => true, 'type' => 'index' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visible on Frontend' ), 'field' => 'pa.is_visible_on_front', 'alias' => 'visible', 'sortable' => true, 'searchable' => true, 'type' => 'boolean' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Groups' ), 'type' => 'arraydata', 'index' => 'attribute_id', 'alias' => 'dummy', 'run' => array('ProductsAttributes'=>'getGroups') );
 		
 		$config ['datagrid'] ['fields'] = "attribute_id, code, pad.label as label, pa.system_var as system_var, pa.is_visible_on_front as visible, pa.position as position, pa.defaultvalue as default";
@@ -191,10 +191,10 @@ class ProductsAttributes extends BaseProductsAttributes {
 		try {
 			$records = array();
 			$items = Doctrine_Query::create ()->select ( 'attribute_id, pad.label as label, code' )
-			->from ( 'ProductsAttributes pa' )
-			->leftJoin( 'pa.ProductsAttributesData pad WITH pad.language_id = ' . $locale )
-			->orderBy('pad.label')
-			->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+					->from ( 'ProductsAttributes pa' )
+					->leftJoin( 'pa.ProductsAttributesData pad WITH pad.language_id = ' . $locale )
+					->orderBy('pad.label')
+					->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 
 			foreach ( $items as $c ) {
 				$records [$c ['attribute_id']] = $c['label'] . " - (" . $c ['code'] . ")";

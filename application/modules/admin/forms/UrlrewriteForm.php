@@ -11,30 +11,30 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Target Path'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->addElement('text', 'request_path', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Request Path'),
         	'required'   => true,
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),
-            'decorators' => array('Composite'),
-            'class'      => 'textarea'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'col-lg-12'
         ));   
         
         $this->addElement('select', 'product_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Products'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->getElement('product_id')
@@ -44,8 +44,8 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         $this->addElement('select', 'category_id', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Categories'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
         
         $this->getElement('category_id')
@@ -55,7 +55,7 @@ class Admin_Form_UrlrewriteForm extends Zend_Form
         $this->addElement('checkbox', 'temporary', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Temporary'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));  
         
         $this->addElement('hidden', 'url_rewrite_id');

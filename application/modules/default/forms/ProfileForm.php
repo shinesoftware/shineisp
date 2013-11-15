@@ -12,8 +12,8 @@ class Default_Form_ProfileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('First name'),
             'description' => $translate->_('Write here your first name.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'lastname', array(
@@ -21,8 +21,8 @@ class Default_Form_ProfileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Last name'),
             'description'      => $translate->_('Write here your last name.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'birthdate', array(
@@ -30,23 +30,23 @@ class Default_Form_ProfileForm extends Zend_Form
             'validators' => array(new Zend_Validate_Date('dd/mm/yyyy','it')),
             'label'      => $translate->_('Birthdate'),
             'description'  => $translate->_('Write here your birthday (eg. dd/mm/yyyy)'),
-            'decorators' => array('Composite'),
-            'class'        => 'text-input medium-input'
+            'decorators' => array('Bootstrap'),
+            'class'        => 'form-control medium-input'
         ));
         
         $this->addElement('text', 'birthplace', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birthplace'),
             'description'      => $translate->_('Write here the birthplace.'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('select', 'company_type_id', array(
         'label' => $translate->_('Company Type'),
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the company type'),
-        'class'      => 'text-input large-input'
+        'class'      => 'form-control large-input'
         ));
         
         $this->getElement('company_type_id')
@@ -56,9 +56,9 @@ class Default_Form_ProfileForm extends Zend_Form
         $this->addElement('select', 'legalform', array(
         'label' => $translate->_('Legalform'),
         'required'   => true,
-        'decorators' => array('Composite'),
+        'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the type of company.'),
-        'class'      => 'text-input large-input'
+        'class'      => 'form-control large-input'
         ));
         
         $this->getElement('legalform')
@@ -68,45 +68,45 @@ class Default_Form_ProfileForm extends Zend_Form
         $this->addElement('text', 'company', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Company Name'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write here your company name.'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'birthplace', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth place'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'birthdistrict', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth District'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control medium-input',
             'maxlength' => 2
         ));
         
         $this->addElement('text', 'birthcountry', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Country of Birth'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'birthnationality', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Birth Nationality'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'vat', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('VAT'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input',
             'description'      => $translate->_('Write here the VAT number.')
         ));
         
@@ -114,16 +114,16 @@ class Default_Form_ProfileForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Area'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control medium-input',
             'description'      => 'Write the area code'
         ));        
         
         $this->addElement('text', 'taxpayernumber', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Tax payer number'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input',
             'description'      => 'Write the tax payer number.'
         ));
         
@@ -131,9 +131,9 @@ class Default_Form_ProfileForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Address'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write the address'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('text', 'code', array(
@@ -141,8 +141,8 @@ class Default_Form_ProfileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Zip'),
             'description'      => 'Write the zip code',
-            'decorators' => array('Composite'),
-            'class'      => 'text-input medium-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control medium-input'
         ));
         
         $this->addElement('text', 'city', array(
@@ -150,15 +150,16 @@ class Default_Form_ProfileForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('City'),
             'description'      => $translate->_('Write here your city name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control large-input'
         ));
         
         $this->addElement('select', 'country_id', array(
 		        'label' => $translate->_('Country'),
 		        'required'   => true,
 		        'description'      => $translate->_('Select your own country'),
-		        'decorators' => array('Composite'))
+		        'decorators' => array('Bootstrap'),
+                'class'      => 'form-control large-input')
         );
         $this->getElement('country_id')
                   ->setAllowEmpty(false)
@@ -168,8 +169,8 @@ class Default_Form_ProfileForm extends Zend_Form
         $this->addElement('select', 'gender', array(
         'label' => $translate->_('Gender'),
         'required'   => true,
-        'decorators' => array('Composite'),
-        'class'      => 'text-input medium-input'));
+        'decorators' => array('Bootstrap'),
+        'class'      => 'form-control medium-input'));
         
         $this->getElement('gender')
                   ->setAllowEmpty(false)
@@ -179,8 +180,8 @@ class Default_Form_ProfileForm extends Zend_Form
         $this->addElement('select', 'newsletter', array(
 					        'label' => $translate->_('Newsletter'),
 					        'description'   => $translate->_('Subscribe to our free content feeds and get all the news for your bought services and products.'),
-					        'decorators' => array('Composite'),
-					        'class'      => 'text-input medium-input'));
+					        'decorators' => array('Bootstrap'),
+					        'class'      => 'form-control medium-input'));
 					        
         $this->getElement('newsletter')
                   ->setAllowEmpty(false)
@@ -191,8 +192,8 @@ class Default_Form_ProfileForm extends Zend_Form
         'label' => $translate->_('Contact Types'),
         'required'   => true,
         'description'      => $translate->_('Select the contact type'),
-        'decorators' => array('Composite'),
-        'class'      => 'text-input large-input'));
+        'decorators' => array('Bootstrap'),
+        'class'      => 'form-control large-input'));
         
         $this->getElement('contacttypes')
                   ->setAllowEmpty(false)
@@ -201,40 +202,40 @@ class Default_Form_ProfileForm extends Zend_Form
         $this->addElement('text', 'contact', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Contact'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'description'      => $translate->_('Write here the contact (eg. +39.98368276)'),
-            'class'      => 'text-input medium-input'
+            'class'      => 'form-control medium-input'
         ));
         
         $this->addElement('text', 'email', array(
             'filters'    => array('StringTrim', 'StringToLower'),
             'required'   => true,
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 'EmailAddress',
             ),
             'required'   => true,
             'label'      => $translate->_('Email'),
             'description'      => $translate->_('Write here your email'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
                 
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
-            'decorators' => array('Composite'),
+            'decorators' => array('Bootstrap'),
             'validators' => array(
                 array('regex', false, '/^[a-zA-Z0-9\-\_\.\%\!\$]{6,20}$/')
             ),
             'description'      => $translate->_('Write here your password. (min.6 chars - max.20 chars)'),
             'label'      => $translate->_('Password'),
-            'class'      => 'text-input large-input'
+            'class'      => 'form-control large-input'
         ));
         
         
         $this->addElement('submit', 'submit', array(
             'label'      => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary'
         ));
         
         $this->addElement('hidden', 'customer_id');

@@ -1,12 +1,12 @@
 <?php $form = $this->form; ?>
 
 <div class="row">   
-	<div class="large-12 column">   
+	<div class="col-lg-12 col-md-12 col-xs-12">   
 	    <h3><?php echo $this->translate('New Account')?></h3>
 	    <p><?php echo $this->translate('Create your new account today!'); ?> </p>
 	    <p align="right"><?php echo $this->translate('Already registered?'); ?> <a href="/customer/login"><?php echo $this->translate('Sign in'); ?></a></p>
 	    <?php if( $this->message ): ?>
-        	<?php echo "<div data-alert class=\"alert-box alert\">" . $this->message . "</div>"; ?>
+        	<?php echo "<div class=\"alert alert-warning alert-dismissable\">" . $this->message . "</div>"; ?>
         <?php endif;?>
             
 		<? if( $this->form->isErrors() ): ?>
@@ -17,7 +17,7 @@
 			        	foreach( $field->getErrors() as $error){
 			        		$errors[] = $this->translate($error);
 			        	}
-			            echo "<div data-alert class=\"alert-box alert\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
+			            echo "<div class=\"alert alert-warning alert-dismissable\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
 			        }   
 			    } ?>
 			</div>    
@@ -28,7 +28,7 @@
 <div class="row"> 	
     <?php if($this->form):?>
         <form method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
-            <div class="large-6 column">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <?php echo $form->firstname->render() ?>
                 <?php echo $form->lastname->render() ?>
                 <?php echo $form->email->render() ?>
@@ -46,13 +46,13 @@
                 ?>
                 </p>
             </div>
-            <div class="large-6 column">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <?php echo $form->company->render() ?>
                 <?php echo $form->legalform->render() ?>
                 <?php echo $form->company_type_id->render() ?>
                 <?php echo $form->taxpayernumber->render() ?>
                 <?php echo $form->vat->render() ?><br/><br/>
-                <?php echo $form->signup->render() ?>
+                <div class="text-right"><?php echo $form->signup->render() ?></div>
             </div>
         </form>
     <?php endif;?>

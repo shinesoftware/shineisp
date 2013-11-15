@@ -1,0 +1,21 @@
+<div class="navbar navbar-default navbar-fixed-bottom hidden-xs">
+    <div class="col-lg-1">
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><?php echo $this->languageswitcher();?></li>
+		</ul>
+    </div>
+    <div class="col-lg-11">
+		<ul class="nav navbar-nav pull-right">
+		    <li><a href="#"><span class="badge"><?php echo $this->querycount();?></span></a></li>
+		    <li><a href="#"><span class="badge"><?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></span></a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown"><a href="http://www.shineisp.com/translating-shineisp/" target="_blank"><i class="glyphicon glyphicon-question-sign"></i> How-to translate the project</a></li>
+                        <li class="divider"></li>
+                    <li class="dropdown"><a href="http://www.shineisp.com/" target="_blank">About ShineISP</a></li>
+                </ul>
+            </li>
+		</ul>
+	</div>
+</div>

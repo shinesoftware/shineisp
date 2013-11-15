@@ -24,7 +24,7 @@ class ProductsCategories extends BaseProductsCategories {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'pc.category_id', 'alias' => 'category_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'pc.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Position' ), 'field' => 'pc.position', 'alias' => 'position', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'pc.enabled', 'alias' => 'enabled', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'pc.enabled', 'alias' => 'enabled', 'sortable' => true, 'searchable' => true, 'type' => 'boolean' );
 		$config ['datagrid'] ['fields'] = "pc.category_id, pc.name as name, pc.enabled as enabled, position as position";
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		

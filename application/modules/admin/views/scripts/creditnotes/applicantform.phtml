@@ -2,68 +2,52 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
-
-<div class="content_inner">
-
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
-		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Details');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('Notes');?></a></li> 
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Details');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Notes');?></a></li> 
 		</ul>
 	
-	
-		<div style="display: block" class="" id="tab1"> 
-		    
-		    <fieldset class="column-left"> 
-		        <?php echo $form->creationdate->render() ?>
-		        <?php echo $form->number->render() ?>
-		        <?php echo $form->invoice_id->render() ?>
-		    </fieldset>
-		    <fieldset class="column-right"> 
-		        <?php echo $form->total_net->render() ?>
-		        <?php echo $form->total_vat->render() ?>
-		        <?php echo $form->total->render() ?>
-	        </fieldset>
-	        <div class="clear"></div>
-	        
-	        <table>
-				<tr>
-					<td width="10%"><?php echo $this->form->quantity->setDecorators(array('Simple'));?></td>
-					<td width="70%"><?php echo $this->form->description->setDecorators(array('Simple'));?></td>
-					<td width="10%"><?php echo $this->form->price->setDecorators(array('Simple'));?></td>
-					<td width="10%"><?php echo $this->form->vat->setDecorators(array('Simple'));?></td>
-				</tr>
-			</table>
-		
-		</div>
-		
-		<div class="ui-tabs-hide" id="tab2">
-		 	<?php echo $this->simplegrid($this->items) ?>
-		</div>
-		
-		<div class="ui-tabs-hide" id="tab3">
-		 	<?php echo $form->note->render() ?>
-		</div>
-		
+	    <div class="tab-content">
+    		<div class="tab-pane active" id="tab1"> 
+    		    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+    		        <?php echo $form->creationdate->render() ?>
+    		        <?php echo $form->number->render() ?>
+    		        <?php echo $form->invoice_id->render() ?>
+    		    </div>
+    		    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+    		        <?php echo $form->total_net->render() ?>
+    		        <?php echo $form->total_vat->render() ?>
+    		        <?php echo $form->total->render() ?>
+    	        </div>
+    	        <div class="clearfix"></div>
+    	        <h4><?php echo $this->translate('Add a new item in the credit memo')?></h4>
+    	        <small><?php echo $this->translate('Write the information in the application form and save the data for each credit memo item')?></small>
+    	        <table class="table">
+    				<tr>
+    					<td width="10%"><?php echo $this->form->quantity->setDecorators(array('Simple'));?></td>
+    					<td width="70%"><?php echo $this->form->description->setDecorators(array('Simple'));?></td>
+    					<td width="10%"><?php echo $this->form->price->setDecorators(array('Simple'));?></td>
+    					<td width="10%"><?php echo $this->form->vat->setDecorators(array('Simple'));?></td>
+    				</tr>
+    			</table>
+    		</div>
+    		
+    		<div class="tab-pane" id="tab2">
+    		 	<?php echo $this->simplegrid($this->items) ?>
+    		</div>
+    		
+    		<div class="tab-pane" id="tab3">
+    		 	<?php echo $form->note->render() ?>
+    		</div>
+    		
+    	</div>    
 	</div>
-	
 	<?php echo $form->creditnote_id->render()?>
 </form>
 </div>

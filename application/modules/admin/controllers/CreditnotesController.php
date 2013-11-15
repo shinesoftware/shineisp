@@ -42,7 +42,7 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Credit notes list");
 		$this->view->description = $this->translator->translate("Here you can see all the credit notes.");
-		$this->view->buttons = array(array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( CreditNotes::grid() )->datagrid ();
 	}
 	
@@ -90,8 +90,8 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/creditnotes/process" );
 		$this->view->title = $this->translator->translate("New Credit Notes");
 		$this->view->description = $this->translator->translate("Create a new credit note using this form.");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -112,7 +112,7 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 				$record = $this->creditnotes->find ( $id );
 				$this->view->recordselected = $record ['number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ( $record ['creationdate'] );
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -165,10 +165,10 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/creditnotes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right'))),
-				array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/creditnotes/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
+				array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -184,8 +184,8 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 			// Check if the order has been invoiced
 			$invoice_id = $rs['invoice_id'];
 			if($invoice_id){
-				$this->view->buttons[] = array("url" => "/admin/creditnotes/printpdf/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => array('button', 'float_right')));
-				$this->view->buttons[] = array("url" => "/admin/invoices/edit/id/$invoice_id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('button', 'float_right')));
+				$this->view->buttons[] = array("url" => "/admin/creditnotes/printpdf/id/$id", "label" => $this->translator->translate('Print'), "params" => array('css' => null));
+				$this->view->buttons[] = array("url" => "/admin/invoices/edit/id/$invoice_id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => null));
 			}
 			
 		}
@@ -217,9 +217,9 @@ class Admin_CreditnotesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/creditnotes/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/creditnotes/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request

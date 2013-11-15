@@ -1,0 +1,123 @@
+/* ------ GENERAL -------- */
+body {
+	padding-top: 60px;
+}
+
+#content {
+	padding-bottom: 100px;
+}
+
+.row {
+	margin: 10px -15px;
+}
+
+.navbar-nav>li>a {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.navbar-nav-right{
+	float:right;
+}
+
+/* ------ MEDIA -------- */
+
+.media-list div.media-body{
+    margin-left: 80px;
+}
+
+.media-list li.media{
+	border-bottom: 1px solid #EEEEEE;
+    padding: 20px;
+}
+
+.media-list .media-heading{
+    margin-bottom: 8px;
+}
+
+/* ------ FORMS -------- */
+.tab-content {
+	padding-top: 15px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.badge-active,.badge-complete,.badge-success,.badge-solved {
+	background-color: #468847;
+}
+
+.badge-deleted {
+	background-color: #B94A48;
+}
+
+.badge-suspended {
+	background-color: #999999;
+}
+
+/* ------ LOGIN -------- */
+.loginbtn {
+	padding-top: 22px;
+}
+.loginframe{
+	width: 364px;
+}
+/* ------ DASHBOARD -------- */
+
+ul.stats li {
+	text-align: center
+}
+
+ul.stats li h1 {
+	color: #999999;
+	font-weight: bold;
+}
+
+ul.stats li strong {
+	color: #000;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+ul.stats li small {
+	color: #7A828D;
+	font-size: 12px;
+}
+
+ul.stats li span {
+	color: #A8A8A8;
+	font-size: 15px;
+}
+
+ul.stats li span.green {
+	color: #00A708;
+}
+
+ul.stats li span.red {
+	color: #BF2E1A;
+}
+
+ul.stats {
+	margin: -15px 0 0;
+	padding: 22px 15px 24px;
+	width: 100%;
+}
+
+ul.stats li {
+	padding: 15px;
+	width: 200px;
+}
+
+ul.stats li strong,ul.stats li small,ul.stats li span {
+	display: block;
+	text-align: center;
+}
+
+
+/* ------ MEDIA -------- */
+
+@media(max-width:767px){
+	.navbar-nav-right {float: none;}
+    .navbar-form {margin-right:5px;margin-left:5px;}
+	.navbar-nav.pull-right > li > .dropdown-menu, .navbar-nav > li > .dropdown-menu.pull-right{float: left !important}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {padding-left: 10px !important}
+}

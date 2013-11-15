@@ -11,15 +11,15 @@ class Admin_Form_FilecategoriesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));                
         
         $this->addElement('submit', 'save', array(
             'required' => false,
             'label'    => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn'
         ));
         
         $this->addElement('hidden', 'category_id');

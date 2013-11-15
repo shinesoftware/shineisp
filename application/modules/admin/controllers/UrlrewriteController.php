@@ -47,6 +47,10 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 		$this->view->title = $this->translator->translate("URL Rewrite");
 		$this->view->description = $this->translator->translate("Here you can see all the url rewrite items.");
 		$this->datagrid->setConfig ( Urlrewrite::grid() )->datagrid ();
+
+		$this->view->buttons = array(
+		        array("url" => "/admin/urlrewrite/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
+		);
 	}
 
 	/**
@@ -95,6 +99,12 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/urlrewrite/process" );
 		$this->view->title = $this->translator->translate("Url Rewrite");
 		$this->view->description = $this->translator->translate("Here you can handle the parameters of the url rewrite");
+
+		$this->view->buttons = array(
+		        array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+		        array("url" => "/admin/urlrewrite/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)),
+		);
+		
 		$this->render ( 'applicantform' );
 	}
 	
@@ -127,7 +137,7 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 				$record = $this->urlrewrite->find ( $id );
 				$this->view->recordselected = $record [0] ['name'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -144,13 +154,12 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 		try {
 			$this->urlrewrite->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'urlrewrite', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'urlrewrite', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'urlrewrite', 'admin' );
 	}
 	
 	/**
-	 * editAction
 	 * Get a record and populate the application form 
 	 * @return unknown_type
 	 */
@@ -165,6 +174,12 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs [0] );
 			}
 		}
+
+		$this->view->buttons = array(
+		        array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+		        array("url" => "/admin/urlrewrite/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+		        array("url" => "/admin/urlrewrite/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
+		);
 		
 		$this->view->title = $this->translator->translate("Url Rewrite");
         $this->view->description = $this->translator->translate("Here you can edit the parameters of the Url Rewrite.");
@@ -177,7 +192,6 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
-	 * processAction
 	 * Update the record previously selected
 	 * @return unknown_type
 	 */
@@ -220,7 +234,7 @@ class Admin_UrlrewriteController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'urlrewrite', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'urlrewrite', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'urlrewrite', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/urlrewrite/edit/id/$id" );

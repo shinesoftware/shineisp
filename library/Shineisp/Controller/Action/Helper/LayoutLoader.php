@@ -22,10 +22,10 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 		// Get the skin paramenter set in the Settings Table in the database		
 		if($module == "default"){
 			$customskin = Settings::findbyParam ( 'skin' );
-			$skin = !empty ( $customskin ) ? $customskin : "blank";
+			$skin = !empty ( $customskin ) && (file_exists(PUBLIC_PATH . "/skins/$module/$customskin")) ? $customskin : "blank";
 		}elseif($module == "admin"){
 			$customskin = Settings::findbyParam ( 'adminskin' );
-			$skin = !empty ( $customskin ) ? $customskin : "base";        
+			$skin = !empty ( $customskin ) && (file_exists(PUBLIC_PATH . "/skins/$module/$customskin")) ? $customskin : "blank";        
 		}else{
 			$customskin = "";
 			$skin = "";
@@ -51,10 +51,14 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 
 		// Custom XML file inclusion of the js files 
 		if (! empty ( $js )) {
-			
+			// Fast including of the js file using the module name
+			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$module.js")){
+				$js[] = array('resource' => "/skins/$module/$skin/js/$module.js", 'position' => 'admin_endbody');
+			}
+				
 			// Fast including of the js file for the controller
 			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/js/$controller.js")){
-				$js[]['resource'] = "/skins/$module/$skin/js/$controller.js";
+				$js[] = array('resource' => "/skins/$module/$skin/js/$controller.js", "position" => 'admin_endbody');
 			}
 			
 			// Check the caches administrator preferences
@@ -91,20 +95,25 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 					$conditional = !empty($item['conditional']) ? array('conditional' => $item['conditional']) : null;
 
 					// check the position of the item in the page
-					if(!empty($item['position']) && $item['position'] == "endbody"){
-						$view->InlineScript ()->appendFile ($item['resource'], 'text/javascript', $conditional)->toString();
+					if(!empty($item['position']) ){
+						
+						$view->InlineScript ()->setFile ($item['resource'], 'text/javascript', $conditional)->toString();
+						$view->placeholder ( $item['position'] )->append ($view->InlineScript ()->toString());
 					}else{
-						$view->headScript ()->appendFile ($item['resource'], 'text/javascript', $conditional);
+						$view->headScript ()->setFile ($item['resource'], 'text/javascript', $conditional);
+						$view->placeholder ( "admin_endbody" )->append ($view->InlineScript ()->toString());
 					}
 				}
-				
-				// add the scripts with the attribute "position='endpage' to the end of the page"
-				$view->placeholder ( "endpage" )->append ($view->InlineScript ()->toString());
 			}
 		}
 		
 		// Custom XML file inclusion of the css files
 		if (! empty ( $css )) {
+
+			// Fast including of the css file using the module name
+			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/css/$module.css")){
+				$css[]['resource'] = "/skins/$module/$skin/css/$module.css";
+			}
 
 			// Fast including of the css file for the controller
 			if(file_exists(PUBLIC_PATH . "/skins/$module/$skin/css/$controller.css")){

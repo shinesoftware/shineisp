@@ -10,16 +10,16 @@ class Default_Form_WikisearchForm extends Zend_Form
         
         $this->addElement('text', 'topic', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Search'),
             'description' => $translate->_('Write here what you looking for.'),
-            'class'       => 'text-input removeqtip large-input'
+            'class'       => 'form-control removeqtip large-input'
         ));
         
         $this->addElement('submit', 'wikisearch', array(
             'label'      => $translate->_('Search'),
-            'decorators' => array('Composite'),
-            'class'    => 'button bigbtn'
+            'decorators' => array('Bootstrap'),
+            'class'    => 'btn btn-primary bigbtn'
         ));
     }
 }

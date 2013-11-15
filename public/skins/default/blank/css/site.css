@@ -1,0 +1,113 @@
+/* ------ GENERAL -------- */
+body {
+	padding-top: 53px;
+}
+
+/* ------ MEDIA -------- */
+
+.media-list div.media-body{
+    margin-left: 80px;
+}
+
+.media-list li.media{
+	border-bottom: 1px solid #EEEEEE;
+    padding: 20px;
+}
+
+.media-list .media-heading{
+    margin-bottom: 8px;
+}
+
+
+/* ------ COMMONS -------- */
+
+.dropdown-cart{
+	width: 250px;
+}
+
+.navbar-nav-right{
+	float:right;
+}
+
+.dropdown-gotocart{
+	background-color: #eeeeee;
+	padding: 5px;
+}
+
+.copyright-wrapper {
+	background-color: #eee;
+	padding-top: 10px;
+}
+
+#content .row {margin: 15px 0}
+
+#footer {
+	margin-bottom: 0px;
+}
+
+/* ------ CATEGORIES -------- */
+.category-item {
+	margin-bottom: 20px;
+}
+
+.badge {
+	background-color: #EEEEEE;
+	color: #888888;
+	font-weight: normal;
+	margin-bottom: 10px;
+	padding: 7px !important;
+}
+
+/* ------ PRODUCTS -------- */
+.prices {
+	margin-top: 25px;
+}
+
+.priceincludedvat {
+	font-size: 20px;
+}
+
+.pricenotincludedvat {
+	font-size: 14px;
+}
+
+.subscription {
+	font-size: 14px;
+}
+
+/* ------ CONTROL PANEL -------- */
+.table .pagination{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.media{margin-bottom: 20px}
+
+/* ------ HOMEPAGE -------- */
+
+.banners{
+	margin-top: 20px;
+}
+
+
+/* ------ DASHBOARD -------- */
+.dashboard{
+    
+}
+.dashboard-item{
+	border: 1px solid #eee;
+	margin-bottom: 10px;
+}
+
+
+/* ------ MEDIA -------- */
+
+@media(max-width:640px){
+    #footer {height: auto}
+	.prices { margin-top: 0px; background-color: #eee; padding: 5px;}
+    #footer ul li{display: inline-block; padding-left: 5px; padding-right: 5px;}
+    #footer {height: auto}
+	.navbar-nav-right {float: none;}
+    .navbar-form {margin-right:5px;margin-left:5px;}
+	.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left: 0px; padding-right: 0px;}
+}

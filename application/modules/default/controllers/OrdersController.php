@@ -156,7 +156,7 @@ class OrdersController extends Shineisp_Controller_Default {
 					$this->view->statushistory = StatusHistory::getStatusList($id);
 					
 					// Show the list of the messages attached to this domain
-					$this->view->messages = Messages::find ( 'order_id', $id, true );
+					$this->view->messages = Messages::getbyOrderId($id);
 					
 					$this->view->headTitle()->prepend ($this->translator->_('Order %s', $rs [0]['order_number']));
 					
@@ -315,7 +315,7 @@ class OrdersController extends Shineisp_Controller_Default {
 			Orders::pdf($id, false, true);
 			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'The requested task has been completed successfully', 'status' => 'success' ) );
 		}else{
-			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'An error occurred during the task execution.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'index', 'orders', 'default', array ('mex' => 'An error occurred during the task execution.', 'status' => 'danger' ) );
 		}
 	}
 	
@@ -424,7 +424,7 @@ class OrdersController extends Shineisp_Controller_Default {
 	public function createinvoiceAction() {
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		if(empty($NS->customer ['customer_id'])){
-			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => 'There was an error. The invoice selected has not been found.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => 'There was an error. The invoice selected has not been found.', 'status' => 'danger' ) );
 		}
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		try {
@@ -524,7 +524,7 @@ class OrdersController extends Shineisp_Controller_Default {
 			
 			}
 		}
-		$this->_helper->redirector ( 'list', 'orders', 'default', array ('mex' => 'There was a problem during the payment process.', 'status' => 'error' ) );
+		$this->_helper->redirector ( 'list', 'orders', 'default', array ('mex' => 'There was a problem during the payment process.', 'status' => 'danger' ) );
 	}
 	
 	/**
@@ -539,7 +539,7 @@ class OrdersController extends Shineisp_Controller_Default {
 			header('location: ' . $filename);
 			die;
 		}else{
-			$this->_helper->redirector ( 'list', 'orders', 'default', array ('mex' => 'No invoices have been found.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'orders', 'default', array ('mex' => 'No invoices have been found.', 'status' => 'danger' ) );
 		}
 	}
 }

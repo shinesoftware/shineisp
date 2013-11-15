@@ -1,8 +1,8 @@
 <?php foreach($this->data as $registrar): ?>
 	<div class="reg-item">
-	    <b><a href="/admin/registrars/edit/id/<?= $registrar['registrars_id'] ?>"><?= $registrar['name'] ?></a></b>
-	    <p><?=$this->translate('Username')?>: <?= $registrar['username'] ?><br/>
-	       <?=$this->translate('Credit')?>: <b><?= $registrar['credit'] ?></b><br/>
-	       <?=$this->translate('Last update')?>: <?= Shineisp_Commons_Utilities::formatDateOut($registrar['lastupdate']) ?></p>
+	    <b><a href="/admin/registrars/edit/id/<?php echo  $registrar['registrars_id'] ?>"><?php echo  $registrar['name'] ?></a></b>
+	    <p><?php echo $this->translate('Username')?>: <?php echo  $registrar['username'] ?><br/>
+	       <?php echo $this->translate('Credit')?>: <b><?php echo  $registrar['credit'] ?></b><br/>
+	       <?php echo $this->translate('Last update')?>: <?php echo  Shineisp_Commons_Utilities::formatDateOut($registrar['lastupdate']) ?></p>
     </div>
 <?php endforeach; ?>

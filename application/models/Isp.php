@@ -210,6 +210,56 @@ class Isp extends BaseIsp {
 	}
 	
 	/**
+	 * Remove the ISP logo  
+	 * 
+	 * @param integer $id
+	 * @return boolean
+	 */
+	public static function RemoveLogo($id){
+	    try{
+	        
+	        if(is_numeric($id)){
+    	        $isp = self::find($id);
+    	        if(!empty($isp->logo)){
+    	            @unlink(PUBLIC_PATH . "/documents/isp/" . $isp->logo);
+    	            $isp->logo = null;
+    	        }
+    	        return $isp->trySave();
+	        }
+	        
+	        return false;
+	        
+	    }catch(Exception $e){
+	        return false;
+	    }
+	}
+	
+	/**
+	 * Remove the ISP email logo  
+	 * 
+	 * @param integer $id
+	 * @return boolean
+	 */
+	public static function RemoveLogoEmail($id){
+	    try{
+	        
+	        if(is_numeric($id)){
+    	        $isp = self::find($id);
+    	        if(!empty($isp->logo_email)){
+    	            @unlink(PUBLIC_PATH . "/documents/isp/" . $isp->logo_email);
+    	            $isp->logo_email = null;
+    	        }
+    	        return $isp->trySave();
+	        }
+	        
+	        return false;
+	        
+	    }catch(Exception $e){
+	        return false;
+	    }
+	}
+	
+	/**
      * UploadLogo
      * the extensions allowed are JPG, GIF, PNG
      */

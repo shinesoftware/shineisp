@@ -32,6 +32,63 @@ class Messages extends BaseMessages
         $items = $dq->execute ( array (), $retarray );
         
         return $items;
+    } 
+       
+    /**
+     * Get all messages attached to a order
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyOrderId($orderid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "order_id = ?" , $orderid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
+    }    
+       
+    /**
+     * Get all messages attached to a service
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyServiceId($detailid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "detail_id = ?" , $detailid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
+    }    
+       
+    /**
+     * Get all messages attached to a message
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyDomainId($domainid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "domain_id = ?" , $domainid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
     }    
     
 	/**
@@ -43,15 +100,23 @@ class Messages extends BaseMessages
 	 * @return ArrayObject
 	 */
 	public static function Last($attachedto = "orders",  $limit=5, $delIspReplies=true) {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$dq = Doctrine_Query::create ()->from ( 'Messages m' );
 
 		// Adding first the main ID index field
 		if($attachedto == "orders"){
 			$dq->select("order_id as id");	
 			$dq->where ( "order_id IS NOT NULL");	
+
+			// adding the index reference
+			$records['index'] = "order_id";
+			
 		}elseif ($attachedto == "domains"){
 			$dq->select("domain_id as id");
 			$dq->where ( "domain_id IS NOT NULL");
+
+			// adding the index reference
+			$records['index'] = "domain_id";
 		}
 
 		// now we can add more fields
@@ -63,12 +128,17 @@ class Messages extends BaseMessages
 		
 		// Sort the items
 		$dq->orderBy ( 'm.dateposted desc' )->limit ( $limit );
-		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
 		// Strip the html and trucate the message
-		for ($i=0; $i < count($records); $i++) {
-			$records[$i]['message'] = Shineisp_Commons_Utilities::truncate(strip_tags($records[$i]['message']), 50, "...", false, true);
+		for ($i=0; $i < count($records['data']); $i++) {
+			$records['data'][$i]['message'] = Shineisp_Commons_Utilities::truncate(strip_tags($records['data'][$i]['message']), 50, "...", false, true);
 		}
+
+		
+		// Create the header table columns
+		$records['fields'] = array('date' => array('label' => $translator->translate('Date')),
+								   'message' => array('label' => $translator->translate('Message')));
 		
 		return $records;
 	}
@@ -88,13 +158,7 @@ class Messages extends BaseMessages
     	
     	if(!empty($note)){
     		
-	    	if(!is_numeric($customerID)){
-	    		return false;
-	    	}
-	    	
 	    	$customer = Customers::get_by_customerid($customerID);
-	    	
-	    	$isp = Isp::getActiveISP ();
 	    	
 			$message->dateposted = date ( 'Y-m-d H:i:s' );
 			$message->message = $note;

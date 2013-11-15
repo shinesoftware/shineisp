@@ -11,23 +11,23 @@ class Admin_Form_WikiForm extends Zend_Form
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
             'required'    => true,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Subject'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'uri', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('URI'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
         
         
         $this->addElement('select', 'language_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Language'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
                 
         $this->getElement('language_id')
@@ -37,39 +37,39 @@ class Admin_Form_WikiForm extends Zend_Form
 
         $this->addElement('select', 'active', array(
             'label'      => $translate->_('Active'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input',
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control',
             'multioptions' => array('0' => 'No', '1'=>'Yes')
         ));        
         
         $this->addElement('textarea', 'metadescription', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Description'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'col-lg-12'
         ));
         
         $this->addElement('textarea', 'metakeywords', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Meta Keywords'),
             'rows'        => 5,
-            'class'       => 'textarea'
+            'class'       => 'col-lg-12'
         ));
         
         $this->addElement('textarea', 'content', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
             'id'          => 'body',
-            'class'       => 'wysiwyg'
+            'class'       => 'col-lg-12 form-control wysiwyg'
         ));
         
         $this->addElement('select', 'category_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Category'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
         
         $this->getElement('category_id')

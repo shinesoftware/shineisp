@@ -10,17 +10,22 @@ class Admin_Form_RolesForm extends Zend_Form
         
         $this->addElement('text', 'name', array(
         		'filters'     => array('StringTrim'),
-	            'decorators'  => array('Composite'),
+	            'decorators'  => array('Bootstrap'),
         		'required'    => true,
 	            'label'       => $translate->_('Role Name'),
 	            'description' => $translate->_('Write here the name of the role in lowercase'),
-	            'class'       => 'text-input large-input'
+	            'class'       => 'form-control'
         ));
         
         $this->addElement('multiselect', 'users', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Users'),
-            'class'       => 'text-input large-input'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('users')

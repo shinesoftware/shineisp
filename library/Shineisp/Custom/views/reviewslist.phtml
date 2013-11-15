@@ -1,12 +1,16 @@
 <?php $items = $this->data; ?>
-
-<div class="testimonials">
-
-<?php foreach ($items as $item): ?>
-	<blockquote class="testimonialBox stars<?php echo $item['stars'] ?>">
-		<?php echo Shineisp_Commons_Utilities::truncate($item['review'], 150, "...", false, true); ?>
-		<cite><?php echo $item['nick'] ?>, <a href="/<?php echo $item['Products']['uri']?>.html#reviews"><?php echo ucfirst($item['subject']) ?></a></cite>
-	</blockquote>
-<?php endforeach;?>
-	
-</div>
+<?php if(!empty($items)): ?>
+	<ul class="media-list">
+		<?php foreach ($items as $item) : ?>
+		<li class="media">
+		    <?php echo Shineisp_Commons_Gravatar::get_gravatar( $item['email'], 60 ); ?>
+		    <div class="media-body">
+		    	<h4 class="media-heading"><?php echo $item['nick'] ?>, <a href="/<?php echo $item['Products']['uri']?>.html#reviews"><?php echo ucfirst($item['subject']) ?></a> </h4>
+		    	<?php echo Shineisp_Commons_TimeSince::time_since($item['publishedat']) ?>
+		    	<?php for ($i=1;$i<=$item['stars'];$i++): ?><i class="glyphicon glyphicon-star"></i><?php endfor;?>
+		    	<div class="message-body"><?php echo Shineisp_Commons_Utilities::truncate($item['review'], 150, "...", false, true); ?></div>		
+		    </div> 
+		</li>
+		<?php endforeach;?>
+	</ul>
+<?php endif; ?>

@@ -2,17 +2,17 @@
 	<table class="summary">
 	    <thead>
 	        <tr class="summary_title">
-	            <td><?= $this->translate('Domains') ?></td>
-	            <td><?= $this->translate('Expiry Date') ?></td>
-	            <td><?= $this->translate('Remaining Days') ?></td>
+	            <td><?php echo $this->translate('Domains') ?></td>
+	            <td><?php echo $this->translate('Expiry Date') ?></td>
+	            <td><?php echo $this->translate('Remaining Days') ?></td>
 	        </tr>
 	    </thead>
 	    <tbody>
 	        <?php foreach ($this->expdomains as $domain) : ?>
 	        <tr>
-	            <td><a href="/domains/edit/id/<?php echo $domain['domain_id']?>"><?= $domain['domain'] ?></a></td>
-	            <td><?= $domain['expiring_date'] ?></td>  
-	            <td><?= $domain['daysleft'] ?></td>  
+	            <td><a href="/domains/edit/id/<?php echo $domain['domain_id']?>"><?php echo $domain['domain'] ?></a></td>
+	            <td><?php echo $domain['expiring_date'] ?></td>  
+	            <td><?php echo $domain['daysleft'] ?></td>  
 	        </tr>
 	        <?php endforeach; ?>
 	    </tbody>

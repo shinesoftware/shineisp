@@ -46,7 +46,7 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Wiki Categories list");
 		$this->view->description = $this->translator->translate("Here you can see all the wiki categories.");
-		$this->view->buttons = array(array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( WikiCategories::grid() )->datagrid ();
 	}
 	
@@ -97,8 +97,8 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 		$this->view->form = $this->getForm ( "/admin/wikicategories/process" );
 		$this->view->title = $this->translator->translate("Wiki Category Details");
 		$this->view->description = $this->translator->translate("Here you can handle the wiki category parameters");
-		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-									 array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'))));
+		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+									 array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		$this->render ( 'applicantform' );
 	}
 	
@@ -131,7 +131,7 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 				$record = $this->wikicategories->find ( $id );
 				$this->view->recordselected = $record [0] ['category'];
 			} else {
-				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', $controller, 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
 			echo $e->getMessage ();
@@ -148,7 +148,7 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 		try {
 			$this->wikicategories->find ( $id )->delete ();
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'list', 'wikicategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'wikicategories', 'admin', array ('mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 		}
 		return $this->_helper->redirector ( 'list', 'wikicategories', 'admin' );
 	}
@@ -164,9 +164,9 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -176,7 +176,7 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 				$form->populate ( $rs [0] );
 			}
 			
-			$this->view->buttons[] = array("url" => "/admin/wikicategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/wikicategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}
 		
@@ -203,9 +203,9 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
-				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => array('button', 'float_right'), 'id' => 'submit')),
-				array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => array('button', 'float_right'))),
+				array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/wikicategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null,'id' => 'submit')),
+				array("url" => "/admin/wikicategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
 		);
 		
 		// Check if we have a POST request
@@ -235,7 +235,7 @@ class Admin_WikicategoriesController extends Shineisp_Controller_Admin {
 				$this->_helper->redirector ( 'edit', 'wikicategories', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 			
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'edit', 'wikicategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'edit', 'wikicategories', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ) . ": " . $e->getMessage (), 'status' => 'danger' ) );
 			}
 			
 			$redirector->gotoUrl ( "/admin/wikicategories/edit/id/$id" );

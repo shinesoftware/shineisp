@@ -14,6 +14,49 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 	 * Create a widget object
 	 * 
 	   $records array with chart
+	   
+	   Array
+            (
+                [data] => Array
+                    (
+                        [0] => Array
+                            (
+                                [order_id] => 2212
+                                [orderdate] => 16/10/2013
+                                [invoice] => 000397-2013
+                                [fullname] => Comany Name
+                                [total] => € 100,20
+                                [grandtotal] => € 122,24
+                                [status] => Pagato
+                            )
+                    )
+            
+                [index] => order_id
+                [fields] => Array
+                    (
+                        [order_id] => Array
+                            (
+                                [label] => ID
+                                [attributes] => Array
+                                    (
+                                        [class] => visible-lg visible-md hidden-xs
+                                    )
+            
+                            )
+            
+                        [orderdate] => Array
+                            (
+                                [label] => Data
+                                [attributes] => Array
+                                    (
+                                        [class] => visible-lg visible-md hidden-xs
+                                    )
+            
+                            )
+            
+                    )
+            
+            )
 			   =================
 	 	Check if the array is a simple or multidimensional data array.
 	 	 array(2) {
@@ -47,43 +90,50 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 	public function widget($records, $label, $controller="", $hiddencols=array(), $type="grid") {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$arrColumns = array();
 		$buttons = array();
 		$basepath = "";
-		if(!empty($records) && is_array($records)){		
+
+		if(!empty($records['data']) && is_array($records['data'])){		
 			if($type=="grid"){
 				$grid = new Shineisp_Commons_Datagrid ();
-				$data = !empty($records['data']) ? $records['data'] : $records;
 				$chart = !empty($records['chart']) ? $records['chart'] : "";
 				
 				if(!empty($controller)){
 					$basepath = "/admin/$controller/";
 					$buttons ['edit'] ['label'] = $translator->translate ( 'Edit' );
-					$buttons ['edit'] ['cssicon'] = "edit";
+					$buttons ['edit'] ['cssicon'] = "glyphicon glyphicon-pencil";
 					$buttons ['edit'] ['action'] = "/admin/$controller/edit/id/%d";
 					$this->view->controller = $basepath;
 				}else{
 					$this->view->controller = "";
 				}
 				
-				if(!empty($data[0])){
-					$columns = array_keys($data[0]);
-					foreach ($columns as $column) {
-						$column_name = str_replace("_", " ", $column);
-						$arrColumns [] = array ('label' => ucwords($column_name), 'field' => $column, 'alias' => $column, 'type' => 'string' );
+				if(!empty($records['fields'])){
+					foreach ($records['fields'] as $field => $column) {
+						$arrColumns [] = array ('label' => $column['label'], 
+												'attributes' => !empty($column['attributes']) ? $column['attributes'] : null, 
+												'field' => $field, 
+												'alias' => $field, 
+												'type' => 'string' );
 					}
-					
-						$mygrid = $grid->addColumns ( $arrColumns )
-										->setCss('widget')
-										->setBasePath($basepath)
-										->setRowlist(array())
-										->setHiddencols ( $hiddencols )
-										->setCurrentPage ( 1 )
-										->adddatagridActions ( $buttons, $columns[0] )
-										->setArrayData ( $data );
-										
-						$this->view->element = $grid->create();
-						$this->view->chart = $chart;
-					}
+				}
+				
+				$keyIndex = !empty($records['index']) ? $records['index'] : null;
+				
+			    if(!empty($records['data'])){
+					$mygrid = $grid->addColumns ( $arrColumns )
+									->setCss('table table-striped table-hover')
+									->setBasePath($basepath)
+									->setRowlist(array())
+									->setHiddencols ( $hiddencols )
+									->setCurrentPage ( 1 )
+									->adddatagridActions ( $buttons, $keyIndex)
+									->setArrayData ( $records['data'] );
+									
+					$this->view->element = $grid->create();
+					$this->view->chart = $chart;
+				}
 				
 				$this->view->label = $label;
 				return $this->view->render('partials/widget.phtml');

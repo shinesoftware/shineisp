@@ -2,72 +2,56 @@
 
 <?php  // Here the common header will be render ?>
 <?php echo $this->render('partials/headers.phtml'); ?>
-
-<div class="content_inner">
-
-<? if( $form->isErrors() ): ?>
-	<div class="messages">    
-	   <? foreach( $form->getElements() as $field){
-	         $errors = array();
-	   	     if($field->hasErrors()){
-	        	foreach( $field->getErrors() as $error){
-	        		$errors[] = $this->translate($error);
-	        	}
-	            echo "<div class=\"notification error\">".$this->translate('This field') .": <b>". $field->getLabel() . "</b> " . implode(" - ", $errors) . "</div>";
-	        }   
-	    } ?>
-	</div>    
-<? endif; ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
 
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 
-	<div id="tabs">
-		<ul>
-			<li><a href="#tab1"><?=$this->translate('Main');?></a></li> 
-			<li><a href="#tab2"><?=$this->translate('Payments');?></a></li> 
-			<li><a href="#tab3"><?=$this->translate('Notes');?></a></li> 
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Payments');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Notes');?></a></li> 
 		</ul>
 	
-	
-		<div style="display: block" class="" id="tab1"> 
-		    
-		    <fieldset class="column-left"> 
-		        <?php echo $form->creationdate->render() ?>
-		        <?php echo $form->expiringdate->render() ?>
-		        <?php echo $form->number->render() ?>
-		        <?php echo $form->company->render() ?>
-		        <?php echo $form->category_id->render() ?>
-		    </fieldset>
-		    <fieldset class="column-right"> 
-		        <?php echo $form->total_net->render() ?>
-		        <?php echo $form->total_vat->render() ?>
-		        <?php echo $form->total->render() ?>
-		        <?php echo $form->status_id->render() ?>
-		        
-		        <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
-			        <span style="<?php echo !empty($this->attachment) ? "display:none" : ""?>">
-			        	<?php echo $form->document->render() ?>
-			        </span>
-			        
-			        <?php if($this->attachment): ?>
-			        		<p><a href="/documents/purchase_invoices/<?php echo $this->attachment ?>"><?php echo $this->attachment ?></a> 
-			        		<a class="confirm" href="/admin/purchases/deletefile/id/<?php echo $this->id ?>"><?php echo $this->translate('Delete')?></a></p>
-			        <?php endif; ?>
-			    <?php endif;?>
-	        </fieldset>
-	        <div class="clear"></div>
-		   	<?php echo $form->purchase_id->render()?>
-		
-		</div>
-		
-		<div class="ui-tabs-hide" id="tab2">
-			<?php echo $form->paymentdate->render() ?>
-		 	<?php echo $form->method_id->render() ?>
-		</div>
-		
-		<div class="ui-tabs-hide" id="tab3">
-		 	<?php echo $form->note->render() ?>
-		</div>
+	    <div class="tab-content">
+    		<div class="tab-pane active" id="tab1"> 
+    		    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+    		        <?php echo $form->creationdate->render() ?>
+    		        <?php echo $form->expiringdate->render() ?>
+    		        <?php echo $form->number->render() ?>
+    		        <?php echo $form->company->render() ?>
+    		        <?php echo $form->category_id->render() ?>
+    		    </div>
+    		    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+    		        <?php echo $form->total_net->render() ?>
+    		        <?php echo $form->total_vat->render() ?>
+    		        <?php echo $form->total->render() ?>
+    		        <?php echo $form->status_id->render() ?>
+    		        
+    		        <?php  if(false == Shineisp_Commons_Utilities::isAppleClient()): ?>
+    			        <span style="<?php echo !empty($this->attachment) ? "display:none" : ""?>">
+    			        	<?php echo $form->document->render() ?>
+    			        </span>
+    			        
+    			        <?php if($this->attachment): ?>
+    			        		<p><a class="badge" href="/documents/purchase_invoices/<?php echo $this->attachment ?>"><?php echo $this->attachment ?></a> 
+    			        		<a class="btn btn-danger" href="/admin/purchases/deletefile/id/<?php echo $this->id ?>"><?php echo $this->translate('Delete')?></a></p>
+    			        <?php endif; ?>
+    			    <?php endif;?>
+    	        </div>
+    	        
+    		   	<?php echo $form->purchase_id->render()?>
+    		
+    		</div>
+    		
+    		<div class="tab-pane" id="tab2">
+    			<?php echo $form->paymentdate->render() ?>
+    		 	<?php echo $form->method_id->render() ?>
+    		</div>
+    		
+    		<div class="tab-pane" id="tab3">
+    		 	<?php echo $form->note->render() ?>
+    		</div>
+    	</div>
 	</div>
 </form>
-</div>

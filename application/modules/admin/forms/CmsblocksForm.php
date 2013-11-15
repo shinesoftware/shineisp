@@ -11,43 +11,41 @@ class Admin_Form_CmsblocksForm extends Zend_Form
         $this->addElement('text', 'var', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Var'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'title', array(
             'filters'     => array('StringTrim'),
             'required'    => false,
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Title'),
-            'class'       => 'text-input large-input'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'body', array(
             'filters'     => array('StringTrim'),
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Body'),
-            'class'       => 'textarea'
+            'class'       => 'col-lg-12 form-control'
         ));
 
         $this->addElement('multiselect', 'language_id', array(
-            'decorators'  => array('Composite'),
+            'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Language'),
-            'class'       => 'text-input large-input'
+            'title'	     => $translate->_('Select ...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick col-md-4'
         ));
                 
         $this->getElement('language_id')
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(Languages::getList());   
-                  
-        $this->addElement('submit', 'save', array(
-            'required' => false,
-            'label'    => $translate->_('Save'),
-            'decorators' => array('Composite'),
-            'class'    => 'button'
-        ));
         
         $this->addElement('hidden', 'block_id');
 

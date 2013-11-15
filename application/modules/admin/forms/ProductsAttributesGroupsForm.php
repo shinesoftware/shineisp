@@ -11,15 +11,20 @@ class Admin_Form_ProductsAttributesGroupsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Feature Name'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));
 
     	$this->addElement('multiselect', 'attributes', array(
             'label'      => $translate->_('Attributes'),
-            'decorators' => array('Composite'),
-    		'size'	     => '10x',
-            'class'      => 'multiselect'
+            'decorators' => array('Bootstrap'),
+    		'title'	     => $translate->_('Select ...'),
+    		'data-header'    => $translate->_('Select the product attributes...'),
+    		'data-container' => 'body',
+    		'data-selected-text-format' => 'count > 2',
+    		'data-size' => 'auto',
+    		'data-live-search' => 'true',
+            'class'      => 'multiselect show-tick col-md-4'
         ));
         
         $this->getElement('attributes')
@@ -29,12 +34,12 @@ class Admin_Form_ProductsAttributesGroupsForm extends Zend_Form
                   
     	$this->addElement('checkbox', 'isrecurring', array(
             'label'      => $translate->_('Is Recurring'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
     	
     	$this->addElement('checkbox', 'iscomparable', array(
             'label'      => $translate->_('Is Comparable'),
-            'decorators' => array('Composite')
+            'decorators' => array('Bootstrap')
         ));
   
         $this->addElement('hidden', 'group_id');

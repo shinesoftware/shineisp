@@ -27,14 +27,14 @@ class Products extends BaseProducts {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.product_id', 'alias' => 'product_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.product_id', 'alias' => 'product_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'SKU' ), 'field' => 'p.sku', 'alias' => 'sku', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'SKU' ), 'field' => 'p.sku', 'alias' => 'sku', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'pd.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'type' => 'string', 'searchable' => true );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Server group' ), 'field' => 'sg.name', 'alias' => 'servergroupname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Inserted at' ), 'field' => 'p.inserted_at', 'sortable' => true, 'searchable' => false, 'alias' => 'insertedat', 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Upload Date' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'p.enabled', 'sortable' => true, 'searchable' => false, 'alias' => 'enabled', 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'type' => 'string', 'searchable' => true, 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Group' ), 'field' => 'pag.name', 'alias' => 'groupname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Server group' ), 'field' => 'sg.name', 'alias' => 'servergroupname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Inserted at' ), 'field' => 'p.inserted_at', 'sortable' => true, 'searchable' => false, 'alias' => 'insertedat', 'type' => 'date', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Upload Date' ), 'field' => 'p.updated_at', 'sortable' => true, 'searchable' => false, 'alias' => 'updatedat', 'type' => 'date', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Enabled' ), 'field' => 'p.enabled', 'sortable' => true, 'searchable' => false, 'alias' => 'enabled', 'type' => 'boolean' );
 		
 		$config ['datagrid'] ['fields'] = "p.product_id, 
 											pd.name as name, 
@@ -211,8 +211,8 @@ class Products extends BaseProducts {
 				$products->uri             = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
 				$products->sku             = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
 				$products->cost            = $params ['cost'];
-                $products->price_1         = $params ['price_1'];
-				$products->setupfee        = $params ['setupfee'];
+                $products->price_1         = !empty($params ['price_1']) ? $params ['price_1'] : NULL;
+				$products->setupfee        = !empty($params ['setupfee']) ? $params ['setupfee'] : NULL;
 				$products->enabled         = !empty($params ['enabled']) ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
@@ -588,8 +588,9 @@ class Products extends BaseProducts {
 			$product [0] = ProductsData::checkTranslation ( $product [0] );
 			
 			// Get the categories
-			$product [0] ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product [0] ['categories'] );
-			
+			if(!empty($product [0] ['categories'])){
+			    $product [0] ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product [0] ['categories'] );
+			}
 			// Get the media information
 			$product [0] ['media'] = ProductsMedia::getMediabyProductId ( $product [0] ['product_id'] );
 			

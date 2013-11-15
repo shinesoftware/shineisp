@@ -11,8 +11,8 @@ class Admin_Form_PurchasescategoriesForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Category'),
-            'decorators' => array('Composite'),
-            'class'      => 'text-input large-input'
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
         ));   
         
         $this->addElement('hidden', 'category_id');

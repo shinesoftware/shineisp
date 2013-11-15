@@ -2,17 +2,26 @@
 <?php $i = 0; ?>
 
 <div class="row">
-	<div class="large-12 column">
-		<div class="section-container accordion" data-section="accordion">
-	    <?php foreach($payments as $payment):?>
-			<section class="<?php echo $i==0 ? "active": ""; ?>">
-				<p class="title" data-section-title><a href="#"><?php echo $payment['name']?></a></p>
-				<div class="content" data-section-content>
-		        	<?php echo $payment['html']?>
-		        </div>
-		    </section>
-		    <?php $i++?>
-	    <?php endforeach; ?>
+	<div class="col-lg-12 col-md-12 col-xs-12">
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-default">
+    	    <?php foreach($payments as $payment):?>
+    	        <div class="panel-heading">
+				    <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $i ?>">
+				         <?php echo $payment['name'] ?>
+				        </a>
+				    </h4>
+				</div>
+				<div id="collapse_<?php echo $i ?>" class="panel-collapse collapse <?php echo $i==0 ? "in": ""; ?>">
+    		        <div class="panel-body">
+    		        	<input type="radio" <?php echo $i==0 ? "checked": ""; ?> name="payment" value="<?php echo $payment['bank_id'] ?>"/> <?php echo $payment['name'] ?>
+    		        	<br/><?php echo $payment['html']?>
+    			     </div>
+    			</div>
+    		    <?php $i++?>
+    	    <?php endforeach; ?>
+	        </div>
 	    </div>
 	</div>
 </div>

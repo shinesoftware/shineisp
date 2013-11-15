@@ -13,7 +13,7 @@ if (isset($this->records[0])):
 	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
 	?>
 	
-	<table border="0" cellpadding="5" class="simplegrid">
+	<table class="table table-striped">
 	    <tbody>
 	        <?php // Creation of the Rows and Columns?>
 	        <?php foreach ( $this->records as $record ) : ?>
@@ -29,8 +29,8 @@ if (isset($this->records[0])):
 		             ?>
 		             <?php if(!empty($value)): ?>
 		                <tr>
-				            <td width="25%" class="fields"><?=$this->translate($label)?></td>
-			                <td class="values"><?=$value?></td>
+				            <td width="25%" class="fields"><?php echo $this->translate($label)?></td>
+			                <td class="values"><?php echo $value?></td>
 				        </tr>
 		              <?php endif;?>
 		           <?php endif;?>
@@ -40,17 +40,17 @@ if (isset($this->records[0])):
 	        <?php // Edit Section available only for the administration functions ?>
 	        <?php if($this->editpage):?>
 	        <tr>
-	           <td><?=$this->translate('Commands'); ?></td>
+	           <td><?php echo $this->translate('Commands'); ?></td>
 	           <td>
-	               <a href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?=$this->translate('Click here to edit'); ?>"><img src="/skins/admin/base/images/pencil.png" title="<?=$this->translate('Click here to edit'); ?>" alt="<?=$this->translate('Click here to edit'); ?>"></a>
-	               <a href="<? echo "/admin/" . $this->editpage . "/confirmdelete/id/$idx"?>" title="<?=$this->translate('Click here to delete'); ?>"><img src="/skins/admin/base/images/cross.png" title="<?=$this->translate('Click here to delete'); ?>" alt="<?=$this->translate('Click here to delete'); ?>"></a>
+	               <a href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?php echo $this->translate('Click here to edit'); ?>"><img src="/skins/admin/base/images/pencil.png" title="<?php echo $this->translate('Click here to edit'); ?>" alt="<?php echo $this->translate('Click here to edit'); ?>"></a>
+	               <a href="<? echo "/admin/" . $this->editpage . "/confirmdelete/id/$idx"?>" title="<?php echo $this->translate('Click here to delete'); ?>"><img src="/skins/admin/base/images/cross.png" title="<?php echo $this->translate('Click here to delete'); ?>" alt="<?php echo $this->translate('Click here to delete'); ?>"></a>
 	           </td>
 	        </tr>
 	        <?php endif;?>
 	    </tbody>
 	</table>
 	<?php else: ?>
-	<div class="notification infos"><?=$this->translate('No Records')?></div>
+	<div class="alert alert-warning alert-info"><?php echo $this->translate('No Records')?></div>
 <?php endif; ?>
 
 <?php

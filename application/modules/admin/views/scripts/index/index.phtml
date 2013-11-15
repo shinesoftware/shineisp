@@ -1,5 +1,4 @@
 <div id="dashboard">
-
 	<div class="portlets">
 
 		<div class="column column-large" id="col0">
@@ -8,23 +7,18 @@
 		
 		<div class="column column-fixed column-large" id="col1">
 			<div class="portlet" id="processing_order">
-		        <?php 
-	        		$statuses = array(Statuses::id("processing", "orders"), Statuses::id("pending", "orders"), Statuses::id("paid", "orders"));
-		        ?>
+		        <?php $statuses = array(Statuses::id("processing", "orders"), Statuses::id("pending", "orders"), Statuses::id("paid", "orders"));?>
 				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("Processing Orders"), "orders")?>
 			</div>
 			
 			<div class="portlet" id="new_orders">
-		        <?php 
-	        		$statuses = array(Statuses::id("tobepaid", "orders"));
-		        ?>
+		        <?php $statuses = array(Statuses::id("tobepaid", "orders")); ?>
 				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("New Orders"), "orders")?>
 			</div>
 			
 			<div class="portlet" id="last_tickets">
 				<?php echo $this->widget(Tickets::Last(null, 5), $this->translate ("Last Tickets"), "tickets", array('ticket_id'))?>
 			</div>
-			
 			
 			<div class="portlet" id="last_domain_tasks">
 				<?php echo $this->widget(DomainsTasks::Last(), $this->translate ("Domain Tasks"), "domainstasks", array('task_id'))?>
@@ -34,18 +28,7 @@
 				<?php echo $this->widget(PanelsActions::Last(), $this->translate ("Panel Tasks"), "panelsactions", array('action_id'))?>
 			</div>
 			
-			<div class="portlet" id="expiring_services">
-				<?php 
-					$ProductAttributesGroups[] = 3; // Generic Hosting
-					$ProductAttributesGroups[] = 9; // Magento Hosting
-					$fields = "oi.detail_id, CONCAT(c.lastname, ' ', c.firstname) as customer, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as ending, oi.description as description, CONCAT(d.domain, '.' ,ws.tld) as domain, autorenew as renew";
-					echo $this->widget(OrdersItems::getAllRecurringServices($fields, $ProductAttributesGroups), $this->translate ("Active Hosting Services"), "services", array('orderitems_id'))
-				?>
-			</div>
-			
 		</div>
-		
-		<div class="clear"></div>
 		
 		<div class="column column-floated column-medium" id="col2">
 			
@@ -86,8 +69,6 @@
 				<?php echo $this->widget(Reviews::summary(), $this->translate ("Product Review Summary"), "reviews")?>
 			</div>
 		</div>
-		
-		<div class="clear"></div>
 		
 		<div class="column column-floated column-little" id="col4">
 			<div class="portlet" id="googleanalytics_yesterday">
@@ -130,4 +111,4 @@
     </div>      
                                  
 </div> 
-<div class="clear"></div>
+<div class="clearfix"></div>

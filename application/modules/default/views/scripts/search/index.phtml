@@ -5,7 +5,7 @@
 ?>
 
 <h2><?php echo $this->translate('Result search for %s', $this->search);?></h2>
-<div class="clear"></div>
+
     
 <?php if(!empty($products) && is_array($products) && count($products) > 0): ?>	
 	<ul id="productcategories">
@@ -26,7 +26,7 @@
 		            <div class="product_price">
 	                	<?php echo $this->prices()->getAllPricesInfo($product['product_id']); ?>
 	                </div>
-	                <div class="clear"></div>
+	                
 	                
 	                <div class="previewshortdescription">
 	                    <?php echo $product['shortdescription']?> 
@@ -47,11 +47,11 @@
 	                     </div>
 	                <?php endif;?>
 	            </div>  
-	            <div class="clear"></div>
+	            
 		    </li>
 		<?php endforeach; ?>
 	</ul>
-	<div class="clear"></div>
+	
 	<div id="pager"><?php echo $this->results['pager'] ?></div>
 <?php else:?>
    <p><?php echo $this->translate('No product has been found.')?></p>

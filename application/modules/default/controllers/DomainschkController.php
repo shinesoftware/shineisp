@@ -123,7 +123,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 	}
 	
 
-	/*
+	/**
      *  Check the domain availability
      */
 	public function checkAction() {
@@ -154,7 +154,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 				$taxpercent = $data['Taxes']['percentage'];
 				
 				// Format the price number
-				$strprice = $translator->translate('just') ." ". $currency->toCurrency($price * ($taxpercent + 100) / 100, array('currency' => Settings::findbyParam('currency')));
+				$strprice = $currency->toCurrency($price * ($taxpercent + 100) / 100, array('currency' => Settings::findbyParam('currency')));
 
 				// Create the message
 				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is unavailable for registration, but if you are the domain owner, you can transfer it!") ;
@@ -173,6 +173,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 
 	/**
 	 * Check all the tld domain extensions
+	 * 
 	 * @param string $name
 	 * @param array $exluded (exclude a tld extension)
 	 */
@@ -196,7 +197,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 				$taxpercent = $tld['Taxes']['percentage'];
 				
 				// Format the price number
-				$strprice = $translator->translate('just') ." ". $currency->toCurrency($price * ($taxpercent + 100) / 100, array('currency' => Settings::findbyParam('currency')));
+				$strprice = $currency->toCurrency($price * ($taxpercent + 100) / 100, array('currency' => Settings::findbyParam('currency')));
 				
 				// Create the message
 				$mex = $available ? $translator->translate('The domain is available for registration') : $translator->translate("The domain is unavailable for registration, but if you are the domain owner, you can transfer it!") ;

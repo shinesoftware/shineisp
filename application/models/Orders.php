@@ -51,18 +51,18 @@ class Orders extends BaseOrders {
 		
 		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('width' => 100 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 50 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('width' => 70 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg', 'width' => 100 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 50 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ), 'searchable' => true );
 		
-		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'type' => 'string');
-		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'type' => 'string');
+		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'attributes' => array ('class' => 'visible-lg'), 'type' => 'string');
+		$columns [] = array ('label' => $translator->translate ( 'Reseller' ), 'field' => "CONCAT(r.company, ' ', r.firstname,' ', r.lastname)", 'alias' => 'reseller', 'sortable' => true, 'searchable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs'), 'type' => 'string');
 		
-		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float' );
-		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('width' => 30 ));
-		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'attributes' => array ('width' => 70 ));
+		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 30 ));
+		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'type' => 'index', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ));
 		
 		
 		$config ['datagrid'] ['columns'] = $columns;
@@ -268,8 +268,8 @@ class Orders extends BaseOrders {
 			}
 		}
 		
-		$pagerLayout->setTemplate ( '<a href="{%url}">{%page}</a> ' );
-		$pagerLayout->setSelectedTemplate ( '<a class="active" href="{%url}">{%page}</a> ' );
+		$pagerLayout->setTemplate ( '<li><a href="{%url}">{%page}</a></li>' );
+		$pagerLayout->setSelectedTemplate ( '<li class="active"><a href="{%url}">{%page}</a></li>' );
 		
 		$orders = $pagerLayout->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		$pagination = $pagerLayout->display ( null, true );
@@ -454,8 +454,8 @@ class Orders extends BaseOrders {
 					if ($retval) {
 						$in_reply_to = md5($id);
 						
-						// Save the message
-						Messages::addMessage($params ['message'], $order [0] ['Customers'] ['customer_id'], null, $id, null, $isp_id);
+						// Save the message written by the ISP owner
+						Messages::addMessage($params ['message'], null, null, $id, null, $isp_id);
 
 						// Create the array with all the placeholders 
 						$placeholders['fullname'] = $order [0] ['Customers'] ['firstname'] . " " . $order [0] ['Customers'] ['lastname'];
@@ -2554,13 +2554,25 @@ class Orders extends BaseOrders {
 		}
 		
 		$dq->orderBy ( 'order_date desc' )->orderBy ( 'order_id desc' )->limit ( $limit );
-		$records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		$records['data'] = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 		
-		for($i=0;$i<count($records);$i++){
-			$records[$i]['total'] = $currency->toCurrency($records[$i]['total'], array('currency' => Settings::findbyParam('currency')));
-			$records[$i]['grandtotal'] = $currency->toCurrency($records[$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
-			$records[$i]['status'] = $translator->translate($records[$i]['status']);
+		for($i=0;$i<count($records['data']);$i++){
+			$records['data'][$i]['total'] = $currency->toCurrency($records['data'][$i]['total'], array('currency' => Settings::findbyParam('currency')));
+			$records['data'][$i]['grandtotal'] = $currency->toCurrency($records['data'][$i]['grandtotal'], array('currency' => Settings::findbyParam('currency')));
+			$records['data'][$i]['status'] = $translator->translate($records['data'][$i]['status']);
 		}
+
+		// adding the index reference 
+		$records['index'] = "order_id";
+		
+		// Create the header table columns
+		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'fullname' => array('label' => $translator->translate('Customer')), 
+		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'status' => array('label' => $translator->translate('Status')));
 		
 		return $records;
 		

@@ -100,7 +100,7 @@ class Contacts extends BaseContacts {
     	$emails = array();
     	
     	if(is_numeric($customer_id)){
-	    	$mainmail = Customers::getEmail($customer_id);
+	    	$mainmail = Customers::getEmailAddress($customer_id);
 	    	if(!empty($mainmail)){
 	    		$emails[] = $mainmail;
 	    	}
