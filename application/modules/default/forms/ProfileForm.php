@@ -158,7 +158,8 @@ class Default_Form_ProfileForm extends Zend_Form
 		        'label' => $translate->_('Country'),
 		        'required'   => true,
 		        'description'      => $translate->_('Select your own country'),
-		        'decorators' => array('Bootstrap'))
+		        'decorators' => array('Bootstrap'),
+                'class'      => 'form-control large-input')
         );
         $this->getElement('country_id')
                   ->setAllowEmpty(false)

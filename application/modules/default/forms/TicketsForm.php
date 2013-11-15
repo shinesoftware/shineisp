@@ -39,7 +39,7 @@ class Default_Form_TicketsForm extends Zend_Form
         	'decorators'  => array('Bootstrap'),
             'description' => $translate->_('Write here all the information.'),
         	'rows'		  => '8',
-            'class'       => 'textarea'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'status', array(
@@ -80,7 +80,6 @@ class Default_Form_TicketsForm extends Zend_Form
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'          => $translate->_('Attachment'),
 	            'description'    => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $Types, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
-	            'class'          => 'form-control large-input'
 	        ));
 	        
 	        $file->addValidator ( 'Extension', false, $Types )
@@ -95,7 +94,7 @@ class Default_Form_TicketsForm extends Zend_Form
         $this->addElement('submit', 'submit', array(
             'label'      => $translate->_('Send help request'),
             'decorators' => array('Bootstrap'),
-            'class'    => 'small btn btn-primary'
+            'class'    => 'btn btn-primary btn-lg'
         ));
         
         

@@ -122,14 +122,6 @@ class Admin_Form_OrdersForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'class'      => 'col-lg-12 form-control'
         ));
-
-        $this->addElement('text', 'searchdomains', array(
-            'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Searchdomains'),
-            'decorators' => array('Bootstrap'),
-            'description'      => 'Write here the name of the domain in order to find it in the database.',
-            'class'      => 'form-control searchitems'
-        ));
         
         $this->addElement('multiselect', 'domains_selected', array(
             'filters'    => array('StringTrim'),
@@ -145,25 +137,9 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         $this->getElement('domains_selected')
                   ->setAllowEmpty(false)
-                  ->setRegisterInArrayValidator(false);        
-                
-        $this->addElement('multiselect', 'domains', array(
-            'label'      => $translate->_('Domain'),
-            'decorators' => array('Bootstrap'),
-            'title'	     => $translate->_('Select ...'),
-    		'data-container' => 'body',
-    		'data-selected-text-format' => 'count > 2',
-    		'data-size' => 'auto',
-    		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick col-md-4'
-        ));
-        
-        $this->getElement('domains')
-                  ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(Domains::getList());
-
-                  
+                  ->setMultiOptions(Domains::getList());        
+                
         $this->addElement('select', 'referdomain', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Reference Domain'),

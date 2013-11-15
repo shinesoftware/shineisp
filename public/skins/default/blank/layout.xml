@@ -103,18 +103,12 @@
         </services> 
         
         <cms>
-            <head>
-                <js position="endbody">/js/wiki.js</js>
-            </head>
             <blocks>
                 <block side="right">contacts</block>
             </blocks>	
         </cms> 
         
         <wiki template="2columns-right">
-            <head>
-                <js position="endbody">/js/wiki.js</js>
-            </head>
             <blocks>
                 <block side="right">contacts</block>
             </blocks>		

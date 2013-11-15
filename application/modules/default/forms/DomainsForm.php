@@ -12,10 +12,9 @@ class Default_Form_DomainsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Bootstrap'),
-            'label'      => $translate->_('Your message'),
             'rows'       => 5,
             'description' => $translate->_('Write here a message for the administrator about this domain.'),
-            'class'       => 'textarea'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('text', 'tags', array(
@@ -38,7 +37,7 @@ class Default_Form_DomainsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Autorenew'),
-            'description' => $translate->_('By default, all domains are set to auto-renew. Choose if the domain must be auto-renew or not at the expiring date.'),
+            'description' => $translate->_('By default, every domain is set with auto-renew option enabled. Choose if the domain must be auto-renew or not at the expiring date.'),
             'class'       => 'form-control large-input'
         ));
         
@@ -60,7 +59,7 @@ class Default_Form_DomainsForm extends Zend_Form
         $this->addElement('submit', 'submit', array(
             'label'      => $translate->_('Save'),
             'decorators' => array('Bootstrap'),
-            'class'    => 'btn btn-primary'
+            'class'    => 'btn btn-primary btn-lg'
         ));
         
         // Adding a subform

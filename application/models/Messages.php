@@ -52,6 +52,25 @@ class Messages extends BaseMessages
         
         return $messages;
     }    
+       
+    /**
+     * Get all messages attached to a message
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyDomainId($domainid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "domain_id = ?" , $domainid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
+    }    
     
 	/**
 	 * List of the last messages attached within the orders, domains, customers detail page

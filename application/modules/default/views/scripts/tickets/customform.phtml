@@ -5,85 +5,91 @@
 <?php echo $this->render('partials/header.phtml') ?>
 
 <?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () && "process" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
-	    <div class="row"> 
-		    
-	    	<div class="col-lg-9">
-	    		<?php echo $this->translate('Request ID')?> #<?php echo $this->summary['ticket_id'] ?> / <?php echo $this->translate('Status')?>: <span class="ticket-status"><?php echo !empty($this->summary['status']) ? $this->translate($this->summary['status']) : ""?></span>
-	    		<h4><?php echo $this->summary['subject'] ?></h4>
-	    		<?php if(!empty($this->summary['sibling_id'])): ?>
-		            <p><a href="/tickets/edit/id/<?php echo $this->summary['sibling'][0]['ticket_id'] ?>">
-		           		<?php echo $this->translate('This issue is connected with the ticket: %s', $this->summary['sibling'][0]['subject'])?>
-		           	</a></p>
-				<?php endif; ?>
-	    	</div>
-	    	
-	    	<div class="col-lg-3">
-		    	<p align="right"><b><?php echo $this->summary['customer'] ?></b><br/><?php echo $this->summary['email'] ?><br/><?php echo $this->summary['creationdate'] ?></p>
-		    	<p align="right"><a class="button small" href="/tickets"><?php echo $this->translate('Tickets list') ?></a></p>
-	    	</div>
-	    	
-	    	<div class="col-lg-12 col-md-12 col-xs-12">
-		    	<?php echo $this->Attachments($this->summary['ticket_id'], 'tickets'); ?>
-	    	</div>
-		</div>
-    <?php endif;?>
-
     <div class="row"> 
-        <?php if($this->record['description']): ?>
-		<div class="col-lg-2">
-			<?php echo $this->customeravatar ?><br/>
-			<p><?php echo $this->record['customer']?><br/><?php echo $this->record['company']?></p>
-		</div>
-		<div class="col-lg-10">
-			<p class="right"><?php echo $this->record['creationdate']?></p>
-			<p><?php echo $this->record['description'];?></p>
-		</div>
-            <?php endif;?>          
+	    
+    	<div class="col-lg-9 col-md-9 col-sm-9">
+    		<span class="badge"><?php echo $this->translate('Request ID')?> #<?php echo $this->summary['ticket_id'] ?></span>
+    		<span class="label label-info"><?php echo !empty($this->summary['status']) ? $this->translate($this->summary['status']) : ""?></span>
+    		<?php if(!empty($this->summary['sibling_id'])): ?>
+	            <p><a href="/tickets/edit/id/<?php echo $this->summary['sibling'][0]['ticket_id'] ?>">
+	           		<?php echo $this->translate('This issue is connected with the ticket: %s', $this->summary['sibling'][0]['subject'])?>
+	           	</a></p>
+			<?php endif; ?>
+    	</div>
+    	
+    	<div class="col-lg-3 col-md-3 col-sm-3">
+	    	<address>
+	    	    <strong><?php echo $this->summary['customer'] ?></strong>
+	    	    <?php echo $this->summary['email'] ?><br/>
+	    	    <?php echo $this->summary['creationdate'] ?>
+	    	</address>
+	    	<a class="btn btn-primary" href="/tickets"><?php echo $this->translate('Tickets list') ?></a>
+    	</div>
+    	
+    	<div class="col-lg-12 col-md-12 col-xs-12">
+	    	<?php echo $this->Attachments($this->summary['ticket_id'], 'tickets'); ?>
+    	</div>
 	</div>
+<?php endif;?>
 
-	<?php if(!empty($this->notes)):?>
-	    <?php foreach( $this->notes as $note):?>
-	    	<div class="row"> 
-				<div class="col-lg-2">
-					<?php echo $note['adminreply'] ? $this->adminavatar : $this->customeravatar; ?> 
-					<?php if($note['adminreply']):?>
-						<p><?php echo $this->isp['company']?></p>
-					<?php else: ?>
-						<p><?php echo $note['customer']?><br/><?php echo $note['company']?></p>
-					<?php endif; ?>
-				</div>                                
-				<div class="col-lg-10 <?php if($note['adminreply']):?>admin-note<?php else:?>user-note<?php endif;?>">
-					<p class="right"><?php echo $note['date_post']?></p>
-					<?php echo $note['note']?>
-				</div>
+<div class="row"> 
+    <?php if($this->record['description']): ?>
+    	<div class="col-lg-2 col-md-2 col-sm-2">
+    		<?php echo $this->customeravatar ?><br/>
+    		<p><?php echo $this->record['customer']?><br/><?php echo $this->record['company']?></p>
+    	</div>
+    	<div class="col-lg-10 col-md-10 col-sm-10">
+    		<p class="badge"><?php echo $this->record['creationdate']?></p>
+    		<p><?php echo $this->record['description'];?></p>
+    	</div>
+    <?php endif;?>          
+</div>
+
+<?php if(!empty($this->notes)):?>
+    <?php foreach( $this->notes as $note):?>
+    	<div class="row"> 
+			<div class="col-lg-2">
+				<?php echo $note['adminreply'] ? $this->adminavatar : $this->customeravatar; ?> 
+				<?php if($note['adminreply']):?>
+					<p><?php echo $this->isp['company']?></p>
+				<?php else: ?>
+					<p><?php echo $note['customer']?><br/><?php echo $note['company']?></p>
+				<?php endif; ?>
+			</div>                                
+			<div class="col-lg-10 <?php if($note['adminreply']):?>admin-note<?php else:?>user-note<?php endif;?>">
+				<p class="text-right"><?php echo $note['date_post']?></p>
+				<?php echo $note['note']?>
 			</div>
-			<?php $i++; ?>
-	    <?php endforeach;?>
-	<?php endif;?>
-	
-	<div class="row"> 
-	    <div class="col-lg-12 col-md-12 col-xs-12"> 
-	    	
-			<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
-			
-	            <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () || "process" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
-		            <?php echo $form->category_id->render()?>
-		            <?php echo $form->subject->render()?>
-		            <?php echo $form->domain_id->render()?>
-	            <?php endif;?>
-	            
-	            <?php if($this->canreply): ?>
-            		<?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
-            			<?php echo $form->status->render()?>
-            		<?php endif; ?>
-            		
-		            <?php echo $form->note->render()?>
-		            <?php echo $form->attachments->render()?>
-		            <?php echo $form->submit->render()?>
-	        	<?php endif; ?>    
-			    <?php echo $form->ticket_id->render()?>
-			</form>
-			
 		</div>
+		<?php $i++; ?>
+    <?php endforeach;?>
+<?php endif;?>
+
+<div class="row"> 
+    <div class="col-lg-12 col-md-12 col-xs-12"> 
+    	
+		<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" class="custom dropdown" action="<?php echo $form->getAction()?>">
+		
+            <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName () || "process" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+	            <?php echo $form->category_id->render()?>
+	            <?php echo $form->subject->render()?>
+	            <?php echo $form->domain_id->render()?>
+            <?php endif;?>
+            
+            <?php if($this->canreply): ?>
+        		<?php if("new" != Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
+        			<?php echo $form->status->render()?>
+        		<?php endif; ?>
+        		
+	            <?php echo $form->note->render()?>
+	            <?php echo $form->attachments->render()?>
+	            <div class="text-right">
+	                <?php echo $form->submit->render()?>
+	            </div>
+        	<?php endif; ?>    
+		    <?php echo $form->ticket_id->render()?>
+		</form>
+		
 	</div>
+</div>
 	

@@ -157,6 +157,13 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 				$output = $input;
 			break;
 			
+			case "Zend_Form_Element_Select":
+				$output = "<div class=\"form-group $iserror style-$name\">" . $label;
+				$output .= $input;
+				$output .= $desc;
+				$output .= "</div>";
+			break;
+			
 			case "Zend_Form_Element_Button":
 				$output = $input;
 			break;

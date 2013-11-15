@@ -229,7 +229,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 			}
 			$this->view->id = $id;
 			// Get all the messages attached to the domain
-			$this->view->messages = Messages::find ( 'domain_id', $id, true );
+			$this->view->messages = Messages::getbyDomainId($id);
 		}
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );

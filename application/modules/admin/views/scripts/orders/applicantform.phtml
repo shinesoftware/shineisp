@@ -36,13 +36,14 @@
 		            <?php echo $form->isp_id->render()?>
 		            <?php echo $form->status_id->render()?>
 		            <?php echo $this->status($this->statushistory);?>  <br/>
-		            
 		            <?php echo $form->is_renewal->render()?>
+		            
 		            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			            <?php echo $form->cost->render()?>
 			            <?php echo $form->received_income->render()?>
 			            <?php echo $form->missing_income->render()?>
 			        </div>
+			        
 			        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			        	<?php echo $form->setupfee->render()?>
 			        	<?php echo $form->total->render()?>
@@ -66,9 +67,6 @@
 	            </div>
 	            
 	            <div class="domain" style="display:none" id="detail2">
-	                <p id="domainsearchph"><?php echo $form->searchdomains->render()?>
-	                <p id="domainph"><?php echo $form->domains->render()?>
-	                <a id="add" class="btn"><?php echo $this->translate('Add')?></a> <a id="remove" class="btn"><?php echo $this->translate('Remove')?></a>
 	                <p id="domainselph"><?php echo $form->domains_selected->render()?>
 	            </div>
 	            

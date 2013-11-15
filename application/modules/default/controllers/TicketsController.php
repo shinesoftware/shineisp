@@ -16,7 +16,7 @@ class TicketsController extends Shineisp_Controller_Default {
 		$NS = new Zend_Session_Namespace ( 'Default' );
 		
 		if (empty($NS->customer)) {
-			$this->_helper->redirector ( 'index', 'index', 'default' );
+			$this->_helper->redirector ( 'login', 'customer', 'default' );
 		}
 		$this->customer = $NS->customer;
 		
@@ -114,8 +114,8 @@ class TicketsController extends Shineisp_Controller_Default {
 				$form->populate ( $rs [0] );
 				$this->view->record = $rs [0];
 				$this->view->isp = $isp;
-				$this->view->adminavatar = Shineisp_Commons_Gravatar::get_gravatar ( $isp->email );
-				$this->view->customeravatar = Shineisp_Commons_Gravatar::get_gravatar ( $rs [0] ['email'] );
+				$this->view->adminavatar = Shineisp_Commons_Gravatar::get_gravatar ( $isp->email, 80 );
+				$this->view->customeravatar = Shineisp_Commons_Gravatar::get_gravatar ( $rs [0] ['email'], 80 );
 				$this->view->notes = Tickets::Notes ( $id, "note_id, admin as adminreply, vote as vote, DATE_FORMAT(date_post, '%d/%m/%Y %H:%i:%s') as date_post,CONCAT(c.firstname, ' ', c.lastname) as customer, c.company as company, note", true );
 				$this->view->summary = $rs [0];
 				

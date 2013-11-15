@@ -66,34 +66,26 @@
     		</div>
 		    
 		    <div class="tab-pane" id="tab2"> 
-		        <div> 
-		            <?php echo  $this->verticalgrid($this->owner_datagrid);?>
-		        </div>
-		        
+		        <?php echo  $this->verticalgrid($this->owner_datagrid);?>
 		    </div> 
 		    
 		    <div class="tab-pane" id="tab3"> 
-		        <div> 
-		            <?php echo $form->subdomain->render()?>
-		            <?php echo $form->target->render()?>
-		            <?php echo $form->zone->render()?>
-		            <?php echo  $this->simplegrid($this->dns_datagrid);?>
-		        </div>
-		        
+	            <?php echo $form->subdomain->render()?>
+	            <?php echo $form->target->render()?>
+	            <?php echo $form->zone->render()?>
+	            <?php echo  $this->simplegrid($this->dns_datagrid);?>
 		    </div> 
 		    
-		    <?php if($this->id):?>
-			    <div class="tab-pane" id="tab4"> 
-			         <?php echo  $this->simplegrid($this->services_datagrid);?>
-			    </div>   
-			    <div class="tab-pane" id="tab5"> 
-			         <?php echo  $this->simplegrid($this->orders_datagrid);?>
-			    </div>        
-			    <div class="tab-pane" id="tab6"> 
-		            <?php echo $this->bbslist($this->messages); ?>
-		            <?php echo $form->message->render() ?>
-			    </div>        
-		    <?php endif; ?>
+		    <div class="tab-pane" id="tab4"> 
+		         <?php echo  $this->simplegrid($this->services_datagrid);?>
+		    </div>   
+		    <div class="tab-pane" id="tab5"> 
+		         <?php echo  $this->simplegrid($this->orders_datagrid);?>
+		    </div>        
+		    <div class="tab-pane" id="tab6"> 
+	            <?php echo $this->bbslist($this->messages); ?>
+	            <?php echo $form->message->render() ?>
+		    </div>        
 		    
 		    <div class="tab-pane" id="tab7"> 
 		        <?php echo $form->note->render() ?>

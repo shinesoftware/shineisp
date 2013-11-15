@@ -83,4 +83,5 @@ $(document).ready(function(){
 			$('#company_type_id').empty();
 		}
 	}); 
+	
 });
