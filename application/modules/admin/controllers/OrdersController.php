@@ -221,7 +221,8 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		
 		$form = $this->getForm ( '/admin/orders/process' );
 		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
-		
+		$customer = null;
+		$createInvoiceConfirmText = $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order?');
 		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
 		
@@ -280,16 +281,19 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				}
 				
 				$this->view->messages = Messages::getbyOrderId ($id);
+
+				$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order? The order status is: not paid.') : $createInvoiceConfirmText;
+				$customer = Customers::get_by_customerid ( $rs ['customer_id'], 'company, firstname, lastname, email' );
+				
 			} else {
 				$this->_helper->redirector ( 'list', 'orders', 'admin' );
 			}
 		}
 		
-		$customer = Customers::get_by_customerid ( $rs ['customer_id'], 'company, firstname, lastname, email' );
+		
 		$this->view->mex = urldecode ( $this->getRequest ()->getParam ( 'mex' ) );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
-		$createInvoiceConfirmText = ( $rs ['missing_income'] > 0 ) ? $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order? The order status is: not paid.') : $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order?');
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(

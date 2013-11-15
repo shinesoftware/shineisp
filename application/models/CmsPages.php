@@ -89,6 +89,20 @@ class CmsPages extends BaseCmsPages {
 	}
 	
 	/**
+	 * Get all the active blog pages records
+	 * @return Array
+	 */
+	public static function getblogpages($locale = "en") {
+		$dq = Doctrine_Query::create ()->from ( 'CmsPages cms' )
+								->leftJoin ( 'cms.CmsPagesData cpd' )
+								->leftJoin ( 'cpd.Languages l' )
+								->where ( 'l.code = ?', $locale )
+								->addWhere ( 'cms.blog = ?', 1 )
+								->addWhere('cms.active = ?', 1);
+		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	}
+	
+	/**
 	 * getRsspages
 	 * Get all the pages published on RSS feed
 	 * @return Array
@@ -290,6 +304,8 @@ class CmsPages extends BaseCmsPages {
 		$cmspages->pagelayout = $params ['pagelayout'];
 		$cmspages->parent_id = $params ['parent_id'];
 		$cmspages->showinmenu = $params ['showinmenu'] ? true : false;
+		$cmspages->showonrss = $params ['showonrss'] ? true : false;
+		$cmspages->blog = $params ['blog'] ? true : false;
 		$cmspages->showonrss = $params ['showonrss'] ? true : false;
 		$cmspages->active = $params ['active'] ? true : false;
 		

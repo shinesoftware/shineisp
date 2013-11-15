@@ -37,6 +37,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
+            'description' => $translate->_('separate each keyword by a comma'),
             'class'       => 'col-lg-12 form-control'
         ));
         
@@ -44,6 +45,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Blocks'),
+            'rows'        => 5,
             'class'       => 'col-lg-12 form-control'
         ));
         
@@ -51,7 +53,15 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('XML Layout'),
+            'rows'        => 5,
             'class'       => 'col-lg-12 form-control'
+        ));
+        
+        $this->addElement('checkbox', 'blog', array(
+            'filters'     => array('StringTrim'),
+            'decorators'  => array('Bootstrap'),
+            'label'       => $translate->_('is Blog post'),
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'parent_id', array(

@@ -368,6 +368,8 @@ CmsPages:
       type: boolean(25)
       default: 1
       notnull: false
+    blog:
+      type: boolean(25)
     showonrss:
       type: boolean(25)
       default: '0'

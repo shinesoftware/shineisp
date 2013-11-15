@@ -16,7 +16,7 @@ class CmsController extends Shineisp_Controller_Default {
 	    $ns = new Zend_Session_Namespace ();
 	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 	    
-	    $pages = CmsPages::getpages($ns->lang);
+	    $pages = CmsPages::getblogpages($ns->lang);
 	    $isp = Isp::getActiveISP();
 	    
 	    $this->view->headerdata = array('title' => $translator->_("%s's blog", $isp['company']));

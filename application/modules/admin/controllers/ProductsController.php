@@ -232,6 +232,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				$rs = array_merge($rs, $data);
 				$form = $this->createAttributesElements ( $form, $rs ['group_id'] );
 				
+				$this->view->isrecurring = $rs['ProductsAttributesGroups']['isrecurring'];
+				
 				$rs['language_id'] = $this->session->langid; // added to the form the language id selected
 				$rs['related'] = ProductsRelated::getItemsbyProductID($rs ['product_id']);
 				
@@ -276,6 +278,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 												,'delete' 	=> array ('controller' => 'products', 'action' => 'deltranche' )
 											);
 				}
+				
+				
 			}
 			$orders = array ('records' => OrdersItems::ProductsInOrdersItems ( $id ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ) );
 			
@@ -288,7 +292,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		$this->view->orders = $orders;
 		$this->view->isSold = (bool)OrdersItems::CheckIfProductExist($id);
-		$this->view->isrecurring = $rs['ProductsAttributesGroups']['isrecurring'];
+		
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );

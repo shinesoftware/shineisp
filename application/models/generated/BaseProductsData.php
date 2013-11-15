@@ -19,9 +19,9 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsData', 'doctrine');
  * @property Products $Products
  * @property Languages $Languages
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseProductsData extends Doctrine_Record

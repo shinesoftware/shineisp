@@ -12,9 +12,9 @@ Doctrine_Manager::getInstance()->bindComponent('TicketsCategories', 'doctrine');
  * @property integer $isp_id
  * @property Doctrine_Collection $Tickets
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseTicketsCategories extends Doctrine_Record

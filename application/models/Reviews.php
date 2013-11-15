@@ -108,7 +108,7 @@ class Reviews extends BaseReviews
      * @param $id
      */
     public static function getbyProductId($id) {
-    	return Doctrine_Query::create ()->from ( 'Reviews r' )->where ( "product_id = ?", $id )->andWhere('active = ?', true)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+    	return Doctrine_Query::create ()->from ( 'Reviews r' )->leftJoin('r.Products p')->where ( "product_id = ?", $id )->andWhere('active = ?', true)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
     }
     
     /**

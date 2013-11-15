@@ -14,9 +14,9 @@ Doctrine_Manager::getInstance()->bindComponent('Settings', 'doctrine');
  * @property Isp $Isp
  * @property SettingsParameters $SettingsParameters
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseSettings extends Doctrine_Record
