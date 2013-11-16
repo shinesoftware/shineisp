@@ -6,16 +6,25 @@
     </div>
     <div class="col-lg-11">
 		<ul class="nav navbar-nav pull-right">
-		    <li><a href="#"><span class="badge"><?php echo $this->querycount();?></span></a></li>
-		    <li><a href="#"><span class="badge"><?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></span></a></li>
+		    <li><a href="#"><?php echo $this->querycount();?></a></li>
+		    <li><a href="#"><?php echo 'Mem: '.(memory_get_peak_usage(true)/1024)."KB"?></a></li>
+		    <li><a href="https://twitter.com/shine_software" data-show-count="false" data-size="large"><i class="fa fa-twitter"></i> Follow us @shine_software</a></li>
+		    <li><a href="https://twitter.com/intent/tweet?screen_name=shine_software&text=Thank%20you%20guys%20for%20@shineisp%20downloaded%20from%20@github.%20I%20have%20installed%20your%20#isp%20#software%20in%20our%20server!" data-text="" data-size="large" data-related="shine_software"><i class="fa fa-twitter"></i> Tweet</a></li>
+
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a>
                 <ul class="dropdown-menu">
                     <li class="dropdown"><a href="http://www.shineisp.com/translating-shineisp/" target="_blank"><i class="glyphicon glyphicon-question-sign"></i> How-to translate the project</a></li>
-                        <li class="divider"></li>
-                    <li class="dropdown"><a href="http://www.shineisp.com/" target="_blank">About ShineISP</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JK3ERUVCWMQ8C" target="_blank"><i class="glyphicon glyphicon-euro"></i> Donate</a></li>
+                    <li class="dropdown"><a href="http://groups.google.com/group/shineisp" target="_blank"><i class="glyphicon glyphicon-volume-down"></i> Group/Forum</a></li>
+        		    <li class="dropdown"><a href="https://github.com/shinesoftware/shineisp" target="_blank"><i class="glyphicon glyphicon-align-left"></i> Source Files</a></li>
+        		    <li class="divider"></li>
+        		    <li class="dropdown"><a href="http://www.shineisp.com/" target="_blank">About ShineISP</a></li>
                 </ul>
             </li>
 		</ul>
 	</div>
 </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

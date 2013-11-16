@@ -70,44 +70,6 @@
 			</div>
 		</div>
 		
-		<div class="column column-floated column-little" id="col4">
-			<div class="portlet" id="googleanalytics_yesterday">
-				<?php 
-						
-					$startdate = date('Y-m-d');
-					$startdate = strtotime ( '-1 day' , strtotime ( $startdate ) ) ;
-					$startdate = date ( 'Y-m-d' , $startdate );
-					
-					echo $this->widget(Shineisp_Plugins_Google_Analytics_Main::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (yesterday)"));
-					
-				?>
-			</div>
-		</div>
-        <div class="column column-floated column-little" id="col5">
-        	<div class="portlet" id="googleanalytics_last30days">
-				<?php 
-					
-					$startdate = date('Y-m-d');
-					$startdate = strtotime ( '-1 month' , strtotime ( $startdate ) ) ;
-					$startdate = date ( 'Y-m-d' , $startdate );
-					
-					echo $this->widget(Shineisp_Plugins_Google_Analytics_Main::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (last 30 days)"));
-					
-				?>
-			</div>
-        </div>
-		<div class="column column-floated column-little" id="col6">
-			<div class="portlet" id="googleanalytics_lastyear">
-				<?php 
-						
-					$startdate = date('Y-m-d');
-					$startdate = strtotime ( '-1 year' , strtotime ( $startdate ) ) ;
-					$startdate = date ( 'Y-m-d' , $startdate );
-					
-					echo $this->widget(Shineisp_Plugins_Google_Analytics_Main::getNewReturnVisitors($startdate, date('Y-m-d')), $this->translate ("Google Analytics (last year)"));
-				?>
-			</div>
-		</div>
     </div>      
                                  
 </div> 

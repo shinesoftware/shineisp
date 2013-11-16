@@ -41,7 +41,7 @@ class Setup_PreferencesController extends Zend_Controller_Action {
 		if(empty($session->db)){
 			$this->_helper->redirector ( 'index', 'database', 'setup');
 		}
-		
+
 		if(empty($session->permissions) || $session->permissions == false){
 			$this->_helper->redirector ( 'index', 'checker', 'setup');
 		}
@@ -63,45 +63,52 @@ class Setup_PreferencesController extends Zend_Controller_Action {
 	public function saveAction() {
 		$session = new Zend_Session_Namespace ( 'setup' );
 		$request = $this->getRequest ();
+		
 		$form = new Setup_Form_PreferencesForm( array ('action' => '/setup/preferences/save', 'method' => 'post' ) );
 		
 		// Check if we have a POST request
 		if (! $request->isPost ()) {
-			return $this->_helper->redirector ( 'index', 'index', 'setup' );
+			return $this->_helper->redirector ( 'index', 'preferences', 'setup' );
 		}
 		
-		if ($form->isValid ( $request->getPost () )) {
-			// Get the values posted
-			$params = $form->getValues ();
-			
-			$session->preferences = $params;
-			
-			// Create the main xml config file
-			if(Settings::saveConfig($session->db)){
+    	try{
+    		if ($form->isValid ( $request->getPost () )) {
+    			// Get the values posted
+    			$params = $form->getValues ();
+    			
+    			$session->preferences = $params;
+    			
+    			// Create the main xml config file
+    			if(Settings::saveConfig($session->db)){
 
-				// Get the default ISP company
-				$isp_id = Shineisp_Registry::get('ISP')->isp_id;
-				
-				// Save the company information
-				Isp::saveAll($params, $isp_id);
-				
-				// TODO: Bind ISP to the current URL
-				$IspUrls = new IspUrls();
-				$IspUrls->isp_id = $isp_id;
-				$IspUrls->url    = $_SERVER['HTTP_HOST'];
-				$IspUrls->save();
-				
-				// Adding the user as administrator 
-				AdminUser::addUser($params['firstname'], $params['lastname'], $params['email'], $params['password'], $isp_id);
-				
-				// Redirect the user to the homepage
-				$this->_helper->redirector ( 'index', 'summary', 'setup');
-			}
-			
-			// There was a problem the setup restarts
-			$this->_helper->redirector ( 'index', 'index', 'setup');
-			
-		}
+    			    // Start the creation of the database tables
+    			    Settings::createDb();
+    			    
+    				// Get the default ISP company
+    				$isp_id = Isp::getActiveISPID();
+    				
+    				// Save the company information
+    				Isp::saveAll($params, $isp_id);
+    				
+    				// TODO: Bind ISP to the current URL
+    				$IspUrls = new IspUrls();
+    				$IspUrls->isp_id = $isp_id;
+    				$IspUrls->url    = $_SERVER['HTTP_HOST'];
+    				$IspUrls->save();
+    				
+    				// Adding the user as administrator 
+    				AdminUser::addUser($params['firstname'], $params['lastname'], $params['email'], $params['password'], $isp_id);
+    				
+    				// Redirect the user to the homepage
+    				$this->_helper->redirector ( 'index', 'summary', 'setup');
+    			}
+    			
+    			// There was a problem the setup restarts
+    			$this->_helper->redirector ( 'index', 'index', 'setup');
+    		}
+    	}catch (Exception $e){
+    	    die($e->getMessage());
+    	}
 		$this->view->form = $form;
 		return $this->_helper->viewRenderer ( 'form' );
 	}

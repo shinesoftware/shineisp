@@ -359,33 +359,6 @@ SettingsParameters:
     description: 'Destination path where the orders files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/{monthname}/'
     SettingsGroups: SettingsGroups_10
     config: '[]'
-  SettingsParameters_41:
-    name: Email
-    var: ganalytics_email
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Set your google email connected to the google analytics service'
-    SettingsGroups: SettingsGroups_11
-    config: '[]'
-  SettingsParameters_42:
-    name: Password
-    var: ganalytics_password
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Write here your password.'
-    SettingsGroups: SettingsGroups_11
-    config: '[]'
-  SettingsParameters_43:
-    name: 'Profile ID'
-    var: ganalytics_profileid
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Write here your profileID. You can use this link to find your profile id http://ga-dev-tools.appspot.com/explorer/.'
-    SettingsGroups: SettingsGroups_11
-    config: '[]'
   SettingsParameters_44:
     name: 'API Key'
     var: mailchimp_key
@@ -393,7 +366,7 @@ SettingsParameters:
     module: admin
     enabled: '1'
     description: 'MailChimp Api Key.'
-    SettingsGroups: SettingsGroups_12
+    SettingsGroups: SettingsGroups_11
     config: '[]'
   SettingsParameters_45:
     name: 'Send Confirmation Email'
@@ -402,16 +375,7 @@ SettingsParameters:
     module: admin
     enabled: '1'
     description: 'An email will be send when a user is opted in by MailChimp system'
-    SettingsGroups: SettingsGroups_12
-    config: '[]'
-  SettingsParameters_46:
-    name: 'ShineISP Class Handler'
-    var: ispconfig_class
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'This is the ShineISP handler class for the ISPConfig module. eg. Shineisp_Plugins_Panels_Ispconfig_Main'
-    SettingsGroups: SettingsGroups_13
+    SettingsGroups: SettingsGroups_11
     config: '[]'
   SettingsParameters_47:
     name: 'Automatic invoice creation'
@@ -485,48 +449,3 @@ SettingsParameters:
     description: 'Adding the zero number before the invoice number.'
     SettingsGroups: SettingsGroups_1
     config: null
-  SettingsParameters_55:
-    name: 'Endpoint Location'
-    var: ispconfig_endpointlocation
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/index.php'
-    SettingsGroups: SettingsGroups_13
-    config: '[]'
-  SettingsParameters_56:
-    name: 'Endpoint URI'
-    var: ispconfig_endpointuri
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'Write here the Location of your ISPConfig. eg. http://www.mywebsite.com:8080/remote/'
-    SettingsGroups: SettingsGroups_13
-    config: '[]'
-  SettingsParameters_57:
-    name: 'Write here the ISPConfig SOAP username'
-    var: ispconfig_username
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'This is the ISPConfig remote username set in the ISPConfig control panel.'
-    SettingsGroups: SettingsGroups_13
-    config: '[]'
-  SettingsParameters_58:
-    name: 'Write here the SOAP password'
-    var: ispconfig_password
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'This is the ISPConfig user remote password set in the ISPConfig control panel.'
-    SettingsGroups: SettingsGroups_13
-    config: '[]'
-  SettingsParameters_59:
-    name: 'Write here the public URL'
-    var: ispconfig_url
-    type: text
-    module: admin
-    enabled: '1'
-    description: 'This is the ISPConfig public url. eg. http://www.mywebsite.com:8080/'
-    SettingsGroups: SettingsGroups_13
-    config: '[]'

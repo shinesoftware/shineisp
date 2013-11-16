@@ -40,10 +40,7 @@ class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		if ($l_m == 'default') {
 		    
 		    if($controller == "categories"){
-		        $categoryuri = $params['q'];
-		        $category = ProductsCategories::getCategoryByURI($categoryuri);
 		        $crumbs .= "<li>" . $translation->translate(ucwords("Categories")) . "</li>";
-		        $crumbs .= "<li><a href='/categories/$categoryuri.html'>". $category['name'] . "</a></li>";
 		    }elseif($controller == "cms"){
 		        if(!empty($params['url'])){
     		        $crumbs .= "<li><a href=\"/cms/list\">" . $translation->translate(ucwords("Blog")) . "</a></li>";
