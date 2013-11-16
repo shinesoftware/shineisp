@@ -190,7 +190,7 @@ class CmsPages extends BaseCmsPages {
 		$items = array ();
 		
 		$customskin = Settings::findbyParam ( 'skin' );
-		$skin = !empty ( $customskin ) ? $customskin : "base";
+		$skin = !empty ( $customskin ) ? $customskin : "blank";
 	
 		$files = Shineisp_Commons_Utilities::getDirectoryList(PUBLIC_PATH . "/skins/default/$skin/scripts/cms/");
 		
@@ -212,7 +212,7 @@ class CmsPages extends BaseCmsPages {
 		$items = array ();
 		
 		$customskin = Settings::findbyParam ( 'skin' );
-		$skin = !empty ( $customskin ) ? $customskin : "base";
+		$skin = !empty ( $customskin ) ? $customskin : "blank";
 	
 		$files = Shineisp_Commons_Utilities::getDirectoryList(PUBLIC_PATH . "/skins/default/$skin/scripts/");
 		$items[] = "";

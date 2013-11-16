@@ -46,10 +46,7 @@ class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		        $crumbs .= "<li><a href='/categories/$categoryuri.html'>". $category['name'] . "</a></li>";
 		    }elseif($controller == "cms"){
 		        if(!empty($params['url'])){
-    		        $cmsuri = $params['url'];
-    		        $page = CmsPages::findbyvar($cmsuri);
     		        $crumbs .= "<li><a href=\"/cms/list\">" . $translation->translate(ucwords("Blog")) . "</a></li>";
-    		        $crumbs .= "<li class=\"active\"><a href='/categories/$cmsuri.html'>". $page['title'] . "</a></li>";
 		        }else{
 		            $crumbs .= "<li>" . $translation->translate(ucwords("Blog")) . "</li>";
 		        }
