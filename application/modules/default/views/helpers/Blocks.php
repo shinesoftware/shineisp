@@ -51,10 +51,14 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
 		$action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
 		$customskin = Settings::findbyParam ( 'skin' );
-		$skin = !empty($customskin) ? $customskin : "base";
+		$skin = !empty($customskin) ? $customskin : "blank";
 		
 		// call the placeholder view helper for each side parsed 
 		echo $this->view->placeholder ( $side );
+		
+		if (Settings::findbyParam('debug')){
+		    echo "<div class=\"alert alert-danger\">$side</div>";
+		}
 		
 		// Get all the xml blocks
 		$xmlblocks = Shineisp_Commons_Layout::getBlocks ( $module, $side, $controller, $skin );
@@ -63,7 +67,6 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 		// If the controller called is the homepage, event detail page or a cms page ...
 		// #################
 		if ($controller == "index") {
-			
 			$record = CmsPages::findbyvar ( 'homepage', $ns->lang );
 			$var = Zend_Controller_Front::getInstance ()->getRequest ()->getParam ( 'url' );
 			if (! empty ( $var )) {
