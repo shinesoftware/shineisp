@@ -180,19 +180,65 @@ class Settings extends BaseSettings {
 
 		return $currencies;
 	}
+	
+	/**
+	 * Get the custom date format parameter for MySQL
+	 */
+	public static function getMySQLDateFormat() {
+	    $value = self::findbyParam('dateformat');
+        if(!empty($value)){
+            $value = explode("|", $value);
+            return $value[0];
+        }
+        
+        return "%d/%m/%Y";
+	}
+	
+	
+	/**
+	 * Get the custom date format parameter for Zend Date
+	 */
+	public static function getZendDateFormat() {
+	    $value = self::findbyParam('dateformat');
+        if(!empty($value)){
+            $value = explode("|", $value);
+            return $value[1];
+        }
+        
+        return "d/M/Y";
+	}
+	
+	/**
+	 * Get the date format list
+	 */
+	public static function getDateFormat() {
+	    $date = Zend_Date::now();
+	    
+	    $dateformat['%d/%m/%Y|d/M/Y'] = 'd/M/Y - (' . $date->toString('d/M/Y') . ")";
+	    $dateformat['%m/%d/%Y|M/d/Y'] = 'M/d/Y - (' . $date->toString('M/d/Y') . ")";
+	    $dateformat['%Y/%m/%d|Y/M/d'] = 'Y/M/d - (' . $date->toString('Y/M/d') . ")";
+	    
+	    $dateformat['%d-%m-%Y|d-M-Y'] = 'd-M-Y - (' . $date->toString('d-M-Y') . ")";
+	    $dateformat['%m-%d-%Y|M-d-Y'] = 'M-d-Y - (' . $date->toString('M-d-Y') . ")";
+	    $dateformat['%Y-%m-%d|Y-M-d'] = 'Y-M-d - (' . $date->toString('Y-M-d') . ")";
+
+		return $dateformat;
+	}
 
 	/**
 	 * Get the late fee types
 	 */
 	public static function getLateFeeTypes() {
-		return array('fixed'=>'Fixed', 'percentage'=>'Percentage');
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		return array('fixed'=>$translator->translate('Fixed'), 'percentage'=> $translator->translate('Percentage'));
 	}
 
 	/**
 	 * Get the auto invoice creation values
 	 */
 	public static function getAutoInvoiceGenerationValues() {
-		return array('0'=>"Don't automatically create an invoice as soon the whole order is paid", '1'=>'Automatically create an invoice as soon the whole order is paid');
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		return array('0'=> $translator->translate("Don't automatically create an invoice as soon the whole order is paid"), '1'=> $translator->translate('Automatically create an invoice as soon the whole order is paid'));
 	}
 
 	/**

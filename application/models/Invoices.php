@@ -49,7 +49,7 @@ class Invoices extends BaseInvoices {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "c.company", 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('class' => 'hidden-xs hidden-sm') );
 		#$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Invoice dest.' ), 'field' => "CONCAT(r.firstname,' ', r.lastname)", 'alias' => 'invoice_dest', 'sortable' => true, 'type' => 'string', 'searchable' => true);
 		$config ['datagrid'] ['fields'] =  "invoice_id, 
-											DATE_FORMAT(i.invoice_date, '%d/%m/%Y') as invoice_date, 
+											DATE_FORMAT(i.invoice_date, '".Settings::getMySQLDateFormat('dateformat')."') as invoice_date, 
 											i.formatted_number as formatted_number, 
 											o.order_number as order_number, 
 											o.cost as cost, 
