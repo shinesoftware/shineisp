@@ -12,7 +12,8 @@ class Admin_Form_InvoicesForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('select', 'order_id', array(

@@ -13,7 +13,8 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
     	
     	$this->addElement('text', 'expiringdate', array(
@@ -21,7 +22,8 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Expiry Date'),
             'title'      => $translate->_('eg: 01/11/2011'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
     	
     	$this->addElement('text', 'paymentdate', array(
@@ -29,7 +31,8 @@ class Admin_Form_PurchasesForm extends Zend_Form
             'label'      => $translate->_('Payment Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('select', 'category_id', array(

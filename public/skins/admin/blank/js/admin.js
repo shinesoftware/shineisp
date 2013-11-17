@@ -4,11 +4,20 @@ $(document).ready(function(){
 	$('#submit').click(function() { $("form:first").submit(); });
 	 
 	/* Date picker */
-	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional['']); 
-		$( ".date" ).datepicker($.datepicker.regional['it']);
+	$('.date').each(function() {
+	    //standard options
+	    var options = { dateFormat: $(this).attr('dateformat')};  
+	    
+	    //additional options
+	    var additionalOptions = $(this).data("datepicker");
+	     
+	    //merge the additional options into the standard options and override defaults
+	    jQuery.extend(options, additionalOptions);
+	    
+	     $(this).datepicker(options);
 	});
 	
+	// Auto Search 
 	$('#searchbox').typeahead({
 		name: 'searchbox',
 		limit: 10, 

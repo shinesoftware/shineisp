@@ -41,14 +41,16 @@ class Admin_Form_DomainsForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Creation date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('text', 'authinfocode', array(
@@ -59,16 +61,12 @@ class Admin_Form_DomainsForm extends Zend_Form
             'class'      => 'form-control'
         ));
       
-        $this->addElement('select', 'autorenew', array(
+        $this->addElement('checkbox', 'autorenew', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Auto renewal'),
             'class'       => 'form-control'
         ));
-        
-        $this->getElement('autorenew')
-                  ->setAllowEmpty(false)
-                  ->setMultiOptions(array('0'=>'no', '1'=>'yes'));        
         
         $this->addElement('select', 'customer_id', array(
                             'label' => $translate->_('Customer'),

@@ -208,19 +208,40 @@ class Settings extends BaseSettings {
         return "d/M/Y";
 	}
 	
+	
 	/**
-	 * Get the date format list
+	 * Get the custom date format parameter for Javascript
+	 */
+	public static function getJsDateFormat() {
+	    $value = self::findbyParam('dateformat');
+        if(!empty($value)){
+            $value = explode("|", $value);
+            return $value[2];
+        }
+        
+        return "dd/mm/yy";
+	}
+	
+	/**
+	 * Get the date format list items
+	 * The array contains the date format for various programming languages
+	 * The first item is the MySQL date format pattern string
+	 * The second one is the Zend_Date format pattern string
+	 * The third is the JQuery Calendar date format pattern string 
+	 * 
+	 *  This setting is used in all the project to convert all the dates
+	 *  for a custom date 
 	 */
 	public static function getDateFormat() {
 	    $date = Zend_Date::now();
 	    
-	    $dateformat['%d/%m/%Y|d/M/Y'] = 'd/M/Y - (' . $date->toString('d/M/Y') . ")";
-	    $dateformat['%m/%d/%Y|M/d/Y'] = 'M/d/Y - (' . $date->toString('M/d/Y') . ")";
-	    $dateformat['%Y/%m/%d|Y/M/d'] = 'Y/M/d - (' . $date->toString('Y/M/d') . ")";
+	    $dateformat['%s/%m/%Y|d/M/Y|dd/mm/yy'] = 'd/M/Y - (' . $date->toString('d/M/Y') . ")";
+	    $dateformat['%m/%d/%Y|M/d/Y|mm/dd/yy'] = 'M/d/Y - (' . $date->toString('M/d/Y') . ")";
+	    $dateformat['%Y/%m/%d|Y/M/d|yy/mm/dd'] = 'Y/M/d - (' . $date->toString('Y/M/d') . ")";
 	    
-	    $dateformat['%d-%m-%Y|d-M-Y'] = 'd-M-Y - (' . $date->toString('d-M-Y') . ")";
-	    $dateformat['%m-%d-%Y|M-d-Y'] = 'M-d-Y - (' . $date->toString('M-d-Y') . ")";
-	    $dateformat['%Y-%m-%d|Y-M-d'] = 'Y-M-d - (' . $date->toString('Y-M-d') . ")";
+	    $dateformat['%d-%m-%Y|d-M-Y|dd-mm-yy'] = 'd-M-Y - (' . $date->toString('d-M-Y') . ")";
+	    $dateformat['%m-%d-%Y|M-d-Y|mm-dd-yy'] = 'M-d-Y - (' . $date->toString('M-d-Y') . ")";
+	    $dateformat['%Y-%m-%d|Y-M-d|yy-mm-dd'] = 'Y-M-d - (' . $date->toString('Y-M-d') . ")";
 
 		return $dateformat;
 	}
