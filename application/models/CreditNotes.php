@@ -31,7 +31,7 @@ class CreditNotes extends BaseCreditNotes
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => "cn.total", 'alias' => 'grandtotal', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array ('class' => 'hidden-xs hidden-sm') );
 		
 		$config ['datagrid'] ['fields'] =  "creditnote_id, i.invoice_id,
-											DATE_FORMAT(cn.creationdate, '%d/%m/%Y') as creationdate, 
+											DATE_FORMAT(cn.creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as creationdate, 
 											cn.number as cn_number, 
 											cn.total_net as total, 
 											cn.total_vat as vat, 
@@ -397,7 +397,7 @@ class CreditNotes extends BaseCreditNotes
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
-		$creditnotes = self::get_items($items, "creditnote_id, i.number as invoicenum, DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, cn.total as total, cn.total_vat as vat, cn.total as grandtotal, s.status as status", 'cn.creationdate');
+		$creditnotes = self::get_items($items, "creditnote_id, i.number as invoicenum, DATE_FORMAT(o.order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, cn.total as total, cn.total_vat as vat, cn.total as grandtotal, s.status as status", 'cn.creationdate');
 
 		// Create the PDF header
 		$grid['headers']['title'] = $translator->translate('Credit Note List');

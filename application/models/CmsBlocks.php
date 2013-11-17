@@ -28,7 +28,7 @@ class CmsBlocks extends BaseCmsBlocks
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Title' ), 'field' => 'cms.title', 'alias' => 'title', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Language' ), 'alias' => 'language', 'type' => 'arraydata', 'index' => 'block_id', 'run' => array('CmsBlocksData'=>'getTranslations') );
 		
-		$config ['datagrid'] ['fields'] = "cms.block_id, cms.var as var, DATE_FORMAT(cms.publishedat, '%d/%m/%Y %H:%i:%s') as creationdate, cms.title";
+		$config ['datagrid'] ['fields'] = "cms.block_id, cms.var as var, DATE_FORMAT(cms.publishedat, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as creationdate, cms.title";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'CmsBlocks cms' );
 		
 		$config ['datagrid'] ['index'] = "block_id";
@@ -86,7 +86,7 @@ class CmsBlocks extends BaseCmsBlocks
         $dq = Doctrine_Query::create ()->select ( "block_id, 
         										   cpd.language_id,
         										   title, 
-        										   DATE_FORMAT(publishedat, '%d/%m/%Y') as publishedat, 
+        										   DATE_FORMAT(publishedat, '".Settings::getMySQLDateFormat('dateformat')."') as publishedat, 
         										   var, 
         										   title, 
         										   body" )

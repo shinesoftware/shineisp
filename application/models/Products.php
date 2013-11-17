@@ -42,8 +42,8 @@ class Products extends BaseProducts {
 											p.sku as sku, 
 											pag.name as groupname, 
 											sg.name as servergroupname,
-											DATE_FORMAT(p.inserted_at, '%d/%m/%Y %H:%i:%s') as insertedat,  
-											DATE_FORMAT(p.updated_at, '%d/%m/%Y %H:%i:%s') as updatedat,  
+											DATE_FORMAT(p.inserted_at, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as insertedat,  
+											DATE_FORMAT(p.updated_at, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as updatedat,  
 											IF( p.enabled = 1, 'Yes', 'No' ) as enabled";
 		
         $dq = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
@@ -655,7 +655,7 @@ class Products extends BaseProducts {
 	 * @return ARRAY Record
 	 */
 	public static function getExpiringProducts($customerid = "", $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( "oi.detail_id as detail_id, o.order_id as order_id, pd.name as Products, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as Termination" )->from ( 'Orders o' )->leftJoin ( 'o.OrdersItems oi' )->leftJoin ( 'oi.Products p' )->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )->where ( "p.type <> ?", 'domain' )->addWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= 31' )->addWhere ( 'oi.status_id = ?', Statuses::id("complete", "orders") ); // Complete
+		$dq = Doctrine_Query::create ()->select ( "oi.detail_id as detail_id, o.order_id as order_id, pd.name as Products, DATE_FORMAT(oi.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as Termination" )->from ( 'Orders o' )->leftJoin ( 'o.OrdersItems oi' )->leftJoin ( 'oi.Products p' )->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )->where ( "p.type <> ?", 'domain' )->addWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= 31' )->addWhere ( 'oi.status_id = ?', Statuses::id("complete", "orders") ); // Complete
 
 		if (is_numeric ( $customerid )) {
 			$dq->addWhere ( "o.customer_id = ?", $customerid );

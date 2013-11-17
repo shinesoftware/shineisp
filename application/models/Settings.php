@@ -191,7 +191,7 @@ class Settings extends BaseSettings {
             return $value[0];
         }
         
-        return "%d/%m/%Y";
+        return "".Settings::getMySQLDateFormat('dateformat')."";
 	}
 	
 	

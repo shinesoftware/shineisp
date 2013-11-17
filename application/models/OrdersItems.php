@@ -39,8 +39,8 @@ class OrdersItems extends BaseOrdersItems {
 											c.company as company, 
 											c.lastname as lastname,
 											d.order_id, 
-											DATE_FORMAT(d.date_start, '%d/%m/%Y') as date_start, 
-											DATE_FORMAT(d.date_end, '%d/%m/%Y') as date_end, 
+											DATE_FORMAT(d.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as date_start, 
+											DATE_FORMAT(d.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as date_end, 
 											pd.name as productname, 
 											s.status as status, 
 											oid.relationship_id as oid,
@@ -224,7 +224,7 @@ class OrdersItems extends BaseOrdersItems {
 	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, 
 	        										   pd.name as product,
 	        										   c.customer_id as id, 
-	        										   DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiringdate,
+	        										   DATE_FORMAT(oi.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate,
 	        										   o.customer_id as customer_id,
 	        										   c.language_id as language_id,
 	        										   Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
@@ -272,7 +272,7 @@ class OrdersItems extends BaseOrdersItems {
 			$registry = Shineisp_Registry::getInstance ();
 			$translations = $registry->Zend_Translate;
 			
-			$dq = Doctrine_Query::create ()->select ( "oi.detail_id, o.order_id as order_id, s.status as status, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, oi.description as description" )->from ( 'OrdersItems oi' )->leftJoin ( 'oi.Orders o' )->leftJoin ( 'o.Statuses s' )->where ( 'oi.description like ?', "%" . $description . "%" );
+			$dq = Doctrine_Query::create ()->select ( "oi.detail_id, o.order_id as order_id, s.status as status, DATE_FORMAT(order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, oi.description as description" )->from ( 'OrdersItems oi' )->leftJoin ( 'oi.Orders o' )->leftJoin ( 'o.Statuses s' )->where ( 'oi.description like ?', "%" . $description . "%" );
 			$retval = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 			foreach ( $retval as $c ) {
 				$description = $c ['description'];
@@ -705,7 +705,7 @@ class OrdersItems extends BaseOrdersItems {
 	 */
 	public static function ProductsInOrdersItems($product_id) {
 		if (is_numeric ( $product_id )) {
-			$records = Doctrine_Query::create ()->select ( 'DATE_FORMAT(oi.date_start, "%d/%m/%Y") as date, CONCAT(c.firstname, " ", c.lastname, " - ", c.company) as customer, oi.quantity, oi.order_id as orderid, s.status as status' )
+			$records = Doctrine_Query::create ()->select ( 'DATE_FORMAT(oi.date_start, "'.Settings::getMySQLDateFormat('dateformat').'") as date, CONCAT(c.firstname, " ", c.lastname, " - ", c.company) as customer, oi.quantity, oi.order_id as orderid, s.status as status' )
 										   ->from ( 'OrdersItems oi' )
 										   ->leftJoin( 'oi.Orders o' )
 										   ->leftJoin( 'o.Statuses s' )

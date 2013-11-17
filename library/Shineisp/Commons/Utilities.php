@@ -1156,7 +1156,7 @@ class Shineisp_Commons_Utilities {
 		$date = new Zend_Date($dbindata, "yyyy-MM-dd HH:mm:ss", $locale);
 
 		// override the preferences
-		$dateformat = Settings::findbyParam('dateformat');
+		$dateformat = Settings::getZendDateFormat();
 		
 		if(!empty($dateformat)){
 			$dateformat .= ($showTime) ? " HH:mm:ss" : null;

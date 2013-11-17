@@ -25,11 +25,11 @@ class DomainsTasks extends BaseDomainsTasks {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'd.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Tld' ), 'field' => 'w.tld', 'alias' => 'tld', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Registrar' ), 'field' => 'r.name', 'alias' => 'registrar', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start' ), 'field' => 'DATE_FORMAT(startdate, "%d/%m/%Y %H:%i:%s")', 'alias' => 'startdate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End' ), 'field' => 'DATE_FORMAT(enddate, "%d/%m/%Y %H:%i:%s")', 'alias' => 'enddate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start' ), 'field' => 'DATE_FORMAT(startdate, "'.Settings::getMySQLDateFormat('dateformat').' %H:%i:%s")', 'alias' => 'startdate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End' ), 'field' => 'DATE_FORMAT(enddate, "'.Settings::getMySQLDateFormat('dateformat').' %H:%i:%s")', 'alias' => 'enddate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 	
-		$config ['datagrid'] ['fields'] = "task_id, s.status as status, DATE_FORMAT(startdate, '%d/%m/%Y %H:%i:%s') as startdate, DATE_FORMAT(enddate, '%d/%m/%Y %H:%i:%s') as enddate, dt.action as action, d.domain as domain, r.name as registrar, w.tld as tld";
+		$config ['datagrid'] ['fields'] = "task_id, s.status as status, DATE_FORMAT(startdate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate, DATE_FORMAT(enddate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate, dt.action as action, d.domain as domain, r.name as registrar, w.tld as tld";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'DomainsTasks dt' )->leftJoin('dt.Statuses s')->leftJoin('dt.Registrars r')->leftJoin('dt.Domains d')->leftJoin('d.DomainsTlds t')->leftJoin('t.WhoisServers w');
 	
 		$config ['datagrid'] ['rownum'] = $rowNum;
@@ -300,8 +300,8 @@ class DomainsTasks extends BaseDomainsTasks {
 	 */
 	public static function getTasksbyDomainID($domainID) {
 		$records = Doctrine_Query::create ()
-								->select("DATE_FORMAT(startdate, '%d/%m/%Y %H:%i:%s') as startdate, 
-										  DATE_FORMAT(enddate, '%d/%m/%Y %H:%i:%s') as enddate,
+								->select("DATE_FORMAT(startdate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate, 
+										  DATE_FORMAT(enddate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate,
 										  action,
 										  log,
 										  s.status")
@@ -322,8 +322,8 @@ class DomainsTasks extends BaseDomainsTasks {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
-								->select("DATE_FORMAT(startdate, '%d/%m/%Y %H:%i:%s') as startdate, 
-										  DATE_FORMAT(enddate, '%d/%m/%Y %H:%i:%s') as enddate,
+								->select("DATE_FORMAT(startdate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate, 
+										  DATE_FORMAT(enddate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate,
 										  domain,
 										  action,
 										  log,

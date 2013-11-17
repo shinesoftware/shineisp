@@ -1200,7 +1200,7 @@ class Invoices extends BaseInvoices {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
-		$orders = self::get_invoices($items, "invoice_id, number as num, order_id as orderid, DATE_FORMAT(invoice_date, '%d/%m/%Y') as invoicedate, 
+		$orders = self::get_invoices($items, "invoice_id, number as num, order_id as orderid, DATE_FORMAT(invoice_date, '".Settings::getMySQLDateFormat('dateformat')."') as invoicedate, 
 		c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, o.total as total, o.vat as vat, o.grandtotal as grandtotal,", 'number, invoice_date');
 
 		// Create the PDF header
@@ -1251,7 +1251,7 @@ class Invoices extends BaseInvoices {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
-		$orders = self::get_invoices($items, "invoice_id, number as number, order_id as order, DATE_FORMAT(invoice_date, '%d/%m/%Y') as date, 
+		$orders = self::get_invoices($items, "invoice_id, number as number, order_id as order, DATE_FORMAT(invoice_date, '".Settings::getMySQLDateFormat('dateformat')."') as date, 
 		c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, o.total as total, o.vat as VAT, o.grandtotal as grandtotal,", 'number, invoice_date');
 
 		if(!empty($orders[0])){
