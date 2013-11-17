@@ -23,7 +23,7 @@ class CustomersDomainsRegistrars extends BaseCustomersDomainsRegistrars
     public static function getList($customer_id = null, $empty = false) {
         $theitems = array ();
         $dq = Doctrine_Query::create ()
-        						->select ( "cr.nic_id, cr.value, c.customer_id, c.company as company, c.lastname as lastname, c.firstname as firstname, DATE_FORMAT(cr.creationdate, '%d/%m/%Y') as creationdate" )
+        						->select ( "cr.nic_id, cr.value, c.customer_id, c.company as company, c.lastname as lastname, c.firstname as firstname, DATE_FORMAT(cr.creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as creationdate" )
         						->from ( 'CustomersDomainsRegistrars cr' )
         						->leftJoin('cr.Customers c');
         

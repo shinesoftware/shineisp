@@ -27,7 +27,7 @@ class Wiki extends BaseWiki {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'wc.category_id', 'alias' => 'category', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => WikiCategories::getList(), 'attributes' => array('class' => 'span2')  );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visits' ), 'field' => 'w.views', 'alias' => 'visits', 'sortable' => true, 'type' => 'index');
 		
-		$config ['datagrid'] ['fields'] = "w.wiki_id, w.subject as subject, DATE_FORMAT(w.creationdate, '%d/%m/%Y') as creation_date, wc.category as category, w.views as visits";
+		$config ['datagrid'] ['fields'] = "w.wiki_id, w.subject as subject, DATE_FORMAT(w.creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as creation_date, wc.category as category, w.views as visits";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Wiki w' )->leftJoin ( 'w.WikiCategories wc' );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;

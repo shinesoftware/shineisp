@@ -26,7 +26,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 's.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Subscription Date' ), 'field' => 's.subscriptiondate', 'alias' => 'subscriptiondate', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		
-		$config ['datagrid'] ['fields'] = "s.subscriber_id, s.email as email, DATE_FORMAT(s.subscriptiondate, '%d/%m/%Y %H:%i:%s') as subscriptiondate";
+		$config ['datagrid'] ['fields'] = "s.subscriber_id, s.email as email, DATE_FORMAT(s.subscriptiondate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as subscriptiondate";
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'NewslettersSubscribers s' );

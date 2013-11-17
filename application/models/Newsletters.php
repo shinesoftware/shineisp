@@ -28,7 +28,7 @@ class Newsletters extends BaseNewsletters
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Sent' ), 'field' => 'n.sent', 'alias' => 'sent', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		
 		$config ['datagrid'] ['fields'] = "n.news_id, 
-										   DATE_FORMAT(n.sendat, '%d/%m/%Y %H:%i:%s') as sendat, 
+										   DATE_FORMAT(n.sendat, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as sendat, 
 										   n.sent as sent,
 										   n.subject as subject";
 		

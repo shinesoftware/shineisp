@@ -376,30 +376,11 @@ class Shineisp_Commons_Utilities {
 	 * with single character separator between.
 	 */
 	public static function is_valid_date($value, $format = 'dd.mm.yyyy'){
-		if(strlen($value) >= 6 && strlen($format) == 10){
-			 
-			// find separator. Remove all other characters from $format
-			$separator_only = str_replace(array('m','d','y'),'', $format);
-			$separator = $separator_only[0]; // separator is first character
-			 
-			if($separator && strlen($separator_only) == 2){
-				// make regex
-				$regexp = str_replace('mm', '(0?[1-9]|1[0-2])', $format);
-				$regexp = str_replace('dd', '(0?[1-9]|[1-2][0-9]|3[0-1])', $regexp);
-				$regexp = str_replace('yyyy', '(19|20)?[0-9][0-9]', $regexp);
-				$regexp = str_replace($separator, "\\" . $separator, $regexp);
-				if($regexp != $value && preg_match('/'.$regexp.'\z/', $value)){
-	
-					// check date
-					$arr=explode($separator,$value);
-					$day=$arr[0];
-					$month=$arr[1];
-					$year=$arr[2];
-					if(@checkdate($month, $day, $year))
-						return true;
-				}
-			}
-		}
+	    $locale = Shineisp_Registry::get('Zend_Locale');
+	    
+	    if (Zend_Date::isDate($value, $locale)) {
+	        return true;
+	    }
 		return false;
 	}
 	
@@ -1175,7 +1156,7 @@ class Shineisp_Commons_Utilities {
 		$date = new Zend_Date($dbindata, "yyyy-MM-dd HH:mm:ss", $locale);
 
 		// override the preferences
-		$dateformat = Settings::findbyParam('dateformat');
+		$dateformat = Settings::getZendDateFormat();
 		
 		if(!empty($dateformat)){
 			$dateformat .= ($showTime) ? " HH:mm:ss" : null;
@@ -1197,7 +1178,8 @@ class Shineisp_Commons_Utilities {
 		if (empty ( $dboutdata ))
 			return null;
 		
-		$date = new Zend_Date($dboutdata);
+		$locale = Shineisp_Registry::get('Zend_Locale');
+		$date = new Zend_Date($dboutdata, Settings::getZendDateFormat(), $locale);
 		
 		return $date->toString('yyyy-MM-dd HH:mm:ss');
 	}

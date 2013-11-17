@@ -63,14 +63,16 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'label'      => $translate->_('Start Date'),
             'required'   => true,
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('text', 'date_end', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));   
         
         $this->addElement('textarea', 'description', array(

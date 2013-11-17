@@ -33,8 +33,8 @@ class Tickets extends BaseTickets {
 											t.category_id as category_id,
 											tc.category as category, 
 											s.status as status, 
-											DATE_FORMAT(t.date_open, '%d/%m/%Y %H:%i') as creation_date, 
-											DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated_at, 
+											DATE_FORMAT(t.date_open, '".Settings::getMySQLDateFormat('dateformat')." %H:%i') as creation_date, 
+											DATE_FORMAT(t.date_updated, '".Settings::getMySQLDateFormat('dateformat')." %H:%i') as updated_at, 
 											CONCAT(c.firstname, ' ', c.lastname) as customer,
 											c.company as company";
 		
@@ -391,7 +391,7 @@ class Tickets extends BaseTickets {
 								->select ( "t.ticket_id, 
 											t.subject as subject, 
 											tc.category as category, 
-											DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated,
+											DATE_FORMAT(t.date_updated, '".Settings::getMySQLDateFormat('dateformat')." %H:%i') as updated,
 											CONCAT(c.company, ' ', c.lastname, ' ', c.firstname ) as fullname, 
 											s.status as status" )
 								->from ( 'Tickets t' )
@@ -441,7 +441,7 @@ class Tickets extends BaseTickets {
 		$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$records = Doctrine_Query::create ()
-		              ->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject" )
+		              ->select ( "ticket_id, DATE_FORMAT(date_open, '".Settings::getMySQLDateFormat('dateformat')."') as date_open, subject" )
 		              ->from ( 'Tickets t' )
                       ->leftJoin ( 't.Customers c' )
 		              ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
@@ -467,7 +467,7 @@ class Tickets extends BaseTickets {
 		$items = array ();
 		$translations = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '%d/%m/%Y') as date_open, subject, s.status as status" )
+		$records = Doctrine_Query::create ()->select ( "ticket_id, DATE_FORMAT(date_open, '".Settings::getMySQLDateFormat('dateformat')."') as date_open, subject, s.status as status" )
 											->from ( 'Tickets t' )
 											->leftJoin ( 't.Statuses s' )
 											->leftJoin ( 't.Customers c' )
@@ -812,8 +812,8 @@ class Tickets extends BaseTickets {
 					t.subject as subject, 
 					tc.category as category, 
 					s.status as status, 
-					DATE_FORMAT(t.date_open, '%d/%m/%Y %H:%i') as creation_date, 
-					DATE_FORMAT(t.date_updated, '%d/%m/%Y %H:%i') as updated_at, 
+					DATE_FORMAT(t.date_open, '".Settings::getMySQLDateFormat('dateformat')." %H:%i') as creation_date, 
+					DATE_FORMAT(t.date_updated, '".Settings::getMySQLDateFormat('dateformat')." %H:%i') as updated_at, 
 					CONCAT(c.firstname, ' ', c.lastname) as fullname,
 					c.company as company";
     	

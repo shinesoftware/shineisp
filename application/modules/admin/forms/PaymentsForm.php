@@ -13,7 +13,8 @@ class Admin_Form_PaymentsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Payment date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
     	
         $this->addElement('text', 'reference', array(

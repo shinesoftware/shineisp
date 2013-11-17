@@ -88,7 +88,8 @@ class Admin_Form_OrdersForm extends Zend_Form
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Order Date'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
                 
         $this->addElement('text', 'expiring_date', array(
@@ -96,14 +97,16 @@ class Admin_Form_OrdersForm extends Zend_Form
             'label'      => $translate->_('Expiry Date'),
             'description'      => 'If this date is set ShineISP will suspend the order at the specified date.',
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('text', 'date_start', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Date Start'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('text', 'quantity', array(
