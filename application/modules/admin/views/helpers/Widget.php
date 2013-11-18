@@ -87,7 +87,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 	 * @param array $records
 	 * @param string $type
 	 */
-	public function widget($records, $label, $controller="", $hiddencols=array(), $type="grid") {
+	public function widget($records, $label, $controller="", $hiddencols=array(), $type="grid", $icon="glyphicon glyphicon-th-list") {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$arrColumns = array();
@@ -133,6 +133,7 @@ class Admin_View_Helper_Widget extends Zend_View_Helper_Abstract {
 									
 					$this->view->element = $grid->create();
 					$this->view->chart = $chart;
+					$this->view->icon = $icon;
 				}
 				
 				$this->view->label = $label;

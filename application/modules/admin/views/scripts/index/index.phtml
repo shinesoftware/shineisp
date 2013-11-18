@@ -8,24 +8,24 @@
 		<div class="column column-fixed column-large" id="col1">
 			<div class="portlet" id="processing_order">
 		        <?php $statuses = array(Statuses::id("processing", "orders"), Statuses::id("pending", "orders"), Statuses::id("paid", "orders"));?>
-				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("Processing Orders"), "orders")?>
+				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("Processing Orders"), "orders", array(), "grid", "glyphicon glyphicon-briefcase")?>
 			</div>
 			
 			<div class="portlet" id="new_orders">
 		        <?php $statuses = array(Statuses::id("tobepaid", "orders")); ?>
-				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("New Orders"), "orders")?>
+				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("New Orders"), "orders", array(), "grid", "glyphicon glyphicon-briefcase")?>
 			</div>
 			
 			<div class="portlet" id="last_tickets">
-				<?php echo $this->widget(Tickets::Last(null, 5), $this->translate ("Last Tickets"), "tickets", array('ticket_id'))?>
+				<?php echo $this->widget(Tickets::Last(null, 5), $this->translate ("Last Tickets"), "tickets", array('ticket_id'), "grid", "fa fa-check-square")?>
 			</div>
 			
 			<div class="portlet" id="last_domain_tasks">
-				<?php echo $this->widget(DomainsTasks::Last(), $this->translate ("Domain Tasks"), "domainstasks", array('task_id'))?>
+				<?php echo $this->widget(DomainsTasks::Last(), $this->translate ("Domain Tasks"), "domainstasks", array('task_id'), "grid", "glyphicon glyphicon-cog")?>
 			</div>
 			
 			<div class="portlet" id="last_panel_tasks">
-				<?php echo $this->widget(PanelsActions::Last(), $this->translate ("Panel Tasks"), "panelsactions", array('action_id'))?>
+				<?php echo $this->widget(PanelsActions::Last(), $this->translate ("Panel Tasks"), "panelsactions", array('action_id'), "grid", "glyphicon glyphicon-cog")?>
 			</div>
 			
 		</div>
@@ -45,28 +45,28 @@
 			</div>
 			
 			<div class="portlet" id="customers_parade">
-				<?php echo $this->widget(Customers::Hitparade(), $this->translate ("Customer Hit Parade"), "customers", array('customer_id'))?>
+				<?php echo $this->widget(Customers::Hitparade(), $this->translate ("Customer Hit Parade"), "customers", array('customer_id'), "grid", "fa fa-users")?>
 			</div>
 	        
 			<div class="portlet" id="customer_summary">
-				<?php echo $this->widget(Customers::summary(), $this->translate ("Customers Summary"), "customers")?>
+				<?php echo $this->widget(Customers::summary(), $this->translate ("Customers Summary"), "customers", array(), "grid", "fa fa-users")?>
 			</div>
 			<div class="portlet" id="notes">
-				<?php echo $this->widget(Notes::summary($this->user['user_id']), $this->translate ("Notes"), "notes")?>
+				<?php echo $this->widget(Notes::summary($this->user['user_id']), $this->translate ("Notes"), "notes", array(), "grid", "fa fa-comments-o")?>
 			</div>
 		</div>
 	
 		<div class="column column-floated column-medium" id="col3">
 			<div class="portlet" id="ticket_summary">
-				<?php echo $this->widget(Tickets::summary(), $this->translate ("Ticket Summary"), "tickets")?>
+				<?php echo $this->widget(Tickets::summary(), $this->translate ("Ticket Summary"), "tickets", array(), "grid", "fa fa-comments-o")?>
 			</div>
 	        
 			<div class="portlet" id="summary_domains">
-				<?php echo $this->widget(Domains::summary(), $this->translate ("Domain Summary"), "domains")?>
+				<?php echo $this->widget(Domains::summary(), $this->translate ("Domain Summary"), "domains", array(), "grid", "fa fa-globe")?>
 			</div>
 	        
 			<div class="portlet" id="product_reviews">
-				<?php echo $this->widget(Reviews::summary(), $this->translate ("Product Review Summary"), "reviews")?>
+				<?php echo $this->widget(Reviews::summary(), $this->translate ("Product Review Summary"), "reviews", array(), "grid", "fa fa-thumbs-o-up")?>
 			</div>
 		</div>
 		

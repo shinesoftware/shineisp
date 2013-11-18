@@ -15,7 +15,7 @@
 <?php if(!empty($income_yearly)): ?>
 	<div class="portlet" id="income-yearly">
 		<div class="widget-wrapper">
-			<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Year')?></a></h3></div>
+			<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Year')?></a></h4></div>
 			<div class="widget-content">
 				<ul class="stats list-inline">
 					<?php foreach($income_yearly as $inc):?>
@@ -53,7 +53,7 @@
 <?php if(!empty($income_quarter)): ?>
 	<div class="portlet" id="income-quarter">
 		<div class="widget-wrapper">
-			<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Quarter')?></a></h3></div>
+			<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Quarter')?></a></h4></div>
 			<div class="widget-content">
 				<ul class="stats list-inline">
 					<?php foreach($income_quarter as $inc):?>
@@ -97,7 +97,7 @@
 <?php if(!empty($income_text_monthly)): ?>
 <div class="portlet" id="income-text-month">
 	<div class="widget-wrapper">
-		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month (text)')?></a></h3></div>
+		<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Month (text)')?></a></h4></div>
 		<div class="widget-content">
 			<ul class="stats list-inline">
 				<?php foreach($income_text_monthly as $inc):?>
@@ -141,7 +141,7 @@
 
 <div class="portlet" id="income-graph-month">	
 	<div class="widget-wrapper">
-		<div class="widget-header"><h3><a href="#"><?php echo $this->translate('Income by Month (graph)')?></a></h3></div>
+		<div class="widget-header"><h4><a href="#"><i class="fa fa-bar-chart-o"></i> <?php echo $this->translate('Income by Month (graph)')?></a></h4></div>
 		<div class="widget-content">
 			<div id='graph'></div>
 		</div>
