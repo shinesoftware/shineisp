@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	// Custom Action button inside the list of the records
-	$("#bulkactions").on("click", function(){ 
+	$("#bulkactions").click(function(){ 
 			if($('#bulkactions').val()){
 				$.post('/admin/' + $('#bulkactions').attr('rel') + '/bulk/', {params: $.param($('.table :checkbox:checked')) + '&do='+$('#actions').val()}, 
 						function(data){

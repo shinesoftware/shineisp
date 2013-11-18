@@ -11,15 +11,19 @@
 
 .widget-header {
 	margin: 0em !important;
-	font-size: 15px;
 	font-weight: bold;
-	line-height: 26px;
 	overflow: hidden;
 	padding-left: 7px !important;
-	text-overflow: ellipsis;
-	text-shadow: 0 1px #eee;
 	white-space: nowrap;
 	cursor: pointer;
+}
+
+.widget-header:hover {
+	background-color: #FaFaFa;
+}
+
+.widget-header a:hover {
+	color: #000000;
 }
 
 .portlets .ui-state-highlight {
@@ -77,12 +81,10 @@
 }
 
 .widget-header h3 {
-	font-size: 15px;
     line-height: 5px;
 }
 
 .widget-header {
-	font-size: 13px;
 	margin: 0.3em;
 	padding: 5px;
 }
