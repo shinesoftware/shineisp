@@ -7,9 +7,10 @@
  */
 class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 	
-	public function breadCrumb() {
+    public function breadCrumb() {
+        $ns = new Zend_Session_Namespace ();
 		$registry = Shineisp_Registry::getInstance ();
-		$translation = $registry->Zend_Translate;
+		$translation = Shineisp_Registry::get ( 'Zend_Translate' );
 		$module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$l_m = strtolower ( $module );
 		
@@ -17,6 +18,9 @@ class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		$l_c = strtolower ( $controller );
 		
 		$action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
+		
+		$params = Zend_Controller_Front::getInstance ()->getRequest ()->getParams();
+		
 		$l_a = strtolower ( $action );
 		
 		// HomePage = No Breadcrumb
@@ -27,33 +31,35 @@ class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		// Get our url and create a home crumb
 		$fc = Zend_Controller_Front::getInstance();
 		$url = $fc->getBaseUrl();
-		$homeLink = "<a href='{$url}/'>Home</a>";
+		$homeLink = "<ul class='breadcrumb'><li><a href='{$url}/'><i class='glyphicon glyphicon-home'></i> Home</a></li>";
 		
 		// Start crumbs
 		$crumbs = $homeLink . " ";
 		
 		// If our module is default
 		if ($l_m == 'default') {
-			
-			if ($l_a == 'index') {
-				$crumbs .= $translation->translate($controller);
-			} else {
-				$crumbs .= "<a href='{$url}/{$controller}/'>" . $translation->translate($controller) . "</a> " . $translation->translate($action);
-			}
-		} else {
-			// Non Default Module
-			if ($l_c == 'index' && $l_a == 'index') {
-				$crumbs .= ucfirst($module);
-			} else {
-				$crumbs .= "<a href='{$url}/{$module}/'>" . $translation->translate($module) . "</a> ";
-				if ($l_a == 'index') {
-					$crumbs .= $translation->translate($controller);
-				} else {
-					$crumbs .= "<a href='{$url}/{$module}/{$controller}/'>" . $translation->translate($controller) . "</a> " . $translation->translate($action);
-				}
-			}
-		
+		    
+		    if($controller == "categories"){
+		        $crumbs .= "<li>" . $translation->translate(ucwords("Categories")) . "</li>";
+		    }elseif($controller == "cms"){
+		        if(!empty($params['url'])){
+    		        $crumbs .= "<li><a href=\"/cms/list\">" . $translation->translate(ucwords("Blog")) . "</a></li>";
+		        }else{
+		            $crumbs .= "<li>" . $translation->translate(ucwords("Blog")) . "</li>";
+		        }
+		    }elseif($controller == "products"){
+		        $producturi = $params['q'];
+		        $product = Products::getProductbyUriID($producturi, "p.product_id, pd.name, categories", $ns->langid);
+		        foreach ($product['cleancategories'] as $category){
+		            $crumbs .= "<li><a href='".$category['uri']."'>" . $category['name'] . "</a></li>";
+		        }
+		        $crumbs .= "<li class=\"active\"><a href='/$producturi.html'>". $product['ProductsData'][0]['name'] . "</a></li>";
+		    }else{
+		        $crumbs .= "<li><a href='{$url}/{$controller}/'>". $translation->translate($controller) . "</a></li><li>" . $translation->translate(ucwords($action)) . "</li>";
+		    }
+		    
 		}
+		$crumbs .= "</ul>";
 		return $crumbs;
 	}
 

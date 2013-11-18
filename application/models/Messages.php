@@ -21,7 +21,7 @@ class Messages extends BaseMessages
     public static function find($fieldtocheck, $id, $retarray = false) {
     	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
     	
-        $dq = Doctrine_Query::create ()->select ( "message_id, c.customer_id, c.email as customeremail, i.email as ispemail, i.isp_id, DATE_FORMAT(m.dateposted, '%d/%m/%Y %H:%i:%s') as dateposted, m.message as message, isp_id as isp, CONCAT(c.firstname, ' ', c.lastname) as fullname, i.company as company" )
+        $dq = Doctrine_Query::create ()->select ( "message_id, c.customer_id, c.email as customeremail, i.email as ispemail, i.isp_id, DATE_FORMAT(m.dateposted, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as dateposted, m.message as message, isp_id as isp, CONCAT(c.firstname, ' ', c.lastname) as fullname, i.company as company" )
                                         ->from ( 'Messages m' )
                                         ->leftJoin('m.Customers c')
                                         ->leftJoin('m.Isp i')
@@ -46,6 +46,44 @@ class Messages extends BaseMessages
                                         ->leftJoin('m.Customers c')
                                         ->leftJoin('m.Isp i')
                                         ->where ( "order_id = ?" , $orderid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
+    }    
+       
+    /**
+     * Get all messages attached to a service
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyServiceId($detailid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "detail_id = ?" , $detailid )
+                                        ->orderBy('m.dateposted asc');
+        
+        $messages = $dq->execute ();
+        
+        return $messages;
+    }    
+       
+    /**
+     * Get all messages attached to a message
+     * @param $orderid
+     * @return Doctrine Record
+     */
+    public static function getbyDomainId($domainid) {
+    	$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+    	
+        $dq = Doctrine_Query::create ()->from ( 'Messages m' )
+                                        ->leftJoin('m.Customers c')
+                                        ->leftJoin('m.Isp i')
+                                        ->where ( "domain_id = ?" , $domainid )
                                         ->orderBy('m.dateposted asc');
         
         $messages = $dq->execute ();
@@ -82,7 +120,7 @@ class Messages extends BaseMessages
 		}
 
 		// now we can add more fields
-		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '%d/%m/%Y %H:%i:%s') as date, m.message as message" );
+		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as date, m.message as message" );
 		
 		if($delIspReplies){
 			$dq->andWhere ( "isp_id IS NULL");

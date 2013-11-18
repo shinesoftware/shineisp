@@ -37,6 +37,7 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Keywords'),
             'rows'        => 5,
+            'description' => $translate->_('separate each keyword by a comma'),
             'class'       => 'col-lg-12 form-control'
         ));
         
@@ -44,14 +45,21 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Blocks'),
-            'class'       => 'col-lg-12 form-control'
+            'class'       => 'form-control'
         ));
         
         $this->addElement('textarea', 'xmllayout', array(
             'filters'     => array('StringTrim'),
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('XML Layout'),
-            'class'       => 'col-lg-12 form-control'
+            'class'       => 'form-control'
+        ));
+        
+        $this->addElement('checkbox', 'blog', array(
+            'filters'     => array('StringTrim'),
+            'decorators'  => array('Bootstrap'),
+            'label'       => $translate->_('is Blog post'),
+            'class'       => 'form-control'
         ));
         
         $this->addElement('select', 'parent_id', array(
@@ -92,10 +100,10 @@ class Admin_Form_CmspagesForm extends Zend_Form
             'label'       => $translate->_('Language'),
             'title'	     => $translate->_('Select ...'),
     		'data-container' => 'body',
-    		'data-selected-text-format' => 'count > 2',
+    		'data-selected-text-format' => 'count > 3',
     		'data-size' => 'auto',
     		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick col-md-4'
+            'class'      => 'multiselect show-tick col-md-4 col-sm-4'
         ));
                 
         $this->getElement('language_id')
@@ -103,25 +111,22 @@ class Admin_Form_CmspagesForm extends Zend_Form
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(Languages::getList());       
                                     
-        $this->addElement('select', 'showinmenu', array(
+        $this->addElement('checkbox', 'showinmenu', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Show in the navigation menu'),
-            'class'       => 'form-control',
-        	'multioptions' => array( 0=>'Not Visible', 1=> 'Visible')
+            'class'       => 'form-control'
         ));
         
-        $this->addElement('select', 'showonrss', array(
+        $this->addElement('checkbox', 'showonrss', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Publish on RSS Feed'),
-            'class'       => 'form-control',
-        	'multioptions' => array( 0=>'Not Published', 1=> 'Published')
+            'class'       => 'form-control'
         ));
         
-        $this->addElement('select', 'active', array(
+        $this->addElement('checkbox', 'active', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Active'),
-            'class'       => 'form-control',
-        	'multioptions' => array( 0=>'NO', 1=> 'YES')
+            'class'       => 'form-control'
         ));
         
         $this->addElement('hidden', 'page_id');

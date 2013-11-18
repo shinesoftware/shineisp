@@ -21,9 +21,9 @@ Doctrine_Manager::getInstance()->bindComponent('Payments', 'doctrine');
  * @property Orders $Orders
  * @property Banks $Banks
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasePayments extends Doctrine_Record

@@ -108,7 +108,7 @@ class Notes extends BaseNotes
     public static function summary($userId) {
         $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
         
-        $dq = Doctrine_Query::create ()->select("note_id, name, DATE_FORMAT(expire, '%d/%m/%Y') as creation_date")
+        $dq = Doctrine_Query::create ()->select("note_id, name, DATE_FORMAT(expire, '".Settings::getMySQLDateFormat('dateformat')."') as creation_date")
         								->from ( 'Notes n' )
         								->where ( "n.user_id = ?", $userId );
         

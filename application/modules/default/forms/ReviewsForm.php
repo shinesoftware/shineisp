@@ -14,7 +14,7 @@ class Default_Form_ReviewsForm extends Zend_Form
         	'description' => $translate->_('Add your own nickname'),
             'decorators'  => array('Bootstrap'),
             'label'      => $translate->_('Nick'),
-            'class'       => 'form-control medium-input'
+            'class'       => 'form-control'
         ));
                   
         $this->addElement('text', 'subject', array(
@@ -23,7 +23,7 @@ class Default_Form_ReviewsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
         	'description' => $translate->_('Write down a subject of the review'),
             'label'      => $translate->_('Subject'),
-            'class'       => 'form-control large-input'
+            'class'       => 'form-control'
         ));
                   
         $this->addElement('select', 'referer', array(
@@ -31,7 +31,7 @@ class Default_Form_ReviewsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
         	'description' => $translate->_('Where did you find us?'),
             'label'      => $translate->_('Who is Talking About Us?'),
-            'class'       => 'form-control medium-input',
+            'class'       => 'form-control',
         	'multiOptions' => array('Google' => 'Google', 'Bing' => 'Bing', 'Yahoo' => 'Yahoo', 'Other Search Engine' => 'Other Search Engine', 'Websites' => 'Websites/Blogs', 'Magento Commerce' => 'Magento Commerce', 'Friend suggestion' => 'Friend suggestion')
         ));
                   
@@ -40,7 +40,7 @@ class Default_Form_ReviewsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
         	'description' => $translate->_('Which is your own city? If added we will promote your review in our website using Google Maps'),
             'label'      => $translate->_('City'),
-            'class'       => 'form-control medium-input'
+            'class'       => 'form-control'
         ));
                   
         $this->addElement('text', 'email', array(
@@ -52,7 +52,7 @@ class Default_Form_ReviewsForm extends Zend_Form
             'decorators'  => array('Bootstrap'),
         	'description' => 'Your email will be not published',
             'label'      => $translate->_('Email'),
-            'class'       => 'form-control medium-input'
+            'class'       => 'form-control'
         ));
         
     	$this->addElement('select', 'stars', array(
@@ -60,7 +60,7 @@ class Default_Form_ReviewsForm extends Zend_Form
             'required'   => true,
             'label'      => $translate->_('Stars'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control medium-input',
+            'class'      => 'form-control',
     		'multiOptions' => array(1 => '1 ' . $translate->_('Star'), 2 => '2 ' . $translate->_('Stars'), 3 => '3 ' . $translate->_('Stars'), 4 => '4 ' . $translate->_('Stars'), 5 => '5 ' . $translate->_('Stars'))
         ));        
         
@@ -70,7 +70,7 @@ class Default_Form_ReviewsForm extends Zend_Form
         	'required'    => true,
         	'description' => $translate->_('Write down your review with details and you will earn points and discounts'),
             'label'      => $translate->_('Review'),
-            'class'       => 'textarea'
+            'class'       => 'form-control'
         ));
         
         $privKey = Settings::findbyParam('recaptcha_private_key');

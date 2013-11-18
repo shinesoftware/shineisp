@@ -15,6 +15,7 @@ class WikiController extends Shineisp_Controller_Default {
 		$registry = Shineisp_Registry::getInstance ();
 		$this->wiki = new Wiki ();
 		$this->translator = $registry->Zend_Translate;
+		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 	}
 	
 	public function indexAction() {

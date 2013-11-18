@@ -35,8 +35,8 @@
 						    <?php echo ("domain" != $item->getType()) ? $months : null ?>
 						</td>
 						<td><?php echo $this->currency($subtotal['taxes'], array('currency' => Settings::findbyParam('currency'))) ?></td>
-						<td width="20"><input class="form-control input-sm" name="field[]" id="<?php echo $item->getUid()?>" type="text" value="<?php echo $item->getQty() ?>"></td>
-						<td align="right"><?php echo $this->currency($subtotal['subtotal'], array('currency' => Settings::findbyParam('currency'))) ?></td>
+						<td width="50"><input class="form-control input-sm" name="field[]" id="<?php echo $item->getUid()?>" type="text" value="<?php echo $item->getQty() ?>"></td>
+						<td class="text-right"><?php echo $this->currency($subtotal['subtotal'], array('currency' => Settings::findbyParam('currency'))) ?></td>
 					</tr>
 				<?php endforeach;?>
 			</tbody>
@@ -45,13 +45,13 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-lg-8 col-md-8 col-xs-8">
 		<a class="btn btn-info" href="/<?php echo !empty($this->lastproduct) ? $this->lastproduct . ".html" : null ?>"><?php echo $this->translate('Continue Shopping')?></a>
 		<a class="btn btn-danger" href="/cart/clear"><?php echo $this->translate('Clear Shopping Cart')?></a>
 		<a class="btn btn-info updatecart" href="#"><?php echo $this->translate('Update Shopping Cart')?></a>
 		<br/><br/><?php echo $this->checkdomains()->showForm(); ?>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-lg-4 col-md-4 col-xs-4">
 		<table class="table table-striped">
 			<tr>
 				<td><?php echo $this->translate('Subtotal') ?></td>

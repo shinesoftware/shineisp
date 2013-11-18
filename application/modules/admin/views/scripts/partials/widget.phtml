@@ -1,13 +1,13 @@
 <div class="widget-wrapper">
         <?php if($this->element): ?>
                 <div class="widget-header">
-                        <h3><a href="<?php echo $this->controller?>"><?php echo $this->translate($this->label) ?></a></h3>
+                    <h4><a href="<?php echo $this->controller?>"><i class="<?php echo $this->icon ?>"></i> <?php echo $this->translate($this->label) ?></a></h4>
                 </div>
                 
                 <div class="widget-content">
                         <?php if($this->chart):?>
                                 <div class="widget-chart visible-lg visible-md hidden-xs">
-                                        <img width="250" src="<?php echo  $this->chart; ?>" alt="chart"/>
+                                        <img class="img-responsive" width="250" src="<?php echo  $this->chart; ?>" alt="chart"/>
                                 </div>
                         <?php endif; ?>
                         

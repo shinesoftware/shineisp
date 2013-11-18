@@ -794,14 +794,14 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 		$soap = $this->Connect();
 		
 		if(!empty($this->session)){
-			$fields = "c.customer_id as customer_id, c.company as company, c.firstname as firstname, c.lastname as lastname, c.sex as sex, c.email as email, c.password as password, c.birthdate as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.vat as vat, c.note as note,  a.address as address, a.code as code, a.city as city, a.area as area, ct.name as country, ct.code as countrycode, cts.type_id as type_id, cts.name as companytype, l.legalform_id as legalform_id, l.name as legalform, s.status_id as status_id, s.status as status, cn.contact as contact";
+			$fields = "c.customer_id as customer_id, c.company as company, c.firstname as firstname, c.lastname as lastname, c.gender as gender, c.email as email, c.password as password, c.birthdate as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.vat as vat, c.note as note,  a.address as address, a.code as code, a.city as city, a.area as area, ct.name as country, ct.code as countrycode, cts.type_id as type_id, cts.name as companytype, l.legalform_id as legalform_id, l.name as legalform, s.status_id as status_id, s.status as status, cn.contact as contact";
 			$customer = Customers::getAllInfo($customerID, $fields);
 
 			return $soap->nicCreateIT ( 
 							$this->session['id'], // Session
 							$customer ['lastname'], // Lastname
 							$customer ['firstname'], // Firstname 
-							$customer ['sex'], // Gender
+							$customer ['gender'], // Gender
 							Shineisp_Commons_Utilities::GenerateRandomString(), // Password
 							$customer ['email'], // Email
 							$customer ['contact'], // Phone

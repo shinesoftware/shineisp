@@ -35,8 +35,8 @@ class Domains extends BaseDomains {
 		$config ['datagrid'] ['fields'] =  "d.domain_id, 
 											CONCAT(d.domain, '.', ws.tld) as domain, 
 											d.autorenew as autorenew, 
-											DATE_FORMAT(creation_date, '%d/%m/%Y') as creation_date, 
-											DATE_FORMAT(expiring_date, '%d/%m/%Y') as expiring_date, 
+											DATE_FORMAT(creation_date, '".Settings::getMySQLDateFormat('dateformat')."') as creation_date, 
+											DATE_FORMAT(expiring_date, '".Settings::getMySQLDateFormat('dateformat')."') as expiring_date, 
 											DATEDIFF(expiring_date, CURRENT_DATE) as daysleft, 
 											r.name as registrar, 
 											ws.tld as tld, 
@@ -576,7 +576,7 @@ class Domains extends BaseDomains {
 											        CONCAT(domain, '.', ws.tld) as domain, 
 											        oi.detail_id as detail_id, 
 											        d.autorenew as renew, 
-											        DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiringdate,
+											        DATE_FORMAT(d.expiring_date, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate,
 											        d.customer_id as customer_id, 
 											        Concat(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
 											        c.email as email, 
@@ -624,7 +624,7 @@ class Domains extends BaseDomains {
 		$to   = is_numeric($to)   ? intval($to) * -1  : -2; // force a negative value
 			
 		$fields = "d.domain_id, CONCAT(d.domain, '.', d.tld) as domains, 
-		       DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiringdate, 
+		       DATE_FORMAT(d.expiring_date, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate, 
 		       DATEDIFF(expiring_date, CURRENT_DATE) as days,
 		       IF(d.autorenew = 1, 'YES', 'NO') as renew";
 		
@@ -1031,7 +1031,7 @@ class Domains extends BaseDomains {
 	public static function Services($domainID) {
 		$items = array ();
 		if (isset ( $domainID ) && is_numeric ( $domainID )) {
-			$services = OrdersItemsDomains::find_by_domain_id ( $domainID, "oid.relationship_id,oi.detail_id, p.product_id, pd.name, DATE_FORMAT(oi.date_start, '%d/%m/%Y') as date_start, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as date_end", true );
+			$services = OrdersItemsDomains::find_by_domain_id ( $domainID, "oid.relationship_id,oi.detail_id, p.product_id, pd.name, DATE_FORMAT(oi.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as date_start, DATE_FORMAT(oi.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as date_end", true );
 			if (isset ( $services [0] )) {
 				$i = 0;
 				foreach ( $services as $service ) {
@@ -1054,7 +1054,7 @@ class Domains extends BaseDomains {
 	public static function Orders($domainID) {
 		$items = array ();
 		if (isset ( $domainID) && is_numeric ( $domainID)) {
-			$orders = OrdersItemsDomains::findOrdersByDomainID ( $domainID, "oi.description as description, s.status as status, oid.relationship_id, oi.order_id as orderid, DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate", true );
+			$orders = OrdersItemsDomains::findOrdersByDomainID ( $domainID, "oi.description as description, s.status as status, oid.relationship_id, oi.order_id as orderid, DATE_FORMAT(o.order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate", true );
 			if (isset ( $orders [0] )) {
 				$i = 0;
 				foreach ( $orders as $order ) {
@@ -1600,8 +1600,8 @@ class Domains extends BaseDomains {
 		// Get the records from the domains table
 		$domains = self::get_domains($items, "d.domain_id, 
 											  CONCAT(d.domain, '.', d.tld) as domain, 
-											  DATE_FORMAT(d.creation_date, '%d/%m/%Y') as creation_date, 
-											  DATE_FORMAT(d.expiring_date, '%d/%m/%Y') as expiring_date, , 
+											  DATE_FORMAT(d.creation_date, '".Settings::getMySQLDateFormat('dateformat')."') as creation_date, 
+											  DATE_FORMAT(d.expiring_date, '".Settings::getMySQLDateFormat('dateformat')."') as expiring_date, , 
 											  DATEDIFF(expiring_date, CURRENT_DATE) as days,
                        						  IF(d.autorenew = 1, 'YES', 'NO') as renew,
 											  s.status as status", "d.expiring_date, d.domain");

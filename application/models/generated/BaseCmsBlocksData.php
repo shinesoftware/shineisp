@@ -13,9 +13,9 @@ Doctrine_Manager::getInstance()->bindComponent('CmsBlocksData', 'doctrine');
  * @property Languages $Languages
  * @property CmsBlocks $CmsBlocks
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseCmsBlocksData extends Doctrine_Record

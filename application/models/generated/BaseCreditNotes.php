@@ -18,9 +18,9 @@ Doctrine_Manager::getInstance()->bindComponent('CreditNotes', 'doctrine');
  * @property Invoices $Invoices
  * @property Doctrine_Collection $CreditNotesItems
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseCreditNotes extends Doctrine_Record

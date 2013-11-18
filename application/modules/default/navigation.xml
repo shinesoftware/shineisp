@@ -4,37 +4,37 @@
 		<home>
 			<label>Home</label>
 			<uri>/dashboard</uri>
-			<class>small button foundicon-website</class>
+			<class>dashboard-item</class>
 			<resource>default:index</resource>
 		</home>
 		<domains>
 			<label>Domains</label>
 			<uri>/domains/list</uri>
-			<class>glyphicon glyphicon-th</class>
+			<class>dashboard-item</class>
 			<resource>default:domains</resource>
 		</domains>
 		<services>
 			<label>Services</label>
 			<uri>/services/list</uri>
-			<class>small button foundicon-tools</class>
+			<class>dashboard-item</class>
 			<resource>default:services</resource>
 		</services>
 		<orders>
 			<label>Orders</label>
 			<uri>/orders/list</uri>
-			<class>small button foundicon-page</class>
+			<class>dashboard-item</class>
 			<resource>default:orders</resource>
 		</orders>
 		<tickets>
 			<label>Tickets</label>
 			<uri>/tickets/list</uri>
-			<class>small button foundicon-edit</class>
+			<class>dashboard-item</class>
 			<resource>default:tickets</resource>
 		</tickets>
 		<help>
 			<label>Help</label>
-			<uri>/wiki/list</uri>
-			<class>small button foundicon-idea</class>
+			<uri>/wiki/</uri>
+			<class>dashboard-item</class>
 			<resource>default:wiki</resource>
 		</help>
 	</nav>

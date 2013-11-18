@@ -1,0 +1,25 @@
+<?php $pages = $this->pages; ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <?php foreach ($pages as $page): ?>
+            <div class="media">
+              <div class="media-body">
+                <h4 class="media-heading"><a class="" href="/cms/<?php echo $page['var']?>.html"><?php echo $page['title']?></a> <small><?php echo Shineisp_Commons_Utilities::formatDateOut($page['publishedat']) ?></small></h4>
+                <?php 
+                    $keywords = $page['keywords'];
+                    if(!empty($keywords)){
+                        $keywords = explode(",", $keywords);
+                        echo "<p>";
+                        foreach ($keywords as $keyword){
+                            echo "<span class=\"label label-default\">$keyword</span> ";
+                        }
+                        echo "</p>";
+                    }
+                ?>
+                <?php echo Shineisp_Commons_Utilities::truncate(strip_tags($page['body']), 350, "...", false, true); ?> <a class="" href="/cms/<?php echo $page['var']?>.html"><?php echo $this->translate('Read on')?> <i class="glyphicon glyphicon-arrow-right"></i></a>
+                <hr>
+              </div>
+            </div>
+        <?php endforeach;?>
+    </div>
+</div>

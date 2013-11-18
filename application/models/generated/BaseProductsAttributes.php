@@ -23,9 +23,9 @@ Doctrine_Manager::getInstance()->bindComponent('ProductsAttributes', 'doctrine')
  * @property Doctrine_Collection $ProductsAttributesIndexes
  * @property Doctrine_Collection $ProductsAttributesData
  * 
- * @package    ShineISP
- * 
- * @author     Shine Software <info@shineisp.com>
+ * @package    ##PACKAGE##
+ * @subpackage ##SUBPACKAGE##
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseProductsAttributes extends Doctrine_Record

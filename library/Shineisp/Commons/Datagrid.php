@@ -289,7 +289,7 @@ class Shineisp_Commons_Datagrid {
 		$links = array ();
 		if (!empty($indexfield) && count ( $actions ) > 0) {
 			foreach ( $actions as $item ) {
-				$links [] = '<a title="' . $item ['label'] . '" class="actions ' . $item ['cssicon'] . '" href="' . $item ['action'] . '"></a>';
+				$links [] = '<a title="' . $item ['label'] . '" class="actions" href="' . $item ['action'] . '"><i class="' . $item ['cssicon'] . '"></i> ' . $item ['label'] . '</a>';
 			}
 			$this->addColumn ( array ('label' => 'Actions', 'alias' => $indexfield, 'type' => 'link', 'pattern' => $links ) );
 			$this->setHasActions(true); 

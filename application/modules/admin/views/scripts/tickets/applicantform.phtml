@@ -24,8 +24,8 @@
 			        
 			        <?php if("new" == Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ()):?>
 			        	<div class="row"> 
-							<div class="col-sm-6 col-xs-12"><?php echo $form->subject->render()?></div>
-				        	<div class="col-sm-6 col-xs-12"><?php echo $form->category_id->render()?></div>
+							<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"><?php echo $form->subject->render()?></div>
+				        	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"><?php echo $form->category_id->render()?></div>
 			        	</div>
 			        <?php endif;?>
 			        
@@ -67,7 +67,7 @@
 				
 				<div class="tab-pane" id="tab3">
 	
-			        <div class="col-sm-6 col-xs-12"> 
+			        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
 			        	<?php echo $form->user_id->render()?>
 			        	<?php echo $form->order_id->render()?>
 			        	<?php echo $form->sibling_id->render()?>
@@ -82,7 +82,7 @@
 			        	<?php endif; ?>
 			        </div>
 			        
-			        <div class="col-sm-6 col-xs-12">
+			        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 					    <?php echo $form->sendemail->render()?>	
 				        <?php echo $form->status_id->render()?>
 				        <?php echo $form->datetime->render()?>

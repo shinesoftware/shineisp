@@ -204,28 +204,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 			$this->_helper->redirector ( 'list', 'products', 'admin', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
-	
-	/*
-	public function gettrancheAction() {
-		$id = $this->getRequest ()->getParam ( 'id' );
-		$trance	= ProductsTranches::getTranchebyId($id);
 
-		$params	= array();
-		$params['title']	= 'Update billing or <a href="#" onclick="return onCleanTranche()">Insert new</a>';
-		$params['quantity']	= $trance['quantity'];
-		$params['setupfee']	= $trance['setupfee'];
-		$params['price']	= $trance['price'];
-		$params['billing_cycle_id']	= $trance['billing_cycle_id'];
-		$params['measurement']	= $trance['measurement'];	
-		
-		$params['cost']				= array();
-		//$params['cost']['title']	= 			
-		echo json_encode($params);
-		exit();
-	}*/
-	
 	/**
-	 * editAction
 	 * Get a record and populate the application form 
 	 * @return unknown_type
 	 */
@@ -251,6 +231,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 				$data = !empty($rs['ProductsData'][0]) ? $rs['ProductsData'][0] : array();
 				$rs = array_merge($rs, $data);
 				$form = $this->createAttributesElements ( $form, $rs ['group_id'] );
+				
+				$this->view->isrecurring = $rs['ProductsAttributesGroups']['isrecurring'];
 				
 				$rs['language_id'] = $this->session->langid; // added to the form the language id selected
 				$rs['related'] = ProductsRelated::getItemsbyProductID($rs ['product_id']);
@@ -296,6 +278,8 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 												,'delete' 	=> array ('controller' => 'products', 'action' => 'deltranche' )
 											);
 				}
+				
+				
 			}
 			$orders = array ('records' => OrdersItems::ProductsInOrdersItems ( $id ), 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ) );
 			
@@ -308,7 +292,7 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		$this->view->orders = $orders;
 		$this->view->isSold = (bool)OrdersItems::CheckIfProductExist($id);
-		$this->view->isrecurring = $rs['ProductsAttributesGroups']['isrecurring'];
+		
 		
 		$this->view->form = $form;
 		$this->render ( 'applicantform' );

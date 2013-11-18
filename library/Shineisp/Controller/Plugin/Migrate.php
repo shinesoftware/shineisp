@@ -70,21 +70,22 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 								
 								// get the first part of the name with the filename that contains the date: YYYYMMddHis-NAME.sql
 								$arrName = explode("-", $name);
-									
+								
 								// if the string is a valid date get the days betweeen the sql file name and the day of the setup of shineisp
 								if(!empty($arrName[0]) && Zend_Date::isdate($arrName[0], 'YYYYMMddHis')){
+								    
 									$sqldate = new Zend_Date($arrName[0], 'YYYYMMddHis');
 									$mysetupdate = new Zend_Date($setupdate, 'YYYYMMddHis');
-								
+									
 									// get the difference of the two dates
 									$diff = $sqldate->sub($mysetupdate)->toValue();
 									$dayssincefirstsetup = floor($diff/60/60/24);
-									
+
 									unset($sqldate);
 									unset($mysetupdate);
 								}
 								
-								if($dayssincefirstsetup > 0){
+								if($dayssincefirstsetup >= 0){
 									
 									// read the sql 
 									$sql = Shineisp_Commons_Utilities::readfile($info['dirname'] . "/" . $info['basename'] );

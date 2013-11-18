@@ -68,7 +68,7 @@ class Orders extends BaseOrders {
 		$config ['datagrid'] ['columns'] = $columns;
 		$config ['datagrid'] ['fields'] = "o.order_id,
 											  o.order_number,
-                                              DATE_FORMAT(o.order_date, '%d/%m/%Y') as orderdate, 
+                                              DATE_FORMAT(o.order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, 
                                               o.is_renewal as is_renewal,
                                               o.total as total,
                                               o.vat as vat,
@@ -331,8 +331,8 @@ class Orders extends BaseOrders {
                      d.price as price, 
                      d.setupfee as setupfee, 
                      t.percentage as taxpercentage,
-                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
-                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end,
+                     DATE_FORMAT(d.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as start, 
+                     DATE_FORMAT(d.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as end,
                      d.setup" )
 		->from ( 'OrdersItems d' )
 		->leftJoin ( 'd.Orders o' )
@@ -1810,7 +1810,7 @@ class Orders extends BaseOrders {
 		$registry = Shineisp_Registry::getInstance ();
 		$translations = $registry->Zend_Translate;
 		
-		$dq = Doctrine_Query::create ()->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, s.status as status, CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname" )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->leftJoin ( 'o.Statuses s' );
+		$dq = Doctrine_Query::create ()->select ( "order_id, DATE_FORMAT(order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, s.status as status, CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname" )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->leftJoin ( 'o.Statuses s' );
 		$retval = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
@@ -2036,8 +2036,8 @@ class Orders extends BaseOrders {
 								                     d.setupfee as setupfee, 
 								                     d.parent_detail_id as parent_orderid,
 								                     t.percentage as taxpercentage,
-								                     DATE_FORMAT(d.date_start, '%d/%m/%Y') as start, 
-								                     DATE_FORMAT(d.date_end, '%d/%m/%Y') as end" )
+								                     DATE_FORMAT(d.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as start, 
+								                     DATE_FORMAT(d.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as end" )
 										->from ( 'OrdersItems d' )
 										->leftJoin ( 'd.Orders o' )
 										->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
@@ -2532,7 +2532,7 @@ class Orders extends BaseOrders {
 		$currency   = Shineisp_Registry::getInstance ()->Zend_Currency;
 		
 		$dq = Doctrine_Query::create ()
-								->select ( "order_id, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, i.formatted_number as invoice, 
+								->select ( "order_id, DATE_FORMAT(order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, i.formatted_number as invoice, 
 											CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
 											o.total as total, 
 											o.grandtotal as grandtotal, 
@@ -3058,7 +3058,7 @@ class Orders extends BaseOrders {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		// Get the records from the order table
-		$orders = self::get_orders($items, "order_id, i.number as invoicenum, DATE_FORMAT(order_date, '%d/%m/%Y') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, total as total, vat as vat, grandtotal as grandtotal, s.status as status", 'order_date');
+		$orders = self::get_orders($items, "order_id, i.number as invoicenum, DATE_FORMAT(order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, c.company as company, CONCAT(c.firstname, ' ', c.lastname) as fullname, total as total, vat as vat, grandtotal as grandtotal, s.status as status", 'order_date');
 
 		// Create the PDF header
 		$grid['headers']['title'] = $translator->translate('Orders List');

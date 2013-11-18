@@ -34,8 +34,8 @@ class PurchaseInvoices extends BasePurchaseInvoices
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true);
 		
 		$config ['datagrid'] ['fields'] =  "purchase_id, 
-											DATE_FORMAT(creationdate, '%d/%m/%Y') as creationdate, 
-											DATE_FORMAT(expiringdate, '%d/%m/%Y') as expiringdate, 
+											DATE_FORMAT(creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as creationdate, 
+											DATE_FORMAT(expiringdate, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate, 
 											number as number, 
 											company as supplier, 
 											document as attachment, 
@@ -318,8 +318,8 @@ class PurchaseInvoices extends BasePurchaseInvoices
                             ->select ( "ip.purchase_id,
                             			pm.method as method,
                             			ip.number as invoice,	
-                            			DATE_FORMAT(ip.creationdate, '%d/%m/%Y') as date, 		
-                            			DATE_FORMAT(ip.expiringdate, '%d/%m/%Y') as expiring_date, 		
+                            			DATE_FORMAT(ip.creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as date, 		
+                            			DATE_FORMAT(ip.expiringdate, '".Settings::getMySQLDateFormat('dateformat')."') as expiring_date, 		
                             			ip.company as company,
                             			ip.total_net as total,
                             			ip.total_vat as vat,
@@ -384,7 +384,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 		
 		// Get the records from the purchase invoices table
 		$invoices = self::get_invoices($items, "purchase_id, 
-												DATE_FORMAT(creationdate, '%d/%m/%Y') as creationdate, 
+												DATE_FORMAT(creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as creationdate, 
 												number as number, 
 												company as company, 
 												pm.method as method,
@@ -442,7 +442,7 @@ class PurchaseInvoices extends BasePurchaseInvoices
 		
 		// Get the records from the order table
 		$orders = self::get_invoices($items, "purchase_id, 
-												DATE_FORMAT(creationdate, '%d/%m/%Y') as date, 
+												DATE_FORMAT(creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as date, 
 												number as number, 
 												company as company, 
 												pm.method as payment,

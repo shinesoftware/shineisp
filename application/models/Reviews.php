@@ -29,7 +29,7 @@ class Reviews extends BaseReviews
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Published on' ), 'field' => 'r.publishedat', 'alias' => 'publishedat', 'type' => 'date', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'r.active', 'alias' => 'active', 'type' => 'boolean' );
 		
-		$config ['datagrid'] ['fields'] = "r.review_id, r.*, DATE_FORMAT(r.publishedat, '%d/%m/%Y %H:%i:%s') as publishedat";
+		$config ['datagrid'] ['fields'] = "r.review_id, r.*, DATE_FORMAT(r.publishedat, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as publishedat";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->from ( 'Reviews r' )->orderBy('review_id desc');
 		
 		$config ['datagrid'] ['id'] = "reviews";
@@ -108,7 +108,7 @@ class Reviews extends BaseReviews
      * @param $id
      */
     public static function getbyProductId($id) {
-    	return Doctrine_Query::create ()->from ( 'Reviews r' )->where ( "product_id = ?", $id )->andWhere('active = ?', true)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+    	return Doctrine_Query::create ()->from ( 'Reviews r' )->leftJoin('r.Products p')->where ( "product_id = ?", $id )->andWhere('active = ?', true)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
     }
     
     /**

@@ -27,7 +27,7 @@ class Wiki extends BaseWiki {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Category' ), 'field' => 'wc.category_id', 'alias' => 'category', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => WikiCategories::getList(), 'attributes' => array('class' => 'span2')  );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Visits' ), 'field' => 'w.views', 'alias' => 'visits', 'sortable' => true, 'type' => 'index');
 		
-		$config ['datagrid'] ['fields'] = "w.wiki_id, w.subject as subject, DATE_FORMAT(w.creationdate, '%d/%m/%Y') as creation_date, wc.category as category, w.views as visits";
+		$config ['datagrid'] ['fields'] = "w.wiki_id, w.subject as subject, DATE_FORMAT(w.creationdate, '".Settings::getMySQLDateFormat('dateformat')."') as creation_date, wc.category as category, w.views as visits";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Wiki w' )->leftJoin ( 'w.WikiCategories wc' );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
@@ -183,16 +183,16 @@ class Wiki extends BaseWiki {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject" )
+		$dq = Doctrine_Query::create ()->select ( "w.wiki_id, w.subject as subject, l.language as language" )
 									   ->from ( 'Wiki w' )
-									   ->where('w.language_id = ?', $Session->langid);
+									   ->leftJoin('w.Languages l');
 		$retval = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		if ($empty) {
 			$items [] = $translator->translate ( 'Select ...' );
 		}
 		foreach ( $retval as $c ) {
-			$items [$c ['wiki_id']] = $c ['subject'];
+			$items [$c ['wiki_id']] = $c ['subject'] . " (" . $c['language'] . ")";
 		}
 		
 		return $items;

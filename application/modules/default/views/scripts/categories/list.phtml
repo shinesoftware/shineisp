@@ -1,18 +1,18 @@
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-xs-12">
 	    <h3><?php echo $this->category['name']?></h3>		
-	    <?php echo $this->category['description']?><br/><br/>
+	    <?php echo $this->category['description']?>
 	    
 	    <?php echo $this->render('categories/header.phtml') ?>
 	    
 	    <?php if(is_array($this->products) && count($this->products)>0): ?>
 		
-		<div id="products" class="row category-list">
+		<div id="products" class="category-list">
 			<div class="col-lg-12 col-md-12 col-xs-12">
 				<ul id="list" class="categories list-unstyled">
 					<?php foreach($this->products as $products): ?>
 					    <li class="category-item">
-					    	<div class="row product">
+					    	<div class="row">
 						        <div class="col-lg-2 col-sm-2 col-md-2 hidden-xs text-center">
 						          <?php echo $this->media()->ProductImage($products['product_id'], 120, 120);?>
 						        </div>

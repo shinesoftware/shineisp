@@ -26,7 +26,7 @@ class CmsPages extends BaseCmsPages {
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Variable' ), 'field' => 'var', 'alias' => 'var', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'cms.publishedat', 'alias' => 'date', 'sortable' => true, 'searchable' => true, 'type' => 'date' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Language' ), 'type' => 'arraydata', 'index' => 'page_id', 'alias'=>'dummy', 'run' => array('CmsPagesData'=>'getTranslations') );
-		$config ['datagrid'] ['fields'] = "cms.page_id, DATE_FORMAT(cms.publishedat, '%d/%m/%Y') as date, cms.title, cms.var";
+		$config ['datagrid'] ['fields'] = "cms.page_id, DATE_FORMAT(cms.publishedat, '".Settings::getMySQLDateFormat('dateformat')."') as date, cms.title, cms.var";
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
@@ -84,6 +84,20 @@ class CmsPages extends BaseCmsPages {
 								->leftJoin ( 'cms.CmsPagesData cpd' )
 								->leftJoin ( 'cpd.Languages l' )
 								->where ( 'l.code = ?', $locale )
+								->addWhere('cms.active = ?', 1);
+		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	}
+	
+	/**
+	 * Get all the active blog pages records
+	 * @return Array
+	 */
+	public static function getblogpages($locale = "en") {
+		$dq = Doctrine_Query::create ()->from ( 'CmsPages cms' )
+								->leftJoin ( 'cms.CmsPagesData cpd' )
+								->leftJoin ( 'cpd.Languages l' )
+								->where ( 'l.code = ?', $locale )
+								->addWhere ( 'cms.blog = ?', 1 )
 								->addWhere('cms.active = ?', 1);
 		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
@@ -176,7 +190,7 @@ class CmsPages extends BaseCmsPages {
 		$items = array ();
 		
 		$customskin = Settings::findbyParam ( 'skin' );
-		$skin = !empty ( $customskin ) ? $customskin : "base";
+		$skin = !empty ( $customskin ) ? $customskin : "blank";
 	
 		$files = Shineisp_Commons_Utilities::getDirectoryList(PUBLIC_PATH . "/skins/default/$skin/scripts/cms/");
 		
@@ -198,7 +212,7 @@ class CmsPages extends BaseCmsPages {
 		$items = array ();
 		
 		$customskin = Settings::findbyParam ( 'skin' );
-		$skin = !empty ( $customskin ) ? $customskin : "base";
+		$skin = !empty ( $customskin ) ? $customskin : "blank";
 	
 		$files = Shineisp_Commons_Utilities::getDirectoryList(PUBLIC_PATH . "/skins/default/$skin/scripts/");
 		$items[] = "";
@@ -231,7 +245,7 @@ class CmsPages extends BaseCmsPages {
 		
 		$dq = Doctrine_Query::create ()->select ( "page_id, 
 												   cms.title as title, 
-												   DATE_FORMAT(cms.publishedat, '%d/%m/%Y') as publishedat, 
+												   DATE_FORMAT(cms.publishedat, '".Settings::getMySQLDateFormat('dateformat')."') as publishedat, 
 												   cms.*,
 												   cpd.language_id" )
 										->from ( 'CmsPages cms' )
@@ -290,6 +304,8 @@ class CmsPages extends BaseCmsPages {
 		$cmspages->pagelayout = $params ['pagelayout'];
 		$cmspages->parent_id = $params ['parent_id'];
 		$cmspages->showinmenu = $params ['showinmenu'] ? true : false;
+		$cmspages->showonrss = $params ['showonrss'] ? true : false;
+		$cmspages->blog = $params ['blog'] ? true : false;
 		$cmspages->showonrss = $params ['showonrss'] ? true : false;
 		$cmspages->active = $params ['active'] ? true : false;
 		

@@ -58,7 +58,9 @@ body {
 .loginbtn {
 	padding-top: 22px;
 }
-
+.loginframe{
+	width: 364px;
+}
 /* ------ DASHBOARD -------- */
 
 ul.stats li {

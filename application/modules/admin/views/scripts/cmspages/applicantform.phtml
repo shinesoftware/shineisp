@@ -12,6 +12,7 @@
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Content');?></a></li> 
 			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Options');?></a></li> 
 			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Layouts');?></a></li> 
+			<li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Blocks');?></a></li> 
 		</ul>
 
 	    <div class="tab-content"> 
@@ -19,8 +20,6 @@
                 <?php echo $form->title->render()?>
                 <?php echo $form->var->render()?>
                 <?php echo $form->language_id->render()?>
-                <?php echo $form->pagelayout->render()?>
-                <?php echo $form->layout->render()?>
                 <?php echo $form->parent_id->render()?>
                 <?php echo $form->active->render()?>
     	    </div>
@@ -30,14 +29,20 @@
     	    </div>
         
     	    <div class="tab-pane" id="tab3"> 
+    	        <?php echo $form->blog->render()?>
     	   		<?php echo $form->showinmenu->render()?>
                 <?php echo $form->showonrss->render()?>
     	    	<?php echo $form->keywords->render()?>
     	    </div>
         
     	    <div class="tab-pane" id="tab4"> 
-                <?php echo $form->blocks->render()?>
+    	        <?php echo $form->pagelayout->render()?>
+                <?php echo $form->layout->render()?>
                 <?php echo $form->xmllayout->render()?>
+    	    </div>
+        
+    	    <div class="tab-pane" id="tab5"> 
+                <?php echo $form->blocks->render()?>
     	    </div>
         </div>
    		<?php echo $form->page_id->render()?>

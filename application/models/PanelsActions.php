@@ -27,11 +27,11 @@ class PanelsActions extends BasePanelsActions
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.action_id', 'alias' => 'action_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Fullname' ), 'field' => 'CONCAT(c.lastname, " ", c.firstname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Action' ), 'field' => 'action', 'alias' => 'action', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start' ), 'field' => 'DATE_FORMAT(end, "%d/%m/%Y %H:%i:%s")', 'alias' => 'startdate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End' ), 'field' => 'DATE_FORMAT(start, "%d/%m/%Y %H:%i:%s")', 'alias' => 'enddate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Start' ), 'field' => "DATE_FORMAT(end, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s')", 'alias' => 'startdate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'End' ), 'field' => "DATE_FORMAT(start, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s')", 'alias' => 'enddate', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Status' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 	
-		$config ['datagrid'] ['fields'] = "action_id, action, s.status as status, DATE_FORMAT(start, '%d/%m/%Y %H:%i:%s') as startdate, DATE_FORMAT(end, '%d/%m/%Y %H:%i:%s') as enddate, CONCAT(c.lastname, ' ', c.firstname) as fullname";
+		$config ['datagrid'] ['fields'] = "action_id, action, s.status as status, DATE_FORMAT(start, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate, DATE_FORMAT(end, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate, CONCAT(c.lastname, ' ', c.firstname) as fullname";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'PanelsActions p' )->leftJoin('p.Customers c')->leftJoin('p.Statuses s');
 	
 		$config ['datagrid'] ['rownum'] = $rowNum;
@@ -201,8 +201,8 @@ class PanelsActions extends BasePanelsActions
 	public static function Last($limit=10) {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
-		$dq = Doctrine_Query::create ()->select("DATE_FORMAT(start, '%d/%m/%Y %H:%i:%s') as startdate,
-										  DATE_FORMAT(end, '%d/%m/%Y %H:%i:%s') as enddate,
+		$dq = Doctrine_Query::create ()->select("DATE_FORMAT(start, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate,
+										  DATE_FORMAT(end, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate,
 										  CONCAT(c.lastname, ' ', c.firstname) as fullname,
 										  p.name as name,
 										  action,

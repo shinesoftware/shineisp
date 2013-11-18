@@ -33,7 +33,7 @@ class Payments extends BasePayments
 	
 		$config ['datagrid'] ['columns'] = $columns;
 		$config ['datagrid'] ['fields'] = "p.payment_id,
-                                              DATE_FORMAT(p.paymentdate, '%d/%m/%Y') as paymentdate,
+                                              DATE_FORMAT(p.paymentdate, '".Settings::getMySQLDateFormat('dateformat')."') as paymentdate,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.firstname, ' ', r.lastname, ' ', r.company) as reseller,
                                               p.reference as reference,
@@ -150,7 +150,7 @@ class Payments extends BasePayments
         						  b.name as bank, 
         						  i.number as invoice, 
         						  order_id as orderid, 
-        						  DATE_FORMAT(paymentdate, "%d/%m/%Y") as date, 
+        						  DATE_FORMAT(paymentdate, "'.Settings::getMySQLDateFormat('dateformat').'") as date, 
         						  o.total as total,
         						  o.vat as vat,
         						  o.grandtotal as grandtotal')
@@ -439,7 +439,7 @@ class Payments extends BasePayments
 											  o.order_id as orderid,
 											  o.order_date as orderdate,
 											  i.number as invoice,
-                                              DATE_FORMAT(p.paymentdate, '%d/%m/%Y') as paymentdate,
+                                              DATE_FORMAT(p.paymentdate, '".Settings::getMySQLDateFormat('dateformat')."') as paymentdate,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.firstname, ' ', r.lastname, ' ', r.company) as reseller,
                                               p.reference as reference,

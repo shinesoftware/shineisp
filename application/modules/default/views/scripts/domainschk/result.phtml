@@ -7,8 +7,8 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-xs-12">
 				<div id="mainresult" class="<?php echo $results['available'] ? "yes" : "no"?>">
-				<h3><?php echo $results['domain']?></h3>
-				<p><b><?php echo $results['price'] ?></b></p>
+				<h2><?php echo $results['domain']?></h2>
+				<p><?php echo $this->translate('only %s', $results['price']) ?></p>
 				
 				<p>
 					<?php if($results['available']):?>
@@ -22,18 +22,20 @@
 				
 				<?php if($results['available']):?>
 					<label for="chktld"><input type="checkbox" checked class="tld" id="chktld" value="<?php echo $results['tld'] ?>" name="tlds[]"> <?php echo strtoupper($this->translate('I would like to register %s', $results['domain']))?></label>
-					<p align="right"><input type="submit" class="button order" value="<?php echo strtoupper($this->translate('Register'))?>"></p>
+					<p align="right"><input type="submit" class="btn btn-success order" value="<?php echo strtoupper($this->translate('Register'))?>"></p>
 				<?php else: ?>
-					<label for="chktld"><input type="checkbox" checked class="tld" id="chktld" value="<?php echo $results['tld'] ?>" name="tlds[]"> <?php echo strtoupper($this->translate('I would like to transfer %s', $results['domain']))?></label>
-					<br/>
 					<p>
-						<label for="authinfo"><?php echo $this->translate('AUTHINFO')?></label><input type="text" class="form-control input-lg" id="authinfo" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
-						<br/><small><?php echo $this->translate('To transfer your domain name, please unlock it at the old provider control panel website and get the AUTHINFO code of your domain.')?> <a href="/wiki/domains.html" target="_blank"><?php echo $this->translate('Read more')?></a></small>
+					    <label for="chktld"><input type="checkbox" checked class="tld" id="chktld" value="<?php echo $results['tld'] ?>" name="tlds[]"> <?php echo strtoupper($this->translate('I would like to transfer %s', $results['domain']))?></label>
+				    </p>
+				    
+					<p>
+						<label for="authinfo"><?php echo $this->translate('AUTHINFO')?></label><input type="text" class="form-control" id="authinfo" title="<?php echo $this->translate('Write here your AUTHINFO code for your domain %s (optional)', $results['domain'])?>" name="authinfo[]">
+						<small><?php echo $this->translate('To transfer your domain name, please unlock it at the old provider control panel website and get the AUTHINFO code of your domain.')?> </small>
 					</p>
 					
 					<p align="right">
 						<a class="btn btn-default" href="/domainschk/"><?php echo strtoupper($this->translate('Change Name'))?></a>
-						<a class="btn btn-default" target="_blank" href="http://whois.domaintools.com/<?php echo $results['domain']?>"><?php echo $this->translate('WHOIS')?></a>
+						<a class="btn btn-info" target="_blank" href="http://whois.domaintools.com/<?php echo $results['domain']?>"><?php echo $this->translate('WHOIS')?></a>
 					</p>		
 					
 				<?php endif; ?>
@@ -45,7 +47,7 @@
 		<div class="col-lg-12 col-md-12 col-xs-12">
 			<div id="suggestions" class="row">
 				<h5><?php echo $this->translate('Domain Suggestions')?></h5>
-				<table>
+				<table class="table table-striped">
 					<?php foreach ($suggestions as $item) :?>
 						<tr class="<?php echo $item['available'] ? "available" : "notavailable"; ?>">
 							<td><input type="checkbox" class="tld" value="<?php echo $item['tld'] ?>" name="tlds[]"></td>
@@ -54,28 +56,15 @@
 							<td><?php echo $item['mex']?></td>
 							<td>
 								<?php if(!$item['available']):?>
-									<p><a target="_blank" href="http://www.<?php echo $item['domain']?>"><?php echo $this->translate('Show')?></a> | <a target="_blank" href="http://whois.domaintools.com/<?php echo $item['domain']?>">Whois</a></p>
+									<p><a class="btn" target="_blank" href="http://www.<?php echo $item['domain']?>"><?php echo $this->translate('Show')?></a> <a class="btn" target="_blank" href="http://whois.domaintools.com/<?php echo $item['domain']?>">Whois</a></p>
 								<?php endif;?>
 							</td>
 						</tr>
 					<?php endforeach;?>
 				</table>
-				<p align="right"><input type="submit" class="order button" value="<?php echo strtoupper($this->translate('Order Selected'))?>"></p>
+				<p align="right"><input type="submit" class="order btn btn-success" value="<?php echo strtoupper($this->translate('Order Selected'))?>"></p>
 			</div>
 		</div>
 	</div>
 	<input type="hidden" name="domain" value="<?php echo $results['name']?>">
 </form>
-
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-xs-12">
-		<h5><?php echo $this->translate('Search another domain name')?></h5>
-	    <div id="domainchecker" class="checkerform">
-		    <form method="<?php echo $this->form->getMethod() ?>" id="domainbox" class="custom dropdown" action="<?php echo $this->form->getAction()?>">
-				<div class="col-lg-8"><?php echo $this->form->name->setDecorators(array('Simple'));?></div>
-				<div class="col-lg-2"><?php echo $this->form->tld->setDecorators(array('Simple'));?></div>
-				<div class="col-lg-2"><?php echo $this->form->check->setDecorators(array('Simple'));?></div>
-		    </form>
-		</div>
-	</div>
-</div>

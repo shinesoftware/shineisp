@@ -42,8 +42,8 @@ class Products extends BaseProducts {
 											p.sku as sku, 
 											pag.name as groupname, 
 											sg.name as servergroupname,
-											DATE_FORMAT(p.inserted_at, '%d/%m/%Y %H:%i:%s') as insertedat,  
-											DATE_FORMAT(p.updated_at, '%d/%m/%Y %H:%i:%s') as updatedat,  
+											DATE_FORMAT(p.inserted_at, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as insertedat,  
+											DATE_FORMAT(p.updated_at, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as updatedat,  
 											IF( p.enabled = 1, 'Yes', 'No' ) as enabled";
 		
         $dq = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
@@ -211,8 +211,8 @@ class Products extends BaseProducts {
 				$products->uri             = ! empty ( $params ['uri'] ) ? Shineisp_Commons_UrlRewrites::format ( $params ['uri'] ) : Shineisp_Commons_UrlRewrites::format ( $params ['name'] );
 				$products->sku             = ! empty ( $params ['sku'] ) ? $params ['sku'] : '';
 				$products->cost            = $params ['cost'];
-                $products->price_1         = $params ['price_1'];
-				$products->setupfee        = $params ['setupfee'];
+                $products->price_1         = !empty($params ['price_1']) ? $params ['price_1'] : NULL;
+				$products->setupfee        = !empty($params ['setupfee']) ? $params ['setupfee'] : NULL;
 				$products->enabled         = !empty($params ['enabled']) ? 1 : 0;
 				$products->iscomparable    = !empty($params ['iscomparable']) ? 1 : 0;
 				$products->tax_id          = !empty($params ['tax_id']) ? $params ['tax_id'] : NULL;
@@ -588,8 +588,9 @@ class Products extends BaseProducts {
 			$product [0] = ProductsData::checkTranslation ( $product [0] );
 			
 			// Get the categories
-			$product [0] ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product [0] ['categories'] );
-			
+			if(!empty($product [0] ['categories'])){
+			    $product [0] ['cleancategories'] = ProductsCategories::getCategoriesInfo ( $product [0] ['categories'] );
+			}
 			// Get the media information
 			$product [0] ['media'] = ProductsMedia::getMediabyProductId ( $product [0] ['product_id'] );
 			
@@ -654,7 +655,7 @@ class Products extends BaseProducts {
 	 * @return ARRAY Record
 	 */
 	public static function getExpiringProducts($customerid = "", $locale = 1) {
-		$dq = Doctrine_Query::create ()->select ( "oi.detail_id as detail_id, o.order_id as order_id, pd.name as Products, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as Termination" )->from ( 'Orders o' )->leftJoin ( 'o.OrdersItems oi' )->leftJoin ( 'oi.Products p' )->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )->where ( "p.type <> ?", 'domain' )->addWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= 31' )->addWhere ( 'oi.status_id = ?', Statuses::id("complete", "orders") ); // Complete
+		$dq = Doctrine_Query::create ()->select ( "oi.detail_id as detail_id, o.order_id as order_id, pd.name as Products, DATE_FORMAT(oi.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as Termination" )->from ( 'Orders o' )->leftJoin ( 'o.OrdersItems oi' )->leftJoin ( 'oi.Products p' )->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )->where ( "p.type <> ?", 'domain' )->addWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= 31' )->addWhere ( 'oi.status_id = ?', Statuses::id("complete", "orders") ); // Complete
 
 		if (is_numeric ( $customerid )) {
 			$dq->addWhere ( "o.customer_id = ?", $customerid );

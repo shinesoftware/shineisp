@@ -13,7 +13,8 @@ class Admin_Form_CreditNotesForm extends Zend_Form
             'label'      => $translate->_('Date'),
             'title'      => $translate->_('eg: 01/11/2010'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control date'
+            'class'      => 'form-control date',
+            'dateformat'      => Settings::getJsDateFormat()
         ));
         
         $this->addElement('select', 'invoice_id', array(

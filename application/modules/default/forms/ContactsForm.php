@@ -57,7 +57,7 @@ class Default_Form_ContactsForm extends Zend_Form
             'rows'		=> 5,
             'description'      => $translate->_('Write here your message.'),
             'label'      => $translate->_('Message'),
-            'class'      => 'textarea'
+            'class'      => 'form-control'
         ));
         
     	$privKey = Settings::findbyParam('recaptcha_private_key');
