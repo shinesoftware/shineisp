@@ -29,7 +29,7 @@ class Default_Form_DomainsForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => false,
             'decorators'  => array('Bootstrap'),
-            'label'      => $translate->_('AuthInfo'),
+            'label'      => $translate->_('Authinfo'),
             'class'       => 'form-control medium-input'
         ));
         

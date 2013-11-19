@@ -20,26 +20,26 @@ class System_IndexController extends Shineisp_Controller_Default {
         // Setting Parameters 
         $data = SettingsParameters::getAllInfo();
         foreach ($data as $item){
-            $content .= "echo _('".$item['name']."')\n";
-            $content .= "echo _('".$item['description']."')\n";
+            $content .= "echo _('".$item['name']."');\n";
+            $content .= "echo _('".$item['description']."');\n";
         }
         
         // Server Types 
         $data = Servers_Types::getList();
         foreach ($data as $id => $item){
-            $content .= "echo _('".$item."')\n";
+            $content .= "echo _('".$item."');\n";
         }
         
         // Contact types
         $data = ContactsTypes::getList();
         foreach ($data as $id => $item){
-            $content .= "echo _('".$item."')\n";
+            $content .= "echo _('".$item."');\n";
         }
         
         // Legal form
         $data = Legalforms::getList();
         foreach ($data as $id => $item){
-            $content .= "echo _('".$item."')\n";
+            $content .= "echo _('".$item."');\n";
         }
         
         // Get the default navigation items
@@ -50,7 +50,7 @@ class System_IndexController extends Shineisp_Controller_Default {
         $pages = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($pages as $page){
             $label = (string)$page->label;
-            $content .= "echo _('$label')\n";
+            $content .= "echo _('$label');\n";
         }
         
         // Get the administration navigation items
@@ -61,7 +61,7 @@ class System_IndexController extends Shineisp_Controller_Default {
         $pages = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($pages as $page){
             $label = $page->getLabel();
-            $content .= "echo _('$label')\n";
+            $content .= "echo _('$label');\n";
         }
         
         $content .= "?>";
