@@ -52,9 +52,8 @@ class ServicesController extends Shineisp_Controller_Default {
 			$arrSort [] = $sort;
 		}
 		
-		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
-		
 		$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
+		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
 		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
 		
 		$data ['currentpage'] = $page;
