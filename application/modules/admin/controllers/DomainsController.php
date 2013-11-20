@@ -194,6 +194,9 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		$form = $this->getForm ( '/admin/domains/process' );
 		
+		$this->view->title = $this->translator->translate("Domain Edit");
+		$this->view->description = $this->translator->translate("Here you can edit your own domain parameters.");
+		
 		$id = $this->getRequest ()->getParam ( 'id' );
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
@@ -217,7 +220,9 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 					$form->populate ( $rs [0] );
 					
 					if(!empty($rs [0] ['DomainsTlds']['WhoisServers'])){
-						$this->view->name = $rs [0] ['domain'] . "." . $rs [0] ['DomainsTlds']['WhoisServers']['tld'];
+						$this->view->title = $rs [0] ['domain'] . "." . $rs [0] ['DomainsTlds']['WhoisServers']['tld'];
+						$this->view->titlelink = "http://" . $rs [0] ['domain'] . "." . $rs [0] ['DomainsTlds']['WhoisServers']['tld'];
+						$this->view->icon = "fa fa-globe";
 					}
 					
 					$this->view->owner_datagrid = domains::ownerGrid ( $id );
@@ -236,9 +241,6 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
 		
 		$this->view->dns_datagrid = Domains::dnsGrid ();
-		$this->view->title = $this->translator->translate("Domain Edit");
-		$this->view->description = $this->translator->translate("Here you can edit your own domain parameters.");
-		
 		$this->view->form = $form;
 		
 		$this->view->services_datagrid = array ('records' => domains::Services ($id), 'edit' => array ('controller' => 'services', 'action' => 'edit' ) ); 

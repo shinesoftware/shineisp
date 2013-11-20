@@ -789,7 +789,7 @@ class Orders extends BaseOrders {
 				if (count ( $products ) > 0) {
 					foreach ( $products as $product ) {
 						$orderitem = new OrdersItems ();
-						
+
 						if (!empty($product ['oldorderitemid']) && is_numeric ( $product ['oldorderitemid'] )) {
 							
 							// Find the details of the old order item details
@@ -976,7 +976,7 @@ class Orders extends BaseOrders {
 			
 			$order['customer_id']   = $customerId;
 			$order['order_date']    = date ( 'Y-m-d H:i:s' );
-			$order['expiring_date'] = date ( 'Y-m-j' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
+			$order['expiring_date'] = date ( 'Y-m-d' , strtotime ( '30 days' , strtotime ( $order['order_date'] ) ));
 			$order['isp_id']        = $isp_id;
 			$order['status_id']     = is_numeric($statusId) ? $statusId : Statuses::id("tobepaid", "orders");
 			$order['uuid']          = Shineisp_Commons_Uuid::generate();

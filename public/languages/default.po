@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ShineISP\n"
-"POT-Creation-Date: 2013-11-19 22:40+0100\n"
+"POT-Creation-Date: 2013-11-20 08:03+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shine Software <info@shineisp.com>\n"
 "Language-Team: Shine Software <info@shineisp.com>\n"
@@ -8046,7 +8046,7 @@ msgstr "Incassi per mese (grafico)"
 msgid "Grow"
 msgstr "Crescita"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/switcher.phtml:23
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/switcher.phtml:31
 #, fuzzy
 msgid "Language Settings"
 msgstr "Lingua"
@@ -8958,7 +8958,8 @@ msgid "Are you sure you want to delete this profile?"
 msgstr "Sei sicuro di cancellare il ruolo selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:6
-msgid "areusure"
+#, fuzzy
+msgid "Are you sure?"
 msgstr "Sei sicuro?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/confirmdelete.phtml:8
