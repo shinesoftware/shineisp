@@ -1014,6 +1014,7 @@ class OrdersItems extends BaseOrdersItems {
 					// ============================================================
 					// Renew all the services and domain where the customer has choosen the autorenew of the service.
 					$orderID = Orders::renewOrder ( $customer ['id'], $customer ['products'] );
+
 					if (is_numeric ( $orderID )) {
 						$link = Fastlinks::findlinks ( $orderID, $customer ['id'], 'orders' );
 	
@@ -1025,6 +1026,7 @@ class OrdersItems extends BaseOrdersItems {
 						}
 					
 						Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_renew', array(
+							'fullname' => $customer['fullname'],
 							':shineisp:' => $customer
 							,'url'       => $url
 						), null, null, null, null, $customer['language_id']);
@@ -1033,7 +1035,8 @@ class OrdersItems extends BaseOrdersItems {
 					}
 				}
 			}
-				
+			
+			die;
 			/*
 			 * Now we have to set as expired all the domains records that the date is the date of the expiring of the domain
 			* // Expired

@@ -2,9 +2,9 @@
     <div class="page-header pull-left">
     	<h3>
     		<?php if(!empty($this->titlelink)): ?>
-    			<a href="<?php echo $this->titlelink?>"><?php echo $this->title;?></a>
+    			<a target="blank" href="<?php echo $this->titlelink ?>"><?php if(!empty($this->icon)): ?><i class="<?php echo $this->icon ?>"></i> <?php endif;?><?php echo $this->title;?></a>
     		<?php else: ?>
-    			<?php echo $this->title;?>
+    			<?php if(!empty($this->icon)): ?><i class="<?php echo $this->icon ?>"></i> <?php endif;?><?php echo $this->title;?>
     		<?php endif;?>
     	</h3>
     	<?php if(!empty($this->description)): ?>

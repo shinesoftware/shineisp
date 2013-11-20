@@ -527,7 +527,7 @@ class Domains extends BaseDomains {
                                            ->leftJoin ( 'd.OrdersItems oi' )
                                            ->leftJoin ( 'd.DomainsTlds dt' )
                                            ->leftJoin ( 'dt.WhoisServers ws' )
-                                           ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
+                                           ->addWhere( "c.isp_id = ?", Isp::getActiveISPID() )
                                            ->orderBy ( 'd.expiring_date asc, d.customer_id' );
         if(is_numeric($days)){
         	$dq->andWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) = ?', $days );
@@ -912,7 +912,6 @@ class Domains extends BaseDomains {
 				}
 			}
 		}
-		Zend_Debug::dump($external_domains);
 		return $external_domains;
 	}
 	
