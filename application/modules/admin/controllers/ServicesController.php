@@ -183,7 +183,7 @@ class Admin_ServicesController extends Shineisp_Controller_Admin {
 				}
 				
 				// Get all the messages attached to the ordersitems
-				$this->view->messages = Messages::find ( 'detail_id', $id, true );
+				$this->view->messages = Messages::getbyServiceId ( $id );
 				$this->view->owner_datagrid = $this->ownerGrid ( $rs ['Orders'] ['customer_id'] );
 			}
 		} catch ( Exception $e ) {
