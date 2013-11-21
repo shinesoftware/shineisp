@@ -165,7 +165,7 @@ class ProductsController extends Shineisp_Controller_Default {
 		$ns = new Zend_Session_Namespace ();
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 		$request = $this->getRequest ();
-		$uri = $request->getParam ( 'uri' );
+		$uri = $request->getParam ( 'q' );
 		if (! empty ( $uri )) {
 			$product = Products::getProductbyUriID ( $uri, null, $ns->langid );
 			
