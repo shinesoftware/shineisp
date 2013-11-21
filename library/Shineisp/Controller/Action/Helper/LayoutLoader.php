@@ -147,6 +147,11 @@ class Shineisp_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Act
 			
 		}
 		
+		$customcss = Settings::findbyParam ( 'css' );
+		if($customcss){
+		    $view->placeholder ( "htmlhead" )->append ("<style>" . trim(preg_replace('/\s\s+/', ' ', $customcss)) . "</style>");
+		}
+		
 		// Enable and Add the RSS Shine Software reference
 		$view->headLink ()->appendAlternate('/rss/', 'application/rss+xml', 'RSS Feed');
 		$view->headLink ()->headLink(array('rel' => 'icon', 'type' => 'image/x-icon', 'href' => "/skins/$module/$skin/images/favicon.ico"));

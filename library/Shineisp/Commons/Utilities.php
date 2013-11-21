@@ -308,7 +308,7 @@ class Shineisp_Commons_Utilities {
 	 * This function simply returns an array containing a list of a directory's contents.
 	 * @param unknown_type $directory
 	 */
-	public static function getDirectoryList ($directory)
+	public static function getDirectoryList ($directory, $setMaxDepth="-1")
 	{
 	
 		// create an array to hold directory list
@@ -318,6 +318,7 @@ class Shineisp_Commons_Utilities {
 			
 			// create a handler for the directory
 			$directory_iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+			$directory_iterator->setMaxDepth($setMaxDepth);
 			foreach($directory_iterator as $filename => $path_object) {
 		
 				// if file isn't this directory or its parent, add it to the results
