@@ -553,7 +553,45 @@ class Settings extends BaseSettings {
         }
     }    
 	
+    /**
+     * Get the public skin templates located in the public directory
+     */
+	public static function getfrontendskins(){
+	    
+	    $path = PUBLIC_PATH . "/skins/default";
+	    $skins = array();
+	    
+	    if(file_exists($path)){
+    	    $items = scandir($path);
+    	    foreach ($items as $item){
+    	        $isnotDir = strpos($item, ".");
+    	        if ($isnotDir === false) {
+    	            $skins[$item] = $item;
+                }
+    	    }
+	    }
+	    return $skins;
+	}
 	
+    /**
+     * Get the administration skin templates located in the public directory
+     */
+	public static function getbackendskins(){
+	    
+	    $path = PUBLIC_PATH . "/skins/admin";
+	    $skins = array();
+	    
+	    if(file_exists($path)){
+    	    $items = scandir($path);
+    	    foreach ($items as $item){
+    	        $isnotDir = strpos($item, ".");
+    	        if ($isnotDir === false) {
+    	            $skins[$item] = $item;
+                }
+    	    }
+	    }
+	    return $skins;
+	}
 	
     /**
      * Get all settings with a single query. Used to be saved in Registry

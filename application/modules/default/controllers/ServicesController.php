@@ -52,10 +52,9 @@ class ServicesController extends Shineisp_Controller_Default {
 			$arrSort [] = $sort;
 		}
 		
-		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
-		
 		$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
-		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
+		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
+		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATEDIFF(d.date_end, CURRENT_DATE) as daysleft, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
 		
 		$data ['currentpage'] = $page;
 		
@@ -63,6 +62,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		$data ['columns'][] = $this->translator->translate('Status');
 		$data ['columns'][] = $this->translator->translate('Creation Date');
 		$data ['columns'][] = $this->translator->translate('Expiry Date');
+		$data ['columns'][] = $this->translator->translate('Days left');
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

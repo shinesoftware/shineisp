@@ -9,7 +9,7 @@ class Default_Form_ProductForm extends Zend_Form
     	
         $this->addElement('submit', 'submit', array(
             'required' => false,
-            'label'      => $translate->_('Add to Cart'),
+            'label'      => $translate->_('Add to cart'),
             'decorators' => array('Bootstrap'),
             'class'    => 'btn btn-success'
         ));

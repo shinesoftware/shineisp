@@ -1,6 +1,14 @@
 <?php 
 	$baseurl = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
 	$lang = Zend_Controller_Front::getInstance()->getRequest()->getParam('lang');
+	
+	$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+	$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+
+	if(empty($baseurl)){
+	    $baseurl = "/admin/index/index";
+	}
+	
  	$baseurl = str_replace("/lang/$lang", "", $baseurl);
 ?>
 

@@ -16,7 +16,7 @@ class Zend_View_Helper_Logo extends Zend_View_Helper_Abstract {
 				$this->view->file = "/documents/isp/" . $isp->logo;
 			}
 		
-			$this->view->title  = $isp->company;
+			$this->view->logotitle  = $isp->company;
 			$this->view->slogan = $isp->slogan;
 		}
 		return $this->view->render ( 'partials/logo.phtml' );
