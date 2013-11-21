@@ -54,7 +54,7 @@ class ServicesController extends Shineisp_Controller_Default {
 		
 		$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
 		$params['search'][] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
-		$params['search'][] = array ('method' => 'whereIn', 'criteria' => "o.status_id", 'value' => array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')));
+// 		$params['search'][] = array ('method' => 'whereIn', 'criteria' => "o.status_id", 'value' => array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')));
 		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description, CONCAT(dm.domain, '.', ws.tld) as domain, s.status as Status, DATE_FORMAT(d.date_start, '".settings::getMySQLDateFormat()."') as Creation_Date, DATEDIFF(d.date_end, CURRENT_DATE) as daysleft, DATE_FORMAT(d.date_end, '".settings::getMySQLDateFormat()."') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
 		
 		$data ['currentpage'] = $page;
