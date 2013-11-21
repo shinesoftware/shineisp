@@ -144,7 +144,7 @@ class OrdersItems extends BaseOrdersItems {
 					}
 				}
 			}
-			
+
 			$pagerLayout->setTemplate ( '<a href="{%url}">{%page}</a> ' );
 			$pagerLayout->setSelectedTemplate ( '<a class="active" href="{%url}">{%page}</a> ' );
 			$records = $pagerLayout->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
