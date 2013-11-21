@@ -184,9 +184,9 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 		
 		if (! empty ( $id ) && is_numeric ( $id )) {
 			
-			$this->view->buttons[] = array("url" => "/admin/tickets/setstatus/id/$id/statusid/" . Statuses::id('closed', 'tickets'), "label" => $this->translator->translate('Set as closed'), "params" => array('css' => array('button button_blue', 'float_right')));
-			$this->view->buttons[] = array("url" => "/admin/tickets/setstatus/id/$id/statusid/" . Statuses::id('solved', 'tickets'), "label" => $this->translator->translate('Set as solved'), "params" => array('css' => array('button button_green', 'float_right')));
-			$this->view->buttons[] = array("url" => "/admin/tickets/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('button button_red', 'float_right')));
+			$this->view->buttons[] = array("url" => "/admin/tickets/setstatus/id/$id/statusid/" . Statuses::id('closed', 'tickets'), "label" => $this->translator->translate('Set as closed'), "params" => array('css' => array('btn btn-primary')));
+			$this->view->buttons[] = array("url" => "/admin/tickets/setstatus/id/$id/statusid/" . Statuses::id('solved', 'tickets'), "label" => $this->translator->translate('Set as solved'), "params" => array('css' => array('btn btn-success')));
+			$this->view->buttons[] = array("url" => "/admin/tickets/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => array('btn btn-danger')));
 			
 			$form->populate ( array('datetime' => date('d/m/Y H:i:s'), 'ticket_id' => $id) );
 			
