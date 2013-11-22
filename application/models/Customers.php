@@ -652,6 +652,19 @@ class Customers extends BaseCustomers {
 	}
 	
 	/**
+	 * Get a customer by a custom field name 
+	 * @param string $fieldname
+	 * @param string $value
+	 * @return Array
+	 */
+	public static function findbyCustomfield($fieldname, $value) {
+	    if(!empty($fieldname) && !empty($value)){
+		    return Doctrine::getTable ( 'Customers' )->findBy($fieldname, $value)->toArray();
+	    }
+	    return array();
+	}
+	
+	/**
 	 * Get a customer by the MD5 email value and MD5 password value
 	 * @param $email 
 	 * @param $password
@@ -961,7 +974,6 @@ class Customers extends BaseCustomers {
 	}
 	
 	/**
-	 * getList
 	 * Get a list ready for the html select object
 	 * @return array
 	 */

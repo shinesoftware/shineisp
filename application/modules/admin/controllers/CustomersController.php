@@ -88,6 +88,30 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
+	 * Search the customer by ajax
+	 * @return json
+	 */
+	public function searchAction() {
+	    $query = $this->getParam('query');
+	    if(!empty($query)){
+	        $records = Customers::findbyCustomfield("lastname", $query);
+	    }else{
+	        $records = Customers::getAll();
+	    }
+		die(json_encode($records));
+	}
+	
+	/**
+	 * Search the customer by his id for an ajax request
+	 * @return json
+	 */
+	public function searchbyidAction() {
+	    $query = $this->getParam('query');
+	    $records = Customers::get_by_customerid($query);
+		die(json_encode($records));
+	}
+	
+	/**
 	 * newAction
 	 * Create the form module in order to create a record
 	 * @return unknown_type
