@@ -107,6 +107,8 @@ class OrdersItems extends BaseOrdersItems {
 					->leftJoin ( 'd.OrdersItemsDomains oid ON d.detail_id = oid.orderitem_id' )
 					->leftJoin ( 'd.BillingCycle bc' )
 					->leftJoin ( 'oid.Domains dm' )
+					->leftJoin ( 'dm.DomainsTlds dt' )
+					->leftJoin ( 'dt.WhoisServers ws' )
 					->leftJoin ( 'd.Products p' )
 					->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 					->leftJoin ( 'p.Taxes t' )
@@ -142,7 +144,7 @@ class OrdersItems extends BaseOrdersItems {
 					}
 				}
 			}
-			
+
 			$pagerLayout->setTemplate ( '<a href="{%url}">{%page}</a> ' );
 			$pagerLayout->setSelectedTemplate ( '<a class="active" href="{%url}">{%page}</a> ' );
 			$records = $pagerLayout->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );

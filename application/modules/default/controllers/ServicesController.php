@@ -53,16 +53,24 @@ class ServicesController extends Shineisp_Controller_Default {
 		}
 		
 		$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
-		$params['search'] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
-		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description as Description, s.status as Status, DATE_FORMAT(d.date_start, '%d/%m/%Y') as Creation_Date, DATEDIFF(d.date_end, CURRENT_DATE) as daysleft, DATE_FORMAT(d.date_end, '%d/%m/%Y') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
+		$params['search'][] = array ('method' => 'andWhere', 'criteria' => "(c.customer_id = ? OR c.parent_id = ?)", 'value' => array($NS->customer ['customer_id'], $NS->customer ['customer_id']));
+// 		$params['search'][] = array ('method' => 'whereIn', 'criteria' => "o.status_id", 'value' => array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')));
+		$data = $this->services->findAll ( "d.order_id, oid.relationship_id, d.description, CONCAT(dm.domain, '.', ws.tld) as domain, s.status as Status, DATE_FORMAT(d.date_start, '".settings::getMySQLDateFormat()."') as Creation_Date, DATEDIFF(d.date_end, CURRENT_DATE) as daysleft, DATE_FORMAT(d.date_end, '".settings::getMySQLDateFormat()."') as Expiring_Date, d.product_id", $page, $NS->recordsperpage, $arrSort, $params );
 		
 		$data ['currentpage'] = $page;
 		
+		for ($i=0; $i<count($data['records']); $i++){
+		   $data['records'][$i]['description'] = Shineisp_Commons_Utilities::truncate($data['records'][$i]['description'], 40);
+		   $data['records'][$i]['daysleft'] = ($data['records'][$i]['daysleft'] < 30) ? "<span class='label label-danger'>".$data['records'][$i]['daysleft']."</span>" : "<span class='label label-success'>".$data['records'][$i]['daysleft']."</span>";
+		}
+		
+		
 		$data ['columns'][] = $this->translator->translate('Description');
+		$data ['columns'][] = $this->translator->translate('Domain');
 		$data ['columns'][] = $this->translator->translate('Status');
 		$data ['columns'][] = $this->translator->translate('Creation Date');
-		$data ['columns'][] = $this->translator->translate('Expiry Date');
 		$data ['columns'][] = $this->translator->translate('Days left');
+		$data ['columns'][] = $this->translator->translate('Expiry Date');
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );

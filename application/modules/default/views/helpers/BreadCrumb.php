@@ -50,8 +50,8 @@ class Zend_View_Helper_BreadCrumb extends Zend_View_Helper_Abstract{
 		    }elseif($controller == "products"){
 		        $producturi = $params['q'];
 		        $product = Products::getProductbyUriID($producturi, "p.product_id, pd.name, categories", $ns->langid);
-		        foreach ($product['cleancategories'] as $category){
-		            $crumbs .= "<li><a href='".$category['uri']."'>" . $category['name'] . "</a></li>";
+		        if(!empty($product['cleancategories'][0])){
+		            $crumbs .= "<li><a href='".$product['cleancategories'][0]['uri']."'>" . $product['cleancategories'][0]['name'] . "</a></li>";
 		        }
 		        $crumbs .= "<li class=\"active\"><a href='/$producturi.html'>". $product['ProductsData'][0]['name'] . "</a></li>";
 		    }else{

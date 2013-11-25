@@ -28,7 +28,6 @@ $(document).ready(function(){
 	$("#productcategories").change(function () {
 		$.post('/admin/orders/getproducts/id/' + $("#productcategories").val(), {}, function(data){
 			$('#products').empty();
-			console.log(data);
 			if(data[0]){
 				$('.productslist').show();
 			}else{

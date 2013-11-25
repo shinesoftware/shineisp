@@ -45,6 +45,29 @@ class Orders extends BaseOrders {
 		return self::$events;
 	}
 	
+	/**
+	 * Prepare the DQL query for the module
+	 */
+	public static function getDQL(){
+	    $doctrine = Doctrine_Query::create ()->from ( 'Orders o' )
+    										->leftJoin ( 'o.Isp i' )
+											->leftJoin ( 'o.Invoices in' )
+											->leftJoin ( 'o.OrdersItems oi' )
+											->leftJoin ( 'oi.BillingCycle bc' )
+											->leftJoin ( 'o.OrdersItemsDomains oid' )
+											->leftJoin ( 'oid.Domains d' )
+											->leftJoin ( 'd.DomainsTlds tld' )
+											->leftJoin ( 'tld.WhoisServers w' )
+											->leftJoin ( 'oi.Products p' )
+											->leftJoin ( 'p.Taxes t' )
+											->leftJoin ( 'o.Customers c' )
+											->leftJoin ( 'c.Addresses a' )
+											->leftJoin ( 'a.Countries co' )
+											->leftJoin ( 'o.Statuses s' );
+	    
+	    return $doctrine;
+	}
+	
 	public static function grid($rowNum = 10) {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
@@ -78,14 +101,7 @@ class Orders extends BaseOrders {
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
                                               s.status as status";
 		
-		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
-																		->from ( 'Orders o' )
-																		->leftJoin ( 'o.Customers c' )
-																		->leftJoin ( 'c.Customers r' )
-																		->leftJoin ( 'o.Invoices i' )
-																		->leftJoin ( 'o.OrdersItems oi' )
-																		->leftJoin ( 'oi.Products p' )
-																		->leftJoin ( 'o.Statuses s' );
+		$config ['datagrid'] ['dqrecordset'] = self::getDQL()->select ( $config ['datagrid'] ['fields'] );
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		$config ['datagrid'] ['basepath'] = "/admin/orders/";
@@ -215,8 +231,8 @@ class Orders extends BaseOrders {
 	
 	
 	/**
-	 * findAll
 	 * Get records the orders from the DB
+	 * 
 	 * @param $currentPage
 	 * @param $rowNum
 	 * @param $sort
@@ -230,15 +246,7 @@ class Orders extends BaseOrders {
 		
 		// Defining the url sort
 		$uri = isset ( $sort [1] ) ? "/sort/$sort[1]" : "";
-		$dq = Doctrine_Query::create ()->select ( $fields )
-										->from ( 'Orders o' )
-										->leftJoin ( 'o.Customers c' )
-										->leftJoin ( 'c.Customers r' )
-										->leftJoin ( 'o.Invoices i' )
-										->leftJoin ( 'o.OrdersItems oi' )
-										->leftJoin ( 'oi.Products p' )
-										->leftJoin ( 'o.Statuses s' )
-										->orderBy ( 'order_date desc' );
+		$dq = self::getDQL()->select ( $fields )->orderBy ( 'order_date desc' );
 		
 		$pagerLayout = new Doctrine_Pager_Layout ( new Doctrine_Pager ( $dq, $currentPage, $rowNum ), new Doctrine_Pager_Range_Sliding ( array ('chunk' => 10 ) ), "/$module/$controller/list/page/{%page_number}" . $uri );
 		
@@ -285,14 +293,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getOrdersByCustomerID($id, $fields="*") {
 		try {
-			$arrOrders = Doctrine_Query::create ()->select ( $fields )
-										->from ( 'Orders o' )
-										->leftJoin ( 'o.Customers c' )
-										->leftJoin ( 'c.Customers r' )
-										->leftJoin ( 'o.Invoices i' )
-										->leftJoin ( 'o.OrdersItems oi' )
-										->leftJoin ( 'oi.Products p' )
-										->leftJoin ( 'o.Statuses s' )
+			$arrOrders = self::getDQL()->select ( $fields )
 										->where('c.customer_id = ? OR r.customer_id = ?', array($id, $id))
 										->andWhere('c.isp_id = ?', Isp::getCurrentId())
 										->orderBy ( 'order_date desc' )
@@ -1172,180 +1173,6 @@ class Orders extends BaseOrders {
 		
 	}
 	
-	
-	
-	/**
-	 * Add an item in the order 
-	 * @param integer 	$productId
-	 * @param integer 	$qta
-	 * @param integer 	$billing [default 3 = Annual]
-	 * @param integer 	$trancheID 
-	 * @param string 	$description
-	 * @param array 	$options
-	 * @param integer 	$upgrade
-	 * @return array 	$item
-	 ******/
-// 	public static function addItem($type, $id, $qta = 1, $trancheID = null, $description = null, array $options = array(), $upgrade = false) {
-		
-		
-		
-// 		if($type == "domain"){
-			
-// 		}elseif($type == "hosting"){
-			
-// 		}
-		
-		
-		
-// 		// Check if the variable has been set correctly
-// 		if(is_numeric($productId)){
-		
-// 			// Get the product information
-// 			$product = Products::getAllInfo($productId);
-			
-// 			// Get autosetup setting
-// 			$autoSetup = (isset($product['autosetup'])) ? intval($product['autosetup']) : null;			
-			
-// 			if(!empty($product)){
-				
-				
-				
-// 				// Get the order object previously created
-// 				$order = self::$order;
-				
-// 				// Create the new order item
-// 				$item = new OrdersItems();
-				
-// 				// get the billing cycle setting attached in the product installment/tranche
-// 				$billing = ProductsTranches::getBillingCycle($trancheID);
-
-// 				// get the installment/tranches for the selected product
-// 				$tranche = ProductsTranches::getTranchebyId ( $trancheID );
-				
-// 				// Prepare the order items
-// 				$item['order_id']   		= $order['order_id'];
-// 				$item['status_id']  		= Statuses::id("tobepaid", "orders");
-// 				$item['product_id'] 		= $productId;
-// 				$item['date_start'] 		= date ( 'Y-m-d H:i:s' );
-// 				$item['description'] 		= $product['ProductsData'][0]['name'];;
-// 				$item['billing_cycle_id'] 	= !empty($billing['billing_cycle_id']) ? $billing['billing_cycle_id'] : null; 
-// 				$item['quantity'] 			= $qta;
-// 				$item['price'] 				= $product['price_1'];
-// 				$item['setupfee'] 			= $product ['setupfee'];
-				
-// 				// Get the billing term settings 
-// 				if( $trancheID != null && is_array($billing)) {				
-
-// 					// Count how many months until the next expiring date
-// 					$months = $billing['months'];
-					
-// 					if($months > 0){
-// 						$totmonths = intval ( $qta * $months );
-						
-// 						// Calculate the total of the months
-//                         $date_end = Shineisp_Commons_Utilities::add_date ( date ( 'd-m-Y H:i:s' ), null, $totmonths );    
-						
-// 						if($months >= 12){
-// 							$qty = $months / 12;
-// 						}else{
-// 							$qty = 1;
-// 						}
-						
-// 						//$item['price'] 		= $product['price_1'] * $qty; 
-// 						$item['price'] 		= $tranche['price'] * $qty;
-// 						$item['setupfee'] 	= $tranche['setupfee'];
-// 						$item['date_end'] 	= Shineisp_Commons_Utilities::formatDateIn($date_end);
-// 					}else{
-// 						$item['date_end'] 	= null;
-// 						$item['price'] 		= $tranche['price'];
-// 						$item['setupfee'] 	= $tranche ['setupfee'];
-// 					}
-// 				}
-				
-// 				// IMPORTANT //
-// 				// TODO: This condition is temporary: $product ['type'] != "domain" 
-
-// 				// Check if the product is a recurring product
-// 				if (!empty($trancheID) && is_numeric($trancheID) && $product ['type'] != "domain") {   
-					
-// 					// Set the price of the product with the billing tranche value
-// 					$item['price'] = $tranche ['price'] * $tranche['BillingCycle']['months'];
-// 				}
-				
-// 				// Check if the product is a domain
-// 				if ($product ['type'] == "domain") {
-// 					$item['parameters'] = json_encode ( array ('domain' => $options['domain'], 'action' => $options['action'], 'authcode' => !empty($options['authcode']) ? $options['authcode'] : null) );
-					
-// 				}elseif($product ['type'] == "hosting"){
-					
-// 					// Get all the product attributes
-// 					$attrs = ProductsAttributes::getAttributebyProductID($productId);
-					
-// 					foreach ($attrs as $attr) {
-// 						if($attr['system'] && !empty($attr['ProductsAttributesIndexes'][0]['value'])){
-// 							$hostingplan[$attr['code']] = $attr['ProductsAttributesIndexes'][0]['value'];
-// 						}
-// 					}
-// 					$item['parameters'] = json_encode ( $hostingplan );
-// 				}	
-				
-// 				//If there is a refund update the price
-// 				$item['parent_detail_id']	= 0;
-// 				if( $upgrade !== false ) {
-// 					$refundInfo		= OrdersItems::getRefundInfo($upgrade);
-// 					$refund			= $refundInfo['refund'];
-// 					$priceWithRefund= $item['price'] - $refund;
-// 					if( $priceWithRefund > 0 ) {
-// 						$item['price']	= $priceWithRefund;
-// 					}
-// 					$item['parent_detail_id']	= $upgrade;
-					
-// 					//Update description
-// 					$orderItem		= OrdersItems::getDetail($upgrade);
-// 					$productIdOld	= $orderItem['product_id'];
-// 					$productOld 	= Products::getAllInfo($productIdOld);
-// 					$name	= "";
-// 					if( isset( $productOld['ProductsData']) ) {
-// 						$textInfo	= array_shift($productOld['ProductsData']);
-// 						if( ! empty($textInfo) ) {
-// 							if( isset( $textInfo['name'] ) ) {
-// 								$name	= $textInfo['name'];
-// 							}
-// 						}
-// 					}					
-					
-// 					$item['description'] = 'Change service from '.$name.' to '.$item['description'];
-// 				}
-				
-// 				$item['cost'] = $product ['cost'];
-// 				//$item['description'] = !empty($description) ? $description : $product['name'];
-				
-// 				// these are set by API
-// 				$item['uuid']         = isset($options['uuid']) ? $options['uuid'] : Shineisp_Commons_Uuid::generate();
-				
-// 				$item->save();
-				
-// 				$arrayItem = $item->toArray();
-				
-// 				// Update the totals
-// 				if(!empty($order['order_id'])) {
-// 					self::updateTotalsOrder($order['order_id']);
-// 				}
-				
-//                 Shineisp_Commons_Utilities::log("AUTOSETUP::".$autoSetup." TYPE:: ".strtolower($product['type']));
-                
-// 				//* autosetup is set to 1 for this product, let's activate immediatly
-// 				if ( $autoSetup === 1 && (strtolower($product['type']) == "hosting") ) {
-// 					OrdersItems::activate($arrayItem['detail_id']);				
-// 				}
-				
-// 				return $item;
-// 			}
-// 		}
-		
-// 		return null;
-// 	}
-	
 	/**
 	 * Create an order with many products
 	 * 
@@ -1597,7 +1424,7 @@ class Orders extends BaseOrders {
 	public static function getAll($fields = "*") {
 		
 		// Defining the url sort
-		return Doctrine_Query::create ()->select ( $fields )->from ( 'Orders o' )->leftJoin ( 'o.Customers c' )->leftJoin ( 'c.Customers r' )->leftJoin ( 'o.Invoices i' )->leftJoin ( 'o.OrdersItems oi' )->leftJoin ( 'oi.Products p' )->leftJoin ( 'o.Statuses s' )->orderBy ( 'order_date desc' )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		return self::getDQL()->select ( $fields )->orderBy ( 'order_date desc' )->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
 	/**
@@ -1947,23 +1774,7 @@ class Orders extends BaseOrders {
 	 */
 	public static function getAllInfo($id, $fields = "*", $retarray = false, $owner = false) {
 		try {
-			$dq = Doctrine_Query::create ()->from ( 'Orders o' )
-											->leftJoin ( 'o.Isp i' )
-											->leftJoin ( 'o.Invoices in' )
-											->leftJoin ( 'o.OrdersItems oi' )
-											->leftJoin ( 'oi.BillingCycle bc' )
-											->leftJoin ( 'o.OrdersItemsDomains oid' )
-											->leftJoin ( 'oid.Domains d' )
-											->leftJoin ( 'd.DomainsTlds tld' )
-											->leftJoin ( 'tld.WhoisServers w' )
-											->leftJoin ( 'oi.Products p' )
-											->leftJoin ( 'p.Taxes t' )
-											->leftJoin ( 'o.Customers c' )
-											->leftJoin ( 'c.Addresses a' )
-											->leftJoin ( 'a.Countries co' )
-											->leftJoin ( 'o.Statuses s' )
-											->where ( "order_id = $id" )
-											->limit ( 1 );
+			$dq = self::getDQL()->where ( "order_id = $id" )->limit ( 1 );
 			
 			if($fields != "*"){
 				$dq->select ( $fields );
