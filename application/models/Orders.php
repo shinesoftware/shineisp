@@ -61,6 +61,7 @@ class Orders extends BaseOrders {
 											->leftJoin ( 'oi.Products p' )
 											->leftJoin ( 'p.Taxes t' )
 											->leftJoin ( 'o.Customers c' )
+											->leftJoin ( 'o.Customers r' )
 											->leftJoin ( 'c.Addresses a' )
 											->leftJoin ( 'a.Countries co' )
 											->leftJoin ( 'o.Statuses s' );
@@ -75,7 +76,7 @@ class Orders extends BaseOrders {
 		$columns [] = array ('label' => null, 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'selectall', 'attributes' => array ('width' => 20 ) );
 		$columns [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('width' => 30 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Number' ), 'field' => 'o.order_number', 'alias' => 'order_number', 'type' => 'string', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg', 'width' => 100 ), 'searchable' => true );
-		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'i.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 50 ), 'searchable' => true );
+		$columns [] = array ('label' => $translator->translate ( 'Invoice' ), 'field' => 'in.formatted_number', 'alias' => 'formatted_number', 'type' => 'integer', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 50 ), 'searchable' => true );
 		$columns [] = array ('label' => $translator->translate ( 'Date' ), 'field' => 'o.order_date', 'alias' => 'orderdate', 'type' => 'date', 'sortable' => true, 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ), 'searchable' => true );
 		
 		$columns [] = array ('label' => $translator->translate ( 'Company' ), 'field' => "CONCAT(c.firstname, ' ', c.lastname, ' ', c.company)", 'alias' => 'customer', 'sortable' => true, 'searchable' => true, 'attributes' => array ('class' => 'visible-lg'), 'type' => 'string');
@@ -96,12 +97,12 @@ class Orders extends BaseOrders {
                                               o.total as total,
                                               o.vat as vat,
                                               o.grandtotal as grandtotal,
-                                              i.formatted_number as formatted_number,
+                                              in.formatted_number as formatted_number,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
                                               s.status as status";
 		
-		$config ['datagrid'] ['dqrecordset'] = self::getDQL()->select ( $config ['datagrid'] ['fields'] );
+		$config ['datagrid'] ['dqrecordset'] = self::getDQL()->select ( $config ['datagrid'] ['fields'] )->orderBy('order_date desc');
 		
 		$config ['datagrid'] ['rownum'] = $rowNum;
 		$config ['datagrid'] ['basepath'] = "/admin/orders/";
@@ -420,7 +421,7 @@ class Orders extends BaseOrders {
 				// Save the data
 				$orders->save ();
 				$id = is_numeric ( $id ) ? $id : $orders->getIncremented ();
-
+				
 				// Status changed? Let's call set_status. This is needed to properly log all status change.
 				if ( isset($params ['status_id']) && $params ['status_id'] != $currentStatus ) {
 					self::logStatusChange($id, $params['status_id']);	
@@ -566,8 +567,19 @@ class Orders extends BaseOrders {
 		try {
 			if (is_array ( $params )) {
 				
-				$months = BillingCycle::getMonthsNumber ( $params ['billingcycle_id'] );
+			    if(!empty($params ['billingcycle_id'])){
+				    $months = BillingCycle::getMonthsNumber ( $params ['billingcycle_id'] );
+			    }else{
+			        $bc = BillingCycle::getDefaultDomainBillingCycle ();
+			        $params ['billingcycle_id'] = $bc['billing_cycle_id'];
+			        $months = $bc['months'];
+			    }
+			   
 				$date_end = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
+				
+				$params ['domains_selected'] = explode(",", $params ['domains_selected']);
+				Zend_Debug::dump($date_end);
+				die;
 				
 				foreach ( $params ['domains_selected'] as $domain_id ) {
 					

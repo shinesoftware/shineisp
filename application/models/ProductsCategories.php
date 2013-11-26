@@ -46,6 +46,19 @@ class ProductsCategories extends BaseProductsCategories {
 	}	
 	
 	/**
+	 * Get a record by one or more custom field names
+	 * @param string $conditions
+	 * @param string|array $value
+	 * @return Array
+	 */
+	public static function findbyName($conditions, $values) {
+	    if(!empty($conditions) && !empty($values)){
+	        return Doctrine_Query::create ()->from ( 'ProductsCategories pc' )->where($conditions, $values)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	    }
+	    return array();
+	}
+	
+	/**
 	 * Set a record with a status
 	 * 
 	 * 
@@ -412,7 +425,6 @@ class ProductsCategories extends BaseProductsCategories {
 		
 		return $items;
 	}
-
 	
 	/**
 	 * getAll

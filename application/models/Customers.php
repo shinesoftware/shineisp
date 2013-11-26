@@ -657,9 +657,9 @@ class Customers extends BaseCustomers {
 	 * @param string $value
 	 * @return Array
 	 */
-	public static function findbyCustomfield($fieldname, $value) {
-	    if(!empty($fieldname) && !empty($value)){
-		    return Doctrine::getTable ( 'Customers' )->findBy($fieldname, $value)->toArray();
+	public static function findbyCustomfield($conditions, $values) {
+	    if(!empty($conditions) && !empty($values)){
+		    return Doctrine_Query::create ()->from ( 'Customers u' )->where($conditions, $values)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	    }
 	    return array();
 	}
@@ -1004,7 +1004,7 @@ class Customers extends BaseCustomers {
 			}
 		}
 		
-		$Customers->orderBy ( 'lastname, firstname, company' );
+		$Customers->orderBy ( 'lastname' );
 		$arrCustomers = $Customers->execute ( null, Doctrine::HYDRATE_ARRAY );
 				
 		foreach ( $arrCustomers as $c ) {

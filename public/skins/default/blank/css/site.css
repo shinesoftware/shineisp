@@ -3,6 +3,32 @@ body {
 	padding-top: 75px;
 }
 
+/* Page Sections */
+.section,
+.section-colored {
+  padding: 50px 0;
+}
+.section-colored {
+  background-color: #e1e1e1; /* change this to change the background color of a colored section */
+}
+.carousel {
+    height: 500px;
+}
+
+
+.item,
+.active,
+.carousel-inner {
+  height: 100%;
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
 /* ------ MEDIA -------- */
 
 .media-list div.media-body{

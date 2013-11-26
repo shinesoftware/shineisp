@@ -1,5 +1,20 @@
 $(document).ready(function(){
 	
+    // Set the active TAB in all the pages
+	$('a[data-toggle="tab"]').on('click', function (e) {
+		localStorage.setItem('lastTab', $(e.target).attr('href'));
+	});
+
+	//go to the latest tab, if it exists:
+	var lastTab = localStorage.getItem('lastTab');
+
+	if (lastTab) {
+		$('a[href="'+lastTab+'"]').click();
+	}else{
+        // Set the first tab if cookie do not exist
+        $('a[data-toggle="tab"]:first').tab('show');
+    }
+	  
 	// Common controller for the submition of the forms
 	$('#submit').click(function() { $("form:first").submit(); });
 	 

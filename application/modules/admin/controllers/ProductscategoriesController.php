@@ -241,6 +241,35 @@ class Admin_ProductscategoriesController extends Shineisp_Controller_Admin {
 			return $this->render ( 'applicantform' );
 		}
 	}
+
+	/**
+	 * Search the record for the Select2 JQuery Object by ajax
+	 * @return json
+	 */
+	public function searchAction() {
+	     
+	    if($this->getRequest()->isXmlHttpRequest()){
+	         
+	        $term = $this->getParam('term');
+	        $id = $this->getParam('id');
+	        	
+	        if(!empty($term)){
+	            $term = "%$term%";
+	            $records = ProductsCategories::findbyName("(name LIKE ?)", $term);
+	            die(json_encode($records));
+	        }
+	        	
+	        if(!empty($id)){
+	            $records = ProductsCategories::get_by_id($id);
+	            die(json_encode($records));
+	        }
+	        	
+	        $records = ProductsCategories::getAll();
+	        die(json_encode($records));
+	    }else{
+	        die();
+	    }
+	}
 	
 	/**
 	 * getForm

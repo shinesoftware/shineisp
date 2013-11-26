@@ -174,20 +174,35 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
-	 * getproducts
 	 * Get products using the categories
+	 * 
 	 * @return Json
 	 */
 	public function getproductsAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
-		if($id == "domains"){
-			$products = DomainsTlds::getList();
-		}elseif(is_numeric($id)){
+		$products = array();
+		if(is_numeric($id)){
 			$products = ProductsCategories::getProductListbyCatID ( $id, "p.product_id, pd.name as name" );	
 		}
 		
 		die ( json_encode ( $products ) );
 	}
+	
+	/**
+	 * Get the billing cycle items
+	 * 
+	 * @return Json
+	 */
+	public function getbillingcyclesAction() {
+	    $billingcycles = array();
+	    $currency = Shineisp_Registry::get ( 'Zend_Currency' );
+	    $id = $this->getRequest ()->getParam ( 'id' );
+	    if(is_numeric($id)){
+	       $billingcycles = ProductsTranches::getTranches($id, "billing_cycle_id, bc.name as name, pt.price as price, pt.setupfee as setupfee");
+	    }
+	    die ( json_encode ( $billingcycles) );
+	}
+	
 	
 	/**
 	 * Get product info
@@ -223,7 +238,6 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$customer = null;
 		$createInvoiceConfirmText = $this->translator->translate('Are you sure you want to create or overwrite the invoice for this order?');
-		$form->getElement ( 'categories' )->addMultiOptions(array('domains' => $this->translator->translate('Domains')));
 		$id = intval($this->getRequest ()->getParam ( 'id' ));
 		
 		$this->view->description = $this->translator->translate("Here you can edit the selected order.");
@@ -316,12 +330,10 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			$this->view->buttons[] = array("url" => "/admin/orders/createinvoice/id/$id", "label" => $this->translator->translate('Invoice'), "params" => array('css' => array('btn btn-danger')), 'onclick' => "return confirm('".$createInvoiceConfirmText."')");
 		}
 		
-		// Get Order status history
-		$status = StatusHistory::getStatusList($id);
-		
 		$this->view->customer          = array ('records' => $customer, 'editpage' => 'customers' );
 		$this->view->ordersdatagrid    = $this->orderdetailGrid ();
 		$this->view->paymentsdatagrid  = $this->paymentsGrid ();
+		$this->view->statushistory            = StatusHistory::getStatusList($id);  // Get Order status history
 		$this->view->filesgrid         = $this->filesGrid ();
 		$this->view->statushistorygrid = $this->statusHistoryGrid ();
 		$this->view->form              = $form;

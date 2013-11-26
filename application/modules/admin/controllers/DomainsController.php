@@ -116,6 +116,35 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
+	 * Search the record for the Select2 JQuery Object by ajax
+	 * @return json
+	 */
+	public function searchAction() {
+	
+	    if($this->getRequest()->isXmlHttpRequest()){
+	
+	        $term = $this->getParam('term');
+	        $id = $this->getParam('id');
+	
+	        if(!empty($term)){
+	            $term = "%$term%";
+	            $records = Domains::findbyCustomFields("CONCAT(d.domain, '.', d.tld) LIKE ?", $term);
+	            die(json_encode($records));
+	        }
+	
+	        if(!empty($id)){
+	            $records = Domains::find($id);
+	            die(json_encode($records));
+	        }
+	
+	        $records = Domains::get_domains_active();
+	        die(json_encode($records));
+	    }else{
+	        die();
+	    }
+	}
+	
+	/**
 	 * confirmAction
 	 * Ask to the user a confirmation before to execute the task
 	 * @return null
@@ -432,8 +461,8 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 		die ( json_encode ( array ('result' => 0 ) ) );
 	}
 	
+	
 	/**
-	 * getdomainsbyAjaxAction
 	 * get all the domains using an Ajax call
 	 * @return json array
 	 */
