@@ -34,6 +34,8 @@ class TldsController extends Shineisp_Controller_Default {
 			if(empty($tld['DomainsTldsData'][0])){
 				$tld = DomainsTlds::getbyTld($uri);	
 			}
+		}else{
+		    $this->_redirect('index');
 		}
 		
     	// Set the page title
