@@ -70,7 +70,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->addElement('hidden', 'referdomain', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Reference Domain'),
-            'description' => 'Assign a domain in order to identify the service/product',
+            'description' => $translate->_('Assign a domain in order to identify the service/product'),
             'decorators' => array('Bootstrap'),
             'field-id' => "domain_id",
             'fields-data' => "domain",
@@ -112,9 +112,9 @@ class Admin_Form_OrdersForm extends Zend_Form
         */
         $this->addElement('hidden', 'domains_selected', array(
             'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Domains Selected'),
+            'label'      => $translate->_('Add Domains'),
             'decorators' => array('Bootstrap'),
-            'title'	     => $translate->_('Select ...'),
+            'description' => $translate->_('If you do not find a domain name from this list, you have to create it by the domain admministration page.'),
             'multiple' => true,
             'field-id' => "domain_id",
             'fields-data' => "domain",
@@ -150,7 +150,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
-            'description'      => 'If this date is set ShineISP will suspend the order at the specified date.',
+            'description'      => $translate->_('If this date is set ShineISP will suspend the order at the specified date.'),
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control date',
             'dateformat'      => Settings::getJsDateFormat()

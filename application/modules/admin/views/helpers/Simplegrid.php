@@ -26,7 +26,7 @@ class Admin_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 			
 			// All the records 
 			$this->view->records = $data ['records'];
-			
+
 			// Create the header using the field name if the columns variable is not set
 			if(empty($data ['columns'])){
 				

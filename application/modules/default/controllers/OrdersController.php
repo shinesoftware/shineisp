@@ -58,7 +58,7 @@ class OrdersController extends Shineisp_Controller_Default {
 		try {
 			$page = ! empty ( $page ) && is_numeric ( $page ) ? $page : 1;
 			$data = $this->orders->findAll ( "o.order_id, 
-												i.formatted_number as Invoice, 
+												in.formatted_number as Invoice, 
 												CONCAT(c.company, ' ', c.firstname,' ', c.lastname) as company, 
 												o.order_number as order_number,
 												o.order_date as start_date,
@@ -88,8 +88,8 @@ class OrdersController extends Shineisp_Controller_Default {
 		$this->view->headTitle()->prepend ($this->translator->translate('Orders List'));
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = $this->translator->translate("Orders List");
-		$this->view->description = $this->translator->translate("This is the list of all your orders.");
+		$this->view->title = "Orders List";
+		$this->view->description = "This is the list of all your orders.";
 		$this->view->orders = $data;
 	}
 	
@@ -140,17 +140,35 @@ class OrdersController extends Shineisp_Controller_Default {
 						$this->view->tobepaid = true; // To be Paid status 
 					}
 					
-					$records = OrdersItems::getAllDetails ( $id, "oi.detail_id, oi.description as description, DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiration_date, oi.quantity as quantity, oi.price as price, bc.name as billingcycle, oi.setupfee as setupfee", true );
+					$records = OrdersItems::getAllDetails ( $id, "oi.detail_id, 
+                                        					        oi.description as description, 
+                                        					        DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiration_date, 
+                                        					        oi.quantity as quantity, 
+                                        					        oi.price as price, 
+                                        					        oi.subtotal as subtotal, 
+                                        					        bc.name as billingcycle, 
+                                        					        oi.setupfee as setupfee", true );
+					
 					for ($i=0; $i<count($records); $i++){
 						$records[$i]['price'] = $currency->toCurrency($records[$i]['price'], array('currency' => Settings::findbyParam('currency')));;
+						$records[$i]['subtotal'] = $currency->toCurrency($records[$i]['subtotal'], array('currency' => Settings::findbyParam('currency')));;
 						$records[$i]['setupfee'] = $currency->toCurrency($records[$i]['setupfee'], array('currency' => Settings::findbyParam('currency')));;
 					}
+					
+					$columns = array();
+					$columns[] = $this->translator->translate('Description');
+					$columns[] = $this->translator->translate('Expiry Date');
+					$columns[] = $this->translator->translate('Quantity');
+					$columns[] = $this->translator->translate('Price');
+					$columns[] = $this->translator->translate('Subtotal');
+					$columns[] = $this->translator->translate('Billing Cycle');
+					$columns[] = $this->translator->translate('Setup Fee');
 
 					$this->view->customer_id = $NS->customer ['customer_id'];
 					$this->view->invoiced = ($rs [0] ['status_id'] == Statuses::id("complete", "orders") && $rs [0] ['invoice_number'] > 0) ? true : false;
 					$this->view->invoice_id = $rs [0] ['invoice_id'];
 					$this->view->order = array ('records' => $rs );
-					$this->view->details = array ('records' => $records );
+					$this->view->details = array ('records' => $records, 'columns' => $columns );
 					
 					// Get Order status history
 					$this->view->statushistory = StatusHistory::getStatusList($id);

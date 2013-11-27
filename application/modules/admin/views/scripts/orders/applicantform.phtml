@@ -55,29 +55,34 @@
 		    </div>
 	   
 		   <div class="tab-pane" id="tab2">
-		   
-	            <div class="row">
-    	            <div class="col-lg-6 col-xs-12" >
-    		            <?php echo $form->categories->render()?>
-    	            </div>
-    	            
-    	            <div class="productslist col-lg-6 col-xs-12" id="detail1">
-    		            <?php echo $form->products->render()?>
-    	            </div>
-	            </div>
+		       <h5><?php echo $this->translate('Attach a new service or product to this order') ?></h5>
+		       <fieldset class="alert alert-warning">
+                    <div class="row">
+        	            <div class="col-lg-6 col-xs-12" >
+        		            <?php echo $form->categories->render()?>
+        	            </div>
+        	            
+        	            <div class="productslist col-lg-6 col-xs-12" id="detail1">
+        		            <?php echo $form->products->render()?>
+        	            </div>
+                    </div>
+                    
+                    <div class="row">
+        	            <div class="col-lg-6 col-xs-12" id="billingcycle">
+        	            	<?php echo $form->billingcycle_id->render()?>
+        	            </div>
+        	            
+        	            <div class="col-lg-6 col-xs-12" id="detail2">
+        	                <?php echo $form->referdomain->render()?>
+        	            </div>
+                    </div>
+	            </fieldset>
 	            
-	            <div class="row">
-    	            <div class="col-lg-6 col-xs-12" id="billingcycle">
-    	            	<?php echo $form->billingcycle_id->render()?>
-    	            </div>
-    	            
-    	            <div class="col-lg-6 col-xs-12" id="detail2">
-    	                <?php echo $form->domains_selected->render()?>
-    	            </div>
-	            </div>
-	            
+	            <h5><?php echo $this->translate('Add one or more domains to this order') ?></h5>
+	            <fieldset class="alert alert-warning">
+	                <?php echo $form->domains_selected->render()?>
+	            </fieldset>
 	            <div class="generic" id="detail3">
-	                <?php echo $form->referdomain->render()?>
 		            <?php echo $form->quantity->render()?>
 		            <?php echo $form->description->render()?>
 		            <?php echo $form->price->render()?>

@@ -349,13 +349,13 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 						
 					$columns[] = $this->translator->translate('Product');
 					$columns[] = $this->translator->translate('Creation Date');
-					$columns[] = $this->translator->translate('Expiration date');
+					$columns[] = $this->translator->translate('Expiry Date');
 					$columns[] = $this->translator->translate('Days left');
 					$columns[] = $this->translator->translate('Price');
 					$columns[] = $this->translator->translate('Automatic renewal');
 					$columns[] = $this->translator->translate('Status');
 					
-					return array ('name' => 'services','columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+					return array ('name' => 'services', 'columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 				}
 			}
 		} catch ( Exception $e ) {

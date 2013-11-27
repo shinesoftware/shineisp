@@ -342,35 +342,32 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	
 	private function orderdetailGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Orders::getDetails ( $request->id );
+			$rs = Orders::getDetails ( $request->id, "detail_id,
+			                                          DATE_FORMAT(d.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as date-start,
+			                                          DATE_FORMAT(d.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as date-end,
+			                                          d.quantity, 
+								                      d.description, 
+			                                          d.setupfee, 
+								                      d.price, 
+		                                              d.vat,
+								                      d.subtotal,
+			                                          CONCAT(dm.domain, '.',ws.tld) as domain" );
 			if (isset ( $rs )) {
+				$columns = array();
+				$columns[] = $this->translator->translate('Quantity');
+				$columns[] = $this->translator->translate('Description');
+				$columns[] = $this->translator->translate('Setup fees');
+				$columns[] = $this->translator->translate('Price');
+				$columns[] = $this->translator->translate('VAT');
+				$columns[] = $this->translator->translate('Subtotal');
+				$columns[] = $this->translator->translate('Start data');
+				$columns[] = $this->translator->translate('End data');
+				$columns[] = $this->translator->translate('Domain');
 				
-				// In this section I will delete the empty OrdersItemsDomains subarray created by Doctrine because the simplegrid works only with a flat array
-				// where the array keys are the fields. So, if the OrdersItemsDomains is empty means that if the order item doesn't has 
-				// a domain attached it this empty array will be deleted in all the recordset.
-				// TODO: improve this section when doctrine improve the engine. 
-				$myrec = array ();
-				foreach ( $rs as $record ) {
-					$amount = $record ['quantity'] * $record ['price'] + $record ['setupfee'];
-					
-					// Add the taxes if the product need them
-					if ($record ['taxpercentage'] > 0) {
-						$record ['vat'] = number_format ( ($amount * $record ['taxpercentage'] / 100), 2 );
-						$record ['grandtotal'] = number_format ( ($amount * (100 + $record ['taxpercentage']) / 100), 2 );
-					} else {
-						$record ['vat'] = 0;
-						$record ['grandtotal'] = $amount;
-					}
-					
-					if (count ( $record ['OrdersItemsDomains'] ) == 0) {
-						unset ( $record ['OrdersItemsDomains'] );
-					}
-					unset ( $record ['taxpercentage'] );
-					$myrec [] = $record;
-				}
-				
-				return array (	'records' => $myrec, 
+				return array (	'columns' => $columns, 
+				                'records' => $rs, 
 								'delete' => array ('controller' => 'ordersitems', 'action' => 'confirm' ), 
 								'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 
 								'actions' => array('/admin/services/edit/id/' => $this->translator->translate('Service')), 

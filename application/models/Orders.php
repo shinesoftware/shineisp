@@ -496,12 +496,25 @@ class Orders extends BaseOrders {
 							if ($months > 0) {
 								$params ['date_end'] = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
 							}
+							
 						}
 						
 						// Format the dates before to save them in the database
 						$params ['date_end'] = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_end'] );
 						$params ['date_start'] = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
 
+
+						if(!empty($product['Taxes']['tax_id'])){
+						    $vat = ($params ['price'] * $product['Taxes']['percentage']) / 100;
+						    $subtotal = ($params ['price'] * ($product['Taxes']['percentage'] + 100) / 100);
+						    $percentage = $product['Taxes']['percentage'];
+						}else{
+						    $vat = 0;
+						    $subtotal = $params ['price'];
+						    $percentage = 0;
+						}
+							
+						
 						$details = new OrdersItems ();
 						$details->order_id = $id;
 						$details->quantity = $params ['quantity'];
@@ -513,6 +526,9 @@ class Orders extends BaseOrders {
 						$details->product_id = $params ['products'];
 						$details->description = $params ['description'];
 						$details->status_id = $params ['status_id'];
+						$details->vat = $vat;
+						$details->percentage = $percentage;
+						$details->subtotal = $subtotal;
 						
 						if ($product['type'] =="hosting"){
 							// Get all the product attributes
@@ -567,6 +583,7 @@ class Orders extends BaseOrders {
 		try {
 			if (is_array ( $params )) {
 				
+			    // Get the Billing Cycle information
 			    if(!empty($params ['billingcycle_id'])){
 				    $months = BillingCycle::getMonthsNumber ( $params ['billingcycle_id'] );
 			    }else{
@@ -574,37 +591,51 @@ class Orders extends BaseOrders {
 			        $params ['billingcycle_id'] = $bc['billing_cycle_id'];
 			        $months = $bc['months'];
 			    }
-			   
-				$date_end = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
-				
+
+			    // Convert the domain selection into an array
 				$params ['domains_selected'] = explode(",", $params ['domains_selected']);
-				Zend_Debug::dump($date_end);
-				die;
-				
+
 				foreach ( $params ['domains_selected'] as $domain_id ) {
 					
-					$domain = Domains::getAllInfo($domain_id, null, "*", true);
+					// Get the domain information
+				    $domain = Domains::getAllInfo($domain_id, null, "*", true);
+
+				    // Get the taxes information
+					$tax = Taxes::getTaxbyTldID($domain[0]['tld_id']);
 					
 					// Get the price of the product selected
-					$products = $domain[0]['DomainsTlds'];
+					$product = $domain[0]['DomainsTlds'];
 					
 					// Domain name
 					$domain = $domain [0] ['domain'] . "." . $domain [0] ['DomainsTlds'] ['WhoisServers']['tld'];
+					
+					if(!empty($product['tax_id'])){
+					    $vat = ($product ['registration_price'] * $tax['percentage']) / 100;
+					    $subtotal = ($product ['registration_price'] * ($tax['percentage'] + 100) / 100);
+					    $percentage = $tax['percentage'];
+					}else{
+					    $vat = 0;
+					    $subtotal = $product ['registration_price'];
+					    $percentage = 0;
+					}
 					
 					// Adding the domain in the order selected
 					$details = new OrdersItems ();
 					$details->order_id = $orderid;
 					$details->quantity = $params ['quantity'];
-					$details->price = $products ['registration_price'];
-					$details->cost = $products ['registration_cost'];
+					$details->price = $product ['registration_price'];
+					$details->vat = $vat;
+					$details->percentage = $percentage;
+					$details->subtotal = $subtotal;
+					$details->cost = $product ['registration_cost'];
 					$details->date_start = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
-					$details->date_end = $date_end;
+					$details->date_end = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start']->add($months, Zend_Date::MONTH) );
 					$details->billing_cycle_id = $params ['billingcycle_id'];
-					$details->tld_id = $products ['tld_id'];
+					$details->tld_id = $product ['tld_id'];
 					$details->description = $domain;
 					
 					// Register the domain paramenter registration
-					$details->parameters = json_encode ( array ('domain' => $domain, 'action' => 'registerDomain', 'tldid' => $products ['tld_id']));
+					$details->parameters = json_encode ( array ('domain' => $domain, 'action' => 'registerDomain', 'tldid' => $product ['tld_id']));
 					
 					$details->save ();
 					$orderitem_id = $details->getIncremented ();
@@ -616,7 +647,7 @@ class Orders extends BaseOrders {
 					$domain->customer_id = $params ['customer_id'];
 					$domain->save ();
 					unset ( $domain );
-					unset ( $products );
+					unset ( $product );
 					$i ++;
 				
 				}
@@ -1843,10 +1874,13 @@ class Orders extends BaseOrders {
 		}
 	}
 	
-	/*
+	/**
 	 * Get all the details from a order
+	 * 
+	 * @param integer $id 
+	 * @param string $fields
 	 */
-	public static function getDetails($id) {
+	public static function getDetails($id, $fields=NULL) {
 		$dq = Doctrine_Query::create ()->select ( "oid.relationship_id, 
 								                     dm.domain_id, 
 								                     dt.tld_id,
@@ -1857,6 +1891,8 @@ class Orders extends BaseOrders {
 								                     d.description, 
 								                     d.price as price, 
 								                     d.setupfee as setupfee, 
+		                                             d.vat,
+								                     d.subtotal,
 								                     d.parent_detail_id as parent_orderid,
 								                     t.percentage as taxpercentage,
 								                     DATE_FORMAT(d.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as start, 
@@ -1872,6 +1908,10 @@ class Orders extends BaseOrders {
 										->leftJoin ( 'o.Customers c' )
 										->leftJoin ( 'd.Statuses s' )
 										->where ( 'o.order_id = ?', $id );
+		
+		if(!empty($fields)){
+		    $dq->select($fields);
+		}
 		
 		$rs = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		

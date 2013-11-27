@@ -29,6 +29,7 @@
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-growl.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/jquery.tokeninput.js</js>
                 
                 <js override="1" position="admin_endbody">/resources/jquery/jquery.ui.datepicker-it.js</js>

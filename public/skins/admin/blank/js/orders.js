@@ -83,17 +83,15 @@ $(document).ready(function(){
 		$.post('/admin/orders/getbillings/id/' + $("#products").val() + '/billid/' + $("#billingid").val(), {}, function(data){
 			
 			if(data[0] !== undefined) {
-				if(data[0].BillingCycle.months !== undefined) {
-					$('#price').val(data[0].price * data[0].BillingCycle.months);
-				}
+				$('#price').val(data[0].price);
 			}else{
 				// If there is not any billing cycle settings then get flat price
 				$.post('/admin/orders/getproductinfo/id/' + $("#products").val(), {}, function(data){
 					if(data.price_1) {
-						alert('No billing cycle set in the product detail page. Flat price has been set.'); 
+						$.bootstrapGrowl('Flat price has been set.', { type: 'info', offset: {from: 'top', amount: 60}, allow_dismiss: true, stackup_spacing: 10 });
 						$('#price').val(data.price_1);
 					}else{
-						alert('No billing cycle set and no flat price set in the product detail page.');
+						$.bootstrapGrowl('No billing cycle set and no flat price set in the product detail page.', { type: 'danger', offset: {from: 'top', amount: 60}, allow_dismiss: true, stackup_spacing: 10 });
 						$('#price').val(0);
 					}
 				}, 'json');
@@ -111,13 +109,13 @@ $(document).ready(function(){
 	            $('#description').empty();
 	            
 	            if(data.ProductsData !== undefined && data.ProductsData[0].name !== undefined) {
-	                    $('#description').val(data.ProductsData[0].name);
+	            	$('#description').val(data.ProductsData[0].name);
 	            }
 	            
 	            if(data.ProductsAttributesGroups.isrecurring){
-	                     $('.billingcycle_id').show();
+	            	$('.billingcycle_id').show();
 	            }else{
-	                     $('.billingcycle_id').hide();
+	                $('.billingcycle_id').hide();
 	            }
 	            
 	            if(data.price_1) {
