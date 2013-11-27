@@ -1,5 +1,26 @@
 $(document).ready(function(){
 	
+    // Set the active TAB in all the pages
+	$('a[data-toggle="tab"]').on('click', function (e) {
+		localStorage.setItem('lastTab', window.location.href + $(e.target).attr('href'));
+	});
+
+	//go to the latest tab, if it exists:
+	var lastTab = localStorage.getItem('lastTab');
+
+	if (lastTab) {
+		var data = lastTab.split('#');
+		if(window.location.href == data[0]){
+			$('a[href="#'+data[1]+'"]').click();
+		}else{
+			// Set the first tab if cookie do not exist
+	        $('a[data-toggle="tab"]:first').tab('show');
+		}
+	}else{
+        // Set the first tab if cookie do not exist
+        $('a[data-toggle="tab"]:first').tab('show');
+    }
+	  
 	// Common controller for the submition of the forms
 	$('#submit').click(function() { $("form:first").submit(); });
 	 

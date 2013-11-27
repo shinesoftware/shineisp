@@ -910,7 +910,6 @@ class Products extends BaseProducts {
 	}
 	
 	/**
-	 * findbyName
 	 * Get a record by name
 	 * @param $id
 	 * @return Doctrine Record
@@ -920,8 +919,8 @@ class Products extends BaseProducts {
     	        ->select ( $fields )
 	            ->from ( 'Products p' )
                 ->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
-        		->where ( "pd.name = ?", $name )
-        		->addWhere( "p.isp_id = ?", Isp::getCurrentId() )->limit ( 1 );
+        		->where ( "pd.name like ?", $name )
+        		->addWhere( "p.isp_id = ?", Isp::getCurrentId() );
 		
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$record = $dq->execute ( array (), $retarray );
@@ -1011,22 +1010,24 @@ class Products extends BaseProducts {
 	}
 	
 	/**
-	 * getAll
 	 * Get alla active products
 	 * @param $locale
 	 * @return Doctrine Record
 	 */
-	public static function getAll($locale = 1) {
-		return Doctrine_Query::create ()->from ( 'Products p' )
+	public static function getAll($select=null, $locale = 1) {
+		$dq = Doctrine_Query::create ()->from ( 'Products p' )
 										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 										->leftJoin ( "p.ProductsMedia pm" )
 										->addWhere ( "p.enabled = ?", 1)
-                                        ->addWhere( "p.isp_id = ?", Isp::getCurrentId() )
-										->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+                                        ->addWhere( "p.isp_id = ?", Isp::getCurrentId() );
+
+		if(!empty($select)){
+		    $dq->select($select);
+		}
+		return $dq->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 	}
 	
 	/**
-	 * getAllHighlighted
 	 * Get alla active and highlighted products
 	 * @param $locale
 	 * @return Doctrine Record
@@ -1042,7 +1043,6 @@ class Products extends BaseProducts {
 	}
 
 	/**
-	 * getAllRefundables
 	 * Get all active and refundables products
 	 * @param $locale
 	 * @return Doctrine Record

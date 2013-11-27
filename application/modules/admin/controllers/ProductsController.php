@@ -89,6 +89,35 @@ class Admin_ProductsController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
+	 * Search the record for the Select2 JQuery Object by ajax
+	 * @return json
+	 */
+	public function searchAction() {
+	
+	    if($this->getRequest()->isXmlHttpRequest()){
+	
+	        $term = $this->getParam('term');
+	        $id = $this->getParam('id');
+	
+	        if(!empty($term)){
+	            $term = "%$term%";
+	            $records = Products::findbyName($term, "product_id, pd.name as name", true);
+	            die(json_encode($records));
+	        }
+	
+	        if(!empty($id)){
+	            $records = Products::find($id);
+	            die(json_encode($records));
+	        }
+	
+	        $records = Products::getAll('product_id, pd.name as name');
+	        die(json_encode($records));
+	    }else{
+	        die();
+	    }
+	}
+	
+	/**
 	 * newAction
 	 * Create the form module in order to create a record
 	 * @return unknown_type

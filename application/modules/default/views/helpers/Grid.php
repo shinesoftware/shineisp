@@ -50,7 +50,7 @@ class Zend_View_Helper_Grid extends Zend_View_Helper_Abstract {
 			$this->view->show_action_box = ! isset ( $data ['show_action_box'] ) ? true : $data ['show_action_box'];
 		}
 		
-		$this->view->recordcount = $data ['recordcount'];
+		$this->view->recordcount = !empty($data ['recordcount']) ? $data ['recordcount'] : 0;
 		$this->view->statuses = isset ( $data ['statuses'] ) ? $data ['statuses'] : array ();
 		$this->view->filters = isset ( $data ['filters'] ) ? $data ['filters'] : array ();
 		$this->view->tags = isset ( $data ['tags'] ) ? $data ['tags'] : array ();

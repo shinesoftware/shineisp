@@ -12,22 +12,26 @@
  */
 class Zend_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 	public function simplegrid($data) {
-		$this->view->module = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
+		
+		$this->view->module     = Zend_Controller_Front::getInstance ()->getRequest ()->getModuleName ();
 		$this->view->controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
-		$this->view->action = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
+		$this->view->action     = Zend_Controller_Front::getInstance ()->getRequest ()->getActionName ();
+				
 		if (isset ( $data ['records'] )) {
 			// Name of the table, useful for the jQuery pager
-			$this->view->name = !empty($data['name']) ? $data['name'] : "table_" . rand(1,50);
+			$this->view->name = !empty($data['name']) ? $data['name'] : "table_" . Shineisp_Commons_Uuid::generate();
+			
 			// Index of the table 
 			$this->view->id = (! empty ( $this->view->fields [0] ) && is_numeric ( $data ['records'] [0] [$this->view->fields [0]] )) ? $data ['records'] [0] [$this->view->fields [0]] : "0";
+			
 			// All the records 
 			$this->view->records = $data ['records'];
-			
+
 			// Create the header using the field name if the columns variable is not set
 			if(empty($data ['columns'])){
-			
+				
 				$data ['columns'] = array();
-			
+				
 				if(!empty($data ['records'][0])){
 					// Get all the fields
 					$items = Shineisp_Commons_Utilities::array_flatten($data ['records'][0]);
@@ -43,21 +47,26 @@ class Zend_View_Helper_Simplegrid extends Zend_View_Helper_Abstract {
 					}
 				}
 			}
-				
+			
 			$this->view->columns = $data ['columns'];
-				
+			
 			// If these options are true a link appear for each row in a table
-			$this->view->edit = ! empty ( $data ['edit'] ) ? $data ['edit'] : false;
-			$this->view->delete = ! empty ( $data ['delete'] ) ? $data ['delete'] : false;
+			$this->view->view       = ! empty ( $data ['view'] )       ? $data ['view']       : false;
+			$this->view->edit       = ! empty ( $data ['edit'] )       ? $data ['edit']       : false;
+			$this->view->delete     = ! empty ( $data ['delete'] )     ? $data ['delete']     : false;
+			$this->view->targetlink = ! empty ( $data ['targetlink'] ) ? $data ['targetlink'] : null;
 			
-			// If you need more action use this parameter Array{'url'=>'name'}
+			// If you need more action use this parameter Array{'url'=>'name'} 
+			// for instance $actions['/admin/customers'] = "Customers"; 
+			// the label customers will be translated
 			$this->view->actions = ! empty ( $data ['actions'] ) ? $data ['actions'] : false;
+			$this->view->onclick = ! empty ( $data ['onclick'] ) ? $data ['onclick'] : false;
 			
-			// Show/Hide the pager in the list
-			$this->view->pager = ! empty ( $data ['pager'] ) ? true : false;
-			
-			// Path of the template
-			return $this->view->render ( 'partials/simplegrid.phtml' );
+		}else{
+			$this->view->records = "";
 		}
+		
+		// Path of the template
+		return $this->view->render ( 'partials/simplegrid.phtml' );
 	}
 }

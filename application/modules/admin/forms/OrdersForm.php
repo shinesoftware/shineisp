@@ -1,34 +1,41 @@
 <?php
 class Admin_Form_OrdersForm extends Zend_Form
-{   
+{ 
+    
     public function init()
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
     	$translate = Shineisp_Registry::get('Zend_Translate');
-    	
-    	$this->addElement('select', 'customer_id', array(
+
+    	/*
+    	 * This hidden form field will be converted in a advanced select object
+    	* the JQuery Select2 object is loaded automatically by the css class select2
+    	*/
+    	$this->addElement('hidden', 'customer_id', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Customer'),
-            'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
-        ));
-        
-        $this->getElement('customer_id')
-                  ->setAllowEmpty(false)
-                  ->setMultiOptions(Customers::getList(true));
-             
-    	$this->addElement('select', 'customer_parent_id', array(
-            'label'      => $translate->_('Invoice destination'),
-            'decorators' => array('Bootstrap'),
-            'class'      => 'form-control',
-            'disable'    => 'true'
+    	    'decorators' => array('Bootstrap'),
+            'field-id' => "customer_id",
+            'fields-data' => "lastname firstname ( company )",
+            'url-search' => "/admin/customers/search",
+            'class'      => 'select2'
         ));
 
-        $this->getElement('customer_parent_id')
-                  ->setAllowEmpty(true)
-                  ->setMultiOptions(Customers::getList(true));
+    	/*
+    	 * This hidden form field will be converted in a advanced select object
+    	* the JQuery Select2 object is loaded automatically by the css class select2
+    	*/
+    	$this->addElement('hidden', 'customer_parent_id', array(
+            'label'      => $translate->_('Invoice destination'),
+            'decorators' => array('Bootstrap'),
+	        'field-id' => "customer_id",
+	        'fields-data' => "firstname lastname",
+	        'url-search' => "/admin/customers/search",
+            'class'      => 'select2',
+            'disable'    => 'true'
+        ));
 
         $this->addElement('select', 'isp_id', array(
             'required'   => true,
@@ -40,50 +47,101 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->getElement('isp_id')
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Isp::getList());
-                  
-        $this->addElement('select', 'product_id', array(
-            'required'   => false,
-            'label'      => $translate->_('Products'),
-            'description' => $translate->_('Select the product.'),
-            'class'      => 'form-control'
+
+        /*
+         * This hidden form field will be converted in a advanced select object
+        * the JQuery Select2 object is loaded automatically by the css class select2
+        */
+        $this->addElement('hidden', 'categories', array(
+                'label' => $translate->_('Filter by categories'),
+                'decorators'  => array('Bootstrap'),
+                'id'          => 'productcategories',
+                'field-id' => "category_id",
+                'fields-data' => "name",
+                'url-search' => "/admin/productscategories/search",
+                'class'      => 'select2',
+                'rel'         => 'tree_select'
+        ));
+
+        /*
+         * This hidden form field will be converted in a advanced select object
+        * the JQuery Select2 object is loaded automatically by the css class select2
+        */
+        $this->addElement('hidden', 'referdomain', array(
+            'filters'    => array('StringTrim'),
+            'label'      => $translate->_('Reference Domain'),
+            'description' => $translate->_('Assign a domain in order to identify the service/product'),
+            'decorators' => array('Bootstrap'),
+            'field-id' => "domain_id",
+            'fields-data' => "domain",
+            'url-search' => "/admin/domains/search",
+            'class'      => 'select2',
         ));
         
-        $this->getElement('product_id')
-                  ->setAllowEmpty(false)
-                  ->setMultiOptions(Products::getList(true));
-                  
-        $this->addElement('select', 'billingcycle_id', array(
+        /* 
+         * This hidden form field will be converted in a advanced select object
+         * the JQuery Select2 object is loaded automatically by the css class select2
+        */          
+        $this->addElement('hidden', 'products', array(
+            'id'   => "products",
+            'required'   => false,
+            'label'      => $translate->_('Products'),
+            'field-id' => "product_id",
+            'fields-data' => "name",
+            'url-search' => "/admin/products/search",
+            'class'      => 'select2'
+        ));
+
+        /*
+         * This hidden form field will be converted in a advanced select object
+         * the JQuery Select2 object is loaded automatically by the css class select2
+        */
+        $this->addElement('hidden', 'billingcycle_id', array(
             'id'      => 'billingid',
             'label'      => $translate->_('Billing Cycle'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'field-id' => "billing_cycle_id",
+            'fields-data' => "name ( price /  setupfee )",
+            'url-search' => "/admin/orders/getbillingcycles",
+            'class'      => 'select2'
         ));
         
-        $this->getElement('billingcycle_id')
-                  ->setAllowEmpty(false)
-                  ->setMultiOptions(BillingCycle::getList(true));
-                  
-        $this->addElement('select', 'is_renewal', array(
+        /*
+         * This hidden form field will be converted in a advanced select object
+        * the JQuery Select2 object is loaded automatically by the css class select2
+        */
+        $this->addElement('hidden', 'domains_selected', array(
+            'filters'    => array('StringTrim'),
+            'label'      => $translate->_('Add Domains'),
+            'decorators' => array('Bootstrap'),
+            'description' => $translate->_('If you do not find a domain name from this list, you have to create it by the domain admministration page.'),
+            'multiple' => true,
+            'field-id' => "domain_id",
+            'fields-data' => "domain",
+            'url-search' => "/admin/domains/search",
+            'class'      => 'select2'
+        ));
+        
+        $this->addElement('checkbox', 'is_renewal', array(
             'label'      => $translate->_('Is a Renewal?'),
             'description' => "If this order is a renewal, it will be checked by ShineISP and it cannot be deleted by the customer in the customer order frontend panel.",
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control'
         ));
-        
-        $this->getElement('is_renewal')
-                  ->setAllowEmpty(false)
-                  ->setMultiOptions(array('0' => "No, it's not", '1' => "Yes, it is" ));
-                  
-        $this->addElement('select', 'invoice_id', array(
+
+        /*
+         * This hidden form field will be converted in a advanced select object
+        * the JQuery Select2 object is loaded automatically by the css class select2
+        */
+        $this->addElement('hidden', 'invoice_id', array(
             'label'      => $translate->_('Invoice No.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'field-id' => "invoice_id",
+            'fields-data' => "formatted_number ( number )",
+            'url-search' => "/admin/invoices/search",
+            'class'      => 'select2'
         ));
         
-        $this->getElement('invoice_id')
-                  ->setAllowEmpty(false)
-                  ->setMultiOptions(Invoices::getList(true));
-                
         $this->addElement('text', 'order_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Order Date'),
@@ -95,7 +153,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         $this->addElement('text', 'expiring_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Expiry Date'),
-            'description'      => 'If this date is set ShineISP will suspend the order at the specified date.',
+            'description'      => $translate->_('If this date is set ShineISP will suspend the order at the specified date.'),
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control date',
             'dateformat'      => Settings::getJsDateFormat()
@@ -125,62 +183,7 @@ class Admin_Form_OrdersForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'class'      => 'col-lg-12 form-control'
         ));
-        
-        $this->addElement('multiselect', 'domains_selected', array(
-            'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Domains Selected'),
-            'decorators' => array('Bootstrap'),
-            'title'	     => $translate->_('Select ...'),
-    		'data-container' => 'body',
-    		'data-selected-text-format' => 'count > 2',
-    		'data-size' => 'auto',
-    		'data-live-search' => 'true',
-            'class'      => 'multiselect show-tick col-md-4'
-        ));
-        
-        $this->getElement('domains_selected')
-                  ->setAllowEmpty(false)
-                  ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(Domains::getList());        
                 
-        $this->addElement('select', 'referdomain', array(
-            'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Reference Domain'),
-            'description' => 'Assign a domain in order toidentify the service/product',
-            'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
-        ));
-        
-        $this->getElement('referdomain')
-                  ->setAllowEmpty(false)
-                  ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(Domains::getList(true));                  
-                          
-        $this->addElement('select', 'products', array(
-            'label'      => $translate->_('Products'),
-            'decorators' => array('Bootstrap'),
-            'id'         => 'products',
-            'class'      => 'form-control getproducts'
-        ));
-
-        // Disable the Validator in order to manage a dynamic products list.
-        $this->getElement('products')->setRegisterInArrayValidator(false);
-        
-        $this->addElement('select', 'categories', array(
-	        'label' => $translate->_('Categories'),
-	        'decorators'  => array('Bootstrap'),
-            'id'          => 'productcategories',
-            'class'       => 'form-control',
-            'rel'         => 'tree_select'
-        ));
-        
-        $this->getElement('categories')
-                  ->setAllowEmpty(false)
-                  ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(ProductsCategories::getList(true))
-                  ->setRequired(false);                  
-        
-        
         $this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),
@@ -259,7 +262,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         // If the browser client is an Apple client hide the file upload html object  
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
-	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
+	        $MBlimit = Settings::findbyParam('adminuploadlimit');
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(

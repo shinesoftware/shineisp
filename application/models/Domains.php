@@ -89,7 +89,7 @@ class Domains extends BaseDomains {
 		return $config;
 	}
 	
-/**
+    /**
 	 * findAll
 	 * Get records the domains from the DB
 	 * @param $currentPage
@@ -870,7 +870,10 @@ class Domains extends BaseDomains {
 	 * @return array
 	 */
 	public static function get_domains_active() {
-		
+	    
+	    $session = new Zend_Session_Namespace ( 'Admin' );
+	    $language_id = $session->langid;
+	    
 		return Doctrine_Query::create ()->select ( "domain_id, dt.tld_id as tldid, CONCAT(domain, '.', ws.tld) as domain" )
 										->from ( 'Domains d' )
 										->leftJoin ( 'd.DomainsTlds dt' )
@@ -878,9 +881,7 @@ class Domains extends BaseDomains {
 										->leftJoin ( 'd.Customers c' )
 										->leftJoin ( 'd.Products p' )
 										->leftJoin ( 'd.Statuses s' )
-										->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
-										->whereIn ( "d.status_id", Statuses::id('active', 'Domains') )
-                                        ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
+										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $language_id" )
 										->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
@@ -1229,6 +1230,19 @@ class Domains extends BaseDomains {
 		
 		return $domain;
 	}
+
+	/**
+	 * Get the domain list records by one or more custom field names
+	 * @param string $conditions
+	 * @param string|array $value
+	 * @return Array
+	 */
+	public static function findbyCustomFields($conditions, $values) {
+	    if(!empty($conditions) && !empty($values)){
+	        return Doctrine_Query::create ()->from ( 'Domains d' )->select("domain_id, CONCAT(d.domain, '.', d.tld) as domain")->leftJoin ( 'd.DomainsTlds dt' )->leftJoin ( 'dt.WhoisServers ws' )->where($conditions, $values)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	    }
+	    return array();
+	}
 	
 	/**
 	 * findByLikeDomainName
@@ -1248,6 +1262,15 @@ class Domains extends BaseDomains {
 		$retarray = $retarray ? Doctrine_Core::HYDRATE_ARRAY : null;
 		$domain = $dq->execute ( array (), $retarray );
 		return $domain;
+	}
+	
+	/**
+	 * Get all the domains
+	 * @return array
+	 */
+	public static function getAll() {
+	    $dq = Doctrine_Query::create ()->leftJoin('d.DomainsTlds dt')->leftJoin('dt.WhoisServers ws')->from ( 'Domains d' );
+	    return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 	}
 	
 	/**

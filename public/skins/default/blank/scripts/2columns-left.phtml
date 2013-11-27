@@ -7,16 +7,18 @@
 	<?php echo $this->blocks()->showblock('beforecontent');?>
     
     <div id="content" class="container">
-    	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-    		<?php echo $this->blocks()->showblock('left');?>
-    	</div>
-    	
-    	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" role="content">
-    		<?php echo $this->blocks()->showblock('contentstart');?>
-    		<?php echo  $this->breadCrumb();?>
-    		<?php echo $this->layout()->content ?>
-        	<?php echo $this->blocks()->showblock('contentend');?>
-    	</div>
+        <div class="row">
+        	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        		<?php echo $this->blocks()->showblock('left');?>
+        	</div>
+        	
+        	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" role="content">
+        		<?php echo $this->blocks()->showblock('contentstart');?>
+        		<?php echo  $this->breadCrumb();?>
+        		<?php echo $this->layout()->content ?>
+            	<?php echo $this->blocks()->showblock('contentend');?>
+        	</div>
+        </div>
 
     </div>	<!-- End #main-container -->
     

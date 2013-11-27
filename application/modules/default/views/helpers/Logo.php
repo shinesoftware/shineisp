@@ -15,10 +15,11 @@ class Zend_View_Helper_Logo extends Zend_View_Helper_Abstract {
 			if (file_exists ( PUBLIC_PATH . "/documents/isp/" . $isp->logo )) {
 				$this->view->file = "/documents/isp/" . $isp->logo;
 			}
-		
-			$this->view->logotitle  = $isp->company;
-			$this->view->slogan = $isp->slogan;
 		}
+		
+		$this->view->logotitle  = $isp->company;
+		$this->view->slogan = $isp->slogan;
+		
 		return $this->view->render ( 'partials/logo.phtml' );
 	}
 }

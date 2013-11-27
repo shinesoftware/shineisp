@@ -34,7 +34,7 @@
 	
 	<div class="tabbable" id="tabs">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 			<?php if($this->id):?><li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Customer');?></a></li> <?php endif?>
 			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('DNS Zones');?></a></li>
 			<?php if($this->id):?><li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Services');?></a></li> <?php endif?>
@@ -44,7 +44,7 @@
 		</ul>
 	    
 	    <div class="tab-content">
-		    <div class="tab-pane active" id="tab1"> 
+		    <div class="tab-pane" id="tab1"> 
 		        <div class="row">
         		    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
     		            <?php echo $form->domain->render() ?>
