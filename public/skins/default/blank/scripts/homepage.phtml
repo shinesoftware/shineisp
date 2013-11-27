@@ -6,16 +6,11 @@
 	
 	<?php echo $this->blocks()->showblock('beforecontent');?>
 	
-	<div class="row">
-		<?php echo $this->Messages($this->mex)?>
-        <?php echo $this->blocks()->showblock('contentstart');?>
-        <?php echo $this->layout()->content ?>
-        <?php echo $this->blocks()->showblock('contentend');?>
-    </div>
-    
-    <div class="row">
-        <?php echo $this->blocks()->showblock('aftercontent');?>
-    </div>
+	<?php echo $this->Messages($this->mex)?>
+    <?php echo $this->blocks()->showblock('contentstart');?>
+    <?php echo $this->layout()->content ?>
+    <?php echo $this->blocks()->showblock('contentend');?>
+    <?php echo $this->blocks()->showblock('aftercontent');?>
     
     <!-- Start #footer -->
     <?php echo $this->render('includes/footer.phtml') ?> 
