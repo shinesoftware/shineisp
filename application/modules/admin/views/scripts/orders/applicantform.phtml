@@ -38,18 +38,20 @@
 		            <?php echo $this->status($this->statushistory);?>  
 		            <?php echo $form->is_renewal->render()?>
 		            
-		            <div class="col-lg-6">
-			            <?php echo $form->cost->render()?>
-			            <?php echo $form->received_income->render()?>
-			            <?php echo $form->missing_income->render()?>
-			        </div>
-			        
-			        <div class="col-lg-6">
-			        	<?php echo $form->setupfee->render()?>
-			        	<?php echo $form->total->render()?>
-			            <?php echo $form->vat->render()?>
-			            <?php echo $form->grandtotal->render()?>
-			        </div>
+		            <fieldset class="alert alert-warning">
+    		            <div class="col-lg-6">
+    			            <?php echo $form->cost->render()?>
+    			            <?php echo $form->received_income->render()?>
+    			            <?php echo $form->missing_income->render()?>
+    			        </div>
+    			        
+    			        <div class="col-lg-6">
+    			        	<?php echo $form->setupfee->render()?>
+    			        	<?php echo $form->total->render()?>
+    			            <?php echo $form->vat->render()?>
+    			            <?php echo $form->grandtotal->render()?>
+    			        </div>
+    			    </fieldset>
 			    </div>
 			    
 		    </div>
