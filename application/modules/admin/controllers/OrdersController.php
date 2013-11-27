@@ -108,7 +108,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 */
 	public function confirmAction() {
 		$id = $this->getRequest ()->getParam ( 'id' );
-		$controller = Zend_Controller_Front::getInstance ()->getRequest ()->getControllerName ();
+		$controller = $this->getRequest ()->getControllerName ();
 		try {
 			if (is_numeric ( $id )) {
 				$this->view->back = "/admin/$controller/edit/id/$id";
@@ -341,7 +341,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	}
 	
 	private function orderdetailGrid() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = Orders::getDetails ( $request->id, "detail_id,
@@ -424,7 +424,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * Clone the order 
 	 */
 	public function cloneAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$newOrderId = Orders::cloneOrder ( $request->id );
 			if (is_numeric ( $newOrderId )) {
@@ -440,7 +440,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * Delete payment transaction
 	 */
 	public function deletepaymentAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 
 			// Get the order id attached to the payment transaction
@@ -458,15 +458,32 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$this->_helper->redirector ( 'list', 'orders', 'admin' );
 	}
 	
+	/**
+	 * Delete the attached file from the order
+	 */
+	public function deletefileAction(){
+	    $id = $this->getRequest ()->getParam('id');
+	    if(is_numeric($id)){
+	        $record = Files::get_by_id($id);
+	        if($record){
+	            $orderId = $record['id'];
+	            Files::del($id);
+	            $this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+	        }
+	    }
+	    
+	    $this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'danger' ) );
+	}
+	
 	/*
-	 * 
+	 * Get the list of the attached files
 	 */
 	private function filesGrid() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Files::findbyExternalId ( $request->id, "orders", "file, Date_Format(date, '%d/%m/%Y') as date" );
+			$rs = Files::findbyExternalId ( $request->id, "orders", "file, Date_Format(date, '%d/%m/%Y') as date, fc.name as name, DATE_FORMAT(lastdownload, '".Settings::getMySQLDateFormat('dateformat')."') as downloaded" );
 			if (isset ( $rs [0] )) {
-				return array ('records' => $rs, 'delete' => array ('controller' => 'files', 'action' => 'confirm' ) );
+				return array ('records' => $rs, 'actions' => array ('/admin/orders/getfile/id/' => $this->translator->translate('Download') ), 'delete' => array ('controller' => 'orders', 'action' => 'deletefile' ) );
 			}
 		}
 	}
@@ -475,7 +492,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * 
 	 */
 	private function statusHistoryGrid() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
 			$rs = StatusHistory::getAll($request->id, "orders");
 			$columns[] = $this->translator->translate('Date');
@@ -486,6 +503,19 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		}
 	}
 	
+	/**
+	 * get the file attached into the order
+	 */
+	public function getfileAction(){
+	    $id = $this->getRequest ()->getParam('id');
+	    $file = Files::get_by_id($id);
+	    if(!empty($file)){
+	        if(!Files::downloadbykey($file['publickey'])){
+	            $this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'danger' ) );
+	        }
+	    }
+	    $this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'There was a problem' ), 'status' => 'danger' ) );
+	}
 	
 	/**
 	 * createinvoiceAction
@@ -493,7 +523,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * @return void
 	 */
 	public function createinvoiceAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		if (is_numeric ($request->id) && !Orders::isInvoiced($request->id)) {
 			//TODO: create invoice should only create the invoice and not set order as complete
 			//Orders::Complete($request->id);
@@ -535,7 +565,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			$id = Orders::saveAll ( $params, $id );
 			
 			// Save the upload file
-			Orders::UploadDocument($id, $params ['customer_id']);
+			Orders::UploadDocument($id, $params);
 			
 			$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'The task requested has been executed successfully.' ), 'status' => 'success' ) );
 		} else {
@@ -646,7 +676,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * @return void
 	 */
 	public function printAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		try {
 			if (is_numeric ( $request->id )) {
 				$file = Orders::pdf ( $request->id, false, true );
@@ -667,7 +697,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * @return void
 	 */
 	public function dropboxitAction() {
-		$request = Zend_Controller_Front::getInstance ()->getRequest ();
+		$request = $this->getRequest ();
 		if (is_numeric ( $request->id )) {
 			$sent = Orders::pdf( $request->id, false, true );
 			if ($sent) {

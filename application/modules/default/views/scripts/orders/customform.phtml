@@ -38,24 +38,25 @@
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-xs-12">	
-		<?php if(Null !== Settings::findbyParam('Conditions')): ?>
-        	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
-        <?php endif;?>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-xs-12">	
 		<?php // Files attached ?>
         <?php if($this->files[0]): ?>
-    	<ul>
+        <h3><?php echo $this->translate('Files Attached')?></h3>
+    	<ul class="list-unstyled">
     		<?php foreach($this->files as $files): ?>
-    		<li>- <a href="/documents/customers/<?php echo $this->customer_id ?>/orders/<?php echo $this->orderid ?>/<?php echo $files['file'] ?>"><?php echo $files['file']?></a></li>
+    		<li><span class="badge badge-info"><?php echo $files['categoryname']?></span> <a href="/index/getfiles/key/<?php echo $files['publickey'] ?>"><i class="fa fa-file-text"></i> <?php echo $files['file']?></a> <span class="label label-info"><?php echo $files['download']?></span></li>
     		<?php endforeach; ?>
     	</ul>
     	<?php endif; ?>
 	</div>
 </div>        
+
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-xs-12">	
+		<?php if(Null !== Settings::findbyParam('Conditions')): ?>
+        	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
+        <?php endif;?>
+	</div>
+</div>
 
 <?php // Methods of payment ?>
  <?php if($this->tobepaid): ?>

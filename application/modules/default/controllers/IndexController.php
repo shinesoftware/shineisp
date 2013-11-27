@@ -41,6 +41,21 @@ class IndexController extends Shineisp_Controller_Default {
 	}
 
 	/**
+	 * Get a file attached into the documents
+	 */
+	public function getfilesAction() {
+	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+	    
+	    $key = $this->getRequest ()->getParam('key');
+	    Files::downloadbykey($key);
+	    
+	    if(!Files::downloadbykey($key)){
+	        $this->_helper->redirector ( 'index', array ('mex' => $translator->translate ( 'File not found' ), 'status' => 'danger' ) );
+	    }
+	
+	}
+
+	/**
 	 * QrCode Invoice Order Management
 	 */
 	public function qrcodeAction() {

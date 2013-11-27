@@ -178,7 +178,7 @@ class OrdersController extends Shineisp_Controller_Default {
 					
 					$this->view->headTitle()->prepend ($this->translator->_('Order %s', $rs [0]['order_number']));
 					
-					$rsfiles = Files::findbyExternalId ( $id, "orders", "file, Date_Format(date, '%d/%m/%Y') as date" );
+					$rsfiles = Files::findbyExternalId ( $id, "orders", "file, Date_Format(date, '%d/%m/%Y') as date, fc.name as categoryname, publickey, download" );
 					if (isset ( $rsfiles [0] )) {
 						$this->view->files = $rsfiles;
 					}

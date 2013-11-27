@@ -93,9 +93,8 @@
 		   </div>
 		   
 		   <div class="tab-pane" id="tab3">
-		   		<?php echo $this->simplegrid($this->paymentsdatagrid);?>
-		   		
-		   		<div class="paymentgroup">
+		       <h5><?php echo $this->translate('Attach a new payment transaction to the order') ?></h5>
+		   		<fieldset class="alert alert-warning">
 			   		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			   			<?php echo $form->paymentdate->render()?>
 			            <?php echo $form->income->render()?>
@@ -107,7 +106,9 @@
 			            <?php echo $form->reference->render()?>
 			            <?php echo $form->payment_description->render()?>
 			   		</div>
-			   	</div>
+			   	</fieldset>
+			   	
+			   	<?php echo $this->simplegrid($this->paymentsdatagrid);?>
 		   </div>
 		   
 		   <div class="tab-pane" id="tab4">
@@ -118,6 +119,7 @@
 			   <div class="tab-pane" id="tab5">
 			       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		                <?php echo $form->filecategory->render()?>
+		                <div class="alert alert-info"><?php echo $this->translate('Add your file categories from this link')?> <a href="/admin/filecategories"><?php echo $this->translate('File categories')?></a></div>
 		                <?php echo $form->attachments->render()?>
 		           </div>
 		           <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">

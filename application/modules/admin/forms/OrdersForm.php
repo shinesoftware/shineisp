@@ -128,17 +128,20 @@ class Admin_Form_OrdersForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control'
         ));
-                  
-        $this->addElement('select', 'invoice_id', array(
+
+        /*
+         * This hidden form field will be converted in a advanced select object
+        * the JQuery Select2 object is loaded automatically by the css class select2
+        */
+        $this->addElement('hidden', 'invoice_id', array(
             'label'      => $translate->_('Invoice No.'),
             'decorators' => array('Bootstrap'),
-            'class'      => 'form-control'
+            'field-id' => "invoice_id",
+            'fields-data' => "formatted_number ( number )",
+            'url-search' => "/admin/invoices/search",
+            'class'      => 'select2'
         ));
         
-//         $this->getElement('invoice_id')
-//                   ->setAllowEmpty(false)
-//                   ->setMultiOptions(Invoices::getList(true));
-                
         $this->addElement('text', 'order_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Order Date'),
@@ -259,7 +262,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         
         // If the browser client is an Apple client hide the file upload html object  
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
-	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
+	        $MBlimit = Settings::findbyParam('adminuploadlimit');
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(
@@ -283,11 +286,11 @@ class Admin_Form_OrdersForm extends Zend_Form
 	            'class'      => 'form-control'
 	        ));
 	        
-// 	        $this->getElement('filecategory')
-// 	                  ->setAllowEmpty(false)
-// 	                  ->setMultiOptions(FilesCategories::getList())
-// 	                  ->setRegisterInArrayValidator(false)
-// 	                  ->setRequired(false);
+	        $this->getElement('filecategory')
+	                  ->setAllowEmpty(false)
+	                  ->setMultiOptions(FilesCategories::getList())
+	                  ->setRegisterInArrayValidator(false)
+	                  ->setRequired(false);
         }
         
         $this->addElement('textarea', 'note', array(

@@ -357,7 +357,7 @@ class Orders extends BaseOrders {
 	/**
 	 * Upload document files
 	 */
-	public static function UploadDocument($id, $customerid){
+	public static function UploadDocument($id, $data){
 		try{
 	
 			$attachment = new Zend_File_Transfer_Adapter_Http();
@@ -365,13 +365,13 @@ class Orders extends BaseOrders {
 			$files = $attachment->getFileInfo();
 				
 			// Create the directory
-			@mkdir ( PUBLIC_PATH . "/documents/customers/$customerid/orders/$id/", 0777, true );
+			@mkdir ( PUBLIC_PATH . "/documents/customers/".$data['customer_id']."/orders/$id/", 0777, true );
 				
 			// Set the destination directory
-			$attachment->setDestination ( PUBLIC_PATH . "/documents/customers/$customerid/orders/$id/" );
+			$attachment->setDestination ( PUBLIC_PATH . "/documents/customers/".$data['customer_id']."/orders/$id/" );
 				
 			if ($attachment->receive()) {
-				return Files::saveit($files['attachments']['name'], "/documents/customers/$customerid/orders/$id/", 'orders', $id);
+				return Files::saveit($files['attachments']['name'], "/documents/customers/".$data['customer_id']."/orders/$id/", 'orders', $id, $data['filecategory']);
 			}
 				
 		}catch (Exception $e){

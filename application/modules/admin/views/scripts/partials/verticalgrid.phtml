@@ -40,8 +40,8 @@ if (isset($this->records[0])):
 	        <tr>
 	           <td><?php echo $this->translate('Commands'); ?></td>
 	           <td>
-	               <a class="btn" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?php echo $this->translate('Click here to edit'); ?>"><?php echo $this->translate('Edit'); ?></a>
-	               <a class="btn" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?php echo $this->translate('Delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
+	               <a class="btn btn-default" href="<? echo "/admin/" . $this->editpage . "/edit/id/$idx"?>" title="<?php echo $this->translate('Click here to edit'); ?>"><?php echo $this->translate('Edit'); ?></a>
+	               <a class="btn btn-default" href="<? echo "/admin/" . $this->editpage . "/confirm/id/$idx"?>" title="<?php echo $this->translate('Delete'); ?>"><?php echo $this->translate('Delete'); ?></a>
 	           </td>
 	        </tr>
 	        <?php endif;?>
