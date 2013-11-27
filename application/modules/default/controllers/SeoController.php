@@ -38,7 +38,7 @@ class SeoController extends Shineisp_Controller_Default {
 		
 		try{
 			// Get all the products
-			$records = Products::getAll($localeID);
+			$records = Products::getAll(null,$localeID);
 			
 			if(!empty($records)){
 				foreach ($records as $item){

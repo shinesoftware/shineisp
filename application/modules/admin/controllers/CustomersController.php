@@ -88,27 +88,32 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
-	 * Search the customer by ajax
+	 * Search the record for the Select2 JQuery Object by ajax
 	 * @return json
 	 */
 	public function searchAction() {
-	    $query = $this->getParam('query');
-	    if(!empty($query)){
-	        $records = Customers::findbyCustomfield("lastname", $query);
+	    
+	    if($this->getRequest()->isXmlHttpRequest()){
+	    
+    	    $term = $this->getParam('term');
+    	    $id = $this->getParam('id');
+    	    
+    	    if(!empty($term)){
+    	        $term = "%$term%";
+    	        $records = Customers::findbyCustomfield("(firstname LIKE ?) OR (lastname LIKE ?) OR company LIKE ?", array($term,$term,$term));
+    	        die(json_encode($records));
+    	    }
+    	    
+    	    if(!empty($id)){
+    	        $records = Customers::get_by_customerid($id);
+    	        die(json_encode($records));
+    	    }
+    	    
+    	    $records = Customers::getAll();
+    		die(json_encode($records));
 	    }else{
-	        $records = Customers::getAll();
+	        die();
 	    }
-		die(json_encode($records));
-	}
-	
-	/**
-	 * Search the customer by his id for an ajax request
-	 * @return json
-	 */
-	public function searchbyidAction() {
-	    $query = $this->getParam('query');
-	    $records = Customers::get_by_customerid($query);
-		die(json_encode($records));
 	}
 	
 	/**
@@ -344,13 +349,13 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 						
 					$columns[] = $this->translator->translate('Product');
 					$columns[] = $this->translator->translate('Creation Date');
-					$columns[] = $this->translator->translate('Expiration date');
+					$columns[] = $this->translator->translate('Expiry Date');
 					$columns[] = $this->translator->translate('Days left');
 					$columns[] = $this->translator->translate('Price');
 					$columns[] = $this->translator->translate('Automatic renewal');
 					$columns[] = $this->translator->translate('Status');
 					
-					return array ('name' => 'services','columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
+					return array ('name' => 'services', 'columns'=>$columns, 'records' => $rs, 'edit' => array ('controller' => 'ordersitems', 'action' => 'edit' ), 'pager' => true );
 				}
 			}
 		} catch ( Exception $e ) {
@@ -401,7 +406,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	private function ordersGrid() {
 		$request = Zend_Controller_Front::getInstance ()->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, i.formatted_number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
+			$rs = Orders::getOrdersByCustomerID ( $request->id, "o.order_id, o.order_id as order, o.order_number as order_number, in.formatted_number as invoice, DATE_FORMAT(o.order_date, '%d/%m/%Y') as date, o.grandtotal as total");
 			if (isset ( $rs )) {
 				
 				$columns[] = $this->translator->translate('ID');

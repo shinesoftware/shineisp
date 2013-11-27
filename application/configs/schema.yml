@@ -1472,6 +1472,9 @@ Files:
     path:
       type: string(200)
       notnull: true
+    publickey:
+      type: string(200)
+      notnull: true
     file:
       type: string(200)
       notnull: true
@@ -1482,6 +1485,10 @@ Files:
       primary: false
       notnull: true
       autoincrement: false
+    download:
+      type: integer(4)
+      notnull: true
+      default: 0
     id:
       type: integer(4)
       fixed: 0
@@ -1492,6 +1499,8 @@ Files:
     date:
       type: timestamp(25)
       notnull: true
+    lastdownload:
+      type: timestamp(25)
     ip:
       type: string(25)
       fixed: 0

@@ -77,6 +77,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 			if (! empty ( $details [0] ['order_id'] )) {
 				$record = Doctrine::getTable ( 'OrdersItems' )->find ( $id )->delete ();
 				$orderID = $details [0] ['order_id'];
+				Orders::updateTotalsOrder($orderID);
 				return $this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $orderID ) );
 			}
 			return $this->_helper->redirector ( 'list', 'orders', 'admin' );

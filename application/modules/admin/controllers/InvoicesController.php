@@ -186,6 +186,38 @@ class Admin_InvoicesController extends Shineisp_Controller_Admin {
 		$product = Doctrine::getTable ( 'Products' )->find ( $id )->toArray ();
 		die ( json_encode ( $product ) );
 	}
+
+	/**
+	 * Search the record for the Select2 JQuery Object by ajax
+	 * @return json
+	 */
+	public function searchAction() {
+	
+	    if($this->getRequest()->isXmlHttpRequest()){
+	
+	        $term = $this->getParam('term');
+	        $id = $this->getParam('id');
+	
+	        if(!empty($term)){
+	            $term = "%$term%";
+	            $records = Invoices::findbyCustomFields("formatted_number LIKE ? OR number LIKE ?", array($term, $term));
+	            die(json_encode($records));
+	        }
+	
+	        if(!empty($id)){
+	            $records = Invoices::find($id);
+	            if($records){
+	                $records = $records->toArray();
+	            }
+	            die(json_encode(array($records)));
+	        }
+	
+	        $records = Invoices::getAll();
+	        die(json_encode($records));
+	    }else{
+	        die();
+	    }
+	}
 	
 	/**
 	 * editAction

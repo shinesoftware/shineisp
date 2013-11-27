@@ -29,6 +29,7 @@
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
+                <js override="1" position="admin_endbody">/resources/jquery/bootstrap-growl.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/jquery.tokeninput.js</js>
                 
                 <js override="1" position="admin_endbody">/resources/jquery/jquery.ui.datepicker-it.js</js>
@@ -67,6 +68,26 @@
 			</blocks>
 			-->
 		</index>
+		
+		
+		
+		<orders>
+			<head>
+				<js position="admin_endbody" override="1">https://raw.github.com/appendto/jquery-mockjax/master/jquery.mockjax.js</js> 
+				<js position="admin_endbody" override="1">//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js</js> 
+				<js position="admin_endbody" override="1">http://vitalets.github.io/x-editable/assets/select2/select2.js</js> 
+				<css override="1">//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css</css> 
+				<css override="1">http://vitalets.github.io/x-editable/assets/select2/select2.css</css> 
+			</head>
+			<!--
+			<blocks>
+			     <block side="endcontent">contacts</block>
+			</blocks>
+			-->
+		</orders>
+		
+		
+		
 	</admin>
 
 </layout>

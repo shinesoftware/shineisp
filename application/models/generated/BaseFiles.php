@@ -9,10 +9,13 @@ Doctrine_Manager::getInstance()->bindComponent('Files', 'doctrine');
  * 
  * @property integer $file_id
  * @property string $path
+ * @property string $publickey
  * @property string $file
  * @property string $attachedto
+ * @property integer $download
  * @property integer $id
  * @property timestamp $date
+ * @property timestamp $lastdownload
  * @property string $ip
  * @property integer $category_id
  * @property string $note
@@ -41,6 +44,11 @@ abstract class BaseFiles extends Doctrine_Record
              'notnull' => true,
              'length' => '200',
              ));
+        $this->hasColumn('publickey', 'string', 200, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '200',
+             ));
         $this->hasColumn('file', 'string', 200, array(
              'type' => 'string',
              'notnull' => true,
@@ -55,6 +63,12 @@ abstract class BaseFiles extends Doctrine_Record
              'autoincrement' => false,
              'length' => '200',
              ));
+        $this->hasColumn('download', 'integer', 4, array(
+             'type' => 'integer',
+             'notnull' => true,
+             'default' => 0,
+             'length' => '4',
+             ));
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
@@ -67,6 +81,10 @@ abstract class BaseFiles extends Doctrine_Record
         $this->hasColumn('date', 'timestamp', 25, array(
              'type' => 'timestamp',
              'notnull' => true,
+             'length' => '25',
+             ));
+        $this->hasColumn('lastdownload', 'timestamp', 25, array(
+             'type' => 'timestamp',
              'length' => '25',
              ));
         $this->hasColumn('ip', 'string', 25, array(

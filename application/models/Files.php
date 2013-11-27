@@ -24,6 +24,7 @@ class Files extends BaseFiles {
 		$file->file = $filename;
 		$file->path = $path;
 		$file->attachedto = $attachedto;
+		$file->publickey = Shineisp_Commons_Uuid::generate();
 		$file->id = $id;
 		$file->date = date('Y-m-d H:i:s');
 		$file->ip = $_SERVER['REMOTE_ADDR'];
@@ -34,6 +35,15 @@ class Files extends BaseFiles {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Update the download counter
+	 * @param integer $id
+	 */
+	public static function updateDownloadCounter($id){
+	    Doctrine_Query::create()->update("Files")->set('download', 'download + 1')->where("file_id = ?", $id)->execute();
+	    Doctrine_Query::create()->update("Files")->set('lastdownload', '?', date('Y-m-d h:i:s'))->where("file_id = ?", $id)->execute();
 	}
 	
 	/**
@@ -58,6 +68,57 @@ class Files extends BaseFiles {
 									       ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		
 		return !empty($file[0]) ? $file[0] : array();
+	}
+	
+	/**
+	 * Get a file by its public key
+	 * @param $key
+	 * @return array
+	 */
+	public static function get_by_publickey($key) {
+		$file = Doctrine_Query::create ()->from( 'Files' )
+									   	   ->where ( "publickey = ?", $key )
+									   	   ->limit(1)
+									       ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		if(!empty($file[0])){
+		    self::updateDownloadCounter($file[0]['file_id']);
+		    return $file[0];
+		}
+		
+		return array();
+	}
+	
+	/**
+	 * Download the file
+	 * @param string $key
+	 */
+	public static function downloadbykey($key){
+	    if (empty($key)){
+	        return false;
+	    }
+	    
+	    $file = Files::get_by_publickey($key);
+	     
+	    if(!empty($file)){
+	        $uri = PUBLIC_PATH . $file['path'] . $file['file'];
+	    
+	        if (!empty($uri) && file_exists($uri)) {
+	            header('Content-Description: File Transfer');
+	            header('Content-Type: application/octet-stream');
+	            header('Content-Disposition: attachment; filename='.basename($uri));
+	            header('Content-Transfer-Encoding: binary');
+	            header('Expires: 0');
+	            header('Cache-Control: must-revalidate');
+	            header('Pragma: public');
+	            header('Content-Length: ' . filesize($uri));
+	            ob_clean();
+	            flush();
+	            readfile($uri);
+	            exit;
+	        }
+	    }
+	    return false;
 	}
 	
 	/**

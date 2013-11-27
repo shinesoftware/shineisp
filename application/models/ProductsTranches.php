@@ -82,12 +82,12 @@ class ProductsTranches extends BaseProductsTranches
         	$q = Doctrine_Query::create()
                 ->update('ProductsTranches')
                 ->set('selected', 0)
-                ->where("product_id = " . $trance['product_id'])->execute();
+                ->where("product_id = ?", $trance['product_id'])->execute();
         	
         	$q = Doctrine_Query::create()
 			    ->update('ProductsTranches')
 			    ->set('selected', 1)
-			    ->where("tranche_id = $id")->execute();
+			    ->where("tranche_id = ?", $id)->execute();
 			    
             return true;
         }

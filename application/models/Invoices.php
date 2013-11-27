@@ -638,6 +638,18 @@ class Invoices extends BaseInvoices {
         return $items;
     }
 
+    /**
+     * Get the invoice list records by one or more custom field names
+     * @param string $conditions
+     * @param string|array $value
+     * @return Array
+     */
+    public static function findbyCustomFields($conditions, $values) {
+        if(!empty($conditions) && !empty($values)){
+            return Doctrine_Query::create ()->from ( 'Invoices d' )->select("invoice_id, formatted_number, number")->where($conditions, $values)->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+        }
+        return array();
+    }
     
     /**
      * Create
