@@ -72,8 +72,6 @@ $(document).ready(function(){
 	 });
 	 */
 	
-	/* summernote integration
-	 * =====================
 	 $('.wysiwyg').summernote({
 		 height: 400
 	 });
@@ -85,9 +83,13 @@ $(document).ready(function(){
 		           ['para', ['ul', 'ol']],
 		         ]
 	 });
+	
+	
+	/* summernote integration
+	 * =====================
+		$('.wysiwyg').jqte();
 	*/
 	
-	$('.wysiwyg').jqte();
 	
 	 $('.multiselect').selectpicker();
 	 
