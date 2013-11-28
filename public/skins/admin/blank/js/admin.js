@@ -59,6 +59,8 @@ $(document).ready(function(){
 	   }
 	}); 
 	 
+	/* wysihtml5 integration
+	 * =====================
 	 $('.wysiwyg').wysihtml5({
 		 "html": true,
 		 "color": true,
@@ -68,7 +70,25 @@ $(document).ready(function(){
 		 // Whether the rich text editor should be rendered on touch devices (wysihtml5 >= 0.3.0 comes with basic support for iOS 5)
 	    supportTouchDevices:  true,
 	 });
+	 */
+	
+	/* summernote integration
+	 * =====================
+	 $('.wysiwyg').summernote({
+		 height: 400
+	 });
 	 
+	 $('.wysiwyg-simple').summernote({
+		 height: 400,
+		 toolbar: [
+		           ['style', ['bold', 'italic', 'underline', 'clear']],
+		           ['para', ['ul', 'ol']],
+		         ]
+	 });
+	*/
+	
+	$('.wysiwyg').jqte();
+	
 	 $('.multiselect').selectpicker();
 	 
 	 $('input.rating').rating();
