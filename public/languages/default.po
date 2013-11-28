@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ShineISP\n"
-"POT-Creation-Date: 2013-11-27 13:56+0100\n"
+"POT-Creation-Date: 2013-11-27 19:05+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shine Software <info@shineisp.com>\n"
 "Language-Team: Shine Software <info@shineisp.com>\n"
@@ -176,7 +176,7 @@ msgstr "Cancella"
 #: /Library/WebServer/Documents/shineisp/application/models/CompanyTypes.php:23
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:23
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:44
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1134
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1135
 #: /Library/WebServer/Documents/shineisp/application/models/CustomersGroups.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:23
@@ -217,8 +217,8 @@ msgid "Role Name"
 msgstr "Nome Ruolo"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:26
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1235
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1447
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1236
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1448
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:13
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProfileForm.php:19
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/UsersForm.php:19
@@ -227,8 +227,8 @@ msgid "Firstname"
 msgstr "Nome"
 
 #: /Library/WebServer/Documents/shineisp/application/models/AdminUser.php:27
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1236
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1448
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1237
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1449
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:21
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProfileForm.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/UsersForm.php:25
@@ -242,7 +242,7 @@ msgstr "E-Mail"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Banks.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:25
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1445
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1446
 #: /Library/WebServer/Documents/shineisp/application/models/FilesCategories.php:38
 #: /Library/WebServer/Documents/shineisp/application/models/Languages.php:24
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseCategories.php:40
@@ -323,7 +323,7 @@ msgstr "Titolo"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CmsBlocks.php:29
 #: /Library/WebServer/Documents/shineisp/application/models/CmsPages.php:28
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1464
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1465
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmsblocksForm.php:36
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CmspagesForm.php:100
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/LanguagesForm.php:13
@@ -332,8 +332,8 @@ msgid "Language"
 msgstr "Lingua"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CompanyTypes.php:130
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:986
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1029
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:987
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1030
 #: /Library/WebServer/Documents/shineisp/application/models/EmailsTemplates.php:128
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:1687
 #: /Library/WebServer/Documents/shineisp/application/models/PaymentsMethods.php:26
@@ -405,7 +405,7 @@ msgstr "Cliente"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:29
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:415
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1138
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1139
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:45
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:106
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1235
@@ -428,7 +428,7 @@ msgstr "Totale"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:30
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:416
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1458
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1459
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:46
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:107
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1236
@@ -492,9 +492,9 @@ msgstr "Fattura"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:413
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:45
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1137
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1234
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1446
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1138
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1235
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1447
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:49
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1233
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:82
@@ -526,9 +526,9 @@ msgid "Fullname"
 msgstr "Nome Completo"
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:418
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1187
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1240
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1462
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1188
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1241
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1463
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:33
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1547
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1644
@@ -570,8 +570,8 @@ msgid "Full name"
 msgstr "Nome Completo"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:47
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1237
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1450
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1238
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1451
 #: /Library/WebServer/Documents/shineisp/application/models/NewslettersSubscribers.php:26
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersController.php:318
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:299
@@ -588,6 +588,8 @@ msgstr "Nome Completo"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:218
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:54
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/SignupForm.php:44
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:77
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:113
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:89
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:95
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:147
@@ -608,7 +610,7 @@ msgstr "Email"
 msgid "Statuses"
 msgstr "Stati"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1135
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1136
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:30
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:23
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:22
@@ -617,7 +619,7 @@ msgstr "Stati"
 msgid "Last name"
 msgstr "Cognome"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1136
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1137
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:14
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:13
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/SignupForm.php:22
@@ -625,25 +627,25 @@ msgstr "Cognome"
 msgid "First name"
 msgstr "Nome"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1187
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1188
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1547
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:271
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:692
 msgid "Items"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1227
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1228
 #, fuzzy
 msgid "Customer Listing"
 msgstr "Lista Cliente"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1228
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1229
 #, fuzzy
 msgid "Selected customer list"
 msgstr "Lista Cliente"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1238
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1471
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1239
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1472
 #: /Library/WebServer/Documents/shineisp/application/models/Reviews.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:246
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/IspForm.php:45
@@ -655,8 +657,8 @@ msgstr "Lista Cliente"
 msgid "City"
 msgstr "Città"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1239
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1474
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1240
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1475
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:239
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CartsimpleprofileForm.php:70
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:126
@@ -664,19 +666,19 @@ msgstr "Città"
 msgid "Area"
 msgstr "Provincia"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1437
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1438
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1439
 msgid "Customer List"
 msgstr "Lista Cliente"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1449
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1450
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:27
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:182
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:170
 msgid "Gender"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1451
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1452
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:319
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/IspForm.php:165
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/LoginForm.php:30
@@ -688,45 +690,46 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/MailsForm.php:23
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:230
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/SignupForm.php:65
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:79
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:91
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:97
 #: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:17
 msgid "Password"
 msgstr "Password"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1452
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1453
 #, fuzzy
 msgid "Birth Date"
 msgstr "Data di Nascita"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1453
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1454
 #, fuzzy
 msgid "Birth Place"
 msgstr "Birthplace"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1454
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1455
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:91
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:85
 #, fuzzy
 msgid "Birth District"
 msgstr "Provincia di Nascita"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1455
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1456
 #, fuzzy
 msgid "Birth Country"
 msgstr "Nazione di Nascita"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1456
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1457
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:108
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:100
 msgid "Birth Nationality"
 msgstr "Nazionalità"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1457
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1458
 msgid "Tax Payer Number"
 msgstr "Codice Fiscale"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1459
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1460
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:138
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CartsimpleprofileForm.php:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:49
@@ -734,14 +737,14 @@ msgstr "Codice Fiscale"
 msgid "Company Type"
 msgstr "Tipo Azienda"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1460
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1461
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CompanyTypesForm.php:20
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:60
 #, fuzzy
 msgid "Legal form"
 msgstr "Forma Legale"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1461
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1462
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NotesController.php:47
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CreditNotesForm.php:61
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PurchasesForm.php:101
@@ -750,21 +753,22 @@ msgstr "Forma Legale"
 msgid "Note"
 msgstr "Note"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1463
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1464
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:33
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:128
 msgid "Group"
 msgstr "Gruppo"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1465
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1466
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/NewsletterController.php:97
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ProfileForm.php:181
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:153
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:187
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:79
 msgid "Newsletter"
 msgstr "Newsletter"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1466
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1467
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:1640
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:834
 #: /Library/WebServer/Documents/shineisp/application/models/Wiki.php:26
@@ -776,18 +780,18 @@ msgstr "Newsletter"
 msgid "Creation Date"
 msgstr "Creato il"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1467
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1468
 #: /Library/WebServer/Documents/shineisp/application/models/Products.php:36
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:835
 msgid "Upload Date"
 msgstr "Aggiornato il"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1468
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1469
 #, fuzzy
 msgid "Tax Free"
 msgstr "Imponibile"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1470
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1471
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:225
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/IspForm.php:29
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CartsimpleprofileForm.php:87
@@ -805,14 +809,14 @@ msgstr "Imponibile"
 msgid "Address"
 msgstr "Indirizzo"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1472
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1473
 #: /Library/WebServer/Documents/shineisp/application/models/EmailsTemplates.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/ProductsAttributes.php:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/LanguagesForm.php:29
 msgid "Code"
 msgstr "Codice"
 
-#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1473
+#: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1474
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/CustomersForm.php:252
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/IspForm.php:53
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CartsimpleprofileForm.php:112
@@ -897,6 +901,7 @@ msgstr "Cognome"
 
 #: /Library/WebServer/Documents/shineisp/application/models/Domains.php:32
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsTasks.php:27
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:234
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsForm.php:32
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainsTasksForm.php:68
 msgid "Registrar"
@@ -1498,6 +1503,8 @@ msgstr "Categoria"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:118
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/BulkdomainsForm.php:14
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/helpers/Webmenu.php:113
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:120
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:130
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:154
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:164
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:21
@@ -2238,6 +2245,15 @@ msgstr "Modifica"
 msgid "Edit the bank information"
 msgstr "Ulteriori informazioni"
 
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BulkmailController.php:61
+#, fuzzy
+msgid "Mass eMail"
+msgstr "Cancella"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/BulkmailController.php:62
+msgid "Write here a message to send to all your own customers."
+msgstr ""
+
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CmsblocksController.php:56
 msgid "Cms Blocks list"
 msgstr ""
@@ -2364,6 +2380,8 @@ msgstr "Dettaglio ordine"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:104
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/OrdersitemsController.php:130
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ResellerForm.php:11
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:129
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:131
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:163
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:165
 msgid "Customers"
@@ -2379,6 +2397,8 @@ msgstr "Email del Cliente"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsCategoriesForm.php:70
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServicesForm.php:89
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/UrlrewriteForm.php:35
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:137
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:140
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:171
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:174
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/productscategories/applicantform.phtml:12
@@ -2387,6 +2407,8 @@ msgstr "Prodotti"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:132
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServicesForm.php:59
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:122
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:145
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:156
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:179
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:23
@@ -2399,6 +2421,7 @@ msgstr "Ordini"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CommonController.php:139
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:159
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:136
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:170
 msgid "Wiki"
 msgstr "Wiki"
@@ -2618,6 +2641,7 @@ msgid "Recipient"
 msgstr "Destinatario del Servizio"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersgroupsController.php:47
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:133
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:167
 #, fuzzy
 msgid "Customer Groups"
@@ -2849,6 +2873,7 @@ msgid "Here you can edit the e-mail template"
 msgstr "Sei sicuro di voler cancellare il template selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:47
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:179
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:213
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:124
 #, fuzzy
@@ -2863,26 +2888,21 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:98
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:182
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:243
 #, fuzzy
-msgid "File category Details"
-msgstr "Categorie"
+msgid "File category"
+msgstr "Categoria"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:99
 #, fuzzy
-msgid "Here you can handle the file catgeories parameters"
+msgid "Here you can handle the file categories parameters"
 msgstr "Desideri cancellare questa categoria?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:183
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:183
 msgid ""
 "Here you can edit the main file category information parameters. Be careful, "
 "if you change something the module could be damaged."
 msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:243
-#, fuzzy
-msgid "File category Edit"
-msgstr "Categoria"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/FilecategoriesController.php:244
 #, fuzzy
@@ -2975,6 +2995,7 @@ msgstr "Sei sicuro di cancellare il gruppo selezionato?"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/IspController.php:86
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/IspController.php:131
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:167
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:201
 #, fuzzy
 msgid "ISP Account"
@@ -3458,6 +3479,7 @@ msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesController.php:97
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ProductsAttributesGroupsForm.php:19
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:142
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:176
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:22
 msgid "Attributes"
@@ -3496,6 +3518,7 @@ msgid "Here you can fix the hosting plan feature details."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ProductsattributesgroupsController.php:39
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:139
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:173
 #, fuzzy
 msgid "Attribute Groups"
@@ -3649,34 +3672,38 @@ msgid "Here you can edit your user account information"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:47
-msgid "Invoice purchasese categories list"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:48
-#, fuzzy
-msgid "Here you can see all the invoice purchases categories."
-msgstr ""
-"Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:98
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:182
 #, fuzzy
-msgid "Invoice purchase category Details"
-msgstr "Categorie"
+msgid "Categories for the invoice purchase documents"
+msgstr "Lista delle fatture di acquisto"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:48
+#, fuzzy
+msgid "Here you can see all the categories."
+msgstr ""
+"Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:99
 #, fuzzy
-msgid "Here you can handle the invoice purchase catgeories parameters"
+msgid "Here you can handle the category"
 msgstr "Desideri cancellare questa categoria?"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:243
-msgid "Invoice purchase category Edit"
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:183
+#, fuzzy
+msgid "Here you can edit the category information."
 msgstr ""
+"Se le informazioni verranno cancellate i dati non saranno più recuperabili"
+
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:243
+#, fuzzy
+msgid "Categories for the Invoice purchase documents"
+msgstr "Lista delle fatture di acquisto"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasescategoriesController.php:244
 #, fuzzy
-msgid "Edit the invoice purchase category information"
-msgstr "Lista delle transazioni di pagamento"
+msgid "Edit the category information"
+msgstr "Ulteriori informazioni"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/PurchasesController.php:46
 #, fuzzy
@@ -3769,11 +3796,6 @@ msgstr "Se cancelli la categoria del wiki non sarà più disponibile"
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:165
 #, fuzzy, php-format
 msgid "Registrar edit: %s"
-msgstr "Registrar"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:234
-#, fuzzy
-msgid "Registrar review"
 msgstr "Registrar"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/RegistrarsController.php:235
@@ -3882,6 +3904,7 @@ msgstr ""
 "Qui puoi visualizzare tutti i servizi la cui data è prossima alla scadenza."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/ReviewsController.php:98
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:141
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:175
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/categories/list.phtml:33
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/search/index.phtml:38
@@ -3955,8 +3978,17 @@ msgid "There was an error saving the data. Please try again."
 msgstr "C'è un problema durante il salvataggio dei dati."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:49
-#, fuzzy
-msgid "No records"
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/bbslist.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:144
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:84
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/verticalgrid.phtml:56
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/bbslist.phtml:16
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:109
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:128
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:109
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:84
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:53
+msgid "No Records"
 msgstr "Nessuna informazione trovata."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/SearchController.php:57
@@ -4404,6 +4436,10 @@ msgstr "Metodi di Pagamento"
 msgid "Body"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/BulkmailForm.php:23
+msgid "Write here the email message to send to all your customers."
+msgstr ""
+
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/BulkmailForm.php:29
 msgid "Save and Send Message"
 msgstr ""
@@ -4732,6 +4768,7 @@ msgid "Transfer Cost"
 msgstr "Prezzo per il trasferimento"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/DomainstldsForm.php:124
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:166
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:200
 #, fuzzy
 msgid "Registrars"
@@ -4803,6 +4840,7 @@ msgstr "Codice"
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/CustomerForm.php:194
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:118
 #: /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/PdfOrder.php:715
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:111
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:145
 #: /Library/WebServer/Documents/shineisp/public/skins/commons/invoices/europe-generic.phtml:209
 #: /Library/WebServer/Documents/shineisp/public/skins/commons/invoices/europe-generic.phtml:375
@@ -5038,6 +5076,7 @@ msgid "Payment Reference"
 msgstr "Referenza"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/OrdersForm.php:357
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:128
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:162
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/creditnotes/applicantform.phtml:13
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/index/index.phtml:55
@@ -5092,14 +5131,14 @@ msgstr "Registra il tuo dominio"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PasswordForm.php:31
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ContactsForm.php:71
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:84
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:85
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/SignupForm.php:141
 msgid "Captcha Check"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/PasswordForm.php:32
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ContactsForm.php:72
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:85
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:86
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/SignupForm.php:142
 msgid "Type the characters you see in the picture below."
 msgstr ""
@@ -5515,6 +5554,7 @@ msgid "Fill servers starting from the expensive to the cheaper."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/forms/ServersGroupsForm.php:39
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:168
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:202
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:15
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/profile.phtml:12
@@ -5890,17 +5930,17 @@ msgstr ""
 msgid "Check the information before save again."
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:40
 #: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:42
+#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:44
 #, php-format
 msgid ".%s domain registration"
 msgstr "Registrazione domini .%s "
 
-#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:41
+#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:43
 msgid "domain registration"
 msgstr "registrazione domini"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:41
+#: /Library/WebServer/Documents/shineisp/application/modules/default/controllers/TldsController.php:43
 #, php-format
 msgid "%s domain"
 msgstr "%s dominio"
@@ -6052,7 +6092,7 @@ msgid "Write here your message."
 msgstr "Trasferisci qui il tuo dominio"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ContactsForm.php:87
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:99
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:100
 msgid "Write the chars to the field"
 msgstr ""
 
@@ -6298,7 +6338,7 @@ msgstr ""
 msgid "Review"
 msgstr "Recensioni"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:120
+#: /Library/WebServer/Documents/shineisp/application/modules/default/forms/ReviewsForm.php:121
 #, fuzzy
 msgid "Publish your Review"
 msgstr "Pubblicato su"
@@ -6683,51 +6723,853 @@ msgstr "Impossibile elaborare la richiesta in questo momento."
 msgid "required"
 msgstr "Richiesto"
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:5
+msgid "How many days before to consider the domain for renewal?"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:6
+msgid ""
+"Number of days before showing future domains next to the expiration date in "
+"the dashboard"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:7
+msgid "How many days after to consider the domain for renewal?"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:8
+msgid "Number of days after the domain expiration date in the dashboard"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:9
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:115
+#, fuzzy
+msgid "Orders number format"
+msgstr "Codice Ordine"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:10
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:116
+msgid ""
+"Customize the format of order number. Valid placeholders are described <a "
+"href=\"http://www.shineisp.com/orders-number-format/\" target=\"_blank"
+"\">here</a>"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:11
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:5
 msgid "SMTP Host"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:12
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:6
 #, fuzzy
 msgid "Here you can set the ip or the domain name of the smtp server."
 msgstr ""
 "Qui puoi visualizzare tutti i domini la cui data è prossima alla scadenza."
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:13
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:7
 #, fuzzy
 msgid "SMTP Username"
 msgstr "Nome Utente"
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:14
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:8
 msgid "Write here the username of your email smtp account"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:15
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:9
 #, fuzzy
 msgid "SMTP Password"
 msgstr "Password"
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:16
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:10
 msgid "Write here the password of your email smtp account"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:17
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:11
 msgid "SMTP Port"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:18
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:12
 msgid "Write here the mail server port number [default: 25]"
 msgstr ""
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:19
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:13
 #, fuzzy
 msgid "Custom DNS Zone"
 msgstr "Zone DNS"
 
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:20
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:14
 #, fuzzy
 msgid "Write here your custom dns zone"
 msgstr "Trasferisci qui il tuo dominio"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:21
+#, fuzzy
+msgid "Frontend Skin"
+msgstr "Clienti"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:22
+#, fuzzy
+msgid ""
+"Write here your custom skin folder name. Skins are located into /public/"
+"skins/default/"
+msgstr "Trasferisci qui il tuo dominio"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:23
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:17
+#, fuzzy
+msgid "Default Title"
+msgstr "Default"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:24
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:18
+msgid "Write here the default title shown in all the webpages"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:25
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:19
+#, fuzzy
+msgid "Default Keywords"
+msgstr "Parole Chiave"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:26
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:20
+msgid "Write here the default keywords of the web pages"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:27
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:21
+#, fuzzy
+msgid "Default Description"
+msgstr "Destinazione"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:28
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:22
+msgid "Write here the default description of the website"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:29
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:23
+msgid "Copyright"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:30
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:24
+msgid "Write here the copyright of the website"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:31
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:25
+#, fuzzy
+msgid "HTML Code"
+msgstr "Contenuti"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:32
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:26
+msgid ""
+"This code will be appended at the end of the page before body closing tag"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:33
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:27
+msgid "Google Analytics Code"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:34
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:28
+msgid "Paste here the code for the Google Analytics monitoring service"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:35
+msgid "Currency"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:36
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:30
+msgid "Type here your currency symbol"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:37
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:31
+msgid "HTML Head "
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:38
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:32
+msgid ""
+"Type here what you would like to write into the HTML head section of the "
+"webpage"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:39
+#, fuzzy
+msgid "Administration Skin"
+msgstr "Amministrazione"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:40
+#, fuzzy
+msgid ""
+"Write here your custom administration skin folder name. Skins are located "
+"into /public/skins/admin/"
+msgstr "Trasferisci qui il tuo dominio"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:41
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:61
+msgid "Administration File Upload Limits (MB)"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:42
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:62
+msgid ""
+"Write here in MB the administration file upload limit for all the forms "
+"(tickets, customers, messages, etc.)"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:43
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:53
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:42
+#, fuzzy
+msgid "Legal Conditions"
+msgstr "Forma Legale"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:44
+msgid ""
+"Write here your legal conditions. This message will appear in the order "
+"emails and in the order details page."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:45
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:63
+msgid "Orders Zero Prefix"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:46
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:64
+msgid "Adding the zero number before the order identification number."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:47
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:65
+#, fuzzy
+msgid "reCaptcha: Private Key"
+msgstr "Note Private"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:48
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:66
+msgid "Type here the reCaptcha service private key."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:49
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:67
+msgid "reCaptcha: Public Key"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:50
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:68
+msgid "Type here the reCaptcha service public key."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:51
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:69
+#, fuzzy
+msgid "Enable Debug"
+msgstr "Abilitato"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:52
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:70
+msgid "Debug mode. FireBug mode will be activated."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:53
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:71
+#, fuzzy
+msgid "Enable Logs"
+msgstr "Abilitato"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:54
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:72
+msgid "Log mode. A log file will be created in the public folder."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:55
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:73
+#, fuzzy
+msgid "Slideshow Product Category"
+msgstr "Lista delle recensioni del prodotto"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:56
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:74
+msgid "Product category for the slideshow widget on homepage."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:57
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:77
+msgid "JS Compression"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:58
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:78
+msgid "Join all the js files in one compressed file."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:59
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:75
+msgid "CSS Compression"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:60
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:76
+msgid "Join all the css files in one compressed file."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:61
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:83
+msgid "User Files Types Allowed"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:62
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:84
+#, fuzzy
+msgid "List of the file extensions allowed. eg: zip,rtf,doc,pdf"
+msgstr ""
+"Seleziona il documento da importare. Files consentiti (%s) - Massimo %s"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:63
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:81
+msgid "User Upload File Limit"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:64
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:82
+msgid "Limit in MB of the file that the user can upload in the website."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:65
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:79
+msgid "Admin Upload File Types"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:66
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:80
+msgid "Type of the files that the admin can upload in the website."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:67
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:87
+msgid "Tickets Helpdesk Operator"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:68
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:88
+msgid ""
+"Select the operator from this list who reply to all the users at the first "
+"request."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:69
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:103
+msgid "Late fee type"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:70
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:104
+#, fuzzy
+msgid "Select the late fee type."
+msgstr "Prodotti correlati"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:71
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:105
+#, fuzzy
+msgid "Late fee amount"
+msgstr "Crea un Profilo"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:72
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:106
+msgid "Late fee amount. 0 or empty to disable."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:73
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:107
+msgid "Late fee days"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:74
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:108
+msgid ""
+"Enter the number of days after the due payment date you want to add the late "
+"fee."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:75
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:109
+#, fuzzy
+msgid "Date Format"
+msgstr "Inizio"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:76
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:110
+msgid "Select the date format style. eg: dd/MM/YYYY"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:78
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:96
+msgid "Set your dropbox email user ID"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:80
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:98
+#, fuzzy
+msgid "Write here your dropbox password."
+msgstr "Registra il tuo dominio"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:81
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:99
+#, fuzzy
+msgid "Dropbox: Invoices destination path"
+msgstr "Lista Fatture"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:82
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:100
+msgid ""
+"Destination path where the invoices files will be saved. Placeholders: "
+"{year} {month} {monthname} {quarter} - eg: /documents/{year}/Invoices/"
+"{quarter}/{monthname}/"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:83
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:101
+msgid "Dropbox: Orders destination path"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:84
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:102
+msgid ""
+"Destination path where the orders files will be saved. Placeholders: {year} "
+"{month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/"
+"{monthname}/"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:85
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:55
+msgid "API Key"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:86
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:56
+msgid "MailChimp Api Key."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:87
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:57
+#, fuzzy
+msgid "Send Confirmation Email"
+msgstr "Configurazione"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:88
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:58
+msgid "An email will be send when a user is opted in by MailChimp system"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:89
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:93
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:121
+#, fuzzy
+msgid "Automatic invoice creation"
+msgstr "Autorinnovo"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:90
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:94
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:122
+msgid "Automatically creates an invoice when the order is paid"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:91
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:95
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:123
+msgid "E-Mail invoice automatically"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:92
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:96
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:124
+msgid "Automatically e-mail the invoice when created"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:97
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:125
+msgid "Send a copy of all emails sent by the system to these addresses?"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:98
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:126
+msgid ""
+"If you want copies of all emails sent by the system sent to addresses of "
+"yours choise, enter the addresses here. You may enter multiple addresses "
+"seperated by a comma (,)"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:99
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:127
+msgid "Notify status change to customers"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:100
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:128
+msgid "Notify each customers when a status change occurs on their orders"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:101
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:129
+#, fuzzy
+msgid "Invoices number format"
+msgstr "Codice Fattura"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:102
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:130
+msgid ""
+"Customize the format of invoice number. Valid placeholders are described <a "
+"href=\"http://www.shineisp.com/invoices-number-format/\" target=\"_blank"
+"\">here</a>"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:103
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:131
+msgid "Invoices zero prefix"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:104
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:132
+msgid "Adding the zero number before the invoice number."
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:105
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:139
+#, fuzzy
+msgid "Custom Frontend CSS"
+msgstr "Clienti"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:106
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:140
+msgid "Overwrite here the css of the frontend side of ShineISP"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:107
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:141
+#, fuzzy
+msgid "Web Server"
+msgstr "Servizi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:108
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:142
+#, fuzzy
+msgid "Mail Server"
+msgstr "Servizi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:109
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:143
+#, fuzzy
+msgid "Database Server"
+msgstr "Servizi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:110
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:144
+#, fuzzy
+msgid "DNS Server"
+msgstr "Servizi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:112
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:146
+msgid "Skype"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:114
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:148
+msgid "Mobile"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:115
+msgid "Individual"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:116
+#, fuzzy
+msgid "Corporation"
+msgstr "Configurazione"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:117
+#, fuzzy
+msgid "Association"
+msgstr "Azione"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:118
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:17
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/reviews/applicantform.phtml:12
+msgid "Other"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:119
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:125
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:153
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:159
+#, fuzzy
+msgid "Home"
+msgstr "Homepage"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:121
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:132
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:155
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:166
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:22
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:40
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:21
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:5
+msgid "Services"
+msgstr "Servizi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:123
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:135
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:157
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:169
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:25
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:7
+msgid "Tickets"
+msgstr "Segnalazioni"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:124
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:158
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/applicantform.phtml:13
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:8
+msgid "Help"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:126
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:160
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contactlogged.phtml:6
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:6
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:20
+msgid "Dashboard"
+msgstr "Pannello di Controllo"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:127
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:161
+#: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:25
+msgid "Public Site"
+msgstr "Sito pubblico"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:134
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:168
+#, fuzzy
+msgid "Support"
+msgstr "Fornitore"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:138
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:172
+#, fuzzy
+msgid "Products Categories"
+msgstr "Lista delle recensioni del prodotto"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:143
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:177
+msgid "TLDs"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:144
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:178
+msgid "Sales"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:146
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:180
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:28
+msgid "Invoices"
+msgstr "Fatture di vendita"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:147
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:181
+#, fuzzy
+msgid "Purchases"
+msgstr "Lista delle fatture di acquisto"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:148
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:182
+#, fuzzy
+msgid "Credit Notes"
+msgstr "Nota di Credito"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:149
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:183
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:14
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:12
+#, fuzzy
+msgid "Payments"
+msgstr "Pagamento"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:150
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:184
+msgid "CMS"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:151
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:185
+#, fuzzy
+msgid "CMS Pages"
+msgstr "Dettaglio ordine"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:152
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:186
+#, fuzzy
+msgid "CMS Blocks"
+msgstr "Blocchi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:154
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:188
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:42
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:19
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:28
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:25
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:69
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:16
+msgid "Messages"
+msgstr "Messaggi"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:155
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:189
+#, fuzzy
+msgid "Subscribers"
+msgstr "Servizi sottoscritti"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:156
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:190
+#, fuzzy
+msgid "Reports"
+msgstr "Importa"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:157
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:191
+#, fuzzy
+msgid "Profit of the Year"
+msgstr "Lista degli ordini"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:158
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:159
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:192
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:193
+#, fuzzy
+msgid "Domain Statistics"
+msgstr "Lista Domini"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:160
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:194
+#, fuzzy
+msgid "Domains per Client"
+msgstr "Lista Domini"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:161
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:195
+#, fuzzy
+msgid "Domains per Month"
+msgstr "Sommario domini per mese"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:162
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:196
+#, fuzzy
+msgid "Service Summary"
+msgstr "Riepilogo Ordine"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:163
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:197
+#, fuzzy
+msgid "Panels Actions"
+msgstr "Azioni"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:164
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:198
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:12
+#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/settings.phtml:7
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:15
+msgid "Configuration"
+msgstr "Configurazione"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:165
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:199
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:23
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:19
+msgid "General"
+msgstr "Generale"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:169
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:203
+#, fuzzy
+msgid "Server Groups"
+msgstr "Gruppo Server"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:170
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:204
+#, fuzzy
+msgid "Banks"
+msgstr "Banca"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:171
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:205
+msgid "Url Rewrites"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:172
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:206
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:13
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:67
+msgid "Taxes"
+msgstr ""
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:173
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:207
+#, fuzzy
+msgid "Languages"
+msgstr "Lingua"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:174
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:208
+#, fuzzy
+msgid "Tickets Categories"
+msgstr "Sottocategorie %s"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:175
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:209
+#, fuzzy
+msgid "Wiki Categories"
+msgstr "Categorie"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:176
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:210
+#, fuzzy
+msgid "Legal Forms"
+msgstr "Forma Legale"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:177
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:211
+#, fuzzy
+msgid "Company Types"
+msgstr "Tipo Azienda"
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:178
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:212
+#, fuzzy
+msgid "Emails Templates"
+msgstr "Email inviata."
+
+#: /Library/WebServer/Documents/shineisp/public/tmp/_translations.php:180
+#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:214
+#, fuzzy
+msgid "Invoice purchases categories"
+msgstr "Categorie"
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:15
 msgid "Skin"
@@ -6738,75 +7580,8 @@ msgstr ""
 msgid "Write here your custom skin folder name"
 msgstr "Trasferisci qui il tuo dominio"
 
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:17
-#, fuzzy
-msgid "Default Title"
-msgstr "Default"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:18
-msgid "Write here the default title shown in all the webpages"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:19
-#, fuzzy
-msgid "Default Keywords"
-msgstr "Parole Chiave"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:20
-msgid "Write here the default keywords of the web pages"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:21
-#, fuzzy
-msgid "Default Description"
-msgstr "Destinazione"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:22
-msgid "Write here the default description of the website"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:23
-msgid "Copyright"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:24
-msgid "Write here the copyright of the website"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:25
-#, fuzzy
-msgid "HTML Code"
-msgstr "Contenuti"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:26
-msgid ""
-"This code will be appended at the end of the page before body closing tag"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:27
-msgid "Google Analytics Code"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:28
-msgid "Paste here the code for the Google Analytics monitoring service"
-msgstr ""
-
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:29
 msgid "Base Currency"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:30
-msgid "Type here your currency symbol"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:31
-msgid "HTML Head "
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:32
-msgid ""
-"Type here what you would like to write into the HTML head section of the "
-"webpage"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:34
@@ -6898,33 +7673,10 @@ msgid ""
 "panel."
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:53
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/payment.phtml:42
-#, fuzzy
-msgid "Legal Conditions"
-msgstr "Forma Legale"
-
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:54
 #, fuzzy
 msgid "Write here your legal company conditions."
 msgstr "Trasferisci qui il tuo dominio"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:55
-msgid "API Key"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:56
-msgid "MailChimp Api Key."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:57
-#, fuzzy
-msgid "Send Confirmation Email"
-msgstr "Configurazione"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:58
-msgid "An email will be send when a user is opted in by MailChimp system"
-msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:59
 #, fuzzy
@@ -6936,110 +7688,6 @@ msgstr "Amministrazione"
 msgid "Write here your custom admin skin folder name"
 msgstr "Trasferisci qui il tuo dominio"
 
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:61
-msgid "Administration File Upload Limits (MB)"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:62
-msgid ""
-"Write here in MB the administration file upload limit for all the forms "
-"(tickets, customers, messages, etc.)"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:63
-msgid "Orders Zero Prefix"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:64
-msgid "Adding the zero number before the order identification number."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:65
-#, fuzzy
-msgid "reCaptcha: Private Key"
-msgstr "Note Private"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:66
-msgid "Type here the reCaptcha service private key."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:67
-msgid "reCaptcha: Public Key"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:68
-msgid "Type here the reCaptcha service public key."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:69
-#, fuzzy
-msgid "Enable Debug"
-msgstr "Abilitato"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:70
-msgid "Debug mode. FireBug mode will be activated."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:71
-#, fuzzy
-msgid "Enable Logs"
-msgstr "Abilitato"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:72
-msgid "Log mode. A log file will be created in the public folder."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:73
-#, fuzzy
-msgid "Slideshow Product Category"
-msgstr "Lista delle recensioni del prodotto"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:74
-msgid "Product category for the slideshow widget on homepage."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:75
-msgid "CSS Compression"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:76
-msgid "Join all the css files in one compressed file."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:77
-msgid "JS Compression"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:78
-msgid "Join all the js files in one compressed file."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:79
-msgid "Admin Upload File Types"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:80
-msgid "Type of the files that the admin can upload in the website."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:81
-msgid "User Upload File Limit"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:82
-msgid "Limit in MB of the file that the user can upload in the website."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:83
-msgid "User Files Types Allowed"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:84
-#, fuzzy
-msgid "List of the file extensions allowed. eg: zip,rtf,doc,pdf"
-msgstr ""
-"Seleziona il documento da importare. Files consentiti (%s) - Massimo %s"
-
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:85
 #, fuzzy
 msgid "Write here the public URL"
@@ -7047,16 +7695,6 @@ msgstr "Registra il tuo dominio"
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:86
 msgid "This is the ISPConfig public url. eg. http://www.mywebsite.com:8080/"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:87
-msgid "Tickets Helpdesk Operator"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:88
-msgid ""
-"Select the operator from this list who reply to all the users at the first "
-"request."
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:90
@@ -7072,75 +7710,6 @@ msgstr "Profilo"
 msgid ""
 "Write here your profileID. You can use this link to find your profile id "
 "http://ga-dev-tools.appspot.com/explorer/."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:96
-msgid "Set your dropbox email user ID"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:98
-#, fuzzy
-msgid "Write here your dropbox password."
-msgstr "Registra il tuo dominio"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:99
-#, fuzzy
-msgid "Dropbox: Invoices destination path"
-msgstr "Lista Fatture"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:100
-msgid ""
-"Destination path where the invoices files will be saved. Placeholders: "
-"{year} {month} {monthname} {quarter} - eg: /documents/{year}/Invoices/"
-"{quarter}/{monthname}/"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:101
-msgid "Dropbox: Orders destination path"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:102
-msgid ""
-"Destination path where the orders files will be saved. Placeholders: {year} "
-"{month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/"
-"{monthname}/"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:103
-msgid "Late fee type"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:104
-#, fuzzy
-msgid "Select the late fee type."
-msgstr "Prodotti correlati"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:105
-#, fuzzy
-msgid "Late fee amount"
-msgstr "Crea un Profilo"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:106
-msgid "Late fee amount. 0 or empty to disable."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:107
-msgid "Late fee days"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:108
-msgid ""
-"Enter the number of days after the due payment date you want to add the late "
-"fee."
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:109
-#, fuzzy
-msgid "Date Format"
-msgstr "Inizio"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:110
-msgid "Select the date format style. eg: dd/MM/YYYY"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:111
@@ -7159,18 +7728,6 @@ msgstr ""
 msgid ""
 "Show domains for renewal starting from this number of days before their "
 "expire"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:115
-#, fuzzy
-msgid "Orders number format"
-msgstr "Codice Ordine"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:116
-msgid ""
-"Customize the format of order number. Valid placeholders are described <a "
-"href=\"http://www.shineisp.com/orders-number-format/\" target=\"_blank"
-"\">here</a>"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:117
@@ -7192,65 +7749,10 @@ msgid ""
 "TLD"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:121
-#, fuzzy
-msgid "Automatic invoice creation"
-msgstr "Autorinnovo"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:122
-msgid "Automatically creates an invoice when the order is paid"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:123
-msgid "E-Mail invoice automatically"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:124
-msgid "Automatically e-mail the invoice when created"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:125
-msgid "Send a copy of all emails sent by the system to these addresses?"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:126
-msgid ""
-"If you want copies of all emails sent by the system sent to addresses of "
-"yours choise, enter the addresses here. You may enter multiple addresses "
-"seperated by a comma (,)"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:127
-msgid "Notify status change to customers"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:128
-msgid "Notify each customers when a status change occurs on their orders"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:129
-#, fuzzy
-msgid "Invoices number format"
-msgstr "Codice Fattura"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:130
-msgid ""
-"Customize the format of invoice number. Valid placeholders are described <a "
-"href=\"http://www.shineisp.com/invoices-number-format/\" target=\"_blank"
-"\">here</a>"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:131
-msgid "Invoices zero prefix"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:132
-msgid "Adding the zero number before the invoice number."
-msgstr ""
-
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:133
+#, fuzzy
 msgid "Sequential invoice number increment"
-msgstr ""
+msgstr "Codice Fattura"
 
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:134
 #, fuzzy
@@ -7275,43 +7777,6 @@ msgstr ""
 msgid "Write a log file with all the queries executed."
 msgstr "Lista di tutte le operazioni eseguite."
 
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:139
-#, fuzzy
-msgid "Custom Frontend CSS"
-msgstr "Clienti"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:140
-msgid "Overwrite here the css of the frontend side of ShineISP"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:141
-#, fuzzy
-msgid "Web Server"
-msgstr "Servizi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:142
-#, fuzzy
-msgid "Mail Server"
-msgstr "Servizi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:143
-#, fuzzy
-msgid "Database Server"
-msgstr "Servizi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:144
-#, fuzzy
-msgid "DNS Server"
-msgstr "Servizi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:146
-msgid "Skype"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:148
-msgid "Mobile"
-msgstr ""
-
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:149
 msgid "individual"
 msgstr ""
@@ -7329,219 +7794,6 @@ msgstr "Azione"
 #: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:152
 msgid "other"
 msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:153
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:159
-#, fuzzy
-msgid "Home"
-msgstr "Homepage"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:155
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:166
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:22
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:40
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:21
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:5
-msgid "Services"
-msgstr "Servizi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:157
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:169
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:25
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:7
-msgid "Tickets"
-msgstr "Segnalazioni"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:158
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/registrars/applicantform.phtml:13
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/buttons.phtml:8
-msgid "Help"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:160
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contactlogged.phtml:6
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/dashboard/index.phtml:6
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/profile.phtml:20
-msgid "Dashboard"
-msgstr "Pannello di Controllo"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:161
-#: /Library/WebServer/Documents/shineisp/application/modules/setup/views/scripts/summary/form.phtml:25
-msgid "Public Site"
-msgstr "Sito pubblico"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:168
-#, fuzzy
-msgid "Support"
-msgstr "Fornitore"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:172
-#, fuzzy
-msgid "Products Categories"
-msgstr "Lista delle recensioni del prodotto"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:177
-msgid "TLDs"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:178
-msgid "Sales"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:180
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:28
-msgid "Invoices"
-msgstr "Fatture di vendita"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:181
-#, fuzzy
-msgid "Purchases"
-msgstr "Lista delle fatture di acquisto"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:182
-#, fuzzy
-msgid "Credit Notes"
-msgstr "Nota di Credito"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:183
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:14
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/purchases/applicantform.phtml:12
-#, fuzzy
-msgid "Payments"
-msgstr "Pagamento"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:184
-msgid "CMS"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:185
-#, fuzzy
-msgid "CMS Pages"
-msgstr "Dettaglio ordine"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:186
-#, fuzzy
-msgid "CMS Blocks"
-msgstr "Blocchi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:188
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml:42
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/orders/applicantform.phtml:19
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/services/applicantform.phtml:28
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml:25
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/orders/customform.phtml:69
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:16
-msgid "Messages"
-msgstr "Messaggi"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:189
-#, fuzzy
-msgid "Subscribers"
-msgstr "Servizi sottoscritti"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:190
-#, fuzzy
-msgid "Reports"
-msgstr "Importa"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:191
-#, fuzzy
-msgid "Profit of the Year"
-msgstr "Lista degli ordini"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:192
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:193
-#, fuzzy
-msgid "Domain Statistics"
-msgstr "Lista Domini"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:194
-#, fuzzy
-msgid "Domains per Client"
-msgstr "Lista Domini"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:195
-#, fuzzy
-msgid "Domains per Month"
-msgstr "Sommario domini per mese"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:196
-#, fuzzy
-msgid "Service Summary"
-msgstr "Riepilogo Ordine"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:197
-#, fuzzy
-msgid "Panels Actions"
-msgstr "Azioni"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:198
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/panels/applicantform.phtml:12
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/settings.phtml:7
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/services/customform.phtml:15
-msgid "Configuration"
-msgstr "Configurazione"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:199
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:23
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/simplecontacts.phtml:19
-msgid "General"
-msgstr "Generale"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:203
-#, fuzzy
-msgid "Server Groups"
-msgstr "Gruppo Server"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:204
-#, fuzzy
-msgid "Banks"
-msgstr "Banca"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:205
-msgid "Url Rewrites"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:206
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:13
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/summary.phtml:67
-msgid "Taxes"
-msgstr ""
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:207
-#, fuzzy
-msgid "Languages"
-msgstr "Lingua"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:208
-#, fuzzy
-msgid "Tickets Categories"
-msgstr "Sottocategorie %s"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:209
-#, fuzzy
-msgid "Wiki Categories"
-msgstr "Categorie"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:210
-#, fuzzy
-msgid "Legal Forms"
-msgstr "Forma Legale"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:211
-#, fuzzy
-msgid "Company Types"
-msgstr "Tipo Azienda"
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:212
-#, fuzzy
-msgid "Emails Templates"
-msgstr "Email inviata."
-
-#: /Library/WebServer/Documents/shineisp/public/tmp/translations.php:214
-#, fuzzy
-msgid "Invoice purchases categories"
-msgstr "Categorie"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/banks/applicantform.phtml:14
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmsblocks/applicantform.phtml:11
@@ -7746,15 +7998,6 @@ msgstr ""
 msgid "YES, I want to do it!"
 msgstr "Si, desidero proseguire!"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/bulkmail/index.phtml:6
-#, fuzzy
-msgid "Bulk Customers Mail"
-msgstr "Email del Cliente"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/bulkmail/index.phtml:7
-msgid "Write here a message to send to all your own customers."
-msgstr ""
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/cmspages/applicantform.phtml:12
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainstlds/applicantform.phtml:12
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:15
@@ -7785,8 +8028,9 @@ msgid ""
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:12
-#, fuzzy
-msgid "Personal"
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:43
+#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:26
+msgid "Personal data"
 msgstr "Dati personali"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/customers/applicantform.phtml:13
@@ -7955,11 +8199,6 @@ msgstr "Banca"
 msgid "ISP Control Panel"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:17
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/reviews/applicantform.phtml:12
-msgid "Other"
-msgstr ""
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:29
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/isp/applicantform.phtml:47
 msgid "Website logo picture"
@@ -8076,18 +8315,6 @@ msgstr "Creato il"
 #, fuzzy
 msgid "Create eMail"
 msgstr "Creato il"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/bbslist.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/grid.phtml:144
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/simplegrid.phtml:84
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/bbslist.phtml:16
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/domainsgrid.phtml:109
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/grid.phtml:128
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/servicesgrid.phtml:109
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml:84
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/verticalgrid.phtml:53
-msgid "No Records"
-msgstr "Nessuna informazione trovata."
 
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/dashboard.phtml:8
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/dashboard.phtml:7
@@ -8278,11 +8505,6 @@ msgstr "Crescita"
 msgid "Language Settings"
 msgstr "Lingua"
 
-#: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/partials/verticalgrid.phtml:56
-#, fuzzy
-msgid "norecords"
-msgstr "Records"
-
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/products/applicantform.phtml:13
 #, fuzzy
 msgid "Recurring Prices"
@@ -8362,11 +8584,6 @@ msgstr "Effettua l'%s oppure completa il modulo qui di seguito."
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:7
 msgid "We have found some errors"
 msgstr "Abbiamo trovato qualche errore durante la compilazione del modulo"
-
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:43
-#: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/profile/applicantform.phtml:26
-msgid "Personal data"
-msgstr "Dati personali"
 
 #: /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/cart/contacts.phtml:44
 msgid ""
@@ -9378,6 +9595,52 @@ msgid "ver. %s"
 msgstr "ver. %s"
 
 #, fuzzy
+#~ msgid "File category Details"
+#~ msgstr "Categorie"
+
+#, fuzzy
+#~ msgid "File category Edit"
+#~ msgstr "Categoria"
+
+#, fuzzy
+#~ msgid "Here you can see all the invoice purchases categories."
+#~ msgstr ""
+#~ "Qui puoi visualizzare tutti i servizi la cui data è prossima alla "
+#~ "scadenza."
+
+#, fuzzy
+#~ msgid "Invoice purchase category Details"
+#~ msgstr "Categorie"
+
+#, fuzzy
+#~ msgid "Here you can handle the invoice purchase catgeories parameters"
+#~ msgstr "Desideri cancellare questa categoria?"
+
+#, fuzzy
+#~ msgid "Edit the invoice purchase category information"
+#~ msgstr "Lista delle transazioni di pagamento"
+
+#, fuzzy
+#~ msgid "Registrar review"
+#~ msgstr "Registrar"
+
+#, fuzzy
+#~ msgid "No records"
+#~ msgstr "Nessuna informazione trovata."
+
+#, fuzzy
+#~ msgid "norecords"
+#~ msgstr "Records"
+
+#, fuzzy
+#~ msgid "Personal"
+#~ msgstr "Dati personali"
+
+#, fuzzy
+#~ msgid "Bulk Customers Mail"
+#~ msgstr "Email del Cliente"
+
+#, fuzzy
 #~ msgid "Expiration date"
 #~ msgstr "Data Scadenza"
 
@@ -9388,18 +9651,6 @@ msgstr "ver. %s"
 #, fuzzy
 #~ msgid "Domains Selected"
 #~ msgstr "Lista Domini"
-
-#, fuzzy
-#~ msgid ""
-#~ "Write here your custom skin folder name. Skins are located into /public/"
-#~ "skins/default/"
-#~ msgstr "Trasferisci qui il tuo dominio"
-
-#, fuzzy
-#~ msgid ""
-#~ "Write here your custom administration skin folder name. Skins are located "
-#~ "into /public/skins/admin/"
-#~ msgstr "Trasferisci qui il tuo dominio"
 
 #, fuzzy
 #~ msgid "Add to Cart"

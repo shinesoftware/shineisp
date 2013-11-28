@@ -20,8 +20,8 @@ class Admin_Form_BulkmailForm extends Zend_Form
             'filters'     => array('StringTrim'),
             'required'    => true,
             'label'       => $translate->_('Body'),
-            'description' => 'Write here the email message to send to all your customers.',
-            'class'       => 'col-lg-12 form-control wysiwyg'
+            'description' => $translate->_('Write here the email message to send to all your customers.'),
+            'class'       => 'col-lg-12 form-control'
         ));
         
         $this->addElement('submit', 'send', array(

@@ -233,7 +233,6 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	 * @return unknown_type
 	 */
 	public function editAction() {
-		
 		$form = $this->getForm ( '/admin/orders/process' );
 		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
 		$customer = null;
@@ -262,6 +261,9 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 					}
 				}
 
+				$rs ['profit'] = $rs ['total'] - $rs ['cost'];
+				$rs ['profit'] = $currency->toCurrency($rs['profit'], array('currency' => Settings::findbyParam('currency')));
+				
 				// set the default income to prepare the payment task
 				$rs ['income'] = $rs ['missing_income'];
 				$rs ['missing_income'] = sprintf('%.2f',$rs ['missing_income']);
@@ -333,7 +335,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 		$this->view->customer          = array ('records' => $customer, 'editpage' => 'customers' );
 		$this->view->ordersdatagrid    = $this->orderdetailGrid ();
 		$this->view->paymentsdatagrid  = $this->paymentsGrid ();
-		$this->view->statushistory            = StatusHistory::getStatusList($id);  // Get Order status history
+		$this->view->statushistory     = StatusHistory::getStatusList($id);  // Get Order status history
 		$this->view->filesgrid         = $this->filesGrid ();
 		$this->view->statushistorygrid = $this->statusHistoryGrid ();
 		$this->view->form              = $form;

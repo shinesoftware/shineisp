@@ -58,6 +58,8 @@ class Admin_BulkmailController extends Shineisp_Controller_Admin {
 				}
 				$retval = count ( $retval ) > 0 ? $retval : null;
 				$this->view->form = $form;
+				$this->view->title = $translation->translate("Mass eMail");
+				$this->view->description = $translation->translate("Write here a message to send to all your own customers.");
 				$this->view->errors = $retval;
 			} catch ( Exception $e ) {
 				die ( $e->getMessage () );
