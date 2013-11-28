@@ -24,9 +24,21 @@
 		<commons template="1column">
 			<head>
 			   
+			   <!-- WYSIWYG5
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml-rules.js</js>
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
                 <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
+                <css override="1">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
+                -->
+
+				<!-- SUMMERNOTE
+                <js override="1" position="admin_endbody">/resources/wysiwyg/summernote/summernote.min.js</js>
+                <css override="1">/resources/wysiwyg/summernote/summernote.css</css>
+                -->
+
+                <js override="1" position="admin_endbody">/resources/wysiwyg/jquery-te/jquery-te-1.4.0.min.js</js>
+                <css override="1">/resources/wysiwyg/jquery-te/jquery-te-1.4.0.css</css>
+                
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-growl.min.js</js>
@@ -47,7 +59,7 @@
                 <css>/css/grid.css</css>  
                 
                 <!-- files to be include in every ADMIN pages-->
-                <css override="1">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
+                
                 <css override="1">/resources/jquery/css/ui.dynatree.css</css>
                 <css override="1">/resources/jquery/css/jquery.dataTables.css</css>
                 <css override="1">/resources/jquery/css/bootstrap-select.min.css</css>

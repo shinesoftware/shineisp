@@ -85,7 +85,8 @@ class Orders extends BaseOrders {
 		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
 		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
 		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs') );
-		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 30 ));
+		$columns [] = array ('label' => $translator->translate ( 'Profit' ), 'field' => '(o.total - o.cost)', 'alias' => 'profit', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'boolean', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 30 ));
 		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'type' => 'index', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ));
 		
 		
@@ -97,6 +98,7 @@ class Orders extends BaseOrders {
                                               o.total as total,
                                               o.vat as vat,
                                               o.grandtotal as grandtotal,
+                                              o.total - o.cost as profit,
                                               in.formatted_number as formatted_number,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
