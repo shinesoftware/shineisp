@@ -231,7 +231,7 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 		} else {
 			
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("Registrar review");
+			$this->view->title = $this->translator->translate("Registrar");
 			$this->view->description = $this->translator->translate("Here you can fix the registrar parameters.");
 			return $this->render ( 'applicantform' );
 		}

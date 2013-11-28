@@ -175,6 +175,13 @@ class Admin_Form_OrdersForm extends Zend_Form
             'class'      => 'form-control'
         ));
         
+        $this->addElement('text', 'profit', array(
+            'filters'    => array('StringTrim'),
+            'label'      => $translate->_('Profit'),
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
+        ));
+        
         $this->addElement('textarea', 'description', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Description'),

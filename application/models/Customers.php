@@ -787,7 +787,8 @@ class Customers extends BaseCustomers {
 		$dq = Doctrine_Query::create ()
 		          ->select ( "customer_id, CONCAT(firstname, ' ', lastname) as fullname, email" )
 		          ->from ( 'Customers c' )
-		          ->where ( 'status_id = ?', 12 )
+		          ->where ( 'status_id = ?', Statuses::id('active', 'customers') )
+		          ->andWhere ( 'email <> ?', "")
                   ->andWhere( "c.isp_id = ?", Isp::getCurrentId() );
 		$customers = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
 		return $customers;

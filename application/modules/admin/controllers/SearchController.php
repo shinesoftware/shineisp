@@ -46,7 +46,7 @@ class Admin_SearchController extends Shineisp_Controller_Admin {
 		
 		$q = strtolower ( $q );
 		if (empty($q)) {
-			die(json_encode(array($this->translator->translate('No records'))));
+			die(json_encode(array($this->translator->translate('No Records'))));
 		}
 		
 		$cms  = CmsPages::getList ();

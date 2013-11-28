@@ -72,6 +72,11 @@
 					<uri>/admin/wiki/list</uri>
 					<resource>admin:wiki</resource>
 				</wiki>
+				<bulkmail>
+					<label>Mass Email</label>
+					<uri>/admin/bulkmail</uri>
+					<resource>admin:bulkmail</resource>
+				</bulkmail>
 			</pages>
 		</support>
 		<products>

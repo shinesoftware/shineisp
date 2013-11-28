@@ -70,7 +70,8 @@ class Default_Form_ReviewsForm extends Zend_Form
         	'required'    => true,
         	'description' => $translate->_('Write down your review with details and you will earn points and discounts'),
             'label'      => $translate->_('Review'),
-            'class'       => 'form-control'
+            'class'       => 'form-control',
+            'rows'       => '8'
         ));
         
         $privKey = Settings::findbyParam('recaptcha_private_key');
