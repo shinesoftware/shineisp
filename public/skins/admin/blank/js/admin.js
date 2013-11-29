@@ -98,7 +98,6 @@ $(document).ready(function(){
 	    selector: "textarea.wysiwyg",
 	    theme: "modern",
 	    menubar : false,
-	    statusbar:  false,
 	    width:      '100%',
 	    plugins: [
 	        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -117,10 +116,9 @@ $(document).ready(function(){
 	    selector: "textarea.wysiwyg-simple",
 		width:      '100%',
 	    plugins:    [ "paste anchor link" ],
-	    statusbar:  false,
 		menubar:    false,
 		paste_preprocess : function(pl, o) {o.content = strip_tags( o.content,'' );},
-	    toolbar:    "bold italic | bullist | alignleft aligncenter alignright alignjustify"
+	    toolbar:    "bold italic | bullist outdent indent | alignleft aligncenter alignright alignjustify"
 	});
 	 
 });
