@@ -39,7 +39,7 @@ class Default_Form_TicketsForm extends Zend_Form
         	'decorators'  => array('Bootstrap'),
             'description' => $translate->_('Write here all the information.'),
         	'rows'		  => '8',
-            'class'       => 'form-control'
+            'class'       => 'form-control wysiwyg-simple'
         ));
         
         $this->addElement('select', 'status', array(
