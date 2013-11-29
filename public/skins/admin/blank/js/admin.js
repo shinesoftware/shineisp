@@ -72,24 +72,38 @@ $(document).ready(function(){
 	 });
 	 */
 	
+	/* Summernote integration
 	 $('.wysiwyg').summernote({
-		 height: 400
 	 });
 	 
 	 $('.wysiwyg-simple').summernote({
-		 height: 400,
 		 toolbar: [
 		           ['style', ['bold', 'italic', 'underline', 'clear']],
 		           ['para', ['ul', 'ol']],
 		         ]
 	 });
+	 */
 	
-	
-	/* summernote integration
+	/* JQuery-te integration
 	 * =====================
 		$('.wysiwyg').jqte();
 	*/
 	
+	tinymce.init({
+	    selector: "textarea",
+	    theme: "modern",
+	    menubar : false,
+	    plugins: [
+	        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+	        "searchreplace wordcount visualblocks visualchars code fullscreen",
+	        "insertdatetime media nonbreaking save table contextmenu directionality",
+	        "emoticons template paste textcolor"
+	    ],
+	    toolbar1: "styleselect | forecolor backcolor | undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+	    toolbar2: "preview media | emoticons | link image",
+	    image_advtab: true,
+	});
+
 	
 	 $('.multiselect').selectpicker();
 	 
