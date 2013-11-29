@@ -69,7 +69,6 @@
         <tickets>
             <head>
                 <js position="endbody">/js/cpanels.js</js>
-                <!-- TINYMCE -->
 				<js override="1" position="endbody">/resources/wysiwyg/tinymce/tinymce.min.js</js>
             </head>
         </tickets> 
@@ -89,6 +88,7 @@
         <orders>
             <head>
                 <js position="endbody">/js/cpanels.js</js>
+                <js override="1" position="endbody">/resources/wysiwyg/tinymce/tinymce.min.js</js>
             </head>
         </orders> 
         
