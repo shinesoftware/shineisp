@@ -56,10 +56,6 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 		// call the placeholder view helper for each side parsed 
 		echo $this->view->placeholder ( $side );
 		
-		if (Settings::findbyParam('debug')){
-		    echo "<div class=\"alert alert-danger\">$side</div>";
-		}
-		
 		// Get all the xml blocks
 		$xmlblocks = Shineisp_Commons_Layout::getBlocks ( $module, $side, $controller, $skin );
 		
@@ -72,6 +68,9 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 			if (! empty ( $var )) {
 				$record = CmsPages::findbyvar ( $var, $ns->lang );
 			}
+		}elseif ($controller == "cms"){
+		    $var = Zend_Controller_Front::getInstance ()->getRequest ()->getParam ( 'url' );
+		    $record = CmsPages::findbyvar ( $var, $ns->lang );
 		}
 		
 		// Load the xml found in the recordset
@@ -111,6 +110,10 @@ class Zend_View_Helper_Blocks extends Zend_View_Helper_Abstract {
 			foreach ( $blocks ['reference'] as $block ) {
 				$this->Iterator ( $block, $side );
 			}
+		}
+		
+		if (Settings::findbyParam('debug')){
+		    echo "<div class=\"alert alert-info\"><h4>$side <small>($skin)</small></h4>Path: $module/$controller/$action</div>";
 		}
 		
 		$this->view->module = $module;
