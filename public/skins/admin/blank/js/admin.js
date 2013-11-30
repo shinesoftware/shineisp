@@ -62,36 +62,6 @@ $(document).ready(function(){
 	       q: function() { return $("#search").val(); }
 	   }
 	}); 
-	 
-	/* wysihtml5 integration
-	 * =====================
-	 $('.wysiwyg').wysihtml5({
-		 "html": true,
-		 "color": true,
-		 parserRules:  wysihtml5ParserRules,
-		// Whether urls, entered by the user should automatically become clickable-links
-		    autoLink:             true,
-		 // Whether the rich text editor should be rendered on touch devices (wysihtml5 >= 0.3.0 comes with basic support for iOS 5)
-	    supportTouchDevices:  true,
-	 });
-	 */
-	
-	/* Summernote integration
-	 $('.wysiwyg').summernote({
-	 });
-	 
-	 $('.wysiwyg-simple').summernote({
-		 toolbar: [
-		           ['style', ['bold', 'italic', 'underline', 'clear']],
-		           ['para', ['ul', 'ol']],
-		         ]
-	 });
-	 */
-	
-	/* JQuery-te integration
-	 * =====================
-		$('.wysiwyg').jqte();
-	*/
 	
 	/* TinyMCE integration */
 	tinymce.init({

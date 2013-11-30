@@ -23,27 +23,10 @@
 		<!-- Common files called at the start of the admin module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-			   
-			   <!-- WYSIWYG5
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml-rules.js</js>
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
-                <css override="1">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
-                -->
-
-				<!-- SUMMERNOTE
-                <js override="1" position="admin_endbody">/resources/wysiwyg/summernote/summernote.js</js>
-                <css override="1">/resources/wysiwyg/summernote/summernote.css</css>
-				-->
 				
 				<!-- TINYMCE -->
 				<js override="1" position="admin_endbody">/resources/wysiwyg/tinymce/tinymce.min.js</js>
 				
-				<!-- JQuery-Te
-                <js override="1" position="admin_endbody">/resources/wysiwyg/jquery-te/jquery-te-1.4.0.min.js</js>
-                <css override="1">/resources/wysiwyg/jquery-te/jquery-te-1.4.0.css</css>
-                -->
-                
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-growl.min.js</js>
