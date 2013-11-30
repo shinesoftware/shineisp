@@ -4,10 +4,11 @@
 	
 	<?php echo $this->render('includes/top.phtml') ?>
 	
-	<?php echo $this->blocks()->showblock('beforecontent');?>
-    
     <div id="content" class="container">
         <div class="row">
+            
+            <?php echo $this->blocks()->showblock('beforecontent');?>
+        	
         	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         		<?php echo $this->blocks()->showblock('left');?>
         	</div>
