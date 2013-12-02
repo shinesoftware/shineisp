@@ -58,6 +58,11 @@
 		 
 		<index>
 			<head>
+				<!-- MORRIS Chart tool -->
+				<js override="1" position="admin_endbody">//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js</js>
+				<js override="1" position="admin_endbody">http://cdn.oesmith.co.uk/morris-0.4.3.min.js</js>
+				<css override="1">http://cdn.oesmith.co.uk/morris-0.4.3.min.css</css>
+				
 				<js position="admin_endbody">/js/login.js</js> 
 				<js position="admin_endbody">/js/widget.js</js> 
 				<css>/css/widget.css</css> 
