@@ -2446,6 +2446,10 @@ class Orders extends BaseOrders {
 	/**
 	 * Yield total percentage between periods 
 	 * 
+	 * @param integer $year
+	 * @param string $groupby [year, month, quarter]
+	 * @return array
+	 * 
 	 * This is a sample of the array result of this method:
 	 * 
 	 * [0] => array(21) {
@@ -2657,6 +2661,43 @@ class Orders extends BaseOrders {
 		}
 		
 		return !empty($income[0]) ? $income: array();
+	}
+	
+	/**
+	 * Create a Js script code for the Morris Graph JQuery Tool
+	 */
+	public static function MorrisGraphJs($year, $groupby="year"){
+
+	    $currentYear      = date('Y');
+	    $data             = self::incomes($currentYear, $groupby);
+	    
+	    return self::getDataGraph($data);
+	    
+	}
+	
+	/**
+	 * Morris Data Parser
+	 * @param array $data
+	 */
+	private static function getDataGraph($data, $records=array()){
+	    
+	    if(!empty($data)){
+    	    foreach($data as $item){
+    	        if(isset($item['month'])){
+    	            $records[$item['year']][$item['month']] = $item['net_total'];
+    	        }elseif(isset($item['quarter'])){
+    	            $records[$item['year']][$item['quarter']] = $item['net_total'];
+    	        }else{
+    	            $records[$item['year']] = $item['net_total'];
+    	        }
+        	    
+        	    if(!empty($data['old'])){
+        	        return self::getDataGraph($data['old'], $records);
+        	    }
+    	    }
+	    }
+	    
+	    return $records;
 	}
 	
 	######################################### CRON METHODS ############################################

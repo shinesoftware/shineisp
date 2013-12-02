@@ -1,0 +1,70 @@
+<?php $data = $this->data ?>
+<?php $element = $this->div_element ?>
+<?php $type = $this->type ?>
+
+<?php if(!empty($data) && $type == "year"): ?>
+    <script type="text/javascript">
+       new Morris.Area({
+    	  element: '<?php echo $element ?>',
+    	  data: [
+    		<?php foreach ($data as $year => $value): ?>
+    	    { year: '<?php echo $year ?>', value: <?php echo $value ?>},
+    		<?php endforeach; ?>
+    	  ],
+    	  lineColors: ['#428BCA'],
+    	  xkey: 'year',
+    	  ykeys: ["value"],
+          labels: ["Value"],
+    	});
+    
+    </script>
+<?php endif; ?>
+
+
+<?php if(!empty($data) && $type == "month"): ?>
+    <?php $i = 1; ?>
+    <script type="text/javascript">
+       new Morris.Area({
+    	  element: '<?php echo $element ?>',
+    	  data: [
+    		<?php foreach ($data as $year => $months): ?>
+    		    <?php $i = 1; ?>
+    		    <?php foreach ($months as $value): ?>
+    		         { year: '<?php echo $year ?>-<?php echo $i ?>', value: <?php echo $value ?>},
+    		         <?php $i++; ?>
+        		<?php endforeach; ?>
+    		<?php endforeach; ?>
+    	  ],
+    	  lineColors: ['#428BCA'],
+    	  xkey: 'year',
+    	  ykeys: ["value"],
+          labels: ["Value"],
+    	});
+    
+    </script>
+<?php endif; ?>
+
+
+<?php if(!empty($data) && $type == "quarter"): ?>
+    <?php $i = 1; ?>
+    <script type="text/javascript">
+       new Morris.Area({
+    	  element: '<?php echo $element ?>',
+    	  data: [
+    		<?php foreach ($data as $year => $months): ?>
+    		    <?php $i = 1; ?>
+    		    <?php foreach ($months as $value): ?>
+    		         { year: '<?php echo $year ?>-<?php echo $i ?>', value: <?php echo $value ?>},
+    		         <?php $i++; ?>
+        		<?php endforeach; ?>
+    		<?php endforeach; ?>
+    	  ],
+    	  lineColors: ['#428BCA'],
+    	  pointFillColors: ['#00ff00'],
+    	  xkey: 'year',
+    	  ykeys: ["value"],
+          labels: ["Value"],
+    	});
+    
+    </script>
+<?php endif; ?>
