@@ -129,7 +129,7 @@ class Admin_RegistrarsController extends Shineisp_Controller_Admin {
 				$this->view->back = "/admin/$controller/edit/id/$id";
 				$this->view->goto = "/admin/$controller/delete/id/$id";
 				$this->view->title = $this->translator->translate ( 'Are you sure you want to delete the selected record?' );
-				$this->view->description = $this->translator->translate ( 'If you delete the bank information parameters, the registrar will no longer be available.' );
+				$this->view->description = $this->translator->translate ( 'If you delete the registrar information, the record will no longer be available.' );
 				
 				$record = $this->registrars->find ( $id, null, true );
 				$this->view->recordselected = $record [0] ['name'];

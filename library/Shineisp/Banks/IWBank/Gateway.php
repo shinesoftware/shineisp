@@ -79,7 +79,7 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 			return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $form);
 		}
 
-        return $translator->translate('There was a problem during the IWBank payment form creation');
+        return $translator->translate('There was a problem during the %s payment form creation', "IWBank");
 	
 	}
 	

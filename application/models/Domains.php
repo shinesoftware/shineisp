@@ -1630,7 +1630,7 @@ class Domains extends BaseDomains {
 		
 		// Create the PDF header
 		$grid['headers']['title'] = $translator->translate('Domain Listing');
-		$grid['headers']['subtitle'] = $translator->_("List of the domains Upload Date %s and sorted by the expiring date and domain name", date('d/m/Y H:i:s'));
+		$grid['headers']['subtitle'] = $translator->_("List of the domains since %s and sorted by the expiring date and domain name", date('d/m/Y H:i:s'));
 		$grid['footer']['text'] = $isp['company'] . " - " . $isp['website'];
 		 
 		if(!empty($domains[0]))

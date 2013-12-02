@@ -42,4 +42,26 @@ class PaymentsMethods extends BasePaymentsMethods
         return $items;
     }
     
+    /**
+     * Get the plugin list from the /library/Shineisp/Banks
+     */
+    public static function getPluginList(){
+    	
+    	$path = PROJECT_PATH . "/library/Shineisp/Banks";
+	    $paymentmethods = array();
+	    
+	    if(file_exists($path)){
+    	    $items = scandir($path);
+    	    foreach ($items as $item){
+    	        $isnotDir = strpos($item, ".");
+    	        if ($isnotDir === false) {
+    	        	$name = "Shineisp_Banks_".$item."_Gateway";
+    	            $paymentmethods[$name] = $item;
+                }
+    	    }
+	    }
+	    return $paymentmethods;
+    }
+    		
+    
 }
