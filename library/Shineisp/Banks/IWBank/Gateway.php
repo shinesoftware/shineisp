@@ -67,7 +67,7 @@ class Shineisp_Banks_IWBank_Gateway extends Shineisp_Banks_Abstract implements S
 			$form .= '<input type="hidden" name="URL_BAD" value="' . self::getUrlKo () . '">';
 			$form .= '<input type="hidden" name="FLAG_ONLY_IWS" value="0">';
 			if (!self::doRedirect ()) {
-				$form .= '<input class="button small" type="submit" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
+				$form .= '<input class="btn btn-success" type="submit" name="submit" value="' . $translator->translate ( 'Pay Now' ) . '">';
 			}
 			$form .= '</form>';
 			

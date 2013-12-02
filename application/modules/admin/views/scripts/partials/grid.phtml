@@ -1,21 +1,3 @@
-<?php if (isset($this->searchactive) && $this->searchactive == 1 ): ?>
-    <div class="notification attention"><?php echo $this->translate('A search request is still active.')?> <a href="/admin/<?php echo  $this->controller ?>/reset"><?php echo $this->translate('Reset')?></a> / <a href="/admin/<?php echo  $this->controller ?>/search"><?php echo $this->translate('Search Again')?></a></div>
-<?php endif; ?>
-
-<?php if (!empty($this->sortactive) ): ?>
-    <div class="notification attention"><?php echo $this->translate('Sort by')?>
-         <?php foreach($this->sortactive as $item):?>
-            <?php echo "<b>" . $item . "</b> /";?>
-         <?php endforeach;?>
-         
-        [<a href="/admin/<?php echo  $this->controller ?>/sortreset"><?php echo $this->translate('Reset')?></a> / <a href="/admin/<?php echo  $this->controller ?>/search"><?php echo $this->translate('Sort')?></a>]
-    </div>
-<?php endif; ?>
-   
-<?php if(!empty($this->mex)) :?>
-    <div class="notification <?php echo  $this->mexstatus; ?>"><?php echo $this->translate($this->mex);?></div>
-<?php endif;?>
-
 <div class="statuses">
  <?php if($this->statuses):?>
      <b><?php echo $this->translate('Statuses');?>:</b> 

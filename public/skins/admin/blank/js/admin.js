@@ -76,7 +76,7 @@ $(document).ready(function(){
 	        "emoticons template paste textcolor"
 	    ],
 	    toolbar1: "styleselect | forecolor backcolor | undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-	    toolbar2: "preview media | emoticons | link image",
+	    toolbar2: "code preview media | emoticons | link image",
 	    image_advtab: true,
 	    content_css : "/resources/wysiwyg/tinymce/skins/lightgray/custom_content.css",
 
