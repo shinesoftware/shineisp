@@ -63,7 +63,7 @@ class TicketsController extends Shineisp_Controller_Default {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = $this->translator->translate("Tickets list");
+		$this->view->title = $this->translator->translate("Tickets");
 		$this->view->description = $this->translator->translate("Here you can see the list of all the issue posted.");
 		$this->view->tickets = $data;
 		$this->_helper->viewRenderer ( 'index' );
@@ -131,13 +131,13 @@ class TicketsController extends Shineisp_Controller_Default {
 			}
 			$this->view->id = $id;
 			
-			$this->view->title = $this->translator->translate('Ticket page');
+			$this->view->title = $this->translator->translate('Ticket');
 			
 			$this->getHelper ( 'layout' )->setLayout ( '2columns-right' );
 			$this->view->placeholder ( "right" )->append ( $this->view->partial ( 'partials/wikisidebar.phtml', array ('items' => Wiki::get_items(5) ) ) );
 		}
 		
-		$this->view->title = $this->translator->translate("Ticket Edit");
+		$this->view->title = $this->translator->translate("Ticket");
 		$this->view->description = $this->translator->translate("Here you can write down your problem. Remember to be clear and analytic in order to explain the problem that has been occurred.");
 		$this->view->dnsdatagrid = $this->dnsGrid ();
 		$this->view->form = $form;
@@ -164,7 +164,7 @@ class TicketsController extends Shineisp_Controller_Default {
 		$request = $this->getRequest ();
 		$customer = $NS->customer ['customer_id'];
 		
-		$this->view->title = $this->translator->translate("Ticket process");
+		$this->view->title = $this->translator->translate("Ticket");
 		$this->view->description = $this->translator->translate("Check the information before save again.");
 			
 		// Check if we have a POST request
@@ -186,7 +186,7 @@ class TicketsController extends Shineisp_Controller_Default {
 		$id = $this->getRequest ()->getParam ( 'ticket_id' );
 		
 		$data = $request->getPost ();
-		$data['note'] = htmlspecialchars($data['note']);
+		$data['note'] = !empty($data['note']) ? $data['note'] : "-"; //There is a problem with TinyMCE!
 		
 		$categoryId = !empty($data['category_id']) && is_numeric($data['category_id']) ? $data['category_id'] : null;
 		

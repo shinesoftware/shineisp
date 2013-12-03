@@ -22,6 +22,13 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'class'      => 'form-control'
         ));
     	
+    	$this->addElement('text', 'discount', array(
+            'filters'    => array('StringTrim'),
+            'label'      => $translate->_('Discount'),
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
+        ));
+    	
     	$this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),

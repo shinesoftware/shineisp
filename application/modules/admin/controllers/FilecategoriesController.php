@@ -95,8 +95,8 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/filecategories/process" );
-		$this->view->title = $this->translator->translate("File category Details");
-		$this->view->description = $this->translator->translate("Here you can handle the file catgeories parameters");
+		$this->view->title = $this->translator->translate("File category");
+		$this->view->description = $this->translator->translate("Here you can handle the file categories parameters");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
 									 array("url" => "/admin/filecategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		$this->render ( 'applicantform' );
@@ -179,8 +179,8 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 				
 		}
 		
-		$this->view->title = $this->translator->translate("File category Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main file category information parameters. Be careful, if you change something the module could be damaged.");
+		$this->view->title = $this->translator->translate("File category");
+        $this->view->description = $this->translator->translate("Here you can edit the main file category information parameters.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -240,7 +240,7 @@ class Admin_FilecategoriesController extends Shineisp_Controller_Admin {
 			$redirector->gotoUrl ( "/admin/categories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("File category Edit");
+			$this->view->title = $this->translator->translate("File category");
 			$this->view->description = $this->translator->translate("Edit the file category information");
 			return $this->render ( 'applicantform' );
 		}

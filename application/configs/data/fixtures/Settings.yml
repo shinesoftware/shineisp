@@ -78,7 +78,7 @@ Settings:
   Settings_20:
     Isp: Isp_1
     SettingsParameters: SettingsParameters_36
-    value: dd/MM/YYYY
+    value: '%m/%d/%Y|M/d/Y|mm/dd/yy'
   Settings_21:
     Isp: Isp_1
     SettingsParameters: SettingsParameters_47

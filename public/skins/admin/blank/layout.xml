@@ -23,10 +23,10 @@
 		<!-- Common files called at the start of the admin module and will be APPENDED to the page with the GENERAL head items -->
 		<commons template="1column">
 			<head>
-			   
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml-rules.js</js>
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/wysihtml5-0.3.0.min.js</js>
-                <js override="1" position="admin_endbody">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.js</js>
+				
+				<!-- TINYMCE -->
+				<js override="1" position="admin_endbody">/resources/wysiwyg/tinymce/tinymce.min.js</js>
+				
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-typeahead.min.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-hogan-2.0.0.js</js>
                 <js override="1" position="admin_endbody">/resources/jquery/bootstrap-growl.min.js</js>
@@ -47,7 +47,7 @@
                 <css>/css/grid.css</css>  
                 
                 <!-- files to be include in every ADMIN pages-->
-                <css override="1">/resources/wysiwyg/wysihtml5/bootstrap-wysihtml5.css</css>
+                
                 <css override="1">/resources/jquery/css/ui.dynatree.css</css>
                 <css override="1">/resources/jquery/css/jquery.dataTables.css</css>
                 <css override="1">/resources/jquery/css/bootstrap-select.min.css</css>
@@ -58,6 +58,11 @@
 		 
 		<index>
 			<head>
+				<!-- MORRIS Chart tool -->
+				<js override="1" position="admin_endbody">//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js</js>
+				<js override="1" position="admin_endbody">http://cdn.oesmith.co.uk/morris-0.4.3.min.js</js>
+				<css override="1">http://cdn.oesmith.co.uk/morris-0.4.3.min.css</css>
+				
 				<js position="admin_endbody">/js/login.js</js> 
 				<js position="admin_endbody">/js/widget.js</js> 
 				<css>/css/widget.css</css> 

@@ -52,8 +52,8 @@
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-xs-12">	
-		<?php if(Null !== Settings::findbyParam('Conditions')): ?>
-        	<p class="conditions"><?php echo $this->translate(Settings::findbyParam('Conditions')) ?></p><br/>
+		<?php if(Null !== Settings::findbyParam('conditions')): ?>
+        	<div class="alert alert-info"><?php echo $this->translate(Settings::findbyParam('conditions')) ?></div>
         <?php endif;?>
 	</div>
 </div>

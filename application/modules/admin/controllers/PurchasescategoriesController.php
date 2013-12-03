@@ -44,8 +44,8 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 	 * @return datagrid
 	 */
 	public function listAction() {
-		$this->view->title = $this->translator->translate("Invoice purchasese categories list");
-		$this->view->description = $this->translator->translate("Here you can see all the invoice purchases categories.");
+		$this->view->title = $this->translator->translate("Categories for the invoice purchase documents");
+		$this->view->description = $this->translator->translate("Here you can see all the categories.");
 		$this->view->buttons = array(array("url" => "/admin/purchasescategories/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( PurchaseCategories::grid() )->datagrid ();
 	}
@@ -95,8 +95,8 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 	 */
 	public function newAction() {
 		$this->view->form = $this->getForm ( "/admin/purchasescategories/process" );
-		$this->view->title = $this->translator->translate("Invoice purchase category Details");
-		$this->view->description = $this->translator->translate("Here you can handle the invoice purchase catgeories parameters");
+		$this->view->title = $this->translator->translate("Categories for the invoice purchase documents");
+		$this->view->description = $this->translator->translate("Here you can handle the category");
 		$this->view->buttons = array(array("url" => "#", "label" => $this->translator->translate('Save'), "params" => array('css' => null,'id' => 'submit')),
 									 array("url" => "/admin/purchasescategories/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)));
 		$this->render ( 'applicantform' );
@@ -179,8 +179,8 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 				
 		}
 		
-		$this->view->title = $this->translator->translate("Invoice purchase category Details");
-        $this->view->description = $this->translator->translate("Here you can edit the main file category information parameters. Be careful, if you change something the module could be damaged.");
+		$this->view->title = $this->translator->translate("Categories for the invoice purchase documents");
+        $this->view->description = $this->translator->translate("Here you can edit the category information.");
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
@@ -240,8 +240,8 @@ class Admin_PurchasescategoriesController extends Shineisp_Controller_Admin {
 			$redirector->gotoUrl ( "/admin/purchasescategories/edit/id/$id" );
 		} else {
 			$this->view->form = $form;
-			$this->view->title = $this->translator->translate("Invoice purchase category Edit");
-			$this->view->description = $this->translator->translate("Edit the invoice purchase category information");
+			$this->view->title = $this->translator->translate("Categories for the Invoice purchase documents");
+			$this->view->description = $this->translator->translate("Edit the category information");
 			return $this->render ( 'applicantform' );
 		}
 	}

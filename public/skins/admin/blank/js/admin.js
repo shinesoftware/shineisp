@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	
+	$('.multiselect').selectpicker();
+ 
+	$('input.rating').rating();
+	
     // Set the active TAB in all the pages
 	$('a[data-toggle="tab"]').on('click', function (e) {
 		localStorage.setItem('lastTab', window.location.href + $(e.target).attr('href'));
@@ -44,6 +48,13 @@ $(document).ready(function(){
 		limit: 10, 
 		remote: {
 	        url: '/admin/search/do/q/%QUERY',
+	        beforeSend: function(xhr){
+	        	$(".tt-hint").addClass("loading"); 
+	          },
+             filter: function(parsedResponse){
+	        	  $(".tt-hint").removeClass("loading"); 
+	              return parsedResponse;
+             }
 	    },
 	    template: [
 			'<p class="repo-name"><i class="glyphicon {{icon}}"></i> {{section}}: {{value}}</p>',
@@ -58,19 +69,25 @@ $(document).ready(function(){
 	       q: function() { return $("#search").val(); }
 	   }
 	}); 
-	 
-	 $('.wysiwyg').wysihtml5({
-		 "html": true,
-		 "color": true,
-		 parserRules:  wysihtml5ParserRules,
-		// Whether urls, entered by the user should automatically become clickable-links
-		    autoLink:             true,
-		 // Whether the rich text editor should be rendered on touch devices (wysihtml5 >= 0.3.0 comes with basic support for iOS 5)
-	    supportTouchDevices:  true,
-	 });
-	 
-	 $('.multiselect').selectpicker();
-	 
-	 $('input.rating').rating();
+	
+	/* TinyMCE integration */
+	tinymce.init({
+	    selector: "textarea.wysiwyg",
+	    theme: "modern",
+	    menubar : false,
+	    width:      '100%',
+	    plugins: [
+	        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+	        "searchreplace wordcount visualblocks visualchars code fullscreen",
+	        "insertdatetime media nonbreaking save table contextmenu directionality",
+	        "emoticons template paste textcolor"
+	    ],
+	    toolbar1: "styleselect | forecolor backcolor | undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+	    toolbar2: "code preview media | emoticons | link image",
+	    image_advtab: true,
+	    content_css : "/resources/wysiwyg/tinymce/skins/lightgray/custom_content.css",
+
+	});
 	 
 });
+

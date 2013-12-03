@@ -12,16 +12,17 @@
   	
 ?>
 
+
 <?php if(!empty($income_yearly)): ?>
 	<div class="portlet" id="income-yearly">
 		<div class="widget-wrapper">
 			<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Year')?></a></h4></div>
 			<div class="widget-content">
+			    <div id='yeargraph'></div>
 				<ul class="stats list-inline">
 					<?php foreach($income_yearly as $inc):?>
 						<li>
 							<?php 
-								
 								$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
 								$costs 	= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0; 
 								$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
@@ -55,6 +56,7 @@
 		<div class="widget-wrapper">
 			<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Quarter')?></a></h4></div>
 			<div class="widget-content">
+			    <div id='quartergraph'></div>
 				<ul class="stats list-inline">
 					<?php foreach($income_quarter as $inc):?>
 						<?php if($inc['year'] == date('Y')): ?>
@@ -99,6 +101,7 @@
 	<div class="widget-wrapper">
 		<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Month (text)')?></a></h4></div>
 		<div class="widget-content">
+		    <div id='monthgraph'></div>
 			<ul class="stats list-inline">
 				<?php foreach($income_text_monthly as $inc):?>
 					<?php if($inc['year'] == date('Y')): ?>
@@ -139,95 +142,4 @@
 	</div>
 </div>
 
-<div class="portlet" id="income-graph-month">	
-	<div class="widget-wrapper">
-		<div class="widget-header"><h4><a href="#"><i class="fa fa-bar-chart-o"></i> <?php echo $this->translate('Income by Month (graph)')?></a></h4></div>
-		<div class="widget-content">
-			<div id='graph'></div>
-		</div>
-	</div>
-	
-	<script type="text/javascript" src="//www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawMonthlyIncomeChart);
-      function drawMonthlyIncomeChart() {
-		var data = new google.visualization.DataTable({
-	       cols: [{id: 'month',          label: '<?php echo $this->translate('Month')?>', type: 'string'},
-	              {id: 'grandTotal',     label: '<?php echo $this->translate('Income')?> <?php echo $currentYear?>', type: 'number'},
-	              {'p': {'role':'tooltip','html':true}}, // tooltip for current year
-	              {id: 'grandTotalLast', label: '<?php echo $this->translate('Income')?> <?php echo $lastYear?>', type: 'number'},
-	              {'p': {'role':'tooltip','html':true}} // tooltip for previous year
-	       ],
-	       
-	       rows: [
-	          <?php
-	          	$year = date('Y');
-				$currentYear = !empty($year) ? $year : date("Y");
-				$lastYear    = $currentYear -1;
-				$net_total = 0;
-				$oldTotal = 0;
-				$yieldrate = 0;
-				$incdec = 0;
-				
-				// Cycle months
-				for ( $i = 1; $i <= 12; $i++ ) {
-					
-					$month = str_pad($i, 2, '0', STR_PAD_LEFT);
-					$currentTS 			= new Zend_Date(mktime(0,0,0,$month,1,$currentYear));
-					$lastTS    			= new Zend_Date(mktime(0,0,0,$month,1,$lastYear));
-					$currentMonthTitle 	= ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$currentYear);
-					$lastMonthTitle    	= ucwords($currentTS->toString(Zend_Date::MONTH_NAME).' '.$lastYear);
-					
-					foreach($income_graph_monthly as $income){
-						
-						if($income['month'] == $i && $income['year'] == $currentYear){
-								
-							$net_total    	= (isset($income['net_total'])) ? $income['net_total'] : 0;
-							$oldTotal 		= (isset($income['old']['net_total'])) ? $income['old']['net_total'] : 0;
-							$incdec 		= (isset($income['incdec'])) ? $income['incdec'] : 0;
-							$yieldrate 		= (isset($income['yieldrate'])) ? $income['yieldrate'] : 0;
-							break;	
-						}elseif ($income['month'] == $i && $income['year'] == $lastYear){
-							$net_total    	= 0;
-							$oldTotal 		= (isset($income['net_total'])) ? $income['net_total'] : 0;
-							$incdec 		= (isset($income['incdec'])) ? $income['incdec'] : 0;
-							$yieldrate 		= (isset($income['yieldrate'])) ? $income['yieldrate'] : 0;
-						}
-						
-						
-					}
-					
-					$spanColor 		= ( $yieldrate > 0 ) ? 'green' : 'red';
-					$arrColonne   = array();
-					$arrColonne[] = "{v: '" . $month . "'}";
-					$arrColonne[] = "{v:" . $net_total . "}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$currentMonthTitle."</strong></span><br/>".$this->translate('Income').": &euro; ".$net_total."<br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."<br/>".$this->translate('Grow').": <span class=\'".$spanColor."\'>&euro; ".$incdec." (".$yieldrate."%)</span></div>'}"; // tooltip for current year
-					$arrColonne[] = "{v:" . $oldTotal . "}";
-					$arrColonne[] = "{v:'<div style=\'font-size:14px\'><span style=\'font-size:18px\'><strong>".$lastMonthTitle."</strong></span><br/>".$this->translate('Income')." ".$lastYear.": &euro; ".$oldTotal."'}"; // tooltip for previous year
-					
-					$arrgraph[] = "{c:[".implode(',',$arrColonne)."]}\n";
-				}
-				echo implode(',', $arrgraph);
-				
-	      		?>
-			]
-			
-     	}, 0.6);
-
-        var options = {
-        	curveType: 'function'
-        	,tooltip: {isHtml: true}
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('graph'));
-        chart.draw(data, options);
-
-		$(window).smartresize(function(){
-			chart.draw(data, options);
-		});
-      }
-    </script>	
-	
-</div>
 <?php endif;?>

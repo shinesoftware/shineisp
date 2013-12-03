@@ -85,7 +85,8 @@ class Orders extends BaseOrders {
 		$columns [] = array ('label' => $translator->translate ( 'Total' ), 'field' => 'o.total', 'alias' => 'total', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
 		$columns [] = array ('label' => $translator->translate ( 'VAT' ), 'field' => 'o.vat', 'alias' => 'vat', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs') );
 		$columns [] = array ('label' => $translator->translate ( 'Grand Total' ), 'field' => 'o.grandtotal', 'alias' => 'grandtotal', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs') );
-		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 30 ));
+		$columns [] = array ('label' => $translator->translate ( 'Profit' ), 'field' => '(o.total - o.cost)', 'alias' => 'profit', 'sortable' => true, 'type' => 'float', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs') );
+		$columns [] = array ('label' => $translator->translate ( 'Renewal' ), 'field' => 'o.is_renewal', 'alias' => 'is_renewal', 'sortable' => true, 'type' => 'boolean', 'searchable' => true, 'filterdata' => array( '0'=>'No', '1'=>'Yes'), 'attributes' => array ('class' => 'visible-lg hidden-md hidden-xs', 'width' => 30 ));
 		$columns [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'searchable' => true, 'type' => 'index', 'attributes' => array ('class' => 'visible-lg visible-md hidden-xs', 'width' => 70 ));
 		
 		
@@ -97,6 +98,7 @@ class Orders extends BaseOrders {
                                               o.total as total,
                                               o.vat as vat,
                                               o.grandtotal as grandtotal,
+                                              o.total - o.cost as profit,
                                               in.formatted_number as formatted_number,
                                               CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as customer,
                                               CONCAT(r.company, ' ', r.firstname,' ', r.lastname) as reseller,
@@ -1701,6 +1703,7 @@ class Orders extends BaseOrders {
 	public static function updateTotalsOrder($id) {
 		$total = 0;
 		$vat   = 0;
+		$discount   = 0;
 		$costs = 0;
 		try {
 			$order = self::find ( $id );
@@ -1746,18 +1749,26 @@ class Orders extends BaseOrders {
 								// Calculate the price per the months per Quantity
 								$subtotal = ($detail ['price'] * $months) * $detail ['quantity'];
 								
+								if(!empty($detail ['discount'])){
+									$discount = ($subtotal * $detail ['discount']) / 100;
+								}
+								
 							}else{
 								
 								$setupfee = $detail ['setupfee'];
 								
 								// Calculate the price per Quantity
 								$subtotal = $detail ['price'] * $detail ['quantity'];
+								
+								if(!empty($detail ['discount'])){
+									$discount = ($subtotal * $detail ['discount']) / 100;
+								}
 							}
 							
 						}
 						
 						// ... and add the setup fees
-						$price = $subtotal + $setupfee;
+						$price = $subtotal + $setupfee - $discount;
 						$total += $price;
 						$costs += $detail ['cost'];
 						
@@ -2232,14 +2243,15 @@ class Orders extends BaseOrders {
 			$filename = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
 			
 			$database ['header'] ['label'] = $translator->translate('Order No.') . " " . $order[0]['order_number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ($order [0] ['order_date']);
-			$database ['columns'] [] = array ("value" => "SKU", "size" => 30 );
-			$database ['columns'] [] = array ("value" => "Description" );
-			$database ['columns'] [] = array ("value" => "Qty", "size" => 30, "align" => "center" );
-			$database ['columns'] [] = array ("value" => "Unit", "size" => 30 );
-			$database ['columns'] [] = array ("value" => "Tax Free Price", "size" => 60, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Setup fee", "size" => 60, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Tax %", "size" => 40, "align" => "center" );
-			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("SKU"), "size" => 40 );
+			$database ['columns'] [] = array ("value" => $translator->translate("Description") );
+			$database ['columns'] [] = array ("value" => $translator->translate("Qty"), "size" => 30, "align" => "center" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Unit"), "size" => 30 );
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax Free Price"), "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Discount"), "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Setup fee"), "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax %"), "size" => 40, "align" => "center" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Total"), "size" => 50, "align" => "right" );
 			
 			if (isset ( $order [0] )) {
 				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : self::formatOrderId($order[0]['order_id']);
@@ -2351,7 +2363,11 @@ class Orders extends BaseOrders {
 						} 
 					}
 					
-					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
+					if(!empty($item ['discount'])){
+						$item ['discount'] = $item ['discount'] . "%";
+					}
+					
+					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], $translator->translate('nr'), $item ['price'], $item ['discount'], $item ['setupfee'], $taxpercent, $rowtotal);
 				}
 				
 				if (isset ( $order [0] )) {
@@ -2443,6 +2459,10 @@ class Orders extends BaseOrders {
 	
 	/**
 	 * Yield total percentage between periods 
+	 * 
+	 * @param integer $year
+	 * @param string $groupby [year, month, quarter]
+	 * @return array
 	 * 
 	 * This is a sample of the array result of this method:
 	 * 
@@ -2655,6 +2675,43 @@ class Orders extends BaseOrders {
 		}
 		
 		return !empty($income[0]) ? $income: array();
+	}
+	
+	/**
+	 * Create a Js script code for the Morris Graph JQuery Tool
+	 */
+	public static function MorrisGraphJs($year, $groupby="year"){
+
+	    $currentYear      = date('Y');
+	    $data             = self::incomes($currentYear, $groupby);
+	    
+	    return self::getDataGraph($data);
+	    
+	}
+	
+	/**
+	 * Morris Data Parser
+	 * @param array $data
+	 */
+	private static function getDataGraph($data, $records=array()){
+	    
+	    if(!empty($data)){
+    	    foreach($data as $item){
+    	        if(isset($item['month'])){
+    	            $records[$item['year']][$item['month']] = $item['net_total'];
+    	        }elseif(isset($item['quarter'])){
+    	            $records[$item['year']][$item['quarter']] = $item['net_total'];
+    	        }else{
+    	            $records[$item['year']] = $item['net_total'];
+    	        }
+        	    
+        	    if(!empty($data['old'])){
+        	        return self::getDataGraph($data['old'], $records);
+        	    }
+    	    }
+	    }
+	    
+	    return $records;
 	}
 	
 	######################################### CRON METHODS ############################################

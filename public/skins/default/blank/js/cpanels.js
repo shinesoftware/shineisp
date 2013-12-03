@@ -1,15 +1,5 @@
 $(document).ready(function(){
 	
-	$("#searchbox").focus(function() {
-		$(this).parent().addClass("curfocus");
-		$(this).addClass("largebox");
-	});
-
-	$("#searchbox").blur(function() {
-		$(this).parent().removeClass("curfocus");
-		$(this).removeClass("largebox");
-	});
-	
 	//Custom Action button inside the list of the records
 	$(".chkdomain").click( 
 		function () {
@@ -56,5 +46,75 @@ $(document).ready(function(){
 		}
 	);
 	
+	
+	tinymce.init({
+	    selector: "textarea.wysiwyg-simple",
+		width:      '100%',
+	    plugins:    [ "paste anchor link" ],
+		menubar:    false,
+		paste_preprocess : function(pl, o) {o.content = strip_tags( o.content,'' );},
+	    toolbar:    "bold italic | bullist outdent indent | alignleft aligncenter alignright alignjustify"
+	});
     
 }); 
+
+
+
+
+//Strips HTML and PHP tags from a string for TinyMCE plugin
+function strip_tags (str, allowed_tags) {
+	var key = '', allowed = false;
+	var matches = [];
+	var allowed_array = [];
+	var allowed_tag = '';
+	var i = 0;
+	var k = '';
+	var html = '';
+	var replacer = function (search, replace, str) {
+		return str.split(search).join(replace);
+	}
+	;
+	// Build allowes tags associative array
+	if (allowed_tags) {
+		allowed_array = allowed_tags.match(/([a-zA-Z0-9]+)/gi);
+	}
+	str += '';
+	// Match tags
+	matches = str.match(/(<\/?[\S][^>]*>)/gi);
+	// Go through all HTML tags
+	for (key in matches) {
+		if (isNaN(key)) {
+			// IE7 Hack
+			continue;
+		}
+		// Save HTML tag
+		html = matches[key].toString();
+		// Is tag not in allowed list? Remove from str!
+		allowed = false;
+		// Go through all allowed tags
+		for (k in allowed_array) {
+			// Init
+			allowed_tag = allowed_array[k];
+			i = -1;
+			if (i != 0) {
+				i = html.toLowerCase().indexOf('<'+allowed_tag+'>');
+			}
+			if (i != 0) {
+				i = html.toLowerCase().indexOf('<'+allowed_tag+' ');
+			}
+			if (i != 0) {
+				i = html.toLowerCase().indexOf('</'+allowed_tag)   ;
+			}
+			// Determine
+			if (i == 0) {
+				allowed = true;
+				break;
+			}
+		}
+		if (!allowed) {
+			str = replacer(html, "", str);
+			// Custom replace. No regexing
+		}
+	}
+	return str;
+}

@@ -20,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('OrdersItems', 'doctrine');
  * @property float $subtotal
  * @property float $percentage
  * @property float $setupfee
+ * @property float $discount
  * @property integer $status_id
  * @property string $parameters
  * @property string $setup
@@ -114,6 +115,11 @@ abstract class BaseOrdersItems extends Doctrine_Record
              'length' => '10',
              ));
         $this->hasColumn('setupfee', 'float', 10, array(
+             'type' => 'float',
+             'default' => 0,
+             'length' => '10',
+             ));
+        $this->hasColumn('discount', 'float', 10, array(
              'type' => 'float',
              'default' => 0,
              'length' => '10',

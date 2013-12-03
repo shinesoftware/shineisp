@@ -37,7 +37,7 @@ class Default_Form_CartsimpleprofileForm extends Zend_Form
                   ->setMultiOptions(CompanyTypes::getList(true));
         
         $this->addElement('select', 'legalform', array(
-        'label' => $translate->_('Legalform'),
+        'label' => $translate->_('Legal form'),
         'required'   => true,
         'decorators' => array('Bootstrap'),
         'description'      => $translate->_('Select the type of company.'),

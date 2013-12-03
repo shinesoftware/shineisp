@@ -74,12 +74,12 @@ SettingsParameters:
   SettingsParameters_9:
     name: 'Frontend Skin'
     var: skin
-    type: text
+    type: select
     module: admin
     enabled: '1'
     description: 'Write here your custom skin folder name. Skins are located into /public/skins/default/'
     SettingsGroups: SettingsGroups_2
-    config: null
+    config: '{"class":"Settings","method":"getfrontendskins"}'
   SettingsParameters_10:
     name: 'Default Title'
     var: default_html_title
@@ -155,12 +155,12 @@ SettingsParameters:
   SettingsParameters_18:
     name: 'Administration Skin'
     var: adminskin
-    type: text
+    type: select
     module: admin
     enabled: '1'
     description: 'Write here your custom administration skin folder name. Skins are located into /public/skins/admin/'
     SettingsGroups: SettingsGroups_2
-    config: null
+    config: '{"class":"Settings","method":"getbackendskins"}'
   SettingsParameters_19:
     name: 'Administration File Upload Limits (MB)'
     var: adminuploadlimit
@@ -317,12 +317,12 @@ SettingsParameters:
   SettingsParameters_36:
     name: 'Date Format'
     var: dateformat
-    type: text
+    type: select
     module: admin
     enabled: '1'
-    description: 'Select the date format style. eg: dd/MM/YYYY'
+    description: 'Select the date format style. '
     SettingsGroups: SettingsGroups_1
-    config: null
+    config: '{"class":"Settings","method":"getDateFormat"}'
   SettingsParameters_37:
     name: Email
     var: dropbox_email
@@ -448,4 +448,13 @@ SettingsParameters:
     enabled: '1'
     description: 'Adding the zero number before the invoice number.'
     SettingsGroups: SettingsGroups_1
+    config: null
+  SettingsParameters_55:
+    name: 'Custom Frontend CSS'
+    var: css
+    type: textarea
+    module: admin
+    enabled: '1'
+    description: 'Overwrite here the css of the frontend side of ShineISP.'
+    SettingsGroups: SettingsGroups_2
     config: null
