@@ -78,7 +78,7 @@ class Shineisp_Decorator_Bootstrap extends Zend_Form_Decorator_Abstract {
 		if (empty ( $messages )) {
 			return '';
 		}
-		return '<span class="help-inline">' . $element->getView ()->formErrors ( $messages ) . '</span>';
+		return '<span class="alert alert-danger help-inline">' . $element->getView ()->formErrors ( $messages ) . '</span>';
 	}
 	
 	/**

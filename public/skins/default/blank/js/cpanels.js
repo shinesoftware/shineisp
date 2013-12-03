@@ -1,15 +1,5 @@
 $(document).ready(function(){
 	
-	$("#searchbox").focus(function() {
-		$(this).parent().addClass("curfocus");
-		$(this).addClass("largebox");
-	});
-
-	$("#searchbox").blur(function() {
-		$(this).parent().removeClass("curfocus");
-		$(this).removeClass("largebox");
-	});
-	
 	//Custom Action button inside the list of the records
 	$(".chkdomain").click( 
 		function () {

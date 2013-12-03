@@ -186,7 +186,7 @@ class TicketsController extends Shineisp_Controller_Default {
 		$id = $this->getRequest ()->getParam ( 'ticket_id' );
 		
 		$data = $request->getPost ();
-		$data['note'] = htmlspecialchars($data['note']);
+		$data['note'] = !empty($data['note']) ? $data['note'] : "-"; //There is a problem with TinyMCE!
 		
 		$categoryId = !empty($data['category_id']) && is_numeric($data['category_id']) ? $data['category_id'] : null;
 		
