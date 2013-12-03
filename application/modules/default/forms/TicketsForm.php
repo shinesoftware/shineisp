@@ -34,7 +34,7 @@ class Default_Form_TicketsForm extends Zend_Form
         
         $this->addElement('textarea', 'note', array(
             'filters'     => array('StringTrim'),
-            'required'    => true,
+           // 'required'    => true, There is a problem with TinyMCE!
             'label'      => $translate->_('Body Message'),
         	'decorators'  => array('Bootstrap'),
             'description' => $translate->_('Write here all the information.'),
