@@ -382,6 +382,7 @@ class OrdersItems extends BaseOrdersItems {
 		$details->cost             = $params ['cost'];
 		$details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
 		$details->setupfee         = $params ['setupfee'];
+		$details->discount         = $params ['discount'];
 		$details->status_id        = $params ['status_id'];
 		$details->description      = $params ['description'];
 		$details->parameters       = $params ['parameters'];

@@ -352,6 +352,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 			                                          d.quantity, 
 								                      d.description, 
 			                                          d.setupfee, 
+			                                          CONCAT(d.discount, ' %') as discount, 
 								                      d.price, 
 		                                              d.vat,
 								                      d.subtotal,
@@ -366,6 +367,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				$columns[] = $this->translator->translate('Subtotal');
 				$columns[] = $this->translator->translate('Start data');
 				$columns[] = $this->translator->translate('End data');
+				$columns[] = $this->translator->translate('Discount');
 				$columns[] = $this->translator->translate('Domain');
 				
 				return array (	'columns' => $columns, 

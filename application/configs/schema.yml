@@ -2156,6 +2156,9 @@ OrdersItems:
     setupfee:
       type: float(10)
       default: 0
+    discount:
+      type: float(10)
+      default: 0
     status_id:
       type: integer(4)
       default: '1'

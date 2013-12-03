@@ -271,18 +271,22 @@ class Admin_Form_OrdersForm extends Zend_Form
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        $MBlimit = Settings::findbyParam('adminuploadlimit');
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
+	        $filetypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
 	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
-	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s', Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
+	            'description'      => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $filetypes, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'data-classButton' => 'btn btn-primary',
 	            'data-input'       => 'false',
 	            'class'            => 'filestyle'
 	        ));
 	        
-	        $file->addValidator ( 'Extension', false, 'zip,rtf,doc,pdf,png,jpg,gif' )
-				 ->addValidator ( 'Size', false, $Byteslimit ) 
+	        if(!empty($filetypes)){
+				$file->addValidator ( 'Extension', false, $filetypes );
+	        }
+	        
+			$file->addValidator ( 'Size', false, $Byteslimit ) 
 				 ->addValidator ( 'Count', false, 1 );
 	        
 	        $this->addElement($file);
