@@ -113,6 +113,11 @@ ul.stats li strong,ul.stats li small,ul.stats li span {
 }
 
 
+/* ------ TYPEAHEAD -------- */
+.tt-hint.loading {
+    background: transparent url('/resources/jquery/images/ajax-loader.gif') no-repeat scroll right center content-box !important;
+}
+
 /* ------ MEDIA -------- */
 
 @media(max-width:767px){
