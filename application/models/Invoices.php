@@ -902,14 +902,15 @@ class Invoices extends BaseInvoices {
 			$order      = Orders::getAllInfo ( $invoice ['order_id'], null, true );
 			
 			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . sprintf("%03d", $invoice['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
-			$database ['columns'] [] = array ("value" => "SKU",            "size" => 20,    "align" => "left",    "key" => "sku");
-			$database ['columns'] [] = array ("value" => "Description",    "size" => 60,   "align" => "left",    "key" => "description");
-			$database ['columns'] [] = array ("value" => "Qty",            "size" => 2,    "align" => "right",   "key" => "qty");
-			$database ['columns'] [] = array ("value" => "Unit",           "size" => 2,    "align" => "center",  "key" => "unit");
-			$database ['columns'] [] = array ("value" => "Tax Free Price", "size" => 22,   "align" => "right",   "key" => "taxfreeprice");
-			$database ['columns'] [] = array ("value" => "Setup fee",      "size" => 15,   "align" => "right",   "key" => "setup");
-			$database ['columns'] [] = array ("value" => "Tax %",          "size" => 10,    "align" => "right",   "key" => "taxpercent");
-			$database ['columns'] [] = array ("value" => "Total",          "size" => 18,   "align" => "right",   "key" => "total");
+			$database ['columns'] [] = array ("value" => $translator->translate("SKU"),            "size" => 20,    "align" => "left",    "key" => "sku");
+			$database ['columns'] [] = array ("value" => $translator->translate("Description"),    "size" => 60,   "align" => "left",    "key" => "description");
+			$database ['columns'] [] = array ("value" => $translator->translate("Qty"),            "size" => 2,    "align" => "right",   "key" => "qty");
+			$database ['columns'] [] = array ("value" => $translator->translate("Unit"),           "size" => 2,    "align" => "center",  "key" => "unit");
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax Free Price"), "size" => 22,   "align" => "right",   "key" => "taxfreeprice");
+			$database ['columns'] [] = array ("value" => $translator->translate("Discount"),       "size" => 15,   "align" => "right",   "key" => "discount");
+			$database ['columns'] [] = array ("value" => $translator->translate("Setup fee"),      "size" => 15,   "align" => "right",   "key" => "setup");
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax %"),          "size" => 10,    "align" => "right",   "key" => "taxpercent");
+			$database ['columns'] [] = array ("value" => $translator->translate("Total"),          "size" => 18,   "align" => "right",   "key" => "total");
 			
 			if (isset ( $order [0] )) {
 				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : Orders::formatOrderId($order[0]['order_id']);
@@ -1019,7 +1020,11 @@ class Invoices extends BaseInvoices {
 					$item ['setupfee'] = $currency->toCurrency($item ['setupfee'], array('currency' => Settings::findbyParam('currency')));
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
-					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $item['percentage'], $rowtotal);
+					if(!empty($item ['discount'])){
+						$item ['discount'] = $item ['discount'] . "%";
+					}
+					
+					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], $translator->translate('nr'), $item ['price'], $item ['discount'], $item ['setupfee'], $item['percentage'], $rowtotal);
 				}
 
 				// Sanitize some fields

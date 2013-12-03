@@ -145,6 +145,7 @@ class OrdersController extends Shineisp_Controller_Default {
                                         					        DATE_FORMAT(oi.date_end, '%d/%m/%Y') as expiration_date, 
                                         					        oi.quantity as quantity, 
                                         					        oi.price as price, 
+                                        					        CONCAT(oi.discount, '%') as discount, 
                                         					        oi.subtotal as subtotal, 
                                         					        bc.name as billingcycle, 
                                         					        oi.setupfee as setupfee", true );
@@ -158,8 +159,9 @@ class OrdersController extends Shineisp_Controller_Default {
 					$columns = array();
 					$columns[] = $this->translator->translate('Description');
 					$columns[] = $this->translator->translate('Expiry Date');
-					$columns[] = $this->translator->translate('Quantity');
+					$columns[] = $this->translator->translate('Qty');
 					$columns[] = $this->translator->translate('Price');
+					$columns[] = $this->translator->translate('Discount');
 					$columns[] = $this->translator->translate('Subtotal');
 					$columns[] = $this->translator->translate('Billing Cycle');
 					$columns[] = $this->translator->translate('Setup Fee');

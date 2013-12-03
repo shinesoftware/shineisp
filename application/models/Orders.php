@@ -1703,6 +1703,7 @@ class Orders extends BaseOrders {
 	public static function updateTotalsOrder($id) {
 		$total = 0;
 		$vat   = 0;
+		$discount   = 0;
 		$costs = 0;
 		try {
 			$order = self::find ( $id );
@@ -1748,18 +1749,26 @@ class Orders extends BaseOrders {
 								// Calculate the price per the months per Quantity
 								$subtotal = ($detail ['price'] * $months) * $detail ['quantity'];
 								
+								if(!empty($detail ['discount'])){
+									$discount = ($subtotal * $detail ['discount']) / 100;
+								}
+								
 							}else{
 								
 								$setupfee = $detail ['setupfee'];
 								
 								// Calculate the price per Quantity
 								$subtotal = $detail ['price'] * $detail ['quantity'];
+								
+								if(!empty($detail ['discount'])){
+									$discount = ($subtotal * $detail ['discount']) / 100;
+								}
 							}
 							
 						}
 						
 						// ... and add the setup fees
-						$price = $subtotal + $setupfee;
+						$price = $subtotal + $setupfee - $discount;
 						$total += $price;
 						$costs += $detail ['cost'];
 						
@@ -2234,14 +2243,15 @@ class Orders extends BaseOrders {
 			$filename = $order[0] ['order_date'] . " - " . $order[0] ['order_id'] . ".pdf";
 			
 			$database ['header'] ['label'] = $translator->translate('Order No.') . " " . $order[0]['order_number'] . " - " . Shineisp_Commons_Utilities::formatDateOut ($order [0] ['order_date']);
-			$database ['columns'] [] = array ("value" => "SKU", "size" => 30 );
-			$database ['columns'] [] = array ("value" => "Description" );
-			$database ['columns'] [] = array ("value" => "Qty", "size" => 30, "align" => "center" );
-			$database ['columns'] [] = array ("value" => "Unit", "size" => 30 );
-			$database ['columns'] [] = array ("value" => "Tax Free Price", "size" => 60, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Setup fee", "size" => 60, "align" => "right" );
-			$database ['columns'] [] = array ("value" => "Tax %", "size" => 40, "align" => "center" );
-			$database ['columns'] [] = array ("value" => "Total", "size" => 50, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("SKU"), "size" => 40 );
+			$database ['columns'] [] = array ("value" => $translator->translate("Description") );
+			$database ['columns'] [] = array ("value" => $translator->translate("Qty"), "size" => 30, "align" => "center" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Unit"), "size" => 30 );
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax Free Price"), "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Discount"), "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Setup fee"), "size" => 60, "align" => "right" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax %"), "size" => 40, "align" => "center" );
+			$database ['columns'] [] = array ("value" => $translator->translate("Total"), "size" => 50, "align" => "right" );
 			
 			if (isset ( $order [0] )) {
 				$orderinfo ['order_number'] = !empty($order[0]['order_number']) ? $order[0]['order_number'] : self::formatOrderId($order[0]['order_id']);
@@ -2353,7 +2363,11 @@ class Orders extends BaseOrders {
 						} 
 					}
 					
-					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], 'nr', $item ['price'], $item ['setupfee'], $taxpercent, $rowtotal);
+					if(!empty($item ['discount'])){
+						$item ['discount'] = $item ['discount'] . "%";
+					}
+					
+					$database ['records'] [] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], $translator->translate('nr'), $item ['price'], $item ['discount'], $item ['setupfee'], $taxpercent, $rowtotal);
 				}
 				
 				if (isset ( $order [0] )) {

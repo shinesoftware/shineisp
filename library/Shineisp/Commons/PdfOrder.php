@@ -423,7 +423,7 @@ class Shineisp_Commons_PdfOrder {
 			
 			// Write the header labels
 			$this->page->setFillColor ( new Zend_Pdf_Color_Html ( '#000000' ) );
-			$this->WriteText ( $this->translator->translate ( $column [$i] ['value'] ), $size, $z, $top_table_position + 3, $align, "Helvetica", 8 );
+			$this->WriteText ( $column [$i] ['value'], $size, $z, $top_table_position + 3, $align, "Helvetica", 8 );
 			$z += $size;
 		}
 		

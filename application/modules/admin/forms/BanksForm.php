@@ -41,11 +41,16 @@ class Admin_Form_BanksForm extends Zend_Form
             'class'      => 'form-control'
         ));        
         
-        $this->addElement('text', 'classname', array(
-            'label'      => $translate->_('Classname'),
+        $this->addElement('select', 'classname', array(
+            'label'      => $translate->_('Plugin'),
+            'description'      => $translate->_('This plugin is located at /library/Shineisp/Banks/ directory. For more information, look at http://www.shineisp.com/banks-modules/'),
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control'
-        ));        
+        ));      
+
+        $this->getElement('classname')
+			        ->setAllowEmpty(false)
+			        ->setMultiOptions(PaymentsMethods::getPluginList());
         
         $this->addElement('checkbox', 'enabled', array(
             'label'      => $translate->_('Enabled'),

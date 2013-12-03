@@ -185,20 +185,20 @@ class Admin_Form_CustomersForm extends Zend_Form
          // If the browser client is an Apple client hide the file upload html object  
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
-	        $adminuploadfiletypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
+	        $filetypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
-	            'description'  => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf) - Max %s', Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
+	            'description'  => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s',  $filetypes, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'data-classButton' => 'btn btn-primary',
 	            'data-input'       => 'false',
 	            'class'            => 'filestyle'
 	        ));
 			
-			if($adminuploadfiletypes){
-				$file->addValidator ( 'Extension', false, $adminuploadfiletypes );
+			if($filetypes){
+				$file->addValidator ( 'Extension', false, $filetypes );
 			}
 			
 			if($Byteslimit){

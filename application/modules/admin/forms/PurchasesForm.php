@@ -105,17 +105,23 @@ class Admin_Form_PurchasesForm extends Zend_Form
         
         // If the browser client is an Apple client hide the file upload html object
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
-        	
+        	$MBlimit = Settings::findbyParam('adminuploadlimit');
+        	$Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
+        	$filetypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
+        	 
 			$file = $this->createElement('file', 'document', array(
 	            'label'      => $translate->_('Document'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
-	            'description'      => $translate->_('Select the document to upload. Files allowed are (zip,rtf,doc,pdf)'),
+	            'description'      => $translate->_('Select the document to upload. Files allowed are (%s) - Max %s', $filetypes, Shineisp_Commons_Utilities::formatSizeUnits($Byteslimit)),
 	            'data-classButton' => 'btn btn-primary',
 	            'data-input'       => 'false',
 	            'class'            => 'filestyle'
 	        ));
-	        
-	        $file->addValidator ( 'Extension', false, 'zip,rtf,doc,pdf' );
+			
+			$file->addValidator ( 'Extension', false, $filetypes )
+				->addValidator ( 'Size', false, $Byteslimit )
+				->addValidator ( 'Count', false, 1 );
+			 
 	        $file->setValueDisabled(true);
 	        $file->setRequired(false);
 			$this->addElement($file);     

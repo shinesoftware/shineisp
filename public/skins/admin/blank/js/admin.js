@@ -48,6 +48,13 @@ $(document).ready(function(){
 		limit: 10, 
 		remote: {
 	        url: '/admin/search/do/q/%QUERY',
+	        beforeSend: function(xhr){
+	        	$(".tt-hint").addClass("loading"); 
+	          },
+             filter: function(parsedResponse){
+	        	  $(".tt-hint").removeClass("loading"); 
+	              return parsedResponse;
+             }
 	    },
 	    template: [
 			'<p class="repo-name"><i class="glyphicon {{icon}}"></i> {{section}}: {{value}}</p>',
