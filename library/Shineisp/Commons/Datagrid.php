@@ -35,7 +35,7 @@ class Shineisp_Commons_Datagrid {
 	public function __construct() {
 		$this->height = "250";
 		$this->id = "itemlist";
-		$this->css = "grid";
+		$this->css = "table table-striped table-hover table-condensed";
 		$this->title = "";
 		$this->multiselect = "true";
 		$this->viewrecords = true;
@@ -477,7 +477,7 @@ class Shineisp_Commons_Datagrid {
 			
 			if(!empty($this->title)){
 				$data = "<caption>";
-				$data .= '<div class="title left">' . $this->title . '</div>';
+				$data .= '<h2>' . $this->title . '</h2>';
 				$data .= "</caption>";
 			}
 			
@@ -701,7 +701,7 @@ class Shineisp_Commons_Datagrid {
 				}
 				
 				if ($this->hassubrecords) {
-					$html .= "<td><span onclick=\"$('#".$this->id."_subdata_$index').toggle();\">" . $this->translator->translate ('more information') . "</span></td>";	
+					$html .= "<td><a href='#' class='label label-default' onclick=\"$('#".$this->id."_subdata_$index').button('toggle').toggleClass('hidden active');return false;\">" . $this->translator->translate ('more information') . "</a></td>";	
 				}
 				
 				$html .= "</tr>";
@@ -732,7 +732,7 @@ class Shineisp_Commons_Datagrid {
 		$class = "odd";
 		$cols = count($this->columns)+1;
 		
-		$html = "<tr class='hidden' id='".$this->id."_subdata_$index'><td colspan='".$cols."'><table id='".$this->id."_subgrid' class='subgrid subgrid_".$this->id."'>";
+		$html = "<tr class='hidden' id='".$this->id."_subdata_$index'><td colspan='".$cols."'><table id='".$this->id."_subgrid' class='table table-striped table-hover table-condensed subgrid subgrid_".$this->id."'>";
 		
 		// Get the columns headers
 		foreach(array_keys($records[0]) as $column){

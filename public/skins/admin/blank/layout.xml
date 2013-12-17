@@ -74,7 +74,14 @@
 			-->
 		</index>
 		
-		
+		<reports>
+			<head>
+				<!-- MORRIS Chart tool -->
+				<js override="1" position="admin_endbody">//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js</js>
+				<js override="1" position="admin_endbody">http://cdn.oesmith.co.uk/morris-0.4.3.min.js</js>
+				<css override="1">http://cdn.oesmith.co.uk/morris-0.4.3.min.css</css>
+			</head>
+		</reports>
 		
 		<orders>
 			<head>
