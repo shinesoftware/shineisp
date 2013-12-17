@@ -19,17 +19,48 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 	 */
 	public function indexAction() {
 		$auth = Zend_Auth::getInstance ();
-		
 		$auth->setStorage ( new Zend_Auth_Storage_Session ( 'admin' ) );
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		if ($auth->hasIdentity ()) {
 			$this->view->show_dashboard = true;
 			$this->view->user = $auth->getIdentity();
 			$this->getHelper ( 'layout' )->setLayout ( '1column' );
 			
-			$this->view->placeholder ( "admin_endbody" )->append ( $this->view->partial ( 'partials/graphs.phtml', array ('type' => 'year', 'div_element' => 'yeargraph', 'data' => Orders::MorrisGraphJs(date('Y')) ) ) );
-			$this->view->placeholder ( "admin_endbody" )->append ( $this->view->partial ( 'partials/graphs.phtml', array ('type' => 'month', 'div_element' => 'monthgraph', 'data' => Orders::MorrisGraphJs(date('Y'), 'month') ) ) );
-			$this->view->placeholder ( "admin_endbody" )->append ( $this->view->partial ( 'partials/graphs.phtml', array ('type' => 'quarter', 'div_element' => 'quartergraph', 'data' => Orders::MorrisGraphJs(date('Y'), 'quarter') ) ) );
+			$graph = new Shineisp_Commons_Morris();
+
+			// Get the total of the revenues per year
+			$graphdata = $graph->setType('Area')
+							    ->setData(Orders::prepareGraphData(array(), 'year'))
+								->setElement('yeargraph')
+								->setXkey('xdata')
+								->setLabels(array($translator->translate('Net Revenue (Taxable Income less Costs)')))
+								->setOptions(array('lineColors' => array('#428BCA'), 'preUnits' => Settings::findbyParam('currency') . " "))
+								->plot();
+			
+			$this->view->placeholder ( "admin_endbody" )->append ($graphdata);
+
+			// Get the total of the revenues per quarter of year
+			$graphdata = $graph->setType('Area')
+							    ->setData(Orders::prepareGraphData(array(), 'quarter'))
+								->setElement('quartergraph')
+								->setXkey('xdata')
+								->setLabels(array($translator->translate('Net Revenue (Taxable Income less Costs)')))
+								->setOptions(array('lineColors' => array('#428BCA'), 'preUnits' => Settings::findbyParam('currency') . " "))
+								->plot();
+			
+			$this->view->placeholder ( "admin_endbody" )->append ($graphdata);
+
+			// Get the total of the revenues per quarter of year
+			$graphdata = $graph->setType('Bar')
+							    ->setData(Orders::prepareGraphData(array(), 'month'))
+								->setElement('monthgraph')
+								->setXkey('xdata')
+								->setLabels(array($translator->translate('Net Revenue (Taxable Income less Costs)')))
+								->setOptions(array('barColors' => array('#428BCA'), 'preUnits' => Settings::findbyParam('currency') . " "))
+								->plot();
+			
+			$this->view->placeholder ( "admin_endbody" )->append ($graphdata);
 			
 		} else {
 			$this->_helper->redirector ( 'index', 'login', 'admin' ); // back to login page

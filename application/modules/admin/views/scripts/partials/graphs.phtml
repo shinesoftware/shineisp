@@ -2,6 +2,16 @@
 <?php $element = $this->div_element ?>
 <?php $type = $this->type ?>
 
+<?php 
+	/**
+	 * This is the array structure for the "year" line area chart
+	 * array(3) {
+		  [2011] => float(19937.2)
+		  [2012] => float(43997.31)
+		  [2013] => float(61811.02)
+		}
+	 */
+?>
 <?php if(!empty($data) && $type == "year"): ?>
     <script type="text/javascript">
        new Morris.Area({
@@ -20,8 +30,88 @@
     </script>
 <?php endif; ?>
 
+<?php 
+	/**
+	 * This is the array structure for the "years bar chart"
+	 * array(12) {
+		  [1] => array(3) {
+		    [2011] => float(1417.92)
+		    [2012] => float(3103.24)
+		    [2013] => float(6198.37)
+		  }
+		  [2] => array(3) {
+		    [2011] => float(637.49)
+		    [2012] => float(3027.54)
+		    [2013] => float(5267.59)
+		  }
+		  [3] => array(3) {
+		    [2011] => float(448.3)
+		    [2012] => float(7206.75)
+		    [2013] => float(5240.9)
+		  }
+	 */
+?>
+<?php if(!empty($data[1]) && $type == "years"): ?>
+    <script type="text/javascript">
+       new Morris.Bar({
+    	  element: '<?php echo $element ?>',
+    	  data: [
+    		<?php 
+    			$keys = implode("','", array_keys($data[1]));
+    			$morrisItems = array();
 
+    			// Loop for all the months
+    			foreach ($data as $month => $years):
+
+    				// get the month name
+    				$monthName = date("F", mktime(0, 0, 0, $month, 10));
+    				
+    				echo "{ month: '".$this->translate($monthName)."', ";
+    				
+    				// Loop for all the years
+    				foreach ($years as $year => $value):
+    					$morrisItems[] = $year . ": " . $value; 
+    				endforeach;
+    				
+    				// Complete the morris json data 
+    				echo implode(", ", $morrisItems) . "},\n";
+    				$morrisItems = array();
+    			endforeach;
+    		?>
+    	  ],
+    	  xkey: 'month',
+    	  ykeys: ['<?php echo $keys?>'],
+          labels: ['<?php echo $keys?>'],
+    	});
+    
+    </script>
+<?php endif; ?>
+
+
+<?php 
+
+	/**
+	 * This is the array structure for the "month" line chart
+	 * array(3) {
+		  [2011] => array(12) {
+		    [1] => float(1417.92)
+		    [2] => float(637.49)
+		    [3] => float(448.3)
+		    [4] => float(1016.73)
+		    [5] => float(3207.88)
+		    [6] => float(3299.5)
+		    [7] => float(1177.42)
+		    [8] => float(590.25)
+		    [9] => float(1675.56)
+		    [10] => float(1618.75)
+		    [11] => float(2350.9)
+		    [12] => float(2496.5)
+		  }] => float(61811.02)
+		}
+	 */
+?>
 <?php if(!empty($data) && $type == "month"): ?>
+<?php Zend_Debug::dump($data)?>
     <?php $i = 1; ?>
     <script type="text/javascript">
        new Morris.Area({
@@ -45,6 +135,19 @@
 <?php endif; ?>
 
 
+<?php 
+
+	/**
+	 * This is the array structure for the "quarter" line chart
+	 * array(3) {
+		  [2011] => array(4) {
+		    [1] => float(2503.71)
+		    [2] => float(7524.11)
+		    [3] => float(3443.23)
+		    [4] => float(6466.15)
+		  }
+	 */
+?>
 <?php if(!empty($data) && $type == "quarter"): ?>
     <?php $i = 1; ?>
     <script type="text/javascript">

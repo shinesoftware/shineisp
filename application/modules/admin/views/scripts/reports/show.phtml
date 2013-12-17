@@ -2,15 +2,10 @@
 
       
 <?php echo $this->form ?>
-<?php if(!empty($this->monthsummary)): ?>
-	<?php echo $this->googlegraph($this->monthsummary, $this->year) ?>
-<?php endif;?>
+<div id="yearsgraph"></div>
+<div id="weeksgraph"></div>
 
-<?php if(!empty($this->weeksummary)): ?>
-	<?php echo $this->googlegraph($this->weeksummary, $this->year) ?>
-<?php endif;?>
-
-<br/><br/>
+<hr/>
 
 <?php if($this->data):?>
 	<?php echo $this->simplegrid($this->data)?>

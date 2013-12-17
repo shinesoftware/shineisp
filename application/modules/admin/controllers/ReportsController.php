@@ -61,9 +61,18 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 					}
 					$this->view->year = $param;
 					
-					// Get the graph data
-					$this->view->monthsummary = Invoices::graph(array($param));
-					$this->view->weeksummary = Invoices::graph_week($param.'-01-01', $param . "-12-31");
+					$graph = new Shineisp_Commons_Morris();
+					
+					// Get the total of the revenues per year
+					$graphdata = $graph->setType('Area')
+										->setData(Orders::prepareGraphData(array($param), 'month', false))
+										->setElement('yearsgraph')
+										->setXkey('xdata')
+										->setLabels(array($this->translator->translate('Net Revenue (Taxable Income less Costs)')))
+										->setOptions(array('lineColors' => array('#428BCA'), 'preUnits' => Settings::findbyParam('currency') . " "))
+										->plot();
+					
+					$this->view->placeholder ( "admin_endbody" )->append ($graphdata);
 					
 					Invoices::getSummaryGrid($this->_helper, $param);
 					PurchaseInvoices::getSummaryGrid($this->_helper, $param);

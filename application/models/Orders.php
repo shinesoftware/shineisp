@@ -2460,7 +2460,7 @@ class Orders extends BaseOrders {
 	/**
 	 * Yield total percentage between periods 
 	 * 
-	 * @param integer $year
+	 * @param array $yearsminmax [2010,2013]
 	 * @param string $groupby [year, month, quarter]
 	 * @return array
 	 * 
@@ -2514,11 +2514,9 @@ class Orders extends BaseOrders {
 		  }
 	 * @return ArrayObject
 	 */
-	public static function incomes($year = null, $groupby="year") {
+	public static function incomes(array $years = array(), $groupby="year", $recursive = true) {
 		
-		$present_year 	= !empty($year) ? $year : date("Y");
-		$last_year 		= $present_year - 1;
-		$diff			= 0;
+		$diff = 0;
 		
 		// Get the year incomes total and subtract the credit memo
 		$dq = Doctrine_Query::create ()->select ( "invoice_id, YEAR(i.invoice_date) as year, SUM(o.grandtotal) as gross_grandtotal, SUM(o.total) as gross_total, SUM(o.vat) as gross_vat,
@@ -2544,6 +2542,13 @@ class Orders extends BaseOrders {
 			$dq->groupBy("quarter, year")->orderBy('year, quarter');
 		}else{
 			$dq->groupBy("year")->orderBy('year');
+		}
+		
+		if(!empty($years[0]) && !empty($years[1])){
+			$dq->addWhere('YEAR(i.invoice_date) >= ?', $years[0]);
+			$dq->addWhere('YEAR(i.invoice_date) <= ?', $years[1]);
+		}elseif(!empty($years[0]) && is_numeric($years[0])){
+			$dq->addWhere('YEAR(i.invoice_date) = ?', $years);
 		}
 		
 		$income = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
@@ -2678,14 +2683,14 @@ class Orders extends BaseOrders {
 	}
 	
 	/**
-	 * Create a Js script code for the Morris Graph JQuery Tool
+	 * Create the array data for the Morris Graph JQuery Tool
 	 */
-	public static function MorrisGraphJs($year, $groupby="year"){
+	public static function prepareGraphData($yearsminmax=array(), $groupby="year", $recursive = false){
 
-	    $currentYear      = date('Y');
-	    $data             = self::incomes($currentYear, $groupby);
-	    
-	    return self::getDataGraph($data);
+	    $currentYear      = !empty($yearsminmax) ? $yearsminmax : array();
+	    $data             = self::incomes($currentYear, $groupby, $recursive);
+
+	    return self::getDataGraph($data, array(), false);
 	    
 	}
 	
@@ -2693,20 +2698,20 @@ class Orders extends BaseOrders {
 	 * Morris Data Parser
 	 * @param array $data
 	 */
-	private static function getDataGraph($data, $records=array()){
+	private static function getDataGraph($data, $records=array(), $recursive = false){
 	    
 	    if(!empty($data)){
     	    foreach($data as $item){
     	        if(isset($item['month'])){
-    	            $records[$item['year']][$item['month']] = $item['net_total'];
+    	            $records[$item['year'] . "-" . $item['month']]['ydata'] = $item['net_total'];
     	        }elseif(isset($item['quarter'])){
-    	            $records[$item['year']][$item['quarter']] = $item['net_total'];
+    	            $records[$item['year'] . "-" . $item['quarter']]['ydata'] = $item['net_total'];
     	        }else{
-    	            $records[$item['year']] = $item['net_total'];
+    	            $records[$item['year']]['ydata'] = $item['net_total'];
     	        }
         	    
-        	    if(!empty($data['old'])){
-        	        return self::getDataGraph($data['old'], $records);
+        	    if(!empty($data['old']) && $recursive){
+        	        return self::getDataGraph($data['old'], $records, $recursive);
         	    }
     	    }
 	    }

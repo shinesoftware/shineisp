@@ -116,11 +116,11 @@ class Shineisp_Controller_Action_Helper_Datagrid extends Zend_Controller_Action_
 							->setHasSubrecords ( $hassubrecords )
 							->setMassActions ( $massactions )
 							#->addCrudActions ( $buttons, $index )
-							->setFilter ( 'searchprocess' )
+// 							->setFilter ( 'searchprocess' )
 							->setBasePath ( $datagrid ['basepath'] )
 							->setRowlist ( $rowlist )
 							->setRownum ( $rowNum )
-							->addMultiselect ( $index )
+// 							->addMultiselect ( $index )
 							->setCurrentPage ( $page )
 							->setTitle ( $title );
 			
