@@ -203,31 +203,46 @@
 					<uri>/admin/reports/show/type/domainstats</uri>
 					<resource>admin:reports</resource>
 				</domainstats>
+				<tldsummarypermonth>
+					<label>Domain per month</label>
+					<uri>/admin/reports/show/type/tldsummarypermonth</uri>
+					<resource>admin:reports</resource>
+				</tldsummarypermonth>
+				<tldssummaryowner>
+					<label>Domains per Client</label>
+					<uri>/admin/reports/show/type/tldsummaryowner</uri>
+					<resource>admin:reports</resource>
+				</tldssummaryowner>
 				<domainstasks>
-					<label>Domain Statistics</label>
+					<label>Domains per Month</label>
 					<uri>/admin/reports/show/type/domainstasks</uri>
 					<resource>admin:reports</resource>
 				</domainstasks>
-				<tldssummaryowner>
-					<label>Domains per Client</label>
-					<uri>/admin/reports/show/type/tldssummaryowner</uri>
-					<resource>admin:reports</resource>
-				</tldssummaryowner>
-				<tldssummarypermonth>
-					<label>Domains per Month</label>
-					<uri>/admin/reports/show/type/tldssummarypermonth</uri>
-					<resource>admin:reports</resource>
-				</tldssummarypermonth>
 				<servicesummary>
 					<label>Service Summary</label>
 					<uri>/admin/reports/show/type/servicesummary</uri>
 					<resource>admin:reports</resource>
 				</servicesummary>
-				<panelsactions>
-					<label>Panels Actions</label>
-					<uri>/admin/reports/show/type/panelsactions</uri>
+				<ticketsummary>
+					<label>Tickets Summary</label>
+					<uri>/admin/reports/show/type/ticketsummary</uri>
 					<resource>admin:reports</resource>
-				</panelsactions>
+				</ticketsummary>
+				<domainsexpiration>
+					<label>Domains Expiration</label>
+					<uri>/admin/reports/show/type/domainsexpiration</uri>
+					<resource>admin:reports</resource>
+				</domainsexpiration>
+				<servicesexpiration>
+					<label>Services Expiration</label>
+					<uri>/admin/reports/show/type/servicesexpiration</uri>
+					<resource>admin:reports</resource>
+				</servicesexpiration>
+				<productsummary>
+					<label>Products Sold Summary</label>
+					<uri>/admin/reports/show/type/productsummary</uri>
+					<resource>admin:reports</resource>
+				</productsummary>
 			</pages>
 		</reports>
 		

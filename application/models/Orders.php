@@ -2719,6 +2719,36 @@ class Orders extends BaseOrders {
 	    return $records;
 	}
 	
+	/**
+	 * Get the product sold summary or per year
+	 */
+	public static function getProductSoldSummary($year=null){
+		$Session = new Zend_Session_Namespace ( 'Admin' );
+		$locale = $Session->langid;
+		
+		// Get the year incomes total and subtract the credit memo
+		$dq = Doctrine_Query::create ()->select('detail_id, count(*) as total,  pag.name as group, pd.name as product,')
+				->from ( 'OrdersItems oi' )
+				->leftJoin ( 'oi.Orders o' )
+				->leftJoin ( 'oi.Products p' )
+				->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+				->leftJoin ( 'p.ProductsAttributesGroups pag' )
+				->where('oi.status_id = ? OR oi.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+				->andWhere('p.isp_id = ?', Isp::getCurrentId())
+				->groupBy('pd.name')
+				->orderBy('count(*) desc');
+		
+		if(is_numeric($year)){
+			$dq->andWhere('Year(o.order_date) = ?', $year);
+		}
+		
+		$data = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+		
+		return $data;
+		
+		
+	}
+	
 	######################################### CRON METHODS ############################################
 	
 	/**
