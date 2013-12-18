@@ -719,7 +719,6 @@ class Domains extends BaseDomains {
 	}
 	
 	/**
-	 * getSummary
 	 * Get the summary of the tld registered
 	 * 
 	 * @return Array
@@ -727,22 +726,25 @@ class Domains extends BaseDomains {
 	public static function getSummary($customer_id = null) {
 		// Only Active domain
 		$dq = Doctrine_Query::create ()
-					->select ( "Count(*) as total, 
-								tld, 
-								(Count(0) * p.registration_cost) as costs, 
-								(Count(*) * p.registration_price) as earnings" )
+					->select ( "domain_id, Count(*) as total, 
+								ws.tld as tld, 
+								(Count(0) * dt.registration_cost) as costs, 
+								(Count(*) * dt.registration_price) as earnings" )
 					->from ( 'Domains d' )
-					->leftJoin ( 'd.DomainsTlds p' )
+					->leftJoin ( 'd.DomainsTlds dt' )
+					->leftJoin ( 'dt.WhoisServers ws' )
                     ->leftJoin ( 'd.Customers c' )
 					->where ( 'd.status_id = ?', Statuses::id("active", "domains") )
 					->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
-					->addGroupBy ( 'tld' )
+					->addGroupBy ( 'ws.tld' )
 					->orderBy ( 'Count(*) desc' );
 		
 		if (is_numeric ( $customer_id )) {
 			$dq->andWhere ( 'customer_id = ?', $customer_id );
 		}
+		
 		$domains = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
 		return $domains;
 	}
 	
@@ -796,7 +798,7 @@ class Domains extends BaseDomains {
 	public static function getSummaryPerMonth($customer_id = null) {
 		
 		$dq = Doctrine_Query::create ()
-					->select ( "Count(*) as total, Month(expiring_date) as month_number, Monthname(expiring_date) as month" )
+					->select ( "domain_id, Count(*) as total, Month(expiring_date) as month_number, Monthname(expiring_date) as month" )
 					->from ( 'Domains d' )
                     ->leftJoin ( 'd.Customers c' )
 					->where ( 'expiring_date is not null' )
@@ -1420,76 +1422,37 @@ class Domains extends BaseDomains {
 	 * tldSummaryPerMonth
 	 * Full list of tld expiring month by month
 	 */
-	public static function tldSummaryPerMonth() {
-		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$str = "";
+	public static function prepareGraphDataperMonth() {
 		$summary = self::getSummaryPerMonth ();
 		
 		if (isset ( $summary [0] )) {
 			
 			foreach ( $summary as $item ) {
-				$totals [] = $item ['total'];
+				$data['tld'] [$item ['month']] = $item ['total'];
 				$months [] = substr ( $item ['month'], 0, 3 );
 			}
-			
-			$totals = implode ( ",", $totals );
-			$months = implode ( "|", $months );
-			
-			usort ( $summary, array ('Domains', "cmp" ) );
-			$maxtotalval = end ( $summary );
-			$str = "http://chart.apis.google.com/chart?
-							cht=bvs
-							&chtt=" . $translator->translate ( 'Domain Summary per Month' ) . "
-							&chts=4d89f9,18
-							&chs=500x300
-							&chd=t:" . $totals . "
-							&chxt=x&chxl=0:|" . $months . "
-							&chco=4d89f9,c6d9fd
-							&chds=0," . $maxtotalval ['total'] . "
-							&chm=N,000000,0,-1,13
-							&chbh=a";
 		}
-		return $str;
+		return $data;
 	}
 	
 
 	/*
-     * earningsSummary
-     * Earnings for each Tld
+     * Prepare the data graph for the morris.js charts
      */
-	public static function earningsSummary() {
-		$max = 0;
-		$total = 0;
-		$currency = Shineisp_Registry::getInstance ()->Zend_Currency;
+	public static function prepareGraphData() {
+		$data = array();
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$str = "";
+
+		// Get the domain tlds summary data
 		$summary = Domains::getSummary ();
+		
 		if (isset ( $summary [0] )) {
 			foreach ( $summary as $item ) {
-				$tlds [] = $item ['tld'];
-				$earnings [] = $item ['earnings'] - $item ['costs'];
-				$total += $item ['earnings'] - $item ['costs'];
+				$data [] = array('label' => $item ['tld'], 'value' => $item ['total']);
 			}
-			
-			$max = max ( $earnings );
-			$tlds = implode ( "|", $tlds );
-			$earnings = implode ( ",", $earnings );
-			$label = $translator->translate ( 'Earning Summary' ) . " - Tot. " . $currency->toCurrency($total, array('currency' => Settings::findbyParam('currency')));
-			$lblearnings = $translator->translate ( 'Earnings' );
-			$str = "http://chart.apis.google.com/chart?
-							cht=bvs
-							&chtt=$label
-							&chts=4d89f9,18
-							&chs=500x300
-							&chd=t:" . $earnings . "
-							&chxt=x
-							&chxl=0:|" . strtoupper ( $tlds ) . "
-							&chco=4d89f9
-							&chbh=r,.1
-							&chds=0," . $max . "
-							&chm=N*cEUR*,000000,0,,12,,c|N*cEUR*,000000,1,,12,,c|N,ffffff,2,,12,,c";
 		}
-		return $str;
+		
+		return $data;
 	}	
 	
 	/*

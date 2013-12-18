@@ -183,7 +183,7 @@ class Shineisp_Commons_Morris {
 	/**
 	 * Convert the array data in a json string for the morris graph
 	 */
-	private function convertDataToJson(){
+	private function convertData(){
 		$parsedata = array();
 		$data = $this->getData();
 		
@@ -234,12 +234,16 @@ class Shineisp_Commons_Morris {
 		
 		$graph = null;
 			
-		$this->getYkeysIndexes();
-		$this->convertDataToJson();
-		
 		$graph['element'] = $this->getElement();
-		$graph['xkey'] = $this->getXkey();
-		$graph['ykeys'] = $this->getYkeys();
+		
+		// if the graph is a Line, Bar or Area add the axis
+		if(("Line" == $this->getType()) || ("Area" == $this->getType() || ("Bar" == $this->getType()))){
+			$this->getYkeysIndexes();
+			$this->convertData();
+			$graph['xkey'] = $this->getXkey();
+			$graph['ykeys'] = $this->getYkeys();
+		}
+		
 		$graph['labels'] = $this->getLabels();
 		$graph['data'] = $this->getData();
 		$graph['parseTime'] = $this->getParseTime();

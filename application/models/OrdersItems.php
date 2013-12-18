@@ -582,7 +582,6 @@ class OrdersItems extends BaseOrdersItems {
 						->leftJoin ( 'oi.OrdersItemsDomains oid' )
 						->leftJoin ( 'oid.Domains d' )
 						->leftJoin ( 'd.DomainsTlds dt' )
-
 						->leftJoin ( 'dt.WhoisServers ws' )
 						->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
 						->where ( "pag.isrecurring = ?", 1)
