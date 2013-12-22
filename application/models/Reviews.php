@@ -247,29 +247,15 @@ class Reviews extends BaseReviews
 	public static function summary() {
 	    $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$newarray = array();
-		$chart = "";
 
 		$records = Doctrine_Query::create ()
 					->select ( "review_id, count(*) as items, CONCAT(stars, ' Stars') as status" )
 					->from ( 'Reviews' )
 					->groupBy('stars')
 					->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
-	
-		// Strip the customer_id field
-		if(!empty($records)){
-			foreach($records as $key => $value) {
-			  	array_shift($value);
-			  	$newarray[] = $value;
-			  	$chartLabels[] = $value['status'];
-			  	$chartValues[] = $value['items'];
-			}
-			// Chart link
-			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
-		}
 		
-		$records['data'] = $newarray;
+		$records['data'] = $records;
 		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
-		$records['chart'] = $chart;
 		
 		return $records;
 	}      

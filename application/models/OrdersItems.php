@@ -213,17 +213,16 @@ class OrdersItems extends BaseOrdersItems {
 		
 
     /**
-     * getExpiringSerivcesByRange
      * Get all the services from the order details bought by the customers and by days range
-     * @param integer $from
-     * @param integer $to
+     * @param integer $from [0 days]
+     * @param integer $to [30 days]
      * @param integer $status
      * @param integer $autorenew [0, 1]
      */
-    public static function getExpiringSerivcesByRange($from, $to, $status="", $autorenew=null) {
+    public static function getExpiringSerivcesByRange($from=null, $to=null, $status=null, $autorenew=null, array $types = array()) {
 
     	try{
-	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, 
+	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, oid.relationship_id,
 	        										   pd.name as product,
 	        										   c.customer_id as id, 
 	        										   DATE_FORMAT(oi.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate,
@@ -234,15 +233,28 @@ class OrdersItems extends BaseOrdersItems {
 	        										   c.password as password,
 	        										   c.parent_id as reseller, 
 	        										   oi.autorenew as renew,
+	    											   CONCAT(d.domain, '.', ws.tld) as domain, 
 	        										   DATEDIFF(oi.date_end, CURRENT_DATE) as days" )
 	                                           ->from ( 'OrdersItems oi' )
 	                                           ->leftJoin ( 'oi.Orders o' )
+	                                           ->leftJoin ( 'oi.OrdersItemsDomains oid' )
+	                                           ->leftJoin ( 'oid.Domains d' )
+	                                           ->leftJoin ( 'd.DomainsTlds dt' )
+	                                           ->leftJoin ( 'dt.WhoisServers ws' )
 	                                           ->leftJoin ( 'oi.Products p' )
 	                                           ->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
-	                                           ->leftJoin ( 'o.Customers c' )
-	                                           ->where ( 'p.type <> ?', 'domain')
-	                                           ->andWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) >= ? and DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', array($from, $to) );
+	                                           ->leftJoin ( 'o.Customers c' );
+	                                           
+	        if(!empty($types)){
+	        	$dq->andWhereIn('p.type', $types);
+	        }else{
+	        	$dq->where ( 'p.type <> ?', 'domain');
+	        }
 	        
+	    	if(!is_null($from) && !is_null($to)){
+	    		$dq->andWhere ( 'DATEDIFF(oi.date_end, CURRENT_DATE) >= ? and DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', array($from, $to) );
+	    	}
+	    	
 	        if(is_numeric($status)){
 	        	$dq->andWhere ( 'oi.status_id = ?', $status );  
 	        }else{
@@ -252,6 +264,8 @@ class OrdersItems extends BaseOrdersItems {
 	        if(is_numeric($autorenew)){
 	        	$dq->andWhere ( 'oi.autorenew = ?', $autorenew );  
 	        }
+	        
+	        $dq->orderBy('oi.date_end asc');
 	        
 	        return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 	        
@@ -896,6 +910,30 @@ class OrdersItems extends BaseOrdersItems {
         
 		return $result;					
 	}	
+	
+	/**
+	 * Get the list of services
+	 */
+	public static function getServices(){
+		
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$records['data'] = self::getExpiringSerivcesByRange(-10, 30, Statuses::id("complete", "orders"), null, array('hosting'));
+
+		// adding the index reference
+		$records['index'] = "detail_id";
+		
+		// Create the header table columns
+		$records['fields'] = array('detail_id' => array('label' => $translator->translate('ID')),
+									'product' => array('label' => $translator->translate('Service')),
+									'domain' => array('label' => $translator->translate('Domain')),
+									'expiringdate' => array('label' => $translator->translate('Expiry Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'fullname' => array('label' => $translator->translate('Full name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'renew' => array('label' => $translator->translate('Auto renewal'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'days' => array('label' => $translator->translate('Days')));
+		
+		
+		return $records;
+	} 
 	
 	######################################### CRON METHODS ############################################
 

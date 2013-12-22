@@ -2687,8 +2687,8 @@ class Orders extends BaseOrders {
 	 */
 	public static function prepareGraphData($yearsminmax=array(), $groupby="year", $recursive = false){
 
-	    $currentYear      = !empty($yearsminmax) ? $yearsminmax : array();
-	    $data             = self::incomes($currentYear, $groupby, $recursive);
+	    $years  = !empty($yearsminmax) ? $yearsminmax : array();
+	    $data   = self::incomes($years, $groupby, $recursive);
 
 	    return self::getDataGraph($data, array(), false);
 	    

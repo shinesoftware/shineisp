@@ -219,7 +219,7 @@ class Admin_OrdersitemsController extends Shineisp_Controller_Admin {
 		$this->_helper->redirector ( 'list', 'orders', 'admin', array ('mex' => $this->translator->translate ( 'Service item not found.' ), 'status' => 'danger' ) );
 	}
 	
-	
+		
 	/**
 	 * Update the Configuration of the Hosting Plan
 	 * 

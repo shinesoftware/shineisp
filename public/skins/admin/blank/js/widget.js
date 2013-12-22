@@ -22,7 +22,7 @@ function saveOrder() {
 }
 
 // function that restores the list order from a cookie
-	function restoreOrder() {
+function restoreOrder() {
     $(".column").each(function(index, value) {
         var colid = value.id;
         var cookieName = "cookie-" + colid;
@@ -49,8 +49,38 @@ function saveOrder() {
     });
 } 
 
+function createWidget(widget){
+	$.ajax({
+        url: '/admin/index/widgets',
+        data: {
+            id: widget.attr('id'),
+            type: widget.attr('type'),
+            title: widget.attr('headertitle'),
+            icon: widget.attr('icon'),
+        },
+        type: 'POST',
+        dataType: 'html',
+        success: function (data) {
+        	widget.hide().html(data).fadeIn();
+        },
+        error: function (xhr, status) {
+            alert('Sorry, there was a problem!');
+        },
+	});
+}
 
 $(document).ready( function () {
+	
+	$('.widget').each(function() {
+		var widget = $(this);
+		createWidget(widget);
+	});
+	
+	$('.container').on('click', '.refresh', function(e) {
+        var widget = $(this).closest('.widget');
+        createWidget(widget);
+    });
+	
     $(".column").sortable({
         connectWith: ['.column'],
         handle: '.widget-header',
@@ -75,6 +105,7 @@ $(document).ready( function () {
         $(this).parents(".portlet:first").find(".widget-content").toggle();
         saveOrder(); // This is important
     });
+    
     $(".widget-header .ui-icon").hover(
         function() {$(this).addClass("ui-icon-hover"); },
         function() {$(this).removeClass('ui-icon-hover'); }

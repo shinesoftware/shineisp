@@ -130,7 +130,7 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 				$graphdata = $graph->setType('Donut')
 										->setData(Domains::prepareGraphData ())
 										->setElement('graph')
-										->plot(true);
+										->plot();
 					
 				$this->view->placeholder ( "admin_endbody" )->append ($graphdata);
 				

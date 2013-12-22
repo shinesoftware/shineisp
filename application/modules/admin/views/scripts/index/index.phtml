@@ -1,73 +1,38 @@
 <div id="dashboard">
 	<div class="portlets">
-
+		
 		<div class="column column-large" id="col0">
 			<?php echo $this->summary(); ?>
 		</div>
 		
 		<div class="column column-fixed column-large" id="col1">
-			<div class="portlet" id="processing_order">
-		        <?php $statuses = array(Statuses::id("processing", "orders"), Statuses::id("pending", "orders"), Statuses::id("paid", "orders"));?>
-				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("Processing Orders"), "orders", array(), "grid", "glyphicon glyphicon-briefcase")?>
-			</div>
-			
-			<div class="portlet" id="new_orders">
-		        <?php $statuses = array(Statuses::id("tobepaid", "orders")); ?>
-				<?php echo $this->widget(Orders::Last($statuses), $this->translate ("New Orders"), "orders", array(), "grid", "glyphicon glyphicon-briefcase")?>
-			</div>
-			
-			<div class="portlet" id="last_tickets">
-				<?php echo $this->widget(Tickets::Last(null, 5), $this->translate ("Last Tickets"), "tickets", array('ticket_id'), "grid", "fa fa-check-square")?>
-			</div>
-			
-			<div class="portlet" id="last_domain_tasks">
-				<?php echo $this->widget(DomainsTasks::Last(), $this->translate ("Domain Tasks"), "domainstasks", array('task_id'), "grid", "glyphicon glyphicon-cog")?>
-			</div>
-			
-			<div class="portlet" id="last_panel_tasks">
-				<?php echo $this->widget(PanelsActions::Last(), $this->translate ("Panel Tasks"), "panelsactions", array('action_id'), "grid", "glyphicon glyphicon-cog")?>
-			</div>
+		
+			<div class="portlet widget" id="orders" type="new_order_widget" headertitle="<?php echo $this->translate ("New Orders")?>" icon="fa fa-briefcase"></div>
+			<div class="portlet widget" id="processing_order" type="processing_order_widget" headertitle="<?php echo $this->translate ("Processing Orders")?>" icon="fa fa-briefcase"></div>
+			<div class="portlet widget" id="services" type="services_widget" headertitle="<?php echo $this->translate ("Hosting Services")?>" icon="fa fa-briefcase"></div>
+			<div class="portlet widget" id="last_tickets" type="last_tickets_widget" headertitle="<?php echo $this->translate ("Last Tickets")?>" icon="fa fa-check-square"></div>
+			<div class="portlet widget" id="last_domain_tasks" type="last_domain_tasks_widget" headertitle="<?php echo $this->translate ("Domain Tasks")?>" icon="glyphicon glyphicon-cog"></div>
+			<div class="portlet widget" id="last_panel_tasks" type="last_panel_tasks_widget" headertitle="<?php echo $this->translate ("Panel Tasks")?>" icon="glyphicon glyphicon-cog"></div>
 			
 		</div>
 		
 		<div class="column column-floated column-medium" id="col2">
 			
-	        <div class="portlet" id="expiring_domain">
-				<?php echo $this->widget(Domains::getExpiringDomains(null, 7, -1, 5), $this->translate ("Expiring Domains"), "domains", array('domain_id'))?>
-			</div>
+			<div class="portlet widget" id="expiring_domain" type="expiring_domain_widget" headertitle="<?php echo $this->translate ("Expiring Domains")?>" icon="glyphicon glyphicon-cog"></div>
+			<div class="portlet widget" id="order_messages" type="order_messages_widget" headertitle="<?php echo $this->translate ("Order Messages")?>" icon="glyphicon glyphicon-cog"></div>
+			<div class="portlet widget" id="domain_messages" type="domain_messages_widget" headertitle="<?php echo $this->translate ("Domain Messages")?>" icon="glyphicon glyphicon-cog"></div>
+			<div class="portlet widget" id="customers_parade" type="customers_parade_widget" headertitle="<?php echo $this->translate ("Customer Hit Parade")?>" icon="glyphicon glyphicon-cog"></div>
+			<div class="portlet widget" id="customer_summary" type="customer_summary_widget" headertitle="<?php echo $this->translate ("Customers Summary")?>" icon="glyphicon glyphicon-cog"></div>
+			<div class="portlet widget" id="notes" type="notes_widget" headertitle="<?php echo $this->translate ("Notes")?>" icon="glyphicon glyphicon-cog"></div>
 			
-			<div class="portlet" id="order-messages">
-				<?php echo $this->widget(Messages::Last('orders'), $this->translate ("Order Messages"), "orders")?>
-			</div>
-			
-			<div class="portlet" id="domain-messages">
-				<?php echo $this->widget(Messages::Last('domains'), $this->translate ("Domain Messages"), "domains")?>
-			</div>
-			
-			<div class="portlet" id="customers_parade">
-				<?php echo $this->widget(Customers::Hitparade(), $this->translate ("Customer Hit Parade"), "customers", array('customer_id'), "grid", "fa fa-users")?>
-			</div>
-	        
-			<div class="portlet" id="customer_summary">
-				<?php echo $this->widget(Customers::summary(), $this->translate ("Customers Summary"), "customers", array(), "grid", "fa fa-users")?>
-			</div>
-			<div class="portlet" id="notes">
-				<?php echo $this->widget(Notes::summary($this->user['user_id']), $this->translate ("Notes"), "notes", array(), "grid", "fa fa-comments-o")?>
-			</div>
 		</div>
 	
 		<div class="column column-floated column-medium" id="col3">
-			<div class="portlet" id="ticket_summary">
-				<?php echo $this->widget(Tickets::summary(), $this->translate ("Ticket Summary"), "tickets", array(), "grid", "fa fa-comments-o")?>
-			</div>
-	        
-			<div class="portlet" id="summary_domains">
-				<?php echo $this->widget(Domains::summary(), $this->translate ("Domain Summary"), "domains", array(), "grid", "fa fa-globe")?>
-			</div>
-	        
-			<div class="portlet" id="product_reviews">
-				<?php echo $this->widget(Reviews::summary(), $this->translate ("Product Review Summary"), "reviews", array(), "grid", "fa fa-thumbs-o-up")?>
-			</div>
+		
+			<div class="portlet widget" id="ticket_summary" type="ticket_summary_widget" headertitle="<?php echo $this->translate ("Ticket Summary")?>" icon="fa fa-comments-o"></div>
+			<div class="portlet widget" id="summary_domains" type="summary_domains_widget" headertitle="<?php echo $this->translate ("Domain Summary")?>" icon="fa fa-globe"></div>
+			<div class="portlet widget" id="product_reviews" type="product_reviews_widget" headertitle="<?php echo $this->translate ("Product Review Summary")?>" icon="fa fa-thumbs-o-up"></div>
+			
 		</div>
 		
     </div>      

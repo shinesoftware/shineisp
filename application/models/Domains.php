@@ -623,7 +623,7 @@ class Domains extends BaseDomains {
 		$from = is_numeric($from) ? intval($from)     : 31;
 		$to   = is_numeric($to)   ? intval($to) * -1  : -2; // force a negative value
 			
-		$fields = "d.domain_id, CONCAT(d.domain, '.', d.tld) as domains, 
+		$fields = "d.domain_id, CONCAT(domain, '.', ws.tld) as domains, 
 		       DATE_FORMAT(d.expiring_date, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate, 
 		       DATEDIFF(expiring_date, CURRENT_DATE) as days,
 		       IF(d.autorenew = 1, 'YES', 'NO') as renew";
@@ -634,6 +634,8 @@ class Domains extends BaseDomains {
 		                     ->leftjoin ( 'd.OrdersItems oi' )
 		                     ->leftjoin ( 'd.Statuses s' )
                              ->leftJoin ( 'd.Customers c' )
+                             ->leftJoin ( 'd.DomainsTlds dt' )
+                             ->leftJoin ( 'dt.WhoisServers ws' )
 		                     ->where ( 'DATEDIFF(expiring_date, CURRENT_DATE) <= ' . $from )
 		                     ->addWhere ( 'DATEDIFF(expiring_date, CURRENT_DATE) >= ' . $to )
                              ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
@@ -1471,7 +1473,6 @@ class Domains extends BaseDomains {
 	 * @return array
 	 */
 	public static function summary() {
-		$chart = "";
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
@@ -1485,30 +1486,8 @@ class Domains extends BaseDomains {
         
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 	
-		// Strip the customer_id field
-		if(!empty($records)){
-			foreach($records as $key => $value) {
-			  	array_shift($value);
-			  	$newarray[]       = $value;
-			  	$chartLabels[]    = $value['status'];
-			  	$chartValues[]    = $value['items'];
-			}
-			// Chart link
-			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
-		}
-		
-		$dq = Doctrine_Query::create ()
-				->select ( "domain_id, count(*) as items" )
-				->from ( 'Domains d' )
-                ->leftJoin ( 'd.Customers c' )
-                ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
-                                    
-        
-        $record_group2  =  $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
-		
-		$records['data'] = $newarray;
+		$records['data'] = $records;
 		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
-		$records['chart'] = $chart;
 		
 		return $records;
 	}	
