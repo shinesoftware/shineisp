@@ -175,7 +175,7 @@ class Shineisp_Commons_Widgets{
 	 */
 	private function createTemplate(){
 		$template = '<div class="widget-wrapper">
-						<div class="widget-header"><h4><a href="{basepath}"><i class="{icon}"></i> {header}</a> <small class="pull-right refresh">Refresh</small></h4></div>
+						<div class="widget-header"><i class="pull-right fa fa-undo refresh"></i><h4><a href="{basepath}"><i class="{icon}"></i> {header}</a> </h4></div>
 						<div class="widget-content">{content}</div>
 					<div>';
 		

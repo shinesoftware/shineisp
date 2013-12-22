@@ -62,6 +62,8 @@ function createWidget(widget){
         dataType: 'html',
         success: function (data) {
         	widget.hide().html(data).fadeIn();
+            widget.find( ".column" ).disableSelection();
+            widget.find(".widget-header").prepend('<span class="ui-icon ui-icon-minus"></span>');
         },
         error: function (xhr, status) {
             alert('Sorry, there was a problem!');
@@ -74,16 +76,31 @@ $(document).ready( function () {
 	$('.widget').each(function() {
 		var widget = $(this);
 		createWidget(widget);
-	});
+	}).on('click', ".widget-header .ui-icon", function() {
+        $(this).toggleClass("ui-icon-minus");
+        $(this).toggleClass("ui-icon-plus");
+        $(this).parents(".portlet:first").find(".widget-content").toggle();
+        saveOrder(); // This is important
+    })
+    .on('mouseenter', ".widget-header .ui-icon", function() {$(this).addClass("ui-icon-hover"); })
+    .on('mouseleave', ".widget-header .ui-icon", function() {$(this).removeClass('ui-icon-hover'); });
 	
-	$('.container').on('click', '.refresh', function(e) {
-        var widget = $(this).closest('.widget');
+	// widget refresh management
+	$('.widget').on('click', '.refresh', function(e) {
+        var widget = $(this).parent().parent().parent();
         createWidget(widget);
-    });
+    }).on('click', ".widget-header .ui-icon", function() {
+        $(this).parent().toggleClass("ui-icon-minus");
+        $(this).parent().toggleClass("ui-icon-plus");
+        $(this).parent().find(".widget-content").toggle();
+        saveOrder(); // This is important
+    })
+    .on('mouseenter', ".widget-header .ui-icon", function() {$(this).addClass("ui-icon-hover"); })
+    .on('mouseleave', ".widget-header .ui-icon", function() {$(this).removeClass('ui-icon-hover'); });
 	
     $(".column").sortable({
         connectWith: ['.column'],
-        handle: '.widget-header',
+        handle: '.widget-header h4',
         cursor: 'move',
         placeholder: "ui-state-highlight",
         stop: function() { saveOrder(); }
