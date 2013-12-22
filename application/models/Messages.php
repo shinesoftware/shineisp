@@ -107,23 +107,16 @@ class Messages extends BaseMessages
 		if($attachedto == "orders"){
 			$dq->select("order_id as id");	
 			$dq->where ( "order_id IS NOT NULL");	
-
-			// adding the index reference
-			$records['index'] = "order_id";
-			
 		}elseif ($attachedto == "domains"){
 			$dq->select("domain_id as id");
 			$dq->where ( "domain_id IS NOT NULL");
-
-			// adding the index reference
-			$records['index'] = "domain_id";
 		}
 
 		// now we can add more fields
 		$dq->addSelect ( "DATE_FORMAT(m.dateposted, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as date, m.message as message" );
 		
 		if($delIspReplies){
-			$dq->andWhere ( "isp_id IS NULL");
+			$dq->andWhere ( "customer_id IS NOT NULL");
 		}
 		
 		// Sort the items
@@ -135,6 +128,8 @@ class Messages extends BaseMessages
 			$records['data'][$i]['message'] = Shineisp_Commons_Utilities::truncate(strip_tags($records['data'][$i]['message']), 50, "...", false, true);
 		}
 
+		// adding the index reference
+		$records['index'] = "id";
 		
 		// Create the header table columns
 		$records['fields'] = array('date' => array('label' => $translator->translate('Date')),

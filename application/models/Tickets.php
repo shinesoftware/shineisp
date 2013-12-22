@@ -653,7 +653,6 @@ class Tickets extends BaseTickets {
 	 * @return array
 	 */
 	public static function summary() {
-		$chart = "";
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$dq = Doctrine_Query::create ()
@@ -668,29 +667,8 @@ class Tickets extends BaseTickets {
                     
         $records    = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
 		
-		// Strip the customer_id field
-		if(!empty($records)){
-			foreach($records as $key => $value) {
-			  	array_shift($value);
-			  	$newarray[] = $value;
-			  	$chartLabels[] = $value['status'];
-			  	$chartValues[] = $value['items'];
-			}
-			// Chart link
-			$chart = "https://chart.googleapis.com/chart?chs=250x100&chd=t:".implode(",", $chartValues)."&cht=p3&chl=".implode("|", $chartLabels);
-		}
-		
-		$dq = Doctrine_Query::create ()
-					->select ( "t.ticket_id, count(*) as items" )
-					->from ( 'Tickets t' )
-                    ->leftJoin ( 't.Customers c' )
-                    ->addWhere( "c.isp_id = ?", Isp::getCurrentId() );
-        		
-        $record_group2      = $dq->execute(array (), Doctrine_Core::HYDRATE_ARRAY);
-		
-		$records['data'] = $newarray;
+		$records['data'] = $records;
 		$records['fields'] = array('items' => array('label' => $translator->translate('Items')), 'status' => array('label' => $translator->translate('Status')));
-		$records['chart'] = $chart;
 		
 		return $records;
 	}

@@ -146,9 +146,11 @@ class Shineisp_Commons_Datagrid {
 	 * Check if some field is filterable attached
 	 */
 	public function hasFilters() {
-		foreach ( $this->columns as $column ) {
-			if (! empty ( $column ['filterable'] ) && $column ['filterable']) {
-				return true;
+		if(!empty($this->columns)){
+			foreach ( $this->columns as $column ) {
+				if (! empty ( $column ['filterable'] ) && $column ['filterable']) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -676,28 +678,29 @@ class Shineisp_Commons_Datagrid {
 				$html .= "<tr class='datarow'>";
 				$hiddenCols = $this->getHiddencols();
 				$colindex = 0;
-				
-				foreach ( $this->columns as $column ) {
-					if(!empty($column['alias'])){
-						if(in_array($column['alias'], $hiddenCols)){
-							if(!empty($column['type'])) {
-								if($column['type'] == "link"){
-									$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
-									$html .= $this->addObject ( $record, $column );
-									$html .= "</td>";
+				if(!empty($this->columns)){
+					foreach ( $this->columns as $column ) {
+						if(!empty($column['alias'])){
+							if(in_array($column['alias'], $hiddenCols)){
+								if(!empty($column['type'])) {
+									if($column['type'] == "link"){
+										$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
+										$html .= $this->addObject ( $record, $column );
+										$html .= "</td>";
+									}
 								}
+							}else {
+								$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
+								$html .= $this->addObject ( $record, $column );
+								$html .= "</td>";
 							}
-						}else {
+						}else{
 							$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
 							$html .= $this->addObject ( $record, $column );
 							$html .= "</td>";
 						}
-					}else{
-						$html .= "<td ". $this->addAttrColumns ( $colindex ) .">";
-						$html .= $this->addObject ( $record, $column );
-						$html .= "</td>";
+						$colindex++;
 					}
-					$colindex++;
 				}
 				
 				if ($this->hassubrecords) {

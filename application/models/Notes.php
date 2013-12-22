@@ -121,7 +121,7 @@ class Notes extends BaseNotes
         
         $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
         $records['index'] = "note_id";
-        $records['fields'] = array('name' => array('label' => $translator->translate('Name')), 'creation_date' => array('label' => $translator->translate('Date')));
+        $records['fields'] = array('name' => array('label' => $translator->translate('Name')), 'creation_date' => array('label' => $translator->translate('Expiry Date')));
         
         return $records;
     }	
