@@ -53,7 +53,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 			}
 		}
 		
-		$config ['datagrid'] ['massactions'] = array_merge($config ['datagrid'] ['massactions'], $bulkmailinglist);
+		$config ['datagrid'] ['massactions']['commons'] = array_merge($config ['datagrid'] ['massactions'], $bulkmailinglist);
 		
 		return $config;
 	}	
