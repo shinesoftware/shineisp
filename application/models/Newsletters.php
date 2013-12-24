@@ -213,7 +213,7 @@ class Newsletters extends BaseNewsletters
     public static function get_mailchimp_list(){
     	$errors = array();
     	
-    	$key = Settings::findbyParam ( "MailChimp_key", "admin", Isp::getActiveISPID () );
+    	$key = Settings::findbyParam ( "MailChimp_key", "admin" );
     			
     	if(empty($key)){
     		$data = array('MailChimp Api Key has been not set yet. Subscribe a Mailchimp.com account and then go to Configuration > MailChimp to fill up the API key');

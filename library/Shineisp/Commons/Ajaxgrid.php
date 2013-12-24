@@ -317,7 +317,7 @@ class Shineisp_Commons_Ajaxgrid {
 	 * html to inject begin the table
 	 */
 	private function Begin() {
-		$this->begin .= '<div class="alert" id="mex" style="display:none"></div>';
+		$this->begin .= '<div class="alert alert-info" id="mex" style="display:none"></div>';
 		return $this->begin;
 	}
 	
