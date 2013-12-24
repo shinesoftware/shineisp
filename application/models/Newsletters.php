@@ -213,15 +213,15 @@ class Newsletters extends BaseNewsletters
     public static function get_mailchimp_list(){
     	$errors = array();
     	
-    	$key = Settings::findbyParam ( "MailChimp_key", "admin" );
-    			
+    	$key = Settings::findbyParam ( "MailChimp_key", "Admin" );
+    	
     	if(empty($key)){
     		$data = array('MailChimp Api Key has been not set yet. Subscribe a Mailchimp.com account and then go to Configuration > MailChimp to fill up the API key');
     		return $data;
     	}
     			
-    	$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
-    	
+    	$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main();
+    	$api->setApi_key($key);
     	$lists = $api->lists();
     	$data = array();
     	if(!empty($lists['data'])){
