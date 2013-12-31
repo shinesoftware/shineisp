@@ -48,8 +48,8 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 		$mailchimplists = Newsletters::get_mailchimp_list();
 		if(!empty($mailchimplists)){
 			foreach($mailchimplists as $id=>$name){
-				$bulkmailinglist['bulk_mailchimp_optin&list=' . $id ] = "Add to $name";
-				$bulkmailinglist['bulk_mailchimp_optout&list=' . $id ] = "Remove from $name";
+				$bulkmailinglist['bulk_mailchimp_optin&list=' . $id ] = "Add to ($name)";
+				$bulkmailinglist['bulk_mailchimp_optout&list=' . $id ] = "Remove from ($name)";
 			}
 		}
 		
@@ -259,7 +259,7 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 		$errors = array();
 		
 		if(!empty($items)){
-			$key = Settings::findbyParam ( "MailChimp_key", "admin", Isp::getActiveISPID () );
+			$key = Settings::findbyParam ( "MailChimp_key", "Admin", Isp::getActiveISPID () );
 			$confirm = Settings::findbyParam ( "MailChimp_confirm", "admin", Isp::getActiveISPID () );
 			
 			if(empty($key)){
@@ -268,8 +268,9 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 			
 			$list_id = $parameters['list'];
 			
-			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
-
+			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main();
+			$api->setApi_key($key);
+			
 			foreach ($items as $id){
 				$email = self::getSubscriberEmail($id);
 	
@@ -297,16 +298,16 @@ class NewslettersSubscribers extends BaseNewslettersSubscribers
 		$errors = array();
 		
 		if(!empty($items)){
-			$key = Settings::findbyParam ( "MailChimp_key", "admin", Isp::getActiveISPID () );
-			$confirm = Settings::findbyParam ( "MailChimp_confirm", "admin", Isp::getActiveISPID () );
+			$key = Settings::findbyParam ( "MailChimp_key", "Admin" );
+			$confirm = Settings::findbyParam ( "MailChimp_confirm", "Admin" );
 			
 			if(empty($key)){
 				die('MailChimp Api Key has been not set yet. Go to Configuration > MailChimp');
 			}
 			
 			$list_id = $parameters['list'];
-			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main($key);
-			
+			$api = new Shineisp_Plugins_Newsletters_Mailchimp_Main();
+			$api->setApi_key($key);
 			foreach ($items as $id){
 				$email = self::getSubscriberEmail($id);
 	

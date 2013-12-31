@@ -97,7 +97,7 @@ class Admin_Form_TicketsForm extends Zend_Form
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        	 
 	        $MBlimit = Settings::findbyParam('adminuploadlimit');
-	        $Types = Settings::findbyParam('adminuploadfiletypes');
+	        $Types = Settings::findbyParam('adminuploadfiletypes', 'Admin');
 	        
 	        if(empty($MBlimit)){
 	        	$MBlimit = 1;
