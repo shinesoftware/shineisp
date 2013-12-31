@@ -358,13 +358,14 @@ class PurchaseInvoices extends BasePurchaseInvoices
 	                            			ip.total_vat as vat,
 	                            			ip.total as grandtotal";
 		
-		$config ['datagrid'] ['recordset'] = self::getSummary($year,false, false, false, true);
+		$config ['datagrid'] ['recordset'] = self::getSummary($year,true, false, false, true);
 		$config ['datagrid'] ['placeholder'] = "expenses";
 		$config ['datagrid'] ['id'] = "expenses";
 		$config ['datagrid'] ['rownum'] = 12;
 		$config ['datagrid'] ['title'] = $translator->translate('Expenses data report');
 		
 		$config ['datagrid'] ['basepath'] = "/admin/reports/show/type/profitofyear/";
+		
 		$helper->datagrid->setModule ( "purchaseinvoices" )->setModel ( new PurchaseInvoices );
 		$helper->datagrid->setConfig ( $config )->datagrid ();
 	}	
