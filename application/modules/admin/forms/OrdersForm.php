@@ -271,7 +271,7 @@ class Admin_Form_OrdersForm extends Zend_Form
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        $MBlimit = Settings::findbyParam('adminuploadlimit');
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
-	        $filetypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
+	        $filetypes = Settings::findbyParam('adminuploadfiletypes', 'Admin');
 	        
 			$file = $this->createElement('file', 'attachments', array(
 	            'label'      => $translate->_('Attachment'),

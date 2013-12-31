@@ -26,6 +26,10 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap {
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_LayoutLoader ( ) );
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_Ajaxgrid ( ) );
 			Zend_Controller_Action_HelperBroker::addHelper ( new Shineisp_Controller_Action_Helper_Datagrid ( ) );
+			
+			// Loading the configuration parameters
+			$module = $this->getModuleName ();
+			SettingsParameters::loadParams($module);
 		}
 	}
 }

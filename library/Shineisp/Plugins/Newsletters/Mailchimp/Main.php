@@ -62,6 +62,20 @@ class Shineisp_Plugins_Newsletters_Mailchimp_Main extends Shineisp_Plugins_Newsl
 		$this->api_key = $this->apikey;
 	}
 	
+	/**
+	 * @return the $api_key
+	 */
+	public function getApi_key() {
+		return $this->api_key;
+	}
+
+	/**
+	 * @param field_type $api_key
+	 */
+	public function setApi_key($api_key) {
+		$this->api_key = $api_key;
+	}
+
 	function setTimeout($seconds){
 		if (is_int($seconds)){
 			$this->timeout = $seconds;

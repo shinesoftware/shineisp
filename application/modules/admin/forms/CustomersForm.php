@@ -185,7 +185,7 @@ class Admin_Form_CustomersForm extends Zend_Form
          // If the browser client is an Apple client hide the file upload html object  
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
 	        $MBlimit = Settings::findbyParam('adminuploadlimit', 'admin', Isp::getActiveISPID());
-	        $filetypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
+	        $filetypes = Settings::findbyParam('adminuploadfiletypes', 'Admin');
 	        $Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
 	        
 			$file = $this->createElement('file', 'attachments', array(

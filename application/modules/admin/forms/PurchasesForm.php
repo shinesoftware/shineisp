@@ -107,8 +107,8 @@ class Admin_Form_PurchasesForm extends Zend_Form
         if(false == Shineisp_Commons_Utilities::isAppleClient()){
         	$MBlimit = Settings::findbyParam('adminuploadlimit');
         	$Byteslimit = Shineisp_Commons_Utilities::MB2Bytes($MBlimit);
-        	$filetypes = Settings::findbyParam('adminuploadfiletypes', 'admin', Isp::getActiveISPID());
-        	 
+        	$filetypes = Settings::findbyParam('adminuploadfiletypes', 'Admin');
+        	
 			$file = $this->createElement('file', 'document', array(
 	            'label'      => $translate->_('Document'),
 				'decorators' => array('File', array('ViewScript', array('viewScript' => 'partials/file.phtml', 'placement' => false))),
