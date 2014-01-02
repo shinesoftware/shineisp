@@ -60,6 +60,9 @@ function createWidget(widget){
         },
         type: 'POST',
         dataType: 'html',
+        beforeSend: function () {
+        	widget.html('<img src="/resources/jquery/images/ajax-loader-horizontal.gif" />');
+        },
         success: function (data) {
         	widget.hide().html(data).fadeIn();
             widget.find( ".column" ).disableSelection();

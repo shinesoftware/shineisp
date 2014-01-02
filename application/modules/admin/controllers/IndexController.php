@@ -105,7 +105,7 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 				$widget->setBasepath('/admin/orders/')->setIdxfield($records['index'])->setButtons($buttons);
 
 			// Get all the services / order items next to the expiration date from -10 days to 30 days
-			}elseif($type == 'services_widget'){
+			}elseif($type == 'recurring_services_widget'){
 			
 				$records = OrdersItems::getServices();
 				$buttons = array('edit' => array('label' => $translator->translate ( 'Edit' ), 'cssicon' => 'glyphicon glyphicon-pencil', 'action' => "/admin/ordersitems/edit/id/%d"));
@@ -129,8 +129,8 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 			}elseif($type == 'last_panel_tasks_widget'){
 			
 				$records = PanelsActions::Last();
-				$buttons = array('edit' => array('label' => $translator->translate ( 'Edit' ), 'cssicon' => 'glyphicon glyphicon-pencil', 'action' => "/admin/panelstasks/edit/id/%d"));
-				$widget->setBasepath('/admin/panelstasks/')->setIdxfield($records['index'])->setButtons($buttons);;
+				$buttons = array('edit' => array('label' => $translator->translate ( 'Edit' ), 'cssicon' => 'glyphicon glyphicon-pencil', 'action' => "/admin/panelsactions/edit/id/%d"));
+				$widget->setBasepath('/admin/panelsactions/')->setIdxfield($records['index'])->setButtons($buttons);;
 			
 			// get the domains next the expiration date
 			}elseif($type == 'expiring_domain_widget'){
@@ -163,8 +163,10 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 			// get the list of your best customers 
 			}elseif($type == 'customers_parade_widget'){
 			
+				$buttons = array('edit' => array('label' => $translator->translate ( 'Show' ), 'cssicon' => 'glyphicon glyphicon-pencil', 'action' => "/admin/customers/edit/id/%d"));
+				
 				$records = Customers::Hitparade();
-				$widget->setIdxfield($records['index']);
+				$widget->setBasepath('/admin/customers/')->setIdxfield($records['index'])->setButtons($buttons);;
 			
 			// get the customer status summary
 			}elseif($type == 'customer_summary_widget'){
@@ -186,11 +188,19 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 			
 				$records = Reviews::summary();
 				
+			// get the bestseller product stats
+			}elseif($type == 'bestseller_widget'){
+				
+				$buttons = array('edit' => array('label' => $translator->translate ( 'Show' ), 'cssicon' => 'glyphicon glyphicon-pencil', 'action' => "/admin/products/edit/id/%d"));
+				
+				$records = Products::summary();
+				$widget->setBasepath('/admin/products/')->setIdxfield($records['index'])->setButtons($buttons);;
+				
 			// get the last ISP notes
 			}elseif($type == 'notes_widget'){
 				$user = $auth->getIdentity();
 				$records = Notes::summary($user['user_id']);
-				$widget->setBasepath('/admin/customers/');
+				$widget->setBasepath('/admin/notes/');
 				
 			}else{
 				die('No widget type has been selected: ' . $type);
@@ -206,7 +216,7 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 			
 			if(!empty($records['data'])){
 				
-				$widget->setBasepath('/admin/ordersitems/')->setIcon($icon)->setLabel($title)->setRecords($records['data']);
+				$widget->setIcon($icon)->setLabel($title)->setRecords($records['data']);
 				die($widget->create());
 			}
 			

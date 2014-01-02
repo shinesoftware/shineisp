@@ -219,7 +219,7 @@ class OrdersItems extends BaseOrdersItems {
      * @param integer $status
      * @param integer $autorenew [0, 1]
      */
-    public static function getExpiringSerivcesByRange($from=null, $to=null, $status=null, $autorenew=null, array $types = array()) {
+    public static function getExpiringServicesByRange($from=null, $to=null, $status=null, $autorenew=null, array $types = array(), array $attributegrpcode = array()) {
 
     	try{
 	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, oid.relationship_id,
@@ -242,6 +242,7 @@ class OrdersItems extends BaseOrdersItems {
 	                                           ->leftJoin ( 'd.DomainsTlds dt' )
 	                                           ->leftJoin ( 'dt.WhoisServers ws' )
 	                                           ->leftJoin ( 'oi.Products p' )
+	                                           ->leftJoin ( 'p.ProductsAttributesGroups pag' )
 	                                           ->leftJoin ( "p.ProductsData pd WITH pd.language_id = 1" )
 	                                           ->leftJoin ( 'o.Customers c' );
 	                                           
@@ -249,6 +250,10 @@ class OrdersItems extends BaseOrdersItems {
 	        	$dq->andWhereIn('p.type', $types);
 	        }else{
 	        	$dq->where ( 'p.type <> ?', 'domain');
+	        }
+	        
+	        if(!empty($attributegrpcode)){
+	        	$dq->andWhereIn('pag.code', $attributegrpcode);
 	        }
 	        
 	    	if(!is_null($from) && !is_null($to)){
@@ -266,7 +271,6 @@ class OrdersItems extends BaseOrdersItems {
 	        }
 	        
 	        $dq->orderBy('oi.date_end asc');
-	        
 	        return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 	        
     	}catch (Exception $e){
@@ -913,11 +917,15 @@ class OrdersItems extends BaseOrdersItems {
 	
 	/**
 	 * Get the list of services
+	 * by default it gets only the hosting service
+	 * 
+	 * @param array $product_types
+	 * @return array
 	 */
-	public static function getServices(){
+	public static function getServices(array $product_types = array(), array $product_attribute_groups = array()){
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$records['data'] = self::getExpiringSerivcesByRange(-10, 30, Statuses::id("complete", "orders"), null, array('hosting'));
+		$records['data'] = self::getExpiringServicesByRange(-10, 30, Statuses::id("complete", "orders"), null, $product_types, $product_attribute_groups);
 
 		// adding the index reference
 		$records['index'] = "detail_id";
