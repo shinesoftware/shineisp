@@ -3464,9 +3464,6 @@ StatusHistory:
     status_id:
       type: integer(4)
       notnull: true
-    section_id:
-      type: integer(4)
-      notnull: true
     order_id:
       type: integer(4)
     ticket_id:

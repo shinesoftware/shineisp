@@ -10,7 +10,6 @@ Doctrine_Manager::getInstance()->bindComponent('StatusHistory', 'doctrine');
  * @property integer $history_id
  * @property timestamp $datetime
  * @property integer $status_id
- * @property integer $section_id
  * @property integer $order_id
  * @property integer $ticket_id
  * @property Statuses $Statuses
@@ -41,11 +40,6 @@ abstract class BaseStatusHistory extends Doctrine_Record
              'length' => '25',
              ));
         $this->hasColumn('status_id', 'integer', 4, array(
-             'type' => 'integer',
-             'notnull' => true,
-             'length' => '4',
-             ));
-        $this->hasColumn('section_id', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
              'length' => '4',

@@ -163,7 +163,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 				if($record){
 					$statusHistory = $record->toArray();
 					$record->delete();
-					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $statusHistory[0]['section_id'], 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+					$this->_helper->redirector ( 'edit', 'orders', 'admin', array ('id' => $statusHistory[0]['order_id'], 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 				}
 			}
 		} catch ( Exception $e ) {
