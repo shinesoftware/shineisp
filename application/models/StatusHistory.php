@@ -16,16 +16,16 @@ class StatusHistory extends BaseStatusHistory
 	 * Insert a new status
 	 * @param array $params
 	 */
-	public static function insert($section_id, $status_id) {
+	public static function insert($order_id, $status_id) {
 		$status_id  = intval($status_id);
-		$section_id = intval($section_id);
+		$order_id = intval($order_id);
 		
-		if( !$status_id || !$section_id ) {
+		if( !$status_id || !$order_id ) {
 			return false;
 		}
 		
 		$StatusHistory = new self;
-		$StatusHistory->section_id = $section_id;
+		$StatusHistory->order_id = $order_id;
 		$StatusHistory->status_id  = $status_id;
 		$StatusHistory->datetime   = date('Y-m-d H:i:s');
 		$StatusHistory->save ();
@@ -66,28 +66,23 @@ class StatusHistory extends BaseStatusHistory
 	
 	
 	/**
-	 * Get all records by sectionId and status section
+	 * Get all records by order_id and status section
 	 * 
-	 * @param $sectionId, $statusSection [orders, customers, ...], $fields="*"
+	 * @param $order_id, $statusSection [orders, customers, ...], $fields="*"
 	 * @return Doctrine Record
 	 */
-	public static function getAll($sectionId, $statusSection="orders", $fields="*, s.status AS status") {
+	public static function getAllOrderStatus($order_id, $fields="*, s.status AS status") {
 
-		if(!is_numeric($sectionId)){
+		if(!is_numeric($order_id)){
 			return array();
 		}
 		
-		if(empty($statusSection)){
-			$statusSection = "orders";
-		}
-		
-		$sectionId = intval($sectionId);
+		$order_id = intval($order_id);
 		
 		$records = Doctrine_Query::create ()->select($fields)
 									   	->from( 'StatusHistory sh' )
 									   	->leftJoin('sh.Statuses s')
-									   	->where ( 'sh.section_id = ?', $sectionId )
-									    ->andWhere ( 's.section = ?',  $statusSection )
+									   	->where ( 'sh.order_id = ?', $order_id )
 										->andWhere ( 's.public = 1')
 										->orderBy ( 'sh.datetime ASC')
 									    ->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
@@ -103,29 +98,24 @@ class StatusHistory extends BaseStatusHistory
 	/**
 	 * Get status 
 	 * 
-	 * @param $sectionId, $statusSection [orders, customers, ...], $fields="*"
+	 * @param $order_id, $statusSection [orders, customers, ...], $fields="*"
 	 * @return Doctrine Record
 	 */
-	public static function getStatusList($sectionId, $statusSection="orders", $fields=null) {
+	public static function getStatusList($order_id, $fields=null) {
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		
 		$data = array();
 		$i = 0;
 		
-		if(!is_numeric($sectionId)){
+		if(!is_numeric($order_id)){
 			return array();
 		}
 		
-		if(empty($statusSection)){
-			$statusSection = "orders";
-		}
-		
-		$sectionId = intval($sectionId);
+		$order_id = intval($order_id);
 		
 		$dq = Doctrine_Query::create ()->from( 'StatusHistory sh' )
 									   	->leftJoin('sh.Statuses s')
-									   	->where ( 'sh.section_id = ?', $sectionId )
-									    ->andWhere ( 's.section = ?',  $statusSection )
+									   	->where ( 'sh.order_id = ?', $order_id )
 										->andWhere ( 's.public = 1')
 										->orderBy ( 'sh.datetime ASC');
 		if($fields){

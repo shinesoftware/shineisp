@@ -3447,6 +3447,7 @@ Statuses:
       type: boolean(25)
       default: 1
 
+      
 StatusHistory:
   connection: doctrine
   tableName: status_history
@@ -3466,11 +3467,23 @@ StatusHistory:
     section_id:
       type: integer(4)
       notnull: true
+    order_id:
+      type: integer(4)
+    ticket_id:
+      type: integer(4)      
   relations:
     Statuses:
       local: status_id
       foreign: status_id
-      onDelete: CASCADE      
+      onDelete: CASCADE   
+    Orders:
+      local: order_id
+      foreign: order_id
+      onDelete: CASCADE
+    Tickets:
+      local: ticket_id
+      foreign: ticket_id
+      onDelete: CASCADE         
             
 Tags:
   connection: doctrine
