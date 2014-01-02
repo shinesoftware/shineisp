@@ -220,9 +220,10 @@ class OrdersItems extends BaseOrdersItems {
      * @param integer $autorenew [0, 1]
      */
     public static function getExpiringServicesByRange($from=null, $to=null, $status=null, $autorenew=null, array $types = array(), array $attributegrpcode = array()) {
-
+    	$currency   = Shineisp_Registry::getInstance ()->Zend_Currency;
+    	
     	try{
-	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, oid.relationship_id,
+	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, oi.price as price, oid.relationship_id,
 	        										   pd.name as product,
 	        										   c.customer_id as id, 
 	        										   DATE_FORMAT(oi.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as expiringdate,
@@ -271,7 +272,14 @@ class OrdersItems extends BaseOrdersItems {
 	        }
 	        
 	        $dq->orderBy('oi.date_end asc');
-	        return $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+	        
+	        $records = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+	        
+	        for($i=0;$i<count($records);$i++){
+	        	$records[$i]['price'] = $currency->toCurrency($records[$i]['price'], array('currency' => Settings::findbyParam('currency')));
+	        }
+	        
+	        return $records;
 	        
     	}catch (Exception $e){
     		die($e->getMessage());
@@ -931,12 +939,12 @@ class OrdersItems extends BaseOrdersItems {
 		$records['index'] = "detail_id";
 		
 		// Create the header table columns
-		$records['fields'] = array('detail_id' => array('label' => $translator->translate('ID')),
-									'product' => array('label' => $translator->translate('Service')),
+		$records['fields'] = array('product' => array('label' => $translator->translate('Service')),
 									'domain' => array('label' => $translator->translate('Domain')),
 									'expiringdate' => array('label' => $translator->translate('Expiry Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'fullname' => array('label' => $translator->translate('Full name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'renew' => array('label' => $translator->translate('Auto renewal'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'price' => array('label' => $translator->translate('Due')),
 									'days' => array('label' => $translator->translate('Days')));
 		
 		
