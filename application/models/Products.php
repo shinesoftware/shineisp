@@ -1371,6 +1371,56 @@ class Products extends BaseProducts {
 		return implode(" > ", $items);
 	}	
 	
+	
+	/**
+	 * Get the product sold summary or per year
+	 */
+	public static function getBestseller($year=null){
+		$Session = new Zend_Session_Namespace ( 'Admin' );
+		$locale = $Session->langid;
+	
+		// Get the year incomes total and subtract the credit memo
+		$dq = Doctrine_Query::create ()->select('detail_id, p.product_id as id, count(*) as total,  pag.name as group, pd.name as product,')
+										->from ( 'OrdersItems oi' )
+										->leftJoin ( 'oi.Orders o' )
+										->leftJoin ( 'oi.Products p' )
+										->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+										->leftJoin ( 'p.ProductsAttributesGroups pag' )
+										->where('oi.status_id = ? OR oi.status_id = ?', array(Statuses::id('paid', 'orders'), Statuses::id('complete', 'orders')))
+										->andWhere('p.isp_id = ?', Isp::getCurrentId())
+										->groupBy('pd.name')
+										->orderBy('count(*) desc');
+	
+		if(is_numeric($year)){
+			$dq->andWhere('Year(o.order_date) = ?', $year);
+		}
+	
+		$data = $dq->execute ( null, Doctrine::HYDRATE_ARRAY );
+
+		return $data;
+	
+	}
+	
+	/**
+	 * Top Ten of the best seller products
+	 * @return array
+	 */
+	public static function summary() {
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$newarray = array();
+		$i = 0;
+		$data = self::getBestseller();
+	
+		foreach ($data as $item){
+			if($i==10){break;}
+			$records['data'][] = $item;
+			$i++;
+		}
+		$records['index'] =  "id";
+		$records['fields'] = array('total' => array('label' => $translator->translate('Total')), 'group' => array('label' => $translator->translate('Group')), 'product' => array('label' => $translator->translate('Name')));
+		return $records;
+	}
+	
 	######################################### BULK ACTIONS ############################################
 	
 	

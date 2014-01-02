@@ -1130,9 +1130,7 @@ class Customers extends BaseCustomers {
 		$records['index'] = "id";
 		
 		// Create the header table columns
-		$records['fields'] = array(
-									'id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
-									'lastname' => array('label' => $translator->translate('Last name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+		$records['fields'] = array( 'lastname' => array('label' => $translator->translate('Last name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'firstname' => array('label' => $translator->translate('First name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'company' => array('label' => $translator->translate('Company')),
 									'grandtotal' => array('label' => $translator->translate('Total')));

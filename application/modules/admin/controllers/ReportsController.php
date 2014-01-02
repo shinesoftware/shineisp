@@ -97,7 +97,7 @@ class Admin_ReportsController extends Shineisp_Controller_Admin {
 				}
 				
 				$this->view->title = $this->translator->translate("Products summary");
-				$this->view->data = array ('records' => Orders::getProductSoldSummary ($param));
+				$this->view->data = array ('records' => Products::getBestseller($param));
 				break;
 			
 			case 'tldsummarypermonth' :
