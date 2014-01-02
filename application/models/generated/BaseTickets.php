@@ -28,6 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('Tickets', 'doctrine');
  * @property Orders $Orders
  * @property Tickets $Tickets
  * @property AdminUser $AdminUser
+ * @property Doctrine_Collection $StatusHistory
  * @property Doctrine_Collection $TicketsNotes
  * 
  * @package    ##PACKAGE##
@@ -142,6 +143,10 @@ abstract class BaseTickets extends Doctrine_Record
              'local' => 'user_id',
              'foreign' => 'user_id',
              'onDelete' => 'Set Null'));
+
+        $this->hasMany('StatusHistory', array(
+             'local' => 'ticket_id',
+             'foreign' => 'ticket_id'));
 
         $this->hasMany('TicketsNotes', array(
              'local' => 'ticket_id',

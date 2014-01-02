@@ -498,7 +498,7 @@ class Admin_OrdersController extends Shineisp_Controller_Admin {
 	private function statusHistoryGrid() {
 		$request = $this->getRequest ();
 		if (isset ( $request->id ) && is_numeric ( $request->id )) {
-			$rs = StatusHistory::getAll($request->id, "orders");
+			$rs = StatusHistory::getAllOrderStatus($request->id);
 			$columns[] = $this->translator->translate('Date');
 			$columns[] = $this->translator->translate('Status');
 			if (isset ( $rs [0] )) {

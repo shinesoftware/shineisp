@@ -33,6 +33,7 @@ Doctrine_Manager::getInstance()->bindComponent('Orders', 'doctrine');
  * @property Doctrine_Collection $OrdersItemsDomains
  * @property Doctrine_Collection $OrdersItemsServers
  * @property Doctrine_Collection $Payments
+ * @property Doctrine_Collection $StatusHistory
  * @property Doctrine_Collection $Tickets
  * 
  * @package    ##PACKAGE##
@@ -187,6 +188,10 @@ abstract class BaseOrders extends Doctrine_Record
              'foreign' => 'order_id'));
 
         $this->hasMany('Payments', array(
+             'local' => 'order_id',
+             'foreign' => 'order_id'));
+
+        $this->hasMany('StatusHistory', array(
              'local' => 'order_id',
              'foreign' => 'order_id'));
 
