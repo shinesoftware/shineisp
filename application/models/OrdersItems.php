@@ -219,7 +219,7 @@ class OrdersItems extends BaseOrdersItems {
      * @param integer $status
      * @param integer $autorenew [0, 1]
      */
-    public static function getExpiringSerivcesByRange($from=null, $to=null, $status=null, $autorenew=null, array $types = array(), array $attributegrpcode = array()) {
+    public static function getExpiringServicesByRange($from=null, $to=null, $status=null, $autorenew=null, array $types = array(), array $attributegrpcode = array()) {
 
     	try{
 	    	$dq = Doctrine_Query::create ()->select ( "oi.detail_id, oid.relationship_id,
@@ -925,7 +925,7 @@ class OrdersItems extends BaseOrdersItems {
 	public static function getServices(array $product_types = array(), array $product_attribute_groups = array()){
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		$records['data'] = self::getExpiringSerivcesByRange(-10, 30, Statuses::id("complete", "orders"), null, $product_types, $product_attribute_groups);
+		$records['data'] = self::getExpiringServicesByRange(-10, 30, Statuses::id("complete", "orders"), null, $product_types, $product_attribute_groups);
 
 		// adding the index reference
 		$records['index'] = "detail_id";

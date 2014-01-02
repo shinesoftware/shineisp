@@ -2891,7 +2891,7 @@ class Orders extends BaseOrders {
 		*/
 	
 		// Get all the services active that expire the day after
-		$services = OrdersItems::getExpiringSerivcesByRange(0, 30, Statuses::id("complete", "orders") );
+		$services = OrdersItems::getExpiringServicesByRange(0, 30, Statuses::id("complete", "orders") );
 		if ($services) {
 			// Create the customer group list for the email summary
 			foreach ( $services as $service ) {
