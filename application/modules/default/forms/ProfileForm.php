@@ -102,13 +102,15 @@ class Default_Form_ProfileForm extends Zend_Form
             'class'      => 'form-control large-input'
         ));
         
-        $this->addElement('text', 'vat', array(
-            'filters'    => array('StringTrim'),
-            'label'      => $translate->_('VAT'),
-            'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input',
-            'description'      => $translate->_('Write here the VAT number.')
-        ));
+        if(Settings::findbyParam('customer_vat')){
+	        $this->addElement('text', 'vat', array(
+	            'filters'    => array('StringTrim'),
+	            'label'      => $translate->_('VAT'),
+	            'decorators' => array('Bootstrap'),
+	            'class'      => 'form-control large-input',
+	            'description'      => $translate->_('Write here the VAT number.')
+	        ));
+        }
         
         $this->addElement('text', 'area', array(
             'filters'    => array('StringTrim'),
@@ -119,13 +121,15 @@ class Default_Form_ProfileForm extends Zend_Form
             'description'      => 'Write the area code'
         ));        
         
-        $this->addElement('text', 'taxpayernumber', array(
-            'filters'    => array('StringTrim'),
-            'label'      => $translate->_('Tax payer number'),
-            'decorators' => array('Bootstrap'),
-            'class'      => 'form-control large-input',
-            'description'      => 'Write the tax payer number.'
-        ));
+        if(Settings::findbyParam('customer_taxpayernumber')){
+	        $this->addElement('text', 'taxpayernumber', array(
+	            'filters'    => array('StringTrim'),
+	            'label'      => $translate->_('Tax payer number'),
+	            'decorators' => array('Bootstrap'),
+	            'class'      => 'form-control large-input',
+	            'description'      => 'Write the tax payer number.'
+	        ));
+        }
         
         $this->addElement('text', 'address', array(
             'filters'    => array('StringTrim'),
