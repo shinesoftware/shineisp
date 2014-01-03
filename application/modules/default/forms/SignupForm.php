@@ -78,15 +78,17 @@ class Default_Form_SignupForm extends Zend_Form
         		'label' => 'Confirm Password',
         ));
         
-        #$vatValidator = new Shineisp_Validate_Vat();
-        $this->addElement('text', 'vat', array(
-        		'filters'    => array('StringTrim'),
-        		'label'      => $translate->_('VAT Number'),
-        		'decorators' => array('Bootstrap'),
-        		'class'      => 'form-control',
-        		'description'      => $translate->_('Write here the VAT code. Eg: IT123456789')
-        ));
-        #$this->getElement('vat')->addValidator($vatValidator);        
+        if(Settings::findbyParam('customer_vat')){
+	        #$vatValidator = new Shineisp_Validate_Vat();
+	        $this->addElement('text', 'vat', array(
+	        		'filters'    => array('StringTrim'),
+	        		'label'      => $translate->_('VAT Number'),
+	        		'decorators' => array('Bootstrap'),
+	        		'class'      => 'form-control',
+	        		'description'      => $translate->_('Write here the VAT code. Eg: IT123456789')
+	        ));
+	        #$this->getElement('vat')->addValidator($vatValidator);        
+        }
         
         $this->addElement('select', 'company_type_id', array(
         		'label' => 'Company Type',
@@ -112,18 +114,20 @@ class Default_Form_SignupForm extends Zend_Form
         ->setMultiOptions(Legalforms::getList(true))
         ->addValidator( new Shineisp_Validate_Customer( ) );        
         
-        $fiscalcodeValidator = new Shineisp_Validate_Fiscalcode();
-        $this->addElement('text', 'taxpayernumber', array(
-        		'filters'    => array('StringTrim'),
-        		'label'      => $translate->_('Tax payer number'),
-        		'decorators' => array('Bootstrap'),
-        		'class'      => 'form-control',
-        		'description'      => $translate->_('Write the tax payer number.')
-        ));
-        
-        # TODO: check both fiscalcode for generic person or giuridic person. (XYZYXZ88D22C123X and 1234567890)
-        #$this->getElement('taxpayernumber')->addValidator($fiscalcodeValidator);  
-                
+        if(Settings::findbyParam('customer_taxpayernumber')){
+	        $fiscalcodeValidator = new Shineisp_Validate_Fiscalcode();
+	        $this->addElement('text', 'taxpayernumber', array(
+	        		'filters'    => array('StringTrim'),
+	        		'label'      => $translate->_('Tax payer number'),
+	        		'decorators' => array('Bootstrap'),
+	        		'class'      => 'form-control',
+	        		'description'      => $translate->_('Write the tax payer number.')
+	        ));
+	        
+	        # TODO: check both fiscalcode for generic person or giuridic person. (XYZYXZ88D22C123X and 1234567890)
+	        #$this->getElement('taxpayernumber')->addValidator($fiscalcodeValidator);  
+        }
+            
         $this->addElement('submit', 'signup', array(
             'label'      => $translate->_('Create my account'),
             'decorators' => array('Bootstrap'),

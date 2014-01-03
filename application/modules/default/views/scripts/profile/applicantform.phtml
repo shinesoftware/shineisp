@@ -17,7 +17,9 @@
 		    	<?php echo $form->legalform->render()?>
 		    	<?php echo $form->company->render()?>
 	            <?php echo $form->company_type_id->render()?>
-	            <?php echo $form->vat->render()?>
+	            <?php if(Settings::findbyParam('customer_vat')): ?>
+	            	<?php echo $form->vat->render()?>
+	            <?php endif; ?>
 		    </div>
 	    </div>
     </fieldset>
@@ -34,7 +36,9 @@
 	        </div>
 	        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
 	            <?php echo $form->gender->render()?>
-	            <?php echo $form->taxpayernumber->render()?> 
+	            <?php if(Settings::findbyParam('customer_taxpayernumber')): ?>
+	            	<?php echo $form->taxpayernumber->render()?>
+	            <?php endif; ?>
 			</div>
 		</div>
     </fieldset>
