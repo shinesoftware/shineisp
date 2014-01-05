@@ -231,13 +231,13 @@ class Shineisp_Commons_Utilities {
 	    }
 	 
 	    // Start the table
-	    $table = "<table id='$id'>\n";
+	    $table = "<table width='100%' id='$id'>\n";
 	 
 	    // The header
 	    $table .= "\t<tr>";
 	    // Take the keys from the first row as the headings
 	    foreach (array_keys($array[0]) as $heading) {
-	        $table .= '<th>' . $heading . '</th>';
+	        $table .= '<td>' . $heading . '</td>';
 	    }
 	    $table .= "</tr>\n";
 	 

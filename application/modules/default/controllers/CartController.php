@@ -612,7 +612,7 @@ class CartController extends Shineisp_Controller_Default {
 					}
 					
 					// clear the cart
-// 					$session->cart->clearAll();
+					$session->cart->clearAll();
 					
 					$class = $gateway[0] ['classname'];
 					$payment = new $class ( $order->order_id );
