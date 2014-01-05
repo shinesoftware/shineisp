@@ -20,7 +20,7 @@
 		</execute>
 		
 		<!-- 0:30 every day -->
-		<execute time="30 0 * * *">
+		<execute time="* * * * *">
 			<script class="OrdersItems" method="checkServices">Check all the services domains/products and create the orders for each customer only if the service has been set as renewable</script>
 		</execute>
 		

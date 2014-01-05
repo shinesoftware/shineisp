@@ -179,7 +179,7 @@ class CommonController extends Shineisp_Controller_Default {
 				for($i = 0; $i < count ( $items ['domains'] ); $i ++) {
 					$data = DomainsBulk::find ( $items ['domains'] [$i] );
 					$action = $data['isavailable'] ? "registerDomain" : "transferDomain";
-					$params = array('domain' => $data['domain'], 'action' => $action, 'authcode' => $items['authcode'][$i], 'tldid' => $data['tld_id']);
+					$params = array('domain' => $data['domain'], 'tld' => $data['tld_id'], 'action' => $action, 'authcode' => $items['authcode'][$i]);
 						
 					$session->cart->addDomain($data['domain'], $data['tld_id'], $action);
 						

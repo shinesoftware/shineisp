@@ -504,10 +504,10 @@ class Domains extends BaseDomains {
      * @param $autorenew [0, 1]
      * @return array()
      */
-    public static function getExpiringDomainsByDays($days=7, $status = "", $autorenew=null) {
+    public static function getExpiringDomainsByDays($days=7, $statusId = null, $autorenew=null) {
     	
-        if(!is_numeric($status)){
-			$status = Statuses::id("active", "domains");
+        if(!is_numeric($statusId)){
+			$statusId = Statuses::id("active", "domains");
 		}
 		    	
         $dq = Doctrine_Query::create ()->select ( "domain_id, 
@@ -533,8 +533,8 @@ class Domains extends BaseDomains {
         	$dq->andWhere ( 'DATEDIFF(d.expiring_date, CURRENT_DATE) = ?', $days );
         }
         
-        if(is_numeric($status)){
-        	$dq->andWhere ( 'd.status_id = ?', $status ); // status 4 is active. Check the database statuses table
+        if(is_numeric($statusId)){
+        	$dq->andWhere ( 'd.status_id = ?', $statusId );
         }
         
         if(is_numeric($autorenew)){
