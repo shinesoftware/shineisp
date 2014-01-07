@@ -1673,7 +1673,7 @@ class Orders extends BaseOrders {
 				
 		Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
 			 'orderid'    => $order[0]['order_number']
-			,'fullname' => $customer['fullname']
+			,'fullname' => $customer['lastname']
 			,':shineisp:' => Isp::getActiveISP()
 			,'conditions' => strip_tags(Settings::findbyParam('conditions'))
 		), null, null, null, null, $customer['language_id']);
@@ -2822,6 +2822,7 @@ class Orders extends BaseOrders {
 			
 			Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], $template, array(
 				 'orderid'    => !empty($order['order_number']) ? $order['order_number'] : $order['order_id']
+				,'fullname' => $customer['fullname']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
 			), null, null, null, null, $customer['language_id']);

@@ -66,6 +66,7 @@ class Domains extends BaseDomains {
 		$massactions['bulk_set_autorenew&status=0'] = "Disable Automatic Renewal";
 		$massactions['bulk_delete'] = 'Mass Delete';
 		$massactions['bulk_export'] = 'Export Domain Listing';
+		$massactions['bulk_check_dns'] = 'Check DNS Zone';
 		$config ['datagrid'] ['massactions']['common'] = $massactions;
 													
 		$statuses = Statuses::getList('domains');
@@ -1552,6 +1553,51 @@ class Domains extends BaseDomains {
 		return false;
 	}
 		
+	/**
+	 * Check the dns of the active domains
+	 * @return array
+	 */
+	public static function bulk_check_dns($items) {
+		$external_domains = array();
+		$internal_domains = array();
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+		$mex = "";
+		
+		// Get all the active domains
+		$domains = self::get_domains($items, "d.domain_id, CONCAT(d.domain, '.', ws.tld) as name");
+	
+		// Get the webserver information
+		$webserver = Servers::getWebserver();
+	
+		// For each domain do ...
+		foreach ($domains as $domain){
+	
+			// Get the DNS information about the domain
+			$records = dns_get_record($domain['name'], DNS_A + DNS_NS);
+				
+			// For each DNS records found
+			foreach ($records as $record){
+				if((!empty($record['type']) && $record['type'] == "A")){
+					if($record['ip'] != $webserver['ip']){
+						$external_domains[] = $translator->_('The domain %s redirects the requests at this IP address: %s. read more here (%s)', $domain['name'], $record['ip'], "<a href='/admin/domains/edit/id/'".$domain['domain_id'].">".$domain['name']."</a>");
+					}else{
+						$internal_domains[] = $translator->_('The domain %s located in our servers.', $domain['name']);
+					}
+				}
+			}
+		}
+		
+		if(!empty($external_domains)){
+			$mex = "<ul class=\"list-unstyled\"><li><span class=\"label label-danger\">".$translator->translate('Warning')."</span> " . implode( '</li><li><i class="fa fa-check"></i> ', $external_domains) . "</li></ul>";
+		}
+		
+		if(!empty($internal_domains)){ 
+			$mex .= "<ul class=\"list-unstyled\"><li><span class=\"label label-success\">".$translator->translate('Success')."</span> " . implode( '</li><li><i class="fa fa-check"></i> ', $internal_domains) . "</li></ul>"; 
+		}
+		
+		die ( json_encode ( array ('mex' => $mex, 'autoreload_disabled' => true ) ) );
+	}
+	
 	/**
 	 * export the content in a pdf file
 	 * @param array $items
