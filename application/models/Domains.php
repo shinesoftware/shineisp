@@ -1579,7 +1579,7 @@ class Domains extends BaseDomains {
 			foreach ($records as $record){
 				if((!empty($record['type']) && $record['type'] == "A")){
 					if($record['ip'] != $webserver['ip']){
-						$external_domains[] = $translator->_('The domain %s redirects the requests at this IP address: %s. read more here (%s)', $domain['name'], $record['ip'], "<a href='/admin/domains/edit/id/'".$domain['domain_id'].">".$domain['name']."</a>");
+						$external_domains[] = $translator->_('The domain %s redirects the requests at this IP address: %s. read more here (%s)', $domain['name'], $record['ip'], "<a href=\"/admin/domains/edit/id/" . $domain['domain_id'] . "\">".$domain['name']."</a>");
 					}else{
 						$internal_domains[] = $translator->_('The domain %s located in our servers.', $domain['name']);
 					}
@@ -1592,7 +1592,7 @@ class Domains extends BaseDomains {
 		}
 		
 		if(!empty($internal_domains)){ 
-			$mex .= "<ul class=\"list-unstyled\"><li><span class=\"label label-success\">".$translator->translate('Success')."</span> " . implode( '</li><li><span class="label label-danger">'.$translator->translate('Warning').'</span> ', $internal_domains) . "</li></ul>"; 
+			$mex .= "<ul class=\"list-unstyled\"><li><span class=\"label label-success\">".$translator->translate('Success')."</span> " . implode( '</li><li><span class="label label-success">'.$translator->translate('Warning').'</span> ', $internal_domains) . "</li></ul>"; 
 		}
 		
 		die ( json_encode ( array ('mex' => $mex, 'autoreload_disabled' => true ) ) );
