@@ -10,25 +10,23 @@
  * @uses viewHelper Zend_View_Helper
  */
 class Zend_View_Helper_Attachments extends Zend_View_Helper_Abstract {
-	/*
+	
+	/**
+	 * Get the attachment files
 	 * 
+	 * @param integer $id
+	 * @param string $attachedto [customers, orders, domains]
 	 */
 	public function Attachments($id, $attachedto) {
 		$registry = Shineisp_Registry::getInstance ();
 		$translator = $registry->Zend_Translate;
 		
-		$NS = new Zend_Session_Namespace ( 'Default' );
-		
-		if (!empty($NS->customer)) {
-			$data = $NS->customer;
-			
-			// Get the attached files
-			if(!empty($id) && is_numeric($id)){
-				$this->view->files = Files::findbyExternalId($id, $attachedto);
-			}
-			
-			// Path of the template
-			return $this->view->render ( 'partials/attachments.phtml' );
+		// Get the attached files
+		if(!empty($id) && is_numeric($id)){
+			$this->view->files = Files::findbyExternalId($id, $attachedto);
 		}
+		
+		// Path of the template
+		return $this->view->render ( 'partials/attachments.phtml' );
 	}
 }

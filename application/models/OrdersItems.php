@@ -1207,7 +1207,7 @@ class OrdersItems extends BaseOrdersItems {
 								'fullname' => $customer['fullname'],
 								':shineisp:' => $customer
 								,'url'       => $url
-						), null, null, null, null, $customer['language_id']);
+						), null, null, null, null, $customer['language_id'], Settings::findbyParam('cron_notify'));
 	
 	
 					}
@@ -1242,9 +1242,7 @@ class OrdersItems extends BaseOrdersItems {
 			$dq = Doctrine_Query::create ()->update ( 'OrdersItems oi' )->set ( 'oi.status_id', Statuses::id('deleted', 'orders') )->where ( 'DATEDIFF(oi.date_end, CURRENT_DATE) <= ?', - 2 );
 			$dq->execute ( null, Doctrine::HYDRATE_ARRAY );
 	
-			Shineisp_Commons_Utilities::sendEmailTemplate(null, 'cron', array(
-					'cronjob'    => 'Check Services'
-			));
+			Shineisp_Commons_Utilities::sendEmailTemplate( null, 'cron', array('cronjob' => 'Check Services'), null, null, null, null, null, Settings::findbyParam('cron_notify'));
 	
 	
 		} catch ( Exception $e ) {

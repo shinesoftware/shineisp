@@ -2779,7 +2779,7 @@ class Orders extends BaseOrders {
 				 'orderid'        => $order['order_number']
 				,':shineisp:'     => $customer
 				,'url'            => $customer_url
-			), null, null, null, $ISP, $customer['language_id']);
+			), null, null, null, $ISP, $customer['language_id'], Settings::findbyParam('cron_notify'));
 			
 			// Set the order as deleted
 			Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
@@ -2825,7 +2825,7 @@ class Orders extends BaseOrders {
 				,'fullname' => $customer['fullname']
 				,':shineisp:' => $customer
 				,'url'        => $customer_url
-			), null, null, null, null, $customer['language_id']);
+			), null, null, null, null, $customer['language_id'], Settings::findbyParam('cron_notify'));
 		}
 		return true;
 	}
@@ -2838,36 +2838,42 @@ class Orders extends BaseOrders {
 		$orders = Orders::find_all_not_paid_orders();
 		
 		foreach ( $orders as $order ) {
+			
 			if(empty($order['expiring_date'])){
+				// Set all the order oldest more of 1 month as deleted
 				$date1 = new DateTime($order['order_date']);
 				$date2 = new DateTime(date('Y-m-d'));
-	
-				$interval = $date1->diff($date2);
-	
-				// Set all the order oldest more of 1 month as deleted
-				if((($interval->y) > 0) || (($interval->m) > 0)){
-					$customer = Customers::getAllInfo($order ['customer_id']);
-	
-					// Get the fastlink attached
-					$link_exist = Fastlinks::findlinks ( $order ['order_id'], $order ['customer_id'], 'orders' );
-					if (count ( $link_exist ) > 0) {
-						$fastlink = $link_exist [0] ['code'];
-					} else {
-						$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
-					}
-						
-					$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
-						
-					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
-						 'orderid'    => $order['order_number']
-						,':shineisp:' => $customer
-						,'url'        => $customer_url
-					), null, null, null, null, $customer['language_id']);
-					
-	
-					// Set the order as deleted
-					Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
+			}else{
+				// Set the expired orders as deleted
+				$date1 = new DateTime($order['order_date']);
+				$date2 = new DateTime($order['expiring_date']);
+			}
+			
+			$interval = $date1->diff($date2);
+			
+			if((($interval->y) <= 0) || (($interval->m) <= 0)){
+				$customer = Customers::getAllInfo($order ['customer_id']);
+				
+				// Get the fastlink attached
+				$link_exist = Fastlinks::findlinks ( $order ['order_id'], $order ['customer_id'], 'orders' );
+				if (count ( $link_exist ) > 0) {
+					$fastlink = $link_exist [0] ['code'];
+				} else {
+					$fastlink = Fastlinks::CreateFastlink ( 'orders', 'edit', json_encode ( array ('id' => $order ['order_id'] ) ), 'orders', $order ['order_id'], $customer ['customer_id'] );
 				}
+			
+				$customer_url = "http://" . $_SERVER ['HTTP_HOST'] . "/index/link/id/$fastlink";
+			
+				Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'order_deleted', array(
+						'orderid'    => $order['order_number']
+						,':shineisp:' => $customer
+						,'fullname' => $customer['fullname']
+						,'url'        => $customer_url
+				), null, null, null, null, $customer['language_id'], Settings::findbyParam('cron_notify'));
+					
+			
+				// Set the order as deleted
+				Orders::set_status($order['order_id'], Statuses::id('deleted', 'orders'));
 			}
 		}
 		return true;
@@ -2980,7 +2986,7 @@ class Orders extends BaseOrders {
 					Shineisp_Commons_Utilities::sendEmailTemplate($customer ['email'], 'reminder', array(
 						'items'      => $items
 						,'fullname' => $customer['fullname']
-					), null, null, null, null, $customer['language_id']);
+					), null, null, null, null, $customer['language_id'], Settings::findbyParam('cron_notify'));
 				}
 			}
 		}

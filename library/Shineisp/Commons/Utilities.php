@@ -1067,8 +1067,10 @@ class Shineisp_Commons_Utilities {
 	 * @param array|string $replyto
 	 * @param array $ISP
 	 * @param integer $language_id
+	 * @param string $bcc
 	 */
-	public static function sendEmailTemplate($recipient = null, $template = '', $placeholders = array(), $inreplyto = null, $attachments = null, $replyto = null, $ISP = null, $language_id = null) {
+	public static function sendEmailTemplate($recipient = null, $template = '', $placeholders = array(), $inreplyto = null, 
+			$attachments = null, $replyto = null, $ISP = null, $language_id = null, $bcc = null) {
 		
 		// Get email template
 		$arrTemplate = self::getEmailTemplate($template, $language_id);
@@ -1121,6 +1123,11 @@ class Shineisp_Commons_Utilities {
 			} else {
 				$arrBCC[] = $arrTemplate['bcc'];
 			}
+		}
+		
+		// add hidden email address
+		if(!empty($bcc)){
+			$arrBCC[] = $bcc;
 		}
 		
 		// Get always-bcc from custom settings
