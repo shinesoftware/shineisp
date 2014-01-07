@@ -5,6 +5,7 @@ $(document).ready(function(){
 			if($('#bulkactions').val()){
 				$.post('/admin/' + $('#bulkactions').attr('rel') + '/bulk/', {params: $.param($('.table :checkbox:checked')) + '&do='+$('#actions').val()}, 
 						function(data){
+					
 							if(data.reload !== undefined){
 								window.location.href = data.reload;
 							}
@@ -12,10 +13,14 @@ $(document).ready(function(){
 							if(data.url !== undefined){
 								window.location.href = data.url;
 							}
+
+							if(data.autoreload_disabled === undefined){
+								setTimeout(function() {window.location.reload();} , 500); // delays 0,5 sec
+							}
 							
 							if(data.mex !== undefined){
 								$("#mex").html(data.mex).fadeIn(300, function(){
-									setTimeout(function() {window.location.reload();} , 500); // delays 0,5 sec
+									
 								});
 							}
 				}, 'json');
