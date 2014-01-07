@@ -1588,11 +1588,11 @@ class Domains extends BaseDomains {
 		}
 		
 		if(!empty($external_domains)){
-			$mex = "<ul class=\"list-unstyled\"><li><span class=\"label label-danger\">".$translator->translate('Warning')."</span> " . implode( '</li><li><i class="fa fa-check"></i> ', $external_domains) . "</li></ul>";
+			$mex = "<ul class=\"list-unstyled\"><li><span class=\"label label-danger\">".$translator->translate('Warning')."</span> " . implode( '</li><li><span class="label label-danger">'.$translator->translate('Warning').'</span> ', $external_domains) . "</li></ul>";
 		}
 		
 		if(!empty($internal_domains)){ 
-			$mex .= "<ul class=\"list-unstyled\"><li><span class=\"label label-success\">".$translator->translate('Success')."</span> " . implode( '</li><li><i class="fa fa-check"></i> ', $internal_domains) . "</li></ul>"; 
+			$mex .= "<ul class=\"list-unstyled\"><li><span class=\"label label-success\">".$translator->translate('Success')."</span> " . implode( '</li><li><span class="label label-danger">'.$translator->translate('Warning').'</span> ', $internal_domains) . "</li></ul>"; 
 		}
 		
 		die ( json_encode ( array ('mex' => $mex, 'autoreload_disabled' => true ) ) );
