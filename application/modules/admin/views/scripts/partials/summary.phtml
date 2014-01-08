@@ -9,16 +9,14 @@
   	$currentYear 			= date('Y');
 	$lastYear    			= $currentYear -1;
   	$arrgraph    			= array();
-  	
 ?>
 
-
-<?php if(!empty($income_yearly)): ?>
 	<div class="portlet" id="income-yearly">
 		<div class="widget-wrapper">
 			<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Year')?></a></h4></div>
 			<div class="widget-content">
 			    <div id='yeargraph'></div>
+			    <?php if(!empty($income_yearly)): ?>
 				<ul class="stats list-inline">
 					<?php foreach($income_yearly as $inc):?>
 						<li>
@@ -46,100 +44,101 @@
 						</li>
 					<?php endforeach;?>
 				</ul>
+				<?php endif;?>
 			</div>
 		</div>
 	</div>
-<?php endif;?>
 
-<?php if(!empty($income_quarter)): ?>
 	<div class="portlet" id="income-quarter">
 		<div class="widget-wrapper">
 			<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Quarter')?></a></h4></div>
 			<div class="widget-content">
 			    <div id='quartergraph'></div>
-				<ul class="stats list-inline">
-					<?php foreach($income_quarter as $inc):?>
-						<?php if($inc['year'] == date('Y')): ?>
-						
-						<?php 
-						
-							$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
-							$costs 	= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0;
-							$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
-							$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
-							$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
-							$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
-							$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
-							$yieldrate 	= !empty($inc['yieldrate']) ? $inc['yieldrate'] : 0;
-							$earnings 	= !empty($inc['incdec']) ? $this->currency((float)$inc['incdec'], array('currency' => $currency)) : 0;
+			    <?php if(!empty($income_quarter)): ?>
+					<ul class="stats list-inline">
+						<?php foreach($income_quarter as $inc):?>
+							<?php if($inc['year'] == date('Y')): ?>
 							
-							$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
-							$old_costs 		= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
-							$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
-							$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
-// 							Zend_Debug::dump($inc);
-						?>
-						
-						<li>
-							<?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?>
-							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
-								<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
-							</span>
-							<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
-							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($yieldrate > 0) ? "green" : "red" ?>"><?php echo $earnings ?> (<?php echo $yieldrate ?>%)</span>
-						</li>
-						<?php endif; ?>
-					<?php endforeach;?>
-				</ul>
+							<?php 
+							
+								$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
+								$costs 	= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0;
+								$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
+								$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
+								$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
+								$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
+								$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
+								$yieldrate 	= !empty($inc['yieldrate']) ? $inc['yieldrate'] : 0;
+								$earnings 	= !empty($inc['incdec']) ? $this->currency((float)$inc['incdec'], array('currency' => $currency)) : 0;
+								
+								$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
+								$old_costs 		= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
+								$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
+								$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
+	// 							Zend_Debug::dump($inc);
+							?>
+							
+							<li>
+								<?php echo $this->translate('%s° quarter of %s', $inc['quarter'], $inc['year'])?>
+								<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
+									<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
+								</span>
+								<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
+								<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($yieldrate > 0) ? "green" : "red" ?>"><?php echo $earnings ?> (<?php echo $yieldrate ?>%)</span>
+							</li>
+							<?php endif; ?>
+						<?php endforeach;?>
+					</ul>
+				<?php endif;?>
 			</div>
 		</div>
 	</div>
-<?php endif;?>
 
-<?php if(!empty($income_text_monthly)): ?>
+
 <div class="portlet" id="income-text-month">
 	<div class="widget-wrapper">
 		<div class="widget-header"><h4><a href="#"><i class="fa fa-calendar"></i> <?php echo $this->translate('Income by Month')?></a></h4></div>
 		<div class="widget-content">
 		    <div id='monthgraph'></div>
-			<ul class="stats list-inline">
-				<?php foreach($income_text_monthly as $inc):?>
-					<?php if($inc['year'] == date('Y')): ?>
-					
-						<?php 
-							$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
-							$costs 		= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0;
-							$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
-							$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
-							$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
-							$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
-							$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
-							$yieldrate 	= !empty($inc['yieldrate']) ? $inc['yieldrate'] : 0;
-							$earnings 	= !empty($inc['incdec']) ? $this->currency((float)$inc['incdec'], array('currency' => $currency)) : 0;
-// 							Zend_Debug::dump($inc);
-// 							die;
-							$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
-							$old_costs 			= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
-							$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
-							$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
-							
-						?>
-					<li>
-					
-					
-						<?php echo $inc['monthname'] . "/" . $inc['year']; ?>
-						<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
-							<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
-						</span>
-						<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
-						<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($yieldrate > 0) ? "green" : "red" ?>"><?php echo $earnings ?> (<?php echo $yieldrate ?>%)</span>
+		    <?php if(!empty($income_text_monthly)): ?>
+				<ul class="stats list-inline">
+					<?php foreach($income_text_monthly as $inc):?>
+						<?php if($inc['year'] == date('Y')): ?>
 						
-					</li>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			</ul>
+							<?php 
+								$income 	= !empty($inc['gross_total']) ? $this->currency($inc['gross_total'], array('currency' => $currency)) : 0;
+								$costs 		= !empty($inc['costs_total']) ? $this->currency($inc['costs_total'], array('currency' => $currency)) : 0;
+								$creditmemo = !empty($inc['creditmemo_total']) ? $this->currency($inc['creditmemo_total'], array('currency' => $currency)) : 0;
+								$total 		= !empty($inc['net_total']) ? $this->currency($inc['net_total'], array('currency' => $currency)) : 0;
+								$inputvat	= !empty($inc['costs_vat']) ? $this->currency($inc['costs_vat'], array('currency' => $currency)) : 0;
+								$outputvat	= !empty($inc['output_vat']) ? $this->currency($inc['output_vat'], array('currency' => $currency)) : 0;
+								$netvat		= !empty($inc['net_vat']) ? $this->currency($inc['net_vat'], array('currency' => $currency)) : 0;
+								$yieldrate 	= !empty($inc['yieldrate']) ? $inc['yieldrate'] : 0;
+								$earnings 	= !empty($inc['incdec']) ? $this->currency((float)$inc['incdec'], array('currency' => $currency)) : 0;
+	// 							Zend_Debug::dump($inc);
+	// 							die;
+								$old_income 		= !empty($inc['old']['gross_total']) ? $this->currency($inc['old']['gross_total'], array('currency' => $currency)) : 0;
+								$old_costs 			= !empty($inc['old']['costs_total']) ? $this->currency($inc['old']['costs_total'], array('currency' => $currency)) : 0;
+								$old_creditmemo 	= !empty($inc['old']['creditmemo_total']) ? $this->currency($inc['old']['creditmemo_total'], array('currency' => $currency)) : 0;
+								$old_total 			= !empty($inc['old']['net_total']) ? $this->currency($inc['old']['net_total'], array('currency' => $currency)) : 0;
+								
+							?>
+						<li>
+						
+						
+							<?php echo $inc['monthname'] . "/" . $inc['year']; ?>
+							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $income, $costs, $creditmemo, $total) ?>">
+								<strong><?php echo $this->currency($inc['net_total'], array('currency' => $currency)) ?></strong>
+							</span>
+							<span title="<?php echo $this->translate('%s (Input VAT) - %s (Output VAT) = %s (total)', $inputvat, $outputvat, $netvat) ?>" style="cursor:help"><?php echo $netvat ?></span>
+							<span style="cursor:help" title="<?php echo $this->translate('%s (income) - %s (costs) - %s (credit memo) = %s (total)', $old_income, $old_costs, $old_creditmemo, $old_total) ?>" class="<?php echo ($yieldrate > 0) ? "green" : "red" ?>"><?php echo $earnings ?> (<?php echo $yieldrate ?>%)</span>
+							
+						</li>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif;?>
 		</div>
 	</div>
 </div>
 
-<?php endif;?>
