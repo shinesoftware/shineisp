@@ -69,7 +69,7 @@ function createWidget(widget){
             widget.find(".widget-header").prepend('<span class="ui-icon ui-icon-minus"></span>');
         },
         error: function (xhr, status) {
-            alert('Sorry, there was a problem!');
+            console.log('Sorry, there was a problem: status' + status);
         },
 	});
 }
