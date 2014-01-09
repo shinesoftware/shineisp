@@ -18,7 +18,6 @@ class Admin_Form_TicketsForm extends Zend_Form
         
         $this->addElement('text', 'datetime', array(
             'filters'     => array('StringTrim'),
-            'required'    => true,
             'label'       => $translate->_('Date'),
         	'decorators'  => array('Bootstrap'),
             'class'       => 'form-control'
@@ -48,6 +47,17 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(TicketsCategories::getList());
+        
+        $this->addElement('select', 'customer_id', array(
+            'decorators'  => array('Bootstrap'),
+            'label'       => $translate->_('Customer'),
+            'class'       => 'form-control'
+        ));
+        
+        $this->getElement('customer_id')
+                  ->setAllowEmpty(false)
+                  ->setRegisterInArrayValidator(false)
+                  ->setMultiOptions(Customers::getList());
         
         $this->addElement('select', 'order_id', array(
             'decorators'  => array('Bootstrap'),

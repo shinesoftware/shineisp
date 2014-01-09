@@ -322,6 +322,12 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			// Get the id 
 			$id = $this->getRequest ()->getParam ( 'ticket_id' );
 			
+			// create the ticket if not exist
+			if(!is_numeric($id)){
+				$id = Tickets::saveIt(null, $params['customer_id'], $params['subject'], $params['note'], $params['category_id']);
+				$redirector->gotoUrl ( "/admin/tickets/edit/id/$id#last" );
+			}
+			
 			$date = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime']) : null;
 			$note = !empty($params['note']) ? $params['note'] : null;
 			$status = !empty($params['status_id']) && is_numeric($params['status_id']) ? $params['status_id'] : null;
