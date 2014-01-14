@@ -250,6 +250,7 @@ class OrdersItems extends BaseOrdersItems {
 	        										   oi.autorenew as renew,
 	    	                                           p.product_id as product_id,
 	    	                                           p.type as type,
+	    											   d.domain as domain_id,
 	    											   CONCAT(d.domain, '.', ws.tld) as domain, 
 	        										   DATEDIFF(oi.date_end, CURRENT_DATE) as days" )
 	                                           ->from ( 'OrdersItems oi' )
@@ -956,7 +957,7 @@ class OrdersItems extends BaseOrdersItems {
 		
 		// Create the header table columns
 		$records['fields'] = array('product' => array('label' => $translator->translate('Service'), 'type' => 'link', 'link' => array('idx' => 'product_id', 'href' => '/admin/products/edit/id/id/%s')),
-									'domain' => array('label' => $translator->translate('Domain')),
+									'domain' => array('label' => $translator->translate('Domain'), 'type' => 'link', 'link' => array('idx' => 'domain_id', 'href' => '/admin/domains/edit/id/%s')),
 									'expiringdate' => array('label' => $translator->translate('Expiry Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'fullname' => array('label' => $translator->translate('Full name'), 'type' => 'link', 'link' => array('idx' => 'id', 'href' => '/admin/customers/edit/id/%s'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'renew' => array('label' => $translator->translate('Auto renewal'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),

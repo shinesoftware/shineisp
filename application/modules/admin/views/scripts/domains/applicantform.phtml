@@ -7,15 +7,22 @@
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 		
 	<div class="row">
-		<div class="col-lg-2 pull-right">
+		<div class="col-lg-7 pull-left"></div>
+		<div class="col-lg-5 pull-right">
 	        <?php if(!empty($this->actions)): ?>
 	        	<?php echo $this->translate('Registrars Actions') ?>:
 	        	<div class="input-group">
     		        <select id="regActions" class="form-control">
-    		        	<option><?php echo $this->translate('Select ...') ?></option>
-    			        <?php foreach($this->actions as $key => $action): ?>
-    			        <option value="<?php echo $key ?>"><?php echo $action?></option>
-    			        <?php endforeach;?>
+    		        	<?php 
+    		        		if(!empty($this->actions))
+		    		        	foreach ($this->actions as $registrar => $tasks) {
+		    		        		echo "<optgroup label=\"$registrar\">";
+		    		        		foreach ($tasks as $action => $label) {
+		    		        			echo "<option registrar=\"$registrar\" value = \"$action\">" . $this->translate('%s registrar task: %s', $registrar, $label) . "</option>";
+		    		        		}
+		    		        		echo "</optgroup>";
+		    		        	}
+    		        	?>
     		        </select>
     		        <div class="input-group-btn">
     		            <button class="btn dropdown-toggle" data-toggle="dropdown">

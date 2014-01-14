@@ -12,6 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('CompanyTypes', 'doctrine');
  * @property integer $legalform_id
  * @property integer $active
  * @property Doctrine_Collection $Customers
+ * @property Doctrine_Collection $DomainsProfiles
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -53,6 +54,10 @@ abstract class BaseCompanyTypes extends Doctrine_Record
     {
         parent::setUp();
         $this->hasMany('Customers', array(
+             'local' => 'type_id',
+             'foreign' => 'type_id'));
+
+        $this->hasMany('DomainsProfiles', array(
              'local' => 'type_id',
              'foreign' => 'type_id'));
     }
