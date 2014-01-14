@@ -232,67 +232,6 @@ class Newsletters extends BaseNewsletters
     	return $data;
     }
     
-    /**
-     * Send the newsletter to the queue
-     */
-    public static function send_queue($test=FALSE, $id=NULL){
-		$queue = NewslettersHistory::get_active_queue($test, $id);
-		
-		$isp = Isp::getActiveISP ();
-		try{
-			// Get the template from the main email template folder
-			$retval = Shineisp_Commons_Utilities::getEmailTemplate ( 'newsletter' );
-			
-			if(!empty($retval) && !empty($queue)){
-				
-				$contents = self::fill_content();	
-					
-				$subject = $retval ['subject'];
-				$template =  $retval ['template'] ;
-				
-				$subject = str_replace ( "[subject]", $queue[0] ['Newsletters']['subject'], $subject );
-				$template = str_replace ( "[subject]", $queue[0] ['Newsletters']['subject'], $template );
-				$template = str_replace ( "[body]", $queue[0] ['Newsletters']['message'], $template );
-				
-				foreach ($contents as $name=>$content) {
-					$template = str_replace ( "[" . $name . "]", $content, $template );
-				}
-				
-				foreach ($isp as $field=>$value) {
-					$template = str_replace ( "[" . $field . "]", $value, $template );
-				}
-				
-				$template = str_replace ( "[url]", "http://" . $_SERVER ['HTTP_HOST'] . "/media/newsletter/" , $template );
-				
-				foreach ($queue as $item) {
-					
-					// Send a test of the newsletter to the default isp email otherwise send an email to the queue
-					if ($test){
-						$body = str_replace ( "[optout]", "#", $template); 
-						Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $isp ['email'], null, "<!--TEST --> " . $subject, $body, true);
-						break;
-					}else{
-						
-						// Create the optout link to be added in the email
-						$body = str_replace ( "[optout]", '<a href="http://' . $_SERVER ['HTTP_HOST'] . "/newsletter/optout/id/" . MD5($item['NewslettersSubscribers'] ['email']) . '" >Unsubscribe</a>', $template );
-						
-						$result = Shineisp_Commons_Utilities::SendEmail ( $isp ['email'], $item['NewslettersSubscribers'] ['email'], null, $subject, $body, true);
-						if($result === true){
-							NewslettersHistory::set_status($item['subscriber_id'], $item['newsletter_id'], 1, "Mail Sent");	
-						}else{
-							NewslettersHistory::set_status($item['subscriber_id'], $item['newsletter_id'], 0, $result['message']);
-						}
-						self::set_sending_date($item['news_id']);
-					}
-				}
-			}
-		}catch (Exception $e){
-			echo $e->getMessage();
-			return false;
-		}
-		return true;
-    }
-
 	######################################### BULK ACTIONS ############################################
 	
 	

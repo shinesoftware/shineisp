@@ -204,6 +204,8 @@ class PanelsActions extends BasePanelsActions
 		$dq = Doctrine_Query::create ()->select("DATE_FORMAT(start, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate,
 										  DATE_FORMAT(end, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate,
 										  CONCAT(c.lastname, ' ', c.firstname) as fullname,
+										  p.panel_id as panel_id,
+										  c.customer_id as customer_id,
 										  p.name as name,
 										  action,
 										  log,
@@ -230,8 +232,8 @@ class PanelsActions extends BasePanelsActions
         $records['fields'] = array('action_id' => array('label' => $translator->translate('ID')),
         							'startdate' => array('label' => $translator->translate('Start Date')),
 					        		'enddate' => array('label' => $translator->translate('End Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
-					        		'fullname' => array('label' => $translator->translate('Full Name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
-					        		'name' => array('label' => $translator->translate('Panel')),
+					        		'fullname' => array('label' => $translator->translate('Full Name'), 'type' => 'link', 'link' => array('idx' => 'customer_id', 'href' => '/admin/customers/edit/id/%s'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+					        		'name' => array('label' => $translator->translate('Panel'), 'type' => 'link', 'link' => array('idx' => 'panel_id', 'href' => '/admin/panels/edit/id/%s')),
 					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 					        		'status' => array('label' => $translator->translate('Status')));
         
