@@ -100,17 +100,18 @@ class Registrars extends BaseRegistrars
 	/**
 	 * Get the actions from the custom Registrar class
 	 */
-	public static function getActions($registrarID) {
-		if(is_numeric($registrarID)){
-			$registrar = Registrars::find ( $registrarID, null, true );
-			
+	public static function getActions() {
+		$registrars = Registrars::getList(false);
+		$actions = array();
+		foreach ($registrars as $id => $name){
+		    $registrar = Registrars::find ( $id, null, true );
 			if (! empty ( $registrar [0] ['class'] ) && class_exists ( $registrar [0] ['class'] )) {
 				$class = $registrar [0] ['class'];
 				$reg = new $class ();
-				return $reg->getActions();
+				$actions[$name] = $reg->getActions();
 			}
 		}
-		return array();
+		return $actions;
 	}
 	
 	/**

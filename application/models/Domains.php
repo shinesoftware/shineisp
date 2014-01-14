@@ -79,14 +79,16 @@ class Domains extends BaseDomains {
 			$config ['datagrid'] ['massactions']['statuses'] = $customacts;
 			
 		
-		$actions = Registrars::getActions (1);
+	    $actions = Registrars::getActions ();
 		if(!empty($actions))
-			$customacts = array();
-			foreach ($actions as $key => $value) {
-				$customacts['bulk_registrar_tasks&task=' . $key ] = "Registrar Task: $value";
-			}
-			$config ['datagrid'] ['massactions']['registrar'] = $customacts;
-				
+		    $customacts = array();
+    		foreach ($actions as $registrar => $tasks) {
+    		    foreach ($tasks as $action => $label) {
+        		    $customacts['bulk_registrar_tasks&task=' . $action ] = $translator->_('%s registrar task: %s', $registrar, $label);
+        		}
+    		}
+    		
+    	$config ['datagrid'] ['massactions']['registrars'] = $customacts;
 		return $config;
 	}
 	

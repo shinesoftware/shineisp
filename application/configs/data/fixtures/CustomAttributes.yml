@@ -1,43 +1,43 @@
 CustomAttributes:
   CustomAttributes_1:
     var: client_id
-    label: 'ISPConfig Client ID'
+    label: 'Client ID'
     type: text
     section: customers
     panel_id: '1'
   CustomAttributes_2:
     var: remote_server_id
-    label: 'ISPConfig Server ID'
+    label: 'Server ID'
     type: text
     section: servers
     panel_id: '1'
   CustomAttributes_3:
     var: remote_server_url
-    label: 'ISPConfig Public URL'
+    label: 'Public URL'
     type: text
     section: servers
     panel_id: '1'
   CustomAttributes_4:
     var: endpointlocation
-    label: 'ISPConfig API Location'
+    label: 'API Location'
     type: text
     section: servers
     panel_id: '1'
   CustomAttributes_5:
     var: endpointuri
-    label: 'ISPConfig API URI'
+    label: 'API URI'
     type: text
     section: servers
     panel_id: '1'
   CustomAttributes_6:
     var: username
-    label: 'ISPConfig API Username'
+    label: 'API Username'
     type: text
     section: servers
     panel_id: '1'
   CustomAttributes_7:
     var: password
-    label: 'ISPConfig API Password'
+    label: 'API Password'
     type: text
     section: servers
     panel_id: '1'

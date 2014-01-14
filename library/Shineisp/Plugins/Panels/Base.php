@@ -250,7 +250,6 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 	
 	
 	/**
-	 * 
 	 * Send the email profile to the user
 	 */
 	public function sendMail($task){
@@ -280,11 +279,11 @@ class Shineisp_Plugins_Panels_Base implements Shineisp_Plugins_Interface {
 				
 				$strSetup = "";
 				foreach ($setup as $section => $details) {
-					$strSetup .= strtoupper($section) . "\n===============\n";
+					$strSetup .= strtoupper($section) . "<hr/>";
 					foreach ($details as $label => $detail){
-						$strSetup .= "$label: " . $detail . "\n"; 
+						$strSetup .= "$label: " . $detail . "<br/>"; 
 					}
-					$strSetup .= "\n";
+					$strSetup .= "<br/>";
 				}
 				
 				Shineisp_Commons_Utilities::sendEmailTemplate($ISP ['email'], $welcome_mail, array(

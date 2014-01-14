@@ -24,6 +24,7 @@ class OrdersItems extends BaseOrdersItems {
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'd.detail_id', 'alias' => 'id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'd.detail_id', 'alias' => 'id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Order ID' ), 'field' => 'o.order_id', 'alias' => 'order_id', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Type' ), 'field' => 'p.type', 'alias' => 'type', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Service' ), 'field' => 'pd.name', 'alias' => 'productname', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Domain' ), 'field' => 'dm.domain', 'alias' => 'domain', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'c.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
@@ -42,6 +43,7 @@ class OrdersItems extends BaseOrdersItems {
 											DATE_FORMAT(d.date_start, '".Settings::getMySQLDateFormat('dateformat')."') as date_start, 
 											DATE_FORMAT(d.date_end, '".Settings::getMySQLDateFormat('dateformat')."') as date_end, 
 											pd.name as productname, 
+											p.type as type, 
 											s.status as status, 
 											oid.relationship_id as oid,
 											dm.domain_id as domain_id,
@@ -66,7 +68,6 @@ class OrdersItems extends BaseOrdersItems {
         			->andWhere('o.isp_id = ?', Shineisp_Registry::get('ISP')->isp_id);
         
 		$config ['datagrid'] ['dqrecordset'] = $dq;
-			
 		
 		$config ['datagrid'] ['basepath'] = "/admin/services/";
 		$config ['datagrid'] ['index'] = "detail_id";
@@ -80,6 +81,18 @@ class OrdersItems extends BaseOrdersItems {
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/services/delete/id/%d";
 		$config ['datagrid'] ['massactions']['common'] = array ('massdelete'=>'Mass Delete', 'bulkexport'=>'Export' );
+		
+		$customacts = array();
+		$actions = Panels::getActions ();
+		if(!empty($actions))
+    		foreach ($actions as $registrar => $tasks) {
+    		    foreach ($tasks as $action => $label) {
+        		    $customacts['bulk_registrar_tasks&task=' . $action ] = $translator->_('%s registrar task: %s', $registrar, $label);
+        		}
+    		}
+    		
+		$config ['datagrid'] ['massactions']['panels'] = $customacts;
+		
 		return $config;
 	}
 	
@@ -234,6 +247,7 @@ class OrdersItems extends BaseOrdersItems {
 	        										   c.password as password,
 	        										   c.parent_id as reseller, 
 	        										   oi.autorenew as renew,
+	    	                                           p.type as type,
 	    											   CONCAT(d.domain, '.', ws.tld) as domain, 
 	        										   DATEDIFF(oi.date_end, CURRENT_DATE) as days" )
 	                                           ->from ( 'OrdersItems oi' )

@@ -46,10 +46,20 @@ class Admin_PanelsController extends Shineisp_Controller_Admin {
 	 */
 	public function listAction() {
 		$this->view->title = $this->translator->translate("Panels list");
-		$this->view->description = $this->translator->translate("Here you can see all the panel articles.");
+		$this->view->description = $this->translator->translate("Here you can see all the ISP panels.");
 		$this->view->buttons = array(array("url" => "/admin/panels/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)));
 		$this->datagrid->setConfig ( Panels::grid() )->datagrid ();
 	}
+
+	/**
+	 * Load Json Records
+	 *
+	 * @return string Json records
+	 */
+	public function loadrecordsAction() {
+	    $this->_helper->ajaxgrid->setConfig ( Panels::grid() )->loadRecords ($this->getRequest ()->getParams());
+	}
+	
 	
 	/**
 	 * searchProcessAction
