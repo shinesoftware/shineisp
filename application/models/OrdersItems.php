@@ -248,6 +248,7 @@ class OrdersItems extends BaseOrdersItems {
 	        										   c.password as password,
 	        										   c.parent_id as reseller, 
 	        										   oi.autorenew as renew,
+	    	                                           p.product_id as product_id,
 	    	                                           p.type as type,
 	    											   CONCAT(d.domain, '.', ws.tld) as domain, 
 	        										   DATEDIFF(oi.date_end, CURRENT_DATE) as days" )
@@ -954,10 +955,10 @@ class OrdersItems extends BaseOrdersItems {
 		$records['index'] = "detail_id";
 		
 		// Create the header table columns
-		$records['fields'] = array('product' => array('label' => $translator->translate('Service')),
+		$records['fields'] = array('product' => array('label' => $translator->translate('Service'), 'type' => 'link', 'link' => array('idx' => 'product_id', 'href' => '/admin/products/edit/id/id/%s')),
 									'domain' => array('label' => $translator->translate('Domain')),
 									'expiringdate' => array('label' => $translator->translate('Expiry Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
-									'fullname' => array('label' => $translator->translate('Full name'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
+									'fullname' => array('label' => $translator->translate('Full name'), 'type' => 'link', 'link' => array('idx' => 'id', 'href' => '/admin/customers/edit/id/%s'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'renew' => array('label' => $translator->translate('Auto renewal'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 									'price' => array('label' => $translator->translate('Due')),
 									'days' => array('label' => $translator->translate('Days')));
