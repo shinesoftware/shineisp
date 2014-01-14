@@ -40,17 +40,6 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
-	 * indexAction
-	 * Create the User object and get all the records.
-	 * @return unknown_type
-	 */
-	public function resetAction() {
-		$NS = new Zend_Session_Namespace ( 'Admin' );
-		unset ( $NS->search_domains );
-		$this->_helper->redirector ( 'index', 'domains' );
-	}
-	
-	/**
 	 * listAction
 	 * Create the User object and get all the records.
 	 * @return unknown_type

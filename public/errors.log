@@ -1,0 +1,7 @@
+[14-Jan-2014 08:18:25 CET] PHP Notice:  Array to string conversion in /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php on line 89
+[14-Jan-2014 08:18:26 CET] PHP Notice:  Array to string conversion in /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php on line 89
+[14-Jan-2014 08:23:59 CET] PHP Notice:  Array to string conversion in /Library/WebServer/Documents/shineisp/application/models/Domains.php on line 86
+[14-Jan-2014 08:24:00 CET] PHP Notice:  Array to string conversion in /Library/WebServer/Documents/shineisp/application/models/Domains.php on line 86
+[14-Jan-2014 08:37:59 CET] PHP Notice:  Undefined index: domain_id in /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Ajaxgrid.php on line 466
+[14-Jan-2014 08:49:41 CET] PHP Notice:  Undefined variable: customacts in /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php on line 94
+[14-Jan-2014 08:49:42 CET] PHP Notice:  Undefined variable: customacts in /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php on line 94

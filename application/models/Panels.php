@@ -20,14 +20,14 @@ class Panels extends BasePanels
 	public static function grid($rowNum = 10) {
 		
 		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-		
+		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.panel_id', 'alias' => 'panel_id', 'type' => 'selectall' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.panel_id', 'alias' => 'panel_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'p.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'p.active', 'alias' => 'active', 'type' => 'index');
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ISP' ), 'field' => 'i.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'link', 'link' => '/admin/isp/account' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'p.active', 'alias' => 'active', 'type' => 'boolean');
 		
-		$config ['datagrid'] ['fields'] = "panel_id, p.name as name, p.active as active";
+		$config ['datagrid'] ['fields'] = "panel_id, p.name as name, p.active as active, i.company as company";
 		$config ['datagrid'] ['dqrecordset'] = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )->from ( 'Panels p' )->leftJoin ( 'p.Isp i' );
-		
-		$config ['datagrid'] ['rownum'] = $rowNum;
 		
 		$config ['datagrid'] ['basepath'] = "/admin/panels/";
 		$config ['datagrid'] ['index'] = "panel_id";
@@ -41,6 +41,7 @@ class Panels extends BasePanels
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/panels/delete/id/%d";
 		$config ['datagrid'] ['massactions'] = array ('massdelete'=>'Mass Delete', 'bulkexport'=>'Export' );
+		
 		return $config;
 	}
 	
@@ -173,8 +174,9 @@ class Panels extends BasePanels
 	 * @return ArrayObject
 	 */
 	public static function getActivePanel() {
+	    
 		// Get the Active ISP Panel set at the Isp Profile page
-		$strpanel = Isp::getPanel();
+		$strpanel = Isp::getPanel(Isp::getActiveISPID());
 		if(!empty($strpanel)){
 			$panel = Doctrine_Query::create ()->from ( 'Panels' )
 											->where ( "name = ?", $strpanel )
@@ -185,6 +187,23 @@ class Panels extends BasePanels
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Get the actions from the custom ISP Panel class
+	 */
+	public static function getActions() {
+	    $panels = self::getListInstalled();
+	    $actions = array();
+	    foreach ($panels as $id => $name){
+	        $panel = self::find ( $id );
+// 	        if (! empty ( $panel [0] ['class'] ) && class_exists ( $panel [0] ['class'] )) {
+// 	            $class = $panel [0] ['class'];
+// 	            $reg = new $class ();
+// 	            $actions[$name] = $reg->getActions();
+// 	        }
+	    }
+	    return $actions;
 	}
 	
 	/**

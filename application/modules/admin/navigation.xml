@@ -243,6 +243,11 @@
 					<uri>/admin/reports/show/type/productsummary</uri>
 					<resource>admin:reports</resource>
 				</productsummary>
+				<panels>
+					<label>Panel Actions</label>
+					<uri>/admin/panelsactions/</uri>
+					<resource>admin:panelsactions</resource>
+				</panels>
 			</pages>
 		</reports>
 		
@@ -264,6 +269,11 @@
                     <uri>/admin/registrars/list</uri>
                     <resource>admin:registrars</resource>
                 </registrars>
+                <panels>
+                    <label>Panels</label>
+                    <uri>/admin/panels/list</uri>
+                    <resource>admin:panels</resource>
+                </panels>
                 <profile>
                     <label>ISP Account</label>
                     <uri>/admin/isp/account/list</uri>
