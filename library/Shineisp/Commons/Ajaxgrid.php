@@ -462,6 +462,15 @@ class Shineisp_Commons_Ajaxgrid {
 							$badge = "badge-" . strtolower($record [$column ['alias']]);
 							$label = $this->translator->translate($record [$column ['alias']]);
 							$row[] = "<span class=\"badge $badge\">$label</span>";
+						}elseif($column['type'] == "link" && !empty($column['link'])){
+							if(is_array($column['link'])){
+								$link = str_replace("%s", $record [$column ['link']['idx']], $column['link']['href']);
+							}else{
+								$link = str_replace("%s", "", $column['link']);
+							}
+							
+							$label = $this->translator->translate($record [$column ['alias']]);							
+							$row[] = "<a href=\"$link\" class=\"\">$label</span>";
 						}else{
 							$row[] = $record [$column ['alias']];
 						}

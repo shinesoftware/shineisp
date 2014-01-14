@@ -2443,7 +2443,9 @@ class Orders extends BaseOrders {
 		$dq = Doctrine_Query::create ()
 								->select ( "order_id, DATE_FORMAT(order_date, '".Settings::getMySQLDateFormat('dateformat')."') as orderdate, i.formatted_number as invoice, 
 											CONCAT(c.firstname, ' ', c.lastname, ' ', c.company) as fullname, 
+											c.customer_id as customer_id, 
 											o.total as total, 
+											i.invoice_id as invoice_id, 
 											o.grandtotal as grandtotal, 
 											s.status as status" )
 								->from ( 'Orders o' )							
@@ -2477,8 +2479,8 @@ class Orders extends BaseOrders {
 		// Create the header table columns
 		$records['fields'] = array('order_id' => array('label' => $translator->translate('ID'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
 		                           'orderdate' => array('label' => $translator->translate('Date'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
-		                           'invoice' => array('label' => $translator->translate('Invoice'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
-		                           'fullname' => array('label' => $translator->translate('Customer')), 
+		                           'invoice' => array('label' => $translator->translate('Invoice'), 'type' => 'link', 'link' => array('idx' => 'invoice_id', 'href' => '/admin/invoices/edit/id/id/%s'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
+		                           'fullname' => array('label' => $translator->translate('Customer'), 'type' => 'link', 'link' => array('idx' => 'customer_id', 'href' => '/admin/customers/edit/id/id/%s')), 
 		                           'total' => array('label' => $translator->translate('Total'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
 		                           'grandtotal' => array('label' => $translator->translate('Grand Total'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')), 
 		                           'status' => array('label' => $translator->translate('Status')));

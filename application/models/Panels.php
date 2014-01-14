@@ -23,7 +23,7 @@ class Panels extends BasePanels
 		$config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'p.panel_id', 'alias' => 'panel_id', 'type' => 'selectall' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'p.panel_id', 'alias' => 'panel_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Name' ), 'field' => 'p.name', 'alias' => 'name', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ISP' ), 'field' => 'i.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ISP' ), 'field' => 'i.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'link', 'link' => '/admin/isp/account' );
 		$config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Active' ), 'field' => 'p.active', 'alias' => 'active', 'type' => 'boolean');
 		
 		$config ['datagrid'] ['fields'] = "panel_id, p.name as name, p.active as active, i.company as company";

@@ -92,7 +92,6 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 			
 				$records = Orders::Last(array(Statuses::id("tobepaid", "orders")));
 				$buttons = array('edit' => array('label' => $translator->translate ( 'Edit' ), 'cssicon' => 'glyphicon glyphicon-pencil', 'action' => "/admin/orders/edit/id/%d"));
-				
 				$widget->setBasepath('/admin/orders/')->setIdxfield($records['index'])->setButtons($buttons);
 				
 			// Get all the pending, processing, and paid orders to be complete 
@@ -210,7 +209,8 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 			// Records Builtin columns. The code get the field names as header column name
 			if(!empty($records['fields'])){
 				foreach ($records['fields'] as $field => $column) {
-					$widget->setColumn($field, $column['label'], !empty($column['attributes']) ? $column['attributes'] : array());
+					$column['alias'] = !empty($column['alias']) ? $column['alias'] : $field;
+					$widget->setColumn($field, $column);
 				}
 			}
 			

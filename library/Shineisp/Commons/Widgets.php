@@ -61,12 +61,8 @@ class Shineisp_Commons_Widgets{
 	 * @param array $attributes
 	 * @return Shineisp_Commons_Widgets
 	 */
-	public function setColumn($field, $label = null, $attributes = array()) {
-		$this->columns [] = array ('label' => $label,
-									'attributes' => !empty($attributes) ? $attributes : null,
-									'field' => $field,
-									'alias' => $field,
-									'type' => 'string' );
+	public function setColumn($field, $column) {
+		$this->columns [] = $column;
 		return $this;
 	}	
 	
