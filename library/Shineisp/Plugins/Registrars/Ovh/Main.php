@@ -70,7 +70,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			}
 			
 			// Create the OVH nic-Handle
-			$nicHandle = $this->createNicHandle($customerID);	
+			$nicHandle = $this->createNicHandle($customerID, $domainID);	
 			
 			// Check if the nichandle has been created
 			if(!empty($nicHandle)){
@@ -78,7 +78,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				$params = array();
 				
 				// Save the nic-Handle in the database
-				CustomersDomainsRegistrars::addNicHandle($customerID, $domainID, $registrar['registrars_id'], $nicHandle);
+				CustomersDomainsRegistrars::addNicHandle($domainID, $nicHandle);
 				
 				$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 				
@@ -101,9 +101,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = $registrar ['ovh_username'];				// the admin nichandle
-					$params[] = $registrar ['ovh_username'];				// the tech nichandle
-					$params[] = $registrar ['ovh_username'];				// the billing nichandle
+					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
+					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
+					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
 					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
@@ -135,9 +135,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = $registrar ['ovh_username'];				// the admin nichandle
-					$params[] = $registrar ['ovh_username'];				// the tech nichandle
-					$params[] = $registrar ['ovh_username'];				// the billing nichandle
+					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
+					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
+					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
 					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
@@ -167,9 +167,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = $registrar ['ovh_username'];				// the admin nichandle
-					$params[] = $registrar ['ovh_username'];				// the tech nichandle
-					$params[] = $registrar ['ovh_username'];				// the billing nichandle
+					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
+					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
+					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
 					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
@@ -242,7 +242,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			}
 						
 			// Create the OVH nic-Handle
-			$nicHandle = $this->createNicHandle($customerID);	
+			$nicHandle = $this->createNicHandle($customerID, $domainID);	
 			
 			// Check if the nichandle has been created
 			if(!empty($nicHandle)){
@@ -250,7 +250,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				$params = array();
 				
 				// Save the nic-Handle in the database
-				CustomersDomainsRegistrars::addNicHandle($customerID, $domainID, $registrar['registrars_id'], $nicHandle);
+				CustomersDomainsRegistrars::addNicHandle($domainID, $nicHandle);
 				
 				$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 	
@@ -271,9 +271,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = $registrar ['ovh_username'];				// the admin nichandle
-					$params[] = $registrar ['ovh_username'];				// the tech nichandle
-					$params[] = $registrar ['ovh_username'];				// the billing nichandle
+					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
+					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
+					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
 					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
@@ -303,9 +303,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = $registrar ['ovh_username'];				// the admin nichandle
-					$params[] = $registrar ['ovh_username'];				// the tech nichandle
-					$params[] = $registrar ['ovh_username'];				// the billing nichandle
+					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
+					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
+					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
 					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
@@ -789,78 +789,155 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 	 * @return     string       $nicHandle		the new contact handle id
 	 * @access     private
 	 */		
-	private function createNicHandle($customerID){
+	private function createNicHandle($customerID, $domainId){
 		$soap = $this->Connect();
 		
 		if(!empty($this->session)){
 			$fields = "c.customer_id as customer_id, c.company as company, c.firstname as firstname, c.lastname as lastname, c.gender as gender, c.email as email, c.password as password, c.birthdate as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.vat as vat, c.note as note,  a.address as address, a.code as code, a.city as city, a.area as area, ct.name as country, ct.code as countrycode, cts.type_id as type_id, cts.name as companytype, l.legalform_id as legalform_id, l.name as legalform, s.status_id as status_id, s.status as status, cn.contact as contact";
 			$customer = Customers::getAllInfo($customerID, $fields);
+			$tld = Domains::getDomainTld($domainId);
+			
+			if($tld == "it"){  // Create a nicHandle for the Italian domain tld
 
-			return $soap->nicCreateIT ( 
-							$this->session['id'], // Session
-							$customer ['lastname'], // Lastname
-							$customer ['firstname'], // Firstname 
-							$customer ['gender'], // Gender
-							Shineisp_Commons_Utilities::GenerateRandomString(), // Password
-							$customer ['email'], // Email
-							$customer ['contact'], // Phone
-							null, // Fax
-							$customer ['address'], // Address
-							$customer ['city'], // City
-							$customer ['area'], // Area
-							$customer ['code'], // Zip
-							strtolower ( $customer ['countrycode'] ), // Country Code
-							"en", // Language 
-							true, // isOwner
-							$customer ['legalform'], // Legalform
-							$customer ['company'], // Organisation
-							$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
-							null, // Legal Number
-							$customer ['vat'], // VAT or IVA
-							Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), // Birthday
-							$customer ['birthplace'], // Birthcity
-							$customer ['taxpayernumber'], // Contact fiscal code or company vat
-							$customer ['vat'], // Company National Identification Number
-							$customer ['companytype'] ); // Corporation Type
+				return $soap->nicCreateIT ( 
+								$this->session['id'], // Session
+								$customer ['lastname'], // Lastname
+								$customer ['firstname'], // Firstname 
+								$customer ['gender'], // Gender
+								Shineisp_Commons_Utilities::GenerateRandomString(), // Password
+								$customer ['email'], // Email
+								$customer ['contact'], // Phone
+								null, // Fax
+								$customer ['address'], // Address
+								$customer ['city'], // City
+								$customer ['area'], // Area
+								$customer ['code'], // Zip
+								strtolower ( $customer ['countrycode'] ), // Country Code
+								"en", // Language 
+								true, // isOwner
+								strtolower ($customer ['legalform']), // Legalform
+								$customer ['company'], // Organisation
+								$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
+								null, // Legal Number
+								$customer ['vat'], // VAT or IVA
+								Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), // Birthday
+								$customer ['birthplace'], // Birthcity
+								$customer ['taxpayernumber'], // Contact fiscal code or company vat
+								$customer ['vat'], // Company National Identification Number
+								strtolower ($customer ['companytype']) ); // Corporation Type
+			}else{
+				
+				// Create a generic nicHandle
+				return $soap->nicCreate (
+						$this->session['id'], // Session
+						$customer ['lastname'], // Lastname
+						$customer ['firstname'], // Firstname
+						Shineisp_Commons_Utilities::GenerateRandomString(), // Password
+						$customer ['email'], // Email
+						$customer ['contact'], // Phone
+						null, // Fax
+						$customer ['address'], // Address
+						$customer ['city'], // City
+						$customer ['area'], // Area
+						$customer ['code'], // Zip
+						strtolower ( $customer ['countrycode'] ), // Country Code
+						"en", // Language
+						true, // isOwner
+						strtolower ($customer ['legalform']), // Legalform
+						$customer ['company'], // Organisation
+						$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
+						null, // Legal Number
+						$customer ['vat'] // VAT or IVA
+				);
+			}
 		}
 		
 		return false;
 	}
 	
-	
-	private function createNicHandles($customerID){
+	/**
+	 * 
+	 * @param integer $domainId
+	 * @param string $type
+	 */
+	private function createNic($domainId, $type = 'owner' ){
 		$soap = $this->Connect();
 		
 		if(!empty($this->session)){
-			$fields = "c.customer_id as customer_id, c.company as company, c.firstname as firstname, c.lastname as lastname, c.gender as gender, c.email as email, c.password as password, c.birthdate as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.vat as vat, c.note as note,  a.address as address, a.code as code, a.city as city, a.area as area, ct.name as country, ct.code as countrycode, cts.type_id as type_id, cts.name as companytype, l.legalform_id as legalform_id, l.name as legalform, s.status_id as status_id, s.status as status, cn.contact as contact";
-			$customer = DomainsProfiles::getProfiles($customerID, $fields);
-
-			return $soap->nicCreateIT ( 
-							$this->session['id'], // Session
-							$customer ['lastname'], // Lastname
-							$customer ['firstname'], // Firstname 
-							$customer ['gender'], // Gender
-							Shineisp_Commons_Utilities::GenerateRandomString(), // Password
-							$customer ['email'], // Email
-							$customer ['contact'], // Phone
-							null, // Fax
-							$customer ['address'], // Address
-							$customer ['city'], // City
-							$customer ['area'], // Area
-							$customer ['code'], // Zip
-							strtolower ( $customer ['countrycode'] ), // Country Code
-							"en", // Language 
-							true, // isOwner
-							$customer ['legalform'], // Legalform
-							$customer ['company'], // Organisation
-							$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
-							null, // Legal Number
-							$customer ['vat'], // VAT or IVA
-							Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), // Birthday
-							$customer ['birthplace'], // Birthcity
-							$customer ['taxpayernumber'], // Contact fiscal code or company vat
-							$customer ['vat'], // Company National Identification Number
-							$customer ['companytype'] ); // Corporation Type
+// 			$tld = Domains::getDomainTld($domainId);
+			
+			// get the domain profile
+			$profile = DomainsProfiles::getProfile($domainId, $type);
+			if($profile){
+				
+				// Set generic variables for parameters
+				$profile['countrycode'] = strtolower ( Countries::getCodebyId($profile ['country_id']) );
+				$profile['birthdate'] = Shineisp_Commons_Utilities::formatDateOut ( $profile ['birthdate'] );
+				$profile['password'] = Shineisp_Commons_Utilities::GenerateRandomString();
+				$profile['fullname'] = $profile ['firstname'] . " " . $profile ['lastname'];
+				$profile['legalform'] = strtolower($profile ['Legalforms']['name']);
+				$profile['corporationtype'] = strtolower($profile ['CompanyTypes']['name']);
+				$profile['legalnumber'] = null;
+				$profile['language'] = "en";
+				$profile['isowner'] = ($type == "owner") ? true : false;
+				
+// 				if($tld == "it"){  // Create a nicHandle for the Italian domain tld
+					$nicHandle = $soap->nicCreateIT(  $this->session['id'], 				// Session
+														$profile ['lastname'], 				// Lastname
+														$profile ['firstname'], 			// Firstname 
+														$profile ['gender'], 				// Gender
+														$profile ['password'], 				// Password
+														$profile ['email'], 				// Email
+														$profile ['phone'], 				// Phone
+														$profile ['fax'], 					// Fax
+														$profile ['address'], 				// Address
+														$profile ['city'], 					// City
+														$profile ['area'], 					// Area
+														$profile ['zip'], 					// Zip
+														$profile ['countrycode'], 			// Country Code
+														$profile ['language'],				// Language 
+														$profile ['isowner'], 				// isOwner
+														$profile ['legalform'], 			// Legalform
+														$profile ['company'], 				// Organisation
+														$profile ['fullname'], 				// Legal name
+														$profile ['legalnumber'],			// Legal Number
+														$profile ['vat'], 					// VAT or IVA
+														$profile ['birthdate'],				// Birthday
+														$profile ['birthplace'], 			// Birthcity
+														$profile ['taxpayernumber'], 		// Contact fiscal code or company vat
+														$profile ['vat'], 					// Company National Identification Number
+														$profile ['corporationtype'] );
+// 				}else{  
+					
+// 					// Create a generic nicHandle
+// 					$nicHandle = $soap->nicCreate (  $this->session['id'], 					// Session
+// 														$profile ['lastname'], 				// Lastname
+// 														$profile ['firstname'], 			// Firstname 
+// 														$profile ['password'], 				// Password
+// 														$profile ['email'], 				// Email
+// 														$profile ['phone'], 				// Phone
+// 														$profile ['fax'], 					// Fax
+// 														$profile ['address'], 				// Address
+// 														$profile ['city'], 					// City
+// 														$profile ['area'], 					// Area
+// 														$profile ['zip'], 					// Zip
+// 														$profile ['countrycode'], 			// Country Code
+// 														$profile ['language'],				// Language 
+// 														$profile ['isowner'], 				// isOwner
+// 														$profile ['legalform'],			 	// Legalform
+// 														$profile ['company'], 				// Organisation
+// 														$profile ['fullname'], 				// Legal name
+// 														$profile ['legalnumber'],			// Legal Number
+// 														$profile ['vat'] 					// VAT or IVA
+// 													); 
+// 				}
+				
+				if(!empty($nicHandle)){
+					CustomersDomainsRegistrars::addNicHandle($domainId, $nicHandle, $type, $profile['profile_id']);  // Save the nic-Handle in the database
+					return $nicHandle;
+				}
+				
+			}
 		}
 		
 		return false;

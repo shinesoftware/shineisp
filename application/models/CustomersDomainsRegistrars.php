@@ -134,16 +134,22 @@ class CustomersDomainsRegistrars extends BaseCustomersDomainsRegistrars
      * @param unknown_type $customerID
      * @param unknown_type $domainID
      */
-    public static function addNicHandle($customerID, $domainID, $registrarID, $nicHandle){
+    public static function addNicHandle($domainID, $nicHandle, $type="owner", $profileID=null){
     	$nic = self::chkIfExist ( $nicHandle );
     	
 		if (empty($nic)) {
+
+			// Get the domain information
+			$domain = Domains::findbyId($domainID);
+			
 			$CustomerDomainsRegistrars = new CustomersDomainsRegistrars ( );
-			$CustomerDomainsRegistrars->customer_id = $customerID;
-			$CustomerDomainsRegistrars->registrars_id = $registrarID;
+			$CustomerDomainsRegistrars->customer_id = $domain['customer_id'];
+			$CustomerDomainsRegistrars->registrars_id = $domain['registrars_id'];
 			$CustomerDomainsRegistrars->creationdate = date('Y-m-d :H:i:s');
 			$CustomerDomainsRegistrars->domain_id = $domainID;
+			$CustomerDomainsRegistrars->profile_id = $profileID;
 			$CustomerDomainsRegistrars->value = $nicHandle;
+			$CustomerDomainsRegistrars->type = $type;
 			$CustomerDomainsRegistrars->save ();
 			return $nicHandle;
 		}else{

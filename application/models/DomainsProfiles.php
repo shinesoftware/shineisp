@@ -21,7 +21,7 @@ class DomainsProfiles extends BaseDomainsProfiles{
     
         $config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dp.profile_id', 'alias' => 'profile_id', 'type' => 'selectall' );
         $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dp.profile_id', 'alias' => 'profile_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
-        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Owner' ), 'field' => 'c.company', 'alias' => 'owner', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Owner' ), 'field' => "CONCAT(c.lastname, ' ', c.firstname)", 'alias' => 'owner', 'sortable' => true, 'searchable' => true, 'type' => 'link', 'link' => array('idx' => 'customer_id', 'href' => '/admin/customers/edit/id/%s') );
         $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'dp.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
         $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(dp.firstname, " ", dp.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
         $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'dp.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
@@ -29,7 +29,8 @@ class DomainsProfiles extends BaseDomainsProfiles{
     
         $config ['datagrid'] ['fields'] = "dp.profile_id,
 										   dp.company as company,
-										   c.company as owner,
+										   CONCAT(c.lastname, ' ', c.firstname) as owner,
+										   c.customer_id as customer_id,
 										   CONCAT(dp.firstname, ' ', dp.lastname) as fullname,
 										   dp.email as email,
 										   s.status as status";
@@ -38,7 +39,8 @@ class DomainsProfiles extends BaseDomainsProfiles{
     
         $dq = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
                                         ->from ( 'DomainsProfiles dp' )
-                                        ->leftJoin ( 'dp.Statuses s' )->leftJoin ( 'dp.Customers c' );
+                                        ->leftJoin ( 'dp.Statuses s' )
+        								->leftJoin ( 'dp.Customers c' );
     
         $config ['datagrid'] ['dqrecordset'] = $dq;
     
@@ -157,6 +159,27 @@ class DomainsProfiles extends BaseDomainsProfiles{
     }
 
     /**
+     * Get the domain profiles record
+     *
+     * @param $domain_id
+     * @return Array
+     */
+    public static function getProfile($domain_id, $type = 'owner') {
+        $items = array ();
+    
+        $dq = Doctrine_Query::create ()->from ( 'DomainsNichandle nic' )
+        							   ->leftJoin ( 'nic.DomainsProfiles p' )
+        							   ->leftJoin ( 'p.CompanyTypes cts' )
+        							   ->leftJoin ( 'p.Legalforms l' )
+        							   ->where ( 'nic.domain_id = ?', $domain_id )
+        							   ->andWhere('nic.type = ?', $type);
+    
+        $record = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+    	
+        return !empty($record[0]['DomainsProfiles']) ? $record[0]['DomainsProfiles'] : null;
+    }
+
+    /**
      * Save all the data in the database
      * @param array $data
      * @param integer $id
@@ -192,7 +215,7 @@ class DomainsProfiles extends BaseDomainsProfiles{
             $profile['zip'] = $data['zip'];
             $profile['city'] = $data['city'];
             $profile['area'] = $data['area'];
-            $profile['country'] = $data['country'];
+            $profile['country_id'] = $data['country_id'];
             
             $profile['vat'] = $data['vat'];
             $profile['taxpayernumber'] = $data['taxpayernumber'];

@@ -15,6 +15,7 @@ Doctrine_Manager::getInstance()->bindComponent('Countries', 'doctrine');
  * @property Addresses $Addresses
  * @property Doctrine_Collection $Regions
  * @property Doctrine_Collection $Provinces
+ * @property Doctrine_Collection $DomainsProfiles
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -70,6 +71,10 @@ abstract class BaseCountries extends Doctrine_Record
              'foreign' => 'country_id'));
 
         $this->hasMany('Provinces', array(
+             'local' => 'country_id',
+             'foreign' => 'country_id'));
+
+        $this->hasMany('DomainsProfiles', array(
              'local' => 'country_id',
              'foreign' => 'country_id'));
     }

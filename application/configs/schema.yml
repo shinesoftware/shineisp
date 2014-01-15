@@ -846,9 +846,8 @@ DomainsProfiles:
     area:
       type: string(50)
       notnull: false
-    country:
-      type: string(50)
-      notnull: false
+    country_id:
+      type: integer(4)
     taxpayernumber:
       type: string(20)
       notnull: false
@@ -889,6 +888,10 @@ DomainsProfiles:
       local: customer_id
       foreign: customer_id
       onDelete: CASCADE
+    Countries:
+      local: country_id
+      foreign: country_id
+      onDelete: 'Set Null'
             
 Customers:
   connection: doctrine
@@ -1067,6 +1070,7 @@ CustomersDomainsRegistrars:
       local: profile_id
       foreign: profile_id
       onDelete: CASCADE
+      
 Dns_Zones:
   connection: doctrine
   tableName: dns_zones

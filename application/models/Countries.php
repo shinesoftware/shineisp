@@ -54,7 +54,7 @@ class Countries extends BaseCountries {
 	}
 
 	/**
-	 * Find by country name by Id
+	 * Find country name by Id
 	 * 
 	 * 
 	 * @param unknown_type $id
@@ -66,6 +66,21 @@ class Countries extends BaseCountries {
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
 		
 		return !empty($record[0]['name']) ? $record[0]['name'] : null;
+	}
+
+	/**
+	 * Find country code by Id
+	 * 
+	 * 
+	 * @param integer $id
+	 */
+	public static function getCodebyId($id) {
+		$record = Doctrine_Query::create ()->from ( 'Countries c' )
+            		    					->where('country_id = ?', $id)
+            		    					->limit(1)
+            								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
+		
+		return !empty($record[0]['code']) ? $record[0]['code'] : null;
 	}
 	
 	/**

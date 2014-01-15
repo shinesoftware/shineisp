@@ -24,7 +24,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsProfiles', 'doctrine');
  * @property string $zip
  * @property string $city
  * @property string $area
- * @property string $country
+ * @property integer $country_id
  * @property string $taxpayernumber
  * @property string $vat
  * @property integer $type_id
@@ -37,6 +37,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsProfiles', 'doctrine');
  * @property Legalforms $Legalforms
  * @property Statuses $Statuses
  * @property Customers $Customers
+ * @property Countries $Countries
  * @property Doctrine_Collection $DomainsNichandle
  * @property Doctrine_Collection $CustomersDomainsRegistrars
  * 
@@ -137,10 +138,9 @@ abstract class BaseDomainsProfiles extends Doctrine_Record
              'notnull' => false,
              'length' => '50',
              ));
-        $this->hasColumn('country', 'string', 50, array(
-             'type' => 'string',
-             'notnull' => false,
-             'length' => '50',
+        $this->hasColumn('country_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
              ));
         $this->hasColumn('taxpayernumber', 'string', 20, array(
              'type' => 'string',
@@ -205,6 +205,11 @@ abstract class BaseDomainsProfiles extends Doctrine_Record
              'local' => 'customer_id',
              'foreign' => 'customer_id',
              'onDelete' => 'CASCADE'));
+
+        $this->hasOne('Countries', array(
+             'local' => 'country_id',
+             'foreign' => 'country_id',
+             'onDelete' => 'Set Null'));
 
         $this->hasMany('DomainsNichandle', array(
              'local' => 'profile_id',

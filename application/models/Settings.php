@@ -235,7 +235,7 @@ class Settings extends BaseSettings {
 	public static function getDateFormat() {
 	    $date = Zend_Date::now();
 	    
-	    $dateformat['%d/%m/%Y|d/M/Y|dd/mm/yy'] = 'd/M/Y - (' . $date->toString('d/M/Y') . ")";
+	    $dateformat['%d/%m/%Y|dd/MM/YYYY|dd/mm/yyyy'] = 'dd/MM/YYYY - (' . $date->toString('dd/MM/YYYY') . ")";
 	    $dateformat['%m/%d/%Y|M/d/Y|mm/dd/yy'] = 'M/d/Y - (' . $date->toString('M/d/Y') . ")";
 	    $dateformat['%Y/%m/%d|Y/M/d|yy/mm/dd'] = 'Y/M/d - (' . $date->toString('Y/M/d') . ")";
 	    

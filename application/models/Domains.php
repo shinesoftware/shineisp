@@ -954,6 +954,35 @@ class Domains extends BaseDomains {
 	}
 	
 	/**
+	 * Get the domain tld by id
+	 * @param $id
+	 * @return string
+	 */
+	public static function getDomainTld($id) {
+		try {
+			$dq = Doctrine_Query::create ()
+										->select('ws.tld as tld')
+										->from ( 'Domains d' )
+										->leftJoin ( 'd.DomainsTlds dt' )
+										->leftJoin ( 'dt.WhoisServers ws' )
+                                        ->leftJoin ( 'd.Customers c' )
+										->where ( "domain_id = ?", $id )
+                                        ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
+										->limit ( 1 );
+				
+			$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
+			
+			if(!empty($record)){
+				return $record[0]['tld'];
+			}
+			
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+		return false;
+	}
+	
+	/**
 	 * getAllInfo
 	 * Get all data from domain ID
 	 * @param $id
@@ -1216,6 +1245,17 @@ class Domains extends BaseDomains {
 		return null;
 	}
 
+	
+	/**
+	 * Get a record by ID
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function findbyId($id) {
+		$dq = Doctrine_Query::create ()->from ( 'Domains d' )->where ( "d.domain_id = ?", $id )->limit(1);
+		$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		return !empty($record[0]) ? $record[0] : null;
+	}
 	
 	/**
 	 * find
