@@ -10,7 +10,207 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class DomainsProfiles extends BaseDomainsProfiles
-{
+class DomainsProfiles extends BaseDomainsProfiles{
 
+    /**
+     * create the configuration of the grid
+     */
+    public static function grid($rowNum = 10) {
+    
+        $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+    
+        $config ['datagrid'] ['columns'] [] = array ('label' => null, 'field' => 'dp.profile_id', 'alias' => 'profile_id', 'type' => 'selectall' );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'ID' ), 'field' => 'dp.profile_id', 'alias' => 'profile_id', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Owner' ), 'field' => 'c.company', 'alias' => 'owner', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Company' ), 'field' => 'dp.company', 'alias' => 'company', 'sortable' => true, 'searchable' => true, 'type' => 'string' );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Full name' ), 'field' => 'CONCAT(dp.firstname, " ", dp.lastname)', 'alias' => 'fullname', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Email' ), 'field' => 'dp.email', 'alias' => 'email', 'sortable' => true, 'searchable' => true, 'type' => 'string', 'attributes' => array('class' => 'visible-lg visible-md hidden-xs') );
+        $config ['datagrid'] ['columns'] [] = array ('label' => $translator->translate ( 'Statuses' ), 'field' => 's.status', 'alias' => 'status', 'sortable' => true, 'type' => 'index', 'searchable' => true, 'filterdata' => Statuses::getList('customers'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')  );
+    
+        $config ['datagrid'] ['fields'] = "dp.profile_id,
+										   dp.company as company,
+										   c.company as owner,
+										   CONCAT(dp.firstname, ' ', dp.lastname) as fullname,
+										   dp.email as email,
+										   s.status as status";
+    
+        $config ['datagrid'] ['rownum'] = $rowNum;
+    
+        $dq = Doctrine_Query::create ()->select ( $config ['datagrid'] ['fields'] )
+                                        ->from ( 'DomainsProfiles dp' )
+                                        ->leftJoin ( 'dp.Statuses s' )->leftJoin ( 'dp.Customers c' );
+    
+        $config ['datagrid'] ['dqrecordset'] = $dq;
+    
+        $config ['datagrid'] ['basepath'] = "/admin/domainsprofiles/";
+        $config ['datagrid'] ['index'] = "profile_id";
+        $config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
+    
+        $config ['datagrid'] ['buttons'] ['edit'] ['label'] = $translator->translate ( 'Edit' );
+        $config ['datagrid'] ['buttons'] ['edit'] ['cssicon'] = "edit";
+        $config ['datagrid'] ['buttons'] ['edit'] ['action'] = "/admin/domainsprofiles/edit/id/%d";
+    
+        $config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
+        $config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
+        $config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/domainsprofiles/confirm/id/%d";
+    
+        $config ['datagrid'] ['massactions']['common'] = array ();
+    
+        return $config;
+    }
+    
+
+    /**
+     * getAllInfo
+     * Get a record by ID
+     * @param $id
+     * @return ARRAY Record
+     */
+    public static function getAllInfo($id, $fields = "*", $where = "") {
+        try {
+            $dq = Doctrine_Query::create ()
+                                ->from ( 'DomainsProfiles dp' )
+                                ->leftJoin ( 'dp.CompanyTypes cts' )
+                                ->leftJoin ( 'dp.Legalforms l' )
+                                ->leftJoin ( 'dp.Statuses s' )
+                                ->where ( 'dp.profile_id = ?', $id );
+            	
+            if(!empty($fields) && $fields != "*"){
+                $dq->select ( $fields );
+            }
+            	
+            if (! empty ( $where )) {
+                $dq->andWhere ( $where );
+            }
+            	
+            $customer = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+            	
+            if (isset ( $customer [0] )) {
+                return $customer [0];
+            } else {
+                return array ();
+            }
+    
+        } catch ( Exception $e ) {
+            die ( $e->getMessage () );
+        }
+    
+    }
+
+    /**
+     * delete the record selected
+     * @param $id
+     * @return Boolean
+     */
+    public static function del($id) {
+    
+        return Doctrine_Query::create ()->delete ( 'DomainsProfiles' )->where ( 'profile_id = ?', $id )->execute ();
+    }
+    
+
+    /**
+     * Get all the domain profiles records for the select html object
+     *
+     * @param $empty
+     * @param $customer_id [optional]
+     * @return Array
+     */
+    public static function getList($empty = false, $customer_id="") {
+        $items = array ();
+        $dq = Doctrine_Query::create ()->from ( 'DomainsProfiles dp' );
+    
+        if (is_numeric ( $customer_id )) {
+            $dq->where ( 'dp.customer_id = ?', $customer_id );
+        }
+    
+        $dq->orderBy ( 'dp.lastname' );
+        $records = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+        if ($empty) {
+            $items [] = "";
+        }
+    
+        foreach ( $records as $c ) {
+            $items [$c ['profile_id']] = $c ['lastname'] . " " . $c ['firstname'];
+        }
+    
+        return $items;
+    }
+
+    /**
+     * Get all the domain profiles records
+     *
+     * @param $domain_id
+     * @return Array
+     */
+    public static function getProfiles($domain_id) {
+        $items = array ();
+    
+        $dq = Doctrine_Query::create ()->from ( 'DomainsProfiles dp' );
+    
+        if (is_numeric ( $domain_id )) {
+            $dq->where ( 'dp.domain_id = ?', $domain_id );
+        }
+    
+        $records = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+    
+        return $records;
+    }
+
+    /**
+     * Save all the data in the database
+     * @param array $data
+     * @param integer $id
+     */
+    public static function saveAll(array $data, $id) {
+    
+        if(!empty($data) && is_array($data)){
+            if(is_numeric($id)){
+                $profile = Doctrine::getTable ( 'DomainsProfiles' )->find($id);
+                if( $profile->profile_id != $id ) {
+                    return false;
+                }
+                $profile['created_at'] = date('Y-m-d h:i:s');
+            }else{
+                $profile = new DomainsProfiles();
+            }
+            	
+            $profile['customer_id'] = $data['customer_id'];
+            $profile['company'] = $data['company'];
+            $profile['firstname'] = $data['firstname'];
+            $profile['lastname'] = $data['lastname'];
+            $profile['gender'] = $data['gender'];
+            $profile['email']           = $data['email'];
+            $profile['phone']           = $data['phone'];
+            $profile['fax']           = $data['fax'];
+            $profile['birthplace']      = $data['birthplace'];
+            $profile['birthdate']       = Shineisp_Commons_Utilities::formatDateIn ( $data ['birthdate'] );
+            $profile['birthdistrict']   = $data['birthdistrict'];
+            $profile['birthcountry']    = $data['birthcountry'];
+            $profile['birthnationality'] = $data['birthnationality'];
+            
+            $profile['address'] = $data['address'];
+            $profile['zip'] = $data['zip'];
+            $profile['city'] = $data['city'];
+            $profile['area'] = $data['area'];
+            $profile['country'] = $data['country'];
+            
+            $profile['vat'] = $data['vat'];
+            $profile['taxpayernumber'] = $data['taxpayernumber'];
+            $profile['status_id'] = $data['status_id'];
+            $profile['legalform_id'] = $data['legalform_id'];
+            $profile['type_id'] = $data['type_id'];
+            $profile['legalform_id'] = $data['legalform_id'];
+            $profile['type_id'] = ! empty ( $data ['type_id'] ) ? $data ['type_id'] : Null;
+            $profile['updated_at'] = date('Y-m-d h:i:s');
+            
+            if($profile->trySave()){
+                // get the customer ID
+                $data['profile_id'] = empty($data['profile_id']) ? $profile['profile_id'] : $data['profile_id'];
+                return $profile['profile_id'];
+            }
+            
+        }
+    
+        return false;
+    }
 }

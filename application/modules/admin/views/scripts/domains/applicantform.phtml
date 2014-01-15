@@ -47,7 +47,8 @@
 			<?php if($this->id):?><li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Services');?></a></li> <?php endif?>
 			<?php if($this->id):?><li><a data-toggle="tab" href="#tab5"><?php echo $this->translate('Orders');?></a></li> <?php endif?>
 			<?php if($this->id):?><li><a data-toggle="tab" href="#tab6"><?php echo $this->translate('Messages');?></a></li> <?php endif?>
-			<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Private Notes');?></a></li> 
+			<li><a data-toggle="tab" href="#tab7"><?php echo $this->translate('Options');?></a></li> 
+			<li><a data-toggle="tab" href="#tab8"><?php echo $this->translate('Private Notes');?></a></li> 
 		</ul>
 	    
 	    <div class="tab-content">
@@ -94,6 +95,13 @@
 		    </div>        
 		    
 		    <div class="tab-pane" id="tab7"> 
+		        <?php echo $form->owner->render()?>
+		        <?php echo $form->admin->render()?>
+	            <?php echo $form->tech->render()?>
+	            <?php echo $form->billing->render()?>
+		    </div>        
+		    
+		    <div class="tab-pane" id="tab8"> 
 		        <?php echo $form->note->render() ?>
 		    </div>        
 		      

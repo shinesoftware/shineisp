@@ -1038,12 +1038,18 @@ CustomersDomainsRegistrars:
     domain_id:
       type: integer(4)
       notnull: true
+    profile_id:
+      type: integer(4)
     registrars_id:
       type: integer(4)
       notnull: true
     creationdate:
       type: date(25)
       notnull: true
+    type:
+      type: string(20)
+      notnull: false
+      default: 'owner'
     value:
       type: string(100)
       notnull: false
@@ -1051,15 +1057,16 @@ CustomersDomainsRegistrars:
     Customers:
       local: customer_id
       foreign: customer_id
-      type: one
     Registrars:
       local: registrars_id
       foreign: registrars_id
-      type: one
     Domains:
       local: domain_id
       foreign: domain_id
-      type: one
+    DomainsProfiles:
+      local: profile_id
+      foreign: profile_id
+      onDelete: CASCADE
 Dns_Zones:
   connection: doctrine
   tableName: dns_zones

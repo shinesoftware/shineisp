@@ -38,6 +38,7 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsProfiles', 'doctrine');
  * @property Statuses $Statuses
  * @property Customers $Customers
  * @property Doctrine_Collection $DomainsNichandle
+ * @property Doctrine_Collection $CustomersDomainsRegistrars
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -206,6 +207,10 @@ abstract class BaseDomainsProfiles extends Doctrine_Record
              'onDelete' => 'CASCADE'));
 
         $this->hasMany('DomainsNichandle', array(
+             'local' => 'profile_id',
+             'foreign' => 'profile_id'));
+
+        $this->hasMany('CustomersDomainsRegistrars', array(
              'local' => 'profile_id',
              'foreign' => 'profile_id'));
     }

@@ -5,3 +5,39 @@
 [14-Jan-2014 08:37:59 CET] PHP Notice:  Undefined index: domain_id in /Library/WebServer/Documents/shineisp/library/Shineisp/Commons/Ajaxgrid.php on line 466
 [14-Jan-2014 08:49:41 CET] PHP Notice:  Undefined variable: customacts in /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php on line 94
 [14-Jan-2014 08:49:42 CET] PHP Notice:  Undefined variable: customacts in /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php on line 94
+[14-Jan-2014 18:04:06 CET] PHP Catchable fatal error:  Argument 1 passed to Zend_Navigation_Container::setPages() must be of the type array, string given, called in /Library/WebServer/Documents/shineisp/library/Zend/Navigation/Page.php on line 1070 and defined in /Library/WebServer/Documents/shineisp/library/Zend/Navigation/Container.php on line 184
+[14-Jan-2014 18:42:15 CET] PHP Fatal error:  Class 'Admin_Form_DomainsProfilesForm' not found in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsprofilesController.php on line 164
+[14-Jan-2014 18:45:34 CET] PHP Fatal error:  Call to a member function render() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainsprofiles/applicantform.phtml on line 49
+[14-Jan-2014 18:46:37 CET] PHP Fatal error:  Call to a member function render() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainsprofiles/applicantform.phtml on line 103
+[14-Jan-2014 19:12:20 CET] PHP Fatal error:  Call to undefined method DomainsProfiles::saveAll() in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsprofilesController.php on line 194
+[14-Jan-2014 19:15:47 CET] PHP Notice:  Undefined index: note in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 90
+[14-Jan-2014 19:15:47 CET] PHP Notice:  Undefined variable: id in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsprofilesController.php on line 204
+[14-Jan-2014 19:16:30 CET] PHP Notice:  Undefined variable: id in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsprofilesController.php on line 204
+[14-Jan-2014 19:16:53 CET] PHP Notice:  Undefined variable: id in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsprofilesController.php on line 204
+[14-Jan-2014 19:19:35 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 71
+[14-Jan-2014 19:20:16 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 71
+[14-Jan-2014 19:21:11 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 71
+[14-Jan-2014 19:21:39 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 71
+[14-Jan-2014 19:34:41 CET] PHP Notice:  Undefined index: zip in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 132
+[14-Jan-2014 19:34:41 CET] PHP Notice:  Undefined index: country in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 135
+[14-Jan-2014 19:35:52 CET] PHP Fatal error:  Call to a member function render() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domainsprofiles/applicantform.phtml on line 56
+[14-Jan-2014 19:43:21 CET] PHP Notice:  Undefined index: firstname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:43:21 CET] PHP Notice:  Undefined index: lastname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:43:21 CET] PHP Notice:  Undefined index: company in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:01 CET] PHP Notice:  Undefined index: firstname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:01 CET] PHP Notice:  Undefined index: lastname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:01 CET] PHP Notice:  Undefined index: company in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:14 CET] PHP Notice:  Undefined index: firstname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:14 CET] PHP Notice:  Undefined index: lastname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:14 CET] PHP Notice:  Undefined index: company in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:47 CET] PHP Notice:  Undefined index: firstname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:47 CET] PHP Notice:  Undefined index: lastname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:47 CET] PHP Notice:  Undefined index: company in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:50 CET] PHP Notice:  Undefined index: firstname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:50 CET] PHP Notice:  Undefined index: lastname in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:44:50 CET] PHP Notice:  Undefined index: company in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/CustomersController.php on line 149
+[14-Jan-2014 19:56:12 CET] PHP Fatal error:  Call to a member function render() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/admin/views/scripts/domains/applicantform.phtml on line 68
+[15-Jan-2014 08:01:59 CET] PHP Fatal error:  Call to undefined method Doctrine_Collection::trySave() in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 98
+[15-Jan-2014 08:05:06 CET] PHP Warning:  Creating default object from empty value in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 96
+[15-Jan-2014 08:05:06 CET] PHP Fatal error:  Call to undefined method stdClass::trySave() in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 100
+[15-Jan-2014 08:07:58 CET] PHP Fatal error:  Call to undefined method Doctrine_Collection::getNicId() in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 91

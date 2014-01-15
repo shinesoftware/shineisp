@@ -1,0 +1,70 @@
+<?php $form = $this->form; ?>
+
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+<?php echo $this->render('partials/formerrors.phtml'); ?>
+
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Personal data');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Addresses');?></a></li>
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Contacts');?></a></li>
+		</ul>
+		<div class="tab-content">
+		    <div class="tab-pane" id="tab1">
+			    <div class="row">
+				    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+				        <?php echo $form->customer_id->render()?>
+			        	<?php echo $form->firstname->render()?>
+			        	<?php echo $form->lastname->render()?>
+			        	<?php echo $form->company->render()?>
+				        <?php echo $form->email->render()?>
+				        
+				    </div>
+				    
+				    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			            <?php echo $form->legalform_id->render()?>
+			            <?php echo $form->type_id->render()?>
+			            <?php echo $form->taxpayernumber->render()?>
+			            <?php echo $form->vat->render()?>
+			            <?php echo $form->status_id->render()?>
+				    </div>
+				</div>   
+			</div>   
+		    
+		    <div class="tab-pane" id="tab2"> 
+		    	<div class="row">
+		        	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+			            <?php echo $form->birthdate->render()?>
+			            <?php echo $form->birthplace->render()?>
+		            </div>
+		            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			            <?php echo $form->birthdistrict->render()?>
+			            <?php echo $form->birthcountry->render()?>
+			            <?php echo $form->birthnationality->render()?>
+			            <?php echo $form->gender->render()?>
+		            </div>
+		        </div>
+		    </div>    
+		    
+		    <div class="tab-pane" id="tab3"> 
+			    <?php echo $form->address->render()?>
+			    <?php echo $form->zip->render()?>
+	            <?php echo $form->city->render()?>
+	            <?php echo $form->area->render()?>
+	            <?php echo $form->country->render()?>
+		    </div>
+		
+		   <div class="tab-pane" id="tab4">
+	             <?php echo $form->phone->render()?>
+	             <?php echo $form->fax->render()?>
+		   </div>
+		   
+		   <?php echo $form->profile_id->render()?>
+		
+		</div>
+	</div>
+</form>

@@ -291,7 +291,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
 					
 					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainTransfer'), $params);
+					call_user_func_array(array( $soap, 'resellerDomainTransferIT'), $params);
 					
 				}else{
 					
@@ -795,6 +795,45 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 		if(!empty($this->session)){
 			$fields = "c.customer_id as customer_id, c.company as company, c.firstname as firstname, c.lastname as lastname, c.gender as gender, c.email as email, c.password as password, c.birthdate as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.vat as vat, c.note as note,  a.address as address, a.code as code, a.city as city, a.area as area, ct.name as country, ct.code as countrycode, cts.type_id as type_id, cts.name as companytype, l.legalform_id as legalform_id, l.name as legalform, s.status_id as status_id, s.status as status, cn.contact as contact";
 			$customer = Customers::getAllInfo($customerID, $fields);
+
+			return $soap->nicCreateIT ( 
+							$this->session['id'], // Session
+							$customer ['lastname'], // Lastname
+							$customer ['firstname'], // Firstname 
+							$customer ['gender'], // Gender
+							Shineisp_Commons_Utilities::GenerateRandomString(), // Password
+							$customer ['email'], // Email
+							$customer ['contact'], // Phone
+							null, // Fax
+							$customer ['address'], // Address
+							$customer ['city'], // City
+							$customer ['area'], // Area
+							$customer ['code'], // Zip
+							strtolower ( $customer ['countrycode'] ), // Country Code
+							"en", // Language 
+							true, // isOwner
+							$customer ['legalform'], // Legalform
+							$customer ['company'], // Organisation
+							$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
+							null, // Legal Number
+							$customer ['vat'], // VAT or IVA
+							Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), // Birthday
+							$customer ['birthplace'], // Birthcity
+							$customer ['taxpayernumber'], // Contact fiscal code or company vat
+							$customer ['vat'], // Company National Identification Number
+							$customer ['companytype'] ); // Corporation Type
+		}
+		
+		return false;
+	}
+	
+	
+	private function createNicHandles($customerID){
+		$soap = $this->Connect();
+		
+		if(!empty($this->session)){
+			$fields = "c.customer_id as customer_id, c.company as company, c.firstname as firstname, c.lastname as lastname, c.gender as gender, c.email as email, c.password as password, c.birthdate as birthdate, c.birthplace as birthplace, c.taxpayernumber as taxpayernumber, c.vat as vat, c.note as note,  a.address as address, a.code as code, a.city as city, a.area as area, ct.name as country, ct.code as countrycode, cts.type_id as type_id, cts.name as companytype, l.legalform_id as legalform_id, l.name as legalform, s.status_id as status_id, s.status as status, cn.contact as contact";
+			$customer = DomainsProfiles::getProfiles($customerID, $fields);
 
 			return $soap->nicCreateIT ( 
 							$this->session['id'], // Session
