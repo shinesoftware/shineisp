@@ -1127,8 +1127,8 @@ class Domains extends BaseDomains {
 	    
 	    // Set the new values
 	    $domains->domain = $params ['domain'];
-	    if( isset($tldInfo['WhoisServer']) ) {
-	        $domains->tld = $tldInfo['WhoisServer']['tld'];
+	    if( isset($tldInfo['WhoisServers']) ) {
+	        $domains->tld = $tldInfo['WhoisServers']['tld'];
 	    }
 	    $domains->tld_id = $params ['tld_id'];
 	    $domains->authinfocode = $params ['authinfocode'];

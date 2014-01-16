@@ -1287,9 +1287,6 @@ DomainsTasks:
     action:
       type: string(100)
       notnull: true
-    domain:
-      type: string()
-      notnull: true
     log:
       type: string()
       notnull: true

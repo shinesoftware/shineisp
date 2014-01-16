@@ -11,7 +11,6 @@ Doctrine_Manager::getInstance()->bindComponent('DomainsTasks', 'doctrine');
  * @property timestamp $startdate
  * @property timestamp $enddate
  * @property string $action
- * @property string $domain
  * @property string $log
  * @property integer $domain_id
  * @property integer $registrars_id
@@ -53,11 +52,6 @@ abstract class BaseDomainsTasks extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '100',
-             ));
-        $this->hasColumn('domain', 'string', null, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '',
              ));
         $this->hasColumn('log', 'string', null, array(
              'type' => 'string',

@@ -69,129 +69,127 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				throw new Exception("Customer has been not found.");
 			}
 			
-			// Create the OVH nic-Handle
-			$nicHandle = $this->createNicHandle($customerID, $domainID);	
+			$params = array();
 			
-			// Check if the nichandle has been created
-			if(!empty($nicHandle)){
-				
-				$params = array();
-				
-				// Save the nic-Handle in the database
-				CustomersDomainsRegistrars::addNicHandle($domainID, $nicHandle);
-				
-				$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
-				
-				// Get the main DNS servers set in the configuration
-				$dns = $this->getDnsServers();
-				
-				$locale = Shineisp_Registry::get('Zend_Locale');
-				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
-				
-				// OVH handle two kind of registration for the domains it and the others
-							
-				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
+			$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
+			
+			// Get the main DNS servers set in the configuration
+			$dns = $this->getDnsServers();
+			
+			$locale = Shineisp_Registry::get('Zend_Locale');
+			$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
+			
+			// OVH handle two kind of registration for the domains it and the others
+						
+			if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
 
-					// List of all the parameters for the it domains
-					
-					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain_name; 								// the domain name
-					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
-					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
-					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
-					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
-					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
-					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
-					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
-					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
-					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
-					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
-					$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
-					$params[] = $customer ['firstname'];					// the legal representant firstname
-					$params[] = $customer ['lastname'];						// the legal representant lastname
-					$params[] = $customer ['taxpayernumber'];				// the regCode : Codice Fiscale
-					$params[] = $customer ['vat'];							// the VAT number
-					$params[] = $birthdate->get('dd/MM/yyyy');				// owner or legal representant birth date
-					$params[] = $customer ['birthplace'];					// owner or legal representant birth city
-					$params[] = $customer ['birthdistrict'];				// owner or legal representant birth departement
-					$params[] = $customer ['birthcountry'];					// owner or legal representant birth country
-					$params[] = $customer ['birthnationality'];				// owner or legal representant nationality (2 letter country code)
-					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
-					
-					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainCreateIT'), $params);
-					
-						
-				} elseif($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "fr") {
-					
-					// List of all the parameters for the fr domains
-						
-					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain_name; 								// the domain name
-					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
-					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
-					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
-					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
-					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
-					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
-					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
-					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
-					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
-					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
-					$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
-					$params[] = 'siren';									// only for .fr (AFNIC) : identification method (siren | inpi | birthPlace | afnicIdent)
-					$params[] = $customer ['fullname'];						// only for .fr (AFNIC) : corporation name /trademark owner
-					$params[] = $customer ['vat'];							// only for .fr (AFNIC) : SIREN/SIRET/INPI number
-					$params[] = null;										// only for .fr (AFNIC) : afnic ident code
-					$params[] = $birthdate->get('dd/MM/yyyy');				// only for .fr (AFNIC) : owner birth date
-					$params[] = $customer ['birthplace'];					// only for .fr (AFNIC) : owner birth city
-					$params[] = $customer ['birthdistrict'];				// only for .fr (AFNIC) : owner birth french departement
-					$params[] = $customer ['birthcountry'];					// only for .fr (AFNIC) : owner bith country
-					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
-					
-					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainCreate'), $params);
-					
-				} else {
-	
-					// List of all the parameters all other domains
-					
-					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain_name; 								// the domain name
-					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
-					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
-					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
-					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
-					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
-					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
-					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
-					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
-					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
-					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
-					$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
-					$params[] = null;										// only for .fr (AFNIC) : identification method (siren | inpi | birthPlace | afnicIdent)
-					$params[] = null;										// only for .fr (AFNIC) : corporation name /trademark owner
-					$params[] = null;										// only for .fr (AFNIC) : SIREN/SIRET/INPI number
-					$params[] = null;										// only for .fr (AFNIC) : afnic ident code
-					$params[] = null;										// only for .fr (AFNIC) : owner birth date
-					$params[] = null;										// only for .fr (AFNIC) : owner birth city
-					$params[] = null;										// only for .fr (AFNIC) : owner birth french departement
-					$params[] = null;										// only for .fr (AFNIC) : owner bith country
-					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
-					
-					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainCreate'), $params);
-					
-				}
+				// List of all the parameters for the it domains
 				
-				return true;
+				$params[] = $this->session['id'];  						// the session id
+				$params[] = $domain_name; 								// the domain name
+				$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
+				$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
+				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
+				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
+				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
+				$params[] = self::createNic($domainID, 'admin');		// the admin nichandle
+				$params[] = self::createNic($domainID, 'tech');		    // the tech nichandle
+				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
+				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
+				$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
+				$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
+				$params[] = $customer ['firstname'];					// the legal representant firstname
+				$params[] = $customer ['lastname'];						// the legal representant lastname
+				$params[] = $customer ['taxpayernumber'];				// the regCode : Codice Fiscale
+				$params[] = $customer ['vat'];							// the VAT number
+				$params[] = $birthdate->get('dd/MM/yyyy');				// owner or legal representant birth date
+				$params[] = $customer ['birthplace'];					// owner or legal representant birth city
+				$params[] = $customer ['birthdistrict'];				// owner or legal representant birth departement
+				$params[] = $customer ['birthcountry'];					// owner or legal representant birth country
+				$params[] = $customer ['birthnationality'];				// owner or legal representant nationality (2 letter country code)
+				$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
+				
+				Shineisp_Commons_Utilities::log('Calling resellerDomainCreateIT with these params: ' . json_encode($params), "registrar.ovh.log");
+				
+				// Call the soap service and send the parameters
+				call_user_func_array(array( $soap, 'resellerDomainCreateIT'), $params);
+				
+					
+			} elseif($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "fr") {
+				
+				// List of all the parameters for the fr domains
+					
+				$params[] = $this->session['id'];  						// the session id
+				$params[] = $domain_name; 								// the domain name
+				$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
+				$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
+				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
+				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
+				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
+				$params[] = self::createNic($domainID, 'admin');		// the admin nichandle
+				$params[] = self::createNic($domainID, 'tech');			// the tech nichandle
+				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
+				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
+				$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
+				$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
+				$params[] = 'siren';									// only for .fr (AFNIC) : identification method (siren | inpi | birthPlace | afnicIdent)
+				$params[] = $customer ['fullname'];						// only for .fr (AFNIC) : corporation name /trademark owner
+				$params[] = $customer ['vat'];							// only for .fr (AFNIC) : SIREN/SIRET/INPI number
+				$params[] = null;										// only for .fr (AFNIC) : afnic ident code
+				$params[] = $birthdate->get('dd/MM/yyyy');				// only for .fr (AFNIC) : owner birth date
+				$params[] = $customer ['birthplace'];					// only for .fr (AFNIC) : owner birth city
+				$params[] = $customer ['birthdistrict'];				// only for .fr (AFNIC) : owner birth french departement
+				$params[] = $customer ['birthcountry'];					// only for .fr (AFNIC) : owner bith country
+				$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
+				
+				Shineisp_Commons_Utilities::log('Calling resellerDomainCreate with these params: ' . json_encode($params), "registrar.ovh.log");
+				
+				// Call the soap service and send the parameters
+				call_user_func_array(array( $soap, 'resellerDomainCreate'), $params);
+				
+				
+			} else {
+
+				// List of all the parameters all other domains
+				
+				$params[] = $this->session['id'];  						// the session id
+				$params[] = $domain_name; 								// the domain name
+				$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
+				$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
+				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
+				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
+				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
+				$params[] = self::createNic($domainID, 'admin');		// the admin nichandle
+				$params[] = self::createNic($domainID, 'tech');			// the tech nichandle
+				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
+				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
+				$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
+				$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
+				$params[] = null;										// only for .fr (AFNIC) : identification method (siren | inpi | birthPlace | afnicIdent)
+				$params[] = null;										// only for .fr (AFNIC) : corporation name /trademark owner
+				$params[] = null;										// only for .fr (AFNIC) : SIREN/SIRET/INPI number
+				$params[] = null;										// only for .fr (AFNIC) : afnic ident code
+				$params[] = null;										// only for .fr (AFNIC) : owner birth date
+				$params[] = null;										// only for .fr (AFNIC) : owner birth city
+				$params[] = null;										// only for .fr (AFNIC) : owner birth french departement
+				$params[] = null;										// only for .fr (AFNIC) : owner bith country
+				$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
+
+				Shineisp_Commons_Utilities::log('Calling resellerDomainCreate with these params: ' . json_encode($params), "registrar.ovh.log");
+				
+				// Call the soap service and send the parameters
+				call_user_func_array(array( $soap, 'resellerDomainCreate'), $params);
+				
+				
 			}
+			
+			return true;
 		}
 		return false;
 	}
@@ -241,94 +239,85 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				throw new Exception("Customer has been not found.");
 			}
 						
-			// Create the OVH nic-Handle
-			$nicHandle = $this->createNicHandle($customerID, $domainID);	
+			$params = array();
 			
-			// Check if the nichandle has been created
-			if(!empty($nicHandle)){
-				
-				$params = array();
-				
-				// Save the nic-Handle in the database
-				CustomersDomainsRegistrars::addNicHandle($domainID, $nicHandle);
-				
-				$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
-	
-				// Get the main DNS servers set in the configuration
-				$dns = $this->getDnsServers();
-				
-				$locale = Shineisp_Registry::get('Zend_Locale');
-				$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
-				
-				// OVH handle two kind of registration for the domains it and the others
-				if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
+			$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 
-					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain_name;								// the domain name
-					$params[] = $domain[0] ['authinfocode'];				// authinfo code, mandatory for domains managed by -REG
-					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
-					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
-					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
-					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
-					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
-					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
-					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
-					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
-					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
-					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
-					$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
-					$params[] = $customer ['firstname'];					// the legal representant firstname
-					$params[] = $customer ['lastname'];						// the legal representant lastname
-					$params[] = $customer ['taxpayernumber'];				// the regCode : Codice Fiscale
-					$params[] = $customer ['vat'];							// the VAT number
-					$params[] = $birthdate->get('dd/MM/yyyy');				// owner or legal representant birth date
-					$params[] = $customer ['birthplace'];					// owner or legal representant birth city
-					$params[] = $customer ['birthdistrict'];				// owner or legal representant birth departement
-					$params[] = $customer ['birthcountry'];					// owner or legal representant birth country
-					$params[] = "IT";				// owner or legal representant nationality (2 letter country code)
-					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
-					
-					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainTransferIT'), $params);
-					
-				}else{
-					
-					$params[] = $this->session['id'];  						// the session id
-					$params[] = $domain_name;								// the domain name
-					$params[] = $domain[0] ['authinfocode'];				// authinfo code, mandatory for domains managed by -REG
-					$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
-					$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
-					$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
-					$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
-					$params[] = $nicHandle;									// the owner nichandle
-					$params[] = self::createNic($domainID, 'admin');				// the admin nichandle
-					$params[] = self::createNic($domainID, 'tech');				// the tech nichandle
-					$params[] = self::createNic($domainID, 'billing');				// the billing nichandle
-					$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
-					$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
-					$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
-					$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
-					$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
-					$params[] = null;										// the legal representant firstname
-					$params[] = null;										// the legal representant lastname
-					$params[] = null;										// the regCode : Codice Fiscale
-					$params[] = null;										// the VAT number
-					$params[] = null;										// owner or legal representant birth date
-					$params[] = null;										// owner or legal representant birth city
-					$params[] = null;										// owner or legal representant birth departement
-					$params[] = null;										// owner or legal representant birth country
-					$params[] = null;										// owner or legal representant nationality (2 letter country code)
-					$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
-						
-					// Call the soap service and send the parameters
-					call_user_func_array(array( $soap, 'resellerDomainTransfer'), $params);
-													
-				}
+			// Get the main DNS servers set in the configuration
+			$dns = $this->getDnsServers();
+			
+			$locale = Shineisp_Registry::get('Zend_Locale');
+			$birthdate = new Zend_Date($customer ['birthdate'], "yyyy-MM-dd HH:mm:ss", $locale);
+			
+			// OVH handle two kind of registration for the domains it and the others
+			if ($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "it") {
+
+				$params[] = $this->session['id'];  						// the session id
+				$params[] = $domain_name;								// the domain name
+				$params[] = $domain[0] ['authinfocode'];				// authinfo code, mandatory for domains managed by -REG
+				$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
+				$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
+				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
+				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
+				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
+				$params[] = self::createNic($domainID, 'admin');		// the admin nichandle
+				$params[] = self::createNic($domainID, 'tech');			// the tech nichandle
+				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
+				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
+				$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
+				$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
+				$params[] = $customer ['firstname'];					// the legal representant firstname
+				$params[] = $customer ['lastname'];						// the legal representant lastname
+				$params[] = $customer ['taxpayernumber'];				// the regCode : Codice Fiscale
+				$params[] = $customer ['vat'];							// the VAT number
+				$params[] = $birthdate->get('dd/MM/yyyy');				// owner or legal representant birth date
+				$params[] = $customer ['birthplace'];					// owner or legal representant birth city
+				$params[] = $customer ['birthdistrict'];				// owner or legal representant birth departement
+				$params[] = $customer ['birthcountry'];					// owner or legal representant birth country
+				$params[] = "IT";				// owner or legal representant nationality (2 letter country code)
+				$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
 				
-				return true;
+				// Call the soap service and send the parameters
+				call_user_func_array(array( $soap, 'resellerDomainTransferIT'), $params);
+				Shineisp_Commons_Utilities::log('Calling resellerDomainTransferIT with these params: ' . json_encode($params), "registrar.ovh.log");
+				
+			}else{
+				
+				$params[] = $this->session['id'];  						// the session id
+				$params[] = $domain_name;								// the domain name
+				$params[] = $domain[0] ['authinfocode'];				// authinfo code, mandatory for domains managed by -REG
+				$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
+				$params[] = 'gold';										// the domain offer (gold|platinum|diamond)
+				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
+				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
+				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
+				$params[] = self::createNic($domainID, 'admin');		// the admin nichandle
+				$params[] = self::createNic($domainID, 'tech');			// the tech nichandle
+				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
+				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
+				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
+				$params[] = !empty($dns[3]) ? $dns[3] : null;			// the fourth dns hostname
+				$params[] = !empty($dns[4]) ? $dns[4] : null;			// the fifth dns hostname
+				$params[] = null;										// the legal representant firstname
+				$params[] = null;										// the legal representant lastname
+				$params[] = null;										// the regCode : Codice Fiscale
+				$params[] = null;										// the VAT number
+				$params[] = null;										// owner or legal representant birth date
+				$params[] = null;										// owner or legal representant birth city
+				$params[] = null;										// owner or legal representant birth departement
+				$params[] = null;										// owner or legal representant birth country
+				$params[] = null;										// owner or legal representant nationality (2 letter country code)
+				$params[] = $registrar ['ovh_testmode'] ? true : false; // enable the TEST MODE when enabled (true), will not debit your account
+					
+				// Call the soap service and send the parameters
+				call_user_func_array(array( $soap, 'resellerDomainTransfer'), $params);
+				Shineisp_Commons_Utilities::log('Calling resellerDomainTransfer with these params: ' . json_encode($params), "registrar.ovh.log");
+												
 			}
+			return true;
 		}
 		return false;
 	}
@@ -425,6 +414,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 		if(!empty($domain[0])){
 			$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 			$soap->domainLock ( $this->session['id'], $domain_name);
+			Shineisp_Commons_Utilities::log('Calling lockDomain with these params: ' . $domain_name, 'registrar.ovh.log');
 			return true;
 		}
 		
@@ -455,6 +445,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 		if(!empty($domain[0])){
 			$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 			$soap->domainUnlock ( $this->session['id'], $domain_name);
+			Shineisp_Commons_Utilities::log('Calling unlockDomain with these params: ' . $domain_name, 'registrar.ovh.log');
 			return true;
 		}
 		
@@ -606,9 +597,11 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			
 			// Reset of the Zone dns
 			$soap->dnsReset ( $this->session['id'], $domain_name, 'REDIRECT', true );
+			Shineisp_Commons_Utilities::log('Calling dnsReset: ' . $domain_name, 'registrar.ovh.log');
 			
 			// Import the DNS Custom Zone
 			$soap->zoneImport ( $this->session['id'], $domain_name, $zone );
+			Shineisp_Commons_Utilities::log('Calling zoneImport: ' . $domain_name, 'registrar.ovh.log');
 			
 			return true;
 			
@@ -789,7 +782,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 	 * @return     string       $nicHandle		the new contact handle id
 	 * @access     private
 	 */		
-	private function createNicHandle($customerID, $domainId){
+	private function createNicHandlebyCustomer($customerID, $domainId){
 		$soap = $this->Connect();
 		
 		if(!empty($this->session)){
@@ -797,59 +790,64 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			$customer = Customers::getAllInfo($customerID, $fields);
 			$tld = Domains::getDomainTld($domainId);
 			
-			if($tld == "it"){  // Create a nicHandle for the Italian domain tld
+// 			if($tld == "it"){  // Create a nicHandle for the Italian domain tld
+            
+			    $params[] = $this->session['id']; // Session
+				$params[] = $customer ['lastname']; // Lastname
+				$params[] = $customer ['firstname']; // Firstname 
+				$params[] = $customer ['gender']; // Gender
+				$params[] = Shineisp_Commons_Utilities::GenerateRandomString(); // Password
+				$params[] = $customer ['email']; // Email
+				$params[] = $customer ['contact']; // Phone
+				$params[] = null; // Fax
+				$params[] = $customer ['address']; // Address
+				$params[] = $customer ['city']; // City
+				$params[] = $customer ['area']; // Area
+				$params[] = $customer ['code']; // Zip
+				$params[] = strtolower ( $customer ['countrycode'] ); // Country Code
+				$params[] = "en"; // Language 
+				$params[] = true; // isOwner
+				$params[] = strtolower ($customer ['legalform']); // Legalform
+				$params[] = $customer ['company']; // Organisation
+				$params[] = $customer ['firstname'] . " " . $customer ['lastname']; // Legal name
+				$params[] = null; // Legal Number
+				$params[] = $customer ['vat']; // VAT or IVA
+				$params[] = Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ); // Birthday
+				$params[] = $customer ['birthplace']; // Birthcity
+				$params[] = $customer ['taxpayernumber']; // Contact fiscal code or company vat
+				$params[] = $customer ['vat']; // Company National Identification Number
+				$params[] = strtolower ($customer ['companytype']) ;
 
-				return $soap->nicCreateIT ( 
-								$this->session['id'], // Session
-								$customer ['lastname'], // Lastname
-								$customer ['firstname'], // Firstname 
-								$customer ['gender'], // Gender
-								Shineisp_Commons_Utilities::GenerateRandomString(), // Password
-								$customer ['email'], // Email
-								$customer ['contact'], // Phone
-								null, // Fax
-								$customer ['address'], // Address
-								$customer ['city'], // City
-								$customer ['area'], // Area
-								$customer ['code'], // Zip
-								strtolower ( $customer ['countrycode'] ), // Country Code
-								"en", // Language 
-								true, // isOwner
-								strtolower ($customer ['legalform']), // Legalform
-								$customer ['company'], // Organisation
-								$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
-								null, // Legal Number
-								$customer ['vat'], // VAT or IVA
-								Shineisp_Commons_Utilities::formatDateOut ( $customer ['birthdate'] ), // Birthday
-								$customer ['birthplace'], // Birthcity
-								$customer ['taxpayernumber'], // Contact fiscal code or company vat
-								$customer ['vat'], // Company National Identification Number
-								strtolower ($customer ['companytype']) ); // Corporation Type
-			}else{
+				// Call the soap service and send the parameters
+				Shineisp_Commons_Utilities::log('Calling nicCreateIT with these params: ' . json_encode($params), "registrar.ovh.log");
+				return call_user_func_array(array( $soap, 'nicCreateIT'), $params);
 				
-				// Create a generic nicHandle
-				return $soap->nicCreate (
-						$this->session['id'], // Session
-						$customer ['lastname'], // Lastname
-						$customer ['firstname'], // Firstname
-						Shineisp_Commons_Utilities::GenerateRandomString(), // Password
-						$customer ['email'], // Email
-						$customer ['contact'], // Phone
-						null, // Fax
-						$customer ['address'], // Address
-						$customer ['city'], // City
-						$customer ['area'], // Area
-						$customer ['code'], // Zip
-						strtolower ( $customer ['countrycode'] ), // Country Code
-						"en", // Language
-						true, // isOwner
-						strtolower ($customer ['legalform']), // Legalform
-						$customer ['company'], // Organisation
-						$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
-						null, // Legal Number
-						$customer ['vat'] // VAT or IVA
-				);
-			}
+// 			}else{
+				
+// 				// Create a generic nicHandle
+// 				return $soap->nicCreate (
+// 						$this->session['id'], // Session
+// 						$customer ['lastname'], // Lastname
+// 						$customer ['firstname'], // Firstname
+// 						Shineisp_Commons_Utilities::GenerateRandomString(), // Password
+// 						$customer ['email'], // Email
+// 						$customer ['contact'], // Phone
+// 						null, // Fax
+// 						$customer ['address'], // Address
+// 						$customer ['city'], // City
+// 						$customer ['area'], // Area
+// 						$customer ['code'], // Zip
+// 						strtolower ( $customer ['countrycode'] ), // Country Code
+// 						"en", // Language
+// 						true, // isOwner
+// 						strtolower ($customer ['legalform']), // Legalform
+// 						$customer ['company'], // Organisation
+// 						$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
+// 						null, // Legal Number
+// 						$customer ['vat'] // VAT or IVA
+// 				);
+// 			}
+
 		}
 		
 		return false;
@@ -881,32 +879,37 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				$profile['language'] = "en";
 				$profile['isowner'] = ($type == "owner") ? true : false;
 				
+                $params[] = $this->session['id']; 				// Session
+                $params[] = $profile ['lastname']; 				// Lastname
+                $params[] = $profile ['firstname']; 			// Firstname
+                $params[] = $profile ['gender']; 				// Gender
+                $params[] = $profile ['password']; 				// Password
+                $params[] = $profile ['email']; 				// Email
+                $params[] = $profile ['phone']; 				// Phone
+                $params[] = $profile ['fax']; 					// Fax
+                $params[] = $profile ['address']; 				// Address
+                $params[] = $profile ['city']; 					// City
+                $params[] = $profile ['area']; 					// Area
+                $params[] = $profile ['zip']; 					// Zip
+                $params[] = $profile ['countrycode']; 			// Country Code
+                $params[] = $profile ['language'];				// Language
+                $params[] = $profile ['isowner']; 				// isOwner
+                $params[] = $profile ['legalform']; 			// Legalform
+                $params[] = $profile ['company']; 				// Organisation
+                $params[] = $profile ['fullname']; 				// Legal name
+                $params[] = $profile ['legalnumber'];			// Legal Number
+                $params[] = $profile ['vat']; 					// VAT or IVA
+                $params[] = $profile ['birthdate'];				// Birthday
+                $params[] = $profile ['birthplace']; 			// Birthcity
+                $params[] = $profile ['taxpayernumber']; 		// Contact fiscal code or company vat
+                $params[] = $profile ['vat']; 					// Company National Identification Number
+                $params[] = $profile ['corporationtype'];
+				
 // 				if($tld == "it"){  // Create a nicHandle for the Italian domain tld
-					$nicHandle = $soap->nicCreateIT(  $this->session['id'], 				// Session
-														$profile ['lastname'], 				// Lastname
-														$profile ['firstname'], 			// Firstname 
-														$profile ['gender'], 				// Gender
-														$profile ['password'], 				// Password
-														$profile ['email'], 				// Email
-														$profile ['phone'], 				// Phone
-														$profile ['fax'], 					// Fax
-														$profile ['address'], 				// Address
-														$profile ['city'], 					// City
-														$profile ['area'], 					// Area
-														$profile ['zip'], 					// Zip
-														$profile ['countrycode'], 			// Country Code
-														$profile ['language'],				// Language 
-														$profile ['isowner'], 				// isOwner
-														$profile ['legalform'], 			// Legalform
-														$profile ['company'], 				// Organisation
-														$profile ['fullname'], 				// Legal name
-														$profile ['legalnumber'],			// Legal Number
-														$profile ['vat'], 					// VAT or IVA
-														$profile ['birthdate'],				// Birthday
-														$profile ['birthplace'], 			// Birthcity
-														$profile ['taxpayernumber'], 		// Contact fiscal code or company vat
-														$profile ['vat'], 					// Company National Identification Number
-														$profile ['corporationtype'] );
+				$nicHandle = call_user_func_array(array( $soap, 'nicCreateIT'), $params);
+				
+				Shineisp_Commons_Utilities::log('Calling profile nicCreateIT with these params: ' . json_encode($params), "registrar.ovh.log");
+				
 // 				}else{  
 					
 // 					// Create a generic nicHandle
@@ -934,10 +937,21 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				
 				if(!empty($nicHandle)){
 					CustomersDomainsRegistrars::addNicHandle($domainId, $nicHandle, $type, $profile['profile_id']);  // Save the nic-Handle in the database
-					return $nicHandle;
 				}
 				
+			}else{
+			    
+			    // Get the domain information
+			    $domain	= Domains::find($domainId);
+			    
+			    // Create the OVH nic-Handle
+			    $nicHandle = $this->createNicHandlebyCustomer($domain[0]['customer_id'], $domainId);
+			    
+			    // Save the nic-Handle in the database
+			    CustomersDomainsRegistrars::addNicHandle($domainId, $nicHandle);
 			}
+			
+			return $nicHandle;
 		}
 		
 		return false;

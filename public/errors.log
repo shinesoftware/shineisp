@@ -41,3 +41,14 @@
 [15-Jan-2014 08:05:06 CET] PHP Warning:  Creating default object from empty value in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 96
 [15-Jan-2014 08:05:06 CET] PHP Fatal error:  Call to undefined method stdClass::trySave() in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 100
 [15-Jan-2014 08:07:58 CET] PHP Fatal error:  Call to undefined method Doctrine_Collection::getNicId() in /Library/WebServer/Documents/shineisp/application/models/DomainsNichandle.php on line 91
+[15-Jan-2014 17:16:17 CET] PHP Notice:  Undefined variable: id in /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/DomainsprofilesController.php on line 270
+[15-Jan-2014 17:20:43 CET] PHP Warning:  parse_str(): Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in /Library/WebServer/Documents/shineisp/library/Shineisp/Controller/Action/Helper/Ajaxgrid.php on line 145
+[16-Jan-2014 12:29:14 CET] PHP Notice:  Undefined variable: nicHandle in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Registrars/Ovh/Main.php on line 75
+[16-Jan-2014 12:31:46 CET] PHP Notice:  Undefined variable: nicHandle in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Registrars/Ovh/Main.php on line 75
+[16-Jan-2014 17:50:25 CET] PHP Notice:  Undefined index: Domains in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 200
+[16-Jan-2014 17:50:25 CET] PHP Notice:  Undefined index: Domains in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 200
+[16-Jan-2014 17:51:11 CET] PHP Notice:  Undefined index: Domains in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 200
+[16-Jan-2014 17:51:11 CET] PHP Notice:  Undefined index: Domains in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 200
+[16-Jan-2014 17:53:55 CET] PHP Notice:  Undefined index: domain in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 274
+[16-Jan-2014 17:53:56 CET] PHP Notice:  Undefined index: domain in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 275
+[16-Jan-2014 17:54:57 CET] PHP Notice:  Undefined variable: shineisp in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 273
