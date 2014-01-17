@@ -120,7 +120,6 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			} elseif($domain[0]['DomainsTlds']['WhoisServers']['tld'] == "fr") {
 				
 				// List of all the parameters for the fr domains
-					
 				$params[] = $this->session['id'];  						// the session id
 				$params[] = $domain_name; 								// the domain name
 				$params[] = 'none';										// the hosting type (none|start1m|perso|pro|business|premium)
@@ -790,7 +789,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			$customer = Customers::getAllInfo($customerID, $fields);
 			$tld = Domains::getDomainTld($domainId);
 			
-// 			if($tld == "it"){  // Create a nicHandle for the Italian domain tld
+			if($tld == "it"){  // Create a nicHandle for the Italian domain tld
             
 			    $params[] = $this->session['id']; // Session
 				$params[] = $customer ['lastname']; // Lastname
@@ -822,31 +821,32 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				Shineisp_Commons_Utilities::log('Calling nicCreateIT with these params: ' . json_encode($params), "registrar.ovh.log");
 				return call_user_func_array(array( $soap, 'nicCreateIT'), $params);
 				
-// 			}else{
+			}else{
+
+				$params[] = $this->session['id']; // Session
+				$params[] = $customer ['lastname']; // Lastname
+				$params[] = $customer ['firstname']; // Firstname
+				$params[] = Shineisp_Commons_Utilities::GenerateRandomString(); // Password
+				$params[] = $customer ['email']; // Email
+				$params[] = $customer ['contact']; // Phone
+				$params[] = null; // Fax
+				$params[] = $customer ['address']; // Address
+				$params[] = $customer ['city']; // City
+				$params[] = $customer ['area']; // Area
+				$params[] = $customer ['code']; // Zip
+				$params[] = strtolower ( $customer ['countrycode'] ); // Country Code
+				$params[] = "en"; // Language
+				$params[] = true; // isOwner
+				$params[] = strtolower ($customer ['legalform']); // Legalform
+				$params[] = $customer ['company']; // Organisation
+				$params[] = $customer ['firstname'] . " " . $customer ['lastname']; // Legal name
+				$params[] = null; // Legal Number
+				$params[] = $customer ['vat']; // VAT or IVA
 				
-// 				// Create a generic nicHandle
-// 				return $soap->nicCreate (
-// 						$this->session['id'], // Session
-// 						$customer ['lastname'], // Lastname
-// 						$customer ['firstname'], // Firstname
-// 						Shineisp_Commons_Utilities::GenerateRandomString(), // Password
-// 						$customer ['email'], // Email
-// 						$customer ['contact'], // Phone
-// 						null, // Fax
-// 						$customer ['address'], // Address
-// 						$customer ['city'], // City
-// 						$customer ['area'], // Area
-// 						$customer ['code'], // Zip
-// 						strtolower ( $customer ['countrycode'] ), // Country Code
-// 						"en", // Language
-// 						true, // isOwner
-// 						strtolower ($customer ['legalform']), // Legalform
-// 						$customer ['company'], // Organisation
-// 						$customer ['firstname'] . " " . $customer ['lastname'], // Legal name
-// 						null, // Legal Number
-// 						$customer ['vat'] // VAT or IVA
-// 				);
-// 			}
+				// Call the soap service and send the parameters
+				Shineisp_Commons_Utilities::log('Calling nicCreate with these params: ' . json_encode($params), "registrar.ovh.log");
+				return call_user_func_array(array( $soap, 'nicCreate'), $params);
+			}
 
 		}
 		
@@ -862,84 +862,86 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 		$soap = $this->Connect();
 		
 		if(!empty($this->session)){
-// 			$tld = Domains::getDomainTld($domainId);
+			$tld = Domains::getDomainTld($domainId);
 			
 			// get the domain profile
 			$profile = DomainsProfiles::getProfile($domainId, $type);
+			
 			if($profile){
+
+			    // Set generic variables for parameters
+			    $profile['countrycode'] = strtolower ( Countries::getCodebyId($profile ['country_id']) );
+			    $profile['birthdate'] = Shineisp_Commons_Utilities::formatDateOut ( $profile ['birthdate'] );
+			    $profile['password'] = Shineisp_Commons_Utilities::GenerateRandomString();
+			    $profile['fullname'] = $profile ['firstname'] . " " . $profile ['lastname'];
+			    $profile['legalform'] = strtolower($profile ['Legalforms']['name']);
+			    $profile['corporationtype'] = strtolower($profile ['CompanyTypes']['name']);
+			    $profile['legalnumber'] = null;
+			    $profile['language'] = "en";
+			    $profile['isowner'] = ($type == "owner") ? true : false;
+			    
+			    if($tld == "it"){  // Create a nicHandle for the Italian domain tld
+			        
+                    $params[] = $this->session['id']; 				// Session
+                    $params[] = $profile ['lastname']; 				// Lastname
+                    $params[] = $profile ['firstname']; 			// Firstname
+                    $params[] = $profile ['gender']; 				// Gender
+                    $params[] = $profile ['password']; 				// Password
+                    $params[] = $profile ['email']; 				// Email
+                    $params[] = $profile ['phone']; 				// Phone
+                    $params[] = $profile ['fax']; 					// Fax
+                    $params[] = $profile ['address']; 				// Address
+                    $params[] = $profile ['city']; 					// City
+                    $params[] = $profile ['area']; 					// Area
+                    $params[] = $profile ['zip']; 					// Zip
+                    $params[] = $profile ['countrycode']; 			// Country Code
+                    $params[] = $profile ['language'];				// Language
+                    $params[] = $profile ['isowner']; 				// isOwner
+                    $params[] = $profile ['legalform']; 			// Legalform
+                    $params[] = $profile ['company']; 				// Organisation
+                    $params[] = $profile ['fullname']; 				// Legal name
+                    $params[] = $profile ['legalnumber'];			// Legal Number
+                    $params[] = $profile ['vat']; 					// VAT or IVA
+                    $params[] = $profile ['birthdate'];				// Birthday
+                    $params[] = $profile ['birthplace']; 			// Birthcity
+                    $params[] = $profile ['taxpayernumber']; 		// Contact fiscal code or company vat
+                    $params[] = $profile ['vat']; 					// Company National Identification Number
+                    $params[] = $profile ['corporationtype'];
+				    
+    				$nicHandle = call_user_func_array(array( $soap, 'nicCreateIT'), $params);
+    				Shineisp_Commons_Utilities::log('Calling profile nicCreateIT with these params: ' . json_encode($params), "registrar.ovh.log");
 				
-				// Set generic variables for parameters
-				$profile['countrycode'] = strtolower ( Countries::getCodebyId($profile ['country_id']) );
-				$profile['birthdate'] = Shineisp_Commons_Utilities::formatDateOut ( $profile ['birthdate'] );
-				$profile['password'] = Shineisp_Commons_Utilities::GenerateRandomString();
-				$profile['fullname'] = $profile ['firstname'] . " " . $profile ['lastname'];
-				$profile['legalform'] = strtolower($profile ['Legalforms']['name']);
-				$profile['corporationtype'] = strtolower($profile ['CompanyTypes']['name']);
-				$profile['legalnumber'] = null;
-				$profile['language'] = "en";
-				$profile['isowner'] = ($type == "owner") ? true : false;
-				
-                $params[] = $this->session['id']; 				// Session
-                $params[] = $profile ['lastname']; 				// Lastname
-                $params[] = $profile ['firstname']; 			// Firstname
-                $params[] = $profile ['gender']; 				// Gender
-                $params[] = $profile ['password']; 				// Password
-                $params[] = $profile ['email']; 				// Email
-                $params[] = $profile ['phone']; 				// Phone
-                $params[] = $profile ['fax']; 					// Fax
-                $params[] = $profile ['address']; 				// Address
-                $params[] = $profile ['city']; 					// City
-                $params[] = $profile ['area']; 					// Area
-                $params[] = $profile ['zip']; 					// Zip
-                $params[] = $profile ['countrycode']; 			// Country Code
-                $params[] = $profile ['language'];				// Language
-                $params[] = $profile ['isowner']; 				// isOwner
-                $params[] = $profile ['legalform']; 			// Legalform
-                $params[] = $profile ['company']; 				// Organisation
-                $params[] = $profile ['fullname']; 				// Legal name
-                $params[] = $profile ['legalnumber'];			// Legal Number
-                $params[] = $profile ['vat']; 					// VAT or IVA
-                $params[] = $profile ['birthdate'];				// Birthday
-                $params[] = $profile ['birthplace']; 			// Birthcity
-                $params[] = $profile ['taxpayernumber']; 		// Contact fiscal code or company vat
-                $params[] = $profile ['vat']; 					// Company National Identification Number
-                $params[] = $profile ['corporationtype'];
-				
-// 				if($tld == "it"){  // Create a nicHandle for the Italian domain tld
-				$nicHandle = call_user_func_array(array( $soap, 'nicCreateIT'), $params);
-				
-				Shineisp_Commons_Utilities::log('Calling profile nicCreateIT with these params: ' . json_encode($params), "registrar.ovh.log");
-				
-// 				}else{  
+				}else{  
+				    
+				    $params[] = $this->session['id']; 				// Session
+				    $params[] = $profile ['lastname']; 				// Lastname
+				    $params[] = $profile ['firstname']; 			// Firstname
+				    $params[] = $profile ['password']; 				// Password
+				    $params[] = $profile ['email']; 				// Email
+				    $params[] = $profile ['phone']; 				// Phone
+				    $params[] = $profile ['fax']; 					// Fax
+				    $params[] = $profile ['address']; 				// Address
+				    $params[] = $profile ['city']; 					// City
+				    $params[] = $profile ['area']; 					// Area
+				    $params[] = $profile ['zip']; 					// Zip
+				    $params[] = $profile ['countrycode']; 			// Country Code
+				    $params[] = $profile ['language'];				// Language
+				    $params[] = $profile ['isowner']; 				// isOwner
+				    $params[] = $profile ['legalform']; 			// Legalform
+				    $params[] = $profile ['company']; 				// Organisation
+				    $params[] = $profile ['fullname']; 				// Legal name
+				    $params[] = $profile ['legalnumber'];			// Legal Number
+				    $params[] = $profile ['vat']; 					// VAT or IVA
 					
-// 					// Create a generic nicHandle
-// 					$nicHandle = $soap->nicCreate (  $this->session['id'], 					// Session
-// 														$profile ['lastname'], 				// Lastname
-// 														$profile ['firstname'], 			// Firstname 
-// 														$profile ['password'], 				// Password
-// 														$profile ['email'], 				// Email
-// 														$profile ['phone'], 				// Phone
-// 														$profile ['fax'], 					// Fax
-// 														$profile ['address'], 				// Address
-// 														$profile ['city'], 					// City
-// 														$profile ['area'], 					// Area
-// 														$profile ['zip'], 					// Zip
-// 														$profile ['countrycode'], 			// Country Code
-// 														$profile ['language'],				// Language 
-// 														$profile ['isowner'], 				// isOwner
-// 														$profile ['legalform'],			 	// Legalform
-// 														$profile ['company'], 				// Organisation
-// 														$profile ['fullname'], 				// Legal name
-// 														$profile ['legalnumber'],			// Legal Number
-// 														$profile ['vat'] 					// VAT or IVA
-// 													); 
-// 				}
+					$nicHandle = call_user_func_array(array( $soap, 'nicCreate'), $params);
+					Shineisp_Commons_Utilities::log('Calling profile nicCreate with these params: ' . json_encode($params), "registrar.ovh.log");
+				}
 				
 				if(!empty($nicHandle)){
 					CustomersDomainsRegistrars::addNicHandle($domainId, $nicHandle, $type, $profile['profile_id']);  // Save the nic-Handle in the database
 				}
 				
-			}else{
+			}else{  // If the client has not create any profile, the main client information will be set in all domain tld field [admin, tech, owner, billing]
 			    
 			    // Get the domain information
 			    $domain	= Domains::find($domainId);
