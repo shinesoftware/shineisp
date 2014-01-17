@@ -104,12 +104,13 @@ class Countries extends BaseCountries {
 	 */
 	public static function getList( $first = false ) {
 		$items = array ();
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$records = Doctrine_Query::create ()->from ( 'Countries c' )
             		    					->orderBy('c.name')
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
 		
         if( $first == true ) {
-            $items[0] = '-- Select Country --';
+            $items[null] = " -- ". $translator->translate('Select Country') . " -- ";
         }
         
 		foreach ( $records as $c ) {

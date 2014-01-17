@@ -1,6 +1,11 @@
 <?php echo $this->render('partials/headerlist.phtml') ?>
 
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-xs-12 text-right"><a class="btn btn-default" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a></div><br/>
+	<div class="col-lg-12 col-md-12 col-xs-12">	
+		<p align="right">
+		    <a href="/dashboard" class="btn btn-default"><?php echo $this->translate('Dashboard')?></a>
+            <a class="btn btn-default" href="/default/orders/download"><?php echo $this->translate('Download Invoices')?></a> 
+        </p>
+     </div>    
 </div>
 <?php echo $this->grid($this->orders);?>

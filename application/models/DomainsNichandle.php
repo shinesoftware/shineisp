@@ -54,6 +54,39 @@ class DomainsNichandle extends BaseDomainsNichandle
 	}
 
     /**
+     * Get the domains attached to a particular profile id
+     * 
+     * @param integer $profileId
+     * @return Ambigous <Doctrine_Collection, mixed, PDOStatement, Doctrine_Adapter_Statement, Doctrine_Connection_Statement, unknown, number>
+     */
+    public static function getDomains($profileId) {
+		$dq = Doctrine_Query::create ()->select('d.domain as domain, ws.tld as tld')
+		                      ->from ( 'DomainsNichandle dn' )
+		                      ->leftJoin ( 'dn.Domains d' )
+		                      ->leftJoin ( 'd.DomainsTlds tlds' )
+		                      ->leftJoin ( 'tlds.WhoisServers ws' )
+		                      ->where ( "dn.profile_id = ?", $profileId );
+		
+		return $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+	}
+
+    /**
+     * Count how many times the profile has been used 
+     * 
+     * @param integer $profileId
+     * @return Ambigous <Doctrine_Collection, mixed, PDOStatement, Doctrine_Adapter_Statement, Doctrine_Connection_Statement, unknown, number>
+     */
+    public static function isUsed($profileId) {
+		$dq = Doctrine_Query::create ()
+		                      ->from ( 'DomainsNichandle dn' )
+		                      ->where ( "dn.profile_id = ?", $profileId );
+		
+		$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		
+		return count($record);
+	}
+
+    /**
      * Get the domain nichandle information
      * 
      * @param integer $id

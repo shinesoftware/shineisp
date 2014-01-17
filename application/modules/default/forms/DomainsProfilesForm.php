@@ -1,24 +1,11 @@
 <?php
-class Admin_Form_DomainsProfilesForm extends Zend_Form
+class Default_Form_DomainsProfilesForm extends Zend_Form
 {   
     public function init()
     {
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
     	$translate = Shineisp_Registry::get('Zend_Translate');
-    	
-
-    	$this->addElement('select', 'customer_id', array(
-    	        'label' => $translate->_('Owner of the domain profile'),
-    	        'description' => $translate->_('This is the customer who has created the domain profiles.'),
-    	        'decorators' => array('Bootstrap'),
-    	        'class'      => 'form-control'
-    	));
-    	
-    	$this->getElement('customer_id')
-                        	->setAllowEmpty(false)
-                        	->setMultiOptions(Customers::getList())
-                        	->setRequired(true);
     	
     	$this->addElement('text', 'firstname', array(
             'filters'    => array('StringTrim'),
@@ -161,8 +148,7 @@ class Admin_Form_DomainsProfilesForm extends Zend_Form
         
         $this->getElement('country_id')
 				        ->setAllowEmpty(false)
-				        ->setMultiOptions(Countries::getList( true ))
-				        ->setRequired(true);
+				        ->setMultiOptions(Countries::getList( true ));
         
         $this->addElement('text', 'phone', array(
             'filters'    => array('StringTrim'),
@@ -199,7 +185,12 @@ class Admin_Form_DomainsProfilesForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setMultiOptions(Statuses::getList('customers'));
         
-                        
+        $this->addElement('submit', 'submit', array(
+                'label'      => $translate->_('Save'),
+                'decorators' => array('Bootstrap'),
+                'class'    => 'btn btn-primary btn-lg'
+        ));
+        
         $this->addElement('hidden', 'profile_id');
     }
 }

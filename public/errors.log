@@ -52,3 +52,22 @@
 [16-Jan-2014 17:53:55 CET] PHP Notice:  Undefined index: domain in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 274
 [16-Jan-2014 17:53:56 CET] PHP Notice:  Undefined index: domain in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 275
 [16-Jan-2014 17:54:57 CET] PHP Notice:  Undefined variable: shineisp in /Library/WebServer/Documents/shineisp/application/modules/system/controllers/TasksController.php on line 273
+[17-Jan-2014 08:54:38 CET] PHP Notice:  Undefined index: customer_id in /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php on line 200
+[17-Jan-2014 09:10:37 CET] PHP Catchable fatal error:  Argument 1 passed to Zend_Form::populate() must be of the type array, null given, called in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 465 and defined in /Library/WebServer/Documents/shineisp/library/Zend/Form.php on line 2056
+[17-Jan-2014 09:32:40 CET] PHP Fatal error:  Call to a member function isErrors() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/header.phtml on line 4
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'controller' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'action' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'controller' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'action' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'controller' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'action' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'controller' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'action' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:18 CET] PHP Warning:  Illegal string offset 'controller' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 09:48:19 CET] PHP Warning:  Illegal string offset 'action' in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/partials/simplegrid.phtml on line 49
+[17-Jan-2014 10:43:22 CET] PHP Fatal error:  Call to a member function render() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/default/views/scripts/domains/customform.phtml on line 133
+[17-Jan-2014 10:44:32 CET] PHP Fatal error:  Call to a member function setAllowEmpty() on a non-object in /Library/WebServer/Documents/shineisp/application/modules/default/forms/DomainsForm.php on line 93
+[17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 182
+[17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 183
+[17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 184
+[17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 185

@@ -7,6 +7,12 @@
 			<class>dashboard-item</class>
 			<resource>default:index</resource>
 		</home>
+		<profile>
+			<label>Profile</label>
+			<uri>/profile</uri>
+			<class>dashboard-item</class>
+			<resource>default:profile</resource>
+		</profile>
 		<domains>
 			<label>Domains</label>
 			<uri>/domains/list</uri>

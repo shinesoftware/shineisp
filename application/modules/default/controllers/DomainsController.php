@@ -176,7 +176,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			$rs = $this->domains->getAllInfo ( $id, $customer_id, $fields, true );
 			
 			if (empty ( $rs )) {
-				$this->_helper->redirector ( 'index', 'domains', 'default', array ('mex' => 'forbidden', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'index', 'domains', 'default', array ('mex' => 'forbidden', 'status' => 'danger' ) );
 			}
 			
 			$form->populate ( $rs [0] );
@@ -239,7 +239,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			Dns_Zones::deleteZone($zoneId);
 			$this->_helper->redirector ( 'edit', 'domains', 'default', array ('id' => $domain[0]['domain_id'], 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
 		}else{
-			$this->_helper->redirector ( 'edit', 'domains', 'default', array ('id' => $domain[0]['domain_id'], 'mex' => $this->translator->translate('You are not the domain\'s owner.'), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'domains', 'default', array ('id' => $domain[0]['domain_id'], 'mex' => $this->translator->translate('You are not the domain\'s owner.'), 'status' => 'danger' ) );
 		}
 		
 	}	
@@ -254,7 +254,7 @@ class DomainsController extends Shineisp_Controller_Default {
 			DomainsTasks::AddTask($domain, 'setDomainHosts');
 			$this->_helper->redirector ( 'edit', 'domains', 'default', array ('id' => $domainId, 'mex' => 'The domain task requested has been scheduled successfully. Please see the tasks tab form.', 'status' => 'success' ) );
 		}else{
-			$this->_helper->redirector ( 'edit', 'domains', 'default', array ('id' => $domainId, 'mex' => $this->translator->translate('You are not the domain\'s owner.'), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'edit', 'domains', 'default', array ('id' => $domainId, 'mex' => $this->translator->translate('You are not the domain\'s owner.'), 'status' => 'danger' ) );
 		}
 	}
 		
@@ -449,6 +449,136 @@ class DomainsController extends Shineisp_Controller_Default {
 		die ( json_encode ( array ('mex' => $this->translator->translate ( "An error occurred during the export." ) ) ) );
 	}
 	
+
+	/**
+	 * Show the domain profile form
+	 * @return unknown_type
+	 */
+	public function profileAction() {
+	    $request = $this->getRequest ();
+	    $form = new Default_Form_DomainsProfilesForm ( array ('action' => '/domains/saveprofile/', 'method' => 'post' ) );
+	    
+	    $this->view->title = $this->translator->translate("Domain Owner/Assignee Profile");
+	    $this->view->description = $this->translator->translate("To create a new owner/assignee fill this form. Please create your new owner/assignee here below and open a ticket with the request of domain assignement to a owner.");
+	    
+	    if($request->getParam('id')){
+	        $profileId = $request->getParam('id');
+	        if(is_numeric($profileId)){
+	            $record = DomainsProfiles::getProfile($profileId, $this->customer['customer_id']);
+	            if(!empty($record)){
+    	            $this->view->title = $record['lastname'] . " " . $record['firstname'];
+    	            $record['profile_id'] = $profileId;
+    	            $form->populate($record);
+	            }
+	        }
+	    }
+	    
+	    $this->view->mex = $this->getRequest ()->getParam ( 'mex' );
+	    $this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
+	    $this->view->form = $form;
+	    
+	    $this->_helper->viewRenderer ( 'profile' );
+	}
+
+	/**
+	 * Show the domain profile form
+	 * @return unknown_type
+	 */
+	public function profilesAction() {
+	    $request = $this->getRequest ();
+	    
+	    $this->view->title = $this->translator->translate("Domain Owner/Assignee Profiles");
+	    $this->view->description = $this->translator->translate("Here you can see the Owner/Assignee profile list.");
+	    
+	    $columns = array();
+	    $columns[] = $this->translator->translate('Last name');
+	    $columns[] = $this->translator->translate('First name');
+	    $columns[] = $this->translator->translate('Email');
+	    $columns[] = $this->translator->translate('City');
+	    
+	    $records = DomainsProfiles::getProfilesByCustomerId($this->customer['customer_id'], "profile_id, firstname, lastname, email, city");
+	    
+	    $this->view->mex = $this->getRequest ()->getParam ( 'mex' );
+	    $this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
+	    $this->view->profiles = array ('records' => $records, 'delete'=> array('controller' => 'domains', 'action' => 'delprofile'), 'edit' => array('controller' => 'domains', 'action' => 'profile'), 'columns' => $columns );;
+	    
+	    $this->_helper->viewRenderer ( 'profiles' );
+	}
+
+	/**
+	 * Delete the domain profile 
+	 * @return unknown_type
+	 */
+	public function delprofileAction() {
+	    $request = $this->getRequest ();
+	    
+	    $this->view->title = $this->translator->translate("Domain Profiles");
+	    $this->view->description = $this->translator->translate("Here you can see the domain profile list.");
+
+	    if($request->getParam('id')){
+	        $profileId = $request->getParam('id');
+	        if(is_numeric($profileId)){
+	            if(0 == DomainsNichandle::isUsed($profileId)){
+    	            $records = DomainsProfiles::delProfile($profileId, $this->customer['customer_id']);
+    	            $this->_helper->redirector ( 'profiles', 'domains', 'default', array ('mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+	            }else{
+	                $this->_helper->redirector ( 'profiles', 'domains', 'default', array ('mex' => 'You cannot delete the profile because it is connected to a domain.', 'status' => 'danger' ) );
+	            }
+	        }
+	    }
+	    
+	    $this->_helper->redirector ( 'profiles', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'danger' ) );
+	    
+	    $this->view->mex = $this->getRequest ()->getParam ( 'mex' );
+	    $this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
+	    $this->_helper->viewRenderer ( 'profiles' );
+	}
+
+	/**
+	 * Save the domain profile data
+	 * @return unknown_type
+	 */
+	public function saveprofileAction() {
+	    $request = $this->getRequest ();
+	    
+	    // Check if we have a POST request
+	    if (! $request->isPost ()) {
+	        return $this->_helper->redirector ( 'profile' );
+	    }
+	    
+	    $form = new Default_Form_DomainsProfilesForm ( array ('action' => '/domains/profilesave/', 'method' => 'post' ) );
+	    
+	    $this->view->title = $this->translator->translate("Domain Profile");
+	    $this->view->description = $this->translator->translate("Here you can create or edit the domain profile.");
+	    
+	    $this->view->mex = $this->getRequest ()->getParam ( 'mex' );
+	    $this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
+	    
+	    $this->view->form = $form;
+	    
+	    if (! $form->isValid ( $request->getPost () )) {
+	        return $this->_helper->viewRenderer ( 'profile' ); 
+	    }
+	    
+	    // Get the values posted
+	    $params = $form->getValues ();
+	    
+	    // add the customer id reference
+	    $params['customer_id'] = $this->customer['customer_id'];
+	    
+	    $profileId = !empty($params['profile_id']) ? $params['profile_id'] : null;
+	    
+	    if(0 == DomainsNichandle::isUsed($profileId)){
+	        $profileId = DomainsProfiles::saveAll($params, $profileId);
+	    }else{
+	        $this->_helper->redirector ( 'profile', 'domains', 'default', array ('id' => $profileId, 'mex' => 'You cannot edit the profile because it is connected to a domain.', 'status' => 'danger' ) );
+	    }
+	    
+	    $this->_helper->redirector ( 'profile', 'domains', 'default', array ('id' => $profileId, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+	    
+	    
+	    $this->_helper->viewRenderer ( 'profile' );
+	}
 	
 	/**
 	 * Register
@@ -460,14 +590,14 @@ class DomainsController extends Shineisp_Controller_Default {
 
 		// Check if the request comes from the owner of the domain
 		if(!Domains::isOwner($domainID, $this->customer['customer_id'])){
-			$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'error' ) );	
+			$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'danger' ) );	
 		}
 		
 		// Get the domain name
 		$domain = Domains::getDomainName($domainID);
 		
 		if(empty($domain)){
-			$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'error' ) );
+			$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'danger' ) );
 		}
 		
 		switch ($action) {
@@ -484,7 +614,7 @@ class DomainsController extends Shineisp_Controller_Default {
 				break;
 			
 			default:
-				$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the request.', 'status' => 'danger' ) );
 				break;
 		}
 		

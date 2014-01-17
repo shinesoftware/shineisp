@@ -335,7 +335,7 @@ class CartController extends Shineisp_Controller_Default {
 			}
 		
 			if (empty ( $params ['domain'] ) || empty ( $params ['tlds'] )) {
-				$this->_helper->redirector ( 'domain', 'cart', 'default', array ('mex' => 'The domain is a mandatory field. Choose a domain name.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'domain', 'cart', 'default', array ('mex' => 'The domain is a mandatory field. Choose a domain name.', 'status' => 'danger' ) );
 			}
 		
 			// Get the product (tld) selected by the customer
@@ -389,7 +389,7 @@ class CartController extends Shineisp_Controller_Default {
 		
 					} else {
 						// If not redirect the customer to choose another name
-						$this->_helper->redirector ( 'domain', 'cart', 'default', array ('mex' => 'The domain is not available for registration. Choose another domain name.', 'status' => 'error' ) );
+						$this->_helper->redirector ( 'domain', 'cart', 'default', array ('mex' => 'The domain is not available for registration. Choose another domain name.', 'status' => 'danger' ) );
 					}
 				}
 			}

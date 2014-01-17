@@ -1,13 +1,17 @@
-<?php echo $this->render('partials/headerlist.phtml') ?>
+<?php echo $this->render('partials/header.phtml') ?>
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-xs-12">	
 		<p align="right">
 		    <a href="/dashboard" class="btn btn-default"><?php echo $this->translate('Dashboard')?></a>
-            <a href="/domains/profile" class="btn btn-default"><?php echo $this->translate('Domain Owner/Assignee')?></a> 
+            <a href="/domains/profile" class="btn btn-default"><?php echo $this->translate('New')?></a> 
             <a href="/domains/" class="btn btn-default"><?php echo $this->translate('Domains')?></a> 
         </p>
      </div>    
 </div>
 
-<?php echo $this->Domainsgrid($this->domains);?>
+<div class="row">
+    <div class="col-lg-12">
+        <?php echo $this->simplegrid($this->profiles);?>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<?php $form = $this->form; ?>
+<?php echo $this->render('partials/header.phtml') ?>
+
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-xs-12">	
+		<p align="right">
+            <a href="/dashboard" class="btn btn-default"><?php echo $this->translate('Dashboard')?></a> 
+            <a href="/domains/profiles" class="btn btn-default"><?php echo $this->translate('Profiles')?></a> 
+            <a href="/domains/" class="btn btn-default"><?php echo $this->translate('Domains')?></a> 
+        </p>
+     </div>    
+</div>
+
+<form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+	
+	<div class="tabbable" id="tabs">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
+			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Personal data');?></a></li> 
+			<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Addresses');?></a></li>
+			<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Contacts');?></a></li>
+		</ul>
+		<div class="tab-content">
+		    <div class="tab-pane active" id="tab1">
+			    <div class="row">
+				    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+			        	<?php echo $form->firstname->render()?>
+			        	<?php echo $form->lastname->render()?>
+			        	<?php echo $form->company->render()?>
+				        <?php echo $form->email->render()?>
+				    </div>
+				    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			            <?php echo $form->legalform_id->render()?>
+			            <?php echo $form->type_id->render()?>
+			            <?php echo $form->taxpayernumber->render()?>
+			            <?php echo $form->vat->render()?>
+			            <?php echo $form->status_id->render()?>
+				    </div>
+				</div>   
+			</div>   
+		    
+		    <div class="tab-pane" id="tab2"> 
+		    	<div class="row">
+		        	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"> 
+			            <?php echo $form->birthdate->render()?>
+			            <?php echo $form->birthplace->render()?>
+		            </div>
+		            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			            <?php echo $form->birthdistrict->render()?>
+			            <?php echo $form->birthcountry->render()?>
+			            <?php echo $form->birthnationality->render()?>
+			            <?php echo $form->gender->render()?>
+		            </div>
+		        </div>
+		    </div>    
+		    
+		    <div class="tab-pane" id="tab3"> 
+		        <div class="row">
+    		        <div class="col-lg-12"> 
+        			    <?php echo $form->address->render()?>
+        			    <?php echo $form->zip->render()?>
+        	            <?php echo $form->city->render()?>
+        	            <?php echo $form->area->render()?>
+        	            <?php echo $form->country_id->render()?>
+        		    </div>
+   		        </div>
+   		    </div>
+		
+		   <div class="tab-pane" id="tab4">
+		       <div class="row">
+    		        <div class="col-lg-12"> 
+        	             <?php echo $form->phone->render()?>
+        	             <?php echo $form->fax->render()?>
+        	        </div>
+		       </div>
+		   </div>
+		   
+		   <p align="right"><?php echo $form->submit->render()?></p>
+		   <?php echo $form->profile_id->render()?>
+		
+		</div>
+	</div>
+</form>

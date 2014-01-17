@@ -37,12 +37,14 @@ class Admin_Form_DomainsForm extends Zend_Form
                 ->setAllowEmpty(true)
                 ->setMultiOptions(Registrars::getList());
                   
+        // Domain Ownership
         $this->addElement('select', 'owner', array(
                 'label' => $translate->_('Owner'),
                 'description' => $translate->_("If the domain owner's profile is not set, the domain customer information will be used."),
                 'decorators' => array('Bootstrap'),
                 'class'      => 'form-control'
         ));
+        
         $this->getElement('owner')
                 ->setAllowEmpty(true)
                 ->setMultiOptions(DomainsProfiles::getList(true));

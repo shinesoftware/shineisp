@@ -167,7 +167,6 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 				$domain = $rs[0]['Domains']['domain'] . "." . $rs[0]['Domains']['DomainsTlds']['WhoisServers']['tld'];
 				$this->view->title = $this->translator->_("Domain task: %s", $domain);
 				$this->view->titlelink = "/admin/domains/edit/id/" . $rs[0]['domain_id'];
-				Zend_Debug::dump($rs);
 				$form->populate ( $rs[0] );
 				$this->view->buttons[] = array("url" => "/admin/domainstasks/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 			}

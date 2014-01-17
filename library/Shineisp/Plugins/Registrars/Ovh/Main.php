@@ -865,7 +865,7 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 			$tld = Domains::getDomainTld($domainId);
 			
 			// get the domain profile
-			$profile = DomainsProfiles::getProfile($domainId, $type);
+			$profile = DomainsProfiles::getProfileByDomainId($domainId, $type);
 			
 			if($profile){
 

@@ -139,12 +139,12 @@ class DomainsProfiles extends BaseDomainsProfiles{
     }
 
     /**
-     * Get all the domain profiles records
+     * Get all the domain profiles records by domain id
      *
      * @param $domain_id
      * @return Array
      */
-    public static function getProfiles($domain_id) {
+    public static function getProfilesbyDomainId($domain_id) {
         $items = array ();
     
         $dq = Doctrine_Query::create ()->from ( 'DomainsProfiles dp' );
@@ -159,12 +159,12 @@ class DomainsProfiles extends BaseDomainsProfiles{
     }
 
     /**
-     * Get the domain profiles record
+     * Get the domain profiles record by domain id
      *
      * @param $domain_id
      * @return Array
      */
-    public static function getProfile($domain_id, $type = 'owner') {
+    public static function getProfileByDomainId($domain_id, $type = 'owner') {
         $items = array ();
     
         $dq = Doctrine_Query::create ()->from ( 'DomainsNichandle nic' )
@@ -180,11 +180,68 @@ class DomainsProfiles extends BaseDomainsProfiles{
     }
 
     /**
+     * Delete the domain profiles record
+     *
+     * @param $profile_id
+     * @return bool
+     */
+    public static function delProfile($profile_id, $customerId = null) {
+    
+        $dq = Doctrine_Query::create ()->delete ()->from ( 'DomainsProfiles dp' )->where ( 'dp.profile_id = ?', $profile_id );
+        
+        if(is_numeric($customerId)){
+            $dq->addWhere('dp.customer_id = ?', $customerId);
+        }
+
+        return $dq->execute ();;
+    }
+
+    /**
+     * Get the domain profiles record
+     *
+     * @param $profile_id
+     * @return Array
+     */
+    public static function getProfile($profile_id, $customerId = null) {
+        $items = array ();
+    
+        $dq = Doctrine_Query::create ()->from ( 'DomainsProfiles p' )
+        							   ->where ( 'p.profile_id = ?', $profile_id );
+        if(is_numeric($customerId)){
+            $dq->addWhere('p.customer_id = ?', $customerId);
+        }
+        
+        $record = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+        return !empty($record[0]) ? $record[0] : null;
+    }
+
+    /**
+     * Get the domain profiles record by Customer Id
+     *
+     * @param $customer_id
+     * @return Array
+     */
+    public static function getProfilesByCustomerId($customerId, $fields = NULL) {
+        $items = array ();
+    
+        $dq = Doctrine_Query::create ()->from ( 'DomainsProfiles p' )
+        							   ->where ( 'p.customer_id = ?', $customerId );
+
+        if(!empty($fields)){
+            $dq->select($fields);
+        }
+        
+        $records = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+        
+        return $records;
+    }
+
+    /**
      * Save all the data in the database
      * @param array $data
      * @param integer $id
      */
-    public static function saveAll(array $data, $id) {
+    public static function saveAll(array $data, $id=null) {
     
         if(!empty($data) && is_array($data)){
             if(is_numeric($id)){
@@ -192,9 +249,9 @@ class DomainsProfiles extends BaseDomainsProfiles{
                 if( $profile->profile_id != $id ) {
                     return false;
                 }
-                $profile['created_at'] = date('Y-m-d h:i:s');
             }else{
                 $profile = new DomainsProfiles();
+                $profile['created_at'] = date('Y-m-d h:i:s');
             }
             	
             $profile['customer_id'] = $data['customer_id'];
@@ -215,7 +272,7 @@ class DomainsProfiles extends BaseDomainsProfiles{
             $profile['zip'] = $data['zip'];
             $profile['city'] = $data['city'];
             $profile['area'] = $data['area'];
-            $profile['country_id'] = $data['country_id'];
+            $profile['country_id'] = !empty($data['country_id']) ? $data['country_id'] : null;
             
             $profile['vat'] = $data['vat'];
             $profile['taxpayernumber'] = $data['taxpayernumber'];
