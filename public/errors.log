@@ -71,3 +71,27 @@
 [17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 183
 [17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 184
 [17-Jan-2014 12:01:09 CET] PHP Notice:  Undefined variable: domain_id in /Library/WebServer/Documents/shineisp/application/modules/default/controllers/DomainsController.php on line 185
+[18-Jan-2014 12:42:05 CET] PHP Fatal error:  Uncaught exception 'ReflectionException' with message 'Class Shineisp_Plugins_Calendar_Main does not exist' in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php:56
+Stack trace:
+#0 /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php(56): ReflectionClass->__construct('Shineisp_Plugin...')
+#1 /Library/WebServer/Documents/shineisp/application/Bootstrap.php(63): Shineisp_Plugins->initAll()
+#2 /Library/WebServer/Documents/shineisp/library/Zend/Application/Bootstrap/BootstrapAbstract.php(669): Bootstrap->_initControllerPlugin()
+#3 /Library/WebServer/Documents/shineisp/library/Zend/Application/Bootstrap/BootstrapAbstract.php(622): Zend_Application_Bootstrap_BootstrapAbstract->_executeResource('controllerplugi...')
+#4 /Library/WebServer/Documents/shineisp/library/Zend/Application/Bootstrap/BootstrapAbstract.php(586): Zend_Application_Bootstrap_BootstrapAbstract->_bootstrap(NULL)
+#5 /Library/WebServer/Documents/shineisp/library/Zend/Application.php(355): Zend_Application_Bootstrap_Bootst in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php on line 56
+[18-Jan-2014 12:42:05 CET] PHP Fatal error:  Uncaught exception 'ReflectionException' with message 'Class Shineisp_Plugins_Calendar_Main does not exist' in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php:56
+Stack trace:
+#0 /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php(56): ReflectionClass->__construct('Shineisp_Plugin...')
+#1 /Library/WebServer/Documents/shineisp/application/Bootstrap.php(63): Shineisp_Plugins->initAll()
+#2 /Library/WebServer/Documents/shineisp/library/Zend/Application/Bootstrap/BootstrapAbstract.php(669): Bootstrap->_initControllerPlugin()
+#3 /Library/WebServer/Documents/shineisp/library/Zend/Application/Bootstrap/BootstrapAbstract.php(622): Zend_Application_Bootstrap_BootstrapAbstract->_executeResource('controllerplugi...')
+#4 /Library/WebServer/Documents/shineisp/library/Zend/Application/Bootstrap/BootstrapAbstract.php(586): Zend_Application_Bootstrap_BootstrapAbstract->_bootstrap(NULL)
+#5 /Library/WebServer/Documents/shineisp/library/Zend/Application.php(355): Zend_Application_Bootstrap_Bootst in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php on line 56
+[18-Jan-2014 12:50:44 CET] PHP Warning:  simplexml_load_file(): /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/config.xml:22: parser error : expected '&gt;' in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php on line 74
+[18-Jan-2014 12:50:44 CET] PHP Warning:  simplexml_load_file():     &lt;settings&gt; in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php on line 74
+[18-Jan-2014 12:50:44 CET] PHP Warning:  simplexml_load_file():     ^ in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php on line 74
+[18-Jan-2014 12:50:44 CET] PHP Fatal error:  Call to a member function attributes() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins.php on line 78
+[20-Jan-2014 08:14:58 CET] PHP Catchable fatal error:  Argument 1 passed to Shineisp_Plugins_Calendar_Main::newEvent() must be an instance of Google_CalendarService, string given, called in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 65 and defined in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 122
+[20-Jan-2014 08:36:39 CET] PHP Notice:  Undefined variable: cal in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 218
+[20-Jan-2014 08:36:39 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 218
+[20-Jan-2014 08:36:39 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 218
