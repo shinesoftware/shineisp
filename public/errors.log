@@ -95,3 +95,18 @@ Stack trace:
 [20-Jan-2014 08:36:39 CET] PHP Notice:  Undefined variable: cal in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 218
 [20-Jan-2014 08:36:39 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 218
 [20-Jan-2014 08:36:39 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 218
+[20-Jan-2014 19:00:54 CET] PHP Notice:  Undefined variable: result in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 228
+[20-Jan-2014 19:01:43 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:43 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:54 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:54 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:56 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:56 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:57 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:57 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:58 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:58 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:59 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:01:59 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:02:15 CET] PHP Notice:  Trying to get property of non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
+[20-Jan-2014 19:02:15 CET] PHP Fatal error:  Call to a member function listCalendarList() on a non-object in /Library/WebServer/Documents/shineisp/library/Shineisp/Plugins/Calendar/Main.php on line 231
