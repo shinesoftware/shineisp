@@ -22,7 +22,7 @@
     <settings>
         <field var="clientid" label="ClientID" type="text" description="Set your Google Calendar Client ID"/>
         <field var="clientsecret" label="Client Secret" type="text" description="Write here your Google Client Secret."/>
-        <field var="redirecturi" label="Redirect URI" type="text" description="Type here the URI set in your Google Application"/>
+        <field var="redirecturi" label="Redirect URI" type="text" description="Type here the URI that you can see in this page and write it in your Google Application field"/>
         <field var="developerkey" label="Developer Key" type="text" description="Write here your Google Developer Key or API key"/>
         <field var="calendarid" label="Calendars" type="select" description="Select the default google calendar" configclass='{"class":"Shineisp_Plugins_Calendar_Main","method":"getCalendars"}'></field>
     </settings>

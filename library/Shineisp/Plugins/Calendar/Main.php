@@ -53,12 +53,6 @@ class Shineisp_Plugins_Calendar_Main implements Shineisp_Plugins_Interface  {
 	 */
 	public function __construct() {
 		
-		$result = self::login();
-		if(is_string($result)){
-		    echo "<a class='btn btn-info' href='$result'>Connect Me!</a>";
-		}else{
-		    #self::newEvent($result, "Il primo evento automatico nel calendario di google da parte di ShineISP", "Trieste");
-		}
 	}
 	
 	/**
@@ -228,8 +222,12 @@ class Shineisp_Plugins_Calendar_Main implements Shineisp_Plugins_Interface  {
 	 */
 	public static function getCalendars(){
 	    $data = array();
-	    $cal = self::$calendar;
 	    
+	    $cal = self::login();
+	    if(is_string($cal)){
+	        echo "<a class='btn btn-info' href='$cal'>Connect Me!</a>";
+	    }
+	     
 	    if(is_object($cal) && !empty($cal)){
     	    $calList = $cal->calendarList->listCalendarList();
     	   
