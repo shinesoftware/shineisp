@@ -225,6 +225,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 					array("url" => "/admin/domains/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
 					array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)),
 					array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
+					array("url" => "/admin/domains/newevent/id/$id", "label" => $this->translator->translate('Calendar Event'), "params" => array('css' => null)),
 			);
 			
 			try {
@@ -465,6 +466,29 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 				die;
 			}
 		}
+	}
+	
+	/**
+	 * Create a google calendar event
+	 */
+	public function neweventAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		if (! empty ( $id ) && is_numeric ( $id )) {
+		    if(Shineisp_Plugins_Calendar_Main::isReady()){
+    			$domain = Domains::find($id, "expiring_date as end, CONCAT(domain, '.', ws.tld) as domain, CONCAT('http://www.', domain, '.', ws.tld) as url");
+    			if(!empty($domain[0])){
+    			    $summary = $domain[0]['domain'];
+    			    $description = $this->translator->_("The domain %s expires today!", $domain[0]['url']);
+    			    $location = "";
+    				if(true === Shineisp_Plugins_Calendar_Main::newEvent($summary, $location, $description, $domain[0]['end'], $domain[0]['end'])){
+    				    $this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+    				}
+    			}
+		    }
+		    $this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
+		}
+		
+		$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Domain id has not been found.' ), 'status' => 'danger' ) );
 	}
 
 }

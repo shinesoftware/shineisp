@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Calendar Configuration File -->
-<config name="Calendar" type="generic" var="calendar" version="1.0">
+<config name="Google Calendar" type="generic" var="calendar" version="1.0">
     <general>
 	    <description><![CDATA[ <a href="https://www.google.com/calendar/">Google Calendar</a> is a free time-management web application offered by Google. If you have not a Google Account, open it!]]></description>
 	    <help><![CDATA[<p>Visit the Google <a href="https://code.google.com/apis/console/?api=calendar" target="_blank">API Console</a> to generate your developer key, OAuth2 client id, OAuth2 client secret, and register your OAuth2 redirect uri. Copy their values since your will need to input them in your application.</p>
@@ -24,7 +24,7 @@
         <field var="clientsecret" label="Client Secret" type="text" description="Write here your Google Client Secret."/>
         <field var="redirecturi" label="Redirect URI" type="text" description="Type here the URI set in your Google Application"/>
         <field var="developerkey" label="Developer Key" type="text" description="Write here your Google Developer Key or API key"/>
-        <field var="calendars" label="Calendars" type="select" description="Select the default google calendar" configclass='{"class":"Shineisp_Plugins_Calendar_Main","method":"getCalendars"}'></field>
+        <field var="calendarid" label="Calendars" type="select" description="Select the default google calendar" configclass='{"class":"Shineisp_Plugins_Calendar_Main","method":"getCalendars"}'></field>
     </settings>
     
 </config>

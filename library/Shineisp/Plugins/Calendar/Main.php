@@ -114,7 +114,7 @@ class Shineisp_Plugins_Calendar_Main implements Shineisp_Plugins_Interface  {
 	 * @param string $sourcefile
 	 * @return boolean
 	 */
-	public static function newEvent(Google_CalendarService $cal, $summary, $location, $datestart=null, $dateend=null){
+	public static function newEvent($summary, $location, $description=null, $datestart=null, $dateend=null){
         
         try{
             if(empty($datestart)){
@@ -125,21 +125,32 @@ class Shineisp_Plugins_Calendar_Main implements Shineisp_Plugins_Interface  {
                 $dateend = date('Y-m-d');
             }
             
-            $event = new Google_Event();
-            $event->setSummary($summary);          // Event name
-            $event->setLocation($location);            // Event location
-            $start = new Google_EventDateTime();
-            $start->setDate($datestart);
-            $event->setStart($start);
-            $end = new Google_EventDateTime();
-            $end->setDate($dateend);
-            $event->setEnd($end);
-            $createdEvent = $cal->events->insert('por7ie2cg8hnp9csdq7tqvonp4@group.calendar.google.com', $event);
+            $calendar = Settings::findbyParam ( 'calendar_calendarid' );
             
-            Shineisp_Commons_Utilities::log("The Event has been created!", "plugin_calendar.log");
+            if($calendar){
+                $cal = self::$calendar;
+                 
+                if(is_object($cal) && !empty($cal)){
+                    $event = new Google_Event();
+                    $event->setSummary($summary);          // Event name
+                    $event->setLocation($location);            // Event location
+                    $start = new Google_EventDateTime();
+                    $start->setDate($datestart);
+                    $event->setStart($start);
+                    $end = new Google_EventDateTime();
+                    $end->setDate($dateend);
+                    $event->setEnd($end);
+                    $event->setDescription($description);
+                    $createdEvent = $cal->events->insert($calendar, $event);
+                    Shineisp_Commons_Utilities::log("The Event has been created!", "plugin_calendar.log");
+                    return true;
+                }
+            }
+            
+            return false;
             
         }catch(Exception $e){
-            Shineisp_Commons_Utilities::log($e->getMessage());
+            return $e->getMessage();
         }
 	}
 	
@@ -151,6 +162,7 @@ class Shineisp_Plugins_Calendar_Main implements Shineisp_Plugins_Interface  {
 		$clientsecret = Settings::findbyParam ( 'calendar_clientsecret' );
 		$redirecturi = Settings::findbyParam ( 'calendar_redirecturi' );
 		$developerkey = Settings::findbyParam ( 'calendar_developerkey' );
+		$developerkey = Settings::findbyParam ( 'calendar_calendarid' );
 		
 		if (! empty ( $clientid ) && ! empty ( $clientsecret ) && ! empty ( $redirecturi ) && ! empty ( $developerkey )) {
 			return true;
@@ -215,10 +227,15 @@ class Shineisp_Plugins_Calendar_Main implements Shineisp_Plugins_Interface  {
 	 * Get the google calendars from the google calendar identity
 	 */
 	public static function getCalendars(){
+	    $data = array();
 	    $cal = self::$calendar;
-	    $calList = $cal->calendarList->listCalendarList();
-	    foreach ($calList['items'] as $calendar){
-	        $data[$calendar['id']] = $calendar['summary'];
+	    
+	    if(is_object($cal) && !empty($cal)){
+    	    $calList = $cal->calendarList->listCalendarList();
+    	   
+    	    foreach ($calList['items'] as $calendar){
+    	        $data[$calendar['id']] = $calendar['summary'];
+    	    }
 	    }
 	    return $data;
 	}
