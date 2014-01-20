@@ -118,10 +118,10 @@ class CompanyTypes extends BaseCompanyTypes {
 	 */
 	public static function getList($empty = false) {
 		$items = array ();
-		
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$arrTypes = Doctrine::getTable ( 'CompanyTypes' )->findAll ();
 		foreach ( $arrTypes->getData () as $c ) {
-			$items [$c ['type_id']] = $c ['name'];
+			$items [$c ['type_id']] = $translator->translate($c ['name']);
 		}
 		
 		if ($empty) {

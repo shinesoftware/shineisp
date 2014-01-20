@@ -10,12 +10,15 @@ Doctrine_Manager::getInstance()->bindComponent('CustomersDomainsRegistrars', 'do
  * @property integer $nic_id
  * @property integer $customer_id
  * @property integer $domain_id
+ * @property integer $profile_id
  * @property integer $registrars_id
  * @property date $creationdate
+ * @property string $type
  * @property string $value
  * @property Customers $Customers
  * @property Registrars $Registrars
  * @property Domains $Domains
+ * @property DomainsProfiles $DomainsProfiles
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -45,6 +48,10 @@ abstract class BaseCustomersDomainsRegistrars extends Doctrine_Record
              'notnull' => true,
              'length' => '4',
              ));
+        $this->hasColumn('profile_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => '4',
+             ));
         $this->hasColumn('registrars_id', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
@@ -54,6 +61,12 @@ abstract class BaseCustomersDomainsRegistrars extends Doctrine_Record
              'type' => 'date',
              'notnull' => true,
              'length' => '25',
+             ));
+        $this->hasColumn('type', 'string', 20, array(
+             'type' => 'string',
+             'notnull' => false,
+             'default' => 'owner',
+             'length' => '20',
              ));
         $this->hasColumn('value', 'string', 100, array(
              'type' => 'string',
@@ -76,5 +89,10 @@ abstract class BaseCustomersDomainsRegistrars extends Doctrine_Record
         $this->hasOne('Domains', array(
              'local' => 'domain_id',
              'foreign' => 'domain_id'));
+
+        $this->hasOne('DomainsProfiles', array(
+             'local' => 'profile_id',
+             'foreign' => 'profile_id',
+             'onDelete' => 'CASCADE'));
     }
 }

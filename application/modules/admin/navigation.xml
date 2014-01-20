@@ -39,6 +39,11 @@
 					<uri>/admin/domains/list</uri>
 					<resource>admin:domains</resource>
 				</domains>
+				<domainsprofiles>
+					<label>Domain Profiles</label>
+					<uri>/admin/domainsprofiles/list</uri>
+					<resource>admin:domainsprofiles</resource>
+				</domainsprofiles>
 				<customers>
 					<label>Customers</label>
 					<uri>/admin/customers/list</uri>
@@ -251,19 +256,12 @@
 			</pages>
 		</reports>
 		
-		
-		<!-- DO NOT DELETE THIS ITEM -->
-		<configuration>
-			<label>Configuration</label>
+		<settings>
+			<label>Settings</label>
 			<uri>#</uri>
-			<icon>glyphicon glyphicon-wrench</icon>
+			<icon>glyphicon glyphicon-cog</icon>
 			<resource>admin:settings</resource>
 			<pages>
-				<settings>
-                    <label>General</label>
-                    <uri>/admin/settings/</uri>
-                    <resource>admin:settings</resource>
-                </settings>
                 <registrars>
                     <label>Registrars</label>
                     <uri>/admin/registrars/list</uri>
@@ -345,6 +343,15 @@
                     <resource>admin:purchasescategories</resource>
                 </purchasescategories>
 			</pages>
+		</settings>
+		
+		<!-- DO NOT DELETE THIS ITEM -->
+		
+		<configuration>
+			<label>Configuration</label>
+			<uri>#</uri>
+			<icon>glyphicon glyphicon-wrench</icon>
+			<resource>admin:settings</resource>
 		</configuration>
 		<!-- DO NOT DELETE THIS ITEM -->
 		

@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('Legalforms', 'doctrine');
  * 
  * @property integer $legalform_id
  * @property string $name
+ * @property Doctrine_Collection $DomainsProfiles
  * @property Doctrine_Collection $Customers
  * 
  * @package    ##PACKAGE##
@@ -43,6 +44,10 @@ abstract class BaseLegalforms extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('DomainsProfiles', array(
+             'local' => 'legalform_id',
+             'foreign' => 'legalform_id'));
+
         $this->hasMany('Customers', array(
              'local' => 'legalform_id',
              'foreign' => 'legalform_id'));

@@ -112,14 +112,18 @@ class Shineisp_Plugins {
 							
 							if(!empty($config->settings) && $config->settings->children()){
 								foreach ($config->settings->children() as $node) {
+								    $configclass = array();
 									$arr   = $node->attributes();
 									$var   = strtolower($config['var']) . "_" . (string) $arr['var'];
 									$label = (string) $arr['label'];
 									$type  = (string) $arr['type'];
 									$description = (string) $arr['description'];
-								
+									if((string) $arr['configclass']){
+									    $configclass = json_decode((string) $arr['configclass'], true);
+									}
+									
 									if (!empty($var) && !empty($label) && !empty($type)) {
-										SettingsParameters::addParam($label, $description, $var, $type, 'admin', 1, $group_id);
+										SettingsParameters::addParam($label, $description, $var, $type, 'admin', 1, $group_id, $configclass);
 									}
 								}
 								if(!empty($config->customfields)){

@@ -44,7 +44,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 		
 		if(empty($params['tlds'])){
 			// Redirect the user to the domain check page 
-			$this->_helper->redirector ( 'index', 'domainschk', 'default', array('mex' => 'You have to check one of the domain tlds.', 'status' => 'error'));
+			$this->_helper->redirector ( 'index', 'domainschk', 'default', array('mex' => 'You have to check one of the domain tlds.', 'status' => 'danger'));
 		}
 		
 		$domain = $params['domain'];
@@ -164,7 +164,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 				$this->view->suggestions = $this->chktlds($params['name'], array($params['tld']));
 			}
 		}catch (Exception $e){
-			$this->_helper->redirector ( 'index', 'domainschk', 'default', array ('mex' => $e->getMessage(), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'index', 'domainschk', 'default', array ('mex' => $e->getMessage(), 'status' => 'danger' ) );
 		}
 		
 		$this->_helper->viewRenderer('result');

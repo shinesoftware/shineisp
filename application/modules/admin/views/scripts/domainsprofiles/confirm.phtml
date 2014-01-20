@@ -1,0 +1,14 @@
+<?php  // Here the common header will be render ?>
+<?php echo $this->render('partials/headers.phtml'); ?>
+
+<div class="row">
+	<div class="col-lg-12">
+		<p><?php echo $this->translate('Selected record');?>: <strong><?php echo $this->recordselected; ?></strong></p>
+		<p><?php echo $this->description; ?></p>
+		<br/><br/><br/>
+		<div class="pull-right">
+			<a class="btn btn-success" href="<?php echo $this->back;?>"><?php echo $this->translate("NO, I don't!"); ?></a>
+			<a class="btn btn-danger" href="<?php echo $this->goto;?>"><?php echo $this->translate('YES, I want to do it!'); ?></a>
+		</div>
+	</div>
+</div>

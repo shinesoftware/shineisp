@@ -59,17 +59,17 @@ class SettingsGroups extends BaseSettingsGroups
      */
     public static function addGroup($name, $description=null, $help=null) {
     	
-//     	$g = self::findbyName($name);
-//     	if(!empty($g)){
-//     		return $g->get('group_id');
-//     	}
+    	$g = self::findbyName($name);
+    	if(!empty($g)){
+    		return $g->get('group_id');
+    	}
     	
-//     	$group = new SettingsGroups();
-//     	$group['name'] = $name;
-//     	$group['help'] = $help;
-//     	$group['description'] = $description;
-//     	$group->save();
+    	$group = new SettingsGroups();
+    	$group['name'] = $name;
+    	$group['help'] = $help;
+    	$group['description'] = $description;
+    	$group->save();
     	
-//     	return $group['group_id'];
+    	return $group['group_id'];
     }
 }

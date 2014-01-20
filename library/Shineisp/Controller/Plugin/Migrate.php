@@ -85,6 +85,7 @@ class Shineisp_Controller_Plugin_Migrate extends Zend_Controller_Plugin_Abstract
 									unset($mysetupdate);
 								}
 								
+								// SQL files post installation will be executed
 								if($dayssincefirstsetup >= 0){
 									
 									// read the sql 

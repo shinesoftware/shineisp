@@ -51,6 +51,7 @@ Doctrine_Manager::getInstance()->bindComponent('Customers', 'doctrine');
  * @property CustomAttributesValues $CustomAttributesValues
  * @property Doctrine_Collection $Addresses
  * @property Doctrine_Collection $Contacts
+ * @property Doctrine_Collection $DomainsProfiles
  * @property Doctrine_Collection $CustomersDomainsRegistrars
  * @property Doctrine_Collection $Domains
  * @property Doctrine_Collection $DomainsBulk
@@ -290,6 +291,10 @@ abstract class BaseCustomers extends Doctrine_Record
              'foreign' => 'customer_id'));
 
         $this->hasMany('Contacts', array(
+             'local' => 'customer_id',
+             'foreign' => 'customer_id'));
+
+        $this->hasMany('DomainsProfiles', array(
              'local' => 'customer_id',
              'foreign' => 'customer_id'));
 

@@ -54,13 +54,20 @@ class CustomersDomainsRegistrars extends BaseCustomersDomainsRegistrars
      * @param $nic
      * @return Array
      */
-    public static function chkIfExist($nic) {
+    public static function chkIfExist($domainID, $nicHandle, $type="owner", $profileID=null) {
         $theitems = array ();
-        $dq = Doctrine_Query::create ()->select ( "nic_id as nicid, value as nicHandle" )->from ( 'CustomersDomainsRegistrars cr' );
+
+        // Get the domain information
+        $domain = Domains::findbyId($domainID);
         
-        if(!empty($nic)){
-            $dq->where('cr.value = ?', $nic);
-        }
+        $dq = Doctrine_Query::create ()->select ( "nic_id as nicid, value as nicHandle" )
+                                        ->from ( 'CustomersDomainsRegistrars cr' )
+                                        ->where('cr.value = ?', $nicHandle)
+                                        ->andWhere('cr.domain_id = ?', $domainID)
+                                        ->andWhere ( 'cr.registrars_id = ?', $domain['registrars_id'] )
+                                        ->andWhere('cr.profile_id = ?', $profileID)
+                                        ->andWhere('cr.customer_id = ?', $domain['customer_id'])
+                                        ->andWhere('cr.type = ?', $type);
         
         $items = $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
         return !empty($items[0]['nicHandle']) ? $items[0]['nicHandle'] : null;
@@ -134,16 +141,30 @@ class CustomersDomainsRegistrars extends BaseCustomersDomainsRegistrars
      * @param unknown_type $customerID
      * @param unknown_type $domainID
      */
-    public static function addNicHandle($customerID, $domainID, $registrarID, $nicHandle){
-    	$nic = self::chkIfExist ( $nicHandle );
+    public static function addNicHandle($domainID, $nicHandle, $type="owner", $profileID=null){
+    	$nic = self::chkIfExist ( $domainID, $nicHandle, $type, $profileID );
     	
 		if (empty($nic)) {
+
+			// Get the domain information
+			$domain = Domains::findbyId($domainID);
+
+			// Clear the old records
+			Doctrine_Query::create ()->delete ( 'CustomersDomainsRegistrars' )
+			                        ->where ( 'customer_id = ?', $domain['customer_id'] )
+			                        ->andWhere ( 'domain_id = ?', $domainID )
+			                        ->andWhere ( 'registrars_id = ?', $domain['registrars_id'] )
+			                        ->andWhere ( 'type = ?', $type)
+			                        ->execute ();
+			
 			$CustomerDomainsRegistrars = new CustomersDomainsRegistrars ( );
-			$CustomerDomainsRegistrars->customer_id = $customerID;
-			$CustomerDomainsRegistrars->registrars_id = $registrarID;
+			$CustomerDomainsRegistrars->customer_id = $domain['customer_id'];
+			$CustomerDomainsRegistrars->registrars_id = $domain['registrars_id'];
 			$CustomerDomainsRegistrars->creationdate = date('Y-m-d :H:i:s');
 			$CustomerDomainsRegistrars->domain_id = $domainID;
+			$CustomerDomainsRegistrars->profile_id = $profileID;
 			$CustomerDomainsRegistrars->value = $nicHandle;
+			$CustomerDomainsRegistrars->type = $type;
 			$CustomerDomainsRegistrars->save ();
 			return $nicHandle;
 		}else{

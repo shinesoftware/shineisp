@@ -35,6 +35,7 @@ Doctrine_Manager::getInstance()->bindComponent('Domains', 'doctrine');
  * @property Doctrine_Collection $Dns_Zones
  * @property Doctrine_Collection $Tickets
  * @property Doctrine_Collection $OrdersItemsDomains
+ * @property Doctrine_Collection $DomainsNichandle
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -178,6 +179,10 @@ abstract class BaseDomains extends Doctrine_Record
              'foreign' => 'domain_id'));
 
         $this->hasMany('OrdersItemsDomains', array(
+             'local' => 'domain_id',
+             'foreign' => 'domain_id'));
+
+        $this->hasMany('DomainsNichandle', array(
              'local' => 'domain_id',
              'foreign' => 'domain_id'));
     }

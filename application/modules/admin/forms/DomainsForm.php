@@ -37,6 +37,45 @@ class Admin_Form_DomainsForm extends Zend_Form
                 ->setAllowEmpty(true)
                 ->setMultiOptions(Registrars::getList());
                   
+        // Domain Ownership
+        $this->addElement('select', 'owner', array(
+                'label' => $translate->_('Owner'),
+                'description' => $translate->_("If the domain owner's profile is not set, the domain customer information will be used."),
+                'decorators' => array('Bootstrap'),
+                'class'      => 'form-control'
+        ));
+        
+        $this->getElement('owner')
+                ->setAllowEmpty(true)
+                ->setMultiOptions(DomainsProfiles::getList(true));
+                  
+        $this->addElement('select', 'admin', array(
+                'label' => $translate->_('Admin-C'),
+                'decorators' => array('Bootstrap'),
+                'class'      => 'form-control'
+        ));
+        $this->getElement('admin')
+                ->setAllowEmpty(true)
+                ->setMultiOptions(DomainsProfiles::getList(true));
+                  
+        $this->addElement('select', 'tech', array(
+                'label' => $translate->_('Tech'),
+                'decorators' => array('Bootstrap'),
+                'class'      => 'form-control'
+        ));
+        $this->getElement('tech')
+                ->setAllowEmpty(true)
+                ->setMultiOptions(DomainsProfiles::getList(true));
+                  
+        $this->addElement('select', 'billing', array(
+                'label' => $translate->_('Billing'),
+                'decorators' => array('Bootstrap'),
+                'class'      => 'form-control'
+        ));
+        $this->getElement('billing')
+                ->setAllowEmpty(true)
+                ->setMultiOptions(DomainsProfiles::getList(true));
+                  
         $this->addElement('text', 'creation_date', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Creation date'),

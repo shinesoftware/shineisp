@@ -225,6 +225,7 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 					array("url" => "/admin/domains/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null)),
 					array("url" => "/admin/domains/list", "label" => $this->translator->translate('List'), "params" => array('css' => null)),
 					array("url" => "/admin/domains/new/", "label" => $this->translator->translate('New'), "params" => array('css' => null)),
+					array("url" => "/admin/domains/newevent/id/$id", "label" => $this->translator->translate('Calendar Event'), "params" => array('css' => null)),
 			);
 			
 			try {
@@ -235,6 +236,12 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 					$rs [0] ['expiring_date'] = Shineisp_Commons_Utilities::formatDateOut ( $rs [0] ['expiring_date'] );
 					$rs [0] ['status_id'] = $rs [0] ['Statuses'] ['status_id'];
 					
+					// Domains NicHandles
+					$rs [0] ['owner'] = DomainsNichandle::getProfile($id);
+					$rs [0] ['admin'] = DomainsNichandle::getProfile($id, "admin");
+					$rs [0] ['tech'] = DomainsNichandle::getProfile($id, "tech");
+					$rs [0] ['billing'] = DomainsNichandle::getProfile($id, "billing");
+
 					$form->populate ( $rs [0] );
 					
 					if(!empty($rs [0] ['DomainsTlds']['WhoisServers'])){
@@ -304,40 +311,10 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 		);
 		
 		try {
-			if (is_numeric ( $id )) {
-				$this->domains = Doctrine::getTable ( 'Domains' )->find ( $id );
-			}
-			
-			// Get the TLD information
-			$tldInfo = DomainsTlds::getAllInfo($params ['tld_id']);
-
-			$params ['creation_date'] = empty ( $params ['creation_date'] ) ? date ( 'Y-m-d' ) : Shineisp_Commons_Utilities::formatDateIn ( $params ['creation_date'] );
-
-			// Set the new values
-			$this->domains->domain = $params ['domain'];
-            if( isset($tldInfo['WhoisServer']) ) {
-			     $this->domains->tld = $tldInfo['WhoisServer']['tld'];
-            }
-			$this->domains->tld_id = $params ['tld_id'];
-			$this->domains->authinfocode = $params ['authinfocode'];
-			$this->domains->creation_date = $params ['creation_date'];
-			$this->domains->modification_date = date ( 'Y-m-d' );
-			
-			if (! empty ( $params ['expiring_date'] )) {
-				$this->domains->expiring_date = Shineisp_Commons_Utilities::formatDateIn ( $params ['expiring_date'] );
-			}
-
-			$this->domains->customer_id = $params ['customer_id'];
-			$this->domains->note = $params ['note'];
-			$this->domains->registrars_id = ! empty ( $params ['registrars_id'] ) ? $params ['registrars_id'] : Null;
-			$this->domains->status_id = $params ['status_id'] ? $params ['status_id'] : null;
-			
-			// Save the data
-			$this->domains->save ();
-			$id = is_numeric ( $id ) ? $id : $this->domains->getIncremented ();
-			
+			$id = Domains::saveAll($id, $params);
 			Domains::saveDnsZones ( $id, $params );
 			Domains::setAutorenew($id, ($params['autorenew'] == 0) ? false: true);
+		    DomainsNichandle::setNicHandles($id, $params['owner'], $params['admin'], $params['tech'], $params['billing']);
 			
 			// If the domain status has been set as active
 			// the registrar task record will be set as completed  
@@ -489,6 +466,29 @@ class Admin_DomainsController extends Shineisp_Controller_Admin {
 				die;
 			}
 		}
+	}
+	
+	/**
+	 * Create a google calendar event
+	 */
+	public function neweventAction() {
+		$id = $this->getRequest ()->getParam ( 'id' );
+		if (! empty ( $id ) && is_numeric ( $id )) {
+		    if(Shineisp_Plugins_Calendar_Main::isReady()){
+    			$domain = Domains::find($id, "expiring_date as end, CONCAT(domain, '.', ws.tld) as domain, CONCAT('http://www.', domain, '.', ws.tld) as url");
+    			if(!empty($domain[0])){
+    			    $summary = $domain[0]['domain'];
+    			    $description = $this->translator->_("The domain %s expires today!", $domain[0]['url']);
+    			    $location = "";
+    				if(true === Shineisp_Plugins_Calendar_Main::newEvent($summary, $location, $description, $domain[0]['end'], $domain[0]['end'])){
+    				    $this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => 'The task requested has been executed successfully.', 'status' => 'success' ) );
+    				}
+    			}
+		    }
+		    $this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Unable to process the request at this time.' ), 'status' => 'danger' ) );
+		}
+		
+		$this->_helper->redirector ( 'edit', 'domains', 'admin', array ('id' => $id, 'mex' => $this->translator->translate ( 'Domain id has not been found.' ), 'status' => 'danger' ) );
 	}
 
 }

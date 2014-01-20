@@ -161,7 +161,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 			// Check all the tasks saved within the Domains_Tasks table. 
 			foreach ( $tasks as $task ) {
 				
-				Shineisp_Commons_Utilities::logs ( $task ['action'] . " - " . $task ['domain'], "tasks.log" );
+				Shineisp_Commons_Utilities::logs ( $task ['action'] . " - " . $task ['Domains']['domain'] . "." . $task ['Domains']['tld'], "tasks.log" );
 				try {
 					self::doDomainTask($task);
 				} catch ( SoapFault $e ) {
@@ -177,7 +177,8 @@ class System_TasksController extends Shineisp_Controller_Default {
 	 * Execute the task
 	 */
 	private function doDomainTask($task) {
-		if ( !isset($task['Domains']) || !isset($task['Domains']['Customers']) || !isset($task['Domains']['Customers']['customer_id']) ) {
+
+	    if ( !isset($task['Domains']) || !isset($task['Domains']['Customers']) || !isset($task['Domains']['Customers']['customer_id']) ) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'customer_id not found' ) );
 			continue;
 		}
@@ -196,7 +197,9 @@ class System_TasksController extends Shineisp_Controller_Default {
 			
 			if (! empty ( $domain [0] )) {
 				
-				// Get the associated registrar for the domain selected 
+			    $domain_name = $domain[0]['domain'] . "." . $domain[0]['tld'];
+
+			    // Get the associated registrar for the domain selected 
 				$registrar = Registrars::getRegistrarId ( $task ['registrars_id'] );
 				
 				if (! empty ( $registrar ['class'] )) {
@@ -212,10 +215,10 @@ class System_TasksController extends Shineisp_Controller_Default {
 						$regclass->registerDomain ( $task ['domain_id'] );
 						
 						// Set the DNS ZONES
-						DomainsTasks::AddTask($task ['domain'], "setDomainHosts");
+						DomainsTasks::AddTask($domain_name, "setDomainHosts");
 												
 						// Update the domain information
-						DomainsTasks::AddTask($task ['domain'], "updateDomain");
+						DomainsTasks::AddTask($domain_name, "updateDomain");
 					
 					} elseif ($action == "transferDomain") {
 						
@@ -226,7 +229,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 						$regclass->renewDomain ( $task ['domain_id'] );
 						
 						// Update the domain information
-						DomainsTasks::AddTask($task ['domain'], "updateDomain");
+						DomainsTasks::AddTask($domain_name, "updateDomain");
 						
 					} elseif ($action == "lockDomain") {
 						
@@ -237,7 +240,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 						$regclass->unlockDomain ( $task ['domain_id'] );
 						
 						// Update the domain information
-						DomainsTasks::AddTask($task ['domain'], "updateDomain");
+						DomainsTasks::AddTask($domain_name, "updateDomain");
 						
 					} elseif ($action == "setNameServers") {
 						
@@ -267,9 +270,8 @@ class System_TasksController extends Shineisp_Controller_Default {
 			}
 		} catch ( Exception $e ) {
 			DomainsTasks::UpdateTaskLog ( $task ['task_id'], $this->translations->translate ( $e->getMessage () ) );
-			
-			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error message: " . $task['domain'], $e->getMessage () );
-			Shineisp_Commons_Utilities::logs ( "Task error message: " . $task['domain'] . ":" . $e->getMessage (), "tasks.log" );
+			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error message: " . $task ['Domains']['domain'] . "." . $task ['Domains']['tld'], $e->getMessage () );
+			Shineisp_Commons_Utilities::logs ( "Task error message: " . $task ['Domains']['domain'] . "." . $task ['Domains']['tld']. ":" . $e->getMessage (), "tasks.log" );
 		}
 		
 		return true;

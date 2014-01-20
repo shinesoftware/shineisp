@@ -99,7 +99,7 @@ class ServicesController extends Shineisp_Controller_Default {
 			$rs = $this->services->getAllInfo ( $id, $fields, 'c.customer_id = ' . $NS->customer ['customer_id'] . ' OR c.parent_id = ' . $NS->customer ['customer_id'] );
 			
 			if (empty ( $rs )) 
-				$this->_helper->redirector ( 'list', 'services', 'default', array ('mex' => 'The service selected has been not found.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'services', 'default', array ('mex' => 'The service selected has been not found.', 'status' => 'danger' ) );
 			
 			if (! empty ( $rs['vat'] ) && $rs ['price'] > 0) {
 				$rs['total_with_tax'] = $currency->toCurrency($rs['price'] * (100 + $rs['vat']) / 100, array('currency' => Settings::findbyParam('currency')));

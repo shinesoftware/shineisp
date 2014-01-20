@@ -954,6 +954,35 @@ class Domains extends BaseDomains {
 	}
 	
 	/**
+	 * Get the domain tld by id
+	 * @param $id
+	 * @return string
+	 */
+	public static function getDomainTld($id) {
+		try {
+			$dq = Doctrine_Query::create ()
+										->select('ws.tld as tld')
+										->from ( 'Domains d' )
+										->leftJoin ( 'd.DomainsTlds dt' )
+										->leftJoin ( 'dt.WhoisServers ws' )
+                                        ->leftJoin ( 'd.Customers c' )
+										->where ( "domain_id = ?", $id )
+                                        ->addWhere( "c.isp_id = ?", Isp::getCurrentId() )
+										->limit ( 1 );
+				
+			$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY  );
+			
+			if(!empty($record)){
+				return $record[0]['tld'];
+			}
+			
+		} catch ( Exception $e ) {
+			die ( $e->getMessage () );
+		}
+		return false;
+	}
+	
+	/**
 	 * getAllInfo
 	 * Get all data from domain ID
 	 * @param $id
@@ -1075,6 +1104,54 @@ class Domains extends BaseDomains {
 			}
 		}
 	}	
+	
+	/**
+	 * Save the domain information
+	 * 
+	 * @param integer|null $id
+	 * @param array $params
+	 * @return Ambigous <unknown, number, NULL, mixed>
+	 */
+	public static function saveAll($id, $params) {
+
+	    if (is_numeric ( $id )) {
+	        $domains = Doctrine::getTable ( 'Domains' )->find ( $id );
+	    }else{
+	        $domains = new Domains();
+	    }
+	    	
+	    // Get the TLD information
+	    $tldInfo = DomainsTlds::getAllInfo($params ['tld_id']);
+	    
+	    $params ['creation_date'] = empty ( $params ['creation_date'] ) ? date ( 'Y-m-d' ) : Shineisp_Commons_Utilities::formatDateIn ( $params ['creation_date'] );
+	    
+	    // Set the new values
+	    $domains->domain = $params ['domain'];
+	    if( isset($tldInfo['WhoisServers']) ) {
+	        $domains->tld = $tldInfo['WhoisServers']['tld'];
+	    }
+	    $domains->tld_id = $params ['tld_id'];
+	    $domains->authinfocode = $params ['authinfocode'];
+	    $domains->creation_date = $params ['creation_date'];
+	    $domains->modification_date = date ( 'Y-m-d' );
+	    	
+	    if (! empty ( $params ['expiring_date'] )) {
+	        $domains->expiring_date = Shineisp_Commons_Utilities::formatDateIn ( $params ['expiring_date'] );
+	    }
+	    
+	    $domains->customer_id = $params ['customer_id'];
+	    $domains->note = $params ['note'];
+	    $domains->registrars_id = ! empty ( $params ['registrars_id'] ) ? $params ['registrars_id'] : Null;
+	    $domains->status_id = $params ['status_id'] ? $params ['status_id'] : null;
+	    	
+	    // Save the data
+	    if($domains->trySave ()){
+	        $id = is_numeric ( $id ) ? $id : $domains->getIncremented ();
+	        return $id;
+	    }
+	    
+	    return false;
+	}
 
 	/**
 	 * ownerGrid
@@ -1168,6 +1245,17 @@ class Domains extends BaseDomains {
 		return null;
 	}
 
+	
+	/**
+	 * Get a record by ID
+	 * @param $id
+	 * @return Doctrine Record
+	 */
+	public static function findbyId($id) {
+		$dq = Doctrine_Query::create ()->from ( 'Domains d' )->where ( "d.domain_id = ?", $id )->limit(1);
+		$record = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
+		return !empty($record[0]) ? $record[0] : null;
+	}
 	
 	/**
 	 * find
@@ -1460,16 +1548,16 @@ class Domains extends BaseDomains {
 		return $data;
 	}	
 	
-	/*
-	 * cmp
-	 * Sorting function
-	 */
-	static function cmp($a, $b) {
-		if ($a ["total"] == $b ["total"]) {
-			return 0;
-		}
-		return ($a ["total"] < $b ["total"]) ? - 1 : 1;
-	}
+// 	/*
+// 	 * cmp
+// 	 * Sorting function
+// 	 */
+// 	static function cmp($a, $b) {
+// 		if ($a ["total"] == $b ["total"]) {
+// 			return 0;
+// 		}
+// 		return ($a ["total"] < $b ["total"]) ? - 1 : 1;
+// 	}
 	
 	/**
 	 * Summary of all the domain stautus

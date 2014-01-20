@@ -149,6 +149,7 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 	public function editAction() {
 		$form = $this->getForm ( '/admin/domainstasks/process' );
 		$id = $this->getRequest ()->getParam ( 'id' );
+		$this->view->title = $this->translator->translate("Domain task");
 		
 		// Create the buttons in the edit form
 		$this->view->buttons = array(
@@ -162,6 +163,10 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 			if (! empty ( $rs[0] )) {
 				$rs[0]['startdate'] = Shineisp_Commons_Utilities::formatDateOut($rs[0]['startdate']);
 				$rs[0]['enddate'] = Shineisp_Commons_Utilities::formatDateOut($rs[0]['enddate']);
+				
+				$domain = $rs[0]['Domains']['domain'] . "." . $rs[0]['Domains']['DomainsTlds']['WhoisServers']['tld'];
+				$this->view->title = $this->translator->_("Domain task: %s", $domain);
+				$this->view->titlelink = "/admin/domains/edit/id/" . $rs[0]['domain_id'];
 				$form->populate ( $rs[0] );
 				$this->view->buttons[] = array("url" => "/admin/domainstasks/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 			}
@@ -169,7 +174,6 @@ class Admin_DomainstasksController extends Shineisp_Controller_Admin {
 		
 		$this->view->mex = $this->getRequest ()->getParam ( 'mex' );
 		$this->view->mexstatus = $this->getRequest ()->getParam ( 'status' );
-		$this->view->title = $this->translator->translate("Domain task");
 		$this->view->description = $this->translator->translate("Here you can edit the domain task information.");
 		
 		$this->view->form = $form;

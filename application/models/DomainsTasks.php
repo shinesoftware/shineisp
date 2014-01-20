@@ -88,6 +88,7 @@ class DomainsTasks extends BaseDomainsTasks {
 	public static function getById($id, $fields = "*", $retarray = false) {
 		$dq = Doctrine_Query::create ()->select ( $fields )
 		->from ( 'DomainsTasks t' )
+		->leftJoin('t.Domains d')->leftJoin('d.DomainsTlds tld')->leftJoin('tld.WhoisServers w')
 		->where ( "t.task_id = ?", $id )
 		->limit ( 1 );
 	

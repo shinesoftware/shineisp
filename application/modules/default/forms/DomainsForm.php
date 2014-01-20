@@ -88,7 +88,6 @@ class Default_Form_DomainsForm extends Zend_Form
                 
         $this->addSubForm ( $dnsform, 'dnsform' );
         
-        
         $id = $this->addElement('hidden', 'domain_id');
 
     }

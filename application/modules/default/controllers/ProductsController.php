@@ -152,7 +152,7 @@ class ProductsController extends Shineisp_Controller_Default {
 		
 		} else {
 			
-			return $this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => 'The request is not correct.', 'status' => 'error' ) );
+			return $this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => 'The request is not correct.', 'status' => 'danger' ) );
 		}
 		$this->_helper->viewRenderer ( 'details' );
 	}

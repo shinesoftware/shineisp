@@ -117,6 +117,28 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
+	 * Select the type of companies starting from the legal form
+	 * @return json
+	 */
+	public function companytypeAction() {
+	    
+	    if($this->getRequest()->isXmlHttpRequest()){
+	    
+    	    $id = $this->getParam('id');
+    	    
+    	    if(!empty($id)){
+    	        $records = CompanyTypes::getListbyLegalformID($id);
+    	        die(json_encode($records));
+    	    }
+    	    
+    	    $records = Customers::getAll();
+    		die(json_encode($records));
+	    }else{
+	        die();
+	    }
+	}
+	
+	/**
 	 * newAction
 	 * Create the form module in order to create a record
 	 * @return unknown_type
@@ -559,8 +581,7 @@ class Admin_CustomersController extends Shineisp_Controller_Admin {
 	}
 	
 	/**
-	 * getproductinfo
-	 * Get product info
+	 * Get customer info
 	 * @return Json
 	 */
 	public function getcustomerinfoAction() {

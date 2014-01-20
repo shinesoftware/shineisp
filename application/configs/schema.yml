@@ -759,6 +759,139 @@ CustomersGroups:
       local: isp_id
       foreign: isp_id
 
+DomainsNichandle:
+  connection: doctrine
+  tableName: domains_nichandles
+  columns:
+    nic_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    profile_id:
+      type: integer(4)
+      notnull: true
+    domain_id:
+      type: integer(4)
+      notnull: true
+    type:
+      type: string(15)
+      notnull: true
+      default: 'owner'
+  relations:
+    DomainsProfiles:
+      local: profile_id
+      foreign: profile_id
+      onDelete: CASCADE
+    Domains:
+      local: domain_id
+      foreign: domain_id
+      onDelete: CASCADE
+                  
+DomainsProfiles:
+  connection: doctrine
+  tableName: domains_profiles
+  columns:
+    profile_id:
+      type: integer(4)
+      fixed: 0
+      unsigned: false
+      primary: true
+      autoincrement: true
+    company:
+      type: string(50)
+      notnull: false
+    firstname:
+      type: string(100)
+      notnull: false
+    lastname:
+      type: string(100)
+      notnull: false
+    gender:
+      type: string(1)
+      notnull: false
+    email:
+      type: string(100)
+      notnull: false
+    phone:
+      type: string(100)
+      notnull: false
+    fax:
+      type: string(100)
+    birthdate:
+      type: date(25)
+      notnull: false
+    birthplace:
+      type: string(200)
+      notnull: false
+    birthdistrict:
+      type: string(50)
+      notnull: false
+    birthcountry:
+      type: string(50)
+      notnull: false
+    birthnationality:
+      type: string(50)
+      notnull: false
+    address:
+      type: string(50)
+      notnull: false
+    zip:
+      type: string(10)
+      notnull: false
+    city:
+      type: string(50)
+      notnull: false
+    area:
+      type: string(50)
+      notnull: false
+    country_id:
+      type: integer(4)
+    taxpayernumber:
+      type: string(20)
+      notnull: false
+    vat:
+      type: string(20)
+      notnull: false
+    type_id:
+      type: integer(4)
+      notnull: false
+    legalform_id:
+      type: integer(4)
+      notnull: false
+    status_id:
+      type: integer(4)
+      notnull: true
+    customer_id:
+      type: integer(4)
+      notnull: true
+    created_at:
+      type: timestamp(25)
+      notnull: false
+    updated_at:
+      type: timestamp(25)
+      notnull: false
+  relations:
+    CompanyTypes:
+      local: type_id
+      foreign: type_id
+      onDelete: Set Null
+    Legalforms:
+      local: legalform_id
+      foreign: legalform_id
+      onDelete: 'Set Null'
+    Statuses:
+      local: status_id
+      foreign: status_id      
+    Customers:
+      local: customer_id
+      foreign: customer_id
+      onDelete: CASCADE
+    Countries:
+      local: country_id
+      foreign: country_id
+      onDelete: 'Set Null'
             
 Customers:
   connection: doctrine
@@ -908,12 +1041,18 @@ CustomersDomainsRegistrars:
     domain_id:
       type: integer(4)
       notnull: true
+    profile_id:
+      type: integer(4)
     registrars_id:
       type: integer(4)
       notnull: true
     creationdate:
       type: date(25)
       notnull: true
+    type:
+      type: string(20)
+      notnull: false
+      default: 'owner'
     value:
       type: string(100)
       notnull: false
@@ -921,15 +1060,17 @@ CustomersDomainsRegistrars:
     Customers:
       local: customer_id
       foreign: customer_id
-      type: one
     Registrars:
       local: registrars_id
       foreign: registrars_id
-      type: one
     Domains:
       local: domain_id
       foreign: domain_id
-      type: one
+    DomainsProfiles:
+      local: profile_id
+      foreign: profile_id
+      onDelete: CASCADE
+      
 Dns_Zones:
   connection: doctrine
   tableName: dns_zones
@@ -1145,9 +1286,6 @@ DomainsTasks:
       notnull: false
     action:
       type: string(100)
-      notnull: true
-    domain:
-      type: string()
       notnull: true
     log:
       type: string()

@@ -54,7 +54,7 @@ class Countries extends BaseCountries {
 	}
 
 	/**
-	 * Find by country name by Id
+	 * Find country name by Id
 	 * 
 	 * 
 	 * @param unknown_type $id
@@ -66,6 +66,21 @@ class Countries extends BaseCountries {
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
 		
 		return !empty($record[0]['name']) ? $record[0]['name'] : null;
+	}
+
+	/**
+	 * Find country code by Id
+	 * 
+	 * 
+	 * @param integer $id
+	 */
+	public static function getCodebyId($id) {
+		$record = Doctrine_Query::create ()->from ( 'Countries c' )
+            		    					->where('country_id = ?', $id)
+            		    					->limit(1)
+            								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
+		
+		return !empty($record[0]['code']) ? $record[0]['code'] : null;
 	}
 	
 	/**
@@ -89,12 +104,13 @@ class Countries extends BaseCountries {
 	 */
 	public static function getList( $first = false ) {
 		$items = array ();
+		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
 		$records = Doctrine_Query::create ()->from ( 'Countries c' )
             		    					->orderBy('c.name')
             								->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );		
 		
         if( $first == true ) {
-            $items[0] = '-- Select Country --';
+            $items[null] = " -- ". $translator->translate('Select Country') . " -- ";
         }
         
 		foreach ( $records as $c ) {

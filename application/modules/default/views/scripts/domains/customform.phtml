@@ -29,108 +29,126 @@
     	    
     		    <div class="tab-pane active" id="tab1"> 
     		        <div class="row">
-		                <?php echo $this->verticalgrid($this->datagrid)?>
-		                
-		                <?php
-                            if($this->days >= 3){
-                                echo $form->autorenew->render();
-                            }else{
-                                if(!$this->autorenew){
+    		            <div class="col-lg-12"> 
+    		                <?php echo $this->verticalgrid($this->datagrid)?>
+    		                
+    		                <?php
+                                if($this->days >= 3){
                                     echo $form->autorenew->render();
+                                }else{
+                                    if(!$this->autorenew){
+                                        echo $form->autorenew->render();
+                                    }
                                 }
-                            }
-                        ?> 
+                            ?> 
+                        </div>
                     </div>
                 </div>
             
                 <div class="tab-pane" id="tab2"> 
                     <div class="row">
-                        <?php echo $this->bbslist($this->messages); ?>
-                        <?php echo $form->note->render()?> 
+                        <div class="col-lg-12"> 
+                            <?php echo $this->bbslist($this->messages); ?>
+                            <?php echo $form->note->render()?> 
+                        </div>
                     </div>
                 </div> 
                 
                 <div class="tab-pane" id="tab4"> 
-			    	<?php echo $this->Simplegrid($this->orders)?>
-			    	<p><?php echo $this->translate('List of all the orders where the domain appears.') ?></p>
+                    <div class="row">
+                        <div class="col-lg-12"> 
+                            <div class="alert alert-danger"><?php echo $this->translate('List of all the orders where the domain appears.') ?></div>
+        			    	<?php echo $this->Simplegrid($this->orders)?>
+                        </div> 
+                    </div> 
                 </div> 
                 
                 <div class="tab-pane" id="tab8"> 
-			    	 
-					<table class="table table-striped">        
-			            <?php if(empty($this->is_maintained)): ?>
-			            <tr>
-			            	<td>
-			            		<h5><?php echo strtoupper($this->translate('Transfer here your domain')) ?></h5>
-			            		<p><?php echo $this->translate('To transfer your own domain name here you have to set the AuthInfo Code in the following textbox area.') ?></p>
-			            		<div class="authinfocode-wrapper">          
-					            	<?php echo $form->authinfocode->render()?>
-					            </div>
-			            	</td>
-			            </tr>
-			            <?php else: ?>
-			            <tr>
-			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Protect your domain')) ?></strong></td>
-			            	<td><p><?php echo $this->translate('To protect against theft the domain, the domain is placed in a state that does not allow the transfer. If another registrar requires the transfer of the domain, the operation will be automatically rejected. If you wish to transfer the domain to a new registrar, remove the protection. In this state, the domain will not be protected and another registrar may request the transfer.') ?></p></td>
-			            	<td valign="top" width="245"><a class="small btn btn-danger alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/lockDomain"><?php echo strtoupper($this->translate('Protect your domain')) ?></a></td>
-			            </tr>
-			            <tr>
-			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></strong></td>
-			            	<td>
-			            		<p><?php echo $this->translate('The authinfocode is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrar of this code, necessary to perform all operations. Without this code you cannot transfer this domain.') ?></p>
-			            		<?php if(!empty($this->authinfocode)): ?>
-			            			<div class="authinfocode"><h5><?php echo $this->translate('Authinfo')?></h5><pre><?php echo $this->authinfocode; ?></pre></div>
-			            		<?php endif;?>
-			            	</td>
-			            	<td valign="top" width="300">
-			            		<?php if(empty($this->authinfocode)): ?>
-			            			<a class="small btn btn-danger alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></a>
-			            		<?php else: ?>	
-			            			<a class="small btn btn-danger alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request a NEW AUTHINFO')) ?></a>
-			            		<?php endif; ?>
-			            	</td>
-			            </tr>
-			            <?php endif;?>
-			        </table>
-			        
-			        <p><?php echo $this->translate('In this section you can execute various operation with your domain name.')?></p>
+			    	 <div class="row">
+                        <div class="col-lg-12"> 
+                            <div class="alert alert-danger"><?php echo $this->translate('In this section you can execute various operation with your domain name.')?></div>
+                        
+        					<table class="table table-striped">        
+        			            <?php if(empty($this->is_maintained)): ?>
+        			            <tr>
+        			            	<td>
+        			            		<h5><?php echo strtoupper($this->translate('Transfer here your domain')) ?></h5>
+        			            		<p><?php echo $this->translate('To transfer your own domain name here you have to set the AuthInfo Code in the following textbox area.') ?></p>
+        			            		<div class="authinfocode-wrapper">          
+        					            	<?php echo $form->authinfocode->render()?>
+        					            </div>
+        			            	</td>
+        			            </tr>
+        			            <?php else: ?>
+        			            <tr>
+        			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Protect your domain')) ?></strong></td>
+        			            	<td><p><?php echo $this->translate('To protect against theft the domain, the domain is placed in a state that does not allow the transfer. If another registrar requires the transfer of the domain, the operation will be automatically rejected. If you wish to transfer the domain to a new registrar, remove the protection. In this state, the domain will not be protected and another registrar may request the transfer.') ?></p></td>
+        			            	<td valign="top" width="245"><a class="small btn btn-danger alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/lockDomain"><?php echo strtoupper($this->translate('Protect your domain')) ?></a></td>
+        			            </tr>
+        			            <tr>
+        			            	<td valign="top" width="250"><strong><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></strong></td>
+        			            	<td>
+        			            		<p><?php echo $this->translate('The authinfocode is a code that is assigned at the time of registration and that uniquely identifies the domain. The Registrar must notify the Registrar of this code, necessary to perform all operations. Without this code you cannot transfer this domain.') ?></p>
+        			            		<?php if(!empty($this->authinfocode)): ?>
+        			            			<div class="authinfocode"><h5><?php echo $this->translate('Authinfo')?></h5><pre><?php echo $this->authinfocode; ?></pre></div>
+        			            		<?php endif;?>
+        			            	</td>
+        			            	<td valign="top" width="300">
+        			            		<?php if(empty($this->authinfocode)): ?>
+        			            			<a class="small btn btn-danger alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request the AUTHINFO')) ?></a>
+        			            		<?php else: ?>	
+        			            			<a class="small btn btn-danger alert confirm" href="/domains/register/id/<?php echo $this->domain_id?>/do/unlockDomain"><?php echo strtoupper($this->translate('Request a NEW AUTHINFO')) ?></a>
+        			            		<?php endif; ?>
+        			            	</td>
+        			            </tr>
+        			            <?php endif;?>
+        			        </table>
+        			        
+                        </div> 
+                    </div> 
                 </div> 
                 
                 <div class="tab-pane" id="tab6"> 
-                    
-                    <table class="table table-striped">
-                    	<tr>
-                    		<td width="250"><?php echo $form->dnsform->subdomain->setDecorators(array('Simple'))?></td>
-                    		<td><?php echo $form->dnsform->zones->setDecorators(array('Simple'))?></td>
-                    		<td><?php echo $form->dnsform->target->setDecorators(array('Simple'))?></td>
-                    	</tr>
-                    </table>
-                    
                     <div class="row">
-                        <?php echo $this->Simplegrid($this->dnsgrid)?>
-                       	<div class="text-right">
-                           	<?php if(!empty($this->dnsgrid['records'])):?>
-                            	<a class="btn btn-danger confirm" href="/domains/updatednszone/id/<?php echo $this->domain_id ?>"><?php echo $this->translate('Update DNS Zones')?></a>
-                            <?php endif;?>
+                        <div class="col-lg-12"> 
+                            <div class="alert alert-danger"><?php echo $this->translate('Here you can set your DNS Zones. All the edits have need one hour at least.') ?></div>
+                            <table class="table table-striped">
+                            	<tr>
+                            		<td width="250"><?php echo $form->dnsform->subdomain->setDecorators(array('Simple'))?></td>
+                            		<td><?php echo $form->dnsform->zones->setDecorators(array('Simple'))?></td>
+                            		<td><?php echo $form->dnsform->target->setDecorators(array('Simple'))?></td>
+                            	</tr>
+                            </table>
+                    
+                            <?php echo $this->Simplegrid($this->dnsgrid)?>
+                           	<div class="text-right">
+                               	<?php if(!empty($this->dnsgrid['records'])):?>
+                                	<a class="btn btn-danger confirm" href="/domains/updatednszone/id/<?php echo $this->domain_id ?>"><?php echo $this->translate('Update DNS Zones')?></a>
+                                <?php endif;?>
+                            </div>
                         </div>
                     </div>
-                    
-                    <p><?php echo $this->translate('Here you can set your DNS Zones. All the edits have need one hour at least.') ?></p>
                 </div>
                 
                 <div class="tab-pane" id="tab7"> 
-				    <?php echo $this->Simplegrid($this->tasks)?>
-				    <p><?php echo $this->translate('List of all the tasks executed.') ?></p><br/>
+                    <div class="row">
+		        	    <div class="col-lg-12"> 
+		        	        <div class="alert alert-info"><?php echo $this->translate('List of all the tasks executed.') ?></div>
+        				    <?php echo $this->Simplegrid($this->tasks)?>
+    				    </div>
+    				</div>
                 </div> 
                 
-                <div class="tab-pane" id="tab5"> 
-                    <?php echo $this->Simplegrid($this->services)?>
-				    <p><?php echo $this->translate('List of all the services attached to the domain.') ?></p>
+                <div class="tab-pane" id="tab5">
+                    <div class="row">
+    		        	<div class="col-lg-12">  
+                            <?php echo $this->Simplegrid($this->services)?>
+        				    <p><?php echo $this->translate('List of all the services attached to the domain.') ?></p>
+				        </div>
+				    </div>
                 </div> 
-                 
             </div>
-        </div>
-		
+		</div>
 		<p align="right"><?php echo $form->submit->render()?></p>
 		
 		<?php echo $form->domain_id->render()?>

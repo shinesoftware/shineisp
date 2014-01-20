@@ -4,6 +4,8 @@
 <?php echo $this->render('partials/headers.phtml'); ?>
 <?php echo $this->render('partials/formerrors.phtml'); ?>
 
+<div class="alert alert-info"><?php echo $form->log->getValue() ?></div>
+
 <form enctype="multipart/form-data" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
 	
 	<div class="tabbable" id="tabs">
@@ -12,17 +14,27 @@
 			<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Logs');?></a></li> 
 		</ul>
 		
-        <div class="tab-content">
-		    <div class="tab-pane" id="tab1">
-		    	<?php echo $form->action->render() ?>
-		        <?php echo $form->startdate->render() ?>
-		        <?php echo $form->enddate->render() ?>
-		        <?php echo $form->registrars_id->render() ?>
-		        <?php echo $form->domain_id->render() ?>
-		        <?php echo $form->status_id->render() ?>
+	    <div class="tab-content">
+		    <div class="tab-pane" id="tab1"> 
+		        <div class="row">
+		            <div class="col-lg-6">
+		                <?php echo $form->action->render() ?>
+        		        <?php echo $form->startdate->render() ?>
+        		        <?php echo $form->enddate->render() ?>
+		            </div>
+		            <div class="col-lg-6"> 
+        		        <?php echo $form->registrars_id->render() ?>
+        		        <?php echo $form->domain_id->render() ?>
+        		        <?php echo $form->status_id->render() ?>
+		            </div>
+		        </div>
 		    </div>
-		    <div id="tab2"> 
-		        <?php echo $form->log->render() ?>
+		    <div class="tab-pane" id="tab2"> 
+		        <div class="row">
+		            <div class="col-lg-12"> 
+		                <?php echo $form->log->render() ?>
+		            </div>
+		        </div>
 		    </div>
 		</div>
 	</div>

@@ -79,7 +79,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				$params = array();
 				
 				// Save the nic-Handle in the database
-				CustomersDomainsRegistrars::addNicHandle($customerID, $domainID, $registrar['registrars_id'], $nicHandle);
+				CustomersDomainsRegistrars::addNicHandle($domainID, $nicHandle);
 				
 				$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 				
@@ -251,7 +251,7 @@ class Shineisp_Plugins_Registrars_Ascio_Main extends Shineisp_Plugins_Registrars
 				$params = array();
 				
 				// Save the nic-Handle in the database
-				CustomersDomainsRegistrars::addNicHandle($customerID, $domainID, $registrar['registrars_id'], $nicHandle);
+				CustomersDomainsRegistrars::addNicHandle($domainID, $nicHandle);
 				
 				$domain_name = $domain[0]['domain'] . "." . $domain[0]['DomainsTlds']['WhoisServers']['tld'];
 	

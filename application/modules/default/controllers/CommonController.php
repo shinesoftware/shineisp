@@ -187,7 +187,7 @@ class CommonController extends Shineisp_Controller_Default {
 	
 				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => 'The domains have been added in the cart' ) );
 			} catch ( Exception $e ) {
-				$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the creation of the order.', 'status' => 'error' ) );
+				$this->_helper->redirector ( 'list', 'domains', 'default', array ('mex' => 'A problem has been occurred during the creation of the order.', 'status' => 'danger' ) );
 			}
 		}
 		return false;
@@ -239,7 +239,7 @@ class CommonController extends Shineisp_Controller_Default {
 				}
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	
 		$this->view->form = $form;
@@ -278,10 +278,10 @@ class CommonController extends Shineisp_Controller_Default {
 	
 				$this->_helper->redirector ( 'summary', 'cart', 'default', array ( 'mex' => $translator->translate('The domain has been added in your order'), 'status' => 'success' ) );
 			}else{
-				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => $translator->translate('The selected Domain TLD has not been found.'), 'status' => 'error' ) );
+				$this->_helper->redirector ( 'summary', 'cart', 'default', array ('mex' => $translator->translate('The selected Domain TLD has not been found.'), 'status' => 'danger' ) );
 			}
 		} catch ( Exception $e ) {
-			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => $e->getMessage (), 'status' => 'error' ) );
+			$this->_helper->redirector ( 'index', 'index', 'default', array ('mex' => $e->getMessage (), 'status' => 'danger' ) );
 		}
 	}
 	

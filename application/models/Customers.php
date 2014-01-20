@@ -318,6 +318,8 @@ class Customers extends BaseCustomers {
                 if( $customer->isp_id != Isp::getCurrentId() ) {
                     return false;
                 }
+                
+                $customer['created_at'] = date('Y-m-d h:i:s');
 			}else{
 				$customer = new Customers();
 			}
@@ -353,6 +355,7 @@ class Customers extends BaseCustomers {
 			$customer['isreseller'] = ! empty ( $data ['isreseller'] ) ? $data ['isreseller'] : Null;
 			$customer['ignore_latefee'] = (bool)$data ['ignore_latefee'];
 			$customer['language_id'] = $data['language_id'];
+			$customer['updated_at'] = date('Y-m-d h:i:s');
             $customer['isp_id']         = Isp::getCurrentId();
 			
 			$customer->save();
@@ -379,8 +382,6 @@ class Customers extends BaseCustomers {
 			
 			// Save the upload file
 			self::UploadDocument($customer['customer_id'], $data['filecategory']);
-	
-			
 		
 			return $customer['customer_id'];
 		}
