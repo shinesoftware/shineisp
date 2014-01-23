@@ -325,25 +325,27 @@ class DomainsTasks extends BaseDomainsTasks {
 		$dq = Doctrine_Query::create ()
 								->select("DATE_FORMAT(startdate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as startdate, 
 										  DATE_FORMAT(enddate, '".Settings::getMySQLDateFormat('dateformat')." %H:%i:%s') as enddate,
-										  domain,
+										  CONCAT(d.domain, '.', w.tld) as domain, 
 										  action,
 										  log,
 										  s.status as status")
 								->from ( 'DomainsTasks dt' )
 								->leftJoin( 'dt.Statuses s' )
+								->leftJoin( 'dt.Domains d' )
+								->leftJoin('d.DomainsTlds t')
+								->leftJoin('t.WhoisServers w')
+								->leftJoin( 'd.Customers c' )
 								->orderBy('dt.startdate desc')
 								->limit($limit);
 							
         $auth = Zend_Auth::getInstance ();
         if( $auth->hasIdentity () ) {
             $logged_user= $auth->getIdentity ();
-            $dq->leftJoin( 'dt.Domains d' )
-               ->leftJoin( 'd.Customers c' )
-               ->whereIn( "c.isp_id", $logged_user['isp_id']);
+            $dq->whereIn( "c.isp_id", $logged_user['isp_id']);
         }
 
         $records['data'] = $dq->execute ( array (), Doctrine_Core::HYDRATE_ARRAY );
-        
+
         // adding the index reference
         $records['index'] = "task_id";
         
@@ -355,7 +357,8 @@ class DomainsTasks extends BaseDomainsTasks {
 					        		'log' => array('label' => $translator->translate('Log'), 'attributes' => array('class' => 'visible-lg visible-md hidden-xs')),
 					        		'status' => array('label' => $translator->translate('Status')));
         
-		return $records;
+       
+        return $records;
 	}
 	
 
