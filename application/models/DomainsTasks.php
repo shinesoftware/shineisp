@@ -245,10 +245,11 @@ class DomainsTasks extends BaseDomainsTasks {
 	 * add a domain task to be done by the cron job 
 	 */
 	static public function AddTask($domain, $action) {
+		echo $domain;
+		die;
 		$task = new DomainsTasks ( );
 		$task->startdate = date ( 'Y-m-d H:i:s' );
 		$task->action = $action;
-		$task->domain = $domain;
 		$task->domain_id = Domains::getDomainIDbyName($domain);
 		$task->registrars_id = Registrars::findRegistrarIDbyDomain($domain);
 		$task->status_id = Statuses::id('active', 'domains_tasks'); //Domains Task Status;
