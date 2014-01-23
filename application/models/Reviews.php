@@ -157,7 +157,7 @@ class Reviews extends BaseReviews
     		$text .= "<div id=\"bodyContent\">";
     		$text .= "<h4><a href=\"/".$record['Products']['uri'].".html\">". $record['Products']['ProductsData'][0]['name'] . "</a></h4>";
     		for ($i=0;$i<$record['stars']; $i++){
-    			$text .= "<img src=\"/skins/default/base/images/star.png\">";
+    			$text .= "*";
     		}
     		$text .= "<br/><br/>" . $record['review'] . "<br/>";
     		$text .= "<p><b>inviato da " . $record['nick'] . "</b> il " . Shineisp_Commons_Utilities::formatDateOut($record['publishedat']) . "</p>";
