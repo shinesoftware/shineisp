@@ -248,7 +248,6 @@ class DomainsTasks extends BaseDomainsTasks {
 		$task = new DomainsTasks ( );
 		$task->startdate = date ( 'Y-m-d H:i:s' );
 		$task->action = $action;
-		$task->domain = $domain;
 		$task->domain_id = Domains::getDomainIDbyName($domain);
 		$task->registrars_id = Registrars::findRegistrarIDbyDomain($domain);
 		$task->status_id = Statuses::id('active', 'domains_tasks'); //Domains Task Status;
