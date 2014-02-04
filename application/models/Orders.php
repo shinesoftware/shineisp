@@ -1804,7 +1804,7 @@ class Orders extends BaseOrders {
 						// ... and add the setup fees
 						$price = $subtotal + $setupfee - $discount;
 						$total += $price;
-						$costs += $detail ['cost'];
+						$costs += $detail ['cost'] * $detail ['quantity'];
 						
 						if( !$isTaxFree && !$isVATFree ){
 							
