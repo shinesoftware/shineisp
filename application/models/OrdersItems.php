@@ -395,12 +395,6 @@ class OrdersItems extends BaseOrdersItems {
 		if(!is_array($params))
 			return false;
 		
-		if(empty($params ['date_end']))
-			if(!empty($params['billing_cycle_id']))
-				$months = BillingCycle::getMonthsNumber ( $params ['billing_cycle_id'] );
-				if ($months > 0) 
-					$params ['date_end'] = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
-			
 		$details = Doctrine::getTable ( 'OrdersItems' )->find ( $id );
 		
 		// Get the taxes applied
@@ -415,6 +409,12 @@ class OrdersItems extends BaseOrdersItems {
 			$percentage = null;
 		}
 		
+	    if(!empty($params['billing_cycle_id']))
+		    $months = BillingCycle::getMonthsNumber ( $params ['billing_cycle_id'] );
+		    if ($months > 0)
+		        $rowtotal = $rowtotal * $months;
+		        $params ['date_end'] = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
+		
 		$details->quantity         = $params ['quantity'];
 		$details->date_start       = Shineisp_Commons_Utilities::formatDateIn ( $params ['date_start'] );
 		$details->date_end         = Shineisp_Commons_Utilities::formatDateIn($params ['date_end']);
@@ -426,6 +426,7 @@ class OrdersItems extends BaseOrdersItems {
 		$details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
 		$details->setupfee         = $params ['setupfee'];
 		$details->discount         = $params ['discount'];
+		$details->subtotal         = $rowtotal * $params ['quantity'];
 		$details->status_id        = $params ['status_id'];
 		$details->description      = $params ['description'];
 		$details->parameters       = $params ['parameters'];
