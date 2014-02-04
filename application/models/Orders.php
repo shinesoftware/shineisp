@@ -1772,12 +1772,16 @@ class Orders extends BaseOrders {
 							if($isRecurring){
 							
 								$setupfee = $detail ['setupfee'];
+								$subtotal = $detail ['price'];
 								
 								// Price multiplier
 								$months = $detail ['BillingCycle'] ['months'];
+								if(!empty($months) && is_numeric($months)){
+								    $subtotal = ($detail ['price'] * $months);
+								}
 								
 								// Calculate the price per the months per Quantity
-								$subtotal = ($detail ['price'] * $months) * $detail ['quantity'];
+								$subtotal = $subtotal * $detail ['quantity'];
 								
 								if(!empty($detail ['discount'])){
 									$discount = ($subtotal * $detail ['discount']) / 100;

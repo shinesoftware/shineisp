@@ -430,7 +430,7 @@ class OrdersItems extends BaseOrdersItems {
 		$details->description      = $params ['description'];
 		$details->parameters       = $params ['parameters'];
 		
-		if($details->trySave ())
+		if($details->trySave ()){
 			OrdersItems::setAutorenew($id, $params ['autorenew']);
 
 			// Remove all domains
@@ -442,7 +442,7 @@ class OrdersItems extends BaseOrdersItems {
 			}
 			
 			return true;
-		
+		}
 		
 		return false;
 	}
