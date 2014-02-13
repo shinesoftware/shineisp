@@ -94,7 +94,9 @@ class Admin_Form_DomainstldsForm extends Zend_Form
         
         $this->getElement('tax_id')
                   ->setAllowEmpty(false)
-                  ->setMultiOptions(Taxes::getList(true));                        
+                  ->setRegisterInArrayValidator(false)
+                  ->setMultiOptions(Taxes::getList())
+        		  ->setRequired(true);                        
         
         $this->addElement('text', 'registration_cost', array(
             'filters'    => array('StringTrim'),
@@ -128,7 +130,8 @@ class Admin_Form_DomainstldsForm extends Zend_Form
         
         $this->getElement('registrars_id')
                   ->setAllowEmpty(false)
-                  ->setMultiOptions(Registrars::getList())
+                  ->setRegisterInArrayValidator(false)
+                  ->setMultiOptions(Registrars::getList(false))
                   ->setRequired(true);        
         
         $this->addElement('submit', 'save', array(

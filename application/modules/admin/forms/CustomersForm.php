@@ -258,8 +258,7 @@ class Admin_Form_CustomersForm extends Zend_Form
         
         $this->getElement('country_id')
                   ->setAllowEmpty(false)
-                  ->setMultiOptions(Countries::getList( true ))
-                  ->setRequired(true);
+                  ->setMultiOptions(Countries::getList( true ));
 
         $this->addElement('select', 'region_id', array(
                         'label' => $translate->_('Region'),
