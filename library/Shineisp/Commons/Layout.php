@@ -308,7 +308,6 @@ class Shineisp_Commons_Layout {
 	}
 	
 	/**
-	 * getBlocks
 	 * get the blocks
 	 */
 	public static function getBlocks($module, $side, $controller = null, $skin = null) {
