@@ -90,7 +90,7 @@ class DomainschkController extends Shineisp_Controller_Default {
 			if(!empty($domains)){
 				
 				// Create the base order document
-				$theOrder = Orders::create($profile['customer_id']);
+// 				$theOrder = Orders::create($profile['customer_id']);
 			
 				foreach ($domains as $domain) {
 					
