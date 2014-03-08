@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dropbox Configuration File -->
+<config name="Seafile" type="generic" var="seafile" version="1.0">
+    <general>
+	    <description><![CDATA[ <a href="https://www.seafile.com/">Seafile</a>. Organize files into libraries. Each library can be shared between users and into groups. A library can also be selectively synced into any device. <a href="https://seacloud.cc/accounts/register/">now</a>!]]></description>
+	    <help><![CDATA[<p>This module offers you the way to store your important documents like invoices and orders in a remote seafile account. <br/>In order to setup the module, you need:</p>
+	        <ul>
+	            <li>Seafile Account Credentials</li>
+	            <li>Set the Invoices destination path</li>
+	            <li>Set the Order destination path</li>
+	        </ul>
+	        <p>In order to send an invoice or order document, you need to click on the <b>Seafile button</b> in the order admin detail page or on the invoice admin detail page.</p>
+	    ]]></help>
+    </general>
+    <settings>
+        <field var="url" label="Server Endpoint" type="text" description="Set your server endpoint url. For instance: https://cloud.seafile.com/ or https://seafile.yourdomain.com/"/>
+        <field var="repoid" label="Repo Id" type="text" description="Set your repository ID. You can get it or create it from the web interface of the Seafile service. Click on My Library and look at the URL. The Repository ID is like a12368a-f442-123c-a145-06bf84c1fabc/ "/>
+        <field var="username" label="Username" type="text" description="Set your seafile Username"/>
+        <field var="password" label="Password" type="text" description="Write here your seafile Password."/>
+        <field var="invoicesdestinationpath" label="Seafile: Invoices destination path" type="text" description="Destination path where the invoices files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Invoices/{quarter}/{monthname}/"/>
+        <field var="ordersdestinationpath" label="Seafile: Orders destination path" type="text" description="Destination path where the orders files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/{monthname}/"/>
+    </settings>
+    
+</config>
