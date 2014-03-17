@@ -259,9 +259,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
-				$params[] = $registrar ['ovh_username'];		// the admin nichandle
-				$params[] = $registrar ['ovh_username'];			// the tech nichandle
-				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = $registrar ['ovh_username'];	        	// the admin nichandle
+				$params[] = $registrar ['ovh_username'];	    		// the tech nichandle
+				$params[] = $registrar ['ovh_username'];        		// the billing nichandle
 				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
@@ -292,9 +292,9 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				$params[] = 'agent';									// the reseller profile (none | whiteLabel | agent)
 				$params[] = 'yes';										// activate OwO for .com, .net, .org, .info and .biz (yes | no)
 				$params[] = self::createNic($domainID, 'owner');		// the owner nichandle
-				$params[] = $registrar ['ovh_username'];		// the admin nichandle
-				$params[] = $registrar ['ovh_username'];			// the tech nichandle
-				$params[] = self::createNic($domainID, 'billing');		// the billing nichandle
+				$params[] = $registrar ['ovh_username'];		        // the admin nichandle
+				$params[] = $registrar ['ovh_username'];		    	// the tech nichandle
+				$params[] = $registrar ['ovh_username'];    	    	// the billing nichandle
 				$params[] = !empty($dns[0]) ? $dns[0] : null;			// the primary dns hostname (if hosting, default OVH dns will be installed)
 				$params[] = !empty($dns[1]) ? $dns[1] : null;			// the secondary dns hostname
 				$params[] = !empty($dns[2]) ? $dns[2] : null;			// the third dns hostname
