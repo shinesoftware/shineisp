@@ -1754,18 +1754,17 @@ class Orders extends BaseOrders {
 	
 					foreach ( $details as $detail ) {
 						
-						$isDomain = !empty($detail['tld_id']) && is_numeric($detail['tld_id']) ? true : false;
-						$isProduct = !empty($detail['product_id']) && is_numeric($detail['product_id']) ? true : false;
+						$type = !empty($detail['product_id']) && is_numeric($detail['product_id']) ? "product" : "domain";
 						$product = $detail['Products'];
 						
-						if($isDomain){
+						if($type == "domain"){
 							
 							// Calculate the price per Quantity
 							$subtotal = $detail ['price']  * $detail ['quantity'];
 							
 							$setupfee = 0;
 							
-						}elseif($isProduct){
+						}elseif($type == "product"){
 
 							$isRecurring = Products::isRecurring($detail['product_id']);
 							
