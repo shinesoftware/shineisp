@@ -411,7 +411,7 @@ class OrdersItems extends BaseOrdersItems {
 		
 	    if(!empty($params['billing_cycle_id']))
 		    $months = BillingCycle::getMonthsNumber ( $params ['billing_cycle_id'] );
-		    if ($months > 0)
+		    if ($months > 0 && is_numeric($params ['product_id']) && $params ['product_id'] > 0) // only for the product and services. Domains excluded
 		        $rowtotal = $rowtotal * $months;
 		        $params ['date_end'] = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
 		
