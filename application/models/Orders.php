@@ -1808,7 +1808,7 @@ class Orders extends BaseOrders {
 						if( !$isTaxFree && !$isVATFree ){
 							
 							// If the product is a domain 
-							if($isDomain){
+							if($type == "domain"){
 								$tax = Taxes::getTaxbyTldID($detail ['tld_id']);	
 							}else{ // If not
 								$tax = Taxes::getTaxbyProductID($detail ['product_id']);
