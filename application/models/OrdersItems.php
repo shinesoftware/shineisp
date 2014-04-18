@@ -397,6 +397,11 @@ class OrdersItems extends BaseOrdersItems {
 		
 		$details = Doctrine::getTable ( 'OrdersItems' )->find ( $id );
 		
+		// Generic price setting 
+		$rowtotal = $params ['price'];
+		$vat = null;
+		$percentage = null;
+		
 		// Get the taxes applied
 		$tax = Taxes::getTaxbyProductID($params['product_id']);
 		if ($tax['percentage'] > 0) {
@@ -404,9 +409,17 @@ class OrdersItems extends BaseOrdersItems {
 			$vat = ($params ['price'] * $tax['percentage']) / 100;
 			$percentage = $tax['percentage'];
 		} else {
-			$rowtotal = $params ['price'];
-			$vat = null;
-			$percentage = null;
+			if(!empty($params['parameters'])){ // it is a domain
+				$domainparams = json_decode ( $domainparams ['parameters'], true );
+				if (! empty ( $domainparams ['tld'] )) {
+					$rowtotal = $params ['price'];
+					$tax = Taxes::getTaxbyTldID($params ['tld']);
+					if ($tax['percentage'] > 0) {
+						$vat = ($params ['price'] * $tax['percentage']) / 100;
+						$percentage = $tax['percentage'];
+					}
+				}
+			}
 		}
 		
 	    if(!empty($params['billing_cycle_id']))
