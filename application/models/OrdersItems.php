@@ -401,7 +401,7 @@ class OrdersItems extends BaseOrdersItems {
 		$rowtotal = $params ['price'];
 		$vat = null;
 		$percentage = null;
-		
+	
 		// Get the taxes applied
 		$tax = Taxes::getTaxbyProductID($params['product_id']);
 		if ($tax['percentage'] > 0) {
@@ -411,8 +411,10 @@ class OrdersItems extends BaseOrdersItems {
 		} else {
 			if(!empty($params['parameters'])){ // it is a domain
 				$domainparams = json_decode ( $params ['parameters'], true );
-				if (! empty ( $domainparams ['tld'] )) {
-					$tax = Taxes::getTaxbyTldID($params ['tld']);
+
+				if (! empty ( $domainparams['domain'] ['tld'] )) {
+					$tax = Taxes::getTaxbyTldID($domainparams ['domain']['tld']);
+					
 					if ($tax['percentage'] > 0) {
 						$vat = ($params ['price'] * $tax['percentage']) / 100;
 						$percentage = $tax['percentage'];
