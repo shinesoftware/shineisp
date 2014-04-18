@@ -410,13 +410,13 @@ class OrdersItems extends BaseOrdersItems {
 			$percentage = $tax['percentage'];
 		} else {
 			if(!empty($params['parameters'])){ // it is a domain
-				$domainparams = json_decode ( $domainparams ['parameters'], true );
+				$domainparams = json_decode ( $params ['parameters'], true );
 				if (! empty ( $domainparams ['tld'] )) {
-					$rowtotal = $params ['price'];
 					$tax = Taxes::getTaxbyTldID($params ['tld']);
 					if ($tax['percentage'] > 0) {
 						$vat = ($params ['price'] * $tax['percentage']) / 100;
 						$percentage = $tax['percentage'];
+						$rowtotal = $params ['price'] * (100 + $tax['percentage']) / 100;
 					}
 				}
 			}
