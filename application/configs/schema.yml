@@ -86,7 +86,7 @@ AdminUser:
       notnull: false
     force_password_change:
       type: tinyint(1)
-      notnull: true
+      notnull: false
       fixed: 0
     created:
       type: timestamp(25)
@@ -933,7 +933,7 @@ Customers:
       notnull: false
     force_password_change:
       type: tinyint(1)
-      notnull: true
+      notnull: false
       fixed: 0
     birthdate:
       type: date(25)
@@ -1831,7 +1831,7 @@ Isp:
       notnull: false
     website:
       type: string(200)
-      notnull: true
+      notnull: false
     email:
       type: string(100)
       notnull: true
@@ -1840,7 +1840,7 @@ Isp:
       notnull: true
     isppanel:
       type: string(100)
-      notnull: true
+      notnull: false
     logo:
       type: string()
       notnull: false

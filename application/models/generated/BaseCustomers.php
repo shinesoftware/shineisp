@@ -134,7 +134,7 @@ abstract class BaseCustomers extends Doctrine_Record
              ));
         $this->hasColumn('force_password_change', 'tinyint', 1, array(
              'type' => 'tinyint',
-             'notnull' => true,
+             'notnull' => false,
              'fixed' => 0,
              'length' => '1',
              ));

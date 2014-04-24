@@ -18,7 +18,7 @@ class Setup_Form_LocalizationForm extends Zend_Form
         		'decorators' => array('Bootstrap'),
         		'class'      => 'form-control',
         		'label'      => 'Agreements',
-        		'rows'      => '15',
+        		'rows'      => '10',
         		'value'		 => Shineisp_Commons_Utilities::readfile(PUBLIC_PATH . "/../LICENSE")));
 
         $this->addElement('select', 'chkagreement', array(

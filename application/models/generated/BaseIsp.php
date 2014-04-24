@@ -137,7 +137,7 @@ abstract class BaseIsp extends Doctrine_Record
              ));
         $this->hasColumn('website', 'string', 200, array(
              'type' => 'string',
-             'notnull' => true,
+             'notnull' => false,
              'length' => '200',
              ));
         $this->hasColumn('email', 'string', 100, array(
@@ -152,7 +152,7 @@ abstract class BaseIsp extends Doctrine_Record
              ));
         $this->hasColumn('isppanel', 'string', 100, array(
              'type' => 'string',
-             'notnull' => true,
+             'notnull' => false,
              'length' => '100',
              ));
         $this->hasColumn('logo', 'string', null, array(
