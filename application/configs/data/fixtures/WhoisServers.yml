@@ -534,7 +534,7 @@ WhoisServers:
   WhoisServers_134:
     tld: cx
     server: whois.nic.cx
-    response: 'No match for'
+    response: 'No Object Found'
   WhoisServers_135:
     tld: cz
     server: whois.nic.cz
