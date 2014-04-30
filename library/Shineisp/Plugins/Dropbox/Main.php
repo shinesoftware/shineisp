@@ -139,8 +139,6 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface {
 			$token = Settings::findbyParam ( 'dropbox_token' );
 			
 			if (! empty ( $token )) {
-				echo $token;
-				die ();
 				self::$loggedIn = true;
 				return true;
 			}
