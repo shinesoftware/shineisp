@@ -534,7 +534,7 @@ WhoisServers:
   WhoisServers_134:
     tld: cx
     server: whois.nic.cx
-    response: 'No match for'
+    response: 'No Object Found'
   WhoisServers_135:
     tld: cz
     server: whois.nic.cz
@@ -542,7 +542,7 @@ WhoisServers:
   WhoisServers_136:
     tld: de
     server: whois.nic.de
-    response: 'No entries found'
+    response: 'free'
   WhoisServers_137:
     tld: dk
     server: whois.dk-hostmaster.dk
@@ -1315,3 +1315,11 @@ WhoisServers:
     tld: asia
     server: www.whois.asia
     response: 'NOT FOUND'
+  WhoisServers_330:
+    tld: pw
+    server: whois.centralnic.com
+    response: 'DOMAIN NOT FOUND'
+  WhoisServers_330:
+    tld: la
+    server: whois.centralnic.com
+    response: 'DOMAIN NOT FOUND'
