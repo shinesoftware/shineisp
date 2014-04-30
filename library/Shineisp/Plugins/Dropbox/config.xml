@@ -5,7 +5,7 @@
 	    <description><![CDATA[ <a href="https://www.dropbox.com/">Dropbox</a> is a free service that lets you bring your photos, docs, and videos anywhere and share them easily. Never email yourself a file again! Open your account <a href="https://www.dropbox.com/">now</a>!]]></description>
 	    <help><![CDATA[<p>This module offers you the way to store your important documents like invoices and orders in a remote dropbox account. <br/>In order to setup the module, you need:</p>
 	        <ul>
-	            <li>Dropbox Account Credentials</li>
+	            <li>Dropbox Application Credentials: <a href="https://www.dropbox.com/developers/apps/create" target="_blank">Create your Dropbox API Application</a></li>
 	            <li>Set the Invoices destination path</li>
 	            <li>Set the Order destination path</li>
 	        </ul>
@@ -13,8 +13,10 @@
 	    ]]></help>
     </general>
     <settings>
-        <field var="email" label="Email" type="text" description="Set your dropbox email user ID"/>
-        <field var="password" label="Password" type="text" description="Write here your dropbox password."/>
+        <field var="key" label="Key" type="text" description="Set your dropbox application key"/>
+        <field var="secret" label="Secret" type="text" description="Write here your dropbox application secret."/>
+        <field var="authcode" label="Authorisation Code" type="text" description="This field must be populated after the authorisation task."/>
+        <field var="token" label="text" type="text" description="Do not edit this field manually because it will be updated automatically." />
         <field var="invoicesdestinationpath" label="Dropbox: Invoices destination path" type="text" description="Destination path where the invoices files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Invoices/{quarter}/{monthname}/"/>
         <field var="ordersdestinationpath" label="Dropbox: Orders destination path" type="text" description="Destination path where the orders files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/{monthname}/"/>
     </settings>

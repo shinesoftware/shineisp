@@ -27,17 +27,13 @@
  * @author Shine Software Italy [http://www.shinesoftware.com]
  * @version 2.0 
  */
+require_once "lib/Dropbox/autoload.php";
 
 class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 
-	const CACERT_SOURCE_SYSTEM = 0;
-	const CACERT_SOURCE_FILE = 1;
-	const CACERT_SOURCE_DIR = 2;
-	
-	protected static $caCertSourceType = self::CACERT_SOURCE_SYSTEM;
-	protected static $caCertSource;
 	protected static $loggedIn = false;
-	protected static $cookies = array ();
+	protected static $appInfo;
+	protected static $webAuth;
 	
 	public $events;
 
@@ -80,6 +76,31 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 			Shineisp_Commons_Utilities::log("Dropbox module: Dropbox requires the cURL extension.");
 			throw new Exception ( 'Dropbox requires the cURL extension.' );
 		}
+		
+		$key = Settings::findbyParam ( 'dropbox_key' );
+		$secret = Settings::findbyParam ( 'dropbox_secret' );
+		
+		if(!empty($key) && !empty($secret)){
+			self::$appInfo = Dropbox\AppInfo::loadFromJson(array("key" => $key, "secret"=> $secret));
+			$clientIdentifier = "shineisp/1.0";
+			self::$webAuth = new Dropbox\WebAuthNoRedirect(self::$appInfo, $clientIdentifier);
+		}
+		
+	}
+	
+	public static function authorize(){
+		$token = Settings::findbyParam ( 'dropbox_token' );
+		
+		if(!$token){
+			$authorizeUrl = self::getWebAuth()->start();
+			header("Location: $authorizeUrl");
+		}
+	}
+	
+	private static function getWebAuth()
+	{
+		$authorizeUrl = self::$webAuth->start();
+		header("Location: $authorizeUrl");
 	}
 	
 	/**
@@ -169,86 +190,15 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * Check if the user has set the credentials in the administration panel
 	 */
 	public static function isReady() {
-		$email = Settings::findbyParam ( 'dropbox_email' );
-		$password = Settings::findbyParam ( 'dropbox_password' );
-		if (! empty ( $email ) && ! empty ( $password )) {
+		$key = Settings::findbyParam ( 'dropbox_key' );
+		$secret = Settings::findbyParam ( 'dropbox_secret' );
+		if (! empty ( $key ) && ! empty ( $secret )) {
 			return true;
 		}
 		Shineisp_Commons_Utilities::log("Dropbox module: Wrong credentials", "plugin_dropbox.log");
 		return false;
 	}
 	
-	/**
-	 * Set the certificate
-	 * @param string $file
-	 */
-	public function setCaCertificateFile($file) {
-		
-		if(file_exists(PROJECT_PATH . "/library/Shineisp/Plugins/Dropbox/certificate.cer")){
-			$file = PROJECT_PATH . "/library/Shineisp/Plugins/Dropbox/certificate.cer";
-		}
-		
-		self::$caCertSourceType = self::CACERT_SOURCE_FILE;
-		self::$caCertSource = $file;
-	}
-	
-	/**
-	 * Set the dir name of the certificate
-	 * @param string $dir
-	 */
-	public function setCaCertificateDir($dir) {
-		self::$caCertSourceType = self::CACERT_SOURCE_DIR;
-		self::$caCertSource = $dir;
-	}
-	
-	/**
-	 * Upload the file in the dropbox service account 
-	 *  
-	 * @param string $source
-	 * @param string $remoteDir
-	 * @param string $remoteName
-	 * @throws Exception
-	 */
-	public static function upload($source, $remoteDir = '/', $remoteName = null) {
-		try{
-            $params = compact('source', 'remoteDir', 'remoteName');
-        
-            if (! is_file ( $source ) or ! is_readable ( $source ))
-                throw new Exception ( "File '$source' does not exist or is not readable." );
-        
-            $filesize = filesize ( $source );
-            if ($filesize < 0 ) {
-                Shineisp_Commons_Utilities::log("Dropbox module: File '$source' too large ($filesize bytes).");
-                throw new Exception ( "File '$source' too large ($filesize bytes)." );
-            }
-        
-            if (! is_string ( $remoteDir ))
-                throw new Exception ( "Remote directory must be a string, is " . gettype ( $remoteDir ) . " instead." );
-        
-            if (is_null ( $remoteName )) {
-                // intentionally left blank
-            } else if (! is_string ( $remoteName )) {
-                throw new Exception ( "Remote filename must be a string, is " . gettype ( $remoteDir ) . " instead." );
-            } else {
-                $source .= ';filename=' . $remoteName;
-            }
-        
-            if (! self::$loggedIn)
-                self::login ();
-        
-            $data = self::request ( 'https://www.dropbox.com/home' );
-            $token = self::extractToken ( $data, 'https://dl-web.dropbox.com/upload' );
-        
-            $postData = array ('plain' => 'yes', 'file' => '@' . $source, 'dest' => $remoteDir, 't' => $token );
-            $data = self::request ( 'https://dl-web.dropbox.com/upload', true, $postData );
-            if (strpos ( $data, 'HTTP/1.1 302 FOUND' ) === false)
-                throw new Exception ( 'Upload failed!' );
-        
-        }catch(Exception $e){
-            Shineisp_Commons_Utilities::log($e->getMessage(), "plugin_dropbox.log");
-        }
-        
-	}
 	
 	/**
 	 * Login in the dropbox account
@@ -258,23 +208,89 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 */
 	protected static function login() {
 	    try{
-            $data = self::request ( 'https://www.dropbox.com/login' );
-            $token = self::extractTokenFromLoginForm ( $data );
-        
-            $email = Settings::findbyParam ( 'dropbox_email' );
-            $password = Settings::findbyParam ( 'dropbox_password' );
-        
-            $postData = array ('login_email' => $email, 'login_password' => $password, 't' => $token );
-            $data = self::request ( 'https://www.dropbox.com/login', true, $postData );
-        
-            if (stripos ( $data, 'location: /home' ) === false)
-                throw new Exception ( 'Login unsuccessful.' );
-        
-            self::$loggedIn = true;
+            
+            // get the authcode from the database
+            $authcode = Settings::findbyParam ( 'dropbox_authcode' );
+            $token = Settings::findbyParam ( 'dropbox_token' );
+            
+            if(!empty($token)){
+            	echo $token;
+            	die;
+            	self::$loggedIn = true;
+            	return true;
+            }
+            
+            // if the authcode is set but the access token is not already set ...
+            if(!empty($authcode)){
+            	list($accessToken, $dropboxUserId) = self::$webAuth->finish($authcode);
+            	if($accessToken){
+            		Settings::saveSetting('dropbox_token', $accessToken); // save the token
+            		self::$loggedIn = true;
+            		return true;
+            	}
+            }
+             
+           	self::authorize();
+            
+            self::$loggedIn = false;
             
 		}catch(Exception $e){
-            Shineisp_Commons_Utilities::log($e->getMessage(), "plugin_dropbox.log");
+			self::$loggedIn = false;
+            Shineisp_Commons_Utilities::log(__METHOD__ . " " . $e->getMessage(), "plugin_dropbox.log");
         }
+	}
+	
+	
+	/**
+	 * Upload the file in the dropbox service account
+	 *
+	 * @param string $source
+	 * @param string $remoteDir
+	 * @param string $remoteName
+	 * @throws Exception
+	 */
+	public static function upload($source, $remoteDir = '/', $remoteName = null) {
+		try{
+			$params = compact('source', 'remoteDir', 'remoteName');
+	
+			if (! is_file ( $source ) or ! is_readable ( $source ))
+				throw new Exception ( "File '$source' does not exist or is not readable." );
+	
+			$filesize = filesize ( $source );
+			if ($filesize < 0 ) {
+				Shineisp_Commons_Utilities::log("Dropbox module: File '$source' too large ($filesize bytes).");
+				throw new Exception ( "File '$source' too large ($filesize bytes)." );
+			}
+	
+			if (! is_string ( $remoteDir ))
+				throw new Exception ( "Remote directory must be a string, is " . gettype ( $remoteDir ) . " instead." );
+	
+			if (is_null ( $remoteName )) {
+				// intentionally left blank
+			} else if (! is_string ( $remoteName )) {
+				throw new Exception ( "Remote filename must be a string, is " . gettype ( $remoteDir ) . " instead." );
+			} else {
+				$source .= ';filename=' . $remoteName;
+			}
+	
+			$token = Settings::findbyParam ( 'dropbox_token' );
+			
+			if(empty($token)){
+				self::login ();
+			}
+	
+			$postData = array ('file' => $source, 'dest' => $remoteDir );
+			$data = self::request ( 'https://api-content.dropbox.com/1/files_put/sandbox', true, $postData );
+			if(!empty($data['path'])){
+				Shineisp_Commons_Utilities::log('File uploaded at ' . $data['path'], "plugin_dropbox.log");
+			}else{
+				Shineisp_Commons_Utilities::log('Upload failed', "plugin_dropbox.log");
+			}
+	
+		}catch(Exception $e){
+			Shineisp_Commons_Utilities::log(__METHOD__ . " " . $e->getMessage(), "plugin_dropbox.log");
+		}
+	
 	}
 	
 	/**
@@ -287,74 +303,18 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	 * @return mixed
 	 */
 	protected static function request($url, $post = false, $postData = array()) {
-		$ch = curl_init ();
-		curl_setopt ( $ch, CURLOPT_URL, $url );
-		curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, 2 );
-		curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, true );
-		switch (self::$caCertSourceType) {
-			case self::CACERT_SOURCE_FILE :
-				curl_setopt ( $ch, CURLOPT_CAINFO, self::caCertSource );
-				break;
-			case self::CACERT_SOURCE_DIR :
-				curl_setopt ( $ch, CURLOPT_CAPATH, self::caCertSource );
-				break;
+		try{
+			            
+			$token = Settings::findbyParam ( 'dropbox_token' );
+			$dropbox = new Dropbox\Client ($token, 'shineisp', null, self::$appInfo->getHost() );
+			
+			$fh = fopen($postData['file'], "rb");
+			$result = $dropbox->uploadFile($postData['dest'] . basename($postData['file']), Dropbox\WriteMode::force(), $fh);
+			fclose($fh);
+			
+			return $result;
+		}catch(Exception $e){
+			Shineisp_Commons_Utilities::log(__METHOD__ . " " . $e->getMessage(), "plugin_dropbox.log");
 		}
-		curl_setopt ( $ch, CURLOPT_HEADER, 1 );
-		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		if ($post) {
-			curl_setopt ( $ch, CURLOPT_POST, $post );
-			curl_setopt ( $ch, CURLOPT_POSTFIELDS, $postData );
-		}
-		
-		// Send cookies
-		$rawCookies = array ();
-		foreach ( self::$cookies as $k => $v )
-			$rawCookies [] = "$k=$v";
-		$rawCookies = implode ( ';', $rawCookies );
-		curl_setopt ( $ch, CURLOPT_COOKIE, $rawCookies );
-		
-		$data = curl_exec ( $ch );
-		
-		if ($data === false) {
-			throw new Exception ( sprintf ( 'Curl error: (#%d) %s', curl_errno ( $ch ), curl_error ( $ch ) ) );
-		}
-		
-		// Store received cookies
-		preg_match_all ( '/Set-Cookie: ([^=]+)=(.*?);/i', $data, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match )
-			self::$cookies [$match [1]] = $match [2];
-		
-		curl_close ( $ch );
-		
-		return $data;
 	}
-	
-	/**
-	 * Extract the login token from html form
-	 * 
-	 * @param string $html
-	 * @throws Exception
-	 * @return unknown
-	 */
-	protected static function extractTokenFromLoginForm($html) {
-		// <input type="hidden" name="t" value="UJygzfv9DLLCS-is7cLwgG7z" />
-		if (! preg_match ( '#<input type="hidden" name="t" value="([A-Za-z0-9_-]+)" />#', $html, $matches ))
-			throw new Exception ( 'Cannot extract login CSRF token.' );
-		return $matches [1];
-	}
-	
-	/**
-	 * Extract the token
-	 * 
-	 * @param string $html
-	 * @param string $formAction
-	 * @throws Exception
-	 * @return unknown
-	 */
-	protected static function extractToken($html, $formAction) {
-		if (! preg_match ( '/<form [^>]*' . preg_quote ( $formAction, '/' ) . '[^>]*>.*?(<input [^>]*name="t" [^>]*value="(.*?)"[^>]*>).*?<\/form>/is', $html, $matches ) || ! isset ( $matches [2] ))
-			throw new Exception ( "Cannot extract token! (form action=$formAction)" );
-		return $matches [2];
-	}
-
 }
