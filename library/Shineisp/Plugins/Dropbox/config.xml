@@ -16,7 +16,7 @@
         <field var="key" label="Key" type="text" description="Set your dropbox application key"/>
         <field var="secret" label="Secret" type="text" description="Write here your dropbox application secret."/>
         <field var="authcode" label="Authorisation Code" type="text" description="This field must be populated after the authorisation task."/>
-        <field var="token" label="Token" type="hidden"/>
+        <field var="token" label="text" type="text" description="Do not edit this field manually because it will be updated automatically." />
         <field var="invoicesdestinationpath" label="Dropbox: Invoices destination path" type="text" description="Destination path where the invoices files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Invoices/{quarter}/{monthname}/"/>
         <field var="ordersdestinationpath" label="Dropbox: Orders destination path" type="text" description="Destination path where the orders files will be saved. Placeholders: {year} {month} {monthname} {quarter} - eg: /documents/{year}/Orders/{quarter}/{monthname}/"/>
     </settings>
