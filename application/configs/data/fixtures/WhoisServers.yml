@@ -1315,3 +1315,11 @@ WhoisServers:
     tld: asia
     server: www.whois.asia
     response: 'NOT FOUND'
+  WhoisServers_330:
+    tld: pw
+    server: whois.centralnic.com
+    response: 'DOMAIN NOT FOUND'
+  WhoisServers_330:
+    tld: la
+    server: whois.centralnic.com
+    response: 'DOMAIN NOT FOUND'
