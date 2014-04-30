@@ -34,34 +34,9 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	protected static $loggedIn = false;
 	protected static $appInfo;
 	protected static $webAuth;
-	
 	public $events;
 
-	
-	/**
-	 * Events Registration
-	 * 
-	 * (non-PHPdoc)
-	 * @see Shineisp_Plugins_Interface::events()
-	 */
-
-	public function events()
-
-	{
-		$em = Shineisp_Registry::get('em');
-
-		if (!$this->events && is_object($em)) {
-
-			$em->attach('invoices_pdf_created', array(__CLASS__, 'listener_invoice_upload'), 100);
-
-			$em->attach('orders_pdf_created', array(__CLASS__, 'listener_order_upload'), 100);
-
-		}
-
-		return $em;
-
-	}
-	
+		
 	/**
 	 * Constructor of the class
 	 *
@@ -101,53 +76,6 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 	{
 		$authorizeUrl = self::$webAuth->start();
 		header("Location: $authorizeUrl");
-	}
-	
-	/**
-	 * Event Listener
-	 * This event is triggered when the Invoice PDF is created 
-	 */
-	public static function listener_invoice_upload($event) {
-		$invoice = $event->getParam('invoice');
-		$file = $event->getParam('file');
-		
-		if(is_numeric($invoice['invoice_id'])){
-
-			if(self::isReady()){
-				
-				// get the destination path
-				$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
-				
-				self::execute($file, $destinationPath, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf", $invoice['invoice_date']);
-				
-				Shineisp_Commons_Utilities::log("Event triggered: invoices_pdf_created", "plugin_dropbox.log");
-             
-			}
-
-		}
-
-		return false;
-	}
-	
-	/**
-	 * Event Listener
-	 * This event is triggered when the Orders PDF is created 
-	 */
-	public static function listener_order_upload($event) {
-		$file = $event->getParam('file');
-
-		if(self::isReady()){
-				
-			// get the destination path
-			$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
-			
-			self::execute($file, $destinationPath);
-			
-			Shineisp_Commons_Utilities::log("Event triggered: orders_pdf_created", "plugin_dropbox.log");
-
-		}
-
-		return false;
 	}
 	
 	/**
@@ -231,7 +159,6 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
             }
              
            	self::authorize();
-            
             self::$loggedIn = false;
             
 		}catch(Exception $e){
@@ -317,4 +244,76 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface  {
 			Shineisp_Commons_Utilities::log(__METHOD__ . " " . $e->getMessage(), "plugin_dropbox.log");
 		}
 	}
+	
+	/**
+	 * Events Registration
+	 *
+	 * (non-PHPdoc)
+	 * @see Shineisp_Plugins_Interface::events()
+	 */
+	
+	public function events()
+	
+	{
+		$em = Shineisp_Registry::get('em');
+	
+		if (!$this->events && is_object($em)) {
+	
+			$em->attach('invoices_pdf_created', array(__CLASS__, 'listener_invoice_upload'), 100);
+	
+			$em->attach('orders_pdf_created', array(__CLASS__, 'listener_order_upload'), 100);
+	
+		}
+	
+		return $em;
+	
+	}
+	
+	
+	/**
+	 * Event Listener
+	 * This event is triggered when the Invoice PDF is created
+	 */
+	public static function listener_invoice_upload($event) {
+		$invoice = $event->getParam('invoice');
+		$file = $event->getParam('file');
+	
+		if(is_numeric($invoice['invoice_id'])){
+	
+			if(self::isReady()){
+	
+				// get the destination path
+				$destinationPath = Settings::findbyParam('dropbox_invoicesdestinationpath');
+				self::execute($file, $destinationPath, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf", $invoice['invoice_date']);
+				Shineisp_Commons_Utilities::log("Event triggered: invoices_pdf_created", "plugin_dropbox.log");
+				 
+			}
+	
+		}
+	
+		return false;
+	}
+	
+	/**
+	 * Event Listener
+	 * This event is triggered when the Orders PDF is created
+	 */
+	public static function listener_order_upload($event) {
+		$file = $event->getParam('file');
+	
+		if(self::isReady()){
+	
+			// get the destination path
+			$destinationPath = Settings::findbyParam('dropbox_ordersdestinationpath');
+				
+			self::execute($file, $destinationPath);
+				
+			Shineisp_Commons_Utilities::log("Event triggered: orders_pdf_created", "plugin_dropbox.log");
+	
+		}
+	
+		return false;
+	}
+	
+	
 }
