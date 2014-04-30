@@ -101,7 +101,6 @@ class ProductsCategories extends BaseProductsCategories {
 		
 		// Save the data
 		$productscategories->save ();
-		
 		return $productscategories['category_id'];
 	}
 	

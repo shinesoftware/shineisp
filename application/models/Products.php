@@ -102,9 +102,11 @@ class Products extends BaseProducts {
 		$status = !empty($parameters['status']) ? $parameters['status'] : null;
 		
 		foreach($items as $item){
-			$product = Doctrine::getTable ( 'Products' )
-                                    ->addWhere( "isp_id = ?", Isp::getCurrentId() )
-			                        ->find ( $item );
+			// Load the product details
+			$product = Doctrine_Query::create ()->from ( 'Products p' )
+											->where('product_id = ?', $item)
+											->addWhere( "p.isp_id = ?", Isp::getCurrentId() )->fetchOne();
+											
 			$product->status_id = $status;
 			$product->save ();
 		}
@@ -137,10 +139,10 @@ class Products extends BaseProducts {
 				unset($categories[$idx]);
 				
 				// Load the product details
-				$p = Doctrine::getTable('Products')
-                        ->addWhere( "isp_id = ?", Isp::getCurrentId() )
-				        ->find($product['product_id']);
-
+				$p = Doctrine_Query::create ()->from ( 'Products p' )
+												->where('product_id = ?', $product['product_id'])
+												->addWhere( "p.isp_id = ?", Isp::getCurrentId() )->fetchOne();
+				
 				// Create the category string list
 				$categories = implode("/", $categories);
 				
