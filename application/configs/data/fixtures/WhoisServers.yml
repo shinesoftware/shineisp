@@ -542,7 +542,7 @@ WhoisServers:
   WhoisServers_136:
     tld: de
     server: whois.nic.de
-    response: 'No entries found'
+    response: 'free'
   WhoisServers_137:
     tld: dk
     server: whois.dk-hostmaster.dk
