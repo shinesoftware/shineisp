@@ -144,7 +144,6 @@ class Shineisp_Plugins_Dropbox_Main implements Shineisp_Plugins_Interface {
 			}
 			
 			// if the authcode is set but the access token is not already set
-			// ...
 			if (! empty ( $authcode )) {
 				list ( $accessToken, $dropboxUserId ) = self::$webAuth->finish ( $authcode );
 				if ($accessToken) {

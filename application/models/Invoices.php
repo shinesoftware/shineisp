@@ -876,7 +876,9 @@ class Invoices extends BaseInvoices {
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
 					if(!empty($item ['discount'])){
+
 						$item ['discount'] = $item ['discount'] . "%";
+
 					}
 					
 					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], $translator->translate('nr'), $item ['price'], $item ['discount'], $item ['setupfee'], $item['percentage'], $rowtotal);
@@ -930,7 +932,7 @@ class Invoices extends BaseInvoices {
 					// Execute a custom event 
 					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $filename));
 					
-					return $path . $filename;
+					return PUBLIC_PATH . $filename;
 				}
 			}
 			
@@ -1048,9 +1050,12 @@ class Invoices extends BaseInvoices {
 			
 			if ($zip->open($file, ZIPARCHIVE::CREATE)===TRUE) {
 				foreach ($invoices as $invoice){
-					self::PrintPDF($invoice['invoice_id'], false, true);
-					$filetoadd = PUBLIC_PATH . "/documents/invoices/" . $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf";
-					$zip->addFile($filetoadd, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf");
+					$filetoadd = self::PrintPDF($invoice['invoice_id'], false, true);
+					if(file_exists($filetoadd)){
+    					$zip->addFile($filetoadd, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf");
+    				}else{
+    				    echo('file doesn\'t exist: ' . $filetoadd);
+    				}
 				}
 				$zip->close();	
 			}
