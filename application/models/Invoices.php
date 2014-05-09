@@ -959,9 +959,13 @@ class Invoices extends BaseInvoices {
 				
 				if ($zip->open($file, ZIPARCHIVE::CREATE)===TRUE) {
 					foreach ($invoices as $invoice){
+						$filetoadd = self::PrintPDF($invoice['invoice_id'], false);
+						if(file_exists($filetoadd)){
+							$zip->addFile($filetoadd, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf");
+						}else{
+							echo('file doesn\'t exist: ' . $filetoadd);
+						}
 						self::PrintPDF($invoice['invoice_id'], false);
-						$filetoadd = PUBLIC_PATH . "/documents/invoices/" . $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf";
-						$zip->addFile($filetoadd, $invoice['invoice_date'] . " - " . $invoice['number'] . ".pdf");
 					}
 					$zip->close();	
 				}
