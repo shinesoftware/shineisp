@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ShineISP\n"
-"POT-Creation-Date: 2014-04-30 14:44+0100\n"
+"POT-Creation-Date: 2014-05-14 18:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: EuroCv Staff <staff@eurocv.eu>\n"
 "Language-Team: Shine Software <info@shinesoftware.com>\n"
@@ -311,7 +311,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:27
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:412
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:43
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1092
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1101
 #: /Library/WebServer/Documents/shineisp/application/models/Messages.php:135
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:80
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2484
@@ -429,7 +429,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:45
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:106
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:768
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1095
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1104
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:85
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2287
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2487
@@ -454,7 +454,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1438
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:46
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:107
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1096
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1105
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:86
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2799
 #: /Library/WebServer/Documents/shineisp/application/models/PurchaseInvoices.php:31
@@ -472,7 +472,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:31
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:417
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:108
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1097
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1106
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:87
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2488
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2800
@@ -498,7 +498,7 @@ msgid "List Credit Notes"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:411
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1090
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1099
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:79
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2485
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2794
@@ -517,7 +517,7 @@ msgstr ""
 #: /Library/WebServer/Documents/shineisp/application/models/Customers.php:1426
 #: /Library/WebServer/Documents/shineisp/application/models/DomainsProfiles.php:25
 #: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:49
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1093
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1102
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:82
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2796
 #: /Library/WebServer/Documents/shineisp/application/models/OrdersItems.php:30
@@ -537,7 +537,7 @@ msgid "Company"
 msgstr ""
 
 #: /Library/WebServer/Documents/shineisp/application/models/CreditNotes.php:414
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1094
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1103
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2797
 #: /Library/WebServer/Documents/shineisp/application/models/PanelsActions.php:28
 #: /Library/WebServer/Documents/shineisp/application/models/Tickets.php:26
@@ -1249,28 +1249,28 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:882
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:884
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2403
 msgid "nr"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:995
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1001
 msgid "Invoices uploaded to the Dropbox folder"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1020
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1026
 msgid "Selected invoices have been deleted"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1079
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1088
 msgid "Invoices Listing"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1080
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1089
 msgid "Here you can see the invoices listing"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1091
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1100
 #: /Library/WebServer/Documents/shineisp/application/models/Orders.php:2793
 #: /Library/WebServer/Documents/shineisp/application/models/Payments.php:461
 #: /Library/WebServer/Documents/shineisp/application/modules/admin/controllers/InvoicesController.php:258
@@ -1282,7 +1282,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1110
+#: /Library/WebServer/Documents/shineisp/application/models/Invoices.php:1119
 msgid "Totals"
 msgstr ""
 
