@@ -25,7 +25,7 @@ class Default_Form_TicketsForm extends Zend_Form
         
         $this->addElement('text', 'subject', array(
             'filters'     => array('StringTrim'),
-            'required'    => true,
+            'required'    => false,
             'decorators'  => array('Bootstrap'),
             'title'       => $translate->_('Write here a subject of the issue.'),
             'label'      => $translate->_('Subject'),
