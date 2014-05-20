@@ -12,6 +12,7 @@ class Default_Form_TicketsForm extends Zend_Form
        
         $this->addElement('select', 'domain_id', array(
         		'decorators'  => array('Bootstrap'),
+        		'required'    => false,
         		'label'      => $translate->_('Domain'),
         		'description' => $translate->_('Choose the domain name reference'),
         		'class'       => 'form-control large-input'
