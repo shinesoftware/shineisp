@@ -566,8 +566,8 @@ class Customers extends BaseCustomers {
 		
 		return Doctrine_Query::create ()->from ( 'Customers c' )
 			->where ('resetpwd_key = ?', $resetKey)
-			->andWhere('DATEDIFF(resetpwd_expire, NOW()) >= 0')
-			->andWhere('TIMEDIFF(resetpwd_expire, NOW()) > 0')
+// 			->andWhere('DATEDIFF(resetpwd_expire, NOW()) >= 0') // Disabled because many customers reuse the same link
+// 			->andWhere('TIMEDIFF(resetpwd_expire, NOW()) > 0')
             ->andWhere( "isp_id = ?", Isp::getCurrentId() )
 			->limit ( 1 )
 			->execute ( array (), Doctrine::HYDRATE_ARRAY );

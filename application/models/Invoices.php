@@ -741,9 +741,10 @@ class Invoices extends BaseInvoices {
 			$filename    = $invoicePath.'/'.$invoice['invoice_id'].".pdf";
 			$filenameOld = $path.$invoice ['invoice_date']." - ".$invoice ['number'].".pdf";
 			
-			// Invoice already exists, we return it
+// 			Invoice already exists, we return it
 			if ( (file_exists(PUBLIC_PATH.$filename) || file_exists(PUBLIC_PATH.$filenameOld)) && $show && !$force ) {
-				$outputFilename = !empty($invoice['formatted_number']) ? $invoice['formatted_number'] : $invoice['invoice_date']."_".$invoice['number'];
+				$outputFilename = !empty($invoice['formatted_number']) ? $invoice['formatted_number'] . ".pdf" : $invoice['invoice_date']."_".$invoice['number'] . ".pdf";
+				
 				header('Content-type: application/pdf');
 				header('Content-Disposition: attachment; filename="'.$outputFilename.'"');
 				
@@ -752,19 +753,18 @@ class Invoices extends BaseInvoices {
 			}			
 			
     		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
-			
+    		
 			$payments   = Payments::findbyorderid ( $invoice ['order_id'], null, true );
 			$order      = Orders::getAllInfo ( $invoice ['order_id'], null, true );
 			
-			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . sprintf("%03d", $invoice['number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
+			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . (!empty ( $invoice['formatted_number'] )  ? $invoice['formatted_number'] : $database ['records'] ['invoice_number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
 			$database ['columns'] [] = array ("value" => $translator->translate("SKU"),            "size" => 20,    "align" => "left",    "key" => "sku");
 			$database ['columns'] [] = array ("value" => $translator->translate("Description"),    "size" => 60,   "align" => "left",    "key" => "description");
 			$database ['columns'] [] = array ("value" => $translator->translate("Qty"),            "size" => 2,    "align" => "right",   "key" => "qty");
-			$database ['columns'] [] = array ("value" => $translator->translate("Unit"),           "size" => 2,    "align" => "center",  "key" => "unit");
+			$database ['columns'] [] = array ("value" => $translator->translate("Unit"),           "size" => 2,    "align" => "left",  "key" => "unit");
 			$database ['columns'] [] = array ("value" => $translator->translate("Tax Free Price"), "size" => 22,   "align" => "right",   "key" => "taxfreeprice");
-			$database ['columns'] [] = array ("value" => $translator->translate("Discount"),       "size" => 15,   "align" => "right",   "key" => "discount");
+			$database ['columns'] [] = array ("value" => $translator->translate("Discount"),       "size" => 10,   "align" => "right",   "key" => "discount");
 			$database ['columns'] [] = array ("value" => $translator->translate("Setup fee"),      "size" => 15,   "align" => "right",   "key" => "setup");
-			$database ['columns'] [] = array ("value" => $translator->translate("Tax %"),          "size" => 10,    "align" => "right",   "key" => "taxpercent");
 			$database ['columns'] [] = array ("value" => $translator->translate("Total"),          "size" => 18,   "align" => "right",   "key" => "total");
 			
 			if (isset ( $order [0] )) {
@@ -868,7 +868,18 @@ class Invoices extends BaseInvoices {
 				$database ['records'] = $orderinfo;
 				
 				foreach ( $order [0] ['OrdersItems'] as $item ) {
-					$price = ($item['price']  * $item['quantity']) + $item['setupfee'];
+					
+				    $billingCycle = BillingCycle::getAllinfo($item['billing_cycle_id']);
+				    if(!empty($billingCycle)){
+				        if(!empty($billingCycle['months']) && empty($item['tld_id'])){
+			                $price = ($item['price']  * $billingCycle['months']) + $item['setupfee'];
+				        }else{
+				            $price = $item['price'] + $item['setupfee'];
+				        }
+				    }else{
+				        $price = ($item['price']  * $item['quantity']) + $item['setupfee'];
+				    }
+				    
 					$rowtotal = $price + $item['vat'];
 					
 					$item ['price'] = $currency->toCurrency($item ['price'], array('currency' => Settings::findbyParam('currency')));
@@ -876,14 +887,25 @@ class Invoices extends BaseInvoices {
 					$rowtotal = $currency->toCurrency($rowtotal, array('currency' => Settings::findbyParam('currency')));
 					
 					if(!empty($item ['discount'])){
-
 						$item ['discount'] = $item ['discount'] . "%";
-
 					}
 					
-					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], $translator->translate('nr'), $item ['price'], $item ['discount'], $item ['setupfee'], $item['percentage'], $rowtotal);
+					if(!empty($billingCycle['name']) && empty($item['tld_id'])){
+					    $item['date_end'] = Shineisp_Commons_Utilities::formatDateOut ( $item['date_end'] );
+					    $billingCycleName = $billingCycle['name'];
+					    $item ['description'] .= "<br/><br/> - " . $translator->translate('Expiring date') . ": " . $item['date_end'];
+					}else{
+					    $billingCycleName = "-";
+					}
+					
+// 					var_dump($item);
+					
+					$database ['records']['items'][] = array ($item ['Products']['sku'], $item ['description'], $item ['quantity'], $billingCycleName, $item ['price'], $item ['discount'], $item['setupfee'], $rowtotal);
 				}
 
+// 				var_dump($database['records']);
+// 				die;
+				
 				// Sanitize some fields
 				$database ['records'] ['invoice_number']      = ! empty ( $database ['records'] ['invoice_number'] )  ? $database ['records'] ['invoice_number']     : "";
 				$database ['records'] ['formatted_number']    = ! empty ( $invoice['formatted_number'] )  ? $invoice['formatted_number'] : $database ['records'] ['invoice_number'];
@@ -927,8 +949,9 @@ class Invoices extends BaseInvoices {
 					$html2pdf = new HTML2PDF('P','A4','it', true, 'UTF-8', array(4, 4, 4, 1));
 	    			$html2pdf->WriteHTML($html);
 	    			
+	    			
 	    			$html2pdf->Output(PUBLIC_PATH . $filename, "F");
-
+	    			
 					// Execute a custom event 
 					self::events()->trigger('invoices_pdf_created', "Invoices", array('order' => $order, 'invoice' => $invoice, 'file' => $filename));
 					

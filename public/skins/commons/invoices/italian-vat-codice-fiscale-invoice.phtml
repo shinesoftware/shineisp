@@ -108,7 +108,7 @@
 	}
 	
 	th {
-		font-size:11px;
+		font-size:10px;
 		border-bottom:1px solid #000;
 		white-space:nowrap;
 		padding:0px 6px;
@@ -117,7 +117,7 @@
 	.items td {
 		text-align:center;
 		padding:8px 6px;
-		font-size:11px;
+		font-size:10px;
 		border-bottom:1px solid #ccc;
 		white-space:nowrap;
 	}
@@ -228,7 +228,7 @@
 			</tr>
 		</table>
 		<p class="invoice-number">
-			<?php echo $this->data['formatted_number']?> - <?php echo $this->data['date']?><br/><br/>
+		    <?php echo $this->header['label'] ?><br/><br/>
 			<?php if ( $this->data['skip_barcode'] != 1 ): ?>
 				<barcode type="C39E" value="<?php echo $this->data['barcode']?>" label="label" style="width:30mm; height:4mm; color: grey; font-size: 2mm"></barcode>
 			<?php endif; ?>
