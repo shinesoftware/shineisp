@@ -759,10 +759,10 @@ class Invoices extends BaseInvoices {
 			
 			$database ['header'] ['label'] = $translator->translate('Invoice No.') . " " . (!empty ( $invoice['formatted_number'] )  ? $invoice['formatted_number'] : $database ['records'] ['invoice_number']) . " - " . Shineisp_Commons_Utilities::formatDateOut ($invoice['invoice_date']);
 			$database ['columns'] [] = array ("value" => $translator->translate("SKU"),            "size" => 20,    "align" => "left",    "key" => "sku");
-			$database ['columns'] [] = array ("value" => $translator->translate("Description"),    "size" => 60,   "align" => "left",    "key" => "description");
+			$database ['columns'] [] = array ("value" => $translator->translate("Description"),    "size" => 65,   "align" => "left",    "key" => "description");
 			$database ['columns'] [] = array ("value" => $translator->translate("Qty"),            "size" => 2,    "align" => "right",   "key" => "qty");
-			$database ['columns'] [] = array ("value" => $translator->translate("Unit"),           "size" => 2,    "align" => "left",  "key" => "unit");
-			$database ['columns'] [] = array ("value" => $translator->translate("Tax Free Price"), "size" => 22,   "align" => "right",   "key" => "taxfreeprice");
+			$database ['columns'] [] = array ("value" => $translator->translate("Unit"),           "size" => 12,    "align" => "left",  "key" => "unit");
+			$database ['columns'] [] = array ("value" => $translator->translate("Tax Free Price"), "size" => 9,   "align" => "right",   "key" => "taxfreeprice");
 			$database ['columns'] [] = array ("value" => $translator->translate("Discount"),       "size" => 10,   "align" => "right",   "key" => "discount");
 			$database ['columns'] [] = array ("value" => $translator->translate("Setup fee"),      "size" => 15,   "align" => "right",   "key" => "setup");
 			$database ['columns'] [] = array ("value" => $translator->translate("Total"),          "size" => 18,   "align" => "right",   "key" => "total");
