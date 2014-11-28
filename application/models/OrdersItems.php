@@ -404,16 +404,26 @@ class OrdersItems extends BaseOrdersItems {
 	
 		// Get the taxes applied
 		$tax = Taxes::getTaxbyProductID($params['product_id']);
-		if ($tax['percentage'] > 0) {
+		
+		if (!empty($tax) && $tax['percentage'] > 0) {
 			$rowtotal = $params ['price'] * (100 + $tax['percentage']) / 100;
 			$vat = ($params ['price'] * $tax['percentage']) / 100;
 			$percentage = $tax['percentage'];
 		} else {
+		    
 			if(!empty($params['parameters'])){ // it is a domain
 				$domainparams = json_decode ( $params ['parameters'], true );
-
-				if (! empty ( $domainparams['domain'] ['tld'] )) {
-					$tax = Taxes::getTaxbyTldID($domainparams ['domain']['tld']);
+				if (! empty ( $domainparams ['tldid'] )) {
+					$tax = Taxes::getTaxbyTldID($domainparams ['tldid']);
+					
+					$tldInfo = DomainsTlds::getbyID($domainparams ['tldid']);
+					if(!empty($domainparams['action']) && $domainparams['action'] == "transferDomain"){
+					    $params['price'] = $tldInfo['transfer_price'];
+					}elseif(!empty($domainparams['action']) && $domainparams['action'] == "renewalDomain"){
+					    $params['price'] = $tldInfo['renewal_price'];
+					}elseif(!empty($domainparams['action']) && $domainparams['action'] == "registerDomain"){
+					    $params['price'] = $tldInfo['registration_price'];
+					}
 					
 					if ($tax['percentage'] > 0) {
 						$vat = ($params ['price'] * $tax['percentage']) / 100;
