@@ -254,7 +254,7 @@ class Customers extends BaseCustomers {
 		}
 		
 		$customer = self::getAllInfo($id);
-		return $customer['taxfree'];
+		return (bool)$customer['taxfree'];
 	}
 
 	/**
