@@ -66,7 +66,7 @@ class Products extends BaseProducts {
 		$config ['datagrid'] ['buttons'] ['delete'] ['label'] = $translator->translate ( 'Delete' );
 		$config ['datagrid'] ['buttons'] ['delete'] ['cssicon'] = "delete";
 		$config ['datagrid'] ['buttons'] ['delete'] ['action'] = "/admin/products/delete/id/%d";
-		$config ['datagrid'] ['massactions'] = array ('bulk_delete'=>'Mass Delete');
+		$config ['datagrid'] ['massactions']['common'] = array ('bulk_delete'=>'Mass Delete', 'bulk_xml' => 'Export Product XML');
 		
 		return $config;
 	}
@@ -1423,8 +1423,75 @@ class Products extends BaseProducts {
 		return $records;
 	}
 	
+	
+	/**
+	 * Get a customer by id lists
+	 * @param array $ids [1,2,3,4,...,n]
+	 * @param string $fields
+	 * @return Array
+	 */
+	public static function get_products($ids, $fields=null, $locale=1) {
+	    $dq = Doctrine_Query::create ()->from ( 'Products p' )
+								->leftJoin ( 'p.ProductsAttributesGroups pag' )
+								->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
+								->leftJoin ( 'p.Taxes t' )
+								->leftJoin ( 'p.ProductsAttributesIndexes pai' )
+								->leftJoin ( 'p.ProductsTranches pt' )
+								->leftJoin(  'pt.BillingCycle bc')
+	                            ->andWhere( "isp_id = ?", Isp::getCurrentId() );
+	    if(!empty($fields)){
+	        $dq->select($fields);
+	    }
+	
+	    return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
+	}
+	
 	######################################### BULK ACTIONS ############################################
 	
+	/**
+	 * export the content in a excel file
+	 * @param array $items
+	 */
+	public function bulk_xml($items) {
+	
+	    if(empty($items)){
+	        return false;
+	    }
+	
+	    // Get the records from the customer table
+	    $data = self::get_products($items);
+	
+	    $xml = new SimpleXMLElement('<shineisp></shineisp>');
+	    $products = $xml->addChild('products');
+	
+	    foreach ($data as $item){
+	        $product = $products->addChild('product');
+	        $product->addAttribute('id', $item['product_id']);
+	        $product->addChild('name', "<![CDATA[". $item['ProductsData'][0]['name'] ."]]>");
+	        $product->addChild('shortdescription', "<![CDATA[". $item['ProductsData'][0]['shortdescription'] ."]]>");
+	        $product->addChild('description', "<![CDATA[". $item['ProductsData'][0]['description'] ."]]>");
+	        $product->addChild('price', $item['price_1']);
+	        $product->addChild('setupfee', $item['setupfee']);
+	        if(!empty($item['ProductsTranches'])){
+	            $prices = $product->addChild('prices');
+	            foreach ($item['ProductsTranches'] as $tranches){
+	                $price = $prices->addChild('price');
+	                $price->addChild('quantity', $tranches['quantity']);
+	                $price->addChild('price', $tranches['price']);
+	                $price->addChild('measurement', $tranches['measurement']);
+	                if(!empty($tranches['BillingCycle'])){
+	                    $price->addAttribute('id', $tranches['BillingCycle']['billing_cycle_id']);
+	                    $price->addAttribute('name', $tranches['BillingCycle']['name']);
+	                    $price->addAttribute('months', $tranches['BillingCycle']['months']);
+	                }
+	            }
+	        }
+	    }
+	    $data = html_entity_decode($xml->asXML());  // Save this file by file_put_contents to avoid this issue: http://stackoverflow.com/questions/3418796/how-can-i-get-php-simplexml-to-save-as-itself-instead-of-lt
+	    file_put_contents(PUBLIC_PATH . "/tmp/" . date('Ymdhis') . __CLASS__ . '.xml', $data);
+	    die(json_encode(array('url' => "/tmp/" . date('Ymdhis') . __CLASS__ . ".xml")));
+	
+	}
 	
 	/**
 	 * massdelete
