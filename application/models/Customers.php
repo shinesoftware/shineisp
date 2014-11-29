@@ -1394,7 +1394,9 @@ class Customers extends BaseCustomers {
 			}
 		}
 	
-		$xml->saveXML(PUBLIC_PATH . "/tmp/" . date('Ymdhis') . __CLASS__ . '.xml');
+		$data = html_entity_decode($xml->asXML());  // Save this file by file_put_contents to avoid this issue: http://stackoverflow.com/questions/3418796/how-can-i-get-php-simplexml-to-save-as-itself-instead-of-lt
+		file_put_contents(PUBLIC_PATH . "/tmp/" . date('Ymdhis') . __CLASS__ . '.xml', $data);
+		
 		die(json_encode(array('url' => "/tmp/" . date('Ymdhis') . __CLASS__ . ".xml")));
 	
 	}
