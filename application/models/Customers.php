@@ -1288,7 +1288,7 @@ class Customers extends BaseCustomers {
 		foreach ($data as $item){
 			$customer = $customers->addChild('customer');
 			$customer->addAttribute('id', $item['customer_id']);
-			$customer->addChild('company', htmlentities($item['company']));
+			$customer->addChild('company', "<![CDATA[". $item['company'])."]]>";
 			$customer->addChild('firstname',$item['firstname']);
 			$customer->addChild('lastname',$item['lastname']);
 			$customer->addChild('gender',$item['gender']);
@@ -1315,7 +1315,7 @@ class Customers extends BaseCustomers {
 			$cgroup = $customer->addChild('companytype',$item['CustomersGroups']['name']);
 			$cgroup->addAttribute('group_id', $item['group_id']);
 				
-			$customer->addChild('note',"<![CDATA[".htmlentities($item['note'])."]]>");
+			$customer->addChild('note',"<![CDATA[". $item['note'] ."]]>");
 				
 			$language = $customer->addChild('language',$item['Languages']['language']);
 			$language->addAttribute('language_id', $item['language_id']);
