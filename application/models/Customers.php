@@ -1370,7 +1370,17 @@ class Customers extends BaseCustomers {
 					$detail = $details->addChild('detail');
 					$detail->addAttribute('detail_id', $dtl['detail_id']);
 					$detail->addAttribute('status_id', $dtl['status_id']);
-					$detail->addAttribute('product_id', $dtl['product_id']);
+					
+					$arrProduct = Products::getAllInfo($dtl['product_id']);
+					if(!empty($arrProduct)){
+					    $product = $detail->addChild('product');
+					    $product->addAttribute('product_id', $dtl['product_id']);
+    					$product->addAttribute('sku', $arrProduct['sku']);
+    					
+    					if(!empty($arrProduct['ProductsData'])){
+    					    $product->addChild('name', "<![CDATA[".htmlentities($arrProduct['ProductsData'][0]['name'])."]]>");
+    					}
+					}
 					
 					$detail->addChild('date_start', $dtl['date_start']);
 					$detail->addChild('date_end', $dtl['date_end']);
