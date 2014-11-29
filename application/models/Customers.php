@@ -1378,14 +1378,14 @@ class Customers extends BaseCustomers {
     					$product->addAttribute('sku', $arrProduct['sku']);
     					
     					if(!empty($arrProduct['ProductsData'])){
-    					    $product->addChild('name', "<![CDATA[".htmlentities($arrProduct['ProductsData'][0]['name'])."]]>");
+    					    $product->addChild('name', "<![CDATA[". $arrProduct['ProductsData'][0]['name'] ."]]>");
     					}
 					}
 					
 					$detail->addChild('date_start', $dtl['date_start']);
 					$detail->addChild('date_end', $dtl['date_end']);
 					$detail->addChild('quantity', $dtl['quantity']);
-					$detail->addChild('description', "<![CDATA[".htmlentities($dtl['description'])."]]>");
+					$detail->addChild('description', "<![CDATA[". $dtl['description'] ."]]>");
 					$detail->addChild('cost', $dtl['cost']);
 					$detail->addChild('price', $dtl['price']);
 					$detail->addChild('setupfee', $dtl['setupfee']);
