@@ -1483,10 +1483,9 @@ class Products extends BaseProducts {
 	            foreach ($theCats as $categ){
     	            $category = $categories->addChild('category');
     	            $category->addAttribute('id', $categ['id']);
-    	            $category->addChild('name', $categ['name']);
-    	            $category->addChild('description', $categ['description']);
+    	            $category->addChildCData('name', $categ['name']);
+    	            $category->addChildCData('description', $categ['description']);
     	            $category->addChild('uri', $categ['uri']);
-    	            var_dump($category);
 	            }
 	        }
 	        
@@ -1507,9 +1506,13 @@ class Products extends BaseProducts {
 	            $attributes = $product->addChild('attributes');
 	            foreach ($item['ProductsAttributesIndexes'] as $attr){
 	                $attribute = $attributes->addChild('attribute');
-	                $theAttr = ProductsAttributes::getAllInfo($attr['attribute_id']);
+	                $theAttr = ProductsAttributes::getAllInfo($attr['attribute_id'], "attribute_id, code, type, is_visible_on_front, position, pad.label, pad.description, pad.prefix, pad.suffix");
 	                $attribute->addAttribute('id', $attr['attribute_id']);
 	                $attribute->addChild('code', $theAttr['code']);
+	                $attribute->addChildCData('name', $theAttr['ProductsAttributesData'][0]['label']);
+	                $attribute->addChildCData('description', $theAttr['ProductsAttributesData'][0]['description']);
+	                $attribute->addChildCData('prefix', $theAttr['ProductsAttributesData'][0]['prefix']);
+	                $attribute->addChildCData('suffix', $theAttr['ProductsAttributesData'][0]['suffix']);
 	                $attribute->addChild('type', $theAttr['type']);
 	                $attribute->addChild('is_visible_on_front', $theAttr['is_visible_on_front']);
 	                $attribute->addChild('position', $theAttr['position']);
@@ -1532,7 +1535,10 @@ class Products extends BaseProducts {
 	        }
 	    }
 	    $xml->saveXML(PUBLIC_PATH . "/tmp/products.xml");
-	    echo(json_encode(array('url' => "/tmp/products.xml")));
+	    
+	    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	        die(json_encode(array('url' => "/tmp/products.xml")));
+	    }
 	
 	}
 	
