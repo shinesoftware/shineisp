@@ -10,6 +10,9 @@
  * @author     Shine Software <info@shineisp.com>
  * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
+
+require_once 'ExSimpleXMLElement.php';
+
 class Products extends BaseProducts {
 	
 	/**
