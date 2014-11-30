@@ -1513,6 +1513,7 @@ class Products extends BaseProducts {
 	                $attribute->addChildCData('description', $theAttr['ProductsAttributesData'][0]['description']);
 	                $attribute->addChildCData('prefix', $theAttr['ProductsAttributesData'][0]['prefix']);
 	                $attribute->addChildCData('suffix', $theAttr['ProductsAttributesData'][0]['suffix']);
+	                $attribute->addChildCData('value', $attr['value']);
 	                $attribute->addChild('type', $theAttr['type']);
 	                $attribute->addChild('is_visible_on_front', $theAttr['is_visible_on_front']);
 	                $attribute->addChild('position', $theAttr['position']);
