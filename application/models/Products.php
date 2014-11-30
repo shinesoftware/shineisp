@@ -1468,13 +1468,54 @@ class Products extends BaseProducts {
 	    $products = $xml->addChild('products');
 	
 	    foreach ($data as $item){
+	        
 	        $product = $products->addChild('product');
 	        $product->addAttribute('id', $item['product_id']);
-	        $product->addChildCData('name', $item['ProductsData'][0]['name']);
-	        $product->addChildCData('shortdescription', $item['ProductsData'][0]['shortdescription']);
-	        $product->addChildCData('description', $item['ProductsData'][0]['description']);
+	        $product->addChild('sku', $item['sku']);
+	        $product->addChild('inserted_at', $item['inserted_at']);
+	        $product->addChild('updated_at', $item['updated_at']);
 	        $product->addChild('price', $item['price_1']);
 	        $product->addChild('setupfee', $item['setupfee']);
+	        
+	        if(!empty($item['categories'])){
+	            $categories = $product->addChild('categories');
+	            $theCats = ProductsCategories::getCategoriesByIds($item['categories']);
+	            foreach ($theCats as $categ){
+    	            $category = $categories->addChild('category');
+    	            $category->addAttribute('id', $categ['id']);
+    	            $category->addChild('name', $categ['name']);
+    	            $category->addChild('description', $categ['description']);
+    	            $category->addChild('uri', $categ['uri']);
+    	            var_dump($category);
+	            }
+	        }
+	        
+	        if(!empty($item['ProductsData'][0])){
+	            $product->addChildCData('name', $item['ProductsData'][0]['name']);
+	            $product->addChildCData('shortdescription', $item['ProductsData'][0]['shortdescription']);
+	            $product->addChildCData('description', $item['ProductsData'][0]['description']);
+	            $product->addChildCData('metakeywords', $item['ProductsData'][0]['metakeywords']);
+	            $product->addChildCData('metadescription', $item['ProductsData'][0]['metadescription']);
+	        }
+	        
+	        if(!empty($item['ProductsAttributesGroups'])){
+	            $product->addAttribute('groupcode', $item['ProductsAttributesGroups']['code']);
+	            $product->addAttribute('groupname', $item['ProductsAttributesGroups']['name']);
+	        }
+	        
+	        if(!empty($item['ProductsAttributesIndexes'])){
+	            $attributes = $product->addChild('attributes');
+	            foreach ($item['ProductsAttributesIndexes'] as $attr){
+	                $attribute = $attributes->addChild('attribute');
+	                $theAttr = ProductsAttributes::getAllInfo($attr['attribute_id']);
+	                $attribute->addAttribute('id', $attr['attribute_id']);
+	                $attribute->addChild('code', $theAttr['code']);
+	                $attribute->addChild('type', $theAttr['type']);
+	                $attribute->addChild('is_visible_on_front', $theAttr['is_visible_on_front']);
+	                $attribute->addChild('position', $theAttr['position']);
+	            }
+	        }
+	        
 	        if(!empty($item['ProductsTranches'])){
 	            $prices = $product->addChild('prices');
 	            foreach ($item['ProductsTranches'] as $tranches){

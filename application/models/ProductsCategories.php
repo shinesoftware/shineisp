@@ -228,6 +228,29 @@ class ProductsCategories extends BaseProductsCategories {
 	}
 	
 	/**
+	 * Get a list of categories
+	 * @return array
+	 */
+	public static function getCategoriesByIds($ids, $fields = "*", $locale=1) {
+		$data = array ();
+		$isp_id = Shineisp_Registry::get('ISP')->isp_id;
+		
+		$categories = Doctrine_Query::create ()->select ( '*' )->from ( 'ProductsCategories' )
+											 ->where('isp_id = ?', $isp_id)
+											 ->execute(array(), Doctrine_Core::HYDRATE_ARRAY );
+
+		$mycategories = explode ( "/", $ids);
+		
+		foreach ( $categories as $category ) {
+			if (in_array ( $category['category_id'], $mycategories )) {
+				$data [] = array('id' => $category['category_id'], 'name' => $category['name'], 'description' => $category['description'], 'uri' => $category['uri']);
+			}
+			
+		}
+		return $data;
+	}
+	
+	/**
 	 * Get a list ready of producs using the category Uri
 	 * @return array
 	 */
