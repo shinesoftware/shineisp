@@ -14,6 +14,23 @@
 class Cronjobs{
 	
 	/**
+	 *Export all orders, 
+	 *customers, product into a xml file
+	 *
+	 */
+	public static function exportAll() {
+	    
+	    // create the xml customer file 
+	    $customers = new Customers();
+	    $theCustomers = $customers->bulk_xml();
+
+	    // create the xml product
+	    $products = new Products();
+	    $theCustomers = $products->bulk_xml();
+	    
+	}
+	
+	/**
 	 * Check the expiring orders.
 	 *
 	 * Only the orders where renewal option has been set as

@@ -38,6 +38,11 @@
 			<script class="Cronjobs" method="send_queue">Check the newsletter queue</script>
 		</execute>
 		
+		<!--  all the day each 3 minutes -->
+		<execute time="*/5 * * * *">
+			<script class="Cronjobs" method="exportAll">Export the customers, products, orders from the database to xml files</script>
+		</execute>
+		
 	</cron>
 
 </layout>
