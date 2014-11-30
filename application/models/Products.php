@@ -1430,7 +1430,7 @@ class Products extends BaseProducts {
 	 * @param string $fields
 	 * @return Array
 	 */
-	public static function get_products($ids, $fields=null, $locale=1) {
+	public static function get_products($ids=array(), $fields=null, $locale=1) {
 	    $dq = Doctrine_Query::create ()->from ( 'Products p' )
 								->leftJoin ( 'p.ProductsAttributesGroups pag' )
 								->leftJoin ( "p.ProductsData pd WITH pd.language_id = $locale" )
@@ -1443,6 +1443,10 @@ class Products extends BaseProducts {
 	        $dq->select($fields);
 	    }
 	
+	    if(!empty($ids)){
+	        $dq->whereIn( "product_id", $ids);
+	    }
+	    
 	    return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
 	}
 	
@@ -1452,24 +1456,20 @@ class Products extends BaseProducts {
 	 * export the content in a excel file
 	 * @param array $items
 	 */
-	public function bulk_xml($items) {
-	
-	    if(empty($items)){
-	        return false;
-	    }
+	public function bulk_xml($items=array()) {
 	
 	    // Get the records from the customer table
 	    $data = self::get_products($items);
 	
-	    $xml = new SimpleXMLElement('<shineisp></shineisp>');
+	    $xml = new ExSimpleXMLElement('<shineisp></shineisp>');
 	    $products = $xml->addChild('products');
 	
 	    foreach ($data as $item){
 	        $product = $products->addChild('product');
 	        $product->addAttribute('id', $item['product_id']);
-	        $product->addChild('name', "<![CDATA[". $item['ProductsData'][0]['name'] ."]]>");
-	        $product->addChild('shortdescription', "<![CDATA[". $item['ProductsData'][0]['shortdescription'] ."]]>");
-	        $product->addChild('description', "<![CDATA[". $item['ProductsData'][0]['description'] ."]]>");
+	        $product->addChildCData('name', $item['ProductsData'][0]['name']);
+	        $product->addChildCData('shortdescription', $item['ProductsData'][0]['shortdescription']);
+	        $product->addChildCData('description', $item['ProductsData'][0]['description']);
 	        $product->addChild('price', $item['price_1']);
 	        $product->addChild('setupfee', $item['setupfee']);
 	        if(!empty($item['ProductsTranches'])){
@@ -1487,9 +1487,8 @@ class Products extends BaseProducts {
 	            }
 	        }
 	    }
-	    $data = html_entity_decode($xml->asXML());  // Save this file by file_put_contents to avoid this issue: http://stackoverflow.com/questions/3418796/how-can-i-get-php-simplexml-to-save-as-itself-instead-of-lt
-	    file_put_contents(PUBLIC_PATH . "/tmp/" . date('Ymdhis') . __CLASS__ . '.xml', $data);
-	    die(json_encode(array('url' => "/tmp/" . date('Ymdhis') . __CLASS__ . ".xml")));
+	    $xml->saveXML(PUBLIC_PATH . "/tmp/products.xml");
+	    echo(json_encode(array('url' => "/tmp/products.xml")));
 	
 	}
 	

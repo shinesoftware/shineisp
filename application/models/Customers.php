@@ -615,7 +615,7 @@ class Customers extends BaseCustomers {
 	 * @param string $fields
 	 * @return Array
 	 */
-	public static function get_customers($ids, $fields=null) {
+	public static function get_customers($ids=null, $fields=null) {
 		$dq = Doctrine_Query::create ()->from ( 'Customers c' )
 										->leftJoin ( 'c.Orders o' )
 										->leftJoin ( 'c.Languages lng' )
@@ -628,10 +628,13 @@ class Customers extends BaseCustomers {
 										->leftJoin ( 'cn.ContactsTypes t' )
 										->leftJoin ( 'c.Statuses s' )
 										->leftJoin ( 'c.CustomersGroups g' )
-										->whereIn( "customer_id", $ids)
                                         ->andWhere( "isp_id = ?", Isp::getCurrentId() );
 		if(!empty($fields)){
 			$dq->select($fields);
+		}
+		
+		if(!empty($ids)){
+		    $dq->whereIn( "customer_id", $ids);
 		}
 		
 		return $dq->execute ( array (), Doctrine::HYDRATE_ARRAY );
@@ -1273,22 +1276,18 @@ class Customers extends BaseCustomers {
 	 * export the content in a excel file
 	 * @param array $items
 	 */
-	public function bulk_xml($items) {
-	
-		if(empty($items)){
-			return false;
-		}
+	public function bulk_xml($items=array()) {
 	
 		// Get the records from the customer table
 		$data = self::get_customers($items);
 		
-		$xml = new SimpleXMLElement('<shineisp></shineisp>');
+		$xml = new ExSimpleXMLElement('<shineisp></shineisp>');
 		$customers = $xml->addChild('customers');
 		
 		foreach ($data as $item){
 			$customer = $customers->addChild('customer');
 			$customer->addAttribute('id', $item['customer_id']);
-			$customer->addChild('company', "<![CDATA[". $item['company'])."]]>";
+			$customer->addChildCData('company', $item['company']);
 			$customer->addChild('firstname',$item['firstname']);
 			$customer->addChild('lastname',$item['lastname']);
 			$customer->addChild('gender',$item['gender']);
@@ -1315,7 +1314,7 @@ class Customers extends BaseCustomers {
 			$cgroup = $customer->addChild('companytype',$item['CustomersGroups']['name']);
 			$cgroup->addAttribute('group_id', $item['group_id']);
 				
-			$customer->addChild('note',"<![CDATA[". $item['note'] ."]]>");
+			$customer->addChildCData('note', $item['note']);
 				
 			$language = $customer->addChild('language',$item['Languages']['language']);
 			$language->addAttribute('language_id', $item['language_id']);
@@ -1378,14 +1377,14 @@ class Customers extends BaseCustomers {
     					$product->addAttribute('sku', $arrProduct['sku']);
     					
     					if(!empty($arrProduct['ProductsData'])){
-    					    $product->addChild('name', "<![CDATA[". $arrProduct['ProductsData'][0]['name'] ."]]>");
+    					    $product->addChildCData('name', $arrProduct['ProductsData'][0]['name']);
     					}
 					}
 					
 					$detail->addChild('date_start', $dtl['date_start']);
 					$detail->addChild('date_end', $dtl['date_end']);
 					$detail->addChild('quantity', $dtl['quantity']);
-					$detail->addChild('description', "<![CDATA[". $dtl['description'] ."]]>");
+					$detail->addChildCData('description', $dtl['description']);
 					$detail->addChild('cost', $dtl['cost']);
 					$detail->addChild('price', $dtl['price']);
 					$detail->addChild('setupfee', $dtl['setupfee']);
@@ -1394,10 +1393,8 @@ class Customers extends BaseCustomers {
 			}
 		}
 	
-		$data = html_entity_decode($xml->asXML());  // Save this file by file_put_contents to avoid this issue: http://stackoverflow.com/questions/3418796/how-can-i-get-php-simplexml-to-save-as-itself-instead-of-lt
-		file_put_contents(PUBLIC_PATH . "/tmp/" . date('Ymdhis') . __CLASS__ . '.xml', $data);
-		
-		die(json_encode(array('url' => "/tmp/" . date('Ymdhis') . __CLASS__ . ".xml")));
+		$xml->saveXML(PUBLIC_PATH . "/tmp/customers.xml");
+		echo(json_encode(array('url' => "/tmp/customers.xml")));
 	
 	}
 	
