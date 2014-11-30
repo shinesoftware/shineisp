@@ -1395,7 +1395,10 @@ class Customers extends BaseCustomers {
 		}
 	
 		$xml->saveXML(PUBLIC_PATH . "/tmp/customers.xml");
-		echo(json_encode(array('url' => "/tmp/customers.xml")));
+		
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+		    die(json_encode(array('url' => "/tmp/customers.xml")));
+		}
 	
 	}
 	
