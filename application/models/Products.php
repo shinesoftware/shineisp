@@ -1475,6 +1475,7 @@ class Products extends BaseProducts {
 	        $product->addChild('inserted_at', $item['inserted_at']);
 	        $product->addChild('updated_at', $item['updated_at']);
 	        $product->addChild('price', $item['price_1']);
+	        $product->addChild('photo', $item['photo']);
 	        $product->addChild('setupfee', $item['setupfee']);
 	        
 	        if(!empty($item['categories'])){
