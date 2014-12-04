@@ -1330,17 +1330,18 @@ class Customers extends BaseCustomers {
 			foreach ($item['Addresses'] as $addr){
 				$address = $addresses->addChild('address');
 				$address->addAttribute('address_id', $addr['address_id']);
-	
+	            
 				$address->addChild('address', $addr['address']);
 				$address->addChild('city', $addr['city']);
-				$address->addChild('code', $addr['code']);
+				$address->addChild('postcode', $addr['code']);
+				$address->addChild('countrycode', $addr['Countries']['code']);
 				$country = $address->addChild('country', $addr['Countries']['name']);
 				$country->addAttribute('country_id', $addr['country_id']);
 				$address->addChild('area', $addr['area']);
 				$address->addChild('latitude', $addr['latitude']);
 				$address->addChild('longitude', $addr['longitude']);
 			}
-				
+			
 			$contacts = $customer->addChild('contacts');
 				
 			foreach ($item['Contacts'] as $cnt){
