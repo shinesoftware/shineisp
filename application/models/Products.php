@@ -1440,6 +1440,7 @@ class Products extends BaseProducts {
 								->leftJoin ( 'p.Taxes t' )
 								->leftJoin ( 'p.ProductsAttributesIndexes pai' )
 								->leftJoin ( 'p.ProductsTranches pt' )
+								->leftJoin ( 'p.ProductsMedia pm' )
 								->leftJoin(  'pt.BillingCycle bc')
 	                            ->andWhere( "isp_id = ?", Isp::getCurrentId() );
 	    if(!empty($fields)){
@@ -1466,21 +1467,32 @@ class Products extends BaseProducts {
 	
 	    $xml = new ExSimpleXMLElement('<shineisp></shineisp>');
 	    $products = $xml->addChild('products');
-	
+	    
 	    foreach ($data as $item){
-	        
+	       
 	        $product = $products->addChild('product');
 	        $product->addAttribute('id', $item['product_id']);
 	        $product->addChild('sku', $item['sku']);
 	        $product->addChild('inserted_at', $item['inserted_at']);
 	        $product->addChild('updated_at', $item['updated_at']);
 	        $product->addChild('price', $item['price_1']);
-	        $product->addChild('photo', $item['photo']);
 	        $product->addChild('setupfee', $item['setupfee']);
 	        
-	        if(!empty($item['categories'])){
+	        if(!empty($item['ProductsMedia'])){
+	            $media = $product->addChild('media');
+	            foreach ($item['ProductsMedia'] as $productmedia){
+	                $file = $media->addChild('file');
+	                $file->addAttribute('id', $productmedia['media_id']);
+	                $file->addChildCData('name', $productmedia['filename']);
+	                $file->addChildCData('description', $productmedia['description']);
+	                $file->addChildCData('path', $productmedia['path']);
+	            }
+	        }
+            
+            if(!empty($item['categories'])){
 	            $categories = $product->addChild('categories');
 	            $theCats = ProductsCategories::getCategoriesByIds($item['categories']);
+	             
 	            foreach ($theCats as $categ){
     	            $category = $categories->addChild('category');
     	            $category->addAttribute('id', $categ['id']);
