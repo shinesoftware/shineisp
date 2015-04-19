@@ -48,7 +48,12 @@ class Default_Form_ContactsForm extends Zend_Form
         
         $status = $this->getElement('subject')
                   ->setAllowEmpty(false)
-                  ->setMultiOptions(array('Sales Question' => 'Sales Question','Billing Question' => 'Billing Question', 'Partnership Inquiry' => 'Partnership Inquiry', 'Website Feedback' => 'Website Feedback'));          
+                  ->setMultiOptions(array(
+                  	'Sales Question' => $translate->_('Sales Question'),
+                  	'Billing Question' => $translate->_('Billing Question'),
+                  	'Partnership Inquiry' => $translate->_('Partnership Inquiry'),
+                  	'Website Feedback' => $translate->_('Website Feedback'),
+                  ));          
         
         $this->addElement('textarea', 'message', array(
             'filters'    => array('StringTrim'),
