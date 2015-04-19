@@ -267,15 +267,15 @@
 					<?php echo $this->data['payment_date']?>
 				</td>
 				<td valign="top" class='rightalign'>
-					<span class="detail">Imponibile</span><br />
+					<span class="detail"><?php echo $this->translator->translate ( "Taxable" )?></span><br />
 					<?php echo $this->data['subtotal']?>
 				</td>
 				<td valign="top" class='rightalign'>
-					<span class="detail">Totale IVA</span><br />
+					<span class="detail"><?php echo $this->translator->translate ( "Total VAT" )?></span><br />
 					<?php echo $this->data['vat']?>
 				</td>
 				<td valign="top" class='rightalign'>
-					<span class="detail">Totale Complessivo</span><br />
+					<span class="detail"><?php echo $this->translator->translate ( "Overall Total" )?></span><br />
 					<?php echo $this->data['grandtotal']?>
 				</td>
 			</tr>
