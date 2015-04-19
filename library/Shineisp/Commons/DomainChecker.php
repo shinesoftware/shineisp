@@ -27,8 +27,8 @@ class Shineisp_Commons_DomainChecker {
 		
 		// split the TLD from domain name
 		$_domain = explode ( '.', $domain );
-		$lst = count ( $_domain ) - 1;
-		$ext = $_domain [$lst];
+		array_shift($_domain);
+		$ext = implode( '.', $_domain );
 		
 		if (! isset ( $servers [$ext] )) {
 			return "Error: No matching whois server found for $ext!" ;
