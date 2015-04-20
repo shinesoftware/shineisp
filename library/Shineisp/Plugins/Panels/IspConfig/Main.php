@@ -705,9 +705,19 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
 		$password = CustomAttributes::getAttributeValue($serverId, "password");
 		
 		if (! empty ( $endpointlocation ) && ! empty ( $endpointuri ) && ! empty ( $username ) && ! empty ( $password )) {
-			
-			$client = new SoapClient ( null, array ('location' => $endpointlocation, 'uri' => $endpointuri, 'trace' => 1, 'exceptions' => 1 ) );
-			$this->setSession ( $client->login ( $username, $password ) );
+
+            $opts = array(
+                'http'=>array(
+                    'user_agent' => 'PHPSoapClient'
+                )
+            );
+
+            $context = stream_context_create($opts);
+            $client = new SoapClient($endpointlocation,
+                array('stream_context' => $context,
+                    'cache_wsdl' => WSDL_CACHE_NONE));
+
+            $this->setSession ( $client->login ( $username, $password ) );
 			
 			$this->setSoapclient($client);
 			

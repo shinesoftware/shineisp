@@ -688,8 +688,19 @@ class Shineisp_Plugins_Registrars_Ovh_Main extends Shineisp_Plugins_Registrars_B
 				}
 				
 				if(!empty($registrar)){
-					$soap = new SoapClient ( $registrar['ovh_soapuri'] );
-					$this->session['id'] = $soap->login ($registrar['ovh_username'], $registrar['ovh_password'], "en", false );
+
+                    $opts = array(
+                        'http'=>array(
+                            'user_agent' => 'PHPSoapClient'
+                        )
+                    );
+
+                    $context = stream_context_create($opts);
+                    $soap = new SoapClient($registrar['ovh_soapuri'],
+                        array('stream_context' => $context,
+                            'cache_wsdl' => WSDL_CACHE_NONE));
+
+                    $this->session['id'] = $soap->login ($registrar['ovh_username'], $registrar['ovh_password'], "en", false );
 					return $soap;
 				}
 			}
