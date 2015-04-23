@@ -190,14 +190,14 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			
 			$form->populate ( array('datetime' => date('d/m/Y H:i:s'), 'ticket_id' => $id) );
 			
-			$fields = "DATE_FORMAT(t.date_open, '%d/%m/%Y') as date_open, user_id, sibling_id, category_id as category, CONCAT(d.domain, '.', ws.tld) as domain, DATE_FORMAT(t.date_close, '%d/%m/%Y') as date_close, t.subject, t.description, t.status_id, s.status, c.email as email, c.customer_id as customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.company as company, (DATEDIFF(t.date_close, t.date_open)) as days";
+			$fields = "DATE_FORMAT(t.date_open, '%d/%m/%Y') as date_open, user_id, sibling_id, category_id as category, CONCAT(d.domain, '.', ws.tld) as domain, DATE_FORMAT(t.date_close, '%d/%m/%Y') as date_close, t.subject, t.description, t.status_id, s.status, c.email as email, c.customer_id as customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.company as company, (DATEDIFF(t.date_close, t.date_open)) as days, order_id";
 			$rs = $this->tickets->getAllInfo ( $id, $fields, true );
 
 			if (! empty ( $rs [0] )) {
 
 				$form->populate ( array('datetime' => date('d/m/Y H:i:s'), 'ticket_id' => $id) + $rs [0] );
 				
-				$siblings = Tickets::getListbyCustomerId($rs[0]['customer_id'], false, true);
+				$siblings = Tickets::getListbyCustomerId($rs[0]['customer_id'], true, true);
 				unset($siblings[$id]);
 				$form->getElement('sibling_id')->setMultiOptions($siblings);
 				
@@ -341,17 +341,22 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			// Update the sibling
 			if(!empty($params['sibling_id']) && is_numeric($params['sibling_id'])){
 				Tickets::setSibling($id, $params['sibling_id']);
-			}
+			}else{
+                Tickets::setSibling($id, null);
+            }
+
 
 			// Update the operator for the selected ticket
 			if(!empty($params['user_id']) && is_numeric($params['user_id'])){
 				Tickets::setOperator($id, $params['user_id']);
 			}
-			
+
 			// Update the ticket attaching the order
 			if(!empty($params['order_id']) && is_numeric($params['order_id'])){
 				Tickets::setOrder($id, $params['order_id']);
-			}
+            }else{
+                Tickets::setOrder($id, null);
+            }
 			
 			$redirector->gotoUrl ( "/admin/tickets/edit/id/$id#last" );
 			
