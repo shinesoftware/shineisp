@@ -192,11 +192,12 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			
 			$fields = "DATE_FORMAT(t.date_open, '%d/%m/%Y') as date_open, user_id, sibling_id, category_id as category, CONCAT(d.domain, '.', ws.tld) as domain, DATE_FORMAT(t.date_close, '%d/%m/%Y') as date_close, t.subject, t.description, t.status_id, s.status, c.email as email, c.customer_id as customer_id, CONCAT(c.firstname, ' ', c.lastname) as fullname, c.company as company, (DATEDIFF(t.date_close, t.date_open)) as days";
 			$rs = $this->tickets->getAllInfo ( $id, $fields, true );
-			
+
 			if (! empty ( $rs [0] )) {
+
 				$form->populate ( array('datetime' => date('d/m/Y H:i:s'), 'ticket_id' => $id) + $rs [0] );
 				
-				$siblings = Tickets::getListbyCustomerId($rs[0]['customer_id'], true, true);
+				$siblings = Tickets::getListbyCustomerId($rs[0]['customer_id'], false, true);
 				unset($siblings[$id]);
 				$form->getElement('sibling_id')->setMultiOptions($siblings);
 				
@@ -331,10 +332,11 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
 			$date = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime']) : null;
 			$note = !empty($params['note']) ? $params['note'] : null;
 			$status = !empty($params['status_id']) && is_numeric($params['status_id']) ? $params['status_id'] : null;
+			$category = !empty($params['category']) && is_numeric($params['category']) ? $params['category'] : null;
 			$sendemail = !empty($params['sendemail']) && is_numeric($params['sendemail']) ? true : false;
-			
+
 			// Save the Ticket Note and send the email to the customer
-			$ticketNote = TicketsNotes::saveIt($id, $date, $note, $status, true, null, $sendemail );
+			$ticketNote = TicketsNotes::saveIt($id, $date, $note, $category, $status, true, null, $sendemail );
 
 			// Update the sibling
 			if(!empty($params['sibling_id']) && is_numeric($params['sibling_id'])){

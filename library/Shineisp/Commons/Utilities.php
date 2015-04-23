@@ -1486,43 +1486,7 @@ class Shineisp_Commons_Utilities {
 	}
 	
 	public static function Capitalize($str, $is_name=false) {
-		// exceptions to standard case conversion
-		if ($is_name) {
-			$all_uppercase = '';
-			$all_lowercase = 'De La|De Las|Der|Van De|Van Der|Vit De|Von|Or|And';
-		} else {
-			// addresses, essay titles ... and anything else
-			$all_uppercase = 'Po|Rr|Se|Sw|Ne|Nw';
-			$all_lowercase = 'A|And|As|By|In|Of|Or|To';
-		}
-		$prefixes = 'Mc';
-		$suffixes = "'S";
-	
-		// captialize all first letters
-		$str = preg_replace('/\\b(\\w)/e', 'strtoupper("$1")', strtolower(trim($str)));
-	
-		if ($all_uppercase) {
-			// capitalize acronymns and initialisms e.g. PHP
-			$str = preg_replace("/\\b($all_uppercase)\\b/e", 'strtoupper("$1")', $str);
-		}
-		if ($all_lowercase) {
-			// decapitalize short words e.g. and
-			if ($is_name) {
-				// all occurences will be changed to lowercase
-				$str = preg_replace("/\\b($all_lowercase)\\b/e", 'strtolower("$1")', $str);
-			} else {
-				// first and last word will not be changed to lower case (i.e. titles)
-				$str = preg_replace("/(?<=\\W)($all_lowercase)(?=\\W)/e", 'strtolower("$1")', $str);
-			}
-		}
-		if ($prefixes) {
-			// capitalize letter after certain name prefixes e.g 'Mc'
-			$str = preg_replace("/\\b($prefixes)(\\w)/e", '"$1".strtoupper("$2")', $str);
-		}
-		if ($suffixes) {
-			// decapitalize certain word suffixes e.g. 's
-			$str = preg_replace("/(\\w)($suffixes)\\b/e", '"$1".strtolower("$2")', $str);
-		}
+
 		return $str;
 	}
 

@@ -175,7 +175,7 @@ class Admin_TicketsCategoriesController extends Shineisp_Controller_Admin {
 			if (! empty ( $rs [0] )) {
 				$form->populate ( $rs [0] );
 			}
-			
+
 			$this->view->buttons[] = array("url" => "/admin/ticketscategories/confirm/id/$id", "label" => $this->translator->translate('Delete'), "params" => array('css' => null));
 				
 		}

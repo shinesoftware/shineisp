@@ -11,6 +11,7 @@
 				<li><a data-toggle="tab" href="#tab1"><?php echo $this->translate('Main');?></a></li> 
 				<li><a data-toggle="tab" href="#tab2"><?php echo $this->translate('Attachments');?></a></li> 
 				<li><a data-toggle="tab" href="#tab3"><?php echo $this->translate('Options');?></a></li> 
+				<li><a data-toggle="tab" href="#tab4"><?php echo $this->translate('Info');?></a></li>
 			</ul>
 			
 			<div class="tab-content">
@@ -72,26 +73,37 @@
 			        	<?php echo $form->user_id->render()?>
 			        	<?php echo $form->order_id->render()?>
 			        	<?php echo $form->sibling_id->render()?>
-			        	<?php if(!empty($this->siblings)): ?>
-			            	<div class="form-group">
-			            	<label for="siblings"><?php echo $this->translate('Go to'); ?>:</label>
-			            	<select id="siblings" class="form-control goto">
-			            		<?php foreach ($this->siblings as $id => $sibling): ?>
-			            			<option value="/admin/tickets/edit/id/<?php echo $id ?>"><?php echo $sibling?></option>
-			            		<?php endforeach;?>
-			            	</select></div>
-			        	<?php endif; ?>
+                        <?php echo $form->category->render()?>
+
 			        </div>
 			        
 			        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 					    <?php echo $form->sendemail->render()?>	
 				        <?php echo $form->status_id->render()?>
-				        <?php echo $form->datetime->render()?>
+                        <?php echo $form->datetime->render()?>
+
 					</div>    
 				    
 					<?php echo $form->ticket_id->render()?>			  
 				</div>
 			
-			</div>
-		</div>
+
+
+            <div class="tab-pane" id="tab4">
+
+                <div class="col-lg-12">
+                    <?php if(!empty($this->siblings)): ?>
+                        <div class="form-group">
+                        <label for="siblings"><?php echo $this->translate('Go to'); ?>:</label>
+                        <ul>
+                            <?php foreach ($this->siblings as $id => $sibling): ?>
+                                <li><a href="/admin/tickets/edit/id/<?php echo $id ?>"><?php echo $sibling?></a></li>
+                            <?php endforeach;?>
+                        </ul></div>
+                    <?php endif; ?>
+                </div>
+
+            </div>
+
+            </div>
 	</form>

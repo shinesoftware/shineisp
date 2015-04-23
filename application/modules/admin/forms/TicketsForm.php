@@ -47,18 +47,29 @@ class Admin_Form_TicketsForm extends Zend_Form
                   ->setAllowEmpty(false)
                   ->setRegisterInArrayValidator(false)
                   ->setMultiOptions(TicketsCategories::getList());
-        
+
         $this->addElement('select', 'customer_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Customer'),
             'class'       => 'form-control'
         ));
-        
+
         $this->getElement('customer_id')
-                  ->setAllowEmpty(false)
-                  ->setRegisterInArrayValidator(false)
-                  ->setMultiOptions(Customers::getList());
-        
+            ->setAllowEmpty(false)
+            ->setRegisterInArrayValidator(false)
+            ->setMultiOptions(Customers::getList());
+
+        $this->addElement('select', 'category', array(
+            'decorators'  => array('Bootstrap'),
+            'label'       => $translate->_('Category'),
+            'class'       => 'form-control'
+        ));
+
+        $this->getElement('category')
+            ->setAllowEmpty(false)
+            ->setRegisterInArrayValidator(false)
+            ->setMultiOptions(TicketsCategories::getList());
+
         $this->addElement('select', 'order_id', array(
             'decorators'  => array('Bootstrap'),
             'label'       => $translate->_('Order reference'),
