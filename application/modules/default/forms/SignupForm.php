@@ -75,7 +75,7 @@ class Default_Form_SignupForm extends Zend_Form
         		),
         		'class'       => 'form-control',
         		'required' => true,
-        		'label' => 'Confirm Password',
+        		'label' => $translate->_('Confirm Password'),
         ));
         
         if(Settings::findbyParam('customer_vat')){
