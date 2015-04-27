@@ -5,9 +5,8 @@
 		<?php foreach($this->files as $file): ?>
 			<?php if(file_exists(PUBLIC_PATH . $file['path'] . $file['file'])): ?>
 				<li class="files <?php echo pathinfo($file['file'], PATHINFO_EXTENSION);?>">
-					<a href="<?php echo $file['path'] . $file['file']?>"><?php echo basename($file['file'])?></a>
-					[<a class="confirm" href="/admin/tickets/delattach/id/<?php echo $file['file_id']?>"><?php echo $this->translate('Delete')?></a>] 
-					
+					<a style="display:inline" href="<?php echo $file['path'] . $file['file']?>"><?php echo basename($file['file'])?></a>
+					[<a class="confirm" style="display:inline" href="/admin/tickets/delattach/id/<?php echo $file['file_id']?>"><?php echo $this->translate('Delete')?></a>]
 				</li>
 			<?php else:?>
 				<li><?php echo basename($file['file'])?> - <?php echo $this->translate('File not found')?></li>
