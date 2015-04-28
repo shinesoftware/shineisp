@@ -107,28 +107,33 @@ class TicketsNotes extends BaseTicketsNotes
 	 * @param integer $ticketid
 	 * @param array $params
 	 */
-	public static function saveIt($tid, $date, $note, $category = null, $status = null, $isAdmin = false, $noteid = null, $sendemail = true){
-		$translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+	public static function saveIt($tid, $date, $note, $category = null, $status = null, $isAdmin = false, $noteid = null, $sendemail = true)
+    {
+        $translator = Shineisp_Registry::getInstance()->Zend_Translate;
 
-		if(!is_numeric($tid)){
-			return false;
-		}
-		
-		if(is_numeric($noteid)){
-			$ticketnote = self::find($noteid);
-		}else{
-			$ticketnote = new TicketsNotes ();
-		}
+        if (!is_numeric($tid)) {
+            return false;
+        }
 
-		// Get and Check the ticket note
-		$ticket = Tickets::find($tid);
+        if (is_numeric($noteid)) {
+            $ticketnote = self::find($noteid);
+        } else {
+            $ticketnote = new TicketsNotes ();
+        }
+
+        // Get and Check the ticket note
+        $ticket = Tickets::find($tid);
 
         // update the ticket
-        if(!empty($status) && is_numeric($status)){
+        if (!empty($status) && is_numeric($status)) {
             $ticket->status_id = $status;
         }
-        $ticket->date_updated = date ( 'Y-m-d H:i:s' );
-        $ticket->category_id = $category;
+        $ticket->date_updated = date('Y-m-d H:i:s');
+
+        if (is_numeric($category)) {
+            $ticket->category_id = $category;
+        }
+
         $ticket->save();
 
 		if($ticket && !empty($note)){
