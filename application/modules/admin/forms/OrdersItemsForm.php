@@ -95,7 +95,7 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'label'      => $translate->_('Service Panel Configuration'),
             'decorators' => array('Bootstrap'),
         	'rows'		 => 5,
-            'description' => $translate->_('Parameters model accepted: {"domain":"mydomain.com","action":"registerDomain"}'),
+            'description' => $translate->_('Parameters model accepted: {"domain":{"name":"domain.com","tld":"2","action":"renewDomain","authcode":null}}'),
             'class'      => 'form-control'
         ));
         
