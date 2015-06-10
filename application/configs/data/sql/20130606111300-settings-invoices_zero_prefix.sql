@@ -1,2 +1,0 @@
-
-INSERT INTO settings_parameters SET name = 'Invoices zero prefix', var = 'invoices_zero_prefix', type = 'text', module = 'admin', enabled = 1, description = 'Adding the zero number before the invoice number.', group_id = 1;  

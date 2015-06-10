@@ -1,1 +1,0 @@
-INSERT INTO `settings_parameters` (`parameter_id`, `name`, `description`, `var`, `type`, `module`, `enabled`, `group_id`, `config`) VALUES (NULL, 'Cron email notification message', 'Send a copy of the cron message emails to this email address.', 'cron_notify', 'text', 'admin', '1', '3', NULL);

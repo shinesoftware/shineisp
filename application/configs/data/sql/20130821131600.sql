@@ -1,1 +1,0 @@
-INSERT INTO `admin_resources` (`resource_id`, `name`, `hidden`, `is_container`, `is_allowed`, `admin`, `module`, `controller`, `parent_id`) VALUES (NULL, 'File categories', '0', '0', '0', '1', 'admin', 'filecategories', '60');

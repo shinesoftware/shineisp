@@ -1,2 +1,0 @@
-INSERT INTO admin_resources SET resource_id = 99, NAME = 'API Orderitems',hidden = 1,is_container= 0,is_allowed= 0,admin= 1,module='api', controller='orderitems',parent_id='0';
-INSERT INTO admin_permissions SET permission_id = 134, resource_id=99, role_id=5, permission='allow';

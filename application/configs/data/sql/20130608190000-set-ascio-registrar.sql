@@ -1,1 +1,0 @@
-UPDATE `registrars` SET `class` = 'Shineisp_Plugins_Registrars_Ascio_Main' WHERE `registrars`.`registrars_id` =1;

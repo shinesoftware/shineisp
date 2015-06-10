@@ -1,2 +1,0 @@
-UPDATE `settings_parameters` SET `type` = 'select' WHERE `settings_parameters`.`var` = 'dateformat'; 
-UPDATE `settings_parameters` SET `config` = '{"class":"Settings","method":"getDateFormat"}' WHERE `settings_parameters`.`var` = 'dateformat';
