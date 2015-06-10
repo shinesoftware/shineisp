@@ -16,16 +16,16 @@ class CommonController extends Shineisp_Controller_Default {
 	public function callbackAction() {
 		$request = $this->getRequest ();
 		$response = $request->getParams ();
-		
+
 		if (! empty ( $response ['custom'] ) && is_numeric ( trim($response ['custom'] ))) {
 			
 			// Getting the md5 value in order to match with the class name.
 			$classrequest = $request->gateway;
-			
+
 			// Orderid back from the bank
 			$order_id = trim($response ['custom']);
 			
-			// Get the bank selected using the MD5 code 
+			// Get the bank selected using the MD5 code
 			$bank = Banks::findbyMD5 ( $classrequest );
 			if (! empty ( $bank [0] ['classname'] )) {
 				if (! empty ( $bank [0] ['classname'] ) && class_exists ( $bank [0] ['classname'] )) {
