@@ -210,7 +210,7 @@ abstract class Shineisp_Banks_BNL_Igfs_BaseIgfsCg {
 		$ch = curl_init();
 
 		$httpHeader = array("Content-Type: text/xml; charset=\"utf-8\"");
-        Shineisp_Commons_Utilities::logs ("---> IGFS POST to $url", 'bnl_igfs.log');
+        Shineisp_Commons_Utilities::logs("---> IGFS send the request to $url", 'bnl_igfs.log');
         
 		//set the url, number of POST vars, POST data 
 		curl_setopt($ch,CURLOPT_HTTPHEADER,$httpHeader); 		

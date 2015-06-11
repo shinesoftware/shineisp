@@ -5,16 +5,8 @@
 * -------------------------------------------------------------
 * Type:     class
 * Name:     Shineisp_Banks_BNL_Gateway
-* Purpose:  Manage the communications with the IWBANK
+* Purpose:  Manage the communications with the BNL IGFS mode
 * -------------------------------------------------------------
-* 
-* TEST DATA:
-* 
-*   username: IWSTEST2
-*   password: 12345
-*   second password: MONETA
-*  
-* 
 */
 
 class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shineisp_Banks_Interface {
@@ -52,7 +44,7 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
             $init->disableCheckSSLCert();
             $init->serverURL = $url;
             $init->errorURL = "http://" . self::getUrlKo ();
-            $init->notifyURL = "http://" . self::getUrlCallback () . "/custom/" . self::getOrderID ();
+            $init->notifyURL = "http://" . self::getUrlOk() . "/custom/" . self::getOrderID();
             $init->timeout = 150000;
             $init->tid = $tid;
             $init->kSig = $ksig;
@@ -77,20 +69,11 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
                 Shineisp_Commons_Utilities::logs ( "-----> The bank replies with a new paymentID: $paymentId", "bnl_igfs.log" );
                 Shineisp_Commons_Utilities::logs("-----> The user has been red replies with a new paymentID: $paymentId", "bnl_igfs.log");
                 $html .= "<a class='btn btn-success' href='" . $init->redirectURL . "'>" . $translator->translate('Pay Now') . "</a>";
-                if (self::doRedirect()) {
-
-                }
-
 
             }else{
                 Shineisp_Commons_Utilities::logs ( $init->errorDesc, "bnl_igfs.log" );
+                $html .= $init->errorDesc;
 
-                $html = '<html><body>';
-                $html .= '<h2>' . $this->__ ( 'Payment module error' ) . '</h2>';
-                $html .= '<p>' . $this->__('Payment module has not been set accordingly. Please check the log error file.') . '</p>';
-                $html .= '<p>' . $this->__('You have to enable the Log feature in the Magento Administration and execute again the process, a log file will be created.') .'</p>';
-                $html .= '</body></html>';
-                die($html);
             }
 
             return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $html);
@@ -107,18 +90,6 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
      * @return order_id or false
      */
     public function Response($response) {
-
-    }
-
-
-    /**
-     * CallBack
-     * This function is called by the bank server in order to confirm the transaction previously executed
-     * @param $response from the Gateway Server
-     * @return boolean
-     */
-    public function CallBack($response) {
-
         $bank = self::getModule ();
         $bankid = $bank ['bank_id'];
         $url = $bank ['test_mode'] ? $bank ['url_test'] : $bank ['url_official'];
@@ -139,23 +110,46 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
         $IgfsCgVerify->serverURL = $url;
 
         $requestdata = json_encode($IgfsCgVerify, true);
-        Shineisp_Commons_Utilities::logs("-----> IgfsCgVerify Request: $requestdata", 'bnl_igfs.log');
+        Shineisp_Commons_Utilities::logs("---> IgfsCgVerify Request: $requestdata", 'bnl_igfs.log');
 
         $result = $IgfsCgVerify->execute();
 
         $responsedata = json_encode($IgfsCgVerify, true);
         Shineisp_Commons_Utilities::logs("-----> IgfsCgVerify Response: $responsedata", 'bnl_igfs.log');
 
-        Zend_Debug::dump($IgfsCgVerify);
-
         if($IgfsCgVerify->error){
             Shineisp_Commons_Utilities::logs("-----> " . $IgfsCgVerify->rc . ": " . $IgfsCgVerify->error, 'bnl_igfs.log');
             return false;
         }
 
+        #Zend_Debug::dump($IgfsCgVerify);
+
         // Get the orderid back from the bank post variables
         $orderid = trim ( $response ['custom'] );
+        $order = self::getOrder();
+        $amount = $order['grandtotal'];
 
-        return true;
+        Shineisp_Commons_Utilities::logs("Adding the payment information: " . $IgfsCgVerify->tranID, "bnl_igfs.log");
+        $payment = Payments::addpayment($orderid, $IgfsCgVerify->tranID, $bankid, 0, $amount, date('Y-m-d H:i:s'), $order['customer_id'], $IgfsCgVerify->errorDesc);
+
+        Shineisp_Commons_Utilities::logs("Set the order in the processing mode", "bnl_igfs.log");
+        Orders::set_status($orderid, Statuses::id("paid", "orders")); // Paid
+        OrdersItems::set_status($orderid, Statuses::id("paid", "orders")); // Paid
+
+        Shineisp_Commons_Utilities::logs("End callback", "bnl_igfs.log");
+
+        return $orderid;
+    }
+
+
+    /**
+     * CallBack
+     * This function is called by the bank server in order to confirm the transaction previously executed
+     * @param $response from the Gateway Server
+     * @return boolean
+     */
+    public function CallBack($response)
+    {
+
     }
 }
