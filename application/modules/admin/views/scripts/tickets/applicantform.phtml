@@ -34,25 +34,34 @@
 					<?php if(!empty($this->record)): ?>            
 			            <div class="media-list">
 			            	<div class="media">
-				                <div class="pull-left hidden-phone"><?php echo $this->customeravatar ?></div>
+                                <div class="pull-left"><?php echo $this->customeravatar ?></div>
 				                <div class="media-body">
 				                	<h4 class="media-heading"><a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname'];?></a> <a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company'];?></a> - <small><?php echo $this->record['date_open'];?></small></h4>
 				                	<?php echo $this->record['description'];?>
-				                	<?php if(!empty($this->notes)):?>
-				                	<div class="media">
-						                <?php foreach( $this->notes as $note):?>
-						                	<div class="media">
-							                	<div class="pull-left hidden-phone"><?php echo Shineisp_Commons_Gravatar::get_gravatar ( $this->record ['email'], 50); ?></div>
-							                	<div class="media-body">
-							                		<h4 class="media-heading"><?php if($note['adminreply']):?>Administrator<?php else:?><a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname'];?></a> <a href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company'];?></a><?php endif;?> <small><?php echo $note['date_post']?> - <a class="confirm" href="/admin/tickets/deletenote/id/<?php echo $note['note_id'] ?>"><?php echo $this->translate('Delete')?></a></small></h4>
-							                		<?php echo $note['reply']?>	                		
-							                	</div>
-						                	</div>
-						                	<?php $i++; ?>
-						                <?php endforeach;?>
-						    		</div>
-					        		<?php endif;?>
 				                </div>
+                                <?php if (!empty($this->notes)): ?>
+                                    <div class="media">
+                                        <?php foreach ($this->notes as $note): ?>
+                                            <div class="media">
+                                                <div
+                                                    class="pull-left"><?php echo Shineisp_Commons_Gravatar::get_gravatar($this->record ['email'], 50); ?></div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><?php if ($note['adminreply']): ?>Administrator<?php else: ?>
+                                                            <a
+                                                            href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['fullname']; ?></a>
+                                                            <a
+                                                            href="/admin/customers/edit/id/<?php echo $this->customerid ?>"><?php echo $this->record['company']; ?></a><?php endif; ?>
+                                                        <small><?php echo $note['date_post'] ?> - <a class="confirm"
+                                                                                                     href="/admin/tickets/deletenote/id/<?php echo $note['note_id'] ?>"><?php echo $this->translate('Delete') ?></a>
+                                                        </small>
+                                                    </h4>
+                                                    <?php echo $note['reply'] ?>
+                                                </div>
+                                            </div>
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
 				       		</div>
 			            </div>
 			        <?php endif;?>
