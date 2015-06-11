@@ -42,6 +42,8 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
 
         if ($order) {
 
+            $html = "<div class=\"bank_" . $bank ['name'] . "\">" . $bank ['description'] . "</div>";
+
             $url = $bank ['test_mode'] ? $bank ['url_test'] : $bank ['url_official'];
             $item_name = $translator->translate ( "Order No." ) . " " . $order['order_number'];
             list($tid, $ksig) = explode(":", $bank ['account']);
@@ -63,6 +65,7 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
             $init->description = $item_name;
             $init->addInfo1 = self::getOrderID ();
 
+            Shineisp_Commons_Utilities::logs("-----> Request: " . json_encode((array)$init), "bnl_igfs.log");
             $result = $init->execute();
 
             if($result){
@@ -72,9 +75,12 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
                 $session->paymentid = $paymentId;
 
                 Shineisp_Commons_Utilities::logs ( "-----> The bank replies with a new paymentID: $paymentId", "bnl_igfs.log" );
+                Shineisp_Commons_Utilities::logs("-----> The user has been red replies with a new paymentID: $paymentId", "bnl_igfs.log");
+                $html .= "<a class='btn btn-success' href='" . $init->redirectURL . "'>" . $translator->translate('Pay Now') . "</a>";
+                if (self::doRedirect()) {
 
-                header("location:" . $init->redirectURL);
-                die;
+                }
+
 
             }else{
                 Shineisp_Commons_Utilities::logs ( $init->errorDesc, "bnl_igfs.log" );
@@ -147,9 +153,6 @@ class Shineisp_Banks_BNL_Gateway extends Shineisp_Banks_Abstract implements Shin
             return false;
         }
 
-        #return self::getOrderID ();
-        Zend_Debug::dump($IgfsCgVerify);
-        die;
         // Get the orderid back from the bank post variables
         $orderid = trim ( $response ['custom'] );
 
