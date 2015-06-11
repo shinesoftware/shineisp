@@ -65,7 +65,7 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
             if (self::doRedirect()) {
 
                 $form .= $translator->translate('You will be redirected to the secure bank website, please be patient.');
-                $form .= "<script type=\"text/javascript\">\nsetTimeout(function () {\ndocument.forms[0].submit();\n}, 3000);\n</script>";
+                $form .= "<script type=\"text/javascript\">\nsetTimeout(function () {\n$('form[name=\"_xclick\"]').submit();\n}, 3000);\n</script>";
             }
 
             return array('name' => $bank ['name'], 'description' => $bank ['description'], 'html' => $form);
