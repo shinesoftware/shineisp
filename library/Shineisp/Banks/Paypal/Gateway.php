@@ -83,6 +83,8 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
         $bank = self::getModule();
         $bankid = $bank ['bank_id'];
 
+        Shineisp_Commons_Utilities::logs("Paypal Response " . json_encode($response), "paypal.log");
+
         if (!empty ($response ['item_number'])) {
 
             // Get the indexes of the order
@@ -159,7 +161,7 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
         (
             CURLOPT_URL => $url,
             CURLOPT_POST => TRUE,
-            CURLOPT_POSTFIELDS => http_build_query(array('cmd' => '_notify-validate') + $response),
+            CURLOPT_POSTFIELDS => http_build_query($response + array('cmd' => '_notify-validate')),
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_HEADER => FALSE,
             CURLOPT_SSL_VERIFYPEER => TRUE,
