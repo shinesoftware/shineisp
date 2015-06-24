@@ -1,4 +1,7 @@
-<?php 
+<?php
+// Email
+$re = "/^[a-zA-Z0-9](?:[\\._-](?=[a-zA-Z0-9])|[a-zA-Z0-9])+@(?:[\\._-](?=[a-zA-Z0-9])|[a-zA-Z0-9])+(?:[a-z]{2,4}|com|ru|by)$/i";
+
 if (isset($this->records[0])):
     // Get all the items inside a multidimensional array
     $items = Shineisp_Commons_Utilities::array_flatten($this->records[0]);
@@ -11,7 +14,7 @@ if (isset($this->records[0])):
 	
 	// Main index of the record
 	$idx = (!empty($fields[0]) && is_numeric($this->records[0][$fields[0]])) ? $this->records[0][$fields[0]] : "0";
-	
+
 	$res = array();
 	?>
 	
@@ -22,13 +25,21 @@ if (isset($this->records[0])):
 	           <?php foreach ( $fields as $field ) : ?>
 		           <?php if(strpos($field, "_id")=== false):?>
 		            <?php
-		            // Manage the sub arrays created by the HYDRATE_ARRAY records fetching mode    
-		             Shineisp_Commons_Utilities::search(array($field), $record, $res);
-		             $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";?>
+                        // Manage the sub arrays created by the HYDRATE_ARRAY records fetching mode
+                        Shineisp_Commons_Utilities::search(array($field), $record, $res);
+                        $value = !empty($res[$field]) ? $this->translate($res[$field]) : "";
+                        preg_match($re, $value, $matches); // check the email address
+                        ?>
 		             <?php if(!empty($value)): ?>
 		                <tr>
 				            <td width="15%" class="fields"><?php echo $this->translate(ucfirst($field))?></td>
-			                <td class="values"><?php echo $value?></td>
+                            <td class="values">
+                                <?php if ($matches): ?>
+                                    <a href="mailto:<?php echo $value; ?>"><?php echo $value; ?></a>
+                                <?php else: ?>
+                                    <?php echo $value; ?>
+                                <?php endif; ?>
+                            </td>
 				        </tr>
 		              <?php endif;?>
 		           <?php endif;?>

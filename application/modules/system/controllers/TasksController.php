@@ -180,9 +180,9 @@ class System_TasksController extends Shineisp_Controller_Default {
 
 	    if ( !isset($task['Domains']) || !isset($task['Domains']['Customers']) || !isset($task['Domains']['Customers']['customer_id']) ) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'customer_id not found' ) );
-			continue;
 		}
-		$customer_id = intval($task['Domains']['Customers']['customer_id']);
+
+        $customer_id = intval($task['Domains']['Customers']['customer_id']);
 		$ISP         = Isp::getByCustomerId($customer_id);
 		
 		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {		

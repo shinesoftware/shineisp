@@ -72,9 +72,7 @@ class Shineisp_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstrac
 		}
 		
 		$ns->lang = $lang;
-		
-		Shineisp_Commons_Utilities::log("System: Locale set: " . $locale, "debug.log");
-		Shineisp_Commons_Utilities::log("System: Language selected: " . $ns->lang, "debug.log");
-		
-	}
+
+
+    }
 }
