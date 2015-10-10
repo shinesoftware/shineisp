@@ -324,7 +324,7 @@ class OrdersItems extends BaseOrdersItems {
             foreach ( $retval as $c ) {
                 $description = $c ['description'];
                 $description = str_replace ( "\n", "", $description );
-                $items [$c ['order_id']] = $c ['order_id'] . " - " . $c ['orderdate'] . " - " . $description . " - [" . $c['status']. "] ";
+                $items [$c ['detail_id']] = $c ['order_id'] . " - " . $c ['orderdate'] . " - " . $description . " - [" . $c['status'] . "] ";
             }
         }
 

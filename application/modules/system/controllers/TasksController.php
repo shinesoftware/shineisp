@@ -55,6 +55,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 		}catch (SoapFault $e){
 			$ISP = Isp::getActiveISP();
 			Shineisp_Commons_Utilities::SendEmail ( $ISP['email'], $ISP['email'], null, "Task error panel message", $e->getMessage() );
+
 			return false;
 		}
 	}
@@ -80,6 +81,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 			
 			Shineisp_Commons_Utilities::logs (__METHOD__ . ": Loading $class panel plugin");
 			
+
 			// Create the class registrar object 
 			$ISPclass = new $class ();
 			$action   = $task ['action'];
@@ -181,8 +183,7 @@ class System_TasksController extends Shineisp_Controller_Default {
 	    if ( !isset($task['Domains']) || !isset($task['Domains']['Customers']) || !isset($task['Domains']['Customers']['customer_id']) ) {
 			PanelsActions::UpdateTaskLog ( $task ['action_id'], $this->translations->translate ( 'customer_id not found' ) );
 		}
-
-        $customer_id = intval($task['Domains']['Customers']['customer_id']);
+		$customer_id = intval($task['Domains']['Customers']['customer_id']);
 		$ISP         = Isp::getByCustomerId($customer_id);
 		
 		if ( !$ISP || !isset($ISP['isp_id']) || !is_numeric($ISP['isp_id']) ) {		
