@@ -1847,7 +1847,14 @@ class Orders extends BaseOrders {
                         }
                     }
 
-                    $order->vat = $vat;
+                    // if the price is negative the tax MUST not be refunded
+                    // because already payed by the hoster
+                    if($detail ['price'] < 0){
+                        $order->vat = 0;
+                    }else{
+                        $order->vat = $vat;
+                    }
+
                     $order->total = $total;
                     $order->cost = $costs;
                     $order->grandtotal = $total + $vat;
