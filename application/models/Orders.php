@@ -1841,20 +1841,15 @@ class Orders extends BaseOrders {
                                 $tax = Taxes::getTaxbyProductID($detail ['product_id']);
                             }
 
-                            if(!empty($tax['percentage'])){
+                            // if the price is negative the tax MUST not be refunded
+                            // because already payed by the hoster
+                            if(!empty($tax['percentage']) && $detail ['price'] > 0){
                                 $vat += is_numeric ( $price ) ? ($price * $tax['percentage']) / 100 : 0;
                             }
                         }
                     }
 
-                    // if the price is negative the tax MUST not be refunded
-                    // because already payed by the hoster
-                    if($detail ['price'] < 0){
-                        $order->vat = 0;
-                    }else{
-                        $order->vat = $vat;
-                    }
-
+                    $order->vat = $vat;
                     $order->total = $total;
                     $order->cost = $costs;
                     $order->grandtotal = $total + $vat;

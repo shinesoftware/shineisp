@@ -402,14 +402,14 @@ class OrdersItems extends BaseOrdersItems {
         // Generic price setting
         $rowtotal = $params ['price'];
 
-        $vat = null;
+        $vat = 0;
 
         $percentage = null;
 
         // Get the taxes applied
         $tax = Taxes::getTaxbyProductID($params['product_id']);
 
-        if (!empty($tax) && $tax['percentage'] > 0) {
+        if (!empty($tax) && $tax['percentage'] > 0 && $params ['price'] > 0) {
             $rowtotal = $params ['price'] * (100 + $tax['percentage']) / 100;
             $vat = ($params ['price'] * $tax['percentage']) / 100;
             $percentage = $tax['percentage'];
@@ -430,7 +430,9 @@ class OrdersItems extends BaseOrdersItems {
                         $params['price'] = $tldInfo['registration_price'];
                     }
 
-                    if ($tax['percentage'] > 0) {
+                    // if the price is negative the tax MUST not be refunded
+                    // because already payed by the hoster
+                    if ($tax['percentage'] > 0 && $params ['price'] > 0) {
                         $vat = ($params ['price'] * $tax['percentage']) / 100;
                         $percentage = $tax['percentage'];
                         $rowtotal = $params ['price'] * (100 + $tax['percentage']) / 100;
