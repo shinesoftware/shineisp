@@ -254,7 +254,7 @@ class Payments extends BasePayments
 		$payment->order_id  = $orderid;
 		$payment->bank_id   = $bankid;
 		$payment->reference = $transactionid;
-		$payment->confirmed = false;
+		$payment->confirmed = 0;
 		$payment->income    = $amount;
 		
 		// Additional fields for Orders::saveAll()
