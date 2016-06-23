@@ -91,15 +91,9 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
             $orderid = trim($response ['custom']);
 
             if (is_numeric($orderid) && is_numeric($bankid)) {
-
-                // Replacing the comma with the dot in the amount value.
-                $amount = str_replace(",", ".", $response ['amount']);
-
-                $payment = Payments::addpayment($orderid, $response ['thx_id'], $bankid, 0, $amount);
+                $payment = Payments::addpayment($orderid, $response ['txn_id'], $bankid, 0, $response ['mc_gross'], $response ['mc_fee']);
                 Orders::set_status($orderid, Statuses::id("paid", "orders")); // Paid
                 OrdersItems::set_statuses($orderid, Statuses::id("paid", "orders")); // Paid
-
-
                 return $orderid;
             }
         }

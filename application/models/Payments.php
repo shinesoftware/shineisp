@@ -240,7 +240,7 @@ class Payments extends BasePayments
      * @param boolean $status
      * @param float $amount
      */
-    public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null) {
+    public static function addpayment ($orderid, $transactionid, $bankid, $status, $amount, $paymentdate = null, $customer_id = null, $payment_description = null, $outcome=0) {
 
 		$payment = new Payments ();
 		
@@ -249,22 +249,22 @@ class Payments extends BasePayments
 			$paymentdate = Shineisp_Commons_Utilities::formatDateIn ( $paymentdate );
 		}
 		$paymentdate = !empty($paymentdate) ? $paymentdate : date ( 'Y-m-d H:i:s' );
-		
+
     	// Set the payment data
 		$payment->order_id  = $orderid;
 		$payment->bank_id   = $bankid;
 		$payment->reference = $transactionid;
-		$payment->confirmed = 0;
+		$payment->confirmed = false;
 		$payment->income    = $amount;
 		
 		// Additional fields for Orders::saveAll()
 		$payment->paymentdate = $paymentdate;
 		$payment->customer_id = isset($customer_id)         ? intval($customer_id) : intval(Orders::getCustomer($orderid));
 		$payment->description = isset($payment_description) ? $payment_description : null;
-
-		$save = $payment->trySave ();
+		$payment->outcome = $outcome;
+		$result = $payment->trySave ();
         
-		if ( $save ) {
+		if ( $result ) {
 			Shineisp_Commons_Utilities::logs("Payments::addPayment(): save ok");
 			
 			// Confirm payment, if needed. Invoices::confirm() will activate order.
@@ -273,7 +273,7 @@ class Payments extends BasePayments
 			}
 		}
 				
-		return $save;
+		return $result;
 	}
 	
 	/**
