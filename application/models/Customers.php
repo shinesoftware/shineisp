@@ -463,7 +463,7 @@ class Customers extends BaseCustomers {
 	 */
 	public static function setCustomerPassword($customerid, $newPwd) {
 		$q = Doctrine_Query::create ()->update ( 'Customers' )
-				->set ( 'password', '?', password_verify ( $newPwd ) )
+				->set ( 'password', '?', Shineisp_Commons_Hasher::hash_string ( $newPwd ) )
 				->set ( 'last_password_change', '?', date ( 'Y-m-d H:i:s' ) )
 				->set ( 'force_password_change', '?', 0)
 				->where ( 'customer_id = ?', intval($customerid) )
