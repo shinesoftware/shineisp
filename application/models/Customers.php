@@ -515,8 +515,8 @@ class Customers extends BaseCustomers {
 	 */
 	public static function deleteResetPasswordKey($customerid) {
 		return Doctrine_Query::create ()->update ( 'Customers' )
-				->set ( 'resetpwd_key', '?', null)
-				->set ( 'resetpwd_expire', '?', null)
+				->set ( 'resetpwd_key', null)
+				->set ( 'resetpwd_expire', null)
 				->where ( 'customer_id = ?', intval($customerid) )
                 ->andWhere( "isp_id = ?", Isp::getCurrentId() )
 				->execute();
