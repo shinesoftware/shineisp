@@ -181,7 +181,9 @@ class Payments extends BasePayments
     	}else{
     		$payment = new Payments();
     	}
-    	
+    	$bank = Banks::getAllInfo( $record['bank_id'] );
+print_r($bank);
+		die;
     	$payment->paymentdate = Shineisp_Commons_Utilities::formatDateIn($record['paymentdate']);
     	$payment->bank_id = $record['bank_id'];
     	$payment->customer_id = $record['customer_id'];
@@ -190,7 +192,7 @@ class Payments extends BasePayments
     	$payment->reference = $record['reference'];
     	$payment->confirmed = $record['confirmed'];
     	$payment->income = $record['income'];
-    	$payment->outcome = $record['outcome'];
+    	$payment->outcome = (($record['income'] * $bank['fee']) / 100);
     	
     	if($payment->trySave()){
     		
