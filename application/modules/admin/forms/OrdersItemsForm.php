@@ -28,14 +28,21 @@ class Admin_Form_OrdersItemsForm extends Zend_Form
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control'
         ));
-    	
-    	$this->addElement('text', 'cost', array(
+
+        $this->addElement('text', 'cost', array(
             'filters'    => array('StringTrim'),
             'label'      => $translate->_('Cost'),
             'decorators' => array('Bootstrap'),
             'class'      => 'form-control'
         ));
-        
+
+        $this->addElement('text', 'vat', array(
+            'filters'    => array('StringTrim'),
+            'label'      => $translate->_('VAT'),
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
+        ));
+
         $this->addElement('select', 'product_id', array(
             'filters'    => array('StringTrim'),
             'required'   => false,

@@ -452,7 +452,7 @@ class OrdersItems extends BaseOrdersItems {
         $details->date_end         = Shineisp_Commons_Utilities::formatDateIn($params ['date_end']);
         $details->billing_cycle_id = !empty($params['billing_cycle_id']) ? $params ['billing_cycle_id'] : null;
         $details->price            = $params ['price'];
-        $details->vat              = $vat;
+        $details->vat              = !empty($params ['vat']) ? $params ['vat'] : $vat;
         $details->percentage       = $percentage;
         $details->cost             = $params ['cost'];
         $details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
