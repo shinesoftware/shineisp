@@ -182,7 +182,8 @@ class Payments extends BasePayments
     		$payment = new Payments();
     	}
     	$bank = Banks::getAllInfo( $record['bank_id'] );
-
+echo $bank['fee'];
+		die;
     	$payment->paymentdate = Shineisp_Commons_Utilities::formatDateIn($record['paymentdate']);
     	$payment->bank_id = $record['bank_id'];
     	$payment->customer_id = $record['customer_id'];
