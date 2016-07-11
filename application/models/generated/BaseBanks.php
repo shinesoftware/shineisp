@@ -39,10 +39,15 @@ abstract class BaseBanks extends Doctrine_Record
              'length' => '4',
              ));
         $this->hasColumn('name', 'string', 50, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '50',
-             ));
+            'type' => 'string',
+            'notnull' => true,
+            'length' => '50',
+        ));
+        $this->hasColumn('fee', 'float', 10, array(
+            'type' => 'float',
+            'default' => '0.00',
+            'length' => '10',
+        ));
         $this->hasColumn('classname', 'string', 100, array(
              'type' => 'string',
              'notnull' => true,

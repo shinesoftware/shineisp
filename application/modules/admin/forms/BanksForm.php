@@ -6,8 +6,16 @@ class Admin_Form_BanksForm extends Zend_Form
         // Set the custom decorator
     	$this->addElementPrefixPath('Shineisp_Decorator', 'Shineisp/Decorator/', 'decorator');
     	$translate = Shineisp_Registry::get('Zend_Translate');
-    	
+
         $this->addElement('text', 'name', array(
+            'filters'    => array('StringTrim'),
+            'required'   => true,
+            'label'      => $translate->_('Name'),
+            'decorators' => array('Bootstrap'),
+            'class'      => 'form-control'
+        ));
+
+        $this->addElement('text', 'fee', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
             'label'      => $translate->_('Name'),

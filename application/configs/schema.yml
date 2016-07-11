@@ -167,6 +167,10 @@ Banks:
     name:
       type: string(50)
       notnull: true
+    fee:
+      type: float(10)
+      default: '0.00'
+      notnull: true
     classname:
       type: string(100)
       notnull: true
