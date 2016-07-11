@@ -18,8 +18,9 @@ class Admin_Form_BanksForm extends Zend_Form
         $this->addElement('text', 'fee', array(
             'filters'    => array('StringTrim'),
             'required'   => true,
-            'label'      => $translate->_('Name'),
+            'label'      => $translate->_('Gateway Fees'),
             'decorators' => array('Bootstrap'),
+            'description'=> $translate->_('Type in this field the fee percentage applied from the bank POS service'),
             'class'      => 'form-control'
         ));
         
