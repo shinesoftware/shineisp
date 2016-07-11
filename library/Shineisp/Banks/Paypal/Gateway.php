@@ -93,7 +93,7 @@ class Shineisp_Banks_Paypal_Gateway extends Shineisp_Banks_Abstract implements S
             if (is_numeric($orderid) && is_numeric($bankid)) {
                 $payment = Payments::addpayment($orderid, $response ['txn_id'], $bankid, 0, $response ['mc_gross'], $response ['mc_fee']);
                 Orders::set_status($orderid, Statuses::id("paid", "orders")); // Paid
-                OrdersItems::set_statuses($orderid, Statuses::id("paid", "orders")); // Paid
+                OrdersItems::set_status($orderid, Statuses::id("paid", "orders")); // Paid
                 return $orderid;
             }
         }

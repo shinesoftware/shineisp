@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../shineisp/.idea/shineisp.iml" filepath="$PROJECT_DIR$/../shineisp/.idea/shineisp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/shinesoftware.it.iml" filepath="$PROJECT_DIR$/.idea/shinesoftware.it.iml" />
     </modules>
   </component>
 </project>
