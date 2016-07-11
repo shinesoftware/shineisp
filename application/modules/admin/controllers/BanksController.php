@@ -235,6 +235,7 @@ class Admin_BanksController extends Shineisp_Controller_Admin {
 				$this->banks->classname = $params ['classname'];
 				$this->banks->test_mode = $params ['test_mode'];
 				$this->banks->description = $params ['description'];
+				$this->banks->fee = $params ['fee'];
 				
 				// Save the data
 				$this->banks->save ();
