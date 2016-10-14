@@ -423,8 +423,11 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
                             'ssl_request' => '',
                             'ssl_cert' => '',
                             'ssl_bundle' => '',
+                            'nginx_directives' => '',
                             'ssl_action' => '',
                             'stats_password' => '',
+                            'http_port' => '80',
+                            'https_port' => '443',
                             'stats_type' => 'webalizer',
                             'allow_override' =>'All',
                             'apache_directives' => '',
@@ -441,6 +444,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
                         try{
 
                             $websiteId = $client->sites_web_domain_add($this->getSession(), $clientId, $params, $readonly = false);
+
 
                             if(!is_numeric($websiteId)){
                                 throw new Exception("There was a problem with website creation: sites_web_domain_add doesn't return the websiteID identifier", "3505");
@@ -553,7 +557,7 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
             $record ['usertheme']           = "default";
             $record ['template_master']     = 0;
             $record ['template_additional'] = "";
-            $record ['created_at']          = date('');
+            $record ['created_at']          = date('Y-m-d');
             $record ['web_php_options']     = "no,fast-cgi,cgi,mod,suphp,php-fpm";
             $record ['ssh_chroot']     		= 'jailkit';
 
@@ -578,10 +582,14 @@ class Shineisp_Plugins_Panels_Ispconfig_Main extends Shineisp_Plugins_Panels_Bas
                 $arrUsernames = self::generateUsernames($customer);
 
                 // Check if username is available
-                foreach ( $arrUsernames as $username ) {
-                    if ( ! $client->client_get_by_username($this->getSession (), $username) ) {
-                        break;
+                try{
+                    foreach ( $arrUsernames as $uname ) {
+                        if ( ! $client->client_get_by_username($this->getSession (), $uname) ) {
+                            break;
+                        }
                     }
+                }catch(Exception $e){
+                    $username = $arrUsernames[0];
                 }
 
                 // Create a random password string
