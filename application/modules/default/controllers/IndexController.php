@@ -236,4 +236,30 @@ class IndexController extends Shineisp_Controller_Default {
         unset($ns->customer);
 		$this->_helper->redirector ( 'index', 'index', 'default' ); // back to login page
 	}
+
+
+    /**
+     * license system
+     */
+    public function logoAction()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        if (!empty($_SERVER['HTTP_REFERER'])) {
+            $parse = parse_url($_SERVER['HTTP_REFERER']);
+            Shineisp_Commons_Utilities::log("LICENSE: " . $ip . " - " . $parse['host'], 'license.log');
+        }
+
+        ob_clean();
+        header('Content-Type: image/gif');
+        header('Expires: 0');
+        echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
+        die();
+    }
 }	
