@@ -1302,17 +1302,17 @@ class Customers extends BaseCustomers {
 			$customer->addChild('taxpayernumber',$item['taxpayernumber']);
 			$customer->addChild('vat',$item['vat']);
 			$customer->addChild('birthnationality',$item['birthnationality']);
-				
+
 			$ctype = $customer->addChild('companytype',$item['CompanyTypes']['name']);
 			$ctype->addAttribute('type_id', $item['type_id']);
 				
-			$legalform = $customer->addChild('companytype',$item['Legalforms']['name']);
+			$legalform = $customer->addChild('legalform',$item['Legalforms']['name']);
 			$legalform->addAttribute('legalform_id', $item['legalform_id']);
 				
-			$status = $customer->addChild('companytype',$item['Statuses']['status']);
+			$status = $customer->addChild('status',$item['Statuses']['status']);
 			$status->addAttribute('status_id', $item['status_id']);
 				
-			$cgroup = $customer->addChild('companytype',$item['CustomersGroups']['name']);
+			$cgroup = $customer->addChild('group',$item['CustomersGroups']['name']);
 			$cgroup->addAttribute('group_id', $item['group_id']);
 				
 			$customer->addChildCData('note', $item['note']);
