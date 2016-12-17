@@ -225,7 +225,7 @@ class IndexController extends Shineisp_Controller_Default {
 			die ();
 		}
 	}
-	
+
 	/*
 	 * outAction
 	 * Log out of the customer
@@ -243,15 +243,14 @@ class IndexController extends Shineisp_Controller_Default {
      */
     public function logoAction()
     {
-//        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-//            $ip = $_SERVER['HTTP_CLIENT_IP'];
-//        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-//            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-//        } else {
-//            $ip = $_SERVER['REMOTE_ADDR'];
-//        }
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
 
-        $ip = $_SERVER['SERVER_ADDR'];
         if (!empty($_SERVER['HTTP_REFERER'])) {
             $parse = parse_url($_SERVER['HTTP_REFERER']);
             Shineisp_Commons_Utilities::log("LICENSE: " . $ip . " - " . $parse['host'], 'license.log');
