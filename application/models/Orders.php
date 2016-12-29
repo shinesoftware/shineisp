@@ -408,6 +408,9 @@ class Orders extends BaseOrders {
                 $customer = Customers::getAllInfo($params ['customer_id']);
                 $isp_id   = $customer['isp_id'];
 
+                $total = !empty($params ['total']) ? $params ['total'] : 0;
+                $vat = !empty($params ['vat']) ? $params ['vat'] : 0;
+
                 $orders->order_date    = Shineisp_Commons_Utilities::formatDateIn ( $params ['order_date'] );
                 $orders->customer_id   = $params ['customer_id'];
                 $orders->isp_id        = $isp_id;
@@ -416,9 +419,9 @@ class Orders extends BaseOrders {
                 $orders->note          = $params ['note'];
                 $orders->is_renewal    = $params ['is_renewal'] == 1 ? 1 : 0;
                 $orders->expiring_date = Shineisp_Commons_Utilities::formatDateIn ($params ['expiring_date']);
-                $orders->vat           = $params ['vat'];
-                $orders->total         = $params ['total'];
-                $orders->grandtotal    = $params ['total'] + $params ['vat'];
+                $orders->vat = $vat;
+                $orders->total = $total;
+                $orders->grandtotal = $total + $vat;
 
                 // Save the data
                 $orders->save ();
@@ -1779,7 +1782,8 @@ class Orders extends BaseOrders {
 
                     foreach ( $details as $detail ) {
 
-                        $type = !empty($detail['product_id']) && is_numeric($detail['product_id']) ? "product" : "domain";
+                        $type = Products::CheckIfProductIsTLDDomain($detail ['product_id']) ? "domain" : "product";
+
                         $product = $detail['Products'];
 
                         if($type == "domain"){
@@ -1836,14 +1840,14 @@ class Orders extends BaseOrders {
 
                             // If the product is a domain
                             if($type == "domain"){
-                                $tax = Taxes::getTaxbyTldID($detail ['tld_id']);
+                                $tax['percentage'] = $detail ['percentage'];
                             }else{ // If not
                                 $tax = Taxes::getTaxbyProductID($detail ['product_id']);
                             }
 
                             // if the price is negative the tax MUST not be refunded
                             // because already payed by the hoster
-                            if(!empty($tax['percentage']) && $detail ['price'] > 0){
+                            if (!empty($tax['percentage']) && $detail ['price'] > 0) {
                                 $vat += is_numeric ( $price ) ? ($price * $tax['percentage']) / 100 : 0;
                             }
                         }

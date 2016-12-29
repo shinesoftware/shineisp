@@ -397,6 +397,7 @@ class OrdersItems extends BaseOrdersItems {
         if(!is_array($params))
             return false;
 
+        $isDomain = Products::CheckIfProductIsTLDDomain($params ['product_id']);
         $details = Doctrine::getTable ( 'OrdersItems' )->find ( $id );
 
         // Generic price setting
@@ -440,11 +441,11 @@ class OrdersItems extends BaseOrdersItems {
                 }
             }
         }
-
         if(!empty($params['billing_cycle_id']))
             $months = BillingCycle::getMonthsNumber ( $params ['billing_cycle_id'] );
-        if ($months > 0 && is_numeric($params ['product_id']) && $params ['product_id'] > 0) // only for the product and services. Domains excluded
+        if (!$isDomain && $months > 0 && is_numeric($params ['product_id']) && $params ['product_id'] > 0) // only for the product and services. Domains excluded
             $rowtotal = $rowtotal * $months;
+
         $params ['date_end'] = Shineisp_Commons_Utilities::add_date ( $params ['date_start'], null, $months );
 
         $details->quantity         = $params ['quantity'];
@@ -458,12 +459,16 @@ class OrdersItems extends BaseOrdersItems {
         $details->product_id       = is_numeric($params ['product_id']) && $params ['product_id'] > 0 ? $params ['product_id'] : NULL;
         $details->setupfee         = $params ['setupfee'];
         $details->discount         = $params ['discount'];
-        $details->subtotal         = $rowtotal * $params ['quantity'];
+
+        $details->subtotal = $rowtotal * $params ['quantity'];
+
+
         $details->status_id        = $params ['status_id'];
         $details->description      = $params ['description'];
         $details->parameters       = $params ['parameters'];
 
         if($details->trySave ()){
+
             OrdersItems::setAutorenew($id, $params ['autorenew']);
 
             // Remove all domains
