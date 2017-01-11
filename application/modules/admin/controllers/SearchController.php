@@ -76,6 +76,21 @@ class Admin_SearchController extends Shineisp_Controller_Admin {
 				}
 			}
 		}
+
+		$customersemail = Customers::getEmailList();
+		if (! empty ( $customersemail )) {
+			foreach ( $customersemail as $key => $value ) {
+				if (strpos ( strtolower ( $value ), $q ) !== false) {
+					$results[] = array(
+					        'icon' => 'glyphicon-envelope',
+					        'section' => $this->translator->translate ( 'Email' ),
+					        'value' => $value,
+					        'url' => "/admin/customers/edit/id/$key",
+					        'tokens' => explode( ' ', $value )
+					);
+				}
+			}
+		}
 		
 		$domains = Domains::getList ();
 		if (! empty ( $domains )) {
