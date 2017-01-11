@@ -1038,7 +1038,11 @@ class Customers extends BaseCustomers {
 		$customer = Doctrine_Query::create ()->from ( 'Customers c' )->andWhere( "c.isp_id = ?", Isp::getCurrentId() )->orderBy ( 'lastname, firstname, company' )->execute (array (), Doctrine_Core::HYDRATE_ARRAY);
 		
 		foreach ( $customer as $c ) {
-			$items [$c ['customer_id']] = Shineisp_Commons_Utilities::Capitalize($c ['emaillastname'] . " (" . $c ['email'] . ")", true);
+		    if(!empty($c ['emaillastname'])){
+                $items [$c ['customer_id']] = Shineisp_Commons_Utilities::Capitalize($c ['emaillastname'] . " (" . $c ['email'] . ")", true);
+            }else{
+                $items [$c ['customer_id']] = Shineisp_Commons_Utilities::Capitalize($c ['email'], true);
+            }
 			if (! empty ( $c ['company'] )) {
 				$items [$c ['customer_id']] .= " - " . ucwords($c ['company']);
 			}
