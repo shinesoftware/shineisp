@@ -1255,12 +1255,12 @@ class Shineisp_Commons_Utilities {
 	 * @param string $dboutdata
 	 * @return string Y-m-d H:i:s
 	 */
-	public static function formatDateIn($dboutdata) {
+	public static function formatDateIn($dboutdata, $dateformatparam="dateformat") {
 		if (empty ( $dboutdata ))
 			return null;
 		
 		$locale = Shineisp_Registry::get('Zend_Locale');
-		$date = new Zend_Date($dboutdata, Settings::getZendDateFormat(), $locale);
+		$date = new Zend_Date($dboutdata, Settings::getZendDateFormat($dateformatparam), $locale);
 		
 		return $date->toString('yyyy-MM-dd HH:mm:ss');
 	}
