@@ -329,7 +329,7 @@ class Admin_TicketsController extends Shineisp_Controller_Admin {
                 $redirector->gotoUrl ( "/admin/tickets/edit/id/$id#last" );
             }
 
-            $date = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime'], Settings::findbyParam('ticketdateformat')) : null;
+            $date = !empty($params['datetime']) ? Shineisp_Commons_Utilities::formatDateIn($params['datetime'], 'ticketdateformat') : null;
             $note = !empty($params['note']) ? $params['note'] : null;
             $status = !empty($params['status_id']) && is_numeric($params['status_id']) ? $params['status_id'] : null;
             $category = !empty($params['category']) && is_numeric($params['category']) ? $params['category'] : null;
