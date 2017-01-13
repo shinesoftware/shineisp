@@ -184,8 +184,8 @@ class Settings extends BaseSettings {
     /**
      * Get the custom date format parameter for MySQL
      */
-    public static function getMySQLDateFormat() {
-        $value = self::findbyParam('dateformat');
+    public static function getMySQLDateFormat($dateformatparam="dateformat") {
+        $value = self::findbyParam($dateformatparam);
         if(!empty($value)){
             $value = explode("|", $value);
             return $value[0];
@@ -198,8 +198,8 @@ class Settings extends BaseSettings {
     /**
      * Get the custom date format parameter for Zend Date
      */
-    public static function getZendDateFormat() {
-        $value = self::findbyParam('dateformat');
+    public static function getZendDateFormat($dateformatparam="dateformat") {
+        $value = self::findbyParam($dateformatparam);
         if(!empty($value)){
             $value = explode("|", $value);
             return $value[1];
@@ -212,8 +212,8 @@ class Settings extends BaseSettings {
     /**
      * Get the custom date format parameter for Javascript
      */
-    public static function getJsDateFormat() {
-        $value = self::findbyParam('dateformat');
+    public static function getJsDateFormat($dateformatparam="dateformat") {
+        $value = self::findbyParam($dateformatparam);
         if(!empty($value)){
             $value = explode("|", $value);
             return $value[2];
