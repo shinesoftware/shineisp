@@ -13,7 +13,7 @@ class RssController extends Shineisp_Controller_Default {
 	public function preDispatch() {
 		$this->getHelper ( 'layout' )->setLayout ( '1column' );
 	}
-	
+
 	/**
 	 * Create a RSS file with the CMS pages and Products
 	 */
@@ -24,7 +24,7 @@ class RssController extends Shineisp_Controller_Default {
 			$ns = new Zend_Session_Namespace ();
 			$localeID = $ns->idlang;
 			$locale = $ns->lang;
-			
+
 			$feed = new Zend_Feed_Writer_Feed ();
 			$feed->setTitle ( $ISP->company );
 			$feed->setLink ( $ISP->website );
@@ -33,18 +33,18 @@ class RssController extends Shineisp_Controller_Default {
 			$feed->setEncoding('UTF8');
 			$feed->setDateModified ( time () );
 			$feed->addHub ( $ISP->website );
-			
+
 			// Get all the cms pages
 			$records = CmsPages::getRssPages($locale);
-			
+
 			foreach ( $records as $record ) {
 				$link = 'http://' . $_SERVER ['HTTP_HOST'] . '/cms/' . $record ['var'] . '.html';
 				self::createEntry($feed, $record ['title'], $record ['body'], $link);
 			}
-			
+
 			// Get all the products
 			$records = Products::getAllHighlighted($localeID);
-			
+
 			foreach ( $records as $record ) {
 				$title = $record ['ProductsData'][0]['name'];
 				$descritption = strip_tags($record ['ProductsData'][0]['shortdescription']);
@@ -53,19 +53,19 @@ class RssController extends Shineisp_Controller_Default {
 				$link = 'http://' . $_SERVER ['HTTP_HOST'] . '/' . $record ['uri'] . '.html';
 				self::createEntry($feed, $title, $descritption, $link, $inserted_at, $updated_at);
 			}
-			
+
 			/**
 			 * Render the resulting feed to Atom 1.0 and assign to $out.
 			 * You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
 			 */
 			$out = $feed->export ( 'atom' );
-			
+
 		} catch ( Zend_Feed_Exception $e ) {
 			die ( $e->getMessage () );
 		}
 		die ( $out );
 	}
-	
+
 	/**
 	 * Add one or more entries. Note that entries must
 	 * be manually added once created.
