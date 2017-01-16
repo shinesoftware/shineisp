@@ -2614,7 +2614,7 @@ class Orders extends BaseOrders {
 
         if(!empty($years[0]) && !empty($years[1])){
             $dq->addWhere('YEAR(i.invoice_date) >= ?', $years[0]);
-            $dq->addWhere('YEAR(i.invoice_date) <= ?', $years[1]);
+            $dq->addWhere('YEAR(i.invoice_date) <= ?', $years[end($years)]);
         }elseif(!empty($years[0]) && is_numeric($years[0])){
             $dq->addWhere('YEAR(i.invoice_date) = ?', $years);
         }
