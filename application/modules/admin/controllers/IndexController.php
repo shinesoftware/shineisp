@@ -42,7 +42,7 @@ class Admin_IndexController extends Shineisp_Controller_Admin {
 
 			// Get the total of the revenues per quarter of year
 			$graphdata = $graph->setType('Area')
-							    ->setData(Orders::prepareGraphData(array(2012,2013), 'quarter'))
+							    ->setData(Orders::prepareGraphData(range(2011, date('Y')), 'quarter'))
 								->setElement('quartergraph')
 								->setXkey('xdata')
 								->setLabels(array($translator->translate('Net Revenue (Taxable Income less Costs)')))
