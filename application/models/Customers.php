@@ -1472,16 +1472,33 @@ class Customers extends BaseCustomers {
             $i++;
         }
 
-        Zend_Debug::dump($customers);
-        die;
+        $translator = Shineisp_Registry::getInstance ()->Zend_Translate;
+        $tmpname = Shineisp_Commons_Utilities::GenerateRandomString();
 
+        // Create the file and open it
+        $fp = fopen(PUBLIC_PATH . "/tmp/" . $tmpname . '.csv', 'w+');
 
-        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            die(json_encode(array('url' => "/tmp/customers.xml")));
+        // Add the headers
+        $headers = array_keys($customers[0]);
+        if(!empty($headers)){
+            array_shift($headers);
+            foreach ($headers as $item) {
+                $newHeaders[] = $translator->translate(ucfirst($item));
+            }
+            fputcsv($fp, $newHeaders);
         }
 
+        // For each record in the recordset
+        foreach ($customers as $item){
+            array_shift($item);
+            fputcsv($fp, $item);
+        }
+
+        // Close the file
+        fclose($fp);
+        die(json_encode(array('url' => "/tmp/" . $tmpname . ".csv")));
     }
-	
+
 	/**
 	 * export the content in a excel file
 	 * @param array $items
