@@ -1482,10 +1482,7 @@ class Customers extends BaseCustomers {
         $headers = array_keys($customers[0]);
         if(!empty($headers)){
             array_shift($headers);
-            foreach ($headers as $item) {
-                $newHeaders[] = $translator->translate(ucfirst($item));
-            }
-            fputcsv($fp, $newHeaders);
+            fputcsv($fp, $headers);
         }
 
         // For each record in the recordset
