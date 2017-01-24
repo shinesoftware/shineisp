@@ -79,7 +79,8 @@ class Customers extends BaseCustomers {
 		$config ['datagrid'] ['massactions']['common'] = array ('bulk_export'=>'Export PDF Customers List',
 													  'bulk_excel'=>'Export EXCEL Customers List',
 													  'bulk_xml'=>'Export XML Customers List', 
-													  'bulk_reset_password'=>'Reset password and send welcome mail', 
+													  'bulk_magento'=>'Export Magento Csv Customers List',
+													  'bulk_reset_password'=>'Reset password and send welcome mail',
 													  'bulk_add_to_newsletter'=>'Add to the newsletter' );
 		$statuses = Statuses::getList('customers');
 		
@@ -1277,135 +1278,209 @@ class Customers extends BaseCustomers {
 		return true;
 	}
 
-	/**
-	 * export the content in a excel file
-	 * @param array $items
-	 */
-	public function bulk_xml($items=array()) {
-	
-		// Get the records from the customer table
-		$data = self::get_customers($items);
-		
-		$xml = new ExSimpleXMLElement('<shineisp></shineisp>');
-		$customers = $xml->addChild('customers');
-		
-		foreach ($data as $item){
-			$customer = $customers->addChild('customer');
-			$customer->addAttribute('id', $item['customer_id']);
-			$customer->addChildCData('company', $item['company']);
-			$customer->addChild('firstname',$item['firstname']);
-			$customer->addChild('lastname',$item['lastname']);
-			$customer->addChild('gender',$item['gender']);
-			$customer->addChild('email',$item['email']);
-			$customer->addChild('password',$item['password']);
-			$customer->addChild('birthdate',$item['birthdate']);
-			$customer->addChild('birthplace',$item['birthplace']);
-			$customer->addChild('birthdistrict',$item['birthdistrict']);
-			$customer->addChild('birthcountry',$item['birthcountry']);
-			$customer->addChild('birthnationality',$item['birthnationality']);
-			$customer->addChild('taxpayernumber',$item['taxpayernumber']);
-			$customer->addChild('vat',$item['vat']);
-			$customer->addChild('birthnationality',$item['birthnationality']);
+    /**
+     * export the content in a excel file
+     * @param array $items
+     */
+    public function bulk_xml($items=array()) {
 
-			$ctype = $customer->addChild('companytype',$item['CompanyTypes']['name']);
-			$ctype->addAttribute('type_id', $item['type_id']);
-				
-			$legalform = $customer->addChild('legalform',$item['Legalforms']['name']);
-			$legalform->addAttribute('legalform_id', $item['legalform_id']);
-				
-			$status = $customer->addChild('status',$item['Statuses']['status']);
-			$status->addAttribute('status_id', $item['status_id']);
-				
-			$cgroup = $customer->addChild('group',$item['CustomersGroups']['name']);
-			$cgroup->addAttribute('group_id', $item['group_id']);
-				
-			$customer->addChildCData('note', $item['note']);
-				
-			$language = $customer->addChild('language',$item['Languages']['language']);
-			$language->addAttribute('language_id', $item['language_id']);
-			
-			$customer->addChild('issubscriber',$item['issubscriber']);
-			$customer->addChild('created_at',$item['created_at']);
-			$customer->addChild('updated_at',$item['updated_at']);
-			$customer->addChild('taxfree',$item['taxfree']);
-				
-			$addresses = $customer->addChild('addresses');
-				
-			foreach ($item['Addresses'] as $addr){
-				$address = $addresses->addChild('address');
-				$address->addAttribute('address_id', $addr['address_id']);
-	            
-				$address->addChild('address', $addr['address']);
-				$address->addChild('city', $addr['city']);
-				$address->addChild('postcode', $addr['code']);
-				$address->addChild('countrycode', $addr['Countries']['code']);
-				$country = $address->addChild('country', $addr['Countries']['name']);
-				$country->addAttribute('country_id', $addr['country_id']);
-				$address->addChild('area', $addr['area']);
-				$address->addChild('latitude', $addr['latitude']);
-				$address->addChild('longitude', $addr['longitude']);
-			}
-			
-			$contacts = $customer->addChild('contacts');
-				
-			foreach ($item['Contacts'] as $cnt){
-				$contact = $contacts->addChild('contact');
-				$contact->addAttribute('contact_id', $cnt['contact_id']);
-	
-				$mycnt = $contact->addChild('contact', $cnt['contact']);
-				$mycnt->addAttribute('type_id', $cnt['type_id']);
-				$mycnt->addAttribute('label', $cnt['ContactsTypes']['name']);
-			}
-			
+        // Get the records from the customer table
+        $data = self::get_customers($items);
 
-			$orders = $customer->addChild('orders');
-			
-			foreach ($item['Orders'] as $odr){
-				$order = $orders->addChild('order');
-				$order->addAttribute('order_id', $odr['order_id']);
-				
-				$order->addChild('order_date', $odr['order_date']);
-				$order->addChild('total', $odr['total']);
-				$order->addChild('cost', $odr['cost']);
-				$order->addChild('vat', $odr['vat']);
-				$order->addChild('grandtotal', $odr['grandtotal']);
-				
-				$details = $order->addChild('details');
-				foreach ($odr['OrdersItems'] as $dtl){
-					$detail = $details->addChild('detail');
-					$detail->addAttribute('detail_id', $dtl['detail_id']);
-					$detail->addAttribute('status_id', $dtl['status_id']);
-					
-					$arrProduct = Products::getAllInfo($dtl['product_id']);
-					if(!empty($arrProduct)){
-					    $product = $detail->addChild('product');
-					    $product->addAttribute('product_id', $dtl['product_id']);
-    					$product->addAttribute('sku', $arrProduct['sku']);
-    					
-    					if(!empty($arrProduct['ProductsData'])){
-    					    $product->addChildCData('name', $arrProduct['ProductsData'][0]['name']);
-    					}
-					}
-					
-					$detail->addChild('date_start', $dtl['date_start']);
-					$detail->addChild('date_end', $dtl['date_end']);
-					$detail->addChild('quantity', $dtl['quantity']);
-					$detail->addChildCData('description', $dtl['description']);
-					$detail->addChild('cost', $dtl['cost']);
-					$detail->addChild('price', $dtl['price']);
-					$detail->addChild('setupfee', $dtl['setupfee']);
-					$detail->addChild('status_id', $dtl['status_id']);
-				}
-			}
-		}
-	
-		$xml->saveXML(PUBLIC_PATH . "/tmp/customers.xml");
-		
-		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-		    die(json_encode(array('url' => "/tmp/customers.xml")));
-		}
-	
-	}
+        $xml = new ExSimpleXMLElement('<shineisp></shineisp>');
+        $customers = $xml->addChild('customers');
+
+        foreach ($data as $item){
+            $customer = $customers->addChild('customer');
+            $customer->addAttribute('id', $item['customer_id']);
+            $customer->addChildCData('company', $item['company']);
+            $customer->addChild('firstname',$item['firstname']);
+            $customer->addChild('lastname',$item['lastname']);
+            $customer->addChild('gender',$item['gender']);
+            $customer->addChild('email',$item['email']);
+            $customer->addChild('password',$item['password']);
+            $customer->addChild('birthdate',$item['birthdate']);
+            $customer->addChild('birthplace',$item['birthplace']);
+            $customer->addChild('birthdistrict',$item['birthdistrict']);
+            $customer->addChild('birthcountry',$item['birthcountry']);
+            $customer->addChild('birthnationality',$item['birthnationality']);
+            $customer->addChild('taxpayernumber',$item['taxpayernumber']);
+            $customer->addChild('vat',$item['vat']);
+            $customer->addChild('birthnationality',$item['birthnationality']);
+
+            $ctype = $customer->addChild('companytype',$item['CompanyTypes']['name']);
+            $ctype->addAttribute('type_id', $item['type_id']);
+
+            $legalform = $customer->addChild('legalform',$item['Legalforms']['name']);
+            $legalform->addAttribute('legalform_id', $item['legalform_id']);
+
+            $status = $customer->addChild('status',$item['Statuses']['status']);
+            $status->addAttribute('status_id', $item['status_id']);
+
+            $cgroup = $customer->addChild('group',$item['CustomersGroups']['name']);
+            $cgroup->addAttribute('group_id', $item['group_id']);
+
+            $customer->addChildCData('note', $item['note']);
+
+            $language = $customer->addChild('language',$item['Languages']['language']);
+            $language->addAttribute('language_id', $item['language_id']);
+
+            $customer->addChild('issubscriber',$item['issubscriber']);
+            $customer->addChild('created_at',$item['created_at']);
+            $customer->addChild('updated_at',$item['updated_at']);
+            $customer->addChild('taxfree',$item['taxfree']);
+
+            $addresses = $customer->addChild('addresses');
+
+            foreach ($item['Addresses'] as $addr){
+                $address = $addresses->addChild('address');
+                $address->addAttribute('address_id', $addr['address_id']);
+
+                $address->addChild('address', $addr['address']);
+                $address->addChild('city', $addr['city']);
+                $address->addChild('postcode', $addr['code']);
+                $address->addChild('countrycode', $addr['Countries']['code']);
+                $country = $address->addChild('country', $addr['Countries']['name']);
+                $country->addAttribute('country_id', $addr['country_id']);
+                $address->addChild('area', $addr['area']);
+                $address->addChild('latitude', $addr['latitude']);
+                $address->addChild('longitude', $addr['longitude']);
+            }
+
+            $contacts = $customer->addChild('contacts');
+
+            foreach ($item['Contacts'] as $cnt){
+                $contact = $contacts->addChild('contact');
+                $contact->addAttribute('contact_id', $cnt['contact_id']);
+
+                $mycnt = $contact->addChild('contact', $cnt['contact']);
+                $mycnt->addAttribute('type_id', $cnt['type_id']);
+                $mycnt->addAttribute('label', $cnt['ContactsTypes']['name']);
+            }
+
+
+            $orders = $customer->addChild('orders');
+
+            foreach ($item['Orders'] as $odr){
+                $order = $orders->addChild('order');
+                $order->addAttribute('order_id', $odr['order_id']);
+
+                $order->addChild('order_date', $odr['order_date']);
+                $order->addChild('total', $odr['total']);
+                $order->addChild('cost', $odr['cost']);
+                $order->addChild('vat', $odr['vat']);
+                $order->addChild('grandtotal', $odr['grandtotal']);
+
+                $details = $order->addChild('details');
+                foreach ($odr['OrdersItems'] as $dtl){
+                    $detail = $details->addChild('detail');
+                    $detail->addAttribute('detail_id', $dtl['detail_id']);
+                    $detail->addAttribute('status_id', $dtl['status_id']);
+
+                    $arrProduct = Products::getAllInfo($dtl['product_id']);
+                    if(!empty($arrProduct)){
+                        $product = $detail->addChild('product');
+                        $product->addAttribute('product_id', $dtl['product_id']);
+                        $product->addAttribute('sku', $arrProduct['sku']);
+
+                        if(!empty($arrProduct['ProductsData'])){
+                            $product->addChildCData('name', $arrProduct['ProductsData'][0]['name']);
+                        }
+                    }
+
+                    $detail->addChild('date_start', $dtl['date_start']);
+                    $detail->addChild('date_end', $dtl['date_end']);
+                    $detail->addChild('quantity', $dtl['quantity']);
+                    $detail->addChildCData('description', $dtl['description']);
+                    $detail->addChild('cost', $dtl['cost']);
+                    $detail->addChild('price', $dtl['price']);
+                    $detail->addChild('setupfee', $dtl['setupfee']);
+                    $detail->addChild('status_id', $dtl['status_id']);
+                }
+            }
+        }
+
+        $xml->saveXML(PUBLIC_PATH . "/tmp/customers.xml");
+
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            die(json_encode(array('url' => "/tmp/customers.xml")));
+        }
+
+    }
+
+
+    /**
+     * export the content in a excel file
+     * @param array $items
+     */
+    public function bulk_magento($items=array()) {
+        $customers = array();
+
+        // Get the records from the customer table
+        $data = self::get_customers($items);
+        $i = 0;
+        foreach ($data as $item){
+
+            $customers[$i]['email'] = $item['email'];
+            $customers[$i]['_website'] = 'base';
+            $customers[$i]['_store'] = 'admin';
+            $customers[$i]['confirmation'] = '1';
+            $customers[$i]['created_at'] = $item['created_at'];
+            $customers[$i]['created_in'] = 'Admin';
+            $customers[$i]['disable_auto_group_change'] = '';
+            $customers[$i]['dob'] = $item['birthdate'];
+            $customers[$i]['firstname'] = $item['firstname'];
+            $customers[$i]['gender'] = $item['gender'];
+            $customers[$i]['group_id'] = 1;
+            $customers[$i]['lastname'] = $item['lastname'];
+            $customers[$i]['middlename'] = '';
+            $customers[$i]['password_hash'] = $item['password'];
+            $customers[$i]['prefix'] = '';
+            $customers[$i]['rp_token'] = '';
+            $customers[$i]['rp_token_created_at'] = '';
+            $customers[$i]['store_id'] = '0';
+            $customers[$i]['suffix'] = '';
+            $customers[$i]['taxvat'] = '';
+            $customers[$i]['website_id'] = '1';
+            $customers[$i]['password'] = '';
+
+
+            foreach ($item['Addresses'] as $addr){
+
+                $customers[$i]['_address_city'] = $addr['city'];
+                $customers[$i]['_address_company'] = '';
+                $customers[$i]['_address_country_id'] = $addr['Countries']['code'];
+                $customers[$i]['_address_fax'] = '';
+                $customers[$i]['_address_firstname'] = '';
+                $customers[$i]['_address_firstname'] = '';
+                $customers[$i]['_address_lastname'] = '';
+                $customers[$i]['_address_middlename'] = '';
+                $customers[$i]['_address_postcode'] = $addr['code'];
+                $customers[$i]['_address_prefix'] = '';
+                $customers[$i]['_address_region'] = $addr['Countries']['name'];
+                $customers[$i]['_address_street'] = $addr['address'];
+                $customers[$i]['_address_suffix'] = '';
+
+                foreach ($item['Contacts'] as $cnt){
+                    $customers[$i]['_address_telephone'] = $cnt['contact'];
+                }
+
+                $customers[$i]['_address_vat_id'] = '';
+                $customers[$i]['_address_default_billing_'] = '1';
+                $customers[$i]['_address_default_shipping_'] = '1';
+            }
+            $i++;
+        }
+
+        Zend_Debug::dump($customers);
+        die;
+
+
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            die(json_encode(array('url' => "/tmp/customers.xml")));
+        }
+
+    }
 	
 	/**
 	 * export the content in a excel file
