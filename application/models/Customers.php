@@ -1423,10 +1423,10 @@ class Customers extends BaseCustomers {
 
             $customers[$i]['email'] = $item['email'];
             $customers[$i]['_website'] = 'base';
-            $customers[$i]['_store'] = 'admin';
+            $customers[$i]['_store'] = 'italiano';
             $customers[$i]['confirmation'] = '1';
             $customers[$i]['created_at'] = $item['created_at'];
-            $customers[$i]['created_in'] = 'Admin';
+            $customers[$i]['created_in'] = 'Italiano';
             $customers[$i]['disable_auto_group_change'] = '';
             $customers[$i]['dob'] = $item['birthdate'];
             $customers[$i]['firstname'] = $item['firstname'];
@@ -1446,7 +1446,7 @@ class Customers extends BaseCustomers {
             $customers[$i]['prefix'] = '';
             $customers[$i]['rp_token'] = '';
             $customers[$i]['rp_token_created_at'] = '';
-            $customers[$i]['store_id'] = '0';
+            $customers[$i]['store_id'] = '1';
             $customers[$i]['suffix'] = '';
             $customers[$i]['taxvat'] = $item['vat'];
             $customers[$i]['website_id'] = '1';
