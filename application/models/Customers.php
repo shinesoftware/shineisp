@@ -1411,10 +1411,16 @@ class Customers extends BaseCustomers {
 
     /**
      * export the content in a excel file
+     *
+     * You need to create the config parameter magento2hash
+     * before to use it:
+     * INSERT INTO `shineisp`.`settings_parameters` (`parameter_id`, `name`, `description`, `var`, `type`, `module`, `enabled`, `group_id`, `config`) VALUES (NULL, 'Magento 2 Hash Password', 'Get your Magento 2 hash password from the /app/etc/env.php file and copy it ', 'magento2hash', 'text', 'admin', '1', '1', NULL);
+     *
      * @param array $items
      */
     public function bulk_magento($items=array()) {
         $customers = array();
+        $magento2hash = Settings::findbyParam('magento2hash');
 
         // Get the records from the customer table
         $data = self::get_customers($items);
@@ -1442,7 +1448,7 @@ class Customers extends BaseCustomers {
             $customers[$i]['group_id'] = 1;
             $customers[$i]['lastname'] = $item['lastname'];
             $customers[$i]['middlename'] = '';
-            $customers[$i]['password_hash'] = $item['password'];
+            $customers[$i]['password_hash'] = $magento2hash . $item['password'];
             $customers[$i]['prefix'] = '';
             $customers[$i]['rp_token'] = '';
             $customers[$i]['rp_token_created_at'] = '';
