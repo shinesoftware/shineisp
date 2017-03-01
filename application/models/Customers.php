@@ -1436,6 +1436,7 @@ class Customers extends BaseCustomers {
             $customers[$i]['disable_auto_group_change'] = '';
             $customers[$i]['dob'] = $item['birthdate'];
             $customers[$i]['firstname'] = $item['firstname'];
+            $customers[$i]['codice_fiscale'] = !empty($item['taxpayernumber']) ? strtoupper($item['taxpayernumber']) : null;
 
             if(!empty($item['gender'])){
                 $customers[$i]['gender'] = "Male";
