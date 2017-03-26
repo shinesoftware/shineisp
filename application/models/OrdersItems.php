@@ -788,7 +788,7 @@ class OrdersItems extends BaseOrdersItems {
      */
     public static function ProductsInOrdersItems($product_id) {
         if (is_numeric ( $product_id )) {
-            $records = Doctrine_Query::create ()->select ( 'DATE_FORMAT(oi.date_start, "'.Settings::getMySQLDateFormat('dateformat').'") as date, CONCAT(c.firstname, " ", c.lastname, " - ", c.company) as customer, c.email as email, oi.quantity, oi.order_id as orderid, s.status as status' )
+            $records = Doctrine_Query::create ()->select ( 'DATE_FORMAT(oi.date_start, "'.Settings::getMySQLDateFormat('dateformat').'") as date, c.firstname as firstname, c.lastname as lastname, c.company as company, c.email as email, oi.quantity, oi.order_id as orderid, s.status as status' )
                 ->from ( 'OrdersItems oi' )
                 ->leftJoin( 'oi.Orders o' )
                 ->leftJoin( 'o.Statuses s' )
