@@ -18,15 +18,15 @@ class FeedController extends Shineisp_Controller_Default {
      * Create a RSS file with the CMS pages and Products
      */
     public function atomAction() {
-        $out = "";
+        $tag = $this->getRequest()->getParam('tag');
 
         echo '<?xml version="1.0" encoding="utf-8" ?>
                 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
                     <channel>
-                        <atom:link href="http://localhost/feed.php" rel="self" type="application/rss+xml"/>
+                        <atom:link href="http://www.shinesoftware.it/feed/atom/tag/'.$tag.'" rel="self" type="application/rss+xml"/>
                         <title>Shine Software Internet Solutions</title>
                         <link>http://www.shinesoftware.com/</link>
-                        <description>Setefi Payment Solutions</description>
+                        <description>Payment Solutions ('.$tag.')</description>
                         <language>it</language>
                         <lastBuildDate>Thu Jan 10 15:51:04 2017</lastBuildDate>
                         <ttl>0</ttl>
@@ -34,7 +34,7 @@ class FeedController extends Shineisp_Controller_Default {
                             <title>Nuovo Aggiornamento</title>
                             <link>http://www.shinesoftware.com/</link>
                             <severity>1</severity>
-                            <description><![CDATA[]]></description>
+                            <description><![CDATA[Richiedete il nuovo aggiornamento direttamente aprendo una segnalazione ed inserendo il tipo di modulo ed il dominio licenziato. Riceverete in breve l\'aggiornamento via email.]]></description>
                             <pubDate>Thu Jan 10 15:51:04 2017</pubDate>
                         </item>
                     </channel>
