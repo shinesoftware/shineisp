@@ -19,7 +19,7 @@
         <li class="">
             <ul class="list-inline">
                 <?php foreach($resources as $resource):?>
-                    <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40',  'class' => 'img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
+                    <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'80',  'class' => 'img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
                 <?php endforeach;?>
             </ul>
         </li>
