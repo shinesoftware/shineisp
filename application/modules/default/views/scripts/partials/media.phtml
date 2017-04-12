@@ -19,10 +19,27 @@
         <li class="">
             <ul class="list-inline">
                 <?php foreach($resources as $resource):?>
-                    <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'80',  'class' => 'img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
+                    <li><a id="pop" href="#"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'80', 'id' =>'imageresource', 'class' => 'img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
                 <?php endforeach;?>
             </ul>
         </li>
 		
 	<?php endif ?>
 </ul>
+
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
