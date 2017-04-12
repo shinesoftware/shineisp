@@ -19,7 +19,7 @@
         <li class="">
             <ul class="list-inline">
                 <?php foreach($resources as $resource):?>
-                    <li><a data-toggle="modal" data-target="#myModal" href="#"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'80', 'class' => 'img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
+                    <li><a href="#"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'80', 'class' => 'thumbnail img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
                 <?php endforeach;?>
             </ul>
         </li>
@@ -27,11 +27,18 @@
 	<?php endif ?>
 </ul>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+<div tabindex="-1" class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h3 class="modal-title">Heading</h3>
+            </div>
             <div class="modal-body">
-                <img src="//placehold.it/1000x600" class="img-responsive">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
