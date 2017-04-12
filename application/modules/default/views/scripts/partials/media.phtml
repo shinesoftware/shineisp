@@ -16,10 +16,10 @@
 	
 	<?php if($this->showall):?>
 		
-        <li class="image-thumbnail">
-            <ul class="list-unstyled">
+        <li class="">
+            <ul class="list-inline">
                 <?php foreach($resources as $resource):?>
-                    <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40',  'class' => 'img-responsive img-rounded', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
+                    <li><a href="<?php echo $resource['path']?>"><?php echo $this->image($resource['name'], $resource['path'], array('width'=>'40',  'class' => 'img-responsive img-thumbnail', 'alt' => $resource['description'], 'title' => $resource['name'])); ?></a></li>
                 <?php endforeach;?>
             </ul>
         </li>
