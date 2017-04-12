@@ -94,6 +94,7 @@ $(document).ready(function(){
 
         $(".modal-title").html(title);
         img.attr('src', url);
+        img.attr('width', 300);
         img.appendTo('.modal-body');
         $("#myModal").modal({show:true});
     });
