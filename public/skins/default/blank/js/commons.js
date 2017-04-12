@@ -86,10 +86,15 @@ $(document).ready(function(){
 
     $(".thumbnail").click(function(){
         $(".modal-body").empty();
+
+        var img = $('<img id="dynamic">');
+
         var title = $(this).parent("a").attr("title");
+        var url = $(this).parent("a").attr("href");
 
         $(".modal-title").html(title);
-        $($(this).parents("div").html()).appendTo(".modal-body");
+        img.attr('src', url);
+        img.appendTo('.modal-body');
         $("#myModal").modal({show:true});
     });
 });
