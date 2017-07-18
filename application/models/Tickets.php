@@ -879,14 +879,14 @@ class Tickets extends BaseTickets {
 
             foreach ($ticketNotes as $noteitem){
 
-                $messages = $notes->addChild('messages');
+                $messages = $notes->addChild('note');
                 $messages->addAttribute('note_id', $noteitem['note_id']);
                 $messages->addAttribute('is_admin', $noteitem['admin']);
                 $messages->addAttribute('customer_id', $noteitem['Tickets']['Customers']['customer_id']);
                 $messages->addAttribute('ticket_id', $noteitem['ticket_id']);
                 $messages->addAttribute('parent_id', $noteitem['parent_id']);
                 $messages->addChild('date_post', $noteitem['date_post']);
-                $messages->addChildCData('note', $noteitem['note']);
+                $messages->addChildCData('message', $noteitem['note']);
                 $customerdata = $messages->addChild('customer');
 
                 $customerdata->addChildCData('firstname', $noteitem['Tickets']['Customers']['firstname']);
