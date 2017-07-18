@@ -850,18 +850,23 @@ class Tickets extends BaseTickets {
             $ticket->addAttribute('sibling_id',$item['sibling_id']);
             $ticket->addAttribute('order_id',$item['order_id']);
 
-            $customer = $ticket->addChild('fullname',$item['Customers']['firstname'] . " " . $item['Customers']['lastname']);
+            $customer = $ticket->addChild('customer');
             $customer->addAttribute('customer_id', $item['user_id']);
             $customer->addAttribute('user_id',$item['user_id']);
 
-            $category = $ticket->addChild('Category',$item['TicketsCategories']['category']);
+            $customer->addChildCData('firstname', $item['Customers']['firstname']);
+            $customer->addChildCData('lastname', $item['Customers']['lastname']);
+            $customer->addChildCData('company', $item['Customers']['company']);
+
+            $category = $ticket->addChild('category',$item['TicketsCategories']['category']);
             $category->addAttribute('category_id', $item['category_id']);
 
-            $status = $ticket->addChild('Status',$item['Statuses']['status']);
+            $status = $ticket->addChild('status',$item['Statuses']['status']);
             $status->addAttribute('category_id', $item['status_id']);
 
             $ticket->addChildCData('subject', $item['subject']);
             $ticket->addChildCData('description', $item['description']);
+
             $ticket->addChild('vote',$item['vote']);
             $ticket->addChild('date_open',$item['date_open']);
             $ticket->addChild('date_close',$item['date_close']);
@@ -872,12 +877,20 @@ class Tickets extends BaseTickets {
             $notes = $ticket->addChild('notes');
 
             foreach ($ticketNotes as $noteitem){
+
                 $messages = $notes->addChild('messages');
                 $messages->addAttribute('note_id', $noteitem['note_id']);
+                $messages->addAttribute('is_admin', $noteitem['admin']);
+                $messages->addAttribute('customer_id', $noteitem['Tickets']['Customers']['customer_id']);
                 $messages->addAttribute('ticket_id', $noteitem['ticket_id']);
                 $messages->addAttribute('parent_id', $noteitem['parent_id']);
                 $messages->addChild('date_post', $noteitem['date_post']);
                 $messages->addChildCData('note', $noteitem['note']);
+                $customerdata = $messages->addChild('customer');
+
+                $customerdata->addChildCData('firstname', $noteitem['Tickets']['Customers']['firstname']);
+                $customerdata->addChildCData('lastname', $noteitem['Tickets']['Customers']['lastname']);
+                $customerdata->addChildCData('company', $noteitem['Tickets']['Customers']['company']);
             }
 
 
