@@ -863,7 +863,7 @@ class Tickets extends BaseTickets {
             $category->addAttribute('category_id', $item['category_id']);
 
             $status = $ticket->addChild('status',$item['Statuses']['status']);
-            $status->addAttribute('category_id', $item['status_id']);
+            $status->addAttribute('status_id', $item['status_id']);
 
             $ticket->addChildCData('subject', $item['subject']);
             $ticket->addChildCData('description', $item['description']);
