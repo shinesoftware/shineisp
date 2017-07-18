@@ -859,7 +859,12 @@ class Tickets extends BaseTickets {
             $customer->addChildCData('company', $item['Customers']['company']);
             $customer->addChildCData('email', $item['Customers']['email']);
 
-            $category = $ticket->addChild('category',$item['TicketsCategories']['category']);
+            if(!empty($item['TicketsCategories']['category'])){
+                $category = $item['TicketsCategories']['category'];
+            }else{
+                $category = "";
+            }
+            $category = $ticket->addChild('category', $category);
             $category->addAttribute('category_id', $item['category_id']);
 
             $status = $ticket->addChild('status',$item['Statuses']['status']);
