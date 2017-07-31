@@ -44,6 +44,7 @@ class Reviews extends BaseReviews
         $statuses['bulk_set_status&status=1'] = $translator->translate ("Set as active");
         $statuses['bulk_set_status&status=0'] = $translator->translate ("Set as suspended");
         $config ['datagrid'] ['massactions']['statuses'] = $statuses;
+        $config ['datagrid'] ['rowlist'] = array ('10', '50', '100', '1000' );
 
         return $config;
     }
