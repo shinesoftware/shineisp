@@ -329,6 +329,14 @@ class Reviews extends BaseReviews
             $review->addAttribute('id', $item['review_id']);
             $review->addAttribute('product_id', $item['product_id']);
 
+            $p = Products::find($item['product_id'], 'sku', true);
+
+            $product = $review->addChild('product');
+            if(!empty($p[0])){
+                $product->addAttribute('id', $p[0]['product_id']);
+                $product->addChildCData('sku', $p[0]['sku']);
+            }
+
             $customer = $review->addChild('customer');
             $customer->addChildCData('email', $item['email']);
 
