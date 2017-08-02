@@ -770,7 +770,7 @@ class Customers extends BaseCustomers {
                 }
 
                 $customer[0]['full_personname'] = !empty($customer[0]['lastname']) ? $customer[0]['lastname'] : null;
-                $customer[0]['full_personname'] .= !empty($customer[0]['firstname']) ? $customer[0]['firstname'] : null;
+                $customer[0]['full_personname'] .= !empty($customer[0]['firstname']) ? " " . $customer[0]['firstname'] : null;
 
                 return $customer [0];
             } else {
