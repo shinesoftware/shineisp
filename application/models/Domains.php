@@ -1826,8 +1826,12 @@ class Domains extends BaseDomains {
             }
 
             $domain->addChild('name', $item['domain']);
-            $domain->addChildCData('authinfocode', $item['authinfocode']);
-            $domain->addChildCData('note', $item['note']);
+            $t = DomainsTlds::getAllInfo($item['tld_id']);
+            if(!empty($t)){
+                $domain->addChild('tld', $t['name']);
+                $domain->addChild('fulldomain', $item['domain'] . "." . $t['name']);
+            }
+            $domain->addChild('tld_id', $item['tld_id']);
             $domain->addChild('registrars_id', $item['registrars_id']);
             $domain->addChild('customer_id', $item['customer_id']);
             $domain->addChild('orderitem_id', $item['orderitem_id']);
@@ -1836,15 +1840,9 @@ class Domains extends BaseDomains {
             $domain->addChild('creation_date',$item['creation_date']);
             $domain->addChild('modification_date',$item['modification_date']);
             $domain->addChild('expiring_date',$item['expiring_date']);
+            $domain->addChildCData('authinfocode', $item['authinfocode']);
+            $domain->addChildCData('note', $item['note']);
 
-            $t = DomainsTlds::getAllInfo($item['tld_id']);
-            $tld = $domain->addChild('tld');
-
-            if(!empty($t)){
-                $tld->addAttribute('tld_id', $t['tld_id']);
-                $tld->addChild('ext', $t['name']);
-                $tld->addChild('fulldomain', $item['domain'] . "." . $t['name']);
-            }
         }
 
         $xml->saveXML(PUBLIC_PATH . "/tmp/domains.xml");
