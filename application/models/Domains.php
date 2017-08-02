@@ -1818,6 +1818,15 @@ class Domains extends BaseDomains {
             $domain->addAttribute('status_id', $item['status_id']);
             $domain->addAttribute('autorenew', $item['autorenew']);
 
+            $t = DomainsTlds::getAllInfo($item['tld_id']);
+            $tld = $domain->addChild('tld');
+
+            if(!empty($t)){
+                $tld->addAttribute('tld_id', $t['tld_id']);
+                $tld->addChild('ext', $t['name']);
+                $tld->addChild('fulldomain', $item['domain'] . "." . $t['name']);
+            }
+
             $c = Customers::getAllInfo($item['customer_id']);
             $customer = $domain->addChild('customer');
 
