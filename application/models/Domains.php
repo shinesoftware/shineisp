@@ -1812,20 +1812,6 @@ class Domains extends BaseDomains {
             $domain = $domains->addChild('domain');
             $domain->addAttribute('id', $item['domain_id']);
             $domain->addAttribute('tld_id', $item['tld_id']);
-            $domain->addAttribute('registrars_id', $item['registrars_id']);
-            $domain->addAttribute('customer_id', $item['customer_id']);
-            $domain->addAttribute('orderitem_id', $item['orderitem_id']);
-            $domain->addAttribute('status_id', $item['status_id']);
-            $domain->addAttribute('autorenew', $item['autorenew']);
-
-            $t = DomainsTlds::getAllInfo($item['tld_id']);
-            $tld = $domain->addChild('tld');
-
-            if(!empty($t)){
-                $tld->addAttribute('tld_id', $t['tld_id']);
-                $tld->addChild('ext', $t['name']);
-                $tld->addChild('fulldomain', $item['domain'] . "." . $t['name']);
-            }
 
             $c = Customers::getAllInfo($item['customer_id']);
             $customer = $domain->addChild('customer');
@@ -1839,14 +1825,26 @@ class Domains extends BaseDomains {
                 $customer->addChild('email', $c['email']);
             }
 
-            $domain->addChildCData('domain', $item['domain']);
+            $domain->addChild('name', $item['domain']);
             $domain->addChildCData('authinfocode', $item['authinfocode']);
             $domain->addChildCData('note', $item['note']);
-
+            $domain->addChild('registrars_id', $item['registrars_id']);
+            $domain->addChild('customer_id', $item['customer_id']);
+            $domain->addChild('orderitem_id', $item['orderitem_id']);
+            $domain->addChild('status_id', $item['status_id']);
+            $domain->addChild('autorenew', $item['autorenew']);
             $domain->addChild('creation_date',$item['creation_date']);
             $domain->addChild('modification_date',$item['modification_date']);
             $domain->addChild('expiring_date',$item['expiring_date']);
 
+            $t = DomainsTlds::getAllInfo($item['tld_id']);
+            $tld = $domain->addChild('tld');
+
+            if(!empty($t)){
+                $tld->addAttribute('tld_id', $t['tld_id']);
+                $tld->addChild('ext', $t['name']);
+                $tld->addChild('fulldomain', $item['domain'] . "." . $t['name']);
+            }
         }
 
         $xml->saveXML(PUBLIC_PATH . "/tmp/domains.xml");
