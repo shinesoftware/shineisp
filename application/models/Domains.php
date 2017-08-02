@@ -1811,6 +1811,7 @@ class Domains extends BaseDomains {
 
             $domain = $domains->addChild('domain');
             $domain->addAttribute('id', $item['domain_id']);
+            $domain->addAttribute('tld_id', $item['tld_id']);
             $domain->addAttribute('registrars_id', $item['registrars_id']);
             $domain->addAttribute('customer_id', $item['customer_id']);
             $domain->addAttribute('orderitem_id', $item['orderitem_id']);
